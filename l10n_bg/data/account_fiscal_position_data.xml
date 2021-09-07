@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Fiscal Position Templates -->
+        <record model="account.fiscal.position.template" id="fiscal_position_template_vat20">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="name">Облагаеми сделки 20%</field>
+            <field name="type_docs">standart</field>
+        </record>
+        <record model="account.fiscal.position.template" id="fiscal_position_template_vat20-incl">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="name">Облагаеми сделки с включен ДДС 20%</field>
+            <field name="type_docs">standart</field>
+        </record>
+        <record model="account.fiscal.position.template" id="fiscal_position_template_eu">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="name">Вътреобщностни сделки (0%)</field>
+            <field name="type_docs">protocol</field>
+        </record>
+        <record model="account.fiscal.position.template" id="fiscal_position_template_eu_3d">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="name">Посредник в тристранна операция (0%)</field>
+            <field name="type_docs">protocol</field>
+        </record>
+        <record model="account.fiscal.position.template" id="fiscal_position_template_eu_art21">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="name">Място на изпълнение на територията на друга държава членка (0%)</field>
+            <field name="type_docs">protocol</field>
+        </record>
+        <record model="account.fiscal.position.template" id="fiscal_position_template_tour">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="name">Туристически услуги 9%</field>
+            <field name="type_docs">standart</field>
+        </record>
+        <record model="account.fiscal.position.template" id="fiscal_position_template_noeu">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="name">Облагаеми доставки с нулева ставка (глава 3)</field>
+            <field name="type_docs">customs</field>
+        </record>
+        <record model="account.fiscal.position.template" id="fiscal_position_template_pd20">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="name">Доставки на стоки и услуги за лични нужди (20%)</field>
+            <field name="type_docs">standart</field>
+        </record>
+        <record model="account.fiscal.position.template" id="fiscal_position_template_withoutvat">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="name">Необлагаеми сделки и без право на ДК</field>
+            <field name="type_docs">standart</field>
+        </record>
+
+        <!-- account.fiscal.position.tax.template vat20 standart vat (vat_20) -->
+        <record id="vat_20-1" model="account.fiscal.position.tax.template">
+            <field name="position_id" ref="fiscal_position_template_vat20"/>
+            <field name="tax_src_id" ref="tax_sale"/>
+            <field name="tax_dest_id" ref="tax_sale"/>
+        </record>
+        <record id="vat_20-2" model="account.fiscal.position.tax.template">
+            <field name="position_id" ref="fiscal_position_template_vat20"/>
+            <field name="tax_src_id" ref="tax_purchase"/>
+            <field name="tax_dest_id" ref="tax_purchase"/>
+        </record>
+        <!-- account.fiscal.position.tax.template vop (fiscal_position_template_eu) -->
+        <record id="fiscal_position_template_eu-1" model="account.fiscal.position.tax.template">
+            <field name="position_id" ref="fiscal_position_template_eu"/>
+            <field name="tax_src_id" ref="tax_sale"/>
+            <field name="tax_dest_id" ref="tax_vod"/>
+        </record>
+        <record id="fiscal_position_template_eu-2" model="account.fiscal.position.tax.template">
+            <field name="position_id" ref="fiscal_position_template_eu"/>
+            <field name="tax_src_id" ref="tax_purchase"/>
+            <field name="tax_dest_id" ref="tax_vop"/>
+        </record>
+        <!-- account.fiscal.position.tax.template sell otside eu (fiscal_position_template_noeu) -->
+        <record id="fiscal_position_template_noeu-1" model="account.fiscal.position.tax.template">
+            <field name="position_id" ref="fiscal_position_template_noeu"/>
+            <field name="tax_src_id" ref="tax_sale"/>
+        </record>
+        <record id="fiscal_position_template_noeu-2" model="account.fiscal.position.tax.template">
+            <field name="position_id" ref="fiscal_position_template_noeu"/>
+            <field name="tax_src_id" ref="tax_purchase"/>
+        </record>
+        <!-- account.fiscal.position.tax.template vat20 standart vat with no credit (fiscal_position_template_withoutvat) -->
+        <record id="fiscal_position_template_withoutvat-1" model="account.fiscal.position.tax.template">
+            <field name="position_id" ref="fiscal_position_template_withoutvat"/>
+            <field name="tax_src_id" ref="tax_sale"/>
+            <field name="tax_dest_id" ref="tax_sale"/>
+        </record>
+        <!-- account.fiscal.position.tax.template toursit deal (fiscal_position_template_tour) -->
+        <record id="fiscal_position_template_tour-1" model="account.fiscal.position.tax.template">
+            <field name="position_id" ref="fiscal_position_template_tour"/>
+            <field name="tax_src_id" ref="tax_sale"/>
+            <field name="tax_dest_id" ref="tax_tour"/>
+        </record>
+    </data>
+</odoo>

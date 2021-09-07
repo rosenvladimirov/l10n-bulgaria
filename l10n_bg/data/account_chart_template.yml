@@ -1,0 +1,2 @@
+- !python {model: account.chart.template, id: bg_chart_template}: |
+    self[0].try_loading_for_current_company()

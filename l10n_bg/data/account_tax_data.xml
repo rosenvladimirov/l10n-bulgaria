@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="account.account.tag" id="tax_tag_01_01">
+            <field name="info">Общ размер на данъчните основи за облагане с ДДС</field>
+            <field name="name">Общ размер на ДО за облагане с ДДС</field>
+            <field name="code">01-01</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_11">
+            <field name="info">Данъчна основа на облагаемите доставки със ставка 20 %, вкл. доставките при условията на
+                дистанционни продажби, с място на изпълнение на територията на страната
+            </field>
+            <field name="name">ДО-продажби за облагане (20%)</field>
+            <field name="code">01-11</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_12">
+            <field name="info">Данъчна основа на ВОП и данъчна основа на получени доставки по чл. 82, ал. 2 - 5 ЗДДС
+            </field>
+            <field name="name">ДО-ВОП и данъчна основа на получени доставки по чл. 82, ал. 2 - 5 ЗДДС</field>
+            <field name="code">01-12</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_13">
+            <field name="info">Данъчна основа на облагаемите доставки със ставка 9 %</field>
+            <field name="name">ДО-продажби при туристически услуги 9%</field>
+            <field name="code">01-13</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_14">
+            <field name="info">Данъчна основа, подлежаща наэ облагане със ставка 0 % по глава трета от ЗДДС</field>
+            <field name="name">ДО-продажби износ</field>
+            <field name="code">01-14</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_15">
+            <field name="info">Данъчна основа на доставките със ставка 0 % за ВОД на стоки</field>
+            <field name="name">ДО-продажби ВОД</field>
+            <field name="code">01-15</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_16">
+            <field name="info">Данъчна основа на доставки, подлежаща на облагане с 0 % по чл. 140, 146 и чл. 173 ЗДДС
+            </field>
+            <field name="name">ДО-продажби по чл.140, 146,173 (21)</field>
+            <field name="code">01-16</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_17">
+            <field name="info">Данъчна основа на доставки на услуги по чл. 21, ал. 2 ЗДДС с място на изпълнение на
+                територията на друга държава членка
+            </field>
+            <field name="name">ДО-продажби на територията на ЕС</field>
+            <field name="code">01-17</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_18">
+            <field name="info">Данъчна основа на доставки по чл. 69, ал. 2 ЗДДС, вкл. доставките при условията на
+                дистанционни продажби, с място на изпълнение на територията на друга държава членка
+            </field>
+            <field name="name">ДО-продажби по чл.62(2) на територията на ЕС</field>
+            <field name="code">01-18</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_19">
+            <field name="info">Данъчна основа на освободени доставки и освободените ВОП</field>
+            <field name="name">ДО-продажби освободени ВОД</field>
+            <field name="code">01-19</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_20">
+            <field name="info">Всичко начислен ДДС</field>
+            <field name="name">ДДС-продажби</field>
+            <field name="code">01-20</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_21">
+            <field name="info">Начислен ДДС 20 %</field>
+            <field name="name">ДДС-продажби за облагане с 20%</field>
+            <field name="code">01-21</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_22">
+            <field name="info">Начислен данък за ВОП и за получени доставки по чл. 82, ал. 2 - 5 ЗДДС</field>
+            <field name="name">ДДС-ВОП и чл.82, ал.2-3</field>
+            <field name="code">01-22</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_23">
+            <field name="info">Начислен данък за доставки на стоки и услуги за лични нужди</field>
+            <field name="name">ДДС-Лични нужди</field>
+            <field name="code">01-23</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_24">
+            <field name="info">Начислен ДДС 9 %</field>
+            <field name="name">ДДС-продажби при туристически услуги 9%</field>
+            <field name="code">01-24</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_30">
+            <field name="info">Данъчна основа и данък на получените доставки, ВОП, получените доставки по чл. 82, ал. 2
+                - 5 ЗДДС и вносът без право на данъчен кредит или без данък
+            </field>
+            <field name="name">ДО- покупки без право на ДК</field>
+            <field name="code">01-30</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_31">
+            <field name="info">Данъчна основа на получените доставки, ВОП, получените доставки по чл. 82, ал. 2 - 5
+                ЗДДС, вносът, както и данъчната основа на получените доставки, използвани за извършване на доставки по
+                чл. 69, ал. 2 ЗДДС с право на пълен данъчен кредит
+            </field>
+            <field name="name">ДО- покупки с право на пълен ДК</field>
+            <field name="code">01-31</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_32">
+            <field name="info">Данъчна основа на получените доставки, ВОП, получените доставки по чл. 82, ал. 2 - 5
+                ЗДДС, вносът, както и данъчната основа на получените доставки, използвани за извършване на доставки по
+                чл. 69, ал. 2 ЗДДС с право на частичен данъчен кредит
+            </field>
+            <field name="name">ДО- покупки с частичен ДК (~%)</field>
+            <field name="code">01-32</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_33">
+            <field name="info">Коефициент по чл. 73, ал. 5 ЗДДС</field>
+            <field name="name">Коефицент чл.73,ал.5</field>
+            <field name="code">01-33</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">2</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_40">
+            <field name="info">Общо данъчен кредит (кл. 41 + кл. 42 x кл. 33 + кл. 43)</field>
+            <field name="name">ДДС- покупки</field>
+            <field name="code">01-40</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_41">
+            <field name="info">Начислен ДДС с право на пълен данъчен кредит</field>
+            <field name="name">ДДС- покупки пълен ДК</field>
+            <field name="code">01-41</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_42">
+            <field name="info">Начислен ДДС с право на частичен данъчен кредит</field>
+            <field name="name">ДДС- покупки с частичен ДК (~%)</field>
+            <field name="code">01-42</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_43">
+            <field name="info">Годишна корекция по чл. 73, ал. 8 (+/-) ЗДДС Резултат</field>
+            <field name="name">Корекция чл.73,ал.8</field>
+            <field name="code">01-43</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">2</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_50">
+            <field name="info">ДДС за внасяне (кл. 20 - кл. 40) >= 0</field>
+            <field name="name">ДДС за внасяне</field>
+            <field name="code">01-50</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_60">
+            <field name="info">ДДС за възстановяване (кл. 20 - кл. 40) &lt;0</field>
+            <field name="name">ДДС за възстановяване</field>
+            <field name="code">01-60</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_70">
+            <field name="info">Данък за внасяне от кл. 50, приспаднат по реда на чл. 92, ал. 1 ЗДДС</field>
+            <field name="name">ДДС-приспаднат чл.92,ал.1</field>
+            <field name="code">01-70</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">2</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_71">
+            <field name="info">Данък за внасяне от кл. 50, внесен ефективно</field>
+            <field name="name">ДДС-внесен ефективно</field>
+            <field name="code">01-71</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">2</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_80">
+            <field name="info">ДДС, подлежащ на възстановяване, съгласно чл. 92, ал. 1 ЗДДС в 30-дневен срок от
+                подаването на тази декларация
+            </field>
+            <field name="name">ДДС-за възстановяване чл.92, ал.1</field>
+            <field name="code">01-80</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">2</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_81">
+            <field name="info">ДДС, подлежащ на възстановяване, съгласно чл. 92, ал. 3 ЗДДС в 30-дневен срок от
+                подаването на тази декларация
+            </field>
+            <field name="name">ДДС-ДДС-за възстановяване чл.92, ал.3</field>
+            <field name="code">01-81</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">2</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_01_82">
+            <field name="info">ДДС, подлежащ на възстановяване, съгласно чл. 92, ал. 4 ЗДДС в 30-дневен срок от
+                подаването на тази декларация
+            </field>
+            <field name="name">ДДС-ДДС-за възстановяване чл.92, ал.3</field>
+            <field name="code">01-82</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">2</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_10">
+            <field name="info">Общ размер на данъчните основи за облагане с ДДС</field>
+            <field name="name">ДО-Общ размер за облагане</field>
+            <field name="code">02-10</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_11">
+            <field name="info">Данъчна основа на облагаемите доставки със ставка 20 %, вкл. доставките при условията на
+                дистанционни продажби, с място на изпълнение на територията на страната
+            </field>
+            <field name="name">ДО-за облагане с 20%</field>
+            <field name="code">02-11</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_12">
+            <field name="info">Данъчна основа на ВОП</field>
+            <field name="name">ДО-ВОП</field>
+            <field name="code">02-12</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_13">
+            <field name="info">ДО на облагаемите доставки със ставка 9 %</field>
+            <field name="name">ДО-за облагане с 9%</field>
+            <field name="code">02-13</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_14">
+            <field name="info">ДО на доставките със ставка 0 % по глава трета от ЗДДС</field>
+            <field name="name">ДО-износ 0%</field>
+            <field name="code">02-14</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_15">
+            <field name="info">ДО на доставките със ставка 0 % на ВОД на стоки</field>
+            <field name="name">ДО-ВОД на стоки 0%</field>
+            <field name="code">02-15</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_16">
+            <field name="info">ДО на доставките със ставка 0 % по чл. 140, чл. 146, ал. 1 и чл. 173 ЗДДС</field>
+            <field name="name">ДО-0% по чл.140,ал,1 и чл.173</field>
+            <field name="code">02-16</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_17">
+            <field name="info">Данъчна основа на доставки на услуги по чл. 21, ал. 2 ЗДДС, с място на изпълнение на
+                територията на друга държава членка
+            </field>
+            <field name="name">[02-17] ДО-по чл.21 на територията на ЕС</field>
+            <field name="code">02-17</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_18">
+            <field name="info">Данъчна основа на доставки по чл. 69, ал. 2 ЗДДС, вкл. данъчна основа на доставките при
+                условията на дистанционни продажби, с място на изпълнение на територията на друга държава членка
+            </field>
+            <field name="name">ДО-по чл.69,ал.2 на територията на ЕС</field>
+            <field name="code">02-18</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_19">
+            <field name="info">ДО на освободени доставки и освободените ВОП</field>
+            <field name="name">ДО-осводени и ВОП</field>
+            <field name="code">02-19</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_20">
+            <field name="info">Всичко начислен ДДС</field>
+            <field name="name">ДДС-Всичко начислено</field>
+            <field name="code">02-20</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_21">
+            <field name="info">Начислен ДДС 20 %</field>
+            <field name="name">ДДС-20%</field>
+            <field name="code">02-21</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_22">
+            <field name="info">Начислен ДДС за ВОП и за получени доставки по чл. 82, ал. 2 - 5 ЗДДС</field>
+            <field name="name">ДДС-ДОП и чл.82,ал.2-5</field>
+            <field name="code">02-22</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_23">
+            <field name="info">Начислен данък за доставки на стоки и услуги за лични нужди</field>
+            <field name="name">ДДС-лични нужди</field>
+            <field name="code">02-23</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_24">
+            <field name="info">Начислен ДДС 9 %</field>
+            <field name="name">ДДС-туристически услуги 9%</field>
+            <field name="code">02-24</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_25">
+            <field name="info">ДО на доставки като посредник в тристранни операции</field>
+            <field name="name">ДО-тристранни операции</field>
+            <field name="code">02-25</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_26">
+            <field name="info">ДО по получените доставки по чл. 82, ал. 2 - 5 ЗДДС</field>
+            <field name="name">ДО-чл.82, ал.2-5</field>
+            <field name="code">02-26</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_02_27">
+            <field name="info">Доставка по чл. 163а от ЗДДС</field>
+            <field name="name">ДО-чл. 163а</field>
+            <field name="code">02-27</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_03_30">
+            <field name="info">Данъчна основа и данък на получените доставки, ВОП, получените доставки по чл. 82, ал. 2
+                - 5 ЗДДС и вносът без право на данъчен кредит или без данък
+            </field>
+            <field name="name">ДО-без данъчен кредит</field>
+            <field name="code">03-30</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_03_31">
+            <field name="info">Данъчна основа на получените доставки, ВОП, получените доставки по чл. 82, ал. 2 - 5
+                ЗДДС, вносът, както и данъчната основа на получените доставки, използвани за извършване на доставки по
+                чл. 69, ал. 2 ЗДДС с право на пълен данъчен кредит
+            </field>
+            <field name="name">ДО-пълен данъчен кредит</field>
+            <field name="code">03-31</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_03_32">
+            <field name="info">Данъчна основа на получените доставки, ВОП, получените доставки по чл. 82, ал. 2 - 5
+                ЗДДС, вносът, както и данъчната основа на получените доставки, използвани за извършване на доставки по
+                чл. 69, ал. 2 ЗДДС с право на частичен данъчен кредит
+            </field>
+            <field name="name">ДО-частичен данъчен кредит</field>
+            <field name="code">03-32</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_03_41">
+            <field name="info">ДДС с право на пълен данъчен кредит</field>
+            <field name="name">ДДС-пълен данъчен кредит</field>
+            <field name="code">03-41</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_03_42">
+            <field name="info">ДДС с право на частичен данъчен кредит</field>
+            <field name="name">ДДС-частичен данъчен кредит</field>
+            <field name="code">03-42</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_03_43">
+            <field name="info">Годишна корекция по чл. 73, ал. 8 ЗДДС</field>
+            <field name="name">Годишна корекция-чл.73,ал.8</field>
+            <field name="code">03-43</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_03_44">
+            <field name="info">ДО при придобиване на стоки от посредник в тристранна операция</field>
+            <field name="name">ДО-тристранни операции</field>
+            <field name="code">03-44</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_03_45">
+            <field name="info">Доставка по чл. 163а от ЗДДС</field>
+            <field name="name">ДО-чл.163а</field>
+            <field name="code">03-45</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_04_02">
+            <field name="info">Данъчна основа общо (сума по к3 + к4 + к5)</field>
+            <field name="name">VIES-ДО-общо сума</field>
+            <field name="code">04-02</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_04_03">
+            <field name="info">Данъчна основа на ВОД (сума по к3)</field>
+            <field name="name">VIES-ДО-ВОД</field>
+            <field name="code">04-03</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_05_04">
+            <field name="info">Обща стойност на данъчната основа за доставки на стоки</field>
+            <field name="name">VIES-ДО-обща стойност</field>
+            <field name="code">05-04</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_05_05">
+            <field name="info">Обща стойност на данъчната основа за тристранни сделки</field>
+            <field name="name">VIES-ДО-обща стойност тристранни сделки</field>
+            <field name="code">05-05</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record model="account.account.tag" id="tax_tag_05_06">
+            <field name="info">Обща стойност на данъчната основа за доставени услуги по чл. 21, ал. 2 от ЗДДС, с място
+                на изпълнение територията на друга държава членка
+            </field>
+            <field name="name">VIES-ДО-чл.21, ал.2</field>
+            <field name="code">05-06</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+
+        <record model="account.tax.template" id="tax_sale">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">10</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">sale</field>
+            <field name="description">ДДС(20%)</field>
+            <field name="name">Начислен ДДС на продажбите (20%)</field>
+            <field name="amount">20</field>
+            <field name="tag_ids"
+                   eval="[(6,0,[ref('tax_tag_01_01'), ref('tax_tag_01_11'), ref('tax_tag_01_20'), ref('tax_tag_01_21'), ref('tax_tag_02_10'), ref('tax_tag_02_11'), ref('tax_tag_02_21')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_sale_incl">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">15</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">sale</field>
+            <field name="description">Вкл.ДДС(20%)</field>
+            <field name="name">Начислен ДДС на продажбите включен в цената (20%)</field>
+            <field name="amount">20</field>
+            <field name="price_include">True</field>
+            <field name="tag_ids"
+                   eval="[(6,0,[ref('tax_tag_01_01'), ref('tax_tag_01_11'), ref('tax_tag_01_20'), ref('tax_tag_01_21'), ref('tax_tag_02_10'), ref('tax_tag_02_11'), ref('tax_tag_02_21')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_vop_20">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">20</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">sale</field>
+            <field name="description">ВОП(20%)</field>
+            <field name="name">Начислено ДДС за ВОП и чл.82, ал.2-3 (20%)</field>
+            <field name="amount">20</field>
+            <field name="tag_ids"
+                   eval="[(6,0,[ref('tax_tag_01_01'), ref('tax_tag_01_12'), ref('tax_tag_01_20'), ref('tax_tag_01_22'), ref('tax_tag_02_10'), ref('tax_tag_02_12'), ref('tax_tag_02_22')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_personal">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">30</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">sale</field>
+            <field name="description">Л.П.ДДС(20%)</field>
+            <field name="name">Начислен ДДС за лично ползване (20%)</field>
+            <field name="amount">20</field>
+            <field name="tag_ids"
+                   eval="[(6,0,[ref('tax_tag_01_01'), ref('tax_tag_01_11'), ref('tax_tag_01_20'), ref('tax_tag_01_23'), ref('tax_tag_02_10'), ref('tax_tag_02_11'), ref('tax_tag_02_23')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_tour">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">40</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">sale</field>
+            <field name="description">Т.У.ДДС(9%)</field>
+            <field name="name">Наислен ДДС за туристически услуги (9%)</field>
+            <field name="amount">9</field>
+            <field name="tag_ids"
+                   eval="[(6,0,[ref('tax_tag_01_01'), ref('tax_tag_01_13'), ref('tax_tag_01_20'), ref('tax_tag_01_24'), ref('tax_tag_02_10'), ref('tax_tag_02_11'), ref('tax_tag_02_23')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_out_eu">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">50</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">sale</field>
+            <field name="description">ИЗНОС(0%)</field>
+            <field name="name">Износ по глава трета от ЗДДС, извън ЕС (0%)</field>
+            <field name="amount">0</field>
+            <field name="tag_ids"
+                   eval="[(6,0,[ref('tax_tag_01_01'), ref('tax_tag_01_14'), ref('tax_tag_02_10'), ref('tax_tag_02_14')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_vod">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">60</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">sale</field>
+            <field name="description">ВОД(0%)</field>
+            <field name="name">Вътрешно общностни доставки (0%)</field>
+            <field name="amount">0</field>
+            <field name="tag_ids"
+                   eval="[(6,0,[ref('tax_tag_01_01'), ref('tax_tag_01_15'), ref('tax_tag_02_15'), ref('tax_tag_04_02'), ref('tax_tag_04_03'), ref('tax_tag_05_04'), ref('tax_tag_05_05')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_art_140">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">70</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">sale</field>
+            <field name="description">чл.140(6),173(0%)</field>
+            <field name="name">Необлагаеми продажби по чл.140, 146,173 (0%)</field>
+            <field name="amount">0</field>
+            <field name="tag_ids"
+                   eval="[(6,0,[ref('tax_tag_01_01'), ref('tax_tag_01_16'), ref('tax_tag_02_10'), ref('tax_tag_02_16')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_art_21">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">80</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">sale</field>
+            <field name="description">Чл.21(0%)</field>
+            <field name="name">С място на изпълнение на територията на ЕС-Чл.21 (0%)</field>
+            <field name="amount">0</field>
+            <field name="tag_ids"
+                   eval="[(6,0,[ref('tax_tag_01_01'), ref('tax_tag_01_17'), ref('tax_tag_02_10'), ref('tax_tag_02_17'), ref('tax_tag_04_02'), ref('tax_tag_04_03'), ref('tax_tag_05_06')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_vop_sale">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">901</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">none</field>
+            <field name="description">ВОП(20%)</field>
+            <field name="name">ДДС-Продажби ВОП (20%)</field>
+            <field name="amount">20</field>
+            <field name="tag_ids"
+                   eval="[(6,0,[ref('tax_tag_01_01'), ref('tax_tag_01_12'), ref('tax_tag_01_20'), ref('tax_tag_01_22'), ref('tax_tag_02_10'), ref('tax_tag_02_12'), ref('tax_tag_02_22')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_vop_purchase">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">901</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">none</field>
+            <field name="description">ВОП(20%)</field>
+            <field name="name">ДДС-покупки ВОП (20%)</field>
+            <field name="amount">20</field>
+            <field name="tag_ids"
+                   eval="[(6,0,[ref('tax_tag_01_32'), ref('tax_tag_01_40'), ref('tax_tag_01_41'), ref('tax_tag_03_31'), ref('tax_tag_03_41')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_vop">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">90</field>
+            <field name="name">Вътрешно общностно придобиване (0%)</field>
+            <field name="amount">1</field>
+            <field name="separate">1</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="amount_type">group</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="children_tax_ids" eval="[(6, 0, [ref('tax_vop_sale'), ref('tax_vop_purchase')])]"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_01_50')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_novat_purchase">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">9010</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="description">Без право ДК(0%)</field>
+            <field name="name">ДДС на покупките без право на ДК</field>
+            <field name="amount">0</field>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_01_30'), ref('tax_tag_03_30')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_purchase">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">9020</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="description">Пълен ДК(20%)</field>
+            <field name="name">ДДС на покупките с право на пълен ДК (20%)</field>
+            <field name="amount">20</field>
+            <field name="tag_ids"
+                   eval="[(6,0,[ref('tax_tag_01_31'), ref('tax_tag_01_40'), ref('tax_tag_01_41'), ref('tax_tag_03_31'), ref('tax_tag_03_41')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_part_purchase">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">9030</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="description">Частичен ДК(~%)</field>
+            <field name="name">ДДС на покупките с частичен кредит (~%)</field>
+            <field name="amount">20</field>
+            <field name="tag_ids"
+                   eval="[(6,0,[ref('tax_tag_01_32'), ref('tax_tag_01_40'), ref('tax_tag_01_42'), ref('tax_tag_03_32'), ref('tax_tag_03_42')])]"/>
+        </record>
+        <!-- Manual fill in tax declaration -->
+        <record model="account.tax.template" id="tax_declar_70">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">90170</field>
+            <field name="account_id" ref="pcg_4536"/>
+            <field name="refund_account_id" ref="pcg_4536"/>
+            <field name="tax_adjustment">True</field>
+            <field name="amount_type">fixed</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">none</field>
+            <field name="description">ДДС приспаднат чл. 92, ал.1</field>
+            <field name="name">Данък за внасяне от кл. 50, приспаднат по реда на чл. 92, ал. 1 ЗДДС</field>
+            <field name="amount">0</field>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_01_70')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_declar_71">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">90171</field>
+            <field name="account_id" ref="pcg_4539"/>
+            <field name="refund_account_id" ref="pcg_4539"/>
+            <field name="tax_adjustment">True</field>
+            <field name="amount_type">fixed</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">none</field>
+            <field name="description">ДДС внесен ефективно</field>
+            <field name="name">Данък за внасяне от кл. 50, внесен ефективно</field>
+            <field name="amount">0</field>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_01_71')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_declar_80">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">90180</field>
+            <field name="account_id" ref="pcg_4538"/>
+            <field name="refund_account_id" ref="pcg_4538"/>
+            <field name="tax_adjustment">True</field>
+            <field name="amount_type">fixed</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">none</field>
+            <field name="description">ДДС подлежащ на възстановяване, чл.92, ал.1</field>
+            <field name="name">ДДС, подлежащ на възстановяване, съгласно чл. 92, ал. 1 ЗДДС в 30-дневен срок от
+                подаването на тази декларация
+            </field>
+            <field name="amount">0</field>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_01_80')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_declar_81">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">90181</field>
+            <field name="account_id" ref="pcg_4538"/>
+            <field name="refund_account_id" ref="pcg_4538"/>
+            <field name="tax_adjustment">True</field>
+            <field name="amount_type">fixed</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">none</field>
+            <field name="description">ДДС подлежащ на възстановяване, чл.92, ал.3</field>
+            <field name="name">ДДС, подлежащ на възстановяване, съгласно чл. 92, ал. 3 ЗДДС в 30-дневен срок от
+                подаването на тази декларация
+            </field>
+            <field name="amount">0</field>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_01_81')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_declar_82">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">90182</field>
+            <field name="account_id" ref="pcg_4538"/>
+            <field name="refund_account_id" ref="pcg_4538"/>
+            <field name="tax_adjustment">True</field>
+            <field name="amount_type">fixed</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">none</field>
+            <field name="description">ДДС подлежащ на възстановяване, чл.92, ал.4</field>
+            <field name="name">ДДС, подлежащ на възстановяване, съгласно чл. 92, ал. 4 ЗДДС в 30-дневен срок от
+                подаването на тази декларация
+            </field>
+            <field name="amount">0</field>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_01_82')])]"/>
+        </record>
+    </data>
+</odoo>

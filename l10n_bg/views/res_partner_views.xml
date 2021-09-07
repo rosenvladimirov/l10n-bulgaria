@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_property_uid_form" model="ir.ui.view">
+            <field name="name">res.partner.property.form.uid.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='street']" position="before">
+                    <label for="uid" string="The identification code"/>
+                    <div>
+                        <field name="uid" nolabel="1"/>
+                        <field name="uid_type" nolabel="1"/>
+                    </div>
+                </xpath>
+                <field name="phone" position="after">
+                    <field name="fax" widget="phone"/>
+                    <field name="mobile" widget="phone"/>
+                </field>
+                <!--
+                <xpath expr="//group[@name='accounting_entries']" position="inside">
+                    <field name="property_re_analytic_account_id"/>
+                    <field name="property_re_analytic_tag_ids" widget="many2many_tags"/>
+                    <field name="property_pay_analytic_account_id"/>
+                    <field name="property_pay_analytic_tag_ids" widget="many2many_tags"/>
+                    <field name="property_account_trustee_id"/>
+                </xpath>
+                -->
+            </field>
+        </record>
+    </data>
+</odoo>

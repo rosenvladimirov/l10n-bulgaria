@@ -1,0 +1,26 @@
+id,active,name,bic,street,city,zip,state/id,country/id,phone,email
+res_bank_1,TRUE,ALLIANZ BANK BULGARIA AD,BUINBGSF,бул. Мария Луиза № 79,София,1202,S68134,base.bg,35929215404,support@bank.allianz.bg
+res_bank_2,TRUE,DSK Bank EAD,STSABGSF,ул. Московска № 19,София,1036,S68134,base.bg,35929391220,call_center@dskbank.bg
+res_bank_3,TRUE,PIRAEUS BANK BULGARIA AD,PIRBBGSF,бул. Цариградско шосе № 115 Е сграда Е,София,1784,S68134,base.bg,35928004182,customerservice@piraeusbank.bg
+res_bank_4,TRUE,Bulgarian-American Credit Bank AD,BGUSBGSF,ул. Славянска № 2,София,1000,S68134,base.bg,35929658358,bacb@bacb.bg 
+res_bank_5,TRUE,BULGARIAN DEVELOPMENT BANK AD,NASBBGSF,ул. Стефан Караджа № 10,София,1000,S68134,base.bg,35929306333,info-ngf@bdbank.bg
+res_bank_6,TRUE,INVESTBANK PLS AD,IORTBGSF,бул. България № 85,София,1404,S68134,base.bg,35928186123,office@ibank.bg
+res_bank_7,TRUE,INTERNATIONAL ASSET BANK AD,IABGBGSF,бул. Тодор Александров № 81-83,София,1303,S68134,base.bg,35928120234,iabank@iabank.bg
+res_bank_8,TRUE,UNITED BULGARIAN BANK AD,UBBSBGSF,ул. Света София № 5,София,1040,S68134,base.bg,35928112330,,
+res_bank_9,TRUE,MUNICIPAL BANK AD,SOMBBGSF,ул. Врабча № 6,София,1000,S68134,base.bg,35929300111,contacts@municipalbank.bg
+res_bank_10,TRUE,PROCREDIT BANK BULGARIA AD,PRCBBGSF,бул. Тодор Александров № 26,София,1303,S68134,base.bg,35928135100,contact@procreditbank.bg 
+res_bank_11,TRUE,First Investment Bank AD,FINVBGSF,бул. Драган Цанков № 37,София,1797,S68134,base.bg,359291001,call@fibank.bg
+res_bank_12,TRUE,RAIFFEISENBANK / BULGARIA/ AD,RZBBBGSF,ул. Гогол № 18-20,София,1504,S68134,base.bg,359291985101,call.center@raiffeisen.bg
+res_bank_14,TRUE,SOCIETE GENERALE EXPRESSBANK AD,TTBBBG22, бул. Владислав Варненчик № 92,Варна,9000,S10135,base.bg,35952686100,sgeb.contact@socgen.com
+res_bank_15,TRUE,TEXIM BANK AD,TEXIBGSF,ул. Тодор Александров № 141,София,1309,S68134,base.bg,35929035501,Private.Banking@teximbank.bg
+res_bank_16,TRUE,TBI Bank EAD,TBIBBGSF,ул. Димитър Хаджикоцев № 52-54,София,1421,S68134,base.bg,35929702410,info@tbibank.bg
+res_bank_17,TRUE,TOKUDA BANK AD,CREXBGSF,ул. Георг Вашингтон № 21,София,1000,S68134,base.bg,35924037900,headoffice@tcebank.com
+res_bank_18,TRUE,COMMERCIAL BANK VICTORIA EAD,BINVBGSF,бул. Княгиня Мария Луиза № 2 ЦУМ ет. 5,София,1000,S68134,base.bg,35928951204,tbvictoria@tbvictoria.bg
+res_bank_19,TRUE,D COMMERCE BANK AD,DEMIBGSF,бул. Генерал Тотлебен № 8,София,1606,S68134,base.bg,35929357171,dbank@dbank.bg
+res_bank_20,TRUE,Unicredit Bulbank AD,UNCRBGSF,пл. Света Неделя № 7,София,1000,S68134,base.bg,35929232111,callcentre@unicreditgroup.bg
+res_bank_21,TRUE,CENTRAL COOPERATIVE BANK AD,CECBBGSF,ул. Г. С. Раковски № 103,София,1000,S68134,base.bg,35929266266,front@ccbank.bg
+res_bank_22,TRUE,EUROBANK BULGARIA AD,BPBIBGSF,ул. Околовръстен път № 260,София,1766,S68134,base.bg,35928166000,info@postbank.bg
+res_bank_24,TRUE,BNP PARIBAS S.A. - SOFIA BRANCH,BNPABGSX,бул. Цар Освободител № 2,София,1000,S68134,base.bg,35929218640,bulgaria_bnpparibas@bnpparibas.com
+res_bank_25,TRUE,ING BANK N.V. - SOFIA BRANCH,INGBBGSF,бул. България № 49Б вх. А ет.7,София,1404,S68134,base.bg,35929176400,
+res_bank_27,TRUE,Citibank Europe plc - Bulgaria Branch,CITIBGSF,бул. Ситняково № 48 Сердика офиси ет. 10,София,1505,S68134,base.bg,35929175100,
+res_bank_28,TRUE,T.C. ZIRAAT BANKASI - SOFIA BRANCH,TCZBBGSF,ул. Цар Самуил № 87,София,1301,S68134,base.bg,35929800087,bg_sofia@ziraatbank.bg

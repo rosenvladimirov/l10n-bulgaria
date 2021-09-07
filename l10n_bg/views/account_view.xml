@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_tax_bg_tree" model="ir.ui.view">
+        <field name="name">account.tax.bg.tree</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_tree"/>
+        <field name="arch" type="xml">
+            <field name="description" position="after">
+                <field name="separate"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_tax_bg_form" model="ir.ui.view">
+        <field name="name">account.tax.bg.form</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+            <field name="amount_type" position="after">
+                <field name="separate"/>
+                <field name="tax_type_deal"/>
+                <field name="tax_credit_payable"/>
+            </field>
+            <field name="refund_account_id" position="after">
+                <field name="contrapart_account_id" attrs="{'invisible': [('separate','=', False)]}"/>
+            </field>
+        </field>
+    </record>
+    <!-- Tags -->
+    <record id="account_tag_view_bg_form" model="ir.ui.view">
+        <field name="name">account.account.tag.bg</field>
+        <field name="model">account.account.tag</field>
+        <field name="inherit_id" ref="account.account_tag_view_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="applicability" invisible="1"/>
+                <field name="info"/>
+                <field name="type_accounts" attrs="{'invisible': [('applicability', '!=', 'accounts')]}"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_account_position_bg_form" model="ir.ui.view">
+        <field name="name">account.fiscal.position.bg.form</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="before">
+                <field name="type_docs"/>
+            </field>
+        </field>
+    </record>
+</odoo>

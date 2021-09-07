@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="account.asset.profile" id="cat_I">
+            <field name="prorata" eval="True"/>
+            <field name="account_asset_id" ref="account_account_18"/>
+            <field name="account_expense_depreciation_id" ref="account_account_114"/>
+            <field name="method_progress_factor">0.3</field>
+            <field name="account_plus_value_id" eval="False"/>
+            <field name="name">Категория I - масивни сгради</field>
+            <field name="note">масивни сгради, включително инвестиционни имоти, съоръжения, предавателни устройства,
+                преносители на електрическа енергия, съобщителни линии;
+            </field>
+            <field name="account_residual_value_id" eval="False"/>
+            <field name="method_period">year</field>
+            <field name="account_min_value_id" eval="False"/>
+            <field name="method_percentage">4.0</field>
+            <field name="type">taxadmin</field>
+            <field name="method"/>
+            <field name="method_number">5</field>
+            <field name="method_time"/>
+            <field name="active" eval="True"/>
+            <field name="journal_id" ref="dma_jurnal"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="open_asset" eval="False"/>
+            <field name="account_depreciation_id" ref="account_account_8"/>
+            <field name="account_analytic_id" eval="False"/>
+        </record>
+        <record model="account.asset.profile" id="cat_II">
+            <field name="prorata" eval="True"/>
+            <field name="account_asset_id" ref="account_account_21"/>
+            <field name="account_expense_depreciation_id" ref="account_account_114"/>
+            <field name="method_progress_factor">0.3</field>
+            <field name="account_plus_value_id" eval="False"/>
+            <field name="name">Категория II - машини, производствено оборудване, апаратура</field>
+            <field name="note"/>
+            <field name="account_residual_value_id" eval="False"/>
+            <field name="method_period">year</field>
+            <field name="account_min_value_id" eval="False"/>
+            <field name="method_percentage">30.0</field>
+            <field name="type">taxadmin</field>
+            <field name="method"/>
+            <field name="method_number">5</field>
+            <field name="method_time"/>
+            <field name="active" eval="True"/>
+            <field name="journal_id" ref="dma_jurnal"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="open_asset" eval="False"/>
+            <field name="account_depreciation_id" ref="account_account_8"/>
+            <field name="account_analytic_id" eval="False"/>
+        </record>
+        <record model="account.asset.profile" id="cat_III">
+            <field name="prorata" eval="True"/>
+            <field name="account_asset_id" ref="account_account_22"/>
+            <field name="account_expense_depreciation_id" ref="account_account_114"/>
+            <field name="method_progress_factor">0.3</field>
+            <field name="account_plus_value_id" eval="False"/>
+            <field name="name">Категория III - транспортни средства, без автомобили</field>
+            <field name="note"/>
+            <field name="account_residual_value_id" eval="False"/>
+            <field name="method_period">year</field>
+            <field name="account_min_value_id" eval="False"/>
+            <field name="method_percentage">10.0</field>
+            <field name="type">taxadmin</field>
+            <field name="method"/>
+            <field name="method_number">5</field>
+            <field name="method_time"/>
+            <field name="active" eval="True"/>
+            <field name="journal_id" ref="dma_jurnal"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="open_asset" eval="False"/>
+            <field name="account_depreciation_id" ref="account_account_8"/>
+            <field name="account_analytic_id" eval="False"/>
+        </record>
+        <record model="account.asset.profile" id="cat_IV">
+            <field name="prorata" eval="True"/>
+            <field name="account_asset_id" ref="account_account_19"/>
+            <field name="account_expense_depreciation_id" ref="account_account_114"/>
+            <field name="method_progress_factor">0.3</field>
+            <field name="account_plus_value_id" eval="False"/>
+            <field name="name">Категория IV - компютри</field>
+            <field name="note">компютри, периферни устройства за тях, софтуер и право на ползване на софтуер, мобилни
+                телефони;
+            </field>
+            <field name="account_residual_value_id" eval="False"/>
+            <field name="method_period">year</field>
+            <field name="account_min_value_id" eval="False"/>
+            <field name="method_percentage">50.0</field>
+            <field name="type">taxadmin</field>
+            <field name="method"/>
+            <field name="method_number">5</field>
+            <field name="method_time"/>
+            <field name="active" eval="True"/>
+            <field name="journal_id" ref="dma_jurnal"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="open_asset" eval="False"/>
+            <field name="account_depreciation_id" ref="account_account_8"/>
+            <field name="account_analytic_id" eval="False"/>
+        </record>
+        <record model="account.asset.profile" id="cat_V">
+            <field name="prorata" eval="True"/>
+            <field name="account_asset_id" ref="account_account_22"/>
+            <field name="account_expense_depreciation_id" ref="account_account_114"/>
+            <field name="method_progress_factor">0.3</field>
+            <field name="account_plus_value_id" eval="False"/>
+            <field name="name">Категория V - автомобили</field>
+            <field name="note"/>
+            <field name="account_residual_value_id" eval="False"/>
+            <field name="method_period">year</field>
+            <field name="account_min_value_id" eval="False"/>
+            <field name="method_percentage">25.0</field>
+            <field name="type">taxadmin</field>
+            <field name="method"/>
+            <field name="method_number">5</field>
+            <field name="method_time"/>
+            <field name="active" eval="True"/>
+            <field name="journal_id" ref="dma_jurnal"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="open_asset" eval="False"/>
+            <field name="account_depreciation_id" ref="account_account_8"/>
+            <field name="account_analytic_id" eval="False"/>
+        </record>
+        <record model="account.asset.profile" id="cat_VI">
+            <field name="prorata" eval="True"/>
+            <field name="account_asset_id" ref="account_account_25"/>
+            <field name="account_expense_depreciation_id" ref="account_account_114"/>
+            <field name="method_progress_factor">0.3</field>
+            <field name="account_plus_value_id" eval="False"/>
+            <field name="name">Категория VI - данъчни дълготрайни материални и нематериални акт</field>
+            <field name="note"/>
+            <field name="account_residual_value_id" eval="False"/>
+            <field name="method_period">year</field>
+            <field name="account_min_value_id" eval="False"/>
+            <field name="method_percentage">15.0</field>
+            <field name="type">taxadmin</field>
+            <field name="method"/>
+            <field name="method_number">5</field>
+            <field name="method_time"/>
+            <field name="active" eval="True"/>
+            <field name="journal_id" ref="dma_jurnal"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="open_asset" eval="False"/>
+            <field name="account_depreciation_id" ref="account_account_8"/>
+            <field name="account_analytic_id" eval="False"/>
+        </record>
+        <record model="account.asset.profile" id="cat_VII">
+            <field name="prorata" eval="True"/>
+            <field name="account_asset_id" ref="account_account_23"/>
+            <field name="account_expense_depreciation_id" ref="account_account_114"/>
+            <field name="method_progress_factor">0.3</field>
+            <field name="account_plus_value_id" eval="False"/>
+            <field name="name">Категория VII - всички останали амортизируеми активи</field>
+            <field name="note"/>
+            <field name="account_residual_value_id" eval="False"/>
+            <field name="method_period">year</field>
+            <field name="account_min_value_id" eval="False"/>
+            <field name="method_percentage">15.0</field>
+            <field name="type">taxadmin</field>
+            <field name="method"/>
+            <field name="method_number">5</field>
+            <field name="method_time"/>
+            <field name="active" eval="True"/>
+            <field name="journal_id" ref="dma_jurnal"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="open_asset" eval="False"/>
+            <field name="account_depreciation_id" ref="account_account_8"/>
+            <field name="account_analytic_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

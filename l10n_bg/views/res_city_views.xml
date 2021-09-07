@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_city_extend_form" model="ir.ui.view">
+            <field name="name">res.city.form.extend</field>
+            <field name="model">res.city</field>
+            <field name="arch" type="xml">
+                <form name="city" string="Cites">
+                    <sheet>
+                        <field name="structure_type" widget="radio"
+                               class="oe_edit_only"
+                               options="{'horizontal': true}"/>
+                        <group name="city_data">
+                            <group>
+                                <field name="type_village_city_id"/>
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="zipcode"/>
+                                <field name="ekatte"/>
+                            </group>
+                            <group>
+                                <field name="country_id"/>
+                                <field name="state_id"/>
+                                <field name="municipality_id"/>
+                                <field name="city_hall_id"/>
+                                <field name="has_taxoffice"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_city_extend_tree" model="ir.ui.view">
+            <field name="name">res.city.tree.extend</field>
+            <field name="model">res.city</field>
+            <field name="inherit_id" ref="base_address_city.view_city_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="type_village_city_id"/>
+                </field>
+                <field name="state_id" position="after">
+                    <field name="municipality_id"/>
+                    <field name="city_hall_id"/>
+                    <field name="structure_type"/>
+                    <field name="has_taxoffice"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_city_filter" model="ir.ui.view">
+            <field name="name">res.city.filter.extend</field>
+            <field name="model">res.city</field>
+            <field name="inherit_id" ref="base_address_city.view_city_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="attributes">
+                    <attribute name="filter_domain">['|', '|', ('name','ilike',self), ('zipcode','ilike',self),
+                        ('ekatte','ilike',self')]
+                    </attribute>
+                </field>
+                <field name="country_id" position="after">
+                    <field name="municipality_id"/>
+                    <field name="city_hall_id"/>
+                </field>
+            </field>
+        </record>
+        <record id="base_address_city.action_res_city_tree" model="ir.actions.act_window">
+            <field name="name">Cities</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.city</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="base_address_city.view_city_tree"/>
+            <field name="help">
+                Display and manage the list of all cities that can be assigned to
+                your partner records. Note that an option can be set on each country separately
+                to enforce any address of it to have a city in this list.
+            </field>
+        </record>
+    </data>
+</odoo>

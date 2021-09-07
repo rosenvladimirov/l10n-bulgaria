@@ -1,0 +1,262 @@
+id,code,structure_type,ekatte,has_taxoffice,type_village_city_id/id,zipcode,country_id/id,name,state_id/id
+l10n_bg.00084,VAR01-00,Municipality,00084,False,l10n_bg.village,,base.bg,Аврен,l10n_bg.S10135
+l10n_bg.00151,BGS01-00,Municipality,00151,False,l10n_bg.town,,base.bg,Айтос,l10n_bg.S07079
+l10n_bg.00182,VAR02-00,Municipality,00182,False,l10n_bg.town,,base.bg,Аксаково,l10n_bg.S10135
+l10n_bg.00415,SLS01-00,Municipality,00415,False,l10n_bg.town,,base.bg,Алфатар,l10n_bg.S66425
+l10n_bg.00504,SFO54-00,Municipality,00504,False,l10n_bg.village,,base.bg,Антон,l10n_bg.S68134
+l10n_bg.00518,TGV02-00,Municipality,00518,False,l10n_bg.town,,base.bg,Антоново,l10n_bg.S73626
+l10n_bg.52218,LOV02-00,Municipality,52218,False,l10n_bg.town,,base.bg,Априлци,l10n_bg.S43952
+l10n_bg.00607,KRZ02-00,Municipality,00607,False,l10n_bg.town,,base.bg,Ардино,l10n_bg.S40909
+l10n_bg.00702,PDV01-00,Municipality,00702,False,l10n_bg.town,,base.bg,Асеновград,l10n_bg.S56784
+l10n_bg.02508,DOB03-00,Municipality,02508,False,l10n_bg.town,,base.bg,Балчик,l10n_bg.S72624
+l10n_bg.44402,SML02-00,Municipality,44402,False,l10n_bg.village,,base.bg,Баните,l10n_bg.S67653
+l10n_bg.02676,BLG01-00,Municipality,02676,False,l10n_bg.town,,base.bg,Банско,l10n_bg.S04279
+l10n_bg.02837,PAZ03-00,Municipality,02837,False,l10n_bg.town,,base.bg,Батак,l10n_bg.S55155
+l10n_bg.03366,PVN03-00,Municipality,03366,False,l10n_bg.town,,base.bg,Белене,l10n_bg.S56722
+l10n_bg.03504,BLG02-00,Municipality,03504,False,l10n_bg.town,,base.bg,Белица,l10n_bg.S04279
+l10n_bg.03592,PAZ04-00,Municipality,03592,False,l10n_bg.town,,base.bg,Белово,l10n_bg.S55155
+l10n_bg.03616,VID01-00,Municipality,03616,False,l10n_bg.town,,base.bg,Белоградчик,l10n_bg.S10971
+l10n_bg.03719,VAR04-00,Municipality,03719,False,l10n_bg.town,,base.bg,Белослав,l10n_bg.S10135
+l10n_bg.03928,MON02-00,Municipality,03928,False,l10n_bg.town,,base.bg,Берковица,l10n_bg.S48489
+l10n_bg.04279,BLG03-00,Municipality,04279,True,l10n_bg.town,,base.bg,Благоевград,l10n_bg.S04279
+l10n_bg.04501,KNL04-00,Municipality,04501,False,l10n_bg.town,,base.bg,Бобов дол,l10n_bg.S41112
+l10n_bg.04532,KNL05-00,Municipality,04532,False,l10n_bg.town,,base.bg,Бобошево,l10n_bg.S41112
+l10n_bg.05027,SFO06-00,Municipality,05027,False,l10n_bg.town,,base.bg,Божурище,l10n_bg.S68134
+l10n_bg.05195,VID03-00,Municipality,05195,False,l10n_bg.village,,base.bg,Бойница,l10n_bg.S10971
+l10n_bg.05236,MON04-00,Municipality,05236,False,l10n_bg.town,,base.bg,Бойчиновци,l10n_bg.S48489
+l10n_bg.05284,JAM03-00,Municipality,05284,False,l10n_bg.town,,base.bg,Болярово,l10n_bg.S87374
+l10n_bg.05462,SML05-00,Municipality,05462,False,l10n_bg.village,,base.bg,Борино,l10n_bg.S67653
+l10n_bg.05548,VRC05-00,Municipality,05548,False,l10n_bg.village,,base.bg,Борован,l10n_bg.S12259
+l10n_bg.05611,RSE03-00,Municipality,05611,False,l10n_bg.town,,base.bg,Борово,l10n_bg.S63427
+l10n_bg.05815,SFO07-00,Municipality,05815,False,l10n_bg.town,,base.bg,Ботевград,l10n_bg.S68134
+l10n_bg.06183,SZR04-00,Municipality,06183,False,l10n_bg.village,,base.bg,Братя Даскалови,l10n_bg.S68850
+l10n_bg.06207,PAZ06-00,Municipality,06207,False,l10n_bg.town,,base.bg,Брацигово,l10n_bg.S55155
+l10n_bg.06224,VID06-00,Municipality,06224,False,l10n_bg.town,,base.bg,Брегово,l10n_bg.S10971
+l10n_bg.06286,PER08-00,Municipality,06286,False,l10n_bg.town,,base.bg,Брезник,l10n_bg.S55871
+l10n_bg.06361,PDV07-00,Municipality,06361,False,l10n_bg.town,,base.bg,Брезово,l10n_bg.S56784
+l10n_bg.06570,MON07-00,Municipality,06570,False,l10n_bg.town,,base.bg,Брусарци,l10n_bg.S48489
+l10n_bg.07079,BGS04-00,Municipality,07079,True,l10n_bg.town,,base.bg,Бургас,l10n_bg.S07079
+l10n_bg.07598,VAR05-00,Municipality,07598,False,l10n_bg.town,,base.bg,Бяла,l10n_bg.S10135
+l10n_bg.07603,RSE04-00,Municipality,07603,False,l10n_bg.town,,base.bg,Бяла,l10n_bg.S63427
+l10n_bg.07702,VRC08-00,Municipality,07702,False,l10n_bg.town,,base.bg,Бяла Слатина,l10n_bg.S12259
+l10n_bg.10135,VAR06-00,Municipality,10135,True,l10n_bg.town,,base.bg,Варна,l10n_bg.S10135
+l10n_bg.58222,SHU23-00,Municipality,58222,False,l10n_bg.town,,base.bg,Велики Преслав,l10n_bg.S83510
+l10n_bg.10447,VTR04-00,Municipality,10447,True,l10n_bg.town,,base.bg,Велико Търново,l10n_bg.S10447
+l10n_bg.10450,PAZ08-00,Municipality,10450,False,l10n_bg.town,,base.bg,Велинград,l10n_bg.S55155
+l10n_bg.10642,SHU07-00,Municipality,10642,False,l10n_bg.village,,base.bg,Венец,l10n_bg.S83510
+l10n_bg.10803,RSE05-00,Municipality,10803,False,l10n_bg.town,,base.bg,Ветово,l10n_bg.S63427
+l10n_bg.10865,VAR08-00,Municipality,10865,False,l10n_bg.village,,base.bg,Ветрино,l10n_bg.S10135
+l10n_bg.10971,VID09-00,Municipality,10971,True,l10n_bg.town,,base.bg,Видин,l10n_bg.S10971
+l10n_bg.12259,VRC10-00,Municipality,12259,True,l10n_bg.town,,base.bg,Враца,l10n_bg.S12259
+l10n_bg.12543,MON11-00,Municipality,12543,False,l10n_bg.town,,base.bg,Вълчедръм,l10n_bg.S48489
+l10n_bg.12574,VAR09-00,Municipality,12574,False,l10n_bg.town,,base.bg,Вълчи дол,l10n_bg.S10135
+l10n_bg.12766,SHU10-00,Municipality,12766,False,l10n_bg.town,,base.bg,Върбица,l10n_bg.S83510
+l10n_bg.12961,MON12-00,Municipality,12961,False,l10n_bg.town,,base.bg,Вършец,l10n_bg.S48489
+l10n_bg.14218,GAB05-00,Municipality,14218,True,l10n_bg.town,,base.bg,Габрово,l10n_bg.S14218
+l10n_bg.14711,DOB12-00,Municipality,14711,False,l10n_bg.town,,base.bg,Генерал Тошево,l10n_bg.S72624
+l10n_bg.14773,MON14-00,Municipality,14773,False,l10n_bg.village,,base.bg,Георги Дамяново,l10n_bg.S48489
+l10n_bg.15031,SLS07-00,Municipality,15031,False,l10n_bg.town,,base.bg,Главиница,l10n_bg.S66425
+l10n_bg.15309,SFO09-00,Municipality,15309,False,l10n_bg.town,,base.bg,Годеч,l10n_bg.S68134
+l10n_bg.16314,SFO10-00,Municipality,16314,False,l10n_bg.village,,base.bg,Горна Малина,l10n_bg.S68134
+l10n_bg.16359,VTR06-00,Municipality,16359,False,l10n_bg.town,,base.bg,Горна Оряховица,l10n_bg.S10447
+l10n_bg.17395,BLG11-00,Municipality,17395,False,l10n_bg.town,,base.bg,Гоце Делчев,l10n_bg.S04279
+l10n_bg.17645,VID15-00,Municipality,17645,False,l10n_bg.town,,base.bg,Грамада,l10n_bg.S10971
+l10n_bg.18099,PVN08-00,Municipality,18099,False,l10n_bg.town,,base.bg,Гулянци,l10n_bg.S56722
+l10n_bg.18157,SZR37-00,Municipality,18157,False,l10n_bg.town,,base.bg,Гурково,l10n_bg.S68850
+l10n_bg.18280,SZR07-00,Municipality,18280,False,l10n_bg.town,,base.bg,Гълъбово,l10n_bg.S68850
+l10n_bg.18366,BLG13-00,Municipality,18366,False,l10n_bg.village,,base.bg,Гърмен,l10n_bg.S04279
+l10n_bg.20184,RSE08-00,Municipality,20184,False,l10n_bg.town,,base.bg,Две могили,l10n_bg.S63427
+l10n_bg.20465,SML09-00,Municipality,20465,False,l10n_bg.town,,base.bg,Девин,l10n_bg.S67653
+l10n_bg.20482,VAR14-00,Municipality,20482,False,l10n_bg.town,,base.bg,Девня,l10n_bg.S10135
+l10n_bg.20746,KRZ08-00,Municipality,20746,False,l10n_bg.town,,base.bg,Джебел,l10n_bg.S40909
+l10n_bg.21052,HKV09-00,Municipality,21052,False,l10n_bg.town,,base.bg,Димитровград,l10n_bg.S77195
+l10n_bg.21097,VID16-00,Municipality,21097,False,l10n_bg.town,,base.bg,Димово,l10n_bg.S10971
+l10n_bg.72624,DOB28-00,Municipality,72624,True,l10n_bg.town,,base.bg,Добрич,l10n_bg.S72624
+l10n_bg.22006,SFO59-00,Municipality,22006,False,l10n_bg.town,,base.bg,Долна баня,l10n_bg.S68134
+l10n_bg.22215,PVN10-00,Municipality,22215,False,l10n_bg.town,,base.bg,Долна Митрополия,l10n_bg.S56722
+l10n_bg.22407,PVN11-00,Municipality,22407,False,l10n_bg.town,,base.bg,Долни Дъбник,l10n_bg.S56722
+l10n_bg.21912,VAR13-00,Municipality,21912,False,l10n_bg.town,,base.bg,Долни чифлик,l10n_bg.S10135
+l10n_bg.23025,SML10-00,Municipality,23025,False,l10n_bg.town,,base.bg,Доспат,l10n_bg.S67653
+l10n_bg.23409,SFO16-00,Municipality,23409,False,l10n_bg.town,,base.bg,Драгоман,l10n_bg.S68134
+l10n_bg.23947,GAB12-00,Municipality,23947,False,l10n_bg.town,,base.bg,Дряново,l10n_bg.S14218
+l10n_bg.24030,SLS10-00,Municipality,24030,False,l10n_bg.town,,base.bg,Дулово,l10n_bg.S66425
+l10n_bg.68789,KNL48-00,Municipality,68789,False,l10n_bg.town,,base.bg,Дупница,l10n_bg.S41112
+l10n_bg.24565,VAR16-00,Municipality,24565,False,l10n_bg.town,,base.bg,Дългопол,l10n_bg.S10135
+l10n_bg.27190,VTR13-00,Municipality,27190,False,l10n_bg.town,,base.bg,Елена,l10n_bg.S10447
+l10n_bg.27303,SFO17-00,Municipality,27303,False,l10n_bg.town,,base.bg,Елин Пелин,l10n_bg.S68134
+l10n_bg.27382,JAM07-00,Municipality,27382,False,l10n_bg.town,,base.bg,Елхово,l10n_bg.S87374
+l10n_bg.27632,SFO18-00,Municipality,27632,False,l10n_bg.town,,base.bg,Етрополе,l10n_bg.S68134
+l10n_bg.30065,RAZ11-00,Municipality,30065,False,l10n_bg.town,,base.bg,Завет,l10n_bg.S61710
+l10n_bg.30778,PER19-00,Municipality,30778,False,l10n_bg.town,,base.bg,Земен,l10n_bg.S55871
+l10n_bg.30962,VTR14-00,Municipality,30962,False,l10n_bg.town,,base.bg,Златарица,l10n_bg.S10447
+l10n_bg.31044,SFO47-00,Municipality,31044,False,l10n_bg.town,,base.bg,Златица,l10n_bg.S68134
+l10n_bg.31111,SML11-00,Municipality,31111,False,l10n_bg.town,,base.bg,Златоград,l10n_bg.S67653
+l10n_bg.32024,HKV11-00,Municipality,32024,False,l10n_bg.town,,base.bg,Ивайловград,l10n_bg.S77195
+l10n_bg.32095,RSE13-00,Municipality,32095,False,l10n_bg.village,,base.bg,Иваново,l10n_bg.S63427
+l10n_bg.55782,PVN23-00,Municipality,55782,False,l10n_bg.town,,base.bg,Искър,l10n_bg.S56722
+l10n_bg.32874,RAZ14-00,Municipality,32874,False,l10n_bg.town,,base.bg,Исперих,l10n_bg.S61710
+l10n_bg.32901,SFO20-00,Municipality,32901,False,l10n_bg.town,,base.bg,Ихтиман,l10n_bg.S68134
+l10n_bg.35064,DOB17-00,Municipality,35064,False,l10n_bg.town,,base.bg,Каварна,l10n_bg.S72624
+l10n_bg.35167,SZR12-00,Municipality,35167,False,l10n_bg.town,,base.bg,Казанлък,l10n_bg.S68850
+l10n_bg.35242,SLS15-00,Municipality,35242,False,l10n_bg.village,,base.bg,Кайнарджа,l10n_bg.S66425
+l10n_bg.35523,PDV12-00,Municipality,35523,False,l10n_bg.village,,base.bg,Калояново,l10n_bg.S56784
+l10n_bg.35883,BGS08-00,Municipality,35883,False,l10n_bg.town,,base.bg,Камено,l10n_bg.S07079
+l10n_bg.36079,SHU18-00,Municipality,36079,False,l10n_bg.town,,base.bg,Каолиново,l10n_bg.S83510
+l10n_bg.36498,PDV13-00,Municipality,36498,False,l10n_bg.town,,base.bg,Карлово,l10n_bg.S56784
+l10n_bg.36525,BGS09-00,Municipality,36525,False,l10n_bg.town,,base.bg,Карнобат,l10n_bg.S07079
+l10n_bg.36587,SHU19-00,Municipality,36587,False,l10n_bg.town,,base.bg,Каспичан,l10n_bg.S83510
+l10n_bg.36926,KRZ14-00,Municipality,36926,False,l10n_bg.village,,base.bg,Кирково,l10n_bg.S40909
+l10n_bg.37376,PVN39-00,Municipality,37376,False,l10n_bg.town,,base.bg,Кнежа,l10n_bg.S56722
+l10n_bg.37513,PER22-00,Municipality,37513,False,l10n_bg.village,,base.bg,Ковачевци,l10n_bg.S55871
+l10n_bg.37798,VRC20-00,Municipality,37798,False,l10n_bg.town,,base.bg,Козлодуй,l10n_bg.S12259
+l10n_bg.38558,SFO24-00,Municipality,38558,False,l10n_bg.town,,base.bg,Копривщица,l10n_bg.S68134
+l10n_bg.38902,SFO25-00,Municipality,38902,False,l10n_bg.town,,base.bg,Костенец,l10n_bg.S68134
+l10n_bg.38978,SFO26-00,Municipality,38978,False,l10n_bg.town,,base.bg,Костинброд,l10n_bg.S68134
+l10n_bg.39030,SLV11-00,Municipality,39030,False,l10n_bg.town,,base.bg,Котел,l10n_bg.S67338
+l10n_bg.39116,KNL27-00,Municipality,39116,False,l10n_bg.town,,base.bg,Кочериново,l10n_bg.S41112
+l10n_bg.14492,BLG28-00,Municipality,14492,False,l10n_bg.town,,base.bg,Кресна,l10n_bg.S04279
+l10n_bg.39846,VRC21-00,Municipality,39846,False,l10n_bg.town,,base.bg,Криводол,l10n_bg.S12259
+l10n_bg.39921,PDV39-00,Municipality,39921,False,l10n_bg.town,,base.bg,Кричим,l10n_bg.S56784
+l10n_bg.39970,KRZ15-00,Municipality,39970,False,l10n_bg.town,,base.bg,Крумовград,l10n_bg.S40909
+l10n_bg.40097,DOB20-00,Municipality,40097,False,l10n_bg.village,,base.bg,Крушари,l10n_bg.S72624
+l10n_bg.40422,RAZ16-00,Municipality,40422,False,l10n_bg.town,,base.bg,Кубрат,l10n_bg.S61710
+l10n_bg.40467,PDV42-00,Municipality,40467,False,l10n_bg.town,,base.bg,Куклен,l10n_bg.S56784
+l10n_bg.40525,VID22-00,Municipality,40525,False,l10n_bg.town,,base.bg,Кула,l10n_bg.S10971
+l10n_bg.40909,KRZ16-00,Municipality,40909,True,l10n_bg.town,,base.bg,Кърджали,l10n_bg.S40909
+l10n_bg.41112,KNL29-00,Municipality,41112,True,l10n_bg.town,,base.bg,Кюстендил,l10n_bg.S41112
+l10n_bg.43236,PVN16-00,Municipality,43236,False,l10n_bg.town,,base.bg,Левски,l10n_bg.S56722
+l10n_bg.43369,PAZ14-00,Municipality,43369,False,l10n_bg.village,,base.bg,Лесичово,l10n_bg.S55155
+l10n_bg.43476,LOV17-00,Municipality,43476,False,l10n_bg.town,,base.bg,Летница,l10n_bg.S43952
+l10n_bg.43952,LOV18-00,Municipality,43952,True,l10n_bg.town,,base.bg,Ловеч,l10n_bg.S43952
+l10n_bg.44166,RAZ17-00,Municipality,44166,False,l10n_bg.town,,base.bg,Лозница,l10n_bg.S61710
+l10n_bg.44238,MON24-00,Municipality,44238,False,l10n_bg.town,,base.bg,Лом,l10n_bg.S48489
+l10n_bg.44327,LOV19-00,Municipality,44327,False,l10n_bg.town,,base.bg,Луковит,l10n_bg.S43952
+l10n_bg.44478,PDV15-00,Municipality,44478,False,l10n_bg.town,,base.bg,Лъки,l10n_bg.S56784
+l10n_bg.44570,HKV17-00,Municipality,44570,False,l10n_bg.town,,base.bg,Любимец,l10n_bg.S77195
+l10n_bg.44793,VTR20-00,Municipality,44793,False,l10n_bg.town,,base.bg,Лясковец,l10n_bg.S10447
+l10n_bg.46045,SML16-00,Municipality,46045,False,l10n_bg.town,,base.bg,Мадан,l10n_bg.S67653
+l10n_bg.46084,HKV18-00,Municipality,46084,False,l10n_bg.town,,base.bg,Маджарово,l10n_bg.S77195
+l10n_bg.46245,VID25-00,Municipality,46245,False,l10n_bg.village,,base.bg,Макреш,l10n_bg.S10971
+l10n_bg.46663,BGS12-00,Municipality,46663,False,l10n_bg.town,,base.bg,Малко Търново,l10n_bg.S07079
+l10n_bg.47593,MON26-00,Municipality,47593,False,l10n_bg.village,,base.bg,Медковец,l10n_bg.S48489
+l10n_bg.47714,VRC27-00,Municipality,47714,False,l10n_bg.town,,base.bg,Мездра,l10n_bg.S12259
+l10n_bg.48043,VRC28-00,Municipality,48043,False,l10n_bg.town,,base.bg,Мизия,l10n_bg.S12259
+l10n_bg.48297,HKV19-00,Municipality,48297,False,l10n_bg.village,,base.bg,Минерални бани,l10n_bg.S77195
+l10n_bg.48324,SFO56-00,Municipality,48324,False,l10n_bg.village,,base.bg,Мирково,l10n_bg.S68134
+l10n_bg.48996,KRZ21-00,Municipality,48996,False,l10n_bg.town,,base.bg,Момчилград,l10n_bg.S40909
+l10n_bg.48489,MON29-00,Municipality,48489,True,l10n_bg.town,,base.bg,Монтана,l10n_bg.S48489
+l10n_bg.49494,SZR22-00,Municipality,49494,False,l10n_bg.town,,base.bg,Мъглиж,l10n_bg.S68850
+l10n_bg.51216,KNL31-00,Municipality,51216,False,l10n_bg.village,,base.bg,Невестино,l10n_bg.S41112
+l10n_bg.51319,SML18-00,Municipality,51319,False,l10n_bg.town,,base.bg,Неделино,l10n_bg.S67653
+l10n_bg.51500,BGS15-00,Municipality,51500,False,l10n_bg.town,,base.bg,Несебър,l10n_bg.S07079
+l10n_bg.51648,SZR38-00,Municipality,51648,False,l10n_bg.town,,base.bg,Николаево,l10n_bg.S68850
+l10n_bg.51651,SHU21-00,Municipality,51651,False,l10n_bg.village,,base.bg,Никола Козлево,l10n_bg.S83510
+l10n_bg.51723,PVN21-00,Municipality,51723,False,l10n_bg.town,,base.bg,Никопол,l10n_bg.S56722
+l10n_bg.51809,SLV16-00,Municipality,51809,False,l10n_bg.town,,base.bg,Нова Загора,l10n_bg.S67338
+l10n_bg.52009,SHU22-00,Municipality,52009,False,l10n_bg.town,,base.bg,Нови пазар,l10n_bg.S83510
+l10n_bg.52180,VID30-00,Municipality,52180,False,l10n_bg.village,,base.bg,Ново село,l10n_bg.S10971
+l10n_bg.53535,TGV22-00,Municipality,53535,False,l10n_bg.town,,base.bg,Омуртаг,l10n_bg.S73626
+l10n_bg.53552,TGV23-00,Municipality,53552,False,l10n_bg.town,,base.bg,Опака,l10n_bg.S73626
+l10n_bg.53576,SZR23-00,Municipality,53576,False,l10n_bg.village,,base.bg,Опан,l10n_bg.S68850
+l10n_bg.54020,VRC31-00,Municipality,54020,False,l10n_bg.town,,base.bg,Оряхово,l10n_bg.S12259
+l10n_bg.55021,SZR24-00,Municipality,55021,False,l10n_bg.town,,base.bg,Павел баня,l10n_bg.S68850
+l10n_bg.55052,VTR22-00,Municipality,55052,False,l10n_bg.town,,base.bg,Павликени,l10n_bg.S10447
+l10n_bg.55155,PAZ19-00,Municipality,55155,True,l10n_bg.town,,base.bg,Пазарджик,l10n_bg.S55155
+l10n_bg.55302,PAZ20-00,Municipality,55302,False,l10n_bg.town,,base.bg,Панагюрище,l10n_bg.S55155
+l10n_bg.55871,PER32-00,Municipality,55871,True,l10n_bg.town,,base.bg,Перник,l10n_bg.S55871
+l10n_bg.55909,PDV40-00,Municipality,55909,False,l10n_bg.town,,base.bg,Перущица,l10n_bg.S56784
+l10n_bg.56126,BLG33-00,Municipality,56126,False,l10n_bg.town,,base.bg,Петрич,l10n_bg.S04279
+l10n_bg.56277,PAZ21-00,Municipality,56277,False,l10n_bg.town,,base.bg,Пещера,l10n_bg.S55155
+l10n_bg.56407,SFO55-00,Municipality,56407,False,l10n_bg.town,,base.bg,Пирдоп,l10n_bg.S68134
+l10n_bg.56722,PVN24-00,Municipality,56722,True,l10n_bg.town,,base.bg,Плевен,l10n_bg.S56722
+l10n_bg.56784,PDV22-00,Municipality,56784,False,l10n_bg.town,,base.bg,Пловдив,l10n_bg.S56784
+l10n_bg.57354,VTR26-00,Municipality,57354,True,l10n_bg.town,,base.bg,Полски Тръмбеш,l10n_bg.S10447
+l10n_bg.57491,BGS17-00,Municipality,57491,False,l10n_bg.town,,base.bg,Поморие,l10n_bg.S07079
+l10n_bg.57649,TGV24-00,Municipality,57649,False,l10n_bg.town,,base.bg,Попово,l10n_bg.S73626
+l10n_bg.57772,PVN27-00,Municipality,57772,False,l10n_bg.town,,base.bg,Пордим,l10n_bg.S56722
+l10n_bg.58030,SFO34-00,Municipality,58030,False,l10n_bg.town,,base.bg,Правец,l10n_bg.S68134
+l10n_bg.58356,BGS27-00,Municipality,58356,False,l10n_bg.town,,base.bg,Приморско,l10n_bg.S07079
+l10n_bg.58503,VAR24-00,Municipality,58503,False,l10n_bg.town,,base.bg,Провадия,l10n_bg.S10135
+l10n_bg.59080,PDV23-00,Municipality,59080,False,l10n_bg.town,,base.bg,Първомай,l10n_bg.S56784
+l10n_bg.61460,SZR27-00,Municipality,61460,False,l10n_bg.town,,base.bg,Раднево,l10n_bg.S68850
+l10n_bg.61577,PER36-00,Municipality,61577,False,l10n_bg.town,,base.bg,Радомир,l10n_bg.S55871
+l10n_bg.61710,RAZ26-00,Municipality,61710,True,l10n_bg.town,,base.bg,Разград,l10n_bg.S61710
+l10n_bg.61813,BLG37-00,Municipality,61813,False,l10n_bg.town,,base.bg,Разлог,l10n_bg.S04279
+l10n_bg.62004,PAZ24-00,Municipality,62004,False,l10n_bg.town,,base.bg,Ракитово,l10n_bg.S55155
+l10n_bg.62075,PDV25-00,Municipality,62075,False,l10n_bg.town,,base.bg,Раковски,l10n_bg.S56784
+l10n_bg.62671,KNL38-00,Municipality,62671,False,l10n_bg.town,,base.bg,Рила,l10n_bg.S41112
+l10n_bg.62997,VRC32-00,Municipality,62997,False,l10n_bg.town,,base.bg,Роман,l10n_bg.S12259
+l10n_bg.63207,SML27-00,Municipality,63207,False,l10n_bg.town,,base.bg,Рудозем,l10n_bg.S67653
+l10n_bg.63224,BGS18-00,Municipality,63224,False,l10n_bg.village,,base.bg,Руен,l10n_bg.S07079
+l10n_bg.63255,VID33-00,Municipality,63255,False,l10n_bg.village,,base.bg,Ружинци,l10n_bg.S10971
+l10n_bg.63427,RSE27-00,Municipality,63427,True,l10n_bg.town,,base.bg,Русе,l10n_bg.S63427
+l10n_bg.65139,PDV28-00,Municipality,65139,False,l10n_bg.town,,base.bg,Садово,l10n_bg.S56784
+l10n_bg.65231,SFO39-00,Municipality,65231,False,l10n_bg.town,,base.bg,Самоков,l10n_bg.S68134
+l10n_bg.65276,RAZ29-00,Municipality,65276,False,l10n_bg.village,,base.bg,Самуил,l10n_bg.S61710
+l10n_bg.65334,BLG40-00,Municipality,65334,False,l10n_bg.town,,base.bg,Сандански,l10n_bg.S04279
+l10n_bg.65365,KNL41-00,Municipality,65365,False,l10n_bg.town,,base.bg,Сапарева баня,l10n_bg.S41112
+l10n_bg.65440,BLG42-00,Municipality,65440,False,l10n_bg.village,,base.bg,Сатовча,l10n_bg.S04279
+l10n_bg.65677,HKV28-00,Municipality,65677,False,l10n_bg.town,,base.bg,Свиленград,l10n_bg.S77195
+l10n_bg.65766,VTR28-00,Municipality,65766,False,l10n_bg.town,,base.bg,Свищов,l10n_bg.S10447
+l10n_bg.65869,SFO43-00,Municipality,65869,False,l10n_bg.town,,base.bg,Своге,l10n_bg.S68134
+l10n_bg.65927,GAB29-00,Municipality,65927,False,l10n_bg.town,,base.bg,Севлиево,l10n_bg.S14218
+l10n_bg.66264,PAZ29-00,Municipality,66264,False,l10n_bg.town,,base.bg,Септември,l10n_bg.S55155
+l10n_bg.66425,SLS31-00,Municipality,66425,True,l10n_bg.town,,base.bg,Силистра,l10n_bg.S66425
+l10n_bg.47278,HKV29-00,Municipality,47278,False,l10n_bg.town,,base.bg,Симеоновград,l10n_bg.S77195
+l10n_bg.66460,BLG44-00,Municipality,66460,False,l10n_bg.town,,base.bg,Симитли,l10n_bg.S04279
+l10n_bg.66665,SLS32-00,Municipality,66665,False,l10n_bg.village,,base.bg,Ситово,l10n_bg.S66425
+l10n_bg.67338,SLV20-00,Municipality,67338,True,l10n_bg.town,,base.bg,Сливен,l10n_bg.S67338
+l10n_bg.67372,SFO45-00,Municipality,67372,False,l10n_bg.town,,base.bg,Сливница,l10n_bg.S68134
+l10n_bg.67444,RSE33-00,Municipality,67444,False,l10n_bg.town,,base.bg,Сливо поле,l10n_bg.S63427
+l10n_bg.67653,SML31-00,Municipality,67653,True,l10n_bg.town,,base.bg,Смолян,l10n_bg.S67653
+l10n_bg.67708,SHU25-00,Municipality,67708,False,l10n_bg.town,,base.bg,Смядово,l10n_bg.S83510
+l10n_bg.67800,BGS21-00,Municipality,67800,False,l10n_bg.town,,base.bg,Созопол,l10n_bg.S07079
+l10n_bg.68080,PDV43-00,Municipality,68080,False,l10n_bg.town,,base.bg,Сопот,l10n_bg.S56784
+l10n_bg.68134,SOF46-00,Municipality,68134,True,l10n_bg.town,,base.bg,София,l10n_bg.S68134
+l10n_bg.17974,BGS06-00,Municipality,17974,False,l10n_bg.town,,base.bg,Средец,l10n_bg.S07079
+l10n_bg.51980,PDV41-00,Municipality,51980,False,l10n_bg.town,,base.bg,Стамболийски,l10n_bg.S56784
+l10n_bg.68727,HKV30-00,Municipality,68727,False,l10n_bg.village,,base.bg,Стамболово,l10n_bg.S77195
+l10n_bg.68850,SZR31-00,Municipality,68850,True,l10n_bg.town,,base.bg,Стара Загора,l10n_bg.S68850
+l10n_bg.69633,VTR31-00,Municipality,69633,False,l10n_bg.town,,base.bg,Стражица,l10n_bg.S10447
+l10n_bg.69660,JAM22-00,Municipality,69660,False,l10n_bg.town,,base.bg,Стралджа,l10n_bg.S87374
+l10n_bg.69835,PAZ32-00,Municipality,69835,False,l10n_bg.town,,base.bg,Стрелча,l10n_bg.S55155
+l10n_bg.69969,BLG49-00,Municipality,69969,False,l10n_bg.village,,base.bg,Струмяни,l10n_bg.S04279
+l10n_bg.70175,VAR26-00,Municipality,70175,False,l10n_bg.town,,base.bg,Суворово,l10n_bg.S10135
+l10n_bg.70247,BGS23-00,Municipality,70247,False,l10n_bg.town,,base.bg,Сунгурларе,l10n_bg.S07079
+l10n_bg.70295,VTR32-00,Municipality,70295,False,l10n_bg.town,,base.bg,Сухиндол,l10n_bg.S10447
+l10n_bg.70528,PDV33-00,Municipality,70528,False,l10n_bg.town,,base.bg,Съединение,l10n_bg.S56784
+l10n_bg.70648,PAZ39-00,Municipality,70648,False,l10n_bg.town,,base.bg,Сърница,l10n_bg.S55155
+l10n_bg.72165,SLV24-00,Municipality,72165,False,l10n_bg.town,,base.bg,Твърдица,l10n_bg.S67338
+l10n_bg.72271,DOB27-00,Municipality,72271,False,l10n_bg.town,,base.bg,Тервел,l10n_bg.S72624
+l10n_bg.72343,LOV33-00,Municipality,72343,False,l10n_bg.town,,base.bg,Тетевен,l10n_bg.S43952
+l10n_bg.72761,HKV32-00,Municipality,72761,False,l10n_bg.town,,base.bg,Тополовград,l10n_bg.S77195
+l10n_bg.73047,KNL50-00,Municipality,73047,False,l10n_bg.village,,base.bg,Трекляно,l10n_bg.S41112
+l10n_bg.73198,LOV34-00,Municipality,73198,False,l10n_bg.town,,base.bg,Троян,l10n_bg.S43952
+l10n_bg.73273,PER51-00,Municipality,73273,False,l10n_bg.town,,base.bg,Трън,l10n_bg.S55871
+l10n_bg.73403,GAB35-00,Municipality,73403,False,l10n_bg.town,,base.bg,Трявна,l10n_bg.S14218
+l10n_bg.73496,SLS34-00,Municipality,73496,False,l10n_bg.town,,base.bg,Тутракан,l10n_bg.S66425
+l10n_bg.73626,TGV35-00,Municipality,73626,True,l10n_bg.town,,base.bg,Търговище,l10n_bg.S73626
+l10n_bg.75054,LOV36-00,Municipality,75054,False,l10n_bg.town,,base.bg,Угърчин,l10n_bg.S43952
+l10n_bg.77058,BLG52-00,Municipality,77058,False,l10n_bg.town,,base.bg,Хаджидимово,l10n_bg.S04279
+l10n_bg.77102,VRC35-00,Municipality,77102,False,l10n_bg.village,,base.bg,Хайредин,l10n_bg.S12259
+l10n_bg.77181,HKV33-00,Municipality,77181,False,l10n_bg.town,,base.bg,Харманли,l10n_bg.S77195
+l10n_bg.77195,HKV34-00,Municipality,77195,True,l10n_bg.town,,base.bg,Хасково,l10n_bg.S77195
+l10n_bg.77270,PDV37-00,Municipality,77270,False,l10n_bg.town,,base.bg,Хисаря,l10n_bg.S56784
+l10n_bg.14516,SHU11-00,Municipality,14516,False,l10n_bg.village,,base.bg,Хитрино,l10n_bg.S83510
+l10n_bg.48619,BGS13-00,Municipality,48619,False,l10n_bg.town,,base.bg,Царево,l10n_bg.S07079
+l10n_bg.77308,RAZ36-00,Municipality,77308,False,l10n_bg.town,,base.bg,Цар Калоян,l10n_bg.S61710
+l10n_bg.78361,RSE37-00,Municipality,78361,False,l10n_bg.village,,base.bg,Ценово,l10n_bg.S63427
+l10n_bg.80011,SFO57-00,Municipality,80011,False,l10n_bg.village,,base.bg,Чавдар,l10n_bg.S68134
+l10n_bg.80323,SFO58-00,Municipality,80323,False,l10n_bg.village,,base.bg,Челопеч,l10n_bg.S68134
+l10n_bg.80371,SML38-00,Municipality,80371,False,l10n_bg.town,,base.bg,Чепеларе,l10n_bg.S67653
+l10n_bg.80501,PVN37-00,Municipality,80501,False,l10n_bg.town,,base.bg,Червен бряг,l10n_bg.S56722
+l10n_bg.81236,KRZ35-00,Municipality,81236,False,l10n_bg.village,,base.bg,Черноочене,l10n_bg.S40909
+l10n_bg.81390,MON36-00,Municipality,81390,False,l10n_bg.town,,base.bg,Чипровци,l10n_bg.S48489
+l10n_bg.81414,SZR36-00,Municipality,81414,False,l10n_bg.town,,base.bg,Чирпан,l10n_bg.S68850
+l10n_bg.81757,VID37-00,Municipality,81757,False,l10n_bg.village,,base.bg,Чупрене,l10n_bg.S10971
+l10n_bg.83017,DOB29-00,Municipality,83017,False,l10n_bg.town,,base.bg,Шабла,l10n_bg.S72624
+l10n_bg.83510,SHU30-00,Municipality,83510,True,l10n_bg.town,,base.bg,Шумен,l10n_bg.S83510
+l10n_bg.87014,LOV38-00,Municipality,87014,False,l10n_bg.town,,base.bg,Ябланица,l10n_bg.S43952
+l10n_bg.87299,MON38-00,Municipality,87299,False,l10n_bg.village,,base.bg,Якимово,l10n_bg.S48489
+l10n_bg.87338,BLG53-00,Municipality,87338,False,l10n_bg.town,,base.bg,Якоруда,l10n_bg.S04279
+l10n_bg.87374,JAM26-00,Municipality,87374,True,l10n_bg.town,,base.bg,Ямбол,l10n_bg.S87374

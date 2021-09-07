@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_company_form" model="ir.ui.view">
+            <field name="name">res.company.mobile.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="arch" type="xml">
+                <field name="vat" position="after">
+                    <label for="uid" string="The identification code"/>
+                    <div>
+                        <field name="uid" nolabel="1"/>
+                        <field name="uid_type" nolabel="1"/>
+                    </div>
+                </field>
+                <field name="phone" position="after">
+                    <field name="fax" widget="phone"/>
+                    <field name="mobile" widget="phone"/>
+                </field>
+		    </field>
+        </record>
+    </data>
+</odoo>

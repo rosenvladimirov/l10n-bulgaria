@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_invoice_tax_tree" model="ir.ui.view">
+            <field name="name">account.invoice.tax.tree</field>
+            <field name="model">account.invoice.tax</field>
+            <field name="inherit_id" ref="account.view_invoice_tax_tree"/>
+            <field name="arch" type="xml">
+                <field name="amount_total" position="after">
+                    <field name="base_currency" widget='monetary' options="{'currency_field': 'company_currency_id'}"/>
+                    <field name="amount_total_currency" widget='monetary'
+                           options="{'currency_field': 'company_currency_id'}"/>
+                    <field name="company_currency_id" invisible="1"/>
+                    <field name="has_currency" invisible="1"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_invoice_tax_form" model="ir.ui.view">
+            <field name="name">account.invoice.tax.form</field>
+            <field name="model">account.invoice.tax</field>
+            <field name="inherit_id" ref="account.view_invoice_tax_form"/>
+            <field name="arch" type="xml">
+                <field name="amount_total" position="after">
+                    <field name="base_currency" widget='monetary' options="{'currency_field': 'company_currency_id'}"
+                           attrs="{'invisible':[('has_currency','=',False)]}"/>
+                    <field name="amount_total_currency" widget='monetary'
+                           options="{'currency_field': 'company_currency_id'}"
+                           attrs="{'invisible':[('has_currency','=',False)]}"/>
+                    <field name="company_currency_id" invisible="1"/>
+                    <field name="has_currency" invisible="1"/>
+                </field>
+            </field>
+        </record>
+        <record id="invoice_form_currency" model="ir.ui.view">
+            <field name="name">account.invoice.currency.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account_tax_fixes.invoice_fixes_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tax_line_ids']/tree/field[@name='amount_total']" position="after">
+                    <field name="base_currency" widget='monetary' options="{'currency_field': 'company_currency_id'}"
+                           attrs="{'invisible':[('has_currency','=',False)]}"/>
+                    <field name="amount_total_currency" widget='monetary'
+                           options="{'currency_field': 'company_currency_id'}"
+                           attrs="{'invisible':[('has_currency','=',False)]}"/>
+                    <field name="company_currency_id" invisible="1"/>
+                    <field name="has_currency" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="invoice_form_bg_number" model="ir.ui.view">
+            <field name="name">account.invoice.currency.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='%(account.action_account_invoice_refund)d']" position="attributes">
+                    <attribute name="string">Add Credit/Debit Note</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[@name='other_info']/group/group[2]" position="inside">
+                    <field name="invoice_number" attrs="{'invisible': [('state','not in',('open',))]}"
+                           context="{'force_number': True}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="invoice_supplier_bg_form" model="ir.ui.view">
+            <field name="name">account.invoice.bg.supplier.form</field>
+            <field name="model">account.invoice</field>
+            <field name="priority">2</field>
+            <field name="inherit_id" ref="account_tax_fixes.invoice_supplier_fixes_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tax_line_ids']/tree/field[@name='amount_total']" position="after">
+                    <field name="base_currency" widget='monetary' options="{'currency_field': 'company_currency_id'}"
+                           attrs="{'invisible':[('has_currency','=',False)]}"/>
+                    <field name="amount_total_currency" widget='monetary'
+                           options="{'currency_field': 'company_currency_id'}"
+                           attrs="{'invisible':[('has_currency','=',False)]}"/>
+                    <field name="company_currency_id" invisible="1"/>
+                    <field name="has_currency" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--
+        <record id="invoice_supplier_bg_form_deals" model="ir.ui.view">
+            <field name="name">account.invoice.extend.supplier.form</field>
+            <field name="model">account.invoice</field>
+            <field name="priority">2</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="move_id" position="after">
+                    <field name="eu_deals" attrs="{'invisible':[('type_number','!=','protocol')]}"/>
+                    <field name="doc_justification" attrs="{'invisible':[('type_number','not in', ['voucher', 'invoice'])]}"/>
+                    <field name="tax_type_deal"/>
+                </field>
+            </field>
+        </record>
+        -->
+        <record id="action_invoice_out_debit_note" model="ir.actions.act_window">
+            <field name="name">Customer Debit Notes</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('type','=','out_invoice'), ('sub_type','=','out_debitnote')]</field>
+            <field name="context">{'default_type': 'out_invoice', 'type': 'out_invoice', 'default_sub_type':
+                'out_debitnote', 'sub_type': 'out_debitnote', 'journal_type': 'sale'}
+            </field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a debit note.
+                </p>
+                <p>
+                    Note that the easiest way to create a debit note is to do it directly form
+                    the customer invoice, to correct receivable amount it totally or partially.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_invoice_out_debit_note_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account.invoice_tree"/>
+            <field name="act_window_id" ref="action_invoice_out_debit_note"/>
+        </record>
+
+        <record id="action_invoice_out_debit_note_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account.invoice_form"/>
+            <field name="act_window_id" ref="action_invoice_out_debit_note"/>
+        </record>
+
+        <menuitem action="action_invoice_out_debit_note"
+                  id="menu_action_invoice_out_debit_note"
+                  parent="account.menu_finance_receivables_documents"
+                  sequence="2"/>
+
+        <record id="action_invoice_in_debit_note" model="ir.actions.act_window">
+            <field name="name">Vendor Debit Notes</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('type','=','in_invoice'), ('sub_type','=','in_debitnote')]</field>
+            <field name="context">{'default_type': 'in_invoice', 'type': 'in_invoice', 'default_sub_type':
+                'in_debitnote', 'sub_type': 'in_debitnote', 'journal_type': 'purchase'}
+            </field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to record a new vendor debit note.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_invoice_in_debit_note_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account.invoice_supplier_tree"/>
+            <field name="act_window_id" ref="action_invoice_in_debit_note"/>
+        </record>
+
+        <record id="action_invoice_in_debit_note_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account.invoice_supplier_form"/>
+            <field name="act_window_id" ref="action_invoice_in_debit_note"/>
+        </record>
+
+        <menuitem action="action_invoice_in_debit_note"
+                  id="menu_action_invoice_in_debit_note"
+                  parent="account.menu_finance_payables_documents"
+                  sequence="2"/>
+
+        <record id="view_account_invoice_filter" model="ir.ui.view">
+            <field name="name">account.invoice.select</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='number']" position="attributes">
+                    <attribute name="filter_domain">['|','|','|', '|', '|', '|', ('number','ilike',self), ('origin','ilike',self), ('reference', 'ilike', self), ('invoice_number', 'ilike', self), ('protocol_number', 'ilike', self), ('customs_number', 'ilike', self), ('partner_id', 'child_of', self)]</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

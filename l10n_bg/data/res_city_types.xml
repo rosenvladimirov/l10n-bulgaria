@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="village" model="res.city.types">
+            <field name="code">с.</field>
+            <field name="name">Село</field>
+        </record>
+        <record id="town" model="res.city.types">
+            <field name="code">гр.</field>
+            <field name="name">Град</field>
+        </record>
+        <record id="monastery" model="res.city.types">
+            <field name="code">ман.</field>
+            <field name="name">Манастир</field>
+        </record>
+    </data>
+</odoo>

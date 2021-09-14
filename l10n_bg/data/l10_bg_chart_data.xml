@@ -5,26 +5,20 @@
             <field name="name">ЗАДБАЛАНСОВИ СМЕТКИ</field>
         </record>
 
-        <record id="pcg_500" model="account.account.template">
-            <field name="name">Вътрешни трансфери</field>
-            <field name="code">500</field>
-            <field name="user_type_id" ref="account.data_account_type_current_assets"/>
-            <field name="reconcile" eval="True"/>
-        </record>
-
         <!-- Chart template -->
         <record id="bg_chart_template" model="account.chart.template">
             <field name="name">Bulgaria - Chart of Accounts</field>
             <field name="bank_account_code_prefix">503.000</field>
             <field name="cash_account_code_prefix">501.000</field>
-            <field name="code_digits">6</field>
+            <field name="code_digits">7</field>
             <field name="currency_id" ref="base.BGN"/>
-            <field name="transfer_account_id" ref="pcg_500"/>
-<!--            <field name="spoken_languages" eval="'bg_BG'"/>-->
-            <field name="code_digits">3</field>
         </record>
 
         <record id="pcg_500" model="account.account.template">
+            <field name="name">Вътрешни трансфери</field>
+            <field name="code">500</field>
+            <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+            <field name="reconcile" eval="True"/>
             <field name="chart_template_id" ref="bg_chart_template"/>
         </record>
 
@@ -1204,27 +1198,6 @@
             <field name="name">Кореспондираща сметка за условни пасиви</field>
             <field name="user_type_id" ref="data_account_bg_type_not_classified"/>
             <field name="chart_template_id" ref="bg_chart_template"/>
-        </record>
-        <!-- Chart template -->
-        <record id="bg_chart_template" model="account.chart.template">
-            <!-- Define receivable/payable accounts. -->
-            <field name="property_account_receivable_id" ref="bg_pcg_recv"/> <!-- 4111 -->
-            <field name="property_account_payable_id" ref="bg_pcg_pay"/> <!-- 4011 -->
-
-            <!-- Define categories of expense/income account. -->
-            <field name="property_account_expense_categ_id" ref="bg_pcg_expense"/> <!-- 601 -->
-            <field name="property_account_income_categ_id" ref="pcg_709"/> <!-- 701 -->
-
-            <!-- Define loss/gain exchange rate accounts. -->
-            <field name="income_currency_exchange_account_id" ref="pcg_724"/>
-            <field name="expense_currency_exchange_account_id" ref="pcg_624"/>
-
-            <!-- Define input/output accounts for stock valuation. -->
-            <field name="property_stock_account_input_categ_id" ref="pcg_3011"/>
-            <field name="property_stock_account_output_categ_id" ref="pcg_709"/>
-
-            <!-- Define an account template for stock valuation. -->
-            <field name="property_stock_valuation_account_id" ref="pcg_302"/>
         </record>
     </data>
 </odoo>

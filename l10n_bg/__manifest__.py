@@ -40,6 +40,7 @@ Bulgarian accounting chart and localization.
         'data/municipality/res.city.csv',
         'data/city_hall/res.city.csv',
         'data/settlement/res.city.csv',
+        'data/l10n_bg_chard_data_update.xml', # fix special account configurations
         'views/res_partner_views.xml',
         'views/res_company_view.xml',
         'views/account_view.xml',

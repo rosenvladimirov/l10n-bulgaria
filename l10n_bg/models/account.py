@@ -109,3 +109,70 @@ class AccountTax(models.Model):
             koef = -1.0
             ret = abs(ret)
         return ret * koef
+
+
+# moved from l10n_bg_account_types
+class AccountAccountType(models.Model):
+    _inherit = "account.account.type"
+    _parent_name = "parent_id"
+    _parent_store = True
+    _parent_order = 'name'
+    _rec_name = 'complete_name'
+    _order = 'parent_left'
+
+    complete_name = fields.Char('Complete Name', compute='_compute_complete_name', store=True, translate=True)
+    display_name = fields.Char(compute='_compute_display_name')
+    internal_group = fields.Selection([
+        ('equity', 'Equity'),
+        ('asset', 'Asset'),
+        ('liability', 'Liability'),
+        ('income', 'Income'),
+        ('expense', 'Expense'),
+        ('off_balance', 'Off Balance'),
+    ], string="Internal Group",
+        required=True,
+        help="The 'Internal Group' is used to filter accounts based on the internal group set on the account type.") # Beckport from 12 and above
+    journal_type = fields.Selection([
+            ('sale', 'Sale'),
+            ('purchase', 'Purchase'),
+            ('cash', 'Cash'),
+            ('bank', 'Bank'),
+            ('general', 'Miscellaneous'),], string="Journal type")
+    balance = fields.Selection([('debit', 'Debit'), ('credit', 'Credit'),], string="Used type balance")
+
+    parent_id = fields.Many2one('account.account.type', 'Parent Type', index=True, ondelete='cascade')
+    child_id = fields.One2many('account.account.type', 'parent_id', 'Child Types')
+    parent_left = fields.Integer('Left Parent', index=1)
+    parent_right = fields.Integer('Right Parent', index=1)
+    top_parent_id = fields.Many2one('account.account.type', 'Top level parent', compute="_compute_top_parent_id")
+
+    @api.depends('name', 'parent_id.complete_name')
+    def _compute_complete_name(self):
+        for type in self:
+            if type.parent_id:
+                type.complete_name = '%s / %s' % (type.parent_id.complete_name, type.name)
+            else:
+                type.complete_name = type.name
+
+    def _compute_top_parent_id(self):
+        for type in self:
+            top_parent_id = type
+            while top_parent_id.parent_id:
+                top_parent_id = top_parent_id.parent_id
+            _logger.info("TOP LEVEL %s" % top_parent_id)
+            type.top_parent_id = top_parent_id.id
+
+    def _compute_display_name(self):
+        for type in self:
+            type.display_name = type.complete_name
+
+
+# moved from l10n_bg_account_types
+class AccountAccount(models.Model):
+    _inherit = "account.account"
+
+    internal_group = fields.Selection(related='user_type_id.internal_group', string="Internal Group", store=True, readonly=True)
+    journal_type = fields.Selection(related='user_type_id.journal_type', string="Journal Type", store=True, readonly=True)
+    parent_user_type_id = fields.Many2one('account.account.type', string='Top Level Type', store=True, readonly=True)
+    allowed_journal_ids = fields.Many2many('account.journal', string="Allowed Journals", help="Define in which journals this account can be used. If empty, can be used in all journals.")
+    clear_balance = fields.Boolean()

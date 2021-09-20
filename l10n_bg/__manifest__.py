@@ -6,7 +6,7 @@
     "version": "11.0.5.1",
     "author": "Rosen Vladimirov",
     'category': 'Localization',
-    "website": "https://github.com/rosenvladimirov/l10n_bg-locales",
+    "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "description": """
 This is the module to manage the Accounting Chart, VAT structure, Fiscal Position and Tax Mapping.
 ==================================================================================================

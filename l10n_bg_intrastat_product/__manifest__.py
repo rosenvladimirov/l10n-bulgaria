@@ -8,7 +8,7 @@
     'version': '11.0.3.0.0',
     'category': 'Intrastat',
     'license': 'AGPL-3',
-
+    "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     'summary': 'Intrastat Product Declaration for Bulgaria',
     'author': "Rosen Vladimirov <vladimirov.rosen@gmail.com>, "
               "dXFactory Ltd. <http://www.dxfactory.eu>, "

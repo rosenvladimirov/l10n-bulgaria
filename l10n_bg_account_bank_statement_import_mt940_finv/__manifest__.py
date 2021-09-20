@@ -8,7 +8,7 @@
     'author': 'Rosen Vladimirov ,'
               'Prodax Ltd., '
               'Odoo Community Association (OCA)',
-    'website': 'https://www.odoo.bg',
+    "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     'category': 'Banking addons',
     'depends': [
         'account_bank_statement_import_mt940_base'

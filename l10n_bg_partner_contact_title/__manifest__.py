@@ -7,6 +7,7 @@
     'category': 'hidden',
     'sequence': 30,
     'summary': 'Partner contact title formating',
+    "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     'description': """
 """,
     'author': 'Rosen Vladimirov, '

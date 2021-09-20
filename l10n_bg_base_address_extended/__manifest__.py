@@ -7,7 +7,7 @@
     "author": "Rosen Vladimirov, "
               "BioPrint Ltd.",
     'category': 'Localization',
-    "website": "https://github.com/rosenvladimirov/l10n_bg-locales",
+    "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "description": """
     """,
     'depends': [

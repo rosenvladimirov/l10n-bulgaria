@@ -10,7 +10,7 @@
     'author': 'Rosen Vladimirov, '
               'BioPrint Ltd., '
               'Odoo Community Association (OCA)',
-    'website': 'https://github.com/rosenvladimirov/l10n_bg-locales',
+    "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     'depends': [
         'l10n_bg',
         'fleet',

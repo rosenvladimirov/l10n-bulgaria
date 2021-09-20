@@ -6,7 +6,7 @@
     "version": "11.0.1.0.1",
     "author": "Rosen Vladimirov",
     'category': 'Localization',
-    "website": "https://github.com/rosenvladimirov/l10n_bg-locales",
+    "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "description": """
 This module activate The manual editing VAT on supplier invoice form
     """,

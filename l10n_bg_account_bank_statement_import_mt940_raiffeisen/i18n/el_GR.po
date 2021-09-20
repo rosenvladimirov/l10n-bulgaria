@@ -1,0 +1,27 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_bg_account_bank_statement_import_mt940_raiffeisen
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e-20191023\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-21 14:01+0000\n"
+"PO-Revision-Date: 2021-04-21 14:01+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_account_bank_statement_import_mt940_raiffeisen
+#: model:ir.model,name:l10n_bg_account_bank_statement_import_mt940_raiffeisen.model_account_bank_statement_import
+msgid "Import Bank Statement"
+msgstr "Εισαγωγή Statement Tράπεζας"
+
+#. module: l10n_bg_account_bank_statement_import_mt940_raiffeisen
+#: model:ir.ui.view,arch_db:l10n_bg_account_bank_statement_import_mt940_raiffeisen.view_account_bank_statement_import_form
+msgid "MT940 Raiffeisen Bank International Bulgaria Import"
+msgstr "MT940 Raiffeisen Bank International Bulgaria Import"
+

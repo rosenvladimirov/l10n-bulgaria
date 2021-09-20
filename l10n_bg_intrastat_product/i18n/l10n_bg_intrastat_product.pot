@@ -1,0 +1,376 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_bg_intrastat_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e-20191023\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-21 14:01+0000\n"
+"PO-Revision-Date: 2021-04-21 14:01+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.actions.act_window,name:l10n_bg_intrastat_product.l10n_bg_intrastat_product_declaration_action
+#: model:ir.ui.menu,name:l10n_bg_intrastat_product.l10n_bg_intrastat_product_declaration_menu
+#: model:ir.ui.view,arch_db:l10n_bg_intrastat_product.l10n_bg_intrastat_product_declaration_view_form
+#: model:ir.ui.view,arch_db:l10n_bg_intrastat_product.l10n_bg_intrastat_product_declaration_view_graph
+#: model:ir.ui.view,arch_db:l10n_bg_intrastat_product.l10n_bg_intrastat_product_declaration_view_tree
+#: model:res.groups,name:l10n_bg_intrastat_product.group_l10n_bg_intrastat_product
+msgid "Bulgaria Intrastat Product Declaration"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: code:addons/l10n_bg_intrastat_product/models/intrastat_installer.py:27
+#, python-format
+msgid "Bulgarian / български език"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model,name:l10n_bg_intrastat_product.model_res_city
+msgid "City"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_line_computation_line_ids
+msgid "Computation Lines"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_intrastat_installer_bg_create_uid
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_computation_line_create_uid
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_create_uid
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_line_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_intrastat_installer_bg_create_date
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_computation_line_create_date
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_create_date
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_line_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_computation_line_declaration_line_id
+msgid "Declaration Line"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_intrastat_installer_bg_display_name
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_computation_line_display_name
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_display_name
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_line_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: code:addons/l10n_bg_intrastat_product/models/intrastat_installer.py:26
+#, python-format
+msgid "English"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: code:addons/l10n_bg_intrastat_product/models/l10n_au_intrastat_product_declaration.py:160
+#, python-format
+msgid "Go to the Intrastat Configuration Wizard."
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_intrastat_installer_bg_id
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_computation_line_id
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_id
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_line_id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: code:addons/l10n_bg_intrastat_product/models/l10n_au_intrastat_product_declaration.py:153
+#, python-format
+msgid "Intrastat Code '%s' not found. \n"
+"You can update your codes via the Intrastat Configuration Wizard."
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_intrastat_installer_bg_CN_file
+msgid "Intrastat Code File"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_computation_line_ids
+msgid "Intrastat Product Computation Lines"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_computation_line_parent_id
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_line_parent_id
+msgid "Intrastat Product Declaration"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_declaration_line_ids
+msgid "Intrastat Product Declaration Lines"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model,name:l10n_bg_intrastat_product.model_l10n_bg_intrastat_product_declaration
+msgid "Intrastat Product Declaration for Bulgaria"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_res_city_region_id
+msgid "Intrastat Region"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_intrastat_installer_bg___last_update
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_computation_line___last_update
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration___last_update
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_line___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_intrastat_installer_bg_write_uid
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_computation_line_write_uid
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_line_write_uid
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_intrastat_installer_bg_write_date
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_computation_line_write_date
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_line_write_date
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.ui.view,arch_db:l10n_bg_intrastat_product.intrastat_installer_view_form
+msgid "Load"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.actions.act_window,name:l10n_bg_intrastat_product.intrastat_installer_action
+#: model:ir.ui.view,arch_db:l10n_bg_intrastat_product.intrastat_installer_view_form
+msgid "Load Intrastat Codes"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.ui.view,arch_db:l10n_bg_intrastat_product.intrastat_installer_view_form
+msgid "Load Intrastat Codes Bulgaria"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: code:addons/l10n_bg_intrastat_product/models/l10n_au_intrastat_product_declaration.py:110
+#: code:addons/l10n_bg_intrastat_product/models/l10n_bg_intrastat_product_declaration.py:114
+#, python-format
+msgid "Missing VAT Number on partner '%s'"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.ui.view,arch_db:l10n_bg_intrastat_product.l10n_bg_intrastat_product_declaration_view_search
+msgid "Search Bulgaria Intrastat Product Declaration"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_SFO
+msgid "Sofia"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: code:addons/l10n_bg_intrastat_product/models/l10n_au_intrastat_product_declaration.py:139
+#, python-format
+msgid "The Austria Intrastat Declaration requires the Company's Country to be equal to 'Austria'."
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: code:addons/l10n_bg_intrastat_product/models/l10n_bg_intrastat_product_declaration.py:143
+#, python-format
+msgid "The Bulgaria Intrastat Declaration requires the Company's Country to be equal to 'Bulgaria'."
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: code:addons/l10n_bg_intrastat_product/models/l10n_au_intrastat_product_declaration.py:43
+#: code:addons/l10n_bg_intrastat_product/models/l10n_bg_intrastat_product_declaration.py:48
+#, python-format
+msgid "The Intrastat Region of the Company is not set, please configure it first."
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: code:addons/l10n_bg_intrastat_product/models/l10n_au_intrastat_product_declaration.py:231
+#: code:addons/l10n_bg_intrastat_product/models/l10n_bg_intrastat_product_declaration.py:234
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_computation_line_vat_number
+#: model:ir.model.fields,field_description:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_line_vat_number
+#, python-format
+msgid "VAT Number"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model.fields,help:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_computation_line_vat_number
+#: model:ir.model.fields,help:l10n_bg_intrastat_product.field_l10n_bg_intrastat_product_declaration_line_vat_number
+msgid "VAT number of the trading partner"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_VAR
+msgid "Varna"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model,name:l10n_bg_intrastat_product.model_intrastat_installer_bg
+msgid "intrastat.installer.bg"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model,name:l10n_bg_intrastat_product.model_l10n_bg_intrastat_product_computation_line
+msgid "l10n.bg.intrastat.product.computation.line"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:ir.model,name:l10n_bg_intrastat_product.model_l10n_bg_intrastat_product_declaration_line
+msgid "l10n.bg.intrastat.product.declaration.line"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_BLG
+msgid "Благоевград"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_BGS
+msgid "Бургас"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_VTR
+msgid "Велико Търново"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_VID
+msgid "Видин"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_VRC
+msgid "Враца"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_GAB
+msgid "Габрово"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_DOB
+msgid "Добрич"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_KRZ
+msgid "Кърджали"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_KNL
+msgid "Кюстендил"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_LOV
+msgid "Ловеч"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_MON
+msgid "Монтана"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_PAZ
+msgid "Пазарджик"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_PER
+msgid "Перник"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_PVN
+msgid "Плевен"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_PDV
+msgid "Пловдив"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_RAZ
+msgid "Разград"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_RSE
+msgid "Русе"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_SLS
+msgid "Силистра"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_SLV
+msgid "Сливен"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_SML
+msgid "Смолян"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_SOF
+msgid "София (столица)"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_SZR
+msgid "Стара Загора"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_TGV
+msgid "Търговище"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_HKV
+msgid "Хасково"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_XXX
+msgid "Цялата страна"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_SHU
+msgid "Шумен"
+msgstr ""
+
+#. module: l10n_bg_intrastat_product
+#: model:intrastat.region,name:l10n_bg_intrastat_product.intrastat_region_bg_JAM
+msgid "Ямбол"
+msgstr ""
+

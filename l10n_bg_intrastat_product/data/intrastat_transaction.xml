@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+
+    <record id="intrastat_product.intrastat_transaction_11" model="intrastat.transaction">
+      <field name="code">11</field>
+      <field name="description">Сделки, включващи действителна промяна на собствеността с финансова компенсация. Незабавна продажба/покупка, с изключение на пряка търговия със/от частни потребители</field>
+    </record>
+    <record id="intrastat_product.intrastat_transaction_12" model="intrastat.transaction">
+      <field name="code">12</field>
+      <field name="description">Сделки, включващи действителна промяна на собствеността с финансова компенсация. Пряка търговия със/от частни потребители (вкл. дистанционни продажби)</field>
+    </record>
+    <record id="intrastat_product.intrastat_transaction_21" model="intrastat.transaction">
+      <field name="code">21</field>
+      <field name="description">Връщане и замяна на стоките безплатно след регистрирането на първоначалната сделка. Връщане на стоки.</field>
+    </record>
+    <record id="intrastat_product.intrastat_transaction_22" model="intrastat.transaction">
+      <field name="code">22</field>
+      <field name="description">Връщане и замяна на стоките безплатно след регистрирането на първоначалната сделка. Замяна на върнати стоки.</field>
+    </record>
+    <record id="intrastat_product.intrastat_transaction_23" model="intrastat.transaction">
+      <field name="code">23</field>
+      <field name="description">Връщане и замяна на стоките безплатно след регистрирането на първоначалната сделка. Замяна (например в гаранционен срок) на стоки, които не са били върнати.</field>
+    </record>
+    <record id="intrastat_product.intrastat_transaction_31" model="intrastat.transaction">
+      <field name="code">31</field>
+      <field name="description">Сделки, включващи планирана промяна на собствеността или промяна на собствеността без финансова компенсация. Движения към/от склад (с изключение на стоки, складирани до поискване от клиента и на консигнация)</field>
+    </record>
+    <record id="intrastat_product.intrastat_transaction_32" model="intrastat.transaction">
+      <field name="code">32</field>
+      <field name="description">Сделки, включващи планирана промяна на собствеността или промяна на собствеността без финансова компенсация. Доставка за продажба след одобрение или след изпробване (включително стоки, складирани до поискване от клиента и на консигнация)</field>
+    </record>
+    <record id="intrastat_product.intrastat_transaction_33" model="intrastat.transaction">
+      <field name="code">33</field>
+      <field name="description">Сделки, включващи планирана промяна на собствеността или промяна на собствеността без финансова компенсация. Финансов лизинг.</field>
+    </record>
+    <record id="intrastat_product.intrastat_transaction_34" model="intrastat.transaction">
+      <field name="code">34</field>
+      <field name="description">Сделки, включващи планирана промяна на собствеността или промяна на собствеността без финансова компенсация. Сделки, включващи прехвърляне на собственост без финансова компенсация.</field>
+    </record>
+    <record id="intrastat_product.intrastat_transaction_41" model="intrastat.transaction">
+      <field name="code">41</field>
+      <field name="description">Сделки с цел преработка по договор (без промяна на собствеността). Стоки, които се очаква да бъдат върнати в първоначалната държава членка/държава на износ.</field>
+    </record>
+    <record id="intrastat_product.intrastat_transaction_42" model="intrastat.transaction">
+      <field name="code">42</field>
+      <field name="description">Сделки с цел преработка по договор (без промяна на собствеността). Стоки, които не се очаква да бъдат върнати в първоначалната държава членка/държава на износ.</field>
+    </record>
+    <record id="intrastat_product.intrastat_transaction_51" model="intrastat.transaction">
+      <field name="code">51</field>
+      <field name="description">Сделки след преработка по договор (без промяна на собствеността). Стоки, които са върнати в първоначалната държава членка/държава на износ.</field>
+    </record>
+    <record id="intrastat_product.intrastat_transaction_52" model="intrastat.transaction">
+      <field name="code">52</field>
+      <field name="description">Сделки след преработка по договор (без промяна на собствеността). Стоки, които не са върнати в първоначалната държава членка/държава на износ.</field>
+    </record>
+    <record id="intrastat_product.intrastat_transaction_71" model="intrastat.transaction">
+      <field name="code">71</field>
+      <field name="description">Сделки с оглед/след митническото оформяне (без промяна на собствеността, във връзка със стоки в привиден внос или износ). Допускане на стоки за свободно обращение в държава членка с последващ износ за друга държава членка.</field>
+    </record>
+    <record id="intrastat_product.intrastat_transaction_72" model="intrastat.transaction">
+      <field name="code">72</field>
+      <field name="description">Сделки с оглед/след митническото оформяне (без промяна на собствеността, във връзка със стоки в привиден внос или износ). Транспортиране на стоки от една държава членка до друга държава членка с цел поставяне на стоките под митнически режим износ.</field>
+    </record>
+    <record id="intrastat_product.intrastat_transaction_91" model="intrastat.transaction">
+      <field name="code">91</field>
+      <field name="description">Други сделки, които не могат да бъдат класифицирани под други кодове. Наемане, заем, оперативен лизинг за повече от 24 месеца.</field>
+    </record>
+    <record id="intrastat_product.intrastat_transaction_92" model="intrastat.transaction">
+      <field name="code">92</field>
+      <field name="description">Други сделки, които не могат да бъдат класифицирани под други кодове. Друго.</field>
+    </record>
+  </data>
+</odoo>

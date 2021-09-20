@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_city_extend_form" model="ir.ui.view">
+            <field name="name">res.city.form.extend</field>
+            <field name="model">res.city</field>
+            <field name="inherit_id" ref="l10n_bg.view_city_extend_form"/>
+            <field name="arch" type="xml">
+                <field name="municipality_id" position="before">
+                    <field name="region_id"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+
+    <record id="intrastat_region_bg_BLG" model="intrastat.region">
+      <field name="code">BLG</field>
+      <field name="name">Благоевград</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_BGS" model="intrastat.region">
+      <field name="code">BGS</field>
+      <field name="name">Бургас</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_VAR" model="intrastat.region">
+      <field name="code">VAR</field>
+      <field name="name">Варна</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_VTR" model="intrastat.region">
+      <field name="code">VTR</field>
+      <field name="name">Велико Търново</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_VID" model="intrastat.region">
+      <field name="code">VID</field>
+      <field name="name">Видин</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_VRC" model="intrastat.region">
+      <field name="code">VRC</field>
+      <field name="name">Враца</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_GAB" model="intrastat.region">
+      <field name="code">GAB</field>
+      <field name="name">Габрово</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_DOB" model="intrastat.region">
+      <field name="code">DOB</field>
+      <field name="name">Добрич</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_KRZ" model="intrastat.region">
+      <field name="code">KRZ</field>
+      <field name="name">Кърджали</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_KNL" model="intrastat.region">
+      <field name="code">KNL</field>
+      <field name="name">Кюстендил</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_LOV" model="intrastat.region">
+      <field name="code">LOV</field>
+      <field name="name">Ловеч</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_MON" model="intrastat.region">
+      <field name="code">MON</field>
+      <field name="name">Монтана</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_PAZ" model="intrastat.region">
+      <field name="code">PAZ</field>
+      <field name="name">Пазарджик</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_PER" model="intrastat.region">
+      <field name="code">PER</field>
+      <field name="name">Перник</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_PVN" model="intrastat.region">
+      <field name="code">PVN</field>
+      <field name="name">Плевен</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_PDV" model="intrastat.region">
+      <field name="code">PDV</field>
+      <field name="name">Пловдив</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_RAZ" model="intrastat.region">
+      <field name="code">RAZ</field>
+      <field name="name">Разград</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_RSE" model="intrastat.region">
+      <field name="code">RSE</field>
+      <field name="name">Русе</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_SLS" model="intrastat.region">
+      <field name="code">SLS</field>
+      <field name="name">Силистра</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_SLV" model="intrastat.region">
+      <field name="code">SLV</field>
+      <field name="name">Сливен</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_SML" model="intrastat.region">
+      <field name="code">SML</field>
+      <field name="name">Смолян</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_SOF" model="intrastat.region">
+      <field name="code">SOF</field>
+      <field name="name">София (столица)</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_SFO" model="intrastat.region">
+      <field name="code">SFO</field>
+      <field name="name">София</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_SZR" model="intrastat.region">
+      <field name="code">SZR</field>
+      <field name="name">Стара Загора</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_TGV" model="intrastat.region">
+      <field name="code">TGV</field>
+      <field name="name">Търговище</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_HKV" model="intrastat.region">
+      <field name="code">HKV</field>
+      <field name="name">Хасково</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_SHU" model="intrastat.region">
+      <field name="code">SHU</field>
+      <field name="name">Шумен</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_JAM" model="intrastat.region">
+      <field name="code">JAM</field>
+      <field name="name">Ямбол</field>
+      <field name="is_city">1</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="intrastat_region_bg_XXX" model="intrastat.region">
+      <field name="code">XXX</field>
+      <field name="is_city">1</field>
+      <field name="name">Цялата страна</field>
+      <field name="country_id" ref="base.bg"/>
+    </record>
+
+  </data>
+</odoo>

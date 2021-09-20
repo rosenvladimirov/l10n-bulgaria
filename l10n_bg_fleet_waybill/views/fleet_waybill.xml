@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2021 Rosen Vladimirov
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <record model="ir.actions.act_window" id="action_waibill_moves">
+        <field name="name">Inventory Moves</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.move</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('waybill_id', '=', active_id)]</field>
+    </record>
+
+    <record model="ir.ui.view" id="fleet_vehicle_waybill_form_view">
+        <field name="name">fleet.vehicle.waybill.form (in l10n_bg_fleet_waybill)</field>
+        <field name="model">fleet.vehicle.waybill</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_assign" attrs="{'invisible': [('state', 'in', ('done', 'confirmed', 'cancel'))]}" string="Confirm" type="object" class="oe_highlight" groups="fleet.fleet_group_user"/>
+                    <button name="button_validate" attrs="{'invisible': [('state', 'in', ('done', 'draft', 'cancel'))]}" string="Validate" groups="fleet.fleet_group_manager" type="object" class="oe_highlight"/>
+                    <button name="action_cancel" attrs="{'invisible': [('state', '!=', 'done')]}" string="Cancel" type="object" class="oe_highlight" groups="fleet.fleet_group_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_waibill_moves)d" type="action" class="oe_stat_button" icon="fa-arrows-v" attrs="{'invisible': [('state', '=', 'draft')]}">
+                            <field name="count_stock_move" widget="statinfo" string="Stock Moves"/>
+                        </button>
+                    </div>
+                    <h1 class="hidden-xs">
+                        <field name="name" attrs="{'invisible': [('name','=','/')]}" readonly="1"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="vehicle_id"/>
+                            <field name="driver_id"/>
+                            <field name="location_id" context="{'company_test': True}"/>
+                            <field name="odometer_start" invisible="1" auto_save="1"/>
+                            <field name="odometer" auto_save="1"/>
+                            <field name="total_quantity" auto_save="1"/>
+                            <field name="company_id"/>
+                        </group>
+                        <group>
+                            <field name="date_waybill"/>
+                            <field name="fuel_type_id"/>
+                            <field name="no_fuel_consumption"/>
+                            <field name="total_fuel_quantity" auto_save="1"/>
+                            <field name="stock_move_ids" invisible="1"/>
+                        </group>
+                        <field name="waybill_lines" context="{'default_odometer_start': odometer}">
+                            <tree editable="bottom">
+                                <field name="waybill_id" invisible="1"/>
+                                <field name="roadmap_ids" widget="many2many_tags"/>
+                                <field name="odometer_start"/>
+                                <field name="odometer_stop"/>
+                                <field name="roadmap_type"/>
+                                <field name="quantity"/>
+                                <field name="fuel_quantity"/>
+                                <field name="lot_id"/>
+                                <field name="description"/>
+                            </tree>
+                            <form>
+                                <sheet>
+                                    <field name="waybill_id" invisible="1"/>
+                                    <field name="roadmap_ids" widget="many2many_tags" nolabel="1" colspan="4" placeholder="Choice partner address ..."/>
+                                    <group>
+                                        <group>
+                                            <field name="odometer_start"/>
+                                            <field name="odometer_stop"/>
+                                            <field name="roadmap_type"/>
+                                        </group>
+                                        <group>
+                                            <field name="quantity"/>
+                                            <field name="fuel_quantity"/>
+                                            <field name="lot_id"/>
+                                        </group>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </group>
+                </sheet>
+                <div class="oe_chatter"></div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fleet_vehicle_waybill_search_view">
+        <field name="name">fleet.vehicle.waybill.search (in l10n_bg_fleet_waybill)</field>
+        <field name="model">fleet.vehicle.waybill</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Picking List" filter_domain="['|','|',('name','ilike', self),('driver_id','ilike',self),('vehicle_id','ilike', self)]"/>
+                <filter name="draft" string="Draft" domain="[('state','=','draft')]" help="Draft Waybills"/>
+                <filter name="confirmed" string="Confirmed" domain="[('state','=','confirmed')]" help="Confirmed Waybills"/>
+                <filter name="done" string="Already processed" domain="[('state','=','done')]" help="Waybills already processed"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" domain="[]" context="{'group_by':'state'}"/>
+                    <filter string="Waybill Date" domain="[]"  context="{'group_by':'date'}"/>
+                    <filter name="vehicle" string="Vehicle" domain="[]" context="{'group_by':'vehicle_id'}"/>
+                    <filter name="driver" string="Driver" domain="[]" context="{'group_by':'driver_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fleet_vehicle_waybill_tree_view">
+        <field name="name">fleet.vehicle.waybill.tree (in l10n_bg_fleet_waybill)</field>
+        <field name="model">fleet.vehicle.waybill</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date_waybill"/>
+                <field name="name"/>
+                <field name="vehicle_id"/>
+                <field name="driver_id"/>
+                <field name="odometer"/>
+                <field name="total_quantity"/>
+                <field name="total_fuel_quantity"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="fleet_vehicle_waybill_act_window">
+        <field name="name">Waybill</field>
+        <field name="res_model">fleet.vehicle.waybill</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="fleet_vehicle_waybill_search_view"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create a new waybill for vehicle.
+            </p>
+        </field>
+    </record>
+
+    <record model="ir.ui.menu" id="fleet_vehicle_waybill_menu">
+        <field name="name">Waybill vehicle</field>
+        <field name="parent_id" ref="fleet.menu_fleet_reporting"/>
+        <field name="action" ref="fleet_vehicle_waybill_act_window"/>
+        <field name="sequence" eval="16"/>
+    </record>
+
+</odoo>

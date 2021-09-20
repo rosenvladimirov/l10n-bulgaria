@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            string="Vehicle Waybill"
+            id="action_report_vehicle_waybill"
+            model="fleet.vehicle.waybill"
+            report_type="qweb-pdf"
+            name="l10n_bg_fleet_waybill.report_report_vehicle_waybill"
+            file="l10n_bg_fleet_waybill.report_report_vehicle_waybill"
+            print_report_name="'Vehicle Waybill - %s - %s' % (object.company_id.name or '', object.name)"
+        />
+    </data>
+</odoo>

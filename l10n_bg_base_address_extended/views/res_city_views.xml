@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_city_form_view" model="ir.ui.view">
+            <field name="name">res.city.street.form.views</field>
+            <field name="model">res.city.street</field>
+            <field name="arch" type="xml">
+                <form string="Address">
+                    <sheet>
+                        <group>
+                        <label string="Street"/>
+                        <div>
+                            <div class="o_address_format" name="div_address">
+                                <div class="o_row">
+                                    <label for="sector_number" class="oe_read_only"/>
+                                    <span> </span>
+                                    <field name="sector_number" placeholder="Sector Number/Name..." class="o_address_street"/>
+                                    <label for="name" class="oe_read_only"/>
+                                    <field name="name" placeholder="Street Name..." class="o_address_street"/>
+                                </div>
+                                <div class="o_row">
+                                    <label for="number" class="oe_read_only"/>
+                                    <span> </span>
+                                    <field name="number" placeholder="Street №..." class="o_address_street"/>
+                                    <label for="building_number" class="oe_read_only"/>
+                                    <field name="building_number" placeholder="building №/name..." class="o_address_street"/>
+                                </div>
+                                <div class="o_row">
+                                    <label for="floor_number" class="oe_read_only"/>
+                                    <span> </span>
+                                    <field name="floor_number" placeholder="Floor №..." class="o_address_street"/>
+                                    <label for="number2" class="oe_read_only"/>
+                                    <field name="number2" placeholder="Door №..." class="o_address_street"/>
+                                </div>
+                            </div>
+                        </div>
+                        </group>
+                        <group colspan="4">
+                            <field name="country_id" colspan="2" readonly="1"/>
+                            <field name="city_id" colspan="2" readonly="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="res_city_tree_view" model="ir.ui.view">
+            <field name="name">res.city.street.tree.view</field>
+            <field name="model">res.city.street</field>
+            <field name="arch" type="xml">
+                <tree string="Address">
+                    <field name="sector_number"/>
+                    <field name="name"/>
+                    <field name="number"/>
+                    <field name="building_number"/>
+                    <field name="floor_number"/>
+                    <field name="number2"/>
+                    <field name="country_id"/>
+                    <field name="city_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_city_street_filter" model="ir.ui.view">
+            <field name="model">res.city.street</field>
+            <field name="arch" type="xml">
+                <search string="Search Street in City">
+                    <field name="name" filter_domain="[('name','ilike',self)]"
+                           string="Street"/>
+                    <separator/>
+                    <field name="country_id"/>
+                    <field name="city_id"/>
+                </search>
+            </field>
+        </record>
+        <record id="action_res_city_street_tree" model="ir.actions.act_window">
+            <field name="name">City Streets</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.city.street</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">
+                Display and manage the list of all streetsin cites that can be assigned to
+                your partner records. Note that an option can be set on each country separately
+                to enforce any address of it to have a steets in this list.
+            </field>
+        </record>
+        <record id="view_city_extend_button_tree" model="ir.ui.view">
+            <field name="name">res.city.tree.extend.button</field>
+            <field name="model">res.city</field>
+            <field name="inherit_id" ref="base_address_city.view_city_tree" />
+            <field name="arch" type="xml">
+                <field name="has_taxoffice" position="after">
+                    <button name="%(action_res_city_street_tree)d"
+                        type="action"
+                        context="{'search_default_city_id': id, 'search_default_country_id': country_id, 'default_city_id': id, 'default_country_id': country_id}"
+                        icon="fa-street-view"/>
+                </field>
+            </field>
+        </record>
+        <!-- 'search_default_city_id': [active_id], 'search_default_country_id': [country_id],   domain="[('country_id', '=', country_id), ('city_id', '=', active_id)]" context="{'default_city_id': active_id, 'default_country_id': country_id}" -->
+        <record id="view_city_extend_street_form" model="ir.ui.view">
+            <field name="name">res.city.form.street.extend</field>
+            <field name="model">res.city</field>
+            <field name="inherit_id" ref="l10n_bg.view_city_extend_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='city_data']" position="after">
+                    <group spancol="4">
+                        <field name="street_ids" context="{'default_city_id': active_id}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_city_filter" model="ir.ui.view">
+            <field name="name">res.city.filter.extend</field>
+            <field name="model">res.city</field>
+            <field name="inherit_id" ref="base_address_city.view_city_filter" />
+            <field name="arch" type="xml">
+                <field name="country_id" position="after">
+                    <filter name="country_id" string="Country" context="{'group_by':'country_id'}"/>
+                </field>
+            </field>
+        </record>
+        <record id="action_res_city_form" model="ir.actions.act_window">
+            <field name="name">Cities</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.city</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="base_address_city.view_city_tree"/>
+            <field name="search_view_id" ref="base_address_city.view_city_filter"/>
+            <field name="context">{'search_default_group_country_id': '1'}</field>
+            <field name="help">
+                Display and manage the list of all cities that can be assigned to
+                your partner records. Note that an option can be set on each country separately
+                to enforce any address of it to have a city in this list.
+            </field>
+        </record>
+        <menuitem id="contacts.menu_country_city_partner"
+            action="l10n_bg_base_address_extended.action_res_city_form"
+            parent="contacts.menu_localisation"
+            sequence="2"/>
+    </data>
+</odoo>

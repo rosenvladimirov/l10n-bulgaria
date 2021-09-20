@@ -48,12 +48,15 @@ class AccountTaxTemplate(models.Model):
                                            ('taxbalance', 'Account for balance of taxes'),
                                            ('othertax', 'Different by VAT Tax payable by the taxpayer')],
                                           'Who pays tax', required=True, default='taxpay',
-                                          help="If not applicable (computed through a Python code), the tax won't appear on the invoice.Who pays the tax purchaser or seller ( for imports from outside the EU pay the buyer )")
+                                          help="If not applicable (computed through a Python code), the tax won't "
+                                               "appear on the invoice.Who pays the tax purchaser or seller ( for "
+                                               "imports from outside the EU pay the buyer )")
 
     separate = fields.Boolean('Separate movement')
     contrapart_account_id = fields.Many2one('account.account', domain=[('deprecated', '=', False)],
                                             string='Contrapart Account', ondelete='restrict',
-                                            help="Account that will be set when work with separated movement for contra part. Leave empty to use the contrapart account.")
+                                            help="Account that will be set when work with separated movement for "
+                                                 "contra part. Leave empty to use the contrapart account.")
 
 
 class AccountTax(models.Model):
@@ -67,11 +70,14 @@ class AccountTax(models.Model):
                                            ('taxbalance', 'Account for balance of taxes'),
                                            ('othertax', 'Different by VAT Tax payable by the taxpayer')],
                                           'Who pays tax', required=False, default='taxpay',
-                                          help="If not applicable (computed through a Python code), the tax won't appear on the invoice.Who pays the tax purchaser or seller ( for imports from outside the EU pay the buyer )")
+                                          help="If not applicable (computed through a Python code), the tax won't "
+                                               "appear on the invoice.Who pays the tax purchaser or seller ( for "
+                                               "imports from outside the EU pay the buyer )")
     separate = fields.Boolean('Separate movement')
     contrapart_account_id = fields.Many2one('account.account', domain=[('deprecated', '=', False)],
                                             string='Contrapart Account', ondelete='restrict',
-                                            help="Account that will be set when work with separated movement for contra part. Leave empty to use the contrapart account.")
+                                            help="Account that will be set when work with separated movement for "
+                                                 "contra part. Leave empty to use the contrapart account.")
     parent_tax_ids = fields.Many2many('account.tax', 'account_tax_filiation_rel', 'child_tax', 'parent_tax',
                                       string='Parent Taxes')
 
@@ -89,15 +95,25 @@ class AccountTax(models.Model):
         ('kind', _('Expenses in kind')),
     ], 'Type deal from taxing view',
         help="* The 'Automatic discovery' is used when do not have special tax for other types of the 'Type deal'.\n"
-             "* The 'Product direct selling' is used when this tax is configured for standard deal only with products.\n"
-             "* The 'Service direct selling' is used when this tax is configured for standard deal only with services.\n"
-             "* The 'Product triangles deals' is used when this tax is configured for triangles deal only with products.\n"
-             "* The 'Service triangles deals' is used when this tax is configured for triangles deal only with services.\n"
-             "* The 'Entertainment expenses' is used when this tax is configured to calculate base and amount for 'Tax on entertainment expenses'\n"
-             "* The 'Social expenses provided in kind' is used when this tax is configured to calculate base and amount for 'Tax on social expenses provided in kind'\n"
-             "* The 'Additional social insurance and Life' is used when this tax is configured to calculate base and amount for 'Tax on social expenses for contributions (premiums) for additional social insurance and Life'\n"
-             "* The 'The social expenses of food vouchers' is used when this tax is configured to calculate base and amount for 'Tax on The social expenses of food vouchers'\n"
-             "* The 'Expenses in kind' is used when this tax is configured to calculate base and amount for 'Tax on expenses in kind'\n"
+             "* The 'Product direct selling' is used when this tax is configured for standard deal only with "
+             "products.\n "
+             "* The 'Service direct selling' is used when this tax is configured for standard deal only with "
+             "services.\n "
+             "* The 'Product triangles deals' is used when this tax is configured for triangles deal only with "
+             "products.\n "
+             "* The 'Service triangles deals' is used when this tax is configured for triangles deal only with "
+             "services.\n "
+             "* The 'Entertainment expenses' is used when this tax is configured to calculate base and amount for "
+             "'Tax on entertainment expenses'\n "
+             "* The 'Social expenses provided in kind' is used when this tax is configured to calculate base and "
+             "amount for 'Tax on social expenses provided in kind'\n "
+             "* The 'Additional social insurance and Life' is used when this tax is configured to calculate base and "
+             "amount for 'Tax on social expenses for contributions (premiums) for additional social insurance and "
+             "Life'\n "
+             "* The 'The social expenses of food vouchers' is used when this tax is configured to calculate base and "
+             "amount for 'Tax on The social expenses of food vouchers'\n "
+             "* The 'Expenses in kind' is used when this tax is configured to calculate base and amount for 'Tax on "
+             "expenses in kind'\n "
     )
 
     def _compute_amount(self, base_amount, price_unit, quantity=1.0, product=None, partner=None):
@@ -131,7 +147,7 @@ class AccountAccountType(models.Model):
         ('off_balance', 'Off Balance'),
     ], string="Internal Group",
         required=True,
-        help="The 'Internal Group' is used to filter accounts based on the internal group set on the account type.") # Beckport from 12 and above
+        help="The 'Internal Group' is used to filter accounts based on the internal group set on the account type.")
     journal_type = fields.Selection([
             ('sale', 'Sale'),
             ('purchase', 'Purchase'),
@@ -171,8 +187,14 @@ class AccountAccountType(models.Model):
 class AccountAccount(models.Model):
     _inherit = "account.account"
 
-    internal_group = fields.Selection(related='user_type_id.internal_group', string="Internal Group", store=True, readonly=True)
-    journal_type = fields.Selection(related='user_type_id.journal_type', string="Journal Type", store=True, readonly=True)
+    internal_group = fields.Selection(related='user_type_id.internal_group', string="Internal Group", store=True,
+                                      readonly=True)
+    journal_type = fields.Selection(related='user_type_id.journal_type', string="Journal Type", store=True,
+                                    readonly=True)
     parent_user_type_id = fields.Many2one('account.account.type', string='Top Level Type', store=True, readonly=True)
-    allowed_journal_ids = fields.Many2many('account.journal', string="Allowed Journals", help="Define in which journals this account can be used. If empty, can be used in all journals.")
+    allowed_journal_ids = fields.Many2many('account.journal', string="Allowed Journals", help="Define in which "
+                                                                                              "journals this account "
+                                                                                              "can be used. If empty, "
+                                                                                              "can be used in all "
+                                                                                              "journals.")
     clear_balance = fields.Boolean()

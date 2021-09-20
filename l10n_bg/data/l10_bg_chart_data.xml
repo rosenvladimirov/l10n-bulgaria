@@ -5,23 +5,6 @@
             <field name="name">ЗАДБАЛАНСОВИ СМЕТКИ</field>
         </record>
 
-        <!-- Chart template -->
-        <record id="bg_chart_template" model="account.chart.template">
-            <field name="name">Bulgaria - Chart of Accounts</field>
-            <field name="bank_account_code_prefix">503.000</field>
-            <field name="cash_account_code_prefix">501.000</field>
-            <field name="code_digits">7</field>
-            <field name="currency_id" ref="base.BGN"/>
-        </record>
-
-        <record id="pcg_500" model="account.account.template">
-            <field name="name">Вътрешни трансфери</field>
-            <field name="code">500</field>
-            <field name="user_type_id" ref="account.data_account_type_current_assets"/>
-            <field name="reconcile" eval="True"/>
-            <field name="chart_template_id" ref="bg_chart_template"/>
-        </record>
-
         <!-- Account Templates -->
         <record id="pcg_101" model="account.account.template">
             <field name="code">101.000</field>
@@ -785,6 +768,13 @@
             <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
             <field name="chart_template_id" ref="bg_chart_template"/>
         </record>
+        <record id="pcg_500" model="account.account.template">
+            <field name="name">Вътрешни трансфери</field>
+            <field name="code">500</field>
+            <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+            <field name="reconcile" eval="True"/>
+            <field name="chart_template_id" ref="bg_chart_template"/>
+        </record>
         <record id="bg_pcg_cash" model="account.account.template">
             <field name="code">501.000</field>
             <field name="name">Каса в левове</field>
@@ -1001,9 +991,15 @@
             <field name="user_type_id" ref="account.data_account_type_revenue"/>
             <field name="chart_template_id" ref="bg_chart_template"/>
         </record>
-        <record id="pcg_702" model="account.account.template">
-            <field name="code">702.000</field>
+        <record id="pcg_7021" model="account.account.template">
+            <field name="code">702.100</field>
             <field name="name">Приходи от продажби на стоки</field>
+            <field name="user_type_id" ref="account.data_account_type_revenue"/>
+            <field name="chart_template_id" ref="bg_chart_template"/>
+        </record>
+        <record id="pcg_7022" model="account.account.template">
+            <field name="code">702.200</field>
+            <field name="name">Отчетна стонйност на продадените стоки</field>
             <field name="user_type_id" ref="account.data_account_type_revenue"/>
             <field name="chart_template_id" ref="bg_chart_template"/>
         </record>
@@ -1025,9 +1021,15 @@
             <field name="user_type_id" ref="account.data_account_type_revenue"/>
             <field name="chart_template_id" ref="bg_chart_template"/>
         </record>
-        <record id="pcg_706" model="account.account.template">
-            <field name="code">706.000</field>
+        <record id="pcg_7061" model="account.account.template">
+            <field name="code">706.100</field>
             <field name="name">Приходи от продажба на суровини/материали</field>
+            <field name="user_type_id" ref="account.data_account_type_revenue"/>
+            <field name="chart_template_id" ref="bg_chart_template"/>
+        </record>
+        <record id="pcg_7062" model="account.account.template">
+            <field name="code">706.200</field>
+            <field name="name">Отчетна стоност на продадените суровини/материали</field>
             <field name="user_type_id" ref="account.data_account_type_revenue"/>
             <field name="chart_template_id" ref="bg_chart_template"/>
         </record>
@@ -1052,12 +1054,6 @@
         <record id="pcg_721" model="account.account.template">
             <field name="code">721.000</field>
             <field name="name">Приходи от лихви</field>
-            <field name="user_type_id" ref="account.data_account_type_revenue"/>
-            <field name="chart_template_id" ref="bg_chart_template"/>
-        </record>
-        <record id="pcg_722" model="account.account.template">
-            <field name="code">722.000</field>
-            <field name="name">Приходи от съучастия</field>
             <field name="user_type_id" ref="account.data_account_type_revenue"/>
             <field name="chart_template_id" ref="bg_chart_template"/>
         </record>

@@ -3,6 +3,12 @@
     <data noupdate="1">
         <!-- Chart template update -->
         <record id="bg_chart_template" model="account.chart.template">
+            <field name="name">Bulgaria - Chart of Accounts</field>
+            <field name="bank_account_code_prefix">503.000</field>
+            <field name="cash_account_code_prefix">501.000</field>
+            <field name="code_digits">7</field>
+            <field name="currency_id" ref="base.BGN"/>
+
             <!-- Define receivable/payable accounts. -->
             <field name="property_account_receivable_id" ref="bg_pcg_recv"/> <!-- 4111 -->
             <field name="property_account_payable_id" ref="bg_pcg_pay"/> <!-- 4011 -->

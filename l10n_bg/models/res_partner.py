@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
@@ -80,7 +79,7 @@ class ResPartner(models.Model):
         full information about algoritm is available here
         http://bulstat.registryagency.bg/About.html
         but nothing not work in Bulgaria creasy administration
-        """ 
+        """
         if not (len(vat) in [9, 10, 13]):
             return False
         try:

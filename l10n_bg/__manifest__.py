@@ -21,6 +21,7 @@ Bulgarian accounting chart and localization.
         #'account_financial_report',
         'account_tax_unece',
         'account_tag_menu',
+        'sale',
     ],
     'external_dependencies': {'python': ['xlrd']},
     "demo": [],

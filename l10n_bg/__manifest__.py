@@ -28,6 +28,7 @@ Bulgarian accounting chart and localization.
     "data": [
         'security/ir.model.access.csv',
         'data/sequence_data.xml',
+        'data/l10_bg_chart_data_init.xml',
         'data/l10_bg_chart_data.xml',
         'data/res_city_types.xml',
         'data/res_country_data.xml',

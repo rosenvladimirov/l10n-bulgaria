@@ -1,166 +1,166 @@
-id                    ,code,name
-l10n_bg.pcg_101       ,101 ,Registered capital
-l10n_bg.pcg_121       ,121 ,Prior year retained loss
-l10n_bg.pcg_122       ,122 ,Undistributed profits from past years
-l10n_bg.pcg_123       ,123 ,Current year profit and loss
-l10n_bg.pcg_151       ,151 ,Short-term loans received
-l10n_bg.pcg_152       ,152 ,Long-term loans
-l10n_bg.pcg_153       ,153 ,Credit cards
-l10n_bg.pcg_154       ,154 ,Debt instruments
-l10n_bg.pcg_159       ,159 ,Other loans and liabilities
-l10n_bg.pcg_201       ,201 ,Lands (Terrains)
-l10n_bg.pcg_202       ,202 ,Buildings and constructions
-l10n_bg.pcg_203       ,203 ,Computer equipment
-l10n_bg.pcg_204       ,204 ,Plant and equipment
-l10n_bg.pcg_205       ,205 ,Machinery and equipment
-l10n_bg.pcg_206       ,206 ,Vehicles
-l10n_bg.pcg_207       ,207 ,Office furniture
-l10n_bg.pcg_209       ,209 ,Other tangible fixed assets
-l10n_bg.pcg_211       ,211 ,Products from development activities
-l10n_bg.pcg_212       ,212 ,Software
-l10n_bg.pcg_213       ,213 ,Intellectual property rights
-l10n_bg.pcg_214       ,214 ,Industrial property rights
-l10n_bg.pcg_219       ,219 ,Other intangible fixed assets
-l10n_bg.pcg_221       ,221 ,Investments in subsidiaries
-l10n_bg.pcg_222       ,222 ,Investments in related enterprises and minority participation
-l10n_bg.pcg_223       ,223 ,Investments in joint ventures
-l10n_bg.pcg_224       ,224 ,Investment Properties
-l10n_bg.pcg_225       ,225 ,Investments in held-to-maturity financial assets
-l10n_bg.pcg_226       ,226 ,Investments in financial assets at fair value through profit or loss
-l10n_bg.pcg_227       ,227 ,Long-term loans and receivables
-l10n_bg.pcg_228       ,228 ,Investments in available-for-sale financial assets
-l10n_bg.pcg_229       ,229 ,Investments in other long-term financial assets
-l10n_bg.pcg_231       ,231 ,Positive commercial reputation
-l10n_bg.pcg_232       ,232 ,Negative commercial reputation
-l10n_bg.pcg_2412      ,2412,(Accumulated) Depreciation of buildings and structures
-l10n_bg.pcg_2413      ,2413,(Accumulated) Depreciation of computer equipment
-l10n_bg.pcg_2414      ,2414,(Accumulated) Depreciation of facilities
-l10n_bg.pcg_2415      ,2415,(Accumulated) Depreciation of machinery and equipment
-l10n_bg.pcg_2416      ,2416,(Accumulated) Depreciation of vehicles
-l10n_bg.pcg_2417      ,2417,(Accumulated) Depreciation of office furniture
-l10n_bg.pcg_2419      ,2419,(Accumulated) Depreciation of other non-current tangible assets
-l10n_bg.pcg_2421      ,2421,(Accumulated) Depreciation of development products
-l10n_bg.pcg_2422      ,2422,(Accumulated) Depreciation of software
-l10n_bg.pcg_2429      ,2429,(Accumulated) Depreciation of other non-current intangible assets
-l10n_bg.pcg_2431      ,2431,(Accumulated) Depreciation of Investment Properties (Investment Properties)
-l10n_bg.pcg_2433      ,2433,(Accumulated) Depreciation of positive reputation
-l10n_bg.pcg_251       ,251 ,Adjust for the diminution of receivables
-l10n_bg.pcg_252       ,252 ,Adjustment for the diminution of other assets
-l10n_bg.pcg_301       ,301 ,Purchases
-l10n_bg.pcg_302       ,302 ,Raw materials and supplies
-l10n_bg.pcg_303       ,303 ,Products
-l10n_bg.pcg_304       ,304 ,Goods for resale
-l10n_bg.bg_pcg_pay    ,401 ,Trade creditors
-l10n_bg.pcg_402       ,402 ,Receivables from suppliers on advances
-l10n_bg.pcg_403       ,403 ,Payables related to commercial credit providers
-l10n_bg.pcg_404       ,404 ,Payables to suppliers under certain conditions
-l10n_bg.pcg_405       ,405 ,Payables to related party suppliers
-l10n_bg.pcg_409       ,409 ,Other payables to suppliers
-l10n_bg.bg_pcg_recv   ,411 ,Receivables from customers
-l10n_bg.pcg_412       ,412 ,Payables to advances from customers
-l10n_bg.pcg_413       ,413 ,Receivables from customers under trade credit terms
-l10n_bg.pcg_414       ,414 ,Receivables from customers under special terms
-l10n_bg.pcg_415       ,415 ,Receivables from related party customers
-l10n_bg.pcg_419       ,419 ,Other receivables from customers
-l10n_bg.pcg_421       ,421 ,Payables to personnel
-l10n_bg.pcg_422       ,422 ,Petty cash advances
-l10n_bg.pcg_425       ,425 ,Payables for participating interests
-l10n_bg.pcg_441       ,441 ,Claims against suppliers
-l10n_bg.pcg_442       ,442 ,Claims against employees
-l10n_bg.pcg_443       ,443 ,Revaluation differences arising as a result of stolen property
-l10n_bg.pcg_444       ,444 ,Receivables from litigation
-l10n_bg.pcg_445       ,445 ,Court receivables
-l10n_bg.pcg_4521      ,4521,Annual corporate tax payable
-l10n_bg.pcg_4522      ,4522,Advance corporate tax payable
-l10n_bg.pcg_4531      ,4531,Value added tax on purchases
-l10n_bg.pcg_4532      ,4532,Value added tax on sales
-l10n_bg.pcg_4536      ,4536,Deferred tax credit
-l10n_bg.pcg_4537      ,4537,Unemployed tax credit
-l10n_bg.pcg_4538      ,4538,Value added tax refund
-l10n_bg.pcg_4539      ,4539,Value added tax payment
-l10n_bg.pcg_454       ,454 ,Personal income taxes
-l10n_bg.pcg_456       ,456 ,Excise duties
-l10n_bg.pcg_457       ,457 ,Customs office
-l10n_bg.pcg_459       ,459 ,Tax payables to the budget
-l10n_bg.pcg_461       ,461 ,Compulsory social security payables
-l10n_bg.pcg_462       ,462 ,Voluntary social security payables
-l10n_bg.pcg_463       ,463 ,Health insurance payables
-l10n_bg.pcg_469       ,469 ,Other payables to insurers
-l10n_bg.pcg_491       ,491 ,Accounts for trustees
-l10n_bg.pcg_492       ,492 ,Guarantees
-l10n_bg.pcg_493       ,493 ,Accounts for owners
-l10n_bg.pcg_494       ,494 ,Accounts for deferred taxes
-l10n_bg.pcg_495       ,495 ,Accounts for insurance cost
-l10n_bg.pcg_496       ,496 ,Interest payable and receivable
-l10n_bg.pcg_497       ,497 ,Provisions
-l10n_bg.pcg_498       ,498 ,Other debtors
-l10n_bg.pcg_499       ,499 ,Other creditors
-l10n_bg.pcg_500       ,500 ,Internal transfers
-l10n_bg.bg_pcg_cash   ,501 ,Cash in Bulgarian leva
-l10n_bg.pcg_502       ,502 ,Cash in hand in foreign currencies
-l10n_bg.pcg_503       ,503 ,Cash at bank in Bulgarian leva
-l10n_bg.pcg_504       ,504 ,Cash at bank in foreign currencies
-l10n_bg.pcg_505       ,505 ,Letters of credit
-l10n_bg.pcg_506       ,506 ,Deposits
-l10n_bg.pcg_507       ,507 ,Cash pledged as collateral
-l10n_bg.pcg_509       ,509 ,Other cash (including vouchers and checks)
-l10n_bg.pcg_511       ,511 ,Financial assets at fair value in the profit or loss
-l10n_bg.pcg_512       ,512 ,Financial assets held to maturity
-l10n_bg.pcg_513       ,513 ,Short-term loans and receivables
-l10n_bg.pcg_514       ,514 ,Financial assets available for sale
-l10n_bg.pcg_519       ,519 ,Other short-term financial assets (including precious metals)
-l10n_bg.bg_pcg_expense,601 ,Cost of materials
-l10n_bg.pcg_602       ,602 ,Cost of hired services
-l10n_bg.pcg_603       ,603 ,Depreciation and amortization
-l10n_bg.pcg_604       ,604 ,Salaries and wages
-l10n_bg.pcg_605       ,605 ,Social security
-l10n_bg.pcg_606       ,606 ,"Taxes, fees and other similar payments"
-l10n_bg.pcg_607       ,607 ,Provisions
-l10n_bg.pcg_608       ,608 ,Expenses from subsequent asset revaluation
-l10n_bg.pcg_609       ,609 ,Other expenses
-l10n_bg.pcg_611       ,611 ,Оperating expenses
-l10n_bg.pcg_612       ,612 ,Expenses for supporting activity
-l10n_bg.pcg_613       ,613 ,Expenses for acquisition of fixed assets
-l10n_bg.pcg_614       ,614 ,Administrative expenses
-l10n_bg.pcg_615       ,615 ,Sales costs
-l10n_bg.pcg_621       ,621 ,Interest expenses
-l10n_bg.pcg_623       ,623 ,Expenses on operations with financial assets and instruments
-l10n_bg.pcg_624       ,624 ,Losses arising as a result of dealing in foreign currencies
-l10n_bg.pcg_625       ,625 ,Expenses on subsequent valuation of financial assets and instruments
-l10n_bg.pcg_629       ,629 ,Other financial expenses
-l10n_bg.pcg_651       ,651 ,Non-financial deferred expenses
-l10n_bg.pcg_652       ,652 ,Financial deferred expenses
-l10n_bg.pcg_691       ,691 ,Extraordinary expenses
-l10n_bg.bg_pcg_sale   ,701 ,Revenue from sales of products
-l10n_bg.pcg_702       ,702 ,Sale of goods for resale
-l10n_bg.pcg_703       ,703 ,Sale of services
-l10n_bg.pcg_704       ,704 ,Rentals
-l10n_bg.pcg_705       ,705 ,Sale of fixed assets
-l10n_bg.pcg_706       ,706 ,Sale of raw materials and supplies
-l10n_bg.pcg_707       ,707 ,Revenue from subsequent asset valuation
-l10n_bg.pcg_708       ,708 ,Subsides and grants
-l10n_bg.pcg_709       ,709 ,Other operating revenue
-l10n_bg.pcg_721       ,721 ,Interest income
-l10n_bg.pcg_722       ,723 ,Revenue from operations with financial assets and instruments
-l10n_bg.pcg_724       ,724 ,Gains arising as a result of dealing in foreign currencies
-l10n_bg.pcg_725       ,725 ,Revenue from subsequent revaluation of financial assets and instruments
-l10n_bg.pcg_729       ,729 ,Other financial income
-l10n_bg.pcg_751       ,751 ,Non-financial deferred income
-l10n_bg.pcg_752       ,752 ,Financial deferred income
-l10n_bg.pcg_753       ,753 ,Financing for fixed assets
-l10n_bg.pcg_754       ,754 ,Revenue grants
-l10n_bg.pcg_791       ,791 ,Extraordinary income
-l10n_bg.pcg_911       ,911 ,Rented fixed assets not owned by the enterprise
-l10n_bg.pcg_912       ,912 ,Tangible fixed assets not owned by the enterprise received from consignment
-l10n_bg.pcg_913       ,913 ,Other tangible and intangible assets accepted for storage
-l10n_bg.pcg_914       ,914 ,Financial assets or cash taken into storage
-l10n_bg.pcg_981       ,981 ,Tangible and intangible assets not owned by the enterprise received as collateral
-l10n_bg.pcg_982       ,982 ,Financial assets not owned by the enterprise received as collateral
-l10n_bg.pcg_983       ,983 ,Policies or promissory notes received as collateral
-l10n_bg.pcg_984       ,984 ,Other contingent assets
-l10n_bg.pcg_989       ,989 ,Counterparty account for contingent assets
-l10n_bg.pcg_991       ,991 ,Tangible and intangible assets owned by the enterprise provided as collateral
-l10n_bg.pcg_992       ,992 ,Own financial assets provided as collateral
-l10n_bg.pcg_993       ,993 ,Policies or promissory notes provided as collateral
-l10n_bg.pcg_994       ,994 ,Other contingent liabilities
-l10n_bg.pcg_999       ,999 ,Counterparty account for contingent liabilities
+id,code,name
+l10n_bg.pcg_101,101.000,Registered capital
+l10n_bg.pcg_121,121.000,Prior year retained loss
+l10n_bg.pcg_122,122.000,Undistributed profits from past years
+l10n_bg.pcg_123,123.000,Current year profit and loss
+l10n_bg.pcg_151,151.000,Short-term loans received
+l10n_bg.pcg_152,152.000,Long-term loans
+l10n_bg.pcg_153,153.000,Credit cards
+l10n_bg.pcg_154,154.000,Debt instruments
+l10n_bg.pcg_159,159.000,Other loans and liabilities
+l10n_bg.pcg_201,201.000,Lands (Terrains)
+l10n_bg.pcg_202,202.000,Buildings and constructions
+l10n_bg.pcg_203,203.000,Computer equipment
+l10n_bg.pcg_204,204.000,Plant and equipment
+l10n_bg.pcg_205,205.000,Machinery and equipment
+l10n_bg.pcg_206,206.000,Vehicles
+l10n_bg.pcg_207,207.000,Office furniture
+l10n_bg.pcg_209,209.000,Other tangible fixed assets
+l10n_bg.pcg_211,211.000,Products from development activities
+l10n_bg.pcg_212,212.000,Software
+l10n_bg.pcg_213,213.000,Intellectual property rights
+l10n_bg.pcg_214,214.000,Industrial property rights
+l10n_bg.pcg_219,219.000,Other intangible fixed assets
+l10n_bg.pcg_221,221.000,Investments in subsidiaries
+l10n_bg.pcg_222,222.000,Investments in related enterprises and minority participation
+l10n_bg.pcg_223,223.000,Investments in joint ventures
+l10n_bg.pcg_224,224.000,Investment Properties
+l10n_bg.pcg_225,225.000,Investments in held-to-maturity financial assets
+l10n_bg.pcg_226,226.000,Investments in financial assets at fair value through profit or loss
+l10n_bg.pcg_227,227.000,Long-term loans and receivables
+l10n_bg.pcg_228,228.000,Investments in available-for-sale financial assets
+l10n_bg.pcg_229,229.000,Investments in other long-term financial assets
+l10n_bg.pcg_231,231.000,Positive commercial reputation
+l10n_bg.pcg_232,232.000,Negative commercial reputation
+l10n_bg.pcg_2412,241.200,(Accumulated) Depreciation of buildings and structures
+l10n_bg.pcg_2413,241.300,(Accumulated) Depreciation of computer equipment
+l10n_bg.pcg_2414,241.400,(Accumulated) Depreciation of facilities
+l10n_bg.pcg_2415,241.500,(Accumulated) Depreciation of machinery and equipment
+l10n_bg.pcg_2416,241.600,(Accumulated) Depreciation of vehicles
+l10n_bg.pcg_2417,241.700,(Accumulated) Depreciation of office furniture
+l10n_bg.pcg_2419,241.900,(Accumulated) Depreciation of other non-current tangible assets
+l10n_bg.pcg_2421,242.100,(Accumulated) Depreciation of development products
+l10n_bg.pcg_2422,242.200,(Accumulated) Depreciation of software
+l10n_bg.pcg_2429,242.900,(Accumulated) Depreciation of other non-current intangible assets
+l10n_bg.pcg_2431,243.100,(Accumulated) Depreciation of Investment Properties (Investment Properties)
+l10n_bg.pcg_2433,243.300,(Accumulated) Depreciation of positive reputation
+l10n_bg.pcg_251,251.000,Adjust for the diminution of receivables
+l10n_bg.pcg_252,252.000,Adjustment for the diminution of other assets
+l10n_bg.pcg_301,301.000,Purchases
+l10n_bg.pcg_302,302.000,Raw materials and supplies
+l10n_bg.pcg_303,303.000,Products
+l10n_bg.pcg_304,304.000,Goods for resale
+l10n_bg.bg_pcg_pay,401.000,Trade creditors
+l10n_bg.pcg_402,402.000,Receivables from suppliers on advances
+l10n_bg.pcg_403,403.000,Payables related to commercial credit providers
+l10n_bg.pcg_404,404.000,Payables to suppliers under certain conditions
+l10n_bg.pcg_405,405.000,Payables to related party suppliers
+l10n_bg.pcg_409,409.000,Other payables to suppliers
+l10n_bg.bg_pcg_recv,411.000,Receivables from customers
+l10n_bg.pcg_412,412.000,Payables to advances from customers
+l10n_bg.pcg_413,413.000,Receivables from customers under trade credit terms
+l10n_bg.pcg_414,414.000,Receivables from customers under special terms
+l10n_bg.pcg_415,415.000,Receivables from related party customers
+l10n_bg.pcg_419,419.000,Other receivables from customers
+l10n_bg.pcg_421,421.000,Payables to personnel
+l10n_bg.pcg_422,422.000,Petty cash advances
+l10n_bg.pcg_425,425.000,Payables for participating interests
+l10n_bg.pcg_441,441.000,Claims against suppliers
+l10n_bg.pcg_442,442.000,Claims against employees
+l10n_bg.pcg_443,443.000,Revaluation differences arising as a result of stolen property
+l10n_bg.pcg_444,444.000,Receivables from litigation
+l10n_bg.pcg_445,445.000,Court receivables
+l10n_bg.pcg_4521,452.100,Annual corporate tax payable
+l10n_bg.pcg_4522,452.200,Advance corporate tax payable
+l10n_bg.pcg_4531,453.100,Value added tax on purchases
+l10n_bg.pcg_4532,453.200,Value added tax on sales
+l10n_bg.pcg_4536,453.600,Deferred tax credit
+l10n_bg.pcg_4537,453.700,Unemployed tax credit
+l10n_bg.pcg_4538,453.800,Value added tax refund
+l10n_bg.pcg_4539,453.900,Value added tax payment
+l10n_bg.pcg_454,454.000,Personal income taxes
+l10n_bg.pcg_456,456.000,Excise duties
+l10n_bg.pcg_457,457.000,Customs office
+l10n_bg.pcg_459,459.000,Tax payables to the budget
+l10n_bg.pcg_461,461.000,Compulsory social security payables
+l10n_bg.pcg_462,462.000,Voluntary social security payables
+l10n_bg.pcg_463,463.000,Health insurance payables
+l10n_bg.pcg_469,469.000,Other payables to insurers
+l10n_bg.pcg_491,491.000,Accounts for trustees
+l10n_bg.pcg_492,492.000,Guarantees
+l10n_bg.pcg_493,493.000,Accounts for owners
+l10n_bg.pcg_494,494.000,Accounts for deferred taxes
+l10n_bg.pcg_495,495.000,Accounts for insurance cost
+l10n_bg.pcg_496,496.000,Interest payable and receivable
+l10n_bg.pcg_497,497.000,Provisions
+l10n_bg.pcg_498,498.000,Other debtors
+l10n_bg.pcg_499,499.000,Other creditors
+l10n_bg.pcg_500,500.000,Internal transfers
+l10n_bg.bg_pcg_cash,501.000,Cash in Bulgarian leva
+l10n_bg.pcg_502,502.000,Cash in hand in foreign currencies
+l10n_bg.pcg_503,503.000,Cash at bank in Bulgarian leva
+l10n_bg.pcg_504,504.000,Cash at bank in foreign currencies
+l10n_bg.pcg_505,505.000,Letters of credit
+l10n_bg.pcg_506,506.000,Deposits
+l10n_bg.pcg_507,507.000,Cash pledged as collateral
+l10n_bg.pcg_509,509.000,Other cash (including vouchers and checks)
+l10n_bg.pcg_511,511.000,Financial assets at fair value in the profit or loss
+l10n_bg.pcg_512,512.000,Financial assets held to maturity
+l10n_bg.pcg_513,513.000,Short-term loans and receivables
+l10n_bg.pcg_514,514.000,Financial assets available for sale
+l10n_bg.pcg_519,519.000,Other short-term financial assets (including precious metals)
+l10n_bg.bg_pcg_expense,601.000,Cost of materials
+l10n_bg.pcg_602,602.000,Cost of hired services
+l10n_bg.pcg_603,603.000,Depreciation and amortization
+l10n_bg.pcg_604,604.000,Salaries and wages
+l10n_bg.pcg_605,605.000,Social security
+l10n_bg.pcg_606,606.000,"Taxes, fees and other similar payments"
+l10n_bg.pcg_607,607.000,Provisions
+l10n_bg.pcg_608,608.000,Expenses from subsequent asset revaluation
+l10n_bg.pcg_609,609.000,Other expenses
+l10n_bg.pcg_611,611.000,Оperating expenses
+l10n_bg.pcg_612,612.000,Expenses for supporting activity
+l10n_bg.pcg_613,613.000,Expenses for acquisition of fixed assets
+l10n_bg.pcg_614,614.000,Administrative expenses
+l10n_bg.pcg_615,615.000,Sales costs
+l10n_bg.pcg_621,621.000,Interest expenses
+l10n_bg.pcg_623,623.000,Expenses on operations with financial assets and instruments
+l10n_bg.pcg_624,624.000,Losses arising as a result of dealing in foreign currencies
+l10n_bg.pcg_625,625.000,Expenses on subsequent valuation of financial assets and instruments
+l10n_bg.pcg_629,629.000,Other financial expenses
+l10n_bg.pcg_651,651.000,Non-financial deferred expenses
+l10n_bg.pcg_652,652.000,Financial deferred expenses
+l10n_bg.pcg_691,691.000,Extraordinary expenses
+l10n_bg.bg_pcg_sale,701.000,Revenue from sales of products
+l10n_bg.pcg_702,702.000,Sale of goods for resale
+l10n_bg.pcg_703,703.000,Sale of services
+l10n_bg.pcg_704,704.000,Rentals
+l10n_bg.pcg_705,705.000,Sale of fixed assets
+l10n_bg.pcg_706,706.000,Sale of raw materials and supplies
+l10n_bg.pcg_707,707.000,Revenue from subsequent asset valuation
+l10n_bg.pcg_708,708.000,Subsides and grants
+l10n_bg.pcg_709,709.000,Other operating revenue
+l10n_bg.pcg_721,721.000,Interest income
+l10n_bg.pcg_722,723.000,Revenue from operations with financial assets and instruments
+l10n_bg.pcg_724,724.000,Gains arising as a result of dealing in foreign currencies
+l10n_bg.pcg_725,725.000,Revenue from subsequent revaluation of financial assets and instruments
+l10n_bg.pcg_729,729.000,Other financial income
+l10n_bg.pcg_751,751.000,Non-financial deferred income
+l10n_bg.pcg_752,752.000,Financial deferred income
+l10n_bg.pcg_753,753.000,Financing for fixed assets
+l10n_bg.pcg_754,754.000,Revenue grants
+l10n_bg.pcg_791,791.000,Extraordinary income
+l10n_bg.pcg_911,911.000,Rented fixed assets not owned by the enterprise
+l10n_bg.pcg_912,912.000,Tangible fixed assets not owned by the enterprise received from consignment
+l10n_bg.pcg_913,913.000,Other tangible and intangible assets accepted for storage
+l10n_bg.pcg_914,914.000,Financial assets or cash taken into storage
+l10n_bg.pcg_981,981.000,Tangible and intangible assets not owned by the enterprise received as collateral
+l10n_bg.pcg_982,982.000,Financial assets not owned by the enterprise received as collateral
+l10n_bg.pcg_983,983.000,Policies or promissory notes received as collateral
+l10n_bg.pcg_984,984.000,Other contingent assets
+l10n_bg.pcg_989,989.000,Counterparty account for contingent assets
+l10n_bg.pcg_991,991.000,Tangible and intangible assets owned by the enterprise provided as collateral
+l10n_bg.pcg_992,992.000,Own financial assets provided as collateral
+l10n_bg.pcg_993,993.000,Policies or promissory notes provided as collateral
+l10n_bg.pcg_994,994.000,Other contingent liabilities
+l10n_bg.pcg_999,999.000,Counterparty account for contingent liabilities

@@ -1,9 +1,6 @@
 <?xml version="1.0" ?>
 <odoo>
     <data noupdate="1">
-        <record id="data_account_bg_type_not_classified" model="account.account.type">
-            <field name="name">ЗАДБАЛАНСОВИ СМЕТКИ</field>
-        </record>
 
         <!-- Account Templates -->
         <record id="pcg_101" model="account.account.template">
@@ -1110,6 +1107,11 @@
             <field name="name">Извънредни приходи</field>
             <field name="user_type_id" ref="account.data_account_type_revenue"/>
             <field name="chart_template_id" ref="bg_chart_template"/>
+        </record>
+
+<!--        for compatible with Bulgaria accounting chard-->
+        <record id="data_account_bg_type_not_classified" model="account.account.type">
+            <field name="name">ЗАДБАЛАНСОВИ СМЕТКИ</field>
         </record>
         <record id="pcg_911" model="account.account.template">
             <field name="code">911.000</field>

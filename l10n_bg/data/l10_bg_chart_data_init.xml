@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="pcg_500" model="account.account.template">
+            <field name="name">Вътрешни трансфери</field>
+            <field name="code">500</field>
+            <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        </record>
+
+        <record id="bg_chart_template" model="account.chart.template">
+            <field name="name">Bulgaria - Chart of Accounts</field>
+            <field name="code_digits">7</field>
+            <field name="currency_id" ref="base.BGN"/>
+            <field name="transfer_account_id" ref="pcg_500"/>
+        </record>
+
+    </data>
+</odoo>

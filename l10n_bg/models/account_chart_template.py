@@ -1,12 +1,14 @@
-from openerp import _, api, models, tools
+# coding: utf-8
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+from odoo import _, api, models, tools
 
 
 class AccountChartTemplate(models.Model):
     _inherit = "account.chart.template"
 
     @api.multi
-    def _prepare_all_journals(self, acc_template_ref, company_id,
-                              journals_dict=None):
+    def _prepare_all_journals(self, acc_template_ref, company_id, journals_dict=None):
         self.ensure_one()
         journal_data = super(AccountChartTemplate, self)._prepare_all_journals(
             acc_template_ref, company_id, journals_dict=journals_dict,

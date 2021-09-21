@@ -592,6 +592,48 @@
             <field name="tag_ids"
                    eval="[(6,0,[ref('tax_tag_01_01'), ref('tax_tag_01_17'), ref('tax_tag_02_10'), ref('tax_tag_02_17'), ref('tax_tag_04_02'), ref('tax_tag_04_03'), ref('tax_tag_05_06')])]"/>
         </record>
+<!--        purchases-->
+        <record model="account.tax.template" id="tax_purchase">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">9020</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="description">Пълен ДК(20%)</field>
+            <field name="name">ДДС на покупките с право на пълен ДК (20%)</field>
+            <field name="amount">20</field>
+            <field name="tag_ids"
+                   eval="[(6,0,[ref('tax_tag_01_31'), ref('tax_tag_01_40'), ref('tax_tag_01_41'), ref('tax_tag_03_31'), ref('tax_tag_03_41')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_part_purchase">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">9030</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="description">Частичен ДК(~%)</field>
+            <field name="name">ДДС на покупките с частичен кредит (~%)</field>
+            <field name="amount">20</field>
+            <field name="tag_ids"
+                   eval="[(6,0,[ref('tax_tag_01_32'), ref('tax_tag_01_40'), ref('tax_tag_01_42'), ref('tax_tag_03_32'), ref('tax_tag_03_42')])]"/>
+        </record>
+        <record model="account.tax.template" id="tax_novat_purchase">
+            <field name="chart_template_id" ref="bg_chart_template"/>
+            <field name="sequence">9010</field>
+            <field name="account_id" ref="pcg_4532"/>
+            <field name="refund_account_id" ref="pcg_4532"/>
+            <field name="amount_type">percent</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="description">Без право ДК(0%)</field>
+            <field name="name">ДДС на покупките без право на ДК</field>
+            <field name="amount">0</field>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_01_30'), ref('tax_tag_03_30')])]"/>
+        </record>
         <record model="account.tax.template" id="tax_vop_sale">
             <field name="chart_template_id" ref="bg_chart_template"/>
             <field name="sequence">901</field>
@@ -631,47 +673,6 @@
             <field name="type_tax_use">purchase</field>
             <field name="children_tax_ids" eval="[(6, 0, [ref('tax_vop_sale'), ref('tax_vop_purchase')])]"/>
             <field name="tag_ids" eval="[(6,0,[ref('tax_tag_01_50')])]"/>
-        </record>
-        <record model="account.tax.template" id="tax_novat_purchase">
-            <field name="chart_template_id" ref="bg_chart_template"/>
-            <field name="sequence">9010</field>
-            <field name="account_id" ref="pcg_4532"/>
-            <field name="refund_account_id" ref="pcg_4532"/>
-            <field name="amount_type">percent</field>
-            <field name="tax_credit_payable">taxpay</field>
-            <field name="type_tax_use">purchase</field>
-            <field name="description">Без право ДК(0%)</field>
-            <field name="name">ДДС на покупките без право на ДК</field>
-            <field name="amount">0</field>
-            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_01_30'), ref('tax_tag_03_30')])]"/>
-        </record>
-        <record model="account.tax.template" id="tax_purchase">
-            <field name="chart_template_id" ref="bg_chart_template"/>
-            <field name="sequence">9020</field>
-            <field name="account_id" ref="pcg_4532"/>
-            <field name="refund_account_id" ref="pcg_4532"/>
-            <field name="amount_type">percent</field>
-            <field name="tax_credit_payable">taxpay</field>
-            <field name="type_tax_use">purchase</field>
-            <field name="description">Пълен ДК(20%)</field>
-            <field name="name">ДДС на покупките с право на пълен ДК (20%)</field>
-            <field name="amount">20</field>
-            <field name="tag_ids"
-                   eval="[(6,0,[ref('tax_tag_01_31'), ref('tax_tag_01_40'), ref('tax_tag_01_41'), ref('tax_tag_03_31'), ref('tax_tag_03_41')])]"/>
-        </record>
-        <record model="account.tax.template" id="tax_part_purchase">
-            <field name="chart_template_id" ref="bg_chart_template"/>
-            <field name="sequence">9030</field>
-            <field name="account_id" ref="pcg_4532"/>
-            <field name="refund_account_id" ref="pcg_4532"/>
-            <field name="amount_type">percent</field>
-            <field name="tax_credit_payable">taxpay</field>
-            <field name="type_tax_use">purchase</field>
-            <field name="description">Частичен ДК(~%)</field>
-            <field name="name">ДДС на покупките с частичен кредит (~%)</field>
-            <field name="amount">20</field>
-            <field name="tag_ids"
-                   eval="[(6,0,[ref('tax_tag_01_32'), ref('tax_tag_01_40'), ref('tax_tag_01_42'), ref('tax_tag_03_32'), ref('tax_tag_03_42')])]"/>
         </record>
         <!-- Manual fill in tax declaration -->
         <record model="account.tax.template" id="tax_declar_70">

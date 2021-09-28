@@ -1,17 +1,17 @@
+# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
-    "name": "Bulgaria - Accounting",
-    "version": "11.0.5.1",
-    "author": "Rosen Vladimirov",
+    'name': 'Bulgaria - Accounting',
+    'version': '11.0.5.1.0',
+    'author': 'Rosen Vladimirov',
     'category': 'Localization',
-    "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
-    "description": """
+    'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
+    'description': """
 This is the module to manage the Accounting Chart, VAT structure, Fiscal Position and Tax Mapping.
 ==================================================================================================
-
 Bulgarian accounting chart and localization.
-    """,
+""",
     'depends': [
         'account',
         'account_tax_fixes',
@@ -44,6 +44,7 @@ Bulgarian accounting chart and localization.
         'data/l10n_bg_chard_data_update.xml', # fix special account configurations
         'views/res_partner_views.xml',
         'views/res_company_view.xml',
+        'views/res_config.xml',
         'views/account_view.xml',
         'views/account_invoice_view.xml',
         'views/account_journal_view.xml',

@@ -63,41 +63,41 @@ class AccountJournal(models.Model):
                     _("Journal company and refund sequence company do not "
                       "match."))
 
-    @api.model
-    def create(self, vals):
-        if not vals.get('company_id') or vals.get('sequence_id'):
-            return super(AccountJournal, self).create(vals)
-        company = self.env['res.company'].browse(vals['company_id'])
+    @api.model_create_multi
+    def create(self, vals_list):
+        if not vals_list.get('company_id') or vals_list.get('sequence_id'):
+            return super(AccountJournal, self).create(vals_list)
+        company = self.env['res.company'].browse(vals_list['company_id'])
         if company.chart_template_id.is_bulgarian_chart():
             generic_journal_seq = self.env.ref('l10n_bg.sequence_bulgarian_journal', )
-            if vals['type'] in ('sale'):
+            if vals_list['type'] in ('sale'):
                 seq = generic_journal_seq.copy({
                     'name': _('Journal Invoice Sequence'),
                     'active': True,
                     'company_id': company.id,
                 })
-                vals['invoice_sequence_id'] = seq.id
+                vals_list['invoice_sequence_id'] = seq.id
                 seq = generic_journal_seq.copy({
                     'name': _('Journal (Refund) Invoice Sequence'),
                     'prefix': '1',
                     'active': True,
                     'company_id': company.id,
                 })
-                vals['refund_inv_sequence_id'] = seq.id
+                vals_list['refund_inv_sequence_id'] = seq.id
                 seq = generic_journal_seq.copy({
                     'name': _('Journal Ticket Sequence'),
                     'active': True,
                     'company_id': company.id,
                 })
-                vals['ticket_sequence_id'] = seq.id
-            elif vals['type'] in ('purchase'):
+                vals_list['ticket_sequence_id'] = seq.id
+            elif vals_list['type'] in ('purchase'):
                 seq = generic_journal_seq.copy({
                     'name': _('Journal Protocol Sequence'),
                     'prefix': '2',
                     'active': True,
                     'company_id': company.id,
                 })
-                vals['protocol_sequence_id'] = seq.id
+                vals_list['protocol_sequence_id'] = seq.id
                 seq = generic_journal_seq.copy({
                     'name': _('Journal Customs Sequence'),
                     'prefix': '%(range_year)s/',
@@ -105,5 +105,5 @@ class AccountJournal(models.Model):
                     'active': True,
                     'company_id': company.id,
                 })
-                vals['customs_sequence_id'] = seq.id
-        return super(AccountJournal, self).create(vals)
+                vals_list['customs_sequence_id'] = seq.id
+        return super(AccountJournal, self).create(vals_list)

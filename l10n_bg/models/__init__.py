@@ -6,7 +6,7 @@ from . import partner
 from . import account
 from . import chart_template
 from . import account_chart_template
-from . import account_invoice
+# from . import account_invoice
 from . import account_journal
 from . import account_move
 from . import res_currency

@@ -464,7 +464,7 @@ class AccountInvoice(models.Model):
         return res
 
     def _get_taxes_values(self, tax):
-        if tax.tax_type_deal and tax.tax_type_deal != self.tax_type_deal:
+        if tax.tax_type_deal and tax.tax_type_deal != 'auto' and tax.tax_type_deal != self.tax_type_deal:
             return True
         return False
 

@@ -37,28 +37,6 @@ class AccountAccountTag(models.Model):
 #                tag.display_name = "%s" % tag.code
 
 
-class AccountTaxTemplate(models.Model):
-    _inherit = 'account.tax.template'
-
-    tax_credit_payable = fields.Selection([('taxcredit', 'Tax credit receivable from the taxpayer'),
-                                           ('taxpay', 'Tax payable by the taxpayer'),
-                                           ('eutaxcredit', 'Tax credit receivable from the taxpayer on EU deals'),
-                                           ('eutaxpay', 'Tax payable by the taxpayer on EU deals'),
-                                           ('taxadvpay', 'Tax payable by the taxpayer when Imports from outside EU'),
-                                           ('taxbalance', 'Account for balance of taxes'),
-                                           ('othertax', 'Different by VAT Tax payable by the taxpayer')],
-                                          'Who pays tax', required=True, default='taxpay',
-                                          help="If not applicable (computed through a Python code), the tax won't "
-                                               "appear on the invoice.Who pays the tax purchaser or seller ( for "
-                                               "imports from outside the EU pay the buyer )")
-
-    separate = fields.Boolean('Separate movement')
-    contrapart_account_id = fields.Many2one('account.account', domain=[('deprecated', '=', False)],
-                                            string='Contrapart Account', ondelete='restrict',
-                                            help="Account that will be set when work with separated movement for "
-                                                 "contra part. Leave empty to use the contrapart account.")
-
-
 class AccountTax(models.Model):
     _inherit = 'account.tax'
 

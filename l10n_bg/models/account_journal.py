@@ -63,7 +63,7 @@ class AccountJournal(models.Model):
                     _("Journal company and refund sequence company do not "
                       "match."))
 
-    @api.model_create_multi
+    @api.model
     def create(self, vals_list):
         if not vals_list.get('company_id') or vals_list.get('sequence_id'):
             return super(AccountJournal, self).create(vals_list)

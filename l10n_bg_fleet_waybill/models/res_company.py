@@ -9,6 +9,7 @@ class ResCompany(models.Model):
     cons_location_id = fields.Many2one('stock.location', 'Fuel consumption')
 
     def __init__(self, pool, cr):
+        super(ResCompany, self).__init__(pool, cr)
         cr.execute("SELECT column_name FROM information_schema.columns "
                    "WHERE table_name = 'res_company' AND column_name = 'cons_location_id'")
         if not cr.fetchone():

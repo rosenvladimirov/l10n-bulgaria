@@ -26,6 +26,7 @@ class ResCompany(models.Model):
             ('extended', _('Extended'))]
 
     def __init__(self, pool, cr):
+        super(ResCompany, self).__init__(pool, cr)
         cr.execute("SELECT column_name FROM information_schema.columns "
                    "WHERE table_name = 'res_company' AND column_name = 'intrastat_origin_transport_id'")
         if not cr.fetchone():
@@ -36,4 +37,3 @@ class ResCompany(models.Model):
         if not cr.fetchone():
             cr.execute('ALTER TABLE res_company '
                        'ADD COLUMN reporting_level_bg character varying;')
-        super(ResCompany, self).__init__(pool, cr)

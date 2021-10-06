@@ -32,6 +32,8 @@ class ResPartner(models.Model):
     mobile = fields.Char('Mobile Phone')
 
     def __init__(self, pool, cr):
+        super(ResPartner, self).__init__(pool, cr)
+
         cr.execute("SELECT column_name FROM information_schema.columns "
                    "WHERE table_name = 'res_partner' AND column_name = 'uid'")
         if not cr.fetchone():
@@ -53,7 +55,6 @@ class ResPartner(models.Model):
         if not cr.fetchone():
             cr.execute('ALTER TABLE res_partner '
                        'ADD COLUMN mobile character varying;')
-        super(ResPartner, self).__init__(pool, cr)
 
     @api.multi
     @api.depends('vat')

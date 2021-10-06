@@ -48,4 +48,17 @@
             </field>
         </field>
     </record>
+    <record id="invoice_supplier_bg_form_deals" model="ir.ui.view">
+        <field name="name">account.invoice.extend.supplier.form</field>
+        <field name="model">account.invoice</field>
+        <field name="priority">2</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="move_id" position="after">
+                <field name="eu_deals" attrs="{'invisible':[('type_number','!=','protocol')]}"/>
+                <field name="doc_justification" attrs="{'invisible':[('type_number','not in', ['voucher', 'invoice'])]}"/>
+                <field name="tax_type_deal"/>
+            </field>
+        </field>
+    </record>
 </odoo>

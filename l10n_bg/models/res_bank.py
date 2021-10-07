@@ -9,3 +9,4 @@ class ResPartnerBank(models.Model):
 
     territorial_tax_id = fields.Many2one('res.territorial.tax.directorates', 'Territorial tax department')
     tax_office_id = fields.Many2one('res.territorial.tax.offices', 'Tax office')
+    nra_code = fields.Char('NRA code')

@@ -19,6 +19,7 @@ class AccountAccountTag(models.Model):
                             ('4',_('Correspondence from General Ledger')),
                             ('9',_('Empty'))
                             ], string="Get from", size=1, readonly=False)
+    applicability = fields.Selection(selection_add=[('social', 'Social security payments')])
 
 #    display_name = fields.Char(compute='_compute_display_name')
 

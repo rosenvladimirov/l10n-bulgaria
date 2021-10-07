@@ -64,46 +64,57 @@ class AccountJournal(models.Model):
                       "match."))
 
     @api.model
+    def _prepare_journal_sequence(self, company, generic_journal_seq, vals):
+        name_company = company.name
+        if vals['type'] in ('sale'):
+            name_base = _('Journal Invoice Sequence')
+            seq = generic_journal_seq.copy({
+                'name': '-'.join([name_base, name_company]),
+                'active': True,
+                'company_id': company.id,
+            })
+            vals['invoice_sequence_id'] = seq.id
+            name_base = _('Journal (Refund) Invoice Sequence')
+            seq = generic_journal_seq.copy({
+                'name': '-'.join([name_base, name_company]),
+                'prefix': '1',
+                'active': True,
+                'company_id': company.id,
+            })
+            vals['refund_inv_sequence_id'] = seq.id
+            name_base = _('Journal Ticket Sequence')
+            seq = generic_journal_seq.copy({
+                'name': '-'.join([name_base, name_company]),
+                'active': True,
+                'company_id': company.id,
+            })
+            vals['ticket_sequence_id'] = seq.id
+        elif vals['type'] in ('purchase'):
+            name_base = _('Journal Protocol Sequence')
+            seq = generic_journal_seq.copy({
+                'name': '-'.join([name_base, name_company]),
+                'prefix': '2',
+                'active': True,
+                'company_id': company.id,
+            })
+            vals['protocol_sequence_id'] = seq.id
+            name_base = _('Journal Customs Sequence')
+            seq = generic_journal_seq.copy({
+                'name': '-'.join([name_base, name_company]),
+                'prefix': '%(range_year)s/',
+                'padding': 0,
+                'active': True,
+                'company_id': company.id,
+            })
+            vals['customs_sequence_id'] = seq.id
+        return vals
+
+    @api.model
     def create(self, vals):
         if not vals.get('company_id') or vals.get('sequence_id'):
             return super(AccountJournal, self).create(vals)
-        company = self.env['res.company'].browse(vals['company_id'])
         if company.chart_template_id.is_bulgarian_chart():
             generic_journal_seq = self.env.ref('l10n_bg.sequence_bulgarian_journal', )
-            if vals['type'] in ('sale'):
-                seq = generic_journal_seq.copy({
-                    'name': _('Journal Invoice Sequence'),
-                    'active': True,
-                    'company_id': company.id,
-                })
-                vals['invoice_sequence_id'] = seq.id
-                seq = generic_journal_seq.copy({
-                    'name': _('Journal (Refund) Invoice Sequence'),
-                    'prefix': '1',
-                    'active': True,
-                    'company_id': company.id,
-                })
-                vals['refund_inv_sequence_id'] = seq.id
-                seq = generic_journal_seq.copy({
-                    'name': _('Journal Ticket Sequence'),
-                    'active': True,
-                    'company_id': company.id,
-                })
-                vals['ticket_sequence_id'] = seq.id
-            elif vals['type'] in ('purchase'):
-                seq = generic_journal_seq.copy({
-                    'name': _('Journal Protocol Sequence'),
-                    'prefix': '2',
-                    'active': True,
-                    'company_id': company.id,
-                })
-                vals['protocol_sequence_id'] = seq.id
-                seq = generic_journal_seq.copy({
-                    'name': _('Journal Customs Sequence'),
-                    'prefix': '%(range_year)s/',
-                    'padding': 0,
-                    'active': True,
-                    'company_id': company.id,
-                })
-                vals['customs_sequence_id'] = seq.id
+            company = self.env['res.company'].browse(vals['company_id'])
+            vals = self._prepare_journal_sequence(company, generic_journal_seq, vals)
         return super(AccountJournal, self).create(vals)

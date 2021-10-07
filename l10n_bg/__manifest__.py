@@ -22,6 +22,7 @@ Bulgarian accounting chart and localization.
         'account_tax_unece',
         'account_tag_menu',
         'sale',
+        'inputmask_widget',  # come from l10n_bg_numbers
     ],
     'external_dependencies': {'python': ['xlrd']},
     "demo": [],

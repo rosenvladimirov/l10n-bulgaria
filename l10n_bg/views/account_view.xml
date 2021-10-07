@@ -55,6 +55,10 @@
         <field name="inherit_id" ref="account.invoice_supplier_form"/>
         <field name="arch" type="xml">
             <field name="move_id" position="after">
+                <field name="type_number" invisible="1"/>
+                <field name="invoice_number" attrs="{'invisible':[('type_number','!=','invoice')]}"/>
+                <field name="protocol_number" attrs="{'invisible':[('type_number','!=','protocol')]}"/>
+                <field widget="mask" data-inputmask-mask="A9-AA999999-AAA-9999999999" name="customs_number" attrs="{'invisible':[('type_number','!=','custom')]}"/>
                 <field name="eu_deals" attrs="{'invisible':[('type_number','!=','protocol')]}"/>
                 <field name="doc_justification" attrs="{'invisible':[('type_number','not in', ['voucher', 'invoice'])]}"/>
                 <field name="tax_type_deal"/>

@@ -32,3 +32,8 @@ class AccountMoveLine(models.Model):
              "* The 'The social expenses of food vouchers' is used when this tax is configured to calculate base and amount for 'Tax on The social expenses of food vouchers'\n"
              "* The 'Expenses in kind' is used when this tax is configured to calculate base and amount for 'Tax on expenses in kind'\n"
         )
+    type_number = fields.Selection([('invoice', _('Invoices')),
+                                    ('protocol', _('Protocol')),
+                                    ('voucher', _('Vouchers')),
+                                    ('custom', _('Customs'))
+                                    ], string="Type of documents")

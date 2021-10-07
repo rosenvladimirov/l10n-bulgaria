@@ -121,6 +121,12 @@ class AccountInvoice(models.Model):
              "* The 'Expenses in kind' is used when this tax is configured to calculate base and amount for 'Tax on "
              "expenses in kind'\n "
     )
+    # Come from l10n_bg_numbers
+    type_number = fields.Selection([('invoice', _('Invoices')),
+                                    ('protocol', _('Protocol')),
+                                    ('voucher', _('Vouchers')),
+                                    ('custom', _('Customs'))
+                                    ], string="Type of documents")
 
     _sql_constraints = [
         ('invoice_number', 'unique (invoice_number, company_id, type)',

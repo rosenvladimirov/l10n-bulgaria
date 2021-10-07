@@ -8,21 +8,23 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class TaxOffices(models.Model):
+class TerritorialTaxOffices(models.Model):
     _description = "Bulgarian Tax Offices"
-    _name = 'res.taxoffices'
+    _name = 'res.territorial.tax.offices'
     _inherits = {'res.partner': 'partner_id'}
     _order = 'tax_code'
 
     tax_code = fields.Char(string='Office Code', help='The TAX Administration office code.', required=True)
     partner_id = fields.Many2one('res.partner', string='Tax Office', required=True, )
+    parent_id = fields.Many2one('res.territorial.tax.offices', string='Tax Territorial Directorates', required=True)
 
 
-class TerriorialDirectorates(models.Model):
-    _description = "bulgarian Terriorial Directorates"
-    _name = 'res.terriorialdirectorates'
+class TerritorialDirectorates(models.Model):
+    _description = "bulgarian Territorial Directorates"
+    _name = 'res.territorial.tax.directorates'
     _inherits = {'res.partner': 'partner_id'}
-    _order = 'terdir_code'
+    _order = 'territorial_code'
 
-    terdir_code = fields.Char(string='State Code', help='The state code.', required=True)
+    territorial_code = fields.Char(string='State Code', help='The state code.', required=True)
     partner_id = fields.Many2one('res.partner', string='Tax Office', required=True, )
+    child_ids = fields.One2many('res.territorial.tax.offices', 'parent_id', string='Tax offices')

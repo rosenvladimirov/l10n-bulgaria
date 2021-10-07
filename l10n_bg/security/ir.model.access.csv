@@ -1,3 +1,7 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
 "access_res_city_types_group_user","res_city_types group_user","model_res_city_types","base.group_partner_manager",1,1,1,1
 "access_res_city_types_group_all","res_city_types group_user_all","model_res_city_types",,1,0,0,0
+"access_res_territorial_tax_offices_group_user","res_territorial_tax_offices group_user","model_res_territorial_tax_offices","base.group_partner_manager",1,1,1,1
+"access_res_territorial_tax_offices_group_all","res_territorial_tax_offices group_user_all","model_res_territorial_tax_offices",,1,0,0,0
+"access_res_territorial_tax_directorates_group_user","res_territorial_tax_directorates group_user","model_res_territorial_tax_directorates","base.group_partner_manager",1,1,1,1
+"access_res_territorial_tax_directorates_group_all","res_territorial_tax_directorates group_user_all","model_res_territorial_tax_directorates",,1,0,0,0

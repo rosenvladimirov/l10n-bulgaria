@@ -24,7 +24,13 @@ Bulgarian accounting chart and localization.
         'sale',
         'inputmask_widget',  # come from l10n_bg_numbers
     ],
-    'external_dependencies': {'python': ['xlrd']},
+    'external_dependencies': {
+        'python': [
+            'xlrd',
+            'math',
+            'stdnum',
+        ]
+    },
     "demo": [],
     "data": [
         'security/ir.model.access.csv',
@@ -46,6 +52,7 @@ Bulgarian accounting chart and localization.
         'views/res_partner_views.xml',
         'views/res_company_view.xml',
         'views/res_config.xml',
+        'views/res_tax_offices_views.xml',
         'views/account_view.xml',
         'views/account_invoice_view.xml',
         'views/account_journal_view.xml',

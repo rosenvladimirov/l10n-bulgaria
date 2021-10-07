@@ -65,4 +65,5 @@
             </field>
         </field>
     </record>
+    <menuitem id="account_nai_bg" name="Bulgaria NRA &amp; Customs" sequence="40" parent="account.account_account_menu"/>
 </odoo>

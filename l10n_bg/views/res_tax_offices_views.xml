@@ -39,6 +39,13 @@
                                     <field name="currency_id" options="{'no_create': True, 'no_open': True}" id="company_currency"/>
                                     <field name="parent_id"  groups="base.group_multi_company"/>
                                 </group>
+                                <group string="Bank Accounts">
+                                    <field name="bank_ids" context="{'search_default_partner_id': partner_id, 'default_partner_id': partner_id}">
+                                        <tree editable="bottom">
+                                            <field name="acc_number"/>
+                                        </tree>
+                                    </field>
+                                </group>
                                 <group name="social_media"/>
                             </group>
                         </page>
@@ -148,6 +155,13 @@
                                         <field name="tax_code"/>
                                         <field name="currency_id" options="{'no_create': True, 'no_open': True}" id="company_currency"/>
                                         <field name="parent_id"  groups="base.group_multi_company"/>
+                                    </group>
+                                    <group string="Bank Accounts">
+                                        <field name="bank_ids" context="{'search_default_partner_id': partner_id, 'default_partner_id': partner_id}">
+                                            <tree editable="bottom">
+                                                <field name="acc_number"/>
+                                            </tree>
+                                        </field>
                                     </group>
                                     <group name="social_media"/>
                                 </group>

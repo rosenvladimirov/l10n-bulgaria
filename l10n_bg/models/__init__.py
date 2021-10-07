@@ -15,4 +15,4 @@ from . import sale
 from . import res_partner  # moved from l10n_bg_extend
 from . import res_company  # moved from l10n_bg_extend
 from . import res_tax_offices
-
+from . import res_bank

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_payment_invoice_trustee_form" model="ir.ui.view">
+            <field name="name">account.payment.invoice.trustee.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="hide_payment_method" position="before">
+                    <field name="partner_trustee_id" options="{'no_create': True, 'no_open': True}" />
+                </field>
+            </field>
+        </record>
+        <record id="view_account_payment_trustee_form" model="ir.ui.view">
+            <field name="name">account.payment.trustee.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <field name="hide_payment_method" position="before">
+                    <field name="partner_trustee_id" options="{'no_create': True, 'no_open': True}" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -113,8 +113,8 @@ class AccountJournal(models.Model):
     def create(self, vals):
         if not vals.get('company_id') or vals.get('sequence_id'):
             return super(AccountJournal, self).create(vals)
+        company = self.env['res.company'].browse(vals['company_id'])
         if company.chart_template_id.is_bulgarian_chart():
             generic_journal_seq = self.env.ref('l10n_bg.sequence_bulgarian_journal', )
-            company = self.env['res.company'].browse(vals['company_id'])
             vals = self._prepare_journal_sequence(company, generic_journal_seq, vals)
         return super(AccountJournal, self).create(vals)

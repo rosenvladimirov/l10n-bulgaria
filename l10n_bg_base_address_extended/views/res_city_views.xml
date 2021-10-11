@@ -88,12 +88,12 @@
             <field name="model">res.city</field>
             <field name="inherit_id" ref="base_address_city.view_city_tree" />
             <field name="arch" type="xml">
-                <field name="has_taxoffice" position="after">
+                <tree position="inside">
                     <button name="%(action_res_city_street_tree)d"
                         type="action"
                         context="{'search_default_city_id': id, 'search_default_country_id': country_id, 'default_city_id': id, 'default_country_id': country_id}"
                         icon="fa-street-view"/>
-                </field>
+                </tree>
             </field>
         </record>
         <!-- 'search_default_city_id': [active_id], 'search_default_country_id': [country_id],   domain="[('country_id', '=', country_id), ('city_id', '=', active_id)]" context="{'default_city_id': active_id, 'default_country_id': country_id}" -->

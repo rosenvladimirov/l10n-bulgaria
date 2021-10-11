@@ -226,9 +226,9 @@
             <field name="domain">[('id','=',active_id)]</field>
         </record>
         <record id="action_res_territorial_tax_offices_form" model="ir.actions.act_window">
-            <field name="name">Companies</field>
+            <field name="name">Tax offices</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">res.company</field>
+            <field name="res_model">res.territorial.tax.offices</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,kanban,form</field>
             <field name="help">Create and manage the tax office that will be managed by Odoo from here. Shops or subsidiaries can be created and maintained from here.</field>

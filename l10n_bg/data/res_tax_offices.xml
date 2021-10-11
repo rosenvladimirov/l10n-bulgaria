@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="l10n_bg.nra" model="res.partner">
+            <field name="name">National Revenue Agency</field>
+            <field name="city">Sofia</field>
+            <field name="city_id" ref="l10n_bg.68134"/>
+            <field name="street">bul. Dondukov</field>
+            <field name="street_number">42</field>
+            <field name="country_id" ref="base.bg"/>
+            <field name="zip">1000</field>
+            <field name="phone">070018700</field>
+            <field name="email">nap@nra.bg</field>
+            <field name="company_type">company</field>
+        </record>
+        <record id="l10n_bg.nra_manager" model="res.partner">
+            <field name="name">Rumen Specov</field>
+            <field name="city">Sofia</field>
+            <field name="country_id" ref="base.bg"/>
+            <field name="city_id" ref="l10n_bg.68134"/>
+            <field name="email">r.spetsov@nra.bg</field>
+            <field name="parent_id" ref="l10n_bg.nra"/>
+            <field name="company_type">person</field>
+            <field name="type">contact</field>
+            <field name="function">CEO</field>
+            <field name="phone">+35929853001</field>
+        </record>
+        <record id="l10n_bg.nra_central_department" model="res.territorial.tax.directorates">
+            <field name="name">Central Office of the National Revenue Agency</field>
+            <field name="city">Sofia</field>
+            <field name="city_id" ref="l10n_bg.68134"/>
+            <field name="street">bul. Dondukov</field>
+            <field name="street_number">42</field>
+            <field name="country_id" ref="base.bg"/>
+            <field name="partner_id" ref="l10n_bg.nra"/>
+            <field name="company_type">company</field>
+            <field name="type">department</field>
+        </record>
+        <record id="l10n_bg.nra_sofia_department" model="res.territorial.tax.directorates">
+            <field name="name">Territorial department of NRA Sofia</field>
+            <field name="city">Sofia</field>
+            <field name="city_id" ref="l10n_bg.68134"/>
+            <field name="street">ul. Aksakov</field>
+            <field name="street_number">21</field>
+            <field name="country_id" ref="base.bg"/>
+            <field name="partner_id" ref="l10n_bg.nra"/>
+            <field name="company_type">company</field>
+            <field name="type">department</field>
+            <field name="phone">+359298593821</field>
+            <field name="email">td_sofia_grad@ro22.nra.bg</field>
+        </record>
+        <record id="l10n_bg.nra_big_department" model="res.territorial.tax.directorates">
+            <field name="name">Territorial department of NRA Big taxpayers and insurers</field>
+            <field name="city">Sofia</field>
+            <field name="city_id" ref="l10n_bg.68134"/>
+            <field name="street">ul. Aksakov</field>
+            <field name="street_number">29</field>
+            <field name="country_id" ref="base.bg"/>
+            <field name="partner_id" ref="l10n_bg.nra"/>
+            <field name="company_type">company</field>
+            <field name="type">department</field>
+            <field name="phone">+359298593915</field>
+            <field name="email">td_gdo@ro29.nra.bg</field>
+        </record>
+        <record id="l10n_bg.nra_middle_department" model="res.territorial.tax.directorates">
+            <field name="name">Territorial department of NRA Middle taxpayers and insurers</field>
+            <field name="city">Sofia</field>
+            <field name="city_id" ref="l10n_bg.68134"/>
+            <field name="street">ul. Gurko</field>
+            <field name="street_number">12</field>
+            <field name="country_id" ref="base.bg"/>
+            <field name="partner_id" ref="l10n_bg.nra"/>
+            <field name="company_type">company</field>
+            <field name="type">department</field>
+            <field name="phone">+359298596033</field>
+            <field name="email">sdo2225_delov@ro22.nra.bg</field>
+        </record>
+    </data>
+</odoo>

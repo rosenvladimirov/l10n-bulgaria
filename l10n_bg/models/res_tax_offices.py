@@ -15,7 +15,7 @@ class TerritorialTaxOffices(models.Model):
     _order = 'tax_code'
 
     tax_code = fields.Char(string='Office Code', help='The TAX Administration office code.', required=True)
-    partner_id = fields.Many2one('res.partner', string='Tax Office', required=True, )
+    partner_id = fields.Many2one('res.partner', string='Tax Office', required=True, default=lambda self: self.env.ref('l10n_bg.nra'))
     parent_id = fields.Many2one('res.territorial.tax.offices', string='Tax Territorial Directorates', required=True)
     bank_ids = fields.One2many('res.partner.bank', 'partner_id', string='Banks',
                                domain="[('tax_office_id', '=', partner_id)]")
@@ -28,7 +28,7 @@ class TerritorialDirectorates(models.Model):
     _order = 'territorial_code'
 
     territorial_code = fields.Char(string='State Code', help='The state code.', required=True)
-    partner_id = fields.Many2one('res.partner', string='Tax Office', required=True, )
+    partner_id = fields.Many2one('res.partner', string='Tax Office', required=True, default=lambda self: self.env.ref('l10n_bg.nra'))
     child_ids = fields.One2many('res.territorial.tax.offices', 'parent_id', string='Tax offices')
     bank_ids = fields.One2many('res.partner.bank', 'territorial_tax_id', string='Banks',
                                domain="[('partner_id', '=', partner_id)]")

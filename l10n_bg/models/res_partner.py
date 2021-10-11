@@ -18,9 +18,10 @@ class ResPartner(models.Model):
     _inherit = ['res.partner']
     _name = 'res.partner'
 
-    uid = fields.Char(compute="_get_from_vat", inverse="_set_from_uid", string='UID', store=True, help="Trade Identification Number. "
-                                                                                                          "Fill it if the company is subjected to taxes. "
-                                                                                                          "Used by the some of the legal statements.")
+    uid = fields.Char(compute="_get_from_vat", inverse="_set_from_uid", string='UID', store=True,
+                      help="Trade Identification Number. "
+                           "Fill it if the company is subjected to taxes. "
+                           "Used by the some of the legal statements.")
     uid_type = fields.Selection([
         ('uid', _('Unified identification number (BULSTAT)')),
         ('egn', _('Identification number')),
@@ -30,6 +31,10 @@ class ResPartner(models.Model):
     ], string='Type of UID', help="Choice type of UID.")
     fax = fields.Char('Fax')
     mobile = fields.Char('Mobile Phone')
+    type = fields.Selection(selection_add=[
+        ('department', _('Department')),
+        ('office', _('Tax office')),
+    ])
 
     def __init__(self, pool, cr):
         super(ResPartner, self).__init__(pool, cr)

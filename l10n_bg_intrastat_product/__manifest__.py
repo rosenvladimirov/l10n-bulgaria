@@ -15,7 +15,6 @@
     'depends': [
         'intrastat_product',
         'l10n_bg',
-        'l10n_bg_base_address_extended',
         ],
     'conflicts': [
         'base',

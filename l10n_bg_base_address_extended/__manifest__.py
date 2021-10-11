@@ -11,6 +11,7 @@
     """,
     'depends': [
         'base',
+        'base_address_city',
         'base_address_extended',
         'contacts',
     ],

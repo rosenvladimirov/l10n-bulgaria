@@ -42,10 +42,10 @@
             <field name="name">Central Office of the National Revenue Agency</field>
             <field name="city">Sofia</field>
             <field name="city_id" ref="l10n_bg.68134"/>
+            <field name="partner_id" ref="l10n_bg.nra_central"/>
             <field name="street">bul. Dondukov</field>
             <field name="street_number">42</field>
             <field name="country_id" ref="base.bg"/>
-            <field name="partner_id" ref="l10n_bg.nra_central"/>
             <field name="company_type">company</field>
             <field name="type">department</field>
         </record>

@@ -41,7 +41,7 @@ Bulgarian accounting chart and localization.
         'data/res_country_data.xml',
         'data/account_tax_data.xml',
         'data/account_fiscal_position_data.xml',
-        'data/res_tax_offices.xml',
+        # 'data/res_tax_offices.xml',
         'data/account_chart_template.yml',
         'data/res.country.state.csv',
         'data/res.bank.csv',

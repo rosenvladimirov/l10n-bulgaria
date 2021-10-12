@@ -13,6 +13,7 @@
         'base',
         'base_address_city',
         'base_address_extended',
+        'l10n_bg',
         'contacts',
     ],
     "demo": [],

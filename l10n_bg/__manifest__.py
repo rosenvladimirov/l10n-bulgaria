@@ -17,7 +17,7 @@ Bulgarian accounting chart and localization.
         'account_tax_fixes',
         'base_vat',
         'base_iban',
-        'l10n_bg_base_address_extended',
+        'base_address_city',
         'account_tax_unece',
         'account_tag_menu',
         'sale',

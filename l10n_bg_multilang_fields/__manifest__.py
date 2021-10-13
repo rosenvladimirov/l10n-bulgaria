@@ -18,6 +18,7 @@
     'data': [
         'views/res_partner_view.xml',
     ],
+    "license": "AGPL-3",
     'installable': True,
     'auto_install': False,
 }

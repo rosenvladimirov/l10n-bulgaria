@@ -19,6 +19,7 @@
     'data': [
         'views/res_country_view.xml',
     ],
+    "license": "AGPL-3",
     'installable': True,
     'auto_install': False,
 }

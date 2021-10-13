@@ -88,7 +88,6 @@ class Partner(models.Model):
         lang_name = 'display_name_%s' % lang.split("_")[0]
         if lang_name in DIFFEREND_LETTERS and lang_name in self._fields and len(value.encode('ascii', 'ignore')) != len(value):
             display_name = lang_name
-        #_logger.info('Search ____ %s:%s:%s:%s::%s' % (lang_name, display_name, operator, value, len(value.encode('ascii', 'ignore'))))
         if operator in ('ilike') and len(value.split()) > 1:
             operator = '%'
         return [(display_name, operator, value)]

@@ -25,6 +25,6 @@ In order to work correctly, it is necessary to create a bank / cash jornal with 
               'views/res_partner_views.xml',
               'views/account_payment_view.xml',
               ],
-    'license': 'Other proprietary',
+    "license": "AGPL-3",
     "installable": True,
 }

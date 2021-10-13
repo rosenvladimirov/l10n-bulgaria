@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="1"/>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="lang" position="after">
+                    <field name="display_name_en" groups="base.group_no_one" readonly="0"/>
+                    <field name="display_name_bg" groups="base.group_no_one" readonly="0"/>
+                    <field name="display_name_el" groups="base.group_no_one" readonly="0"/>
+                    <field name="company_name" groups="base.group_no_one" />
+                    <field name="commercial_company_name" groups="base.group_no_one" readonly="0"/>
+                </field>
+                <field name="website" position="attributes">
+                   <attribute name="placeholder">e.g. www.mdr745.eu</attribute>
+                </field>
+                <field name="vat" position="attributes">
+                    <attribute name="placeholder">e.g. BG000696327</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

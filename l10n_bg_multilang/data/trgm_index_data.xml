@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+        <record id="display_name_bg_gin_idx" model="trgm.index">
+            <field name="index_type">gin</field>
+            <field name="field_id"
+                   search="[('model','=','res.partner'),('name','=','display_name_bg')]"/>
+        </record>
+        <record id="display_name_en_gin_idx" model="trgm.index">
+            <field name="index_type">gin</field>
+            <field name="field_id"
+                   search="[('model','=','res.partner'),('name','=','display_name_en')]"/>
+        </record>
+
+</odoo>

@@ -91,7 +91,7 @@ class L10nBgIntrastatProductDeclaration(models.Model):
         region = super()._get_region(inv_line)
         if not region:
             delivery_partner_id = inv_line.invoice_id.get_delivery_partner_id()
-            #self.ref('')
+            # self.ref('')
             delivery_address = self.env['res.partner'].browse([delivery_partner_id]).city_id
             if delivery_address:
                 region = delivery_address.region_id
@@ -102,7 +102,7 @@ class L10nBgIntrastatProductDeclaration(models.Model):
         if not region:
             msg = _("The Intrastat Region of the Company is not set, "
                 "please configure it first.")
-            #self._company_warning(msg)
+            # self._company_warning(msg)
         return region
 
     def _handle_refund(self, inv_line, line_vals):
@@ -210,14 +210,14 @@ class L10nBgIntrastatProductDeclaration(models.Model):
                 _("The Bulgaria Intrastat Declaration requires "
                   "the Company's Country to be equal to 'Bulgaria'."))
 
-        #module = __name__.split('addons.')[1].split('.')[0]
+        # module = __name__.split('addons.')[1].split('.')[0]
 
         # Special commodity codes
         # Current version implements only regular credit notes
-        #special_code = '99600000' todo to check in NRA
-        #hs_code = self.env['hs.code'].search(
+        # special_code = '99600000' todo to check in NRA
+        # hs_code = self.env['hs.code'].search(
         #    [('local_code', '=', special_code)])
-        #if not hs_code:
+        # if not hs_code:
         #    action = self.env.ref(
         #        '%s.intrastat_installer_action' % module)
         #    msg = _(
@@ -228,7 +228,7 @@ class L10nBgIntrastatProductDeclaration(models.Model):
         #    raise RedirectWarning(
         #        msg, action.id,
         #        _("Go to the Intrastat Configuration Wizard."))
-        #self._credit_note_code = hs_code[0]
+        # self._credit_note_code = hs_code[0]
 
         self._transaction_2 = self.env.ref(
             '%s.intrastat_transaction_2' % 'intrastat_product')
@@ -281,6 +281,7 @@ class L10nBgIntrastatProductDeclaration(models.Model):
     def _fields_to_sum(self):
         fields_to_sum = super(L10nBgIntrastatProductDeclaration, self)._fields_to_sum()
         fields_to_sum += ['avg_sum_landed_cost']
+        fields_to_sum += ['amount_statistical_company_currency']
         return fields_to_sum
 
     def _xls_computation_line_fields(self):
@@ -342,52 +343,55 @@ class L10nBgIntrastatProductDeclaration(models.Model):
         create_time = etree.SubElement(create_date_time, 'time')
         create_time.text = datetime.strftime(now_user_tz, '%H:%M:%S')
 
+        party_contact = self.company_id.tax_contact_id.parent_id
+        envelope_contact = self.company_id.tax_contact_id
+
         party = etree.SubElement(envelope, 'Party', partyType="PSI", partyRole="PSI")
         party_id = etree.SubElement(party, 'partyId')
-        party_id.text = self.company_id.uid
+        party_id.text = party_contact.uid
         party_name = etree.SubElement(party, 'partyIdType')
-        party_name.text = self.company_id.uid_type
+        party_name.text = party_contact.uid_type
 
         address = etree.SubElement(party, 'Address')
         address_street_number = etree.SubElement(address, 'streetNumber')
-        address_street_number.text = self.company_id.street_number
+        address_street_number.text = party_contact.street_number
         addres_city = etree.SubElement(address, 'city')
-        addres_city.text = self.company_id.city
+        addres_city.text = party_contact.city
         addres_zip = etree.SubElement(address, 'postalCode')
-        if not self.company_id.zip:
+        if not party_contact.zip:
             raise UserError(_(
                 "The zip is not set "
-                "for the company '%s'.") % self.company_id.name)
-        addres_zip.text = self.company_id.zip
+                "for the company '%s'.") % party_contact.name)
+        addres_zip.text = party_contact.zip
 
         addres_phone_number = etree.SubElement(address, 'phoneNumber')
-        addres_phone_number.text = self.company_id.phone and self.company_id.phone or ''
+        addres_phone_number.text = party_contact.phone and party_contact.phone or ''
 
         addres_fax_number = etree.SubElement(address, 'faxNumber')
-        addres_fax_number.text = self.company_id.fax and self.company_id.fax or ''
+        addres_fax_number.text = party_contact.fax and party_contact.fax or ''
 
         envelope_id = etree.SubElement(party, 'ContactPerson')
-        if not self.company_id.tax_contact_id:
+        if not envelope_contact:
             raise UserError(_(
                 "The tax contact person is not set "
-                "for the company '%s'.") % self.company_id.name)
+                "for the company '%s'.") % envelope_contact.name)
         envelope_name = etree.SubElement(envelope_id, 'contactPersonName')
-        envelope_name.text = self.company_id.tax_contact_id.name
+        envelope_name.text = envelope_contact.name
         envelope_address = etree.SubElement(envelope_id, 'ContactPersonAddress')
         envelope_address_street_number = etree.SubElement(envelope_address, 'streetNumber')
-        envelope_address_street_number.text = self.company_id.tax_contact_id.street_number
+        envelope_address_street_number.text = envelope_contact.street_number
         envelope_addres_city = etree.SubElement(envelope_address, 'city')
-        envelope_addres_city.text = self.company_id.tax_contact_id.city
+        envelope_addres_city.text = envelope_contact.city
         envelope_addres_zip = etree.SubElement(envelope_address, 'postalCode')
-        envelope_addres_zip.text = self.company_id.tax_contact_id.zip
+        envelope_addres_zip.text = envelope_contact.zip
 
         envelope_addres_phone_number = etree.SubElement(envelope_address, 'phoneNumber')
-        envelope_addres_phone_number.text = self.company_id.tax_contact_id.phone and self.company_id.tax_contact_id.phone or ''
+        envelope_addres_phone_number.text = envelope_contact.phone and envelope_contact.phone or ''
 
         envelope_addres_mobile = etree.SubElement(envelope_address, 'mobilePhoneNumber')
-        envelope_addres_mobile.text = self.company_id.tax_contact_id.mobile and self.company_id.tax_contact_id.mobile or ''
+        envelope_addres_mobile.text = envelope_contact.mobile and envelope_contact.mobile or ''
         envelope_addres_mail = etree.SubElement(envelope_address, 'e-mail')
-        envelope_addres_mail.text = self.company_id.tax_contact_id.email and self.company_id.tax_contact_id.email or ''
+        envelope_addres_mail.text = envelope_contact.email and envelope_contact.email or ''
 
         declaration = etree.SubElement(envelope, 'Declaration')
         declaration_id = etree.SubElement(declaration, 'declarationId')
@@ -395,15 +399,15 @@ class L10nBgIntrastatProductDeclaration(models.Model):
         reference_period = etree.SubElement(declaration, 'referencePeriod')
         reference_period.text = self.year_month
         psi_id = etree.SubElement(declaration, 'PSIId')
-        psi_id.text = self.company_id.tax_contact_id.uid
+        psi_id.text = self.company_id.uid
         psi_id = etree.SubElement(declaration, 'PSIIdType')
-        psi_id.text = self.company_id.tax_contact_id.uid_type
+        psi_id.text = self.company_id.uid_type
 
         function = etree.SubElement(declaration, 'Function')
-        function.text = 'REGULAR' # Check it (REGULAR, CORRECTIVE, LEDGER)
+        function.text = 'REGULAR'  # Check it (REGULAR, CORRECTIVE, LEDGER)
 
         flow_code = etree.SubElement(declaration, 'flowCode')
-        assert self.type in ('arrivals', 'dispatches'),\
+        assert self.type in ('arrivals', 'dispatches'), \
             "The DEB must be of type 'Arrivals' or 'Dispatches'"
         if self.type == 'dispatches':
             flow_code.text = 'D'
@@ -415,7 +419,8 @@ class L10nBgIntrastatProductDeclaration(models.Model):
         total_invoiced_amount = etree.SubElement(declaration, 'totalInvoicedAmount')
         total_invoiced_amount.text = str(sum([x.amount_company_currency for x in self.declaration_line_ids]))
         total_statistical_value = etree.SubElement(declaration, 'totalStatisticalValue')
-        total_statistical_value.text = str(sum([round(x.amount_statistical_company_currency, 0) for x in self.declaration_line_ids]))
+        total_statistical_value.text = str(int(sum([round(x.amount_statistical_company_currency, 0) for x in
+                                                self.declaration_line_ids])))
         total_number_detailed_lines = etree.SubElement(declaration, 'totalNumberDetailedLines')
         total_number_detailed_lines.text = str(len(self.declaration_line_ids.ids))
 
@@ -473,7 +478,7 @@ class L10nBgIntrastatProductDeclaration(models.Model):
             if not pline.amount_statistical_company_currency and self.reporting_level_bg == 'extended':
                 raise UserError(
                     _('Missing statistical value on line %d.') % line)
-            statistical_value.text = str(pline.amount_statistical_company_currency)
+            statistical_value.text = str(int(pline.amount_statistical_company_currency))
 
             quantity_in_SU = etree.SubElement(item, 'supplementaryUnit')
             if not pline.suppl_unit_qty:
@@ -508,7 +513,7 @@ class L10nBgIntrastatProductDeclaration(models.Model):
             # action = etree.SubElement(item, 'action') for develop
 
         number_of_declarations = etree.SubElement(envelope, 'numberOfDeclarations')
-        number_of_declarations.text = str(1) # for develop
+        number_of_declarations.text = str(1)  # for develop
 
         xml_string = etree.tostring(
             root, pretty_print=True, encoding='UTF-8', xml_declaration=True)

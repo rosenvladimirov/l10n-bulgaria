@@ -14,7 +14,7 @@ def pre_init_hook(cr):
     """
     cr.execute("""SELECT installed_version FROM pg_available_extensions WHERE name = 'pg_trgm';""")
     res = cr.fetchone()
-    _logger.info('INIT %s' % res)
+    # _logger.info('INIT %s' % res)
     if res and not res[0]:
         cr.execute("""CREATE EXTENSION pg_trgm;""")
         cr.execute("SELECT set_limit(0.2);")

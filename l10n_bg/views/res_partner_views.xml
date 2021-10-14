@@ -17,15 +17,6 @@
                     <field name="fax" widget="phone"/>
                     <field name="mobile" widget="phone"/>
                 </field>
-                <!--
-                <xpath expr="//group[@name='accounting_entries']" position="inside">
-                    <field name="property_re_analytic_account_id"/>
-                    <field name="property_re_analytic_tag_ids" widget="many2many_tags"/>
-                    <field name="property_pay_analytic_account_id"/>
-                    <field name="property_pay_analytic_tag_ids" widget="many2many_tags"/>
-                    <field name="property_account_trustee_id"/>
-                </xpath>
-                -->
             </field>
         </record>
     </data>

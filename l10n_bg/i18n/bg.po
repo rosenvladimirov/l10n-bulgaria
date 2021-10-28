@@ -1607,8 +1607,8 @@ msgstr "Бабино"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.02052
-msgid "Бабинскарека"
-msgstr "Бабинскарека"
+msgid "Бабинска река"
+msgstr "Бабинска река"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.07884

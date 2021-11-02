@@ -41,17 +41,18 @@ class AccountAccountTag(models.Model):
 class AccountTax(models.Model):
     _inherit = 'account.tax'
 
-    tax_credit_payable = fields.Selection([('taxcredit', 'Tax credit receivable from the taxpayer'),
-                                           ('taxpay', 'Tax payable by the taxpayer'),
-                                           ('eutaxcredit', 'Tax credit receivable from the taxpayer on EU deals'),
-                                           ('eutaxpay', 'Tax payable by the taxpayer on EU deals'),
-                                           ('taxadvpay', 'Tax payable by the taxpayer when Imports from outside EU'),
-                                           ('taxbalance', 'Account for balance of taxes'),
-                                           ('othertax', 'Different by VAT Tax payable by the taxpayer')],
-                                          'Who pays tax', required=False, default='taxpay',
-                                          help="If not applicable (computed through a Python code), the tax won't "
-                                               "appear on the invoice.Who pays the tax purchaser or seller ( for "
-                                               "imports from outside the EU pay the buyer )")
+    # moved in account_tax_fixes
+    # tax_credit_payable = fields.Selection([('taxcredit', 'Tax credit receivable from the taxpayer'),
+    #                                        ('taxpay', 'Tax payable by the taxpayer'),
+    #                                        ('eutaxcredit', 'Tax credit receivable from the taxpayer on EU deals'),
+    #                                        ('eutaxpay', 'Tax payable by the taxpayer on EU deals'),
+    #                                        ('taxadvpay', 'Tax payable by the taxpayer when Imports from outside EU'),
+    #                                        ('taxbalance', 'Account for balance of taxes'),
+    #                                        ('othertax', 'Different by VAT Tax payable by the taxpayer')],
+    #                                       'Who pays tax', required=False, default='taxpay',
+    #                                       help="If not applicable (computed through a Python code), the tax won't "
+    #                                            "appear on the invoice.Who pays the tax purchaser or seller ( for "
+    #                                            "imports from outside the EU pay the buyer )")
     separate = fields.Boolean('Separate movement')
     contrapart_account_id = fields.Many2one('account.account', domain=[('deprecated', '=', False)],
                                             string='Contrapart Account', ondelete='restrict',

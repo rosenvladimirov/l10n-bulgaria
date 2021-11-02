@@ -18,7 +18,8 @@
             <field name="amount_type" position="after">
                 <field name="separate"/>
                 <field name="tax_type_deal"/>
-                <field name="tax_credit_payable"/>
+<!--                moved in account_tax_fixes-->
+<!--                <field name="tax_credit_payable"/>-->
             </field>
             <field name="refund_account_id" position="after">
                 <field name="contrapart_account_id" attrs="{'invisible': [('separate','=', False)]}"/>

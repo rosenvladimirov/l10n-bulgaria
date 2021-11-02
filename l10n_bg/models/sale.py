@@ -43,10 +43,11 @@ class SaleOrder(models.Model):
                 ['&', ('refund_invoice_id', '=', inv.id), ('journal_id', '=', inv.journal_id.id)]
                 for inv in invoice_ids if inv.number
             ])
-            domain_inv = ['|'] + domain_inv + expression.OR([
-                ['&', ('debitnote_invoice_id', '=', inv.id), ('journal_id', '=', inv.journal_id.id)]
-                for inv in invoice_ids if inv.number
-            ])
+            if 'debitnote_invoice_id' in self.env['account.invoice']._fields:
+                domain_inv = ['|'] + domain_inv + expression.OR([
+                    ['&', ('debitnote_invoice_id', '=', inv.id), ('journal_id', '=', inv.journal_id.id)]
+                    for inv in invoice_ids if inv.number
+                ])
             if domain_inv:
                 refund_ids = self.env['account.invoice'].search(expression.AND([
                     ['&', ('type', '=', 'out_refund'), ('origin', '!=', False)],

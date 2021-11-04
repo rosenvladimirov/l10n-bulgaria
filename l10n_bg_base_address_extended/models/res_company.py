@@ -4,7 +4,8 @@ from odoo import api, fields, models, tools, _
 
 
 class Company(models.Model):
-    _inherit = "res.company"
+    _inherit = ["res.company"]
+    _name = "res.company"
 
     street_building_number = fields.Char('Bulding Number', compute='_compute_address',
                               inverse='_inverse_street_building_number', translate=True)

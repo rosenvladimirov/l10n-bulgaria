@@ -1,34 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 <!--                            ORIGINAL... just in case
-    <record id="base_address_extended.view_partner_structured_form" model="ir.ui.view">
-        <field name="name">view_partner_structured_bg_form</field>
+    <record id="view_partner_structured_form" model="ir.ui.view">
+        <field name="name">view_partner_structured_form</field>
         <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='street']" position="replace">
-                <field name="street" invisible="1"/>
-                <field name="street_sector_number" placeholder="Sector Name..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
-                <field name="street_name" placeholder="Street Name..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
-                <span> </span>
-                <div class="o_row">
-                    <label for="street_number" class="oe_edit_only"/>
+                <div>
+                    <field name="street" class="oe_read_only"/>
+                </div>
+                <field name="street_name" placeholder="Street Name..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/>
+                <div class="oe_edit_only o_row">
+                    <label for="street_number"/>
                     <span> </span>
                     <field name="street_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
-                    <label for="street_building_number" class="oe_edit_only"/>
-                    <field name="street_building_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
-                </div>
-                <div class="o_row">
-                    <label for="street_floor_number" class="oe_edit_only"/>
-                    <span> </span>
-                    <field name="street_floor_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
-                    <label for="street_number2" class="oe_edit_only"/>
-                    <field name="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/><span> </span>
+                    <label for="street_number2"/>
+                    <field name="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
                 </div>
             </xpath>
         </field>
     </record>
 -->
-    <record id="view_partner_structured_form" model="ir.ui.view">
+    <record id="base_address_extended.view_partner_structured_form" model="ir.ui.view">
         <field name="name">view_partner_structured_bg_form</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
@@ -37,43 +31,58 @@
                 <table class="table" style="border:0;">
                 <tbody>
                     <field name="street" invisible="0" class="oe_read_only"/>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_sector_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                        <td colspan="100" style="border:0;"><field name="street_sector_number" placeholder="Sector Name..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_name" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                    <tr name="street_name" style="border:0;"><td style="border:0; width: 20%;"><label for="street_name" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
                         <td colspan="100" style="border:0;"><field name="street_name" placeholder="Street Name..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
                     </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"/>
+                    <tr name="street2" style="border:0;"><td style="border:0; width: 20%;"/>
                         <td colspan="100" style="border:0;"><field name="street2" placeholder="Street Name 2..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
                     </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                    <tr name="street_number" style="border:0;"><td style="border:0; width: 20%;"><label for="street_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
                         <td colspan="100" style="border:0;"><field name="street_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
                     </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_building_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                        <td colspan="100" style="border:0;"><field name="street_building_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_floor_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                        <td colspan="100" style="border:0;"><field name="street_floor_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                    <tr name="street_number2" style="border:0;"><td style="border:0; width: 20%;"><label for="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
                         <td colspan="100" style="border:0;"><field name="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="city" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
-                        <td style="border:0;"><field name="city" placeholder="City" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="state_id" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
-                        <td style="border:0;"><field name="state_id" class="oe_edit_only" placeholder="State" options="{&quot;no_open&quot;: True}" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" context="{'country_id': country_id, 'zip': zip}"/></td>
-                        <td style="border:0;"><field name="zip" placeholder="ZIP" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
-                    </tr>
-                    <tr><td style="border:0;"><label for="country_id" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
-                        <td colspan="100" style="border:0;"><field name="country_id" placeholder="Country" class="o_address_country oe_edit_only" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
                     </tr>
                 </tbody>
                 </table>
             </xpath>
         </field>
     </record>
-    <record id="base_address_extended.view_partner_structured_replace_form" model="ir.ui.view">
+    <record id="view_partner_structured_form" model="ir.ui.view">
+        <field name="name">view_partner_structured_bg_form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base_address_extended.view_partner_structured_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tr[@name='street_number2']" position="before">
+                <tr name="street_sector_number" style="border:0;"><td style="border:0; width: 20%;"><label for="street_sector_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                    <td colspan="100" style="border:0;"><field name="street_sector_number" placeholder="Sector Name..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                </tr>
+            </xpath>
+            <xpath expr="//tr[@name='street_number2']" position="after">
+                <tr name="street_building_number" style="border:0;"><td style="border:0; width: 20%;"><label for="street_building_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                    <td colspan="100" style="border:0;"><field name="street_building_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                </tr>
+                <tr name="street_floor_number" style="border:0;"><td style="border:0; width: 20%;"><label for="street_floor_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                    <td colspan="100" style="border:0;"><field name="street_floor_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                </tr>
+                <tr name="street_number2" style="border:0;"><td style="border:0; width: 20%;"><label for="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                    <td colspan="100" style="border:0;"><field name="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                </tr>
+                <tr name="city" style="border:0;"><td style="border:0; width: 20%;"><label for="city" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                    <td style="border:0;"><field name="city" placeholder="City" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                </tr>
+                <tr name="state_id" style="border:0;"><td style="border:0; width: 20%;"><label for="state_id" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                    <td style="border:0;"><field name="state_id" class="oe_edit_only" placeholder="State" options="{&quot;no_open&quot;: True}" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" context="{'country_id': country_id, 'zip': zip}"/></td>
+                    <td style="border:0;"><field name="zip" placeholder="ZIP" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                </tr>
+                <tr name="country_id"><td style="border:0;"><label for="country_id" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                    <td colspan="100" style="border:0;"><field name="country_id" placeholder="Country" class="o_address_country oe_edit_only" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                </tr>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_structured_replace_form" model="ir.ui.view">
         <field name="name">view_partner_structured_bg_replace_form</field>
         <field name="model">res.partner</field>
         <field name="priority">1</field>
@@ -86,98 +95,167 @@
             <xpath expr="//field[@name='country_id']" position="replace"/>
         </field>
     </record>
-    <record id="view_partner_address_structured_form" model="ir.ui.view">
+
+<!--    The origina in base_address_extended-->
+<!--    <record id="view_partner_address_structured_form" model="ir.ui.view">-->
+<!--        <field name="name">view_partner_address_structured_form</field>-->
+<!--        <field name="model">res.partner</field>-->
+<!--        <field name="inherit_id" ref="base.view_partner_address_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='street']" position="replace">-->
+<!--                <field name="street" invisible="1"/>-->
+<!--                <field name="street_name" placeholder="Street Name..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>-->
+<!--                <div class="o_row">-->
+<!--                    <label for="street_number" class="oe_edit_only"/>-->
+<!--                    <span> </span>-->
+<!--                    <field name="street_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>-->
+<!--                    <label for="street_number2" class="oe_edit_only"/>-->
+<!--                    <field name="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>-->
+<!--                </div>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="base_address_extended.view_partner_address_structured_form" model="ir.ui.view">
         <field name="name">view_partner_address_structured_bg_form</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_address_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='street']" position="replace">
                 <table class="table" style="border:0;">
-                <tbody>
-                    <field name="street" invisible="0" class="oe_read_only"/>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_sector_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                        <td colspan="100" style="border:0;"><field name="street_sector_number" placeholder="Sector Name..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_name" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                        <td colspan="100" style="border:0;"><field name="street_name" placeholder="Street Name..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"/>
-                        <td colspan="100" style="border:0;"><field name="street2" placeholder="Street Name 2..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                        <td colspan="100" style="border:0;"><field name="street_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_building_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                        <td colspan="100" style="border:0;"><field name="street_building_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_floor_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                        <td colspan="100" style="border:0;"><field name="street_floor_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                        <td colspan="100" style="border:0;"><field name="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="city" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
-                        <td style="border:0;"><field name="city" placeholder="City" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="state_id" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
-                        <td style="border:0;"><field name="state_id" class="oe_edit_only" placeholder="State" options="{&quot;no_open&quot;: True}" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" context="{'country_id': country_id, 'zip': zip}"/></td>
-                        <td style="border:0;"><field name="zip" placeholder="ZIP" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
-                    </tr>
-                    <tr><td style="border:0;"><label for="country_id" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
-                        <td colspan="100" style="border:0;"><field name="country_id" placeholder="Country" class="o_address_country oe_edit_only" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
-                    </tr>
-                </tbody>
+                    <tbody>
+                        <field name="street" invisible="0" class="oe_read_only"/>
+                        <tr name="street_name" style="border:0;"><td style="border:0; width: 20%;"><label for="street_name" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                            <td colspan="100" style="border:0;"><field name="street_name" placeholder="Street Name..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                        </tr>
+                        <tr name="street2" style="border:0;"><td style="border:0; width: 20%;"/>
+                            <td colspan="100" style="border:0;"><field name="street2" placeholder="Street Name 2..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                        </tr>
+                        <tr name="street_number" style="border:0;"><td style="border:0; width: 20%;"><label for="street_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                            <td colspan="100" style="border:0;"><field name="street_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                        </tr>
+                        <tr name="street_number2" style="border:0;"><td style="border:0; width: 20%;"><label for="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                            <td colspan="100" style="border:0;"><field name="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                        </tr>
+                    </tbody>
                 </table>
             </xpath>
         </field>
     </record>
+    <record id="view_partner_address_structured_form" model="ir.ui.view">
+        <field name="name">view_partner_address_structured_bg_form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base_address_extended.view_partner_address_structured_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tr[@name='street_number2']" position="before">
+                <tr name="street_sector_number" style="border:0;"><td style="border:0; width: 20%;"><label for="street_sector_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                    <td colspan="100" style="border:0;"><field name="street_sector_number" placeholder="Sector Name..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                </tr>
+            </xpath>
+            <xpath expr="//tr[@name='street_number2']" position="after">
+                <tr name="street_building_number" style="border:0;"><td style="border:0; width: 20%;"><label for="street_building_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                    <td colspan="100" style="border:0;"><field name="street_building_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                </tr>
+                <tr name="street_floor_number" style="border:0;"><td style="border:0; width: 20%;"><label for="street_floor_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                    <td colspan="100" style="border:0;"><field name="street_floor_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                </tr>
+                <tr name="street_number2" style="border:0;"><td style="border:0; width: 20%;"><label for="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                    <td colspan="100" style="border:0;"><field name="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                </tr>
+                <tr name="city" style="border:0;"><td style="border:0; width: 20%;"><label for="city" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                    <td style="border:0;"><field name="city" placeholder="City" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                </tr>
+                <tr name="state_id" style="border:0;"><td style="border:0; width: 20%;"><label for="state_id" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                    <td style="border:0;"><field name="state_id" class="oe_edit_only" placeholder="State" options="{&quot;no_open&quot;: True}" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" context="{'country_id': country_id, 'zip': zip}"/></td>
+                    <td style="border:0;"><field name="zip" placeholder="ZIP" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                </tr>
+                <tr name="country_id"><td style="border:0;"><label for="country_id" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                    <td colspan="100" style="border:0;"><field name="country_id" placeholder="Country" class="o_address_country oe_edit_only" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                </tr>
+            </xpath>
+        </field>
+    </record>
 
-    <record id="view_res_company_extended_form" model="ir.ui.view">
+<!--    Original in base_address_extended -->
+<!--    <record id="view_res_company_extended_form" model="ir.ui.view">-->
+<!--        <field name="name">view_res_company_extended_form</field>-->
+<!--        <field name="model">res.company</field>-->
+<!--        <field name="inherit_id" ref="base.view_company_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='street']" position="replace">-->
+<!--                <field name="street" invisible="1"/>-->
+<!--                <field name="street_name" placeholder="Street Name..."/>-->
+<!--                <div class="o_row">-->
+<!--                    <label for="street_number" class="oe_edit_only"/>-->
+<!--                    <span> </span>-->
+<!--                    <field name="street_number"/>-->
+<!--                    <label for="street_number2" class="oe_edit_only"/>-->
+<!--                    <field name="street_number2"/>-->
+<!--                </div>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="base_address_extended.view_res_company_extended_form" model="ir.ui.view">
         <field name="name">view_res_company_extended_bg_form</field>
         <field name="model">res.company</field>
         <field name="inherit_id" ref="base.view_company_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='street']" position="replace">
                 <table class="table" style="border:0;">
-                <tbody>
-                    <field name="street" invisible="0" class="oe_read_only"/>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_sector_number" class="oe_edit_only"/></td>
-                        <td colspan="100" style="border:0;"><field name="street_sector_number" placeholder="Sector Name..." class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_name" class="oe_edit_only"/></td>
-                        <td colspan="100" style="border:0;"><field name="street_name" placeholder="Street Name..." class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"/>
-                        <td colspan="100" style="border:0;"><field name="street2" placeholder="Street Name 2..." class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_number" class="oe_edit_only"/></td>
-                        <td colspan="100" style="border:0;"><field name="street_number" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_building_number" class="oe_edit_only"/></td>
-                        <td colspan="100" style="border:0;"><field name="street_building_number" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_floor_number" class="oe_edit_only"/></td>
-                        <td colspan="100" style="border:0;"><field name="street_floor_number" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="street_number2" class="oe_edit_only"/></td>
-                        <td colspan="100" style="border:0;"><field name="street_number2" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="city" class="oe_edit_only"/></td>
-                        <td style="border:0;"><field name="city" placeholder="City" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr style="border:0;"><td style="border:0; width: 20%;"><label for="state_id" class="oe_edit_only"/></td>
-                        <td style="border:0;"><field name="state_id" class="oe_edit_only" placeholder="State" options="{&quot;no_open&quot;: True}" context="{'country_id': country_id, 'zip': zip}"/></td>
-                        <td style="border:0;"><field name="zip" placeholder="ZIP" class="oe_edit_only"/></td>
-                    </tr>
-                    <tr><td style="border:0;"><label for="country_id" class="oe_edit_only"/></td>
-                        <td colspan="100" style="border:0;"><field name="country_id" placeholder="Country" class="o_address_country oe_edit_only" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/></td>
-                    </tr>
-                </tbody>
+                    <tbody>
+                        <field name="street" invisible="0" class="oe_read_only"/>
+                        <tr name="street_name" style="border:0;"><td style="border:0; width: 20%;"><label for="street_name" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                            <td colspan="100" style="border:0;"><field name="street_name" placeholder="Street Name..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                        </tr>
+                        <tr name="street2" style="border:0;"><td style="border:0; width: 20%;"/>
+                            <td colspan="100" style="border:0;"><field name="street2" placeholder="Street Name 2..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                        </tr>
+                        <tr name="street_number" style="border:0;"><td style="border:0; width: 20%;"><label for="street_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                            <td colspan="100" style="border:0;"><field name="street_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                        </tr>
+                        <tr name="street_number2" style="border:0;"><td style="border:0; width: 20%;"><label for="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                            <td colspan="100" style="border:0;"><field name="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                        </tr>
+                    </tbody>
                 </table>
             </xpath>
         </field>
     </record>
-    <record id="base_address_extended.view_res_company_extended_replace_form" model="ir.ui.view">
+    <record id="view_res_company_extended_form" model="ir.ui.view">
+        <field name="name">view_res_company_extended_bg_form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base_address_extended.view_res_company_extended_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tr[@name='street_number2']" position="before">
+                <tr name="street_sector_number" style="border:0;"><td style="border:0; width: 20%;"><label for="street_sector_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                    <td colspan="100" style="border:0;"><field name="street_sector_number" placeholder="Sector Name..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                </tr>
+            </xpath>
+            <xpath expr="//tr[@name='street_number2']" position="after">
+                <tr name="street_building_number" style="border:0;"><td style="border:0; width: 20%;"><label for="street_building_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                    <td colspan="100" style="border:0;"><field name="street_building_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                </tr>
+                <tr name="street_floor_number" style="border:0;"><td style="border:0; width: 20%;"><label for="street_floor_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                    <td colspan="100" style="border:0;"><field name="street_floor_number" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                </tr>
+                <tr name="street_number2" style="border:0;"><td style="border:0; width: 20%;"><label for="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                    <td colspan="100" style="border:0;"><field name="street_number2" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
+                </tr>
+                <tr name="city" style="border:0;"><td style="border:0; width: 20%;"><label for="city" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                    <td style="border:0;"><field name="city" placeholder="City" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                </tr>
+                <tr name="state_id" style="border:0;"><td style="border:0; width: 20%;"><label for="state_id" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                    <td style="border:0;"><field name="state_id" class="oe_edit_only" placeholder="State" options="{&quot;no_open&quot;: True}" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" context="{'country_id': country_id, 'zip': zip}"/></td>
+                    <td style="border:0;"><field name="zip" placeholder="ZIP" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                </tr>
+                <tr name="country_id"><td style="border:0;"><label for="country_id" class="oe_edit_only" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                    <td colspan="100" style="border:0;"><field name="country_id" placeholder="Country" class="o_address_country oe_edit_only" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/></td>
+                </tr>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_res_company_extended_replace_form" model="ir.ui.view">
         <field name="name">view_res_company_extended_bg_form</field>
         <field name="model">res.company</field>
         <field name="priority">1</field>

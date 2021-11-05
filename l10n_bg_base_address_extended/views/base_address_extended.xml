@@ -30,12 +30,9 @@
             <xpath expr="//field[@name='street']" position="replace">
                 <field name="type" invisible="1"/>
                 <field name="parent_id" invisible="1"/>
+                <field name="street" placeholder="Street ..." class="oe_read_only"/>
                 <table class="table" style="border:0;">
                     <tbody>
-                        <tr name="street" style="border:0;" invisible="0">
-                            <td style="border:0; width: 20%;"><label for="street" class="oe_edit_only"/></td>
-                            <td colspan="100" style="border:0;"><field name="street" placeholder="Street ..." class="oe_edit_only"/></td>
-                        </tr>
                         <tr name="street_name" style="border:0;">
                             <td style="border:0; width: 20%;"><label for="street_name" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
                             <td colspan="100" style="border:0;"><field name="street_name" placeholder="Street Name..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
@@ -144,12 +141,9 @@
             <xpath expr="//field[@name='street']" position="replace">
                 <field name="type" invisible="1"/>
                 <field name="parent_id" invisible="1"/>
+                <field name="street" placeholder="Street ..." class="oe_read_only"/>
                 <table class="table" style="border:0;">
                     <tbody>
-                        <tr name="street" style="border:0;" invisible="0">
-                            <td style="border:0; width: 20%;"><label for="street" class="oe_edit_only"/></td>
-                            <td colspan="100" style="border:0;"><field name="street" placeholder="Street ..." class="oe_edit_only"/></td>
-                        </tr>
                         <tr name="street_name" style="border:0;">
                             <td style="border:0; width: 20%;"><label for="street_name" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
                             <td colspan="100" style="border:0;"><field name="street_name" placeholder="Street Name..." attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" class="oe_edit_only"/></td>
@@ -241,12 +235,9 @@
         <field name="inherit_id" ref="base.view_company_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='street']" position="replace">
+                <field name="street" placeholder="Street ..." class="oe_read_only"/>
                 <table class="table" style="border:0;">
                     <tbody>
-                        <tr name="street" style="border:0;" invisible="0">
-                            <td style="border:0; width: 20%;"><label for="street" class="oe_edit_only"/></td>
-                            <td colspan="100" style="border:0;"><field name="street" placeholder="Street ..." class="oe_edit_only"/></td>
-                        </tr>
                         <tr name="street_name" style="border:0;">
                             <td style="border:0; width: 20%;"><label for="street_name" class="oe_edit_only"/></td>
                             <td colspan="100" style="border:0;"><field name="street_name" placeholder="Street Name..." class="oe_edit_only"/></td>
@@ -318,7 +309,7 @@
         <field name="inherit_id" ref="base.view_company_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='street2']" position="replace"/>
-<!--            <xpath expr="//field[@name='city']" position="replace"/>-->
+            <xpath expr="//field[@name='city']" position="replace"/>
             <xpath expr="//field[@name='state_id']" position="replace"/>
             <xpath expr="//field[@name='zip']" position="replace"/>
             <xpath expr="//field[@name='country_id']" position="replace"/>

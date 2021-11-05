@@ -17,10 +17,9 @@
                     <field name="fax" widget="phone"/>
                     <field name="mobile" widget="phone"/>
                 </field>
-                <field name="city" position="after">
-                    <field name="city_id"/>
-                </field>
-                <field name="city" position="replace"/>
+<!--                <field name="city" position="after">-->
+<!--                    <field name="city_id"/>-->
+<!--                </field>-->
 		    </field>
         </record>
     </data>

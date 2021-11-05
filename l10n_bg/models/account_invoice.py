@@ -164,7 +164,7 @@ class AccountInvoice(models.Model):
     @api.depends('move_id')
     def onchange_invoice_number(self):
         inv_number = self.number
-        if self.move_id and self.type in ('in_invoice', 'in_refund', 'in_debit'):
+        if self.move_id and self.type in ('in_invoice', 'in_refund'):
             self.invoice_number = "%s(%s)" % (inv_number, self.reference)
         if self.move_id and self.invoice_number:
             self.move_id.ref = self.invoice_number
@@ -352,63 +352,69 @@ class AccountInvoice(models.Model):
             ticket_number = inv.ticket_number
             customs_number = inv.customs_number
             protocol_number = inv.protocol_number
-            custom_number = number = inv.invoice_number
+            number = inv.invoice_number
 
             if not inv.fiscal_position_id:
                 inv.fiscal_position_id = inv.env['account.fiscal.position'].with_context(
                     company_id=inv.company_id.id).get_fiscal_position(inv.partner_id.id)
 
-            if not inv.type_docs:
-                sequence = inv.journal_id.ticket_sequence_id
+            if inv.type_docs in (False, '', 'standart') and not inv.invoice_number:
+                sequence = inv.journal_id.invoice_sequence_id
+                if inv.type == 'out_refund':
+                    sequence = inv.journal_id.refund_inv_sequence_id
                 if sequence and inv.type in ('out_invoice', 'out_refund'):
                     sequence = sequence.with_context(
                         ir_sequence_date=inv.date or inv.date_invoice)
-                    custom_number = ticket_number = sequence.next_by_id()
-                # else:
-                #    custom_number = ticket_number = inv.reference
-                number = False
-            elif inv.type_docs in (False, '', 'standart', 'protocol', 'ictcustoms') and not inv.invoice_number:
-                sequence = inv.journal_id.invoice_sequence_id
-                if inv.type in ('out_refund', 'in_refund', 'out_debit', 'in_debit'):
-                    sequence = inv.journal_id.refund_inv_sequence_id
-                if sequence and inv.type in ('out_invoice', 'out_refund', 'out_debit'):
-                    sequence = sequence.with_context(
-                        ir_sequence_date=inv.date or inv.date_invoice)
-                    custom_number = number = sequence.next_by_id()
-                # else:
-                #    custom_number = number = inv.reference
-            elif inv.type_docs in ['ticket'] and inv.type == 'out_invoice' and not inv.ticket_number:
+                    number = sequence.next_by_id()
+            elif inv.type_docs == 'ticket' and not inv.ticket_number:
                 sequence = inv.journal_id.ticket_sequence_id
-                if inv.type in ('out_refund', 'in_refund', 'out_debit', 'in_debit'):
+                if inv.type == 'out_refund':
                     sequence = inv.journal_id.refund_inv_sequence_id
-                sequence = sequence.with_context(
-                    ir_sequence_date=inv.date or inv.date_invoice)
-                custom_number = ticket_number = sequence.next_by_id()
-                number = False
-            elif inv.type_docs == 'protocol' and inv.type in ('in_invoice', 'in_refund') and not inv.protocol_number:
-                sequence = inv.journal_id.protocol_sequence_id
-                sequence = sequence.with_context(
-                    ir_sequence_date=inv.date or inv.date_invoice)
-                protocol_number = sequence.next_by_id()
-                custom_number = ",".join([custom_number or '', protocol_number])
-            elif inv.type_docs == 'customs' and not inv.customs_number and not inv.invoice_number:
-                # first get invoice number
-                sequence = inv.journal_id.invoice_sequence_id
-                if inv.type in ('out_refund', 'in_refund', 'out_debit', 'in_debit'):
-                    sequence = inv.journal_id.refund_inv_sequence_id
-                if sequence and inv.type in ('out_invoice', 'out_refund', 'out_debit'):
+                if sequence and inv.type in ('out_invoice', 'out_refund'):
                     sequence = sequence.with_context(
                         ir_sequence_date=inv.date or inv.date_invoice)
-                    custom_number = number = sequence.next_by_id()
-                else:
-                    custom_number = number = inv.reference
+                    ticket_number = sequence.next_by_id()
+                    number = False
+            elif inv.type_docs in ('protocol', 'ictcustoms', 'trpprotocol') and not inv.protocol_number:
+                # First get the invoice number for outgoing documents
+                sequence = inv.journal_id.invoice_sequence_id
+                if inv.type == 'out_refund':
+                    sequence = inv.journal_id.refund_inv_sequence_id
+                if sequence and inv.type in ('out_invoice', 'out_refund'):
+                    sequence = sequence.with_context(
+                        ir_sequence_date=inv.date or inv.date_invoice)
+                    number = sequence.next_by_id()
+
+                # After get protocol number
+                sequence = inv.journal_id.protocol_sequence_id
+                if inv.type == 'out_refund':
+                    sequence = inv.journal_id.refund_inv_sequence_id
+                if sequence and inv.type in ('out_invoice', 'out_refund',
+                                             'in_invoice', 'in_refund'):
+                    sequence = sequence.with_context(
+                        ir_sequence_date=inv.date or inv.date_invoice)
+                    protocol_number = sequence.next_by_id()
+                    # custom_number = ",".join([number or '', protocol_number])
+
+            elif inv.type_docs == 'customs' and not inv.invoice_number:
+                sequence = inv.journal_id.invoice_sequence_id
+                if inv.type == 'out_refund':
+                    sequence = inv.journal_id.refund_inv_sequence_id
+                if sequence and inv.type in ('out_invoice', 'out_refund',
+                                             'in_invoice', 'in_refund'):
+                    sequence = sequence.with_context(
+                        ir_sequence_date=inv.date or inv.date_invoice)
+                    number = sequence.next_by_id()
                 # after the customs number
                 sequence = inv.journal_id.customs_sequence_id
-                sequence = sequence.with_context(
-                    ir_sequence_date=inv.date or inv.date_invoice)
-                customs_number = sequence.next_by_id()
-                custom_number = ",".join([custom_number or '', customs_number])
+                if sequence:
+                    sequence = sequence.with_context(
+                        ir_sequence_date=inv.date or inv.date_invoice)
+                    customs_number = sequence.next_by_id()
+                    # custom_number = ",".join([number or '', customs_number])
             if number or protocol_number or ticket_number or customs_number:
+                if inv.type in ('in_invoice', 'in_refund'):
+                    number = ticket_number = False
                 inv.write({
                     'invoice_number': number,
                     'protocol_number': protocol_number,

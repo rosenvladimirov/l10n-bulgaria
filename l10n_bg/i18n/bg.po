@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0+e-20191023\n"
+"Project-Id-Version: Odoo Server 11.0-20201204\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-21 14:00+0000\n"
-"PO-Revision-Date: 2021-04-21 14:00+0000\n"
+"POT-Creation-Date: 2021-11-05 12:07+0000\n"
+"PO-Revision-Date: 2021-11-05 12:07+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,22 +16,16 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_bg
-#: model:account.account,name:l10n_bg.1_pcg_2421
+#: model:account.account,name:l10n_bg.pcg_2421
 msgid "(Натрупана) Амортизация върху интелектуална собственост"
 msgstr "(Натрупана) Амортизация върху интелектуална собственост"
 
 #. module: l10n_bg
-#: model:account.account,name:l10n_bg.1_pcg_2419
-#: model:account.account,name:l10n_bg.3_pcg_2419
-#: model:account.account,name:l10n_bg.4_pcg_2419
 #: model:account.account.template,name:l10n_bg.pcg_2419
 msgid "(Натрупана) Амортизация на други дълготрайни материални активи"
 msgstr "(Натрупана) Амортизация на други дълготрайни материални активи"
 
 #. module: l10n_bg
-#: model:account.account,name:l10n_bg.1_pcg_2429
-#: model:account.account,name:l10n_bg.3_pcg_2429
-#: model:account.account,name:l10n_bg.4_pcg_2429
 #: model:account.account.template,name:l10n_bg.pcg_2429
 msgid "(Натрупана) Амортизация на други дълготрайни нематериални активи"
 msgstr "(Натрупана) Амортизация на други дълготрайни нематериални активи"
@@ -42,29 +36,21 @@ msgid "(Натрупана) Амортизация на инвестиции в 
 msgstr "(Натрупана) Амортизация на инвестиции в имоти (Инвестиционни имоти)"
 
 #. module: l10n_bg
-#: model:account.account,name:l10n_bg.1_pcg_2413
-#: model:account.account,name:l10n_bg.3_pcg_2413
-#: model:account.account,name:l10n_bg.4_pcg_2413
 #: model:account.account.template,name:l10n_bg.pcg_2413
 msgid "(Натрупана) Амортизация на компютърна техника"
 msgstr "(Натрупана) Амортизация на компютърна техника"
 
 #. module: l10n_bg
-#: model:account.account,name:l10n_bg.1_pcg_2415
-#: model:account.account,name:l10n_bg.3_pcg_2415
-#: model:account.account.template,name:l10n_bg.pcg_2415
+#: model:account.account.template,name:l10n_bg.pcg_2414
 msgid "(Натрупана) Амортизация на машини и оборудване"
 msgstr "(Натрупана) Амортизация на машини и оборудване"
 
 #. module: l10n_bg
-#: model:account.account,name:l10n_bg.4_pcg_2415
+#: model:account.account,name:l10n_bg.pcg_2415
 msgid "(Натрупана) Амортизация на машини и оборудване - други"
 msgstr "(Натрупана) Амортизация на машини и оборудване - други"
 
 #. module: l10n_bg
-#: model:account.account,name:l10n_bg.1_pcg_2417
-#: model:account.account,name:l10n_bg.3_pcg_2417
-#: model:account.account,name:l10n_bg.4_pcg_2417
 #: model:account.account.template,name:l10n_bg.pcg_2417
 msgid "(Натрупана) Амортизация на офис обзавеждане"
 msgstr "(Натрупана) Амортизация на офис обзавеждане"
@@ -75,48 +61,34 @@ msgid "(Натрупана) Амортизация на положителна �
 msgstr "(Натрупана) Амортизация на положителна репутация"
 
 #. module: l10n_bg
-#: model:account.account,name:l10n_bg.1_pcg_2422
-#: model:account.account,name:l10n_bg.3_pcg_2422
-#: model:account.account,name:l10n_bg.4_pcg_2422
 #: model:account.account.template,name:l10n_bg.pcg_2422
 msgid "(Натрупана) Амортизация на програмни продукти"
 msgstr "(Натрупана) Амортизация на програмни продукти"
 
 #. module: l10n_bg
-#: model:account.account,name:l10n_bg.3_pcg_2421
-#: model:account.account,name:l10n_bg.4_pcg_2421
 #: model:account.account.template,name:l10n_bg.pcg_2421
 msgid "(Натрупана) Амортизация на продукти от развойна дейност"
 msgstr "(Натрупана) Амортизация на продукти от развойна дейност"
 
 #. module: l10n_bg
-#: model:account.account,name:l10n_bg.1_pcg_2412
-#: model:account.account,name:l10n_bg.3_pcg_2412
-#: model:account.account,name:l10n_bg.4_pcg_2412
 #: model:account.account.template,name:l10n_bg.pcg_2412
 msgid "(Натрупана) Амортизация на сгради и конструкции"
 msgstr "(Натрупана) Амортизация на сгради и конструкции"
 
 #. module: l10n_bg
-#: model:account.account,name:l10n_bg.1_pcg_2414
-#: model:account.account,name:l10n_bg.3_pcg_2414
-#: model:account.account,name:l10n_bg.4_pcg_2414
 #: model:account.account.template,name:l10n_bg.pcg_2414
 msgid "(Натрупана) Амортизация на съоръжения"
 msgstr "(Натрупана) Амортизация на съоръжения"
 
 #. module: l10n_bg
-#: model:account.account,name:l10n_bg.1_pcg_2416
-#: model:account.account,name:l10n_bg.3_pcg_2416
-#: model:account.account,name:l10n_bg.4_pcg_2416
 #: model:account.account.template,name:l10n_bg.pcg_2416
 msgid "(Натрупана) Амортизация на транспортни средства"
 msgstr "(Натрупана) Амортизация на транспортни средства"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_1
-msgid "ALLIANZBANKBULGARIAAD"
-msgstr "ALLIANZBANKBULGARIAAD"
+msgid "ALLIANZ BANK BULGARIA AD"
+msgstr "Алианс Банк България"
 
 #. module: l10n_bg
 #: model:ir.model,name:l10n_bg.model_account_account_tag
@@ -145,7 +117,7 @@ msgstr "Добави КИ/ДИ"
 #: code:addons/l10n_bg/wizards/account_invoice_refund.py:27
 #, python-format
 msgid "Amount corrections with %s"
-msgstr "Amount corrections with %s"
+msgstr "Сума за корекцията %s"
 
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_account_invoice_refund_amount
@@ -163,7 +135,7 @@ msgstr "Чл.21(0%)"
 #: code:addons/l10n_bg/models/account_move.py:13
 #, python-format
 msgid "Automatic discovery"
-msgstr "Общо облагане"
+msgstr "Общо облагане с ДДС"
 
 #. module: l10n_bg
 #: selection:account.fiscal.position,type_docs:0
@@ -173,23 +145,23 @@ msgstr "B2C Фактури"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_24
-msgid "BNPPARIBASS.A.-SOFIABRANCH"
-msgstr "BNPPARIBASS.A.-SOFIABRANCH"
+msgid "BNP PARIBASS.A. - SOFIA BRANCH"
+msgstr "ПНП Париба А. - София офис"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_5
-msgid "BULGARIANDEVELOPMENTBANKAD"
-msgstr "BULGARIANDEVELOPMENTBANKAD"
+msgid "BULGARIAN DEVELOPMENT BANK AD"
+msgstr "Българска Банка за Развитие АД"
 
 #. module: l10n_bg
 #: selection:account.account.tag,type_taxes:0
 msgid "Boot Tax base and tax"
-msgstr "Boot Tax base and tax"
+msgstr "Използва сбор от ДО и Данъка"
 
 #. module: l10n_bg
 #: selection:account.account.tag,type_taxes:0
 msgid "Boot Tax base and tax EU deals"
-msgstr "Boot Tax base and tax EU deals"
+msgstr "Използва ДО и Данъка при сделки в ЕС"
 
 #. module: l10n_bg
 #: model:account.chart.template,name:l10n_bg.bg_chart_template
@@ -198,18 +170,18 @@ msgstr "България - сметкоплан"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_4
-msgid "Bulgarian-AmericanCreditBankAD"
-msgstr "Bulgarian-AmericanCreditBankAD"
+msgid "Bulgarian - American Credit Bank AD"
+msgstr "Българо Амриканска Кредитна Банка АД"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_21
-msgid "CENTRALCOOPERATIVEBANKAD"
-msgstr "CENTRALCOOPERATIVEBANKAD"
+msgid "CENTRAL COOPERATIVE BANK AD"
+msgstr "Централна Кооперативна Банка АД"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_18
-msgid "COMMERCIALBANKVICTORIAEAD"
-msgstr "COMMERCIALBANKVICTORIAEAD"
+msgid "COMMERCIAL BANK VICTORIA EAD"
+msgstr "Търговска Банка Виктория ЕАД"
 
 #. module: l10n_bg
 #: code:addons/l10n_bg/wizards/account_invoice_refund.py:51
@@ -221,17 +193,17 @@ msgstr "Cannot create a debit note for the invoice which is already reconciled, 
 #: code:addons/l10n_bg/wizards/account_invoice_refund.py:49
 #, python-format
 msgid "Cannot create debit note for the draft/cancelled invoice."
-msgstr "Cannot create debit note for the draft/cancelled invoice."
+msgstr "Не може да създадете Дебитно известие за Прокектна/Отказана фактура."
 
 #. module: l10n_bg
 #: model:ir.ui.view,arch_db:l10n_bg.view_city_extend_form
 msgid "Cites"
-msgstr "Cites"
+msgstr "Градове"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_27
-msgid "CitibankEuropeplc-BulgariaBranch"
-msgstr "CitibankEuropeplc-BulgariaBranch"
+msgid "Citi bank Europe plc-Bulgaria Branch"
+msgstr "Сити Банк Европа ЕАД-Офис България"
 
 #. module: l10n_bg
 #: model:ir.model,name:l10n_bg.model_res_city
@@ -241,7 +213,7 @@ msgstr "Град"
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_res_city_code
 msgid "City Code"
-msgstr "City Code"
+msgstr "Код на града"
 
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_res_city_city_hall_id
@@ -268,23 +240,23 @@ msgstr "Код"
 #: model:ir.model.fields,field_description:l10n_bg.field_account_tax_contrapart_account_id
 #: model:ir.model.fields,field_description:l10n_bg.field_account_tax_template_contrapart_account_id
 msgid "Contrapart Account"
-msgstr "Кореспондетна сметка "
+msgstr "Кореспондраща сметка "
 
 #. module: l10n_bg
 #: code:addons/l10n_bg/models/account_invoice.py:563
 #, python-format
 msgid "Contrapart for %sname"
-msgstr "Contrapart for %sname"
+msgstr "Кореспондираща сметка %sname"
 
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_res_city_structure_type
 msgid "Country Structure"
-msgstr "Country Structure"
+msgstr "Структура на държавното устройство"
 
 #. module: l10n_bg
 #: selection:account.account.tag,type_taxes:0
 msgid "Coupled tax"
-msgstr "Coupled tax"
+msgstr "Ичислен данък"
 
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_res_city_types_create_uid
@@ -355,7 +327,7 @@ msgstr "Митническа декларация"
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_account_invoice_customs_number
 msgid "Customs number"
-msgstr "Customs number"
+msgstr "Номер на митническа декларация"
 
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_account_journal_customs_sequence_id
@@ -364,13 +336,13 @@ msgstr "Митническа последователност"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_19
-msgid "DCOMMERCEBANKAD"
-msgstr "DCOMMERCEBANKAD"
+msgid "DCOMMERCE BANK AD"
+msgstr "Търговска банка Д АД"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_2
-msgid "DSKBankEAD"
-msgstr "DSKBankEAD"
+msgid "DSK Bank EAD"
+msgstr "ДСК Банка ЕАД"
 
 #. module: l10n_bg
 #: code:addons/l10n_bg/wizards/account_invoice_refund.py:108
@@ -411,8 +383,8 @@ msgstr "EKATTE"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_22
-msgid "EUROBANKBULGARIAAD"
-msgstr "EUROBANKBULGARIAAD"
+msgid "EURO BANK BULGARIA AD"
+msgstr "Пощенска банка АД"
 
 #. module: l10n_bg
 #: model:account.tax,description:l10n_bg.4_tax_out_eu
@@ -437,8 +409,8 @@ msgstr "Разходите в натура"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_11
-msgid "FirstInvestmentBankAD"
-msgstr "FirstInvestmentBankAD"
+msgid "First Investment Bank AD"
+msgstr "Първа Инвестиционна Банка АД"
 
 #. module: l10n_bg
 #: model:ir.model,name:l10n_bg.model_account_fiscal_position
@@ -448,7 +420,7 @@ msgstr "Фискална позиция"
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_res_city_has_taxoffice
 msgid "Has Tax Office"
-msgstr "Has Tax Office"
+msgstr "Има офис на НАП"
 
 #. module: l10n_bg
 #: model:account.tax,description:l10n_bg.4_tax_vod
@@ -473,18 +445,18 @@ msgstr "ID"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_25
-msgid "INGBANKN.V.-SOFIABRANCH"
-msgstr "INGBANKN.V.-SOFIABRANCH"
+msgid "ING BANK N.V.-SOFIAB RANCH"
+msgstr "Инг Банк АД - Офис София"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_7
-msgid "INTERNATIONALASSETBANKAD"
-msgstr "INTERNATIONALASSETBANKAD"
+msgid "INTERNATIONAL ASSET BANK AD"
+msgstr "Интернешънъл Асет Банк АД"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_6
-msgid "INVESTBANKPLSAD"
-msgstr "INVESTBANKPLSAD"
+msgid "INVEST BANK PLS AD"
+msgstr "Инвест Банк АД"
 
 #. module: l10n_bg
 #: model:ir.model.fields,help:l10n_bg.field_account_invoice_tax_tax_credit_payable
@@ -607,8 +579,8 @@ msgstr "Последно обновено на"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_9
-msgid "MUNICIPALBANKAD"
-msgstr "MUNICIPALBANKAD"
+msgid "MUNICIPAL BANK AD"
+msgstr "Общинска банкан АД"
 
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_res_city_municipality_id
@@ -630,18 +602,18 @@ msgstr "Note that the easiest way to create a debit note is to do it directly fo
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_3
-msgid "PIRAEUSBANKBULGARIAAD"
-msgstr "PIRAEUSBANKBULGARIAAD"
+msgid "PIRAEUS BANK BULGARIA AD"
+msgstr "Пиреус Банк България АД"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_10
-msgid "PROCREDITBANKBULGARIAAD"
-msgstr "PROCREDITBANKBULGARIAAD"
+msgid "PRO CREDIT BANK BULGARIA AD"
+msgstr "Про Кредит Банк България АД"
 
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_account_tax_parent_tax_ids
 msgid "Parent Taxes"
-msgstr "Parent Taxes"
+msgstr "Родителски Данък"
 
 #. module: l10n_bg
 #: code:addons/l10n_bg/models/account.py:72
@@ -662,7 +634,7 @@ msgstr "Тристранни сделки със стоки в ЕС"
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_account_invoice_protocol_number
 msgid "Protocol number"
-msgstr "Protocol number"
+msgstr "Номер на протокола"
 
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_account_journal_protocol_sequence_id
@@ -671,8 +643,8 @@ msgstr "Последователност на протокола"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_12
-msgid "RAIFFEISENBANK/BULGARIA/AD"
-msgstr "RAIFFEISENBANK/BULGARIA/AD"
+msgid "RAIFFEISEN BANK/BULGARIA/AD"
+msgstr "Райфайзен Банк България АД"
 
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_account_journal_refund_inv_sequence_id
@@ -681,8 +653,8 @@ msgstr "Брояч на кредитните известия"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_14
-msgid "SOCIETEGENERALEEXPRESSBANKAD"
-msgstr "SOCIETEGENERALEEXPRESSBANKAD"
+msgid "SOCIETE GENERALE EXPRESSBANK AD"
+msgstr "Сосиете Женерал Експресбанк АД"
 
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_account_invoice_refund_default_scouting_product_id
@@ -692,7 +664,7 @@ msgstr "Продукт за сконтиране"
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_account_invoice_refund_account_separate
 msgid "Separate by Account"
-msgstr "Separate by Account"
+msgstr "Разпредели по сметки"
 
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_account_tax_separate
@@ -739,7 +711,7 @@ msgstr "София"
 #: code:addons/l10n_bg/models/account_invoice.py:86
 #, python-format
 msgid "Standart document"
-msgstr "Standart document"
+msgstr "Стандартен документ"
 
 #. module: l10n_bg
 #: selection:account.fiscal.position,type_docs:0
@@ -750,7 +722,7 @@ msgstr "Стандартно за фактури"
 #. module: l10n_bg
 #: model:ir.model.fields,field_description:l10n_bg.field_account_invoice_sub_type
 msgid "Sub Type"
-msgstr "Sub Type"
+msgstr "Подвид"
 
 #. module: l10n_bg
 #: selection:account.fiscal.position,type_docs:0
@@ -760,23 +732,23 @@ msgstr "Добавете към входящите фактури протоко
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_28
-msgid "T.C.ZIRAATBANKASI-SOFIABRANCH"
-msgstr "T.C.ZIRAATBANKASI-SOFIABRANCH"
+msgid "T.C.ZIRAAT BANKASI-SOFIA BRANCH"
+msgstr "ТЕ-ДЖЕ ЗИРААТ БАНКАСЪ"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_16
-msgid "TBIBankEAD"
-msgstr "TBIBankEAD"
+msgid "TBI Bank EAD"
+msgstr "Ти Би Ай Банк ЕАД"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_15
-msgid "TEXIMBANKAD"
-msgstr "TEXIMBANKAD"
+msgid "TEXIM BANK AD"
+msgstr "Тексим Банк АД"
 
 #. module: l10n_bg
 #: model:res.bank,name:l10n_bg.res_bank_17
-msgid "TOKUDABANKAD"
-msgstr "TOKUDABANKAD"
+msgid "TOKUDA BANK AD"
+msgstr "Токуда Банк АД"
 
 #. module: l10n_bg
 #: model:ir.model,name:l10n_bg.model_account_tax
@@ -791,12 +763,12 @@ msgstr "Данъчна основа"
 #. module: l10n_bg
 #: selection:account.account.tag,type_taxes:0
 msgid "Tax base (credit)"
-msgstr "Tax base (credit)"
+msgstr "ДО (кредит)"
 
 #. module: l10n_bg
 #: selection:account.account.tag,type_taxes:0
 msgid "Tax base (debit)"
-msgstr "Tax base (debit)"
+msgstr "ДО (дебит)"
 
 #. module: l10n_bg
 #: selection:account.tax,tax_credit_payable:0
@@ -1273,8 +1245,8 @@ msgstr "Аврен"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00103
-msgid "Агатово"
-msgstr "Агатово"
+msgid "Agatovo"
+msgstr "Agatovo"
 
 #. module: l10n_bg
 #: model:account.account,name:l10n_bg.1_pcg_614
@@ -1291,32 +1263,32 @@ msgstr "Адрес за кореспонденция на регистриран
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00117
-msgid "Азманите"
+msgid "Azmanite"
 msgstr "Азманите"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00895
-msgid "Айдемир"
+msgid "Aydemir"
 msgstr "Айдемир"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00148
-msgid "Айрово"
+msgid "Ayrovo"
 msgstr "Айрово"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00151
-msgid "Айтос"
+msgid "Aytos"
 msgstr "Айтос"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00165
-msgid "Аканджиево"
+msgid "Akandzhievo"
 msgstr "Аканджиево"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00179
-msgid "Акациево"
+msgid "Akatsievo"
 msgstr "Акациево"
 
 #. module: l10n_bg
@@ -1324,48 +1296,48 @@ msgstr "Акациево"
 #: model:account.account,name:l10n_bg.3_pcg_505
 #: model:account.account,name:l10n_bg.4_pcg_505
 #: model:account.account.template,name:l10n_bg.pcg_505
-msgid "Акредитиви"
+msgid "Letters of credit"
 msgstr "Акредитиви"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00182
-msgid "Аксаково"
+msgid "Aksakovo"
 msgstr "Аксаково"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00196
-msgid "Аламовци"
+msgid "Alamovtsi"
 msgstr "Аламовци"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00206
-msgid "Албанци"
+msgid "Albantsi"
 msgstr "Албанци"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00215
-msgid "Алваново"
+msgid "Alvanovo"
 msgstr "Алваново"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00223
-msgid "Алдомировци"
+msgid "Aldomirovtsi"
 msgstr "Алдомировци"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00254
-msgid "АлекоКонстантиново"
+msgid "Aleko Konstantinovo"
 msgstr "АлекоКонстантиново"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00237
 #: model:res.city,name:l10n_bg.00240
-msgid "Алеково"
+msgid "Alekovo"
 msgstr "Алеково"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00268
-msgid "Александрия"
+msgid "Aleksandria"
 msgstr "Александрия"
 
 #. module: l10n_bg
@@ -1377,17 +1349,17 @@ msgstr "Александрия"
 #: model:res.city,name:l10n_bg.00326
 #: model:res.city,name:l10n_bg.00330
 #: model:res.city,name:l10n_bg.00343
-msgid "Александрово"
+msgid "Aleksandrovo"
 msgstr "Александрово"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00360
-msgid "АлександърСтамболийски"
-msgstr "АлександърСтамболийски"
+msgid "Aleksandar Stamboliyski"
+msgstr "Александър Стамболийски"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.83421
-msgid "Алендарова"
+msgid "Alendarova"
 msgstr "Алендарова"
 
 #. module: l10n_bg
@@ -1539,12 +1511,12 @@ msgstr "Асеновец"
 #: model:res.city,name:l10n_bg.00730
 #: model:res.city,name:l10n_bg.00744
 #: model:res.city,name:l10n_bg.00758
-msgid "Асеново"
+msgid "Asenovo"
 msgstr "Асеново"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.00761
-msgid "Асеновци"
+msgid "Asenovtsi"
 msgstr "Асеновци"
 
 #. module: l10n_bg
@@ -1592,8 +1564,8 @@ msgstr "Ахтопол"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.02021
-msgid "БабаТонка"
-msgstr "БабаТонка"
+msgid "Баба Тонка"
+msgstr "Баба Тонка"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.02035
@@ -2071,7 +2043,7 @@ msgstr "Бежаново"
 #: model:account.tax,description:l10n_bg.3_tax_novat_purchase
 #: model:account.tax,description:l10n_bg.4_tax_novat_purchase
 #: model:account.tax.template,description:l10n_bg.tax_novat_purchase
-msgid "Без право ДК(0%)"
+msgid "No right Tax Credit(0%)"
 msgstr "Без право ДК(0%)"
 
 #. module: l10n_bg
@@ -13334,9 +13306,6 @@ msgid "Красноселци"
 msgstr "Красноселци"
 
 #. module: l10n_bg
-#: model:account.account,name:l10n_bg.1_pcg_513
-#: model:account.account,name:l10n_bg.3_pcg_513
-#: model:account.account,name:l10n_bg.4_pcg_513
 #: model:account.account.template,name:l10n_bg.pcg_513
 msgid "Краткосрочни заеми и вземания"
 msgstr "Краткосрочни заеми и вземания"
@@ -13347,9 +13316,6 @@ msgid "Крачимир"
 msgstr "Крачимир"
 
 #. module: l10n_bg
-#: model:account.account,name:l10n_bg.1_pcg_153
-#: model:account.account,name:l10n_bg.3_pcg_153
-#: model:account.account,name:l10n_bg.4_pcg_153
 #: model:account.account.template,name:l10n_bg.pcg_153
 msgid "Кредитни карти"
 msgstr "Кредитни карти"
@@ -13524,8 +13490,8 @@ msgstr "Крумово"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.40021
-msgid "Крумовоградище"
-msgstr "Крумовоградище"
+msgid "Крумово градище"
+msgstr "Крумово градище"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.40035
@@ -16999,68 +16965,68 @@ msgstr "ОбластПерник"
 
 #. module: l10n_bg
 #: model:res.country.state,name:l10n_bg.S56722
-msgid "ОбластПлевен"
-msgstr "ОбластПлевен"
+msgid "Област Плевен"
+msgstr "Област Плевен"
 
 #. module: l10n_bg
 #: model:res.country.state,name:l10n_bg.S56784
-msgid "ОбластПловдив"
-msgstr "ОбластПловдив"
+msgid "Област Пловдив"
+msgstr "Област Пловдив"
 
 #. module: l10n_bg
 #: model:res.country.state,name:l10n_bg.S61710
-msgid "ОбластРазград"
-msgstr "ОбластРазград"
+msgid "Област Разград"
+msgstr "Област Разград"
 
 #. module: l10n_bg
 #: model:res.country.state,name:l10n_bg.S63427
-msgid "ОбластРусе"
-msgstr "ОбластРусе"
+msgid "Област Русе"
+msgstr "Област Русе"
 
 #. module: l10n_bg
 #: model:res.country.state,name:l10n_bg.S66425
-msgid "ОбластСилистра"
-msgstr "ОбластСилистра"
+msgid "Област Силистра"
+msgstr "Област Силистра"
 
 #. module: l10n_bg
 #: model:res.country.state,name:l10n_bg.S67338
-msgid "ОбластСливен"
-msgstr "ОбластСливен"
+msgid "Област Сливен"
+msgstr "Област Сливен"
 
 #. module: l10n_bg
 #: model:res.country.state,name:l10n_bg.S67653
-msgid "ОбластСмолян"
-msgstr "ОбластСмолян"
+msgid "Област Смолян"
+msgstr "Област Смолян"
 
 #. module: l10n_bg
 #: model:res.country.state,name:l10n_bg.S68134
-msgid "ОбластСофия"
-msgstr "ОбластСофия"
+msgid "Област София"
+msgstr "Област София"
 
 #. module: l10n_bg
 #: model:res.country.state,name:l10n_bg.S68850
-msgid "ОбластСтараЗагора"
-msgstr "ОбластСтараЗагора"
+msgid "Област Стара Загора"
+msgstr "Област Стара Загора"
 
 #. module: l10n_bg
 #: model:res.country.state,name:l10n_bg.S73626
-msgid "ОбластТърговище"
-msgstr "ОбластТърговище"
+msgid "Област Търговище"
+msgstr "Област Търговище"
 
 #. module: l10n_bg
 #: model:res.country.state,name:l10n_bg.S77195
-msgid "ОбластХасково"
-msgstr "ОбластХасково"
+msgid "Област Хасково"
+msgstr "Област Хасково"
 
 #. module: l10n_bg
 #: model:res.country.state,name:l10n_bg.S83510
-msgid "ОбластШумен"
-msgstr "ОбластШумен"
+msgid "Област Шумен"
+msgstr "Област Шумен"
 
 #. module: l10n_bg
 #: model:res.country.state,name:l10n_bg.S87374
-msgid "ОбластЯмбол"
-msgstr "ОбластЯмбол"
+msgid "Област Ямбол"
+msgstr "Област Ямбол"
 
 #. module: l10n_bg
 #: model:res.city,name:l10n_bg.53089
@@ -26548,9 +26514,6 @@ msgid "ман."
 msgstr "ман."
 
 #. module: l10n_bg
-#: model:account.tax,description:l10n_bg.1_tax_art_140
-#: model:account.tax,description:l10n_bg.3_tax_art_140
-#: model:account.tax,description:l10n_bg.4_tax_art_140
 #: model:account.tax.template,description:l10n_bg.tax_art_140
 msgid "чл.140(6),173(0%)"
 msgstr "чл.140(6),173(0%)"

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="product_label" model="ir.actions.report">
+            <field name="name">Product Label 60x30</field>
+            <field name="model">product.template</field>
+            <field name="report_type">glabels</field>
+            <field name="report_name">l10n_bg_labels.product_label</field>
+            <field name="print_report_name">'Product_label_60_30 - %s' % object.name</field>
+            <field name="glabels_template" type="base64" file="l10n_bg_labels/data/product_label_60_30.glabels"/>
+            <field name="csv_template" type="base64" file="l10n_bg_labels/data/product_label_60_30.csv"/>
+            <field name="label_count">1</field>
+        </record>
+
+        <record id="location_label" model="ir.actions.report">
+            <field name="name">Locations label 45x20</field>
+            <field name="model">stock.location</field>
+            <field name="report_type">glabels</field>
+            <field name="report_name">l10n_bg_labels.storage_label</field>
+            <field name="print_report_name">'Storage_label_60_30 - %s' % object.name</field>
+            <field name="glabels_template" type="base64" file="l10n_bg_labels/data/storage_label_40_25.glabels"/>
+            <field name="csv_template" type="base64" file="l10n_bg_labels/data/stock_location.csv"/>
+            <field name="label_count">1</field>
+        </record>
+
+        <record id="lot_label" model="ir.actions.report">
+            <field name="name">Lot label 60x30</field>
+            <field name="model">stock.production.lot</field>
+            <field name="report_type">glabels</field>
+            <field name="report_name">l10n_bg_labels.lot_label</field>
+            <field name="print_report_name">'Lot_label_60_30 - %s' % object.name</field>
+            <field name="glabels_template" type="base64" file="l10n_bg_labels/data/lot_label_60_30.glabels"/>
+            <field name="csv_template" type="base64" file="l10n_bg_labels/data/stock_move_line.csv"/>
+            <field name="label_count">1</field>
+        </record>
+
+        <record id="lot_label_small" model="ir.actions.report">
+            <field name="name">Lot label 15x4</field>
+            <field name="model">stock.production.lot</field>
+            <field name="report_type">glabels</field>
+            <field name="report_name">l10n_bg_labels.lot_label_small</field>
+            <field name="print_report_name">'Lot_label_15_04 - %s' % object.name</field>
+            <field name="glabels_template" type="base64" file="l10n_bg_labels/data/lot_label_15_04.glabels"/>
+            <field name="csv_template" type="base64" file="l10n_bg_labels/data/stock_production_lot.csv"/>
+            <field name="label_count">1</field>
+        </record>
+
+        <record id="lot_label_ref" model="ir.actions.report">
+            <field name="name">Lot label 60x30 ref</field>
+            <field name="model">stock.production.lot</field>
+            <field name="report_type">glabels</field>
+            <field name="report_name">l10n_bg_labels.lot_ref_label</field>
+            <field name="print_report_name">'Lot_ref_label_60_30 - %s' % object.name</field>
+            <field name="glabels_template" type="base64" file="l10n_bg_labels/data/lot_label_60_30_ref.glabels"/>
+            <field name="csv_template" type="base64" file="l10n_bg_labels/data/stock_move_line_ref.csv"/>
+            <field name="label_count">1</field>
+        </record>
+
+        <record id="package_label" model="ir.actions.report">
+            <field name="name">Package label 60x30</field>
+            <field name="model">stock.quant.package</field>
+            <field name="report_type">glabels</field>
+            <field name="report_name">l10n_bg_labels.package_label</field>
+            <field name="print_report_name">'Package_label_60_30 - %s' % object.name</field>
+            <field name="glabels_template" type="base64" file="l10n_bg_labels/data/package_label.glabels"/>
+            <field name="csv_template" type="base64" file="l10n_bg_labels/data/stock_quant_package.csv"/>
+            <field name="label_count">1</field>
+        </record>
+    </data>
+</odoo>

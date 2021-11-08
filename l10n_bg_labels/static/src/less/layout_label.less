@@ -1,0 +1,71 @@
+.o_labels_footer, .o_labels_header, .o_report_layout_labels {
+    font-family: 'DejaVu Sans Mono';
+    color: #000;
+    font-size:8px;
+}
+.o_labels_header {
+    img {
+        max-height: 30px;
+        max-width: 70px;
+    }
+}
+.o_labels_footer {
+    margin: 0 3px;
+    border-top: 1px solid grey;
+    h4 {
+        font-weight: bolder;
+    }
+    .pagenumber {
+        width: 8px;
+        height: 8px;
+        border: none;
+        padding-top: 2px;
+        text-align: center;
+    }
+}
+.o_report_layout_labels {
+    h1, h2, h3 {
+        font-weight: bolder;
+    }
+    strong {
+        color: #000;
+    }
+    table {
+        thead {
+            tr th {
+                text-align: left !important;
+                border-bottom: 1px solid @grey !important;
+                text-transform: uppercase;
+            }
+            tr th:last-child {
+                text-align: right !important;
+            }
+        }
+        tbody {
+            color: #000;
+            tr:first-child td, tr:last-child td {
+                border: none;
+            }
+            tr {
+                border: none;
+                td {
+                    padding: 1px 3px;
+                    text-align: left !important;
+                }
+                td:last-child {
+                    text-align: right !important;
+                }
+            }
+        }
+    }
+    /*Total table*/
+    .row > .col-xs-4 {
+            border: none;
+            > table {
+            tr:last-child td, tr:first-child td {
+                /*we could get rid of this rule if .border-black td would be terminated in report.less*/
+                border: none !important;
+            }
+        }
+    }
+}

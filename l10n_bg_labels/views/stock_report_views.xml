@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            string="Package Label with Contents"
+            id="action_report_quant_package_label"
+            model="stock.quant.package"
+            report_type="qweb-pdf"
+            name="l10n_bg_labels.report_package_barcode_label"
+            file="l10n_bg_labels.report_package_barcode_label"/>
+
+        <record id="action_report_quant_package_label" model="ir.actions.report">
+            <field name="paperformat_id" ref="l10n_bg_labels.paperformat_package_barcode_label"/>
+        </record>
+        <record id="stock.action_report_quant_package_barcode_small" model="ir.actions.report">
+            <field name="paperformat_id" ref="l10n_bg_labels.paperformat_package_label"/>
+        </record>
+
+    </data>
+</odoo>

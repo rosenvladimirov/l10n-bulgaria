@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Assets for reports -->
+    <template id="assets_common" name="l10n_bg_layout_labes" inherit_id="web.report_assets_common">
+        <xpath expr="." position="inside">
+            <link href="/l10n_bg_labels/static/src/less/layout_label.less" rel="stylesheet" type="text/less"/>
+        </xpath>
+    </template>
+
+    <template id="internal_labels_layout">
+        <!-- Multicompany -->
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"/>
+        </t>
+
+        <div class="header o_labels_header">
+            <div class="row">
+                <div class="col-xs-3">
+                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                </div>
+                <div class="col-xs-7 col-xs-offset-2 text-center">
+                    <strong t-esc="company.name"/>
+                    <span t-if="company.vat"><t t-esc="company.country_id.vat_label or 'TIN'"/>: <label t-field="company.vat"/></span>
+                </div>
+            </div>
+        </div>
+        <div class="article o_report_layout_labels">
+          <t t-raw="0" />
+        </div>
+        <div class="footer o_labels_footer">
+            <div class="row">
+                <div class="col-xs-12 pull-left">
+                    <div>
+                        Page:
+                        <span class="page"/>
+                        /
+                        <span class="topage"/>
+                        -
+                        <span t-if="company.phone"><i class="fa fa-phone"/> <label t-field="company.phone"/></span>
+                        <span t-if="company.email"><i class="fa fa-at"/> <label t-field="company.email"/></span>
+                        <span t-if="company.website"><i class="fa fa-globe"/> <label t-field="company.website"/></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>

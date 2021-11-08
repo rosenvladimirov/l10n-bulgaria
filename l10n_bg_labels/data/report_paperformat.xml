@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_package_barcode_label" model="report.paperformat">
+            <field name="name">Label 100x150</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">150</field>
+            <field name="page_width">100</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">3</field>
+            <field name="margin_bottom">3</field>
+            <field name="margin_left">1</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">3</field>
+            <field name="dpi">403</field>
+        </record>
+        <record id="paperformat_package_barcode_label_102_152" model="report.paperformat">
+            <field name="name">Label 102x152</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">152</field>
+            <field name="page_width">102</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">3</field>
+            <field name="margin_bottom">3</field>
+            <field name="margin_left">1</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">3</field>
+            <field name="dpi">403</field>
+        </record>
+        <record id="paperformat_package_label_105_76" model="report.paperformat">
+            <field name="name">Label 105x76</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">76</field>
+            <field name="page_width">105</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">1</field>
+            <field name="margin_bottom">1</field>
+            <field name="margin_left">1</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">300</field>
+        </record>
+        <record id="paperformat_package_label" model="report.paperformat">
+            <field name="name">Label 58x38</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">38</field>
+            <field name="page_width">58</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">1</field>
+            <field name="margin_bottom">1</field>
+            <field name="margin_left">1</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">300</field>
+        </record>
+        <record id="paperformat_package_label_60_30" model="report.paperformat">
+            <field name="name">Label 60x30</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">30</field>
+            <field name="page_width">60</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">1</field>
+            <field name="margin_bottom">1</field>
+            <field name="margin_left">1</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">300</field>
+        </record>
+    </data>
+</odoo>

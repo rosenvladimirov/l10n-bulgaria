@@ -270,6 +270,8 @@ class AccountInvoice(models.Model):
                 # _logger.info("AMOUNTS %s:%s" % (single_amounts, single_amount_refunds))
                 if self._context.get('separate_account'):
                     amount_untaxed = inv.amount_untaxed - single_amounts
+                    if amount_untaxed == 0.0:
+                        amount_untaxed = 1.0
                     for group, group_lines in groupby(lines.sorted(lambda r: r.product_id.id, reverse=True),
                                                       lambda l: l.product_id):
                         if part.lang:
@@ -288,7 +290,7 @@ class AccountInvoice(models.Model):
                             single_amount_refund += inv_line.price_subtotal - refund_single_amounts - extra_single_amount
                             invoice_line_tax_ids.update([x.id for x in inv_line.invoice_line_tax_ids])
                             accounts.update([inv_line.account_id])
-                        if single_amount_refund <= 0:
+                        if single_amount_refund <= 0.0:
                             continue
                         ssingle_amount = single_amount * (single_amount_refund / amount_untaxed)
                         name = group.partner_ref
@@ -309,7 +311,8 @@ class AccountInvoice(models.Model):
                     # _logger.info("AMOUNT %s-%s" % (single_amount, single_amounts))
                     single_amount -= single_amounts
                     amount_untaxed = inv.amount_untaxed - single_amounts
-
+                    if amount_untaxed == 0:
+                        amount_untaxed = 1.0
                     for tax_line in inv.tax_line_ids:
                         ssingle_amount = single_amount * (tax_line.base / amount_untaxed)
                         invoice_line_tax_ids = [(6, 0, [tax_line.tax_id.id])]

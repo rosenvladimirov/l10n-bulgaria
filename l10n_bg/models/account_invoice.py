@@ -261,7 +261,7 @@ class AccountInvoice(models.Model):
                                                       lambda l: l.product_id):
                         groups.append(group)
                     for group, group_lines in groupby(inv.mapped('refund_invoice_ids').mapped('invoice_line_ids').
-                                                              sorted(lambda r: r.product_id.id, reverse=True),
+                                                          sorted(lambda r: r.product_id.id, reverse=True),
                                                       lambda l: l.product_id):
                         single_amount_refunds[group] = sum([x.price_subtotal for x in group_lines])
                         single_amounts += single_amount_refunds[group]
@@ -286,7 +286,7 @@ class AccountInvoice(models.Model):
                                 refund_single_amounts = single_amount_refunds[group]
                             if extra_single_amounts > 0:
                                 extra_single_amount = extra_single_amounts * (
-                                        (inv_line.price_subtotal - refund_single_amounts) / amount_untaxed)
+                                    (inv_line.price_subtotal - refund_single_amounts) / amount_untaxed)
                             single_amount_refund += inv_line.price_subtotal - refund_single_amounts - extra_single_amount
                             invoice_line_tax_ids.update([x.id for x in inv_line.invoice_line_tax_ids])
                             accounts.update([inv_line.account_id])
@@ -369,6 +369,9 @@ class AccountInvoice(models.Model):
                     sequence = sequence.with_context(
                         ir_sequence_date=inv.date or inv.date_invoice)
                     number = sequence.next_by_id()
+                    ticket_number = False
+                    protocol_number = False
+                    customs_number = False
             elif inv.type_docs == 'ticket' and not inv.ticket_number:
                 sequence = inv.journal_id.ticket_sequence_id
                 if inv.type == 'out_refund':
@@ -378,6 +381,8 @@ class AccountInvoice(models.Model):
                         ir_sequence_date=inv.date or inv.date_invoice)
                     ticket_number = sequence.next_by_id()
                     number = False
+                    customs_number = False
+                    protocol_number = False
             elif inv.type_docs in ('protocol', 'ictcustoms', 'trpprotocol') and not inv.protocol_number:
                 # First get the invoice number for outgoing documents
                 sequence = inv.journal_id.invoice_sequence_id
@@ -397,6 +402,10 @@ class AccountInvoice(models.Model):
                     sequence = sequence.with_context(
                         ir_sequence_date=inv.date or inv.date_invoice)
                     protocol_number = sequence.next_by_id()
+                    customs_number = False
+                    if inv.type in ('in_invoice', 'in_refund'):
+                        number = False
+                        ticket_number = False
                     # custom_number = ",".join([number or '', protocol_number])
 
             elif inv.type_docs == 'customs' and not inv.invoice_number:
@@ -414,10 +423,9 @@ class AccountInvoice(models.Model):
                     sequence = sequence.with_context(
                         ir_sequence_date=inv.date or inv.date_invoice)
                     customs_number = sequence.next_by_id()
+                    protocol_number = False
                     # custom_number = ",".join([number or '', customs_number])
             if number or protocol_number or ticket_number or customs_number:
-                if inv.type in ('in_invoice', 'in_refund'):
-                    number = ticket_number = False
                 inv.write({
                     'invoice_number': number,
                     'protocol_number': protocol_number,
@@ -522,8 +530,9 @@ class AccountInvoice(models.Model):
                     ctx = dict(ctx, customs_fix=True)
                 # Fix calculations with unit price * qty
                 taxes_currency = \
-                line.invoice_line_tax_ids.with_context(ctx).compute_all(price_unit, self.company_id.currency_id,
-                                                                        1.0, line.product_id, self.partner_id)['taxes']
+                    line.invoice_line_tax_ids.with_context(ctx).compute_all(price_unit, self.company_id.currency_id,
+                                                                            1.0, line.product_id, self.partner_id)[
+                        'taxes']
                 for tax in taxes_currency:
                     tax.update({
                         'amount_currency': tax['amount'],
@@ -588,9 +597,9 @@ class AccountInvoice(models.Model):
                 })
                 done_taxes.append(tax.id)
                 if tax and \
-                        tax.tax_credit_payable in ['taxadvpay', 'eutaxpay', 'eutaxcredit', 'othertax'] and \
-                        tax.separate and \
-                        tax.contrapart_account_id:
+                    tax.tax_credit_payable in ['taxadvpay', 'eutaxpay', 'eutaxcredit', 'othertax'] and \
+                    tax.separate and \
+                    tax.contrapart_account_id:
                     if not self.eu_deals and tax.tax_credit_payable == 'eutaxcredit':
                         continue
                     if tax.tax_type_deal and tax.tax_type_deal != self.tax_type_deal:
@@ -907,6 +916,7 @@ class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
     price_unit_vat = fields.Float(string='VAT Unit Price', digits=dp.get_precision('Product Price'), default=0.0)
+
     # fix in octa-light state = fields.Selection(related="invoice_id.state")
 
     @api.onchange('price_unit')

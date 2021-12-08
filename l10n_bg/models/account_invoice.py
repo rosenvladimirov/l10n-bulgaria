@@ -155,6 +155,12 @@ class AccountInvoice(models.Model):
             for line in self.invoice_line_ids:
                 line.price_unit_vat = 0.0
 
+    @api.onchange('purchase_id')
+    def purchase_order_change(self):
+        res = super(AccountInvoice, self).purchase_order_change()
+        self._onchange_fiscal_position_id()
+        return res
+
     @api.multi
     def get_fiscal_position(self):
         delivery_partner_id = self.get_delivery_partner_id()

@@ -407,9 +407,21 @@ class AccountInvoice(models.Model):
                                              'in_invoice', 'in_refund'):
                     sequence = sequence.with_context(
                         ir_sequence_date=inv.date or inv.date_invoice)
-                    protocol_number = sequence.next_by_id()
-                    customs_number = False
-                    if inv.type in ('in_invoice', 'in_refund'):
+                    if inv.type_docs == 'protocol' and inv.type in ('in_invoice', 'in_refund'):
+                        protocol_number = sequence.next_by_id()
+                        customs_number = False
+                        number = False
+                        ticket_number = False
+                    if inv.type_docs == 'trpprotocol' and inv.type in ('out_invoice', 'out_refund'):
+                        protocol_number = sequence.next_by_id()
+                        customs_number = False
+                    if inv.type_docs == 'ictcustoms' and inv.type in ('in_invoice', 'in_refund'):
+                        sequence = inv.journal_id.customs_sequence_id
+                        if sequence:
+                            sequence = sequence.with_context(
+                                ir_sequence_date=inv.date or inv.date_invoice)
+                            customs_number = sequence.next_by_id()
+                        protocol_number = False
                         number = False
                         ticket_number = False
                     # custom_number = ",".join([number or '', protocol_number])

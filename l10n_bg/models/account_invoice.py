@@ -481,25 +481,31 @@ class AccountInvoice(models.Model):
                         move_lines_base.append(line)
                 else:
                     move_lines_base.append(line)
-            if inv.type in ('in_refund', 'out_refund'):
-                line = []
-                for x, y, l in move_lines_base + move_lines_tax:
-                    l['tax_sign'] = -1
-                    line.append((0, 0, l))
-                return line
-            if inv.type in ('in_invoice', 'out_refund'):
+
+            if inv.type in ('in_invoice', 'out_invoice'):
                 line = []
                 for x, y, l in move_lines_base:
-                    l['tax_sign'] = l['debit'] == 0 and -1 or 1
+                    l['tax_sign'] = 1
+                    if l['tax_ids']:
+                        if inv.type == 'in_invoice' and not l['debit']:
+                            l['tax_sign'] = -1
+                        elif inv.type == 'out_invoice' and not l['credit']:
+                            l['tax_sign'] = -1
                     line.append((x, y, l))
                 move_lines_base = line
-            if inv.type in ('out_invoice', 'in_refund'):
+            if inv.type in ('in_refund', 'out_refund'):
                 line = []
                 for x, y, l in move_lines_base:
-                    l['tax_sign'] = l['credit'] == 0 and -1 or 1
+                    l['tax_sign'] = -1
+                    if l['tax_ids']:
+                        if inv.type == 'in_refund' and not l['credit']:
+                            l['tax_sign'] = -1
+                        elif inv.type == 'out_refund' and not l['debit']:
+                            l['tax_sign'] = -1
                     line.append((x, y, l))
                 move_lines_base = line
             move_lines = move_lines_base + move_lines_tax
+            # _logger.info("MOVE %s(%s)" % (move_lines, inv.type))
         return move_lines
 
     def _compare_price_vat(self, line):

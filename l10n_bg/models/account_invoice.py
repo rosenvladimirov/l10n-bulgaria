@@ -161,6 +161,12 @@ class AccountInvoice(models.Model):
         self._onchange_fiscal_position_id()
         return res
 
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        res = super(AccountInvoice, self)._onchange_partner_id()
+        self._onchange_fiscal_position_id()
+        return res
+
     @api.multi
     def get_fiscal_position(self):
         delivery_partner_id = self.get_delivery_partner_id()
@@ -356,7 +362,7 @@ class AccountInvoice(models.Model):
         return result
 
     @api.multi
-    def action_move_create(self):
+    def _re_numbering(self):
         for inv in self:
             ticket_number = inv.ticket_number
             customs_number = inv.customs_number
@@ -443,6 +449,13 @@ class AccountInvoice(models.Model):
                     customs_number = sequence.next_by_id()
                     protocol_number = False
                     # custom_number = ",".join([number or '', customs_number])
+            return number, protocol_number, ticket_number, customs_number
+        return False
+
+    @api.multi
+    def action_move_create(self):
+        for inv in self:
+            number, protocol_number, ticket_number, customs_number = inv._re_numbering()
             if number or protocol_number or ticket_number or customs_number:
                 inv.write({
                     'invoice_number': number,

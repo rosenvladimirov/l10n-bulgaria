@@ -1,6 +1,2435 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
+        <!--New-->
+<record id="l10n_bg.vat_hotel" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_100"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">Нощувка (9%)</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">1</field>
+            <field name="parent_type_tax_use">none</field>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_100"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="tax_credit_payable">taxcredit</field>
+            <field name="separate">False</field>
+            <field name="name">Право н ДК за настаняване, предоставено от хотелиер (9%)</field>
+            <field name="analytic">False</field>
+            <field name="amount">9.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.vat_customs" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_100"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">20%</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">none</field>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">1</field>
+            <field name="parent_type_tax_use">none</field>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_100"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="tax_credit_payable">taxadvpay</field>
+            <field name="separate">True</field>
+            <field name="name">ДДС по ВНОС (митничека декларация) 20%</field>
+            <field name="analytic">False</field>
+            <field name="contrapart_account_id" ref="l10n_bg.pcg_457_002"/>
+            <field name="amount">20.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.vat_for_payment" model="account.tax.template">
+            <field name="tax_adjustment">True</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_900"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">Данък за внасяне</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">none</field>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">1</field>
+            <field name="parent_type_tax_use">none</field>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_900"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="separate">False</field>
+            <field name="name">Акцио Данък за внасяне от кл. 50 (Копие)</field>
+            <field name="analytic">False</field>
+            <field name="amount">0.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.tax_inherent_costs" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_459_999"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">Присъщи 10%</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="unece_type_code"/>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">1</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_oth"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="refund_account_id" ref="l10n_bg.pcg_459_999"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="separate">False</field>
+            <field name="name">Данък присъщи разходи 10%</field>
+            <field name="analytic">False</field>
+            <field name="amount">-9.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.vat_books" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_100"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">Книги (9%)</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">1</field>
+            <field name="parent_type_tax_use">none</field>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_100"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="tax_credit_payable">taxcredit</field>
+            <field name="separate">False</field>
+            <field name="name">Право на ДК за книги (9%)</field>
+            <field name="analytic">False</field>
+            <field name="amount">9.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.tax_customs" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_301_002"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">none</field>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">fixed</field>
+            <field name="sequence">2</field>
+            <field name="parent_type_tax_use">none</field>
+            <field name="refund_account_id" ref="l10n_bg.pcg_301_002"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="tax_credit_payable">taxadvpay</field>
+            <field name="separate">True</field>
+            <field name="name">Митнически сборове</field>
+            <field name="analytic">False</field>
+            <field name="contrapart_account_id" ref="l10n_bg.pcg_457_002"/>
+            <field name="amount">0.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.tax_novat_purchase" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_100"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">True</field>
+            <field name="description">Без право ДК(0%)</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">none</field>
+            <field name="unece_type_code"/>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">3</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_100"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">taxcredit</field>
+            <field name="separate">False</field>
+            <field name="name">ДДС на покупките без право на ДК</field>
+            <field name="analytic">False</field>
+            <field name="contrapart_period_account_id" ref="l10n_bg.pcg_450_001"/>
+            <field name="amount">0.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.tax_representative" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_606_003"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">10%</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">none</field>
+            <field name="unece_type_code"/>
+            <field name="tax_type_deal">entertainment</field>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">4</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_oth"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="refund_account_id" ref="l10n_bg.pcg_606_003"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">othertax</field>
+            <field name="separate">True</field>
+            <field name="name">Данък в/у представителни разходи</field>
+            <field name="analytic">False</field>
+            <field name="contrapart_account_id" ref="l10n_bg.pcg_459_001"/>
+            <field name="amount">10.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.tax_social_of_kind" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_606_003"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">10%</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">none</field>
+            <field name="unece_type_code"/>
+            <field name="tax_type_deal">social</field>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">5</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_oth"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="refund_account_id" ref="l10n_bg.pcg_606_003"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">othertax</field>
+            <field name="separate">True</field>
+            <field name="name">Данък в/у социалните разходи, предоставени в натура</field>
+            <field name="analytic">False</field>
+            <field name="contrapart_account_id" ref="l10n_bg.pcg_459_001"/>
+            <field name="amount">10.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.tax_insurance" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_606_003"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">10%</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">none</field>
+            <field name="unece_type_code"/>
+            <field name="tax_type_deal">insurance</field>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">6</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_oth"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="refund_account_id" ref="l10n_bg.pcg_606_003"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">othertax</field>
+            <field name="separate">True</field>
+            <field name="name">Данък в/у допълнителното социално осигуряване и застраховки &quot;Живот&quot;</field>
+            <field name="analytic">False</field>
+            <field name="contrapart_account_id" ref="l10n_bg.pcg_459_001"/>
+            <field name="amount">10.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.tax_social" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_606_003"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">10%</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">none</field>
+            <field name="unece_type_code"/>
+            <field name="tax_type_deal">voucher</field>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">7</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_oth"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="refund_account_id" ref="l10n_bg.pcg_606_003"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">othertax</field>
+            <field name="separate">True</field>
+            <field name="name">Данък в/у социалните разходи за ваучери за храна</field>
+            <field name="analytic">False</field>
+            <field name="contrapart_account_id" ref="l10n_bg.pcg_459_001"/>
+            <field name="amount">10.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.tax_kind" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_606_003"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">10%</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">none</field>
+            <field name="unece_type_code"/>
+            <field name="tax_type_deal">kind</field>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">8</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_oth"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="refund_account_id" ref="l10n_bg.pcg_606_003"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">othertax</field>
+            <field name="separate">True</field>
+            <field name="name">Данък в/у разходите в натура</field>
+            <field name="analytic">False</field>
+            <field name="contrapart_account_id" ref="l10n_bg.pcg_459_001"/>
+            <field name="amount">10.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.tax_sale" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_200"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">ДДС(20%)</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">sale</field>
+            <field name="unece_type_code"/>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">10</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_200"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="separate">False</field>
+            <field name="name">VAT 20%</field>
+            <field name="analytic">False</field>
+            <field name="amount">20.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.tax_personal" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_200"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">Л.П.ДДС(20%)</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">sale</field>
+            <field name="unece_type_code"/>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">30</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_200"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="separate">False</field>
+            <field name="name">Начислен ДДС за лично ползване (20%)</field>
+            <field name="analytic">False</field>
+            <field name="amount">0.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.vat_books" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_200"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">Т.У.ДДС(9%)</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">sale</field>
+            <field name="unece_type_code"/>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">40</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_aa"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_200"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="separate">False</field>
+            <field name="name">Наислен ДДС за литература (9%)</field>
+            <field name="analytic">False</field>
+            <field name="amount">9.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.vat_customs_import" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_200"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">ИЗНОС(0%)</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="unece_type_code"/>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">group</field>
+            <field name="sequence">50</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_200"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">taxadvpay</field>
+            <field name="separate">False</field>
+            <field name="name">ВНОС по глава трета от ЗДДС, извън ЕС (0%)</field>
+            <field name="analytic">False</field>
+            <field name="amount">0.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.tax_vod" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_200"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">ICT(0%)</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">sale</field>
+            <field name="unece_type_code"/>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">60</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_k"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_200"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="separate">False</field>
+            <field name="name">Вътрешно общностни доставки (0%)</field>
+            <field name="analytic">False</field>
+            <field name="amount">0.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.tax_vop" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">ICI(20%)</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="unece_type_code"/>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">group</field>
+            <field name="sequence">90</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_k"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="separate">True</field>
+            <field name="name">Вътрешно общностно придобиване (0%)</field>
+            <field name="analytic">False</field>
+            <field name="amount">1.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.vat_intra_art_82_2_5" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">ICI(20%)</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="unece_type_code"/>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">group</field>
+            <field name="sequence">90</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_k"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="separate">True</field>
+            <field name="name">Вътрешно общностно по чл. 82 ал. 2-5 (0%)</field>
+            <field name="analytic">False</field>
+            <field name="amount">1.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.tax_vop_sale" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_200"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">True</field>
+            <field name="description">ВОП(20%)</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">none</field>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">901</field>
+            <field name="parent_type_tax_use">none</field>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_100"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="tax_credit_payable">eutaxpay</field>
+            <field name="separate">True</field>
+            <field name="name">ДДС-Продажби ВОП (20%)</field>
+            <field name="analytic">False</field>
+            <field name="contrapart_period_account_id" ref="l10n_bg.pcg_450_001"/>
+            <field name="contrapart_account_id" ref="l10n_bg.pcg_457_003"/>
+            <field name="amount">20.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.tax_vop_purchase" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_100"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">True</field>
+            <field name="description">ВОП(20%)</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">none</field>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">901</field>
+            <field name="parent_type_tax_use">none</field>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_200"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="tax_credit_payable">eutaxcredit</field>
+            <field name="separate">True</field>
+            <field name="name">ДДС-покупки ВОП (20%)</field>
+            <field name="analytic">False</field>
+            <field name="contrapart_period_account_id" ref="l10n_bg.pcg_450_001"/>
+            <field name="contrapart_account_id" ref="l10n_bg.pcg_457_003"/>
+            <field name="amount">20.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.vat_art_82_2_5" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_200"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">ВОП(20%)</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">none</field>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">901</field>
+            <field name="parent_type_tax_use">none</field>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_200"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="separate">False</field>
+            <field name="name">ДДС-Продажби ВОП (20%)</field>
+            <field name="analytic">False</field>
+            <field name="amount">20.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.vat_without_tc" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_100"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">Без право ДК(0%)</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="unece_type_code"/>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">group</field>
+            <field name="sequence">9010</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_100"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">taxcredit</field>
+            <field name="separate">False</field>
+            <field name="name">ДДС на покупките без право на ДК Общо</field>
+            <field name="analytic">False</field>
+            <field name="amount">0.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.tax_purchase" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_100"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">True</field>
+            <field name="description">Пълен ДК(20%)</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="unece_type_code"/>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">9020</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_100"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">taxcredit</field>
+            <field name="separate">False</field>
+            <field name="name">ДДС на покупките с право на пълен ДК (20%)</field>
+            <field name="analytic">False</field>
+            <field name="contrapart_period_account_id" ref="l10n_bg.pcg_450_001"/>
+            <field name="amount">20.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.tax_part_purchase" model="account.tax.template">
+            <field name="tax_adjustment">False</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_100"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">True</field>
+            <field name="description">Частичен ДК(~%)</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="unece_type_code"/>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">percent</field>
+            <field name="sequence">9030</field>
+            <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+            <field name="parent_type_tax_use">none</field>
+            <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+            <field name="unece_due_date_id" ref="account_tax_unece.date_5"/>
+            <field name="unece_categ_code"/>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_100"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="unece_due_date_code"/>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="separate">False</field>
+            <field name="name">ДДС на покупките с частичен кредит (~%)</field>
+            <field name="analytic">False</field>
+            <field name="contrapart_period_account_id" ref="l10n_bg.pcg_450_001"/>
+            <field name="amount">20.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+        <record id="l10n_bg.vat_for_return" model="account.tax.template">
+            <field name="tax_adjustment">True</field>
+            <field name="account_id" ref="l10n_bg.pcg_453_800"/>
+            <field name="include_base_amount">False</field>
+            <field name="move_period">False</field>
+            <field name="description">ДДС внесен ефективно</field>
+            <field name="price_include">False</field>
+            <field name="type_tax_use">none</field>
+            <field name="exclude_from_intrastat_if_present">False</field>
+            <field name="amount_type">fixed</field>
+            <field name="sequence">90171</field>
+            <field name="parent_type_tax_use">none</field>
+            <field name="refund_account_id" ref="l10n_bg.pcg_453_800"/>
+            <field name="tax_exigibility">on_invoice</field>
+            <field name="tax_credit_payable">taxpay</field>
+            <field name="separate">False</field>
+            <field name="name">Данък за внасяне от кл. 50, внесен ефективно</field>
+            <field name="analytic">False</field>
+            <field name="amount">0.0</field>
+            <field name="tax_group_id" ref="account.tax_group_taxes"/>
+        </record>
+
+        <!--for report configuration-->
+        <record id="l10n_bg.tag_info_1_А1" model="account.account.tag">
+            <field name="type_info">addresscompany</field>
+            <field name="target_len">0</field>
+            <field name="name">Адрес за кореспонденция на регистрираното лице</field>
+            <field name="csv_field">0</field>
+            <field name="info">Адрес за кореспонденция на регистрираното лице</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0002a"/>
+            <field name="code">А1</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_1_00_06" model="account.account.tag">
+            <field name="type_info">pcount</field>
+            <field name="target_len">15</field>
+            <field name="name">Брой документи в дневника за покупки</field>
+            <field name="csv_field">6</field>
+            <field name="info">Брой документи в дневника за покупки</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0006"/>
+            <field name="code">00-06</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_1_00_05" model="account.account.tag">
+            <field name="type_info">scount</field>
+            <field name="target_len">15</field>
+            <field name="name">Брой документи в дневника за продажби</field>
+            <field name="csv_field">5</field>
+            <field name="info">Брой документи в дневника за продажби</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0005"/>
+            <field name="code">00-05</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_1_00_04" model="account.account.tag">
+            <field name="type_info">contact</field>
+            <field name="target_len">50</field>
+            <field name="name">Данъчен период по ДДС</field>
+            <field name="csv_field">4</field>
+            <field name="info">Лице, подаващо данните (ЕГН/име)</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0004"/>
+            <field name="code">00-04</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_1_00_03" model="account.account.tag">
+            <field name="type_info">period</field>
+            <field name="target_len">6</field>
+            <field name="name">Данъчен период по ДДС</field>
+            <field name="csv_field">3</field>
+            <field name="info">Данъчен период</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0003"/>
+            <field name="code">00-03</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_71" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС-внесен ефективно</field>
+            <field name="csv_field">33</field>
+            <field name="info">Данък за внасяне от кл. 50, внесен ефективно</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_declar_71')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0171"/>
+            <field name="code">01-71</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_22" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС-ВОП и чл.82, ал.2-3</field>
+            <field name="csv_field">12</field>
+            <field name="info">Начислен данък за ВОП и за получени доставки по чл. 82, ал. 2 - 5 ЗДДС</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_vop_20'),ref('l10n_bg.tax_vop_sale'),ref('l10n_bg.vat_art_82_2_5')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0122"/>
+            <field name="code">01-22</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_81" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС-ДДС-за възстановяване чл.92, ал.3</field>
+            <field name="csv_field">35</field>
+            <field name="info">ДДС, подлежащ на възстановяване, съгласно чл. 92, ал. 3 ЗДДС в 30-дневен срок от подаването на тази декларация</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_declar_81')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0181"/>
+            <field name="code">01-81</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">2</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_82" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС-ДДС-за възстановяване чл.92, ал.3</field>
+            <field name="csv_field">36</field>
+            <field name="info">ДДС, подлежащ на възстановяване, съгласно чл. 92, ал. 4 ЗДДС в 30-дневен срок от подаването на тази декларация</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_declar_82')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0182"/>
+            <field name="code">01-82</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">2</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_50" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС за внасяне</field>
+            <field name="csv_field">30</field>
+            <field name="info">ДДС за внасяне (кл. 20 - кл. 40) &gt;= 0</field>
+            <field eval="[(6, 0, [ref('l10n_bg.vat_for_payment')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0150"/>
+            <field name="code">01-50</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_60" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС за възстановяване</field>
+            <field name="csv_field">31</field>
+            <field name="info">ДДС за възстановяване (кл. 20 - кл. 40) &lt;0 </field>
+            <field eval="[(6, 0, [ref('l10n_bg.vat_for_return')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0160"/>
+            <field name="code">01-60</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_80" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС-за възстановяване чл.92, ал.1</field>
+            <field name="csv_field">34</field>
+            <field name="info">ДДС, подлежащ на възстановяване, съгласно чл. 92, ал. 1 ЗДДС в 30-дневен срок от подаването на тази декларация</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_declar_80')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0180"/>
+            <field name="code">01-80</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_23" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС-Лични нужди</field>
+            <field name="csv_field">13</field>
+            <field name="info">Начислен данък за доставки на стоки и услуги за лични нужди</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_personal')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0123"/>
+            <field name="code">01-23</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_info_1_00_01" model="account.account.tag">
+            <field name="type_info">vatcompany</field>
+            <field name="target_len">15</field>
+            <field name="name">ДДС Номер на Юридическото лице</field>
+            <field name="csv_field">1</field>
+            <field name="info">ДДС Номер</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0001"/>
+            <field name="code">00-01</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_40" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС- покупки</field>
+            <field name="csv_field">29</field>
+            <field name="info">Общо данъчен кредит (кл. 41 + кл. 42 x кл. 33 + кл. 43)</field>
+            <field eval="[(6, 0, [ref('l10n_bg.vat_hotel'),ref('l10n_bg.vat_customs'),ref('l10n_bg.vat_hotel_tax_credit'),ref('l10n_bg.vat_customs_import'),ref('l10n_bg.vat_books'),ref('l10n_bg.tax_vop_purchase'),ref('l10n_bg.tax_purchase'),ref('l10n_bg.tax_part_purchase')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0140"/>
+            <field name="code">01-40</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_41" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС- покупки пълен ДК</field>
+            <field name="csv_field">24</field>
+            <field name="info">Начислен ДДС с право на пълен данъчен кредит</field>
+            <field eval="[(6, 0, [ref('l10n_bg.vat_hotel'),ref('l10n_bg.vat_customs'),ref('l10n_bg.vat_hotel_tax_credit'),ref('l10n_bg.vat_customs_import'),ref('l10n_bg.vat_books'),ref('l10n_bg.tax_vop_purchase'),ref('l10n_bg.tax_purchase')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0141"/>
+            <field name="code">01-41</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_42" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС- покупки с частичен ДК (~%)</field>
+            <field name="csv_field">26</field>
+            <field name="info">Начислен ДДС с право на частичен данъчен кредит</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_part_purchase')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0142"/>
+            <field name="code">01-42</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_70" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС-приспаднат чл.92,ал.1</field>
+            <field name="csv_field">32</field>
+            <field name="info">Данък за внасяне от кл. 50, приспаднат по реда на чл. 92, ал. 1 ЗДДС</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_declar_70')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0170"/>
+            <field name="code">01-70</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_20" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС-продажби</field>
+            <field name="csv_field">8</field>
+            <field name="info">Всичко начислен ДДС</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_sale'),ref('l10n_bg.tax_sale_incl'),ref('l10n_bg.tax_vop_20'),ref('l10n_bg.tax_personal'),ref('l10n_bg.tax_tour'),ref('l10n_bg.vat_books'),ref('l10n_bg.tax_vop_sale'),ref('l10n_bg.vat_art_82_2_5')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0120"/>
+            <field name="code">01-20</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_21" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС-продажби за облагане с 20%</field>
+            <field name="csv_field">10</field>
+            <field name="info">Начислен ДДС 20 %</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_sale'),ref('l10n_bg.tax_sale_incl')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0121"/>
+            <field name="code">01-21</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_24" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС-продажби при туристически услуги 9%</field>
+            <field name="csv_field">15</field>
+            <field name="info">Начислен ДДС 9 %</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_tour'),ref('l10n_bg.vat_books')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0124"/>
+            <field name="code">01-24</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_12" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДО-ВОП и данъчна основа на получени доставки по чл. 82, ал. 2 - 5 ЗДДС</field>
+            <field name="csv_field">11</field>
+            <field name="info">Данъчна основа на ВОП и данъчна основа на получени доставки по чл. 82, ал. 2 - 5 ЗДДС</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_vop_sale'),ref('l10n_bg.vat_art_82_2_5')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0112"/>
+            <field name="code">01-12</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_30" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДО- покупки без право на ДК</field>
+            <field name="csv_field">22</field>
+            <field name="info">Данъчна основа и данък на получените доставки, ВОП, получените доставки по чл. 82, ал. 2 - 5 ЗДДС и вносът без право на данъчен кредит или без данък</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_novat_purchase')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0130"/>
+            <field name="code">01-30</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_31" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДО- покупки с право на пълен ДК</field>
+            <field name="csv_field">23</field>
+            <field name="info">Данъчна основа на получените доставки, ВОП, получените доставки по чл. 82, ал. 2 - 5 ЗДДС, вносът, както и данъчната основа на получените доставки, използвани за извършване на доставки по чл. 69, ал. 2 ЗДДС с право на пълен данъчен кредит</field>
+            <field eval="[(6, 0, [ref('l10n_bg.vat_hotel'),ref('l10n_bg.vat_customs'),ref('l10n_bg.vat_hotel_tax_credit'),ref('l10n_bg.vat_customs_import'),ref('l10n_bg.vat_books'),ref('l10n_bg.tax_vop_purchase'),ref('l10n_bg.tax_purchase')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0131"/>
+            <field name="code">01-31</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_32" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДО- покупки с частичен ДК (~%)</field>
+            <field name="csv_field">25</field>
+            <field name="info">Данъчна основа на получените доставки, ВОП, получените доставки по чл. 82, ал. 2 - 5 ЗДДС, вносът, както и данъчната основа на получените доставки, използвани за извършване на доставки по чл. 69, ал. 2 ЗДДС с право на частичен данъчен кредит</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_part_purchase')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0132"/>
+            <field name="code">01-32</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_15" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДО-продажби ВОД</field>
+            <field name="csv_field">17</field>
+            <field name="info">Данъчна основа на доставките със ставка 0 % за ВОД на стоки</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_vod')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0115"/>
+            <field name="code">01-15</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_11" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДО-продажби за облагане (20%)</field>
+            <field name="csv_field">9</field>
+            <field name="info">Данъчна основа на облагаемите доставки със ставка 20 %, вкл. доставките при условията на дистанционни продажби, с място на изпълнение на територията на страната</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_sale'),ref('l10n_bg.tax_sale_incl'),ref('l10n_bg.tax_personal')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0111"/>
+            <field name="code">01-11</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_14" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДО-продажби износ</field>
+            <field name="csv_field">16</field>
+            <field name="info">Данъчна основа, подлежаща наэ облагане със ставка 0 % по глава трета от ЗДДС</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_out_eu'),ref('l10n_bg.vat_export')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0114"/>
+            <field name="code">01-14</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_17" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДО-продажби на територията на ЕС</field>
+            <field name="csv_field">19</field>
+            <field name="info">Данъчна основа на доставки на услуги по чл. 21, ал. 2 ЗДДС с място на изпълнение на територията на друга държава членка</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_art_21')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0117"/>
+            <field name="code">01-17</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_19" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДО-продажби освободени ВОД</field>
+            <field name="csv_field">21</field>
+            <field name="info">Данъчна основа на освободени доставки и освободените ВОП</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0119"/>
+            <field name="code">01-19</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_16" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДО-продажби по чл.140, 146,173 (21)</field>
+            <field name="csv_field">18</field>
+            <field name="info">Данъчна основа на доставки, подлежаща на облагане с 0 % по чл. 140, 146 и чл. 173 ЗДДС</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_art_140')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0116"/>
+            <field name="code">01-16</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_18" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДО-продажби по чл.62(2) на територията на ЕС</field>
+            <field name="csv_field">20</field>
+            <field name="info">Данъчна основа на доставки по чл. 69, ал. 2 ЗДДС, вкл. доставките при условията на дистанционни продажби, с място на изпълнение на територията на друга държава членка</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0118"/>
+            <field name="code">01-18</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_13" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДО-продажби при туристически услуги 9%</field>
+            <field name="csv_field">14</field>
+            <field name="info">Данъчна основа на облагаемите доставки със ставка 9 %</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_tour'),ref('l10n_bg.vat_books')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0113"/>
+            <field name="code">01-13</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record id="l10n_bg.tag_info_1_А4" model="account.account.tag">
+            <field name="type_info">uic</field>
+            <field name="target_len">0</field>
+            <field name="name">ЕИК Номер на фирмата</field>
+            <field name="csv_field">0</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0001a"/>
+            <field name="code">А4</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_1_00_02" model="account.account.tag">
+            <field name="type_info">namecompany</field>
+            <field name="target_len">50</field>
+            <field name="name">Име на Юридическото лице</field>
+            <field name="csv_field">2</field>
+            <field name="info">Наименование на данъчно задълженото лице</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0002"/>
+            <field name="code">00-02</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_33" model="account.account.tag">
+            <field name="target_len">4</field>
+            <field name="name">Коефицент чл.73,ал.5</field>
+            <field name="csv_field">28</field>
+            <field name="info">Коефициент по чл. 73, ал. 5 ЗДДС</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0133"/>
+            <field name="code">01-33</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_43" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">Корекция чл.73,ал.8</field>
+            <field name="csv_field">27</field>
+            <field name="info">Годишна корекция по чл. 73, ал. 8 (+/-) ЗДДС Резултат</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0143"/>
+            <field name="code">01-43</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">2</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_1_01_01" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">Общ размер на ДО за облагане с ДДС</field>
+            <field name="csv_field">7</field>
+            <field name="info">Общ размер на данъчните основи за облагане с ДДС</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_sale'),ref('l10n_bg.tax_vop_20'),ref('l10n_bg.tax_tour'),ref('l10n_bg.vat_books'),ref('l10n_bg.tax_out_eu'),ref('l10n_bg.vat_export'),ref('l10n_bg.tax_vod'),ref('l10n_bg.tax_art_140'),ref('l10n_bg.tax_vop_sale'),ref('l10n_bg.vat_art_82_2_5')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_deklar"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_deklar_tax_tag_0101"/>
+            <field name="code">01-01</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_info_2_02_09" model="account.account.tag">
+            <field name="type_info">narration</field>
+            <field name="target_len">30</field>
+            <field name="name">[02-09] ДО-Общ размер за облагане</field>
+            <field name="csv_field">10</field>
+            <field name="info">Вид на стоката или обхват и вид на услугата - точно описание съгласно документа</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0209"/>
+            <field name="code">02-09</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_10" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">[02-10] ДО-Общ размер за облагане</field>
+            <field name="csv_field">11</field>
+            <field name="info">Общ размер на данъчните основи за облагане с ДДС</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_sale'),ref('l10n_bg.tax_sale_incl'),ref('l10n_bg.tax_vop_20'),ref('l10n_bg.tax_tour'),ref('l10n_bg.vat_books'),ref('l10n_bg.tax_out_eu'),ref('l10n_bg.vat_export'),ref('l10n_bg.tax_vod'),ref('l10n_bg.tax_art_140'),ref('l10n_bg.tax_vop_sale'),ref('l10n_bg.vat_art_82_2_5')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0210"/>
+            <field name="code">02-10</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_11" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">[02-11] ДО-за облагане с 20%</field>
+            <field name="csv_field">13</field>
+            <field name="info">Данъчна основа на облагаемите доставки със ставка 20 %, вкл. доставките при условията на дистанционни продажби, с място на изпълнение на територията на страната</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_sale'),ref('l10n_bg.tax_sale_incl')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0211"/>
+            <field name="code">02-11</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_12" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">[02-12] ДО-ВОП</field>
+            <field name="csv_field">15</field>
+            <field name="info">Данъчна основа на ВОП</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_vop_20'),ref('l10n_bg.tax_vop_sale')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0212"/>
+            <field name="code">02-12</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_13" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">[02-13] ДО-за облагане с 9%</field>
+            <field name="csv_field">19</field>
+            <field name="info">ДО на облагаемите доставки със ставка 9 %</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_tour'),ref('l10n_bg.vat_books')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0213"/>
+            <field name="code">02-13</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_14" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">[02-14] ДО-износ 0%</field>
+            <field name="csv_field">21</field>
+            <field name="info">ДО на доставките със ставка 0 % по глава трета от ЗДДС</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_out_eu'),ref('l10n_bg.vat_export')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0214"/>
+            <field name="code">02-14</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_15" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">[02-15] ДО-ВОД на стоки 0%</field>
+            <field name="csv_field">22</field>
+            <field name="info">ДО на доставките със ставка 0 % на ВОД на стоки</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_vod')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0215"/>
+            <field name="code">02-15</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_16" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">[02-16] ДО-0% по чл.140,ал,1 и чл.173</field>
+            <field name="csv_field">23</field>
+            <field name="info">ДО на доставките със ставка 0 % по чл. 140, чл. 146, ал. 1 и чл. 173 ЗДДС</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_art_140')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0216"/>
+            <field name="code">02-16</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_17" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">[02-17] ДО-по чл.21 на територията на ЕС</field>
+            <field name="csv_field">24</field>
+            <field name="info">Данъчна основа на доставки на услуги по чл. 21, ал. 2 ЗДДС, с място на изпълнение на територията на друга държава членка</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_art_21')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0217"/>
+            <field name="code">02-17</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_18" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">[02-18] ДО-по чл.69,ал.2 на територията на ЕС</field>
+            <field name="csv_field">25</field>
+            <field name="info">Данъчна основа на доставки по чл. 69, ал. 2 ЗДДС, вкл. данъчна основа на доставките при условията на дистанционни продажби, с място на изпълнение на територията на друга държава членка</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0218"/>
+            <field name="code">02-18</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_19" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">[02-19] ДО-осводени и ВОП</field>
+            <field name="csv_field">26</field>
+            <field name="info">ДО на освободени доставки и освободените ВОП</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0219"/>
+            <field name="code">02-19</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_info_2_02_04" model="account.account.tag">
+            <field name="type_info">vattype</field>
+            <field name="target_len">2</field>
+            <field name="name">Вид на документа</field>
+            <field name="csv_field">5</field>
+            <field name="info">Вид на документа</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0204"/>
+            <field name="code">02-04</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_2_02_01" model="account.account.tag">
+            <field name="type_info">period</field>
+            <field name="target_len">6</field>
+            <field name="name">Данъчен период</field>
+            <field name="csv_field">2</field>
+            <field name="info">Данъчен период</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0201"/>
+            <field name="code">02-01</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_2_02_06" model="account.account.tag">
+            <field name="type_info">invdate</field>
+            <field name="target_len">10</field>
+            <field name="name">Дата на документа</field>
+            <field name="csv_field">7</field>
+            <field name="info">Дата на документа</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0206"/>
+            <field name="code">02-06</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_21" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС-20%</field>
+            <field name="csv_field">14</field>
+            <field name="info">Начислен ДДС 20 %</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_sale')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0221"/>
+            <field name="code">02-21</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_22" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС-ВОП и чл.82,ал.2-5</field>
+            <field name="csv_field">17</field>
+            <field name="info">Начислен ДДС за ВОП и за получени доставки по чл. 82, ал. 2 - 5 ЗДДС</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_vop_20'),ref('l10n_bg.tax_vop_sale'),ref('l10n_bg.vat_art_82_2_5')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0222"/>
+            <field name="code">02-22</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_20" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС-Всичко начислено</field>
+            <field name="csv_field">12</field>
+            <field name="info">Всичко начислен ДДС</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_sale'),ref('l10n_bg.tax_vop_20'),ref('l10n_bg.tax_personal'),ref('l10n_bg.tax_tour'),ref('l10n_bg.vat_books'),ref('l10n_bg.tax_vop_sale'),ref('l10n_bg.vat_art_82_2_5')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0220"/>
+            <field name="code">02-20</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_23" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС-лични нужди</field>
+            <field name="csv_field">18</field>
+            <field name="info">Начислен данък за доставки на стоки и услуги за лични нужди</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_personal')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0223"/>
+            <field name="code">02-23</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_24" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДДС-туристически услуги 9%</field>
+            <field name="csv_field">20</field>
+            <field name="info">Начислен ДДС 9 %</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_tour'),ref('l10n_bg.vat_books')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0224"/>
+            <field name="code">02-24</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_info_2_02_27" model="account.account.tag">
+            <field name="target_len">-2</field>
+            <field name="name">Доставка по чл. 163а или внос по чл. 167а от ЗДДС</field>
+            <field name="csv_field">28</field>
+            <field name="info">Доставка по чл. 163а или внос по чл. 167а от ЗДДС</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0227"/>
+            <field name="code">02-27</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_25" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДО-тристранни операции</field>
+            <field name="csv_field">27</field>
+            <field name="info">ДО на доставки като посредник в тристранни операции</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0225"/>
+            <field name="code">02-25</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_2_02_26" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">ДО-чл.82, ал.2-5</field>
+            <field name="csv_field">16</field>
+            <field name="info">ДО по получените доставки по чл. 82, ал. 2 - 5 ЗДДС</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_vop_20'),ref('l10n_bg.vat_art_82_2_5')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0226"/>
+            <field name="code">02-26</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_info_2_02_07" model="account.account.tag">
+            <field name="type_info">vat</field>
+            <field name="target_len">15</field>
+            <field name="name">Идентификационен номер на контрагента</field>
+            <field name="csv_field">8</field>
+            <field name="info">Идентификационен номер на контрагента (получател)</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0207"/>
+            <field name="code">02-07</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_2_02_00" model="account.account.tag">
+            <field name="type_info">vatcompany</field>
+            <field name="target_len">15</field>
+            <field name="name">Идентификационен номер по ДДС на лицето</field>
+            <field name="csv_field">1</field>
+            <field name="info">Идентификационен номер по ДДС на лицето</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0200"/>
+            <field name="code">02-00</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_2_02_08" model="account.account.tag">
+            <field name="type_info">name</field>
+            <field name="target_len">50</field>
+            <field name="name">Име на контрагента</field>
+            <field name="csv_field">9</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0208"/>
+            <field name="code">02-08</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_2_02_02" model="account.account.tag">
+            <field name="type_info">departament</field>
+            <field name="target_len">4</field>
+            <field name="name">Клон/обособено звено</field>
+            <field name="csv_field">3</field>
+            <field name="info">Клон/обособено звено</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0202"/>
+            <field name="code">02-02</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_2_02_05" model="account.account.tag">
+            <field name="type_info">invnumber</field>
+            <field name="target_len">20</field>
+            <field name="name">Номер на документа</field>
+            <field name="csv_field">6</field>
+            <field name="info">Номер на документа</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0205"/>
+            <field name="code">02-05</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_2_02_03" model="account.account.tag">
+            <field name="type_info">row</field>
+            <field name="target_len">15</field>
+            <field name="name">Пореден номер на документа в дневника</field>
+            <field name="csv_field">4</field>
+            <field name="info">Пореден номер на документа в дневника</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_sales"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_sales_tax_tag_0203"/>
+            <field name="code">02-03</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_3_03_30" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">[03-30] ДО-без данъчен кредит</field>
+            <field name="csv_field">11</field>
+            <field name="info">Данъчна основа и данък на получените доставки, ВОП, получените доставки по чл. 82, ал. 2 - 5 ЗДДС и вносът без право на данъчен кредит или без данък</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_novat_purchase')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0330"/>
+            <field name="code">03-30</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_3_03_31" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">[03-31] ДО-пълен данъчен кредит</field>
+            <field name="csv_field">12</field>
+            <field name="info">Данъчна основа на получените доставки, ВОП, получените доставки по чл. 82, ал. 2 - 5 ЗДДС, вносът, както и данъчната основа на получените доставки, използвани за извършване на доставки по чл. 69, ал. 2 ЗДДС с право на пълен данъчен кредит</field>
+            <field eval="[(6, 0, [ref('l10n_bg.vat_hotel'),ref('l10n_bg.vat_customs'),ref('l10n_bg.vat_hotel_tax_credit'),ref('l10n_bg.vat_customs_import'),ref('l10n_bg.vat_books'),ref('l10n_bg.vat_customs_import'),ref('l10n_bg.vat_import'),ref('l10n_bg.tax_vop_purchase'),ref('l10n_bg.tax_purchase')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0331"/>
+            <field name="code">03-31</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_3_03_32" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">[03-32] ДО-частичен данъчен кредит</field>
+            <field name="csv_field">14</field>
+            <field name="info">Данъчна основа на получените доставки, ВОП, получените доставки по чл. 82, ал. 2 - 5 ЗДДС, вносът, както и данъчната основа на получените доставки, използвани за извършване на доставки по чл. 69, ал. 2 ЗДДС с право на частичен данъчен кредит</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_part_purchase')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0332"/>
+            <field name="code">03-32</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">0</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_3_03_41" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">[03-41] ДДС-пълен данъчен кредит</field>
+            <field name="csv_field">13</field>
+            <field name="info">ДДС с право на пълен данъчен кредит</field>
+            <field eval="[(6, 0, [ref('l10n_bg.vat_hotel'),ref('l10n_bg.vat_customs'),ref('l10n_bg.vat_hotel_tax_credit'),ref('l10n_bg.vat_customs_import'),ref('l10n_bg.vat_books'),ref('l10n_bg.vat_customs_import'),ref('l10n_bg.vat_import'),ref('l10n_bg.tax_vop_purchase'),ref('l10n_bg.tax_purchase')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0341"/>
+            <field name="code">03-41</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_3_03_42" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">[03-42] ДДС-частичен данъчен кредит</field>
+            <field name="csv_field">15</field>
+            <field name="info">ДДС с право на частичен данъчен кредит</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_part_purchase')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0342"/>
+            <field name="code">03-42</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_3_03_43" model="account.account.tag">
+            <field name="target_len">15</field>
+            <field name="name">[03-43] Годишна корекция-чл.73,ал.8</field>
+            <field name="csv_field">16</field>
+            <field name="info">Годишна корекция по чл. 73, ал. 8 ЗДДС</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0343"/>
+            <field name="code">03-43</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">1</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_3_03_44" model="account.account.tag">
+            <field name="target_len">-15</field>
+            <field name="name">[03-44] ДО-тристранни операции</field>
+            <field name="csv_field">17</field>
+            <field name="info">ДО при придобиване на стоки от посредник в тристранна операция</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0344"/>
+            <field name="code">03-44</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_3_03_45" model="account.account.tag">
+            <field name="target_len">-2</field>
+            <field name="name">[03-45] ДО-чл.163а</field>
+            <field name="csv_field">18</field>
+            <field name="info">Доставка по чл. 163а от ЗДДС</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0345"/>
+            <field name="code">03-45</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_3_03_8а" model="account.account.tag">
+            <field name="target_len">-15</field>
+            <field name="name">[03-8а] ДО-чл.163а</field>
+            <field name="csv_field">19</field>
+            <field name="info">Доставка по чл. 163а от ЗДДС</field>
+            <field name="code">03-8а</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">2</field>
+        </record>
+        <record id="l10n_bg.tag_info_3_03_05" model="account.account.tag">
+            <field name="type_info">vattype</field>
+            <field name="target_len">2</field>
+            <field name="name">Вид на документа</field>
+            <field name="csv_field">5</field>
+            <field name="info">Вид на документа</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0305"/>
+            <field name="code">03-05</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_3_03_10" model="account.account.tag">
+            <field name="type_info">narration</field>
+            <field name="target_len">30</field>
+            <field name="name">Вид на стоката или обхват и вид на услугата - точно описание съгласно документа</field>
+            <field name="csv_field">10</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0310"/>
+            <field name="code">03-10</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_3_03_01" model="account.account.tag">
+            <field name="type_info">period</field>
+            <field name="target_len">6</field>
+            <field name="name">Данъчен период</field>
+            <field name="csv_field">2</field>
+            <field name="info">Данъчен период</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0301"/>
+            <field name="code">03-01</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_3_03_07" model="account.account.tag">
+            <field name="type_info">invdate</field>
+            <field name="target_len">10</field>
+            <field name="name">Дата на документа</field>
+            <field name="csv_field">7</field>
+            <field name="info">Дата на документа</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0307"/>
+            <field name="code">03-07</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_3_03_08" model="account.account.tag">
+            <field name="type_info">vat</field>
+            <field name="target_len">15</field>
+            <field name="name">Идентификационен номер на  контрагента (доставчик)</field>
+            <field name="csv_field">8</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0308"/>
+            <field name="code">03-08</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_3_03_02" model="account.account.tag">
+            <field name="type_info">vatcompany</field>
+            <field name="target_len">15</field>
+            <field name="name">Идентификационен номер по ДДС на лицето</field>
+            <field name="csv_field">1</field>
+            <field name="info">Идентификационен номер по ДДС на лицето</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0302"/>
+            <field name="code">03-02</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_3_03_09" model="account.account.tag">
+            <field name="type_info">name</field>
+            <field name="target_len">50</field>
+            <field name="name">Име на контрагента (доставчик)</field>
+            <field name="csv_field">9</field>
+            <field name="info">Име на контрагента (доставчик)</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0309"/>
+            <field name="code">03-09</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_3_03_03" model="account.account.tag">
+            <field name="type_info">departament</field>
+            <field name="target_len">4</field>
+            <field name="name">Клон</field>
+            <field name="csv_field">3</field>
+            <field name="info">Клон/обособено звено</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0303"/>
+            <field name="code">03-03</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_3_03_06" model="account.account.tag">
+            <field name="type_info">invnumber</field>
+            <field name="target_len">20</field>
+            <field name="name">Номер на документа</field>
+            <field name="csv_field">6</field>
+            <field name="info">Номер на документа</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0306"/>
+            <field name="code">03-06</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_3_03_04" model="account.account.tag">
+            <field name="type_info">row</field>
+            <field name="target_len">15</field>
+            <field name="name">Пореден номер на документа в дневника</field>
+            <field name="csv_field">4</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_purchases"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_purchases_tax_tag_0304"/>
+            <field name="code">03-04</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_taxes__4" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">VIES-ДЕКЛАРАЦИЯ</field>
+            <field name="csv_field">0</field>
+            <field name="info">VIES Декларация</field>
+            <field name="code">4</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">2</field>
+        </record>
+        <record id="l10n_bg.tag_info_4_02_06" model="account.account.tag">
+            <field name="type_info">addresscompany</field>
+            <field name="target_len">150</field>
+            <field name="name">VIES-Адрес за кореспонденция на представителя</field>
+            <field name="csv_field">6</field>
+            <field name="info">Адрес за кореспонденция (кв., ж.к., ул., №) на лицето, подаващо декларацията</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0206"/>
+            <field name="code">02-06</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_4_02_04" model="account.account.tag">
+            <field name="type_info">citycontact</field>
+            <field name="target_len">50</field>
+            <field name="name">VIES-Град от адреса на представляващия</field>
+            <field name="csv_field">4</field>
+            <field name="info">Град от адреса за кореспонденция на лицето, подаващо декларацията</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0204"/>
+            <field name="code">02-04</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_4_03_02" model="account.account.tag">
+            <field name="type_info">vatcompany</field>
+            <field name="target_len">15</field>
+            <field name="name">VIES-ЕИК по ДДС</field>
+            <field name="csv_field">2</field>
+            <field name="info">Идентификационен номер по ДДС на регистрираното лице</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0302"/>
+            <field name="code">03-02</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_4_04_01" model="account.account.tag">
+            <field name="type_info">taxcode</field>
+            <field name="target_len">3</field>
+            <field name="name">VIES-Код на секция *Общ оборот*</field>
+            <field name="csv_field">1</field>
+            <field name="info">Код на секцията &quot;Общ оборот&quot;</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0401"/>
+            <field name="code">04-01</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_4_02_01" model="account.account.tag">
+            <field name="type_info">taxcode</field>
+            <field name="target_len">3</field>
+            <field name="name">VIES-Код на секцията *Декларатор*</field>
+            <field name="csv_field">1</field>
+            <field name="info">Код на секцията &quot;Декларатор&quot;</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0201"/>
+            <field name="code">02-01</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_4_03_01" model="account.account.tag">
+            <field name="type_info">taxcode</field>
+            <field name="target_len">3</field>
+            <field name="name">VIES-Код на секцията *Регистрирано лице*</field>
+            <field name="csv_field">1</field>
+            <field name="info">Код на секцията &quot;Регистрирано лице&quot;</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0301"/>
+            <field name="code">03-01</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_4_03_04" model="account.account.tag">
+            <field name="type_info">addresscompany</field>
+            <field name="target_len">200</field>
+            <field name="name">VIES-Company address</field>
+            <field name="csv_field">4</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0304"/>
+            <field name="code">03-04</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_4_03_03" model="account.account.tag">
+            <field name="type_info">namecompany</field>
+            <field name="target_len">150</field>
+            <field name="name">VIES-Company name</field>
+            <field name="csv_field">3</field>
+            <field name="info">Име на регистрираното лице</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0303"/>
+            <field name="code">03-03</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_4_01_03" model="account.account.tag">
+            <field name="type_info">row</field>
+            <field name="target_len">5</field>
+            <field name="name">VIES-Count rows</field>
+            <field name="csv_field">3</field>
+            <field name="info">Общ брой редове в раздел &quot;В&quot; на декларацията</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0103"/>
+            <field name="code">01-03</field>
+            <field name="applicability">info</field>
+        </record>
+            <record id="l10n_bg.tag_info_4_01_02" model="account.account.tag">
+            <field name="type_info">period</field>
+            <field name="target_len">7</field>
+            <field name="name">VIES-Fiscal period</field>
+            <field name="csv_field">2</field>
+            <field name="info">Данъчен период</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_vod'),ref('l10n_bg.tax_art_21')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0102"/>
+            <field name="code">01-02</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_4_04_03" model="account.account.tag">
+            <field name="target_len">12</field>
+            <field name="name">VIES-ICD Net</field>
+            <field name="csv_field">3</field>
+            <field name="info">Данъчна основа на ВОД (сума по к3)</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_vod')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0403"/>
+            <field name="code">04-03</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_info_4_02_02" model="account.account.tag">
+            <field name="type_info">uiccontact</field>
+            <field name="target_len">15</field>
+            <field name="name">VIES-ID for represend contact</field>
+            <field name="csv_field">2</field>
+            <field name="info">ЕГН/ЛНЧ/служебен номер от регистър на НАП на лицето, подаващо декларацията</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0202"/>
+            <field name="code">02-02</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_4_04_02" model="account.account.tag">
+            <field name="target_len">12</field>
+            <field name="name">VIES-NET</field>
+            <field name="csv_field">2</field>
+            <field name="info">Данъчна основа общо (сума по к3 + к4 + к5)</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_vod'),ref('l10n_bg.tax_art_21')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0402"/>
+            <field name="code">04-02</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_info_4_02_05" model="account.account.tag">
+            <field name="type_info">postcodecontact</field>
+            <field name="target_len">4</field>
+            <field name="name">VIES-Postal code for represend contact address</field>
+            <field name="csv_field">5</field>
+            <field name="info">Пощенски код от адреса за кореспонденция на лицето, подаващо декларацията</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0205"/>
+            <field name="code">02-05</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_4_02_03" model="account.account.tag">
+            <field name="type_info">contact</field>
+            <field name="target_len">150</field>
+            <field name="name">VIES-Represend contact name</field>
+            <field name="csv_field">3</field>
+            <field name="info">Трите имена на лицето, подаващо декларацията</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0203"/>
+            <field name="code">02-03</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_4_02_07" model="account.account.tag">
+            <field name="type_info">codecontact</field>
+            <field name="target_len">1</field>
+            <field name="name">VIES-Represend type</field>
+            <field name="csv_field">7</field>
+            <field name="info">Качество на лицето, подаващо декларацията</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0207"/>
+            <field name="code">02-07</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_4_01_01" model="account.account.tag">
+            <field name="type_info">taxcode</field>
+            <field name="target_len">3</field>
+            <field name="name">VIES-Section Code Base record</field>
+            <field name="csv_field">1</field>
+            <field name="info">Код на секцията &quot;Основен запис&quot;</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_declar_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_declar_vies_tax_tag_0101"/>
+            <field name="code">01-01</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_5_05_03" model="account.account.tag">
+            <field name="type_info">vat</field>
+            <field name="target_len">15</field>
+            <field name="name">[05-03] VIES-UIC</field>
+            <field name="csv_field">3</field>
+            <field name="info">Данъчна основа на ВОД (сума по к3)</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_vies_tax_tag_0503"/>
+            <field name="code">05-03</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_5_05_04" model="account.account.tag">
+            <field name="target_len">12</field>
+            <field name="name">[05-04] VIES-ДО-обща стойност</field>
+            <field name="csv_field">4</field>
+            <field name="info">Обща стойност на данъчната основа за доставки на стоки</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_vod')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_vies_tax_tag_0504"/>
+            <field name="code">05-04</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_5_05_05" model="account.account.tag">
+            <field name="target_len">12</field>
+            <field name="name">[05-05] VIES-ДО-обща стойност тристранни сделки</field>
+            <field name="csv_field">5</field>
+            <field name="info">Обща стойност на данъчната основа за тристранни сделки</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_vies_tax_tag_0505"/>
+            <field name="code">05-05</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_taxes_5_05_06" model="account.account.tag">
+            <field name="target_len">12</field>
+            <field name="name">[05-06] VIES-ДО-чл.21, ал.2</field>
+            <field name="csv_field">6</field>
+            <field name="info">Обща стойност на данъчната основа за доставени услуги по чл. 21, ал. 2 от ЗДДС, с място на изпълнение територията на друга държава членка</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tax_art_21')])]" name="tax_ids"/>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_vies_tax_tag_0506"/>
+            <field name="code">05-06</field>
+            <field name="applicability">taxes</field>
+            <field name="type_taxes">98</field>
+        </record>
+        <record id="l10n_bg.tag_info_5_05_01" model="account.account.tag">
+            <field name="type_info">taxcode</field>
+            <field name="target_len">3</field>
+            <field name="name">VIES-Code section ICD</field>
+            <field name="csv_field">1</field>
+            <field name="info">Код на секцията &quot;ВОД&quot;</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_vies_tax_tag_0501"/>
+            <field name="code">05-01</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_5_05_07" model="account.account.tag">
+            <field name="type_info">period</field>
+            <field name="target_len">-7</field>
+            <field name="name">VIES-Issue period</field>
+            <field name="csv_field">7</field>
+            <field name="info">Данъчен период, през който данъкът е станал изискуем</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_vies"/>
+            <field name="code">05-07</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_info_5_05_02" model="account.account.tag">
+            <field name="type_info">row</field>
+            <field name="target_len">5</field>
+            <field name="name">VIES-Row</field>
+            <field name="csv_field">2</field>
+            <field name="model_id" ref="l10n_bg_account_financial_report.model_vat_report_vies"/>
+            <field name="target" ref="l10n_bg_account_financial_report.field_vat_report_vies_tax_tag_0502"/>
+            <field name="code">05-02</field>
+            <field name="applicability">info</field>
+        </record>
+        <record id="l10n_bg.tag_accounts__5" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">ОПР</field>
+            <field name="csv_field">0</field>
+            <field name="code">5</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_5_19000" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Б. Загуба от обичайна дейност</field>
+            <field name="csv_field">0</field>
+            <field name="code">19000</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_5_14000" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Б. Печалба от обичайна дейност</field>
+            <field name="csv_field">0</field>
+            <field name="code">14000</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_5_19500" model="account.account.tag">
+            <field name="python_code">F18000 + F19200</field>
+            <field name="target_len">0</field>
+            <field name="name">Всичко (Общо приходи + Г)</field>
+            <field name="csv_field">0</field>
+            <field name="code">19500</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_5_14500" model="account.account.tag">
+            <field name="python_code">F13000 + F14200 + F14300 + F14400</field>
+            <field name="target_len">0</field>
+            <field name="name">Всичко (Общо разходи + III + IV + Г)</field>
+            <field name="csv_field">0</field>
+            <field name="code">14500</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_5_19100" model="account.account.tag">
+            <field name="python_code">F18000-F13000 &lt; 0 and  abs(F18000-F13000) or 0.00</field>
+            <field name="target_len">0</field>
+            <field name="name">В. Счетоводна загуба  (общо приходи - общо разходи)</field>
+            <field name="csv_field">0</field>
+            <field name="code">19100</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_5_14100" model="account.account.tag">
+            <field name="python_code">F18000-F13000 &gt; 0 and  F18000-F13000 or 0.00</field>
+            <field name="target_len">0</field>
+            <field name="name">В. Счетоводна печалба (общо приходи - общо разходи)</field>
+            <field name="csv_field">0</field>
+            <field name="code">14100</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_5_19200" model="account.account.tag">
+            <field name="python_code">F19100 + F14200 + F14300</field>
+            <field name="target_len">0</field>
+            <field name="name">Г. Загуба (В + III + IV )</field>
+            <field name="csv_field">0</field>
+            <field name="code">19200</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_5_14400" model="account.account.tag">
+            <field name="python_code">F14100 - F14200 - F14300</field>
+            <field name="target_len">0</field>
+            <field name="name">Г. Печалба (В - III - IV)</field>
+            <field name="csv_field">0</field>
+            <field name="code">14400</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_5_18000" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_701_000'),ref('l10n_bg.pcg_702_100'),ref('l10n_bg.pcg_702_200'),ref('l10n_bg.pcg_702_400'),ref('l10n_bg.pcg_702_500'),ref('l10n_bg.pcg_702_900'),ref('l10n_bg.pcg_703_001'),ref('l10n_bg.pcg_703_099'),ref('l10n_bg.pcg_707_001'),ref('l10n_bg.pcg_709_001'),ref('l10n_bg.pcg_709_003'),ref('l10n_bg.pcg_724_000'),ref('l10n_bg.pcg_729_000')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_9_75fdd163'),ref('__export__.account_journal_12_c35b4cb1'),ref('__export__.account_journal_42_7c19c302')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Общо приходи (І + ІІ)</field>
+            <field name="csv_field">0</field>
+            <field name="code">18000</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_5_13000" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_601_999'),ref('l10n_bg.pcg_602_999'),ref('l10n_bg.pcg_603_000'),ref('l10n_bg.pcg_604_000'),ref('l10n_bg.pcg_605_000'),ref('l10n_bg.pcg_609_004'),ref('l10n_bg.pcg_609_999'),ref('l10n_bg.pcg_624_000'),ref('l10n_bg.pcg_702_100'),ref('l10n_bg.pcg_702_200'),ref('l10n_bg.pcg_702_400'),ref('l10n_bg.pcg_702_500'),ref('l10n_bg.pcg_702_900')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_10_35017305'),ref('__export__.account_journal_84_95c86fc6'),ref('__export__.account_journal_14_7bb335f6'),ref('__export__.account_journal_12_c35b4cb1'),ref('__export__.account_journal_16_fb68ed10'),ref('__export__.account_journal_42_7c19c302'),ref('__export__.account_journal_52_c376e825'),ref('__export__.account_journal_55_28e4b93e'),ref('__export__.account_journal_15_6ed37796'),ref('__export__.account_journal_41_ce396305'),ref('__export__.account_journal_90_80e0bc0b'),ref('__export__.account_journal_80_19e773ca'),ref('__export__.account_journal_54_96bd782a')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Общо разходи (І + ІІ)</field>
+            <field name="csv_field">0</field>
+            <field name="code">13000</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_5_А" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Приходи</field>
+            <field name="csv_field">0</field>
+            <field name="code">А</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_А_15000" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_701_000'),ref('l10n_bg.pcg_702_100'),ref('l10n_bg.pcg_702_200'),ref('l10n_bg.pcg_702_400'),ref('l10n_bg.pcg_702_500'),ref('l10n_bg.pcg_702_900'),ref('l10n_bg.pcg_703_001'),ref('l10n_bg.pcg_703_099'),ref('l10n_bg.pcg_707_001'),ref('l10n_bg.pcg_709_001'),ref('l10n_bg.pcg_709_003')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_9_75fdd163')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Общо за група I</field>
+            <field name="csv_field">0</field>
+            <field name="code">15000</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_А_16000" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_724_000'),ref('l10n_bg.pcg_729_000')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_12_c35b4cb1'),ref('__export__.account_journal_42_7c19c302')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Общо за група II</field>
+            <field name="csv_field">0</field>
+            <field name="code">16000</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_А_І" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Приходи от оперативна дейност</field>
+            <field name="csv_field">0</field>
+            <field name="code">І</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_І_15400" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_707_001'),ref('l10n_bg.pcg_708_001'),ref('l10n_bg.pcg_709_001'),ref('l10n_bg.pcg_709_003')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_9_75fdd163'),ref('__export__.account_journal_10_35017305'),ref('__export__.account_journal_11_81b4576a')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Други приходи</field>
+            <field name="csv_field">0</field>
+            <field name="code">15400</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_15400_15430" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_707_001'),ref('l10n_bg.pcg_709_001')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_9_75fdd163'),ref('__export__.account_journal_10_35017305'),ref('__export__.account_journal_11_81b4576a')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Приходи от продажби на дълготрайни активи</field>
+            <field name="csv_field">0</field>
+            <field name="code">15430</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_15400_15420" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Приходи от продажби на суровини и материали</field>
+            <field name="csv_field">0</field>
+            <field name="code">15420</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_І_15100" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_701_000'),ref('l10n_bg.pcg_702_100'),ref('l10n_bg.pcg_702_200'),ref('l10n_bg.pcg_702_400'),ref('l10n_bg.pcg_702_500'),ref('l10n_bg.pcg_702_900'),ref('l10n_bg.pcg_703_001'),ref('l10n_bg.pcg_703_099')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_9_75fdd163'),ref('__export__.account_journal_10_35017305'),ref('__export__.account_journal_11_81b4576a')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Нетни приходи от продажби</field>
+            <field name="csv_field">0</field>
+            <field name="code">15100</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_15100_15110" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_701_000')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_9_75fdd163'),ref('__export__.account_journal_10_35017305'),ref('__export__.account_journal_11_81b4576a')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Продукция</field>
+            <field name="csv_field">0</field>
+            <field name="code">15110</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_15100_15120" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_702_100'),ref('l10n_bg.pcg_702_200'),ref('l10n_bg.pcg_702_400'),ref('l10n_bg.pcg_702_500'),ref('l10n_bg.pcg_702_900')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_9_75fdd163'),ref('__export__.account_journal_10_35017305'),ref('__export__.account_journal_11_81b4576a')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Стоки</field>
+            <field name="csv_field">0</field>
+            <field name="code">15120</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_15100_15130" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_703_001'),ref('l10n_bg.pcg_703_099')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_9_75fdd163'),ref('__export__.account_journal_10_35017305'),ref('__export__.account_journal_11_81b4576a')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Услуги</field>
+            <field name="csv_field">0</field>
+            <field name="code">15130</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_15130_15132" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Приходи от наеми</field>
+            <field name="csv_field">0</field>
+            <field name="code">15132</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_15130_15133" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Приходи от промишлени услуги, вкл. услуги по производство на ишлеме</field>
+            <field name="csv_field">0</field>
+            <field name="code">15133</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_15130_15131" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Приходи от търговско-посредническа дейност</field>
+            <field name="csv_field">0</field>
+            <field name="code">15131</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_І_15410" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Приходи от финансирания</field>
+            <field name="csv_field">0</field>
+            <field name="code">15410</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_І_15300" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Разходи за придобиване на активи по стопански начин</field>
+            <field name="csv_field">0</field>
+            <field name="code">15300</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_15300_15310" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">в т. ч. със строителен характер</field>
+            <field name="csv_field">0</field>
+            <field name="code">15310</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_І_15200" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Увеличение на запасите от продукция и незавършено производство</field>
+            <field name="csv_field">0</field>
+            <field name="code">15200</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_А_ІІ" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Финансови приходи</field>
+            <field name="csv_field">0</field>
+            <field name="code">ІІ</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_ІІ_16300" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_729_000')])]" name="account_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Други лихви и финансови приходи</field>
+            <field name="csv_field">0</field>
+            <field name="code">16300</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_16300_16320" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Положителни разлики от операции с финансови активи</field>
+            <field name="csv_field">0</field>
+            <field name="code">16320</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_16300_16330" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_724_000')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_12_c35b4cb1'),ref('__export__.account_journal_42_7c19c302')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Положителни разлики от  промяна на валутни курсове</field>
+            <field name="csv_field">0</field>
+            <field name="code">16330</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_16300_16310" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Приходи от предприятия от група</field>
+            <field name="csv_field">0</field>
+            <field name="code">16310</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_ІІ_16200" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Приходи от други инвестиции и заеми, признати като нетекущи (дългосрочни) активи</field>
+            <field name="csv_field">0</field>
+            <field name="code">16200</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_16200_16210" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">в т. ч. приходи от предприятия от група</field>
+            <field name="csv_field">0</field>
+            <field name="code">16210</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_ІІ_16100" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Приходи от участия в дъщерни, асоциирани и смесени предприятия</field>
+            <field name="csv_field">0</field>
+            <field name="code">16100</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_16100_16110" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">в т. ч. приходи от участия в предприятия от група</field>
+            <field name="csv_field">0</field>
+            <field name="code">16110</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_5_Б" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Разходи</field>
+            <field name="csv_field">0</field>
+            <field name="code">Б</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_Б_10000" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_601_999'),ref('l10n_bg.pcg_602_999'),ref('l10n_bg.pcg_603_000'),ref('l10n_bg.pcg_604_000'),ref('l10n_bg.pcg_605_000'),ref('l10n_bg.pcg_609_004'),ref('l10n_bg.pcg_609_999'),ref('l10n_bg.pcg_702_100'),ref('l10n_bg.pcg_702_200'),ref('l10n_bg.pcg_702_400'),ref('l10n_bg.pcg_702_500'),ref('l10n_bg.pcg_702_900')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_10_35017305'),ref('__export__.account_journal_84_95c86fc6'),ref('__export__.account_journal_14_7bb335f6'),ref('__export__.account_journal_41_ce396305'),ref('__export__.account_journal_90_80e0bc0b'),ref('__export__.account_journal_54_96bd782a')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Общо за група I</field>
+            <field name="csv_field">0</field>
+            <field name="code">10000</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_Б_11000" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_624_000')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_12_c35b4cb1'),ref('__export__.account_journal_16_fb68ed10'),ref('__export__.account_journal_42_7c19c302'),ref('__export__.account_journal_52_c376e825'),ref('__export__.account_journal_55_28e4b93e'),ref('__export__.account_journal_15_6ed37796'),ref('__export__.account_journal_90_80e0bc0b'),ref('__export__.account_journal_80_19e773ca')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Общо за група II</field>
+            <field name="csv_field">0</field>
+            <field name="code">11000</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_Б_11200" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_624_000')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_16_fb68ed10'),ref('__export__.account_journal_42_7c19c302'),ref('__export__.account_journal_58_7b6e2358'),ref('__export__.account_journal_59_a49b9921'),ref('__export__.account_journal_15_6ed37796'),ref('__export__.account_journal_90_80e0bc0b'),ref('__export__.account_journal_80_19e773ca')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Разходи за лихви и други финансови разходи</field>
+            <field name="csv_field">0</field>
+            <field name="code">11200</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_11200_11220" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Отрицателни разлики от операции с финансови активи</field>
+            <field name="csv_field">0</field>
+            <field name="code">11220</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_11200_11210" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Разходи, свързани с предприятия от група</field>
+            <field name="csv_field">0</field>
+            <field name="code">11210</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_Б_I" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Разходи за оперативна дейност</field>
+            <field name="csv_field">0</field>
+            <field name="code">I</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_I_10500" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_609_004'),ref('l10n_bg.pcg_609_999'),ref('l10n_bg.pcg_702_100'),ref('l10n_bg.pcg_702_200'),ref('l10n_bg.pcg_702_400'),ref('l10n_bg.pcg_702_500'),ref('l10n_bg.pcg_702_900'),ref('l10n_bg.pcg_707_001'),ref('l10n_bg.pcg_707_002'),ref('l10n_bg.pcg_708_002'),ref('l10n_bg.pcg_709_001'),ref('l10n_bg.pcg_709_002')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_10_35017305'),ref('__export__.account_journal_84_95c86fc6'),ref('__export__.account_journal_14_7bb335f6')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Други разходи</field>
+            <field name="csv_field">0</field>
+            <field name="code">10500</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_10500_10510" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_702_100'),ref('l10n_bg.pcg_702_200'),ref('l10n_bg.pcg_702_400'),ref('l10n_bg.pcg_702_500'),ref('l10n_bg.pcg_702_900'),ref('l10n_bg.pcg_707_001'),ref('l10n_bg.pcg_707_002'),ref('l10n_bg.pcg_708_002'),ref('l10n_bg.pcg_709_001'),ref('l10n_bg.pcg_709_002')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_84_95c86fc6'),ref('__export__.account_journal_14_7bb335f6')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Балансова стойност на продадените активи</field>
+            <field name="csv_field">0</field>
+            <field name="code">10510</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_10500_10520" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Провизии</field>
+            <field name="csv_field">0</field>
+            <field name="code">10520</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_I_10400" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_603_000')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_41_ce396305')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Разходи за амортизация и обезценка</field>
+            <field name="csv_field">0</field>
+            <field name="code">10400</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_10400_10410" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_603_000')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_41_ce396305')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Разходи за амортизация и обезценка на дълготрайни  материални и нематериални активи</field>
+            <field name="csv_field">0</field>
+            <field name="code">10410</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_10410_10411" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_603_000')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_41_ce396305')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Разходи за амортизация</field>
+            <field name="csv_field">0</field>
+            <field name="code">10411</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_10410_10412" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Разходи от обезценка</field>
+            <field name="csv_field">0</field>
+            <field name="code">10412</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_10400_10420" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">Разходи от обезценка на текущи (краткотрайни) активи</field>
+            <field name="csv_field">0</field>
+            <field name="code">10420</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_I_10300" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_604_000'),ref('l10n_bg.pcg_605_000')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_54_96bd782a')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Разходи за персонала</field>
+            <field name="csv_field">0</field>
+            <field name="code">10300</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_10300_10310" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_604_000')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_54_96bd782a')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Разходи за възнаграждения</field>
+            <field name="csv_field">0</field>
+            <field name="code">10310</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_10310_10311" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">в т. ч. компенсируеми отпуски</field>
+            <field name="csv_field">0</field>
+            <field name="code">10311</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_10300_10320" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_605_000')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_54_96bd782a')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Разходи за осигуровки (към осигурителни фондове)</field>
+            <field name="csv_field">0</field>
+            <field name="code">10320</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_10320_10321" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">от тях: осигуровки, свързани с пенсии</field>
+            <field name="csv_field">0</field>
+            <field name="code">10321</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_I_10200" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_601_999'),ref('l10n_bg.pcg_602_999')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_10_35017305'),ref('__export__.account_journal_90_80e0bc0b')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Разходи за суровини, материали и външни услуги</field>
+            <field name="csv_field">0</field>
+            <field name="code">10200</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_10200_10220" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_602_999')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_10_35017305'),ref('__export__.account_journal_90_80e0bc0b')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Външни услуги</field>
+            <field name="csv_field">0</field>
+            <field name="code">10220</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_10200_10210" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_601_999')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_10_35017305')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Суровини и материали</field>
+            <field name="csv_field">0</field>
+            <field name="code">10210</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_Б_11100" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_624_000')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_11_81b4576a'),ref('__export__.account_journal_12_c35b4cb1'),ref('__export__.account_journal_16_fb68ed10'),ref('__export__.account_journal_42_7c19c302'),ref('__export__.account_journal_52_c376e825'),ref('__export__.account_journal_55_28e4b93e')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">Разходи от обезценка на финансови активи, включително инвестициите, признати като текущи (краткосрочни) активи</field>
+            <field name="csv_field">0</field>
+            <field name="code">11100</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_11100_11110" model="account.account.tag">
+            <field eval="[(6, 0, [ref('l10n_bg.pcg_624_000')])]" name="account_ids"/>
+            <field eval="[(6, 0, [ref('__export__.account_journal_11_81b4576a'),ref('__export__.account_journal_12_c35b4cb1'),ref('__export__.account_journal_16_fb68ed10'),ref('__export__.account_journal_42_7c19c302'),ref('__export__.account_journal_52_c376e825'),ref('__export__.account_journal_55_28e4b93e')])]" name="allowed_journal_ids"/>
+            <field name="target_len">0</field>
+            <field name="name">в т.ч. отрицателни разлики от промяна на валутни курсове</field>
+            <field name="csv_field">0</field>
+            <field name="code">11110</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_5_14200" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">III. Разходи за данъци от печалбата</field>
+            <field name="csv_field">0</field>
+            <field name="code">14200</field>
+            <field name="applicability">accounts</field>
+        </record>
+        <record id="l10n_bg.tag_accounts_5_14300" model="account.account.tag">
+            <field name="target_len">0</field>
+            <field name="name">IV. Други данъци, алтернативни на корпоративния данък</field>
+            <field name="csv_field">0</field>
+            <field name="code">14300</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <!-- old -->
         <record model="account.account.tag" id="tax_tag_01_01">
             <field name="info">Общ размер на данъчните основи за облагане с ДДС</field>
             <field name="name">Общ размер на ДО за облагане с ДДС</field>
@@ -464,7 +2893,6 @@
             <field name="applicability">taxes</field>
             <field name="type_taxes">0</field>
         </record>
-
         <record model="account.tax.template" id="tax_sale">
             <field name="chart_template_id" ref="bg_chart_template"/>
             <field name="sequence">10</field>

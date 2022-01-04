@@ -1,6 +1,2980 @@
 <?xml version="1.0" ?>
 <odoo>
     <data noupdate="1">
+        <!--new-->
+        <record id="l10n_bg.pcg_101_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Основен капитал, изискващ регистрация</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.10_101"/>
+            <field name="code">101.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.52_other_equi_anno_equi"/>
+        </record>
+        <record id="l10n_bg.pcg_102_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Основен капитал не изискващ регистрация</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.10_102"/>
+            <field name="code">102.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.57_other_equi_rese_rese"/>
+        </record>
+        <record id="l10n_bg.pcg_103_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Ликвидационен капитал при несъстоятелност и ликвидация</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.10_103"/>
+            <field name="code">103.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.57_other_equi_rese_rese"/>
+        </record>
+        <record id="l10n_bg.pcg_104_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Капитал на предприятия с нестопанска дейност</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.10_104"/>
+            <field name="code">104.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.52_other_equi_anno_equi"/>
+        </record>
+        <record id="l10n_bg.pcg_107_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Сметка на собственика</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.10_107"/>
+            <field name="code">107.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.57_other_equi_rese_rese"/>
+        </record>
+        <record id="l10n_bg.pcg_108_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Премии свързани с капитал</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.10_108"/>
+            <field name="code">108.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.57_other_equi_rese_rese"/>
+        </record>
+        <record id="l10n_bg.pcg_109_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Отбиви свързани с капитал</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.10_109"/>
+            <field name="code">109.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.57_other_equi_rese_rese"/>
+        </record>
+        <record id="l10n_bg.pcg_111_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Общи резерви</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.11_111"/>
+            <field name="code">111.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.57_other_equi_rese_rese"/>
+        </record>
+        <record id="l10n_bg.pcg_112_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Резерви от последваща оценка на ДА</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.11_112"/>
+            <field name="code">112.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.53_other_equi_rese_from"/>
+        </record>
+        <record id="l10n_bg.pcg_113_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Резерви от последваща оценка на КА</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.11_113"/>
+            <field name="code">113.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.53_other_equi_rese_from"/>
+        </record>
+        <record id="l10n_bg.pcg_115_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Резерви от последваща оценка на финансови инструменти</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.11_115"/>
+            <field name="code">115.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.53_other_equi_rese_from"/>
+        </record>
+        <record id="l10n_bg.pcg_116_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Резерви от емисия на акции</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.11_116"/>
+            <field name="code">116.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.62_other_equi_rese_rela"/>
+        </record>
+        <record id="l10n_bg.pcg_117_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Други резерви</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.11_117"/>
+            <field name="code">117.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.57_other_equi_rese_rese"/>
+        </record>
+        <record id="l10n_bg.pcg_121_000" model="account.account">
+          <field name="centralized">False</field>
+          <field name="gl_centralized">False</field>
+          <field name="clear_balance">False</field>
+          <field name="currency_revaluation">False</field>
+          <field name="name">Непокрита загуба от минали години</field>
+          <field name="reconcile">False</field>
+          <field name="group_id" ref="l10n_bg.12_121"/>
+          <field name="code">121.000</field>
+          <field name="hide_in_cash_flow">False</field>
+          <field name="deprecated">False</field>
+          <field name="user_type_id" ref="account.60_other_equi_accu_prof"/>
+        </record>
+        <record id="l10n_bg.pcg_122_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Неразпределена печалба от минали години</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.12_122"/>
+            <field name="code">122.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.59_other_equi_accu_prof"/>
+        </record>
+        <record id="l10n_bg.pcg_123_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Печалби и загуби от текущата година</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.12_123"/>
+            <field name="code">123.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.61_other_equi_curr_prof"/>
+        </record>
+        <record id="l10n_bg.pcg_124_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Резултат при несъстоятелност и ликвидация</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.12_124"/>
+            <field name="code">124.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.61_other_equi_curr_prof"/>
+        </record>
+        <record id="l10n_bg.pcg_125_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Резултат от дейността на предприятия с нестопанска цел</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.12_125"/>
+            <field name="code">125.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.61_other_equi_curr_prof"/>
+        </record>
+        <record id="l10n_bg.pcg_151_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Получени краткосрочни заеми</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.15_151"/>
+            <field name="code">151.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.65_other_c_obli_to_fina"/>
+        </record>
+        <record id="l10n_bg.pcg_152_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Получени дългосрочни заеми</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.15_152"/>
+            <field name="code">152.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.65_other_c_obli_to_fina"/>
+        </record>
+        <record id="l10n_bg.pcg_153_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Кредитни карти</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.15_153"/>
+            <field name="code">153.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.65_other_c_obli_to_fina"/>
+        </record>
+        <record id="l10n_bg.pcg_154_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Дългови инструменти</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.15_154"/>
+            <field name="code">154.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.65_other_c_obli_to_fina"/>
+        </record>
+        <record id="l10n_bg.pcg_159_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Други заеми и дългове</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.15_159"/>
+            <field name="code">159.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_201_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Земи (Терени)</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_20_201"/>
+            <field name="code">201.000</field>
+            <field name="asset_profile_id" ref="__export__.account_asset_profile_1_560e48b1"/>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="tax_profile_id" ref="__export__.account_bg_asset_profile_1_e77da014"/>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.84_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_202_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Подобрения върху земите</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_20_202"/>
+            <field name="code">202.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.84_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_203_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Сгради и конструкции</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_20_203"/>
+            <field name="code">203.000</field>
+            <field name="asset_profile_id" ref="__export__.account_asset_profile_2_3497c710"/>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="tax_profile_id" ref="__export__.account_bg_asset_profile_1_e77da014"/>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.85_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_204_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Машини и оборудване</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_20_204"/>
+            <field name="code">204.000</field>
+            <field name="asset_profile_id" ref="__export__.account_asset_profile_5_c5914c0f"/>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="tax_profile_id" ref="__export__.account_bg_asset_profile_2_72a525ae"/>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.86_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_204_100" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Машини и оборудване под прага на същественост - корективна</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_20_204"/>
+            <field name="code">204.100</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.86_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_205_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Транспортни средства</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_20_205"/>
+            <field name="code">205.000</field>
+            <field name="asset_profile_id" ref="__export__.account_asset_profile_8_1fbdf62a"/>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="tax_profile_id" ref="__export__.account_bg_asset_profile_3_cf8acd5d"/>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.87_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_205_100" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Транспортни средства под прага на същественост - корективна</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_20_205"/>
+            <field name="code">205.100</field>
+            <field name="asset_profile_id" ref="__export__.account_asset_profile_8_1fbdf62a"/>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="tax_profile_id" ref="__export__.account_bg_asset_profile_3_cf8acd5d"/>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.87_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_206_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Офис обзавеждане</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_20_206"/>
+            <field name="code">206.000</field>
+            <field name="asset_profile_id" ref="__export__.account_asset_profile_17_62f80989"/>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="tax_profile_id" ref="__export__.account_bg_asset_profile_25_a1c66f13"/>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.87_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_206_100" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Офис обзавеждане под прага на същественост - корективна</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_20_206"/>
+            <field name="code">206.100</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.87_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_207_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Съоръжения</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_20_207"/>
+            <field name="code">207.000</field>
+            <field name="asset_profile_id" ref="__export__.account_asset_profile_4_176c87e0"/>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="tax_profile_id" ref="__export__.account_bg_asset_profile_1_e77da014"/>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.87_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_207_100" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Съоръжения под прага на същественост - корективна</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_20_207"/>
+            <field name="code">207.100</field>
+            <field name="asset_profile_id" ref="__export__.account_asset_profile_4_176c87e0"/>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="tax_profile_id" ref="__export__.account_bg_asset_profile_1_e77da014"/>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.87_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_208_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Компютърна техника</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_20_208"/>
+            <field name="code">208.000</field>
+            <field name="asset_profile_id" ref="__export__.account_asset_profile_10_290acb7e"/>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="tax_profile_id" ref="__export__.account_bg_asset_profile_7_3123fc62"/>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.87_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_208_100" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Компютърна техника под прага на същественост - корективна</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_20_208"/>
+            <field name="code">208.100</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.87_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_209_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Други дълготрайни материални активи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_20_209"/>
+            <field name="code">209.000</field>
+            <field name="asset_profile_id" ref="__export__.account_asset_profile_16_e894f19c"/>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="tax_profile_id" ref="__export__.account_bg_asset_profile_6_5cbe61fd"/>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.87_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_209_100" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Други ДМА под прага на същественост - корективна</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_20_209"/>
+            <field name="code">209.100</field>
+            <field name="asset_profile_id" ref="__export__.account_asset_profile_67_ca7d201f"/>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.78_other_nonc_asse_inta"/>
+        </record>
+        <record id="l10n_bg.pcg_209_200" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">ДМА за инвестиционни имоти</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_20_209"/>
+            <field name="code">209.200</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.97_other_nonc_asse_long"/>
+        </record>
+        <record id="l10n_bg.pcg_211_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Продукти от развойна дейност</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_21_211"/>
+            <field name="code">211.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.78_other_nonc_asse_inta"/>
+        </record>
+        <record id="l10n_bg.pcg_212_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Програмни продукти</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_21_212"/>
+            <field name="code">212.000</field>
+            <field name="asset_profile_id" ref="__export__.account_asset_profile_12_835215f0"/>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="tax_profile_id" ref="__export__.account_bg_asset_profile_7_3123fc62"/>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.79_other_nonc_asse_inta"/>
+        </record>
+        <record id="l10n_bg.pcg_213_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Права върху интелектуална собственост</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_21_213"/>
+            <field name="code">213.000</field>
+            <field name="asset_profile_id" ref="__export__.account_asset_profile_12_835215f0"/>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="tax_profile_id" ref="__export__.account_bg_asset_profile_7_3123fc62"/>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.79_other_nonc_asse_inta"/>
+        </record>
+        <record id="l10n_bg.pcg_214_100" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">под прага на същественост - корективна</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_21_214"/>
+            <field name="code">214.100</field>
+            <field name="asset_profile_id" ref="__export__.account_asset_profile_12_835215f0"/>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="tax_profile_id" ref="__export__.account_bg_asset_profile_7_3123fc62"/>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.6_other_nonc_asse"/>
+        </record>
+        <record id="l10n_bg.pcg_219_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Други дълготрайни нематериални активи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_21_219"/>
+            <field name="code">219.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.79_other_nonc_asse_inta"/>
+        </record>
+        <record id="l10n_bg.pcg_221_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Инвестиции в дъщерни предприятия</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_22_221"/>
+            <field name="code">221.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.6_other_nonc_asse"/>
+        </record>
+        <record id="l10n_bg.pcg_222_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Инвестиции в асоциирани предприятия</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_22_222"/>
+            <field name="code">222.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.92_other_nonc_asse_long"/>
+        </record>
+        <record id="l10n_bg.pcg_223_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Инвестиции в смесени предприятия</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_22_223"/>
+            <field name="code">223.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.92_other_nonc_asse_long"/>
+        </record>
+        <record id="l10n_bg.pcg_224_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Инвестиционен имоти</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_22_224"/>
+            <field name="code">224.000</field>
+            <field name="asset_profile_id" ref="__export__.account_asset_profile_3_a37a3235"/>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.97_other_nonc_asse_long"/>
+        </record>
+        <record id="l10n_bg.pcg_225_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Инвестиции във финансови активи, държани до настъпване на падеж</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_22_225"/>
+            <field name="code">225.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.95_other_nonc_asse_long"/>
+        </record>
+        <record id="l10n_bg.pcg_226_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Инвестиции във финансови активи, отчитани по справедлива стойност в печалбата или загубата</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_22_226"/>
+            <field name="code">226.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.96_other_nonc_asse_long"/>
+        </record>
+        <record id="l10n_bg.pcg_227_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Предоставени дългосрочни заеми и вземания</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_22_227"/>
+            <field name="code">227.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.98_other_nonc_asse_long"/>
+        </record>
+        <record id="l10n_bg.pcg_228_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Инвестиции във финансови активи на разположение за продажба</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_22_228"/>
+            <field name="code">228.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.96_other_nonc_asse_long"/>
+        </record>
+        <record id="l10n_bg.pcg_229_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Инвестиции в други дългосрочни финансови активи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_22_229"/>
+            <field name="code">229.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.96_other_nonc_asse_long"/>
+        </record>
+        <record id="l10n_bg.pcg_231_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Положителна търговска репутация</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_23_231"/>
+            <field name="code">231.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.80_other_nonc_asse_inta"/>
+        </record>
+        <record id="l10n_bg.pcg_232_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Отрицателна търговска репутация</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.2_23_232"/>
+            <field name="code">232.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.6_other_nonc_asse"/>
+        </record>
+        <record id="l10n_bg.pcg_241_300" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">(Натрупана) Амортизация на сгради и конструкции</field>
+            <field name="reconcile">False</field>
+            <field name="code">241.300</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.85_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_241_400" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">(Натрупана) Амортизация на машини и оборудване</field>
+            <field name="reconcile">False</field>
+            <field name="code">241.400</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.86_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_241_500" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">(Натрупана) Амортизация на транспортни средства</field>
+            <field name="reconcile">False</field>
+            <field name="code">241.500</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.87_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_241_600" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">(Натрупана) Амортизация на офис обзавеждане</field>
+            <field name="reconcile">False</field>
+            <field name="code">241.600</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.88_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_241_700" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">(Натрупана) Амортизация на съоръжения</field>
+            <field name="reconcile">False</field>
+            <field name="code">241.700</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.87_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_241_800" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">(Натрупана) Амортизация на компютърна техника</field>
+            <field name="reconcile">False</field>
+            <field name="code">241.800</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.87_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_241_900" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">(Натрупана) Амортизация на други дълготрайни материални активи</field>
+            <field name="reconcile">False</field>
+            <field name="code">241.900</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.87_other_nonc_asse_fixe"/>
+        </record>
+        <record id="l10n_bg.pcg_242_300" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">(Натрупана) Амортизация върху интелектуална собственост</field>
+            <field name="reconcile">False</field>
+            <field name="code">242.300</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.79_other_nonc_asse_inta"/>
+        </record>
+        <record id="l10n_bg.pcg_242_400" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">(Натрупана) Амортизация на програмни продукти</field>
+            <field name="reconcile">False</field>
+            <field name="code">242.400</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.79_other_nonc_asse_inta"/>
+        </record>
+        <record id="l10n_bg.pcg_242_900" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">(Натрупана) Амортизация на други дълготрайни нематериални активи</field>
+            <field name="reconcile">False</field>
+            <field name="code">242.900</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.79_other_nonc_asse_inta"/>
+        </record>
+        <record id="l10n_bg.pcg_251_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Корекция при обезценка на вземания</field>
+            <field name="reconcile">False</field>
+            <field name="code">251.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.6_other_nonc_asse"/>
+        </record>
+        <record id="l10n_bg.pcg_301_001" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Доставки</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.3_30_301"/>
+            <field name="code">301.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.101_other_curr_asse"/>
+        </record>
+        <record id="l10n_bg.pcg_301_002" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Доставни разходи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.3_30_301"/>
+            <field name="code">301.002</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.101_other_curr_asse"/>
+        </record>
+        <record id="l10n_bg.pcg_302_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Суровини/Материали</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.3_30_302"/>
+            <field name="code">302.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.103_other_curr_asse_inve"/>
+        </record>
+        <record id="l10n_bg.pcg_303_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Продукти</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.3_30_303"/>
+            <field name="code">303.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.106_other_curr_asse_inve"/>
+        </record>
+        <record id="l10n_bg.pcg_304_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Стоки</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.3_30_304"/>
+            <field name="code">304.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.107_other_curr_asse_inve"/>
+        </record>
+        <record id="l10n_bg.pcg_305_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Стоки на път</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.3_30_305"/>
+            <field name="code">305.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.108_other_curr_asse_inve"/>
+        </record>
+        <record id="l10n_bg.pcg_401_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">True</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">True</field>
+            <field name="name">Задължения към доставчици</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_40_401"/>
+            <field name="code">401.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.67_payable_c_obli_to_supp"/>
+        </record>
+        <record id="l10n_bg.pcg_402_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Вземания от доставчици по аванси</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_40_402"/>
+            <field name="code">402.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.108_other_curr_asse_inve"/>
+        </record>
+        <record id="l10n_bg.pcg_403_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Задължения към доставчици по търговски кредити</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_40_403"/>
+            <field name="code">403.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.67_payable_c_obli_to_supp"/>
+        </record>
+        <record id="l10n_bg.pcg_404_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Задължения към доставчици по доставки при определени условия</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_40_404"/>
+            <field name="code">404.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.67_payable_c_obli_to_supp"/>
+        </record>
+        <record id="l10n_bg.pcg_406_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Задължения към доставчици свързани лица</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_40_406"/>
+            <field name="code">406.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.70_payable_c_obli_rela_to"/>
+        </record>
+        <record id="l10n_bg.pcg_409_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Други задължения към доставчици</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_40_409"/>
+            <field name="code">409.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.71_other_c_obli_obli"/>
+        </record>
+        <record id="l10n_bg.pcg_411_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">True</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">True</field>
+            <field name="name">Вземания от клиенти</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_41_411"/>
+            <field name="code">411.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.110_receivable_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_412_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Задължения към клиенти по аванси</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_41_412"/>
+            <field name="code">412.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.66_other_c_obli_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_413_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Вземания от клиенти по търговски кредити</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_41_413"/>
+            <field name="code">413.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.110_receivable_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_414_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Вземания от клиенти по продажби при определени условия</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_41_414"/>
+            <field name="code">414.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.110_receivable_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_416_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Вземания от клиенти свързани лица</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_41_416"/>
+            <field name="code">416.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.112_receivable_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_419_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Други вземания от клиенти</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_41_419"/>
+            <field name="code">419.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.110_receivable_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_421_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">True</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Задължения към персонал</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_41_421"/>
+            <field name="code">421.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.72_payable_c_obli_obli_th"/>
+        </record>
+        <record id="l10n_bg.pcg_422_001" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети за команировки с подотчетни лица</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_42_422"/>
+            <field name="code">422.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.113_other_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_422_002" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети с подотчетни лица теглене атм</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_42_422"/>
+            <field name="code">422.002</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.113_other_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_422_999" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети с подотчетни лица</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_42_422"/>
+            <field name="code">422.999</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">True</field>
+            <field name="user_type_id" ref="account.122_liquidity_curr_asse_fina"/>
+        </record>
+        <record id="l10n_bg.pcg_423_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Задължения по неизплатени отпуски</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_42_423"/>
+            <field name="code">423.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.72_payable_c_obli_obli_th"/>
+        </record>
+        <record id="l10n_bg.pcg_424_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Вземания от съучастия</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_42_424"/>
+            <field name="code">424.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.112_receivable_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_425_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Задължения за съучастия</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_42_425"/>
+            <field name="code">425.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_426_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Вземания по записани дялови вноски</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_42_426"/>
+            <field name="code">426.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.113_other_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_429_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Други разчети с персонала и съдружниците</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_42_429"/>
+            <field name="code">429.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.113_other_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_441_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Вземания по рекламации</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_44_441"/>
+            <field name="code">441.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.113_other_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_442_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Вземания по липси и начети</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_44_442"/>
+            <field name="code">442.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_443_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Ценови разлики по липси и начети</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_44_443"/>
+            <field name="code">443.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.113_other_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_444_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Вземания по съдебни спорове</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_44_444"/>
+            <field name="code">444.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.113_other_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_445_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Присъдени вземания</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_44_445"/>
+            <field name="code">445.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.113_other_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_450_001" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">True</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Вътрешни разчети ДДС отсрочен данъчен кредит</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_45_450"/>
+            <field name="code">450.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_451_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети с общините</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_45_451"/>
+            <field name="code">451.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.74_other_c_obli_obli_ob"/>
+        </record>
+        <record id="l10n_bg.pcg_452_001" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети за Годишен корпоративен данък</field>
+            <field name="reconcile">True</field>
+            <field name="code">452.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.74_other_c_obli_obli_ob"/>
+        </record>
+        <record id="l10n_bg.pcg_452_002" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети за Авансов корпоративен данък</field>
+            <field name="reconcile">True</field>
+            <field name="code">452.002</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.113_other_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_452_999" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети с Бюдежта за данъци </field>
+            <field name="reconcile">False</field>
+            <field name="code">452.999</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">True</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_453_100" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Начислен данък върху добавената стойност за покупките</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_45_453"/>
+            <field name="code">453.100</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_453_200" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Начислен данък върху добавената стойност за продажбите</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_45_453"/>
+            <field name="code">453.200</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_453_600" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Отложен данъчен кредит</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_45_453"/>
+            <field name="code">453.600</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_453_700" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Неизползван данъчен кредит</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_45_453"/>
+            <field name="code">453.700</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_453_800" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Данък върху добавената стойност за възстановяване</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_45_453"/>
+            <field name="code">453.800</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_453_900" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Данък върху добавената стойност за внасяне</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_45_453"/>
+            <field name="code">453.900</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_454_001" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети за данъци върху доходи на физически лица по трудов договор и ДУК</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_45_454"/>
+            <field name="code">454.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.74_other_c_obli_obli_ob"/>
+        </record>
+        <record id="l10n_bg.pcg_454_002" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети за данък дивидент</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_45_454"/>
+            <field name="code">454.002</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.74_other_c_obli_obli_ob"/>
+        </record>
+        <record id="l10n_bg.pcg_455_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети за социално осигуряване</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_45_455"/>
+            <field name="code">455.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.73_payable_c_obli_obli_li"/>
+        </record>
+        <record id="l10n_bg.pcg_456_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети за акцизи</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_45_456"/>
+            <field name="code">456.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.74_other_c_obli_obli_ob"/>
+        </record>
+        <record id="l10n_bg.pcg_457_001" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">ДДС при митнически внос</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_45_457"/>
+            <field name="code">457.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_457_002" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">True</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Вътрешни разчети във връзка с митнически сборове</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_45_457"/>
+            <field name="code">457.002</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_457_003" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">True</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Вътрешни разчети във връзка с ДДС при ВОП</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_45_457"/>
+            <field name="code">457.003</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_457_999" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети с митници</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_45_457"/>
+            <field name="code">457.999</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">True</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_459_001" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Данък представителни цели</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_45_459"/>
+            <field name="code">459.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.74_other_c_obli_obli_ob"/>
+        </record>
+        <record id="l10n_bg.pcg_459_002" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Данък физически лица - наем и граждански договори</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_45_459"/>
+            <field name="code">459.002</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.74_other_c_obli_obli_ob"/>
+        </record>
+        <record id="l10n_bg.pcg_459_999" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Други разчети с бюджета и ведомства</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_45_459"/>
+            <field name="code">459.999</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">True</field>
+            <field name="user_type_id" ref="account.74_other_c_obli_obli_ob"/>
+        </record>
+        <record id="l10n_bg.pcg_461_001" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети за задължително социално осигуряване</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_46_461"/>
+            <field name="code">461.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.73_payable_c_obli_obli_li"/>
+        </record>
+        <record id="l10n_bg.pcg_461_002" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети за задължително допълнително социално осигуряване</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_46_461"/>
+            <field name="code">461.002</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.73_payable_c_obli_obli_li"/>
+        </record>
+        <record id="l10n_bg.pcg_462_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети за доброволно социално осигуряване</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_46_462"/>
+            <field name="code">462.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.73_payable_c_obli_obli_li"/>
+        </record>
+        <record id="l10n_bg.pcg_463_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети за здравно осигуряване по трудови договори</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_46_463"/>
+            <field name="code">463.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.73_payable_c_obli_obli_li"/>
+        </record>
+        <record id="l10n_bg.pcg_464_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети еднократни помощи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_46_464"/>
+            <field name="code">464.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_469_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети с осигурители</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_46_469"/>
+            <field name="code">469.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_491_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети с доверители</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_49_491"/>
+            <field name="code">491.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.113_other_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_492_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети за гаранции</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_49_492"/>
+            <field name="code">492.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.113_other_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_493_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети със собственици</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_49_493"/>
+            <field name="code">493.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_494_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети по отсрочени данъци</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_49_494"/>
+            <field name="code">494.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.6_other_nonc_asse"/>
+        </record>
+        <record id="l10n_bg.pcg_495_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети по застраховане</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_49_495"/>
+            <field name="code">495.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_496_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети по лихви</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_49_496"/>
+            <field name="code">496.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.9_other_curr_liab"/>
+        </record>
+        <record id="l10n_bg.pcg_497_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети по данъчни временни разлики</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.4_49_497"/>
+            <field name="code">497.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.6_other_nonc_asse"/>
+        </record>
+        <record id="l10n_bg.pcg_498_001" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Начислени и платени суми към НАП</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_49_498"/>
+            <field name="code">498.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.113_other_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_498_002" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Други вземания - депозити и др.</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_49_498"/>
+            <field name="code">498.002</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.113_other_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_498_003" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разчети по равнения с клиенти/доставчици от минали години</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_49_498"/>
+            <field name="code">498.003</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.113_other_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_499_001" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Данъчен кредит за прихващане по инициатива на ДЗЛ</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_49_499"/>
+            <field name="code">499.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.67_payable_c_obli_to_supp"/>
+        </record>
+        <record id="l10n_bg.pcg_499_002" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Други задължения</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.4_49_499"/>
+            <field name="code">499.002</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.66_other_c_obli_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_501_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">В брой</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.5_50_501"/>
+            <field name="code">501.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.122_liquidity_curr_asse_fina"/>
+        </record>
+        <record id="l10n_bg.pcg_502_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">True</field>
+            <field name="name">Каса във валута</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.5_50_502"/>
+            <field name="code">502.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.123_liquidity_curr_asse_fina"/>
+        </record>
+        <record id="l10n_bg.pcg_503_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">True</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Банка</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.5_50_503"/>
+            <field name="code">503.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.124_liquidity_curr_asse_fina"/>
+        </record>
+        <record id="l10n_bg.pcg_504_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">True</field>
+            <field name="name">Raiffeizen EUR</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.5_50_504"/>
+            <field name="code">504.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.128_liquidity_curr_asse_fina"/>
+        </record>
+        <record id="l10n_bg.pcg_505_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Акредитиви</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.5_50_505"/>
+            <field name="code">505.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.125_liquidity_curr_asse_fina"/>
+        </record>
+        <record id="l10n_bg.pcg_506_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Предоставени депозити</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.5_50_506"/>
+            <field name="code">506.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.125_liquidity_curr_asse_fina"/>
+        </record>
+        <record id="l10n_bg.pcg_507_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Парични средства, заложени като обезпечение</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.5_50_507"/>
+            <field name="code">507.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.125_liquidity_curr_asse_fina"/>
+        </record>
+        <record id="l10n_bg.pcg_508_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Вътрешни трансфери</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.5_50_508"/>
+            <field name="code">508.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.5_other_curr_asse"/>
+        </record>
+        <record id="l10n_bg.pcg_509_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">True</field>
+            <field name="name">Други парични средства</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.5_50_509"/>
+            <field name="code">509.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.124_liquidity_curr_asse_fina"/>
+        </record>
+        <record id="l10n_bg.pcg_510_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Вътрешни трансфери между собствени сметки</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.5_50_510"/>
+            <field name="code">510.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.5_other_curr_asse"/>
+        </record>
+        <record id="l10n_bg.pcg_511_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Финансови активи, отчитани по справедлива стойност в печалбата или загубата</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.5_51_511"/>
+            <field name="code">511.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.98_other_nonc_asse_long"/>
+        </record>
+        <record id="l10n_bg.pcg_512_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Финансови активи, държани до настъпване на падеж</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.5_51_512"/>
+            <field name="code">512.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.95_other_nonc_asse_long"/>
+        </record>
+        <record id="l10n_bg.pcg_513_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Краткосрочни заеми и вземания</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.5_51_513"/>
+            <field name="code">513.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.113_other_curr_asse_rece"/>
+        </record>
+        <record id="l10n_bg.pcg_514_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Финансови активи на разположение за продажба</field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.5_51_514"/>
+            <field name="code">514.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.119_receivable_curr_asse_inve"/>
+        </record>
+        <record id="l10n_bg.pcg_519_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Други краткосрочни финансови активи </field>
+            <field name="reconcile">True</field>
+            <field name="group_id" ref="l10n_bg.5_51_519"/>
+            <field name="code">519.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.117_receivable_curr_asse_inve"/>
+        </record>
+        <record id="l10n_bg.pcg_601_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разходи за материали</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_60_601"/>
+            <field name="code">601.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.21_other_expe_'fal"/>
+        </record>
+        <record id="l10n_bg.pcg_602_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разходи за наем</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_60_602"/>
+            <field name="code">602.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.22_other_expe_'fal_of_r"/>
+        </record>
+        <record id="l10n_bg.pcg_603_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_13000'),ref('l10n_bg.tag_accounts_Б_10000'),ref('l10n_bg.tag_accounts_I_10400'),ref('l10n_bg.tag_accounts_10400_10410'),ref('l10n_bg.tag_accounts_10410_10411')])]" name="tag_ids"/>
+            <field name="name">Разходи за амортизация</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_60_603"/>
+            <field name="code">603.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.48_other_expe_'fal_and_"/>
+        </record>
+        <record id="l10n_bg.pcg_604_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">True</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_13000'),ref('l10n_bg.tag_accounts_Б_10000'),ref('l10n_bg.tag_accounts_I_10300'),ref('l10n_bg.tag_accounts_10300_10310')])]" name="tag_ids"/>
+            <field name="name">Разходи за заплати (възнаграждения)</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_60_604"/>
+            <field name="code">604.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.23_other_expe_'fal_cost"/>
+        </record>
+        <record id="l10n_bg.pcg_605_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">True</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_13000'),ref('l10n_bg.tag_accounts_Б_10000'),ref('l10n_bg.tag_accounts_I_10300'),ref('l10n_bg.tag_accounts_10300_10320')])]" name="tag_ids"/>
+            <field name="name">Разходи за осигуровки</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_60_605"/>
+            <field name="code">605.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.23_other_expe_'fal_cost"/>
+        </record>
+        <record id="l10n_bg.pcg_606_001" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Начислен разход за имуществен данък</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_60_606"/>
+            <field name="code">606.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.25_other_expe_'fal_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_606_002" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Начислен разход за такса смет</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_60_606"/>
+            <field name="code">606.002</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.25_other_expe_'fal_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_606_003" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Начислен разход за данък - представителни цели</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_60_606"/>
+            <field name="code">606.003</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.25_other_expe_'fal_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_606_009" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">True</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Начислен разход за данъци, такси и други плащания</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_60_606"/>
+            <field name="code">606.009</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">True</field>
+            <field name="user_type_id" ref="account.25_other_expe_'fal_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_607_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">True</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разходи за провизии</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_60_607"/>
+            <field name="code">607.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.25_other_expe_'fal_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_608_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">True</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разходи от последващи оценки на активи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_60_608"/>
+            <field name="code">608.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.27_other_expe_expe_loss"/>
+        </record>
+        <record id="l10n_bg.pcg_609_001" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Други разходи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_60_609"/>
+            <field name="code">609.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.25_other_expe_'fal_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_609_002" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">True</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_13000'),ref('l10n_bg.tag_accounts_Б_10000'),ref('l10n_bg.tag_accounts_I_10500')])]" name="tag_ids"/>
+            <field name="name">Разходи за липси при инвентаризация</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_60_609"/>
+            <field name="code">609.002</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.25_other_expe_'fal_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_609_003" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разходи подлежащи на данъчно преообразуване</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_60_609"/>
+            <field name="code">609.003</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.25_other_expe_'fal_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_609_009" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">True</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_13000'),ref('l10n_bg.tag_accounts_Б_10000'),ref('l10n_bg.tag_accounts_I_10500')])]" name="tag_ids"/>
+            <field name="name">Други разходи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_60_609"/>
+            <field name="code">609.009</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">True</field>
+            <field name="user_type_id" ref="account.25_other_expe_'fal_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_611_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разходи за основна дейност</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_61_611"/>
+            <field name="code">611.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.16_other_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_612_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разходи за спомагателна дейност</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_61_612"/>
+            <field name="code">612.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.16_other_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_613_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разходи за придобиване на дълготрайни активи - НИРД</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_61_613"/>
+            <field name="code">613.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.16_other_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_614_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Административни разходи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_61_614"/>
+            <field name="code">614.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.16_other_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_615_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разходи за продажба на продукция</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_61_615"/>
+            <field name="code">615.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.16_other_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_616_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разходи за ликвидация на ДМА</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_61_616"/>
+            <field name="code">616.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.16_other_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_621_001" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Лихви към бюджета</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_62_621"/>
+            <field name="code">621.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.28_other_expe_expe_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_621_002" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Лихви по банкови и търговски кредити</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_62_621"/>
+            <field name="code">621.002</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.28_other_expe_expe_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_621_003" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разходи за лихви и неустойки по търговски договори</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_62_621"/>
+            <field name="code">621.003</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.28_other_expe_expe_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_622_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разходи по операции с финансови активи и инструменти</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_62_622"/>
+            <field name="code">622.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.28_other_expe_expe_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_623_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разходи по операции с инестиции</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_62_623"/>
+            <field name="code">623.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.28_other_expe_expe_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_624_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_13000'),ref('l10n_bg.tag_accounts_Б_11000'),ref('l10n_bg.tag_accounts_Б_11200'),ref('l10n_bg.tag_accounts_Б_11100'),ref('l10n_bg.tag_accounts_11100_11110')])]" name="tag_ids"/>
+            <field name="name">Разходи по валутни операции</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_62_624"/>
+            <field name="code">624.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.30_other_expe_expe_diff"/>
+        </record>
+        <record id="l10n_bg.pcg_625_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Разходи от последващи оценки на финансови активи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_62_625"/>
+            <field name="code">625.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.27_other_expe_expe_loss"/>
+        </record>
+        <record id="l10n_bg.pcg_629_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Такси и комисионни по банкови сметки и в брой</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_62_629"/>
+            <field name="code">629.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.28_other_expe_expe_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_631_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Загуби (разходи) от обезценка</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_63_631"/>
+            <field name="code">631.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.27_other_expe_expe_loss"/>
+        </record>
+        <record id="l10n_bg.pcg_651_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Нефинансови разходи за бъдещи периоди</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_65_651"/>
+            <field name="code">651.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.16_other_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_652_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Финансови разходи за бъдещи периоди</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_65_652"/>
+            <field name="code">652.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.16_other_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_691_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Извънредни разходи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.6_69_691"/>
+            <field name="code">691.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.28_other_expe_expe_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_701_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_18000'),ref('l10n_bg.tag_accounts_А_15000'),ref('l10n_bg.tag_accounts_І_15100'),ref('l10n_bg.tag_accounts_15100_15110')])]" name="tag_ids"/>
+            <field name="name">Приходи от продажби на продукти</field>
+            <field name="reconcile">False</field>
+            <field name="code">701.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.43_other_inco_inco_sale"/>
+        </record>
+        <record id="l10n_bg.pcg_702_100" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_18000'),ref('l10n_bg.tag_accounts_5_13000'),ref('l10n_bg.tag_accounts_А_15000'),ref('l10n_bg.tag_accounts_І_15100'),ref('l10n_bg.tag_accounts_15100_15120'),ref('l10n_bg.tag_accounts_Б_10000'),ref('l10n_bg.tag_accounts_I_10500'),ref('l10n_bg.tag_accounts_10500_10510')])]" name="tag_ids"/>
+            <field name="name">Приходи от продажби на стоки</field>
+            <field name="reconcile">False</field>
+            <field name="code">702.100</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.31_other_inco_inco"/>
+        </record>
+        <record id="l10n_bg.pcg_702_200" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_18000'),ref('l10n_bg.tag_accounts_5_13000'),ref('l10n_bg.tag_accounts_А_15000'),ref('l10n_bg.tag_accounts_І_15100'),ref('l10n_bg.tag_accounts_15100_15120'),ref('l10n_bg.tag_accounts_Б_10000'),ref('l10n_bg.tag_accounts_I_10500'),ref('l10n_bg.tag_accounts_10500_10510')])]" name="tag_ids"/>
+            <field name="name">Отчетна стойност на продадените стоки</field>
+            <field name="reconcile">False</field>
+            <field name="code">702.200</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.25_other_expe_'fal_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_702_400" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_18000'),ref('l10n_bg.tag_accounts_5_13000'),ref('l10n_bg.tag_accounts_А_15000'),ref('l10n_bg.tag_accounts_І_15100'),ref('l10n_bg.tag_accounts_15100_15120'),ref('l10n_bg.tag_accounts_Б_10000'),ref('l10n_bg.tag_accounts_I_10500'),ref('l10n_bg.tag_accounts_10500_10510')])]" name="tag_ids"/>
+            <field name="name">Приходи от продажби на инструменти в употреба</field>
+            <field name="reconcile">False</field>
+            <field name="code">702.400</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.31_other_inco_inco"/>
+        </record>
+        <record id="l10n_bg.pcg_702_500" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_18000'),ref('l10n_bg.tag_accounts_5_13000'),ref('l10n_bg.tag_accounts_А_15000'),ref('l10n_bg.tag_accounts_І_15100'),ref('l10n_bg.tag_accounts_15100_15120'),ref('l10n_bg.tag_accounts_Б_10000'),ref('l10n_bg.tag_accounts_I_10500'),ref('l10n_bg.tag_accounts_10500_10510')])]" name="tag_ids"/>
+            <field name="name">Отчетна стойност на продадените инструменти в употреба</field>
+            <field name="reconcile">False</field>
+            <field name="code">702.500</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.25_other_expe_'fal_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_702_900" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_18000'),ref('l10n_bg.tag_accounts_5_13000'),ref('l10n_bg.tag_accounts_А_15000'),ref('l10n_bg.tag_accounts_І_15100'),ref('l10n_bg.tag_accounts_15100_15120'),ref('l10n_bg.tag_accounts_Б_10000'),ref('l10n_bg.tag_accounts_I_10500'),ref('l10n_bg.tag_accounts_10500_10510')])]" name="tag_ids"/>
+            <field name="name">Приключване на финасова година</field>
+            <field name="reconcile">False</field>
+            <field name="code">702.900</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.14_other_inco"/>
+        </record>
+        <record id="l10n_bg.pcg_703_001" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_18000'),ref('l10n_bg.tag_accounts_А_15000'),ref('l10n_bg.tag_accounts_І_15100'),ref('l10n_bg.tag_accounts_15100_15130')])]" name="tag_ids"/>
+            <field name="name">Приходи от продажби на услуги</field>
+            <field name="reconcile">False</field>
+            <field name="code">703.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.45_other_inco_inco_sale"/>
+        </record>
+        <record id="l10n_bg.pcg_703_099" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_18000'),ref('l10n_bg.tag_accounts_А_15000'),ref('l10n_bg.tag_accounts_І_15100'),ref('l10n_bg.tag_accounts_15100_15130')])]" name="tag_ids"/>
+            <field name="name">Приходи от продажби на други услуги</field>
+            <field name="reconcile">False</field>
+            <field name="code">703.099</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.45_other_inco_inco_sale"/>
+        </record>
+        <record id="l10n_bg.pcg_705_000" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Приходи от финансирания</field>
+            <field name="reconcile">False</field>
+            <field name="code">705.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.36_other_inco_inco_from"/>
+        </record>
+        <record id="l10n_bg.pcg_707_001" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_18000'),ref('l10n_bg.tag_accounts_А_15000'),ref('l10n_bg.tag_accounts_І_15400'),ref('l10n_bg.tag_accounts_15400_15430'),ref('l10n_bg.tag_accounts_I_10500'),ref('l10n_bg.tag_accounts_10500_10510')])]" name="tag_ids"/>
+            <field name="name">Приходи от продажби на дълготрайни активи</field>
+            <field name="reconcile">False</field>
+            <field name="code">707.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.38_other_inco_inco_from"/>
+        </record>
+        <record id="l10n_bg.pcg_707_002" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_I_10500'),ref('l10n_bg.tag_accounts_10500_10510')])]" name="tag_ids"/>
+            <field name="name">Разходи за продадени дълготрайни активи</field>
+            <field name="reconcile">False</field>
+            <field name="code">707.002</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.25_other_expe_'fal_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_708_001" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_І_15400')])]" name="tag_ids"/>
+            <field name="name">Приходи от продажба на суровини/материали</field>
+            <field name="reconcile">False</field>
+            <field name="code">708.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.35_other_inco_inco_inco"/>
+        </record>
+        <record id="l10n_bg.pcg_708_002" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_I_10500'),ref('l10n_bg.tag_accounts_10500_10510')])]" name="tag_ids"/>
+            <field name="name">Разходи за продадени суровини/материали</field>
+            <field name="reconcile">False</field>
+            <field name="code">708.002</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.25_other_expe_'fal_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_709_001" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_18000'),ref('l10n_bg.tag_accounts_А_15000'),ref('l10n_bg.tag_accounts_І_15400'),ref('l10n_bg.tag_accounts_15400_15430'),ref('l10n_bg.tag_accounts_I_10500'),ref('l10n_bg.tag_accounts_10500_10510')])]" name="tag_ids"/>
+            <field name="name">Други приходи от дейността</field>
+            <field name="reconcile">False</field>
+            <field name="code">709.001</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.35_other_inco_inco_inco"/>
+        </record>
+        <record id="l10n_bg.pcg_709_002" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_I_10500'),ref('l10n_bg.tag_accounts_10500_10510')])]" name="tag_ids"/>
+            <field name="name">Отчетна стоноста на продадени други активи</field>
+            <field name="reconcile">False</field>
+            <field name="code">709.002</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.25_other_expe_'fal_expe"/>
+        </record>
+        <record id="l10n_bg.pcg_709_003" model="account.account">
+            <field name="centralized">True</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_18000'),ref('l10n_bg.tag_accounts_А_15000'),ref('l10n_bg.tag_accounts_І_15400')])]" name="tag_ids"/>
+            <field name="name">Приходи при излишък от инвентаризация</field>
+            <field name="reconcile">False</field>
+            <field name="code">709.003</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.35_other_inco_inco_inco"/>
+        </record>
+        <record id="l10n_bg.pcg_721_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Приходи от лихви</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.7_72_721"/>
+            <field name="code">721.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.42_other_inco_inco_inte"/>
+        </record>
+        <record id="l10n_bg.pcg_723_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Приходи от операции с финансови активи и инструменти</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.7_72_723"/>
+            <field name="code">723.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.42_other_inco_inco_inte"/>
+        </record>
+        <record id="l10n_bg.pcg_724_000" model="account.account">
+        <field name="centralized">False</field>
+        <field name="gl_centralized">False</field>
+        <field name="clear_balance">False</field>
+        <field name="currency_revaluation">False</field>
+        <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_18000'),ref('l10n_bg.tag_accounts_А_16000'),ref('l10n_bg.tag_accounts_16300_16330')])]" name="tag_ids"/>
+        <field name="name">Приходи от валутни операции</field>
+        <field name="reconcile">False</field>
+        <field name="group_id" ref="l10n_bg.7_72_724"/>
+        <field name="code">724.000</field>
+        <field name="hide_in_cash_flow">False</field>
+        <field name="deprecated">False</field>
+        <field name="user_type_id" ref="account.42_other_inco_inco_inte"/>
+        </record>
+        <record id="l10n_bg.pcg_725_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Приходи от последващи оценки на финансови активи и инструменти</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.7_72_725"/>
+            <field name="code">725.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.42_other_inco_inco_inte"/>
+        </record>
+        <record id="l10n_bg.pcg_729_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field eval="[(6, 0, [ref('l10n_bg.tag_accounts_5_18000'),ref('l10n_bg.tag_accounts_А_16000'),ref('l10n_bg.tag_accounts_ІІ_16300')])]" name="tag_ids"/>
+            <field name="name">Други финансови приходи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.7_72_729"/>
+            <field name="code">729.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.42_other_inco_inco_inte"/>
+        </record>
+        <record id="l10n_bg.pcg_751_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Нефинансови приходи за бъдещи периоди</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.7_75_751"/>
+            <field name="code">751.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.14_other_inco"/>
+        </record>
+        <record id="l10n_bg.pcg_752_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Финансови приходи за бъдещи периоди</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.7_75_752"/>
+            <field name="code">752.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.14_other_inco"/>
+        </record>
+        <record id="l10n_bg.pcg_753_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Финансиране за дълготрайни активи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.7_75_753"/>
+            <field name="code">753.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.14_other_inco"/>
+        </record>
+        <record id="l10n_bg.pcg_754_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Финансиране на текущата дейност</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.7_75_754"/>
+            <field name="code">754.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.14_other_inco"/>
+        </record>
+        <record id="l10n_bg.pcg_791_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Извънредни приходи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.7_79_791"/>
+            <field name="code">791.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.14_other_inco"/>
+        </record>
+        <record id="l10n_bg.pcg_911_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Наети чужди активи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.9_91_911"/>
+            <field name="code">911.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.19_other_задб_смет"/>
+        </record>
+        <record id="l10n_bg.pcg_912_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Чужди материални активи, получени по консигнационен договор</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.9_91_912"/>
+            <field name="code">912.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.19_other_задб_смет"/>
+        </record>
+        <record id="l10n_bg.pcg_913_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Други материални и нематериални активи, приети на съхранение</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.9_91_913"/>
+            <field name="code">913.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.19_other_задб_смет"/>
+        </record>
+        <record id="l10n_bg.pcg_914_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Финансови активи или парични средства, приети на за съхранение</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.9_91_914"/>
+            <field name="code">914.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.19_other_задб_смет"/>
+        </record>
+        <record id="l10n_bg.pcg_981_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Чужди материални и нематериални активи, получени като обезпечение</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.9_98_981"/>
+            <field name="code">981.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.19_other_задб_смет"/>
+        </record>
+        <record id="l10n_bg.pcg_982_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Чужди финансови активи, получени като обезпечение</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.9_98_982"/>
+            <field name="code">982.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.19_other_задб_смет"/>
+        </record>
+        <record id="l10n_bg.pcg_983_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Полици или записи на заповед, получени като обезпечение</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.9_98_983"/>
+            <field name="code">983.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.19_other_задб_смет"/>
+        </record>
+        <record id="l10n_bg.pcg_984_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Други условни активи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.9_98_984"/>
+            <field name="code">984.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.19_other_задб_смет"/>
+        </record>
+        <record id="l10n_bg.pcg_989_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Кореспондираща сметка за условни активи</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.9_98_989"/>
+            <field name="code">989.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.19_other_задб_смет"/>
+        </record>
+        <record id="l10n_bg.pcg_991_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Собствени материални и нематериални активи, предоставени като обезпечение</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.9_99_991"/>
+            <field name="code">991.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.19_other_задб_смет"/>
+        </record>
+        <record id="l10n_bg.pcg_992_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Собствени финансови активи, предоставени като обезпечение</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.9_99_992"/>
+            <field name="code">992.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.19_other_задб_смет"/>
+        </record>
+        <record id="l10n_bg.pcg_993_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Полици или записи на заповед, предоставени като обезпечение</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.9_99_993"/>
+            <field name="code">993.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.19_other_задб_смет"/>
+        </record>
+        <record id="l10n_bg.pcg_994_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Други условни пасиви</field>
+            <field name="reconcile">False</field>
+            <field name="group_id" ref="l10n_bg.9_99_994"/>
+            <field name="code">994.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.19_other_задб_смет"/>
+        </record>
+        <record id="l10n_bg.pcg_999_000" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Кореспондираща сметка за условни пасиви</field>
+            <field name="reconcile">False</field>
+            <field name="code">999.000</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.19_other_задб_смет"/>
+        </record>
+        <record id="l10n_bg.pcg_999_999" model="account.account">
+            <field name="centralized">False</field>
+            <field name="gl_centralized">False</field>
+            <field name="clear_balance">False</field>
+            <field name="currency_revaluation">False</field>
+            <field name="name">Undistributed Profits/Losses</field>
+            <field name="reconcile">False</field>
+            <field name="code">999.999</field>
+            <field name="hide_in_cash_flow">False</field>
+            <field name="deprecated">False</field>
+            <field name="user_type_id" ref="account.12_other_curr_year_earn"/>
+        </record>
 
         <!-- Account Templates -->
         <record id="pcg_101" model="account.account.template">

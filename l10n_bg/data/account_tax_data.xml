@@ -2,7 +2,7 @@
 <odoo>
     <data noupdate="1">
         <!--New-->
-<record id="l10n_bg.vat_hotel" model="account.tax.template">
+        <record id="l10n_bg.vat_hotel" model="account.tax.template">
             <field name="tax_adjustment">False</field>
             <field name="account_id" ref="l10n_bg.pcg_453_100"/>
             <field name="include_base_amount">False</field>

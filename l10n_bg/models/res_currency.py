@@ -40,6 +40,9 @@ class Currency(models.Model):
     #        currency.rate_sell = currency_rates.get(currency.id)[1] or 1.0
     #        currency.rate_statistics = currency_rates.get(currency.id)[2] or 1.0
 
+    def _amount_to_text(self, amount):
+        return self.decimal_places
+
     @api.multi
     def amount_to_text(self, amount):
         lang_code = self.env.context.get('lang') or self.env.user.lang
@@ -49,8 +52,9 @@ class Currency(models.Model):
             return super(Currency, self).amount_to_text(amount)
 
         self.ensure_one()
+        decimal_places = self._amount_to_text()
         fractional_value, integer_value = math.modf(amount)
-        fractional_amount = round(abs(fractional_value), self.decimal_places) * (math.pow(10, self.decimal_places))
+        fractional_amount = round(abs(fractional_value), decimal_places) * (math.pow(10, decimal_places))
         amount_words = tools.ustr('{amt_value}').format(
             amt_value=num2words_bg._num2words(integer_value,
                                               currency_label=self.currency_unit_label)

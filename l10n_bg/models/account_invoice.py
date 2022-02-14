@@ -67,13 +67,14 @@ class AccountInvoice(models.Model):
                                          currency_field="company_currency_id")
     invoice_number = fields.Char("Invoice number", index=True,
                                  readonly=True, states={'open': [('readonly', False)]}, copy=False)
-    protocol_number = fields.Char("Protocol number", index=True,
-                                  readonly=True, states={'open': [('readonly', False)]}, copy=False)
+    protocol_number = fields.Char("Protocol number", index=True, copy=False,
+                                  readonly=True, states={'open': [('readonly', False)]})
     ticket_number = fields.Char("Ticket number", index=True,
                                 readonly=True, states={'open': [('readonly', False)]}, copy=False)
     customs_number = fields.Char("Customs number", index=True,
                                  readonly=True, states={'open': [('readonly', False)]}, copy=False)
-    type_docs = fields.Selection(related="fiscal_position_id.type_docs", store=True)
+    type_docs = fields.Selection(selection=lambda self: self.env['account.fiscal.position']._selection_type_docs(),
+                                 compute='_compute_type_docs', store=True)
     debitnote_invoice_id = fields.Many2one('account.invoice', string="Invoice for which this invoice is the debit note")
     debitnote_invoice_ids = fields.One2many('account.invoice', 'debitnote_invoice_id', string='Debit Notes',
                                             readonly=True)
@@ -139,10 +140,14 @@ class AccountInvoice(models.Model):
          'The number of the customs declare be unique !')
     ]
 
-    @api.onchange('fiscal_position_id')
-    def _onchange_fiscal_position_id(self):
-        if self.fiscal_position_id:
-            self.type_docs = self.fiscal_position_id.type_docs
+    @api.depends('fiscal_position_id')
+    def _compute_type_docs(self):
+        if self.type in ('in_invoice', 'in_refund'):
+            self.type_docs = self.fiscal_position_id.purchase_type_docs
+        elif self.type in ('out_invoice', 'out_refund'):
+            self.type_docs = self.fiscal_position_id.sale_type_docs
+        else:
+            self.type_docs = 'standart'
 
     @api.onchange('type')
     def _onchange_type(self):
@@ -158,14 +163,14 @@ class AccountInvoice(models.Model):
     @api.onchange('purchase_id')
     def purchase_order_change(self):
         res = super(AccountInvoice, self).purchase_order_change()
-        self._onchange_fiscal_position_id()
+        self._onchange_partner_id()
         return res
 
-    @api.onchange('partner_id')
-    def _onchange_partner_id(self):
-        res = super(AccountInvoice, self)._onchange_partner_id()
-        self._onchange_fiscal_position_id()
-        return res
+    # @api.onchange('partner_id')
+    # def _onchange_partner_id(self):
+    #     res = super(AccountInvoice, self)._onchange_partner_id()
+    #     # self._onchange_fiscal_position_id()
+    #     return res
 
     @api.multi
     def get_fiscal_position(self):

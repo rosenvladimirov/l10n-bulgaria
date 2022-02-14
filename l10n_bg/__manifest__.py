@@ -3,7 +3,7 @@
 
 {
     'name': 'Bulgaria - Accounting',
-    'version': '11.0.5.1.0',
+    'version': '11.0.6.0.0',
     'author': 'Rosen Vladimirov',
     'category': 'Localization',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',

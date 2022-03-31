@@ -66,7 +66,7 @@ class IntrastatInstaller(models.TransientModel):
         # set company defaults
         module = __name__.split('addons.')[1].split('.')[0]
         transaction = self.env.ref(
-            '%s.intrastat_transaction_1' % 'intrastat_product')
+            '%s.intrastat_transaction_11' % 'intrastat_product')
         if not company.intrastat_transaction_out_invoice:
             company.intrastat_transaction_out_invoice = transaction
         if not company.intrastat_transaction_out_refund:

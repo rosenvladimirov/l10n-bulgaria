@@ -7,30 +7,38 @@ from odoo import models, api, fields, _, tools
 class AccountTaxTemplate(models.Model):
     _inherit = 'account.tax.template'
 
-    tax_credit_payable = fields.Selection([('taxcredit', 'Tax credit receivable from the taxpayer'),
-                                           ('taxpay', 'Tax payable by the taxpayer'),
-                                           ('eutaxcredit', 'Tax credit receivable from the taxpayer on EU deals'),
-                                           ('eutaxpay', 'Tax payable by the taxpayer on EU deals'),
-                                           ('taxadvpay', 'Tax payable by the taxpayer when Imports from outside EU'),
-                                           ('taxbalance', 'Account for balance of taxes'),
-                                           ('othertax', 'Different by VAT Tax payable by the taxpayer')],
-                                          'Who pays tax', required=True, default='taxpay',
-                                          help="If not applicable (computed through a Python code), the tax won't "
-                                               "appear on the invoice.Who pays the tax purchaser or seller ( for "
-                                               "imports from outside the EU pay the buyer )")
+    # moved in account_tax_fixes/account.py
+    # tax_credit_payable = fields.Selection([('taxcredit', 'Tax credit receivable from the taxpayer'),
+    #                                        ('taxpay', 'Tax payable by the taxpayer'),
+    #                                        ('eutaxcredit', 'Tax credit receivable from the taxpayer on EU deals'),
+    #                                        ('eutaxpay', 'Tax payable by the taxpayer on EU deals'),
+    #                                        ('taxadvpay', 'Tax payable by the taxpayer when Imports from outside EU'),
+    #                                        ('taxbalance', 'Account for balance of taxes'),
+    #                                        ('othertax', 'Different by VAT Tax payable by the taxpayer')],
+    #                                       'Who pays tax', required=True, default='taxpay',
+    #                                       help="If not applicable (computed through a Python code), the tax won't "
+    #                                            "appear on the invoice.Who pays the tax purchaser or seller ( for "
+    #                                            "imports from outside the EU pay the buyer )")
 
     separate = fields.Boolean('Separate movement')
     contrapart_account_id = fields.Many2one('account.account', domain=[('deprecated', '=', False)],
-                                            string='Contrapart Account', ondelete='restrict',
+                                            string='Contra part Account', ondelete='restrict',
                                             help="Account that will be set when work with separated movement for "
                                                  "contra part. Leave empty to use the contrapart account.")
 
     def _get_tax_vals(self, company, tax_template_to_tax):
         val = super(AccountTaxTemplate, self)._get_tax_vals(company, tax_template_to_tax)
-        val.update(dict(tax_credit_payable=self.tax_credit_payable,
-                        separate=self.separate,
+        val.update(dict(separate=self.separate,
                         contrapart_account_id=self.contrapart_account_id))
         return val
+
+    # moved in account_tax_fixes/account.py
+    # def _get_tax_vals(self, company, tax_template_to_tax):
+    #     val = super(AccountTaxTemplate, self)._get_tax_vals(company, tax_template_to_tax)
+    #     val.update(dict(tax_credit_payable=self.tax_credit_payable,
+    #                     separate=self.separate,
+    #                     contrapart_account_id=self.contrapart_account_id))
+    #     return val
 
 
 class AccountChartTemplate(models.Model):
@@ -52,10 +60,10 @@ class AccountChartTemplate(models.Model):
             return journal_data
         journal_model = self.env['account.journal']
         # Create unified sequence for journal entries
-        generic_journal_seq = self.env.ref('l10n_bg.sequence_bulgarian_journal',)
+        generic_journal_seq = self.env.ref('l10n_bg.sequence_bulgarian_journal', )
 
         for journal_vals in journal_data:
-            journal_vals =  journal_model._prepare_journal_sequence(company_id, generic_journal_seq, journal_vals)
+            journal_vals = journal_model._prepare_journal_sequence(company_id, generic_journal_seq, journal_vals)
         return journal_data
 
     @api.model

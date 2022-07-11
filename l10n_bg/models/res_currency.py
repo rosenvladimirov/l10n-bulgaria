@@ -52,7 +52,7 @@ class Currency(models.Model):
             return super(Currency, self).amount_to_text(amount)
 
         self.ensure_one()
-        decimal_places = self._amount_to_text()
+        decimal_places = self._amount_to_text(amount)
         fractional_value, integer_value = math.modf(amount)
         fractional_amount = round(abs(fractional_value), decimal_places) * (math.pow(10, decimal_places))
         amount_words = tools.ustr('{amt_value}').format(

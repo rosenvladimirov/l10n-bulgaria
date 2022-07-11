@@ -73,6 +73,8 @@ class AccountInvoice(models.Model):
                                 readonly=True, states={'open': [('readonly', False)]}, copy=False)
     customs_number = fields.Char("Customs number", index=True,
                                  readonly=True, states={'open': [('readonly', False)]}, copy=False)
+    proforma_number = fields.Char("Pro-forma number", index=True, states={'draft': [('readonly', False)]}, copy=False)
+
     type_docs = fields.Selection(selection=lambda self: self.env['account.fiscal.position']._selection_type_docs(),
                                  compute='_compute_type_docs', store=True)
     debitnote_invoice_id = fields.Many2one('account.invoice', string="Invoice for which this invoice is the debit note")
@@ -85,7 +87,8 @@ class AccountInvoice(models.Model):
         ('in_refund', _('Vendor Credit Note')),
         ('out_invoice', _('Customer Invoice')),
         ('in_invoice', _('Vendor Bill')),
-        ('nosubtype', _('Standart document'))
+        ('nosubtype', _('Standard document')),
+        ('proforma', _('Pro-forma invoice')),
     ], readonly=True, index=True, change_default=True, default='nosubtype')
     eu_deals = fields.Boolean('The intra-Community supply tax is chargeable', default=True)
     doc_justification = fields.Boolean('Documentary justification', default=True)
@@ -137,7 +140,9 @@ class AccountInvoice(models.Model):
         ('ticket_number', 'unique (ticket_number, company_id, type)',
          'The number of the ticket must be unique !'),
         ('customs_number', 'unique (customs_number, company_id, type)',
-         'The number of the customs declare be unique !')
+         'The number of the customs declare be unique !'),
+        ('proforma_number', 'unique (proforma_number, company_id, sub_type)',
+         'The number of the Pro-forma number be unique !')
     ]
 
     @api.depends('fiscal_position_id')
@@ -152,7 +157,10 @@ class AccountInvoice(models.Model):
     @api.onchange('type')
     def _onchange_type(self):
         if self.type:
-            self.sub_type = self.type in ['in_refund', 'out_refund'] and self.type or 'nosubtype'
+            if self.state != 'draft':
+                self.sub_type = self.type in ['in_refund', 'out_refund'] and self.type or 'nosubtype'
+            else:
+                self.sub_type = 'proforma'
 
     @api.onchange('currency_id')
     def _onchage_currency_id(self):
@@ -764,6 +772,7 @@ class AccountInvoice(models.Model):
             number = inv.protocol_number or number
             number = inv.ticket_number or number
             number = inv.customs_number or number
+            number = inv.proforma_number or number
             type = inv.sub_type != 'nosubtype' and inv.sub_type or inv.type
             result.append((inv.id, "%s%s%s" % ("%s " % inv.number or TYPES[type], "%s " % inv.name or '',
                                                "(%s)" % number or '')))
@@ -774,15 +783,14 @@ class AccountInvoice(models.Model):
         args = args or []
         recs = self.browse()
         if name:
-            recs = self.search([('invoice_number', operator, name)] + args, limit=limit)
-        if not recs:
-            recs = self.search([('protocol_number', operator, name)] + args, limit=limit)
-        if not recs:
-            recs = self.search([('ticket_number', operator, name)] + args, limit=limit)
-        if not recs:
-            recs = self.search([('customs_number', operator, name)] + args, limit=limit)
-        if not recs:
-            recs = self.search([('number', '=', name)] + args, limit=limit)
+            recs = self.search(['|', '|', '|', '|', '|',
+                                ('invoice_number', operator, name),
+                                ('protocol_number', operator, name),
+                                ('ticket_number', operator, name),
+                                ('customs_number', operator, name),
+                                ('number', operator, name),
+                                ('proforma_number', operator, name),
+                                ] + args, limit=limit)
         if not recs:
             recs = self.search([('name', operator, name)] + args, limit=limit)
         return recs.name_get()
@@ -941,8 +949,22 @@ class AccountInvoice(models.Model):
             {'move_name': False})
         return super(AccountInvoice, self).unlink()
 
+
+    @api.model
+    def create(self, vals):
+        if 'proforma_number' in vals and 'journal_id' in vals:
+            journal_id = self.env['account.journal'].browse(vals['journal_id'])
+            sequence = journal_id.proforma_sequence_id
+            if sequence and vals['type'] in ('out_invoice', 'out_refund'):
+                sequence = sequence.with_context(ir_sequence_date=vals.get('date', fields.Date.today()))
+                vals['proforma_number'] = sequence.next_by_id()
+                vals['sub_type'] = 'proforma'
+        return super(AccountInvoice, self).create(vals)
+
     @api.multi
     def write(self, vals):
+        if 'state' in vals and vals['state'] == 'draft':
+            vals['sub_type'] = 'proforma'
         res = super(AccountInvoice, self).write(vals)
         if 'tax_type_deal' in vals or 'currency_id' in vals:
             for record in self:
@@ -957,7 +979,8 @@ accountinvoice.AccountInvoice.tax_line_move_line_get = AccountInvoice.tax_line_m
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
-    price_unit_vat = fields.Float(string='VAT Unit Price', digits=dp.get_precision('Product Price'), default=0.0)
+    price_unit_vat = fields.Float(string='VAT Unit Price', digits=dp.get_precision('Product Price'), default=0.0,
+                                  copy=False)
 
     # fix in octa-light state = fields.Selection(related="invoice_id.state")
 

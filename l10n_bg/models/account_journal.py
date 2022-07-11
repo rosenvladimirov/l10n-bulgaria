@@ -32,6 +32,11 @@ class AccountJournal(models.Model):
         domain="[('company_id', '=', company_id)]", ondelete='restrict',
         help="The sequence used for Customs declar numbers in this journal.",
     )
+    proforma_sequence_id = fields.Many2one(
+        comodel_name='ir.sequence', string='Pro-forma invoice sequence',
+        domain="[('company_id', '=', company_id)]", ondelete='restrict',
+        help="The sequence used for Pro-forma invoice numbers in this journal.",
+    )
 
     @api.multi
     @api.constrains('invoice_sequence_id')
@@ -74,6 +79,15 @@ class AccountJournal(models.Model):
                 'company_id': company.id,
             })
             vals['invoice_sequence_id'] = seq.id
+
+            name_base = _('Journal Pro-forma Sequence')
+            seq = generic_journal_seq.copy({
+                'name': '-'.join([name_base, name_company]),
+                'active': True,
+                'company_id': company.id,
+            })
+            vals['proforma_sequence_id'] = seq.id
+
             name_base = _('Journal (Refund) Invoice Sequence')
             seq = generic_journal_seq.copy({
                 'name': '-'.join([name_base, name_company]),
@@ -81,6 +95,7 @@ class AccountJournal(models.Model):
                 'active': True,
                 'company_id': company.id,
             })
+
             vals['refund_inv_sequence_id'] = seq.id
             name_base = _('Journal Ticket Sequence')
             seq = generic_journal_seq.copy({

@@ -268,6 +268,7 @@ class L10nBgIntrastatProductDeclaration(models.Model):
             computation_line, fields_to_sum)
         if self.type == 'dispatches':
             vals['vat_number'] = computation_line.vat_number
+            
         vals['incoterm_id'] = computation_line.incoterm_id.id
         vals['origin_transport_id'] = computation_line.origin_transport_id.id
 
@@ -447,14 +448,23 @@ class L10nBgIntrastatProductDeclaration(models.Model):
                     _('Missing H.S. code on line %d.') % line)
             # local_code is required=True, so no need to check it
             cn8_code.text = pline.hs_code_id.local_code
-
-            if self.type == 'arrivals':
-                country_origin = etree.SubElement(item, 'countryOfOriginCode')
-                if not pline.product_origin_country_id:
+            vinNumber = etree.SubElement(item, 'vinNumber')
+            if self.type == 'dispatches':
+                if not pline.vat_number:
                     raise UserError(_(
-                        'Missing product country of origin on line %d.')
+                        'Missing partner VAT number on line %d.')
                         % line)
-                country_origin.text = pline.product_origin_country_id.code
+                vinNumber.text = pline.vat_number
+            else:
+                vinNumber.text = ''
+            # if self.type == 'arrivals':
+            country_origin = etree.SubElement(item, 'countryOfOriginCode')
+            if not pline.product_origin_country_id:
+                raise UserError(_(
+                    'Missing product country of origin on line %d.')
+                    % line)
+            country_origin.text = pline.product_origin_country_id.code
+
 
             destination_country = etree.SubElement(item, 'MSConsDestCode')
             destination_country.text = pline.src_dest_country_id.code

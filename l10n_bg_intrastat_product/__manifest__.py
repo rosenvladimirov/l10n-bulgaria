@@ -17,6 +17,7 @@
         'intrastat_product',
         'intrastat_product_picking_package',
         'l10n_bg',
+        'l10n_bg_extend',
         ],
     'conflicts': [
         'base',
@@ -35,7 +36,6 @@
         'views/l10n_bg_intrastat_product.xml',
         'views/intrastat_installer.xml',
         'views/res_city_views.xml',
-        'views/report_accepted_delivery.xml',
         'data/res.city.csv',
     ],
     'installable': True,

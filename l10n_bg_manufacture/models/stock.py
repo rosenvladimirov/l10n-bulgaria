@@ -34,21 +34,9 @@ class StockMove(models.Model):
         self.ensure_one()
         super(StockMove, self)._account_entry_move()
 
-        location_from = self.location_id
-        location_to = self.location_dest_id
-        if location_from.usage == 'production' or location_to.usage == 'production':
-            company_from = self._is_out() and self.mapped('move_line_ids.location_id.company_id') or False
+        if self.raw_material_production_id:
             company_to = self._is_in() and self.mapped('move_line_ids.location_dest_id.company_id') or False
-
-            if self._is_in():
-                journal_id, acc_src, acc_dest, acc_valuation = self.\
-                    with_context(dict(self._context, account_transit=True))._get_accounting_data_for_valuation()
-                self.with_context(force_company=company_to.id).\
-                    _create_account_move_line(acc_src, acc_valuation, journal_id)
-
-            # Create Journal Entry for products leaving the company
-            if self._is_out():
-                journal_id, acc_src, acc_dest, acc_valuation = self.\
-                    with_context(dict(self._context, account_transit=True))._get_accounting_data_for_valuation()
-                self.with_context(force_company=company_from.id).\
-                    _create_account_move_line(acc_valuation, acc_dest, journal_id)
+            journal_id, acc_src, acc_dest, acc_valuation = self.\
+                with_context(dict(self._context, account_transit=True))._get_accounting_data_for_valuation()
+            self.with_context(force_company=company_to.id).\
+                _create_account_move_line(acc_src, acc_valuation, journal_id)

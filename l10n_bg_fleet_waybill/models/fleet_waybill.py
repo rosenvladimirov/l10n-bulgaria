@@ -27,7 +27,8 @@ class FleetWayBill(models.Model):
                 # _logger.info("ODOMETER %s:%s" % (self.waybill_lines[-1].odometer_stop, self.odometer))
                 if record.waybill_lines[0].odometer_start != 0:
                     record.odometer_start = record.waybill_lines[0].odometer_start
-                if record.waybill_lines[-1].odometer_stop != 0 and record.waybill_lines[-1].odometer_stop > record.odometer:
+                if record.waybill_lines[-1].odometer_stop != 0 and record.waybill_lines[
+                    -1].odometer_stop > record.odometer:
                     record.odometer = record.waybill_lines[-1].odometer_stop
 
     name = fields.Char('Waybill reference', required=True, copy=False, readonly=True,
@@ -104,7 +105,7 @@ class FleetWayBill(models.Model):
         self.with_context(dict(self._context, force_period_date=self.date_waybill)).mapped('stock_move_ids').filtered(
             lambda r: r.state != 'cancel')._action_done()
         self.message_post(body=_('For %s has been validated the pickings %s!') % (
-        self.vehicle_id.name, '-'.join([x.name for x in self.stock_move_ids])))
+            self.vehicle_id.name, '-'.join([x.name for x in self.stock_move_ids])))
 
     def prepare_stock_move_line_waybill_data(self, waybill, location_id=False, location_dest_id=False, owner_id=False):
         if not waybill.company_id.cons_location_id:

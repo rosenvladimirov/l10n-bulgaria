@@ -15,12 +15,12 @@ include_wkhtmltopdf: false
 odoo_test_flavor: Both
 odoo_version: 16.0
 org_name: Rosen Vladimirov, Odoo Community Association (OCA)
-org_slug: OCA
+org_slug: rosenvladimirov
 rebel_module_groups: []
 repo_description: Taxes, chart of account, cyrillic support ...
 repo_name: Localization for Bulgaria
 repo_slug: l10n-bulgaria
 repo_website: https://github.com/OCA/l10n-bulgaria
-use_pyproject_toml: false
+use_pyproject_toml: true
 use_ruff: true
 

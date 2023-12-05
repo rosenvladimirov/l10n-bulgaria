@@ -3,7 +3,7 @@
 
 {
     'name': 'MT940 First Investment Bank Bulgaria Format Bank Statements Import',
-    'version': '11.0.3.0.1',
+    'version': '16.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'Rosen Vladimirov ,'
               'Prodax Ltd., '

@@ -2,7 +2,7 @@
 
 {
     "name": "Bulgaria - Base address extended",
-    "version": "16.0.1.0",
+    "version": "16.0.1.0.0",
     "author": "Rosen Vladimirov",
     'category': 'Localization',
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",

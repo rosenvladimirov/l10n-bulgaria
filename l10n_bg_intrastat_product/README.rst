@@ -1,6 +1,6 @@
-=============================
-Bulgarian Intrastat Reporting
-=============================
+========================================
+Bulgaria - Intrastat Product Declaration
+========================================
 
 .. 
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -17,113 +17,199 @@ Bulgarian Intrastat Reporting
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fl10n--bulgaria-lightgray.png?logo=github
-    :target: https://github.com/OCA/l10n-bulgaria/tree/16.0/intrastat_base
+    :target: https://github.com/OCA/l10n-bulgaria/tree/16.0/l10n_bg_intrastat_product
     :alt: OCA/l10n-bulgaria
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/intrastat-extrastat-16-0/intrastat-extrastat-16-0-intrastat_base
+    :target: https://translation.odoo-community.org/projects/l10n-bulgaria-16-0/l10n-bulgaria-16-0-l10n_bg_intrastat_product
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/intrastat-extrastat&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/l10n-bulgaria&target_branch=16.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module extends the functionality of intrastat product module to support Bulgarian Intrastat declaration.
-and to allow you to export in xml file to use when report in NRA https://portal.nra.bg/
-In module included translation of intrastat nomenclature, and added the regions in Bulgaria.
+[ This file must be max 2-3 paragraphs, and is required. ]
+
+This module extends the functionality of intrastat product module to
+support Bulgarian Intrastat declaration. and to allow you to export in
+xml file to use when report in NRA https://portal.nra.bg/ In module
+included translation of intrastat nomenclature, and added the regions in
+Bulgaria.
 
 **Table of contents**
 
 .. contents::
    :local:
 
+Use Cases / Context
+===================
+
+[ This file is optional but strongly suggested to allow end-users to
+evaluate the module's usefulness in their context. ]
+
+This module used for Intrastat reporting:
+
+-  Before generate the declaration, please on invoce fill all needed
+   information linked with Intrastat, Generate the Intrastat data rows.
+-  Please be sure the Partners is correct configured, check the Fiscal
+   position, Country in Partner fields. The Intrastat used only for deal
+   in EU.
+
+The related modules:
+
+-  modules it depends on and their features:
+
+   -  Intrastat product (OCA)
+   -  Intrastat h.s. code import
+
+-  other modules that can work well together with this one is Bulgarian
+   localation and multilingual support:
+
+   -  Bulgarian city
+   -  Partner multilingual
+
 Installation
 ============
 
+[ This file must only be present if there are very specific installation
+instructions, such as installing non-python dependencies. The audience
+is systems administrators. ]
+
 To install this module, you need to:
 
-1. WARNING: This module conflicts with the Intrastat modules from the official enterprise addons. If you have already installed these modules, you should uninstall them before installing this module.
+1. WARNING: This module conflicts with the Intrastat modules from the
+   official enterprise addons. If you have already installed these
+   modules, you should uninstall them before installing this module.
 
-You need to add HS product codes for your company through the installation wizard. It's automatically launched if installing the module from the UI.
+You need to add HS product codes for your company through the
+installation wizard. It's automatically launched if installing the
+module from the UI.
 
-If any other installation method is used, you can go to Settings > Technical > Actions > Configuration Wizards on developer mode, and launch there the wizard called "Load Intrastat Codes". The Bulgarian translation already stored in installation wizard. Please reload again wizard to update translations.
+If any other installation method is used, you can go to Settings >
+Technical > Actions > Configuration Wizards on developer mode, and
+launch there the wizard called "Load Intrastat Codes". The Bulgarian
+translation already stored in installation wizard. Please reload again
+wizard to update translations.
 
-Configure
-=========
+Configuration
+=============
+
+[ This file is optional, it should explain how to configure the module
+before using it; it is aimed at advanced users. ]
 
 To configure this module, you need to:
 
-- Go to Configuration -> Accounting -> Intrastat and choice the Country of transport by default, On Arrivals and Dispatches: choice Extended.
+-  Go to Configuration -> Accounting -> Intrastat and choice the Country
+   of transport by default, On Arrivals and Dispatches: choice Extended.
 
 Usage
 =====
 
+[ This file must be present and contains the usage instructions for
+end-users. As all other rst files included in the README, it MUST NOT
+contain reStructuredText sections only body text (paragraphs, lists,
+tables, etc). Should you need a more elaborate structure to explain the
+addon, please create a Sphinx documentation (which may include this file
+as a "quick start" section). ]
+
 To use this module, you need to:
 
-1. Go to Invoicing > Reporting > Intrastat > Generic Intrastat Product Declaration.
+1. Go to Invoicing > Reporting > Intrastat > Generic Intrastat Product
+   Declaration.
+
 2. Create a new record.
+
 3. Select or input following data:
+
    1. Year
    2. Month
    3. Type: for selecting if arrivals or dispatches.
    4. Reporting level: standard or extended.
    5. Action:
-      - if "Nihil", no recomputation is possible and the report is considered empty.
-      - if "Replace", everything is recomputed.
-      - if "Append", only new lines are added.
-4. Click on "Generate Lines from invoices" for populating transaction lines.
-    You can review them on "Transactions" page of the report.
-5. Click on "Generate Declaration Lines" for populating the lines that summarize transactions and will be the source for the exports.
+
+      -  if "Nihil", no recomputation is possible and the report is
+         considered empty.
+      -  if "Replace", everything is recomputed.
+      -  if "Append", only new lines are added.
+
+4. Click on "Generate Lines from invoices" for populating transaction
+   lines.
+
+   You can review them on "Transactions" page of the report.
+
+5. Click on "Generate Declaration Lines" for populating the lines that
+   summarize transactions and will be the source for the exports.
+
    You can review them on "Declaration Lines" page.
+
 6. Click on "Confirm" for getting the XML file for declaring the report.
+
 7. Click on "paperclip" bellow and download file.
 
-Best practise
-=============
-This module used for Intrastat reporting:
+Known issues / Roadmap
+======================
 
-- Before generate the declaration, please on invoce fill all needed information linked with Intrastat, Generate the Intrastat data rows.
-- Please be sure the Partners is correct configured, check the Fiscal position, Country in Partner fields. The Intrastat used only for deal in EU.
+[ Enumerate known caveats and future potential improvements. It is
+mostly intended for end-users, and can also help potential new
+contributors discovering new features to implement. ]
 
-The related modules:
+-  Base cases to declaration.
+-  Add support for debit/credit notes.
+-  Extend with case adaptation of goods in EU.
 
-- modules it depends on and their features:
-  - Intrastat product (OCA)
-  - Intrastat h.s. code import
-- other modules that can work well together with this one is Bulgarian localation and multilingual support:
-  - Bulgarian city
-  - Partner multilingual
+Changelog
+=========
 
+[ The change log. The goal of this file is to help readers understand
+changes between version. The primary audience is end users and
+integrators. Purely technical changes such as code refactoring must not
+be mentioned here.
+
+This file may contain ONE level of section titles, underlined with the ~
+(tilde) character. Other section markers are forbidden and will likely
+break the structure of the README.rst or other documents where this
+fragment is included. ]
+
+The module is started to developed on 2018 in version 11.0.1.0.0 base on
+intrastat product OCA module.
 
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/OCA/intrastat-extrastat/issues>`_.
+Bugs are tracked on `GitHub Issues <https://github.com/OCA/l10n-bulgaria/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/l10n-bulgaria/issues/new?body=module:%20intrastat_base%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/l10n-bulgaria/issues/new?body=module:%20l10n_bg_intrastat_product%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
-
-History
-=======
-
-The module is started to developed on 2018 in version 11.0.1.0.0 base on intrastat product OCA module.
 
 Credits
 =======
 
-The development of this module has been financially supported by:
+Authors
+-------
 
-- 2019-2023 BioPrint Ltd.
-- 2018-2019 dXFactory
+* Rosen Vladimirov <vladimirov.rosen@gmail.com>
+* 
 
 Contributors
-~~~~~~~~~~~~
-- Rosen Vladimirov <vladimirov.rosen@gmail.com>
+------------
+
+-  Rosen Vladimirov vladimirov.rosen@gmail.com
+
+Other credits
+-------------
+
+[ This file is optional and contains additional credits, other than
+authors, contributors, and maintainers. ]
+
+The development of this module has been financially supported by:
+
+-  2019-2023 BioPrint Ltd.
+-  2018-2019 dXFactory
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -134,14 +220,6 @@ This module is maintained by the OCA.
 OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
-
-.. |maintainer-rosen-vladimirov| image:: https://github.com/rosenvladimirov.png?size=40px
-    :target: https://github.com/rosenvladimirov
-    :alt: rosen-vladimirov
-
-Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
-
-|maintainer-rosen-vladimirov|
 
 This module is part of the `OCA/l10n-bulgaria <https://github.com/OCA/l10n-bulgaria/tree/16.0/l10n_bg_intrastat_product>`_ project on GitHub.
 

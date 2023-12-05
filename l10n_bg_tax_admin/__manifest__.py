@@ -3,9 +3,9 @@
 {
     'name': 'Bulgaria - Accounting - Tax Administration rules',
     'icon': '/l10n_bg/static/description/icon.png',
-    'version': '1.0',
+    'version': '16.0.1.0.0',
     'category': 'Accounting/Localizations/Account Charts',
-    'author': 'Odoo S.A.',
+    'author': 'Rosen Vladimirov <vladimirov.rosen@gmail.com>,Odoo Community Association (OCA)',
     'description': """
         Tax administration rules:
         1. Numbering of documents.

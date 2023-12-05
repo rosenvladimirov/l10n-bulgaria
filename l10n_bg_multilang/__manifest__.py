@@ -8,7 +8,7 @@
     'category': 'Localization',
     "license": "AGPL-3",
     'description': """
-    * Multi language support for Partner, Company, Employee.
+    Multi language support for Partner, Company, Employee.
     """,
     'depends': [
         'base',

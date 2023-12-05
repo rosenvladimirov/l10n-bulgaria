@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="partner_identification_uic_number_category" model="res.partner.id_category">
+        <field name="name">BG Unified identification number (BULSTAT)</field>
+        <field name="code">bg_uic</field>
+        <field name="country_id" ref="base.bg"/>
+        <field name="validation_code"><![CDATA[failed = self.validate_res_partner_bg(id_number)]]></field>
+    </record>
+    <record id="partner_identification_egn_number_category" model="res.partner.id_category">
+        <field name="name">BG Identification number</field>
+        <field name="code">bg_egn</field>
+        <field name="country_id" ref="base.bg"/>
+        <field name="validation_code"><![CDATA[failed = self.validate_res_partner_bg(id_number)]]></field>
+    </record>
+    <record id="partner_identification_pnf_number_category" model="res.partner.id_category">
+        <field name="name">Personal number of a foreigner</field>
+        <field name="code">bg_pnf</field>
+        <field name="country_id" ref="base.bg"/>
+        <field name="validation_code"><![CDATA[failed = self.validate_res_partner_bg(id_number)]]></field>
+    </record>
+    <record id="partner_identification_onnra_number_category" model="res.partner.id_category">
+        <field name="name">Official number from the National Revenue Agency</field>
+        <field name="code">bg_onnra</field>
+        <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="partner_identification_crauid_number_category" model="res.partner.id_category">
+        <field name="name">Unique identification code under the CRA</field>
+        <field name="code">bg_crauid</field>
+        <field name="country_id" ref="base.bg"/>
+    </record>
+    <record id="partner_identification_bg_non_eu_number_category" model="res.partner.id_category">
+        <field name="name">Non EU Tax administration number</field>
+        <field name="code">bg_non_eu</field>
+        <field name="country_id" ref="base.bg"/>
+    </record>
+</odoo>

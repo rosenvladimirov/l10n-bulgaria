@@ -1,0 +1,28 @@
+id,country_id/id,code,name
+l10n_bg.S04279,base.bg,BLG,Region Blagoevgrad
+l10n_bg.S07079,base.bg,BGS,Region Burgas
+l10n_bg.S10135,base.bg,VAR,Region Varna
+l10n_bg.S10447,base.bg,VTR,Region Veliko Tarnovo
+l10n_bg.S10971,base.bg,VID,Region Vidin
+l10n_bg.S12259,base.bg,VRC,Region Vratsa
+l10n_bg.S14218,base.bg,GAB,Region Gabrovo
+l10n_bg.S72624,base.bg,DOB,Region Dobrich
+l10n_bg.S40909,base.bg,KRZ,Region Kardzhali
+l10n_bg.S41112,base.bg,KNL,Region Kyustendil
+l10n_bg.S43952,base.bg,LOV,Region Lovech
+l10n_bg.S48489,base.bg,MON,Region Montana
+l10n_bg.S55155,base.bg,PAZ,Region Pazardzhik
+l10n_bg.S55871,base.bg,PER,Region Pernik
+l10n_bg.S56722,base.bg,PVN,Region Pleven
+l10n_bg.S56784,base.bg,PDV,Region Plovdiv
+l10n_bg.S61710,base.bg,RAZ,Region Razgrad
+l10n_bg.S63427,base.bg,RSE,Region Ruse
+l10n_bg.S66425,base.bg,SLS,Region Silistra
+l10n_bg.S67338,base.bg,SLV,Region Sliven
+l10n_bg.S67653,base.bg,SML,Region Smolyan
+l10n_bg.S68134,base.bg,SOF,Region Sofia
+l10n_bg.S68850,base.bg,SZG,Region Stara Zagora
+l10n_bg.S73626,base.bg,TGV,Region Targovishte
+l10n_bg.S77195,base.bg,HKV,Region Haskovo
+l10n_bg.S83510,base.bg,SHU,Region Shumen
+l10n_bg.S87374,base.bg,JAM,Region Yambol

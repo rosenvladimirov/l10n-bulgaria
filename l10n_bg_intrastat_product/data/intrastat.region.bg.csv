@@ -1,0 +1,30 @@
+id,code,country_id/id,description,name
+l10n_bg_intrastat_product.intrastat_region_bg_BGS,BGS,base.bg,Област Бургас и прилежащите общини,Бургас
+l10n_bg_intrastat_product.intrastat_region_bg_BLG,BLG,base.bg,Област Благоевград и прилежащите общини,Благоевград
+l10n_bg_intrastat_product.intrastat_region_bg_VAR,VAR,base.bg,Област Варна и прилежащите общини,Варна
+l10n_bg_intrastat_product.intrastat_region_bg_VTR,VTR,base.bg,Област Велико Търново и прилежащите общини,Велико Търново
+l10n_bg_intrastat_product.intrastat_region_bg_VID,VID,base.bg,Област Видин и прилежащите общини,Видин
+l10n_bg_intrastat_product.intrastat_region_bg_VRC,VRC,base.bg,Област Враца и прилежащите общини,Враца
+l10n_bg_intrastat_product.intrastat_region_bg_GAB,GAB,base.bg,Област Габрово и прилежащите общини,Габрово
+l10n_bg_intrastat_product.intrastat_region_bg_DOB,DOB,base.bg,Област Добрич и прилежащите общини,Добрич
+l10n_bg_intrastat_product.intrastat_region_bg_KRZ,KRZ,base.bg,Област Кърджали и прилежащите общини,Кърджали
+l10n_bg_intrastat_product.intrastat_region_bg_KNL,KNL,base.bg,Област Кюстендил и прилежащите общини,Кюстендил
+l10n_bg_intrastat_product.intrastat_region_bg_LOV,LOV,base.bg,Област Ловеч и прилежащите общини,Ловеч
+l10n_bg_intrastat_product.intrastat_region_bg_MON,MON,base.bg,Област Монтана и прилежащите общини,Монтана
+l10n_bg_intrastat_product.intrastat_region_bg_PAZ,PAZ,base.bg,Област Пазарджик и прилежащите общини,Пазарджик
+l10n_bg_intrastat_product.intrastat_region_bg_PER,PER,base.bg,Област Перник и прилежащите общини,Перник
+l10n_bg_intrastat_product.intrastat_region_bg_PVN,PVN,base.bg,Област Плевен и прилежащите общини,Плевен
+l10n_bg_intrastat_product.intrastat_region_bg_PDV,PDV,base.bg,Област Пловдив и прилежащите общини,Пловдив
+l10n_bg_intrastat_product.intrastat_region_bg_RAZ,RAZ,base.bg,Област Разград и прилежащите общини,Разград
+l10n_bg_intrastat_product.intrastat_region_bg_RSE,RSE,base.bg,Област Русе и прилежащите общини,Русе
+l10n_bg_intrastat_product.intrastat_region_bg_SLS,SLS,base.bg,Област Силистра и прилежащите общини,Силистра
+l10n_bg_intrastat_product.intrastat_region_bg_SLV,SLV,base.bg,Област Сливен и прилежащите общини,Сливен
+l10n_bg_intrastat_product.intrastat_region_bg_SML,SML,base.bg,Област Смолян и прилежащите общини,Смолян
+l10n_bg_intrastat_product.intrastat_region_bg_SOF,SOF,base.bg,Област София (столица),София (столица)
+l10n_bg_intrastat_product.intrastat_region_bg_SFO,SFO,base.bg,Област София и прилежащите общини,София
+l10n_bg_intrastat_product.intrastat_region_bg_SZR,SZR,base.bg,Област Стара Загора и прилежащите общини,Стара Загора
+l10n_bg_intrastat_product.intrastat_region_bg_TGV,TGV,base.bg,Област Търговище и прилежащите общини,Търговище
+l10n_bg_intrastat_product.intrastat_region_bg_HKV,HKV,base.bg,Област Хасково и прилежащите общини,Хасково
+l10n_bg_intrastat_product.intrastat_region_bg_SHU,SHU,base.bg,Област Шумен и прилежащите общини,Шумен
+l10n_bg_intrastat_product.intrastat_region_bg_JAM,JAM,base.bg,Област Ямбол и прилежащите общини,Ямбол
+l10n_bg_intrastat_product.intrastat_region_bg_XXX,XXX,base.bg,Цялата страна без конкретен регион на потребление,Цялата 

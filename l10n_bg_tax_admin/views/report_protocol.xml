@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<t t-name="report_protocol_document">
+    <t t-call="web.external_layout">
+        <div class="page">
+            <t t-set="o" t-value="o.with_context({'lang':o.company_id.lang})"/>
+            <t t-set="partner" t-value="o.partner_id"/>
+            <t t-set="reverce" t-value="1"/>
+            <div class="page">
+                <div class="row">
+                    <div class="o_bulgaria_name">
+                        <div class="col-xs-8">
+                            <h4>
+                                <span t-if="o.move_type in ('in_invoice', 'out_invoice')">Protocol<span> N° </span></span>
+                                <span t-field="o.name_bg_second"/>
+                                <span t-if="o.protocol_date"> from <span t-field="o.protocol_date"/></span>
+                                <t t-if="o.move_type in ['in_invoice', 'out_invoice']">
+                                    <span t-field="o.name"/>
+                                    <span t-if="o.invoice_date"> from <span t-field="o.invoice_date"/></span>
+                                </t>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row col-xs-12">
+                        <t t-if="o.user_id.city">
+                            <div class="col-xs-2">
+                                <strong>Deal place:</strong>
+                                <t t-if="o.user_id.city_id">
+                                  <p t-field="o.user_id.city_id"/>
+                                </t>
+                                <t t-else="">
+                                  <p t-field="o.user_id.city"/>
+                                </t>
+                            </div>
+                        </t>
+                        <div class="col-xs-2">
+                            <strong>Due date for taxes:</strong>
+                            <p t-field="o.invoice_date"/>
+                        </div>
+                        <div class="col-xs-2">
+                            <strong>Term of payment:</strong>
+                            <p t-field="o.invoice_date_due"/>
+                        </div>
+                        <div class="col-xs-2">
+                            <strong>Source:</strong>
+                            <p t-field="o.origin"/>
+                        </div>
+                        <div class="col-xs-2" t-if="o.partner_id.ref">
+                            <strong>Customer Code:</strong>
+                            <p t-field="o.partner_id.ref"/>
+                        </div>
+                        <div class="col-xs-2" t-if="o.ref">
+                            <strong>Reference:</strong>
+                            <p t-field="o.ref"/>
+                        </div>
+                    </div>
+                </div>
+                <t t-set="display_discount" t-value="any([l.discount for l in o.protocol_line_ids])"/>
+                <t t-call="l10n_bg_vat_reports.dealpartner"/>
+                <div class="row mt8 mb8" name="protocolbody">
+                    <div class="col-xs-12">
+                        <table class="table table-condensed" name="invoice_line_table">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th class="hidden">Source Document</th>
+                                <th class="text-right">Quantity</th>
+                                <th class="text-right">Unit measure</th>
+                                <th class="text-right">Unit Price</th>
+                                <th class="text-right">Taxes</th>
+                                <th class="text-right">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody class="invoice_tbody">
+                            <tr t-foreach="o.protocol_line_ids" t-as="l">
+                                <td>
+                                    <span t-if="l.discount==0.0">
+                                        <span t-field="l.product_id.name"/>
+                                    </span>
+                                    <span t-if="l.discount &lt; 0.0">
+                                        <span t-field="l.product_id.name"/>   (<span t-esc="l.discount * 100"/><span>%)</span>
+                                    </span>
+                                </td>
+                                <td class="hidden"><span t-field="l.origin"/></td>
+                                <td class="text-right">
+                                    <span t-field="l.quantity"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.product_uom_id" groups="product.group_uom"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="l.price_unit"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="', '.join(map(lambda x: (x.description or x.name), l.tax_ids))"/>
+                                </td>
+                                <td class="text-right" id="subtotal">
+                                    <span t-field="l.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_currency_id}"/>
+                                </td>
+                            </tr>
+                            <tr t-foreach="range(max(5-len(o.protocol_line_ids),0))" t-as="l">
+                                <td t-translation="off">&amp;nbsp;</td>
+                                <td class="hidden"/>
+                                <td/>
+                                <td/>
+                                <td/>
+                                <!-- <td t-if="display_discount"></td> -->
+                                <td/>
+                                <td/>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <div id="total" class="row">
+                        <div class="col-xs-8 pull-left">
+                            <p t-if="o.fiscal_position_id.note">
+                                <span t-field="o.fiscal_position_id.note"/>
+                            </p>
+                        </div>
+                        <div class="col-xs-4 pull-right">
+                            <table class="table table-condensed">
+                            <tr class="border-black" style="border-bottom:1px solid #dddddd;">
+                                <td><strong>Subtotal</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.move_id.amount_untaxed_signed" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_currency_id}"/>
+                                </td>
+                            </tr>
+                            <t t-foreach="o._get_tax_amount_vat_by_group()" t-as="amount_by_group">
+                                <tr style="border-bottom:1px solid #dddddd;">
+                                    <t t-if="len(o.tax_line_ids) == 1 and o.move_id.amount_total_signed == amount_by_group[2]">
+                                        <td>
+                                            <span t-esc="amount_by_group[0]"/>
+                                            <span>&amp;nbsp;<span>on</span>
+                                                <t t-esc="amount_by_group[4]"/>
+                                            </span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="amount_by_group[3]"/>
+                                        </td>
+                                    </t>
+                                    <t t-else="">
+                                        <td><span t-esc="amount_by_group[0]"/></td>
+                                        <td class="text-right">
+                                            <span t-esc="amount_by_group[3]"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                            <tr class="border-black">
+                                <td><strong>Total</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_total_signed" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_currency_id}"/>
+                                </td>
+                            </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</t>
+
+        

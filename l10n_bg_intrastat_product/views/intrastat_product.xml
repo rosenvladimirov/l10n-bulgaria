@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="intrastat_product_declaration_action_l10n_bg" model="ir.actions.act_window">
+        <field name="name">Bulgaria Intrastat Product Declaration</field>
+        <field name="res_model">intrastat.product.declaration</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="context">{'generic_intrastat_product_declaration': 0}</field>
+    </record>
+    <menuitem id="intrastat_product_declaration_menu_l10n_bg"
+              parent="intrastat_base.menu_intrastat_base_root"
+              action="intrastat_product_declaration_action_l10n_bg"
+              groups="group_l10n_bg_intrastat_product"/>
+</odoo>

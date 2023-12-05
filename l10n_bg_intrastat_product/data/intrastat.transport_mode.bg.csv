@@ -1,0 +1,9 @@
+id;code;description;name
+intrastat_product.intrastat_transport_1;1;Морски транспорт (включително вагони, моторни превозни средства, ремаркета, полуремаркета и лихтери на борда на кораб);Морски транспорт
+intrastat_product.intrastat_transport_2;2;Железопътен транспорт (включително камиони с железопътни вагони);Ж.п. транспорт
+intrastat_product.intrastat_transport_3;3;Автомобилен транспорт;Шосеен транспорт
+intrastat_product.intrastat_transport_4;4;Въздушен транспорт;Въздушен транспорт
+intrastat_product.intrastat_transport_5;5;Пощенски пратки;Пошенски пратки
+intrastat_product.intrastat_transport_7;7;Фиксирани транспортни инсталации (напр. тръбопроводи, кабели с високо напрежение); Фиксирани транспортни инсталации
+intrastat_product.intrastat_transport_8;8;Вътрешен воден транспорт;Речен транспорт
+intrastat_product.intrastat_transport_9;9;Собствено задвижване (внесени или изнесени транспортни средства, пресичащи границата със собствен ход, напр. самолети, камиони, лодки и др.);На собствен ход

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<t t-name="dealpartner">
+        <t t-if="not partner">
+            <t t-set="partner" t-value="o.partner_id"/>
+        </t>
+        <t t-if="not company">
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+        <t t-if="sender">
+            <t t-set="sender" t-value="'SUPPLIER'"/>
+        </t>
+        <t t-if="recipient">
+            <t t-set="recipient" t-value="'CUSTOMER'"/>
+        </t>
+        <t t-if="reverce">
+         <t t-if="not partner">
+             <t t-set="company" t-value="o.partner_id"/>
+         </t>
+         <t t-if="not company">
+             <t t-set="partner" t-value="o.company_id"/>
+         </t>
+        </t>
+        <div class="row" name="invoiceintro">
+            <div class="col-xs-12 no_row">
+                <table class="table table-condensed" name="invoice_header">
+                    <thead class="invoice_head_head">
+                      <t t-if="reverce">
+                        <tr>
+                            <th colspan="2" style="width:50%;">CUSTOMER</th>
+                            <th colspan="2" style="width:50%;">SUPPLIER</th>
+                        </tr>
+                      </t>
+                      <t t-else="">
+                        <tr>
+                            <th colspan="2" style="width:50%;">SUPPLIER</th>
+                            <th colspan="2" style="width:50%;">CUSTOMER</th>
+                        </tr>
+                      </t>
+                    </thead>
+                    <tbody class="invoice_head_body">
+                        <tr>
+                            <td class="o_bulgaria_custom_name">Company/Person Name: </td>
+                            <td><strong><span t-field="company.name"/></strong></td>
+                            <td class="o_bulgaria_custom_name">Company/Person Name: </td>
+                            <t t-if="partner.parent_id">
+                                <td><strong><span t-field="partner.parent_id.name"/></strong></td>
+                            </t>
+                            <t t-else="">
+                                <td><strong><span t-field="partner.name"/></strong></td>
+                            </t>
+                        </tr>
+                        <tr>
+                            <td class="o_bulgaria_custom_name">Address: </td>
+                            <td><span t-field="company.zip"/> <span t-field="company.city"/><span t-if="company.country_id">, <span t-field="company.country_id"/></span></td>
+                            <td class="o_bulgaria_custom_name">Address: </td>
+                            <td><span t-field="partner.zip"/> <span t-field="partner.city"/><span t-if="partner.country_id">, <span t-field="partner.country_id"/></span></td>
+                        </tr>
+                        <tr>
+                            <t t-if="company.street">
+                                <td class="o_bulgaria_custom_name">Str.: </td>
+                                <td><span t-esc="company.get_formated_street()"/></td>
+                            </t>
+                            <t t-else="">
+                                <td/><td/>
+                            </t>
+                            <t t-if="partner.street">
+                                <td class="o_bulgaria_custom_name">Str.: </td>
+                                <td><span t-esc="partner.get_formated_street()"/></td>
+                            </t>
+                            <t t-else="">
+                                <td/><td/>
+                            </t>
+                        </tr>
+                        <tr t-if="company.street2 or partner.street2">
+                            <td/>
+                            <td><span t-field="company.street2"/></td>
+                            <td/>
+                            <td><span t-field="partner.street2"/></td>
+                        </tr>
+                        <tr>
+                            <t t-if="company.uid">
+                                <td class="o_bulgaria_custom_name">UID: </td>
+                                <td><span t-field="company.uid"/></td>
+                            </t>
+                            <t t-else="">
+                                <td/><td/>
+                            </t>
+                            <t t-if="partner.uid">
+                                <td class="o_bulgaria_custom_name">UID: </td>
+                                <td><span t-field="partner.l10n_bg_uic"/></td>
+                            </t>
+                            <t t-else="">
+                                <td/><td/>
+                            </t>
+                        </tr>
+                        <tr name="vatnumber">
+                            <t t-if="company.vat">
+                                <td class="o_bulgaria_custom_name"><t t-esc="company.country_id.vat_label or 'TIN'"/>: </td>
+                                <td><span t-field="company.vat"/></td>
+                            </t>
+                            <t t-else="">
+                                <td/><td/>
+                            </t>
+                            <t t-if="partner.vat">
+                                <td class="o_bulgaria_custom_name"><t t-esc="partner.country_id.vat_label or 'TIN'"/>: </td>
+                                <td><span t-field="partner.vat"/></td>
+                            </t>
+                            <t t-else=""><td/><td/></t>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </t>

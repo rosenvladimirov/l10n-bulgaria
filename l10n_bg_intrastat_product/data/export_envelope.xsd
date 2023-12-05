@@ -1,0 +1,119 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="INSTAT">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Envelope">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DateTime">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:date" name="date"/>
+                    <xs:element type="xs:time" name="time"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Party">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:int" name="partyId" use="required"/>
+                    <xs:element type="xs:int" name="partyIdType" use="required"/>
+                    <xs:element name="Address">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="streetNumber"/>
+                          <xs:element type="xs:string" name="city"/>
+                          <xs:element type="xs:int" name="postalCode"/>
+                          <xs:element type="xs:int" name="phoneNumber"/>
+                          <xs:element type="xs:string" name="faxNumber"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ContactPerson">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="contactPersonName" use="required"/>
+                          <xs:element name="ContactPersonAddress">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="contactStreetNumber"/>
+                                <xs:element type="xs:string" name="contactCity"/>
+                                <xs:element type="xs:int" name="contactPostalCode"/>
+                                <xs:element type="xs:int" name="phoneNumber" use="required"/>
+                                <xs:element type="xs:string" name="mobilePhoneNumber"/>
+                                <xs:element type="xs:string" name="e-mail"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Declaration">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:int" name="declarationId" use="required"/>
+                    <xs:element type="xs:string" name="referencePeriod" use="required"/>
+                    <xs:element type="xs:int" name="PSIId" use="required"/>
+                    <xs:element type="xs:int" name="PSIIdType" use="required"/>
+                    <xs:element type="xs:string" name="Function" use="required"/>
+                    <xs:element type="xs:string" name="flowCode" use="required"/>
+                    <xs:element type="xs:string" name="currencyCode" use="required"/>
+                    <xs:element type="xs:float" name="totalNetMass" use="required"/>
+                    <xs:element type="xs:int" name="totalInvoicedAmount" use="required"/>
+                    <xs:element type="xs:int" name="totalStatisticalValue" use="required"/>
+                    <xs:element type="xs:int" name="totalNumberDetailedLines" use="required"/>
+                    <xs:element name="Item">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:int" name="itemNumber" use="required"/>
+                          <xs:element type="xs:string" name="goodsDescription"/>
+                          <xs:element name="CN8">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:int" name="CN8Code" use="required"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element type="xs:string" name="countryOfOriginCode"/>
+                          <xs:element type="xs:string" name="MSConsDestCode"/>
+                          <xs:element type="xs:string" name="nationalityOfTransportVehicle"/>
+                          <xs:element type="xs:float" name="netMass"/>
+                          <xs:element type="xs:int" name="invoicedAmount" use="required"/>
+                          <xs:element type="xs:int" name="statisticalValue"/>
+                          <xs:element type="xs:string" name="supplementaryUnit"/>
+                          <xs:element type="xs:string" name="statisticalProcedureCode"/>
+                          <xs:element name="NatureOfTransaction">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:int" name="natureOfTransactionACode"/>
+                                <xs:element type="xs:int" name="natureOfTransactionBCode"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element type="xs:int" name="modeOfTransportCode"/>
+                          <xs:element type="xs:string" name="regionCode"/>
+                          <xs:element name="DeliveryTerms">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="TODCode"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element type="xs:string" name="action" use="required"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element type="xs:int" name="numberOfDeclarations" use="required"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,30 @@
+id,code,country_id/id,description,name
+l10n_bg_intrastat_product.intrastat_region_bg_BGS,BGS,base.bg,Burgas Region and adjacent municipalities,Burgas
+l10n_bg_intrastat_product.intrastat_region_bg_BLG,BLG,base.bg,Blagoevgrad Region and adjacent municipalities,Blagoevgrad
+l10n_bg_intrastat_product.intrastat_region_bg_VAR,VAR,base.bg,Varna Region and adjacent municipalities,Varna
+l10n_bg_intrastat_product.intrastat_region_bg_VTR,VTR,base.bg,Veliko Tarnovo Region and adjacent municipalities,Veliko Tarnovo
+l10n_bg_intrastat_product.intrastat_region_bg_VID,VID,base.bg,Vidin Region and adjacent municipalities,Vidin
+l10n_bg_intrastat_product.intrastat_region_bg_VRC,VRC,base.bg,Vratsa Region and adjacent municipalities,Vratsa
+l10n_bg_intrastat_product.intrastat_region_bg_GAB,GAB,base.bg,Gabrovo Region and adjacent municipalities,Gabrovo
+l10n_bg_intrastat_product.intrastat_region_bg_DOB,DOB,base.bg,Dobrich Region and adjacent municipalities,Dobrich
+l10n_bg_intrastat_product.intrastat_region_bg_KRZ,KRZ,base.bg,Kardzhali Region and adjacent municipalities,Kardzhali
+l10n_bg_intrastat_product.intrastat_region_bg_KNL,KNL,base.bg,Kyustendil Region and adjacent municipalities,Kyustendil
+l10n_bg_intrastat_product.intrastat_region_bg_LOV,LOV,base.bg,Lovech Region and adjacent municipalities,Lovech
+l10n_bg_intrastat_product.intrastat_region_bg_MON,MON,base.bg,Montana Region and adjacent municipalities,Montana
+l10n_bg_intrastat_product.intrastat_region_bg_PAZ,PAZ,base.bg,Pazardzhik Region and adjacent municipalities,Pazardzhik
+l10n_bg_intrastat_product.intrastat_region_bg_PER,PER,base.bg,Pernik Region and adjacent municipalities,Pernik
+l10n_bg_intrastat_product.intrastat_region_bg_PVN,PVN,base.bg,Pleven Region and adjacent municipalities,Pleven
+l10n_bg_intrastat_product.intrastat_region_bg_PDV,PDV,base.bg,Plovdiv Region and adjacent municipalities,Plovdiv
+l10n_bg_intrastat_product.intrastat_region_bg_RAZ,RAZ,base.bg,Razgrad Region and adjacent municipalities,Razgrad
+l10n_bg_intrastat_product.intrastat_region_bg_RSE,RSE,base.bg,Ruse Region and adjacent municipalities,Ruse
+l10n_bg_intrastat_product.intrastat_region_bg_SLS,SLS,base.bg,Silistra Region and adjacent municipalities,Silistra
+l10n_bg_intrastat_product.intrastat_region_bg_SLV,SLV,base.bg,Sliven Region and adjacent municipalities,Sliven
+l10n_bg_intrastat_product.intrastat_region_bg_SML,SML,base.bg,Smolyan Region and adjacent municipalities,Smolyan
+l10n_bg_intrastat_product.intrastat_region_bg_SOF,SOF,base.bg,Sofia Region (capital),Sofia (capital)
+l10n_bg_intrastat_product.intrastat_region_bg_SFO,SFO,base.bg,Sofia Region and adjacent municipalities,Sofia
+l10n_bg_intrastat_product.intrastat_region_bg_SZR,SZR,base.bg,Stara Zagora Region and adjacent municipalities,Stara Zagora
+l10n_bg_intrastat_product.intrastat_region_bg_TGV,TGV,base.bg,Targovishte Region and adjacent municipalities,Targovishte
+l10n_bg_intrastat_product.intrastat_region_bg_HKV,HKV,base.bg,Haskovo Region and adjacent municipalities,Haskovo
+l10n_bg_intrastat_product.intrastat_region_bg_SHU,SHU,base.bg,Shumen Region and adjacent municipalities,Shumen
+l10n_bg_intrastat_product.intrastat_region_bg_JAM,JAM,base.bg,Yambol Region and adjacent municipalities,Yambol
+l10n_bg_intrastat_product.intrastat_region_bg_XXX,XXX,base.bg,The entire country without a specific region of consumption,The whole country

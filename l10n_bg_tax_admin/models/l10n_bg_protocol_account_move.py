@@ -12,9 +12,9 @@ class AccountMoveBgProtocol(models.Model):
     _order = "date_creation desc, name desc, id desc"
     _mail_post_access = 'read'
     _check_company_auto = True
-    _sequence_field = 'name_bg_second'
+    _sequence_field = 'l10n_bg_name'
 
-    move_id = fields.Many2one('account.move', string='Account invoice')
+    move_id = fields.Many2one('account.move', string='Account invoice', ondelete="cascade")
     date_creation = fields.Date('Created Date', required=True, default=fields.Date.today())
 
     # -------------------------------------------------------------------------
@@ -23,6 +23,6 @@ class AccountMoveBgProtocol(models.Model):
     def _get_last_sequence_domain(self, relaxed=False):
         self.ensure_one()
         where_string, param = super()._get_last_sequence_domain(relaxed=relaxed)
-        if self.type_number == '117_protocol':
+        if self.l10n_bg_type_vat == '117_protocol':
             where_string += " AND type_vat = '117_protocol'"
         return where_string, param

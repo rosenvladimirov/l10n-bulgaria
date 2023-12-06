@@ -11,4 +11,4 @@ class TAXForms(models.Model):
         ('vat_purchase', _('VAT Purchase journal')),
         ('vat_sale', _('VAT Sale journal')),
         ('vat_vies', _('VIES Declaration')),
-    ])
+    ], ondelete={"vat_purchase": "set default", "vat_sale": "set default", "vat_vies": "set default"})

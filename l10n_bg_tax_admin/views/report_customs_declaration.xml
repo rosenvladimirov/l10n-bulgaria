@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="report_customs_declaration_report" model="ir.actions.report">
+            <field name="name">Customs Declaration</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_bg_config.report_customs_declaration</field>
+            <field name="report_file">l10n_bg_config.report_customs_declaration</field>
+            <!-- <field name="binding_model_id" ref="account.view_move_form"/> -->
+            <field name="binding_type">report</field>
+        </record>
+        
+</odoo>

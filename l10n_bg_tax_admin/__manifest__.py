@@ -14,6 +14,7 @@
     'depends': [
         'account',
         'l10n_bg',
+        'l10n_bg_config',
         'account_debit_note',
         'account_move_fiscal_month',
         'date_range',
@@ -23,7 +24,6 @@
     'data': [
         'views/account_move_views.xml',
         'views/res_currency_views.xml',
-        'views/res_partner_views.xml',
     ],
     'demo': [
     ],

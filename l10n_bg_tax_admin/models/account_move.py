@@ -1,11 +1,15 @@
 #  -*- coding: utf-8 -*-
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
+import logging
 
 from contextlib import contextmanager
 from functools import lru_cache
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models, _, Command
 from odoo.osv import expression
+
+_logger = logging.getLogger(__name__)
+
 
 # TYPE_VAT_CODE = {
 #     '117_protocol': 'PR',
@@ -78,6 +82,11 @@ class AccountMove(models.Model):
     # ---------------
 
     l10n_bg_protocol_date = fields.Char("Protocol date", copy=False)
+    l10n_bg_protocol_invoice_id = fields.Many2one(
+        'account.move.bg.protocol',
+        'Protocol',
+        states={'draft': [('readonly', True)]},
+    )
     l10n_bg_protocol_line_ids = fields.One2many(  # /!\ protocol_line_ids is just a subset of line_ids.
         'account.move.line',
         'move_id',
@@ -85,7 +94,7 @@ class AccountMove(models.Model):
         copy=False,
         readonly=True,
         domain=[('display_type', 'in', ('product', 'line_section', 'line_note'))],
-        states={'draft': [('readonly', False)]},
+        states={'draft': [('readonly', True)]},
     )
 
     # --------------
@@ -102,25 +111,28 @@ class AccountMove(models.Model):
                                                  check_company=True,
                                                  copy=False,
                                                  readonly=True,
-                                                 states={'draft': [('readonly', False)]},
+                                                 states={'draft': [('readonly', True)]},
                                                  )
     # === Partner fields === #
     l10n_bg_customs_partner_id = fields.Many2one('res.partner',
-                                                 string='P',
+                                                 string='Included invoices in Customs',
                                                  related='l10n_bg_customs_invoice_id.partner_id')
     l10n_bg_customs_commercial_partner_id = fields.Many2one(
         'res.partner',
-        string='Commercial Entity',
+        string='Commercial Entity Customs',
         related='l10n_bg_customs_invoice_id.commercial_partner_id',
         ondelete='restrict',
     )
     l10n_bg_customs_partner_shipping_id = fields.Many2one(
         comodel_name='res.partner',
-        string='Delivery Address',
+        string='Delivery Address Customs',
         related='l10n_bg_customs_invoice_id.partner_shipping_id',
         help="Delivery address for current invoice.",
     )
     l10n_bg_customs_invoice_ids = fields.Many2many('account.move',
+                                                   'customs_invoices_rel',
+                                                   'invoice_id',
+                                                   'customs_id',
                                                    string='Used invoices in customs',
                                                    check_company=True,
                                                    copy=False,
@@ -182,7 +194,7 @@ class AccountMove(models.Model):
             # self.line_ids._compute_currency_rate()
             # self.line_ids._inverse_amount_currency()
         else:
-            self.protocol_line_ids = False
+            self.l10n_bg_protocol_line_ids = False
 
     @api.onchange("l10n_bg_currency_rate")
     def _onchange_l10n_bg_currency_rate(self):
@@ -197,27 +209,27 @@ class AccountMove(models.Model):
                 copied_vals = line.copy_data()[0]
                 self.l10n_bg_customs_line_ids += self.env['account.move.line'].new(copied_vals)
         else:
-            self.customs_invoice_ids = False
+            self.l10n_bg_customs_invoice_ids = False
 
     @api.onchange('fiscal_position_id')
     def _onchange_fiscal_position_id(self):
         if self.fiscal_position_id:
             if self.is_purchase_document():
-                self.type_vat = self.fiscal_position_id.purchase_type_vat
+                self.l10n_bg_type_vat = self.fiscal_position_id.purchase_type_vat
                 if self.is_vendor_invoice():
-                    self.doc_type = self.fiscal_position_id.purchase_doc_type
+                    self.l10n_bg_doc_type = self.fiscal_position_id.purchase_doc_type
                 elif self.is_vendor_refund():
-                    self.doc_type = self.fiscal_position_id.purchase_refund_doc_type
+                    self.l10n_bg_doc_type = self.fiscal_position_id.purchase_refund_doc_type
                 elif self.is_vendor_debit_note():
-                    self.doc_type = self.fiscal_position_id.purchase_dn_doc_type
+                    self.l10n_bg_doc_type = self.fiscal_position_id.purchase_dn_doc_type
             elif self.is_sale_document():
-                self.type_vat = self.fiscal_position_id.sale_type_vat
+                self.l10n_bg_type_vat = self.fiscal_position_id.sale_type_vat
                 if self.is_customer_invoice():
-                    self.doc_type = self.fiscal_position_id.sale_doc_type
+                    self.l10n_bg_doc_type = self.fiscal_position_id.sale_doc_type
                 elif self.is_customer_refund():
-                    self.doc_type = self.fiscal_position_id.sale_refund_doc_type
+                    self.l10n_bg_doc_type = self.fiscal_position_id.sale_refund_doc_type
                 elif self.is_customer_debit_note():
-                    self.doc_type = self.fiscal_position_id.sale_dn_doc_type
+                    self.l10n_bg_doc_type = self.fiscal_position_id.sale_dn_doc_type
 
     # -------------------------------------------------------------------------
     # PAYMENT REFERENCE
@@ -228,7 +240,7 @@ class AccountMove(models.Model):
         if self.l10n_bg_type_vat != 'standard':
             return ''.join([i for i in self.name if i.isdigit()]).zfill(10)
         else:
-            return self._get_invoice_reference_odoo_invoice()
+            return super()._get_invoice_reference_odoo_invoice()
 
     def _get_invoice_reference_bg_invoice(self):
         self.ensure_one()
@@ -258,55 +270,70 @@ class AccountMove(models.Model):
         return name
 
     def _protocol_vals(self):
-        return self.env['account.move.bg.protocol'].create({
+        return {
             'move_id': self.id,
-        })
+        }
 
-    @contextmanager
-    def _sync_invoice(self, container):
-        super()._sync_invoice(container)
-        if container['records'].filtered(lambda m: m.is_invoice(True)):
-            self._sync_bg_invoice(container)
+    def _customs_vals(self, line):
+        self.l10n_bg_customs_invoice_id = False
+        return {
+            'move_type': 'entry',
+            'invoice_line_ids': False,
+            'l10n_bg_customs_invoice_id': line.id,
+            'l10n_bg_customs_line_ids': [Command.set(line.line_ids.ids)],
+            'l10n_bg_customs_date': line.invoice_date,
+            'l10n_bg_customs_commercial_partner_id': line.commercial_partner_id.id,
+            'l10n_bg_customs_partner_shipping_id': line.partner_shipping_id.id,
+        }
 
-    @contextmanager
-    def _sync_bg_invoice(self, container):
-        def existing():
-            return {
-                move: {
-                    'name': move.name,
-                    'type_vat': move.type_vat,
-                    'name_bg_second': move.name_bg_second,
-                }
-                for move in container['records'].filtered(lambda m: m.is_invoice(True))
-            }
+    def _sanitize_vals(self, vals):
+        vals = super()._sanitize_vals(vals)
+        if 'line_ids' in vals and vals.get('l10n_bg_type_vat') == '117_protocol':
+            protocol_lines = []
+            line_ids = []
+            if vals.get('l10n_bg_protocol_line_ids'):
+                for command, protocol_id, protocol_line in vals['l10n_bg_protocol_line_ids']:
+                    protocol_lines.append(protocol_id)
+            for command, line_id, line_vals in vals['line_ids']:
+                if command == Command.UPDATE and line_id and line_id not in protocol_lines:
+                    line_ids.append(line_id)
+            if line_ids:
+                vals['l10n_bg_protocol_line_ids'] = [Command.set(line_ids)]
+        return vals
 
-        def changed(field_name):
-            return move not in before or before[move][field_name] != after[move][field_name]
+    @api.model_create_multi
+    def create(self, vals_list):
+        moves = super().create(vals_list)
+        for line in moves.filtered(lambda r: r.state == 'posted'):
+            if line.is_purchase_document(False) \
+                    and line.l10n_bg_type_vat == 'in_customs' \
+                    and line.line_ids:
+                customs_entry_id = line.copy(self._customs_vals(line))
+                line.l10n_bg_customs_invoice_id = customs_entry_id.id
+            if line.is_purchase_document(False) \
+                    and line.l10n_bg_type_vat == '117_protocol':
+                protocol_id = self.env['account.move.bg.protocol'].create(self._protocol_vals())
+                line.l10n_bg_protocol_invoice_id = protocol_id.id
+        return moves
 
-        before = existing()
-        yield
-        after = existing()
+    def write(self, vals):
+        res = super().write(vals)
+        for line in self.filtered(lambda r: r.state == 'posted'):
+            if line.is_invoice() and vals.get('l10n_bg_type_vat') in ('in_customs', 'out_customs'):
+                old_l10n_bg_customs_invoice_id = self.env['account.move'].search([
+                    ('id', '=', line.l10n_bg_customs_invoice_id.id),
+                    ('move_type', '=', 'entry')
+                ])
+                if old_l10n_bg_customs_invoice_id:
+                    old_l10n_bg_customs_invoice_id.unlink()
+                customs_entry_id = line.copy(self._customs_vals(line))
+                line.l10n_bg_customs_invoice_id = customs_entry_id.id
+        return res
 
-        for move in after:
-            # Protocol manipulation
-            if (changed('type_vat') or changed('name')) and move.type_vat == '117_protocol' and move.name != '/':
-                protocol_id = move._protocol_vals()
-                move.name_bg_second = protocol_id.name_bg_second
-            elif changed('type_vat') and move.type_vat != '117_protocol':
-                protocol_id = self.env['account.move.bg.protocol'].search([('move_id', '=', move.id)])
-                if protocol_id:
-                    move.name_bg_second = False
-                    protocol_id.unlink()
-            # Customs manipulation
-            if (changed('type_vat') or changed('name')) and move.type_vat in ('in_customs', 'out_customs'):
-                move.customs_invoice_ids = self.env['account.move']
-                move.customs_invoice_ids |= move
-                move.customs_line_ids = self.env['account.move.line']
-                move.customs_line_ids |= move.mapped('line_ids')
-            elif changed('type_vat') and move.type_vat not in ('in_customs', 'out_customs'):
-                if move.customs_invoice_ids:
-                    move.customs_invoice_ids = False
-                    move.customs_line_ids = False
+    def unlink(self):
+        self.l10n_bg_customs_invoice_id.unlink()
+        self.l10n_bg_protocol_invoice_id.unlink()
+        return super().unlink()
 
     @api.model
     def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
@@ -330,7 +357,7 @@ class AccountMove(models.Model):
         return ['in_invoice'] + (include_receipts and ['in_receipt'] or [])
 
     @api.model
-    def get_vendor_refund(self):
+    def get_vendor_refund(self, include_receipts=False):
         return ['in_refund']
 
     @api.model
@@ -354,11 +381,11 @@ class AccountMove(models.Model):
         return ['out_invoice'] + (include_receipts and ['out_receipt'] or [])
 
     @api.model
-    def get_customer_refund(self):
+    def get_customer_refund(self, include_receipts=False):
         return ['out_refund']
 
     @api.model
-    def get_customer_debit_note(self):
+    def get_customer_debit_note(self, include_receipts=False):
         return ['out_debit_note']
 
     @api.model
@@ -376,3 +403,14 @@ class AccountMove(models.Model):
     @api.model
     def is_customer_debit_note(self, include_receipts=False):
         return self.move_type in self.get_customer_debit_note(include_receipts)
+
+    # ------------------------------------
+    #  ACTIONS
+    # ------------------------------------
+    def view_account_custom(self):
+        self.ensure_one()
+        result = self.env["ir.actions.act_window"]._for_xml_id(
+            "account.action_move_in_invoice_type"
+        )
+        result["domain"] = [("id", "=", self.l10n_bg_customs_invoice_id.id)]
+        return result

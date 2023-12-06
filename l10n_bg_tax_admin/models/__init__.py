@@ -8,4 +8,4 @@ from . import account_move_line
 from . import l10n_bg_protocol_account_move
 from . import partner
 from . import l10n_bg_forms
-from . import doc_account_account_tag
+# from . import doc_account_account_tag

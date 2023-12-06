@@ -23,6 +23,7 @@
     ],
     'data': [
         'views/account_move_views.xml',
+        'views/l10n_bg_protocol_account_move.xml',
         'views/res_currency_views.xml',
     ],
     'demo': [

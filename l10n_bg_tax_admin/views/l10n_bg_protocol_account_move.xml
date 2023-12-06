@@ -43,8 +43,8 @@
                     <field name="partner_id" groups="base.group_user" string="Vendor"/>
                     <field name="invoice_date" string="Bill Date"/>
                     <field name="name"/>
-                    <field name="name_bg_second"/>
-                    <field name="protocol_date"/>
+                    <field name="l10n_bg_name"/>
+                    <field name="l10n_bg_protocol_date"/>
                     <field name="name" string="Origin invoice"/>
                     <field name="commercial_partner_id" invisible="1"/>
                     <field name="journal_id" invisible="1"/>
@@ -593,64 +593,13 @@
                 </form>
             </field>
         </record>
-        <record id="action_account_move" model="ir.actions.act_window">
+        <record id="action_protocol_account_move" model="ir.actions.act_window">
             <field name="name">Protocols art. 117</field>
             <field name="res_model">account.move.bg.protocol</field>
             <field name="view_mode">tree,pivot</field>
             <field name="domain">[('move_type', 'in', ['out_invoice', 'in_invoice'])]</field>
         </record>
 
-        <menuitem id="menu_account_move" name="Account Moves" parent="account.account_account_menu" sequence="70" action="action_account_move"/>
+        <menuitem id="menu_account_move" name="Account Moves" parent="account.account_account_menu" sequence="70" action="action_protocol_account_move"/>
    </data>
 </odoo>
-
-
-
-<!-- <odoo>
-    <data>
-        <record id="view_account_move_form" model="ir.ui.view">
-            <field name="name">account.move.form</field>
-            <field name="model">account.move</field>
-            <field name="inherit_id" ref="account.view_move_form"/>
-            <field name="arch" type="xml">
-                <form>
-                    <field name="type_vat" options="hide"/>
-                    <field name="name_bg_second" options="hide"/>
-                    <field name="protocol_date" options="hide"/>
-                    <field name="protocol_line_ids" widget="one2many_list"/>
-                </form>
-            </field>
-        </record>
-
-        <record id="view_account_move_tree" model="ir.ui.view">
-            <field name="name">account.move.tree</field>
-            <field name="model">account.move</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="type_vat" options="hide"/>
-                    <field name="name_bg_second" options="hide"/>
-                    <field name="protocol_date" options="hide"/>
-                    <field name="protocol_line_ids" widget="one2many_list"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="action_account_move_form" model="ir.actions.act_window">
-            <field name="name">Account Move</field>
-            <field name="res_model">account.move</field>
-            <field name="view_mode">form</field>
-            <field name="domain">[('move_type', 'in', ['in_invoice', 'in_refund'])]</field>
-        </record>
-
-        <record id="action_account_move" model="ir.actions.act_window">
-            <field name="name">Account Moves</field>
-            <field name="res_model">account.move</field>
-            <field name="view_mode">tree,form</field>
-            <field name="domain">[('move_type', 'in', ['in_invoice', 'in_refund'])]</field>
-        </record>
-
-        <menuitem id="menu_account_move" name="Account Moves" parents="menu_finance_payables" sequence="4" action="action_account_move"/>
-        <menuitem id="menu_account_move_form" name="Account Move Form" action="action_account_move_form"/>
-
-    </data>
-</odoo> -->

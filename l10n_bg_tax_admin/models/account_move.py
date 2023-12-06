@@ -58,9 +58,6 @@ class AccountMove(models.Model):
             ('93', _('Protocol under Art. 151c')),
             # Protocol for the required tax under Art. 151c,
             # para. 7 of the law with a delivery recipient who does not apply the special regime
-            ('94', _('Protocol under Art. 151c')),
-            # Protocol for the required tax under Art. 151c,
-            # para. 7 of the law with a delivery recipient who does not apply the special regime
             ('94', _('Protocol under Art. 151c, para. 7')),
             # Protocol for the required tax under Art. 151c,
             # para. 7 of the law with a delivery recipient, a person who applies the special regime
@@ -73,7 +70,8 @@ class AccountMove(models.Model):
                                         default='standard',
                                         copy=False)
     l10n_bg_doc_type = fields.Selection(selection=lambda self: self._get_doc_type(),
-                                        string="Vat type doc for purchase",
+                                        string="Vat type document",
+                                        default='01',
                                         copy=False)
     l10n_bg_name = fields.Char('Number of locale document', index='trigram', tracking=True, copy=False)
 
@@ -81,7 +79,7 @@ class AccountMove(models.Model):
     # PROTOCOL FIELDS
     # ---------------
 
-    l10n_bg_protocol_date = fields.Char("Protocol date", copy=False)
+    l10n_bg_protocol_date = fields.Date("Protocol date", copy=False, default=fields.Date.today())
     l10n_bg_protocol_invoice_id = fields.Many2one(
         'account.move.bg.protocol',
         'Protocol',
@@ -278,6 +276,7 @@ class AccountMove(models.Model):
         self.l10n_bg_customs_invoice_id = False
         return {
             'move_type': 'entry',
+            'l10n_bg_type_vat': line.l10n_bg_type_vat,
             'invoice_line_ids': False,
             'l10n_bg_customs_invoice_id': line.id,
             'l10n_bg_customs_line_ids': [Command.set(line.line_ids.ids)],

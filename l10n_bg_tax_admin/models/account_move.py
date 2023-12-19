@@ -6,6 +6,7 @@ from contextlib import contextmanager
 from functools import lru_cache
 
 from odoo import api, fields, models, _, Command
+from odoo.exceptions import UserError
 from odoo.osv import expression
 
 _logger = logging.getLogger(__name__)
@@ -113,7 +114,7 @@ class AccountMove(models.Model):
                                                  )
     # === Partner fields === #
     l10n_bg_customs_partner_id = fields.Many2one('res.partner',
-                                                 string='Included invoices in Customs',
+                                                 string='Partner in Customs',
                                                  related='l10n_bg_customs_invoice_id.partner_id')
     l10n_bg_customs_commercial_partner_id = fields.Many2one(
         'res.partner',
@@ -274,12 +275,22 @@ class AccountMove(models.Model):
 
     def _customs_vals(self, line):
         self.l10n_bg_customs_invoice_id = False
+        replace_fp_id = self.fiscal_position_id
+        fp = self.fiscal_position_id
+        if self.l10n_bg_type_vat == 'in_customs':
+            replace_fp_id = fp.purchase_fp_replace_id
+        if self.l10n_bg_type_vat == 'out_customs':
+            replace_fp_id = fp.sale_fp_replace_id
+        if replace_fp_id == self.fiscal_position_id:
+            raise UserError(_('Missing configuration for replacing fiscal position for export/import customs'))
+
         return {
             'move_type': 'entry',
-            'l10n_bg_type_vat': line.l10n_bg_type_vat,
+            'l10n_bg_type_vat': 'standard',
+            'fiscal_position_id': replace_fp_id.id,
             'invoice_line_ids': False,
             'l10n_bg_customs_invoice_id': line.id,
-            'l10n_bg_customs_line_ids': [Command.set(line.line_ids.ids)],
+            # 'l10n_bg_customs_line_ids': [Command.set(line.line_ids.ids)],
             'l10n_bg_customs_date': line.invoice_date,
             'l10n_bg_customs_commercial_partner_id': line.commercial_partner_id.id,
             'l10n_bg_customs_partner_shipping_id': line.partner_shipping_id.id,
@@ -318,7 +329,7 @@ class AccountMove(models.Model):
     def write(self, vals):
         res = super().write(vals)
         for line in self.filtered(lambda r: r.state == 'posted'):
-            if line.is_invoice() and vals.get('l10n_bg_type_vat') in ('in_customs', 'out_customs'):
+            if line.is_purchase_document() and vals.get('l10n_bg_type_vat') in ('in_customs', 'out_customs'):
                 old_l10n_bg_customs_invoice_id = self.env['account.move'].search([
                     ('id', '=', line.l10n_bg_customs_invoice_id.id),
                     ('move_type', '=', 'entry')
@@ -329,10 +340,13 @@ class AccountMove(models.Model):
                 line.l10n_bg_customs_invoice_id = customs_entry_id.id
         return res
 
-    def unlink(self):
-        self.l10n_bg_customs_invoice_id.unlink()
-        self.l10n_bg_protocol_invoice_id.unlink()
-        return super().unlink()
+    # def unlink(self):
+    #     if not self._context.get('unlink_added', False):
+    #         if self.l10n_bg_customs_invoice_id:
+    #             self.with_context(dict(self._context, unlink_added=True)).l10n_bg_customs_invoice_id.unlink()
+    #         if self.l10n_bg_protocol_invoice_id:
+    #             self.with_context(dict(self._context, unlink_added=True)).l10n_bg_protocol_invoice_id.unlink()
+    #     return super().unlink()
 
     @api.model
     def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
@@ -408,8 +422,13 @@ class AccountMove(models.Model):
     # ------------------------------------
     def view_account_custom(self):
         self.ensure_one()
+        if not self.l10n_bg_customs_invoice_id:
+            customs_entry_id = self.copy(self._customs_vals(self))
+            self.l10n_bg_customs_invoice_id = customs_entry_id.id
+            self.l10n_bg_customs_invoice_ids = [Command.set(customs_entry_id.ids)]
         result = self.env["ir.actions.act_window"]._for_xml_id(
             "account.action_move_in_invoice_type"
         )
+        result['res_id'] = self.l10n_bg_customs_invoice_id.id
         result["domain"] = [("id", "=", self.l10n_bg_customs_invoice_id.id)]
         return result

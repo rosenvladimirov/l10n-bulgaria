@@ -7,7 +7,17 @@
             <field name="inherit_id" ref="base.view_currency_rate_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='rate']" position="after">
-                    <field name="rate_vat"/>
+                    <field name="rate_vat" digits="[12,12]"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_currency_form" model="ir.ui.view">
+            <field name="name">res.currency.form</field>
+            <field name="model">res.currency</field>
+            <field name="inherit_id" ref="base.view_currency_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='inverse_company_rate']" position="after">
+                    <field name="rate_vat" digits="[12,12]"/>
                 </xpath>
             </field>
         </record>

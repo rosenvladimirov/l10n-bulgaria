@@ -63,6 +63,9 @@
             <field name="arch" type="xml">
                 <form string="Account Entry" js_class="account_move_form">
                     <sheet>
+                        <header>
+                            <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+                        </header>
                         <div name="button_box" class="oe_button_box">
                         </div>
 

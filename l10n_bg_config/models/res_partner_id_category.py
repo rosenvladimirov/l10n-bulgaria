@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 
 try:
     import stdnum
-    from stdnum.exceptions import InvalidFormat, InvalidChecksum, InvalidLength
+    from stdnum.exceptions import InvalidFormat, InvalidChecksum, InvalidLength, ValidationError
 except ImportError:
     _logger.debug("Cannot `import external dependency python stdnum package`.")
 
@@ -37,41 +37,46 @@ class ResPartnerIdCategory(models.Model):
         self.ensure_one()
         if not id_number:
             return False
-        id_number = id_number.name.upper()
-        duplicate_bg = False
+        id_number = str(id_number).upper()
         validate = False
+        cat = False
+        duplicate_bg = False
+        id_number_check = "".join(filter(str.isdigit, id_number))
 
         if not validate:
             try:
-                if not "".join(filter(str.istitle, id_number)) \
-                        and stdnum.get_cc_module('bg', 'egn').validate(id_number):
+                if stdnum.get_cc_module('bg', 'egn').validate(id_number_check):
                     cat = self.env.ref("l10n_bg_config.partner_identification_egn_number_category").id
-                    duplicate_bg = self._search_duplicate(cat, id_number, True)
                     validate = True
             except InvalidLength:
-                validate = False
+                _logger.info(f"Invalid length for EGN: {id_number_check}")
+            except ValidationError:
+                _logger.info(f"Validate error for EGN: {id_number_check}")
 
         if not validate:
             try:
                 if stdnum.get_cc_module('bg', 'pnf').validate(id_number):
                     cat = self.env.ref("l10n_bg_config.partner_identification_pnf_number_category").id
-                    duplicate_bg = self._search_duplicate(cat, id_number, True)
                     validate = True
             except InvalidLength:
-                validate = False
+                _logger.info("Invalid length for PNF")
 
         if not validate:
-            uid_check = "".join(filter(str.isdigit, id_number))
-            if len(uid_check) in [9, 13] and check_uic_base(uid_check):
+            if len(id_number_check) in [9, 13] and check_uic_base(id_number_check):
                 cat = self.env.ref("l10n_bg_config.partner_identification_uic_number_category").id
-                duplicate_bg = self._search_duplicate(cat, id_number, True)
                 validate = True
+            else:
+                _logger.info("The length of id_number_check ot 9 or 13")
 
-            if len(uid_check) == 13 and not check_uic_extra(uid_check):
+            if len(id_number_check) == 13 and not check_uic_extra(id_number_check):
                 cat = self.env.ref("l10n_bg_config.partner_identification_uic_number_category").id
-                duplicate_bg = self._search_duplicate(cat, uid_check, True)
                 validate = True
+            else:
+                _logger.info("The length of is 13")
 
+        if cat:
+            duplicate_bg = self._search_duplicate(cat, id_number_check, True)
         if not duplicate_bg or not validate:
+            _logger.info("Duplicate")
             return False
         return False

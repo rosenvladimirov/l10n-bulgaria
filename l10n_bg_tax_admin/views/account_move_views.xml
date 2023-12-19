@@ -18,7 +18,7 @@
                             type='object' groups="account.group_account_invoice"
                             context="{'search_default_l10n_bg_customs_invoice_id': [active_id]}"
                             data-hotkey='r'
-                            attrs="{'invisible': [('l10n_bg_customs_invoice_id', '=', False)]}"/>
+                            attrs="{'invisible': [('l10n_bg_type_vat', 'not in', ['in_customs', 'out_customs'])]}"/>
                 </xpath>
                 <xpath expr="//field[@name='quick_encoding_vals']" position="after">
                     <field name="l10n_bg_protocol_invoice_id" invisible="1"/>
@@ -28,7 +28,7 @@
                     <field name="l10n_bg_customs_commercial_partner_id" invisible="1"/>
                 </xpath>
                 <xpath expr="//notebook/page[@id='invoice_tab']" position="after">
-                    <page id="customs_tab" name="customs_tab" string="Customs invoices" attrs="{'invisible': [('l10n_bg_type_vat', 'not in', ['in_customs', 'out_customs'])]}">
+                    <page id="customs_tab" name="customs_tab" string="Customs invoices" attrs="{'invisible': [('l10n_bg_customs_invoice_id', '=', False)]}">
                         <group>
                             <group>
                                 <field name="l10n_bg_customs_partner_id" options="{'no_create': True}"/>
@@ -36,6 +36,7 @@
                             </group>
                             <group>
                                 <field name="l10n_bg_customs_date"/>
+                                <field name="l10n_bg_name" attrs="{'invisible': [('l10n_bg_type_vat', '!=', 'standard'), ('move_type', '!=', 'entry')]}"/>
                                 <field name="l10n_bg_customs_invoice_ids" widget="many2many_tags"/>
                             </group>
                         </group>
@@ -94,7 +95,7 @@
                     <group string="Bulgarian VAT"
                            name="account_bg_vat">
                         <field name="l10n_bg_type_vat" readonly="1" force_save="1"/>
-                        <field name="l10n_bg_currency_rate" attrs="{'invisible': [('move_type', '!=', 'entry')]}"/>
+                        <field name="l10n_bg_currency_rate" attrs="{'invisible': [('l10n_bg_type_vat', 'not in', ['in_customs', 'out_customs'])]}"/>
                         <field name="l10n_bg_doc_type" attrs="{'invisible': [('move_type', '=', 'entry')]}"/>
                         <field name="l10n_bg_name" attrs="{'invisible': [('l10n_bg_type_vat', '=', 'standard')]}"/>
                     </group>

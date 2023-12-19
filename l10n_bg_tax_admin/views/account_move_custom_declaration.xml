@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <template id="report_customs_declaration"> 
+        <template id="report_customs_declaration">
             <t t-call="web.external_layout">
             <t t-foreach="docs" t-as="o">
                 <t t-set="o" t-value="o.with_context(lang=lang)"/>
@@ -136,7 +136,7 @@
                         </div>
                    </main>
                 </t>
-                </t>
+            </t>
         </template>
     </data>
 </odoo>

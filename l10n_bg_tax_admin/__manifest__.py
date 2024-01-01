@@ -24,6 +24,7 @@
     'data': [
         # 'security/ir.model.access.csv',
         'views/account_move_views.xml',
+        'views/account_journal_views.xml',
         'views/l10n_bg_protocol_account_move.xml',
         'views/res_currency_views.xml',
         'views/partner_view.xml',

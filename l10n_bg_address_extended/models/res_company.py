@@ -12,6 +12,7 @@ class Company(models.Model):
                                       inverse='_inverse_l10n_bg_street_data', translate=True)
     street_sector_number = fields.Char('Sector Number', compute='_compute_address',
                                        inverse='_inverse_l10n_bg_street_data', translate=True)
+    city_id = fields.Many2one(comodel_name='res.city', string='City ID')
 
     def _inverse_l10n_bg_street_data(self):
         """ update self.street based on street_name, street_number and street_number2 """

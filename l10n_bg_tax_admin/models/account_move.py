@@ -243,11 +243,11 @@ class AccountMove(models.Model):
 
     def _get_invoice_reference_bg_invoice(self):
         self.ensure_one()
-        if self.partner_id.l10n_bg_uic == '999999999999999':
-            name = self.name
-        elif (self.partner_id.vat.lower().lstrip().startswith('bg')
-              or self.partner_id.l10n_bg_uic != '999999999999999'):
-            name = ''.join([x for x in self.name if x.isdigit()]).zfill(10)
+        if self.company_id.vat.lower().lstrip().startswith('bg'):
+            base_name = [x for x in self.name.split('/')[-1] if x.isdigit()]
+            decade = str(self.journal_id.decade)
+            base_name = [decade] + ['0']*(10 - len(base_name) - len(decade)) + base_name
+            name = ''.join(base_name)
         else:
             name = self.name
         return name

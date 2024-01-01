@@ -7,14 +7,19 @@ from odoo import api, fields, models, _
 class AccountFiscalPosition(models.Model):
     _inherit = 'account.fiscal.position'
 
-    def _get_default_get(self, mode=0):
+    def _get_default_type(self, mode=0):
         company_id = self.env.company
-        value = ''
-        out_type_fp = self.env.ref(f'l10n_bg.{company_id}_fiscal_position_template_out_eu', raise_if_not_found=False).id
-        in_type_fp = self.env.ref(f'l10n_bg.{company_id}_fiscal_position_template_in_eu', raise_if_not_found=False).id
+        if mode in [1, 2]:
+            value = 'standard'
+        elif mode in [3, 4, 5, 6, 7, 8]:
+            value = '01'
+        else:
+            value = ''
+        out_type_fp = self.env.ref(f'l10n_bg.{company_id}_fiscal_position_template_out_eu', raise_if_not_found=False)
+        in_type_fp = self.env.ref(f'l10n_bg.{company_id}_fiscal_position_template_in_eu', raise_if_not_found=False)
         standard_type_fp = self.env.ref(f'l10n_bg.{company_id}_fiscal_position_template_dom',
-                                        raise_if_not_found=False).id
-        if self.id == out_type_fp:
+                                        raise_if_not_found=False)
+        if out_type_fp and self.id == out_type_fp.ip:
             if mode == 1:
                 value = 'out_customs'
             elif mode == 2:
@@ -22,7 +27,7 @@ class AccountFiscalPosition(models.Model):
             elif mode in [3, 4, 5, 6, 7, 8]:
                 value = '07'
 
-        if self.id == in_type_fp:
+        if in_type_fp and self.id == in_type_fp.id:
             if mode == 1:
                 value = 'standard'
             elif mode == 2:
@@ -32,7 +37,7 @@ class AccountFiscalPosition(models.Model):
             elif mode in [4, 6, 8]:
                 value = '01'
 
-        if self.id == standard_type_fp:
+        if standard_type_fp and self.id == standard_type_fp.id:
             if mode == 1:
                 value = 'standard'
             elif mode == 2:
@@ -47,36 +52,36 @@ class AccountFiscalPosition(models.Model):
 
     purchase_type_vat = fields.Selection(selection=lambda self: self.env['account.move']._get_type_vat(),
                                          string="Type of numbering",
-                                         default=lambda self: self._get_default_get(mode=2))
+                                         default=lambda self: self._get_default_type(mode=2))
     sale_type_vat = fields.Selection(selection=lambda self: self.env['account.move']._get_type_vat(),
                                      string="Type of numbering",
-                                     default=lambda self: self._get_default_get(mode=1))
+                                     default=lambda self: self._get_default_type(mode=1))
 
     purchase_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_doc_type(),
                                          string="Vat type doc for purchase",
-                                         default=lambda self: self._get_default_get(mode=3)
+                                         default=lambda self: self._get_default_type(mode=3)
                                          )
     sale_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_doc_type(),
                                      string="Vat type doc for sale",
-                                     default=lambda self: self._get_default_get(mode=4)
+                                     default=lambda self: self._get_default_type(mode=4)
                                      )
 
     purchase_refund_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_doc_type(),
                                                 string="Vat type doc for purchase refund",
-                                                default=lambda self: self._get_default_get(mode=5)
+                                                default=lambda self: self._get_default_type(mode=5)
                                                 )
     sale_refund_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_doc_type(),
                                             string="Vat type doc for sale refund",
-                                            default=lambda self: self._get_default_get(mode=6)
+                                            default=lambda self: self._get_default_type(mode=6)
                                             )
 
     purchase_dn_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_doc_type(),
                                             string="Vat type doc for purchase debit note",
-                                            default=lambda self: self._get_default_get(mode=7)
+                                            default=lambda self: self._get_default_type(mode=7)
                                             )
     sale_dn_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_doc_type(),
                                         string="Vat type doc for sale debit note",
-                                        default=lambda self: self._get_default_get(mode=8)
+                                        default=lambda self: self._get_default_type(mode=8)
                                         )
     purchase_fp_replace_id = fields.Many2one('account.fiscal.position',
                                              'Purchase replace with',

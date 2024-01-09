@@ -40,3 +40,8 @@ class ResCompany(models.Model):
     l10n_bg_departament_code = fields.Integer("Departament code")
     l10n_bg_tax_contact_id = fields.Many2one('res.partner',
                                              string='TAX Report creator')
+
+    @api.depends('vat')
+    def _onchange_vat(self):
+        self.partner_id._check_l10n_bg_uic()
+    

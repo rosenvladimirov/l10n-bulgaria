@@ -48,13 +48,11 @@ class ResPartner(models.Model):
             if record.id_numbers.filtered(lambda r: r.category_id.code != record.l10n_bg_uic_type):
                 record.id_numbers.category_id.unlink()
 
-    @api.onchange('vat', 'country_id')
-    def _onchange_check_vies(self):
-        res = super()._onchange_check_vies()
+    def _check_l10n_bg_uic(self):
         id_number = str(self.vat).upper()
         if not id_number:
-            return res
-        # _logger.info("VAT %s" % id_number)
+            return False
+
         validate = False
         # First check id numbers with prefix
         if "".join(filter(str.istitle, id_number)):
@@ -62,8 +60,6 @@ class ResPartner(models.Model):
             if "".join(filter(str.istitle, id_number)) == 'BG':
                 try:
                     if stdnum.get_cc_module('bg', 'vat').validate(id_number):
-                        # _logger.info("VAT %s:%s" % (
-                        #     "".join(filter(str.istitle, id_number)), stdnum.get_cc_module('bg', 'vat').validate(id_number)))
                         self.l10n_bg_uic_type = 'bg_uic'
                         self.l10n_bg_uic = stdnum.get_cc_module('bg', 'vat').compact(id_number)
                         validate = True
@@ -107,5 +103,10 @@ class ResPartner(models.Model):
             self.l10n_bg_uic_type = 'bg_non_eu'
             self.l10n_bg_uic = '99999999999'
             self.vat = False
-            _logger.info(_('Validate check Bulgaria unified indication number'))
+        return True
+
+    @api.onchange('vat', 'country_id')
+    def _onchange_check_vies(self):
+        res = super()._onchange_check_vies()
+        self._check_l10n_bg_uic()
         return res

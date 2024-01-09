@@ -54,53 +54,55 @@ class ResPartner(models.Model):
         id_number = str(self.vat).upper()
         if not id_number:
             return res
-        _logger.info("VAT %s" % id_number)
+        # _logger.info("VAT %s" % id_number)
         validate = False
-        if not validate:
-            try:
-                if "".join(filter(str.istitle, id_number)) == 'BG' \
-                        and stdnum.get_cc_module('bg', 'vat').validate(id_number):
-                    _logger.info("VAT %s:%s" % (
-                        "".join(filter(str.istitle, id_number)), stdnum.get_cc_module('bg', 'vat').validate(id_number)))
-                    self.l10n_bg_uic_type = 'bg_uic'
-                    self.l10n_bg_uic = stdnum.get_cc_module('bg', 'vat').compact(id_number)
-                    validate = True
-            except InvalidFormat:
-                validate = False
+        # First check id numbers with prefix
+        if "".join(filter(str.istitle, id_number)):
+            # BG VAT number convert to uic
+            if "".join(filter(str.istitle, id_number)) == 'BG':
+                try:
+                    if stdnum.get_cc_module('bg', 'vat').validate(id_number):
+                        # _logger.info("VAT %s:%s" % (
+                        #     "".join(filter(str.istitle, id_number)), stdnum.get_cc_module('bg', 'vat').validate(id_number)))
+                        self.l10n_bg_uic_type = 'bg_uic'
+                        self.l10n_bg_uic = stdnum.get_cc_module('bg', 'vat').compact(id_number)
+                        validate = True
+                except InvalidFormat:
+                    validate = False
 
-        if not validate:
+            #  Try for EU VAT Number
+            if not validate:
+                try:
+                    if stdnum.get_cc_module('eu', 'vat').validate(id_number):
+                        self.l10n_bg_uic_type = 'eu_vat'
+                        self.l10n_bg_uic = stdnum.get_cc_module('eu', 'vat').compact(id_number)
+                        validate = True
+                except InvalidComponent:
+                    validate = False
+                except InvalidFormat:
+                    validate = False
+
+        # After check for ENG and PNF
+        if not validate and not "".join(filter(str.istitle, id_number)) and "".join(filter(str.isdigit, id_number)):
+            #  Check for ENG
             try:
-                if not "".join(filter(str.istitle, id_number)) \
-                        and stdnum.get_cc_module('bg', 'egn').validate(id_number):
-                    _logger.info("EGN %s:%s" % (
-                        "".join(filter(str.istitle, id_number)), stdnum.get_cc_module('bg', 'egn').validate(id_number)))
+                if stdnum.get_cc_module('bg', 'egn').validate(id_number):
                     self.l10n_bg_uic_type = 'bg_egn'
                     self.l10n_bg_uic = stdnum.get_cc_module('bg', 'egn').compact(id_number)
                     validate = True
             except InvalidFormat:
                 validate = False
 
-        if not validate:
-            try:
-                if stdnum.get_cc_module('bg', 'pnf').validate(id_number):
-                    _logger.info("PNF %s:%s" % stdnum.get_cc_module('bg', 'pnf').validate(id_number))
-                    self.l10n_bg_uic_type = 'bg_pnf'
-                    self.l10n_bg_uic = stdnum.get_cc_module('bg', 'pnf').compact(id_number)
-                    validate = True
-            except InvalidFormat:
-                validate = False
-
-        if not validate:
-            try:
-                if stdnum.get_cc_module('eu', 'vat').validate(id_number):
-                    self.l10n_bg_uic_type = 'eu_vat'
-                    self.l10n_bg_uic = stdnum.get_cc_module('eu', 'vat').compact(id_number)
-                    validate = True
-            except InvalidComponent:
-                validate = False
-            except InvalidFormat:
-                validate = False
-
+            # Check for PNF
+            if not validate:
+                try:
+                    if stdnum.get_cc_module('bg', 'pnf').validate(id_number):
+                        self.l10n_bg_uic_type = 'bg_pnf'
+                        self.l10n_bg_uic = stdnum.get_cc_module('bg', 'pnf').compact(id_number)
+                        validate = True
+                except InvalidFormat:
+                    validate = False
+        # Finally mark like outside EU if not validated
         if not validate:
             self.l10n_bg_uic_type = 'bg_non_eu'
             self.l10n_bg_uic = '99999999999'

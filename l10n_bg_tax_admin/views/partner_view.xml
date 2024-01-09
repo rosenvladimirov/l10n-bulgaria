@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <record id="view_account_position_form" model="ir.ui.view">
-            <field name="name">account.fiscal.position.form</field>
-            <field name="model">account.fiscal.position</field>
-            <field name="inherit_id" ref="account.view_account_position_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//notebook" position="inside">
-                    <page name="bg_vat_mapping" string="Bulgaria VAT">
-                        <group>
-                            <group string="Sales">
-                                <field name="sale_doc_type"/>
-                                <field name="sale_fp_replace_id"/>
-                                <field name="sale_refund_doc_type"/>
-                                <field name="sale_dn_doc_type"/>
-                                <field name="sale_type_vat"/>
-                            </group>
-                            <group string="Purchase">
-                                <field name="purchase_doc_type"/>
-                                <field name="purchase_fp_replace_id"/>
-                                <field name="purchase_refund_doc_type"/>
-                                <field name="purchase_dn_doc_type"/>
-                                <field name="purchase_type_vat"/>
-                            </group>
+    <record id="view_account_position_form" model="ir.ui.view">
+        <field name="name">account.fiscal.position.form</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="bg_vat_mapping" string="Bulgaria VAT">
+                    <group>
+                        <group string="Sales">
+                            <field name="sale_doc_type"/>
+                            <field name="sale_fp_replace_id"/>
+                            <field name="sale_refund_doc_type"/>
+                            <field name="sale_dn_doc_type"/>
+                            <field name="sale_type_vat"/>
                         </group>
-                    </page>
-                </xpath>
-            </field>
-        </record>
-    </data>
+                        <group string="Purchase">
+                            <field name="purchase_doc_type"/>
+                            <field name="purchase_fp_replace_id"/>
+                            <field name="purchase_refund_doc_type"/>
+                            <field name="purchase_dn_doc_type"/>
+                            <field name="purchase_type_vat"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
 </odoo>

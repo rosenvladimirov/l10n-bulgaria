@@ -57,7 +57,6 @@
                     </div>
                 </div>
                 <t t-set="display_discount" t-value="any([l.discount for l in o.protocol_line_ids])"/>
-                <t t-call="l10n_bg_vat_reports.dealpartner"/>
                 <div class="row mt8 mb8" name="protocolbody">
                     <div class="col-xs-12">
                         <table class="table table-condensed" name="invoice_line_table">
@@ -164,4 +163,3 @@
     </t>
 </t>
 
-        

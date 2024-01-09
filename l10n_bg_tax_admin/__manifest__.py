@@ -22,7 +22,8 @@
         'account_financial_forms',
     ],
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
+        # 'data/account_tax_template_data.xml',
         'views/account_move_views.xml',
         'views/account_journal_views.xml',
         'views/l10n_bg_protocol_account_move.xml',

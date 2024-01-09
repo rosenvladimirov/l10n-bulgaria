@@ -246,7 +246,7 @@ class AccountMove(models.Model):
         if self.company_id.vat.lower().lstrip().startswith('bg'):
             base_name = [x for x in self.name.split('/')[-1] if x.isdigit()]
             decade = str(self.journal_id.decade)
-            base_name = [decade] + ['0']*(10 - len(base_name) - len(decade)) + base_name
+            base_name = [decade] + ['0'] * (10 - len(base_name) - len(decade)) + base_name
             name = ''.join(base_name)
         else:
             name = self.name
@@ -311,25 +311,12 @@ class AccountMove(models.Model):
                 vals['l10n_bg_protocol_line_ids'] = [Command.set(line_ids)]
         return vals
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        moves = super().create(vals_list)
-        for line in moves.filtered(lambda r: r.state == 'posted'):
-            if line.is_purchase_document(False) \
-                    and line.l10n_bg_type_vat == 'in_customs' \
-                    and line.line_ids:
-                customs_entry_id = line.copy(self._customs_vals(line))
-                line.l10n_bg_customs_invoice_id = customs_entry_id.id
-            if line.is_purchase_document(False) \
-                    and line.l10n_bg_type_vat == '117_protocol':
-                protocol_id = self.env['account.move.bg.protocol'].create(self._protocol_vals())
-                line.l10n_bg_protocol_invoice_id = protocol_id.id
-        return moves
-
-    def write(self, vals):
-        res = super().write(vals)
+    def action_post(self):
+        res = super().action_post()
         for line in self.filtered(lambda r: r.state == 'posted'):
-            if line.is_purchase_document() and vals.get('l10n_bg_type_vat') in ('in_customs', 'out_customs'):
+            if line.is_purchase_document() \
+                and line.l10n_bg_type_vat in ('in_customs', 'out_customs') \
+                    and not line.l10n_bg_customs_invoice_id:
                 old_l10n_bg_customs_invoice_id = self.env['account.move'].search([
                     ('id', '=', line.l10n_bg_customs_invoice_id.id),
                     ('move_type', '=', 'entry')
@@ -338,7 +325,40 @@ class AccountMove(models.Model):
                     old_l10n_bg_customs_invoice_id.unlink()
                 customs_entry_id = line.copy(self._customs_vals(line))
                 line.l10n_bg_customs_invoice_id = customs_entry_id.id
+            if line.is_purchase_document(False) \
+                and line.l10n_bg_type_vat == '117_protocol' \
+                    and not line.l10n_bg_protocol_invoice_id:
+                protocol_id = self.env['account.move.bg.protocol'].create(self._protocol_vals())
+                line.l10n_bg_protocol_invoice_id = protocol_id.id
+                line.l10n_bg_name = protocol_id.name
         return res
+
+    def button_draft(self):
+        super().button_draft()
+        _logger.info(f"STATE #: {self.state}")
+        for line in self.filtered(lambda r: r.state != 'posted'):
+            _logger.info(f"PROTOCOL #: {line.l10n_bg_protocol_invoice_id}")
+            if line.l10n_bg_customs_invoice_id:
+                line.env['account.move'].search([
+                    ('id', '=', line.l10n_bg_customs_invoice_id.id),
+                    ('move_type', '=', 'entry')
+                ]).unlink()
+
+            if line.l10n_bg_protocol_invoice_id:
+                line.env['account.move.bg.protocol'].search([
+                    ('id', '=', line.l10n_bg_protocol_invoice_id.id),
+                    ('move_type', '=', 'entry')
+                ]).unlink()
+                line.l10n_bg_protocol_invoice_id = False
+                line.l10n_bg_name = False
+
+    def button_cancel(self):
+        for line in self.filtered(lambda r: r.state != 'posted'):
+            if self.l10n_bg_customs_invoice_id:
+                self.env['account.move'].search([
+                    ('id', '=', line.l10n_bg_customs_invoice_id.id),
+                    ('move_type', '=', 'entry')
+                ]).unlink()
 
     # def unlink(self):
     #     if not self._context.get('unlink_added', False):
@@ -426,9 +446,20 @@ class AccountMove(models.Model):
             customs_entry_id = self.copy(self._customs_vals(self))
             self.l10n_bg_customs_invoice_id = customs_entry_id.id
             self.l10n_bg_customs_invoice_ids = [Command.set(customs_entry_id.ids)]
-        result = self.env["ir.actions.act_window"]._for_xml_id(
-            "account.action_move_in_invoice_type"
-        )
+        result = self.env.ref("account.action_move_in_invoice_type")
+        result = result.read()[0]
         result['res_id'] = self.l10n_bg_customs_invoice_id.id
         result["domain"] = [("id", "=", self.l10n_bg_customs_invoice_id.id)]
         return result
+
+    def view_account_protocol(self):
+        self.ensure_one()
+        if self.l10n_bg_protocol_invoice_id:
+            result = self.env.ref("l10n_bg_tax_admin.action_protocol_account_move")
+            result = result.read()[0]
+            result['context'] = {
+                'default_account_move_id': self.id,
+                'date_creation': self.invoice_date,
+            }
+            result["domain"] = [("id", "=", self.l10n_bg_protocol_invoice_id.id)]
+            return result

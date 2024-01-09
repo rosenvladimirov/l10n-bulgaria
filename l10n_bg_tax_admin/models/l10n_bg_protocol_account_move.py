@@ -14,7 +14,7 @@ class AccountMoveBgProtocol(models.Model):
     _check_company_auto = True
     _sequence_field = 'l10n_bg_name'
 
-    move_id = fields.Many2one('account.move', string='Account invoice', ondelete="cascade")
+    move_id = fields.Many2one('account.move', string='Account invoice', ondelete="cascade", required=True, index=True)
     date_creation = fields.Date('Created Date', required=True, default=fields.Date.today())
 
     # -------------------------------------------------------------------------

@@ -7,7 +7,7 @@ _logger = logging.getLogger(__name__)
 
 try:
     import stdnum
-    from stdnum.exceptions import InvalidFormat, InvalidChecksum, InvalidLength, InvalidComponent
+    from stdnum.exceptions import InvalidFormat, InvalidChecksum, InvalidLength, InvalidComponent, ValidationError
 except ImportError:
     _logger.debug("Cannot `import external dependency python stdnum package`.")
 
@@ -65,6 +65,12 @@ class ResPartner(models.Model):
                         validate = True
                 except InvalidFormat:
                     validate = False
+                except InvalidChecksum:
+                    validate = False
+                    _logger.info(f'Invalid check sum of {id_number}')
+                except ValidationError as e:
+                    _logger.info(f'Invalid {id_number} with error {e}')
+                    validate = False
 
             #  Try for EU VAT Number
             if not validate:
@@ -77,6 +83,9 @@ class ResPartner(models.Model):
                     validate = False
                 except InvalidFormat:
                     validate = False
+                except ValidationError as e:
+                    _logger.info(f'Invalid {id_number} with error {e}')
+                    validate = False
 
         # After check for ENG and PNF
         if not validate and not "".join(filter(str.istitle, id_number)) and "".join(filter(str.isdigit, id_number)):
@@ -88,6 +97,9 @@ class ResPartner(models.Model):
                     validate = True
             except InvalidFormat:
                 validate = False
+            except ValidationError as e:
+                _logger.info(f'Invalid {id_number} with error {e}')
+                validate = False
 
             # Check for PNF
             if not validate:
@@ -97,6 +109,9 @@ class ResPartner(models.Model):
                         self.l10n_bg_uic = stdnum.get_cc_module('bg', 'pnf').compact(id_number)
                         validate = True
                 except InvalidFormat:
+                    validate = False
+                except ValidationError as e:
+                    _logger.info(f'Invalid {id_number} with error {e}')
                     validate = False
         # Finally mark like outside EU if not validated
         if not validate:

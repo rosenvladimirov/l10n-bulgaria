@@ -44,4 +44,4 @@ class ResCompany(models.Model):
     @api.depends('vat')
     def _onchange_vat(self):
         self.partner_id._check_l10n_bg_uic()
-    
+

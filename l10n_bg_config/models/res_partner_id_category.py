@@ -39,43 +39,48 @@ class ResPartnerIdCategory(models.Model):
             return False
         id_number = str(id_number).upper()
         validate = False
-        cat = False
         duplicate_bg = False
-        id_number_check = "".join(filter(str.isdigit, id_number))
 
-        if not validate:
+        # First check the id_number without any prefix only digits like ENG or PNF
+        if not "".join(filter(str.istitle, id_number)):
+            # Validation for BG Identification Number (EGN)
             try:
-                if stdnum.get_cc_module('bg', 'egn').validate(id_number_check):
+                if stdnum.get_cc_module('bg', 'egn').validate(id_number):
                     cat = self.env.ref("l10n_bg_config.partner_identification_egn_number_category").id
+                    duplicate_bg = self._search_duplicate(cat, id_number, True)
                     validate = True
             except InvalidLength:
-                _logger.info(f"Invalid length for EGN: {id_number_check}")
+                _logger.info(f"Invalid length for EGN: {id_number}")
             except ValidationError:
-                _logger.info(f"Validate error for EGN: {id_number_check}")
+                _logger.info(f"Validate error for EGN: {id_number}")
 
-        if not validate:
-            try:
-                if stdnum.get_cc_module('bg', 'pnf').validate(id_number):
-                    cat = self.env.ref("l10n_bg_config.partner_identification_pnf_number_category").id
+            # Validation for BG Personal Number of a Foreigner (PNF)
+            if not validate:
+                try:
+                    if stdnum.get_cc_module('bg', 'pnf').validate(id_number):
+                        cat = self.env.ref("l10n_bg_config.partner_identification_pnf_number_category").id
+                        duplicate_bg = self._search_duplicate(cat, id_number, True)
+                        validate = True
+                except InvalidLength:
+                    _logger.info("Invalid length for PNF")
+
+            # Validation for BG Unified Identification Code (UIC)
+            if not validate:
+                uid_check = "".join(filter(str.isdigit, id_number))
+                if len(uid_check) in [9, 13] and check_uic_base(uid_check):
+                    cat = self.env.ref("l10n_bg_config.partner_identification_uic_number_category").id
+                    duplicate_bg = self._search_duplicate(cat, uid_check, True)
                     validate = True
-            except InvalidLength:
-                _logger.info("Invalid length for PNF")
+                else:
+                    _logger.info("The length of id_number_check ot 9 or 13")
 
-        if not validate:
-            if len(id_number_check) in [9, 13] and check_uic_base(id_number_check):
-                cat = self.env.ref("l10n_bg_config.partner_identification_uic_number_category").id
-                validate = True
-            else:
-                _logger.info("The length of id_number_check ot 9 or 13")
+                if len(uid_check) == 13 and not check_uic_extra(uid_check):
+                    cat = self.env.ref("l10n_bg_config.partner_identification_uic_number_category").id
+                    duplicate_bg = self._search_duplicate(cat, uid_check, True)
+                    validate = True
+                else:
+                    _logger.info("The length of is 13")
 
-            if len(id_number_check) == 13 and not check_uic_extra(id_number_check):
-                cat = self.env.ref("l10n_bg_config.partner_identification_uic_number_category").id
-                validate = True
-            else:
-                _logger.info("The length of is 13")
-
-        if cat:
-            duplicate_bg = self._search_duplicate(cat, id_number_check, True)
         if not duplicate_bg or not validate:
             _logger.info("Duplicate")
             return False

@@ -1,4 +1,3 @@
-#  -*- coding: utf-8 -*-
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
@@ -7,87 +6,57 @@ from odoo import api, fields, models, _
 class AccountFiscalPosition(models.Model):
     _inherit = 'account.fiscal.position'
 
-    def _get_default_type(self, mode=0):
-        company_id = self.env.company
-        if mode in [1, 2]:
-            value = 'standard'
-        elif mode in [3, 4, 5, 6, 7, 8]:
-            value = '01'
-        else:
-            value = ''
-        out_type_fp = self.env.ref(f'l10n_bg.{company_id}_fiscal_position_template_out_eu', raise_if_not_found=False)
-        in_type_fp = self.env.ref(f'l10n_bg.{company_id}_fiscal_position_template_in_eu', raise_if_not_found=False)
-        standard_type_fp = self.env.ref(f'l10n_bg.{company_id}_fiscal_position_template_dom',
-                                        raise_if_not_found=False)
-        if out_type_fp and self.id == out_type_fp.ip:
-            if mode == 1:
-                value = 'out_customs'
-            elif mode == 2:
-                value = 'in_customs'
-            elif mode in [3, 4, 5, 6, 7, 8]:
-                value = '07'
+    type_ids = fields.One2many('account.fiscal.position.type', 'position_id', string='Type Mapping', copy=True)
 
-        if in_type_fp and self.id == in_type_fp.id:
-            if mode == 1:
-                value = 'standard'
-            elif mode == 2:
-                value = '117_protocol'
-            elif mode in [3, 5, 7]:
-                value = '09'
-            elif mode in [4, 6, 8]:
-                value = '01'
+    def _map_type_domain(self, invoice_id):
+        return [
+            ('position_id', '=', self.id),
+            ('invoice_type', '=', invoice_id.type),
+            ('l10n_bg_type_vat', '=', invoice_id.l10n_bg_type_vat)
+        ]
 
-        if standard_type_fp and self.id == standard_type_fp.id:
-            if mode == 1:
-                value = 'standard'
-            elif mode == 2:
-                value = 'standard'
-            elif mode == [3, 4]:
-                value = '01'
-            elif mode in [5, 6]:
-                value = '03'
-            elif mode in [7, 8]:
-                value = '02'
-        return value
+    def map_type(self, invoice_id):
+        if not invoice_id:
+            return False
+        return self.env['account.fiscal.position.type'].search(self._map_type_domain(invoice_id))
 
-    purchase_type_vat = fields.Selection(selection=lambda self: self.env['account.move']._get_type_vat(),
-                                         string="Type of numbering",
-                                         default=lambda self: self._get_default_type(mode=2))
-    sale_type_vat = fields.Selection(selection=lambda self: self.env['account.move']._get_type_vat(),
-                                     string="Type of numbering",
-                                     default=lambda self: self._get_default_type(mode=1))
 
-    purchase_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_doc_type(),
-                                         string="Vat type doc for purchase",
-                                         default=lambda self: self._get_default_type(mode=3)
-                                         )
-    sale_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_doc_type(),
-                                     string="Vat type doc for sale",
-                                     default=lambda self: self._get_default_type(mode=4)
-                                     )
+class AccountFiscalPositionType(models.Model):
+    _name = 'account.fiscal.position.type'
+    _description = 'Accounts Mapping of Fiscal Position'
+    _rec_name = 'position_id'
+    _check_company_auto = True
 
-    purchase_refund_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_doc_type(),
-                                                string="Vat type doc for purchase refund",
-                                                default=lambda self: self._get_default_type(mode=5)
-                                                )
-    sale_refund_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_doc_type(),
-                                            string="Vat type doc for sale refund",
-                                            default=lambda self: self._get_default_type(mode=6)
-                                            )
+    def _get_invoice_type(self):
+        return [
+            ('out_invoice', 'Customer Invoice'),
+            ('out_refund', 'Customer Credit Note'),
+            ('in_invoice', 'Vendor Bill'),
+            ('in_refund', 'Vendor Credit Note'),
+            ('out_receipt', 'Sales Receipt'),
+            ('in_receipt', 'Purchase Receipt'),
+        ]
 
-    purchase_dn_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_doc_type(),
-                                            string="Vat type doc for purchase debit note",
-                                            default=lambda self: self._get_default_type(mode=7)
-                                            )
-    sale_dn_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_doc_type(),
-                                        string="Vat type doc for sale debit note",
-                                        default=lambda self: self._get_default_type(mode=8)
+    position_id = fields.Many2one('account.fiscal.position',
+                                  string='Fiscal Position',
+                                  required=True, ondelete='cascade')
+    position_dest_id = fields.Many2one('account.fiscal.position',
+                                       string='Replacement fiscal position')
+    invoice_type = fields.Selection(lambda self: self._get_invoice_type(), 'Invoice type',
+                                    index=True,
+                                    copy=False
+                                    )
+    l10n_bg_type_vat = fields.Selection(selection=lambda self: self.env['account.move']._get_type_vat(),
+                                        string="Type of numbering",
+                                        default='standard',
+                                        copy=False,
+                                        index=True,
                                         )
-    purchase_fp_replace_id = fields.Many2one('account.fiscal.position',
-                                             'Purchase replace with',
-                                             help='Replace fiscal position if create account entry base '
-                                                  'on invoice case import and export outside of EU')
-    sale_fp_replace_id = fields.Many2one('account.fiscal.position',
-                                         'Sale replace with',
-                                         help='Replace fiscal position if create account entry base '
-                                              'on invoice case import and export outside of EU')
+    l10n_bg_doc_type = fields.Selection(selection=lambda self: self._get_doc_type(),
+                                        string="Vat type document",
+                                        default='01',
+                                        copy=False,
+                                        index=True,
+                                        )
+    l10n_bg_narration = fields.Char('Narration for audit report', translate=True)
+    new_account_entry = fields.Boolean('Create new account entry')

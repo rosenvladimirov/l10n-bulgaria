@@ -75,6 +75,8 @@ class AccountMove(models.Model):
                                         default='01',
                                         copy=False)
     l10n_bg_name = fields.Char('Number of locale document', index='trigram', tracking=True, copy=False)
+    l10n_bg_narration = fields.Char('Narration for audit report', translate=True, copy=False)
+    l10n_bg_force_new_entry = fields.Boolean('Force new')
 
     # ---------------
     # PROTOCOL FIELDS
@@ -213,22 +215,14 @@ class AccountMove(models.Model):
     @api.onchange('fiscal_position_id')
     def _onchange_fiscal_position_id(self):
         if self.fiscal_position_id:
-            if self.is_purchase_document():
-                self.l10n_bg_type_vat = self.fiscal_position_id.purchase_type_vat
-                if self.is_vendor_invoice():
-                    self.l10n_bg_doc_type = self.fiscal_position_id.purchase_doc_type
-                elif self.is_vendor_refund():
-                    self.l10n_bg_doc_type = self.fiscal_position_id.purchase_refund_doc_type
-                elif self.is_vendor_debit_note():
-                    self.l10n_bg_doc_type = self.fiscal_position_id.purchase_dn_doc_type
-            elif self.is_sale_document():
-                self.l10n_bg_type_vat = self.fiscal_position_id.sale_type_vat
-                if self.is_customer_invoice():
-                    self.l10n_bg_doc_type = self.fiscal_position_id.sale_doc_type
-                elif self.is_customer_refund():
-                    self.l10n_bg_doc_type = self.fiscal_position_id.sale_refund_doc_type
-                elif self.is_customer_debit_note():
-                    self.l10n_bg_doc_type = self.fiscal_position_id.sale_dn_doc_type
+            map_id = self.fiscal_position_id.map_type(self)
+            if map_id:
+                self.update({
+                    'l10n_bg_type_vat': map_id.l10n_bg_type_vat,
+                    'l10n_bg_doc_type': map_id.l10n_bg_doc_type,
+                    'l10n_bg_narration': map_id.l10n_bg_narration,
+                    'l10n_bg_force_new_entry': map_id.new_account_entry,
+                })
 
     # -------------------------------------------------------------------------
     # PAYMENT REFERENCE
@@ -314,7 +308,8 @@ class AccountMove(models.Model):
     def action_post(self):
         res = super().action_post()
         for line in self.filtered(lambda r: r.state == 'posted'):
-            if line.is_purchase_document() \
+            if line.l10n_bg_force_new_entry \
+                and line.is_purchase_document() \
                 and line.l10n_bg_type_vat in ('in_customs', 'out_customs') \
                     and not line.l10n_bg_customs_invoice_id:
                 old_l10n_bg_customs_invoice_id = self.env['account.move'].search([

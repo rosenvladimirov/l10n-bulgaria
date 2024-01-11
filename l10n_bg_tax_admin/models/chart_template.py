@@ -3,7 +3,7 @@
 from odoo import api, fields, models, Command, _, osv
 
 
-class AccountTaxTemplate(models.Model):
+class AccountTypeTemplate(models.Model):
     _name = 'account.fiscal.position.type.template'
     _description = 'Type Mapping Template of Fiscal Position'
     _order = 'position_id'

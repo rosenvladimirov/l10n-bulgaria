@@ -17,12 +17,17 @@
                         type='object' groups="account.group_account_invoice"
                         context="{'search_default_l10n_bg_customs_invoice_id': [active_id]}"
                         data-hotkey='r'
-                        attrs="{'invisible': [('l10n_bg_customs_invoice_id', '=', False)]}"/>
+                        attrs="{'invisible': [('l10n_bg_customs_invoice_id', '=', False), ('l10n_bg_type_vat', 'not in', ['in_customs', 'out_customs']), ('move_type', '==', 'entry')]}"/>
+                <button name="view_account_custom" string='Invoice'
+                        type='object' groups="account.group_account_invoice"
+                        context="{'search_default_l10n_bg_customs_invoice_id': [active_id]}"
+                        data-hotkey='r'
+                        attrs="{'invisible': [('l10n_bg_customs_invoice_id', '=', False), ('l10n_bg_type_vat', 'not in', ['in_customs', 'out_customs']), ('move_type', '!=', 'entry')]}"/>
+
             </xpath>
             <xpath expr="//field[@name='quick_encoding_vals']" position="after">
                 <field name="l10n_bg_protocol_invoice_id" invisible="1"/>
                 <field name="l10n_bg_protocol_date" invisible="1"/>
-                <field name="l10n_bg_protocol_line_ids" invisible="1"/>
                 <field name="l10n_bg_customs_invoice_id" invisible="1"/>
                 <field name="l10n_bg_customs_commercial_partner_id" invisible="1"/>
             </xpath>
@@ -36,58 +41,9 @@
                         <group>
                             <field name="l10n_bg_customs_date"/>
                             <field name="l10n_bg_name" attrs="{'invisible': [('l10n_bg_type_vat', '!=', 'standard'), ('move_type', '!=', 'entry')]}"/>
-                            <field name="l10n_bg_customs_invoice_ids" widget="many2many_tags"/>
                         </group>
                     </group>
-                    <field name="l10n_bg_customs_line_ids" readonly="1">
-                        <tree string="Invoice lines">
-                            <field name="product_id"
-                                   optional="show"
-                                   widget="many2one_barcode"
-                                   domain="
-                                        context.get('default_move_type') in ('out_invoice', 'out_refund', 'out_receipt')
-                                        and [('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]
-                                        or [('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]
-                                   "/>
-                            <field name="name" widget="section_and_note_text" optional="show"/>
-                            <field name="account_id"
-                                           context="{'partner_id': partner_id, 'move_type': parent.move_type}"
-                                           groups="account.group_account_readonly"
-                                           options="{'no_create': True}"
-                                           domain="[('deprecated', '=', False), ('account_type', 'not in', ('asset_receivable', 'liability_payable')), ('company_id', '=', parent.company_id), ('is_off_balance', '=', False)]"
-                                           attrs="{'required': [('display_type', 'not in', ('line_note', 'line_section'))]}"/>
-                            <field name="analytic_distribution" widget="analytic_distribution"
-                                   groups="analytic.group_analytic_accounting"
-                                   optional="show"
-                                   options="{'product_field': 'product_id', 'account_field': 'account_id'}"/>
-                            <field name="quantity" optional="show"/>
-                            <field name="product_uom_category_id" invisible="1"/>
-                            <field name="product_uom_id" string="UoM" groups="uom.group_uom" optional="show"/>
-                            <field name="price_unit" string="Price"/>
-                            <field name="discount" string="Disc.%" optional="hide"/>
-                            <field name="tax_ids" widget="many2many_tags"
-                                   domain="[('type_tax_use', '=?', parent.invoice_filter_type_domain), ('company_id', '=', parent.company_id), ('country_id', '=', parent.tax_country_id)]"
-                                   context="{'append_type_to_tax_name': not parent.invoice_filter_type_domain}"
-                                   options="{'no_create': True}"
-                                   optional="show"/>
-                            <field name="price_subtotal"
-                                   string="Subtotal"
-                                   groups="account.group_show_line_subtotals_tax_excluded"/>
-                            <field name="price_total"
-                                   string="Total"
-                                   groups="account.group_show_line_subtotals_tax_included"/>
-
-                            <!-- Others fields -->
-                            <field name="partner_id" invisible="1"/>
-                            <field name="currency_id" invisible="1"/>
-                            <field name="company_id" invisible="1"/>
-                            <field name="company_currency_id" invisible="1"/>
-                            <field name="display_type" force_save="1" invisible="1"/>
-                            <!-- /l10n_in_edi.test_edi_json -->
-                            <!-- required for @api.onchange('product_id') -->
-                            <field name="product_uom_id" invisible="1"/>
-                        </tree>
-                    </field>
+                    <field name="l10n_bg_customs_invoice_ids" widget="one2many"/>
                 </page>
             </xpath>
             <xpath expr="//page[@id='other_tab']/group[@id='other_tab_group']" position="inside">

@@ -61,7 +61,7 @@
                             <p class="m-0" t-field="o.customs_date"/>
                         </div>
                     </div>
-                    <t t-set="display_discount" t-value="any(l.discount for l in o.l10n_bg_customs_line_ids)"/>
+<!--                    <t t-set="display_discount" t-value="any(l.discount for l in o.l10n_bg_customs_line_ids)"/>-->
                     <table class="table table-sm o_main_table table-borderless" name="customs_line_table">
                         <thead>
                             <tr>

@@ -7,22 +7,16 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page name="bg_vat_mapping" string="Bulgaria VAT">
-                    <group>
-                        <group string="Sales">
-                            <field name="sale_doc_type"/>
-                            <field name="sale_fp_replace_id"/>
-                            <field name="sale_refund_doc_type"/>
-                            <field name="sale_dn_doc_type"/>
-                            <field name="sale_type_vat"/>
-                        </group>
-                        <group string="Purchase">
-                            <field name="purchase_doc_type"/>
-                            <field name="purchase_fp_replace_id"/>
-                            <field name="purchase_refund_doc_type"/>
-                            <field name="purchase_dn_doc_type"/>
-                            <field name="purchase_type_vat"/>
-                        </group>
-                    </group>
+                    <field name="type_ids">
+                        <tree editable="bottom">
+                            <field name="invoice_type"/>
+                            <field name="l10n_bg_doc_type"/>
+                            <field name="l10n_bg_type_vat"/>
+                            <field name="l10n_bg_narration"/>
+                            <field name="position_dest_id" options="{'no_create': True}"/>
+                            <field name="new_account_entry"/>
+                        </tree>
+                    </field>
                 </page>
             </xpath>
         </field>

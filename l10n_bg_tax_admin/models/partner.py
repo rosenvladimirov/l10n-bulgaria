@@ -1,6 +1,9 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
+import logging
 
 from odoo import api, fields, models, _
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountFiscalPosition(models.Model):
@@ -11,11 +14,12 @@ class AccountFiscalPosition(models.Model):
     def _map_type_domain(self, invoice_id):
         return [
             ('position_id', '=', self.id),
-            ('invoice_type', '=', invoice_id.type),
-            ('l10n_bg_type_vat', '=', invoice_id.l10n_bg_type_vat)
+            ('invoice_type', '=', invoice_id.move_type),
+            # ('l10n_bg_type_vat', '=', invoice_id.l10n_bg_type_vat)
         ]
 
     def map_type(self, invoice_id):
+        _logger.info(f"invoice id: {invoice_id}")
         if not invoice_id:
             return False
         return self.env['account.fiscal.position.type'].search(self._map_type_domain(invoice_id))
@@ -52,7 +56,7 @@ class AccountFiscalPositionType(models.Model):
                                         copy=False,
                                         index=True,
                                         )
-    l10n_bg_doc_type = fields.Selection(selection=lambda self: self._get_doc_type(),
+    l10n_bg_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_doc_type(),
                                         string="Vat type document",
                                         default='01',
                                         copy=False,

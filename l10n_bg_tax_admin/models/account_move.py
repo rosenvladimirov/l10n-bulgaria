@@ -1,6 +1,7 @@
 #  -*- coding: utf-8 -*-
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 import logging
+from collections import defaultdict
 
 from contextlib import contextmanager
 from functools import lru_cache
@@ -93,6 +94,10 @@ class AccountMove(models.Model):
     # CUSTOMS FIELDS
     # --------------
 
+    l10n_bg_customs_type = fields.Selection(selection=[
+        ('customs', _('Customs record')),
+        ('invoices', _('Invoice record'))
+    ], string='Customs type')
     l10n_bg_currency_rate = fields.Float('Statistics currency rate',
                                          default=lambda self: self._default_l10n_bg_currency_rate(),
                                          help="Statistics currency rate for customs in Bulgaria.",
@@ -201,7 +206,6 @@ class AccountMove(models.Model):
                     'l10n_bg_type_vat': map_id.l10n_bg_type_vat,
                     'l10n_bg_doc_type': map_id.l10n_bg_doc_type,
                     'l10n_bg_narration': map_id.l10n_bg_narration,
-                    'l10n_bg_force_new_entry': map_id.new_account_entry,
                 })
 
     # -------------------------------------------------------------------------
@@ -242,16 +246,48 @@ class AccountMove(models.Model):
             name += self.l10n_bg_name and "(%s)" % self.l10n_bg_name or ""
         return name
 
-    def _customs_vals(self, line, map_id):
+    def _customs_vals(self, map_id):
+        base_lines = self.invoice_line_ids.filtered(lambda line: line.display_type == 'product')
+        base_line_values_list = [line._convert_to_tax_base_line_dict() for line in base_lines]
+
+        # prepare calculation for base of new move record
+        tax_results = self.env['account.tax']._compute_taxes(base_line_values_list)
+        company_currency = self.company_id.currency_id
+        rate = self.currency_id._get_conversion_rate(self.currency_id,
+                                                     company_currency,
+                                                     self.company_id,
+                                                     self.invoice_date)
+        aml_vals_list = []
+        # Create the tax lines
+        for tax_line_vals in tax_results['tax_lines_to_add']:
+            tax_rep = self.env['account.tax.repartition.line'].browse(tax_line_vals['tax_repartition_line_id'])
+            amount_currency = tax_line_vals['tax_amount']
+            balance = company_currency.round(amount_currency * rate)
+            aml_vals_list.append(Command.create({
+                'name': tax_rep.tax_id.name,
+                'account_id': tax_line_vals['account_id'],
+                'partner_id': tax_line_vals['partner_id'],
+                'currency_id': tax_line_vals['currency_id'],
+                'tax_repartition_line_id': tax_line_vals['tax_repartition_line_id'],
+                'tax_ids': tax_line_vals['tax_ids'],
+                'tax_tag_ids': tax_line_vals['tax_tag_ids'],
+                'group_tax_id': None if tax_rep.tax_id.id == tax_line_vals['tax_id'] else tax_line_vals[
+                    'tax_id'],
+                'amount_currency': amount_currency,
+                'balance': balance,
+            }))
+        _logger.info(f"taxes {aml_vals_list}")
+
         return {
             'move_type': 'entry',
             'l10n_bg_type_vat': 'standard',
             'fiscal_position_id': map_id.position_dest_id.id,
-            'invoice_line_ids': False,
-            'l10n_bg_customs_invoice_id': line.id,
-            'l10n_bg_customs_date': line.invoice_date,
-            'l10n_bg_customs_commercial_partner_id': line.commercial_partner_id.id,
-            'l10n_bg_customs_partner_shipping_id': line.partner_shipping_id.id,
+            'l10n_bg_customs_invoice_id': self.id,
+            'l10n_bg_customs_date': self.invoice_date,
+            'l10n_bg_customs_commercial_partner_id': self.commercial_partner_id.id,
+            'l10n_bg_customs_partner_shipping_id': self.partner_shipping_id.id,
+            # 'line_ids': aml_vals_list,
+            'invoice_line_ids': [Command.clear()],
         }
 
     # def _sanitize_vals(self, vals):
@@ -270,11 +306,11 @@ class AccountMove(models.Model):
     #     return vals
 
     def action_post(self):
-        for line in self.filtered(lambda r: r.state != 'posted'):
-            map_id = self.fiscal_position_id.map_type(line)
-            _logger.info(f"MAP {map_id.l10n_bg_type_vat}:{map_id.new_account_entry} - {line}")
+        for move in self.filtered(lambda r: r.state != 'posted'):
+            map_id = self.fiscal_position_id.map_type(move)
+            # _logger.info(f"MAP {map_id.l10n_bg_type_vat}:{map_id.new_account_entry} - {line}")
             if map_id:
-                line.write({
+                move.write({
                     'l10n_bg_type_vat': map_id.l10n_bg_type_vat,
                     'l10n_bg_doc_type': map_id.l10n_bg_doc_type,
                     'l10n_bg_narration': map_id.l10n_bg_narration,
@@ -282,25 +318,28 @@ class AccountMove(models.Model):
                 })
             if map_id.new_account_entry and map_id.l10n_bg_type_vat in ('in_customs', 'out_customs'):
                 self.env['account.move'].search([
-                    ('id', '=', line.l10n_bg_customs_invoice_id.id),
+                    ('id', '=', move.l10n_bg_customs_invoice_id.id),
                     ('move_type', '=', 'entry')
                 ]).unlink()
                 if map_id and not map_id.position_dest_id:
                     raise UserError(_('Missing configuration for replacing fiscal position for export/import customs'))
-                customs_entry_id = line.copy(self._customs_vals(line, map_id))
-                line._default_l10n_bg_currency_rate()
-                line.l10n_bg_customs_invoice_id = customs_entry_id.id
-                customs_entry_id.l10n_bg_customs_invoice_ids |= line
-                customs_entry_id.l10n_bg_customs_invoice_id = line.id
-            if line.is_purchase_document(False) \
-                and line.l10n_bg_type_vat == '117_protocol' \
-                    and not line.l10n_bg_protocol_invoice_id:
+
+                customs_entry_id = move.copy(move._customs_vals(map_id))
+                move._default_l10n_bg_currency_rate()
+                move.l10n_bg_customs_type = 'invoices'
+                move.l10n_bg_customs_invoice_id = customs_entry_id.id
+                customs_entry_id.l10n_bg_customs_type = 'customs'
+                customs_entry_id.l10n_bg_customs_invoice_ids |= move
+                customs_entry_id.l10n_bg_customs_invoice_id = move.id
+            if move.is_purchase_document(False) \
+                and move.l10n_bg_type_vat == '117_protocol' \
+                    and not move.l10n_bg_protocol_invoice_id:
                 protocol_id = self.env['account.move.bg.protocol'].\
-                    create(self.env['account.move.bg.protocol']._protocol_vals(line))
-                line.l10n_bg_protocol_invoice_id = protocol_id.id
-                # for line_id in self.line_ids:
-                #     copied_vals = line_id.copy_data()[0]
-                #     line.l10n_bg_protocol_line_ids += self.env['account.move.line'].new(copied_vals)
+                    create(self.env['account.move.bg.protocol']._protocol_vals(move))
+                move.l10n_bg_protocol_invoice_id = protocol_id.id
+            if move.l10n_bg_customs_type and not (map_id.new_account_entry
+                                                  and map_id.l10n_bg_type_vat in ('in_customs', 'out_customs')):
+                move.l10n_bg_customs_type = False
         return super().action_post()
 
     def button_draft(self):
@@ -362,6 +401,10 @@ class AccountMove(models.Model):
         return ['in_refund']
 
     @api.model
+    def get_vendor_customs(self, include_receipts=False):
+        return self.get_vendor_invoice(include_receipts=include_receipts), ['in_customs']
+
+    @api.model
     def is_vendor_invoice(self, include_receipts=False):
         return self.move_type in self.get_vendor_invoice(include_receipts)
 
@@ -378,12 +421,23 @@ class AccountMove(models.Model):
         return len(self.debit_origin_id) == 1
 
     @api.model
+    def is_vendor_customs(self, include_receipts=False):
+        move_type, l10n_bg_type_vat = self.get_vendor_customs(include_receipts=include_receipts)
+        if self.move_type in move_type and self.l10n_bg_type_vat in l10n_bg_type_vat:
+            return True
+        return False
+
+    @api.model
     def get_customer_invoice(self, include_receipts=False):
         return ['out_invoice'] + (include_receipts and ['out_receipt'] or [])
 
     @api.model
     def get_customer_refund(self, include_receipts=False):
         return ['out_refund']
+
+    @api.model
+    def get_customer_customs(self, include_receipts=False):
+        return self.get_customer_invoice(include_receipts=include_receipts), ['out_customs']
 
     @api.model
     def get_customer_debit_note(self, include_receipts=False):
@@ -404,6 +458,13 @@ class AccountMove(models.Model):
     @api.model
     def is_customer_debit_note(self, include_receipts=False):
         return self.move_type in self.get_customer_debit_note(include_receipts)
+
+    @api.model
+    def is_customer_customs(self, include_receipts=False):
+        move_type, l10n_bg_type_vat = self.get_customer_customs(include_receipts=include_receipts)
+        if self.move_type in move_type and self.l10n_bg_type_vat in l10n_bg_type_vat:
+            return True
+        return False
 
     # ------------------------------------
     #  ACTIONS

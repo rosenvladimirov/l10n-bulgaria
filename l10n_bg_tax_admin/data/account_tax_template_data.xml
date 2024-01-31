@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<odoo noupdate="1">
     <!-- Child taxes Incomes -->
     <record id="l10n_bg.l10n_bg_purchase_vat_20_ica_income" model="account.tax.template">
         <field name="sequence">302</field>

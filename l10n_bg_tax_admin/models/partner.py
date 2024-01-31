@@ -19,7 +19,7 @@ class AccountFiscalPosition(models.Model):
         ]
 
     def map_type(self, invoice_id):
-        _logger.info(f"invoice id: {invoice_id}")
+        # _logger.info(f"invoice id: {invoice_id}")
         if not invoice_id:
             return False
         return self.env['account.fiscal.position.type'].search(self._map_type_domain(invoice_id))

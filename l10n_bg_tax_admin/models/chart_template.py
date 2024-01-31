@@ -3,16 +3,22 @@
 from odoo import api, fields, models, Command, _, osv
 
 
+class AccountFiscalPositionTemplate(models.Model):
+    _inherit = 'account.fiscal.position.template'
+
+    type_ids = fields.One2many('account.fiscal.position.type.template', 'position_id', string='Type Mapping', copy=True)
+
+
 class AccountTypeTemplate(models.Model):
     _name = 'account.fiscal.position.type.template'
     _description = 'Type Mapping Template of Fiscal Position'
     _order = 'position_id'
 
     position_id = fields.Many2one('account.fiscal.position.template',
-                                  string='Fiscal Position',
+                                  string='Fiscal Position Template',
                                   required=True,
                                   ondelete='cascade')
-    position_dest_id = fields.Many2one('account.fiscal.position',
+    position_dest_id = fields.Many2one('account.fiscal.position.template',
                                        string='Replacement fiscal position')
     invoice_type = fields.Selection([
         ('out_invoice', 'Customer Invoice'),

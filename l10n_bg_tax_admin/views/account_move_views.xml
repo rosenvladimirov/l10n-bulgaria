@@ -17,12 +17,12 @@
                         type='object' groups="account.group_account_invoice"
                         context="{'search_default_l10n_bg_customs_invoice_id': [active_id]}"
                         data-hotkey='r'
-                        attrs="{'invisible': [('l10n_bg_customs_invoice_id', '=', False), ('l10n_bg_type_vat', 'not in', ['in_customs', 'out_customs']), ('move_type', '==', 'entry')]}"/>
+                        attrs="{'invisible': [('l10n_bg_customs_type', '!=', 'invoices')]}"/>
                 <button name="view_account_custom" string='Invoice'
                         type='object' groups="account.group_account_invoice"
                         context="{'search_default_l10n_bg_customs_invoice_id': [active_id]}"
                         data-hotkey='r'
-                        attrs="{'invisible': [('l10n_bg_customs_invoice_id', '=', False), ('l10n_bg_type_vat', 'not in', ['in_customs', 'out_customs']), ('move_type', '!=', 'entry')]}"/>
+                        attrs="{'invisible': [('l10n_bg_customs_type', '!=', 'customs')]}"/>
 
             </xpath>
             <xpath expr="//field[@name='quick_encoding_vals']" position="after">
@@ -30,6 +30,7 @@
                 <field name="l10n_bg_protocol_date" invisible="1"/>
                 <field name="l10n_bg_customs_invoice_id" invisible="1"/>
                 <field name="l10n_bg_customs_commercial_partner_id" invisible="1"/>
+                <field name="l10n_bg_customs_type" invisible="1"/>
             </xpath>
             <xpath expr="//notebook/page[@id='invoice_tab']" position="after">
                 <page id="customs_tab" name="customs_tab" string="Customs invoices" attrs="{'invisible': [('l10n_bg_customs_invoice_id', '=', False)]}">

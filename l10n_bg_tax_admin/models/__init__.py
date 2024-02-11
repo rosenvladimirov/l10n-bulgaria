@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from . import chart_template
+from . import account_account
 from . import res_currency
 from . import account_journal
 from . import account_move

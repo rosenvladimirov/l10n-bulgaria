@@ -328,6 +328,8 @@ class AccountMove(models.Model):
                 move._default_l10n_bg_currency_rate()
                 move.l10n_bg_customs_type = 'invoices'
                 move.l10n_bg_customs_invoice_id = customs_entry_id.id
+                nra_id = self.env.ref('l10n_bg_tax_admin.nra', raise_if_not_found=False)
+                customs_entry_id.partner_id = nra_id
                 customs_entry_id.l10n_bg_customs_type = 'customs'
                 customs_entry_id.l10n_bg_customs_invoice_ids |= move
                 customs_entry_id.l10n_bg_customs_invoice_id = move.id

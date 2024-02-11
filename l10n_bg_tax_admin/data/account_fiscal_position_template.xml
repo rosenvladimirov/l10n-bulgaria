@@ -38,7 +38,7 @@
     </record>
 
     <record id="fiscal_position_bg_private_eu" model="account.fiscal.position.template">
-        <field name="name">EU B2C</field>
+        <field name="name">Taxable transactions EU</field>
         <field name="sequence">20</field>
         <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         <field name="auto_apply" eval="True"/>

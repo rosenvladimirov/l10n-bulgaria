@@ -3,7 +3,10 @@
 from odoo.tools.translate import load_language
 
 from odoo import SUPERUSER_ID, api
-
+from odoo.addons.l10n_bg_tax_admin.models.account_account import AccountAccount
+from odoo.addons.l10n_bg_tax_admin.models.chart_template import AccountChartTemplate
+from odoo.addons.account.models.account_account import AccountAccount as accountaccount
+from odoo.addons.account.models.chart_template import AccountChartTemplate as accountcharttemplate
 
 def pre_init_hook(cr):
     env = api.Environment(cr, SUPERUSER_ID, {})
@@ -20,3 +23,12 @@ def pre_init_hook(cr):
         fp.update({
             'noupdate': False,
         })
+
+
+def post_load_hook():
+    accountaccount._search_new_account_code = AccountAccount._search_new_account_code
+    accountcharttemplate._prepare_transfer_account_template = AccountChartTemplate._prepare_transfer_account_template
+    accountcharttemplate._create_liquidity_journal_suspense_account = AccountChartTemplate._create_liquidity_journal_suspense_account
+    accountcharttemplate._create_cash_discount_loss_account = AccountChartTemplate._create_cash_discount_loss_account
+    accountcharttemplate._create_cash_discount_gain_account = AccountChartTemplate._create_cash_discount_gain_account
+    accountcharttemplate.generate_fiscal_position = AccountChartTemplate.generate_fiscal_position

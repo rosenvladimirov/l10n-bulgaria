@@ -964,7 +964,7 @@
             <field name="name">Accounts Receivable from customers</field>
             <field name="reconcile">True</field>
             <field name="code">411.000</field>
-            <field name="account_type" ref="asset_receivable"/>
+            <field name="account_type" ref="asset_receivable"/> <!-- салдови за обвързване вземане-плащане -->
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg.pcg_412" model="account.account.template">
@@ -977,28 +977,28 @@
             <field name="name">Вземания от клиенти по търговски кредити</field>
             <field name="reconcile">True</field>
             <field name="code">413.000</field>
-            <field name="account_type" ref="asset_receivable"/>
+            <field name="account_type" ref="asset_receivable"/> <!-- салдови за обвързване вземане-плащане -->
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg.pcg_414" model="account.account.template">
             <field name="name">Sales receivables under certain conditions</field>
             <field name="reconcile">True</field>
             <field name="code">414.000</field>
-            <field name="account_type" ref="asset_receivable"/>
+            <field name="account_type" ref="asset_receivable"/> <!-- салдови за обвързване вземане-плащане -->
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg.pcg_416" model="account.account.template">
             <field name="name">Receivables from related parties</field>
             <field name="reconcile">True</field>
             <field name="code">416.000</field>
-            <field name="account_type" ref="asset_receivable"/>
+            <field name="account_type" ref="asset_receivable"/> <!-- салдови за обвързване вземане-плащане -->
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg.pcg_419" model="account.account.template">
             <field name="name">Other receivables from customers</field>
             <field name="reconcile">True</field>
             <field name="code">419.000</field>
-            <field name="account_type" ref="asset_receivable"/>
+            <field name="account_type" ref="asset_receivable"/> <!-- салдови за обвързване вземане-плащане -->
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 

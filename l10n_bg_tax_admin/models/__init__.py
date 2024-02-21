@@ -10,4 +10,7 @@ from . import account_move_line
 from . import l10n_bg_protocol_account_move
 from . import partner
 from . import l10n_bg_forms
+from . import product_category
+from . import product_product
+from . import product_template
 # from . import doc_account_account_tag

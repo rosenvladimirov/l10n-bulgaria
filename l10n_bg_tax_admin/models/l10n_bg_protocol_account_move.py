@@ -24,7 +24,7 @@ class AccountMoveBgProtocol(models.Model):
     protocol_date = fields.Date("Protocol date", copy=False, default=fields.Date.today())
     protocol_name = fields.Char(
         string='Protocol Number',
-        compute='_compute_name', inverse='_inverse_name', readonly=False, store=True,
+        compute='_compute_protocol_name', inverse='_inverse_protocol_name', readonly=False, store=True,
         copy=False,
         tracking=True,
         index='trigram',
@@ -34,7 +34,7 @@ class AccountMoveBgProtocol(models.Model):
     # -------------------------------------------------------------------------
 
     @api.depends('move_id.posted_before', 'move_id.state', 'move_id.journal_id', 'move_id.date', 'protocol_date')
-    def _compute_name(self):
+    def _compute_protocol_name(self):
         self = self.sorted(lambda m: (m.date, m.ref or '', m.id))
 
         for protocol in self:
@@ -53,9 +53,9 @@ class AccountMoveBgProtocol(models.Model):
                 protocol._set_next_sequence()
 
         self.filtered(lambda m: not m.protocol_name and not protocol.quick_edit_mode).protocol_name = '/'
-        self._inverse_name()
+        self._inverse_protocol_name()
 
-    def _inverse_name(self):
+    def _inverse_protocol_name(self):
         self.move_id.l10n_bg_name = self.protocol_name
         self.move_id.l10n_bg_protocol_date = self.protocol_date
 

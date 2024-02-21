@@ -5,7 +5,7 @@ from odoo.addons.l10n_bg_tax_admin.models.chart_template import _grouping
 
 
 class AccountAccount(models.Model):
-    _name = "account.account"
+    _inherit = "account.account"
 
     @api.model
     def _search_new_account_code(self, company, digits, prefix, grouping='[]'):

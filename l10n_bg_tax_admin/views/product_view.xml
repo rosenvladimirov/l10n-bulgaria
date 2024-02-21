@@ -5,7 +5,7 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="account.product_template_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='']/group[@name='properties']" position="inside">
+            <xpath expr="//group[@name='properties']" position="inside">
                 <group string="Bulgarian accounting">
                     <field name="l10n_bg_art_163a"/>
                 </group>
@@ -17,7 +17,7 @@
         <field name="model">product.category</field>
         <field name="inherit_id" ref="account.view_category_property_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='first']/group[@name='account_property']" position="inside">
+            <xpath expr="//group[@name='account_property']" position="inside">
                 <group string="Bulgarian accounting">
                     <field name="l10n_bg_art_163a"/>
                 </group>

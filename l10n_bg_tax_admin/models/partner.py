@@ -2,7 +2,9 @@
 import logging
 
 from odoo import api, fields, models, _
-from .chart_template import get_invoice_type
+from .chart_template import get_invoice_type, get_type_vat
+from odoo.addons.l10n_bg_config.models.account_move import get_doc_type
+
 _logger = logging.getLogger(__name__)
 
 
@@ -37,26 +39,24 @@ class AccountFiscalPositionType(models.Model):
     _rec_name = 'position_id'
     _check_company_auto = True
 
-    def _get_invoice_type(self):
-        return get_invoice_type()
 
     position_id = fields.Many2one('account.fiscal.position',
                                   string='Fiscal Position',
                                   required=True, ondelete='cascade')
     position_dest_id = fields.Many2one('account.fiscal.position',
                                        string='Replacement fiscal position')
-    invoice_type = fields.Selection(selection=lambda self: self._get_invoice_type(),
+    invoice_type = fields.Selection(selection=get_invoice_type,
                                     string='Invoice type',
                                     index=True,
                                     copy=False
                                     )
-    l10n_bg_type_vat = fields.Selection(selection=lambda self: self.env['account.move']._get_type_vat(),
+    l10n_bg_type_vat = fields.Selection(selection=get_type_vat,
                                         string="Type of numbering",
                                         default='standard',
                                         copy=False,
                                         index=True,
                                         )
-    l10n_bg_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_doc_type(),
+    l10n_bg_doc_type = fields.Selection(selection=get_doc_type,
                                         string="Vat type document",
                                         default='01',
                                         copy=False,

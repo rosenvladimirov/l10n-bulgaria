@@ -66,6 +66,10 @@ class ResConfigSettings(models.TransientModel):
         'TAX Audit forms',
         help='Account financial report base on tax administration forms for audit',
     )
+    module_l10n_bg_uic_id_number = fields.Boolean(
+        'Bulgarian multi register codes',
+        help='Bulgarian registration codes base on OCA module partner_identification',
+    )
 
     # module_l10n_bg_account_voucher = fields.Boolean(
     #     'Bulgaria - Accounting voucher',

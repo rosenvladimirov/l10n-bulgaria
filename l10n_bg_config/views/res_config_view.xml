@@ -107,6 +107,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-12 col-lg-6 o_setting_box" id="module_l10n_bg_uic_id_number">
+                                <div class="o_setting_left_pane">
+                                    <field name="module_l10n_bg_uic_id_number"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="module_l10n_bg_uic_id_number" />
+                                    <div class="text-muted">
+                                        Bulgarian registration codes base on OCA module partner_identification
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <t groups="account.group_account_user">
                             <h2>Default Accounts</h2>

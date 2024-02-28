@@ -1,4 +1,3 @@
-#  -*- coding: utf-8 -*-
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 import logging
 from functools import lru_cache
@@ -17,9 +16,9 @@ class AccountMove(models.Model):
     l10n_bg_type_vat = fields.Selection(selection=get_type_vat,
                                         string="Type of numbering",
                                         default='standard',
-                                        copy=False)
-    # l10n_bg_force_new_entry = fields.Boolean('Force new')
-
+                                        copy=False,
+                                        index=True,
+                                        )
     # ---------------
     # PROTOCOL FIELDS
     # ---------------
@@ -276,8 +275,8 @@ class AccountMove(models.Model):
                 customs_entry_id.l10n_bg_customs_invoice_id = move.id
             if move.is_purchase_document(False) \
                 and move.l10n_bg_type_vat == '117_protocol' \
-                    and not move.l10n_bg_protocol_invoice_id:
-                protocol_id = self.env['account.move.bg.protocol'].\
+                and not move.l10n_bg_protocol_invoice_id:
+                protocol_id = self.env['account.move.bg.protocol']. \
                     create(self.env['account.move.bg.protocol']._protocol_vals(move))
                 move.l10n_bg_protocol_invoice_id = protocol_id.id
             if move.l10n_bg_customs_type and not (map_id.new_account_entry

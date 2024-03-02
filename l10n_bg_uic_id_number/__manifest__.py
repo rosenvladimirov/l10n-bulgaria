@@ -15,6 +15,7 @@
         'partner_identification',
     ],
     'data': [
+        'data/partner_identification_bg.xml',
     ],
     'demo': [
     ],

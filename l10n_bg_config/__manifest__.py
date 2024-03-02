@@ -15,7 +15,6 @@
         'l10n_bg',
     ],
     'data': [
-        'data/partner_identification_bg.xml',
         'views/res_config_view.xml',
         'views/account_account_tag_views.xml',
         'views/partner_view.xml',

@@ -5,6 +5,13 @@ from odoo import fields, models, api, _
 
 _logger = logging.getLogger(__name__)
 
+try:
+    import stdnum
+    from stdnum.exceptions import InvalidFormat, InvalidChecksum, InvalidLength, InvalidComponent, ValidationError
+except ImportError:
+    _logger.debug("Cannot `import external dependency python stdnum package`.")
+
+
 def _l10n_bg_uic_type():
     return [
         ('bg_uic', _('BG Unified identification number (BULSTAT)')),
@@ -21,7 +28,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     # l10n_bg_uic = fields.Char('Unique identification code')
-    l10n_bg_uic_type = fields.Selection(selection=_l10n_bg_uic_type,
+    l10n_bg_uic_type = fields.Selection(selection=_l10n_bg_uic_type(),
                                         string='Type of Bulgaria UID',
                                         help="Choice type of Bulgaria UID.")
     l10n_bg_uic = fields.Char(

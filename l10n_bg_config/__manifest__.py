@@ -13,7 +13,6 @@
         'account',
         'base_vat',
         'l10n_bg',
-        'partner_identification',
     ],
     'data': [
         'data/partner_identification_bg.xml',

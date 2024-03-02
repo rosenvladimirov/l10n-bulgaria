@@ -10,6 +10,7 @@
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'depends': [
         'base_address_extended',
+        'contacts',
     ],
     'data': [
         'security/ir.model.access.csv',

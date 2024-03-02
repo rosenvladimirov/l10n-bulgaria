@@ -5,13 +5,6 @@ from odoo import fields, models, api, _
 
 _logger = logging.getLogger(__name__)
 
-try:
-    import stdnum
-    from stdnum.exceptions import InvalidFormat, InvalidChecksum, InvalidLength, InvalidComponent, ValidationError
-except ImportError:
-    _logger.debug("Cannot `import external dependency python stdnum package`.")
-
-
 def _l10n_bg_uic_type():
     return [
         ('bg_uic', _('BG Unified identification number (BULSTAT)')),

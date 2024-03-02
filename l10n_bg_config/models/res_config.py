@@ -34,7 +34,7 @@ class ResConfigSettings(models.TransientModel):
     #     related='chart_template_id.property_tax_receivable_account_id')
 
     module_l10n_bg_tax_admin = fields.Boolean(
-        'Bulgaria - Accounting tax reports',
+        'Bulgaria - Accounting tax',
         help='Provide all needed functionality for Bulgarian.\n'
              'Accounting and law documents.'
     )
@@ -69,6 +69,14 @@ class ResConfigSettings(models.TransientModel):
     module_l10n_bg_uic_id_number = fields.Boolean(
         'Bulgarian multi register codes',
         help='Bulgarian registration codes base on OCA module partner_identification',
+    )
+    module_l10n_bg_coa_reports = fields.Boolean(
+        'Bulgaria - Accounting tax reports',
+        help='Provide all COA reports for Bulgarian.'
+    )
+    module_l10n_bg_vat_reports = fields.Boolean(
+        'Bulgaria - Accounting VAT reports',
+        help='Provide all VAT reports for Bulgarian - NRA.'
     )
 
     # module_l10n_bg_account_voucher = fields.Boolean(

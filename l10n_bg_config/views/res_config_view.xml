@@ -85,14 +85,26 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-6 o_setting_box" id="module_l10n_bg_intrastat_product">
+                            <div class="col-12 col-lg-6 o_setting_box" id="module_l10n_bg_coa_reports">
                                 <div class="o_setting_left_pane">
-                                    <field name="module_l10n_bg_intrastat_product" />
+                                    <field name="module_l10n_bg_coa_reports"/>
                                 </div>
                                 <div class="o_setting_right_pane">
-                                    <label for="module_l10n_bg_intrastat_product" />
+                                    <label for="module_l10n_bg_coa_reports" />
                                     <div class="text-muted">
-                                        Generate INTRASTAT declaration and export in xml file.
+                                        Account financial reports for audit.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-6 o_setting_box" id="module_l10n_bg_vat_reports">
+                                <div class="o_setting_left_pane">
+                                    <field name="module_l10n_bg_vat_reports" widget="upgrade_boolean"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="module_l10n_bg_vat_reports" />
+                                    <div class="text-muted">
+                                        Generate VAT declaration and export in csv file.
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +130,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <t groups="account.group_account_user">
                             <h2>Default Accounts</h2>

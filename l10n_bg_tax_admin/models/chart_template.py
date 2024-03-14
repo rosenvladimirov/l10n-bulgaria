@@ -5,6 +5,7 @@ from odoo.addons.base.models.res_lang import intersperse
 from odoo.exceptions import UserError, AccessError
 from odoo.addons.l10n_bg_config.models.account_move import get_doc_type
 
+
 def get_invoice_type():
     return [
         ('out_invoice', 'Customer Invoice'),
@@ -18,6 +19,7 @@ def get_invoice_type():
         ('in_receipt_invoice', 'Purchase Receipt-Invoice'),
     ]
 
+
 def get_type_vat():
     return [
         ('standard', _('Accounting document')),
@@ -25,6 +27,7 @@ def get_type_vat():
         ('in_customs', _('Import Customs declaration')),
         ('out_customs', _('Export Customs declaration')),
     ]
+
 
 def _grouping(new_code, code_digits, grouping='[]'):
     if grouping.replace("[", "").replace("]", ""):
@@ -361,30 +364,24 @@ class AccountTypeTemplate(models.Model):
     _description = 'Type Mapping Template of Fiscal Position'
     _order = 'position_id'
 
-    def _get_invoice_type(self):
-        return get_invoice_type()
-
-    def _get_doc_type(self):
-        return get_doc_type()
-
     position_id = fields.Many2one('account.fiscal.position.template',
                                   string='Fiscal Position Template',
                                   required=True,
                                   ondelete='cascade')
     position_dest_id = fields.Many2one('account.fiscal.position.template',
                                        string='Replacement fiscal position')
-    invoice_type = fields.Selection(selection=lambda self: self._get_invoice_type(),
+    invoice_type = fields.Selection(selection=get_invoice_type(),
                                     string='Invoice type',
                                     index=True,
                                     copy=False
                                     )
-    l10n_bg_type_vat = fields.Selection(selection=lambda self: self.env['account.move']._get_type_vat(),
+    l10n_bg_type_vat = fields.Selection(selection=get_type_vat(),
                                         string="Type of numbering",
                                         default='standard',
                                         copy=False,
                                         index=True,
                                         )
-    l10n_bg_doc_type = fields.Selection(selection=lambda self: self._get_doc_type(),
+    l10n_bg_doc_type = fields.Selection(selection=get_doc_type(),
                                         string="Vat type document",
                                         default='01',
                                         copy=False,

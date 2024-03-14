@@ -43,7 +43,7 @@ def get_doc_type():
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    l10n_bg_doc_type = fields.Selection(selection=get_doc_type,
+    l10n_bg_doc_type = fields.Selection(selection=get_doc_type(),
                                         string="Vat type document",
                                         default='01',
                                         copy=False)

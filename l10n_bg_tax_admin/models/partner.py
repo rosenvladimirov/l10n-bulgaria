@@ -50,13 +50,13 @@ class AccountFiscalPositionType(models.Model):
                                     index=True,
                                     copy=False
                                     )
-    l10n_bg_type_vat = fields.Selection(selection=get_type_vat,
+    l10n_bg_type_vat = fields.Selection(selection=get_type_vat(),
                                         string="Type of numbering",
                                         default='standard',
                                         copy=False,
                                         index=True,
                                         )
-    l10n_bg_doc_type = fields.Selection(selection=get_doc_type,
+    l10n_bg_doc_type = fields.Selection(selection=get_doc_type(),
                                         string="Vat type document",
                                         default='01',
                                         copy=False,

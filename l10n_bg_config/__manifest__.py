@@ -19,6 +19,7 @@
         'views/account_account_tag_views.xml',
         'views/partner_view.xml',
         'views/res_company_views.xml',
+        'views/account_move_views.xml',
     ],
     'demo': [
     ],

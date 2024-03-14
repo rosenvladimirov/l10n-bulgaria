@@ -13,12 +13,6 @@ _logger = logging.getLogger(__name__)
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    l10n_bg_type_vat = fields.Selection(selection=get_type_vat,
-                                        string="Type of numbering",
-                                        default='standard',
-                                        copy=False,
-                                        index=True,
-                                        )
     # ---------------
     # PROTOCOL FIELDS
     # ---------------

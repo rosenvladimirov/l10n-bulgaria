@@ -39,13 +39,26 @@ def get_doc_type():
         # Protocol for free provision of foodstuffs, to which Art. 6, para. 4, item 4 VAT
     ]
 
+def get_type_vat():
+    return [
+        ('standard', _('Accounting document')),
+        ('117_protocol', _('Art. 117 - Protocols')),
+        ('in_customs', _('Import Customs declaration')),
+        ('out_customs', _('Export Customs declaration')),
+    ]
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
+    l10n_bg_name = fields.Char('Number of locale document', index='trigram', tracking=True, copy=False)
+    l10n_bg_narration = fields.Char('Narration for audit report', translate=True, copy=False)
+    l10n_bg_type_vat = fields.Selection(selection=get_type_vat(),
+                                        string="Type of numbering",
+                                        default='standard',
+                                        copy=False,
+                                        index=True,
+                                        )
     l10n_bg_doc_type = fields.Selection(selection=get_doc_type(),
                                         string="Vat type document",
                                         default='01',
                                         copy=False)
-    l10n_bg_name = fields.Char('Number of locale document', index='trigram', tracking=True, copy=False)
-    l10n_bg_narration = fields.Char('Narration for audit report', translate=True, copy=False)

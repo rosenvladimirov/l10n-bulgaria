@@ -4,6 +4,7 @@ from odoo import api, fields, models, Command, _, osv
 from odoo.addons.base.models.res_lang import intersperse
 from odoo.exceptions import UserError, AccessError
 from odoo.addons.l10n_bg_config.models.account_move import get_doc_type
+from odoo.addons.l10n_bg_config.models.account_move import get_type_vat
 
 
 def get_invoice_type():
@@ -18,16 +19,6 @@ def get_invoice_type():
         ('in_debit_note', 'Vendor Debit Note'),
         ('in_receipt_invoice', 'Purchase Receipt-Invoice'),
     ]
-
-
-def get_type_vat():
-    return [
-        ('standard', _('Accounting document')),
-        ('117_protocol', _('Art. 117 - Protocols')),
-        ('in_customs', _('Import Customs declaration')),
-        ('out_customs', _('Export Customs declaration')),
-    ]
-
 
 def _grouping(new_code, code_digits, grouping='[]'):
     if grouping.replace("[", "").replace("]", ""):

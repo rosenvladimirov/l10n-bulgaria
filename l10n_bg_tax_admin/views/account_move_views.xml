@@ -50,12 +50,22 @@
             <xpath expr="//page[@id='other_tab']/group[@id='other_tab_group']" position="inside">
                 <group string="Bulgarian VAT"
                        name="account_bg_vat">
-                    <field name="l10n_bg_type_vat" readonly="1" force_save="1"/>
                     <field name="l10n_bg_currency_rate" attrs="{'invisible': [('l10n_bg_type_vat', 'not in', ['in_customs', 'out_customs'])]}"/>
                     <field name="l10n_bg_doc_type" attrs="{'invisible': [('move_type', '=', 'entry')]}"/>
                     <field name="l10n_bg_name" attrs="{'invisible': [('l10n_bg_type_vat', '=', 'standard')]}"/>
                 </group>
             </xpath>
+        </field>
+    </record>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="l10n_bg_config.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="l10n_bg_type_vat" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="force_save">1</attribute>
+            </field>
         </field>
     </record>
 </odoo>

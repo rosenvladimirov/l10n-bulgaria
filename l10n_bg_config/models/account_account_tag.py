@@ -17,3 +17,10 @@ class AccountAccountTag(models.Model):
 
     description = fields.Text('Description', translate=True)
     l10n_bg_applicability = fields.Selection(selection=get_l10n_bg_applicability(), string='Use for')
+    l10n_bg_code = fields.Char('Code',
+                               compute='_compute_l10n_bg_code',
+                               help='A technical field for tag code')
+
+    def _compute_l10n_bg_code(self):
+        for record in self:
+            record.l10n_bg_code = "".join(filter(str.isdigit, record.name.upper()))

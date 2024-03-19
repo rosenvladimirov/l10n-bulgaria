@@ -2,12 +2,15 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 import csv
 import io
+import logging
 import os
 
 import odoo
 from odoo.tools.translate import load_language
 
 from odoo import SUPERUSER_ID, api
+
+_logger = logging.getLogger(__name__)
 
 
 def migrate_account_account_tag(env):
@@ -20,6 +23,7 @@ def migrate_account_account_tag(env):
         module_path = adp + os.sep + module
         if os.path.isdir(module_path):
             break
+    _logger.info(f"{module_path}")
     module_path += os.sep + "data" + os.sep
     with io.open(
         module_path + 'account_account_tag.csv', mode="r") as AAT_file:

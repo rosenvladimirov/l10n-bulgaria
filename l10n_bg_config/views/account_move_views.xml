@@ -11,6 +11,7 @@
                     <field name="l10n_bg_type_vat"/>
                     <field name="l10n_bg_doc_type" attrs="{'invisible': [('move_type', '=', 'entry')]}"/>
                     <field name="l10n_bg_name" attrs="{'invisible': [('l10n_bg_type_vat', '=', 'standard')]}"/>
+                    <field name="l10n_bg_delivery_type"/>
                 </group>
             </xpath>
         </field>

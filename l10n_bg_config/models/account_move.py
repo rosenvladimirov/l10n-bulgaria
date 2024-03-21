@@ -39,6 +39,7 @@ def get_doc_type():
         # Protocol for free provision of foodstuffs, to which Art. 6, para. 4, item 4 VAT
     ]
 
+
 def get_type_vat():
     return [
         ('standard', _('Accounting document')),
@@ -46,6 +47,24 @@ def get_type_vat():
         ('in_customs', _('Import Customs declaration')),
         ('out_customs', _('Export Customs declaration')),
     ]
+
+
+def get_delivery_type():
+    return [
+        ('01', _('Delivery under Part I of Annex 2 of VAT')),
+        ('02', _('Delivery under Part II of Annex 2 of VAT')),
+        ('03', _('Import under Annex 3 of VAT')),
+        ('07', _('Supply, import or IC acquisition of bread')),
+        ('08', _('Supply, import or IC acquisition of flour')),
+        ('51',
+         _('Arrival of goods on the territory of the country under the regime of storage of goods until demand under Art. 15a of VAT')),
+        ('53',
+         _('Replacement of the person for whom the goods were intended without termination of the contract under Art. 15a, para. 4 of VAT')),
+        ('54', _('Marriage/absence/destruction of goods under Art. 15a, para. 10 of VAT')),
+        (
+        '58', _('Termination of the contract under the mode of storage of goods until requested under Art. 15a of VAT'))
+    ]
+
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
@@ -62,3 +81,6 @@ class AccountMove(models.Model):
                                         string="Vat type document",
                                         default='01',
                                         copy=False)
+    l10n_bg_delivery_type = fields.Selection(selection=get_delivery_type(),
+                                             string="Vat type delivery",
+                                             copy=False)

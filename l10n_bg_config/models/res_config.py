@@ -62,6 +62,10 @@ class ResConfigSettings(models.TransientModel):
         'Partner transliterate names',
         help='Transliterate partner, city, street names ISO9 and other',
     )
+    module_l10n_bg_multilang = fields.Boolean(
+        'Switch on multilanguage support',
+        help='Change to multilingual support for fields without native configurations'
+    )
     module_account_financial_forms = fields.Boolean(
         'TAX Audit forms',
         help='Account financial report base on tax administration forms for audit',

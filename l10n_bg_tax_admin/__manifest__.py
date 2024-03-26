@@ -14,13 +14,10 @@
     'depends': [
         'account',
         'account_debit_note',
-        'account_move_fiscal_month',
         'l10n_bg',
         'l10n_bg_config',
-        'l10n_bg_city',
-        'date_range',
-        'account_account_tag_code',
-        'account_financial_forms',
+        # 'l10n_bg_city',
+        # 'account_financial_forms', moved in l10n_bg_account_financial_forms
     ],
     'data': [
         'security/ir.model.access.csv',

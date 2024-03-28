@@ -84,6 +84,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-12 col-lg-6 o_setting_box" id="module_l10n_bg_tax_offices">
+                                <div class="o_setting_left_pane">
+                                    <field name="module_l10n_bg_tax_offices" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="module_l10n_bg_tax_offices" />
+                                    <div class="text-muted">
+                                        Address and department of NRA Bulgaria added like partners
+                                        to use when make a payment ot taxes.
+                                    </div>
+                                </div>
+                            </div>
                             <h2>Accounting and Localizations</h2>
                             <div class="col-12 col-lg-6 o_setting_box" id="module_account_financial_forms">
                                 <div class="o_setting_left_pane">

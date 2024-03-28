@@ -50,6 +50,11 @@ class ResConfigSettings(models.TransientModel):
         'Additional data in address',
         help='Additional data in address like '
     )
+    module_l10n_bg_tax_offices = fields.Boolean(
+        'NRA Bulgaria, tax offices and departments',
+        help='Address and department of NRA Bulgaria added like partners'
+             ' to use when make a payment ot taxes.'
+    )
     # module_l10n_bg_account_financial_report = fields.Boolean(
     #     'Bulgaria - Account Financial Reports',
     #     help='Provide all reports for Bulgarian accounting.'

@@ -47,3 +47,4 @@ def pre_init_hook(cr):
         if language:
             load_language(cr, language.code)
             modules._update_translations(language.code)
+

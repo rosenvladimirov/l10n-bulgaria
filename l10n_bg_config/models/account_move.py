@@ -46,6 +46,7 @@ def get_type_vat():
         ('117_protocol', _('Art. 117 - Protocols')),
         ('in_customs', _('Import Customs declaration')),
         ('out_customs', _('Export Customs declaration')),
+        ('dropship', _('Dropship/Try party deal'))
     ]
 
 

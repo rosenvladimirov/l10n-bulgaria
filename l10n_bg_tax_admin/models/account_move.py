@@ -3,7 +3,6 @@ import logging
 from functools import lru_cache
 
 from odoo import api, fields, models, _, Command
-from .chart_template import get_type_vat
 from odoo.exceptions import UserError
 from odoo.osv import expression
 

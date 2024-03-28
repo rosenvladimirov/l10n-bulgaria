@@ -39,7 +39,6 @@ class AccountFiscalPositionType(models.Model):
     _rec_name = 'position_id'
     _check_company_auto = True
 
-
     position_id = fields.Many2one('account.fiscal.position',
                                   string='Fiscal Position',
                                   required=True, ondelete='cascade')

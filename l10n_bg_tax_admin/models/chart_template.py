@@ -20,6 +20,7 @@ def get_invoice_type():
         ('in_receipt_invoice', 'Purchase Receipt-Invoice'),
     ]
 
+
 def _grouping(new_code, code_digits, grouping='[]'):
     if grouping.replace("[", "").replace("]", ""):
         new_code = intersperse(new_code.ljust(code_digits, '0'), grouping, '.')

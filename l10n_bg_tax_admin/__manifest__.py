@@ -16,12 +16,11 @@
         'account_debit_note',
         'l10n_bg',
         'l10n_bg_config',
-        # 'l10n_bg_city',
         # 'account_financial_forms', moved in l10n_bg_account_financial_forms
     ],
     'data': [
         'security/ir.model.access.csv',
-        'data/res_tax_offices.xml',
+        # 'data/res_tax_offices.xml',
         # 'data/account_tax_template_data.xml',
         'views/account_chart_template_views.xml',
         'views/account_move_views.xml',

@@ -34,6 +34,10 @@ class ResPartner(models.Model):
     l10n_bg_uic = fields.Char(
         string="Unique identification code",
         help="Unique identification code for the Bulgaria received from trade registry")
+    l10n_bg_function = fields.Selection(selection=[
+        ('represent', _('Company represent/manager')),
+        ('agent', _('Company agent')),
+    ], string='Function fo NRA')
 
     @api.onchange('vat', 'country_id')
     def _onchange_check_vies(self):

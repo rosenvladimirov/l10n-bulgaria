@@ -15,7 +15,7 @@ class AccountFiscalPosition(models.Model):
 
     def _map_type_domain(self, invoice_id):
         move_type = invoice_id.move_type_id
-        if invoice_id.debitnote_invoice_id:
+        if invoice_id.debit_origin_id:
             if invoice_id.is_sale_document:
                 move_type = 'in_debit_note'
             elif invoice_id.is_purchase_document:

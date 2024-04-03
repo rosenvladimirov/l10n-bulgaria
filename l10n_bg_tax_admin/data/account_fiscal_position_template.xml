@@ -11,7 +11,7 @@
         <field name="country_id" ref="base.bg"/>
     </record>
 
-    <record id="l10n_bg.fiscal_position_template_dom_hotels" model="account.fiscal.position.template">
+    <record id="fiscal_position_template_dom_hotels" model="account.fiscal.position.template">
         <field name="sequence">11</field>
         <field name="name">Taxable transactions hotels (9%)</field>
         <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
@@ -20,7 +20,7 @@
         <field name="country_id" ref="base.bg"/>
     </record>
 
-    <record id="l10n_bg.fiscal_position_template_dom_books" model="account.fiscal.position.template">
+    <record id="fiscal_position_template_dom_books" model="account.fiscal.position.template">
         <field name="sequence">11</field>
         <field name="name">Taxable transactions books (9%)</field>
         <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
@@ -46,7 +46,7 @@
         <field name="country_group_id" ref="base.europe"/>
     </record>
 
-    <record id="l10n_bg.fiscal_position_template_in_eu_art_21" model="account.fiscal.position.template">
+    <record id="fiscal_position_template_in_eu_art_21" model="account.fiscal.position.template">
         <field name="sequence">30</field>
         <field name="name">Intra-community deals art.21 (0%)</field>
         <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>

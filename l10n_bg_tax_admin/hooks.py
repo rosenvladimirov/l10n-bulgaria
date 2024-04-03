@@ -1,15 +1,16 @@
 #  -*- coding: utf-8 -*-
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo.tools.translate import load_language
 
-from odoo import SUPERUSER_ID, api
+from odoo.api import Environment, SUPERUSER_ID
+
 from odoo.addons.l10n_bg_tax_admin.models.account_account import AccountAccount
 from odoo.addons.l10n_bg_tax_admin.models.chart_template import AccountChartTemplate
 from odoo.addons.account.models.account_account import AccountAccount as accountaccount
 from odoo.addons.account.models.chart_template import AccountChartTemplate as accountcharttemplate
 
+
 def pre_init_hook(cr):
-    env = api.Environment(cr, SUPERUSER_ID, {})
+    env = Environment(cr, SUPERUSER_ID, {})
     #  mark fiscal position to update
     fiscal_position = env['ir.model.data'].search([
         ('module', '=', 'l10n_bg'),
@@ -23,6 +24,22 @@ def pre_init_hook(cr):
         fp.update({
             'noupdate': False,
         })
+
+
+def post_init_hook(cr, registry):
+    env = Environment(cr, SUPERUSER_ID, {})
+    fiscal_position = env['ir.model.data'].search([
+        ('module', '=', 'l10n_bg_tax_admin'),
+        ('model', '=', 'account.fiscal.position.template')
+    ])
+    taxes = env['ir.model.data'].search([
+        ('module', '=', 'l10n_bg_tax_admin'),
+        ('model', '=', 'account.tax.template')
+    ])
+    # for fp in fiscal_position + taxes:
+    #     fp.update({
+    #         'module': 'l10n_bg',
+    #     })
 
 
 def post_load_hook():

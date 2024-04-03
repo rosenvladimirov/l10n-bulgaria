@@ -35,6 +35,12 @@ def migrate_account_account_tag(env):
                     'description': tag['description'],
                     'l10n_bg_applicability': tag['l10n_bg_applicability'],
                 })
+    lang = env['ir.model.data'].search([
+        ('module', '=', 'base'),
+        ('name', '=', 'lang_bg'),
+    ])
+    if lang:
+        lang.noupdate = False
 
 
 def pre_init_hook(cr):
@@ -47,4 +53,3 @@ def pre_init_hook(cr):
         if language:
             load_language(cr, language.code)
             modules._update_translations(language.code)
-

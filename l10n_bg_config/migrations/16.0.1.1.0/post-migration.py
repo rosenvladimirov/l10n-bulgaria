@@ -13,5 +13,5 @@ def migrate(cr, version):
     if version <= '16.0.1.0.2':
         for partner_id in env['res.partner'].search([('vat', '!=', False), ('l10n_bg_uic', '=', False)]):
             partner_id._validate_l10n_bg_uic()
-    elif version <= '16.0.1.0.9':
+    if version <= '16.0.1.1.0':
         migrate_account_account_tag(env)

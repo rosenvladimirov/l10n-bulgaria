@@ -1,4 +1,5 @@
-<odoo noupdate="1">  <!-- Use noupdate="0" if you want this to apply on every module update -->
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
     <record id="base.lang_bg" model="res.lang">
         <field name="code">bg_BG</field>
         <field name="date_format">%d/%m/%Y</field>

@@ -8,6 +8,7 @@
             <xpath expr="//page[@id='other_tab']/group[@id='other_tab_group']" position="inside">
                 <group string="Bulgarian VAT"
                        name="account_bg_vat">
+                    <field name="l10n_bg_narration"/>
                     <field name="l10n_bg_type_vat"/>
                     <field name="l10n_bg_doc_type" attrs="{'invisible': [('move_type', '=', 'entry')]}"/>
                     <field name="l10n_bg_name" attrs="{'invisible': [('l10n_bg_type_vat', '=', 'standard')]}"/>

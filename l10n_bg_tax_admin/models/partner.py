@@ -14,7 +14,7 @@ class AccountFiscalPosition(models.Model):
     type_ids = fields.One2many('account.fiscal.position.type', 'position_id', string='Type Mapping', copy=True)
 
     def _map_type_domain(self, invoice_id):
-        move_type = invoice_id.move_type_id
+        move_type = invoice_id and invoice_id.move_type or False
         if invoice_id.debit_origin_id:
             if invoice_id.is_sale_document:
                 move_type = 'in_debit_note'
@@ -44,7 +44,7 @@ class AccountFiscalPositionType(models.Model):
                                   required=True, ondelete='cascade')
     position_dest_id = fields.Many2one('account.fiscal.position',
                                        string='Replacement fiscal position')
-    invoice_type = fields.Selection(selection=get_invoice_type,
+    invoice_type = fields.Selection(selection=get_invoice_type(),
                                     string='Invoice type',
                                     index=True,
                                     copy=False

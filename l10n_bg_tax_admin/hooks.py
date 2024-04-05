@@ -9,39 +9,6 @@ from odoo.addons.account.models.account_account import AccountAccount as account
 from odoo.addons.account.models.chart_template import AccountChartTemplate as accountcharttemplate
 
 
-def pre_init_hook(cr):
-    env = Environment(cr, SUPERUSER_ID, {})
-    #  mark fiscal position to update
-    fiscal_position = env['ir.model.data'].search([
-        ('module', '=', 'l10n_bg'),
-        ('model', '=', 'account.fiscal.position.template')
-    ])
-    taxes = env['ir.model.data'].search([
-        ('module', '=', 'l10n_bg'),
-        ('model', '=', 'account.tax.template')
-    ])
-    for fp in fiscal_position + taxes:
-        fp.update({
-            'noupdate': False,
-        })
-
-
-def post_init_hook(cr, registry):
-    env = Environment(cr, SUPERUSER_ID, {})
-    fiscal_position = env['ir.model.data'].search([
-        ('module', '=', 'l10n_bg_tax_admin'),
-        ('model', '=', 'account.fiscal.position.template')
-    ])
-    taxes = env['ir.model.data'].search([
-        ('module', '=', 'l10n_bg_tax_admin'),
-        ('model', '=', 'account.tax.template')
-    ])
-    # for fp in fiscal_position + taxes:
-    #     fp.update({
-    #         'module': 'l10n_bg',
-    #     })
-
-
 def post_load_hook():
     accountaccount._search_new_account_code = AccountAccount._search_new_account_code
     accountcharttemplate._prepare_transfer_account_template = AccountChartTemplate._prepare_transfer_account_template

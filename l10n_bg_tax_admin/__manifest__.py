@@ -20,8 +20,10 @@
     ],
     'data': [
         'security/ir.model.access.csv',
-        'data/account_fiscal_position_template.xml',
+        'data/l10n_bg_tax_admin_pre_functions.xml',
         'data/account_tax_template_data.xml',
+        'data/account_fiscal_position_template.xml',
+        'data/l10n_bg_tax_admin_post_functions.xml',
         'views/account_chart_template_views.xml',
         'views/account_move_views.xml',
         'views/account_journal_views.xml',
@@ -33,6 +35,6 @@
     'demo': [
     ],
     'license': 'LGPL-3',
-    'pre_init_hook': 'pre_init_hook',
-    'post_init_hook': 'post_init_hook'
+    # 'pre_init_hook': 'pre_init_hook',
+    # 'post_init_hook': 'post_init_hook'
 }

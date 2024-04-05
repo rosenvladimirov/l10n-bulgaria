@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'l10n_bg'), ('model', '=', 'account.tax.template')]"/>
+        </function>
+        <value eval="{'noupdate': False, 'module': 'l10n_bg_tax_admin'}"/>
+    </function>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'l10n_bg'), ('model', '=', 'account.fiscal.position.template')]"/>
+        </function>
+        <value eval="{'noupdate': False, 'module': 'l10n_bg_tax_admin'}"/>
+    </function>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'l10n_bg'), ('model', '=', 'account.group.template')]"/>
+        </function>
+        <value eval="{'noupdate': False, 'module': 'l10n_bg_tax_admin'}"/>
+    </function>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'l10n_bg'), ('model', '=', 'account.account.template')]"/>
+        </function>
+        <value eval="{'noupdate': False, 'module': 'l10n_bg_tax_admin'}"/>
+    </function>
+</odoo>

@@ -1,250 +1,250 @@
 <?xml version="1.0" ?>
 <odoo>
     <data noupdate="1">
-        <record id="l10n_bg.l10n_bg_1" model="account.group.template">
+        <record id="l10n_bg_1" model="account.group.template">
             <field name="code_prefix_start">1</field>
             <field name="name">CAPITAL ACCOUNTS</field>
         </record>
-        <record id="l10n_bg.l10n_bg_10" model="account.group.template">
+        <record id="l10n_bg_10" model="account.group.template">
             <field name="code_prefix_start">10</field>
             <field name="name">Capital</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_1"/>
+            <field name="parent_id" ref="l10n_bg_1"/>
         </record>
-        <record id="l10n_bg.l10n_bg_101" model="account.account.template">
+        <record id="l10n_bg_101" model="account.account.template">
             <field name="code">101.000</field>
             <field name="name">Fixed capital required for registration</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_102" model="account.account.template">
+        <record id="l10n_bg_102" model="account.account.template">
             <field name="code">102.000</field>
             <field name="name">Fixed capital that does not require registration</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_103" model="account.account.template">
+        <record id="l10n_bg_103" model="account.account.template">
             <field name="code">103.000</field>
             <field name="name">Liquidation capital in case of insolvency and liquidation</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_104" model="account.account.template">
+        <record id="l10n_bg_104" model="account.account.template">
             <field name="name">Capital of non-profit enterprises</field>
             <field name="code">104.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_105" model="account.account.template">
+        <record id="l10n_bg_105" model="account.account.template">
             <field name="name">Capital premiums</field>
             <field name="code">105.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_106" model="account.account.template">
+        <record id="l10n_bg_106" model="account.account.template">
             <field name="name">Deductions (discount) related to capital</field>
             <field name="code">106.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_107" model="account.account.template">
+        <record id="l10n_bg_107" model="account.account.template">
             <field name="name">Owner capital account</field>
             <field name="code">107.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_108" model="account.account.template">
+        <record id="l10n_bg_108" model="account.account.template">
             <field name="name">Equity premiums</field>
             <field name="code">108.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_109" model="account.account.template">
+        <record id="l10n_bg_109" model="account.account.template">
             <field name="name">Equity-related deductions</field>
             <field name="code">109.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_11" model="account.group.template">
+        <record id="l10n_bg_11" model="account.group.template">
             <field name="name">Capital reserves</field>
             <field name="code_prefix_start">11</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_1"/>
+            <field name="parent_id" ref="l10n_bg_1"/>
         </record>
-        <record id="l10n_bg.l10n_bg_111" model="account.account.template">
+        <record id="l10n_bg_111" model="account.account.template">
             <field name="name">General reserves</field>
             <field name="code">111.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_112" model="account.account.template">
+        <record id="l10n_bg_112" model="account.account.template">
             <field name="name">Reserves from the subsequent assessment of fixed assets</field>
             <field name="code">112.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_113" model="account.account.template">
+        <record id="l10n_bg_113" model="account.account.template">
             <field name="name">Reserves from subsequent valuation of current assets</field>
             <field name="code">113.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_114" model="account.account.template">
+        <record id="l10n_bg_114" model="account.account.template">
             <field name="name">Reserves from subsequent valuation of financial instruments</field>
             <field name="code">114.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_115" model="account.account.template">
+        <record id="l10n_bg_115" model="account.account.template">
             <field name="name">Reserves from share issue</field>
             <field name="code">115.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_116" model="account.account.template">
+        <record id="l10n_bg_116" model="account.account.template">
             <field name="name">Reserve related to repurchased own shares</field>
             <field name="code">116.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_117" model="account.account.template">
+        <record id="l10n_bg_117" model="account.account.template">
             <field name="name">Reserve according to constitutive act</field>
             <field name="code">117.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_119" model="account.account.template">
+        <record id="l10n_bg_119" model="account.account.template">
             <field name="name">Other reserves</field>
             <field name="code">119.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_12" model="account.group.template">
+        <record id="l10n_bg_12" model="account.group.template">
             <field name="name">Financial results</field>
             <field name="code_prefix_start">12</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_1"/>
+            <field name="parent_id" ref="l10n_bg_1"/>
         </record>
-        <record id="l10n_bg.l10n_bg_121" model="account.account.template">
+        <record id="l10n_bg_121" model="account.account.template">
             <field name="name">Uncovered loss from previous years</field>
             <field name="code">121.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_122" model="account.account.template">
+        <record id="l10n_bg_122" model="account.account.template">
             <field name="name">Retained earnings from previous years</field>
             <field name="code">122.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_123" model="account.account.template">
+        <record id="l10n_bg_123" model="account.account.template">
             <field name="name">Profit and loss from the current year</field>
             <field name="code">123.000</field>
             <field name="reconcile">False</field>
             <field name="account_type" ref="equity_unaffected"/>
         </record>
-        <record id="l10n_bg.l10n_bg_124" model="account.account.template">
+        <record id="l10n_bg_124" model="account.account.template">
             <field name="name">Result in bankruptcy and liquidation</field>
             <field name="code">124.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_125" model="account.account.template">
+        <record id="l10n_bg_125" model="account.account.template">
             <field name="name">Result of the activity of non-profit enterprises</field>
             <field name="code">125.000</field>
             <field name="account_type" ref="equity"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_13" model="account.group.template">
+        <record id="l10n_bg_13" model="account.group.template">
             <field name="name">Reserves under insurance contracts</field>
             <field name="code_prefix_start">13</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_1"/>
+            <field name="parent_id" ref="l10n_bg_1"/>
         </record>
-        <record id="l10n_bg.l10n_bg_131" model="account.account.template">
+        <record id="l10n_bg_131" model="account.account.template">
             <field name="name">Life insurance reserves</field>
             <field name="code">131.000</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_132" model="account.account.template">
+        <record id="l10n_bg_132" model="account.account.template">
             <field name="name">Transmission-premium reserves</field>
             <field name="code">132.000</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_133" model="account.account.template">
+        <record id="l10n_bg_133" model="account.account.template">
             <field name="name">Reserves for forthcoming payments</field>
             <field name="code">133.000</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_134" model="account.account.template">
+        <record id="l10n_bg_134" model="account.account.template">
             <field name="name">Reserves for reserve fund</field>
             <field name="code">134.000</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_135" model="account.account.template">
+        <record id="l10n_bg_135" model="account.account.template">
             <field name="name">Reinsurance reserves</field>
             <field name="code">135.000</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_136" model="account.account.template">
+        <record id="l10n_bg_136" model="account.account.template">
             <field name="name">Other reserves under insurance contracts</field>
             <field name="code">136.000</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_137" model="account.account.template">
+        <record id="l10n_bg_137" model="account.account.template">
             <field name="name">Reserves of investment companies</field>
             <field name="code">137.000</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_138" model="account.account.template">
+        <record id="l10n_bg_138" model="account.account.template">
             <field name="name">Reserves of pension companies</field>
             <field name="code">138.000</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_14" model="account.group.template">
+        <record id="l10n_bg_14" model="account.group.template">
             <field name="name">Issue</field>
             <field name="code_prefix_start">14</field>
             <field name="parent_id" ref="l10n_bg.l10n_bg_1"/>
         </record>
-        <record id="l10n_bg.l10n_bg_141" model="account.account.template">
+        <record id="l10n_bg_141" model="account.account.template">
             <field name="name">Banknotes for circulation</field>
             <field name="code">141.000</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_142" model="account.account.template">
+        <record id="l10n_bg_142" model="account.account.template">
             <field name="name">Coins in circulation</field>
             <field name="code">142.000</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_15" model="account.group.template">
+        <record id="l10n_bg_15" model="account.group.template">
             <field name="name">Loans received</field>
             <field name="code_prefix_start">15</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_1"/>
+            <field name="parent_id" ref="l10n_bg_1"/>
         </record>
-        <record id="l10n_bg.l10n_bg_151" model="account.account.template">
+        <record id="l10n_bg_151" model="account.account.template">
             <field name="name">Received short-term loans</field>
             <field name="code">151.000</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_152" model="account.account.template">
+        <record id="l10n_bg_152" model="account.account.template">
             <field name="name">Long-term loans received</field>
             <field name="code">152.000</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_153" model="account.account.template">
+        <record id="l10n_bg_153" model="account.account.template">
             <field name="name">Debt instruments</field>
             <field name="code">153.000</field>
             <field name="account_type" ref="liability_current"/>
@@ -257,697 +257,697 @@
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_2" model="account.group.template">
+        <record id="l10n_bg_2" model="account.group.template">
             <field name="name">FIXED ASSETS ACCOUNTS</field>
             <field name="code_prefix_start">2</field>
         </record>
-        <record id="l10n_bg.l10n_bg_20" model="account.group.template">
+        <record id="l10n_bg_20" model="account.group.template">
             <field name="name">Fixed assets</field>
             <field name="code_prefix_start">20</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_2"/>
+            <field name="parent_id" ref="l10n_bg_2"/>
         </record>
-        <record id="l10n_bg.l10n_bg_201" model="account.account.template">
+        <record id="l10n_bg_201" model="account.account.template">
             <field name="name">Lands (terrains)</field>
             <field name="code">201.000</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_202" model="account.account.template">
+        <record id="l10n_bg_202" model="account.account.template">
             <field name="name">Land improvements</field>
             <field name="code">202.000</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_203" model="account.account.template">
+        <record id="l10n_bg_203" model="account.account.template">
             <field name="name">Buildings and structures</field>
             <field name="code">203.000</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_204" model="account.group.template">
+        <record id="l10n_bg_204" model="account.group.template">
             <field name="name">Machinery and equipment or below the materiality threshold</field>
             <field name="code_prefix_start">204</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_20"/>
+            <field name="parent_id" ref="l10n_bg_20"/>
         </record>
-        <record id="l10n_bg.l10n_bg_204_100" model="account.account.template">
+        <record id="l10n_bg_204_100" model="account.account.template">
             <field name="name">Machinery and equipment</field>
             <field name="code">204.100</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_204_900" model="account.account.template">
+        <record id="l10n_bg_204_900" model="account.account.template">
             <field name="name">Machinery and equipment below the materiality threshold</field>
             <field name="code">204.900</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_204_901" model="account.account.template">
+        <record id="l10n_bg_204_901" model="account.account.template">
             <field name="name">Machinery and equipment below the materiality threshold</field>
             <field name="code">204.901</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_204_902" model="account.account.template">
+        <record id="l10n_bg_204_902" model="account.account.template">
             <field name="name">Machinery and equipment below the materiality threshold - corrective</field>
             <field name="code">204.902</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_205" model="account.group.template">
+        <record id="l10n_bg_205" model="account.group.template">
             <field name="name">Vehicles, Means of transport and below the materiality threshold</field>
             <field name="code_prefix_start">205</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_20"/>
+            <field name="parent_id" ref="l10n_bg_20"/>
         </record>
-        <record id="l10n_bg.l10n_bg_205_100" model="account.account.template">
+        <record id="l10n_bg_205_100" model="account.account.template">
             <field name="name">Vehicles</field>
             <field name="code">205.100</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_205_200" model="account.account.template">
+        <record id="l10n_bg_205_200" model="account.account.template">
             <field name="name">Means of transport</field>
             <field name="code">205.200</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_205_800" model="account.account.template">
+        <record id="l10n_bg_205_800" model="account.account.template">
             <field name="name">Vehicles below the materiality threshold</field>
             <field name="code">205.800</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_205_801" model="account.account.template">
+        <record id="l10n_bg_205_801" model="account.account.template">
             <field name="name">Vehicles below the materiality threshold</field>
             <field name="code">205.801</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_205_802" model="account.account.template">
+        <record id="l10n_bg_205_802" model="account.account.template">
             <field name="name">Vehicles below the materiality threshold - corrective</field>
             <field name="code">205.802</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_205_900" model="account.account.template">
+        <record id="l10n_bg_205_900" model="account.account.template">
             <field name="name">Means of transport below the materiality threshold</field>
             <field name="code">205.900</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_205_901" model="account.account.template">
+        <record id="l10n_bg_205_901" model="account.account.template">
             <field name="name">Means of transport below the materiality threshold</field>
             <field name="code">205.901</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_205_902" model="account.account.template">
+        <record id="l10n_bg_205_902" model="account.account.template">
             <field name="name">Means of transport below the materiality threshold - corrective</field>
             <field name="code">205.902</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_206" model="account.group.template">
+        <record id="l10n_bg_206" model="account.group.template">
             <field name="name">Office furniture</field>
             <field name="code_prefix_start">206</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_20"/>
+            <field name="parent_id" ref="l10n_bg_20"/>
         </record>
-        <record id="l10n_bg.l10n_bg_206_100" model="account.account.template">
+        <record id="l10n_bg_206_100" model="account.account.template">
             <field name="name">Office furniture</field>
             <field name="code">206.100</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_206_900" model="account.account.template">
+        <record id="l10n_bg_206_900" model="account.account.template">
             <field name="name">Office furniture below the materiality threshold</field>
             <field name="code">206.900</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_206_901" model="account.account.template">
+        <record id="l10n_bg_206_901" model="account.account.template">
             <field name="name">Office furniture below the materiality threshold</field>
             <field name="code">206.901</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_206_902" model="account.account.template">
+        <record id="l10n_bg_206_902" model="account.account.template">
             <field name="name">Office furniture below the threshold of materiality - corrective</field>
             <field name="code">206.902</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_207" model="account.group.template">
+        <record id="l10n_bg_207" model="account.group.template">
             <field name="name">Equipment and below the threshold of materiality</field>
             <field name="code_prefix_start">207</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_20"/>
+            <field name="parent_id" ref="l10n_bg_20"/>
         </record>
-        <record id="l10n_bg.l10n_bg_207_100" model="account.account.template">
+        <record id="l10n_bg_207_100" model="account.account.template">
             <field name="name">Equipment</field>
             <field name="code">207.100</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_207_900" model="account.account.template">
+        <record id="l10n_bg_207_900" model="account.account.template">
             <field name="name">Equipment below the materiality threshold</field>
             <field name="code">207.900</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_207_901" model="account.account.template">
+        <record id="l10n_bg_207_901" model="account.account.template">
             <field name="name">Equipment below the materiality threshold</field>
             <field name="code">207.901</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_207_902" model="account.account.template">
+        <record id="l10n_bg_207_902" model="account.account.template">
             <field name="name">Equipment below the materiality threshold - corrective</field>
             <field name="code">207.902</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_208" model="account.group.template">
+        <record id="l10n_bg_208" model="account.group.template">
             <field name="name">Computer equipment</field>
             <field name="code_prefix_start">208</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_20"/>
+            <field name="parent_id" ref="l10n_bg_20"/>
         </record>
-        <record id="l10n_bg.l10n_bg_208_100" model="account.account.template">
+        <record id="l10n_bg_208_100" model="account.account.template">
             <field name="name">Computer equipment</field>
             <field name="code">208.100</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_208_900" model="account.account.template">
+        <record id="l10n_bg_208_900" model="account.account.template">
             <field name="name">Computer technology below the threshold of materiality</field>
             <field name="code">208.900</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_208_901" model="account.account.template">
+        <record id="l10n_bg_208_901" model="account.account.template">
             <field name="name">Computer technology below the threshold of materiality</field>
             <field name="code">208.901</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_208_902" model="account.account.template">
+        <record id="l10n_bg_208_902" model="account.account.template">
             <field name="name">Computer technology below the threshold of materiality - corrective</field>
             <field name="code">208.902</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_209" model="account.group.template">
+        <record id="l10n_bg_209" model="account.group.template">
             <field name="name">Other fixed assets and below the materiality threshold</field>
             <field name="code_prefix_start">209</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_20"/>
+            <field name="parent_id" ref="l10n_bg_20"/>
         </record>
-        <record id="l10n_bg.l10n_bg_209_100" model="account.account.template">
+        <record id="l10n_bg_209_100" model="account.account.template">
             <field name="name">Other fixed assets под прага на същественост - корективна</field>
             <field name="code">209.100</field>
             <field name="account_type" ref="asset_fixed"/>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_209_200" model="account.account.template">
+        <record id="l10n_bg_209_200" model="account.account.template">
             <field name="name">Investment property</field>
             <field name="code">209.200</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_209_900" model="account.account.template">
+        <record id="l10n_bg_209_900" model="account.account.template">
             <field name="name">Other fixed assets below the threshold of materiality</field>
             <field name="code">209.900</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_209_901" model="account.account.template">
+        <record id="l10n_bg_209_901" model="account.account.template">
             <field name="name">Other fixed assets below the threshold of materiality</field>
             <field name="code">209.901</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_209_902" model="account.account.template">
+        <record id="l10n_bg_209_902" model="account.account.template">
             <field name="name">Other fixed assets below the threshold of materiality - corrective</field>
             <field name="code">209.902</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_21" model="account.group.template">
+        <record id="l10n_bg_21" model="account.group.template">
             <field name="name">Development products</field>
             <field name="code_prefix_start">21</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_2"/>
+            <field name="parent_id" ref="l10n_bg_2"/>
         </record>
-        <record id="l10n_bg.l10n_bg_211" model="account.account.template">
+        <record id="l10n_bg_211" model="account.account.template">
             <field name="name">Development products</field>
             <field name="code">211.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_212" model="account.account.template">
+        <record id="l10n_bg_212" model="account.account.template">
             <field name="name">Software products</field>
             <field name="code">212.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_213" model="account.account.template">
+        <record id="l10n_bg_213" model="account.account.template">
             <field name="name">Intellectual property rights</field>
             <field name="code">213.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_214" model="account.group.template">
+        <record id="l10n_bg_214" model="account.group.template">
             <field name="name">Industrial property rights and below the materiality threshold</field>
             <field name="code_prefix_start">214</field>
             <field name="parent_id" ref="l10n_bg.l10n_bg_21"/>
         </record>
-        <record id="l10n_bg.l10n_bg_214_100" model="account.account.template">
+        <record id="l10n_bg_214_100" model="account.account.template">
             <field name="name">Industrial property rights</field>
             <field name="code">214.100</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_214_900" model="account.account.template">
+        <record id="l10n_bg_214_900" model="account.account.template">
             <field name="name">Industrial property rights below the threshold of materiality</field>
             <field name="code">214.900</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_214_901" model="account.account.template">
+        <record id="l10n_bg_214_901" model="account.account.template">
             <field name="name">Industrial property rights below the threshold of materiality</field>
             <field name="code">214.901</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_214_902" model="account.account.template">
+        <record id="l10n_bg_214_902" model="account.account.template">
             <field name="name">Industrial property rights below the materiality threshold - corrective</field>
             <field name="code">214.902</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_219" model="account.account.template">
+        <record id="l10n_bg_219" model="account.account.template">
             <field name="name">Other non-current intangible assets</field>
             <field name="code">219.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_22" model="account.group.template">
+        <record id="l10n_bg_22" model="account.group.template">
             <field name="name">Non-current financial assets</field>
             <field name="code_prefix_start">22</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_2"/>
+            <field name="parent_id" ref="l10n_bg_2"/>
         </record>
-        <record id="l10n_bg.l10n_bg_221" model="account.account.template">
+        <record id="l10n_bg_221" model="account.account.template">
             <field name="name">Investments in subsidiaries</field>
             <field name="code">221.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_222" model="account.account.template">
+        <record id="l10n_bg_222" model="account.account.template">
             <field name="name">Investments in associates</field>
             <field name="code">222.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_223" model="account.account.template">
+        <record id="l10n_bg_223" model="account.account.template">
             <field name="name">Investments in joint ventures</field>
             <field name="code">223.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_224" model="account.account.template">
+        <record id="l10n_bg_224" model="account.account.template">
             <field name="name">Investment properties</field>
             <field name="code">224.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_225" model="account.account.template">
+        <record id="l10n_bg_225" model="account.account.template">
             <field name="name">Investments in held to maturity financial assets</field>
             <field name="code">225.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_226" model="account.account.template">
+        <record id="l10n_bg_226" model="account.account.template">
             <field name="name">Investments in financial assets at fair value through profit or loss</field>
             <field name="code">226.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_227" model="account.account.template">
+        <record id="l10n_bg_227" model="account.account.template">
             <field name="name">Long-term loans and receivables provided</field>
             <field name="code">227.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_228" model="account.account.template">
+        <record id="l10n_bg_228" model="account.account.template">
             <field name="name">Investments in financial assets available for sale</field>
             <field name="code">228.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_229" model="account.account.template">
+        <record id="l10n_bg_229" model="account.account.template">
             <field name="name">Investments in other long term financial assets</field>
             <field name="code">229.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_23" model="account.group.template">
+        <record id="l10n_bg_23" model="account.group.template">
             <field name="name">Commercial reputation</field>
             <field name="code_prefix_start">23</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_2"/>
+            <field name="parent_id" ref="l10n_bg_2"/>
         </record>
-        <record id="l10n_bg.l10n_bg_231" model="account.account.template">
+        <record id="l10n_bg_231" model="account.account.template">
             <field name="name">Positive commercial reputation</field>
             <field name="code">231.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_232" model="account.account.template">
+        <record id="l10n_bg_232" model="account.account.template">
             <field name="name">Negative commercial reputation</field>
             <field name="code">232.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_24" model="account.group.template">
+        <record id="l10n_bg_24" model="account.group.template">
             <field name="name">(Accumulated) Depreciation</field>
             <field name="code_prefix_start">24</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_2"/>
+            <field name="parent_id" ref="l10n_bg_2"/>
         </record>
-        <record id="l10n_bg.l10n_bg_241" model="account.group.template">
+        <record id="l10n_bg_241" model="account.group.template">
             <field name="name">(Accumulated) Depreciation of fixed assets</field>
             <field name="code_prefix_start">241</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_24"/>
+            <field name="parent_id" ref="l10n_bg_24"/>
         </record>
-        <record id="l10n_bg.l10n_bg_241_300" model="account.account.template">
+        <record id="l10n_bg_241_300" model="account.account.template">
             <field name="name">(Accumulated) Depreciation of buildings and structures</field>
             <field name="code">241.300</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_241_400" model="account.account.template">
+        <record id="l10n_bg_241_400" model="account.account.template">
             <field name="name">(Accumulated) Depreciation of machinery and equipment</field>
             <field name="code">241.400</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_241_501" model="account.account.template">
+        <record id="l10n_bg_241_501" model="account.account.template">
             <field name="name">(Accumulated) Depreciation of vehicles</field>
             <field name="code">241.501</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_241_502" model="account.account.template">
+        <record id="l10n_bg_241_502" model="account.account.template">
             <field name="name">(Accumulated) Depreciation of means of transport</field>
             <field name="code">241.502</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_241_600" model="account.account.template">
+        <record id="l10n_bg_241_600" model="account.account.template">
             <field name="name">(Accumulated) Depreciation of office furniture</field>
             <field name="code">241.600</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_241_700" model="account.account.template">
+        <record id="l10n_bg_241_700" model="account.account.template">
             <field name="name">(Accumulated) Depreciation of equipment</field>
             <field name="code">241.700</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_241_800" model="account.account.template">
+        <record id="l10n_bg_241_800" model="account.account.template">
             <field name="name">(Accumulated) Depreciation of computer equipment</field>
             <field name="code">241.800</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_241_900" model="account.account.template">
+        <record id="l10n_bg_241_900" model="account.account.template">
             <field name="name">(Accumulated) Depreciation of other fixed tangible assets</field>
             <field name="code">241.900</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_242" model="account.group.template">
+        <record id="l10n_bg_242" model="account.group.template">
             <field name="name">(Accumulated) Depreciation on non-fixed assets</field>
             <field name="code_prefix_start">242</field>
             <field name="parent_id" ref="l10n_bg.l10n_bg_24"/>
         </record>
-        <record id="l10n_bg.l10n_bg_242_300" model="account.account.template">
+        <record id="l10n_bg_242_300" model="account.account.template">
             <field name="name">(Accumulated) Depreciation on intellectual property</field>
             <field name="code">242.300</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_242_400" model="account.account.template">
+        <record id="l10n_bg_242_400" model="account.account.template">
             <field name="name">(Accumulated) Depreciation of software products</field>
             <field name="code">242.400</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_242_900" model="account.account.template">
+        <record id="l10n_bg_242_900" model="account.account.template">
             <field name="name">(Accumulated) Amortization of other fixed intangible assets</field>
             <field name="code">242.900</field>
             <field name="account_type" ref="asset_fixed"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_25" model="account.group.template">
+        <record id="l10n_bg_25" model="account.group.template">
             <field name="name">Provisions to cover risky assets and liabilities</field>
             <field name="code_prefix_start">25</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_2"/>
+            <field name="parent_id" ref="l10n_bg_2"/>
         </record>
-        <record id="l10n_bg.l10n_bg_251" model="account.account.template">
+        <record id="l10n_bg_251" model="account.account.template">
             <field name="name">Provisions to cover risky assets</field>
             <field name="code">251.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_252" model="account.account.template">
+        <record id="l10n_bg_252" model="account.account.template">
             <field name="name">Provisions recognized as liabilities</field>
             <field name="code">252.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_259" model="account.account.template">
+        <record id="l10n_bg_259" model="account.account.template">
             <field name="name">Other provisions</field>
             <field name="code">259.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_26" model="account.group.template">
+        <record id="l10n_bg_26" model="account.group.template">
             <field name="name">Long term receivables and loans</field>
             <field name="code_prefix_start">26</field>
             <field name="parent_id" ref="l10n_bg.l10n_bg_2"/>
         </record>
-        <record id="l10n_bg.l10n_bg_261" model="account.account.template">
+        <record id="l10n_bg_261" model="account.account.template">
             <field name="name">Long term receivables and loans to banks and other financial institutions</field>
             <field name="code">261.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_262" model="account.account.template">
+        <record id="l10n_bg_262" model="account.account.template">
             <field name="name">Long term receivables and loans to non-financial corporations and other customers</field>
             <field name="code">262.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_263" model="account.account.template">
-            <field name="name">Overdue long term receivables and loans granted</field>
+        <record id="l10n_bg_263" model="account.account.template">
+            <field name="name">Overdue long-term receivables and loans granted</field>
             <field name="code">263.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_264" model="account.account.template">
+        <record id="l10n_bg_264" model="account.account.template">
             <field name="name">Long term receivables and loans granted as collateral</field>
             <field name="code">264.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_269" model="account.account.template">
+        <record id="l10n_bg_269" model="account.account.template">
             <field name="name">Other long-term receivables and loans</field>
             <field name="code">269.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_27" model="account.group.template">
+        <record id="l10n_bg_27" model="account.group.template">
             <field name="name">Long lived biological assets</field>
             <field name="code_prefix_start">27</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_2"/>
+            <field name="parent_id" ref="l10n_bg_2"/>
         </record>
-        <record id="l10n_bg.l10n_bg_271" model="account.account.template">
+        <record id="l10n_bg_271" model="account.account.template">
             <field name="name">Woods</field>
             <field name="code">271.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_272" model="account.account.template">
+        <record id="l10n_bg_272" model="account.account.template">
             <field name="name">Permanent plantations - fruitful</field>
             <field name="code">272.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_273" model="account.account.template">
+        <record id="l10n_bg_273" model="account.account.template">
             <field name="name">Permanent plantations - infertile</field>
             <field name="code">273.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_274" model="account.account.template">
+        <record id="l10n_bg_274" model="account.account.template">
             <field name="name">Animals in major herds</field>
             <field name="code">274.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_279" model="account.account.template">
+        <record id="l10n_bg_279" model="account.account.template">
             <field name="name">Other fixed biological assets</field>
             <field name="code">279.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_3" model="account.group.template">
+        <record id="l10n_bg_3" model="account.group.template">
             <field name="name">ACCOUNTING ACCOUNTS FOR INVENTORIES</field>
             <field name="code_prefix_start">3</field>
         </record>
-        <record id="l10n_bg.l10n_bg_30" model="account.group.template">
+        <record id="l10n_bg_30" model="account.group.template">
             <field name="name">Materials, production and goods</field>
             <field name="code_prefix_start">30</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_3"/>
+            <field name="parent_id" ref="l10n_bg_3"/>
         </record>
-        <record id="l10n_bg.l10n_bg_301" model="account.group.template">
+        <record id="l10n_bg_301" model="account.group.template">
             <field name="name">Shipping and delivery costs</field>
             <field name="code_prefix_start">301</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_30"/>
+            <field name="parent_id" ref="l10n_bg_30"/>
         </record>
-        <record id="l10n_bg.l10n_bg_301_001" model="account.account.template">
+        <record id="l10n_bg_301_001" model="account.account.template">
             <field name="name">Deliveries</field>
             <field name="code">301.001</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_301_002" model="account.account.template">
+        <record id="l10n_bg_301_002" model="account.account.template">
             <field name="name">Shipping costs</field>
             <field name="code">301.002</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_302" model="account.account.template">
+        <record id="l10n_bg_302" model="account.account.template">
             <field name="name">Raw materials/Materials</field>
             <field name="code">302.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_303" model="account.account.template">
+        <record id="l10n_bg_303" model="account.account.template">
             <field name="name">Products</field>
             <field name="code">303.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_304" model="account.account.template">
+        <record id="l10n_bg_304" model="account.account.template">
             <field name="name">Goods</field>
             <field name="code">304.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_305" model="account.account.template">
+        <record id="l10n_bg_305" model="account.account.template">
             <field name="name">Goods on the way</field>
             <field name="code">305.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_31" model="account.group.template">
+        <record id="l10n_bg_31" model="account.group.template">
             <field name="name">Short-term biological assets</field>
             <field name="code_prefix_start">31</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_3"/>
+            <field name="parent_id" ref="l10n_bg_3"/>
         </record>
-        <record id="l10n_bg.l10n_bg_311" model="account.account.template">
+        <record id="l10n_bg_311" model="account.account.template">
             <field name="name">Small productive animals</field>
             <field name="code">311.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_312" model="account.account.template">
+        <record id="l10n_bg_312" model="account.account.template">
             <field name="name">Bird-main flocks</field>
             <field name="code">312.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_313" model="account.account.template">
+        <record id="l10n_bg_313" model="account.account.template">
             <field name="name">Bee families</field>
             <field name="code">313.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_314" model="account.account.template">
+        <record id="l10n_bg_314" model="account.account.template">
             <field name="name">Young animals</field>
             <field name="code">314.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_315" model="account.account.template">
+        <record id="l10n_bg_315" model="account.account.template">
             <field name="name">Animals for fattening</field>
             <field name="code">315.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_316" model="account.account.template">
+        <record id="l10n_bg_316" model="account.account.template">
             <field name="name">Animals for experimental purposes</field>
             <field name="code">316.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_319" model="account.account.template">
+        <record id="l10n_bg_319" model="account.account.template">
             <field name="name">Other current biological assets</field>
             <field name="code">319.000</field>
             <field name="account_type" ref="asset_non_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_4" model="account.group.template">
+        <record id="l10n_bg_4" model="account.group.template">
             <field name="name">ACCOUNTING ACCOUNTS FOR CALCULATIONS</field>
             <field name="code_prefix_start">4</field>
         </record>
-        <record id="l10n_bg.l10n_bg_40" model="account.group.template">
+        <record id="l10n_bg_40" model="account.group.template">
             <field name="name">Vendors and related accounts</field>
             <field name="code_prefix_start">40</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_4"/>
+            <field name="parent_id" ref="l10n_bg_4"/>
         </record>
-        <record id="l10n_bg.l10n_bg_401" model="account.account.template">
+        <record id="l10n_bg_401" model="account.account.template">
             <field name="name">Obligations to suppliers</field>
             <field name="code">401.000</field>
             <field name="reconcile">True</field>
             <field name="account_type" ref="liability_payable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_402" model="account.account.template">
+        <record id="l10n_bg_402" model="account.account.template">
             <field name="name">Receivables from suppliers on advances</field>
             <field name="code">402.000</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_403" model="account.account.template">
+        <record id="l10n_bg_403" model="account.account.template">
             <field name="name">Accounts Payable to Trade Credit Suppliers</field>
             <field name="code">403.000</field>
             <field name="reconcile">True</field>
             <field name="account_type" ref="liability_payable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_404" model="account.account.template">
+        <record id="l10n_bg_404" model="account.account.template">
             <field name="name">Obligations to suppliers for supplies under certain conditions</field>
             <field name="code">404.000</field>
             <field name="reconcile">True</field>
             <field name="account_type" ref="liability_payable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_406" model="account.account.template">
+        <record id="l10n_bg_406" model="account.account.template">
             <field name="name">Obligations to related party suppliers</field>
             <field name="code">406.000</field>
             <field name="reconcile">True</field>
             <field name="account_type" ref="liability_payable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_409" model="account.account.template">
+        <record id="l10n_bg_409" model="account.account.template">
             <field name="name">Other obligations to suppliers</field>
             <field name="code">409.000</field>
             <field name="reconcile">True</field>
@@ -955,46 +955,46 @@
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_41" model="account.group.template">
+        <record id="l10n_bg_41" model="account.group.template">
             <field name="name">Customers and related accounts</field>
             <field name="code_prefix_start">41</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_4"/>
+            <field name="parent_id" ref="l10n_bg_4"/>
         </record>
-        <record id="l10n_bg.l10n_bg_411" model="account.account.template">
+        <record id="l10n_bg_411" model="account.account.template">
             <field name="name">Accounts Receivable from customers</field>
             <field name="reconcile">True</field>
             <field name="code">411.000</field>
             <field name="account_type" ref="asset_receivable"/> <!-- салдови за обвързване вземане-плащане -->
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_412" model="account.account.template">
+        <record id="l10n_bg_412" model="account.account.template">
             <field name="name">Accounts payable to customers for advances</field>
             <field name="code">412.000</field>
             <field name="account_type" ref="liability_payable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_413" model="account.account.template">
+        <record id="l10n_bg_413" model="account.account.template">
             <field name="name">Вземания от клиенти по търговски кредити</field>
             <field name="reconcile">True</field>
             <field name="code">413.000</field>
             <field name="account_type" ref="asset_receivable"/> <!-- салдови за обвързване вземане-плащане -->
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_414" model="account.account.template">
+        <record id="l10n_bg_414" model="account.account.template">
             <field name="name">Sales receivables under certain conditions</field>
             <field name="reconcile">True</field>
             <field name="code">414.000</field>
             <field name="account_type" ref="asset_receivable"/> <!-- салдови за обвързване вземане-плащане -->
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_416" model="account.account.template">
+        <record id="l10n_bg_416" model="account.account.template">
             <field name="name">Receivables from related parties</field>
             <field name="reconcile">True</field>
             <field name="code">416.000</field>
             <field name="account_type" ref="asset_receivable"/> <!-- салдови за обвързване вземане-плащане -->
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_419" model="account.account.template">
+        <record id="l10n_bg_419" model="account.account.template">
             <field name="name">Other receivables from customers</field>
             <field name="reconcile">True</field>
             <field name="code">419.000</field>
@@ -1002,70 +1002,70 @@
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_42" model="account.group.template">
+        <record id="l10n_bg_42" model="account.group.template">
             <field name="name">Staff and Associates</field>
             <field name="code_prefix_start">42</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_4"/>
+            <field name="parent_id" ref="l10n_bg_4"/>
         </record>
-        <record id="l10n_bg.l10n_bg_421" model="account.account.template">
+        <record id="l10n_bg_421" model="account.account.template">
             <field name="name">Duties to personnel</field>
             <field name="reconcile">True</field>
             <field name="code">421.000</field>
             <field name="account_type" ref="liability_payable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_422" model="account.group.template">
+        <record id="l10n_bg_422" model="account.group.template">
             <field name="name">Estimates for dealings with accountable persons and other</field>
             <field name="code_prefix_start">422.000</field>
             <field name="parent_id" ref="l10n_bg.l10n_bg_42"/>
         </record>
-        <record id="l10n_bg.l10n_bg_422_100" model="account.account.template">
+        <record id="l10n_bg_422_100" model="account.account.template">
             <field name="name">Estimates for dealings with accountable persons</field>
             <field name="code">422.100</field>
             <field name="account_type" ref="asset_cash"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_422_200" model="account.account.template">
+        <record id="l10n_bg_422_200" model="account.account.template">
             <field name="name">Settlements with accountable persons withdrawal atm</field>
             <field name="code">422.200</field>
             <field name="account_type" ref="asset_cash"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_422_900" model="account.account.template">
+        <record id="l10n_bg_422_900" model="account.account.template">
             <field name="name">Other settlements with accountable persons</field>
             <field name="code">422.900</field>
             <field name="account_type" ref="asset_cash"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_423" model="account.account.template">
+        <record id="l10n_bg_423" model="account.account.template">
             <field name="name">Liabilities for unpaid leave</field>
             <field name="reconcile">True</field>
             <field name="code">423.000</field>
             <field name="account_type" ref="liability_payable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_424" model="account.account.template">
+        <record id="l10n_bg_424" model="account.account.template">
             <field name="name">Receivables from contributories</field>
             <field name="reconcile">True</field>
             <field name="code">424.000</field>
             <field name="account_type" ref="asset_receivable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_425" model="account.account.template">
+        <record id="l10n_bg_425" model="account.account.template">
             <field name="name">Contributory obligations</field>
             <field name="reconcile">True</field>
             <field name="code">425.000</field>
             <field name="account_type" ref="asset_receivable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_426" model="account.account.template">
+        <record id="l10n_bg_426" model="account.account.template">
             <field name="name">Receivables from recorded equity contributions</field>
             <field name="reconcile">True</field>
             <field name="code">426.000</field>
             <field name="account_type" ref="asset_receivable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_429" model="account.account.template">
+        <record id="l10n_bg_429" model="account.account.template">
             <field name="name">Other settlements with staff and partners</field>
             <field name="reconcile">True</field>
             <field name="code">429.000</field>
@@ -1073,82 +1073,82 @@
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_43" model="account.group.template">
+        <record id="l10n_bg_43" model="account.group.template">
             <field name="name">Translation estimates and internal estimates</field>
             <field name="code_prefix_start">43</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_4"/>
+            <field name="parent_id" ref="l10n_bg_4"/>
         </record>
-        <record id="l10n_bg.l10n_bg_431" model="account.account.template">
+        <record id="l10n_bg_431" model="account.account.template">
             <field name="name">Calculations on interbank operations</field>
             <field name="code">431.000</field>
             <field name="account_type" ref="asset_receivable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_432" model="account.account.template">
+        <record id="l10n_bg_432" model="account.account.template">
             <field name="name">Internal calculations for interbank operations</field>
             <field name="code">432.000</field>
             <field name="account_type" ref="asset_receivable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_433" model="account.account.template">
+        <record id="l10n_bg_433" model="account.account.template">
             <field name="name">Internal calculations for intrabank operations</field>
             <field name="code">433.000</field>
             <field name="account_type" ref="asset_receivable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_437" model="account.account.template">
+        <record id="l10n_bg_437" model="account.account.template">
             <field name="name">Internal calculations in connection with VAT at intra-community transactions</field>
             <field name="code">437.000</field>
             <field name="account_type" ref="asset_receivable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_438" model="account.account.template">
+        <record id="l10n_bg_438" model="account.account.template">
             <field name="name">Internal estimates in relation to customs duties</field>
             <field name="code">438.000</field>
             <field name="account_type" ref="asset_receivable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_439" model="account.account.template">
+        <record id="l10n_bg_439" model="account.account.template">
             <field name="name">Other internal calculations</field>
             <field name="code">439.000</field>
             <field name="account_type" ref="asset_receivable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_44" model="account.group.template">
+        <record id="l10n_bg_44" model="account.group.template">
             <field name="name">Debt claims, set-offs and litigation</field>
             <field name="code_prefix_start">44</field>
             <field name="parent_id" ref="l10n_bg.l10n_bg_4"/>
         </record>
-        <record id="l10n_bg.l10n_bg_441" model="account.account.template">
+        <record id="l10n_bg_441" model="account.account.template">
             <field name="name">Receivables under complaints</field>
             <field name="reconcile">True</field>
             <field name="code">441.000</field>
             <field name="account_type" ref="asset_receivable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_442" model="account.account.template">
+        <record id="l10n_bg_442" model="account.account.template">
             <field name="name">Claims for shortfalls and overdrafts</field>
             <field name="reconcile">True</field>
             <field name="code">442.000</field>
             <field name="account_type" ref="asset_receivable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_443" model="account.account.template">
+        <record id="l10n_bg_443" model="account.account.template">
             <field name="name">Price differences by missing and read</field>
             <field name="reconcile">True</field>
             <field name="code">443.000</field>
             <field name="account_type" ref="asset_receivable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_444" model="account.account.template">
+        <record id="l10n_bg_444" model="account.account.template">
             <field name="name">Litigation claims</field>
             <field name="reconcile">True</field>
             <field name="code">444.000</field>
             <field name="account_type" ref="asset_receivable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_445" model="account.account.template">
+        <record id="l10n_bg_445" model="account.account.template">
             <field name="name">Claims awarded</field>
             <field name="reconcile">True</field>
             <field name="code">445.000</field>
@@ -1156,60 +1156,60 @@
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg.l10n_bg_45" model="account.group.template">
+        <record id="l10n_bg_45" model="account.group.template">
             <field name="name">Estimates with the budget and departments</field>
             <field name="code_prefix_start">45</field>
             <field name="parent_id" ref="l10n_bg.l10n_bg_4"/>
         </record>
-        <record id="l10n_bg.l10n_bg_451" model="account.account.template">
+        <record id="l10n_bg_451" model="account.account.template">
             <field name="name">Estimates with the municipalities</field>
             <field name="reconcile">True</field>
             <field name="code">451.000</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_452" model="account.group.template">
+        <record id="l10n_bg_452" model="account.group.template">
             <field name="name">Estimates for Annual Corporate Tax and advances</field>
             <field name="code_prefix_start">452</field>
             <field name="parent_id" ref="l10n_bg.l10n_bg_45"/>
         </record>
-        <record id="l10n_bg.l10n_bg_452_100" model="account.account.template">
+        <record id="l10n_bg_452_100" model="account.account.template">
             <field name="name">Estimates for Annual Corporate Tax</field>
             <field name="reconcile">True</field>
             <field name="code">452.100</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_452_200" model="account.account.template">
+        <record id="l10n_bg_452_200" model="account.account.template">
             <field name="name">Calculations for advance corporate tax</field>
             <field name="code">452.200</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_453" model="account.group.template">
+        <record id="l10n_bg_453" model="account.group.template">
             <field name="name">Value added tax calculations</field>
             <field name="code_prefix_start">453</field>
-            <field name="parent_id" ref="l10n_bg.l10n_bg_453"/>
+            <field name="parent_id" ref="l10n_bg_45"/>
         </record>
-        <record id="l10n_bg.l10n_bg_453_100" model="account.account.template">
+        <record id="l10n_bg_453_100" model="account.account.template">
             <field name="name">Value added tax charged on purchases</field>
             <field name="code">453.100</field>
             <field name="account_type" ref="asset_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_453_200" model="account.account.template">
+        <record id="l10n_bg_453_200" model="account.account.template">
             <field name="name">Value added tax charged on sales</field>
             <field name="code">453.200</field>
             <field name="account_type" ref="liability_current"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_453_600" model="account.account.template">
+        <record id="l10n_bg_453_600" model="account.account.template">
             <field name="name">Deferred tax credit</field>
             <field name="code">453.600</field>
             <field name="account_type" ref="asset_receivable"/>
             <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg.l10n_bg_453_700" model="account.account.template">
+        <record id="l10n_bg_453_700" model="account.account.template">
             <field name="name">Tax credit for set-off</field>
             <field name="code">453.700</field>
             <field name="account_type" ref="asset_receivable"/>

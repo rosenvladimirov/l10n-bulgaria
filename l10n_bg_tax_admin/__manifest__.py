@@ -21,6 +21,7 @@
     'data': [
         'security/ir.model.access.csv',
         'data/l10n_bg_tax_admin_pre_functions.xml',
+        'data/l10_bg_chart_data.xml',
         'data/account_tax_template_data.xml',
         'data/account_fiscal_position_template.xml',
         'data/l10n_bg_tax_admin_post_functions.xml',

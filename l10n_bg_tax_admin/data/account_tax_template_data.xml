@@ -16,7 +16,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'base',
-                        'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_1_tag')],
+                        'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_1_tag')]
                     }),
                     (0,0, {
                         'factor_percent': 100,
@@ -27,29 +27,28 @@
                     (0,0, {
                         'factor_percent': -100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
-                        }),
+                        })
                 ]"/>
                 <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
                         (0,0, {
                             'factor_percent': 100,
                             'repartition_type': 'base',
-                            'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_1_tag')],
+                            'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_1_tag')]
                         }),
-
                         (0,0, {
                             'factor_percent': 100,
                             'repartition_type': 'tax',
-                            'account_id': ref('l10n_bg.l10n_bg_4532'),
+                            'account_id': ref('l10n_bg_453_200'),
                             'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                             }),
                         (0,0, {
                             'factor_percent': -100,
                             'repartition_type': 'tax',
-                            'account_id': ref('l10n_bg.l10n_bg_437'),
+                            'account_id': ref('l10n_bg_437'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
-                            }),
+                            })
                     ]"/>
         </record>
         <record id="l10n_bg_purchase_vat_20_p_ica_income" model="account.tax.template">
@@ -72,13 +71,13 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_437'),
+                        'account_id': ref('l10n_bg_437'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                         }),
                     (0,0, {
                         'factor_percent': -100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                         }),
                 ]"/>
@@ -92,13 +91,13 @@
                         (0,0, {
                             'factor_percent': 100,
                             'repartition_type': 'tax',
-                            'account_id': ref('l10n_bg.l10n_bg_437'),
+                            'account_id': ref('l10n_bg_437'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                             }),
                         (0,0, {
                             'factor_percent': -100,
                             'repartition_type': 'tax',
-                            'account_id': ref('l10n_bg.l10n_bg_4532'),
+                            'account_id': ref('l10n_bg_453_200'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                             }),
                     ]"/>
@@ -123,13 +122,13 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_437'),
+                        'account_id': ref('l10n_bg_437'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                         }),
                     (0,0, {
                         'factor_percent': -100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                         }),
                 ]"/>
@@ -143,13 +142,13 @@
                         (0,0, {
                             'factor_percent': -100,
                             'repartition_type': 'tax',
-                            'account_id': ref('l10n_bg.l10n_bg_4532'),
+                            'account_id': ref('l10n_bg_453_200'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                             }),
                         (0,0, {
                             'factor_percent': 100,
                             'repartition_type': 'tax',
-                            'account_id': ref('l10n_bg.l10n_bg_437'),
+                            'account_id': ref('l10n_bg_437'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                             }),
                     ]"/>
@@ -174,13 +173,13 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_437'),
+                        'account_id': ref('l10n_bg_437'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                         }),
                     (0,0, {
                         'factor_percent': -100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                         }),
                 ]"/>
@@ -194,13 +193,13 @@
                         (0,0, {
                             'factor_percent': 100,
                             'repartition_type': 'tax',
-                            'account_id': ref('l10n_bg.l10n_bg_4532'),
+                            'account_id': ref('l10n_bg_453_200'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                             }),
                         (0,0, {
                             'factor_percent': -100,
                             'repartition_type': 'tax',
-                            'account_id': ref('l10n_bg.l10n_bg_437'),
+                            'account_id': ref('l10n_bg_437'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                             }),
                     ]"/>
@@ -227,13 +226,13 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_41_tag')]
                          }),
                     (0,0, {
                         'factor_percent': -100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_437'),
+                        'account_id': ref('l10n_bg_437'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                         }),
                 ]"/>
@@ -247,13 +246,13 @@
                         (0,0, {
                             'factor_percent': 100,
                             'repartition_type': 'tax',
-                            'account_id': ref('l10n_bg.l10n_bg_4531'),
+                            'account_id': ref('l10n_bg_453_100'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_41_tag')]
                             }),
                         (0,0, {
                             'factor_percent': -100,
                             'repartition_type': 'tax',
-                            'account_id': ref('l10n_bg.l10n_bg_437'),
+                            'account_id': ref('l10n_bg_437'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                             }),
                     ]"/>
@@ -278,13 +277,13 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_41_tag')]
                          }),
                     (0,0, {
                         'factor_percent': -100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_437'),
+                        'account_id': ref('l10n_bg_437'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                         }),
                 ]"/>
@@ -298,13 +297,13 @@
                         (0,0, {
                             'factor_percent': 100,
                             'repartition_type': 'tax',
-                            'account_id': ref('l10n_bg.l10n_bg_437'),
+                            'account_id': ref('l10n_bg_437'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                             }),
                         (0,0, {
                             'factor_percent': -100,
                             'repartition_type': 'tax',
-                            'account_id': ref('l10n_bg.l10n_bg_4531'),
+                            'account_id': ref('l10n_bg_453_100'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_41_tag')]
                             }),
                     ]"/>
@@ -329,13 +328,13 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_41_tag')]
                          }),
                     (0,0, {
                         'factor_percent': -100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_437'),
+                        'account_id': ref('l10n_bg_437'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                         }),
                 ]"/>
@@ -349,13 +348,13 @@
                         (0,0, {
                             'factor_percent': 100,
                             'repartition_type': 'tax',
-                            'account_id': ref('l10n_bg.l10n_bg_437'),
+                            'account_id': ref('l10n_bg_437'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                             }),
                         (0,0, {
                             'factor_percent': -100,
                             'repartition_type': 'tax',
-                            'account_id': ref('l10n_bg.l10n_bg_4531'),
+                            'account_id': ref('l10n_bg_453_100'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_41_tag')]
                             }),
                     ]"/>
@@ -380,13 +379,13 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_41_tag')]
                          }),
                     (0,0, {
                         'factor_percent': -100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_437'),
+                        'account_id': ref('l10n_bg_437'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                         }),
                 ]"/>
@@ -400,13 +399,13 @@
                         (0,0, {
                             'factor_percent': 100,
                             'repartition_type': 'tax',
-                            'account_id': ref('l10n_bg.l10n_bg_437'),
+                            'account_id': ref('l10n_bg_437'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                             }),
                         (0,0, {
                             'factor_percent': -100,
                             'repartition_type': 'tax',
-                            'account_id': ref('l10n_bg.l10n_bg_4531'),
+                            'account_id': ref('l10n_bg_453_100'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_41_tag')]
                             }),
                     ]"/>
@@ -433,7 +432,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_1_tag')]                 }),
                 ]"/>
             <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
@@ -446,7 +445,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_1_tag')]                 }),
                 ]"/>
         </record>
@@ -470,7 +469,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_1_tag')]                 }),
                 ]"/>
             <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
@@ -483,7 +482,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_1_tag')]                 }),
                 ]"/>
         </record>
@@ -507,7 +506,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_23_tag')]                 }),
                 ]"/>
             <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
@@ -520,7 +519,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_23_tag')]                 }),
                 ]"/>
         </record>
@@ -544,7 +543,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_24_tag')]                 }),
                 ]"/>
             <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
@@ -557,7 +556,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_24_tag')]                 }),
                 ]"/>
         </record>
@@ -581,7 +580,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_24_tag')]}),
                 ]"/>
             <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
@@ -594,7 +593,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_24_tag')]}),
                 ]"/>
         </record>
@@ -618,7 +617,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_24_tag')]}),
                 ]"/>
             <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
@@ -631,7 +630,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_24_tag')]}),
                 ]"/>
         </record>
@@ -656,7 +655,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_23_tag')]}),
                 ]"/>
             <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
@@ -669,7 +668,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4532'),
+                        'account_id': ref('l10n_bg_453_200'),
                         'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_23_tag')]}),
                 ]"/>
         </record>
@@ -906,7 +905,7 @@
     <!--                (0,0, {-->
     <!--                    'factor_percent': 100,-->
     <!--                    'repartition_type': 'tax',-->
-    <!--                    'account_id': ref('l10n_bg.l10n_bg_4531'),-->
+    <!--                    'account_id': ref('l10n_bg_453_100'),-->
     <!--                    'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_41_tag')]-->
     <!--                    }),-->
     <!--            ]"/>-->
@@ -920,7 +919,7 @@
     <!--                (0,0, {-->
     <!--                    'factor_percent': 100,-->
     <!--                    'repartition_type': 'tax',-->
-    <!--                    'account_id': ref('l10n_bg.l10n_bg_4531'),-->
+    <!--                    'account_id': ref('l10n_bg_453_100'),-->
     <!--                    'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_41_tag')]-->
     <!--                    }),-->
     <!--            ]"/>-->
@@ -945,7 +944,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_42_tag')]
                         }),
                 ]"/>
@@ -959,7 +958,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_42_tag')]
                         }),
                 ]"/>
@@ -984,7 +983,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_42_tag')]
                         }),
                 ]"/>
@@ -998,7 +997,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_42_tag')]
                         }),
                 ]"/>
@@ -1023,7 +1022,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_30_tag')]
                         }),
                 ]"/>
@@ -1037,7 +1036,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_30_tag')]
                         }),
                 ]"/>
@@ -1073,7 +1072,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_41_tag')]
                         }),
                 ]"/>
@@ -1087,7 +1086,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_41_tag')]
                         }),
                 ]"/>
@@ -1161,7 +1160,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_41_tag')]
                         }),
                 ]"/>
@@ -1174,7 +1173,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_41_tag')]
                         }),
                 ]"/>
@@ -1198,7 +1197,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_42_tag')]
                         }),
                 ]"/>
@@ -1212,7 +1211,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_42_tag')]
                         }),
                 ]"/>
@@ -1238,7 +1237,7 @@
     <!--                (0,0, {-->
     <!--                    'factor_percent': 100,-->
     <!--                    'repartition_type': 'tax',-->
-    <!--                    'account_id': ref('l10n_bg.l10n_bg_4531'),-->
+    <!--                    'account_id': ref('l10n_bg_453_100'),-->
     <!--                    'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_41_tag')]-->
     <!--                    }),-->
     <!--            ]"/>-->
@@ -1252,7 +1251,7 @@
     <!--                (0,0, {-->
     <!--                    'factor_percent': 100,-->
     <!--                    'repartition_type': 'tax',-->
-    <!--                    'account_id': ref('l10n_bg.l10n_bg_4531'),-->
+    <!--                    'account_id': ref('l10n_bg_453_100'),-->
     <!--                    'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_41_tag')]                 }),-->
     <!--            ]"/>-->
     <!--    </record>-->
@@ -1276,7 +1275,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'plus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_30_tag')]
                         }),
                 ]"/>
@@ -1290,7 +1289,7 @@
                     (0,0, {
                         'factor_percent': 100,
                         'repartition_type': 'tax',
-                        'account_id': ref('l10n_bg.l10n_bg_4531'),
+                        'account_id': ref('l10n_bg_453_100'),
                         'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_30_tag')]
                         }),
                 ]"/>

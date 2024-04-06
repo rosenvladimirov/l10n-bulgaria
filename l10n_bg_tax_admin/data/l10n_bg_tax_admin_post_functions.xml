@@ -14,14 +14,20 @@
     </function>
     <function name="write" model="ir.model.data">
         <function name="search" model="ir.model.data">
-            <value eval="[('module', '=', 'l10n_bg'), ('model', '=', 'account.group.template')]"/>
+            <value eval="[('module', '=', 'l10n_bg_tax_admin'), ('model', '=', 'account.group.template')]"/>
         </function>
         <value eval="{'noupdate': True, 'module': 'l10n_bg'}"/>
     </function>
     <function name="write" model="ir.model.data">
         <function name="search" model="ir.model.data">
-            <value eval="[('module', '=', 'l10n_bg'), ('model', '=', 'account.account.template')]"/>
+            <value eval="[('module', '=', 'l10n_bg_tax_admin'), ('model', '=', 'account.account.template')]"/>
         </function>
         <value eval="{'noupdate': True, 'module': 'l10n_bg'}"/>
+    </function>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'l10n_bg_tax_admin'), ('model', '=', 'account.chart.template')]"/>
+        </function>
+        <value eval="{'module': 'l10n_bg'}"/>
     </function>
 </odoo>

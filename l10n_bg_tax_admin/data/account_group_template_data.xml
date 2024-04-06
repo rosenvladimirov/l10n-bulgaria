@@ -1,0 +1,440 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="0">
+        <record id="l10n_bg_group_1" model="account.group.template">
+            <field name="code_prefix_start">1</field>
+            <field name="name">CAPITAL ACCOUNTS</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_10" model="account.group.template">
+            <field name="code_prefix_start">10</field>
+            <field name="name">Capital</field>
+            <field name="parent_id" ref="l10n_bg_group_1"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_11" model="account.group.template">
+            <field name="name">Capital reserves</field>
+            <field name="code_prefix_start">11</field>
+            <field name="parent_id" ref="l10n_bg_group_1"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_12" model="account.group.template">
+            <field name="name">Financial results</field>
+            <field name="code_prefix_start">12</field>
+            <field name="parent_id" ref="l10n_bg_group_1"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_13" model="account.group.template">
+            <field name="name">Reserves under insurance contracts</field>
+            <field name="code_prefix_start">13</field>
+            <field name="parent_id" ref="l10n_bg_group_1"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_14" model="account.group.template">
+            <field name="name">Issue</field>
+            <field name="code_prefix_start">14</field>
+            <field name="parent_id" ref="l10n_bg_group_1"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_15" model="account.group.template">
+            <field name="name">Loans received</field>
+            <field name="code_prefix_start">15</field>
+            <field name="parent_id" ref="l10n_bg_group_1"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_2" model="account.group.template">
+            <field name="name">FIXED ASSETS ACCOUNTS</field>
+            <field name="code_prefix_start">2</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_20" model="account.group.template">
+            <field name="name">Fixed assets</field>
+            <field name="code_prefix_start">20</field>
+            <field name="parent_id" ref="l10n_bg_group_2"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_204" model="account.group.template">
+            <field name="name">Machinery and equipment or below the materiality threshold</field>
+            <field name="code_prefix_start">204</field>
+            <field name="parent_id" ref="l10n_bg_group_20"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_205" model="account.group.template">
+            <field name="name">Vehicles, Means of transport and below the materiality threshold</field>
+            <field name="code_prefix_start">205</field>
+            <field name="parent_id" ref="l10n_bg_group_20"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_206" model="account.group.template">
+            <field name="name">Office furniture</field>
+            <field name="code_prefix_start">206</field>
+            <field name="parent_id" ref="l10n_bg_group_20"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_207" model="account.group.template">
+            <field name="name">Equipment and below the threshold of materiality</field>
+            <field name="code_prefix_start">207</field>
+            <field name="parent_id" ref="l10n_bg_group_20"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_208" model="account.group.template">
+            <field name="name">Computer equipment</field>
+            <field name="code_prefix_start">208</field>
+            <field name="parent_id" ref="l10n_bg_group_20"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_209" model="account.group.template">
+            <field name="name">Other fixed assets and below the materiality threshold</field>
+            <field name="code_prefix_start">209</field>
+            <field name="parent_id" ref="l10n_bg_group_20"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_21" model="account.group.template">
+            <field name="name">Development products</field>
+            <field name="code_prefix_start">21</field>
+            <field name="parent_id" ref="l10n_bg_group_2"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_214" model="account.group.template">
+            <field name="name">Industrial property rights and below the materiality threshold</field>
+            <field name="code_prefix_start">214</field>
+            <field name="parent_id" ref="l10n_bg_group_21"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_22" model="account.group.template">
+            <field name="name">Non-current financial assets</field>
+            <field name="code_prefix_start">22</field>
+            <field name="parent_id" ref="l10n_bg_group_2"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_23" model="account.group.template">
+            <field name="name">Commercial reputation</field>
+            <field name="code_prefix_start">23</field>
+            <field name="parent_id" ref="l10n_bg_group_2"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_24" model="account.group.template">
+            <field name="name">(Accumulated) Depreciation</field>
+            <field name="code_prefix_start">24</field>
+            <field name="parent_id" ref="l10n_bg_group_2"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_241" model="account.group.template">
+            <field name="name">(Accumulated) Depreciation of fixed assets</field>
+            <field name="code_prefix_start">241</field>
+            <field name="parent_id" ref="l10n_bg_group_24"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_242" model="account.group.template">
+            <field name="name">(Accumulated) Depreciation on non-fixed assets</field>
+            <field name="code_prefix_start">242</field>
+            <field name="parent_id" ref="l10n_bg_group_24"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_25" model="account.group.template">
+            <field name="name">Provisions to cover risky assets and liabilities</field>
+            <field name="code_prefix_start">25</field>
+            <field name="parent_id" ref="l10n_bg_group_2"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_26" model="account.group.template">
+            <field name="name">Long term receivables and loans</field>
+            <field name="code_prefix_start">26</field>
+            <field name="parent_id" ref="l10n_bg_group_2"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_27" model="account.group.template">
+            <field name="name">Long lived biological assets</field>
+            <field name="code_prefix_start">27</field>
+            <field name="parent_id" ref="l10n_bg_group_2"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_3" model="account.group.template">
+            <field name="name">ACCOUNTING ACCOUNTS FOR INVENTORIES</field>
+            <field name="code_prefix_start">3</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_30" model="account.group.template">
+            <field name="name">Materials, production and goods</field>
+            <field name="code_prefix_start">30</field>
+            <field name="parent_id" ref="l10n_bg_group_3"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_301" model="account.group.template">
+            <field name="name">Shipping and delivery costs</field>
+            <field name="code_prefix_start">301</field>
+            <field name="parent_id" ref="l10n_bg_group_30"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_31" model="account.group.template">
+            <field name="name">Short-term biological assets</field>
+            <field name="code_prefix_start">31</field>
+            <field name="parent_id" ref="l10n_bg_group_3"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_4" model="account.group.template">
+            <field name="name">ACCOUNTING ACCOUNTS FOR CALCULATIONS</field>
+            <field name="code_prefix_start">4</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_40" model="account.group.template">
+            <field name="name">Vendors and related accounts</field>
+            <field name="code_prefix_start">40</field>
+            <field name="parent_id" ref="l10n_bg_group_4"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_41" model="account.group.template">
+            <field name="name">Customers and related accounts</field>
+            <field name="code_prefix_start">41</field>
+            <field name="parent_id" ref="l10n_bg_group_4"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_42" model="account.group.template">
+            <field name="name">Staff and Associates</field>
+            <field name="code_prefix_start">42</field>
+            <field name="parent_id" ref="l10n_bg_group_4"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_422" model="account.group.template">
+            <field name="name">Estimates for dealings with accountable persons and other</field>
+            <field name="code_prefix_start">422</field>
+            <field name="parent_id" ref="l10n_bg_group_42"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_43" model="account.group.template">
+            <field name="name">Translation estimates and internal estimates</field>
+            <field name="code_prefix_start">43</field>
+            <field name="parent_id" ref="l10n_bg_group_4"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_44" model="account.group.template">
+            <field name="name">Debt claims, set-offs and litigation</field>
+            <field name="code_prefix_start">44</field>
+            <field name="parent_id" ref="l10n_bg_group_4"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_45" model="account.group.template">
+            <field name="name">Estimates with the budget and departments</field>
+            <field name="code_prefix_start">45</field>
+            <field name="parent_id" ref="l10n_bg_group_4"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_452" model="account.group.template">
+            <field name="name">Estimates for Annual Corporate Tax and advances</field>
+            <field name="code_prefix_start">452</field>
+            <field name="parent_id" ref="l10n_bg_group_45"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_453" model="account.group.template">
+            <field name="name">Value added tax calculations</field>
+            <field name="code_prefix_start">453</field>
+            <field name="parent_id" ref="l10n_bg_group_45"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_454" model="account.group.template">
+            <field name="name">Personal income tax calculations</field>
+            <field name="code_prefix_start">454</field>
+            <field name="parent_id" ref="l10n_bg_group_45"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_457" model="account.group.template">
+            <field name="name">Calculations for customs import taxes</field>
+            <field name="code_prefix_start">457</field>
+            <field name="parent_id" ref="l10n_bg_group_45"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_459" model="account.group.template">
+            <field name="name">Other taxes and estimates with the budget</field>
+            <field name="code_prefix_start">459</field>
+            <field name="parent_id" ref="l10n_bg_group_45"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_46" model="account.group.template">
+            <field name="name">Settlements with insurers</field>
+            <field name="code_prefix_start">46</field>
+            <field name="parent_id" ref="l10n_bg_group_4"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_461" model="account.group.template">
+            <field name="name">Calculations for mandatory social and health insurance</field>
+            <field name="code_prefix_start">461</field>
+            <field name="parent_id" ref="l10n_bg_group_46"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_49" model="account.group.template">
+            <field name="name">Sundry debtors and creditors</field>
+            <field name="code_prefix_start">49</field>
+            <field name="parent_id" ref="l10n_bg_group_4"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_5" model="account.group.template">
+            <field name="name">ACCOUNTS FOR FINANCIAL ASSETS</field>
+            <field name="code_prefix_start">5</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_50" model="account.group.template">
+            <field name="name">Financial assets</field>
+            <field name="code_prefix_start">50</field>
+            <field name="parent_id" ref="l10n_bg_group_5"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_51" model="account.group.template">
+            <field name="name">Short-term financial assets</field>
+            <field name="code_prefix_start">51</field>
+            <field name="parent_id" ref="l10n_bg_group_5"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_6" model="account.group.template">
+            <field name="name">EXPENDITURE ACCOUNTS</field>
+            <field name="code_prefix_start">6</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_60" model="account.group.template">
+            <field name="name">Costs by economic elements</field>
+            <field name="code_prefix_start">60</field>
+            <field name="parent_id" ref="l10n_bg_group_6"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_601" model="account.group.template">
+            <field name="name">Material costs</field>
+            <field name="code_prefix_start">601</field>
+            <field name="parent_id" ref="l10n_bg_group_60"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_604" model="account.group.template">
+            <field name="name">Salary costs</field>
+            <field name="code_prefix_start">604</field>
+            <field name="parent_id" ref="l10n_bg_group_60"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_605" model="account.group.template">
+            <field name="name">Insurance costs</field>
+            <field name="code_prefix_start">605</field>
+            <field name="parent_id" ref="l10n_bg_group_60"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_606" model="account.group.template">
+            <field name="name">Accrued tax expense</field>
+            <field name="code_prefix_start">606</field>
+            <field name="parent_id" ref="l10n_bg_group_60"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_609" model="account.group.template">
+            <field name="name">Other expenses</field>
+            <field name="code_prefix_start">609</field>
+            <field name="parent_id" ref="l10n_bg_group_60"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_61" model="account.group.template">
+            <field name="name">Activity costs</field>
+            <field name="code_prefix_start">61</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_62" model="account.group.template">
+            <field name="name">Other expenses</field>
+            <field name="code_prefix_start">62</field>
+            <field name="parent_id" ref="l10n_bg_group_6"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_621" model="account.group.template">
+            <field name="name">Other expenses</field>
+            <field name="code_prefix_start">621</field>
+            <field name="parent_id" ref="l10n_bg_group_62"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_63" model="account.group.template">
+            <field name="name">Impairment loss (expense)</field>
+            <field name="code_prefix_start">63</field>
+            <field name="parent_id" ref="l10n_bg_group_6"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_65" model="account.group.template">
+            <field name="name">Impairment loss (expense)</field>
+            <field name="code_prefix_start">63</field>
+            <field name="parent_id" ref="l10n_bg_group_6"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_69" model="account.group.template">
+            <field name="name">Exceptional costs</field>
+            <field name="code_prefix_start">69</field>
+            <field name="parent_id" ref="l10n_bg_group_6"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_7" model="account.group.template">
+            <field name="name">REVENUE ACCOUNTS</field>
+            <field name="code_prefix_start">7</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_70" model="account.group.template">
+            <field name="name">Sales revenue</field>
+            <field name="code_prefix_start">70</field>
+            <field name="parent_id" ref="l10n_bg_group_7"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_702" model="account.group.template">
+            <field name="name">Revenue from sales of goods</field>
+            <field name="code_prefix_start">702</field>
+            <field name="parent_id" ref="l10n_bg_group_70"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_705" model="account.group.template">
+            <field name="name">Revenue from sales of goods</field>
+            <field name="code_prefix_start">705</field>
+            <field name="parent_id" ref="l10n_bg_group_70"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_706" model="account.group.template">
+            <field name="name">Revenue from sales of goods</field>
+            <field name="code_prefix_start">706</field>
+            <field name="parent_id" ref="l10n_bg_group_70"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_709" model="account.group.template">
+            <field name="name">Other income from the activity</field>
+            <field name="code_prefix_start">709</field>
+            <field name="parent_id" ref="l10n_bg_group_70"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_72" model="account.group.template">
+            <field name="name">Financial income</field>
+            <field name="code_prefix_start">72</field>
+            <field name="parent_id" ref="l10n_bg_group_7"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_75" model="account.group.template">
+            <field name="name">Deferred income and financing</field>
+            <field name="code_prefix_start">72</field>
+            <field name="parent_id" ref="l10n_bg_group_7"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_79" model="account.group.template">
+            <field name="name">Extraordinary income</field>
+            <field name="code_prefix_start">79</field>
+            <field name="parent_id" ref="l10n_bg_group_7"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_9" model="account.group.template">
+            <field name="name">ACCOUNTS FOR CONTINGENT ASSETS AND CONTINGENT LIABILITIES</field>
+            <field name="code_prefix_start">9</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_91" model="account.group.template">
+            <field name="name">Foreign tangible and intangible assets</field>
+            <field name="code_prefix_start">91</field>
+            <field name="parent_id" ref="l10n_bg_group_9"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_98" model="account.group.template">
+            <field name="name">Miscellaneous Contingent Asset Accounts</field>
+            <field name="code_prefix_start">98</field>
+            <field name="parent_id" ref="l10n_bg_group_9"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_group_99" model="account.group.template">
+            <field name="name">Miscellaneous Contingent Liability Accounts</field>
+            <field name="code_prefix_start">99</field>
+            <field name="parent_id" ref="l10n_bg_group_9"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+    </data>
+</odoo>

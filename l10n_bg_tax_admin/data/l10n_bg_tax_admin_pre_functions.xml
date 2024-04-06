@@ -2,26 +2,32 @@
 <odoo>
     <function name="write" model="ir.model.data">
         <function name="search" model="ir.model.data">
-            <value eval="[('module', '=', 'l10n_bg'), ('model', '=', 'account.tax.template')]"/>
+            <value eval="[('model', '=', 'account.tax.template'), '|', ('module', '=', 'l10n_bg'), ('module', '=', 'l10n_bg_tax_admin')]"/>
         </function>
         <value eval="{'noupdate': False, 'module': 'l10n_bg_tax_admin'}"/>
     </function>
     <function name="write" model="ir.model.data">
         <function name="search" model="ir.model.data">
-            <value eval="[('module', '=', 'l10n_bg'), ('model', '=', 'account.fiscal.position.template')]"/>
+            <value eval="[('model', '=', 'account.fiscal.position.template'), '|', ('module', '=', 'l10n_bg'), ('module', '=', 'l10n_bg_tax_admin')]"/>
         </function>
         <value eval="{'noupdate': False, 'module': 'l10n_bg_tax_admin'}"/>
     </function>
     <function name="write" model="ir.model.data">
         <function name="search" model="ir.model.data">
-            <value eval="[('module', '=', 'l10n_bg'), ('model', '=', 'account.group.template')]"/>
+            <value eval="[('model', '=', 'account.group.template'), '|', ('module', '=', 'l10n_bg'), ('module', '=', 'l10n_bg_tax_admin')]"/>
         </function>
         <value eval="{'noupdate': False, 'module': 'l10n_bg_tax_admin'}"/>
     </function>
     <function name="write" model="ir.model.data">
         <function name="search" model="ir.model.data">
-            <value eval="[('module', '=', 'l10n_bg'), ('model', '=', 'account.account.template')]"/>
+            <value eval="[('model', '=', 'account.account.template'), '|', ('module', '=', 'l10n_bg'), ('module', '=', 'l10n_bg_tax_admin')]"/>
         </function>
         <value eval="{'noupdate': False, 'module': 'l10n_bg_tax_admin'}"/>
+    </function>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('model', '=', 'account.chart.template'), '|', ('module', '=', 'l10n_bg'), ('module', '=', 'l10n_bg_tax_admin')]"/>
+        </function>
+        <value eval="{'module': 'l10n_bg_tax_admin'}"/>
     </function>
 </odoo>

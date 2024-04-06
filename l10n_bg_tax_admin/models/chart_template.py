@@ -1,10 +1,13 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
+import logging
 
 from odoo import api, fields, models, Command, _, osv
 from odoo.addons.base.models.res_lang import intersperse
 from odoo.exceptions import UserError, AccessError
 from odoo.addons.l10n_bg_config.models.account_move import get_doc_type
 from odoo.addons.l10n_bg_config.models.account_move import get_type_vat
+
+_logger = logging.getLogger(__name__)
 
 
 def get_invoice_type():
@@ -23,7 +26,9 @@ def get_invoice_type():
 
 def _grouping(new_code, code_digits, grouping='[]'):
     if grouping.replace("[", "").replace("]", ""):
-        new_code = intersperse(new_code.ljust(code_digits, '0'), grouping, '.')
+        grouping = list(map(int, grouping.replace("[", "").replace("]", "").split(",")))
+        new_code = intersperse(new_code.ljust(code_digits, '0'), grouping, '.')[0]
+        _logger.info(f"grouping: {grouping} code: {code_digits} new_code: {new_code}")
     return new_code
 
 
@@ -32,9 +37,8 @@ class AccountChartTemplate(models.Model):
 
     grouping = fields.Char(string='Separator Format', default='[]',
                            help="The Separator Format should be like [,n] where 0 < n :starting from Unit digit. "
-                                "-1 will end the separation. e.g. [3,2,-1] will represent 106500 to be 1,06,500; "
-                                "[1,2,-1] will represent it to be 106,50,0;[3] will represent it as 106,500. "
-                                "Provided '.' as the thousand separator in each case.")
+                                "-1 will end the separation. e.g. [3,2,-1] will represent 106500 to be 1.06.500; "
+                                "[1,2,-1] will represent it to be 106.50.0;[3] will represent it as 106.500")
 
     @api.model
     def _prepare_transfer_account_template(self, prefix=None):

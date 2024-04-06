@@ -5,7 +5,7 @@
     <record id="fiscal_position_template_dom" model="account.fiscal.position.template">
         <field name="sequence">10</field>
         <field name="name">Taxable transactions (20%)</field>
-        <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+        <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         <field name="auto_apply" eval="True"/>
         <field name="vat_required" eval="True"/>
         <field name="country_id" ref="base.bg"/>
@@ -14,7 +14,7 @@
     <record id="fiscal_position_template_dom_hotels" model="account.fiscal.position.template">
         <field name="sequence">11</field>
         <field name="name">Taxable transactions hotels (9%)</field>
-        <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+        <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         <field name="auto_apply" eval="True"/>
         <field name="vat_required" eval="True"/>
         <field name="country_id" ref="base.bg"/>
@@ -23,7 +23,7 @@
     <record id="fiscal_position_template_dom_books" model="account.fiscal.position.template">
         <field name="sequence">11</field>
         <field name="name">Taxable transactions books (9%)</field>
-        <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+        <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         <field name="auto_apply" eval="True"/>
         <field name="vat_required" eval="True"/>
         <field name="country_id" ref="base.bg"/>
@@ -32,7 +32,7 @@
     <record id="fiscal_position_bg_private_eu" model="account.fiscal.position.template">
         <field name="name">Taxable transactions EU (20%)</field>
         <field name="sequence">20</field>
-        <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+        <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         <field name="auto_apply" eval="True"/>
         <field name="country_group_id" ref="base.europe"/>
     </record>
@@ -40,7 +40,7 @@
     <record id="fiscal_position_template_in_eu" model="account.fiscal.position.template">
         <field name="sequence">30</field>
         <field name="name">Intra-community deals (0%)</field>
-        <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+        <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         <field name="auto_apply" eval="True"/>
         <field name="vat_required" eval="True"/>
         <field name="country_group_id" ref="base.europe"/>
@@ -49,7 +49,7 @@
     <record id="fiscal_position_template_in_eu_art_21" model="account.fiscal.position.template">
         <field name="sequence">30</field>
         <field name="name">Intra-community deals art.21 (0%)</field>
-        <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+        <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         <field name="auto_apply" eval="True"/>
         <field name="vat_required" eval="True"/>
         <field name="country_group_id" ref="base.europe"/>
@@ -58,7 +58,7 @@
     <record id="fiscal_position_template_out_eu" model="account.fiscal.position.template">
         <field name="sequence">40</field>
         <field name="name">Outside EU chapter III</field>
-        <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+        <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         <field name="auto_apply" eval="True"/>
     </record>
 

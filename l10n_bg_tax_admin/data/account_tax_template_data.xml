@@ -10,7 +10,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">none</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -59,7 +59,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">none</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -110,7 +110,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">none</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -161,7 +161,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">none</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -214,7 +214,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">none</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -265,7 +265,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">none</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -316,7 +316,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">none</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -367,7 +367,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">none</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -420,7 +420,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">sale</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -457,7 +457,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">sale</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -494,7 +494,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">sale</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -531,7 +531,7 @@
             <field name="amount">9</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">sale</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_9"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -568,7 +568,7 @@
             <field name="amount">9</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">sale</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_9"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -605,7 +605,7 @@
             <field name="amount">9</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">sale</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_9"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -643,7 +643,7 @@
             <field name="amount">9</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">sale</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_9"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -680,7 +680,7 @@
             <field name="amount">0</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">sale</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -715,7 +715,7 @@
             <field name="amount">0</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">sale</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -750,7 +750,7 @@
             <field name="amount">0</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">sale</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -785,7 +785,7 @@
             <field name="amount">0</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">sale</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -820,7 +820,7 @@
             <field name="amount">0</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">sale</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -855,7 +855,7 @@
             <field name="amount">0</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">sale</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -893,7 +893,7 @@
     <!--        <field name="amount">20</field>-->
     <!--        <field name="amount_type">percent</field>-->
     <!--        <field name="type_tax_use">purchase</field>-->
-    <!--        <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>-->
+    <!--        <field name="chart_template_id" ref="l10n_bg_chart_template"/>-->
     <!--        <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>-->
     <!--        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),-->
     <!--                (0,0, {-->
@@ -932,7 +932,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">purchase</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -971,7 +971,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">purchase</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -1010,7 +1010,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">purchase</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -1050,7 +1050,7 @@
             <field name="amount_type">percent</field>
             <field name="type_tax_use">purchase</field>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_0"/>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_purchase_vat_20_ftc" model="account.tax.template">
             <field name="sequence">205</field>
@@ -1060,7 +1060,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">purchase</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -1099,7 +1099,7 @@
             <field name="amount">20</field>
             <field name="amount_type">group</field>
             <field name="type_tax_use">purchase</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="children_tax_ids" eval="[(6, 0, [ref('l10n_bg_purchase_vat_20_ica_income'), ref('l10n_bg_purchase_vat_20_ica_receive')])]"/>
         </record>
@@ -1111,7 +1111,7 @@
             <field name="amount">20</field>
             <field name="amount_type">group</field>
             <field name="type_tax_use">purchase</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="children_tax_ids" eval="[(6, 0, [ref('l10n_bg_purchase_vat_20_p_ica_income'), ref('l10n_bg_purchase_vat_20_p_ica_receive')])]"/>
         </record>
@@ -1123,7 +1123,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">purchase</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="children_tax_ids" eval="[(6, 0, [ref('l10n_bg_purchase_vat_20_pe_ica_income'), ref('l10n_bg_purchase_vat_20_pe_ica_receive')])]"/>
         </record>
@@ -1136,7 +1136,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">purchase</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="children_tax_ids" eval="[(6, 0, [ref('l10n_bg_purchase_vat_20_e_ica_income'), ref('l10n_bg_purchase_vat_20_e_ica_receive')])]"/>
         </record>
@@ -1149,7 +1149,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">purchase</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -1186,7 +1186,7 @@
             <field name="amount">20</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">purchase</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -1225,7 +1225,7 @@
     <!--        <field name="amount">9</field>-->
     <!--        <field name="amount_type">percent</field>-->
     <!--        <field name="type_tax_use">purchase</field>-->
-    <!--        <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>-->
+    <!--        <field name="chart_template_id" ref="l10n_bg_chart_template"/>-->
     <!--        <field name="tax_group_id" ref="l10n_bg.tax_group_vat_9"/>-->
     <!--        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),-->
     <!--                (0,0, {-->
@@ -1263,7 +1263,7 @@
             <field name="amount">9</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">purchase</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_9"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -1302,7 +1302,7 @@
             <field name="amount">0</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">purchase</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -1337,7 +1337,7 @@
             <field name="amount">0</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">purchase</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {
@@ -1372,7 +1372,7 @@
             <field name="amount">0</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">purchase</field>
-            <field name="chart_template_id" ref="l10n_bg.l10n_bg_chart_template"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
             <field name="tax_group_id" ref="l10n_bg.tax_group_vat_20"/>
             <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
                     (0,0, {

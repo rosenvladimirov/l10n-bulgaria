@@ -349,8 +349,8 @@
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_group_65" model="account.group.template">
-            <field name="name">Impairment loss (expense)</field>
-            <field name="code_prefix_start">63</field>
+            <field name="name">Prepaid expenses</field>
+            <field name="code_prefix_start">65</field>
             <field name="parent_id" ref="l10n_bg_group_6"/>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
@@ -401,9 +401,15 @@
             <field name="parent_id" ref="l10n_bg_group_7"/>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
+        <record id="l10n_bg_group_73" model="account.group.template">
+            <field name="name">Income from reversals of impairment losses</field>
+            <field name="code_prefix_start">73</field>
+            <field name="parent_id" ref="l10n_bg_group_7"/>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
         <record id="l10n_bg_group_75" model="account.group.template">
             <field name="name">Deferred income and financing</field>
-            <field name="code_prefix_start">72</field>
+            <field name="code_prefix_start">75</field>
             <field name="parent_id" ref="l10n_bg_group_7"/>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>

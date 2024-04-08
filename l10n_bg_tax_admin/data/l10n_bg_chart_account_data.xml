@@ -912,18 +912,21 @@
         <record id="l10n_bg_431" model="account.account.template">
             <field name="name">Calculations on interbank operations</field>
             <field name="code">431000</field>
+            <field name="reconcile">True</field>
             <field name="account_type">asset_receivable</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_432" model="account.account.template">
             <field name="name">Internal calculations for interbank operations</field>
             <field name="code">432000</field>
+            <field name="reconcile">True</field>
             <field name="account_type">asset_receivable</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_433" model="account.account.template">
             <field name="name">Internal calculations for intra-bank operations</field>
             <field name="code">433000</field>
+            <field name="reconcile">True</field>
             <field name="account_type">asset_receivable</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
@@ -931,18 +934,21 @@
             <field name="name">Internal calculations in connection with VAT at intra-community transactions</field>
             <field name="code">437000</field>
             <field name="account_type">asset_receivable</field>
+            <field name="reconcile">True</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_438" model="account.account.template">
             <field name="name">Internal estimates in relation to customs duties</field>
             <field name="code">438000</field>
             <field name="account_type">asset_receivable</field>
+            <field name="reconcile">True</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_439" model="account.account.template">
             <field name="name">Other internal calculations</field>
             <field name="code">439000</field>
             <field name="account_type">asset_receivable</field>
+            <field name="reconcile">True</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
 
@@ -1017,12 +1023,14 @@
         <record id="l10n_bg_453_600" model="account.account.template">
             <field name="name">Deferred tax credit</field>
             <field name="code">453600</field>
+            <field name="reconcile">True</field>
             <field name="account_type">asset_receivable</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_453_700" model="account.account.template">
             <field name="name">Tax credit for set-off</field>
-            <field name="code">453.700</field>
+            <field name="code">453700</field>
+            <field name="reconcile">True</field>
             <field name="account_type">asset_receivable</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>

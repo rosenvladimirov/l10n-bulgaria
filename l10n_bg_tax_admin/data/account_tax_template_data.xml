@@ -140,13 +140,13 @@
                         }),
 
                         (0,0, {
-                            'factor_percent': -100,
+                            'factor_percent': 100,
                             'repartition_type': 'tax',
                             'account_id': ref('l10n_bg_453_200'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]
                             }),
                         (0,0, {
-                            'factor_percent': 100,
+                            'factor_percent': -100,
                             'repartition_type': 'tax',
                             'account_id': ref('l10n_bg_437'),
                             'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_12_2_tag')]

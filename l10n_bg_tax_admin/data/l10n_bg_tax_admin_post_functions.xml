@@ -30,4 +30,9 @@
         </function>
         <value eval="{'module': 'l10n_bg'}"/>
     </function>
+    <function name="unlink" model="account.account.template">
+        <function name="search" model="account.account.template">
+            <value eval="[('code', 'in', ['453', '204', '205', '206', '207', '208'])]"/>
+        </function>
+    </function>
 </odoo>

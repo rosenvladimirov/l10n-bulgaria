@@ -28,7 +28,6 @@ def _grouping(new_code, code_digits, grouping='[]'):
     if grouping.replace("[", "").replace("]", ""):
         grouping = list(map(int, grouping.replace("[", "").replace("]", "").split(",")))
         new_code = intersperse(new_code.ljust(code_digits, '0'), grouping, '.')[0]
-        _logger.info(f"grouping: {grouping} code: {code_digits} new_code: {new_code}")
     return new_code
 
 
@@ -59,7 +58,7 @@ class AccountChartTemplate(models.Model):
         max_digits = digits - len(prefix)
         for num in range(1, int(''.ljust(max_digits, '9'))):
             new_code = prefix + str(num).ljust(max_digits, '0')
-            new_code = _grouping(new_code, digits, grouping)
+            # new_code = _grouping(new_code, digits, grouping)
             rec = self.env['account.account.template'].search(
                 [('code', '=', new_code), ('chart_template_id', 'in', chart_templates.ids)], limit=1)
             if not rec:
@@ -90,7 +89,7 @@ class AccountChartTemplate(models.Model):
     @api.model
     def _create_cash_discount_loss_account(self, company, code_digits, grouping='[]'):
         new_code = ''.ljust(code_digits - 1, '9') + '8'
-        new_code = _grouping(new_code, code_digits, grouping)
+        # new_code = _grouping(new_code, code_digits, grouping)
         return self.env['account.account'].create({
             'name': _("Cash Discount Loss"),
             'code': new_code,
@@ -101,7 +100,7 @@ class AccountChartTemplate(models.Model):
     @api.model
     def _create_cash_discount_gain_account(self, company, code_digits, grouping='[]'):
         new_code = ''.ljust(code_digits - 1, '9') + '7'
-        new_code = _grouping(new_code, code_digits, grouping)
+        # new_code = _grouping(new_code, code_digits, grouping)
         return self.env['account.account'].create({
             'name': _("Cash Discount Gain"),
             'code': new_code,
@@ -347,6 +346,23 @@ FROM ir_model_data
             [('type_tax_use', 'in', ('purchase', 'all')), ('company_id', '=', company.id)], limit=1).id
 
         return {}
+
+
+class AccountAccountTemplate(models.Model):
+    _inherit = "account.account.template"
+
+    @api.model
+    def _load_records(self, data_list, update=False):
+        for data in data_list:
+            vals = data['values']
+            if not vals.get('chart_template_id', False):
+                continue
+            account_template_id = self.env['account.chart.template'].browse(vals['chart_template_id'])
+            digits = account_template_id.code_digits
+            grouping = account_template_id.grouping
+            if grouping:
+                data['values']['code'] = _grouping(data['values']['code'], digits, grouping)
+        return super()._load_records(data_list, update=update)
 
 
 class AccountFiscalPositionTemplate(models.Model):

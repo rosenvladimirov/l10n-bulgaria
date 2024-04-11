@@ -437,7 +437,7 @@
             <field name="account_type">asset_non_current</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg_2141" model="account.account.template">
+        <record id="l10n_bg_214" model="account.account.template">
             <field name="name">Industrial property rights</field>
             <field name="code">214100</field>
             <field name="account_type">asset_non_current</field>
@@ -1122,7 +1122,7 @@
             <field name="account_type">liability_current</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg_4571" model="account.account.template">
+        <record id="l10n_bg_457" model="account.account.template">
             <field name="name">VAT on customs importation</field>
             <field name="code">457100</field>
             <field name="account_type">liability_current</field>
@@ -1525,6 +1525,25 @@
             <field name="account_type">expense</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
+        <record id="l10n_bg_6043" model="account.account.template">
+            <field name="name">Paid leave expenses</field>
+            <field name="code">604300</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_6044" model="account.account.template">
+            <field name="name">Hospital costs</field>
+            <field name="code">604400</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_6045" model="account.account.template">
+            <field name="name">Expenses for remuneration of self-insured persons</field>
+            <field name="code">604500</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
         <record id="l10n_bg_6051" model="account.account.template">
             <field name="name">Expenditures for the social security fund</field>
             <field name="code">605100</field>
@@ -1598,7 +1617,7 @@
             <field name="account_type">expense</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg_6091" model="account.account.template">
+        <record id="l10n_bg_609" model="account.account.template">
             <field name="name">Cost of inventory shortages</field>
             <field name="code">609100</field>
             <field name="account_type">expense</field>

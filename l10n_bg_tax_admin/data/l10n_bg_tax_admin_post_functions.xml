@@ -32,7 +32,7 @@
     </function>
     <function name="unlink" model="account.account.template">
         <function name="search" model="account.account.template">
-            <value eval="[('code', 'in', ['453', '204', '205', '206', '207', '208'])]"/>
+            <value eval="[('code', 'in', ['453', '204', '205', '206', '207', '208', '209', '241', '2415', '242', '605', '606451', '606452', '606454', '606459'])]"/>
         </function>
     </function>
 </odoo>

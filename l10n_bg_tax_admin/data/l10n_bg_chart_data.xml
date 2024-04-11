@@ -4,19 +4,19 @@
         <field name="name">Bulgaria - National Chart of Accounts</field>
         <field name="property_account_receivable_id" ref="l10n_bg_411"/>
         <field name="property_account_payable_id" ref="l10n_bg_401"/>
-        <field name="property_account_expense_categ_id" ref="l10n_bg_601_100"/>
-        <field name="property_account_income_categ_id" ref="l10n_bg_709_100"/>
+        <field name="property_account_expense_categ_id" ref="l10n_bg_6011"/>
+        <field name="property_account_income_categ_id" ref="l10n_bg_7091"/>
         <field name="property_stock_valuation_account_id" ref="l10n_bg_302" />
-        <field name="property_stock_account_input_categ_id" ref="l10n_bg_301_001" />
-        <field name="property_stock_account_output_categ_id" ref="l10n_bg_709_100" />
+        <field name="property_stock_account_input_categ_id" ref="l10n_bg_301" />
+        <field name="property_stock_account_output_categ_id" ref="l10n_bg_7091" />
         <field name="expense_currency_exchange_account_id" ref="l10n_bg_624"/>
         <field name="income_currency_exchange_account_id" ref="l10n_bg_724"/>
-        <field name="property_tax_payable_account_id" ref="l10n_bg_453_900"/>
-        <field name="property_tax_receivable_account_id" ref="l10n_bg_453_800"/>
-        <field name="property_advance_tax_payment_account_id" ref="l10n_bg_452_200"/>
+        <field name="property_tax_payable_account_id" ref="l10n_bg_4539"/>
+        <field name="property_tax_receivable_account_id" ref="l10n_bg_4538"/>
+        <field name="property_advance_tax_payment_account_id" ref="l10n_bg_4522"/>
         <field name="default_cash_difference_income_account_id" ref="l10n_bg_791"/>
         <field name="default_cash_difference_expense_account_id" ref="l10n_bg_691"/>
-        <field name="account_journal_early_pay_discount_loss_account_id" ref="l10n_bg_609_800"/>
-        <field name="account_journal_early_pay_discount_gain_account_id" ref="l10n_bg_709_800"/>
+        <field name="account_journal_early_pay_discount_loss_account_id" ref="l10n_bg_6098"/>
+        <field name="account_journal_early_pay_discount_gain_account_id" ref="l10n_bg_7098"/>
     </record>
 </odoo>

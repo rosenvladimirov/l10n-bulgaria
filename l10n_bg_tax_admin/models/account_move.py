@@ -87,7 +87,7 @@ class AccountMove(models.Model):
 
         for move in self:
             if move.l10n_bg_type_vat not in ('in_customs', 'out_customs'):
-                move.l10n_bg_currency_rate = 1
+                move.l10n_bg_currency_rate = 1.0
             else:
                 if move.currency_id:
                     move.l10n_bg_currency_rate = get_rate(
@@ -97,49 +97,17 @@ class AccountMove(models.Model):
                         date=move.invoice_date or move.date or fields.Date.context_today(move),
                     )
                 else:
-                    move.l10n_bg_currency_rate = 1
+                    move.l10n_bg_currency_rate = 1.0
 
     # -------------------------------------------------------------------------
     # ONCHANGE METHODS
     # -------------------------------------------------------------------------
-
-    # @api.onchange('l10n_bg_type_vat')
-    # @api.depends('fiscal_position_id')
-    # def _onchange_type_vat(self):
-    #     if self.l10n_bg_type_vat == '117_protocol':
-    #         for line in self.line_ids:
-    #             copied_vals = line.copy_data()[0]
-    #             self.l10n_bg_protocol_line_ids += self.env['account.move.line'].new(copied_vals)
-    #     elif self.l10n_bg_type_vat in ('in_customs', 'out_customs'):
-    #         self._default_l10n_bg_currency_rate()
-    #     else:
-    #         self.l10n_bg_protocol_line_ids = False
 
     @api.onchange("l10n_bg_currency_rate")
     def _onchange_l10n_bg_currency_rate(self):
         if self.l10n_bg_type_vat in ('in_customs', 'out_customs'):
             self.line_ids._compute_currency_rate()
             self.line_ids._inverse_amount_currency()
-
-    # @api.onchange('l10n_bg_customs_invoice_ids')
-    # def _onchange_customs_invoice_ids(self):
-    #     if self.l10n_bg_customs_invoice_ids:
-    #         for line in self.l10n_bg_customs_invoice_ids.mapped('line_ids'):
-    #             copied_vals = line.copy_data()[0]
-    #             self.l10n_bg_customs_line_ids += self.env['account.move.line'].new(copied_vals)
-    #     else:
-    #         self.l10n_bg_customs_invoice_ids = False
-
-    @api.onchange('fiscal_position_id')
-    def _onchange_fiscal_position_id(self):
-        if self.fiscal_position_id:
-            map_id = self.fiscal_position_id.map_type(self)
-            if map_id:
-                self.update({
-                    'l10n_bg_type_vat': map_id.l10n_bg_type_vat,
-                    'l10n_bg_doc_type': map_id.l10n_bg_doc_type,
-                    'l10n_bg_narration': map_id.l10n_bg_narration,
-                })
 
     # -------------------------------------------------------------------------
     # PAYMENT REFERENCE
@@ -240,7 +208,7 @@ class AccountMove(models.Model):
 
     def action_post(self):
         for move in self.filtered(lambda r: r.state != 'posted'):
-            map_id = self.fiscal_position_id.map_type(move)
+            map_id = move.fiscal_position_id.map_type(move)
             # _logger.info(f"MAP {map_id.l10n_bg_type_vat}:{map_id.new_account_entry} - {line}")
             if map_id:
                 move.write({
@@ -291,7 +259,6 @@ class AccountMove(models.Model):
                 self.env['account.move.bg.protocol'].search([
                     ('id', '=', line.l10n_bg_protocol_invoice_id.id),
                 ]).unlink()
-                line.l10n_bg_protocol_invoice_id = False
         super().button_draft()
 
     def button_cancel(self):

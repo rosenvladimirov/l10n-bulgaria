@@ -5,8 +5,13 @@ from odoo.api import Environment, SUPERUSER_ID
 
 from odoo.addons.l10n_bg_tax_admin.models.account_account import AccountAccount
 from odoo.addons.l10n_bg_tax_admin.models.chart_template import AccountChartTemplate
+from odoo.addons.l10n_bg_tax_admin.models.company import ResCompany as ResCompany
+from odoo.addons.l10n_bg_tax_admin.models.account_move_line import AccountMoveLine as AccountMoveLine
+
 from odoo.addons.account.models.account_account import AccountAccount as accountaccount
 from odoo.addons.account.models.chart_template import AccountChartTemplate as accountcharttemplate
+from odoo.addons.account.models.company import ResCompany as rescompany
+from odoo.addons.account.models.account_move_line import AccountMoveLine as accountmoveline
 
 
 def post_load_hook():
@@ -16,3 +21,5 @@ def post_load_hook():
     accountcharttemplate._create_cash_discount_loss_account = AccountChartTemplate._create_cash_discount_loss_account
     accountcharttemplate._create_cash_discount_gain_account = AccountChartTemplate._create_cash_discount_gain_account
     accountcharttemplate.generate_fiscal_position = AccountChartTemplate.generate_fiscal_position
+    rescompany.get_unaffected_earnings_account = ResCompany.get_unaffected_earnings_account
+    accountmoveline._compute_all_tax = AccountMoveLine._compute_all_tax

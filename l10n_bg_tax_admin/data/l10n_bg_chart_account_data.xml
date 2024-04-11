@@ -584,6 +584,18 @@
             <field name="account_type">asset_fixed</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
+        <record id="l10n_bg_2421" model="account.account.template">
+            <field name="name">(Accumulated) Depreciation on development products</field>
+            <field name="code">242100</field>
+            <field name="account_type">asset_fixed</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_2422" model="account.account.template">
+            <field name="name">(Accumulated) Depreciation on software products</field>
+            <field name="code">242200</field>
+            <field name="account_type">asset_fixed</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
         <record id="l10n_bg_2423" model="account.account.template">
             <field name="name">(Accumulated) Depreciation on intellectual property</field>
             <field name="code">242300</field>
@@ -791,6 +803,13 @@
             <field name="account_type">liability_payable</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
+        <record id="l10n_bg_405" model="account.account.template">
+            <field name="name">Related party supply providers</field>
+            <field name="code">405000</field>
+            <field name="reconcile">True</field>
+            <field name="account_type">liability_payable</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
         <record id="l10n_bg_406" model="account.account.template">
             <field name="name">Obligations to related party suppliers</field>
             <field name="code">406000</field>
@@ -833,6 +852,13 @@
             <field name="account_type">asset_receivable</field> <!-- салдови за обвързване вземане-плащане -->
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
+        <record id="l10n_bg_415" model="account.account.template">
+            <field name="name">Affiliate sales customers</field>
+            <field name="reconcile">True</field>
+            <field name="code">415000</field>
+            <field name="account_type">asset_receivable</field> <!-- салдови за обвързване вземане-плащане -->
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
         <record id="l10n_bg_416" model="account.account.template">
             <field name="name">Receivables from related parties</field>
             <field name="reconcile">True</field>
@@ -853,6 +879,12 @@
             <field name="reconcile">True</field>
             <field name="code">421100</field>
             <field name="account_type">liability_payable</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_422" model="account.account.template">
+            <field name="name">Sub-accountable persons</field>
+            <field name="code">422100</field>
+            <field name="account_type">asset_cash</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_4222" model="account.account.template">
@@ -908,7 +940,13 @@
             <field name="account_type">asset_receivable</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
-
+        <record id="l10n_bg_430" model="account.account.template">
+            <field name="name">Calculations on internal operations</field>
+            <field name="code">430000</field>
+            <field name="reconcile">True</field>
+            <field name="account_type">asset_receivable</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
         <record id="l10n_bg_431" model="account.account.template">
             <field name="name">Calculations on interbank operations</field>
             <field name="code">431000</field>
@@ -995,7 +1033,7 @@
             <field name="account_type">liability_current</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg_4521" model="account.account.template">
+        <record id="l10n_bg_452" model="account.account.template">
             <field name="name">Estimates for Annual Corporate Tax</field>
             <field name="reconcile">True</field>
             <field name="code">452100</field>
@@ -1054,7 +1092,7 @@
             <field name="account_type">liability_payable</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg_4541" model="account.account.template">
+        <record id="l10n_bg_454" model="account.account.template">
             <field name="name">Personal income tax calculations of the staff</field>
             <field name="code">454100</field>
             <field name="account_type">liability_current</field>
@@ -1096,7 +1134,7 @@
             <field name="account_type">liability_current</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg_4591" model="account.account.template">
+        <record id="l10n_bg_459" model="account.account.template">
             <field name="name">Tax representative purposes</field>
             <field name="code">459100</field>
             <field name="account_type">liability_current</field>
@@ -1115,7 +1153,7 @@
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
 
-        <record id="l10n_bg_4611" model="account.account.template">
+        <record id="l10n_bg_461" model="account.account.template">
             <field name="name">Estimates for the social security fund</field>
             <field name="code">461100</field>
             <field name="account_type">liability_current</field>
@@ -1170,6 +1208,62 @@
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
 
+        <record id="l10n_bg_471" model="account.account.template">
+            <field name="name">Settlements with the international monetary fund</field>
+            <field name="code">471000</field>
+            <field name="account_type">liability_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_472" model="account.account.template">
+            <field name="name">Settlements with the world bank</field>
+            <field name="code">472000</field>
+            <field name="account_type">liability_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_473" model="account.account.template">
+            <field name="name">Settlements with other international financial institutions</field>
+            <field name="code">473000</field>
+            <field name="account_type">liability_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_474" model="account.account.template">
+            <field name="name">Estimates under intergovernmental agreements</field>
+            <field name="code">474000</field>
+            <field name="account_type">liability_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
+        <record id="l10n_bg_481" model="account.account.template">
+            <field name="name">Estimates of upcoming payments</field>
+            <field name="code">481000</field>
+            <field name="account_type">liability_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_482" model="account.account.template">
+            <field name="name">Reinsurance and co-insurance estimates</field>
+            <field name="code">482000</field>
+            <field name="account_type">liability_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_483" model="account.account.template">
+            <field name="name">Settlements with reinsurers</field>
+            <field name="code">483000</field>
+            <field name="account_type">liability_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_484" model="account.account.template">
+            <field name="name">Settlements with sedants</field>
+            <field name="code">484000</field>
+            <field name="account_type">liability_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_489" model="account.account.template">
+            <field name="name">Other estimates</field>
+            <field name="code">489000</field>
+            <field name="account_type">liability_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
         <record id="l10n_bg_491" model="account.account.template">
             <field name="name">Settlements with trustees</field>
             <field name="code">491000</field>
@@ -1212,6 +1306,19 @@
             <field name="account_type">liability_current</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
+        <record id="l10n_bg_4971" model="account.account.template">
+            <field name="name">Provisions for pensions and other similar liabilities</field>
+            <field name="code">497100</field>
+            <field name="account_type">liability_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_4972" model="account.account.template">
+            <field name="name">Other provisions and similar liabilities</field>
+            <field name="code">497200</field>
+            <field name="account_type">liability_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
         <record id="l10n_bg_498" model="account.account.template">
             <field name="name">Other debtors</field>
             <field name="reconcile">True</field>
@@ -1233,12 +1340,26 @@
             <field name="account_type">asset_cash</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
+        <record id="l10n_bg_502" model="account.account.template">
+            <field name="name">Cash in foreign currency</field>
+            <field name="code">502000</field>
+            <field name="account_type">asset_cash</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
         <record id="l10n_bg_503" model="account.account.template">
             <field name="name">Bank</field>
             <field name="code">503000</field>
             <field name="account_type">asset_cash</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
+        <record id="l10n_bg_504" model="account.account.template">
+            <field name="name">Current account in foreign currency</field>
+            <field name="code">504000</field>
+            <field name="account_type">asset_cash</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
         <record id="l10n_bg_505" model="account.account.template">
             <field name="name">Letters of credit</field>
             <field name="code">505000</field>
@@ -1324,8 +1445,51 @@
             <field name="account_type">asset_current</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
+        <record id="l10n_bg_521" model="account.account.template">
+            <field name="name">Short-term receivables and loans from banks and other financial institutions</field>
+            <field name="code">521000</field>
+            <field name="account_type">asset_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_522" model="account.account.template">
+            <field name="name">Short-term receivables and loans from non-financial corporations and other customers</field>
+            <field name="code">522000</field>
+            <field name="account_type">asset_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_523" model="account.account.template">
+            <field name="name">Short-term receivables and loans pledged as collateral</field>
+            <field name="code">523000</field>
+            <field name="account_type">asset_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_524" model="account.account.template">
+            <field name="name">Overdue short-term receivables and loans</field>
+            <field name="code">524000</field>
+            <field name="account_type">asset_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_529" model="account.account.template">
+            <field name="name">Other current receivables and loans</field>
+            <field name="code">529000</field>
+            <field name="account_type">asset_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
 
-        <record id="l10n_bg_6011" model="account.account.template">
+        <record id="l10n_bg_531" model="account.account.template">
+            <field name="name">Prepaid expenses</field>
+            <field name="code">531000</field>
+            <field name="account_type">asset_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_532" model="account.account.template">
+            <field name="name">Income for future periods</field>
+            <field name="code">532000</field>
+            <field name="account_type">asset_current</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
+        <record id="l10n_bg_601" model="account.account.template">
             <field name="name">Direct materials costs</field>
             <field name="code">601100</field>
             <field name="account_type">expense_direct_cost</field>
@@ -1349,7 +1513,7 @@
             <field name="account_type">expense</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg_6041" model="account.account.template">
+        <record id="l10n_bg_604" model="account.account.template">
             <field name="name">Direct salary costs</field>
             <field name="code">604100</field>
             <field name="account_type">expense_direct_cost</field>
@@ -1362,18 +1526,43 @@
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_6051" model="account.account.template">
-            <field name="name">Direct insurance costs</field>
+            <field name="name">Expenditures for the social security fund</field>
             <field name="code">605100</field>
             <field name="account_type">expense</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_6052" model="account.account.template">
-            <field name="name">Indirect insurance costs</field>
+            <field name="name">Expenditures for smps fund</field>
             <field name="code">605200</field>
             <field name="account_type">expense</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg_6061" model="account.account.template">
+        <record id="l10n_bg_6053" model="account.account.template">
+            <field name="name">Expenditures for the upf fund</field>
+            <field name="code">605300</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_6054" model="account.account.template">
+            <field name="name">Expenditures for the gvrs fund</field>
+            <field name="code">605400</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_6055" model="account.account.template">
+            <field name="name">Expenditures for tzpb fund</field>
+            <field name="code">605500</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+                <record id="l10n_bg_6056" model="account.account.template">
+            <field name="name">Expenditures for the health fund</field>
+            <field name="code">605600</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
+        <record id="l10n_bg_606" model="account.account.template">
             <field name="name">Accrued property tax expense</field>
             <field name="code">606100</field>
             <field name="account_type">expense</field>
@@ -1470,8 +1659,20 @@
             <field name="account_type">expense</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
+        <record id="l10n_bg_617" model="account.account.template">
+            <field name="name">Expenses on activities in non-profit enterprises</field>
+            <field name="code">617000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_618" model="account.account.template">
+            <field name="name">Liquidation and insolvency costs</field>
+            <field name="code">618000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
 
-        <record id="l10n_bg_6211" model="account.account.template">
+        <record id="l10n_bg_621" model="account.account.template">
             <field name="name">Interest to the budget</field>
             <field name="code">621100</field>
             <field name="account_type">expense</field>
@@ -1526,6 +1727,12 @@
             <field name="account_type">expense</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
+        <record id="l10n_bg_632" model="account.account.template">
+            <field name="name">Impairment losses on current assets</field>
+            <field name="code">632000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
 
         <record id="l10n_bg_651" model="account.account.template">
             <field name="name">Non-financial expenses for future periods</field>
@@ -1534,266 +1741,687 @@
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_652" model="account.account.template">
-            <field name="name">Финансови разходи за бъдещи периоди</field>
+            <field name="name">Financial expenses for future periods</field>
             <field name="code">652000</field>
             <field name="account_type">expense</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
 
+        <record id="l10n_bg_661" model="account.account.template">
+            <field name="name">Expenses for insurance amounts</field>
+            <field name="code">661000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_662" model="account.account.template">
+            <field name="name">Costs for participation in the result</field>
+            <field name="code">662000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_663" model="account.account.template">
+            <field name="name">Liquidation costs</field>
+            <field name="code">663000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_664" model="account.account.template">
+            <field name="name">Liquidation costs</field>
+            <field name="code">664000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_665" model="account.account.template">
+            <field name="name">Insurance reserve costs</field>
+            <field name="code">665000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_669" model="account.account.template">
+            <field name="name">Other direct insurance costs</field>
+            <field name="code">669000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_671" model="account.account.template">
+            <field name="name">Expenses for reinsurers' premiums</field>
+            <field name="code">671000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_672" model="account.account.template">
+            <field name="name">Expenses for released reserves for passive reinsurance</field>
+            <field name="code">672000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_679" model="account.account.template">
+            <field name="name">Other passive reinsurance costs</field>
+            <field name="code">679000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
+        <record id="l10n_bg_681" model="account.account.template">
+            <field name="name">Expenses for insurance benefits</field>
+            <field name="code">681000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_682" model="account.account.template">
+            <field name="name">Costs for participation in the result</field>
+            <field name="code">682000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_683" model="account.account.template">
+            <field name="name">Expenses for participation in the liquidation</field>
+            <field name="code">683000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_684" model="account.account.template">
+            <field name="name">Expenses for assigned reinsurance commissions and fees</field>
+            <field name="code">684000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_685" model="account.account.template">
+            <field name="name">Expenses for set aside reserves for active reinsurance</field>
+            <field name="code">685000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_689" model="account.account.template">
+            <field name="name">Other active reinsurance costs</field>
+            <field name="code">689000</field>
+            <field name="account_type">expense</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
         <record id="l10n_bg_691" model="account.account.template">
-            <field name="name">Извънредни разходи</field>
+            <field name="name">Exceptional costs</field>
             <field name="code">691000</field>
             <field name="account_type">expense</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
 
         <record id="l10n_bg_701" model="account.account.template">
-            <field name="name">Revenue from sales of goods incomes</field>
+            <field name="name">Revenue from sales of production incomes</field>
             <field name="code">701100</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_7012" model="account.account.template">
+            <field name="name">Accounting value of produced goods sold</field>
+            <field name="code">701200</field>
+            <field name="account_type">income</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_702" model="account.account.template">
+            <field name="name">Revenues from sales of goods</field>
+            <field name="code">702100</field>
+            <field name="account_type">income</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_7022" model="account.account.template">
             <field name="name">Accounting value of goods sold</field>
             <field name="code">702200</field>
-            <field name="account_type">expense</field>
-            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
-        </record>
-        <record id="l10n_bg_7024" model="account.account.template">
-            <field name="name">Income from sales of assets below the materiality threshold</field>
-            <field name="code">702400</field>
-            <field name="account_type">expense</field>
-            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
-        </record>
-        <record id="l10n_bg_7025" model="account.account.template">
-            <field name="name">Book value of assets sold below the materiality threshold</field>
-            <field name="code">702500</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_7029" model="account.account.template">
             <field name="name">End of financial year</field>
             <field name="code">702900</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_703" model="account.account.template">
             <field name="name">Revenue from sales of services</field>
-            <field name="code">703100</field>
-            <field name="account_type">expense</field>
+            <field name="code">703000</field>
+            <field name="account_type">income</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg_7051" model="account.account.template">
+        <record id="l10n_bg_704" model="account.account.template">
+            <field name="name">Revenues from financing</field>
+            <field name="code">704000</field>
+            <field name="account_type">income</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_705" model="account.account.template">
             <field name="name">Income from sales of fixed assets</field>
             <field name="code">705100</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_7052" model="account.account.template">
             <field name="name">Cost of sold fixed assets</field>
             <field name="code">705200</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg_7061" model="account.account.template">
+        <record id="l10n_bg_7054" model="account.account.template">
+            <field name="name">Income from sales of assets below the materiality threshold</field>
+            <field name="code">705400</field>
+            <field name="account_type">income</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_7055" model="account.account.template">
+            <field name="name">Book value of assets sold below the materiality threshold</field>
+            <field name="code">705500</field>
+            <field name="account_type">income</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_706" model="account.account.template">
             <field name="name">Income from sales of materials</field>
             <field name="code">706100</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_7062" model="account.account.template">
             <field name="name">Cost of sold materials</field>
             <field name="code">706200</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_707" model="account.account.template">
             <field name="name">Income from financing</field>
             <field name="code">707000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_708" model="account.account.template">
             <field name="name">Proceeds from liquidation and bankruptcy</field>
             <field name="code">708000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
-        <record id="l10n_bg_7091" model="account.account.template">
+        <record id="l10n_bg_709" model="account.account.template">
             <field name="name">Other income from the activity and sale of other fixed assets</field>
             <field name="code">709100</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_7092" model="account.account.template">
             <field name="name">Carrying amount of other assets sold</field>
             <field name="code">709200</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_7093" model="account.account.template">
             <field name="name">Income from excess inventory</field>
             <field name="code">709300</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_7098" model="account.account.template">
             <field name="name">Other income from write-off gain</field>
             <field name="code">709800</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
+
+        <record id="l10n_bg_711" model="account.account.template">
+            <field name="name">Revenues from regulated activities</field>
+            <field name="code">711000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_712" model="account.account.template">
+            <field name="name">Revenues from membership fees</field>
+            <field name="code">712000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_713" model="account.account.template">
+            <field name="name">Revenues from program financing</field>
+            <field name="code">713000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_714" model="account.account.template">
+            <field name="name">Revenues from government donations</field>
+            <field name="code">714000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_715" model="account.account.template">
+            <field name="name">Revenues from other donations</field>
+            <field name="code">715000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_719" model="account.account.template">
+            <field name="name">Other incomes</field>
+            <field name="code">719000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
         <record id="l10n_bg_721" model="account.account.template">
             <field name="name">Interest income</field>
             <field name="code">721000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_722" model="account.account.template">
+            <field name="name">Income from participations</field>
+            <field name="code">722000</field>
+            <field name="account_type">income_other</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_723" model="account.account.template">
             <field name="name">Income from operations with financial assets and instruments</field>
             <field name="code">723000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income_other</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_724" model="account.account.template">
             <field name="name">Income from foreign exchange operations</field>
             <field name="code">724000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income_other</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_725" model="account.account.template">
             <field name="name">Income from subsequent valuations of financial assets and instruments</field>
             <field name="code">725000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_726" model="account.account.template">
+            <field name="name">Revenues from reintegrated provisions</field>
+            <field name="code">726000</field>
+            <field name="account_type">income_other</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_729" model="account.account.template">
             <field name="name">Other financial income</field>
             <field name="code">729000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_731" model="account.account.template">
+            <field name="name">Income from recovered impairment losses</field>
+            <field name="code">731000</field>
+            <field name="account_type">income_other</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_751" model="account.account.template">
             <field name="name">Non-financial income for future periods</field>
             <field name="code">751000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income_other</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_752" model="account.account.template">
             <field name="name">Financial income for future periods</field>
             <field name="code">752000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income_other</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_753" model="account.account.template">
             <field name="name">Financing for fixed assets</field>
             <field name="code">753000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income_other</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_754" model="account.account.template">
             <field name="name">Financing of current activity</field>
             <field name="code">754000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income_other</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
+
+        <record id="l10n_bg_761" model="account.account.template">
+            <field name="name">Income from insurance premiums</field>
+            <field name="code">761000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_762" model="account.account.template">
+            <field name="name">Revenues from commissions and fees</field>
+            <field name="code">762000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_763" model="account.account.template">
+            <field name="name">Insurance income from previous years</field>
+            <field name="code">763000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_764" model="account.account.template">
+            <field name="name">Revenue from recourses</field>
+            <field name="code">764000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_765" model="account.account.template">
+            <field name="name">Revenues from released reserves</field>
+            <field name="code">765000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_769" model="account.account.template">
+            <field name="name">Other insurance income</field>
+            <field name="code">769000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_771" model="account.account.template">
+            <field name="name">Income from indemnities received from reinsurers</field>
+            <field name="code">771000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_772" model="account.account.template">
+            <field name="name">Income from participation in the result of reinsurers</field>
+            <field name="code">772000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_773" model="account.account.template">
+            <field name="name">Revenues from commissions from reinsurers</field>
+            <field name="code">773000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_774" model="account.account.template">
+            <field name="name">Passive reinsurance income from previous years</field>
+            <field name="code">774000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_775" model="account.account.template">
+            <field name="name">Income from reinsurance reserves</field>
+            <field name="code">775000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_779" model="account.account.template">
+            <field name="name">Other income from passive reinsurance</field>
+            <field name="code">779000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
+        <record id="l10n_bg_781" model="account.account.template">
+            <field name="name">Reinsurance premium income</field>
+            <field name="code">781000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_782" model="account.account.template">
+            <field name="name">Income from active reinsurance from previous years</field>
+            <field name="code">782000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_783" model="account.account.template">
+            <field name="name">Income from active reinsurance recourses</field>
+            <field name="code">783000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_784" model="account.account.template">
+            <field name="name">Income from active reinsurance reserves</field>
+            <field name="code">784000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_789" model="account.account.template">
+            <field name="name">Other income from active reinsurance</field>
+            <field name="code">789000</field>
+            <field name="account_type">income_other</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
         <record id="l10n_bg_791" model="account.account.template">
             <field name="name">Extraordinary income</field>
             <field name="code">791000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">income_other</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
 
         <record id="l10n_bg_911" model="account.account.template">
             <field name="name">Leased foreign assets</field>
             <field name="code">911000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">off_balance</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_912" model="account.account.template">
             <field name="name">Foreign tangible assets received under a consignment contract</field>
             <field name="code">912000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">off_balance</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_913" model="account.account.template">
             <field name="name">Other tangible and intangible assets accepted for safekeeping</field>
             <field name="code">913000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">off_balance</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_914" model="account.account.template">
             <field name="name">Financial assets or cash accepted for safekeeping</field>
             <field name="code">914000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_915" model="account.account.template">
+            <field name="name">Non-financial assets accepted for safekeeping</field>
+            <field name="code">915000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
+        <record id="l10n_bg_921" model="account.account.template">
+            <field name="name">Foreign financial assets provided as collateral</field>
+            <field name="code">921000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_922" model="account.account.template">
+            <field name="name">Pledged policies</field>
+            <field name="code">922000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_923" model="account.account.template">
+            <field name="name">Miscellaneous emissions for circulation</field>
+            <field name="code">923000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_924" model="account.account.template">
+            <field name="name">Foreign financial assets held on behalf of customers</field>
+            <field name="code">924000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_925" model="account.account.template">
+            <field name="name">Commitments under contracts</field>
+            <field name="code">925000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
+        <record id="l10n_bg_931" model="account.account.template">
+            <field name="name">Receivables from loans granted under interstate agreements</field>
+            <field name="code">931000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_932" model="account.account.template">
+            <field name="name">Outstanding receivables written off</field>
+            <field name="code">932000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_933" model="account.account.template">
+            <field name="name">Debtors by collection operations</field>
+            <field name="code">933000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_934" model="account.account.template">
+            <field name="name">Receivables from derivative transactions</field>
+            <field name="code">934000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
+        <record id="l10n_bg_941" model="account.account.template">
+            <field name="name">Receivables from spot transactions</field>
+            <field name="code">941000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_942" model="account.account.template">
+            <field name="name">Write-off of outstanding receivables in banks</field>
+            <field name="code">942000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_943" model="account.account.template">
+            <field name="name">Debtors on collection operations in banks</field>
+            <field name="code">943000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_945" model="account.account.template">
+            <field name="name">Contingent receivables from other banking operations</field>
+            <field name="code">945000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
+        <record id="l10n_bg_951" model="account.account.template">
+            <field name="name">Guarantees and other similar contingent liabilities</field>
+            <field name="code">951000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_952" model="account.account.template">
+            <field name="name">Irrevocable commitments</field>
+            <field name="code">952000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_953" model="account.account.template">
+            <field name="name">Cancellable commitments</field>
+            <field name="code">953000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_954" model="account.account.template">
+            <field name="name">Liabilities under spot operations</field>
+            <field name="code">954000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_955" model="account.account.template">
+            <field name="name">Liabilities under derivative transactions</field>
+            <field name="code">955000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_956" model="account.account.template">
+            <field name="name">Contingent liabilities on other banking operations</field>
+            <field name="code">956000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
+        <record id="l10n_bg_961" model="account.account.template">
+            <field name="name">Reserve fund</field>
+            <field name="code">961000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_962" model="account.account.template">
+            <field name="name">Assets in use, reported</field>
+            <field name="code">962000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+
+        <record id="l10n_bg_971" model="account.account.template">
+            <field name="name">Issue reserve</field>
+            <field name="code">971000</field>
+            <field name="account_type">off_balance</field>
+            <field name="chart_template_id" ref="l10n_bg_chart_template"/>
+        </record>
+        <record id="l10n_bg_972" model="account.account.template">
+            <field name="name">Own issues out of circulation with expired term for exchange</field>
+            <field name="code">972000</field>
+            <field name="account_type">off_balance</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
 
         <record id="l10n_bg_981" model="account.account.template">
             <field name="name">Foreign tangible and intangible assets received as collateral</field>
             <field name="code">981000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">off_balance</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_982" model="account.account.template">
             <field name="name">Foreign financial assets received as collateral</field>
             <field name="code">982000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">off_balance</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_983" model="account.account.template">
             <field name="name">Policies or promissory notes received as collateral</field>
             <field name="code">983000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">off_balance</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_984" model="account.account.template">
             <field name="name">Other contingent assets</field>
             <field name="code">984000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">off_balance</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_989" model="account.account.template">
             <field name="name">Contingent Asset Corresponding Account</field>
             <field name="code">989000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">off_balance</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
 
         <record id="l10n_bg_991" model="account.account.template">
             <field name="name">Own tangible and intangible assets provided as collateral</field>
             <field name="code">991000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">off_balance</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_992" model="account.account.template">
             <field name="name">Own financial assets provided as collateral</field>
             <field name="code">992000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">off_balance</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_993" model="account.account.template">
             <field name="name">Policies or promissory notes given as collateral</field>
             <field name="code">993000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">off_balance</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_994" model="account.account.template">
             <field name="name">Other contingent liabilities</field>
             <field name="code">994000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">off_balance</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_999" model="account.account.template">
             <field name="name">Corresponding account for contingent liabilities</field>
             <field name="code">999000</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">off_balance</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
         </record>
         <record id="l10n_bg_999999" model="account.account.template">
             <field name="name">Undistributed Profits/Losses</field>
             <field name="code">999999</field>
-            <field name="account_type">expense</field>
+            <field name="account_type">equity_unaffected</field>
             <field name="chart_template_id" ref="l10n_bg_chart_template"/>
        </record>
     </data>

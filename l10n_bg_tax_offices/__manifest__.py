@@ -10,7 +10,9 @@
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
     'depends': [
+        'l10n_bg',
         'l10n_bg_city',
+        'l10n_bg_tax_admin',
     ],
     'data': [
         'data/res_tax_offices.xml'

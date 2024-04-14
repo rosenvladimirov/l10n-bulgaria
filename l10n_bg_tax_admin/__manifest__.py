@@ -28,6 +28,8 @@
         'data/account_group_template_data.xml',
         'data/account_fiscal_position_template_data.xml',
         'data/l10n_bg_tax_admin_post_functions.xml',
+        'data/res_tax_offices.xml',
+        'data/account_fiscal_position_type_template_data.xml',
         'views/account_chart_template_views.xml',
         'views/account_move_views.xml',
         'views/account_journal_views.xml',

@@ -147,67 +147,72 @@ class AccountMove(models.Model):
             name += self.l10n_bg_name and "(%s)" % self.l10n_bg_name or ""
         return name
 
-    def _customs_vals(self, map_id):
-        base_lines = self.invoice_line_ids.filtered(lambda line: line.display_type == 'product')
-        base_line_values_list = [line._convert_to_tax_base_line_dict() for line in base_lines]
-
-        # prepare calculation for base of new move record
-        tax_results = self.env['account.tax']._compute_taxes(base_line_values_list)
-        company_currency = self.company_id.currency_id
-        rate = self.currency_id._get_conversion_rate(self.currency_id,
-                                                     company_currency,
-                                                     self.company_id,
-                                                     self.invoice_date)
+    def _customs_vals(self, map_id, partner_id):
+        partner_id = partner_id or self.partner_id
+        base_lines = self.invoice_line_ids.filtered(lambda r: r.display_type == 'product')
+        amount_currency_total = debit = credit = 0.0
+        for line in base_lines:
+            amount_currency_total += line.amount_currency
+            debit += line.debit
+            credit += line.credit
         aml_vals_list = []
-        # Create the tax lines
-        for tax_line_vals in tax_results['tax_lines_to_add']:
-            tax_rep = self.env['account.tax.repartition.line'].browse(tax_line_vals['tax_repartition_line_id'])
-            amount_currency = tax_line_vals['tax_amount']
-            balance = company_currency.round(amount_currency * rate)
+        # Create partner lines
+        partner_account_id = self.env['account.account']._get_most_frequent_account_for_partner(
+            company_id=self.company_id.id,
+            partner_id=partner_id.id,
+            move_type=self.move_type,
+        )
+        if debit != 0 and credit != 0:
             aml_vals_list.append(Command.create({
-                'name': tax_rep.tax_id.name,
-                'account_id': tax_line_vals['account_id'],
-                'partner_id': tax_line_vals['partner_id'],
-                'currency_id': tax_line_vals['currency_id'],
-                'tax_repartition_line_id': tax_line_vals['tax_repartition_line_id'],
-                'tax_ids': tax_line_vals['tax_ids'],
-                'tax_tag_ids': tax_line_vals['tax_tag_ids'],
-                'group_tax_id': None if tax_rep.tax_id.id == tax_line_vals['tax_id'] else tax_line_vals[
-                    'tax_id'],
-                'amount_currency': amount_currency,
-                'balance': balance,
+                'account_id': map_id.account_id and map_id.account_id.id or partner_account_id,
+                'partner_id': partner_id.id,
+                'currency_id': self.currency_id.id,
+                'debit': debit,
+                'credit': 0.0,
+                'amount_currency': amount_currency_total,
+                'balance': amount_currency_total,
+                'display_type': 'product',
             }))
-        _logger.info(f"taxes {aml_vals_list}")
-
+            aml_vals_list.append(Command.create({
+                'account_id': map_id.account_id and map_id.account_id.id or partner_account_id,
+                'partner_id': partner_id.id,
+                'currency_id': self.currency_id.id,
+                'debit': 0.0,
+                'credit': credit,
+                'amount_currency': amount_currency_total,
+                'balance': amount_currency_total,
+                'display_type': 'product',
+            }))
+        else:
+            aml_vals_list.append(Command.create({
+                'account_id': map_id.account_id and map_id.account_id.id or partner_account_id,
+                'partner_id': partner_id.id,
+                'currency_id': self.currency_id.id,
+                'debit': debit,
+                'credit': credit,
+                'amount_currency': amount_currency_total,
+                'balance': amount_currency_total,
+                'display_type': 'product',
+            }))
         return {
             'move_type': 'entry',
+            'partner_id': partner_id.id,
             'l10n_bg_type_vat': 'standard',
+            'l10n_bg_customs_type': 'customs',
             'fiscal_position_id': map_id.position_dest_id.id,
             'l10n_bg_customs_invoice_id': self.id,
             'l10n_bg_customs_date': self.invoice_date,
             'l10n_bg_customs_commercial_partner_id': self.commercial_partner_id.id,
             'l10n_bg_customs_partner_shipping_id': self.partner_shipping_id.id,
-            # 'line_ids': aml_vals_list,
+            'line_ids': [Command.clear()] + aml_vals_list,
             'invoice_line_ids': [Command.clear()],
+            'l10n_bg_customs_invoice_ids': [Command.set(self.ids)]
         }
 
-    # def _sanitize_vals(self, vals):
-    #     vals = super()._sanitize_vals(vals)
-    #     if 'line_ids' in vals and vals.get('l10n_bg_type_vat') == '117_protocol':
-    #         protocol_lines = []
-    #         line_ids = []
-    #         if vals.get('l10n_bg_protocol_line_ids'):
-    #             for command, protocol_id, protocol_line in vals['l10n_bg_protocol_line_ids']:
-    #                 protocol_lines.append(protocol_id)
-    #         for command, line_id, line_vals in vals['line_ids']:
-    #             if command == Command.UPDATE and line_id and line_id not in protocol_lines:
-    #                 line_ids.append(line_id)
-    #         if line_ids:
-    #             vals['l10n_bg_protocol_line_ids'] = [Command.set(line_ids)]
-    #     return vals
-
-    def action_post(self):
-        for move in self.filtered(lambda r: r.state != 'posted'):
+    def _post(self, soft=True):
+        nra_id = self.env.ref('l10n_bg_tax_admin.nra', raise_if_not_found=False)
+        to_post = super()._post(soft=soft)
+        for move in to_post:
             map_id = move.fiscal_position_id.map_type(move)
             # _logger.info(f"MAP {map_id.l10n_bg_type_vat}:{map_id.new_account_entry} - {line}")
             if map_id:
@@ -224,16 +229,10 @@ class AccountMove(models.Model):
                 ]).unlink()
                 if map_id and not map_id.position_dest_id:
                     raise UserError(_('Missing configuration for replacing fiscal position for export/import customs'))
-
-                customs_entry_id = move.copy(move._customs_vals(map_id))
                 move._default_l10n_bg_currency_rate()
+                customs_entry_id = move.copy(move._customs_vals(map_id, nra_id))
                 move.l10n_bg_customs_type = 'invoices'
                 move.l10n_bg_customs_invoice_id = customs_entry_id.id
-                nra_id = self.env.ref('l10n_bg_tax_admin.nra', raise_if_not_found=False)
-                customs_entry_id.partner_id = nra_id
-                customs_entry_id.l10n_bg_customs_type = 'customs'
-                customs_entry_id.l10n_bg_customs_invoice_ids |= move
-                customs_entry_id.l10n_bg_customs_invoice_id = move.id
             if move.is_purchase_document(False) \
                 and move.l10n_bg_type_vat == '117_protocol' \
                 and not move.l10n_bg_protocol_invoice_id:
@@ -243,7 +242,7 @@ class AccountMove(models.Model):
             if move.l10n_bg_customs_type and not (map_id.new_account_entry
                                                   and map_id.l10n_bg_type_vat in ('in_customs', 'out_customs')):
                 move.l10n_bg_customs_type = False
-        return super().action_post()
+        return to_post
 
     def button_draft(self):
         # _logger.info(f"STATE #: {self.state}")

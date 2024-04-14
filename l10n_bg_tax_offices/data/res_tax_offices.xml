@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="0">
-        <record id="nra" model="res.partner">
+        <record id="l10n_bg_tax_admin.nra" model="res.partner">
             <field name="name">National Revenue Agency</field>
             <field name="city">Sofia</field>
             <field name="city_id" ref="l10n_bg.68134"/>
@@ -43,7 +43,7 @@
             <field name="name">Central Office of the National Revenue Agency</field>
             <field name="city">Sofia</field>
             <field name="city_id" ref="l10n_bg.68134"/>
-            <field name="parent_id" ref="nra_central"/>
+            <field name="parent_id" ref="l10n_bg_tax_offices.nra_central"/>
             <field name="street">bul. Dondukov</field>
             <field name="street_number">42</field>
             <field name="country_id" ref="base.bg"/>

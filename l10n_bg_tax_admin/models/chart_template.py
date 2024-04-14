@@ -400,4 +400,5 @@ class AccountTypeTemplate(models.Model):
                                         index=True,
                                         )
     l10n_bg_narration = fields.Char('Narration for audit report', translate=True)
+    account_id = fields.Many2one('account.account', string='Account')
     new_account_entry = fields.Boolean('Create new account entry')

@@ -123,7 +123,7 @@
             <field name="name">Profit and loss from the current year</field>
             <field name="code">123000</field>
             <field name="reconcile">False</field>
-            <field name="account_type">equity_unaffected</field>
+            <field name="account_type">equity</field>
         </record>
         <record id="l10n_bg_124" model="account.account.template">
             <field name="name">Result in bankruptcy and liquidation</field>

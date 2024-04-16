@@ -8,6 +8,7 @@ from . import account_journal
 from . import account_move
 from . import account_move_line
 from . import l10n_bg_protocol_account_move
+from . import l10n_bg_report_sale_account_move
 from . import partner
 from . import product_category
 from . import product_product

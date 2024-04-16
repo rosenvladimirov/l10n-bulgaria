@@ -401,4 +401,9 @@ class AccountTypeTemplate(models.Model):
                                         )
     l10n_bg_narration = fields.Char('Narration for audit report', translate=True)
     account_id = fields.Many2one('account.account', string='Account')
+    factor_percent = fields.Float(
+        string="%",
+        default=100,
+        help="Factor to apply on the account move lines generated from this distribution line, in percents",
+    )
     new_account_entry = fields.Boolean('Create new account entry')

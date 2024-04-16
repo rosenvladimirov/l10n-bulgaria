@@ -13,6 +13,8 @@
                         <field name="l10n_bg_type_vat"/>
                         <field name="l10n_bg_narration"/>
                         <field name="position_dest_id" options="{'no_create': True}"/>
+                        <field name="account_id" options="{'no_create': true}"/>
+                        <field name="factor_percent"/>
                         <field name="new_account_entry"/>
                     </tree>
                     <form string="Invoice type mapping">
@@ -26,6 +28,8 @@
                         </group>
                         <group>
                             <field name="position_dest_id" options="{'no_create': True}"/>
+                            <field name="account_id" options="{'no_create': true}"/>
+                            <field name="factor_percent"/>
                             <field name="new_account_entry"/>
                         </group>
                     </form>

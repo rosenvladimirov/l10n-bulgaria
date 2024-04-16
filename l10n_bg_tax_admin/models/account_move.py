@@ -23,6 +23,17 @@ class AccountMove(models.Model):
         states={'draft': [('readonly', True)]},
     )
 
+    # ---------------
+    # SALE REPORT FIELDS
+    # ---------------
+
+    l10n_bg_report_sale_date = fields.Date("Technical Report sale date", copy=False, default=fields.Date.today())
+    l10n_bg_report_sale_id = fields.Many2one(
+        'account.move.bg.protocol',
+        'Report Sale',
+        states={'draft': [('readonly', True)]},
+    )
+
     # --------------
     # CUSTOMS FIELDS
     # --------------
@@ -151,10 +162,14 @@ class AccountMove(models.Model):
         partner_id = partner_id or self.partner_id
         base_lines = self.invoice_line_ids.filtered(lambda r: r.display_type == 'product')
         amount_currency_total = debit = credit = 0.0
+        factor_percent = map_id.factor_percent == 0.0 and 100.0 or map_id.factor_percent
         for line in base_lines:
             amount_currency_total += line.amount_currency
             debit += line.debit
             credit += line.credit
+        debit *= factor_percent/100
+        credit *= factor_percent/100
+        amount_currency_total *= factor_percent/100
         aml_vals_list = []
         # Create partner lines
         partner_account_id = self.env['account.account']._get_most_frequent_account_for_partner(
@@ -162,34 +177,24 @@ class AccountMove(models.Model):
             partner_id=partner_id.id,
             move_type=self.move_type,
         )
-        if debit != 0 and credit != 0:
+        if debit != 0:
             aml_vals_list.append(Command.create({
                 'account_id': map_id.account_id and map_id.account_id.id or partner_account_id,
                 'partner_id': partner_id.id,
                 'currency_id': self.currency_id.id,
-                'debit': debit,
-                'credit': 0.0,
+                'debit': debit > 0 or 0.0,
+                'credit': debit < 0 or 0.0,
                 'amount_currency': amount_currency_total,
                 'balance': amount_currency_total,
                 'display_type': 'product',
             }))
+        if credit != 0:
             aml_vals_list.append(Command.create({
                 'account_id': map_id.account_id and map_id.account_id.id or partner_account_id,
                 'partner_id': partner_id.id,
                 'currency_id': self.currency_id.id,
-                'debit': 0.0,
-                'credit': credit,
-                'amount_currency': amount_currency_total,
-                'balance': amount_currency_total,
-                'display_type': 'product',
-            }))
-        else:
-            aml_vals_list.append(Command.create({
-                'account_id': map_id.account_id and map_id.account_id.id or partner_account_id,
-                'partner_id': partner_id.id,
-                'currency_id': self.currency_id.id,
-                'debit': debit,
-                'credit': credit,
+                'debit': credit < 0.0 or 0.0,
+                'credit': credit > 0.0 or 0.0,
                 'amount_currency': amount_currency_total,
                 'balance': amount_currency_total,
                 'display_type': 'product',
@@ -239,6 +244,12 @@ class AccountMove(models.Model):
                 protocol_id = self.env['account.move.bg.protocol']. \
                     create(self.env['account.move.bg.protocol']._protocol_vals(move))
                 move.l10n_bg_protocol_invoice_id = protocol_id.id
+            if move.is_sale_document(True) \
+                and move.l10n_bg_type_vat == '119_report' \
+                and not move.l10n_bg_report_sale_id:
+                report_sale_id = self.env['account.move.bg.report.sale']. \
+                    create(self.env['account.move.bg.report.sale']._report_vals(move))
+                move.l10n_bg_report_sale_id = report_sale_id.id
             if move.l10n_bg_customs_type and not (map_id.new_account_entry
                                                   and map_id.l10n_bg_type_vat in ('in_customs', 'out_customs')):
                 move.l10n_bg_customs_type = False
@@ -258,6 +269,11 @@ class AccountMove(models.Model):
                 self.env['account.move.bg.protocol'].search([
                     ('id', '=', line.l10n_bg_protocol_invoice_id.id),
                 ]).unlink()
+
+            if line.l10n_bg_report_sale_id:
+                self.env['account.move.bg.report.sale'].search([
+                    ('id', '=', line.l10n_bg_report_sale_id.id),
+                ]).unlink()
         super().button_draft()
 
     def button_cancel(self):
@@ -267,14 +283,6 @@ class AccountMove(models.Model):
                     ('id', '=', line.l10n_bg_customs_invoice_id.id),
                     ('move_type', '=', 'entry')
                 ]).unlink()
-
-    # def unlink(self):
-    #     if not self._context.get('unlink_added', False):
-    #         if self.l10n_bg_customs_invoice_id:
-    #             self.with_context(dict(self._context, unlink_added=True)).l10n_bg_customs_invoice_id.unlink()
-    #         if self.l10n_bg_protocol_invoice_id:
-    #             self.with_context(dict(self._context, unlink_added=True)).l10n_bg_protocol_invoice_id.unlink()
-    #     return super().unlink()
 
     @api.model
     def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):

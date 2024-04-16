@@ -1137,7 +1137,7 @@
                         'minus_report_expression_ids': [ref('l10n_bg.l10n_bg_tax_report_19_tag'), ref('l10n_bg.l10n_bg_tax_report_30_tag')],
                     }),
                     (0,0, {
-                        'factor_percent': -100,
+                        'factor_percent': 100,
                         'repartition_type': 'tax',
                     }),
                 ]"/>

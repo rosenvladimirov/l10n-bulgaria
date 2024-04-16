@@ -44,6 +44,9 @@ def get_type_vat():
     return [
         ('standard', _('Accounting document')),
         ('117_protocol', _('Art. 117 - Protocols')),
+        ('119_report', _('Art. 119 - Report for sales')),
+        # ('120_sales_report', _('Art. 119 - Report for sales-special rules')),
+        # ('120_purchase_report', _('Art. 119 - Report for purchase-special rules')),
         ('in_customs', _('Import Customs declaration')),
         ('out_customs', _('Export Customs declaration')),
         ('dropship', _('Dropship/Try party deal'))

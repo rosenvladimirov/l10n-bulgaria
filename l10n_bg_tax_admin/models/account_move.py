@@ -258,7 +258,6 @@ class AccountMove(models.Model):
     def button_draft(self):
         # _logger.info(f"STATE #: {self.state}")
         for line in self.filtered(lambda r: r.state == 'posted'):
-            # _logger.info(f"PROTOCOL #: {line.l10n_bg_protocol_invoice_id}")
             if line.l10n_bg_customs_invoice_id:
                 self.env['account.move'].search([
                     ('id', '=', line.l10n_bg_customs_invoice_id.id),

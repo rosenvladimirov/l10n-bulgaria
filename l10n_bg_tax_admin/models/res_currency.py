@@ -23,7 +23,7 @@ class ResCurrency(models.Model):
         self.env['res.currency.rate'].flush_model(['rate', 'currency_id', 'company_id', 'name'])
         query = """SELECT c.id,
                           COALESCE((SELECT r.rate_vat FROM res_currency_rate r
-                                  WHERE r.currency_id = c.id AND r.name <= %s
+                                  WHERE r.currency_id = c.id AND r.rate_vat IS NOT NULL AND r.name <= %s
                                     AND (r.company_id IS NULL OR r.company_id = %s)
                                ORDER BY r.company_id, r.name DESC
                                   LIMIT 1), 1.0) AS rate

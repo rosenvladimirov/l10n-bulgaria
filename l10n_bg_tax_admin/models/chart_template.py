@@ -12,15 +12,16 @@ _logger = logging.getLogger(__name__)
 
 def get_invoice_type():
     return [
-        ('out_invoice', 'Customer Invoice'),
-        ('out_refund', 'Customer Credit Note'),
-        ('out_debit_note', 'Customer Debit Note'),
-        ('out_receipt', 'Sales Receipt'),
-        ('out_receipt_invoice', 'Sales Receipt-Invoice'),
-        ('in_invoice', 'Vendor Bill'),
-        ('in_refund', 'Vendor Credit Note'),
-        ('in_debit_note', 'Vendor Debit Note'),
-        ('in_receipt_invoice', 'Purchase Receipt-Invoice'),
+        ('out_invoice', _('Customer Invoice')),
+        ('out_refund', _('Customer Credit Note')),
+        ('out_debit_note', _('Customer Debit Note')),
+        ('out_receipt', _('Sales Receipt')),
+        ('out_receipt_invoice', _('Sales Receipt-Invoice')),
+        ('in_invoice', _('Vendor Bill')),
+        ('in_refund', _('Vendor Credit Note')),
+        ('in_debit_note', _('Vendor Debit Note')),
+        ('in_receipt_invoice', _('Purchase Receipt-Invoice')),
+        ('entry', _('Account Entry'))
     ]
 
 

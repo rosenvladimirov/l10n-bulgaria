@@ -42,7 +42,6 @@ def migrate_account_account_tag(env):
     if lang:
         lang.noupdate = False
 
-
 def pre_init_hook(cr):
     env = api.Environment(cr, SUPERUSER_ID, {})
     migrate_account_account_tag(env)

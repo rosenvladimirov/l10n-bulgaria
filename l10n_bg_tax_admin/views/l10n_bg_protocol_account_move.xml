@@ -61,13 +61,12 @@
         <field name="model">account.move.bg.protocol</field>
         <field name="arch" type="xml">
             <form string="Account Entry" js_class="account_move_form">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+                </header>
                 <sheet>
-                    <header>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
-                    </header>
                     <div name="button_box" class="oe_button_box">
                     </div>
-
                     <!-- Invisible fields -->
                     <field name="id" invisible="1"/>
                     <field name="company_id" invisible="1"/>
@@ -114,7 +113,6 @@
                     </div>
                     <group>
                         <group id="header_left_group">
-
                             <label for="partner_id" string="Customer" style="font-weight:bold;"
                                    attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}"/>
                             <label for="partner_id" string="Vendor" style="font-weight:bold;"
@@ -167,25 +165,6 @@
                                    domain="[('partner_id', '=', bank_partner_id)]"
                                    attrs="{'invisible': [('move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt'))],
                                         'readonly': [('state', '!=', 'draft')]}"/>
-
-                            <!-- Invoice payment terms (only invoices) + due date (only invoices / receipts) -->
-                            <div class="o_td_label" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}">
-                                <label for="invoice_date_due" string="Due Date"
-                                       attrs="{'invisible': [('invoice_payment_term_id', '!=', False)]}"/>
-                                <label for="invoice_payment_term_id" string="Payment terms"
-                                       attrs="{'invisible': [('invoice_payment_term_id', '=', False)]}"/>
-                            </div>
-                            <div class="d-flex" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}">
-                                <field name="invoice_date_due" force_save="1"
-                                       placeholder="Date"
-                                       attrs="{'invisible': [('invoice_payment_term_id', '!=', False)]}"/>
-                                <span class="o_form_label mx-3 oe_edit_only"
-                                      attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('invoice_payment_term_id', '!=', False)]}"> or </span>
-                                <field name="invoice_payment_term_id"
-                                       context="{'example_date': invoice_date, 'example_amount': tax_totals['amount_total']}"
-                                       placeholder="Terms"/>
-                            </div>
-
                             <label for="journal_id"
                                    groups="account.group_account_readonly"
                                    invisible="context.get('default_journal_id') and context.get('move_type', 'entry') != 'entry'"/>
@@ -216,6 +195,7 @@
                               string="Invoice Lines"
                               attrs="{'invisible': [('move_type', '=', 'entry')]}">
                             <field name="invoice_line_ids"
+                                   readonly="1"
                                    widget="section_and_note_one2many"
                                    mode="tree,kanban"
                                    context="{
@@ -226,13 +206,7 @@
                                        'default_display_type': 'product',
                                        'quick_encoding_vals': quick_encoding_vals,
                                    }">
-                                <tree editable="bottom" string="Journal Items" default_order="sequence, id">
-                                    <control>
-                                        <create name="add_line_control" string="Add a line"/>
-                                        <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
-                                        <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
-                                    </control>
-
+                                <tree string="Journal Items" default_order="sequence, id">
                                     <!-- Displayed fields -->
                                     <field name="sequence" widget="handle"/>
                                     <field name="product_id"
@@ -258,17 +232,16 @@
                                     <field name="quantity" optional="show"/>
                                     <field name="product_uom_category_id" invisible="1"/>
                                     <field name="product_uom_id" string="UoM" groups="uom.group_uom" optional="show"/>
-                                    <field name="price_unit" string="Price"/>
-                                    <field name="discount" string="Disc.%" optional="hide"/>
+                                    <field name="price_unit_signed" string="Price"/>
                                     <field name="tax_ids" widget="many2many_tags"
                                            domain="[('type_tax_use', '=?', parent.invoice_filter_type_domain), ('company_id', '=', parent.company_id), ('country_id', '=', parent.tax_country_id)]"
                                            context="{'append_type_to_tax_name': not parent.invoice_filter_type_domain}"
                                            options="{'no_create': True}"
                                            optional="show"/>
-                                    <field name="price_subtotal"
+                                    <field name="price_subtotal_signed"
                                            string="Subtotal"
                                            groups="account.group_show_line_subtotals_tax_excluded"/>
-                                    <field name="price_total"
+                                    <field name="price_total_signed"
                                            string="Total"
                                            groups="account.group_show_line_subtotals_tax_included"/>
 
@@ -286,12 +259,12 @@
                                     <!-- Displayed fields -->
                                     <field name="name"/>
                                     <field name="product_id"/>
-                                    <field name="price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
-                                    <field name="price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                                    <field name="price_subtotal_signed" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                    <field name="price_total_signed" groups="account.group_show_line_subtotals_tax_included"/>
                                     <field name="quantity"/>
                                     <field name="product_uom_category_id" invisible="1"/>
                                     <field name="product_uom_id" groups="uom.group_uom"/>
-                                    <field name="price_unit"/>
+                                    <field name="price_unit_signed"/>
                                     <templates>
                                         <t t-name="kanban-box">
                                             <div t-attf-class="oe_kanban_card oe_kanban_global_click ps-0 pe-0 {{ record.display_type.raw_value ? 'o_is_' + record.display_type.raw_value : '' }}">
@@ -307,8 +280,8 @@
                                                                 </div>
                                                                 <div class="col-auto">
                                                                     <strong class="float-end text-end">
-                                                                        <t t-esc="record.price_subtotal.value" groups="account.group_show_line_subtotals_tax_excluded"/>
-                                                                        <t t-esc="record.price_total.value" groups="account.group_show_line_subtotals_tax_included"/>
+                                                                        <t t-esc="record.price_subtotal_signed.value" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                                                        <t t-esc="record.price_total_signed.value" groups="account.group_show_line_subtotals_tax_included"/>
                                                                     </strong>
                                                                 </div>
                                                             </div>
@@ -319,7 +292,7 @@
                                                             </div>
                                                             <div class="text-muted">
                                                                 Unit Price:
-                                                                <t t-esc="record.price_unit.value"/>
+                                                                <t t-esc="record.price_unit_signed.value"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -352,7 +325,7 @@
                                             <field name="quantity"/>
                                             <field name="product_uom_category_id" invisible="1"/>
                                             <field name="product_uom_id" groups="uom.group_uom"/>
-                                            <field name="price_unit"/>
+                                            <field name="price_unit_signed"/>
                                             <field name="discount" string="Disc.%"/>
                                         </group>
                                         <group>
@@ -365,8 +338,8 @@
                                         <label for="name" string="Note" attrs="{'invisible': [('display_type', '!=', 'line_note')]}"/>
                                         <field name="name" widget="text"/>
                                         <group>
-                                            <field name="price_subtotal" string="Subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
-                                            <field name="price_total" string="Total" groups="account.group_show_line_subtotals_tax_included"/>
+                                            <field name="price_subtotal_signed" string="Subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                            <field name="price_total_signed" string="Total" groups="account.group_show_line_subtotals_tax_included"/>
                                         </group>
                                     </sheet>
                                 </form>
@@ -380,12 +353,8 @@
                                     <group class="oe_subtotal_footer oe_right"
                                         attrs="{'invisible': ['|', ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')),
                                                                    ('payment_state' ,'=', 'invoicing_legacy')]}">
-
                                         <field name="tax_totals" widget="account-tax-totals-field" nolabel="1" colspan="2"
                                                attrs="{'readonly': ['|', ('state', '!=', 'draft'), '&amp;', ('move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt')), ('quick_edit_mode', '=', False)]}"/>
-
-                                        <field name="invoice_payments_widget" colspan="2" nolabel="1" widget="payment"/>
-                                        <field name="amount_residual" class="oe_subtotal_footer_separator" attrs="{'invisible': [('state', '=', 'draft')]}"/>
                                     </group>
                                     <field name="invoice_outstanding_credits_debits_widget"
                                         class="oe_invoice_outstanding_credits_debits"

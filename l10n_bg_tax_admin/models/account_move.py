@@ -38,14 +38,6 @@ class AccountMove(models.Model):
     # CUSTOMS FIELDS
     # --------------
 
-    l10n_bg_customs_type = fields.Selection(selection=[
-        ('customs', _('Customs record')),
-        ('invoices', _('Invoice record'))
-    ], string='Customs type')
-    l10n_bg_currency_rate = fields.Float('Statistics currency rate',
-                                         default=lambda self: self._default_l10n_bg_currency_rate(),
-                                         help="Statistics currency rate for customs in Bulgaria.",
-                                         )
     l10n_bg_customs_date = fields.Char("Customs date", copy=False)
     l10n_bg_customs_invoice_id = fields.Many2one('account.move',
                                                  string='Base invoice',
@@ -54,6 +46,14 @@ class AccountMove(models.Model):
                                                  readonly=True,
                                                  states={'draft': [('readonly', True)]},
                                                  )
+    l10n_bg_customs_id = fields.Many2one(
+        'account.move.bg.customs',
+        'Customs',
+        states = {'draft': [('readonly', True)]},
+    )
+    l10n_bg_customs_date_custom_id = fields.Char("Customs date", related='l10n_bg_customs_id.l10n_bg_customs_date')
+    l10n_bg_name_custom_id = fields.Char("Customs number", related='l10n_bg_customs_id.l10n_bg_name')
+
     # === Partner fields === #
     l10n_bg_customs_partner_id = fields.Many2one('res.partner',
                                                  string='Partner in Customs',
@@ -70,20 +70,10 @@ class AccountMove(models.Model):
         related='l10n_bg_customs_invoice_id.partner_shipping_id',
         help="Delivery address for current invoice.",
     )
-    l10n_bg_customs_invoice_ids = fields.Many2many('account.move',
-                                                   'customs_invoices_rel',
-                                                   'invoice_id',
-                                                   'customs_id',
-                                                   string='Used invoices in customs',
-                                                   check_company=True,
-                                                   copy=False,
-                                                   readonly=True,
-                                                   states={'draft': [('readonly', False)]},
-                                                   )
-
-    # -------------------------------------------------------------------------
-    # DEFAULT METHODS
-    # -------------------------------------------------------------------------
+    l10n_bg_currency_rate = fields.Float('Statistics currency rate',
+                                         default=lambda self: self._default_l10n_bg_currency_rate(),
+                                         help="Statistics currency rate for customs in Bulgaria.",
+                                         )
 
     @api.depends('currency_id', 'company_id', 'date')
     def _default_l10n_bg_currency_rate(self):
@@ -97,28 +87,17 @@ class AccountMove(models.Model):
             )
 
         for move in self:
-            if move.l10n_bg_type_vat not in ('in_customs', 'out_customs'):
-                move.l10n_bg_currency_rate = 1.0
-            else:
+            if move.l10n_bg_type_vat == 'in_customs':
                 if move.currency_id:
-                    move.l10n_bg_currency_rate = get_rate(
+                    l10n_bg_currency_rate = get_rate(
                         from_currency=move.company_currency_id,
                         to_currency=move.currency_id,
                         company=move.company_id,
                         date=move.invoice_date or move.date or fields.Date.context_today(move),
                     )
+                    move.l10n_bg_currency_rate = l10n_bg_currency_rate or 1.0
                 else:
                     move.l10n_bg_currency_rate = 1.0
-
-    # -------------------------------------------------------------------------
-    # ONCHANGE METHODS
-    # -------------------------------------------------------------------------
-
-    @api.onchange("l10n_bg_currency_rate")
-    def _onchange_l10n_bg_currency_rate(self):
-        if self.l10n_bg_type_vat in ('in_customs', 'out_customs'):
-            self.line_ids._compute_currency_rate()
-            self.line_ids._inverse_amount_currency()
 
     # -------------------------------------------------------------------------
     # PAYMENT REFERENCE
@@ -158,60 +137,12 @@ class AccountMove(models.Model):
             name += self.l10n_bg_name and "(%s)" % self.l10n_bg_name or ""
         return name
 
-    def _customs_vals(self, map_id, partner_id):
-        partner_id = partner_id or self.partner_id
-        base_lines = self.invoice_line_ids.filtered(lambda r: r.display_type == 'product')
-        amount_currency_total = debit = credit = 0.0
-        factor_percent = map_id.factor_percent == 0.0 and 100.0 or map_id.factor_percent
-        for line in base_lines:
-            amount_currency_total += line.amount_currency
-            debit += line.debit
-            credit += line.credit
-        debit *= factor_percent/100
-        credit *= factor_percent/100
-        amount_currency_total *= factor_percent/100
-        aml_vals_list = []
-        # Create partner lines
-        partner_account_id = self.env['account.account']._get_most_frequent_account_for_partner(
-            company_id=self.company_id.id,
-            partner_id=partner_id.id,
-            move_type=self.move_type,
-        )
-        if debit != 0:
-            aml_vals_list.append(Command.create({
-                'account_id': map_id.account_id and map_id.account_id.id or partner_account_id,
-                'partner_id': partner_id.id,
-                'currency_id': self.currency_id.id,
-                'debit': debit > 0 or 0.0,
-                'credit': debit < 0 or 0.0,
-                'amount_currency': amount_currency_total,
-                'balance': amount_currency_total,
-                'display_type': 'product',
-            }))
-        if credit != 0:
-            aml_vals_list.append(Command.create({
-                'account_id': map_id.account_id and map_id.account_id.id or partner_account_id,
-                'partner_id': partner_id.id,
-                'currency_id': self.currency_id.id,
-                'debit': credit < 0.0 or 0.0,
-                'credit': credit > 0.0 or 0.0,
-                'amount_currency': amount_currency_total,
-                'balance': amount_currency_total,
-                'display_type': 'product',
-            }))
+    def _new_entry_vals(self, fiscal_position_id):
         return {
             'move_type': 'entry',
-            'partner_id': partner_id.id,
-            'l10n_bg_type_vat': 'standard',
-            'l10n_bg_customs_type': 'customs',
-            'fiscal_position_id': map_id.position_dest_id.id,
-            'l10n_bg_customs_invoice_id': self.id,
-            'l10n_bg_customs_date': self.invoice_date,
-            'l10n_bg_customs_commercial_partner_id': self.commercial_partner_id.id,
-            'l10n_bg_customs_partner_shipping_id': self.partner_shipping_id.id,
-            'line_ids': [Command.clear()] + aml_vals_list,
+            'fiscal_position_id': fiscal_position_id.id,
+            'line_ids': [Command.clear()],
             'invoice_line_ids': [Command.clear()],
-            'l10n_bg_customs_invoice_ids': [Command.set(self.ids)]
         }
 
     def _post(self, soft=True):
@@ -225,40 +156,62 @@ class AccountMove(models.Model):
                     'l10n_bg_type_vat': map_id.l10n_bg_type_vat,
                     'l10n_bg_doc_type': map_id.l10n_bg_doc_type,
                     'l10n_bg_narration': map_id.l10n_bg_narration,
-                    # 'l10n_bg_force_new_entry': map_id.new_account_entry,
                 })
-            if map_id.new_account_entry and map_id.l10n_bg_type_vat in ('in_customs', 'out_customs'):
-                self.env['account.move'].search([
-                    ('id', '=', move.l10n_bg_customs_invoice_id.id),
-                    ('move_type', '=', 'entry')
-                ]).unlink()
+            if map_id.new_account_entry:
                 if map_id and not map_id.position_dest_id:
                     raise UserError(_('Missing configuration for replacing fiscal position for export/import customs'))
-                move._default_l10n_bg_currency_rate()
-                customs_entry_id = move.copy(move._customs_vals(map_id, nra_id))
-                move.l10n_bg_customs_type = 'invoices'
-                move.l10n_bg_customs_invoice_id = customs_entry_id.id
+                new_entry_id = move.copy(move._new_entry_vals(map_id.position_dest_id))
+                map_id = new_entry_id.fiscal_position_id.map_type(new_entry_id)
+                if map_id:
+                    new_entry_id.write({
+                        'l10n_bg_type_vat': map_id.l10n_bg_type_vat,
+                        'l10n_bg_doc_type': map_id.l10n_bg_doc_type,
+                        'l10n_bg_narration': map_id.l10n_bg_narration,
+                    })
+                if new_entry_id.l10n_bg_type_vat == 'in_customs':
+                    self.env['account.move'].search([
+                        ('id', '=', move.l10n_bg_customs_invoice_id.id),
+                        ('move_type', '=', 'entry')
+                    ]).unlink()
+                    move.write({
+                        'l10n_bg_customs_invoice_id': new_entry_id.id,
+                        'l10n_bg_type_vat': 'standard',
+                    })
+                    customs_id = self.env['account.move.bg.customs']. \
+                        create(self.env['account.move.bg.customs']._customs_vals(new_entry_id))
+                    new_entry_id.write({
+                        'partner_id': nra_id.id,
+                        'l10n_bg_customs_id': customs_id.id,
+                        'l10n_bg_customs_invoice_id': move.id,
+                        'l10n_bg_customs_date': move.invoice_date,
+                        'l10n_bg_customs_commercial_partner_id': move.commercial_partner_id.id,
+                        'l10n_bg_customs_partner_shipping_id': move.partner_shipping_id.id,
+                        'invoice_line_ids': customs_id._customs_aml(move, new_entry_id, map_id, nra_id),
+                    })
+                    new_entry_id._default_l10n_bg_currency_rate()
+
             if move.is_purchase_document(False) \
                 and move.l10n_bg_type_vat == '117_protocol' \
                 and not move.l10n_bg_protocol_invoice_id:
                 protocol_id = self.env['account.move.bg.protocol']. \
                     create(self.env['account.move.bg.protocol']._protocol_vals(move))
                 move.l10n_bg_protocol_invoice_id = protocol_id.id
+                protocol_id._compute_protocol_name()
             if move.is_sale_document(True) \
                 and move.l10n_bg_type_vat == '119_report' \
                 and not move.l10n_bg_report_sale_id:
                 report_sale_id = self.env['account.move.bg.report.sale']. \
                     create(self.env['account.move.bg.report.sale']._report_vals(move))
                 move.l10n_bg_report_sale_id = report_sale_id.id
-            if move.l10n_bg_customs_type and not (map_id.new_account_entry
-                                                  and map_id.l10n_bg_type_vat in ('in_customs', 'out_customs')):
-                move.l10n_bg_customs_type = False
         return to_post
 
     def button_draft(self):
         # _logger.info(f"STATE #: {self.state}")
         for line in self.filtered(lambda r: r.state == 'posted'):
             if line.l10n_bg_customs_invoice_id:
+                self.env['account.move.bg.customs'].search([
+                    ('move_id', '=', line.l10n_bg_customs_id.id),
+                ]).unlink()
                 self.env['account.move'].search([
                     ('id', '=', line.l10n_bg_customs_invoice_id.id),
                     ('move_type', '=', 'entry')
@@ -295,6 +248,16 @@ class AccountMove(models.Model):
             if operator in expression.NEGATIVE_TERM_OPERATORS:
                 domain = ['&', '!'] + domain[1:]
         return self._search(expression.AND([domain, args]), limit=limit, access_rights_uid=name_get_uid)
+
+    # -------------------------------------------------------------------------
+    # ONCHANGE METHODS
+    # -------------------------------------------------------------------------
+
+    @api.onchange("l10n_bg_currency_rate")
+    def _onchange_l10n_bg_currency_rate(self):
+        if self.l10n_bg_type_vat == 'in_customs':
+            self.line_ids._compute_currency_rate()
+            self.line_ids._inverse_amount_currency()
 
     # -------------------------------------------------------------------------
     # HELPER METHODS
@@ -381,9 +344,12 @@ class AccountMove(models.Model):
         self.ensure_one()
         result = self.env.ref("account.action_move_in_invoice_type")
         result = result.read()[0]
-        result['res_id'] = self.l10n_bg_customs_invoice_id.id
-        result['view_mode'] = 'form'
-        result["domain"] = [("id", "=", self.l10n_bg_customs_invoice_id.id)]
+        result.update({
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_id': self.l10n_bg_customs_invoice_id.id,
+            'domain': [('id', '=', self.l10n_bg_customs_invoice_id.id)],
+        })
         return result
 
     def view_account_protocol(self):
@@ -391,9 +357,14 @@ class AccountMove(models.Model):
         if self.l10n_bg_protocol_invoice_id:
             result = self.env.ref("l10n_bg_tax_admin.action_protocol_account_move")
             result = result.read()[0]
-            result['context'] = {
-                'default_account_move_id': self.id,
-                'date_creation': self.invoice_date,
-            }
-            result["domain"] = [("id", "=", self.l10n_bg_protocol_invoice_id.id)]
+            result.update({
+                'context': {
+                    'default_account_move_id': self.id,
+                    'date_creation': self.invoice_date,
+                },
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_id': self.l10n_bg_protocol_invoice_id.id,
+                'domain': [('id', '=', self.l10n_bg_protocol_invoice_id.id)],
+            })
             return result

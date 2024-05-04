@@ -38,12 +38,11 @@ class AccountMove(models.Model):
     # CUSTOMS FIELDS
     # --------------
 
-    l10n_bg_customs_date = fields.Char("Customs date", copy=False)
+    l10n_bg_customs_date = fields.Date("Customs date", copy=False)
     l10n_bg_customs_invoice_id = fields.Many2one('account.move',
                                                  string='Base invoice',
                                                  check_company=True,
                                                  copy=False,
-                                                 readonly=True,
                                                  states={'draft': [('readonly', True)]},
                                                  )
     l10n_bg_customs_id = fields.Many2one(
@@ -51,8 +50,8 @@ class AccountMove(models.Model):
         'Customs',
         states = {'draft': [('readonly', True)]},
     )
-    l10n_bg_customs_date_custom_id = fields.Char("Customs date", related='l10n_bg_customs_id.l10n_bg_customs_date')
-    l10n_bg_name_custom_id = fields.Char("Customs number", related='l10n_bg_customs_id.l10n_bg_name')
+    l10n_bg_customs_date_custom_id = fields.Date("Customs date", related='l10n_bg_customs_invoice_id.l10n_bg_customs_date')
+    l10n_bg_name_custom_id = fields.Char("Customs number", related='l10n_bg_customs_invoice_id.l10n_bg_name')
 
     # === Partner fields === #
     l10n_bg_customs_partner_id = fields.Many2one('res.partner',
@@ -140,6 +139,7 @@ class AccountMove(models.Model):
     def _new_entry_vals(self, fiscal_position_id):
         return {
             'move_type': 'entry',
+            'date': self.date,
             'fiscal_position_id': fiscal_position_id.id,
             'line_ids': [Command.clear()],
             'invoice_line_ids': [Command.clear()],

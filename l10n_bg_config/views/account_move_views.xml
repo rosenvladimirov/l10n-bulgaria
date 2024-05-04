@@ -10,8 +10,17 @@
                        name="account_bg_vat">
                     <field name="l10n_bg_narration"/>
                     <field name="l10n_bg_type_vat"/>
-                    <field name="l10n_bg_doc_type" attrs="{'invisible': [('move_type', '=', 'entry')]}"/>
-                    <field name="l10n_bg_name" attrs="{'invisible': [('l10n_bg_type_vat', '=', 'standard')]}"/>
+                    <field name="l10n_bg_doc_type"/>
+                    <field name="l10n_bg_name" attrs="{'invisible': [('l10n_bg_type_vat', 'in', ['standard', 'in_customs'])]}"/>
+                    <field name="l10n_bg_delivery_type"/>
+                </group>
+            </xpath>
+            <xpath expr="//page[@id='other_tab_entry']/group[@id='other_tab_entry_group']" position="inside">
+                <group string="Bulgarian VAT" name="account_bg_vat_entry" attrs="{'invisible': [('l10n_bg_type_vat', '=', 'standard')]}">
+                    <field name="l10n_bg_narration"/>
+                    <field name="l10n_bg_type_vat"/>
+                    <field name="l10n_bg_doc_type"/>
+                    <field name="l10n_bg_name"/>
                     <field name="l10n_bg_delivery_type"/>
                 </group>
             </xpath>

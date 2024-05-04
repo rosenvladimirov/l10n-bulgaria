@@ -17,12 +17,7 @@
                         type='object' groups="account.group_account_invoice"
                         context="{'search_default_l10n_bg_customs_invoice_id': [active_id]}"
                         data-hotkey='r'
-                        attrs="{'invisible': [('l10n_bg_type_vat', '!=', 'in_customs')]}"/>
-                <button name="view_account_custom" string='Invoice'
-                        type='object' groups="account.group_account_invoice"
-                        context="{'search_default_l10n_bg_customs_invoice_id': [active_id]}"
-                        data-hotkey='r'
-                        attrs="{'invisible': [('l10n_bg_type_vat', '!=', 'in_customs'), ('l10n_bg_customs_invoice_id', '=', False)]}"/>
+                        attrs="{'invisible': [('l10n_bg_customs_invoice_id', '=', False)]}"/>
 
             </xpath>
             <xpath expr="//field[@name='quick_encoding_vals']" position="after">
@@ -35,23 +30,18 @@
                 <page id="customs_tab" name="customs_tab" string="Customs invoices" attrs="{'invisible': [('l10n_bg_customs_invoice_id', '=', False)]}">
                     <group>
                         <group>
+                            <field name="partner_id" options="{'no_create': True}"/>
                             <field name="l10n_bg_customs_partner_id" options="{'no_create': True}"/>
                             <field name="l10n_bg_customs_partner_shipping_id" options="{'no_create': True}"/>
                         </group>
                         <group>
-                            <field name="l10n_bg_customs_date"/>
-                            <field name="l10n_bg_name" attrs="{'invisible': [('l10n_bg_type_vat', '!=', 'standard'), ('move_type', '!=', 'entry')]}"/>
+                            <field name="l10n_bg_customs_date" attrs="{'invisible': [('l10n_bg_type_vat', '!=', 'in_customs')]}"/>
+                            <field name="l10n_bg_customs_date_custom_id" readonly="0" attrs="{'invisible': [('l10n_bg_type_vat', '!=', 'standard')]}"/>
+                            <field name="l10n_bg_name" attrs="{'invisible': [('l10n_bg_type_vat', '!=', 'in_customs')]}"/>
+                            <field name="l10n_bg_name_custom_id" readonly="0" attrs="{'invisible': [('l10n_bg_type_vat', '!=', 'standard')]}"/>
                         </group>
                     </group>
                 </page>
-            </xpath>
-            <xpath expr="//page[@id='other_tab']/group[@id='other_tab_group']" position="inside">
-                <group string="Bulgarian VAT"
-                       name="account_bg_vat">
-                    <field name="l10n_bg_currency_rate" attrs="{'invisible': [('l10n_bg_type_vat', 'not in', ['in_customs', 'out_customs'])]}"/>
-                    <field name="l10n_bg_doc_type" attrs="{'invisible': [('move_type', '=', 'entry')]}"/>
-                    <field name="l10n_bg_name" attrs="{'invisible': [('l10n_bg_type_vat', '=', 'standard')]}"/>
-                </group>
             </xpath>
         </field>
     </record>
@@ -64,6 +54,9 @@
                 <attribute name="readonly">1</attribute>
                 <attribute name="force_save">1</attribute>
             </field>
+            <xpath expr="//group[@name='account_bg_vat']" position="inside">
+                <field name="l10n_bg_currency_rate" attrs="{'invisible': [('l10n_bg_type_vat', '!=', 'standard')]}"/>
+            </xpath>
         </field>
     </record>
 </odoo>

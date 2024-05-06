@@ -37,6 +37,8 @@
         'views/res_currency_views.xml',
         'views/partner_view.xml',
         'views/product_view.xml',
+        'views/report_protocol.xml',
+        'views/account_report.xml',
     ],
     'demo': [
     ],

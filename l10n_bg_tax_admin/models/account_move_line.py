@@ -7,30 +7,41 @@ from odoo.tools import frozendict
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
+    # --------------
+    # CUSTOMS FIELDS
+    # --------------
+
+    l10n_bg_customs_invoice_id = fields.Many2one('account.move',
+                                                 string='Base invoice in line',
+                                                 check_company=True,
+                                                 copy=False,
+                                                 states={'draft': [('readonly', True)]},
+                                                 )
+
     # === Price fields company currency === #
     price_unit_signed = fields.Float(
         string='Unit Price in company currency',
-        compute="_compute_price_unit_signed", store=True, readonly=False, precompute=True,
+        compute="_compute_price_unit_signed",
         digits='Product Price',
     )
     price_subtotal_signed = fields.Monetary(
         string='Subtotal in company currency',
-        compute='_compute_totals_signed', store=True,
+        compute='_compute_totals_signed',
         currency_field='company_currency_id',
     )
     price_total_signed = fields.Monetary(
         string='Total in company currency',
-        compute='_compute_totals_signed', store=True,
+        compute='_compute_totals_signed',
         currency_field='company_currency_id',
     )
 
     @api.depends('price_unit', 'move_id.l10n_bg_protocol_invoice_id')
     def _compute_price_unit_signed(self):
         for line in self:
-            if line.currency_id == line.company_id.currency_id:
+            if line.move_id.currency_id == line.move_id.company_id.currency_id:
                 line.price_unit_signed = line.price_unit
             else:
-                line.price_unit_signed = line.company_id.currency_id.round(line.price_unit / line.currency_rate)
+                line.price_unit_signed = line.move_id.company_id.currency_id.round(line.price_unit / line.currency_rate)
 
     @api.depends('quantity', 'discount', 'price_unit', 'tax_ids', 'currency_id', 'move_id.l10n_bg_protocol_invoice_id')
     def _compute_totals_signed(self):
@@ -38,13 +49,13 @@ class AccountMoveLine(models.Model):
             if line.display_type != 'product':
                 line.price_total_signed = line.price_subtotal_signed = False
             else:
-                subtotal = line.company_id.currency_id.round(line.amount_currency / line.currency_rate)
+                subtotal = line.move_id.company_id.currency_id.round(line.amount_currency / line.currency_rate)
                 # Compute 'price_total_signed'.
                 if line.tax_ids:
                     taxes_res = line.tax_ids.compute_all(
                         subtotal,
                         quantity=1.0,
-                        currency=line.currency_id,
+                        currency=line.move_id.company_id.currency_id,
                         product=line.product_id,
                         partner=line.partner_id,
                         is_refund=line.is_refund,

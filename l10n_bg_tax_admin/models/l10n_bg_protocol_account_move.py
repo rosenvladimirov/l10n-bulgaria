@@ -31,11 +31,6 @@ class AccountMoveBgProtocol(models.Model):
         tracking=True,
         index='trigram',
     )
-    tax_totals_signed = fields.Binary(
-        string="Invoice Totals Signed",
-        compute='_compute_tax_totals_signed',
-        exportable=False,
-    )
 
     # -------------------------------------------------------------------------
     # COMPUTE METHODS
@@ -66,35 +61,6 @@ class AccountMoveBgProtocol(models.Model):
     def _inverse_protocol_name(self):
         self.move_id.l10n_bg_name = self.protocol_name
         self.move_id.l10n_bg_protocol_date = self.protocol_date
-
-    @api.depends_context('lang')
-    @api.depends(
-        'invoice_line_ids.currency_rate',
-        'invoice_line_ids.tax_base_amount',
-        'invoice_line_ids.tax_line_id',
-        'invoice_line_ids.price_total',
-        'invoice_line_ids.price_subtotal',
-        'invoice_payment_term_id',
-        'partner_id',
-        'currency_id',
-    )
-    def _compute_tax_totals_signed(self):
-        for move in self:
-            tax_totals = move.tax_totals
-            if tax_totals is not None:
-                tax_totals.update({
-                    'amount_total': tax_totals['amount_total_signed'],
-                    'amount_untaxed': tax_totals['amount_untaxed_signed'],
-                    'formatted_amount_total': tax_totals['formatted_amount_total_signed'],
-                    'formatted_amount_untaxed': tax_totals['formatted_amount_untaxed_signed'],
-                    'groups_by_subtotal': tax_totals['groups_by_subtotal_signed'],
-                    'subtotals': tax_totals['subtotals_signed'],
-                    'subtotals_order': tax_totals['subtotals_order'],
-                    'display_tax_base': tax_totals['display_tax_base_signed'],
-                })
-                move.tax_totals_signed = tax_totals
-            else:
-                move.tax_totals_signed = None
 
     def _get_last_sequence_domain(self, relaxed=False):
         # EXTENDS account sequence.mixin

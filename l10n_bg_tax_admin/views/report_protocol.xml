@@ -153,7 +153,7 @@
                                 <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
                                     <table class="table table-sm table-borderless" style="page-break-inside: avoid;">
                                         <!--Tax totals-->
-                                        <t t-set="tax_totals_signed" t-value="o.tax_totals"/>
+                                        <t t-set="tax_totals" t-value="o.tax_totals_signed"/>
                                         <t t-call="l10n_bg_tax_admin.document_tax_totals_signed"/>
                                     </table>
                                 </div>

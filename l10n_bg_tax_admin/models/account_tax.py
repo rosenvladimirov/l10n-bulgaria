@@ -54,7 +54,7 @@ class AccountTax(models.Model):
         """
 
         # ==== Compute the taxes ====
-
+        company_currency = self.env.company.currency_id
         to_process = []
         for base_line in base_lines:
             to_update_vals, tax_values_list = self._compute_taxes_for_single_line(base_line)
@@ -73,7 +73,8 @@ class AccountTax(models.Model):
                 'base_amount': tax_detail['base_amount'],
                 'tax_amount': tax_detail['tax_amount'],
             }
-            rate = tax_detail['tax_amount'] / tax_detail['tax_amount_currency']
+            tax_amount_currency = tax_detail['tax_amount_currency'] != 0.0 and tax_detail['tax_amount_currency'] or 1.0
+            rate = tax_detail['tax_amount'] / tax_amount_currency
 
             # Handle a manual edition of tax lines.
             if tax_lines is not None:
@@ -86,7 +87,7 @@ class AccountTax(models.Model):
                     tax_amount = tax_amount_signed = 0.0
                     for matched_tax_line in matched_tax_lines:
                         tax_amount += matched_tax_line['tax_amount']
-                        if currency != self.company_id.currency_id:
+                        if currency != company_currency:
                             tax_amount_signed += matched_tax_line['tax_amount'] * rate
                         else:
                             tax_amount_signed += matched_tax_line['tax_amount']
@@ -121,9 +122,9 @@ class AccountTax(models.Model):
                 'tax_group_amount': tax_group_vals['tax_amount'],
                 'tax_group_base_amount': tax_group_vals['base_amount'],
                 'formatted_tax_group_amount': formatLang(self.env, tax_group_vals['tax_amount'],
-                                                         currency_obj=self.company_id.currency_id),
+                                                         currency_obj=company_currency),
                 'formatted_tax_group_base_amount': formatLang(self.env, tax_group_vals['base_amount'],
-                                                              currency_obj=self.company_id.currency_id),
+                                                              currency_obj=company_currency),
             })
 
         # ==== Build the final result ====
@@ -135,22 +136,22 @@ class AccountTax(models.Model):
                 'name': subtotal_title,
                 'amount': amount_total,
                 'formatted_amount': formatLang(self.env, amount_total,
-                                               currency_obj=self.company_id.currency_id),
+                                               currency_obj=company_currency),
             })
             for groups_by_subtotal_line in groups_by_subtotal[subtotal_title]:
                 amount_tax += groups_by_subtotal_line['tax_group_amount']
 
         amount_total = amount_untaxed + amount_tax
 
-        display_tax_base = (len(global_tax_details['tax_details']) == 1 and self.company_id.currency_id.compare_amounts(tax_group_vals_list[0]['base_amount'], amount_untaxed) != 0)\
+        display_tax_base = (len(global_tax_details['tax_details']) == 1 and company_currency.compare_amounts(tax_group_vals_list[0]['base_amount'], amount_untaxed) != 0)\
                            or len(global_tax_details['tax_details']) > 1
-        display_tax_base_signed = currency != self.company_id.currency_id
+        display_tax_base_signed = currency != company_currency
 
         return {
-            'amount_untaxed': self.company_id.currency_id.round(amount_untaxed),
-            'amount_total': self.company_id.currency_id.round(amount_total),
-            'formatted_amount_total': formatLang(self.env, amount_total, currency_obj=self.company_id.currency_id),
-            'formatted_amount_untaxed': formatLang(self.env, amount_untaxed, currency_obj=self.company_id.currency_id),
+            'amount_untaxed': company_currency.round(amount_untaxed),
+            'amount_total': company_currency.round(amount_total),
+            'formatted_amount_total': formatLang(self.env, amount_total, currency_obj=company_currency),
+            'formatted_amount_untaxed': formatLang(self.env, amount_untaxed, currency_obj=company_currency),
             'groups_by_subtotal': groups_by_subtotal,
             'subtotals': subtotals,
             'subtotals_order': sorted(subtotal_order.keys(), key=lambda k: subtotal_order[k]),

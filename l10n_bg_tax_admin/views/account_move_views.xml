@@ -41,6 +41,8 @@
                             <field name="l10n_bg_name_custom_id" readonly="0" attrs="{'invisible': [('l10n_bg_type_vat', '!=', 'standard')]}"/>
                         </group>
                     </group>
+                    <separator string="Included invoices"/>
+                    <field name="l10n_bg_customs_invoice_ids" nolabel="1" attrs="{'invisible': [('l10n_bg_type_vat', '!=', 'in_customs')]}"/>
                 </page>
             </xpath>
         </field>

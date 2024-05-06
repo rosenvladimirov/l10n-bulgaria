@@ -52,6 +52,16 @@ class AccountMove(models.Model):
     )
     l10n_bg_customs_date_custom_id = fields.Date("Customs date", related='l10n_bg_customs_invoice_id.l10n_bg_customs_date')
     l10n_bg_name_custom_id = fields.Char("Customs number", related='l10n_bg_customs_invoice_id.l10n_bg_name')
+    l10n_bg_customs_invoice_ids = fields.Many2many('account.move',
+                                                   'customs_invoices_rel',
+                                                   'invoice_id',
+                                                   'customs_id',
+                                                   string='Used invoices in customs',
+                                                   check_company=True,
+                                                   copy=False,
+                                                   readonly=True,
+                                                   states={'draft': [('readonly', False)]},
+                                                   )
 
     # === Partner fields === #
     l10n_bg_customs_partner_id = fields.Many2one('res.partner',
@@ -73,6 +83,11 @@ class AccountMove(models.Model):
                                          default=lambda self: self._default_l10n_bg_currency_rate(),
                                          help="Statistics currency rate for customs in Bulgaria.",
                                          )
+    tax_totals_signed = fields.Binary(
+        string="Invoice Totals in Currency",
+        compute='_compute_tax_totals_signed',
+        exportable=False,
+    )
 
     @api.depends('currency_id', 'company_id', 'date')
     def _default_l10n_bg_currency_rate(self):
@@ -136,6 +151,80 @@ class AccountMove(models.Model):
             name += self.l10n_bg_name and "(%s)" % self.l10n_bg_name or ""
         return name
 
+    @api.depends_context('lang')
+    @api.depends(
+        'invoice_line_ids.currency_rate',
+        'invoice_line_ids.tax_base_amount',
+        'invoice_line_ids.tax_line_id',
+        'invoice_line_ids.price_total',
+        'invoice_line_ids.price_subtotal',
+        'invoice_payment_term_id',
+        'partner_id',
+        'currency_id',
+    )
+    def _compute_tax_totals_signed(self):
+        for move in self:
+            if move.is_invoice(include_receipts=True):
+                base_lines = move.invoice_line_ids.filtered(lambda line: line.display_type == 'product')
+                base_line_values_list = [line._convert_to_tax_base_line_dict() for line in base_lines]
+                sign = move.direction_sign
+                if move.id:
+                    # The invoice is stored so we can add the early payment discount lines directly to reduce the
+                    # tax amount without touching the untaxed amount.
+                    base_line_values_list += [
+                        {
+                            **line._convert_to_tax_base_line_dict(),
+                            'handle_price_include': False,
+                            'quantity': 1.0,
+                            'price_unit': sign * line.amount_currency,
+                        }
+                        for line in move.line_ids.filtered(lambda line: line.display_type == 'epd')
+                    ]
+
+                kwargs = {
+                    'base_lines': base_line_values_list,
+                    'currency': move.currency_id or move.journal_id.currency_id or move.company_id.currency_id,
+                }
+
+                if move.id:
+                    kwargs['tax_lines'] = [
+                        line._convert_to_tax_line_dict()
+                        for line in move.line_ids.filtered(lambda line: line.display_type == 'tax')
+                    ]
+                else:
+                    # In case the invoice isn't yet stored, the early payment discount lines are not there. Then,
+                    # we need to simulate them.
+                    epd_aggregated_values = {}
+                    for base_line in base_lines:
+                        if not base_line.epd_needed:
+                            continue
+                        for grouping_dict, values in base_line.epd_needed.items():
+                            epd_values = epd_aggregated_values.setdefault(grouping_dict, {'price_subtotal': 0.0})
+                            epd_values['price_subtotal'] += values['price_subtotal']
+
+                    for grouping_dict, values in epd_aggregated_values.items():
+                        taxes = None
+                        if grouping_dict.get('tax_ids'):
+                            taxes = self.env['account.tax'].browse(grouping_dict['tax_ids'][0][2])
+
+                        kwargs['base_lines'].append(self.env['account.tax']._convert_to_tax_base_line_dict(
+                            None,
+                            partner=move.partner_id,
+                            currency=move.currency_id,
+                            taxes=taxes,
+                            price_unit=values['price_subtotal'],
+                            quantity=1.0,
+                            account=self.env['account.account'].browse(grouping_dict['account_id']),
+                            analytic_distribution=values.get('analytic_distribution'),
+                            price_subtotal=values['price_subtotal'],
+                            is_refund=move.move_type in ('out_refund', 'in_refund'),
+                            handle_price_include=False,
+                            extra_context={'_extra_grouping_key_': 'epd'},
+                        ))
+                move.tax_totals_signed = self.env['account.tax']._prepare_tax_totals_signed(**kwargs)
+            else:
+                move.tax_totals_signed = None
+
     def _new_entry_vals(self, fiscal_position_id):
         return {
             'move_type': 'entry',
@@ -143,6 +232,7 @@ class AccountMove(models.Model):
             'fiscal_position_id': fiscal_position_id.id,
             'line_ids': [Command.clear()],
             'invoice_line_ids': [Command.clear()],
+            'l10n_bg_customs_invoice_ids': [Command.set(self.ids)]
         }
 
     def _post(self, soft=True):
@@ -186,7 +276,7 @@ class AccountMove(models.Model):
                         'l10n_bg_customs_date': move.invoice_date,
                         'l10n_bg_customs_commercial_partner_id': move.commercial_partner_id.id,
                         'l10n_bg_customs_partner_shipping_id': move.partner_shipping_id.id,
-                        'invoice_line_ids': customs_id._customs_aml(move, new_entry_id, map_id, nra_id),
+                        'invoice_line_ids': customs_id._customs_aml(move, new_entry_id, map_id),
                     })
                     new_entry_id._default_l10n_bg_currency_rate()
 
@@ -212,10 +302,13 @@ class AccountMove(models.Model):
                 self.env['account.move.bg.customs'].search([
                     ('move_id', '=', line.l10n_bg_customs_id.id),
                 ]).unlink()
-                self.env['account.move'].search([
+                customs_move_id = self.env['account.move'].search([
                     ('id', '=', line.l10n_bg_customs_invoice_id.id),
                     ('move_type', '=', 'entry')
-                ]).unlink()
+                ])
+                if customs_move_id.state == 'posted':
+                    customs_move_id.button_draft()
+                customs_move_id.unlink()
 
             if line.l10n_bg_protocol_invoice_id:
                 self.env['account.move.bg.protocol'].search([
@@ -258,6 +351,14 @@ class AccountMove(models.Model):
         if self.l10n_bg_type_vat == 'in_customs':
             self.line_ids._compute_currency_rate()
             self.line_ids._inverse_amount_currency()
+
+    @api.onchange('l10n_bg_customs_invoice_ids')
+    def _onchange_l10n_bg_customs_invoice_ids(self):
+        for invoice_id in (self.l10n_bg_customs_invoice_ids - self.l10n_bg_customs_invoice_id):
+            if self.invoice_line_ids.filtered(lambda r: r.l10n_bg_customs_invoice_id == invoice_id):
+                continue
+            map_id = invoice_id.fiscal_position_id.map_type(invoice_id)
+            self.invoice_line_ids = self.l10n_bg_customs_id._customs_aml(invoice_id, self, map_id)
 
     # -------------------------------------------------------------------------
     # HELPER METHODS

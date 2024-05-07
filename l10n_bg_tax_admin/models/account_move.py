@@ -359,6 +359,9 @@ class AccountMove(models.Model):
                 continue
             map_id = invoice_id.fiscal_position_id.map_type(invoice_id)
             self.invoice_line_ids = self.l10n_bg_customs_id._customs_aml(invoice_id, self, map_id)
+        for line in self.invoice_line_ids:
+            if line.l10n_bg_customs_invoice_id.id not in self.l10n_bg_customs_invoice_ids.ids:
+                line.unlink()
 
     # -------------------------------------------------------------------------
     # HELPER METHODS

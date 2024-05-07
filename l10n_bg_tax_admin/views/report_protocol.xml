@@ -57,7 +57,7 @@
 
                         <div id="informations" class="row mt-4 mb-4">
                             <div class="col-auto col-3 mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
-                                <t t-else=""><strong>Date:</strong></t>
+                                <strong>Date:</strong>
                                 <p class="m-0" t-field="o.protocol_date"/>
                             </div>
                             <div class="col-auto col-3 mw-100 mb-2" t-if="o.invoice_origin" name="origin">

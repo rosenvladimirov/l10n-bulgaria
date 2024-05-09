@@ -3,7 +3,7 @@
 import logging
 import re
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models, _, Command
 from odoo.tools import date_utils
 from datetime import date
 
@@ -105,3 +105,29 @@ class AccountMoveBgProtocol(models.Model):
     def _get_name_protocol_report(self):
         self.ensure_one()
         return 'account.report_protocol_document'
+
+    def _protocols_aml(self, invoice_id, new_entry_id, map_id):
+        # Create new account moves
+        base_lines = invoice_id.invoice_line_ids.filtered(lambda r: r.display_type == 'product')
+        amount_currency_total = 0.0
+        factor_percent = map_id.factor_percent == 0.0 and 100.0 or map_id.factor_percent
+        for line in base_lines:
+            amount_currency_total += line.amount_currency
+        amount_currency_total *= factor_percent / 100
+        account_id = map_id.account_id and map_id.account_id or invoice_id.company_id.account_journal_suspense_account_id
+        tax_ids = account_id.tax_ids.filtered(lambda tax: tax.type_tax_use == 'sale')
+        if not tax_ids:
+            tax_ids = invoice_id.company_id.account_purchase_tax_id
+        if tax_ids and new_entry_id.fiscal_position_id:
+            tax_ids = new_entry_id.fiscal_position_id.map_tax(tax_ids)
+        aml_vals_list = [Command.create({
+            'display_type': 'product',
+            'account_id': account_id.id,
+            'partner_id': new_entry_id.partner_id.id,
+            'currency_id': invoice_id.currency_id.id,
+            'amount_currency': amount_currency_total,
+            'balance': amount_currency_total * invoice_id.l10n_bg_currency_rate,
+            'l10n_bg_private_vat_invoice_id': invoice_id.id,
+            'tax_ids': [Command.set(tax_ids.ids)],
+        })]
+        return aml_vals_list

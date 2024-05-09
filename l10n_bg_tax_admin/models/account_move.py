@@ -20,7 +20,8 @@ class AccountMove(models.Model):
     l10n_bg_protocol_invoice_id = fields.Many2one(
         'account.move.bg.protocol',
         'Protocol',
-        states={'draft': [('readonly', True)]},
+        readonly=True,
+        states={'draft': [('readonly', False)]},
     )
 
     # ---------------
@@ -31,8 +32,30 @@ class AccountMove(models.Model):
     l10n_bg_report_sale_id = fields.Many2one(
         'account.move.bg.protocol',
         'Report Sale',
-        states={'draft': [('readonly', True)]},
+        readonly=True,
+        states={'draft': [('readonly', False)]},
     )
+
+    # --------------------------
+    # Private credit reverse VAT
+    # --------------------------
+    l10n_bg_private_vat_date = fields.Date("Technical Self signed private VAT date", copy=False, default=fields.Date.today())
+    l10n_bg_private_vat_id = fields.Many2one(
+        'account.move.bg.protocol',
+        'Self signed Private VAT',
+        readonly=True,
+        states={'draft': [('readonly', False)]},
+    )
+    l10n_bg_private_vat_invoice_ids = fields.Many2many('account.move',
+                                                   'private_vat_invoices_rel',
+                                                   'invoice_id',
+                                                   'customs_id',
+                                                   string='Used invoices for private vat',
+                                                   check_company=True,
+                                                   copy=False,
+                                                   readonly=True,
+                                                   states={'draft': [('readonly', False)]},
+                                                   )
 
     # --------------
     # CUSTOMS FIELDS
@@ -43,12 +66,14 @@ class AccountMove(models.Model):
                                                  string='Base invoice',
                                                  check_company=True,
                                                  copy=False,
-                                                 states={'draft': [('readonly', True)]},
+                                                 readonly=True,
+                                                 states={'draft': [('readonly', False)]},
                                                  )
     l10n_bg_customs_id = fields.Many2one(
         'account.move.bg.customs',
         'Customs',
-        states = {'draft': [('readonly', True)]},
+        readonly=True,
+        states = {'draft': [('readonly', False)]},
     )
     l10n_bg_customs_date_custom_id = fields.Date("Customs date", related='l10n_bg_customs_invoice_id.l10n_bg_customs_date')
     l10n_bg_name_custom_id = fields.Char("Customs number", related='l10n_bg_customs_invoice_id.l10n_bg_name')
@@ -81,6 +106,7 @@ class AccountMove(models.Model):
     )
     l10n_bg_currency_rate = fields.Float('Statistics currency rate',
                                          default=lambda self: self._default_l10n_bg_currency_rate(),
+                                         digits='Currency rate',
                                          help="Statistics currency rate for customs in Bulgaria.",
                                          )
     tax_totals_signed = fields.Binary(
@@ -232,7 +258,6 @@ class AccountMove(models.Model):
             'fiscal_position_id': fiscal_position_id.id,
             'line_ids': [Command.clear()],
             'invoice_line_ids': [Command.clear()],
-            'l10n_bg_customs_invoice_ids': [Command.set(self.ids)]
         }
 
     def _post(self, soft=True):
@@ -271,14 +296,25 @@ class AccountMove(models.Model):
                         create(self.env['account.move.bg.customs']._customs_vals(new_entry_id))
                     new_entry_id.write({
                         'partner_id': nra_id.id,
+                        'partner_shipping_id': move.partner_shipping_id.id,
                         'l10n_bg_customs_id': customs_id.id,
                         'l10n_bg_customs_invoice_id': move.id,
                         'l10n_bg_customs_date': move.invoice_date,
                         'l10n_bg_customs_commercial_partner_id': move.commercial_partner_id.id,
                         'l10n_bg_customs_partner_shipping_id': move.partner_shipping_id.id,
                         'invoice_line_ids': customs_id._customs_aml(move, new_entry_id, map_id),
+                        'l10n_bg_customs_invoice_ids': [Command.set(move.ids)]
                     })
                     new_entry_id._default_l10n_bg_currency_rate()
+                elif new_entry_id.l10n_bg_type_vat == '117_protocol' and move.is_purchase_document():
+                    l10n_bg_private_vat_id = self.env['account.move.bg.protocol']. \
+                        create(self.env['account.move.bg.protocol']._protocol_vals(move))
+                    move.l10n_bg_private_vat_id = l10n_bg_private_vat_id
+                    new_entry_id.write({
+                        'partner_id': move.partner_id.id,
+                        'date': move.invoice_date or move.date,
+                        'l10n_bg_private_vat_invoice_ids': [Command.set(move.ids)]
+                    })
 
             if move.is_purchase_document(False) \
                 and move.l10n_bg_type_vat == '117_protocol' \
@@ -354,14 +390,15 @@ class AccountMove(models.Model):
 
     @api.onchange('l10n_bg_customs_invoice_ids')
     def _onchange_l10n_bg_customs_invoice_ids(self):
-        for invoice_id in (self.l10n_bg_customs_invoice_ids - self.l10n_bg_customs_invoice_id):
-            if self.invoice_line_ids.filtered(lambda r: r.l10n_bg_customs_invoice_id == invoice_id):
-                continue
-            map_id = invoice_id.fiscal_position_id.map_type(invoice_id)
-            self.invoice_line_ids = self.l10n_bg_customs_id._customs_aml(invoice_id, self, map_id)
-        for line in self.invoice_line_ids:
-            if line.l10n_bg_customs_invoice_id.id not in self.l10n_bg_customs_invoice_ids.ids:
-                line.unlink()
+        if self.l10n_bg_customs_invoice_ids - self.l10n_bg_customs_invoice_id:
+            map_id = self.l10n_bg_customs_invoice_id.fiscal_position_id.map_type(self.l10n_bg_customs_invoice_id)
+            for invoice_id in (self.l10n_bg_customs_invoice_ids - self.l10n_bg_customs_invoice_id):
+                if self.invoice_line_ids.filtered(lambda r: r.l10n_bg_customs_invoice_id == invoice_id):
+                    continue
+                self.invoice_line_ids = self.l10n_bg_customs_id._customs_aml(invoice_id, self, map_id)
+            for line in self.line_ids:
+                if line.l10n_bg_customs_invoice_id.id not in self.l10n_bg_customs_invoice_ids.ids:
+                    line.unlink()
 
     # -------------------------------------------------------------------------
     # HELPER METHODS

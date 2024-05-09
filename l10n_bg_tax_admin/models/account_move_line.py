@@ -17,7 +17,12 @@ class AccountMoveLine(models.Model):
                                                  copy=False,
                                                  states={'draft': [('readonly', True)]},
                                                  )
-
+    l10n_bg_private_vat_invoice_id = fields.Many2one('account.move',
+                                                 string='Base invoice private VAT in line',
+                                                 check_company=True,
+                                                 copy=False,
+                                                 states={'draft': [('readonly', True)]},
+                                                 )
     # === Price fields company currency === #
     price_unit_signed = fields.Float(
         string='Unit Price in company currency',

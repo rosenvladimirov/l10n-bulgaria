@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="product_template_form_view" model="ir.ui.view">
         <field name="name">product.template.form.inherit</field>
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="account.product_template_form_view"/>
+        <field name="inherit_id" ref="account.product_template_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//group[@name='properties']" position="inside">
                 <group string="Bulgarian accounting">
-                    <field name="l10n_bg_art_163a"/>
+                    <field name="l10n_bg_art_163a" />
                 </group>
             </xpath>
         </field>
@@ -15,11 +15,11 @@
     <record id="view_category_property_form" model="ir.ui.view">
         <field name="name">product.category.property.form.inherit</field>
         <field name="model">product.category</field>
-        <field name="inherit_id" ref="account.view_category_property_form"/>
+        <field name="inherit_id" ref="account.view_category_property_form" />
         <field name="arch" type="xml">
             <xpath expr="//group[@name='account_property']" position="inside">
                 <group string="Bulgarian accounting">
-                    <field name="l10n_bg_art_163a"/>
+                    <field name="l10n_bg_art_163a" />
                 </group>
             </xpath>
         </field>

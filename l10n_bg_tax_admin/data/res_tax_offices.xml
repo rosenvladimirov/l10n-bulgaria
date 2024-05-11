@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="0">
         <record id="nra" model="res.partner">
             <field name="name">National Revenue Agency</field>
             <field name="city">Sofia</field>
             <field name="street">bul. Dondukov</field>
-            <field name="country_id" ref="base.bg"/>
+            <field name="country_id" ref="base.bg" />
             <field name="zip">1000</field>
             <field name="phone">070018700</field>
             <field name="email">nap@nra.bg</field>
             <field name="company_type">company</field>
-            <field name="property_account_receivable_id" ref="l10n_bg_452"/>
-            <field name="property_account_payable_id" ref="l10n_bg_452"/>
+            <field name="property_account_receivable_id" ref="l10n_bg_452" />
+            <field name="property_account_payable_id" ref="l10n_bg_452" />
         </record>
 </odoo>

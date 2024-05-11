@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <!-- QWeb Reports -->
@@ -8,11 +8,16 @@
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">l10n_bg_tax_admin.report_protocol</field>
             <field name="report_file">l10n_bg_tax_admin.report_protocol</field>
-            <field name="attachment">(object.state == 'posted') and ((object.name or 'PR').replace('/','_')+'.pdf')</field>
-            <field name="binding_model_id" ref="model_account_move_bg_protocol"/>
+            <field
+                name="attachment"
+            >(object.state == 'posted') and ((object.name or 'PR').replace('/','_')+'.pdf')</field>
+            <field name="binding_model_id" ref="model_account_move_bg_protocol" />
             <field name="binding_type">report</field>
-            <field name="groups_id" eval="[(4, ref('account.group_account_invoice')),
- (4, ref('account.group_account_readonly'))]"/>
+            <field
+                name="groups_id"
+                eval="[(4, ref('account.group_account_invoice')),
+ (4, ref('account.group_account_readonly'))]"
+            />
         </record>
     </data>
 </odoo>

@@ -1,124 +1,273 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-import datetime
 import logging
+
 from odoo import api, fields, models, tools
 
 _logger = logging.getLogger(__name__)
 
 
 class AccountBGVatLine(models.Model):
-    """ Base model for new Bulgarian VAT reports. The idea is that this lines have all the necessary data and which any
+    """Base model for new Bulgarian VAT reports. The idea is that this lines have all the necessary data and which any
     changes in odoo, this ones will be taken for this cube and then no changes will be nedeed in the reports that use
     this lines. A line is created for each accountring entry that is affected by VAT tax.
 
     Basically which it does is covert the accounting entries into columns depending of the information of the taxes and
-    add some other fields """
+    add some other fields"""
 
-    _name = 'account.bg.vat.line'
-    _description = 'VAT line for Analysis in Bulgarian Localization'
+    _name = "account.bg.vat.line"
+    _description = "VAT line for Analysis in Bulgarian Localization"
     _auto = False
-    _order = 'date asc, move_name asc, id asc'
+    _order = "date asc, move_name asc, id asc"
 
     DEFAULT_VALUE = 0.00
 
-    date = fields.Date(readonly=True, string='Дата на документа')
-    accounting_period = fields.Date(readonly=True, string='[02-01] Данъчен период',
-                                    compute='_formatting_period')  # NOT WORK/ No default
+    date = fields.Date(readonly=True, string="Дата на документа")
+    accounting_period = fields.Date(
+        readonly=True, string="[02-01] Данъчен период", compute="_formatting_period"
+    )  # NOT WORK/ No default
     partner_name = fields.Char(readonly=True)
-    partner_vat = fields.Char(readonly=True, string='Идентификационен номер на контрагента2',
-                              compute='_compute_partner_vat', store=True)
-    company_vat = fields.Char(related='company_id.vat', readonly=True, string='ИН по ЗДДС1',
-                              compute='_compute_company_vat')
-    product_id = fields.Text(string='Вид на стоката/услугата', compute='_compute_product_id', readonly=True)
-    document_sequence = fields.Integer(
-        string='Пореден номер на документа в дневника',
+    partner_vat = fields.Char(
         readonly=True,
-        default=0, )
+        string="Идентификационен номер на контрагента2",
+        compute="_compute_partner_vat",
+        store=True,
+    )
+    company_vat = fields.Char(
+        related="company_id.vat",
+        readonly=True,
+        string="ИН по ЗДДС1",
+        compute="_compute_company_vat",
+    )
+    product_id = fields.Text(
+        string="Вид на стоката/услугата", compute="_compute_product_id", readonly=True
+    )
+    document_sequence = fields.Integer(
+        string="Пореден номер на документа в дневника",
+        readonly=True,
+        default=0,
+    )
     move_name = fields.Char(readonly=True)
-    move_type = fields.Selection(selection=[
-        ('entry', 'Journal Entry'),
-        ('out_invoice', 'Customer Invoice'),
-        ('out_refund', 'Customer Credit Note'),
-        ('in_invoice', 'Vendor Bill'),
-        ('in_refund', 'Vendor Credit Note'),
-        ('out_receipt', 'Sales Receipt'),
-        ('in_receipt', 'Purchase Receipt'),
-    ], string='Вид на документа', compute='_compute_move_type', store=True, readonly=True)
-    base_20 = fields.Monetary(readonly=True, string='[02-11] ДО-за облагане с 20%', compute='_compute_tag_11',
-                              currency_field='company_currency_id')
-    vat_20 = fields.Monetary(readonly=True, string='[02-21] ДДС-20%', compute='_compute_vat_values',
-                             currency_field='company_currency_id')
-    base_9 = fields.Monetary(readonly=True, string='[02-13] ДО-за облагане с 9%', compute='_compute_vat_values',
-                             currency_field='company_currency_id')
-    vat_9 = fields.Monetary(readonly=True, string='[02-24] ДДС-туристически услуги 9%', compute='_compute_vat_values',
-                            currency_field='company_currency_id')
-    base_0 = fields.Monetary(readonly=True, currency_field='company_currency_id')
-    vat_0 = fields.Monetary(readonly=True, currency_field='company_currency_id')
-    not_taxed = fields.Monetary(readonly=True, string='Not taxed/ex',
-                                help='Not Taxed / Exempt.\All lines that have VAT 0, Exempt, Not Taxed'' or Not Applicable',
-                                currency_field='company_currency_id')
-    other_taxes = fields.Monetary(readonly=True, string='Общ размер на ДО3 за облагане с ДДС',
-                                  help='All the taxes tat ar not VAT taxes or iibb perceptions and that'' are realted to documents that have VAT',
-                                  currency_field='company_currency_id')
-    total = fields.Monetary(readonly=True, string='Всичко начислен ДДС', currency_field='company_currency_id')
-    state = fields.Selection([('draft', 'Unposted'), ('posted', 'Posted')], 'Status', readonly=True)
-    journal_id = fields.Many2one('account.journal', readonly=True, string='Journal', auto_join=True)
-    partner_id = fields.Many2one('res.partner', string='Име на контрагента', readonly=True, auto_join=True)
-    company_id = fields.Many2one('res.company', 'Company', readonly=True, auto_join=True)
-    company_currency_id = fields.Many2one(related='company_id.currency_id', readonly=True)
-    move_id = fields.Many2one('account.move', string='Номер на документа', auto_join=True)
-    branch = fields.Monetary(readonly=True, string='Клон', default=0.00, currency_field='company_currency_id')
+    move_type = fields.Selection(
+        selection=[
+            ("entry", "Journal Entry"),
+            ("out_invoice", "Customer Invoice"),
+            ("out_refund", "Customer Credit Note"),
+            ("in_invoice", "Vendor Bill"),
+            ("in_refund", "Vendor Credit Note"),
+            ("out_receipt", "Sales Receipt"),
+            ("in_receipt", "Purchase Receipt"),
+        ],
+        string="Вид на документа",
+        compute="_compute_move_type",
+        store=True,
+        readonly=True,
+    )
+    base_20 = fields.Monetary(
+        readonly=True,
+        string="[02-11] ДО-за облагане с 20%",
+        compute="_compute_tag_11",
+        currency_field="company_currency_id",
+    )
+    vat_20 = fields.Monetary(
+        readonly=True,
+        string="[02-21] ДДС-20%",
+        compute="_compute_vat_values",
+        currency_field="company_currency_id",
+    )
+    base_9 = fields.Monetary(
+        readonly=True,
+        string="[02-13] ДО-за облагане с 9%",
+        compute="_compute_vat_values",
+        currency_field="company_currency_id",
+    )
+    vat_9 = fields.Monetary(
+        readonly=True,
+        string="[02-24] ДДС-туристически услуги 9%",
+        compute="_compute_vat_values",
+        currency_field="company_currency_id",
+    )
+    base_0 = fields.Monetary(readonly=True, currency_field="company_currency_id")
+    vat_0 = fields.Monetary(readonly=True, currency_field="company_currency_id")
+    not_taxed = fields.Monetary(
+        readonly=True,
+        string="Not taxed/ex",
+        help="Not Taxed / Exempt.\All lines that have VAT 0, Exempt, Not Taxed"
+        " or Not Applicable",
+        currency_field="company_currency_id",
+    )
+    other_taxes = fields.Monetary(
+        readonly=True,
+        string="Общ размер на ДО3 за облагане с ДДС",
+        help="All the taxes tat ar not VAT taxes or iibb perceptions and that"
+        " are realted to documents that have VAT",
+        currency_field="company_currency_id",
+    )
+    total = fields.Monetary(
+        readonly=True,
+        string="Всичко начислен ДДС",
+        currency_field="company_currency_id",
+    )
+    state = fields.Selection(
+        [("draft", "Unposted"), ("posted", "Posted")], "Status", readonly=True
+    )
+    journal_id = fields.Many2one(
+        "account.journal", readonly=True, string="Journal", auto_join=True
+    )
+    partner_id = fields.Many2one(
+        "res.partner", string="Име на контрагента", readonly=True, auto_join=True
+    )
+    company_id = fields.Many2one(
+        "res.company", "Company", readonly=True, auto_join=True
+    )
+    company_currency_id = fields.Many2one(
+        related="company_id.currency_id", readonly=True
+    )
+    move_id = fields.Many2one(
+        "account.move", string="Номер на документа", auto_join=True
+    )
+    branch = fields.Monetary(
+        readonly=True, string="Клон", default=0.00, currency_field="company_currency_id"
+    )
 
     ################ ONLY FOR SALE
-    account_tag_11 = fields.Monetary(readonly=True, string='[02-11] ДО-за облагане с 20%', compute='_compute_tags',
-                                     currency_field='company_currency_id')
-    account_tag_21 = fields.Monetary(readonly=True, string='[02-21] ДДС-20%', compute='_compute_tags',
-                                     currency_field='company_currency_id')
-    account_tag_12 = fields.Monetary(readonly=True, string='[02-12] ДО-ВОП', default=0.00,
-                                     currency_field='company_currency_id')  # TODO
-    account_tag_26 = fields.Monetary(readonly=True, string='[02-26] ДО-чл.82, ал.2-5', default=0.00,
-                                     currency_field='company_currency_id')  # TODO
-    account_tag_22 = fields.Monetary(readonly=True, string='[02-22] ДДС-ДОП и чл.82,ал.2-5', default=0.00,
-                                     currency_field='company_currency_id')  # TODO
-    account_tag_23 = fields.Monetary(readonly=True, string='[02-23] ДДС-лични нужди', default=0.00,
-                                     currency_field='company_currency_id')  # TODO
-    account_tag_14 = fields.Monetary(readonly=True, string='[02-14] ДО-износ 0%', compute='_compute_tags', default=0.00,
-                                     currency_field='company_currency_id')  # TODO
-    account_tag_15 = fields.Monetary(readonly=True, string='[02-15] ДО-ВОД на стоки 0%', compute='_compute_tags',
-                                     default=0.00, currency_field='company_currency_id')  # TODO
-    account_tag_16 = fields.Monetary(readonly=True, string='[02-16] ДО-0% по чл.140,ал,1 и чл.173',
-                                     compute='_compute_tags', default=0.00,
-                                     currency_field='company_currency_id')  # TODO
-    account_tag_17 = fields.Monetary(readonly=True, string='[02-17] ДО-по чл.21 на територията на ЕС',
-                                     compute='_compute_tags', default=0.00,
-                                     currency_field='company_currency_id')  # TODO
-    account_tag_18 = fields.Monetary(readonly=True, string='[02-18] ДО-по чл.69,ал.2 на територията на ЕС',
-                                     compute='_compute_tags', default=0.00,
-                                     currency_field='company_currency_id')  # TODO
-    account_tag_19 = fields.Monetary(readonly=True, string='[02-19] ДО-осводени и ВОП', default=0.00,
-                                     compute='_compute_tags', currency_field='company_currency_id')  # TODO
-    account_tag_24 = fields.Monetary(readonly=True, string='[02-24] ДДС-туристически услуги 9%', default=0.00,
-                                     compute='_compute_tags', currency_field='company_currency_id')  # TODO
-    account_tag_25 = fields.Monetary(readonly=True, string='[02-25] ДО-тристранни операции', default=0.00,
-                                     currency_field='company_currency_id')  # TODO
+    account_tag_11 = fields.Monetary(
+        readonly=True,
+        string="[02-11] ДО-за облагане с 20%",
+        compute="_compute_tags",
+        currency_field="company_currency_id",
+    )
+    account_tag_21 = fields.Monetary(
+        readonly=True,
+        string="[02-21] ДДС-20%",
+        compute="_compute_tags",
+        currency_field="company_currency_id",
+    )
+    account_tag_12 = fields.Monetary(
+        readonly=True,
+        string="[02-12] ДО-ВОП",
+        default=0.00,
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_26 = fields.Monetary(
+        readonly=True,
+        string="[02-26] ДО-чл.82, ал.2-5",
+        default=0.00,
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_22 = fields.Monetary(
+        readonly=True,
+        string="[02-22] ДДС-ДОП и чл.82,ал.2-5",
+        default=0.00,
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_23 = fields.Monetary(
+        readonly=True,
+        string="[02-23] ДДС-лични нужди",
+        default=0.00,
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_14 = fields.Monetary(
+        readonly=True,
+        string="[02-14] ДО-износ 0%",
+        compute="_compute_tags",
+        default=0.00,
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_15 = fields.Monetary(
+        readonly=True,
+        string="[02-15] ДО-ВОД на стоки 0%",
+        compute="_compute_tags",
+        default=0.00,
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_16 = fields.Monetary(
+        readonly=True,
+        string="[02-16] ДО-0% по чл.140,ал,1 и чл.173",
+        compute="_compute_tags",
+        default=0.00,
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_17 = fields.Monetary(
+        readonly=True,
+        string="[02-17] ДО-по чл.21 на територията на ЕС",
+        compute="_compute_tags",
+        default=0.00,
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_18 = fields.Monetary(
+        readonly=True,
+        string="[02-18] ДО-по чл.69,ал.2 на територията на ЕС",
+        compute="_compute_tags",
+        default=0.00,
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_19 = fields.Monetary(
+        readonly=True,
+        string="[02-19] ДО-осводени и ВОП",
+        default=0.00,
+        compute="_compute_tags",
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_24 = fields.Monetary(
+        readonly=True,
+        string="[02-24] ДДС-туристически услуги 9%",
+        default=0.00,
+        compute="_compute_tags",
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_25 = fields.Monetary(
+        readonly=True,
+        string="[02-25] ДО-тристранни операции",
+        default=0.00,
+        currency_field="company_currency_id",
+    )  # TODO
 
     ################## ONLY FOR PURCHASE
-    account_tag_30 = fields.Monetary(readonly=True, string='[03-30] ДО-без данъчен кредит', compute='_compute_tag_30',
-                                     default=0.00, currency_field='company_currency_id')  # TODO
-    account_tag_31 = fields.Monetary(readonly=True, string='[03-31] ДО-пълен данъчен кредит', compute='_compute_tag_31',
-                                     currency_field='company_currency_id')  # TODO
-    account_tag_41 = fields.Monetary(readonly=True, string='[03-41] ДДС-пълен данъчен кредит',
-                                     compute='_compute_tag_41', currency_field='company_currency_id')  # TODO
-    account_tag_32 = fields.Monetary(readonly=True, string='[03-32] ДО-частичен данъчен кредит',
-                                     compute='_compute_tag_32', default=0.00,
-                                     currency_field='company_currency_id')  # TODO
-    account_tag_42 = fields.Monetary(readonly=True, string='[03-42] ДДС-частичен данъчен кредит',
-                                     compute='_compute_tag_42', default=0.00,
-                                     currency_field='company_currency_id')  # TODO
-    account_tag_43 = fields.Monetary(readonly=True, string='[03-43] Годишна корекция-чл.73,ал.8', default=0.00,
-                                     currency_field='company_currency_id')  # TODO
-    account_tag_45 = fields.Monetary(readonly=True, string='[03-45] ДО-чл.163а', default=0.00,
-                                     currency_field='company_currency_id')  # TODO
+    account_tag_30 = fields.Monetary(
+        readonly=True,
+        string="[03-30] ДО-без данъчен кредит",
+        compute="_compute_tag_30",
+        default=0.00,
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_31 = fields.Monetary(
+        readonly=True,
+        string="[03-31] ДО-пълен данъчен кредит",
+        compute="_compute_tag_31",
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_41 = fields.Monetary(
+        readonly=True,
+        string="[03-41] ДДС-пълен данъчен кредит",
+        compute="_compute_tag_41",
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_32 = fields.Monetary(
+        readonly=True,
+        string="[03-32] ДО-частичен данъчен кредит",
+        compute="_compute_tag_32",
+        default=0.00,
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_42 = fields.Monetary(
+        readonly=True,
+        string="[03-42] ДДС-частичен данъчен кредит",
+        compute="_compute_tag_42",
+        default=0.00,
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_43 = fields.Monetary(
+        readonly=True,
+        string="[03-43] Годишна корекция-чл.73,ал.8",
+        default=0.00,
+        currency_field="company_currency_id",
+    )  # TODO
+    account_tag_45 = fields.Monetary(
+        readonly=True,
+        string="[03-45] ДО-чл.163а",
+        default=0.00,
+        currency_field="company_currency_id",
+    )  # TODO
 
     def open_journal_entry(self):
         self.ensure_one()
@@ -135,8 +284,14 @@ class AccountBGVatLine(models.Model):
         cr.execute(sql, params)
 
     @api.model
-    def _bg_vat_line_build_query(self, tables='account_move_line', where_clause='', where_params=None,
-                                 column_group_key='', tax_types=('sale', 'purchase')):
+    def _bg_vat_line_build_query(
+        self,
+        tables="account_move_line",
+        where_clause="",
+        where_params=None,
+        column_group_key="",
+        tax_types=("sale", "purchase"),
+    ):
         """Returns the SQL Select query fetching account_move_lines info in order to build the pivot view for the VAT summary.
         This method is also meant to be used outside this model, which is the reason why it gives the opportunity to
         provide a few parameters, for which the defaults are used in this model.
@@ -246,7 +401,9 @@ class AccountBGVatLine(models.Model):
     def _compute_tag_31(self):
         account_tag_31_id = [34, 35]
         for record in self:
-            line = record.move_id.line_ids.filtered(lambda t: t.tax_tag_ids.id in account_tag_31_id)
+            line = record.move_id.line_ids.filtered(
+                lambda t: t.tax_tag_ids.id in account_tag_31_id
+            )
             record.account_tag_31 = sum(l.balance for l in line)
 
             self._check_balance_value(record.account_tag_31)
@@ -254,7 +411,9 @@ class AccountBGVatLine(models.Model):
     def _compute_tag_42(self):
         account_tag_42_id = [40, 42]
         for record in self:
-            line = record.move_id.line_ids.filtered(lambda t: t.tax_tag_ids.id in account_tag_42_id)
+            line = record.move_id.line_ids.filtered(
+                lambda t: t.tax_tag_ids.id in account_tag_42_id
+            )
             record.account_tag_42 = sum(l.balance for l in line)
 
             self._check_balance_value(record.account_tag_42)
@@ -262,7 +421,9 @@ class AccountBGVatLine(models.Model):
     def _compute_tag_32(self):
         account_tag_32_id = [36, 37]
         for record in self:
-            line = record.move_id.line_ids.filtered(lambda t: t.tax_tag_ids.id in account_tag_32_id)
+            line = record.move_id.line_ids.filtered(
+                lambda t: t.tax_tag_ids.id in account_tag_32_id
+            )
             record.account_tag_32 = sum(l.balance for l in line)
 
             self._check_balance_value(record.account_tag_32)
@@ -270,7 +431,9 @@ class AccountBGVatLine(models.Model):
     def _compute_tag_30(self):
         account_tag_30_id = [32, 33]
         for record in self:
-            line = record.move_id.line_ids.filtered(lambda t: t.tax_tag_ids.id in account_tag_30_id)
+            line = record.move_id.line_ids.filtered(
+                lambda t: t.tax_tag_ids.id in account_tag_30_id
+            )
             record.account_tag_30 = sum(l.balance for l in line)
 
             self._check_balance_value(record.account_tag_30)
@@ -281,22 +444,24 @@ class AccountBGVatLine(models.Model):
 
     # Compute the values for multiple account tags by calling _compute_tag for each tag with its field name and tag IDs.
     def _compute_tags(self):
-        self._compute_tag('account_tag_11', [4, 5])
-        self._compute_tag('account_tag_21', [24, 25])
-        self._compute_tag('account_tag_14', [12, 13])
-        self._compute_tag('account_tag_15', [14, 15])
-        self._compute_tag('account_tag_16', [16, 17])
-        self._compute_tag('account_tag_17', [18, 19])
-        self._compute_tag('account_tag_18', [20, 21])
-        self._compute_tag('account_tag_19', [23, 22])
-        self._compute_tag('account_tag_23', [28, 29])
-        self._compute_tag('account_tag_24', [30, 31])
+        self._compute_tag("account_tag_11", [4, 5])
+        self._compute_tag("account_tag_21", [24, 25])
+        self._compute_tag("account_tag_14", [12, 13])
+        self._compute_tag("account_tag_15", [14, 15])
+        self._compute_tag("account_tag_16", [16, 17])
+        self._compute_tag("account_tag_17", [18, 19])
+        self._compute_tag("account_tag_18", [20, 21])
+        self._compute_tag("account_tag_19", [23, 22])
+        self._compute_tag("account_tag_23", [28, 29])
+        self._compute_tag("account_tag_24", [30, 31])
 
     # Compute the total balance for a specific account tag by iterating through records, filtering relevant lines, and setting the balance to the corresponding field name.
     def _compute_tag(self, field_name, tag_ids):
         for record in self:
             # Filter lines based on tag IDs.
-            lines = record.move_id.line_ids.filtered(lambda t: t.tax_tag_ids.id in tag_ids)
+            lines = record.move_id.line_ids.filtered(
+                lambda t: t.tax_tag_ids.id in tag_ids
+            )
             # Calculate the total balance for these lines.
             total_balance = sum(line.balance for line in lines)
             # Set the total balance as an attribute of the record with the specified field name.
@@ -310,22 +475,22 @@ class AccountBGVatLine(models.Model):
         if not value:
             setattr(self, field_name, 0.00)
 
-    @api.depends('partner_id.vat')
+    @api.depends("partner_id.vat")
     def _compute_partner_vat(self):
         # Returns the partner's VAT from the related partner
         for record in self:
             record.partner_vat = record.partner_id.vat
 
-    @api.depends('product_id')
+    @api.depends("product_id")
     def _compute_product_id(self):
         # Returns the product name
         for record in self:
-            if record.move_type in ['out_invoice', 'out_refund']:
-                record.product_id = 'Продажба на стоки и услуги'
-            elif record.move_type in ['in_invoice', 'in_refund']:
-                record.product_id = 'Покупка на стоки и услуги'
+            if record.move_type in ["out_invoice", "out_refund"]:
+                record.product_id = "Продажба на стоки и услуги"
+            elif record.move_type in ["in_invoice", "in_refund"]:
+                record.product_id = "Покупка на стоки и услуги"
 
-    @api.depends('move_id.line_ids')
+    @api.depends("move_id.line_ids")
     def _compute_vat_values(self):
         """
         Compute VAT-related fields based on invoice lines and taxes.
@@ -361,14 +526,14 @@ class AccountBGVatLine(models.Model):
                         record.base_9 = record.other_taxes
                         record.vat_9 = record.total
 
-    @api.constrains('accounting_period')
+    @api.constrains("accounting_period")
     def _formatting_period(self):
         # Returns formatting date
         for record in self:
-            record.accounting_period = record.date.strftime('%Y-%m-%d')
+            record.accounting_period = record.date.strftime("%Y-%m-%d")
 
     # def _compute_tag_11(self):
-    #     account_tag_11_id = [4, 5]         
+    #     account_tag_11_id = [4, 5]
     #     for record in self:
 
     #         line =  record.move_id.line_ids.filtered(lambda t: t.tax_tag_ids.id in account_tag_11_id)
@@ -377,7 +542,7 @@ class AccountBGVatLine(models.Model):
     #         self._check_balance_value(record.account_tag_11)
 
     # def _compute_tag_21(self):
-    #     account_tag_21_id = [24, 25]         
+    #     account_tag_21_id = [24, 25]
     #     for record in self:
 
     #         line =  record.move_id.line_ids.filtered(lambda t: t.tax_tag_ids.id in account_tag_21_id)
@@ -386,7 +551,7 @@ class AccountBGVatLine(models.Model):
     #         self._check_balance_value(record.account_tag_21)
 
     # def _compute_tag_13(self):
-    #     account_tag_id_13 = [10, 11]         
+    #     account_tag_id_13 = [10, 11]
     #     for record in self:
 
     #         line =  record.move_id.line_ids.filtered(lambda t: t.tax_tag_ids.id in account_tag_id_13)
@@ -395,7 +560,7 @@ class AccountBGVatLine(models.Model):
     #         self._check_balance_value(record.account_tag_13)
 
     # def _compute_tag_14(self):
-    #     account_tag_id_14 = [12, 13]         
+    #     account_tag_id_14 = [12, 13]
     #     for record in self:
 
     #         line =  record.move_id.line_ids.filtered(lambda t: t.tax_tag_ids.id in account_tag_id_14)
@@ -404,7 +569,7 @@ class AccountBGVatLine(models.Model):
     #         self._check_balance_value(record.account_tag_14)
 
     # def _compute_tag_15(self):
-    #     account_tag_15_id = [14, 15]    
+    #     account_tag_15_id = [14, 15]
     #     for record in self:
 
     #         line =  record.move_id.line_ids.filtered(lambda t: t.tax_tag_ids.id in account_tag_15_id)
@@ -413,7 +578,7 @@ class AccountBGVatLine(models.Model):
     #         self._check_balance_value(record.account_tag_15)
 
     # def _compute_tag_16(self):
-    #     account_tag_16_id = [16, 17]         
+    #     account_tag_16_id = [16, 17]
     #     for record in self:
 
     #         line =  record.move_id.line_ids.filtered(lambda t: t.tax_tag_ids.id in account_tag_16_id)
@@ -422,7 +587,7 @@ class AccountBGVatLine(models.Model):
     #         self._check_balance_value(record.account_tag_16)
 
     # def _compute_tag_17(self):
-    #     account_tag_17_id = [18, 19]         
+    #     account_tag_17_id = [18, 19]
     #     for record in self:
 
     #         line =  record.move_id.line_ids.filtered(lambda t: t.tax_tag_ids.id in account_tag_17_id)
@@ -431,7 +596,7 @@ class AccountBGVatLine(models.Model):
     #         self._check_balance_value(record.account_tag_17)
 
     # def _compute_tag_18(self):
-    #     account_tag_18_id = [20, 21]         
+    #     account_tag_18_id = [20, 21]
     #     for record in self:
 
     #         line =  record.move_id.line_ids.filtered(lambda t: t.tax_tag_ids.id in account_tag_18_id)
@@ -440,7 +605,7 @@ class AccountBGVatLine(models.Model):
     #         self._check_balance_value(record.account_tag_18)
 
     # def _compute_tag_19(self):
-    #     account_tag_19_id = [23, 22]         
+    #     account_tag_19_id = [23, 22]
     #     for record in self:
 
     #         line =  record.move_id.line_ids.filtered(lambda t: t.tax_tag_ids.id in account_tag_19_id)
@@ -449,7 +614,7 @@ class AccountBGVatLine(models.Model):
     #         self._check_balance_value(record.account_tag_19)
 
     # def _compute_tag_23(self):
-    #     account_tag_23_id = [28, 29]         
+    #     account_tag_23_id = [28, 29]
     #     for record in self:
 
     #         line =  record.move_id.line_ids.filtered(lambda t: t.tax_tag_ids.id in account_tag_23_id)
@@ -458,7 +623,7 @@ class AccountBGVatLine(models.Model):
     #         self._check_balance_value(record.account_tag_23)
 
     # def _compute_tag_24(self):
-    #     account_tag_id_24 = [30, 31]         
+    #     account_tag_id_24 = [30, 31]
     #     for record in self:
 
     #         line =  record.move_id.line_ids.filtered(lambda t: t.tax_tag_ids.id in account_tag_id_24)

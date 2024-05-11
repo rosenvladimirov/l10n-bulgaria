@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record id="protocol_resequence_view" model="ir.ui.view">
@@ -6,15 +6,15 @@
             <field name="model">protocol.resequence.wizard</field>
             <field name="arch" type="xml">
             <form string="Re-Sequence">
-                <field name="protocol_ids" invisible="1"/>
-                <field name="new_values" invisible="1"/>
-                <field name="sequence_number_reset" invisible="1"/>
+                <field name="protocol_ids" invisible="1" />
+                <field name="new_values" invisible="1" />
+                <field name="sequence_number_reset" invisible="1" />
                 <group>
                     <group>
-                        <field name="ordering" widget="radio"/>
+                        <field name="ordering" widget="radio" />
                     </group>
                     <group>
-                        <field name="first_name"/>
+                        <field name="first_name" />
                     </group>
                 </group>
                 <!-- <group>
@@ -22,8 +22,20 @@
                     <field name="preview_moves" widget="protocol_resequence_widget" nolabel="1" colspan="2"/>
                 </group> -->
                 <footer>
-                    <button string="Confirm" name="resequence" type="object" default_focus="1" class="btn-primary" data-hotkey="q"/>
-                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                    <button
+                            string="Confirm"
+                            name="resequence"
+                            type="object"
+                            default_focus="1"
+                            class="btn-primary"
+                            data-hotkey="q"
+                        />
+                    <button
+                            string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"
+                            data-hotkey="x"
+                        />
                 </footer>
             </form>
             </field>
@@ -34,10 +46,13 @@
             <field name="name">Resequence</field>
             <field name="res_model">protocol.resequence.wizard</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="protocol_resequence_view"/>
+            <field name="view_id" ref="protocol_resequence_view" />
             <field name="target">new</field>
-            <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
-            <field name="binding_model_id" ref="l10n_bg_tax_admin.model_account_move_bg_protocol" />
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]" />
+            <field
+                name="binding_model_id"
+                ref="l10n_bg_tax_admin.model_account_move_bg_protocol"
+            />
             <field name="binding_view_types">list</field>
         </record>
     </data>

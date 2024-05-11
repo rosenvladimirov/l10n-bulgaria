@@ -7,7 +7,12 @@ _logger = logging.getLogger(__name__)
 
 try:
     import stdnum
-    from stdnum.exceptions import InvalidFormat, InvalidChecksum, InvalidLength, ValidationError
+    from stdnum.exceptions import (
+        InvalidChecksum,
+        InvalidFormat,
+        InvalidLength,
+        ValidationError,
+    )
 except ImportError:
     _logger.debug("Cannot `import external dependency python stdnum package`.")
 
@@ -17,7 +22,9 @@ class ResPartnerIdCategory(models.Model):
 
     def validate_res_partner_bg(self, id_number):
         def get_checksum(weights, digits):
-            checksum = sum([weight * int(digit) for weight, digit in zip(weights, digits)])
+            checksum = sum(
+                [weight * int(digit) for weight, digit in zip(weights, digits)]
+            )
             return checksum % 11
 
         def check_uic_base(uic):
@@ -44,8 +51,10 @@ class ResPartnerIdCategory(models.Model):
         if not "".join(filter(str.istitle, id_number)):
             # Validation for BG Identification Number (EGN)
             try:
-                if stdnum.get_cc_module('bg', 'egn').validate(id_number):
-                    cat = self.env.ref("l10n_bg_config.partner_identification_egn_number_category").id
+                if stdnum.get_cc_module("bg", "egn").validate(id_number):
+                    cat = self.env.ref(
+                        "l10n_bg_config.partner_identification_egn_number_category"
+                    ).id
                     duplicate_bg = self._search_duplicate(cat, id_number, True)
                     validate = True
             except InvalidLength:
@@ -56,8 +65,10 @@ class ResPartnerIdCategory(models.Model):
             # Validation for BG Personal Number of a Foreigner (PNF)
             if not validate:
                 try:
-                    if stdnum.get_cc_module('bg', 'pnf').validate(id_number):
-                        cat = self.env.ref("l10n_bg_config.partner_identification_pnf_number_category").id
+                    if stdnum.get_cc_module("bg", "pnf").validate(id_number):
+                        cat = self.env.ref(
+                            "l10n_bg_config.partner_identification_pnf_number_category"
+                        ).id
                         duplicate_bg = self._search_duplicate(cat, id_number, True)
                         validate = True
                 except InvalidLength:
@@ -67,14 +78,18 @@ class ResPartnerIdCategory(models.Model):
             if not validate:
                 uid_check = "".join(filter(str.isdigit, id_number))
                 if len(uid_check) in [9, 13] and check_uic_base(uid_check):
-                    cat = self.env.ref("l10n_bg_config.partner_identification_uic_number_category").id
+                    cat = self.env.ref(
+                        "l10n_bg_config.partner_identification_uic_number_category"
+                    ).id
                     duplicate_bg = self._search_duplicate(cat, uid_check, True)
                     validate = True
                 else:
                     _logger.info("The length of id_number_check ot 9 or 13")
 
                 if len(uid_check) == 13 and not check_uic_extra(uid_check):
-                    cat = self.env.ref("l10n_bg_config.partner_identification_uic_number_category").id
+                    cat = self.env.ref(
+                        "l10n_bg_config.partner_identification_uic_number_category"
+                    ).id
                     duplicate_bg = self._search_duplicate(cat, uid_check, True)
                     validate = True
                 else:

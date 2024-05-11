@@ -9,7 +9,7 @@
                 <field name="description" />
             </field>
             <field name="applicability" position="after">
-                <field name="l10n_bg_applicability"/>
+                <field name="l10n_bg_applicability" />
             </field>
         </field>
     </record>

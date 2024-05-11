@@ -1,27 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_move_form" model="ir.ui.view">
         <field name="name">account.move.form</field>
         <field name="model">account.move</field>
-        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
-            <xpath expr="//page[@id='other_tab']/group[@id='other_tab_group']" position="inside">
-                <group string="Bulgarian VAT"
-                       name="account_bg_vat">
-                    <field name="l10n_bg_narration"/>
-                    <field name="l10n_bg_type_vat"/>
-                    <field name="l10n_bg_doc_type"/>
-                    <field name="l10n_bg_name" attrs="{'invisible': [('l10n_bg_type_vat', 'in', ['standard', 'in_customs'])]}"/>
-                    <field name="l10n_bg_delivery_type"/>
+            <xpath
+                expr="//page[@id='other_tab']/group[@id='other_tab_group']"
+                position="inside"
+            >
+                <group string="Bulgarian VAT" name="account_bg_vat">
+                    <field name="l10n_bg_narration" />
+                    <field name="l10n_bg_type_vat" />
+                    <field name="l10n_bg_doc_type" />
+                    <field
+                        name="l10n_bg_name"
+                        attrs="{'invisible': [('l10n_bg_type_vat', 'in', ['standard', 'in_customs'])]}"
+                    />
+                    <field name="l10n_bg_delivery_type" />
                 </group>
             </xpath>
-            <xpath expr="//page[@id='other_tab_entry']/group[@id='other_tab_entry_group']" position="inside">
-                <group string="Bulgarian VAT" name="account_bg_vat_entry" attrs="{'invisible': [('l10n_bg_type_vat', '=', 'standard')]}">
-                    <field name="l10n_bg_narration"/>
-                    <field name="l10n_bg_type_vat"/>
-                    <field name="l10n_bg_doc_type"/>
-                    <field name="l10n_bg_name"/>
-                    <field name="l10n_bg_delivery_type"/>
+            <xpath
+                expr="//page[@id='other_tab_entry']/group[@id='other_tab_entry_group']"
+                position="inside"
+            >
+                <group
+                    string="Bulgarian VAT"
+                    name="account_bg_vat_entry"
+                    attrs="{'invisible': [('l10n_bg_type_vat', '=', 'standard')]}"
+                >
+                    <field name="l10n_bg_narration" />
+                    <field name="l10n_bg_type_vat" />
+                    <field name="l10n_bg_doc_type" />
+                    <field name="l10n_bg_name" />
+                    <field name="l10n_bg_delivery_type" />
                 </group>
             </xpath>
         </field>

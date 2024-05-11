@@ -1,16 +1,15 @@
-# -*- coding: utf-8 -*-
-from odoo import api, fields, models, _, Command
-from odoo.tools.misc import formatLang
-
 from collections import defaultdict
+
+from odoo import _, api, models
+from odoo.tools.misc import formatLang
 
 
 class AccountTax(models.Model):
-    _inherit = 'account.tax'
+    _inherit = "account.tax"
 
     @api.model
     def _prepare_tax_totals_signed(self, base_lines, currency, tax_lines=None):
-        """ Compute the tax totals details for the business documents.
+        """Compute the tax totals details for the business documents.
         :param base_lines:  A list of python dictionaries created using the '_convert_to_tax_base_line_dict' method.
         :param currency:    The currency set on the business document.
         :param tax_lines:   Optional list of python dictionaries created using the '_convert_to_tax_line_dict' method.
@@ -57,104 +56,144 @@ class AccountTax(models.Model):
         company_currency = self.env.company.currency_id
         to_process = []
         for base_line in base_lines:
-            to_update_vals, tax_values_list = self._compute_taxes_for_single_line(base_line)
+            to_update_vals, tax_values_list = self._compute_taxes_for_single_line(
+                base_line
+            )
             to_process.append((base_line, to_update_vals, tax_values_list))
 
         def grouping_key_generator(base_line, tax_values):
-            source_tax = tax_values['tax_repartition_line'].tax_id
-            return {'tax_group': source_tax.tax_group_id}
+            source_tax = tax_values["tax_repartition_line"].tax_id
+            return {"tax_group": source_tax.tax_group_id}
 
-        global_tax_details = self._aggregate_taxes(to_process, grouping_key_generator=grouping_key_generator)
+        global_tax_details = self._aggregate_taxes(
+            to_process, grouping_key_generator=grouping_key_generator
+        )
 
         tax_group_vals_list = []
-        for tax_detail in global_tax_details['tax_details'].values():
+        for tax_detail in global_tax_details["tax_details"].values():
             tax_group_vals = {
-                'tax_group': tax_detail['tax_group'],
-                'base_amount': tax_detail['base_amount'],
-                'tax_amount': tax_detail['tax_amount'],
+                "tax_group": tax_detail["tax_group"],
+                "base_amount": tax_detail["base_amount"],
+                "tax_amount": tax_detail["tax_amount"],
             }
-            tax_amount_currency = tax_detail['tax_amount_currency'] != 0.0 and tax_detail['tax_amount_currency'] or 1.0
-            rate = tax_detail['tax_amount'] / tax_amount_currency
+            tax_amount_currency = (
+                tax_detail["tax_amount_currency"] != 0.0
+                and tax_detail["tax_amount_currency"]
+                or 1.0
+            )
+            rate = tax_detail["tax_amount"] / tax_amount_currency
 
             # Handle a manual edition of tax lines.
             if tax_lines is not None:
                 matched_tax_lines = [
                     x
                     for x in tax_lines
-                    if x['tax_repartition_line'].tax_id.tax_group_id == tax_detail['tax_group']
+                    if x["tax_repartition_line"].tax_id.tax_group_id
+                    == tax_detail["tax_group"]
                 ]
                 if matched_tax_lines:
                     tax_amount = tax_amount_signed = 0.0
                     for matched_tax_line in matched_tax_lines:
-                        tax_amount += matched_tax_line['tax_amount']
+                        tax_amount += matched_tax_line["tax_amount"]
                         if currency != company_currency:
-                            tax_amount_signed += matched_tax_line['tax_amount'] * rate
+                            tax_amount_signed += matched_tax_line["tax_amount"] * rate
                         else:
-                            tax_amount_signed += matched_tax_line['tax_amount']
+                            tax_amount_signed += matched_tax_line["tax_amount"]
 
-                    tax_group_vals.update({
-                        # 'tax_amount': tax_amount,
-                        'tax_amount': tax_amount_signed,
-                    })
+                    tax_group_vals.update(
+                        {
+                            # 'tax_amount': tax_amount,
+                            "tax_amount": tax_amount_signed,
+                        }
+                    )
 
             tax_group_vals_list.append(tax_group_vals)
 
-        tax_group_vals_list = sorted(tax_group_vals_list, key=lambda x: (x['tax_group'].sequence, x['tax_group'].id))
+        tax_group_vals_list = sorted(
+            tax_group_vals_list,
+            key=lambda x: (x["tax_group"].sequence, x["tax_group"].id),
+        )
 
         # ==== Partition the tax group values by subtotals ====
 
-        amount_untaxed = global_tax_details['base_amount']
+        amount_untaxed = global_tax_details["base_amount"]
         amount_tax = 0.0
 
         subtotal_order = {}
         groups_by_subtotal = defaultdict(list)
         for tax_group_vals in tax_group_vals_list:
-            tax_group = tax_group_vals['tax_group']
+            tax_group = tax_group_vals["tax_group"]
 
             subtotal_title = tax_group.preceding_subtotal or _("Untaxed Amount")
             sequence = tax_group.sequence
 
-            subtotal_order[subtotal_title] = min(subtotal_order.get(subtotal_title, float('inf')), sequence)
-            groups_by_subtotal[subtotal_title].append({
-                'group_key': tax_group.id,
-                'tax_group_id': tax_group.id,
-                'tax_group_name': tax_group.name,
-                'tax_group_amount': tax_group_vals['tax_amount'],
-                'tax_group_base_amount': tax_group_vals['base_amount'],
-                'formatted_tax_group_amount': formatLang(self.env, tax_group_vals['tax_amount'],
-                                                         currency_obj=company_currency),
-                'formatted_tax_group_base_amount': formatLang(self.env, tax_group_vals['base_amount'],
-                                                              currency_obj=company_currency),
-            })
+            subtotal_order[subtotal_title] = min(
+                subtotal_order.get(subtotal_title, float("inf")), sequence
+            )
+            groups_by_subtotal[subtotal_title].append(
+                {
+                    "group_key": tax_group.id,
+                    "tax_group_id": tax_group.id,
+                    "tax_group_name": tax_group.name,
+                    "tax_group_amount": tax_group_vals["tax_amount"],
+                    "tax_group_base_amount": tax_group_vals["base_amount"],
+                    "formatted_tax_group_amount": formatLang(
+                        self.env,
+                        tax_group_vals["tax_amount"],
+                        currency_obj=company_currency,
+                    ),
+                    "formatted_tax_group_base_amount": formatLang(
+                        self.env,
+                        tax_group_vals["base_amount"],
+                        currency_obj=company_currency,
+                    ),
+                }
+            )
 
         # ==== Build the final result ====
 
         subtotals = []
-        for subtotal_title in sorted(subtotal_order.keys(), key=lambda k: subtotal_order[k]):
+        for subtotal_title in sorted(
+            subtotal_order.keys(), key=lambda k: subtotal_order[k]
+        ):
             amount_total = amount_untaxed + amount_tax
-            subtotals.append({
-                'name': subtotal_title,
-                'amount': amount_total,
-                'formatted_amount': formatLang(self.env, amount_total,
-                                               currency_obj=company_currency),
-            })
+            subtotals.append(
+                {
+                    "name": subtotal_title,
+                    "amount": amount_total,
+                    "formatted_amount": formatLang(
+                        self.env, amount_total, currency_obj=company_currency
+                    ),
+                }
+            )
             for groups_by_subtotal_line in groups_by_subtotal[subtotal_title]:
-                amount_tax += groups_by_subtotal_line['tax_group_amount']
+                amount_tax += groups_by_subtotal_line["tax_group_amount"]
 
         amount_total = amount_untaxed + amount_tax
 
-        display_tax_base = (len(global_tax_details['tax_details']) == 1 and company_currency.compare_amounts(tax_group_vals_list[0]['base_amount'], amount_untaxed) != 0)\
-                           or len(global_tax_details['tax_details']) > 1
+        display_tax_base = (
+            len(global_tax_details["tax_details"]) == 1
+            and company_currency.compare_amounts(
+                tax_group_vals_list[0]["base_amount"], amount_untaxed
+            )
+            != 0
+        ) or len(global_tax_details["tax_details"]) > 1
         display_tax_base_signed = currency != company_currency
 
         return {
-            'amount_untaxed': company_currency.round(amount_untaxed),
-            'amount_total': company_currency.round(amount_total),
-            'formatted_amount_total': formatLang(self.env, amount_total, currency_obj=company_currency),
-            'formatted_amount_untaxed': formatLang(self.env, amount_untaxed, currency_obj=company_currency),
-            'groups_by_subtotal': groups_by_subtotal,
-            'subtotals': subtotals,
-            'subtotals_order': sorted(subtotal_order.keys(), key=lambda k: subtotal_order[k]),
-            'display_tax_base': display_tax_base,
-            'display_tax_base_signed': display_tax_base_signed,
+            "amount_untaxed": company_currency.round(amount_untaxed),
+            "amount_total": company_currency.round(amount_total),
+            "formatted_amount_total": formatLang(
+                self.env, amount_total, currency_obj=company_currency
+            ),
+            "formatted_amount_untaxed": formatLang(
+                self.env, amount_untaxed, currency_obj=company_currency
+            ),
+            "groups_by_subtotal": groups_by_subtotal,
+            "subtotals": subtotals,
+            "subtotals_order": sorted(
+                subtotal_order.keys(), key=lambda k: subtotal_order[k]
+            ),
+            "display_tax_base": display_tax_base,
+            "display_tax_base_signed": display_tax_base_signed,
         }

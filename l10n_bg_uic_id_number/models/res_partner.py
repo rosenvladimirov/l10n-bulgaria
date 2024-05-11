@@ -1,36 +1,42 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 import logging
-from odoo import fields, models, api, _
+
+from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
 
 try:
     import stdnum
-    from stdnum.exceptions import InvalidFormat, InvalidChecksum, InvalidLength, InvalidComponent, ValidationError
+    from stdnum.exceptions import (
+        InvalidChecksum,
+        InvalidComponent,
+        InvalidFormat,
+        InvalidLength,
+        ValidationError,
+    )
 except ImportError:
     _logger.debug("Cannot `import external dependency python stdnum package`.")
 
 
 class ResPartner(models.Model):
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
     l10n_bg_uic = fields.Char(
         string="Unique identification code",
-        compute=lambda s: s._compute_identification(
-            "l10n_bg_uic", s.l10n_bg_uic_type
-        ),
-        inverse=lambda s: s._inverse_identification(
-            "l10n_bg_uic", s.l10n_bg_uic_type
-        ),
+        compute=lambda s: s._compute_identification("l10n_bg_uic", s.l10n_bg_uic_type),
+        inverse=lambda s: s._inverse_identification("l10n_bg_uic", s.l10n_bg_uic_type),
         search=lambda s, *a: s._search_identification(s.l10n_bg_uic_type, *a),
     )
 
-    @api.onchange('l10n_bg_uic_type')
-    @api.depends('l10n_bg_uic')
+    @api.onchange("l10n_bg_uic_type")
+    @api.depends("l10n_bg_uic")
     def _onchange_l10n_bg_uic_type(self):
         for record in self:
-            if record.id_numbers.filtered(lambda r: r.category_id.code != record.l10n_bg_uic_type):
+            if record.id_numbers.filtered(
+                lambda r: r.category_id.code != record.l10n_bg_uic_type
+            ):
                 record.id_numbers.category_id.unlink()
+
     #
     # def _check_l10n_bg_uic(self):
     #     id_number = str(self.vat).upper()

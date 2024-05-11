@@ -7,38 +7,63 @@
         <field name="inherit_id" ref="base.res_config_settings_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('settings')]" position="inside">
-                <field name="is_l10n_bg_record" invisible="1"/>
+                <field name="is_l10n_bg_record" invisible="1" />
             </xpath>
-            <xpath expr="//div[@data-key='account']//field[@name='module_currency_rate_live']/../.." position="after">
-                <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('is_l10n_bg_record','=',False)]}">
+            <xpath
+                expr="//div[@data-key='account']//field[@name='module_currency_rate_live']/../.."
+                position="after"
+            >
+                <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    attrs="{'invisible': [('is_l10n_bg_record','=',False)]}"
+                >
                     <div class="o_setting_left_pane">
-                        <field name="module_currency_rate_update_bg_bnb"/>
+                        <field name="module_currency_rate_update_bg_bnb" />
                     </div>
                     <div class="o_setting_right_pane">
-                        <label for="module_currency_rate_update_bg_bnb"/>
-                        <span class="fa fa-lg fa-building-o"
-                              title="Values set here are company-specific."
-                              role="img"
-                              aria-label="Values set here are company-specific."
-                              groups="base.group_multi_company"/>
-                        <div class="text-muted"
-                             title="Will update daily from cron only if is checked Automatic Currency Rates (OCA) and you added a rate_provider">
+                        <label for="module_currency_rate_update_bg_bnb" />
+                        <span
+                            class="fa fa-lg fa-building-o"
+                            title="Values set here are company-specific."
+                            role="img"
+                            aria-label="Values set here are company-specific."
+                            groups="base.group_multi_company"
+                        />
+                        <div
+                            class="text-muted"
+                            title="Will update daily from cron only if is checked Automatic Currency Rates (OCA) and you added a rate_provider"
+                        >
                             Install BNB update rates
                         </div>
                     </div>
                 </div>
             </xpath>
             <xpath expr="//div[hasclass('settings')]" position="inside">
-                <div class="app_settings_block"
-                     data-string="Bulgariа"
-                     string="Bulgaria"
-                     data-key="l10n_bg_config"
-                     groups="account.group_account_manager">
-                    <field name="country_code" invisible="1" groups="account.group_account_manager"/>
-                    <div name="l10n_bg_config_container" attrs="{'invisible': [('country_code', '!=', 'BG')]}">
+                <div
+                    class="app_settings_block"
+                    data-string="Bulgariа"
+                    string="Bulgaria"
+                    data-key="l10n_bg_config"
+                    groups="account.group_account_manager"
+                >
+                    <field
+                        name="country_code"
+                        invisible="1"
+                        groups="account.group_account_manager"
+                    />
+                    <div
+                        name="l10n_bg_config_container"
+                        attrs="{'invisible': [('country_code', '!=', 'BG')]}"
+                    >
                         <h2>Partners and Addresses</h2>
-                        <div class="row mt16 o_settings_container" name="modules_l10n_bg_contact_setting_container">
-                            <div class="col-12 col-lg-6 o_setting_box" id="module_partner_multilang">
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="modules_l10n_bg_contact_setting_container"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="module_partner_multilang"
+                            >
                                 <div class="o_setting_left_pane">
                                     <field name="module_partner_multilang" />
                                 </div>
@@ -50,7 +75,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-6 o_setting_box" id="module_l10n_bg_multilang">
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="module_l10n_bg_multilang"
+                            >
                                 <div class="o_setting_left_pane">
                                     <field name="module_l10n_bg_multilang" />
                                 </div>
@@ -61,18 +89,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-6 o_setting_box" id="module_l10n_bg_address_extended">
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="module_l10n_bg_address_extended"
+                            >
                                 <div class="o_setting_left_pane">
-                                    <field name="module_l10n_bg_address_extended"/>
+                                    <field name="module_l10n_bg_address_extended" />
                                 </div>
                                 <div class="o_setting_right_pane">
-                                    <label for="module_l10n_bg_address_extended"/>
+                                    <label for="module_l10n_bg_address_extended" />
                                     <div class="text-muted">
                                         Complete also additional information in extended address for partners.
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-6 o_setting_box" id="module_l10n_bg_city">
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="module_l10n_bg_city"
+                            >
                                 <div class="o_setting_left_pane">
                                     <field name="module_l10n_bg_city" />
                                 </div>
@@ -84,7 +118,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-6 o_setting_box" id="module_l10n_bg_tax_offices">
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="module_l10n_bg_tax_offices"
+                            >
                                 <div class="o_setting_left_pane">
                                     <field name="module_l10n_bg_tax_offices" />
                                 </div>
@@ -97,9 +134,12 @@
                                 </div>
                             </div>
                             <h2>Accounting and Localizations</h2>
-                            <div class="col-12 col-lg-6 o_setting_box" id="module_account_financial_forms">
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="module_account_financial_forms"
+                            >
                                 <div class="o_setting_left_pane">
-                                    <field name="module_account_financial_forms"/>
+                                    <field name="module_account_financial_forms" />
                                 </div>
                                 <div class="o_setting_right_pane">
                                     <label for="module_account_financial_forms" />
@@ -108,9 +148,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-6 o_setting_box" id="module_l10n_bg_coa_reports">
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="module_l10n_bg_coa_reports"
+                            >
                                 <div class="o_setting_left_pane">
-                                    <field name="module_l10n_bg_coa_reports"/>
+                                    <field name="module_l10n_bg_coa_reports" />
                                 </div>
                                 <div class="o_setting_right_pane">
                                     <label for="module_l10n_bg_coa_reports" />
@@ -120,9 +163,15 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-lg-6 o_setting_box" id="module_l10n_bg_vat_reports">
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="module_l10n_bg_vat_reports"
+                            >
                                 <div class="o_setting_left_pane">
-                                    <field name="module_l10n_bg_vat_reports" widget="upgrade_boolean"/>
+                                    <field
+                                        name="module_l10n_bg_vat_reports"
+                                        widget="upgrade_boolean"
+                                    />
                                 </div>
                                 <div class="o_setting_right_pane">
                                     <label for="module_l10n_bg_vat_reports" />
@@ -131,9 +180,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-6 o_setting_box" id="module_l10n_bg_tax_admin">
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="module_l10n_bg_tax_admin"
+                            >
                                 <div class="o_setting_left_pane">
-                                    <field name="module_l10n_bg_tax_admin"/>
+                                    <field name="module_l10n_bg_tax_admin" />
                                 </div>
                                 <div class="o_setting_right_pane">
                                     <label for="module_l10n_bg_tax_admin" />
@@ -142,9 +194,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-6 o_setting_box" id="module_l10n_bg_uic_id_number">
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="module_l10n_bg_uic_id_number"
+                            >
                                 <div class="o_setting_left_pane">
-                                    <field name="module_l10n_bg_uic_id_number"/>
+                                    <field name="module_l10n_bg_uic_id_number" />
                                 </div>
                                 <div class="o_setting_right_pane">
                                     <label for="module_l10n_bg_uic_id_number" />
@@ -156,57 +211,111 @@
                         </div>
                         <t groups="account.group_account_user">
                             <h2>Default Accounts</h2>
-                            <div class="row mt16 o_settings_container" id="default_bg_accounts">
-                                <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('group_multi_currency', '=', False)]}">
-                                    <div class="o_setting_left_pane"/>
+                            <div
+                                class="row mt16 o_settings_container"
+                                id="default_bg_accounts"
+                            >
+                                <div
+                                    class="col-12 col-lg-6 o_setting_box"
+                                    attrs="{'invisible': [('group_multi_currency', '=', False)]}"
+                                >
+                                    <div class="o_setting_left_pane" />
                                     <div class="o_setting_right_pane">
                                         <div class="content-group">
                                             <div>
-                                                <span class="o_form_label">Post Exchange difference entries in:</span>
+                                                <span
+                                                    class="o_form_label"
+                                                >Post Exchange difference entries in:</span>
                                             </div>
                                             <div class="row mt8">
-                                                <label for="currency_exchange_journal_id" class="col-lg-4 o_light_label" string="Journal"/>
-                                                <field name="currency_exchange_journal_id"/>
+                                                <label
+                                                    for="currency_exchange_journal_id"
+                                                    class="col-lg-4 o_light_label"
+                                                    string="Journal"
+                                                />
+                                                <field
+                                                    name="currency_exchange_journal_id"
+                                                />
                                             </div>
                                             <div class="row mt8">
-                                                <label for="income_currency_exchange_account_id" class="col-lg-4 o_light_label"/>
-                                                <field name="income_currency_exchange_account_id"/>
+                                                <label
+                                                    for="income_currency_exchange_account_id"
+                                                    class="col-lg-4 o_light_label"
+                                                />
+                                                <field
+                                                    name="income_currency_exchange_account_id"
+                                                />
                                             </div>
                                             <div class="row mt8">
-                                                <label for="expense_currency_exchange_account_id" class="col-lg-4 o_light_label"/>
-                                                <field name="expense_currency_exchange_account_id"/>
+                                                <label
+                                                    for="expense_currency_exchange_account_id"
+                                                    class="col-lg-4 o_light_label"
+                                                />
+                                                <field
+                                                    name="expense_currency_exchange_account_id"
+                                                />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6 o_setting_box">
-                                    <div class="o_setting_left_panel"/>
+                                    <div class="o_setting_left_panel" />
                                     <div class="o_setting_right_pane">
-                                        <span class="o_form_label">The following default accounts are used with certain features.</span>
+                                        <span
+                                            class="o_form_label"
+                                        >The following default accounts are used with certain features.</span>
                                         <div class="content-group">
                                             <div class="row mt8">
-                                                <label for="account_journal_suspense_account_id" class="col-lg-5 o_light_label"/>
-                                                <field name="account_journal_suspense_account_id"/>
+                                                <label
+                                                    for="account_journal_suspense_account_id"
+                                                    class="col-lg-5 o_light_label"
+                                                />
+                                                <field
+                                                    name="account_journal_suspense_account_id"
+                                                />
                                             </div>
                                             <div class="row mt8">
-                                                <label for="account_journal_payment_debit_account_id" class="col-lg-5 o_light_label"/>
-                                                <field name="account_journal_payment_debit_account_id"/>
+                                                <label
+                                                    for="account_journal_payment_debit_account_id"
+                                                    class="col-lg-5 o_light_label"
+                                                />
+                                                <field
+                                                    name="account_journal_payment_debit_account_id"
+                                                />
                                             </div>
                                             <div class="row mt8">
-                                                <label for="account_journal_payment_credit_account_id" class="col-lg-5 o_light_label"/>
-                                                <field name="account_journal_payment_credit_account_id"/>
+                                                <label
+                                                    for="account_journal_payment_credit_account_id"
+                                                    class="col-lg-5 o_light_label"
+                                                />
+                                                <field
+                                                    name="account_journal_payment_credit_account_id"
+                                                />
                                             </div>
                                             <div class="row mt8">
-                                                <label for="transfer_account_id" class="col-lg-5 o_light_label"/>
-                                                <field name="transfer_account_id"/>
+                                                <label
+                                                    for="transfer_account_id"
+                                                    class="col-lg-5 o_light_label"
+                                                />
+                                                <field name="transfer_account_id" />
                                             </div>
                                             <div class="row mt8">
-                                                <label for="account_journal_early_pay_discount_gain_account_id" class="col-lg-5 o_light_label"/>
-                                                <field name="account_journal_early_pay_discount_gain_account_id"/>
+                                                <label
+                                                    for="account_journal_early_pay_discount_gain_account_id"
+                                                    class="col-lg-5 o_light_label"
+                                                />
+                                                <field
+                                                    name="account_journal_early_pay_discount_gain_account_id"
+                                                />
                                             </div>
                                             <div class="row mt8">
-                                                <label for="account_journal_early_pay_discount_loss_account_id" class="col-lg-5 o_light_label"/>
-                                                <field name="account_journal_early_pay_discount_loss_account_id"/>
+                                                <label
+                                                    for="account_journal_early_pay_discount_loss_account_id"
+                                                    class="col-lg-5 o_light_label"
+                                                />
+                                                <field
+                                                    name="account_journal_early_pay_discount_loss_account_id"
+                                                />
                                             </div>
                                         </div>
                                     </div>

@@ -1,29 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- Domestic VAT sales -->
     <record id="l10n_bg_out_invoice" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_dom"/>
+        <field name="position_id" ref="fiscal_position_template_dom" />
         <field name="invoice_type">out_invoice</field>
         <field name="l10n_bg_doc_type">01</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Sale of goods or services</field>
     </record>
     <record id="l10n_bg_out_refund" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_dom"/>
+        <field name="position_id" ref="fiscal_position_template_dom" />
         <field name="invoice_type">out_refund</field>
         <field name="l10n_bg_doc_type">03</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Return of goods or services</field>
     </record>
     <record id="l10n_bg_out_debit_note" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_dom"/>
+        <field name="position_id" ref="fiscal_position_template_dom" />
         <field name="invoice_type">out_debit_note</field>
         <field name="l10n_bg_doc_type">02</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Sale of goods or services</field>
     </record>
     <record id="l10n_bg_out_receipt" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_dom"/>
+        <field name="position_id" ref="fiscal_position_template_dom" />
         <field name="invoice_type">out_receipt</field>
         <field name="l10n_bg_doc_type">09</field>
         <field name="l10n_bg_type_vat">standard</field>
@@ -33,28 +33,28 @@
 
     <!-- Domestic VAT purchases -->
     <record id="l10n_bg_in_invoice" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_dom"/>
+        <field name="position_id" ref="fiscal_position_template_dom" />
         <field name="invoice_type">in_invoice</field>
         <field name="l10n_bg_doc_type">01</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Purchase of goods or services</field>
     </record>
     <record id="l10n_bg_in_refund" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_dom"/>
+        <field name="position_id" ref="fiscal_position_template_dom" />
         <field name="invoice_type">in_refund</field>
         <field name="l10n_bg_doc_type">03</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Return of goods or services</field>
     </record>
     <record id="l10n_bg_in_debit_note" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_dom"/>
+        <field name="position_id" ref="fiscal_position_template_dom" />
         <field name="invoice_type">in_debit_note</field>
         <field name="l10n_bg_doc_type">02</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Sale of goods or services</field>
     </record>
     <record id="l10n_bg_in_receipt" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_dom"/>
+        <field name="position_id" ref="fiscal_position_template_dom" />
         <field name="invoice_type">in_receipt_invoice</field>
         <field name="l10n_bg_doc_type">09</field>
         <field name="l10n_bg_type_vat">standard</field>
@@ -63,15 +63,21 @@
     <!-- Domestic VAT purchases [END] -->
 
     <!-- Domestic VAT 9% hotels -->
-    <record id="l10n_bg_out_invoice_hotels" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_dom_hotels"/>
+    <record
+        id="l10n_bg_out_invoice_hotels"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_dom_hotels" />
         <field name="invoice_type">out_invoice</field>
         <field name="l10n_bg_doc_type">01</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Sale of hotel services 9%</field>
     </record>
-    <record id="l10n_bg_in_invoice_hotels" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_dom_hotels"/>
+    <record
+        id="l10n_bg_in_invoice_hotels"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_dom_hotels" />
         <field name="invoice_type">in_invoice</field>
         <field name="l10n_bg_doc_type">01</field>
         <field name="l10n_bg_type_vat">standard</field>
@@ -80,15 +86,18 @@
     <!-- Domestic VAT 9% hotels [END] -->
 
     <!-- Domestic VAT 9% books -->
-    <record id="l10n_bg_out_invoice_books" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_dom_books"/>
+    <record
+        id="l10n_bg_out_invoice_books"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_dom_books" />
         <field name="invoice_type">out_invoice</field>
         <field name="l10n_bg_doc_type">01</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Sale of books 9%</field>
     </record>
     <record id="l10n_bg_in_invoice_books" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_dom_books"/>
+        <field name="position_id" ref="fiscal_position_template_dom_books" />
         <field name="invoice_type">in_invoice</field>
         <field name="l10n_bg_doc_type">01</field>
         <field name="l10n_bg_type_vat">standard</field>
@@ -97,15 +106,18 @@
     <!-- Domestic VAT 9% books [END] -->
 
     <!-- Domestic VAT 9% books -->
-    <record id="l10n_bg_out_invoice_foods" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_dom_food"/>
+    <record
+        id="l10n_bg_out_invoice_foods"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_dom_food" />
         <field name="invoice_type">out_invoice</field>
         <field name="l10n_bg_doc_type">01</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Sale of food 9%</field>
     </record>
     <record id="l10n_bg_in_invoice_foods" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_dom_food"/>
+        <field name="position_id" ref="fiscal_position_template_dom_food" />
         <field name="invoice_type">in_invoice</field>
         <field name="l10n_bg_doc_type">01</field>
         <field name="l10n_bg_type_vat">standard</field>
@@ -115,199 +127,238 @@
 
     <!-- Intra-community EU VAT sales -->
     <record id="l10n_bg_out_invoice_eu" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_in_eu"/>
+        <field name="position_id" ref="fiscal_position_template_in_eu" />
         <field name="invoice_type">out_invoice</field>
         <field name="l10n_bg_doc_type">01</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Sale of goods or services</field>
     </record>
     <record id="l10n_bg_out_refund_eu" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_in_eu"/>
+        <field name="position_id" ref="fiscal_position_template_in_eu" />
         <field name="invoice_type">out_refund</field>
         <field name="l10n_bg_doc_type">03</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Return of goods or services</field>
     </record>
-    <record id="l10n_bg_out_debit_note_eu" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_in_eu"/>
+    <record
+        id="l10n_bg_out_debit_note_eu"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_in_eu" />
         <field name="invoice_type">out_debit_note</field>
         <field name="l10n_bg_doc_type">02</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Sale of goods or services</field>
     </record>
     <record id="l10n_bg_out_receipt_eu" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_in_eu"/>
+        <field name="position_id" ref="fiscal_position_template_in_eu" />
         <field name="invoice_type">out_receipt</field>
         <field name="l10n_bg_doc_type">09</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Sale of goods or services</field>
-        <field name="position_id" ref="fiscal_position_bg_private_eu"/>
+        <field name="position_id" ref="fiscal_position_bg_private_eu" />
     </record>
     <!-- Intra-community EU VAT sales [END] -->
 
     <!-- Intra-community EU VAT purchases -->
     <record id="l10n_bg_in_invoice_eu" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_in_eu"/>
+        <field name="position_id" ref="fiscal_position_template_in_eu" />
         <field name="invoice_type">in_invoice</field>
         <field name="l10n_bg_doc_type">09</field>
         <field name="l10n_bg_type_vat">117_protocol</field>
         <field name="l10n_bg_narration">Purchase of goods or services</field>
     </record>
     <record id="l10n_bg_in_refund_eu" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_in_eu"/>
+        <field name="position_id" ref="fiscal_position_template_in_eu" />
         <field name="invoice_type">in_refund</field>
         <field name="l10n_bg_doc_type">09</field>
         <field name="l10n_bg_type_vat">117_protocol</field>
         <field name="l10n_bg_narration">Return of goods or services</field>
     </record>
     <record id="l10n_bg_in_debit_note_eu" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_in_eu"/>
+        <field name="position_id" ref="fiscal_position_template_in_eu" />
         <field name="invoice_type">in_debit_note</field>
         <field name="l10n_bg_doc_type">09</field>
         <field name="l10n_bg_type_vat">117_protocol</field>
         <field name="l10n_bg_narration">Sale of goods or services</field>
     </record>
     <record id="l10n_bg_in_receipt_eu" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_in_eu"/>
+        <field name="position_id" ref="fiscal_position_template_in_eu" />
         <field name="invoice_type">in_receipt_invoice</field>
         <field name="l10n_bg_doc_type">01</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Purchase of goods or services</field>
-        <field name="position_id" ref="fiscal_position_bg_private_eu"/>
+        <field name="position_id" ref="fiscal_position_bg_private_eu" />
     </record>
     <!-- Intra-community EU VAT purchases [END] -->
 
     <!-- Intra-community EU VAT art. 21 sales -->
-    <record id="l10n_bg_out_invoice_eu_21" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_in_eu_art_21"/>
+    <record
+        id="l10n_bg_out_invoice_eu_21"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_in_eu_art_21" />
         <field name="invoice_type">out_invoice</field>
         <field name="l10n_bg_doc_type">01</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Sale of goods or services</field>
     </record>
     <record id="l10n_bg_out_refund_eu_21" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_in_eu_art_21"/>
+        <field name="position_id" ref="fiscal_position_template_in_eu_art_21" />
         <field name="invoice_type">out_refund</field>
         <field name="l10n_bg_doc_type">03</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Return of goods or services</field>
     </record>
-    <record id="l10n_bg_out_debit_note_eu_21" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_in_eu_art_21"/>
+    <record
+        id="l10n_bg_out_debit_note_eu_21"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_in_eu_art_21" />
         <field name="invoice_type">out_debit_note</field>
         <field name="l10n_bg_doc_type">02</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Sale of goods or services</field>
     </record>
-    <record id="l10n_bg_out_receipt_eu_21" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_in_eu_art_21"/>
+    <record
+        id="l10n_bg_out_receipt_eu_21"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_in_eu_art_21" />
         <field name="invoice_type">out_receipt</field>
         <field name="l10n_bg_doc_type">09</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Sale of goods or services</field>
-        <field name="position_id" ref="fiscal_position_bg_private_eu"/>
+        <field name="position_id" ref="fiscal_position_bg_private_eu" />
     </record>
     <!-- Intra-community EU VAT sales [END] -->
 
     <!-- Intra-community EU VAT art. 21 purchases -->
     <record id="l10n_bg_in_invoice_eu_21" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_in_eu_art_21"/>
+        <field name="position_id" ref="fiscal_position_template_in_eu_art_21" />
         <field name="invoice_type">in_invoice</field>
         <field name="l10n_bg_doc_type">09</field>
         <field name="l10n_bg_type_vat">117_protocol</field>
         <field name="l10n_bg_narration">Purchase of goods or services</field>
     </record>
     <record id="l10n_bg_in_refund_eu_21" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_in_eu_art_21"/>
+        <field name="position_id" ref="fiscal_position_template_in_eu_art_21" />
         <field name="invoice_type">in_refund</field>
         <field name="l10n_bg_doc_type">09</field>
         <field name="l10n_bg_type_vat">117_protocol</field>
         <field name="l10n_bg_narration">Return of goods or services</field>
     </record>
-    <record id="l10n_bg_in_debit_note_eu_21" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_in_eu_art_21"/>
+    <record
+        id="l10n_bg_in_debit_note_eu_21"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_in_eu_art_21" />
         <field name="invoice_type">in_debit_note</field>
         <field name="l10n_bg_doc_type">09</field>
         <field name="l10n_bg_type_vat">117_protocol</field>
         <field name="l10n_bg_narration">Sale of goods or services</field>
     </record>
     <record id="l10n_bg_in_receipt_eu_21" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_in_eu_art_21"/>
+        <field name="position_id" ref="fiscal_position_template_in_eu_art_21" />
         <field name="invoice_type">in_receipt_invoice</field>
         <field name="l10n_bg_doc_type">01</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Purchase of goods or services</field>
-        <field name="position_dest_id" ref="fiscal_position_bg_private_eu"/>
+        <field name="position_dest_id" ref="fiscal_position_bg_private_eu" />
     </record>
     <!-- Intra-community EU VAT art. 21 purchases [END] -->
 
     <!-- Export outside EU sales -->
-    <record id="l10n_bg_out_invoice_eu_outside" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_out_eu"/>
+    <record
+        id="l10n_bg_out_invoice_eu_outside"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_out_eu" />
         <field name="invoice_type">out_invoice</field>
         <field name="l10n_bg_doc_type">07</field>
         <field name="l10n_bg_type_vat">out_customs</field>
         <field name="l10n_bg_narration">Sale of goods or services</field>
     </record>
-    <record id="l10n_bg_out_refund_eu_outside" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_out_eu"/>
+    <record
+        id="l10n_bg_out_refund_eu_outside"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_out_eu" />
         <field name="invoice_type">out_refund</field>
         <field name="l10n_bg_doc_type">07</field>
         <field name="l10n_bg_type_vat">in_customs</field>
         <field name="l10n_bg_narration">Return of goods or services</field>
         <field name="new_account_entry">1</field>
     </record>
-    <record id="l10n_bg_out_debit_note_eu_outside" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_out_eu"/>
+    <record
+        id="l10n_bg_out_debit_note_eu_outside"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_out_eu" />
         <field name="invoice_type">out_debit_note</field>
         <field name="l10n_bg_doc_type">07</field>
         <field name="l10n_bg_type_vat">out_customs</field>
         <field name="l10n_bg_narration">Sale of goods or services</field>
     </record>
-    <record id="l10n_bg_out_receipt_eu_outside" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_out_eu"/>
+    <record
+        id="l10n_bg_out_receipt_eu_outside"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_out_eu" />
         <field name="invoice_type">out_receipt</field>
         <field name="l10n_bg_doc_type">09</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Sale of goods or services</field>
-        <field name="position_dest_id" ref="fiscal_position_bg_private_eu"/>
+        <field name="position_dest_id" ref="fiscal_position_bg_private_eu" />
     </record>
     <!-- Export outside EU sales [END] -->
 
     <!-- Import outside EU purchases -->
-    <record id="l10n_bg_in_invoice_eu_outside" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_out_eu_inv"/>
+    <record
+        id="l10n_bg_in_invoice_eu_outside"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_out_eu_inv" />
         <field name="invoice_type">in_invoice</field>
         <field name="l10n_bg_doc_type">07</field>
         <field name="l10n_bg_type_vat">in_customs</field>
         <field name="l10n_bg_narration">Purchase of goods or services</field>
-        <field name="position_dest_id" ref="fiscal_position_template_out_eu"/>
+        <field name="position_dest_id" ref="fiscal_position_template_out_eu" />
         <field name="new_account_entry">1</field>
     </record>
-    <record id="l10n_bg_in_refund_eu_outside" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_out_eu_inv"/>
+    <record
+        id="l10n_bg_in_refund_eu_outside"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_out_eu_inv" />
         <field name="invoice_type">in_refund</field>
         <field name="l10n_bg_doc_type">07</field>
         <field name="l10n_bg_type_vat">out_customs</field>
         <field name="l10n_bg_narration">Return of goods or services</field>
-        <field name="position_dest_id" ref="fiscal_position_template_out_eu"/>
+        <field name="position_dest_id" ref="fiscal_position_template_out_eu" />
         <field name="new_account_entry">1</field>
     </record>
-    <record id="l10n_bg_in_debit_note_eu_outside" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_out_eu_inv"/>
+    <record
+        id="l10n_bg_in_debit_note_eu_outside"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_out_eu_inv" />
         <field name="invoice_type">in_debit_note</field>
         <field name="l10n_bg_doc_type">09</field>
         <field name="l10n_bg_type_vat">out_customs</field>
-        <field name="position_dest_id" ref="fiscal_position_template_out_eu_inv"/>
+        <field name="position_dest_id" ref="fiscal_position_template_out_eu_inv" />
         <field name="l10n_bg_narration">Purchase of goods or services</field>
     </record>
-    <record id="l10n_bg_in_receipt_eu_outside" model="account.fiscal.position.type.template">
-        <field name="position_id" ref="fiscal_position_template_out_eu"/>
+    <record
+        id="l10n_bg_in_receipt_eu_outside"
+        model="account.fiscal.position.type.template"
+    >
+        <field name="position_id" ref="fiscal_position_template_out_eu" />
         <field name="invoice_type">in_receipt_invoice</field>
         <field name="l10n_bg_doc_type">01</field>
         <field name="l10n_bg_type_vat">standard</field>
         <field name="l10n_bg_narration">Purchase of goods or services</field>
-        <field name="position_dest_id" ref="fiscal_position_template_out_eu_inv"/>
+        <field name="position_dest_id" ref="fiscal_position_template_out_eu_inv" />
     </record>
     <!-- Export outside EU purchases [END] -->
 </odoo>

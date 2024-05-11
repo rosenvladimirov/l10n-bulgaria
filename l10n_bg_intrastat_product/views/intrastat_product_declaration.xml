@@ -3,26 +3,39 @@
     <record id="intrastat_product_computation_line_view_form" model="ir.ui.view">
         <field name="name">intrastat.product.computation.line.form</field>
         <field name="model">intrastat.product.computation.line</field>
-        <field name="inherit_id" ref="intrastat_product.intrastat_product_computation_line_view_form"/>
+        <field
+            name="inherit_id"
+            ref="intrastat_product.intrastat_product_computation_line_view_form"
+        />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='incoterm_id']" position="attributes">
                 <attribute name="invisible">0</attribute>
             </xpath>
             <xpath expr="//field[@name='transport_id']" position="after">
-                <field name="origin_transport_id" attrs="{'required': [('reporting_level', '=', 'extended')], 'invisible': [('reporting_level', '!=', 'extended')]}"/>
+                <field
+                    name="origin_transport_id"
+                    attrs="{'required': [('reporting_level', '=', 'extended')], 'invisible': [('reporting_level', '!=', 'extended')]}"
+                />
             </xpath>
         </field>
     </record>
     <record id="intrastat_product_declaration_line_view_tree" model="ir.ui.view">
         <field name="name">intrastat.product.declaration.line.tree</field>
         <field name="model">intrastat.product.declaration.line</field>
-        <field name="inherit_id" ref="intrastat_product.intrastat_product_declaration_line_view_tree"/>
+        <field
+            name="inherit_id"
+            ref="intrastat_product.intrastat_product_declaration_line_view_tree"
+        />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='incoterm_id']" position="attributes">
                 <attribute name="invisible">0</attribute>
             </xpath>
             <xpath expr="//field[@name='transport_id']" position="after">
-                <field name="origin_transport_id" optional="show" attrs="{'column_invisible': [('parent.reporting_level', '!=', 'extended')]}"/>
+                <field
+                    name="origin_transport_id"
+                    optional="show"
+                    attrs="{'column_invisible': [('parent.reporting_level', '!=', 'extended')]}"
+                />
             </xpath>
         </field>
     </record>

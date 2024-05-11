@@ -1,12 +1,10 @@
-# -*- coding: utf-8 -*-
-#  -*- coding: utf-8 -*-
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, api, _
+from odoo import api, fields, models
 
 
 class ResCompany(models.Model):
-    _inherit = 'res.company'
+    _inherit = "res.company"
 
     # l10n_bg_property_account_receivable_id = fields.Many2one(
     #     readonly=False,
@@ -33,15 +31,17 @@ class ResCompany(models.Model):
     #     readonly=False,
     #     related='chart_template_id.property_tax_receivable_account_id')
 
-    l10n_bg_uic = fields.Char('Unique identification code', related='partner_id.l10n_bg_uic')
-    l10n_bg_uic_type = fields.Selection(string='Type of Bulgaria UID',
-                                        related='partner_id.l10n_bg_uic_type',
-                                        help="Choice type of Bulgaria UID.")
+    l10n_bg_uic = fields.Char(
+        "Unique identification code", related="partner_id.l10n_bg_uic"
+    )
+    l10n_bg_uic_type = fields.Selection(
+        string="Type of Bulgaria UID",
+        related="partner_id.l10n_bg_uic_type",
+        help="Choice type of Bulgaria UID.",
+    )
     l10n_bg_departament_code = fields.Integer("Departament code")
-    l10n_bg_tax_contact_id = fields.Many2one('res.partner',
-                                             string='TAX Report creator')
+    l10n_bg_tax_contact_id = fields.Many2one("res.partner", string="TAX Report creator")
 
-    @api.depends('vat')
+    @api.depends("vat")
     def _onchange_vat(self):
         self.partner_id._check_l10n_bg_uic()
-

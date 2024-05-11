@@ -1,38 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <function name="write" model="ir.model.data">
         <function name="search" model="ir.model.data">
-            <value eval="[('module', '=', 'l10n_bg_tax_admin'), ('model', '=', 'account.tax.template')]"/>
+            <value
+                eval="[('module', '=', 'l10n_bg_tax_admin'), ('model', '=', 'account.tax.template')]"
+            />
         </function>
-        <value eval="{'noupdate': True, 'module': 'l10n_bg'}"/>
+        <value eval="{'noupdate': True, 'module': 'l10n_bg'}" />
     </function>
     <function name="write" model="ir.model.data">
         <function name="search" model="ir.model.data">
-            <value eval="[('module', '=', 'l10n_bg_tax_admin'), ('model', '=', 'account.fiscal.position.template')]"/>
+            <value
+                eval="[('module', '=', 'l10n_bg_tax_admin'), ('model', '=', 'account.fiscal.position.template')]"
+            />
         </function>
-        <value eval="{'noupdate': True, 'module': 'l10n_bg'}"/>
+        <value eval="{'noupdate': True, 'module': 'l10n_bg'}" />
     </function>
     <function name="write" model="ir.model.data">
         <function name="search" model="ir.model.data">
-            <value eval="[('module', '=', 'l10n_bg_tax_admin'), ('model', '=', 'account.group.template')]"/>
+            <value
+                eval="[('module', '=', 'l10n_bg_tax_admin'), ('model', '=', 'account.group.template')]"
+            />
         </function>
-        <value eval="{'noupdate': True, 'module': 'l10n_bg'}"/>
+        <value eval="{'noupdate': True, 'module': 'l10n_bg'}" />
     </function>
     <function name="write" model="ir.model.data">
         <function name="search" model="ir.model.data">
-            <value eval="[('module', '=', 'l10n_bg_tax_admin'), ('model', '=', 'account.account.template')]"/>
+            <value
+                eval="[('module', '=', 'l10n_bg_tax_admin'), ('model', '=', 'account.account.template')]"
+            />
         </function>
-        <value eval="{'noupdate': True, 'module': 'l10n_bg'}"/>
+        <value eval="{'noupdate': True, 'module': 'l10n_bg'}" />
     </function>
     <function name="write" model="ir.model.data">
         <function name="search" model="ir.model.data">
-            <value eval="[('module', '=', 'l10n_bg_tax_admin'), ('model', '=', 'account.chart.template')]"/>
+            <value
+                eval="[('module', '=', 'l10n_bg_tax_admin'), ('model', '=', 'account.chart.template')]"
+            />
         </function>
-        <value eval="{'module': 'l10n_bg'}"/>
+        <value eval="{'module': 'l10n_bg'}" />
     </function>
     <function name="unlink" model="account.account.template">
         <function name="search" model="account.account.template">
-            <value eval="[('code', 'in', ['453', '204', '205', '206', '207', '208', '209', '241', '2415', '242', '605', '606451', '606452', '606454', '606459'])]"/>
+            <value
+                eval="[('code', 'in', ['453', '204', '205', '206', '207', '208', '209', '241', '2415', '242', '605', '606451', '606452', '606454', '606459'])]"
+            />
         </function>
     </function>
 </odoo>

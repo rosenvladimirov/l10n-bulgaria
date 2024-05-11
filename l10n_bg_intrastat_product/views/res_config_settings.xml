@@ -1,16 +1,25 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <odoo>
 
     <record id="view_res_config_settings" model="ir.ui.view">
         <field name="name">intrastat.account.config.settings.form</field>
         <field name="model">res.config.settings</field>
-        <field name="inherit_id" ref="intrastat_base.view_intrastat_res_config_settings"/>
+        <field
+            name="inherit_id"
+            ref="intrastat_base.view_intrastat_res_config_settings"
+        />
         <field name="arch" type="xml">
             <xpath expr="//div[@id='intrastat-product-main-params']" position="inside">
 <!--                <field name="country_code" invisible="1"/>-->
-                <div class="row" attrs="{'invisible': [('country_code', 'not in', ['BG'])]}">
-                    <label for="intrastat_origin_transport_id" class="col-md-5 o_light_label"/>
-                    <field name="intrastat_origin_transport_id"/>
+                <div
+                    class="row"
+                    attrs="{'invisible': [('country_code', 'not in', ['BG'])]}"
+                >
+                    <label
+                        for="intrastat_origin_transport_id"
+                        class="col-md-5 o_light_label"
+                    />
+                    <field name="intrastat_origin_transport_id" />
                 </div>
             </xpath>
         </field>

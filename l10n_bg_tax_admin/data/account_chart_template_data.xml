@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="l10n_bg_chart_template" model="account.chart.template">
         <field name="name">Bulgaria - National Chart of Accounts</field>
@@ -6,9 +6,9 @@
         <field name="cash_account_code_prefix">501</field>
         <field name="transfer_account_code_prefix">433</field>
         <field name="code_digits">6</field>
-        <field name="currency_id" ref="base.BGN"/>
-        <field name="country_id" ref="base.bg"/>
-        <field name="spoken_languages" eval="'bg_BG'"/>
+        <field name="currency_id" ref="base.BGN" />
+        <field name="country_id" ref="base.bg" />
+        <field name="spoken_languages" eval="'bg_BG'" />
         <field name="grouping">[3]</field>
     </record>
 </odoo>

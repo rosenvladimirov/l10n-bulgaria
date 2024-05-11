@@ -3,19 +3,34 @@
     <record id="address_street_extended_form" model="ir.ui.view">
         <field name="name">partner.form.address.extended</field>
         <field name="model">res.partner</field>
-        <field name="priority" eval="900"/>
-        <field name="inherit_id" ref="base_address_extended.address_street_extended_form"/>
+        <field name="priority" eval="900" />
+        <field
+            name="inherit_id"
+            ref="base_address_extended.address_street_extended_form"
+        />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='street2']" position="before">
                 <div class="oe_edit_only o_row">
-                    <field name="street_sector_number" placeholder="Sector name/Number" style="flex: 3 1 auto"
-                           attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                    <field
+                        name="street_sector_number"
+                        placeholder="Sector name/Number"
+                        style="flex: 3 1 auto"
+                        attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                    />
                     <span> </span>
-                    <field name="street_building_number" placeholder="Building  #" style="flex: 1 1 auto"
-                           attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                    <field
+                        name="street_building_number"
+                        placeholder="Building  #"
+                        style="flex: 1 1 auto"
+                        attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                    />
                     <span> - </span>
-                    <field name="street_floor_number" placeholder="Floor #" style="flex: 1 1 auto"
-                           attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                    <field
+                        name="street_floor_number"
+                        placeholder="Floor #"
+                        style="flex: 1 1 auto"
+                        attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                    />
                 </div>
             </xpath>
         </field>

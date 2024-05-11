@@ -1,0 +1,6 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Contact: Rosen Vladimirov <vladimirov.rosen@gmail.com>
+
+Files: *
+Copyright: Copyright (C) 2025 Rosen Vladimirov
+License: LGPL-3+

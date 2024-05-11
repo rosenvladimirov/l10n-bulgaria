@@ -1,7 +1,6 @@
-#  -*- coding: utf-8 -*-
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models, fields, _
+from odoo import fields, models
 
 
 class CurrencyRate(models.Model):
@@ -9,18 +8,20 @@ class CurrencyRate(models.Model):
 
     rate_vat = fields.Float(
         group_operator="avg",
-        help='The rate of the currency to the currency of rate 1',
-        string='Technical Statistics Rate'
+        help="The rate of the currency to the currency of rate 1",
+        string="Technical Statistics Rate",
     )
 
 
 class ResCurrency(models.Model):
-    _inherit = 'res.currency'
+    _inherit = "res.currency"
 
     def _get_vat_rates(self, company, date):
         if not self.ids:
             return {}
-        self.env['res.currency.rate'].flush_model(['rate', 'currency_id', 'company_id', 'name'])
+        self.env["res.currency.rate"].flush_model(
+            ["rate", "currency_id", "company_id", "name"]
+        )
         query = """SELECT c.id,
                           COALESCE((SELECT r.rate_vat FROM res_currency_rate r
                                   WHERE r.currency_id = c.id AND r.rate_vat IS NOT NULL AND r.name <= %s
@@ -34,8 +35,7 @@ class ResCurrency(models.Model):
         return currency_rates
 
     def _get_rates(self, company, date):
-        if self._context.get('statistic_rate', False):
+        if self._context.get("statistic_rate", False):
             return self._get_vat_rates(company, date)
         else:
             return super()._get_rates(company, date)
-

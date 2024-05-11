@@ -1,5 +1,5 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v1.19.2
+_commit: v1.21.1
 _src_path: https://github.com/OCA/oca-addons-repo-template.git
 additional_ruff_rules: []
 ci: GitHub
@@ -20,7 +20,7 @@ rebel_module_groups: []
 repo_description: Taxes, chart of account, cyrillic support ...
 repo_name: Localization for Bulgaria
 repo_slug: l10n-bulgaria
-repo_website: https://github.com/OCA/l10n-bulgaria
+repo_website: https://github.com/rosenvladimirov/l10n-bulgaria
 use_pyproject_toml: true
 use_ruff: true
 

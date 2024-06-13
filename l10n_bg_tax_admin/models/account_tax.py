@@ -1,7 +1,12 @@
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+import logging
 from collections import defaultdict
 
 from odoo import _, api, models
 from odoo.tools.misc import formatLang
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountTax(models.Model):
@@ -56,6 +61,7 @@ class AccountTax(models.Model):
         company_currency = self.env.company.currency_id
         to_process = []
         for base_line in base_lines:
+            _logger.info(f"base_line {base_line}")
             to_update_vals, tax_values_list = self._compute_taxes_for_single_line(
                 base_line
             )

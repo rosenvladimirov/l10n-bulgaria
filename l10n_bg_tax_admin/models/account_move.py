@@ -216,11 +216,13 @@ class AccountMove(models.Model):
         "currency_id",
     )
     def _compute_tax_totals_signed(self):
+        type_tax_use =  self._context.get("type_tax_use", 'sale')
         for move in self:
             if move.is_invoice(include_receipts=True):
                 base_lines = move.invoice_line_ids.filtered(
                     lambda line: line.display_type == "product"
                 )
+                # _logger.info(f"base_lines: {base_lines}")
                 base_line_values_list = [
                     line._convert_to_tax_base_line_dict() for line in base_lines
                 ]
@@ -248,10 +250,12 @@ class AccountMove(models.Model):
                 }
 
                 if move.id:
+                    _logger.info(f"lines {[x.tax_line_id and x.tax_line_id.type_tax_use for x in move.line_ids.filtered(lambda line: line.display_type == 'tax')]}")
                     kwargs["tax_lines"] = [
                         line._convert_to_tax_line_dict()
                         for line in move.line_ids.filtered(
                             lambda line: line.display_type == "tax"
+                                         and line.tax_line_id and line.tax_line_id.type_tax_use == type_tax_use
                         )
                     ]
                 else:
@@ -294,6 +298,7 @@ class AccountMove(models.Model):
                                 extra_context={"_extra_grouping_key_": "epd"},
                             )
                         )
+                _logger.info(f"kwargs: {kwargs['tax_lines']}")
                 move.tax_totals_signed = self.env[
                     "account.tax"
                 ]._prepare_tax_totals_signed(**kwargs)
@@ -327,7 +332,7 @@ class AccountMove(models.Model):
                 if map_id and not map_id.position_dest_id:
                     raise UserError(
                         _(
-                            "Missing configuration for replacing fiscal position for export/import customs"
+                            "Missing configuration for replacing fiscal position for export/import customs or deal by art. 82"
                         )
                     )
                 new_entry_id = move.copy(move._new_entry_vals(map_id.position_dest_id))
@@ -387,7 +392,6 @@ class AccountMove(models.Model):
                             "l10n_bg_private_vat_invoice_ids": [Command.set(move.ids)],
                         }
                     )
-
             if (
                 move.is_purchase_document(False)
                 and move.l10n_bg_type_vat == "117_protocol"

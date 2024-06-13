@@ -5,7 +5,7 @@
     "name": "L10n Bg Config",
     "summary": """
         This module allows you to install and configure all the localization modules related to Bulgaria.""",
-    "version": "16.0.1.1.0",
+    "version": "16.0.1.2.0",
     "license": "AGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
     "depends": [

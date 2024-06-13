@@ -208,8 +208,55 @@
                                     </div>
                                 </div>
                             </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="module_l10n_bg_assets"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="module_l10n_bg_assets" widget="upgrade_boolean"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="module_l10n_bg_assets" />
+                                    <div class="text-muted">
+                                        Add rules for tax desperation base Bulgarian law
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <t groups="account.group_account_user">
+                            <h2>INTRASTAT Settings</h2>
+                            <div class="row mt16 o_settings_container" name="modules_l10n_bg_intrastat_setting_container">
+                                <div class="col-12 col-lg-6 o_setting_box" id="module_l10n_bg_intrastat">
+                                    <div class="o_setting_left_pane">
+                                        <field name="module_l10n_bg_intrastat" widget="upgrade_boolean"/>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="module_l10n_bg_intrastat" />
+                                        <div class="text-muted">
+                                            Bulgaria-Generates Intrastat XML report for declaration
+                                        </div>
+                                    </div>
+                                    <div class="o_setting_left_pane"/>
+                                    <div class="o_setting_right_pane" name="module_l10n_bg_intrastat_config">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt16 o_settings_container" name="modules_l10n_bg_intrastat_setting_container">
+                                <div class="col-12 col-lg-6 o_setting_box" id="module_l10n_bg_intrastat_product">
+                                    <div class="o_setting_left_pane">
+                                        <field name="module_l10n_bg_intrastat_product"/>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="module_l10n_bg_intrastat_product" />
+                                        <div class="text-muted">
+                                            Provide Intrastat Product Declaration.
+                                        </div>
+                                    </div>
+                                    <div class="o_setting_left_pane"/>
+                                    <div class="o_setting_right_pane" name="module_l10n_bg_intrastat_product_config">
+                                    </div>
+                                </div>
+                            </div>
                             <h2>Default Accounts</h2>
                             <div
                                 class="row mt16 o_settings_container"

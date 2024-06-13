@@ -41,6 +41,11 @@ class AccountMoveBgProtocol(models.Model):
         tracking=True,
         index="trigram",
     )
+    currency_id = fields.Many2one(
+        'res.currency',
+        string="Currency",
+        related='company_id.currency_id'
+    )
 
     # -------------------------------------------------------------------------
     # COMPUTE METHODS

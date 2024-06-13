@@ -85,6 +85,14 @@ class ResConfigSettings(models.TransientModel):
         "Bulgaria - Accounting VAT reports",
         help="Provide all VAT reports for Bulgarian - NRA.",
     )
+    module_l10n_bg_intrastat = fields.Boolean(
+        "Bulgaria - Intrastat",
+        help="Generate XML files for Bulgaria intrastat",
+    )
+    module_l10n_bg_assets = fields.Boolean(
+        "Bulgaria - Assets",
+        help="Add rules for tax desperation base Bulgarian law",
+    )
 
     # module_l10n_bg_account_voucher = fields.Boolean(
     #     'Bulgaria - Accounting voucher',

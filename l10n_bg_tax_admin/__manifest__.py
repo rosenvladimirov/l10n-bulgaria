@@ -14,6 +14,7 @@
         "account",
         "account_debit_note",
         "l10n_bg",
+        "l10n_bg_fix",
         "l10n_bg_config",
         # 'account_financial_forms', moved in l10n_bg_account_financial_forms
     ],
@@ -44,6 +45,4 @@
     "demo": [],
     "license": "LGPL-3",
     "post_load": "post_load_hook",
-    # 'pre_init_hook': 'pre_init_hook',
-    # 'post_init_hook': 'post_init_hook'
 }

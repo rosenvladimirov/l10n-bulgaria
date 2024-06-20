@@ -20,22 +20,12 @@ from .models.company import ResCompany as ResCompany
 
 def post_load_hook():
     accountaccount._search_new_account_code = AccountAccount._search_new_account_code
-    accountcharttemplate._prepare_transfer_account_template = (
-        AccountChartTemplate._prepare_transfer_account_template
-    )
-    accountcharttemplate._create_liquidity_journal_suspense_account = (
-        AccountChartTemplate._create_liquidity_journal_suspense_account
-    )
-    accountcharttemplate._create_cash_discount_loss_account = (
-        AccountChartTemplate._create_cash_discount_loss_account
-    )
-    accountcharttemplate._create_cash_discount_gain_account = (
-        AccountChartTemplate._create_cash_discount_gain_account
-    )
-    accountcharttemplate.generate_fiscal_position = (
-        AccountChartTemplate.generate_fiscal_position
-    )
-    rescompany.get_unaffected_earnings_account = (
-        ResCompany.get_unaffected_earnings_account
-    )
+    accountcharttemplate._prepare_transfer_account_template = AccountChartTemplate._prepare_transfer_account_template
+    accountcharttemplate._create_liquidity_journal_suspense_account = AccountChartTemplate._create_liquidity_journal_suspense_account
+    accountcharttemplate._create_cash_discount_loss_account = AccountChartTemplate._create_cash_discount_loss_account
+    accountcharttemplate._create_cash_discount_gain_account = AccountChartTemplate._create_cash_discount_gain_account
+    accountcharttemplate.generate_fiscal_position = AccountChartTemplate.generate_fiscal_position
+    accountcharttemplate._get_template_ref = AccountChartTemplate._get_template_ref
+    accountcharttemplate._get_templates = AccountChartTemplate._get_templates
+    rescompany.get_unaffected_earnings_account = ResCompany.get_unaffected_earnings_account
     accountmoveline._compute_all_tax = AccountMoveLine._compute_all_tax

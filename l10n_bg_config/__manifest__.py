@@ -23,6 +23,7 @@
         "views/account_move_views.xml",
     ],
     "demo": [],
-    "auto_install": ["l10n_bg"],
     "pre_init_hook": "pre_init_hook",
+    "post_init_hook": "post_init_hook",
+    "auto_install": ['l10n_bg'],
 }

@@ -47,7 +47,6 @@ def migrate_account_account_tag(env):
 
 def pre_init_hook(cr):
     env = api.Environment(cr, SUPERUSER_ID, {})
-    migrate_account_account_tag(env)
     modules = env["ir.module.module"].search([("state", "=", "installed")])
     for lang in ["base.lang_bg", "base.lang_en"]:
         res_id = env.ref(lang, raise_if_not_found=False)
@@ -57,3 +56,7 @@ def pre_init_hook(cr):
         if language:
             load_language(cr, language.code)
             modules._update_translations(language.code)
+
+def post_init_hook(cr, registry):
+    env = api.Environment(cr, SUPERUSER_ID, {})
+    migrate_account_account_tag(env)

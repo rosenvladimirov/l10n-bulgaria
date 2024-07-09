@@ -31,7 +31,6 @@
         "data/res_tax_offices.xml",
         "data/account_fiscal_position_type_template_data.xml",
         "data/l10n_bg_tax_admin.xml",
-        "views/account_chart_template_views.xml",
         "views/account_move_views.xml",
         "views/account_journal_views.xml",
         "views/l10n_bg_protocol_account_move.xml",

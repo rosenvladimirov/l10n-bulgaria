@@ -14,6 +14,10 @@
         "l10n_bg_city",
         "l10n_bg_tax_admin",
     ],
-    "data": ["data/res_tax_offices.xml"],
+    "data": [
+        "data/res_tax_offices_pre_functions.xml",
+        "data/res_tax_offices.xml",
+        "data/res_tax_offices_post_functions.xml",
+    ],
     "demo": [],
 }

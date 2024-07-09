@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="0">
-        <record id="l10n_bg_tax_admin.nra" model="res.partner">
+        <record id="l10n_bg_tax_offices.nra" model="res.partner">
             <field name="name">National Revenue Agency</field>
             <field name="city">Sofia</field>
-            <field name="city_id" ref="l10n_bg.68134" />
             <field name="street">bul. Dondukov</field>
-            <field name="street_number">42</field>
             <field name="country_id" ref="base.bg" />
             <field name="zip">1000</field>
             <field name="phone">070018700</field>
@@ -20,7 +18,7 @@
             <field name="country_id" ref="base.bg" />
             <field name="city_id" ref="l10n_bg.68134" />
             <field name="email">r.spetsov@nra.bg</field>
-            <field name="parent_id" ref="nra" />
+            <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
             <field name="company_type">person</field>
             <field name="type">contact</field>
             <field name="function">CEO</field>
@@ -30,7 +28,7 @@
             <field name="name">Central Office of the National Revenue Agency</field>
             <field name="city">Sofia</field>
             <field name="city_id" ref="l10n_bg.68134" />
-            <field name="parent_id" ref="nra" />
+            <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
             <field name="street">bul. Dondukov</field>
             <field name="street_number">42</field>
             <field name="country_id" ref="base.bg" />
@@ -53,7 +51,7 @@
             <field name="name">Territorial department of NRA Sofia</field>
             <field name="city">Sofia</field>
             <field name="city_id" ref="l10n_bg.68134" />
-            <field name="parent_id" ref="nra" />
+            <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
             <field name="street">ul. Aksakov</field>
             <field name="street_number">21</field>
             <field name="country_id" ref="base.bg" />
@@ -69,7 +67,7 @@
             <field name="street">ul. Aksakov</field>
             <field name="street_number">21</field>
             <field name="country_id" ref="base.bg" />
-            <field name="parent_id" ref="nra_partner_sofia_department" />
+            <field name="parent_id" ref="l10n_bg_tax_offices.nra_partner_sofia_department" />
             <field name="company_type">company</field>
             <field name="phone">+359298593821</field>
             <field name="email">td_sofia_grad@ro22.nra.bg</field>
@@ -80,7 +78,7 @@
         >Territorial department of NRA Big taxpayers and insurers</field>
             <field name="city">Sofia</field>
             <field name="city_id" ref="l10n_bg.68134" />
-            <field name="parent_id" ref="nra" />
+            <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
             <field name="street">ul. Aksakov</field>
             <field name="street_number">29</field>
             <field name="country_id" ref="base.bg" />
@@ -98,7 +96,7 @@
             <field name="street">ul. Aksakov</field>
             <field name="street_number">29</field>
             <field name="country_id" ref="base.bg" />
-            <field name="parent_id" ref="nra_partner_sofia_big" />
+            <field name="parent_id" ref="l10n_bg_tax_offices.nra_partner_sofia_big" />
             <field name="company_type">company</field>
             <field name="phone">+359298593915</field>
             <field name="email">td_gdo@ro29.nra.bg</field>
@@ -109,7 +107,7 @@
         >Territorial department of NRA Middle taxpayers and insurers</field>
             <field name="city">Sofia</field>
             <field name="city_id" ref="l10n_bg.68134" />
-            <field name="parent_id" ref="nra" />
+            <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
             <field name="street">ul. Gurko</field>
             <field name="street_number">12</field>
             <field name="country_id" ref="base.bg" />
@@ -127,7 +125,7 @@
             <field name="street">ul. Gurko</field>
             <field name="street_number">12</field>
             <field name="country_id" ref="base.bg" />
-            <field name="parent_id" ref="nra_partner_sofia_middle" />
+            <field name="parent_id" ref="l10n_bg_tax_offices.nra_partner_sofia_middle" />
             <field name="company_type">company</field>
             <field name="phone">+359298596033</field>
             <field name="email">sdo2225_delov@ro22.nra.bg</field>

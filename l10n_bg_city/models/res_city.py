@@ -24,13 +24,13 @@ class City(models.Model):
     def _domain_l10n_bg_city_hall_id(self):
         return [
             ("country_id", "=", self.country_id.id),
-            ("structure_type", "=", "cityhall"),
+            ("l10n_bg_structure_type", "=", "cityhall"),
         ]
 
     def _domain_l10n_bg_municipality_id(self):
         return [
             ("country_id", "=", self.country_id.id),
-            ("structure_type", "=", "municipality"),
+            ("l10n_bg_structure_type", "=", "municipality"),
         ]
 
     l10n_bg_type_settlement_id = fields.Many2one(
@@ -41,7 +41,7 @@ class City(models.Model):
         help="The unified classifier "
         "of administrative-territorial and territorial units",
     )
-    l10n_bg_code = fields.Char(string="City Code", help="The state code.")
+    l10n_bg_city_hall_code = fields.Char("City hall code")
     l10n_bg_city_hall_id = fields.Many2one(
         "res.city", "City Hall", domain=lambda self: self._domain_l10n_bg_city_hall_id()
     )

@@ -7,9 +7,8 @@
         <field name="arch" type="xml">
             <xpath expr="//tree" position="inside">
                 <field name="l10n_bg_ecattu" />
-                <field name="l10n_bg_code" />
                 <field name="l10n_bg_municipality_id" />
-                <field name="l10n_bg_city_hall_id" />
+                <field name="l10n_bg_city_hall_id"/>
                 <field name="l10n_bg_type_settlement_id" />
                 <field name="l10n_bg_structure_type" />
                 <field name="l10n_bg_has_tax_office" />
@@ -22,7 +21,6 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='country_id']" position="after">
                 <field name="l10n_bg_ecattu" />
-                <field name="l10n_bg_code" />
             </xpath>
         </field>
     </record>

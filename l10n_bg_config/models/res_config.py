@@ -7,6 +7,8 @@ class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
     is_l10n_bg_record = fields.Boolean(compute="_check_is_l10n_bg_record", store=True)
+    l10n_bg_odoo_compatible = fields.Boolean(related="company_id.l10n_bg_odoo_compatible")
+
     # l10n_bg_property_account_receivable_id = fields.Many2one(
     #     'account.account',
     #     related='chart_template_id.property_account_receivable_id')

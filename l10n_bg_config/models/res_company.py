@@ -41,6 +41,16 @@ class ResCompany(models.Model):
     )
     l10n_bg_departament_code = fields.Integer("Departament code")
     l10n_bg_tax_contact_id = fields.Many2one("res.partner", string="TAX Report creator")
+    l10n_bg_odoo_compatible = fields.Boolean("TAX Odoo Compatible", default=True)
+
+    def __init__(self, env, ids=(), prefetch_ids=()):
+        super().__init__(env, ids=ids, prefetch_ids=prefetch_ids)
+        env.cr.execute("SELECT column_name FROM information_schema.columns "
+                       "WHERE table_name = 'res_company' AND column_name = 'l10n_bg_odoo_compatible'")
+        if not env.cr.fetchone():
+            env.cr.execute('ALTER TABLE res_company '
+                           'ADD COLUMN l10n_bg_odoo_compatible boolean;')
+            env.cr.execute("UPDATE res_company SET l10n_bg_odoo_compatible = True;")
 
     @api.depends("vat")
     def _onchange_vat(self):

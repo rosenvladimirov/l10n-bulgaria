@@ -272,6 +272,17 @@
                                             <div>
                                                 <span
                                                     class="o_form_label"
+                                                >Configure odoo tax report compatible:</span>
+                                            </div>
+                                            <div class="row mt8">
+                                                <field
+                                                    name="l10n_bg_odoo_compatible"
+                                                    readonly="0"
+                                                />
+                                            </div>
+                                            <div>
+                                                <span
+                                                    class="o_form_label"
                                                 >Post Exchange difference entries in:</span>
                                             </div>
                                             <div class="row mt8">

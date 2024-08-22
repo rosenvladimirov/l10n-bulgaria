@@ -138,11 +138,11 @@ FROM ir_model_data
                     type_account,
                     {
                         "position_dest_id": fiscal_position_id.id,
-                        "invoice_type": position.invoice_type,
-                        "l10n_bg_type_vat": position.l10n_bg_type_vat,
-                        "l10n_bg_doc_type": position.l10n_bg_doc_type,
-                        "l10n_bg_narration": position.l10n_bg_narration,
-                        "new_account_entry": position.new_account_entry,
+                        "invoice_type": type_account.invoice_type,
+                        "l10n_bg_type_vat": type_account.l10n_bg_type_vat,
+                        "l10n_bg_doc_type": type_account.l10n_bg_doc_type,
+                        "l10n_bg_narration": type_account.l10n_bg_narration,
+                        "new_account_entry": type_account.new_account_entry,
                         "position_id": fp.id,
                     },
                 )
@@ -188,19 +188,21 @@ FROM ir_model_data
                     )
                 template_vals["account.fiscal.position.account"] = account_template_vals
             if key == "type_invoice_ref":
-                for type_account in position.type_ids:
-                    template_vals["account.fiscal.position.type"].append(
-                        (
-                            type_account,
-                            {
-                                "position_id": fp.id,
-                                "invoice_type": type_account.invoice_type,
-                                "l10n_bg_type_vat": type_account.l10n_bg_type_vat,
-                                "l10n_bg_doc_type": type_account.l10n_bg_doc_type,
-                                "l10n_bg_narration": type_account.l10n_bg_narration,
-                            },
-                        )
-                    )
+                # _logger.info(template_ref)
+                template_vals["account.fiscal.position.type"] = template_ref
+                # for type_account in position.type_ids:
+                #     template_vals["account.fiscal.position.type"].append(
+                #         (
+                #             type_account,
+                #             {
+                #                 "position_id": fp.id,
+                #                 "invoice_type": type_account.invoice_type,
+                #                 "l10n_bg_type_vat": type_account.l10n_bg_type_vat,
+                #                 "l10n_bg_doc_type": type_account.l10n_bg_doc_type,
+                #                 "l10n_bg_narration": type_account.l10n_bg_narration,
+                #             },
+                #         )
+                #     )
         return template_vals
 
     def generate_fiscal_position(self, tax_template_ref, acc_template_ref, company_id):

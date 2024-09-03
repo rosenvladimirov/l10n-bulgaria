@@ -3,7 +3,8 @@
 import logging
 from collections import defaultdict
 
-from odoo import _, api, models
+from odoo import _, api, models, fields
+from odoo.addons.documents.tests.test_documents import file_a
 from odoo.tools.misc import formatLang
 
 _logger = logging.getLogger(__name__)
@@ -11,6 +12,8 @@ _logger = logging.getLogger(__name__)
 
 class AccountTax(models.Model):
     _inherit = "account.tax"
+
+    l10n_bg_reverse_charge_vat =  fields.Boolean('Reverse charge with VAT')
 
     @api.model
     def _prepare_tax_totals_signed(self, base_lines, currency, tax_lines=None):
@@ -61,7 +64,7 @@ class AccountTax(models.Model):
         company_currency = self.env.company.currency_id
         to_process = []
         for base_line in base_lines:
-            _logger.info(f"base_line {base_line}")
+            # _logger.info(f"base_line {base_line}")
             to_update_vals, tax_values_list = self._compute_taxes_for_single_line(
                 base_line
             )

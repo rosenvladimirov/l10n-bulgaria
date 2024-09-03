@@ -499,3 +499,8 @@ class AccountAccountTemplate(models.Model):
                     data["values"]["code"], digits, grouping
                 )
         return super()._load_records(data_list, update=update)
+
+class AccountTaxTemplate(models.Model):
+    _inherit = 'account.tax.template'
+
+    l10n_bg_reverse_charge_vat =  fields.Boolean('Reverse charge with VAT')

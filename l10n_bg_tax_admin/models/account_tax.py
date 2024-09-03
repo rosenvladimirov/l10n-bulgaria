@@ -10,6 +10,19 @@ from odoo.tools.misc import formatLang
 _logger = logging.getLogger(__name__)
 
 
+class AccountTaxGroup(models.Model):
+    _inherit = 'account.tax.group'
+
+    tax_tag_ids = fields.Many2many(
+        string="Tags",
+        comodel_name='account.account.tag',
+        ondelete='restrict',
+        context={'active_test': False},
+        tracking=True,
+        help="Tags assigned to this line by the tax creating it, if any. It determines its impact on financial reports.",
+    )
+
+
 class AccountTax(models.Model):
     _inherit = "account.tax"
 

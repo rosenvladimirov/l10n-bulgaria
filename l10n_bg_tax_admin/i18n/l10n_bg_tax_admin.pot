@@ -3183,3 +3183,1959 @@ msgstr ""
 #: model:ir.model.fields.selection,name:l10n_bg_tax_admin.selection__account_fiscal_position_type_template__l10n_bg_doc_type__83
 msgid "sales of bread"
 msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_101
+msgid "Fixed capital required for registration"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_102
+msgid "Fixed capital that does not require registration"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_103
+msgid "Liquidation capital in case of insolvency and liquidation"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_104
+msgid "Capital of non-profit enterprises"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_105
+msgid "Capital premiums"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_106
+msgid "Deductions (discount) related to capital"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_107
+msgid "Owner capital account"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_108
+msgid "Equity premiums"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_109
+msgid "Equity-related deductions"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_111
+msgid "General reserves"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_112
+msgid "Reserves from the subsequent assessment of fixed assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_113
+msgid "Reserves from subsequent valuation of current assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_114
+msgid "Reserves from subsequent valuation of financial instruments"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_115
+msgid "Reserves from share issue"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_116
+msgid "Reserve related to repurchased own shares"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_117
+msgid "Reserve according to constitutive act"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_119
+msgid "Other reserves"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_121
+msgid "Uncovered loss from previous years"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_122
+msgid "Retained earnings from previous years"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_123
+msgid "Profit and loss from the current year"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_124
+msgid "Result in bankruptcy and liquidation"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_125
+msgid "Result of the activity of non-profit enterprises"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_131
+msgid "Life insurance reserves"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_132
+msgid "Transmission-premium reserves"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_133
+msgid "Reserves for forthcoming payments"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_134
+msgid "Reserves for reserve fund"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_135
+msgid "Reinsurance reserves"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_136
+msgid "Other reserves under insurance contracts"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_137
+msgid "Reserves of investment companies"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_138
+msgid "Reserves of pension companies"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_141
+msgid "Banknotes for circulation"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_142
+msgid "Coins in circulation"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_151
+msgid "Received short-term loans"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_152
+msgid "Long-term loans received"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_153
+msgid "Debt instruments"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_159
+msgid "Other loans and debts"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_201
+msgid "Lands (terrains)"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_202
+msgid "Land improvements"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_203
+msgid "Buildings and structures"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2041
+msgid "Machinery and equipment"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2049
+msgid "Machinery and equipment below the materiality threshold"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_204901
+msgid "Machinery and equipment below the materiality threshold"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_204902
+msgid "Machinery and equipment below the materiality threshold - corrective"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2051
+msgid "Vehicles"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2052
+msgid "Means of transport"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2058
+msgid "Vehicles below the materiality threshold"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_205801
+msgid "Vehicles below the materiality threshold"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_205802
+msgid "Vehicles below the materiality threshold - corrective"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2059
+msgid "Means of transport below the materiality threshold"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_205901
+msgid "Means of transport below the materiality threshold"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_205902
+msgid "Means of transport below the materiality threshold - corrective"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2061
+msgid "Office furniture"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2069
+msgid "Office furniture below the materiality threshold"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_206901
+msgid "Office furniture below the materiality threshold"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_206902
+msgid "Office furniture below the threshold of materiality - corrective"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2071
+msgid "Equipment"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2079
+msgid "Equipment below the materiality threshold"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_207901
+msgid "Equipment below the materiality threshold"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_207902
+msgid "Equipment below the materiality threshold - corrective"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2081
+msgid "Computer equipment"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2089
+msgid "Computer technology below the threshold of materiality"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_208901
+msgid "Computer technology below the threshold of materiality"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_208902
+msgid "Computer technology below the threshold of materiality - corrective"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2091
+msgid "Other fixed assets below the materiality threshold - corrective"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2092
+msgid "Investment property"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2099
+msgid "Other fixed assets below the threshold of materiality"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_209901
+msgid "Other fixed assets below the threshold of materiality"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_209902
+msgid "Other fixed assets below the threshold of materiality - corrective"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_211
+msgid "Development products"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_212
+msgid "Software products"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_213
+msgid "Intellectual property rights"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_214
+msgid "Industrial property rights"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2149
+msgid "Industrial property rights below the threshold of materiality"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_214901
+msgid "Industrial property rights below the threshold of materiality"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_214902
+msgid "Industrial property rights below the materiality threshold - corrective"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_219
+msgid "Other non-current intangible assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_221
+msgid "Investments in subsidiaries"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_222
+msgid "Investments in associates"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_223
+msgid "Investments in joint ventures"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_224
+msgid "Investment properties"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_225
+msgid "Investments in held to maturity financial assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_226
+msgid "Investments in financial assets at fair value through profit or loss"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_227
+msgid "Long-term loans and receivables provided"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_228
+msgid "Investments in financial assets available for sale"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_229
+msgid "Investments in other long term financial assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_231
+msgid "Positive commercial reputation"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_232
+msgid "Negative commercial reputation"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2413
+msgid "(Accumulated) Depreciation of buildings and structures"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2414
+msgid "(Accumulated) Depreciation of machinery and equipment"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_241501
+msgid "(Accumulated) Depreciation of vehicles"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_241502
+msgid "(Accumulated) Depreciation of means of transport"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2416
+msgid "(Accumulated) Depreciation of office furniture"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2417
+msgid "(Accumulated) Depreciation of equipment"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2418
+msgid "(Accumulated) Depreciation of computer equipment"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2419
+msgid "(Accumulated) Depreciation of other fixed tangible assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2421
+msgid "(Accumulated) Depreciation on development products"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2422
+msgid "(Accumulated) Depreciation on software products"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2423
+msgid "(Accumulated) Depreciation on intellectual property"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2424
+msgid "(Accumulated) Depreciation of software products"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_2429
+msgid "(Accumulated) Amortization of other fixed intangible assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_251
+msgid "Provisions to cover risky assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_252
+msgid "Provisions recognized as liabilities"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_259
+msgid "Other provisions"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_261
+msgid "Long term receivables and loans to banks and other financial institutions"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_262
+msgid "Long term receivables and loans to non-financial corporations and other customers"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_263
+msgid "Overdue long-term receivables and loans granted"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_264
+msgid "Long term receivables and loans granted as collateral"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_269
+msgid "Other long-term receivables and loans"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_271
+msgid "Woods"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_272
+msgid "Permanent plantations - fruitful"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_273
+msgid "Permanent plantations - infertile"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_274
+msgid "Animals in major herds"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_279
+msgid "Other fixed biological assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_301
+msgid "Deliveries"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_3012
+msgid "Shipping costs"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_302
+msgid "Raw materials/Materials"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_303
+msgid "Products"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_304
+msgid "Goods"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_305
+msgid "Goods on the way"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_311
+msgid "Small productive animals"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_312
+msgid "Bird-main flocks"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_313
+msgid "Bee families"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_314
+msgid "Young animals"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_315
+msgid "Animals for fattening"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_316
+msgid "Animals for experimental purposes"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_319
+msgid "Other current biological assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_401
+msgid "Obligations to suppliers"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_402
+msgid "Receivables from suppliers on advances"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_403
+msgid "Accounts Payable to Trade Credit Suppliers"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_404
+msgid "Obligations to suppliers for supplies under certain conditions"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_405
+msgid "Related party supply providers"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_406
+msgid "Obligations to related party suppliers"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_409
+msgid "Other obligations to suppliers"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_411
+msgid "Accounts Receivable from customers"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_412
+msgid "Accounts payable to customers for advances"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_413
+msgid "Вземания от клиенти по търговски кредити"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_414
+msgid "Sales receivables under certain conditions"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_415
+msgid "Affiliate sales customers"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_416
+msgid "Receivables from related parties"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_419
+msgid "Other receivables from customers"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_421
+msgid "Duties to personnel"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_422
+msgid "Sub-accountable persons"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4222
+msgid "Estimates for dealings with accountable persons"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4223
+msgid "Settlements with accountable persons withdrawal atm"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4229
+msgid "Other settlements with accountable persons"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_423
+msgid "Liabilities for unpaid leave"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_424
+msgid "Receivables from contributories"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_425
+msgid "Contributory obligations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_426
+msgid "Receivables from recorded equity contributions"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_429
+msgid "Other settlements with staff and partners"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_430
+msgid "Calculations on internal operations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_431
+msgid "Calculations on interbank operations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_432
+msgid "Internal calculations for interbank operations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_433
+msgid "Internal calculations for intra-bank operations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_437
+msgid "Internal calculations in connection with VAT at intra-community transactions"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_438
+msgid "Internal estimates in relation to customs duties"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_439
+msgid "Other internal calculations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_441
+msgid "Receivables under complaints"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_442
+msgid "Claims for shortfalls and overdrafts"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_443
+msgid "Price differences by missing and read"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_444
+msgid "Litigation claims"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_445
+msgid "Claims awarded"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_451
+msgid "Estimates with the municipalities"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_452
+msgid "Estimates for Annual Corporate Tax"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4522
+msgid "Calculations for advance corporate tax"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4531
+msgid "Value added tax charged on purchases"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4532
+msgid "Value added tax charged on sales"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4534
+msgid "Value added tax charged on sales outside country"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4536
+msgid "Deferred tax credit"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4537
+msgid "Tax credit for set-off"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4538
+msgid "Value added tax for refund"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4539
+msgid "Value Added Tax payable"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_454
+msgid "Personal income tax calculations of the staff"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4542
+msgid "Personal income tax calculations under civil contracts"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4543
+msgid "Dividend tax calculations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_455
+msgid "Settlements with ministries"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_456
+msgid "Estimates of excise duties"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_457
+msgid "VAT on customs importation"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4572
+msgid "Customs import duties"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_459
+msgid "Tax representative purposes"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4592
+msgid "Individual tax - rent"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4599
+msgid "Other calculations with the budget and departments"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_461
+msgid "Estimates for the social security fund"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4612
+msgid "Estimates with the Occupational Accident Fund"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4613
+msgid "Estimates with the General Sickness and Maternity Fund"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4614
+msgid "Estimates for compulsory supplementary social security"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4615
+msgid "Estimates of voluntary social security"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_462
+msgid "Estimates of voluntary social security"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_463
+msgid "Estimates for health insurance under employment contracts"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_464
+msgid "Estimated one-off benefits"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_469
+msgid "Estimated with insurers"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_471
+msgid "Settlements with the international monetary fund"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_472
+msgid "Settlements with the world bank"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_473
+msgid "Settlements with other international financial institutions"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_474
+msgid "Estimates under intergovernmental agreements"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_481
+msgid "Estimates of upcoming payments"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_482
+msgid "Reinsurance and co-insurance estimates"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_483
+msgid "Settlements with reinsurers"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_484
+msgid "Settlements with sedants"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_489
+msgid "Other estimates"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_491
+msgid "Settlements with trustees"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_492
+msgid "Settlements for guarantees"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_493
+msgid "Settlements with owners"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_494
+msgid "Provisions"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_495
+msgid "Insurance estimates"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_496
+msgid "Interest calculations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_497
+msgid "Estimates of tax temporary differences"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4971
+msgid "Provisions for pensions and other similar liabilities"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_4972
+msgid "Other provisions and similar liabilities"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_498
+msgid "Other debtors"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_499
+msgid "Other creditors"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_501
+msgid "Cash"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_502
+msgid "Cash in foreign currency"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_503
+msgid "Bank"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_504
+msgid "Current account in foreign currency"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_505
+msgid "Letters of credit"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_506
+msgid "Deposits provided"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_507
+msgid "Cash pledged as collateral"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_508
+msgid "Payment checks"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_509
+msgid "Other cash"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_511
+msgid "Financial assets at fair value through profit or loss"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_512
+msgid "Held-to-maturity financial assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_513
+msgid "Short-term loans and receivables"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_514
+msgid "Financial assets available for sale"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_515
+msgid "Government securities"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_516
+msgid "Precious metals and precious stones"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_517
+msgid "Shares and interests in group companies"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_518
+msgid "Financing"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_519
+msgid "Other short-term financial assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_521
+msgid "Short-term receivables and loans from banks and other financial institutions"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_522
+msgid "Short-term receivables and loans from non-financial corporations and other customers"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_523
+msgid "Short-term receivables and loans pledged as collateral"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_524
+msgid "Overdue short-term receivables and loans"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_529
+msgid "Other current receivables and loans"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_531
+msgid "Prepaid expenses"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_532
+msgid "Income for future periods"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_601
+msgid "Direct materials costs"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6012
+msgid "Indirect material costs"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_602
+msgid "Costs for external services"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_603
+msgid "Depreciation expense"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_604
+msgid "Direct salary costs"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6042
+msgid "Indirect salary costs"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6043
+msgid "Paid leave expenses"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6044
+msgid "Hospital costs"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6045
+msgid "Expenses for remuneration of self-insured persons"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6051
+msgid "Expenditures for the social security fund"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6052
+msgid "Expenditures for smps fund"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6053
+msgid "Expenditures for the upf fund"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6054
+msgid "Expenditures for the gvrs fund"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6055
+msgid "Expenditures for tzpb fund"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6056
+msgid "Expenditures for the health fund"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_606
+msgid "Accrued property tax expense"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6062
+msgid "Charged expense for garbage fee"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6063
+msgid "Accrued tax expense - representative purposes"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6069
+msgid "Accrued expense for taxes, fees and other payments"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_607
+msgid "Expenses for provisions"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_608
+msgid "Costs of subsequent asset valuations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_609
+msgid "Cost of inventory shortages"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6092
+msgid "Costs subject to tax conversion"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6098
+msgid "Other expenses from write-off loss"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6099
+msgid "Other expenses"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_611
+msgid "Operating expenses"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_612
+msgid "Ancillary activity costs"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_613
+msgid "Costs for the acquisition of fixed assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_614
+msgid "Administrative costs"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_615
+msgid "Cost of selling production"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_616
+msgid "Liquidation costs of tangible fixed assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_617
+msgid "Expenses on activities in non-profit enterprises"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_618
+msgid "Liquidation and insolvency costs"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_621
+msgid "Interest to the budget"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6212
+msgid "Interest on bank and commercial loans"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_6213
+msgid "Interest expense and penalties on commercial contracts"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_622
+msgid "Costs of operations with financial assets and instruments"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_623
+msgid "Costs of operations with investments"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_624
+msgid "Costs of foreign exchange operations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_625
+msgid "Costs of subsequent valuations of financial assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_629
+msgid "Fees and commissions on bank accounts and in cash"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_631
+msgid "Impairment losses (expenses)"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_632
+msgid "Impairment losses on current assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_651
+msgid "Non-financial expenses for future periods"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_652
+msgid "Financial expenses for future periods"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_661
+msgid "Expenses for insurance amounts"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_662
+msgid "Costs for participation in the result"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_663
+msgid "Liquidation costs"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_664
+msgid "Liquidation costs"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_665
+msgid "Insurance reserve costs"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_669
+msgid "Other direct insurance costs"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_671
+msgid "Expenses for reinsurers' premiums"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_672
+msgid "Expenses for released reserves for passive reinsurance"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_679
+msgid "Other passive reinsurance costs"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_681
+msgid "Expenses for insurance benefits"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_682
+msgid "Costs for participation in the result"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_683
+msgid "Expenses for participation in the liquidation"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_684
+msgid "Expenses for assigned reinsurance commissions and fees"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_685
+msgid "Expenses for set aside reserves for active reinsurance"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_689
+msgid "Other active reinsurance costs"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_691
+msgid "Exceptional costs"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_701
+msgid "Revenue from sales of production incomes"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_7012
+msgid "Accounting value of produced goods sold"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_702
+msgid "Revenues from sales of goods"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_7022
+msgid "Accounting value of goods sold"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_7029
+msgid "End of financial year"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_703
+msgid "Revenue from sales of services"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_704
+msgid "Revenues from financing"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_705
+msgid "Income from sales of fixed assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_7052
+msgid "Cost of sold fixed assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_7054
+msgid "Income from sales of assets below the materiality threshold"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_7055
+msgid "Book value of assets sold below the materiality threshold"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_706
+msgid "Income from sales of materials"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_7062
+msgid "Cost of sold materials"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_707
+msgid "Income from financing"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_708
+msgid "Proceeds from liquidation and bankruptcy"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_709
+msgid "Other income from the activity and sale of other fixed assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_7092
+msgid "Carrying amount of other assets sold"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_7093
+msgid "Income from excess inventory"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_7098
+msgid "Other income from write-off gain"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_711
+msgid "Revenues from regulated activities"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_712
+msgid "Revenues from membership fees"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_713
+msgid "Revenues from program financing"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_714
+msgid "Revenues from government donations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_715
+msgid "Revenues from other donations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_719
+msgid "Other incomes"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_721
+msgid "Interest income"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_722
+msgid "Income from participations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_723
+msgid "Income from operations with financial assets and instruments"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_724
+msgid "Income from foreign exchange operations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_725
+msgid "Income from subsequent valuations of financial assets and instruments"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_726
+msgid "Revenues from reintegrated provisions"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_729
+msgid "Other financial income"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_731
+msgid "Income from recovered impairment losses"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_751
+msgid "Non-financial income for future periods"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_752
+msgid "Financial income for future periods"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_753
+msgid "Financing for fixed assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_754
+msgid "Financing of current activity"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_761
+msgid "Income from insurance premiums"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_762
+msgid "Revenues from commissions and fees"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_763
+msgid "Insurance income from previous years"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_764
+msgid "Revenue from recourses"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_765
+msgid "Revenues from released reserves"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_769
+msgid "Other insurance income"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_771
+msgid "Income from indemnities received from reinsurers"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_772
+msgid "Income from participation in the result of reinsurers"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_773
+msgid "Revenues from commissions from reinsurers"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_774
+msgid "Passive reinsurance income from previous years"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_775
+msgid "Income from reinsurance reserves"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_779
+msgid "Other income from passive reinsurance"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_781
+msgid "Reinsurance premium income"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_782
+msgid "Income from active reinsurance from previous years"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_783
+msgid "Income from active reinsurance recourses"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_784
+msgid "Income from active reinsurance reserves"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_789
+msgid "Other income from active reinsurance"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_791
+msgid "Extraordinary income"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_911
+msgid "Leased foreign assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_912
+msgid "Foreign tangible assets received under a consignment contract"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_913
+msgid "Other tangible and intangible assets accepted for safekeeping"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_914
+msgid "Financial assets or cash accepted for safekeeping"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_915
+msgid "Non-financial assets accepted for safekeeping"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_921
+msgid "Foreign financial assets provided as collateral"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_922
+msgid "Pledged policies"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_923
+msgid "Miscellaneous emissions for circulation"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_924
+msgid "Foreign financial assets held on behalf of customers"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_925
+msgid "Commitments under contracts"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_931
+msgid "Receivables from loans granted under interstate agreements"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_932
+msgid "Outstanding receivables written off"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_933
+msgid "Debtors by collection operations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_934
+msgid "Receivables from derivative transactions"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_941
+msgid "Receivables from spot transactions"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_942
+msgid "Write-off of outstanding receivables in banks"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_943
+msgid "Debtors on collection operations in banks"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_945
+msgid "Contingent receivables from other banking operations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_951
+msgid "Guarantees and other similar contingent liabilities"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_952
+msgid "Irrevocable commitments"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_953
+msgid "Cancellable commitments"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_954
+msgid "Liabilities under spot operations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_955
+msgid "Liabilities under derivative transactions"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_956
+msgid "Contingent liabilities on other banking operations"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_961
+msgid "Reserve fund"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_962
+msgid "Assets in use, reported"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_971
+msgid "Issue reserve"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_972
+msgid "Own issues out of circulation with expired term for exchange"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_981
+msgid "Foreign tangible and intangible assets received as collateral"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_982
+msgid "Foreign financial assets received as collateral"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_983
+msgid "Policies or promissory notes received as collateral"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_984
+msgid "Other contingent assets"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_989
+msgid "Contingent Asset Corresponding Account"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_991
+msgid "Own tangible and intangible assets provided as collateral"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_992
+msgid "Own financial assets provided as collateral"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_993
+msgid "Policies or promissory notes given as collateral"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_994
+msgid "Other contingent liabilities"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_999
+msgid "Corresponding account for contingent liabilities"
+msgstr ""
+
+#: l10n_bg
+#: model:account.account.template,name:l10n_bg.l10n_bg_999999
+msgid "Undistributed Profits/Losses"
+msgstr ""
+

@@ -176,7 +176,7 @@ class AccountMove(models.Model):
 
     def _get_invoice_reference_bg_invoice(self):
         self.ensure_one()
-        if self.company_id.vat.lower().lstrip().startswith("bg"):
+        if self.company_id.vat and self.company_id.vat.lower().lstrip().startswith("bg"):
             base_name = [x for x in self.name.split("/")[-1] if x.isdigit()]
             decade = str(self.journal_id.decade)
             base_name = (

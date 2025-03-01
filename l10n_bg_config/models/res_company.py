@@ -47,11 +47,6 @@ class ResCompany(models.Model):
                     Command.link(record.l10n_bg_represent_contact_id.id)
                 ]
 
-    @api.depends("chart_template")
-    def _check_is_l10n_bg_record(self):
-        for company in self:
-            company.is_l10n_bg_record = company.chart_template == "bg"
-
     def _inverse_is_l10n_bg_record(self):
         for company in self:
             if company.is_l10n_bg_record and company.chart_template == "bg":
@@ -65,9 +60,14 @@ class ResCompany(models.Model):
             else:
                 company.is_l10n_bg_record = False
 
-    def _compute_is_l10n_bg_record(self, company=False):
-        if not company:
-            company = self
-        else:
+    @api.depends("chart_template")
+    def _compute_is_l10n_bg_record(self):
+        for record in self:
+            record.is_l10n_bg_record = record._check_is_l10n_bg_record(company=record.partner_id)
+
+    def _check_is_l10n_bg_record(self, company=False):
+        if company and isinstance(company, int):
             company = self.browse(company)
-        return company.is_l10n_bg_record
+        elif not company:
+            company = self
+        return company.chart_template == "bg"

@@ -1,6 +1,8 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
+import tempfile
+import zipfile
 
-from odoo import _, fields
+from odoo import _, fields, models
 
 
 def l10n_bg_lang(env, lang_modules="partner"):
@@ -421,3 +423,159 @@ def get_delivery_type():
             ),
         ),
     ]
+
+class AuditExportFileHelper(models.AbstractModel):
+    _name = "l10n.bg.export.file"
+    _description = "Audit Reports File Helper"
+
+    report_date_from = fields.Date(string="From")
+    report_date_to = fields.Date(string="To")
+
+    def get_csvs(self, report_type):
+        lines = []
+        fields_to_export = L10N_BG_DECLARATION_FIELDS
+        if report_type == "declaration":
+            fields_to_export = L10N_BG_DECLARATION_FIELDS
+        elif report_type == "purchases":
+            fields_to_export = L10N_BG_PURCHASES_FIELDS
+        elif report_type == "sales":
+            fields_to_export = L10N_BG_SALES_FIELDS
+        elif report_type == "vies":
+            fields_to_export = L10N_BG_VIES_FIELDS
+        elif report_type == "vies_lines":
+            fields_to_export = L10N_BG_VIES_LINES_FIELDS
+
+        for line in self._get_results(report_type):
+            new_line = {}
+            for field, helper in fields_to_export.items():
+                new_line[field] = helper(line[field])
+            lines.append(new_line)
+
+        line_csv = []
+        for val in lines:
+            content = ""
+            for field in fields_to_export.keys():
+                content += val[field]
+            line_csv.append(content)
+            # _logger.info(f"val: {val} content: {content}")
+
+        if line_csv:
+            return ["\r\n".join(line_csv) + "\r\n"]
+        else:
+            return [""]
+
+    def l10n_bg_export_csvs_zip(self, options):
+        l10n_bg_vat_declaration_report = self.env["account.report"].browse(
+            options["report_id"]
+        )
+        l10n_bg_vat_declaration_csvs = self.get_csvs(
+            l10n_bg_vat_declaration_report, options, "declaration"
+        )
+
+        l10n_bg_vat_purchase_report = self.env["account.report"].browse(
+            self.env.ref("l10n_bg_vat_reports.l10n_bg_nra_tax_report_purchases").ids
+        )
+        l10n_bg_vat_purchase_csvs = self.get_csvs(
+            l10n_bg_vat_purchase_report, options, "purchases"
+        )
+        # _logger.info(f"l10n_bg_vat_purchase_csvs {l10n_bg_vat_purchase_csvs}")
+
+        l10n_bg_vat_sales_report = self.env["account.report"].browse(
+            self.env.ref("l10n_bg_vat_reports.l10n_bg_nra_tax_report_sales").ids
+        )
+        l10n_bg_vat_sales_csvs = self.get_csvs(
+            l10n_bg_vat_sales_report, options, "sales"
+        )
+        # _logger.info(f"l10n_bg_vat_sales_csvs {l10n_bg_vat_sales_csvs}")
+
+        l10n_bg_tax_vies_report = self.env["account.report"].browse(
+            self.env.ref("l10n_bg_vat_reports.l10n_bg_nra_tax_report_vies").ids
+        )
+        l10n_bg_vat_vies_csvs = self.get_csvs(l10n_bg_tax_vies_report, options, "vies")
+        # _logger.info(f"l10n_bg_vat_vies_csvs {l10n_bg_vat_vies_csvs}")
+
+        l10n_bg_vat_vies_lines_csvs = self.get_csvs(
+            l10n_bg_tax_vies_report, options, "vies_lines"
+        )
+        if len(l10n_bg_vat_vies_csvs) > 0 and len(l10n_bg_vat_vies_lines_csvs) > 0:
+            l10n_bg_vat_vies_csvs = [
+                l10n_bg_vat_vies_csvs[0] + l10n_bg_vat_vies_lines_csvs[0]
+            ]
+            # _logger.info(f"l10n_bg_vat_vies_csvs {l10n_bg_vat_vies_csvs}")
+
+        with tempfile.NamedTemporaryFile() as buf:
+            with zipfile.ZipFile(
+                buf, mode="w", compression=zipfile.ZIP_DEFLATED, allowZip64=False
+            ) as zip_buffer:
+                for i, csv in enumerate(l10n_bg_vat_declaration_csvs):
+                    zip_buffer.writestr(
+                        "Deklar.txt", csv.encode("cp1251", errors="ignore")
+                    )
+                for i, csv in enumerate(l10n_bg_vat_purchase_csvs):
+                    zip_buffer.writestr(
+                        "Pokupki.txt", csv.encode("cp1251", errors="ignore")
+                    )
+                for i, csv in enumerate(l10n_bg_vat_sales_csvs):
+                    zip_buffer.writestr(
+                        "Prodagbi.txt", csv.encode("cp1251", errors="ignore")
+                    )
+                for i, csv in enumerate(l10n_bg_vat_vies_csvs):
+                    zip_buffer.writestr(
+                        "Vies.txt", csv.encode("cp1251", errors="ignore")
+                    )
+            buf.seek(0)
+            res = buf.read()
+
+        return {
+            "file_name": l10n_bg_vat_declaration_report.get_default_report_filename(
+                "ZIP"
+            ),
+            "file_content": res,
+            "file_type": "zip",
+        }
+
+    def _get_results(self, tax_report):
+        full_query = self._build_query(tax_report)
+        # Execute the queries and fetch results
+        self._cr.execute(full_query, [])
+        results = self._cr.dictfetchall()
+        return results
+
+    def _build_query(self, tax_report):
+        options = {
+            "date_from": self.report_date_from,
+        }
+        if tax_report == "sales":
+            full_query = (
+                self.env["account.bg.info.sale.line"]
+                .with_context(**dict(self._context, report_options=options))
+                ._table_query
+            )
+        elif tax_report == "purchases":
+            full_query = (
+                self.env["account.bg.info.purchases.line"]
+                .with_context(**dict(self._context, report_options=options))
+                ._table_query
+            )
+        elif tax_report == "declaration":
+            full_query = (
+                self.env["account.bg.vat.info.declar"]
+                .with_context(**dict(self._context, report_options=options))
+                ._table_query
+            )
+        elif tax_report == "vies":
+            full_query = (
+                self.env["account.bg.vies.info.declar"]
+                .with_context(**dict(self._context, report_options=options))
+                ._table_query
+            )
+        elif tax_report == "vies_lines":
+            full_query = (
+                self.env["account.bg.calc.vies.line"]
+                .with_context(**dict(self._context, report_options=options))
+                ._table_query
+            )
+        else:
+            full_query = ""
+        # _logger.info(f"SQL QUERY: {full_query}")
+        return full_query

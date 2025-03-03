@@ -1,0 +1,1708 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_reports_audit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-25 06:51+0000\n"
+"PO-Revision-Date: 2025-02-25 10:40+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_account_tag__l10n_bg_code
+msgid "A technical field for tag code"
+msgstr "Техническо поле за името на кода на етикета"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_res_config_settings__module_account_usability
+msgid "Account - Missing Menus"
+msgstr "Счетоводство - липсващи менюта"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_res_config_settings__module_account_financial_report
+msgid "Account Financial Reports (OCA)"
+msgstr "Счетоводни и финансови справки (OCA)"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__move_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__move_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__move_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__move_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__move_id
+msgid "Account Move"
+msgstr "Счетоводен запис"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_account_tag
+msgid "Account Tag"
+msgstr "Етикет за сметка"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_res_config_settings__module_account_reports
+msgid "Accounting Reports"
+msgstr "Счетоводни справки"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_type_vat__standard
+#, python-format
+msgid "Accounting document"
+msgstr "Счетоводен документ"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_res_config_settings__module_account_usability
+msgid ""
+"Adds missing menu entries for Account module and adds the option to enable "
+"Saxon Accounting"
+msgstr ""
+"Добавя липсващите менюта в Счетоводният модул и добавя възможност за "
+"включване на Англо-санксонско счетоводно отчитане"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_res_company__l10n_bg_intra_stat_outcomes
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_res_config_settings__l10n_bg_intra_stat_outcomes
+msgid "An obligation to submit intra-Community incomes"
+msgstr "Задължение за подаване на пристигания в рамките на общността"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_res_company__l10n_bg_intra_stat_incomes
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_res_config_settings__l10n_bg_intra_stat_incomes
+msgid "An obligation to submit intra-Community supplies"
+msgstr "Задължение за подаване на доставки в рамките на общността"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__51
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__51
+#, python-format
+msgid ""
+"Arrival of goods on the territory of the country under the regime of storage "
+"of goods until demand under Art. 15a of VAT"
+msgstr ""
+"Пристигане на стоки на територията на страната под режима на съхранение на "
+"стоки до искане по чл. 15а от ДДС"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_type_vat__117_protocol
+#, python-format
+msgid "Art. 117 - Protocols"
+msgstr "Чл. 117 - Протоколи"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_type_vat__119_report
+#, python-format
+msgid "Art. 119 - Report for sales"
+msgstr "Чл. 119 - Отчети за продажби"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_pivot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_tree
+msgid "Base ICD of goods 0% 02-15"
+msgstr "Данъчна основа за ВОД 0% 02-15"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_12
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_12
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_121
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_122
+msgid ""
+"Base amount for ICD and tax basis of received supplies under Art. 82, para. "
+"2 - 5 VAT"
+msgstr "Данъчна основа за ВОД и на получените доставки по чл. 82 (2-5) от ЗДДС"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_11
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_11
+msgid "Base amount from sales for domestic taxation (20%)"
+msgstr "Данъчна основа на продажбите на територията на страната (20%)"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_pivot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_tree
+msgid "Base under Art. 21 on the territory of the EU 02-17"
+msgstr ""
+"Данъчна основа за продажбите на територията на друга държава членка на ЕС "
+"чл. 21 02-17"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.ui.menu,name:l10n_bg_reports_audit.menu_account_l10n_bg_vat_report
+msgid "Bulgaria audit reports"
+msgstr "Български справки за отчитане в НАП"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_calc_purchases_line__state__cancel
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_calc_sales_line__state__cancel
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_calc_vies_line__state__cancel
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_sale_line__state__cancel
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_vies_total_declar__state__cancel
+msgid "Cancelled"
+msgstr "Отказано"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_account_tag__l10n_bg_code
+msgid "Code"
+msgstr "Код"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_res_company
+msgid "Companies"
+msgstr "Фирми"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_info_declar__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_total_declar__company_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_search
+msgid "Company"
+msgstr "Фирма"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__info_tag_vtr_2
+msgid "Company UIC"
+msgstr "ЕИК на фирмата"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_info_declar__company_address
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__info_tag_vtr_4
+msgid "Company address"
+msgstr "Адрес на фирмата"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__info_tag_vtr_3
+msgid "Company name"
+msgstr "Име на фирма"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_res_config_settings
+msgid "Config Settings"
+msgstr "Настройки"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__info_tag_vir_2
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__info_tag_3
+msgid "Counter"
+msgstr "Брояч"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__info_tag_6
+msgid "Counter purchases"
+msgstr "Брояч на редовете на покупките"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__info_tag_5
+msgid "Counter sales"
+msgstr "Брояч на редовете на продажбите"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__03
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__03
+#, python-format
+msgid "Credit note"
+msgstr "Кредитно известие"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__23
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__23
+#, python-format
+msgid "Credit note art. 126b"
+msgstr "Кредитно известие чл. 126б"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__13
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__13
+#, python-format
+msgid "Credit notice - cash statement"
+msgstr "Касова книга - уведомяване за кредит"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_total_declar__company_currency_id
+msgid "Currency"
+msgstr "Валута"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__partner_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__partner_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_search
+msgid "Customer"
+msgstr "Клиент"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__07
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__07
+#, python-format
+msgid "Customs declarations"
+msgstr "Митнически декларации"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__date
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__date
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_search
+msgid "Date"
+msgstr "Дата"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__02
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__02
+#, python-format
+msgid "Debit note"
+msgstr "Дебитно известие"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__12
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__12
+#, python-format
+msgid "Debit notice - cash reporting"
+msgstr "Касова книга - уведомяване за дебит"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_applicability__declaration
+#, python-format
+msgid "Declaration"
+msgstr "Декларация"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__info_tag_27
+msgid "Delivery according to Art. 163a or import under Art. 167a of the VAT"
+msgstr "Доставка според чл. 163а или внос по чл. 167a от ДДС"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__01
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__01
+#, python-format
+msgid "Delivery under Part I of Annex 2 of VAT"
+msgstr "Доставка по част I от приложение 2 на ЗДДС"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__02
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__02
+#, python-format
+msgid "Delivery under Part II of Annex 2 of VAT"
+msgstr "Доставка по част II от приложение 2 на ЗДДС"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_info_declar__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_total_declar__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__date
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__info_tag_6
+msgid "Document date"
+msgstr "Дата на документа"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__info_tag_5
+msgid "Document number"
+msgstr "Номер на документа"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_calc_purchases_line__state__draft
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_calc_sales_line__state__draft
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_calc_vies_line__state__draft
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_sale_line__state__draft
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_vies_total_declar__state__draft
+msgid "Draft"
+msgstr "Чернова"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_type_vat__dropship
+#, python-format
+msgid "Dropship/Try party deal"
+msgstr "Препродажба/Тристранна сделка"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.res_config_settings_view_form
+msgid "EE modules for help."
+msgstr "Платени модули за помощ."
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.res_config_settings_view_form
+msgid "EE settings"
+msgstr "Настройка на платени модули от Odoo SA"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_type_vat__out_customs
+#, python-format
+msgid "Export Customs declaration"
+msgstr "Износ митническа декларация"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_search
+msgid "Group By..."
+msgstr "Групирай по..."
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_info_declar__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_total_declar__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_type_vat__in_customs
+#, python-format
+msgid "Import Customs declaration"
+msgstr "Внос митническа декларация"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__03
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__03
+#, python-format
+msgid "Import under Annex 3 of VAT"
+msgstr "Внос на основание глава 3 от ЗДДС"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__01
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__01
+#, python-format
+msgid "Invoice"
+msgstr "Фактура"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__11
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__11
+#, python-format
+msgid "Invoice - cash reporting"
+msgstr "Фактура - отчет за продажбите"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_search
+msgid "Invoice/Move"
+msgstr "Фактура/Счетоводно движение"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_account_tag__is_l10n_bg_record
+msgid "Is Romanian Record"
+msgstr "Това е запис за Българска локализация"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_move
+msgid "Journal Entry"
+msgstr "Запис в дневника"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_res_company__l10n_bg_intra_stat_type
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_res_config_settings__l10n_bg_intra_stat_type
+msgid "Level of registration"
+msgstr "Ниво за регистрация"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.res_config_settings_view_form
+msgid "Mandatory Declaration thresholds. Calculate VAT base on formula."
+msgstr ""
+"Задължителни прагове на декларация. Изчислете базата на ДДС на формулата."
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__54
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__54
+#, python-format
+msgid "Marriage/absence/destruction of goods under Art. 15a, para. 10 of VAT"
+msgstr "Брак/отсъствие/унищожаване на стоки по чл. 15а, ал. 10 от ДДС"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bank_statement_line__l10n_bg_narration
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__info_tag_9
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_move__l10n_bg_narration
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_payment__l10n_bg_narration
+msgid "Narration for audit report"
+msgstr "Описание в дневниците за ДДС"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_bg_calc_vies_line__info_tag_vir_3
+msgid "Number of the foreign counterparty incl. the sign of the Member State"
+msgstr "Брой на чуждестранния контрагент вкл. кандидатите за държавата-членка"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_res_config_settings__module_account_financial_report
+msgid "OCA Financial Reports"
+msgstr "OCA Финансови отчети"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.res_config_settings_view_form
+msgid "OCA modules for help."
+msgstr "OCA модули за помощ."
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.res_config_settings_view_form
+msgid "OCA settings"
+msgstr "OCA настройки"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_res_company__l10n_bg_odoo_compatible
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_res_config_settings__l10n_bg_odoo_compatible
+msgid "Odoo compatible"
+msgstr "Odoo съвместимо изчисление на ДДС"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__info_tag_2
+msgid "Office"
+msgstr "Офис"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Open"
+msgstr "Отверен"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Open journal entry"
+msgstr "Отвори запис в дневника"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__partner_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_search
+msgid "Partner"
+msgstr "Партньор"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__info_tag_7
+msgid "Partner TIN"
+msgstr "ЕИК на партньора"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__info_tag_8
+msgid "Partner name"
+msgstr "Име на партньора"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_search
+msgid "Period"
+msgstr "Период"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_search
+msgid "Period: Last month"
+msgstr "Период: последния месец"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_calc_purchases_line__state__posted
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_calc_sales_line__state__posted
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_calc_vies_line__state__posted
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_sale_line__state__posted
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_vies_total_declar__state__posted
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_search
+msgid "Posted"
+msgstr "Публикувани"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_search
+msgid "Posted Journal Items"
+msgstr "Публикувани счетоводни записи"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__95
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__95
+#, python-format
+msgid "Protocol for free provision of foodstuffs"
+msgstr "Протокол за безплатно осигуряване на хранителни продукти"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__29
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__29
+#, python-format
+msgid "Protocol under Art. 126b"
+msgstr "Протокол на основание чл. 126б"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__91
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__93
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__91
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__93
+#, python-format
+msgid "Protocol under Art. 151c"
+msgstr "Протокол на основание чл. 151б"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__94
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__94
+#, python-format
+msgid "Protocol under Art. 151c, para. 7"
+msgstr "Протокол на основание чл. 151с(7)"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__92
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__92
+#, python-format
+msgid "Protocol under Art. 151g"
+msgstr "Протокол на основание чл. 151г"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__50
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__50
+#, python-format
+msgid "Protocols fuel supplies"
+msgstr "Протокол за доставка на гориво"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__09
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__09
+#, python-format
+msgid "Protocols or other"
+msgstr "Други протоколи"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_applicability__purchase
+#, python-format
+msgid "Purchase report"
+msgstr "Дневник на покупките"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_tree
+msgid "Purchases"
+msgstr "Покупки"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__53
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__53
+#, python-format
+msgid ""
+"Replacement of the person for whom the goods were intended without "
+"termination of the contract under Art. 15a, para. 4 of VAT"
+msgstr ""
+"Замяна на лицето, за което стоките са били предназначени без прекратяване на "
+"договора по чл. 15а, ал. 4 от ЗДДС"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_applicability__sale
+#, python-format
+msgid "Sale report"
+msgstr "Дневник на продажбите"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_tree
+msgid "Sales"
+msgstr "Продажби"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__84
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__84
+#, python-format
+msgid "Sales of flour"
+msgstr "Продажба на брашно"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__81
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__81
+#, python-format
+msgid "Sales report - tickets"
+msgstr "Справка за продажбите - касов бон"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.res_config_settings_view_form
+msgid "Settings"
+msgstr "Настройки"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__82
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__82
+#, python-format
+msgid "Special tax order"
+msgstr "Специална данъчна поръчка"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/res_company.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__res_company__l10n_bg_intra_stat_type__standard
+#, python-format
+msgid "Standard base on levelling up"
+msgstr "Ниво на данъчна основа за стандартно отчитане"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/res_company.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__res_company__l10n_bg_intra_stat_type__statistical
+#, python-format
+msgid "Statistical base on levelling up"
+msgstr "Ниво на данъчна основа за статистическо отчитане"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__state
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__state
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__state
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__state
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_total_declar__state
+msgid "Status"
+msgstr "Статус"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__05
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__05
+#, python-format
+msgid "Storeable goods receive from EU"
+msgstr "Стоки за съхранение получени от ЕС"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__04
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__04
+#, python-format
+msgid "Storeable goods sent to EU"
+msgstr "Стоки за съхранение изпратени до ЕС"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__07
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__07
+#, python-format
+msgid "Supply, import or IC acquisition of bread"
+msgstr "Доставка, внос или вътрешно обособеностно придобиване на хляб"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__08
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__08
+#, python-format
+msgid "Supply, import or IC acquisition of flour"
+msgstr "Доставка, внос или вътрешно обособеностно придобиване на брашно"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_res_company__l10n_bg_tax_contact_id
+msgid "TAX Report creator"
+msgstr "Съставител"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__info_tag_0
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_info_declar__info_tag_1
+msgid "TIN"
+msgstr "ЕИК"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_pivot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_tree
+msgid "TO-trilateral operations 02-25"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__58
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__58
+#, python-format
+msgid ""
+"Termination of the contract under the mode of storage of goods until "
+"requested under Art. 15a of VAT"
+msgstr ""
+"Прекратяване на договора под режим на съхранение на стоки, докато не бъде "
+"поискано съгласно чл. 15а от ЗДДС"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__move_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__move_id
+msgid "Total"
+msgstr "Общо"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Total 02-11"
+msgstr "Общо 02-11"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Total 02-12"
+msgstr "Общо 02-12"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Total 02-121"
+msgstr "Общо 02-121"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Total 02-122"
+msgstr "Общо 02-122"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Total 02-14"
+msgstr "Общо 02-14"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Total 02-15"
+msgstr "Общо 02-15"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Total 02-16"
+msgstr "Общо 02-16"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Total 02-17"
+msgstr "Общо 02-17"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Total 02-18"
+msgstr "Общо 02-18"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Total 02-19"
+msgstr "Общо 02-19"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Total 02-21"
+msgstr "Общо 02-21"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Total 02-22"
+msgstr "Общо 02-22"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Total 02-23"
+msgstr "Общо 02-23"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Total 02-24"
+msgstr "Общо 02-24"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Total 02-25"
+msgstr "Общо 02-25"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
+msgid "Total 02-26"
+msgstr "Общо 02-26"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-30"
+msgstr "Общо 03-30"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-31"
+msgstr "Общо 03-31"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-32"
+msgstr "Общо 03-32"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-41"
+msgstr "Общо 03-41"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-42"
+msgstr "Общо 03-42"
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-43"
+msgstr "Общо 03-43"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_10
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_10
+msgid "Total amount of base"
+msgstr "Общо за данъчна основа"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bank_statement_line__l10n_bg_type_vat
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_move__l10n_bg_type_vat
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_payment__l10n_bg_type_vat
+msgid "Type of numbering"
+msgstr "Начин на номериране"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_info_declar__company_vat
+msgid "UIC"
+msgstr "ЕИК"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_bg_vies_info_declar__info_tag_vdr_2
+msgid ""
+"UIN/UINF/service number from the NRA register of the person submitting the "
+"declaration"
+msgstr ""
+"ЕГН/ЛНЧ/Номер на услугата от регистъра на НАП на лицето, което изпраща "
+"декларацията"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_account_tag__l10n_bg_applicability
+msgid "Use for"
+msgstr "Използвано за"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_vat_result_declar
+msgid "VAT Declarations for result for period in Bulgarian Localization"
+msgstr "СПРАВКА - ДЕКЛАРАЦИЯ за периода съгласно Българската локализация"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.actions.act_window,name:l10n_bg_reports_audit.action_account_bg_calc_purchases_line
+#: model:ir.ui.menu,name:l10n_bg_reports_audit.menu_current_account_vat_purchase_report
+msgid "VAT Purchases report"
+msgstr "Дневник покупки"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.actions.act_window,name:l10n_bg_reports_audit.action_account_bg_calc_sales_line_line
+#: model:ir.ui.menu,name:l10n_bg_reports_audit.menu_current_account_vat_report
+msgid "VAT Sales report"
+msgstr "Дневник продажби"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.actions.act_window,name:l10n_bg_reports_audit.action_account_bg_calc_vies_line_line
+#: model:ir.ui.menu,name:l10n_bg_reports_audit.menu_current_account_vat_vies_report
+msgid "VAT VIES report"
+msgstr "Дневник ВИЕС"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_vat_info_declar
+msgid "VAT declaration for Analysis in Bulgarian Localization"
+msgstr "СПРАВКА-ДЕКЛАРАЦИЯ в Българската локализация"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_total_purchases_line
+msgid "VAT line Total for Purchase total in Bulgarian Localization"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_calc_sales_line
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_total_sales_line
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_vat_calc_declar
+msgid "VAT line for Analysis in Bulgarian Localization"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_calc_purchases_line
+msgid "VAT line for Calculation Purchase in Bulgarian Localization"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_info_purchases_line
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_info_sale_line
+msgid "VAT line information for Analysis in Bulgarian Localization"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_vies_info_declar
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_vies_total_declar
+msgid "VIES Declaration for Analysis in Bulgarian Localization"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_applicability__vies
+#, python-format
+msgid "VIES Report"
+msgstr "Дневник ВИЕС"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_calc_vies_line
+msgid "VIES line for Analysis in Bulgarian Localization"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.res_config_settings_view_form
+msgid "Vat & Intrastat"
+msgstr "ДДС и ИНТРАСТАТ"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bank_statement_line__l10n_bg_delivery_type
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_move__l10n_bg_delivery_type
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_payment__l10n_bg_delivery_type
+msgid "Vat type delivery"
+msgstr "Тип на доставка (ЗДДС)"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bank_statement_line__l10n_bg_doc_type
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__info_tag_4
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_move__l10n_bg_doc_type
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_payment__l10n_bg_doc_type
+msgid "Vat type document"
+msgstr "Типа на документа (ЗДДС)"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_res_config_settings__module_account_reports
+msgid "View and create reports"
+msgstr "Прегледай и създай справката"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_info_declar__info_tag_2
+msgid "[00-02] Name of the Legal Entity"
+msgstr "[00-02] Име на юридическото лице"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__info_tag_3
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_info_declar__info_tag_3
+msgid "[00-03] Tax period"
+msgstr "[00-03] Данъчен период"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_info_declar__info_tag_4
+msgid "[00-04] Person submitting the data (TIN/name)"
+msgstr "[00-04] Лице, което изпраща данните (ЕИК/Име)"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_info_declar__info_tag_5
+msgid "[00-05] Number of documents in the sales journal"
+msgstr "[00-05] Брой документи в дневника на продажбите"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_info_declar__info_tag_6
+msgid "[00-06] Number of documents in the purchase journal"
+msgstr "[00-06] Брой документи в дневника на покупките"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_10
+msgid "[01-10] Total amount of base"
+msgstr "[01-10] Общо за данъчна основа"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_11
+msgid "[01-11] Base for domestic taxation (20%)"
+msgstr "[01-11] Данъчна основа за сделки на територията на страната (20%)"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_121
+msgid "[01-12-1] Base for ICA"
+msgstr "[01-12-1] Данъчна основа за ВОП"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_122
+msgid "[01-12-2] Base for ICA"
+msgstr "[01-12-2] Данъчна основа за ВОП"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_12
+msgid "[01-12] Base for ICA"
+msgstr "[01-12] Данъчна основа за ВОП"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_13
+msgid "[01-13] Base travel services 9%"
+msgstr "[01-13] Данъчна основа за туристически сделки 9%"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_14
+msgid "[01-14] Base from export"
+msgstr "[01-14] Данъчна основа от износ"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_15
+msgid "[01-15] Base for ICD"
+msgstr "[01-15] Данъчна основа ВОД"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_16
+msgid "[01-16] Base for Art.140, 146, 173 (21)"
+msgstr "[01-16] Данъчна основа чл.140, 146, 173 (21)"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_17
+msgid "[01-17] Base for Art.21"
+msgstr "[01-17] Данъчна основа чл.21"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_18
+msgid "[01-18] Base Art.62(2) on the territory of EU"
+msgstr "[01-18] Данъчна основа чл.62(2) за сделки на територията на ЕС"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_19
+msgid "[01-19] Base sales exempt ICD"
+msgstr "[01-19] Основни продажби освободени ВОД"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_20
+msgid "[01-20] Total VAT"
+msgstr "[01-20] Общо ДДС"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_21
+msgid "[01-21] VAT taxation 20%"
+msgstr "[01-21] ДДС за облагане с 20%"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_22
+msgid "[01-22] VAT ICA Art.82, ал.2-3"
+msgstr "[01-22] ДДС ДОП чл.82, ал.2-3"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_23
+msgid "[01-23] VAT Private usage"
+msgstr "[01-23] ДДС - лично ползване"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_24
+msgid "[01-24] VAT travel services 9%"
+msgstr "[01-24] ДДС туристически услуги 9%"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_30
+msgid "[01-30] Base for not entitled to a tax credit"
+msgstr "[01-30] Данъчна основа на сделките без право да данъчен кредит"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_31
+msgid "[01-31] Base for full tax credit"
+msgstr "[01-31] Данъчна основа на сделките с право на пълен данъчен кредит"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_32
+msgid "[01-32] Base partly tax credit (~%)"
+msgstr "[01-32] Данъчна основа на сделките с частичен данъчен кредит (~%)"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_33
+msgid "[01-33] Coefficient Art.73,ал.5"
+msgstr "[01-33] Коефицент по чл.73,ал.5"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_40
+msgid "[01-40] VAT Total of tax credit"
+msgstr "[01-40] ДДС Общо за с право на данъчния кредит"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_41
+msgid "[01-41] VAT for full tax credit"
+msgstr "[01-41] ДДС Общо за с пълен данъчен кредит"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_42
+msgid "[01-42] VAT partly tax credit (~%)"
+msgstr "[01-41] ДДС Общо за с частичен данъчен кредит"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_43
+msgid "[01-43] Correction of Art.73, para. 8"
+msgstr "[01-43] Корекция на основание чл.73(8)"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_44
+msgid ""
+"[01-44] Base when acquiring goods from an intermediary in a tripartite "
+"operation"
+msgstr ""
+"[01-44] Данъчна основа при придобиване на стоки от посредник при тристранна "
+"операция"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_50
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__account_tag_50
+msgid "[01-50] VAT to pay"
+msgstr "[01-50] ДДС за внасяне"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_60
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__account_tag_60
+msgid "[01-60] VAT recovery"
+msgstr "[01-60] ДДС за получаване"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__account_tag_70
+msgid ""
+"[01-70] Tax for pay from cell[50], deducted in accordance with art. 92, "
+"para. 1 VAT"
+msgstr ""
+"[01-70] Данък за заплащане от клетка [50], приспаднат в съответствие с чл. "
+"92, ал. 1 ЗДДС"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_70
+msgid "[01-70] VAT deducted art.92, para. 1"
+msgstr "[01-70] ДДС приспаднат чл.92, ал. 1"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__account_tag_71
+msgid "[01-71] Tax for pay of cell[50], effectively imported"
+msgstr "[01-71] Данък за внасяне от клетката [50], ефективно вносен"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_71
+msgid "[01-71] VAT payed effectively"
+msgstr "[01-71] ДДС, платен ефективно"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__account_tag_80
+msgid ""
+"[01-80] Pursuant to Art. 92, Para. 1 VAT within 30 days from the submission "
+"of this declaration"
+msgstr ""
+"[01-80] Съгласно чл. 92, ал. 1 ДДС в рамките на 30 дни от представянето на "
+"тази декларация"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_80
+msgid "[01-80] VAT reimbursement Art.92, para. 1"
+msgstr "[01-80] ДДС прихванат по чл.92(1)"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__account_tag_81
+msgid ""
+"[01-81] Pursuant to Art. 92, Para. 3 VAT within 30 days from the submission "
+"of this declaration"
+msgstr ""
+"[01-81] Съгласно чл. 92, ал. 3 ЗДДС в рамките на 30 дни от подаването на "
+"тази декларация"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_81
+msgid "[01-81] VAT reimbursement Art.92, para. 2"
+msgstr "[01-81] ДДС за възстановяване чл.92, ал. 2"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__account_tag_82
+msgid ""
+"[01-82] Pursuant to Art. 92, para. 4 VAT within 30 days from the submission "
+"of this declaration"
+msgstr ""
+"[01-82] Съгласно чл. 92, ал. 4 ЗДДС в рамките на 30 дни от представянето на "
+"тази декларация"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__account_tag_82
+msgid "[01-82] VAT reimbursement Art.92, para. 3"
+msgstr "[01-82] ДДС за възстановяване чл.92, para. 3"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__info_tag_1
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__info_tag_vir_7
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__info_tag_1
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__info_tag_1
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__info_tag_1
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_total_declar__info_tag_vir_7
+msgid "[02-01] Tax period"
+msgstr "[02-01] Данъчен период"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__info_tag_2
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__info_tag_2
+msgid "[02-02] TIN"
+msgstr "[02-02] ЕИК"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__info_tag_3
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__info_tag_3
+msgid "[02-03] Office"
+msgstr "[02-03] Клон"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__info_tag_3
+msgid "[02-03] Tax period"
+msgstr "[02-03] Данъчен период"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__info_tag_4
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__info_tag_4
+msgid "[02-04] Counter"
+msgstr "[02-04] Брояч"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__info_tag_5
+msgid "[02-05] Counter sales"
+msgstr "[02-05] Брояч продажби"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__info_tag_5
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__info_tag_5
+msgid "[02-05] Vat type document"
+msgstr "[02-05] Тип на документа"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__info_tag_6
+msgid "[02-06] Counter purchases"
+msgstr "[02-06] Брояч на покупките"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__info_tag_6
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__info_tag_6
+msgid "[02-06] Document number"
+msgstr "[02-06] Номер на документа"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__info_tag_7
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__info_tag_7
+msgid "[02-07] Document date"
+msgstr "[02-07] Дата на документа"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__info_tag_8
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__info_tag_8
+msgid "[02-08] Partner VAT"
+msgstr "[02-08] Партьор"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__info_tag_9
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__info_tag_9
+msgid "[02-09] Partner name"
+msgstr "[02-09] Име на партньора"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__info_tag_10
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__info_tag_10
+msgid "[02-10] Narration for audit report"
+msgstr "[02-10] Описание на сделката"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_10
+msgid "[02-10] Total amount of base"
+msgstr "[02-10] Общо данъчна основа"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_11
+msgid "[02-11] Base for domestic taxation (20%)"
+msgstr "[02-11] Данъчна основа за сделки на територията на страната (20%)"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_11
+msgid "[02-11] Base for taxation with 20%"
+msgstr "[02-11] Данъчна основа за облагане с 20%"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_121
+msgid "[02-12-1] Base ICA (1)"
+msgstr "[02-12-1] Данъчна основа ВОП (1)"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_122
+msgid "[02-12-2] Base ICA (2)"
+msgstr "[02-12-2] Данъчна основа ВОП (2)"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_12
+msgid "[02-12] Base ICA"
+msgstr "[02-12] Данъчна основа ВОП"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_12
+msgid "[02-12] Base for ICA"
+msgstr "[02-12] Данъчна основа ВОП"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_13
+msgid "[02-13] Base travel services 9%"
+msgstr "[02-13] Данъчна основа за туристически услуги 9%"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_14
+msgid "[02-14] Base export 0%"
+msgstr "[02-14] Данъчна основа на износа 0%"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_14
+msgid "[02-14] Base from export"
+msgstr "[02-14] Данъчна основа на износа"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_15
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__account_tag_vir_4
+msgid "[02-15] Base ICD of goods 0%"
+msgstr "[02-15] Данъчна основа на ВОД 0%"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_15
+msgid "[02-15] Base for ICD"
+msgstr "[02-15] Данъчна основа на ВОД"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_16
+msgid "[02-16] Base 0% under Art. 140, par, 1 and Art. 173"
+msgstr "[02-16] Данъчна основа 0% по чл. 140, пар, 1 и чл. 173"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_16
+msgid "[02-16] Base for Art.140, 146, 173 (21)"
+msgstr "[02-16] Данъчна основа.140, 146, 173 (21)"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_17
+msgid "[02-17] Base for Art.21"
+msgstr "[02-17] Данъчна основа чл.21"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_17
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__account_tag_vir_6
+msgid "[02-17] Base under Art. 21 on the territory of the EU"
+msgstr "[02-17] Данъчна основа чл. 21 за сделки на територията на ЕС"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_18
+msgid "[02-18] Base Art.62(2) on the territory of EU"
+msgstr "[02-18] Данъчна основа чл.62(2) на територията на ЕС"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_18
+msgid "[02-18] Base under Art. 69, paragraph 2 on the territory of the EU"
+msgstr "[02-18] Данъчна основа чл. 69(2) на територията на ЕС"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_19
+msgid "[02-19] Base educated and ICA"
+msgstr "[02-19] Данъчна основа за ВОП"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_19
+msgid "[02-19] Base sales exempt ICD"
+msgstr "[02-19] Данъчна основа продажби освободени ВОД"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_20
+msgid "[02-20] All VAT charged"
+msgstr "[02-20] Общо за всички облгаеми"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_20
+msgid "[02-20] Total VAT"
+msgstr "[02-20] Общо ДДС"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_21
+msgid "[02-21] VAT 20%"
+msgstr "[02-21] ДДС 20%"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_21
+msgid "[02-21] VAT taxation 20%"
+msgstr "[02-21] ДДС за облагане с 20%"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_22
+msgid "[02-22] VAT ICA Art.82, ал.2-3"
+msgstr "[02-22] ДДС за ВОП.82, ал.2-3"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_22
+msgid "[02-22] VAT ICA and art. 82, par. 2-5"
+msgstr "[02-22] ДДС за ВОП и чл. 82, ал. 2-5"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_23
+msgid "[02-23] VAT Private usage"
+msgstr "[02-23] ДДС за лично ползване"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_23
+msgid "[02-23] VAT-personal needs"
+msgstr "[02-23] ДДС за лично ползване"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_24
+msgid "[02-24] VAT travel services 9%"
+msgstr "[02-24] ДДС за туристически сделки 9%"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_24
+msgid "[02-24] VAT-tourist services 9%"
+msgstr "[02-24] ДДС за туристически сделки 9%"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_25
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__account_tag_vir_5
+msgid "[02-25] TO-trilateral operations"
+msgstr "[02-25] Данъчна основа тристранни сделки"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_26
+msgid "[02-26] Base art. 82, paragraphs 2-5"
+msgstr "[02-26] Данъчна основа чл. 82, ал. 2-5"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__account_tag_30
+msgid "[02-30] Base for not entitled to a tax credit"
+msgstr "[02-30] Данъчна основа без право на данъчен кредит"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__account_tag_31
+msgid "[02-31] Base for full tax credit"
+msgstr "[02-31] Данъчна основа за пълен данъчен кредит"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__account_tag_32
+msgid "[02-32] Base partly tax credit (~%)"
+msgstr "[02-32] Данъчна основа за частичен данъчен кредит (~%)"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__account_tag_41
+msgid "[02-41] VAT for full tax credit"
+msgstr "[02-41] ДДС пълен данъчен кредит"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__account_tag_42
+msgid "[02-42] VAT partly tax credit (~%)"
+msgstr "[02-42] ДДС частичен данъчен кредит (~%)"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__account_tag_43
+msgid "[02-43] Correction of Art.73, para. 8"
+msgstr "[02-43] Корекция чл.73, ал. 8"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__info_tag_45
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__info_tag_45
+msgid "[02-45] Vat type delivery"
+msgstr "[02-45] Вид доставка"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__info_tag_1
+msgid "[03-01] Tax period"
+msgstr "[03-01] Данъчен период"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__account_tag_30
+msgid "[03-30] Base without tax credit"
+msgstr "[03-30] Данъчна основа без право на данъчен кредит"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__account_tag_31
+msgid "[03-31] Base full tax credit"
+msgstr "[03-31] Данъчна основа с право на пълен данъчен кредит"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__account_tag_32
+msgid "[03-32] Base partly tax credit"
+msgstr "[03-32] Данъчна основа на частичен данъчен крадит"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__account_tag_41
+msgid "[03-41] VAT full tax credit"
+msgstr "[03-41] ДДС за пълен данъчен кредит"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__account_tag_42
+msgid "[03-42] VAT partly tax credit"
+msgstr "[03-42] ДДС за частичен данъчен кредит"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__account_tag_43
+msgid "[03-43] Annual adjustment - art. 73, paragraph 8"
+msgstr "[03-43] Годишна корекция - чл. 73, ал. 8"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__account_tag_44
+msgid ""
+"[03-44] Base when acquiring goods from an intermediary in a tripartite "
+"operation"
+msgstr ""
+"[03-44] Данъчна основа при придобиване на стоки от посредник при тристранна "
+"операция"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__account_tag_ttr_3
+msgid "[TTR-2] Base for ICD"
+msgstr "[TTR-2] Данъчна основа ДОП"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__account_tag_ttr_2
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_total_declar__account_tag_ttr_2
+msgid "[TTR-2] Base for ICD total [01-15]"
+msgstr "[TTR-2] Общо данъчна основа ВОД [01-15]"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_total_declar__account_tag_ttr_3
+msgid "[TTR-3] Base for ICD"
+msgstr "[TTR-3] Данъчна основа ВОД"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__info_tag_vir_1
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__info_tag_ttr_1
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__info_tag_vdr_1
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__info_tag_vtr_1
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_total_declar__info_tag_ttr_1
+msgid "[VDR-1] Main Record Section Code"
+msgstr "[VDR-1] Основен секционен код на записа"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__info_tag_vir_3
+msgid "[VDR-1] VIN "
+msgstr "[VDR-1] ЕИК "
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__info_tag_vdr_2
+msgid "[VDR-2] Represented person UIN"
+msgstr "[VDR-2] Лице подаващо декларацията ЕГН"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__info_tag_vdr_3
+msgid "[VDR-3] Represented person name"
+msgstr "[VDR-3] Лице подаващо декларацията име"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__info_tag_vdr_4
+msgid "[VDR-4] Represented person city"
+msgstr "[VDR-4] Лице подаващо декларацията град"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__info_tag_vdr_5
+msgid "[VDR-5] Represented person ZIP"
+msgstr "[VDR-5] Лице подаващо декларацията ПК"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__info_tag_vdr_6
+msgid "[VDR-6] Represented person address"
+msgstr "[VDR-6] Лице подаващо декларацията адрес"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__info_tag_vdr_7
+msgid "[VDR-7] Represented person function"
+msgstr "[VDR-7] Лице подаващо декларацията функция"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__info_tag_vhr_1
+msgid "[VHR-1] Main Record Section Code"
+msgstr "[VHR-1] Основен секционен код на записа"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__info_tag_vhr_2
+msgid "[VHR-2] Tax period"
+msgstr "[VHR-2] Данъчен период"
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__info_tag_vhr_3
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_total_declar__info_tag_vhr_3
+msgid "[VHR-3] Number of documents in the vies journal"
+msgstr "[VHR-3] Брой документи в дневника за VIES"
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__83
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__83
+#, python-format
+msgid "sales of bread"
+msgstr "продажба на хляб"

@@ -1,0 +1,28 @@
+id,country_id/id,code,name@en_US,name@bg_BG
+l10n_bg_city.S04279,base.bg,BLG,Region Blagoevgrad,Област Благоевград
+l10n_bg_city.S07079,base.bg,BGS,Region Burgas,Област Бургас
+l10n_bg_city.S10135,base.bg,VAR,Region Varna,Област Варна
+l10n_bg_city.S10447,base.bg,VTR,Region Veliko Tarnovo,Област Велико Търново
+l10n_bg_city.S10971,base.bg,VID,Region Vidin,Област Видин
+l10n_bg_city.S12259,base.bg,VRC,Region Vratsa,Област Враца
+l10n_bg_city.S14218,base.bg,GAB,Region Gabrovo,Област Габрово
+l10n_bg_city.S72624,base.bg,DOB,Region Dobrich,Област Добрич
+l10n_bg_city.S40909,base.bg,KRZ,Region Kardzhali,Област Кърджали
+l10n_bg_city.S41112,base.bg,KNL,Region Kyustendil,Област Кюстендил
+l10n_bg_city.S43952,base.bg,LOV,Region Lovech,Област Ловеч
+l10n_bg_city.S48489,base.bg,MON,Region Montana,Област Монтана
+l10n_bg_city.S55155,base.bg,PAZ,Region Pazardzhik,Област Пазарджик
+l10n_bg_city.S55871,base.bg,PER,Region Pernik,Област Перник
+l10n_bg_city.S56722,base.bg,PVN,Region Pleven,Област Плевен
+l10n_bg_city.S56784,base.bg,PDV,Region Plovdiv,Област Пловдив
+l10n_bg_city.S61710,base.bg,RAZ,Region Razgrad,Област Разград
+l10n_bg_city.S63427,base.bg,RSE,Region Ruse,Област Русе
+l10n_bg_city.S66425,base.bg,SLS,Region Silistra,Област Силистра
+l10n_bg_city.S67338,base.bg,SLV,Region Sliven,Област Сливен
+l10n_bg_city.S67653,base.bg,SML,Region Smolyan,Област Смолян
+l10n_bg_city.S68134,base.bg,SOF,Region Sofia,Област София
+l10n_bg_city.S68850,base.bg,SZG,Region Stara Zagora,Област Стара Загора
+l10n_bg_city.S73626,base.bg,TGV,Region Targovishte,Област Търговище
+l10n_bg_city.S77195,base.bg,HKV,Region Haskovo,Област Хасково
+l10n_bg_city.S83510,base.bg,SHU,Region Shumen,Област Шумен
+l10n_bg_city.S87374,base.bg,JAM,Region Yambol,Област Ямбол

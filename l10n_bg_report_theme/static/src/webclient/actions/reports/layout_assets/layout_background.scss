@@ -1,0 +1,25 @@
+.o_report_layout_header_background {
+    background-position: top center;
+    min-height: 113px;
+    background-image: url($o-default-report-background-header);
+    @media (min-width: 3508px) {
+        background-image: url($o-landscape-report-background-header);
+    }
+}
+.o_report_layout_footer_background {
+    background-position: bottom center;
+    min-height: 75px;
+    background-color: $o-default-report-footer-background-color;
+    background-image: url($o-default-report-background-footer);
+    @media (min-width: 3508px) {
+        background-image: url($o-landscape-report-background-footer);
+    }
+}
+.o_report_layout_article_background {
+    background-position: bottom center;
+    min-height: 620px;
+    background-image: url($o-default-report-background-article);
+    @media (min-width: 3508px) {
+        background-image: url($o-landscape-report-background-article);
+    }
+}

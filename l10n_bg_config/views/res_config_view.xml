@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.account</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="45" />
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <field name="is_l10n_bg_record" invisible="1" />
+                <field
+                    name="country_code"
+                    invisible="1"
+                    groups="account.group_account_manager"
+                />
+                <app
+                    data-string="Bulgaria Localization"
+                    string="Bulgaria Localization"
+                    name="l10n_bg_config"
+                    groups="account.group_account_manager"
+                    invisible="country_code != 'BG'"
+                >
+                    <block
+                        title="Settings"
+                        name="l10n_bg_config_settings"
+                        groups="base.group_no_one"
+                    >
+                        <setting
+                            id="l10n_bg_config_setting_params"
+                            title="Bulgaria settings"
+                            string="Bulgaria settings"
+                            help="Theatrical section for settings"
+                        >
+                            <div
+                                class="content-group"
+                                name="l10n_bg_config_is_l10n_bg_setting_container"
+                            >
+                                <div class="d-flex">
+                                    <field name="is_l10n_bg_record" class="ml16" />
+                                    <label
+                                        for="is_l10n_bg_record"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                    <block title="Multilang cyrillic support" name="l10n_bg_multilang">
+                        <setting
+                            id="l10n_bg_partner_multilang_modules"
+                            title="Partner multilang"
+                            string="Partner multilang"
+                            help="Multilang support for partner names and more"
+                        >
+                            <div
+                                class="content-group"
+                                name="l10n_bg_partner_multilang_setting_container"
+                            >
+                                <div class="d-flex">
+                                    <field
+                                        name="module_partner_multilang"
+                                        class="ml16"
+                                    />
+                                    <label
+                                        for="module_partner_multilang"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </setting>
+                        <setting
+                            id="l10n_bg_multilang_modules"
+                            title="Other multilang"
+                            string="Other multilang"
+                            help="Multilang support for other fields"
+                        >
+                            <div
+                                class="content-group"
+                                name="l10n_bg_other_multilang_setting_container"
+                            >
+                                <div class="d-flex">
+                                    <field
+                                        name="module_l10n_bg_multilang"
+                                        class="ml16"
+                                    />
+                                    <label
+                                        for="module_l10n_bg_multilang"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                    <block title="Report forms" name="l10n_bg_report_forms">
+                        <setting
+                            id="l10n_bg_report_forms_modules"
+                            title="Report printing forms"
+                            string="Report printing forms"
+                            help="Reform the reports forms support for Bulgaria"
+                        >
+                            <div
+                                class="content-group"
+                                name="l10n_bg_report_forms_setting_container"
+                            >
+                                <div class="d-flex">
+                                    <field
+                                        name="module_l10n_bg_report_theme"
+                                        class="ml16"
+                                    />
+                                    <label
+                                        for="module_l10n_bg_report_theme"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </setting>
+                        <setting
+                            id="l10n_bg_reports_audit_modules"
+                            title="Report audit for tax administration"
+                            string="Report audit for tax administration"
+                            help="The module provides support for financial and tax reporting in compliance with Bulgarian legislation."
+                        >
+                            <div
+                                class="content-group"
+                                name="l10n_bg_reports_audit_setting_container"
+                            >
+                                <div class="d-flex">
+                                    <field
+                                        name="module_l10n_bg_reports_audit"
+                                        class="ml16"
+                                    />
+                                    <label
+                                        for="module_l10n_bg_reports_audit"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                    <block title="Bank - modules" name="l10n_bg_bank">
+                        <setting
+                            id="l10n_bg_bank_modules"
+                            title="Bank related Modules"
+                            string="Bank related Modules"
+                            help="Will update daily from cron only if is checked Automatic Currency Rates (OCA) and you added a rate_provider"
+                        >
+                            <div
+                                class="content-group"
+                                name="l10n_bg_bank_setting_container"
+                            >
+                                <div class="d-flex">
+                                    <field
+                                        name="module_currency_rate_update_bg_bnb"
+                                        class="ml16"
+                                    />
+                                    <label
+                                        for="module_currency_rate_update_bg_bnb"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                    <block
+                        title="Partners &amp; Addresses"
+                        id="l10n_bg_contact_setting_container"
+                    >
+                        <setting
+                            id="l10n_bg_address_setting_container"
+                            title="Extend address"
+                            string="Extend address"
+                            help="Extend address with Bulgaria localization."
+                        >
+                            <div class="d-flex">
+                                <field
+                                    name="module_l10n_bg_address_extended"
+                                    class="ml16"
+                                />
+                                <label
+                                    for="module_l10n_bg_address_extended"
+                                    class="o_light_label"
+                                />
+                            </div>
+                        </setting>
+                        <setting
+                            id="l10n_bg_city_setting_container"
+                            title="Bulgarian cites"
+                            string="Bulgarian cites"
+                            help="Bulgaria cites, melisipalies, states..."
+                        >
+                            <div class="d-flex">
+                                <field name="module_l10n_bg_city" class="ml16" />
+                                <label
+                                    for="module_l10n_bg_city"
+                                    class="o_light_label"
+                                />
+                            </div>
+                        </setting>
+                        <setting
+                            id="l10n_bg_tax_offices_setting_container"
+                            title="National Revenue Agency"
+                            string="National Revenue Agency"
+                            help="National Revenue Agency departments, offices and head office."
+                        >
+                            <div class="d-flex">
+                                <field name="module_l10n_bg_tax_offices" class="ml16" />
+                                <label
+                                    for="module_l10n_bg_tax_offices"
+                                    class="o_light_label"
+                                />
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,119 @@
+/** WARNING - USE AT OWN RISK */
+/** IT IS AGAINST APPLE'S POLICY TO USE SF PRO FOR ANYTHING OTHER THAN iOS/tvOS/macOS/watchOS DESIGN & DEVELOPMENT */
+/** ../fonts/SF/font.css */
+/** ../fonts/SF/LICENSE.pdf */
+/** 1. Copy/import this file into your main css/scss file */
+/** 2. Change css font-family: to "SF Text", "SF Display" or "SF Mono" */
+/** 3. Apply font-weight or italic to html elements */
+/** THANK YOU */
+/** I host these fonts on Cloudfront with SSL in all AWS regions for the best performance and reliability */
+/** If you'd like to help offset costs, I'd very much appreciate a donation via Lisk https:/lisk.io */
+/** Address: 14987768355736502769L */
+/** Delegate: andrew */
+
+// Configuration
+$font-src: "./reports/fonts/SF";
+$font-pro-src: "./reports/fonts/SFPro";
+$font-format: "opentype";
+
+// Font weights
+$font-weights: (
+    "Black": 900,
+    "Bold": 300,
+    "Heavy": 800,
+    "Light": 200,
+    "Medium": 500,
+    "Regular": 400,
+    "Semibold": 600,
+    "Thin": 300,
+    "Ultralight": 100,
+);
+
+// Font styles
+$font-styles: (
+    "Bold Italic": (
+        "BoldItalic",
+        300,
+        italic,
+    ),
+    "Heavy Italic": (
+        "HeavyItalic",
+        800,
+        italic,
+    ),
+    "Light Italic": (
+        "LightItalic",
+        200,
+        italic,
+    ),
+    "Medium Italic": (
+        "MediumItalic",
+        500,
+        italic,
+    ),
+    "Regular Italic": (
+        "RegularItalic",
+        400,
+        italic,
+    ),
+    "Semibold Italic": (
+        "SemiboldItalic",
+        600,
+        italic,
+    ),
+    "Ultrathin Italic": (
+        "UltrathinItalic",
+        100,
+        italic,
+    ),
+);
+
+// Display fonts
+@each $font-weight, $weight in $font-weights {
+    @font-face {
+        font-family: "SF_Display";
+        font-weight: $weight;
+        src: url("#{$font-src}/SF-UI-Display-#{$font-weight}.otf") format($font-format);
+    }
+}
+
+// Text fonts
+@each $font-weight, $weight in $font-weights {
+    @font-face {
+        font-family: "SF_Text";
+        font-weight: $weight;
+        src: url("#{$font-src}/SF-UI-Text-#{$font-weight}.otf") format($font-format);
+    }
+}
+
+// Text italics fonts
+@each $font-style, $style-info in $font-styles {
+    @font-face {
+        font-family: "SF_Text";
+        font-weight: nth($style-info, 2);
+        font-style: nth($style-info, 3);
+        src: url("#{$font-src}/SF-UI-Text-#{nth($style-info, 1)}.otf")
+            format($font-format);
+    }
+}
+
+// Pro Text fonts
+@each $font-weight, $weight in $font-weights {
+    @font-face {
+        font-family: "SF_Pro_Text";
+        font-weight: $weight;
+        src: url("#{$font-pro-src}/SF-Pro-Text-#{$font-weight}.otf")
+            format($font-format);
+    }
+}
+
+// Pro Text italics fonts
+@each $font-style, $style-info in $font-styles {
+    @font-face {
+        font-family: "SF_Pro_Text";
+        font-weight: nth($style-info, 2);
+        font-style: nth($style-info, 3);
+        src: url("#{$font-pro-src}/SF-Pro-Text-#{nth($style-info, 1)}.otf")
+            format($font-format);
+    }
+}

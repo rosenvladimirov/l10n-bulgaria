@@ -1,0 +1,1 @@
+The **l10n_bg_config** module in Odoo simplifies the setup of Bulgarian localization by automatically installing all necessary modules, such as **l10n_bg**, **l10n_bg_reports_audit**, and **l10n_bg_report_theme**. It ensures a quick and seamless configuration, making the system ready for compliance with Bulgarian accounting and legal standards.

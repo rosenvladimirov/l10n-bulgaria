@@ -1,0 +1,1 @@
+The **currency_rate_update_bg_bnb** module automates the process of updating currency exchange rates in Odoo by fetching official data from the **Bulgarian National Bank (BNB)**. It is specifically designed for businesses in Bulgaria that require accurate and up-to-date exchange rates for accounting, invoicing, and tax purposes.

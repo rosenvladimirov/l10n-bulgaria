@@ -1,0 +1,61 @@
+/*
+Error: Undefined variable: "$grays".
+        on line 4 of report.scss
+
+1: $o-default-report-font: 'Lato' !default;
+2: $o-default-report-primary-color: rgb(26, 132, 203) !default;
+3: $o-default-report-secondary-color: rgb(209, 234, 255) !default;
+4: $o-default-report-base-color: map-get($grays, '900');
+5: $o-default-report-footer-background-color: rgb(248, 252, 255) !default;
+6: $o-default-report-background-color: rgb(234, 250, 255) !default;
+7: $o-default-report-border-color: map-get($grays, '700');
+8:
+9: /* portrait *\/
+
+Backtrace:
+report.scss:4
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/script/tree/variable.rb:49:in `_perform'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/script/tree/node.rb:50:in `perform'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/script/tree/funcall.rb:182:in `perform_arg'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/script/tree/funcall.rb:129:in `block in _perform'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/script/tree/funcall.rb:129:in `each'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/script/tree/funcall.rb:129:in `each_with_index'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/script/tree/funcall.rb:129:in `each'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/script/tree/funcall.rb:129:in `map'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/script/tree/funcall.rb:129:in `_perform'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/script/tree/node.rb:50:in `perform'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:478:in `visit_variable'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/stack.rb:79:in `block in with_base'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/stack.rb:79:in `with_base'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `map'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:157:in `visit'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:10:in `visit'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/root_node.rb:36:in `css_tree'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/engine.rb:389:in `_render_with_sourcemap'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/engine.rb:307:in `render_with_sourcemap'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:383:in `run'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:63:in `process_result'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/exec/base.rb:50:in `parse'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/lib/sass/exec/base.rb:18:in `parse!'
+/usr/share/rubygems-integration/all/gems/sass-3.7.4/bin/sass:8:in `<top (required)>'
+/usr/bin/sass:25:in `load'
+/usr/bin/sass:25:in `<main>'
+*/
+body:before {
+    white-space: pre;
+    font-family: monospace;
+    content: "Error: Undefined variable: \"$grays\".\A         on line 4 of report.scss\A \A 1: $o-default-report-font: 'Lato' !default;\A 2: $o-default-report-primary-color: rgb(26, 132, 203) !default;\A 3: $o-default-report-secondary-color: rgb(209, 234, 255) !default;\A 4: $o-default-report-base-color: map-get($grays, '900');\A 5: $o-default-report-footer-background-color: rgb(248, 252, 255) !default;\A 6: $o-default-report-background-color: rgb(234, 250, 255) !default;\A 7: $o-default-report-border-color: map-get($grays, '700');\A 8: \A 9: /* portrait */";
+}

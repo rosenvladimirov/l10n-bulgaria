@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value
+                eval="[('module', '=', 'l10n_bg_tax_offices'), ('model', '=', 'res.partner')]"
+            />
+        </function>
+        <value eval="{'noupdate': True, 'module': 'l10n_bg'}" />
+    </function>
+</odoo>

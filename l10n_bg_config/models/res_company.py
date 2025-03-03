@@ -63,7 +63,7 @@ class ResCompany(models.Model):
     @api.depends("chart_template")
     def _compute_is_l10n_bg_record(self):
         for record in self:
-            record.is_l10n_bg_record = record._check_is_l10n_bg_record(company=record.partner_id)
+            record.is_l10n_bg_record = record._check_is_l10n_bg_record(company=record.parent_id)
 
     def _check_is_l10n_bg_record(self, company=False):
         if company and isinstance(company, int):

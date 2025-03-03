@@ -70,9 +70,9 @@ CASE
     END
 END
         ) AS account_tag_50"""
-    elif not l10n_bg_odoo_compatible and mode == "tag_50":
+    elif not l10n_bg_compatible_odoo and mode == "tag_50":
         return """SUM(accr.account_tag_50) AS account_tag_50"""
-    elif l10n_bg_odoo_compatible and mode == "tag_60":
+    elif l10n_bg_compatible_odoo and mode == "tag_60":
         return """(
     CASE
         WHEN SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) - SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43) > 0 THEN
@@ -81,7 +81,7 @@ END
             ABS(SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) - SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43))
     END
 ) AS account_tag_60"""
-    elif not l10n_bg_odoo_compatible and mode == "tag_60":
+    elif not l10n_bg_compatible_odoo and mode == "tag_60":
         return """SUM(accr.account_tag_60) AS account_tag_60"""
 
 

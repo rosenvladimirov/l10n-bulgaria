@@ -38,7 +38,7 @@ class L10nBGConfigMixin(models.AbstractModel):
     @api.model
     def get_view(self, view_id=None, view_type="form", **options):
         result = super().get_view(view_id=view_id, view_type=view_type, **options)
-        if self.env.company.check_is_l10n_bg_record():
+        if self.env.company._check_is_l10n_bg_record():
             return result
 
         doc = etree.fromstring(result["arch"])

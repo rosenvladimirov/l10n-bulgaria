@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="address_layout" inherit_id="web.address_layout">
         <xpath expr="//t[@t-set='colclass']" position="after">
             <t t-set="show_address" t-value="false" t-if="not show_address" />
         </xpath>
         <xpath expr="//div[@name='address']" position="attributes">
-            <attribute name="t-if" add="show_address" separator=" " />
+            <attribute name="t-if" add="show_address" separator="and" />
         </xpath>
     </template>
     <template id="deal_no_partner">
@@ -78,9 +77,7 @@
         </div>
     </template>
     <template id="deal_partner">
-<!--         t-value="'SUPPLIER'"-->
         <t t-set="sender_name">SUPPLIER</t>
-<!--        t-value="'CUSTOMER'"-->
         <t t-set="recipient_name">CUSTOMER</t>
         <t t-if="reverce">
             <t t-if="sender">
@@ -91,9 +88,7 @@
             </t>
             <t t-set="recipient" t-value="recipient_new" />
             <t t-set="sender" t-value="sender_new" />
-<!--             t-value="'CUSTOMER'"/>-->
             <t t-set="sender_name">CUSTOMER</t>
-<!--             t-value="'SUPPLIER'"-->
             <t t-set="recipient_name">SUPPLIER</t>
         </t>
         <t t-set="sender_vat_label" t-value="sender.country_id.vat_label" />
@@ -309,7 +304,7 @@
         inherit_id="web.styles_company_report"
     >
         <xpath
-            expr='//t[@t-elif="layout == &apos;web.external_layout_standard&apos;"]'
+            expr='//t[@t-elif="layout == &apos;web.external_layout_bubble&apos;"]'
             position="after"
         >
             <t t-elif="layout == 'report_theme_sections.external_layout_sections'">

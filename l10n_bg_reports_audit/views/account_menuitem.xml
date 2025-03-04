@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Top menu item for Bulgaria reports -->
+    <menuitem
+        id="menu_account_l10n_bg_vat_report"
+        parent="account.account_reports_management_menu"
+        name="Bulgaria audit reports"
+        sequence="99"
+    >
+        <menuitem
+            id="menu_current_account_vat_report"
+            sequence="1"
+            action="l10n_bg_reports_audit.action_account_bg_calc_sales_line_line"
+        />
+        <menuitem
+            id="menu_current_account_vat_purchase_report"
+            sequence="2"
+            action="l10n_bg_reports_audit.action_account_bg_calc_purchases_line"
+        />
+        <menuitem
+            id="menu_current_account_vat_vies_report"
+            sequence="3"
+            action="l10n_bg_reports_audit.action_account_bg_calc_vies_line_line"
+        />
+    </menuitem>
+</odoo>

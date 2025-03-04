@@ -1,0 +1,136 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_city
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-29 06:08+0000\n"
+"PO-Revision-Date: 2024-08-29 09:15+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#. module: l10n_bg_city
+#: model:ir.model,name:l10n_bg_city.model_res_city
+#: model:res.city.types,name:l10n_bg_city.town
+msgid "City"
+msgstr "Град"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city__l10n_bg_code
+msgid "City Code"
+msgstr "Код на града"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city__l10n_bg_city_hall_id
+#: model:ir.model.fields.selection,name:l10n_bg_city.selection__res_city__l10n_bg_structure_type__cityhall
+msgid "City Hall"
+msgstr "Кметство"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types__code
+msgid "Code"
+msgstr "Код"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city__l10n_bg_structure_type
+msgid "Country Structure"
+msgstr "Държавна структура"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types__create_uid
+msgid "Created by"
+msgstr "Създаден от"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types__create_date
+msgid "Created on"
+msgstr "Създаден на"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city__l10n_bg_has_tax_office
+msgid "Has Tax Office"
+msgstr "Има офис на НАП"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types____last_update
+msgid "Last Modified on"
+msgstr "Последна промяна на"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types__write_uid
+msgid "Last Updated by"
+msgstr "Последна актуализация от"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types__write_date
+msgid "Last Updated on"
+msgstr "Последна актуализация на"
+
+#. module: l10n_bg_city
+#: model:res.city.types,name:l10n_bg_city.monastery
+msgid "Monastery"
+msgstr "Манастир"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city__l10n_bg_municipality_id
+#: model:ir.model.fields.selection,name:l10n_bg_city.selection__res_city__l10n_bg_structure_type__municipality
+msgid "Municipality"
+msgstr "Община"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types__name
+msgid "Name"
+msgstr "Име"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields.selection,name:l10n_bg_city.selection__res_city__l10n_bg_structure_type__normal
+msgid "Settlement"
+msgstr "Населено място"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,help:l10n_bg_city.field_res_city__l10n_bg_code
+msgid "The state code."
+msgstr "Код на държавата."
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,help:l10n_bg_city.field_res_city__l10n_bg_ecattu
+msgid "The unified classifier of administrative-territorial and territorial units"
+msgstr "Единният класификатор на административно-териториалните и териториалните единици"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city__l10n_bg_type_settlement_id
+msgid "Type of settlement"
+msgstr "Вид на населеното място"
+
+#. module: l10n_bg_city
+#: model:ir.model,name:l10n_bg_city.model_res_city_types
+msgid "Types of settlement"
+msgstr "Видове населени места"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city__l10n_bg_ecattu
+msgid "UCATTU"
+msgstr "ЕКАТЕ"
+
+#. module: l10n_bg_city
+#: model:res.city.types,name:l10n_bg_city.village
+msgid "Village"
+msgstr "Село"

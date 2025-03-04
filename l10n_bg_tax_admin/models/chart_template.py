@@ -500,6 +500,7 @@ class AccountAccountTemplate(models.Model):
                 )
         return super()._load_records(data_list, update=update)
 
+
 class AccountTaxTemplate(models.Model):
     _inherit = 'account.tax.template'
 

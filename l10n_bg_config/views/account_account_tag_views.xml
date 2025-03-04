@@ -5,22 +5,8 @@
         <field name="model">account.account.tag</field>
         <field name="inherit_id" ref="account.account_tag_view_form" />
         <field name="arch" type="xml">
-            <field name="name" position="after">
-                <field name="description" />
-            </field>
             <field name="applicability" position="after">
                 <field name="l10n_bg_applicability" />
-            </field>
-        </field>
-    </record>
-
-    <record id="account_tag_view_tree_code" model="ir.ui.view">
-        <field name="name">account.tag.view.tree.code</field>
-        <field name="model">account.account.tag</field>
-        <field name="inherit_id" ref="account.account_tag_view_tree" />
-        <field name="arch" type="xml">
-            <field name="name" position="after">
-                <field name="description" />
             </field>
         </field>
     </record>

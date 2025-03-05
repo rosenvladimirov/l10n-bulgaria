@@ -5,7 +5,7 @@
         <field name="model">res.city</field>
         <field name="inherit_id" ref="base_address_extended.view_city_tree" />
         <field name="arch" type="xml">
-            <xpath expr="//tree" position="inside">
+            <xpath expr="//list" position="inside">
                 <field name="l10n_bg_ecattu" />
                 <field name="l10n_bg_municipality_id" />
                 <field name="l10n_bg_city_hall_id" />

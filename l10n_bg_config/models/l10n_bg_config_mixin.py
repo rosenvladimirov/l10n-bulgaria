@@ -42,7 +42,7 @@ class L10nBGConfigMixin(models.AbstractModel):
             return result
 
         doc = etree.fromstring(result["arch"])
-        if view_type == "tree":
+        if view_type == "list":
             for field in doc.xpath('//field[contains(@name,"l10n_bg")]'):
                 if field.attrib.get("name") == "is_l10n_bg_record":
                     continue

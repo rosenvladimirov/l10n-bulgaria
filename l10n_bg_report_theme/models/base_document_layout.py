@@ -1,7 +1,8 @@
 # Copyright 2023 Rosen Vladimirov
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import api, fields, models, tools
+from odoo.tools import format_date, format_datetime, format_time
 
 
 class BaseDocumentLayout(models.TransientModel):
@@ -60,3 +61,33 @@ class BaseDocumentLayout(models.TransientModel):
                 wizard.logo_print_primary_color,
                 wizard.logo_print_secondary_color,
             )
+
+    def _get_render_information(self, styles):
+        res = super()._get_render_information(styles)
+        env = self.env
+        res.update(
+            {
+                "format_date": lambda date,
+                                      lang_code=False,
+                                      date_format=False: format_date(
+                    env, date, lang_code=lang_code, date_format=date_format
+                ),
+                "format_datetime": lambda dt,
+                                          tz=False,
+                                          dt_format=False,
+                                          lang_code=False: format_datetime(
+                    env, dt, tz=tz, dt_format=dt_format, lang_code=lang_code
+                ),
+                "format_time": lambda time,
+                                      tz=False,
+                                      time_format=False,
+                                      lang_code=False: format_time(
+                    env, time, tz=tz, time_format=time_format, lang_code=lang_code
+                ),
+                "format_amount": lambda amount,
+                                        currency,
+                                        lang_code=False: tools.format_amount(env, amount, currency, lang_code),
+                "format_duration": lambda value: tools.format_duration(value),
+            }
+        )
+        return res

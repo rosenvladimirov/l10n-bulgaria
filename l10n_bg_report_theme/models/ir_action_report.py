@@ -18,25 +18,25 @@ class IrActionsReport(models.Model):
         values.update(
             {
                 "format_date": lambda date,
-                lang_code=False,
-                date_format=False: format_date(
+                                      lang_code=False,
+                                      date_format=False: format_date(
                     env, date, lang_code=lang_code, date_format=date_format
                 ),
                 "format_datetime": lambda dt,
-                tz=False,
-                dt_format=False,
-                lang_code=False: format_datetime(
+                                          tz=False,
+                                          dt_format=False,
+                                          lang_code=False: format_datetime(
                     env, dt, tz=tz, dt_format=dt_format, lang_code=lang_code
                 ),
                 "format_time": lambda time,
-                tz=False,
-                time_format=False,
-                lang_code=False: format_time(
+                                      tz=False,
+                                      time_format=False,
+                                      lang_code=False: format_time(
                     env, time, tz=tz, time_format=time_format, lang_code=lang_code
                 ),
                 "format_amount": lambda amount,
-                currency,
-                lang_code=False: tools.format_amount(env, amount, currency, lang_code),
+                                        currency,
+                                        lang_code=False: tools.format_amount(env, amount, currency, lang_code),
                 "format_duration": lambda value: tools.format_duration(value),
             }
         )

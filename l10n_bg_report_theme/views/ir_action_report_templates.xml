@@ -50,5 +50,6 @@
                 <t t-set="name_date" t-value="''" />
             </t>
         </xpath>
+        <xpath expr="//t[@t-set='layout_document_title']" position="replace"/>
     </template>
 </odoo>

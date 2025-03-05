@@ -29,10 +29,10 @@
     "demo": [],
     "assets": {
         "web.report_assets_common": [
-            "report_theme_sections/static/src/webclient/actions/sffont.scss",
-            "report_theme_sections/static/src/webclient/actions/reports/report.scss",
-            "report_theme_sections/static/src/webclient/actions/reports/layout_assets/layout_sections.scss",
-            "report_theme_sections/static/src/webclient/actions/reports/layout_assets/layout_background.scss",
+            "l10n_bg_report_theme/static/src/webclient/actions/sffont.scss",
+            "l10n_bg_report_theme/static/src/webclient/actions/reports/report.scss",
+            "l10n_bg_report_theme/static/src/webclient/actions/reports/layout_assets/layout_sections.scss",
+            "l10n_bg_report_theme/static/src/webclient/actions/reports/layout_assets/layout_background.scss",
         ]
     },
 }

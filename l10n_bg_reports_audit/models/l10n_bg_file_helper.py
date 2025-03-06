@@ -517,8 +517,8 @@ class AuditExportFileHelper(models.AbstractModel):
             "file_type": "zip",
         }
 
-    def _get_l10n_bg_results(self, tax_report):
-        full_query = self._build_l10n_bg_query(tax_report)
+    def _get_l10n_bg_results(self, tax_report, options=False):
+        full_query = self._build_l10n_bg_query(tax_report, options=options)
         self._cr.execute(full_query, [])
         results = self._cr.dictfetchall()
         return results

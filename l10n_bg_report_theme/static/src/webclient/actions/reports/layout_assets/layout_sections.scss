@@ -1,10 +1,17 @@
+@function hex-to-rgb($hex) {
+    @return red($hex), green($hex), blue($hex);
+}
+
 :root {
     /* colors */
     --primary-color: #{$o-default-report-primary-color};
+    --primary-color-rgb: #{hex-to-rgb($o-default-report-primary-color)};
     --secondary-color: #{$o-default-report-secondary-color};
+    --secondary-color-rgb: #{hex-to-rgb($o-default-report-secondary-color)};
     --inverse-color: #{$o-default-report-inverse-color};
     --base-color: #{$o-default-report-base-color};
     --border-color: #{$o-default-report-border-color};
+    --border-color-rgb: #{hex-to-rgb($o-default-report-border-color)};
     --background-color: #{$o-default-report-background-color};
     --background-footer: #{$o-default-report-footer-background-color};
     /* font */
@@ -115,10 +122,10 @@ strong {
             border: 1px solid var(--border-color);
             tr th {
                 font-weight: 400;
-                border: 1px solid rgba(var(--primary-color), 0.9);
+                border: 1px solid rgba(var(--primary-color-rgb), 0.9);
                 text-transform: uppercase;
                 color: var(--inverse-color);
-                background-color: rgba(var(--primary-color), 0.9);
+                background-color: rgba(var(--primary-color-rgb), 0.9);
             }
         }
         tbody {
@@ -138,7 +145,7 @@ strong {
 .o_sections_header {
     padding-top: 15px;
     margin-top: 0;
-    border-bottom: 1px rgba(var(--border-color), 0.5);
+    border-bottom: 1px rgba(var(--border-color-rgb), 0.5);
     color: var(--base-color);
     height: var(--default-height-header) !important;
     @media (min-width: 3508px) {
@@ -157,7 +164,7 @@ strong {
 }
 .o_sections_footer {
     white-space: nowrap;
-    border-top: 1px rgba(var(--border-color), 0.5);
+    border-top: 1px rgba(var(--border-color-rgb), 0.5);
     font-size: 10px;
     padding-top: 5px;
     padding-bottom: 0;
@@ -197,17 +204,17 @@ strong {
             border: 1px solid var(--border-color);
             tr th {
                 font-weight: 600;
-                border: 1px solid rgba(var(--primary-color), 0.9);
+                border: 1px solid rgba(var(--primary-color-rgb), 0.9);
                 text-transform: uppercase;
                 color: var(--inverse-color);
-                background-color: rgba(var(--primary-color), 0.9);
+                background-color: rgba(var(--primary-color-rgb), 0.9);
             }
         }
         tbody {
             color: var(--base-color);
             border: none;
             tr {
-                border-bottom: 1px solid rgba(var(--border-color), 0.1);
+                border-bottom: 1px solid rgba(var(--border-color-rgb), 0.1);
                 td {
                     // remove border from standard layout
                     vertical-align: top;
@@ -216,8 +223,8 @@ strong {
                 &.o_line_section td,
                 &.o_line_note td,
                 &.is-subtotal td {
-                    border-top: 1px solid rgba(var(--border-color), 0.7);
-                    border-bottom: 1px solid rgba(var(--border-color), 0.7);
+                    border-top: 1px solid rgba(var(--border-color-rgb), 0.7);
+                    border-bottom: 1px solid rgba(var(--border-color-rgb), 0.7);
                 }
                 &.o_line_section td {
                     font-weight: 600;
@@ -226,7 +233,7 @@ strong {
                 }
                 &.is-subtotal,
                 td.o_price_total {
-                    background-color: rgba(var(--secondary-color), 0.1);
+                    background-color: rgba(var(--secondary-color-rgb), 0.1);
                 }
             }
         }
@@ -250,7 +257,7 @@ strong {
             }
             &:last-child td,
             &.o_total td {
-                background-color: rgba(var(--primary-color), 0.9);
+                background-color: rgba(var(--primary-color-rgb), 0.9);
                 color: var(--inverse-color);
 
                 &:first-child {

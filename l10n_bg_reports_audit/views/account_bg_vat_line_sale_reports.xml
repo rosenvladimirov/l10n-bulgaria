@@ -116,7 +116,7 @@
     <record id="action_account_bg_calc_sales_line_line" model="ir.actions.act_window">
         <field name="name">VAT Sales report</field>
         <field name="res_model">account.bg.calc.sales.line</field>
-        <field name="view_mode">pivot,tree</field>
+        <field name="view_mode">pivot,list</field>
         <field name="context">{'search_default_filter_date_last_month': 1}</field>
     </record>
 

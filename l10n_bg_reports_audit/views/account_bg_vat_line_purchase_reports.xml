@@ -103,7 +103,7 @@
     <record id="action_account_bg_calc_purchases_line" model="ir.actions.act_window">
         <field name="name">VAT Purchases report</field>
         <field name="res_model">account.bg.calc.purchases.line</field>
-        <field name="view_mode">pivot,tree</field>
+        <field name="view_mode">pivot,list</field>
         <field name="context">{'search_default_filter_date_last_month': 1}</field>
     </record>
 

@@ -14,7 +14,7 @@ class IrActionsReport(models.Model):
     def _get_rendering_context(self, report, docids, data):
         values = super()._get_rendering_context(report, docids, data)
         env = self.env
-        _logger.warning(f"REPORT {values}")
+        # _logger.warning(f"REPORT {values}")
         values.update(
             {
                 "format_date": lambda date,
@@ -40,5 +40,5 @@ class IrActionsReport(models.Model):
                 "format_duration": lambda value: tools.format_duration(value),
             }
         )
-        # _logger.info(f"REPORT {values}")
+        _logger.info(f"REPORT {values}")
         return values

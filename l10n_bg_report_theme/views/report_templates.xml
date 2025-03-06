@@ -23,7 +23,7 @@
                     <strong class="o_section_labels">The Attention of:</strong>
                     <div t-field="recipient_contact_id.name" />
                     <div
-                        t-raw="recipient_contact_id"
+                        t-out="recipient_contact_id"
                         name="contact_name"
                         t-options="{'widget': 'contact', 'fields': ['phone', 'mobile'], 'no_marker': True}"
                     />
@@ -43,7 +43,7 @@
                 </div>
                 <t t-if="recipient_invoice_id">
                     <div
-                        t-raw="recipient_invoice_id"
+                        t-out="recipient_invoice_id"
                         t-options="{'widget': 'contact', 'fields': ['address', 'name'], 'no_marker': True, 'phone_icons': True}"
                         name="invoice_address"
                     />
@@ -57,7 +57,7 @@
                     <div name="shipping_address">
                         <strong class="o_section_labels">Shipping address:</strong>
                         <div
-                            t-raw="recipient_shipping_id"
+                            t-out="recipient_shipping_id"
                             t-options="{'widget': 'contact', 'fields': ['address', 'name', 'phone', 'mobile'], 'no_marker': True, 'phone_icons': True}"
                         />
                     </div>
@@ -67,7 +67,7 @@
                 <strong class="o_section_labels" t-if="sender">From:</strong>
                 <div
                     t-if="sender"
-                    t-raw="sender"
+                    t-out="sender"
                     t-options="{'widget': 'contact', 'fields': ['address', 'name', 'phone'], 'no_marker': True, 'phone_icons': True}"
                 />
                 <div name="company_vat_number" t-if="sender and sender.vat"><span

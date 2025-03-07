@@ -19,6 +19,7 @@
     "data": [
         "views/report_templates.xml",
         "data/report_layout.xml",
+        "data/report_paperformat_data.xml",
         "views/res_company_views.xml",
         "views/base_document_layout_views.xml",
         "views/ir_action_report_templates.xml",
@@ -33,6 +34,6 @@
             "l10n_bg_report_theme/static/src/webclient/actions/reports/report.scss",
             "l10n_bg_report_theme/static/src/webclient/actions/reports/layout_assets/layout_sections.scss",
             "l10n_bg_report_theme/static/src/webclient/actions/reports/layout_assets/layout_background.scss",
-        ]
+        ],
     },
 }

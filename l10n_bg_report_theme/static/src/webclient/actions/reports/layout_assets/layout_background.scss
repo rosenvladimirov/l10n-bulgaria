@@ -9,7 +9,7 @@
 .o_report_layout_footer_background {
     background-position: bottom center;
     min-height: 75px;
-    background-color: $o-default-report-footer-background-color;
+    //background-color: $o-default-report-footer-background-color;
     background-image: url($o-default-report-background-footer);
     @media (min-width: 3508px) {
         background-image: url($o-landscape-report-background-footer);

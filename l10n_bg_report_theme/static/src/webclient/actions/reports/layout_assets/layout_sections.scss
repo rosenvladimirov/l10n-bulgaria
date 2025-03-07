@@ -135,10 +135,10 @@ strong {
 }
 .o_sections_article {
     height: $o-default-height-report-page-article !important;
-    background-image: $o-default-report-background-article;
+    //background-image: $o-default-report-background-article;
     @media (min-width: 3508px) {
         height: $o-landscape-height-report-page-article !important;
-        background-image: $o-landscape-report-background-article;
+        //background-image: $o-landscape-report-background-article;
     }
     #total strong {
         color: $o-default-report-primary-color;

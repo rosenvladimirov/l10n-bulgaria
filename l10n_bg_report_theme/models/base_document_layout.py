@@ -1,8 +1,9 @@
 # Copyright 2023 Rosen Vladimirov
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+import logging
 
 from odoo import api, fields, models, tools
-from odoo.tools import format_date, format_datetime, format_time
+_logger = logging.getLogger(__name__)
 
 
 class BaseDocumentLayout(models.TransientModel):
@@ -23,6 +24,7 @@ class BaseDocumentLayout(models.TransientModel):
 
     # Those following fields are required as a company to create invoice report
     mobile = fields.Char(related="company_id.mobile", readonly=True)
+
     # sender = fields.Many2one(related='company_id.partner_id', readonly=True)
     # recipient = fields.Many2one(related='company_id.partner_id', readonly=True)
 
@@ -61,3 +63,43 @@ class BaseDocumentLayout(models.TransientModel):
                 wizard.logo_print_primary_color,
                 wizard.logo_print_secondary_color,
             )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super().create(vals_list)
+        for res, values in zip(res, vals_list):
+            if values.get('external_report_layout_id'):
+                report_layout_id = self.env.ref(
+                    'l10n_bg_report_theme.report_layout_sections',
+                    raise_if_not_found=False
+                )
+                report_invoice_id = self.env.ref(
+                    'l10n_bg_report_theme.report_invoice_document',
+                    raise_if_not_found=False
+                )
+                report_purchasequotation_document_id = self.env.ref(
+                    'l10n_bg_report_theme.report_purchasequotation_document',
+                    raise_if_not_found=False
+                )
+                report_purchaseorder_document_id = self.env.ref(
+                    'l10n_bg_report_theme.report_purchaseorder_document',
+                    raise_if_not_found=False
+                )
+                report_saleorder_document_id = self.env.ref(
+                    'l10n_bg_report_theme.report_saleorder_document',
+                    raise_if_not_found=False
+                )
+
+                if report_invoice_id:
+                    report_invoice_id.with_context(**dict(self._context, active_test=False)).active = \
+                        res.report_layout_id.id == report_layout_id.id
+                if report_purchasequotation_document_id:
+                    report_purchasequotation_document_id.with_context(**dict(self._context, active_test=False)).active = \
+                        res.report_layout_id.id == report_layout_id.id
+                if report_purchaseorder_document_id:
+                    report_purchaseorder_document_id.with_context(**dict(self._context, active_test=False)).active = \
+                        res.report_layout_id.id == report_layout_id.id
+                if report_saleorder_document_id:
+                    report_saleorder_document_id.with_context(**dict(self._context, active_test=False)).active = \
+                        res.report_layout_id.id == report_layout_id.id
+        return res

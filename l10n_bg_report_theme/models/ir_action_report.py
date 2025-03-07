@@ -40,5 +40,5 @@ class IrActionsReport(models.Model):
                 "format_duration": lambda value: tools.format_duration(value),
             }
         )
-        _logger.info(f"REPORT {values}")
+        # _logger.info(f"REPORT {values}")
         return values

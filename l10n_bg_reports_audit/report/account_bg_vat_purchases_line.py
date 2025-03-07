@@ -26,10 +26,15 @@ class AccountBGInfoPurchasesLine(models.Model):
     _order = "move_id asc"
 
     company_id = fields.Many2one("res.company", "Company", readonly=True)
+    company_currency_id = fields.Many2one(
+        related="company_id.currency_id",
+        readonly=True
+    )
     move_id = fields.Many2one(
         "account.move", string="Account Move", readonly=True, auto_join=True
     )
     id = fields.Integer(string="ID", readonly=True, related="move_id.id")
+    partner_id = fields.Many2one("res.partner", "Customer", readonly=True)
 
     info_tag_1 = fields.Char(string="[02-01] Tax period", readonly=True)
     info_tag_2 = fields.Char(string="[02-02] TIN", readonly=True)
@@ -47,6 +52,42 @@ class AccountBGInfoPurchasesLine(models.Model):
     )
     info_tag_45 = fields.Selection(
         selection=get_delivery_type(), string="[02-45] Vat type delivery", readonly=True
+    )
+
+    account_tag_30 = fields.Monetary(
+        string="[03-30] Base without tax credit",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_31 = fields.Monetary(
+        string="[03-31] Base full tax credit",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_41 = fields.Monetary(
+        string="[03-41] VAT full tax credit",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_32 = fields.Monetary(
+        string="[03-32] Base partly tax credit",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_42 = fields.Monetary(
+        string="[03-42] VAT partly tax credit",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_43 = fields.Monetary(
+        string="[03-43] Annual adjustment - art. 73, paragraph 8",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_44 = fields.Monetary(
+        string="[03-44] Base when acquiring goods from an intermediary in a tripartite operation",
+        currency_field="company_currency_id",
+        readonly=True,
     )
 
     @property
@@ -78,6 +119,7 @@ UNION
             lang = self._context["report_options"]["lang"]
         return f"""am.company_id AS company_id,
         am.id AS move_id,
+        am.partner_id AS partner_id,
         accp.info_tag_1 AS info_tag_1,
         COALESCE(company_partner.l10n_bg_uic, company_partner.vat) AS info_tag_2,
         company.l10n_bg_departament_code AS info_tag_3,
@@ -89,13 +131,13 @@ UNION
         partner.name{lang} AS info_tag_9,
         am.l10n_bg_narration{lang} AS info_tag_10,
         am.l10n_bg_delivery_type AS info_tag_45,
-        accp.account_tag_30,
-        accp.account_tag_31,
-        accp.account_tag_41,
-        accp.account_tag_32,
-        accp.account_tag_42,
-        accp.account_tag_43,
-        accp.account_tag_44"""
+        accp.account_tag_30 AS account_tag_30,
+        accp.account_tag_31 AS account_tag_31,
+        accp.account_tag_41 AS account_tag_41,
+        accp.account_tag_32 AS account_tag_32,
+        accp.account_tag_42 AS account_tag_42,
+        accp.account_tag_43 AS account_tag_43,
+        accp.account_tag_44 AS account_tag_44"""
 
     @api.model
     def _from(self, where_clause=""):

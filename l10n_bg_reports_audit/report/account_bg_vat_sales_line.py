@@ -28,11 +28,23 @@ class AccountBGInfoSaleLine(models.Model):
     _order = "date asc, move_id asc"
 
     date = fields.Date(string="Document date", readonly=True)
-    company_id = fields.Many2one("res.company", "Company", readonly=True)
+    company_id = fields.Many2one(
+        "res.company",
+        "Company",
+        readonly=True
+    )
+    company_currency_id = fields.Many2one(
+        related="company_id.currency_id",
+        readonly=True
+    )
     move_id = fields.Many2one(
-        "account.move", string="Account Move", readonly=True, auto_join=True
+        "account.move",
+        string="Account Move",
+        readonly=True,
+        auto_join=True
     )
     id = fields.Integer(string="ID", readonly=True, related="move_id.id")
+    partner_id = fields.Many2one("res.partner", "Customer", readonly=True)
 
     state = fields.Selection(
         [
@@ -59,6 +71,92 @@ class AccountBGInfoSaleLine(models.Model):
         string="Delivery according to Art. 163a or import under Art. 167a of the VAT",
         readonly=True,
     )
+    account_tag_10 = fields.Monetary(
+        string="[02-10] Total amount of VAT charged",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_20 = fields.Monetary(
+        string="[02-20] All VAT charged",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_11 = fields.Monetary(
+        string="[02-11] Base for taxation with 20%",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_21 = fields.Monetary(
+        string="[02-21] VAT 20%", currency_field="company_currency_id", readonly=True
+    )
+    account_tag_12 = fields.Monetary(
+        string="[02-12] Base ICA", currency_field="company_currency_id", readonly=True
+    )
+    account_tag_121 = fields.Monetary(
+        string="[02-12-1] Base ICA (1)",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_122 = fields.Monetary(
+        string="[02-12-2] Base ICA (2)",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_26 = fields.Monetary(
+        string="[02-26] Base art. 82, paragraphs 2-5",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_22 = fields.Monetary(
+        string="[02-22] VAT ICA and art. 82, par. 2-5",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_23 = fields.Monetary(
+        string="[02-23] VAT-personal needs",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_14 = fields.Monetary(
+        string="[02-14] Base export 0%",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_15 = fields.Monetary(
+        string="[02-15] Base ICD of goods 0%",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_16 = fields.Monetary(
+        string="[02-16] Base 0% under Art. 140, par, 1 and Art. 173",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_17 = fields.Monetary(
+        readonly=True,
+        string="[02-17] Base under Art. 21 on the territory of the EU",
+        currency_field="company_currency_id",
+    )
+    account_tag_18 = fields.Monetary(
+        string="[02-18] Base under Art. 69, paragraph 2 on the territory of the EU",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_19 = fields.Monetary(
+        string="[02-19] Base educated and ICA",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_24 = fields.Monetary(
+        string="[02-24] VAT-tourist services 9%",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_25 = fields.Monetary(
+        string="[02-25] TO-trilateral operations",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
 
     @property
     def _table_query(self):
@@ -76,6 +174,7 @@ class AccountBGInfoSaleLine(models.Model):
         return f""" am.company_id AS company_id,
         am.id AS move_id,
         am.state AS state,
+        am.partner_id AS partner_id,
         COALESCE(company_partner.vat, company_partner.l10n_bg_uic) AS info_tag_0,
         accs.info_tag_1 AS info_tag_1,
         company.l10n_bg_departament_code AS info_tag_2,
@@ -88,24 +187,24 @@ class AccountBGInfoSaleLine(models.Model):
         am.l10n_bg_narration{lang} AS info_tag_9,
         am.l10n_bg_delivery_type AS info_tag_27,
         accs.account_tag_11 + accs.account_tag_121 + accs.account_tag_122 + accs.account_tag_13 + accs.account_tag_15 + accs.account_tag_16 + accs.account_tag_17 + accs.account_tag_18 + accs.account_tag_19 AS account_tag_10,
-        accs.account_tag_11,
+        accs.account_tag_11 AS account_tag_11,
         accs.account_tag_121 + accs.account_tag_122 AS account_tag_12,
-        accs.account_tag_121,
-        accs.account_tag_122,
-        accs.account_tag_13,
-        accs.account_tag_14,
-        accs.account_tag_15,
-        accs.account_tag_16,
-        accs.account_tag_17,
-        accs.account_tag_18,
-        accs.account_tag_19,
+        accs.account_tag_121 AS account_tag_121,
+        accs.account_tag_122 AS account_tag_122,
+        accs.account_tag_13 AS account_tag_13,
+        accs.account_tag_14 AS account_tag_14,
+        accs.account_tag_15 AS account_tag_15,
+        accs.account_tag_16 AS account_tag_16,
+        accs.account_tag_17 AS account_tag_17,
+        accs.account_tag_18 AS account_tag_18,
+        accs.account_tag_19 AS account_tag_19,
         accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24 AS account_tag_20,
-        accs.account_tag_21,
-        accs.account_tag_26,
-        accs.account_tag_22,
-        accs.account_tag_23,
-        accs.account_tag_24,
-        accs.account_tag_25"""
+        accs.account_tag_21 AS account_tag_21,
+        accs.account_tag_26 AS account_tag_26,
+        accs.account_tag_22 AS account_tag_22,
+        accs.account_tag_23 AS account_tag_23,
+        accs.account_tag_24 AS account_tag_24,
+        accs.account_tag_25 AS account_tag_25,"""
 
     @api.model
     def _from(self, where_clause=""):

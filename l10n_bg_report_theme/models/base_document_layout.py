@@ -98,7 +98,7 @@ class BaseDocumentLayout(models.TransientModel):
     @api.model_create_multi
     def create(self, vals_list):
         res = super().create(vals_list)
-        for res, values in zip(res, vals_list):
+        for template, values in zip(res, vals_list):
             if values.get('external_report_layout_id'):
                 report_layout_id = self.env.ref(
                     'l10n_bg_report_theme.report_layout_sections',
@@ -123,15 +123,15 @@ class BaseDocumentLayout(models.TransientModel):
 
                 if report_invoice_id:
                     report_invoice_id.with_context(**dict(self._context, active_test=False)).active = \
-                        res.report_layout_id.id == report_layout_id.id
+                        template.report_layout_id.id == report_layout_id.id
                 if report_purchasequotation_document_id:
                     report_purchasequotation_document_id.with_context(**dict(self._context, active_test=False)).active = \
-                        res.report_layout_id.id == report_layout_id.id
+                        template.report_layout_id.id == report_layout_id.id
                 if report_purchaseorder_document_id:
                     report_purchaseorder_document_id.with_context(**dict(self._context, active_test=False)).active = \
-                        res.report_layout_id.id == report_layout_id.id
+                        template.report_layout_id.id == report_layout_id.id
                 if report_saleorder_document_id:
                     report_saleorder_document_id.with_context(**dict(self._context, active_test=False)).active = \
-                        res.report_layout_id.id == report_layout_id.id
+                        template.report_layout_id.id == report_layout_id.id
         return res
 

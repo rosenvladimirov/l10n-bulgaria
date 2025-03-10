@@ -4,7 +4,8 @@
 {
     "name": "Bulgaria localization Configuration",
     "summary": """
-        This module allows you to install and configure all the localization modules related to Bulgaria.""",
+        This module allows you to install and configure all
+        the localization modules related to Bulgaria.""",
     "version": "18.0.1.0.0",
     "license": "AGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",

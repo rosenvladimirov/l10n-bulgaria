@@ -20,14 +20,14 @@
                <filter
                     name="filter_date_last_month"
                     string="Period: Last month"
-                    domain="[('state','=','posted'), ('date', '=', (context_today()+relativedelta(months=-1)).strftime('%Y%m'))]"
+                    domain="[('state','=','posted'), ('info_tag_1', '=', (context_today()+relativedelta(months=-1)).strftime('%Y%m'))]"
                 />
-                <filter
-                    name="company"
-                    string="Current company"
-                    domain="[('company_id','=',env.company_id.id)]"
-                    help="Use record only for current company"
-                />
+<!--                <filter-->
+<!--                    name="company"-->
+<!--                    string="Current company"-->
+<!--                    domain="[('company_id','=',env.company_id.id)]"-->
+<!--                    help="Use record only for current company"-->
+<!--                />-->
                 <separator />
                 <group expand="0" string="Group By...">
                     <filter

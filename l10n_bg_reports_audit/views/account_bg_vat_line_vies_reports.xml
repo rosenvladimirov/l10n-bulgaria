@@ -15,12 +15,12 @@
                     domain="[('state','=','posted')]"
                     help="Posted Journal Items"
                 />
-                <filter
-                    name="company"
-                    string="Current company"
-                    domain="[('company_id','=',env.company_id.id)]"
-                    help="Use record only for current company"
-                />
+<!--                <filter-->
+<!--                    name="company"-->
+<!--                    string="Current company"-->
+<!--                    domain="[('company_id','=',env.company_id.id)]"-->
+<!--                    help="Use record only for current company"-->
+<!--                />-->
                 <separator />
                 <group expand="0" string="Group By...">
                     <filter

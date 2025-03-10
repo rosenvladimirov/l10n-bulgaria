@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data noupdate="1">
         <record id="paperformat_euro_sections" model="report.paperformat">
@@ -14,7 +14,7 @@
             <field name="margin_right">0</field>
             <field name="header_line" eval="False" />
             <field name="header_spacing">30</field>
-            <field name="disable_shrinking" eval="True"/>
+            <field name="disable_shrinking" eval="True" />
             <field name="dpi">96</field>
         </record>
     </data>

@@ -1,0 +1,226 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_report_theme
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-10 13:47+0000\n"
+"PO-Revision-Date: 2025-03-10 13:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.styles_company_report_sections
+msgid ""
+":root {\n"
+"                    --font-family:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.styles_company_report_sections
+msgid ""
+";\n"
+"                    --primary-color:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.styles_company_report_sections
+msgid ""
+";\n"
+"                    --secondary-color:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
+msgid "<strong class=\"o_section_labels\">Shipping address:</strong>"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
+msgid "<strong class=\"o_section_labels\">The Attention of:</strong>"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+msgid "Address:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__layout_background_footer_image
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background_footer_image
+msgid "Background Footer Image"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__layout_background_header_image
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background_header_image
+msgid "Background Header Image"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+msgid "CUSTOMER"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "Cancelled Invoice"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model,name:l10n_bg_report_theme.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model,name:l10n_bg_report_theme.model_base_document_layout
+msgid "Company Document Layout"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+msgid "Company/Person Name:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "Credit Note"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "Draft Invoice"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__font
+msgid "Font"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
+msgid "From:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields.selection,name:l10n_bg_report_theme.selection__res_company__layout_background__section
+msgid "Included in layout"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "Invoice"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
+msgid "Invoicing address:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
+msgid "Invoicing and shipping address:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background
+msgid "Layout Background"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.external_layout_sections
+msgid "Logo"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__logo_print_primary_color
+msgid "Logo Print Primary Color"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__logo_print_secondary_color
+msgid "Logo Print Secondary Color"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__logo_print
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__logo_print
+msgid "Logo print"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_company_form
+msgid "Logos"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__mobile
+msgid "Mobile"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.external_layout_sections
+msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__preview_logo_print
+msgid "Preview print logo"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model,name:l10n_bg_report_theme.model_ir_actions_report
+msgid "Report Action"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields.selection,name:l10n_bg_report_theme.selection__res_company__font__sf_text
+msgid "SF Text"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields.selection,name:l10n_bg_report_theme.selection__res_company__font__sf_pro_text
+msgid "SF Text Pro"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+msgid "SUPPLIER"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+msgid "Str.:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+msgid "TIN"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Upload your footer file"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Upload your header file"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "Vendor Bill"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "Vendor Credit Note"
+msgstr ""

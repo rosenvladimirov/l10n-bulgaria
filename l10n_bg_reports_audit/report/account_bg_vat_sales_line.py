@@ -204,7 +204,7 @@ class AccountBGInfoSaleLine(models.Model):
         accs.account_tag_22 AS account_tag_22,
         accs.account_tag_23 AS account_tag_23,
         accs.account_tag_24 AS account_tag_24,
-        accs.account_tag_25 AS account_tag_25,"""
+        accs.account_tag_25 AS account_tag_25"""
 
     @api.model
     def _from(self, where_clause=""):

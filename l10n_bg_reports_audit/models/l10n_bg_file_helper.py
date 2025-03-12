@@ -1,8 +1,10 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
+import logging
 import tempfile
 import zipfile
 
 from odoo import _, fields, models
+_logger = logging.getLogger(__name__)
 
 
 def l10n_bg_lang(env, lang_modules="partner"):
@@ -544,5 +546,5 @@ class AuditExportFileHelper(models.AbstractModel):
             .with_context(**dict(self._context, report_options=options))
             ._table_query
         )
-        # _logger.info(f"SQL QUERY: {full_query}")
+        _logger.info(f"SQL QUERY: {full_query}")
         return full_query

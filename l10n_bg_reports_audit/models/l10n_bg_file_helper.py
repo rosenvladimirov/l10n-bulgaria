@@ -534,8 +534,8 @@ class AuditExportFileHelper(models.AbstractModel):
                 "all_entries": False,
             }
         else:
-            options["date"]["date_from"] = self.report_date_from
-            options["date"]["date_to"] = self.report_date_to
+            options["date"]["date_from"] = self.report_date_from or options["date"]["date_from"]
+            options["date"]["date_to"] = self.report_date_to or options["date"]["date_to"]
         sql_query = L10N_BG_REPORTS.get(tax_report, {}).get("sql", False)
         if not sql_query:
             return ""

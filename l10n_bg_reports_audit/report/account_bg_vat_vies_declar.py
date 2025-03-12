@@ -82,7 +82,7 @@ class AccountBGInfoViesDeclaration(models.Model):
         represent_partner.city{lang} AS info_tag_vdr_4,
         represent_partner.zip AS info_tag_vdr_5,
         represent_partner.street{lang} AS info_tag_vdr_6,
-        UPPER(SUBSTRING(represent_partner.l10n_bg_function FOR 1)) AS info_tag_vdr_7,
+        UPPER(SUBSTRING(represent_partner.type FOR 1)) AS info_tag_vdr_7,
         'VTR' AS info_tag_vtr_1,
         COALESCE(company_partner.vat, company_partner.l10n_bg_uic) AS info_tag_vtr_2,
         company_partner.name{lang_ext} AS info_tag_vtr_3,

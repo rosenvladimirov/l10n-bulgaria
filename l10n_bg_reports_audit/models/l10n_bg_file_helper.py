@@ -89,7 +89,11 @@ END
 
 def l10n_bg_where(env, report_options):
     date_from = report_options["date"]["date_from"]
+    if not date_from:
+        date_from = fields.Date.today()
     date_to = report_options["date"]["date_to"]
+    if not date_to:
+        date_to = fields.Date.today()
     date_from_date = fields.Date.from_string(date_from)
     tax_period = date_from_date.strftime("%Y%m")
     company_id = env.company.id
@@ -487,7 +491,7 @@ class AuditExportFileHelper(models.AbstractModel):
         else:
             return file_name, [""]
 
-    def _l10n_bg_export_csvs_zip(self, l10n_bg_vat_report):
+    def l10n_bg_export_csvs_zip(self, l10n_bg_vat_report):
         files_report = {}
         for report in ["declaration", "purchases", "sales", "vies"]:
             fname, report_csv = self._get_csvs(report)
@@ -505,7 +509,7 @@ class AuditExportFileHelper(models.AbstractModel):
             with zipfile.ZipFile(
                 buf, mode="w", compression=zipfile.ZIP_DEFLATED, allowZip64=False
             ) as zip_buffer:
-                for key, value in files_report:
+                for value in files_report.values():
                     for i, csv in enumerate(value["file_content"]):
                         zip_buffer.writestr(
                             value["file_name"], csv.encode("cp1251", errors="ignore")
@@ -514,7 +518,7 @@ class AuditExportFileHelper(models.AbstractModel):
             res = buf.read()
 
         return {
-            "file_name": l10n_bg_vat_report,
+            "file_name": 'vat_reports.zip',
             "file_content": res,
             "file_type": "zip",
         }

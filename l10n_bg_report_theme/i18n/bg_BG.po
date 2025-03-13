@@ -18,36 +18,6 @@ msgstr ""
 "X-Generator: Poedit 3.5\n"
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.styles_company_report_sections
-#, fuzzy
-msgid ""
-":root {\n"
-"                    --font-family:"
-msgstr ""
-":root {\n"
-"                    --font-family:"
-
-#. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.styles_company_report_sections
-#, fuzzy
-msgid ""
-";\n"
-"                    --primary-color:"
-msgstr ""
-";\n"
-"                    --основен цвят:"
-
-#. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.styles_company_report_sections
-#, fuzzy
-msgid ""
-";\n"
-"                    --secondary-color:"
-msgstr ""
-";\n"
-"                    --вторичен цвят:"
-
-#. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
 #, fuzzy
 msgid "<strong class=\"o_section_labels\">Shipping address:</strong>"

@@ -93,7 +93,7 @@ def l10n_bg_where(env, report_options):
     date_from_date = fields.Date.from_string(date_from)
     tax_period = date_from_date.strftime("%Y%m")
     company_id = env.company.id
-    unposted_in_period = report_options["unposted_in_period"]
+    unposted_in_period = report_options.get("unposted_in_period", False)
     all_entries = report_options["all_entries"]
     state = ["posted", "cancel"]
 

@@ -91,7 +91,7 @@ class AccountBGTotalViesDeclaration(models.Model):
             date_from_date = fields.Date.from_string(date_from)
             tax_period = date_from_date.strftime("%Y%m")
             company_id = self.env.company.id
-            unposted_in_period = report_options["unposted_in_period"]
+            unposted_in_period = report_options.get("unposted_in_period", False)
             state = ["posted"]
             if unposted_in_period:
                 state.append("draft")

@@ -10,6 +10,11 @@
             </field>
             <field name="applicability" position="after">
                 <field name="l10n_bg_applicability" />
+                <button name="action_bulk_edit"
+                        string="Bulk Edit"
+                        type="object"
+                        class="oe_highlight"
+                        groups="account.group_account_manager" />
             </field>
         </field>
     </record>
@@ -22,6 +27,23 @@
             <field name="name" position="after">
                 <field name="l10n_bg_code" />
             </field>
+        </field>
+    </record>
+
+    <record id="view_account_account_tag_bulk_edit_wizard_form" model="ir.ui.view">
+        <field name="name">account.account.tag.bulk.edit.wizard.form</field>
+        <field name="model">account.account.tag.bulk.edit.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Bulk Edit Account Tags">
+                <group>
+                    <field name="tag_ids" widget="many2many_tags"/>
+                    <field name="l10n_bg_applicability"/>
+                </group>
+                <footer>
+                    <button string="Apply" type="object" name="action_apply" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
         </field>
     </record>
 </odoo>

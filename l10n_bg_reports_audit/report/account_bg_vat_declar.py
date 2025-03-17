@@ -112,9 +112,10 @@ LEFT JOIN res_partner AS represent_partner
         if self._context.get("report_options"):
             report_options = self._context.get("report_options")
             date_from = report_options["date"]["date_from"]
-            date_from_date = fields.Date.from_string(date_from)
-            tax_period = date_from_date.strftime("%Y%m")
-            return f"""acc.company_id = {self.env.company.id} AND acc.info_tag_3 = '{tax_period}'"""
+            if date_from:
+                date_from_date = fields.Date.from_string(date_from)
+                tax_period = date_from_date.strftime("%Y%m")
+                return f"""acc.company_id = {self.env.company.id} AND acc.info_tag_3 = '{tax_period}'"""
         return f"""acc.company_id = {self.env.company.id}"""
 
     @api.model

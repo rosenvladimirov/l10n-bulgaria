@@ -53,6 +53,7 @@ class AccountBGInfoPurchasesLine(models.Model):
     info_tag_45 = fields.Selection(
         selection=get_delivery_type(), string="[02-45] Vat type delivery", readonly=True
     )
+
     account_tag_30 = fields.Monetary(
         string="[03-30] Base without tax credit",
         currency_field="company_currency_id",

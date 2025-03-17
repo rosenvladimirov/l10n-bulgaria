@@ -24,7 +24,6 @@ class BaseDocumentLayout(models.TransientModel):
 
     # Those following fields are required as a company to create invoice report
     mobile = fields.Char(related="company_id.mobile", readonly=True)
-
     # sender = fields.Many2one(related='company_id.partner_id', readonly=True)
     # recipient = fields.Many2one(related='company_id.partner_id', readonly=True)
 

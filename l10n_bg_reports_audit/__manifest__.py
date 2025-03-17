@@ -21,6 +21,7 @@
         "views/account_account_tag_views.xml",
         "views/res_config_view.xml",
         "views/account_menuitem.xml",
+        "wizards/account_account_tag_bulk_edit_wizard.xml",
     ],
     "installable": True,
 }

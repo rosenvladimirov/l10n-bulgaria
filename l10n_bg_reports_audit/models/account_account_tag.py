@@ -28,4 +28,3 @@ class AccountAccountTag(models.Model):
             'view_mode': 'form',
             'target': 'new',
         }
-

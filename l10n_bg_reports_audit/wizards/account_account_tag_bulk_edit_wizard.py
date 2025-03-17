@@ -1,6 +1,7 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import api, fields, models
-from .l10n_bg_file_helper import get_l10n_bg_applicability
+from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import get_l10n_bg_applicability
+
 
 class AccountAccountTagBulkEditWizard(models.TransientModel):
     _name = 'account.account.tag.bulk.edit.wizard'

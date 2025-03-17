@@ -88,12 +88,9 @@ END
 
 
 def l10n_bg_where(env, report_options):
-    date_from = report_options["date"]["date_from"]
-    if not date_from:
-        date_from = fields.Date.today()
-    date_to = report_options["date"]["date_to"]
-    if not date_to:
-        date_to = fields.Date.today()
+    date_now = fields.Date.today()
+    date_from = report_options["date"].get("date_from", date_now)
+    date_to = report_options["date"].get("date_to", date_now)
     date_from_date = fields.Date.from_string(date_from)
     tax_period = date_from_date.strftime("%Y%m")
     company_id = env.company.id
@@ -518,7 +515,7 @@ class AuditExportFileHelper(models.AbstractModel):
             res = buf.read()
 
         return {
-            "file_name": 'vat_reports.zip',
+            "file_name": l10n_bg_vat_report or 'vat_reports.zip',
             "file_content": res,
             "file_type": "zip",
         }

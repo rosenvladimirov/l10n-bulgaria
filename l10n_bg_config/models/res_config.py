@@ -57,3 +57,4 @@ class ResConfigSettings(models.TransientModel):
         "Bulgaria - Report Theme",
         help="Add theme for Bulgaria reports",
     )
+    l10n_bg_config_template =fields.Binary(related="company_id.l10n_bg_config_template", readonly=False)

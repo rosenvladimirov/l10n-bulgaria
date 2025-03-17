@@ -88,7 +88,7 @@ END
 
 
 def l10n_bg_where(env, report_options):
-    date_now = fields.Date.today()
+    date_now = fields.Date.today().strftime("%Y-%m-%d")
     date_from = report_options["date"].get("date_from", date_now)
     date_to = report_options["date"].get("date_to", date_now)
     date_from_date = fields.Date.from_string(date_from)
@@ -490,6 +490,9 @@ class AuditExportFileHelper(models.AbstractModel):
 
     def l10n_bg_export_csvs_zip(self, l10n_bg_vat_report):
         files_report = {}
+        self.report_date_from = l10n_bg_vat_report['date']['date_from']
+        self.report_date_to = l10n_bg_vat_report['date']['date_to']
+
         for report in ["declaration", "purchases", "sales", "vies"]:
             fname, report_csv = self._get_csvs(report)
             if report == "vies":
@@ -515,7 +518,7 @@ class AuditExportFileHelper(models.AbstractModel):
             res = buf.read()
 
         return {
-            "file_name": l10n_bg_vat_report or 'vat_reports.zip',
+            "file_name": 'vat_reports.zip',
             "file_content": res,
             "file_type": "zip",
         }
@@ -528,10 +531,11 @@ class AuditExportFileHelper(models.AbstractModel):
 
     def _build_l10n_bg_query(self, tax_report, options=False):
         if not options:
+            date_now = fields.Date.today().strftime("%Y-%m-%d")
             options = {
                 "date": {
-                    "date_from": self.report_date_from,
-                    "date_to": self.report_date_to,
+                    "date_from": self.report_date_from or date_now,
+                    "date_to": self.report_date_to or date_now,
                 },
                 "unposted_in_period": False,
                 "all_entries": False,

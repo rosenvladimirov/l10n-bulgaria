@@ -29,6 +29,7 @@ class ResCompany(models.Model):
         store=True,
     )
     l10n_bg_departament_code = fields.Integer("Departament code")
+    l10n_bg_config_template = fields.Binary("Config Template")
 
     def _compute_l10n_bg_represent_contact_id(self):
         for record in self:

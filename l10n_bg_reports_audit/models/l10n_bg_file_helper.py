@@ -4,6 +4,8 @@ import tempfile
 import zipfile
 
 from odoo import _, fields, models
+from dateutil.relativedelta import relativedelta
+
 _logger = logging.getLogger(__name__)
 
 
@@ -88,20 +90,47 @@ END
 
 
 def l10n_bg_where(env, report_options):
-    date_now = fields.Date.today()
-    date_from = report_options["date"].get("date_from", date_now)
-    date_to = report_options["date"].get("date_to", date_now)
+    date_now = fields.Date.to_string(fields.Date.today())
+    date_from = report_options["date"].get("date_from") or date_now
+    date_to = report_options["date"].get("date_to") or date_now
     date_from_date = fields.Date.from_string(date_from)
     tax_period = date_from_date.strftime("%Y%m")
     company_id = env.company.id
     unposted_in_period = report_options.get("unposted_in_period", False)
     all_entries = report_options["all_entries"]
     state = ["posted", "cancel"]
+    tax_periods = [tax_period] if tax_period else []
+
+    if not tax_period and date_from and not date_to:
+        date_from_date = fields.Date.from_string(date_from)
+        tax_period = date_from_date.strftime("%Y%m")
+
+    elif not tax_period and date_to and not date_from:
+        date_to_date = fields.Date.from_string(date_to)
+        tax_period = date_to_date.strftime("%Y%m")
+
+    elif date_from and date_to:
+        date_from_date = fields.Date.from_string(date_from)
+        date_to_date = fields.Date.from_string(date_to)
+        tax_periods = list_months_between_dates(date_from_date, date_to_date)
 
     if unposted_in_period or all_entries:
         state.append("draft")
-    return date_from, date_to, tax_period, company_id, state
 
+    return date_from, date_to, tax_period, tax_periods, company_id, state
+
+
+def list_months_between_dates(start_date, end_date):
+    """
+    Returns a list of months in the format YYYYMM between two dates.
+    """
+    months = []
+    current_date = start_date
+    while current_date <= end_date:
+        formatted_month = current_date.strftime("%Y%m")
+        months.append(formatted_month)
+        current_date += relativedelta(months=1)
+    return months
 
 def parce_str_2(value):
     value = value or ""

@@ -125,7 +125,7 @@ FROM {self._from()}
             # state = ['posted']
             # if unposted_in_period:
             #     state.append('draft')
-            date_from, date_to, tax_period, company_id, state = l10n_bg_where(
+            date_from, date_to, tax_period, tax_periods, company_id, state = l10n_bg_where(
                 self.env, self._context.get("report_options")
             )
             return f"""am.company_id = {company_id} AND am.state = ANY(ARRAY{state}) AND aat.l10n_bg_applicability = 'sale' AND aat.tag_name = ANY(ARRAY[15, 25, 17]) AND aml.balance != 0 AND am.date >= '{date_from}' AND am.date <= '{date_to}'"""

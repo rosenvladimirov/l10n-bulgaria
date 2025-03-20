@@ -513,6 +513,10 @@ class AuditExportFileHelper(models.AbstractModel):
             line_csv.append(content)
             # _logger.info(f"val: {val} content: {content}")
 
+        return file_name, line_csv
+
+    def get_csvs(self, report_type, options=None):
+        file_name, line_csv = self._get_csvs(report_type, options=options)
         if line_csv:
             return file_name, ["\r\n".join(line_csv) + "\r\n"]
         else:
@@ -523,9 +527,9 @@ class AuditExportFileHelper(models.AbstractModel):
         l10n_bg_vat_report = l10n_bg_vat_report or []
 
         for report in l10n_bg_vat_report:
-            fname, report_csv = self._get_csvs(report, options=options)
+            fname, report_csv = self.get_csvs(report, options=options)
             if report == "vies":
-                fname, report_csv_lines = self._get_csvs("vies_lines", options=options)
+                fname, report_csv_lines = self.get_csvs("vies_lines", options=options)
                 report_csv = [
                     report_csv[0] + report_csv_lines[0]
                 ]

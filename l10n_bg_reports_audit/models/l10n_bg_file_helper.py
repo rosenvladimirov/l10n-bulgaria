@@ -492,13 +492,13 @@ class AuditExportFileHelper(models.AbstractModel):
     report_date_from = fields.Date(string="From")
     report_date_to = fields.Date(string="To")
 
-    def _get_csvs(self, report_type):
+    def _get_csvs(self, report_type, options=None):
         lines = []
         reports = L10N_BG_REPORTS.get(report_type, {})
         fields_to_export = reports.get("fields")
         file_name = reports.get("file_name")
 
-        for line in self._get_l10n_bg_results(report_type):
+        for line in self._get_l10n_bg_results(report_type, options=options):
             new_line = {}
             for field, helper in fields_to_export.items():
                 new_line[field] = helper(line[field])
@@ -517,12 +517,14 @@ class AuditExportFileHelper(models.AbstractModel):
         else:
             return file_name, [""]
 
-    def l10n_bg_export_csvs_zip(self, l10n_bg_vat_report):
+    def _get_l10n_bg_csv(self, l10n_bg_vat_report=False, options=None):
         files_report = {}
-        for report in ["declaration", "purchases", "sales", "vies"]:
-            fname, report_csv = self._get_csvs(report)
+        l10n_bg_vat_report = l10n_bg_vat_report or []
+
+        for report in l10n_bg_vat_report:
+            fname, report_csv = self._get_csvs(report, options=options)
             if report == "vies":
-                fname, report_csv_lines = self._get_csvs("vies_lines")
+                fname, report_csv_lines = self._get_csvs("vies_lines", options=options)
                 report_csv = [
                     report_csv[0] + report_csv_lines[0]
                 ]
@@ -530,6 +532,10 @@ class AuditExportFileHelper(models.AbstractModel):
                 "file_name": fname,
                 "file_content": report_csv,
             }
+        return files_report
+
+    def l10n_bg_export_csvs_zip(self, l10n_bg_vat_report, options=None):
+        files_report = self._get_l10n_bg_csv(["declaration", "purchases", "sales", "vies"], options=options)
 
         with tempfile.NamedTemporaryFile() as buf:
             with zipfile.ZipFile(
@@ -576,5 +582,5 @@ class AuditExportFileHelper(models.AbstractModel):
             .with_context(**dict(self._context, report_options=options))
             ._table_query
         )
-        _logger.info(f"SQL QUERY: {full_query}")
+        # _logger.info(f"SQL QUERY: {full_query}")
         return full_query

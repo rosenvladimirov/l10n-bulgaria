@@ -358,7 +358,7 @@ L10N_BG_REPORTS = {
         "fields": L10N_BG_DECLARATION_FIELDS,
         "sql": "account.bg.vat.info.declar",
     },
-    "purchases": {
+    "purchase": {
         "file_name": "Pokupki.txt",
         "fields": L10N_BG_PURCHASES_FIELDS,
         "sql": "account.bg.info.purchases.line",
@@ -544,6 +544,23 @@ class AuditExportFileHelper(models.AbstractModel):
         l10n_bg_vat_report = l10n_bg_vat_report or []
 
         for report in l10n_bg_vat_report:
+            fname, report_csv = self._get_csvs(report, options=options)
+            if report == "vies":
+                fname, report_csv_lines = self._get_csvs("vies_lines", options=options)
+                report_csv = [
+                    report_csv + report_csv_lines
+                ]
+            files_report[report] = {
+                "file_name": fname,
+                "file_content": [{'line': x} for x in report_csv],
+            }
+        return files_report
+
+    def get_l10n_bg_csv(self, l10n_bg_vat_report=False, options=None):
+        files_report = {}
+        l10n_bg_vat_report = l10n_bg_vat_report or []
+
+        for report in l10n_bg_vat_report:
             fname, report_csv = self.get_csvs(report, options=options)
             if report == "vies":
                 fname, report_csv_lines = self.get_csvs("vies_lines", options=options)
@@ -557,7 +574,7 @@ class AuditExportFileHelper(models.AbstractModel):
         return files_report
 
     def l10n_bg_export_csvs_zip(self, options=None):
-        files_report = self._get_l10n_bg_csv(["declaration", "purchases", "sales", "vies"], options=options)
+        files_report = self.get_l10n_bg_csv(["declaration", "purchase", "sales", "vies"], options=options)
 
         with tempfile.NamedTemporaryFile() as buf:
             with zipfile.ZipFile(

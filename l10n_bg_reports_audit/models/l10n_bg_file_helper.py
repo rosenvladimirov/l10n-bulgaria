@@ -558,8 +558,8 @@ class AuditExportFileHelper(models.AbstractModel):
             }
         return files_report
 
-    def l10n_bg_export_csvs_zip(self, l10n_bg_vat_report, options=None):
-        files_report = self.get_l10n_bg_csv(["declaration", "purchases", "sales", "vies"], options=options)
+    def l10n_bg_export_csvs_zip(self, options=None):
+        files_report = self.get_l10n_bg_csv(["declaration", "purchase", "sales", "vies"], options=options)
 
         with tempfile.NamedTemporaryFile() as buf:
             with zipfile.ZipFile(
@@ -574,7 +574,7 @@ class AuditExportFileHelper(models.AbstractModel):
             res = buf.read()
 
         return {
-            "file_name": l10n_bg_vat_report or 'vat_reports.zip',
+            "file_name": 'vat_reports.zip',
             "file_content": res,
             "file_type": "zip",
         }

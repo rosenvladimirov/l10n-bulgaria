@@ -556,17 +556,7 @@ class AuditExportFileHelper(models.AbstractModel):
             }
         return files_report
 
-    def l10n_bg_export_csvs_zip(self, l10n_bg_vat_report, options=None):
-        if l10n_bg_vat_report and l10n_bg_vat_report['date'] and l10n_bg_vat_report['date']['date_from']:
-            report_date_from = l10n_bg_vat_report['date']['date_from']
-        if l10n_bg_vat_report and l10n_bg_vat_report['date'] and l10n_bg_vat_report['date']['date_to']:
-            report_date_to = l10n_bg_vat_report['date']['date_to']
-
-        if report_date_from and report_date_to:
-            options = _set_options(options, report_date_from, report_date_to)
-        else:
-            options = _set_options(options, self.report_date_from, self.report_date_to)
-
+    def l10n_bg_export_csvs_zip(self, options=None):
         files_report = self._get_l10n_bg_csv(["declaration", "purchases", "sales", "vies"], options=options)
 
         with tempfile.NamedTemporaryFile() as buf:
@@ -594,6 +584,8 @@ class AuditExportFileHelper(models.AbstractModel):
         return results
 
     def _build_l10n_bg_query(self, tax_report, options=False):
+        options = _set_options(options, self.report_date_from, self.report_date_to)
+
         sql_query = L10N_BG_REPORTS.get(tax_report, {}).get("sql", False)
         if not sql_query:
             return ""

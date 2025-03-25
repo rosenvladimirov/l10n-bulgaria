@@ -19,12 +19,12 @@ class AccountAccountTag(models.Model):
         for record in self:
             record.l10n_bg_code = "".join(filter(str.isdigit, record.name.upper()))
 
-    def action_bulk_edit(self):
-        self.ensure_one()
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Bulk Edit Tags',
-            'res_model': 'account.account.tag.bulk.edit.wizard',
-            'view_mode': 'form',
-            'target': 'new',
-        }
+    # def action_bulk_edit(self):
+    #     self.ensure_one()
+    #     return {
+    #         'type': 'ir.actions.act_window',
+    #         'name': 'Bulk Edit Tags',
+    #         'res_model': 'account.account.tag.bulk.edit.wizard',
+    #         'view_mode': 'form',
+    #         'target': 'new',
+    #     }

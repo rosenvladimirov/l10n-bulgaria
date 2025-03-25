@@ -8,8 +8,7 @@ from odoo import api, fields, models, tools
 from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import (
     l10n_bg_lang,
     l10n_bg_odoo_compatible,
-    l10n_bg_where,
-    list_months_between_dates
+    l10n_bg_where, list_months_between_dates,
 )
 
 _logger = logging.getLogger(__name__)

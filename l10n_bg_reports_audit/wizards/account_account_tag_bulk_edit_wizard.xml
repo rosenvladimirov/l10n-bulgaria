@@ -8,12 +8,21 @@
                 <group>
                     <field name="tag_ids" widget="many2many_tags"/>
                     <field name="l10n_bg_applicability"/>
+                    <field name="l10n_bg_config_file"/>
                 </group>
                 <footer>
-                    <button string="Apply" type="object" name="action_apply" class="btn-primary"/>
+                    <button string="Apply" type="object" name="action_apply" class="btn-primary" invisible="l10n_bg_config_file"/>
+                    <button string="Apply" type="object" name="action_process_config_file" class="btn-primary" invisible="l10n_bg_applicability"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
         </field>
+    </record>
+    <record id="action_account_tags_bulk_edit" model="ir.actions.act_window">
+        <field name="name">Bulk Edit Account Tags</field>
+        <field name="res_model">account.account.tag.bulk.edit.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_account_account_tag_bulk_edit_wizard_form"/>
     </record>
 </odoo>

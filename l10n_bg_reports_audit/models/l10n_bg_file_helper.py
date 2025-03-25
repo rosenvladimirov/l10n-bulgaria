@@ -89,6 +89,23 @@ END
         return """SUM(accr.account_tag_60) AS account_tag_60"""
 
 
+def _set_options(options, report_date_from, report_date_to):
+    if not options:
+        date_now = fields.Date.today().strftime("%Y-%m-%d")
+        options = {
+            "date": {
+                "date_from": report_date_from or date_now,
+                "date_to": report_date_to or date_now,
+            },
+            "unposted_in_period": False,
+            "all_entries": False,
+        }
+    else:
+        options["date"]["date_from"] = report_date_from or options["date"]["date_from"]
+        options["date"]["date_to"] = report_date_to or options["date"]["date_to"]
+    return options
+
+
 def l10n_bg_where(env, report_options):
     date_now = fields.Date.to_string(fields.Date.today())
     date_from = report_options["date"].get("date_from") or date_now
@@ -486,23 +503,6 @@ def get_delivery_type():
     ]
 
 
-def _set_options(options, report_date_from, report_date_to):
-    if not options:
-        date_now = fields.Date.today().strftime("%Y-%m-%d")
-        options = {
-            "date": {
-                "date_from": report_date_from or date_now,
-                "date_to": report_date_to or date_now,
-            },
-            "unposted_in_period": False,
-            "all_entries": False,
-        }
-    else:
-        options["date"]["date_from"] = report_date_from or options["date"]["date_from"]
-        options["date"]["date_to"] = report_date_to or options["date"]["date_to"]
-    return options
-
-
 class AuditExportFileHelper(models.AbstractModel):
     _name = "l10n.bg.export.file"
     _description = "Audit Reports File Helper"
@@ -611,6 +611,5 @@ class AuditExportFileHelper(models.AbstractModel):
             .with_context(**dict(self._context, report_options=options))
             ._table_query
         )
-        # _logger.info(f"SQL QUERY: {full_query}")
+        _logger.info(f"SQL QUERY: {full_query}")
         return full_query
-

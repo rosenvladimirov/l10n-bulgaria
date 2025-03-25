@@ -35,7 +35,7 @@ class AccountBGCalcViesLine(models.Model):
     info_tag_vir_2 = fields.Integer(string="Counter", readonly=True)
     info_tag_vir_3 = fields.Char(
         "[VDR-1] VIN ",
-        help="Number of the foreign counterparty incl. " "the sign of the Member State",
+        help="Number of the foreign counterparty incl. the sign of the Member State",
         readonly=True,
     )
     info_tag_vir_7 = fields.Char(string="[02-01] Tax period", readonly=True)

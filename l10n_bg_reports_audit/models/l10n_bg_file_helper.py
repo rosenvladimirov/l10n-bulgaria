@@ -89,6 +89,23 @@ END
         return """SUM(accr.account_tag_60) AS account_tag_60"""
 
 
+def _set_options(options, report_date_from, report_date_to):
+    if not options:
+        date_now = fields.Date.today().strftime("%Y-%m-%d")
+        options = {
+            "date": {
+                "date_from": report_date_from or date_now,
+                "date_to": report_date_to or date_now,
+            },
+            "unposted_in_period": False,
+            "all_entries": False,
+        }
+    else:
+        options["date"]["date_from"] = report_date_from or options["date"]["date_from"]
+        options["date"]["date_to"] = report_date_to or options["date"]["date_to"]
+    return options
+
+
 def l10n_bg_where(env, report_options):
     date_now = fields.Date.to_string(fields.Date.today())
     date_from = report_options["date"].get("date_from") or date_now
@@ -131,6 +148,7 @@ def list_months_between_dates(start_date, end_date):
         months.append(formatted_month)
         current_date += relativedelta(months=1)
     return months
+
 
 def parce_str_2(value):
     value = value or ""
@@ -511,10 +529,7 @@ class AuditExportFileHelper(models.AbstractModel):
                 content += val[field]
             line_csv.append(content)
             # _logger.info(f"val: {val} content: {content}")
-        # if line_csv:
-        #     return file_name, ["\r\n".join(line_csv) + "\r\n"]
-        # else:
-        #     return file_name, [""]
+
         return file_name, line_csv
 
     def get_csvs(self, report_type, options=None):
@@ -586,18 +601,8 @@ class AuditExportFileHelper(models.AbstractModel):
         return results
 
     def _build_l10n_bg_query(self, tax_report, options=False):
-        if not options:
-            options = {
-                "date": {
-                    "date_from": self.report_date_from,
-                    "date_to": self.report_date_to,
-                },
-                "unposted_in_period": False,
-                "all_entries": False,
-            }
-        else:
-            options["date"]["date_from"] = self.report_date_from or options["date"]["date_from"]
-            options["date"]["date_to"] = self.report_date_to or options["date"]["date_to"]
+        options = _set_options(options, self.report_date_from, self.report_date_to)
+
         sql_query = L10N_BG_REPORTS.get(tax_report, {}).get("sql", False)
         if not sql_query:
             return ""
@@ -606,5 +611,5 @@ class AuditExportFileHelper(models.AbstractModel):
             .with_context(**dict(self._context, report_options=options))
             ._table_query
         )
-        # _logger.info(f"SQL QUERY: {full_query}")
+        _logger.info(f"SQL QUERY: {full_query}")
         return full_query

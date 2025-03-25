@@ -34,7 +34,7 @@
                     </setting>
                     <setting
                         id="l10n_bg_audit_ee_setting"
-                        title="OCA settings"
+                        title="EE settings"
                         string="EE settings"
                         help="EE modules for help."
                     >
@@ -95,9 +95,16 @@
                                 />
                             </div>
                         </div>
+                    </setting>
+                    <setting
+                        id="l10n_bg_audit_assistant_setting"
+                        title="Assistant"
+                        string="Assistant"
+                        help="Assistant to help configure bulgarian accounting."
+                    >
                         <div class="content-group" name="l10n_bg_report_audit_report_assistant">
                             <div class="d-flex">
-                                <button name="action_account_tags_bulk_edit"
+                                <button name="l10n_bg_reports_audit.action_account_tags_bulk_edit"
                                     string="Bulk Edit"
                                     type="action"
                                     class="oe_highlight"

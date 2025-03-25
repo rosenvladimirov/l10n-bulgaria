@@ -11,8 +11,8 @@
                     <field name="l10n_bg_config_file"/>
                 </group>
                 <footer>
-                    <button string="Apply" type="object" name="action_apply" class="btn-primary" invisible="l10n_bg_config_file"/>
-                    <button string="Apply" type="object" name="action_process_config_file" class="btn-primary" invisible="l10n_bg_applicability"/>
+                    <button string="Apply By file" type="object" name="action_apply" class="btn-primary" invisible="not l10n_bg_config_file"/>
+                    <button string="Apply by choice" type="object" name="action_process_config_file" class="btn-primary" invisible="not l10n_bg_applicability"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>

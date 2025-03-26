@@ -34,7 +34,7 @@
                     </setting>
                     <setting
                         id="l10n_bg_audit_ee_setting"
-                        title="OCA settings"
+                        title="EE settings"
                         string="EE settings"
                         help="EE modules for help."
                     >

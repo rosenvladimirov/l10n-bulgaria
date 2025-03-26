@@ -13,20 +13,13 @@ def l10n_bg_lang(env, lang_modules="partner"):
     if lang_modules == "partner":
         return (
             """#>>'{bg_BG}'"""
-            if env["ir.module.module"].search(
-                [("name", "=", "partner_multilang"), ("state", "=", "installed")]
-            )
+            if env.company.is_l10n_bg_multilanguage
             else """"""
         )
     else:
         return (
             """#>>'{bg_BG}'"""
-            if env["ir.module.module"].search(
-                [
-                    ("name", "in", ("l10n_bg_multilang", "partner_multilang")),
-                    ("state", "=", "installed"),
-                ]
-            )
+            if env.company.is_l10n_bg_multilanguage
             else """"""
         )
 
@@ -529,7 +522,6 @@ class AuditExportFileHelper(models.AbstractModel):
                 content += val[field]
             line_csv.append(content)
             # _logger.info(f"val: {val} content: {content}")
-
         return file_name, line_csv
 
     def get_csvs(self, report_type, options=None):
@@ -572,27 +564,6 @@ class AuditExportFileHelper(models.AbstractModel):
                 "file_content": report_csv,
             }
         return files_report
-
-    def l10n_bg_export_csvs_zip(self, options=None):
-        files_report = self.get_l10n_bg_csv(["declaration", "purchase", "sales", "vies"], options=options)
-
-        with tempfile.NamedTemporaryFile() as buf:
-            with zipfile.ZipFile(
-                buf, mode="w", compression=zipfile.ZIP_DEFLATED, allowZip64=False
-            ) as zip_buffer:
-                for value in files_report.values():
-                    for i, csv in enumerate(value["file_content"]):
-                        zip_buffer.writestr(
-                            value["file_name"], csv.encode("cp1251", errors="ignore")
-                        )
-            buf.seek(0)
-            res = buf.read()
-
-        return {
-            "file_name": 'vat_reports.zip',
-            "file_content": res,
-            "file_type": "zip",
-        }
 
     def _get_l10n_bg_results(self, tax_report, options=False):
         full_query = self._build_l10n_bg_query(tax_report, options=options)

@@ -94,7 +94,8 @@ class ResCompany(models.Model):
 
     def _compute_is_l10n_bg_multilanguage(self):
         for record in self:
-            record.is_l10n_bg_multilanguage = all([x for x in record.is_l10n_bg_multilanguage.values()])
+            record.is_l10n_bg_multilanguage = all([x for x in record.is_l10n_bg_multilanguage.values()]) \
+                if record.is_l10n_bg_multilanguage else False
 
     def _check_is_l10n_bg_record(self, company=False):
         if company and isinstance(company, int):

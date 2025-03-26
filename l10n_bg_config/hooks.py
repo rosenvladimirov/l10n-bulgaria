@@ -21,3 +21,7 @@ def pre_init_hook(env):
         if language:
             load_language(env.cr, language.code)
             modules._update_translations(language.code)
+
+
+def post_init_hook(env):
+    env.company._inverse_is_l10n_bg_multilanguage()

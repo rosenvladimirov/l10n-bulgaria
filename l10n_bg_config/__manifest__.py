@@ -6,7 +6,7 @@
     "summary": """
         This module allows you to install and configure all
         the localization modules related to Bulgaria.""",
-    "version": "17.0.2.0.2",
+    "version": "17.0.3.0.0",
     "license": "AGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-bulgaria",
@@ -22,6 +22,7 @@
         "views/account_account_tag_views.xml",
         "views/partner_view.xml",
         "views/res_company_views.xml",
+        "views/account_move_views.xml",
     ],
     "demo": [],
     "pre_init_hook": "pre_init_hook",

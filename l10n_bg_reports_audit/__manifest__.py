@@ -1,6 +1,6 @@
 {
     "name": "Bulgarian Accounting Reports",
-    "version": "17.0.2.0.1",
+    "version": "17.0.3.0.1",
     "category": "Accounting/Localizations/Reporting",
     "summary": "Reporting for Bulgarian Localization",
     "license": "LGPL-3",
@@ -20,6 +20,7 @@
         "views/account_bg_vat_line_purchase_reports.xml",
         "views/account_bg_vat_line_vies_reports.xml",
         "views/account_account_tag_views.xml",
+        "views/account_move_views.xml",
         "views/res_config_view.xml",
         "views/account_menuitem.xml",
     ],

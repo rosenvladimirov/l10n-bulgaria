@@ -2,6 +2,8 @@
 
 from odoo import Command, api, fields, models
 
+L10N_BG_MULTILANGUAGE = ("l10n_bg_multilang", "partner_multilang")
+
 
 class ResCompany(models.Model):
     _inherit = "res.company"
@@ -12,6 +14,20 @@ class ResCompany(models.Model):
         inverse="_inverse_is_l10n_bg_record",
         default=True,
         store=True,
+    )
+    is_l10n_bg_multilanguage = fields.Json(
+        string="Bulgaria - Multilanguage",
+        compute="_compute_is_l10n_bg_multilanguage",
+        inverse="_inverse_is_l10n_bg_multilanguage",
+        help="Allows to set multilanguage in Bulgaria accounting",
+        store=True,
+    )
+    is_l10n_bg_tax_report = fields.Boolean(
+        string="Bulgaria - Tax Report",
+        help="Allows to set tax report in Bulgaria accounting",
+    )
+    is_l10n_bg_tax_report_with_vat = fields.Boolean(
+        string="Bulgaria - Tax Report with VAT",
     )
     l10n_bg_uic_type = fields.Selection(
         related="partner_id.l10n_bg_uic_type",
@@ -48,6 +64,11 @@ class ResCompany(models.Model):
                     Command.link(record.l10n_bg_represent_contact_id.id)
                 ]
 
+    @api.depends("chart_template")
+    def _compute_is_l10n_bg_record(self):
+        for record in self:
+            record.is_l10n_bg_record = record._check_is_l10n_bg_record(company=record.parent_id)
+
     def _inverse_is_l10n_bg_record(self):
         for company in self:
             if company.is_l10n_bg_record and company.chart_template == "bg":
@@ -61,10 +82,19 @@ class ResCompany(models.Model):
             else:
                 company.is_l10n_bg_record = False
 
-    @api.depends("chart_template")
-    def _compute_is_l10n_bg_record(self):
+    def _inverse_is_l10n_bg_multilanguage(self):
+        for company in self:
+            l10n_bg = self.env["ir.module.module"].search(
+                [
+                    ("name", "in", L10N_BG_MULTILANGUAGE),
+                    ("state", "=", "installed"),
+                ]
+            )
+            company.is_l10n_bg_multilanguage = dict([(x.name, x.state) for x in l10n_bg])
+
+    def _compute_is_l10n_bg_multilanguage(self):
         for record in self:
-            record.is_l10n_bg_record = record._check_is_l10n_bg_record(company=record.parent_id)
+            record.is_l10n_bg_multilanguage = all([x for x in record.is_l10n_bg_multilanguage.values()])
 
     def _check_is_l10n_bg_record(self, company=False):
         if company and isinstance(company, int):

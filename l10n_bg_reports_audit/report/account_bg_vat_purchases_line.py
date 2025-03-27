@@ -126,7 +126,7 @@ UNION
         company.l10n_bg_departament_code AS info_tag_3,
         ROW_NUMBER() OVER(ORDER BY am.date) AS info_tag_4,
         am.l10n_bg_doc_type AS info_tag_5,
-        COALESCE(am.l10n_bg_name, LPAD(NULLIF(REGEXP_REPLACE(am.name, '\\D','','g'), '')::varchar(255), 10, '0')) AS info_tag_6,
+        COALESCE(am.ref, LPAD(NULLIF(REGEXP_REPLACE(am.name, '\\D','','g'), '')::varchar(255), 10, '0')) AS info_tag_6,
         COALESCE(am.l10n_bg_date, am.invoice_date, am.date) AS info_tag_7,
         COALESCE(partner.vat, partner.l10n_bg_uic) AS info_tag_8,
         partner.name{lang_partner} AS info_tag_9,
@@ -153,7 +153,7 @@ UNION
                 FROM account_bg_calc_purchases_line AS acc{' WHERE ' + where_clause.replace('am.', 'acc.') if where_clause else ''}) AS accp
             ON am.id = accp.move_id
         LEFT JOIN res_partner AS partner
-            ON am.partner_shipping_id = partner.id
+            ON am.partner_id = partner.id
         LEFT JOIN res_company AS company
             ON am.company_id = company.id
         LEFT JOIN res_partner AS company_partner

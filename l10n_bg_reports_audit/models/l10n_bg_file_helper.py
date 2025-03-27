@@ -16,6 +16,10 @@ def l10n_bg_lang(env, lang_modules="partner"):
             if env.company.is_l10n_bg_multilanguage
             else """"""
         )
+    elif lang_modules == "narration":
+        return (
+            """#>>'{bg_BG}'"""
+        )
     else:
         return (
             """#>>'{bg_BG}'"""

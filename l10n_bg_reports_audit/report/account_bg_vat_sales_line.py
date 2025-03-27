@@ -166,11 +166,13 @@ class AccountBGInfoSaleLine(models.Model):
 
     @api.model
     def _select(self):
-        lang = l10n_bg_lang(self.env, "partner")
+        lang_partner = l10n_bg_lang(self.env, "partner")
+        lang_narration = l10n_bg_lang(self.env, "narration")
+
         if self._context.get("report_options") and self._context["report_options"].get(
             "lang"
         ):
-            lang = self._context["report_options"]["lang"]
+            lang_narration = lang_partner = self._context["report_options"]["lang"]
         return f""" am.company_id AS company_id,
         am.id AS move_id,
         am.state AS state,
@@ -183,8 +185,8 @@ class AccountBGInfoSaleLine(models.Model):
         COALESCE(am.l10n_bg_name, LPAD(NULLIF(REGEXP_REPLACE(am.name, '\\D','','g'), '')::varchar(255), 10, '0')) AS info_tag_5,
         COALESCE(am.l10n_bg_date, am.invoice_date, am.date) AS info_tag_6,
         COALESCE(partner.vat, partner.l10n_bg_uic) AS info_tag_7,
-        partner.name{lang} AS info_tag_8,
-        am.l10n_bg_narration{lang} AS info_tag_9,
+        partner.name{lang_partner} AS info_tag_8,
+        am.l10n_bg_narration{lang_narration} AS info_tag_9,
         am.l10n_bg_delivery_type AS info_tag_27,
         accs.account_tag_11 + accs.account_tag_121 + accs.account_tag_122 + accs.account_tag_13 + accs.account_tag_15 + accs.account_tag_16 + accs.account_tag_17 + accs.account_tag_18 + accs.account_tag_19 AS account_tag_10,
         accs.account_tag_11 AS account_tag_11,

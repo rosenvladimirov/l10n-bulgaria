@@ -112,11 +112,12 @@ UNION
 
     @api.model
     def _select(self):
-        lang = l10n_bg_lang(self.env, "partner")
+        lang_partner = l10n_bg_lang(self.env, "partner")
+        lang_narration = l10n_bg_lang(self.env, "narration")
         if self._context.get("report_options") and self._context["report_options"].get(
             "lang"
         ):
-            lang = self._context["report_options"]["lang"]
+            lang_narration = lang_partner = self._context["report_options"]["lang"]
         return f"""am.company_id AS company_id,
         am.id AS move_id,
         am.partner_id AS partner_id,
@@ -128,8 +129,8 @@ UNION
         COALESCE(am.l10n_bg_name, LPAD(NULLIF(REGEXP_REPLACE(am.name, '\\D','','g'), '')::varchar(255), 10, '0')) AS info_tag_6,
         COALESCE(am.l10n_bg_date, am.invoice_date, am.date) AS info_tag_7,
         COALESCE(partner.vat, partner.l10n_bg_uic) AS info_tag_8,
-        partner.name{lang} AS info_tag_9,
-        am.l10n_bg_narration{lang} AS info_tag_10,
+        partner.name{lang_partner} AS info_tag_9,
+        am.l10n_bg_narration{lang_narration} AS info_tag_10,
         am.l10n_bg_delivery_type AS info_tag_45,
         accp.account_tag_30 AS account_tag_30,
         accp.account_tag_31 AS account_tag_31,

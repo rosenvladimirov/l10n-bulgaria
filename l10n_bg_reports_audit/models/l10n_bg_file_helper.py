@@ -586,5 +586,5 @@ class AuditExportFileHelper(models.AbstractModel):
             .with_context(**dict(self._context, report_options=options))
             ._table_query
         )
-        _logger.info(f"SQL QUERY: {full_query}")
+        # _logger.info(f"SQL QUERY: {full_query}")
         return full_query

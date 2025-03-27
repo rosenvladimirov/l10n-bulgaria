@@ -223,7 +223,7 @@ class AccountBGInfoSaleLine(models.Model):
                 FROM account_bg_calc_sales_line AS acc{' WHERE ' + where_clause.replace('am.', 'acc.') if where_clause else ''}) AS accs
             ON am.id = accs.move_id
         LEFT JOIN res_partner AS partner
-            ON am.partner_shipping_id = partner.id
+            ON am.partner_id = partner.id
         LEFT JOIN res_company AS company
             ON am.company_id = company.id
         LEFT JOIN res_partner AS company_partner

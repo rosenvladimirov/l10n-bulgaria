@@ -38,7 +38,7 @@ class AccountBGInfoPurchasesLine(models.Model):
 
     info_tag_1 = fields.Char(string="[02-01] Tax period", readonly=True)
     info_tag_2 = fields.Char(string="[02-02] TIN", readonly=True)
-    info_tag_3 = fields.Char(string="[02-03] Office", readonly=True)
+    info_tag_3 = fields.Integer(string="[02-03] Office", readonly=True)
     info_tag_4 = fields.Integer(string="[02-04] Counter", readonly=True)
     info_tag_5 = fields.Selection(
         selection=get_doc_type(), string="[02-05] Vat type document", readonly=True
@@ -93,6 +93,7 @@ class AccountBGInfoPurchasesLine(models.Model):
     @property
     def _table_query(self):
         where_clause = self._where()
+        order_clause = self._order_clause()
         if self._context.get("report_options") and self._context["report_options"].get(
             "force_total", False
         ):
@@ -108,7 +109,7 @@ UNION
 
         return f"""SELECT {self._select()}
     FROM {self._from(where_clause=where_clause)}
-    {where_clause and 'WHERE ' + where_clause or ''}"""
+    {where_clause and 'WHERE ' + where_clause or ''} ORDER BY {order_clause}"""
 
     @api.model
     def _select(self):
@@ -167,6 +168,10 @@ UNION
             )
             return f"""am.company_id = {company_id} AND am.state = ANY(ARRAY{state}) AND am.date >= '{date_from}' AND am.date <= '{date_to}'"""
         return False
+
+    @api.model
+    def _order_clause(self):
+        return """am.date ASC"""
 
 
 class AccountBGCalcPurchasesLine(models.Model):

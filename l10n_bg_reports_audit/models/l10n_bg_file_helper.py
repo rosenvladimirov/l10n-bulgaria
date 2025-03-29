@@ -218,24 +218,32 @@ def convert_date_vies(value):
     return f"{month}/{year}"[:7]
 
 
-def parce_fload_4(value):
+def parce_fload_4(value, arrangement="R"):
     value = value or 0.00
+    if arrangement == "L":
+        return f"{value:.2f}".ljust(4)[:4]
     return f"{value:.2f}".rjust(4)[:4]
 
 
-def parce_fload_15_2(value):
+def parce_fload_15_2(value, arrangement="R"):
     value = value or 0.00
-    return f"{value:.2f}".ljust(15, " ")[:15]
+    if arrangement == "L":
+        return f"{value:.2f}".ljust(15, " ")[:15]
+    return f"{value:.2f}".rjust(15, " ")[:15]
 
 
-def parce_integer_4(value):
+def parce_integer_4(value, arrangement="L"):
     value = value or 0
-    return f"{int(float(value))}".ljust(4, " ")[:4]
+    if arrangement == "L":
+        return f"{int(float(value))}".ljust(4, " ")[:4]
+    return f"{int(float(value))}".rjust(4, " ")[:4]
 
 
-def parce_integer_15(value):
+def parce_integer_15(value, arrangement="L"):
     value = value or 0
-    return f"{int(float(value))}".ljust(15, " ")[:15]
+    if arrangement == "L":
+        return f"{int(float(value))}".ljust(15, " ")[:15]
+    return f"{int(float(value))}".rjust(15, " ")[:15]
 
 
 L10N_BG_DECLARATION_FIELDS = {
@@ -280,8 +288,8 @@ L10N_BG_DECLARATION_FIELDS = {
 L10N_BG_PURCHASES_FIELDS = {
     "info_tag_2": lambda value: parce_str_15(value),
     "info_tag_1": lambda value: parce_str_6(value),
-    "info_tag_3": lambda value: parce_integer_4(value),
-    "info_tag_4": lambda value: parce_integer_15(value),
+    "info_tag_3": lambda value: parce_integer_4(value, arrangement="R"),
+    "info_tag_4": lambda value: parce_integer_15(value,  arrangement="R"),
     "info_tag_5": lambda value: parce_str_2(value),
     "info_tag_6": lambda value: parce_str_20(value),
     "info_tag_7": lambda value: parce_date_10(value),
@@ -299,34 +307,34 @@ L10N_BG_PURCHASES_FIELDS = {
 }
 
 L10N_BG_SALES_FIELDS = {
-    "info_tag_0": lambda value: parce_str_15(value),
-    "info_tag_1": lambda value: parce_str_6(value),
-    "info_tag_2": lambda value: parce_integer_4(value),
-    "info_tag_3": lambda value: parce_integer_15(value),
-    "info_tag_4": lambda value: parce_str_2(value),
-    "info_tag_5": lambda value: parce_str_20(value),
-    "info_tag_6": lambda value: parce_date_10(value),
-    "info_tag_7": lambda value: parce_str_15(value),
-    "info_tag_8": lambda value: parce_str_50(value),
-    "info_tag_9": lambda value: parce_str_30(value),
-    "account_tag_10": lambda value: parce_fload_15_2(value),
-    "account_tag_20": lambda value: parce_fload_15_2(value),
-    "account_tag_11": lambda value: parce_fload_15_2(value),
-    "account_tag_21": lambda value: parce_fload_15_2(value),
-    "account_tag_12": lambda value: parce_fload_15_2(value),
-    "account_tag_26": lambda value: parce_fload_15_2(value),
-    "account_tag_22": lambda value: parce_fload_15_2(value),
-    "account_tag_23": lambda value: parce_fload_15_2(value),
-    "account_tag_13": lambda value: parce_fload_15_2(value),
-    "account_tag_24": lambda value: parce_fload_15_2(value),
-    "account_tag_14": lambda value: parce_fload_15_2(value),
-    "account_tag_15": lambda value: parce_fload_15_2(value),
-    "account_tag_16": lambda value: parce_fload_15_2(value),
-    "account_tag_17": lambda value: parce_fload_15_2(value),
-    "account_tag_18": lambda value: parce_fload_15_2(value),
-    "account_tag_19": lambda value: parce_fload_15_2(value),
-    "account_tag_25": lambda value: parce_fload_15_2(value),
-    "info_tag_27": lambda value: parce_str_2(value),
+    "info_tag_0": lambda value: parce_str_15(value), # 02-00 Идентификационен номер по ДДС на лицето: символен (15)
+    "info_tag_1": lambda value: parce_str_6(value), # 02-01 Данъчен период: символен (6) ггггмм
+    "info_tag_2": lambda value: parce_integer_4(value, arrangement="R"), # 02-02 Клон/обособено звено: цифров (4)
+    "info_tag_3": lambda value: parce_integer_15(value, arrangement="R"), #  02-03 Пореден номер на документа в дневника: цифров (15)
+    "info_tag_4": lambda value: parce_str_2(value), # 02-04 Вид на документа: символен (2)
+    "info_tag_5": lambda value: parce_str_20(value), # 02-05 Номер на документа символен (20)
+    "info_tag_6": lambda value: parce_date_10(value), # 02-06 Дата на документа: Дата (dd/mm/yyyy)
+    "info_tag_7": lambda value: parce_str_15(value), # 02-07 Идентификационен номер на контрагента (получател): символен (15)
+    "info_tag_8": lambda value: parce_str_50(value), # 02-08 Име на контрагента (получател): символен (50)
+    "info_tag_9": lambda value: parce_str_30(value), # 02-09 Вид на стоката или обхват и вид на услугата - точно описание съгласно документа: символен (30)
+    "account_tag_10": lambda value: parce_fload_15_2(value), # 02-10* Общ размер на данъчните основи за облагане с ДДС: цифров (15)
+    "account_tag_20": lambda value: parce_fload_15_2(value), # 02-20* Всичко начислен ДДС: цифров (15)
+    "account_tag_11": lambda value: parce_fload_15_2(value), # 02-11 Данъчна основа на облагаемите доставки със ставка 20 %, вкл. доставките при условията на дистанционни продажби, с място на изпълнение на територията на страната: цифров (15)
+    "account_tag_21": lambda value: parce_fload_15_2(value), # 02-21 Начислен ДДС 20 %: цифров (15)
+    "account_tag_12": lambda value: parce_fload_15_2(value), # 02-12 ДО на ВОП: цифров (15)
+    "account_tag_26": lambda value: parce_fload_15_2(value), # 02-26 ДО по получените доставки по чл. 82, ал. 2 - 5 ЗДДС: цифров (15)
+    "account_tag_22": lambda value: parce_fload_15_2(value), # 02-22 Начислен ДДС за ВОП и за получени доставки по чл. 82, ал. 2 - 5 ЗДДС: цифров (15)
+    "account_tag_23": lambda value: parce_fload_15_2(value), # 02-23 Начислен данък за доставки на стоки и услуги за лични нужди: цифров (15)
+    "account_tag_13": lambda value: parce_fload_15_2(value), # 02-13 ДО на облагаемите доставки със ставка 9 %: цифров (15)
+    "account_tag_24": lambda value: parce_fload_15_2(value), # 02-24 Начислен ДДС 9 %: цифров (15)
+    "account_tag_14": lambda value: parce_fload_15_2(value), # 02-14 ДО на доставките със ставка 0 % по глава трета от ЗДДС: цифров (15)
+    "account_tag_15": lambda value: parce_fload_15_2(value), # 02-15 ДО на доставките със ставка 0 % на ВОД на стоки: цифров (15)
+    "account_tag_16": lambda value: parce_fload_15_2(value), # 02-16 ДО на доставките със ставка 0 % по чл. 140, чл. 146, ал. 1 и чл. 173 ЗДДС: цифров (15)
+    "account_tag_17": lambda value: parce_fload_15_2(value), # 02-17 Данъчна основа на доставки на услуги по чл. 21, ал. 2 ЗДДС, с място на изпълнение на територията на друга държава членка: цифров (15)
+    "account_tag_18": lambda value: parce_fload_15_2(value), # 02-18 Данъчна основа на доставки по чл. 69, ал. 2 ЗДДС, вкл. данъчна основа на доставките при условията на дистанционни продажби, с място на изпълнение на територията на друга държава членка: цифров (15)
+    "account_tag_19": lambda value: parce_fload_15_2(value), # 02-19 ДО на освободени доставки и освободените ВОП: цифров (15)
+    "account_tag_25": lambda value: parce_fload_15_2(value), # 02-25 ДО на доставки като посредник в тристранни операции: цифров (15)
+    "info_tag_27": lambda value: parce_str_2(value), # 02-27 Доставка по чл. 163а или внос по чл. 167а от ЗДДС: символен (2)
 }
 
 L10N_BG_VIES_FIELDS = {

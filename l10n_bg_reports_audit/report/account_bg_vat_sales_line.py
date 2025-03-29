@@ -57,7 +57,7 @@ class AccountBGInfoSaleLine(models.Model):
     )
     info_tag_0 = fields.Char(string="TIN", readonly=True)
     info_tag_1 = fields.Char(string="[02-01] Tax period", readonly=True)
-    info_tag_2 = fields.Char(string="Office", readonly=True)
+    info_tag_2 = fields.Integer(string="Office", readonly=True)
     info_tag_3 = fields.Integer(string="Counter", readonly=True)
     info_tag_4 = fields.Selection(
         selection=get_doc_type, string="Vat type document", readonly=True
@@ -161,8 +161,9 @@ class AccountBGInfoSaleLine(models.Model):
     @property
     def _table_query(self):
         where_clause = self._where()
+        order_clause = self._order_clause()
         return f"""SELECT {self._select()}
-    FROM {self._from(where_clause=where_clause)} {where_clause and 'WHERE ' + where_clause or ''}"""
+    FROM {self._from(where_clause=where_clause)} {where_clause and 'WHERE ' + where_clause or ''} ORDER BY {order_clause}"""
 
     @api.model
     def _select(self):
@@ -237,6 +238,10 @@ class AccountBGInfoSaleLine(models.Model):
             )
             return f"""am.company_id = {company_id} AND am.state = ANY(ARRAY{state}) AND am.date >= '{date_from}' AND am.date <= '{date_to}'"""
         return """"""
+
+    @api.model
+    def _order_clause(self):
+        return """am.date ASC"""
 
 
 class AccountBGCalcSalesLine(models.Model):

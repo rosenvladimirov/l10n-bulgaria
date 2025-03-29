@@ -1,6 +1,6 @@
 {
     "name": "Bulgarian Accounting Reports",
-    "version": "18.0.3.0.2",
+    "version": "18.0.4.0.0",
     "category": "Accounting/Localizations/Reporting",
     "summary": "Reporting for Bulgarian Localization",
     "license": "LGPL-3",

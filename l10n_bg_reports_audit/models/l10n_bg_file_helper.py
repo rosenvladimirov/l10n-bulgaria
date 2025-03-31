@@ -524,7 +524,10 @@ class AuditExportFileHelper(models.AbstractModel):
         for line in self._get_l10n_bg_results(report_type, options=options):
             new_line = {}
             for field, helper in fields_to_export.items():
-                new_line[field] = helper(line[field])
+                val = line.get(field)
+                if isinstance(val, dict):
+                    val = list(val.values())[0]
+                new_line[field] = helper(val)
             lines.append(new_line)
 
         line_csv = []

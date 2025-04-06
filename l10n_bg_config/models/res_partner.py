@@ -1,5 +1,6 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 import logging
+import random
 
 from odoo import Command, _, api, fields, models
 
@@ -16,6 +17,10 @@ try:
     )
 except ImportError:
     _logger.debug("Cannot `import external dependency python stdnum package`.")
+
+def generate_key2(length):
+    return ''.join(
+        random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789') for _ in range(length))
 
 
 def _l10n_bg_uic_type():

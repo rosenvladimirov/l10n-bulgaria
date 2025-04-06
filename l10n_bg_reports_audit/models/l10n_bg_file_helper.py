@@ -9,24 +9,42 @@ from dateutil.relativedelta import relativedelta
 _logger = logging.getLogger(__name__)
 
 
-def l10n_bg_lang(env, lang_modules="partner"):
+def l10n_bg_lang(env, lang_modules="partner", field_name=""):
     if lang_modules == "partner":
         return (
-            """#>>'{bg_BG}'"""
-            if env.company.is_l10n_bg_multilanguage
-            else """"""
+            f"""CASE
+           WHEN {field_name} ? 'bg_BG' THEN {field_name}#>>'{'bg_BG'}'
+           WHEN {field_name} ? 'en_US' THEN {field_name}#>>'{'en_US'}'
+           ELSE {field_name}::text
+           END"""
+            if field_name and env.company.is_l10n_bg_multilanguage.get("partner_multilang", '') == 'installed'
+            else f"""{field_name}"""
         )
     elif lang_modules == "narration":
         return (
-            """#>>'{bg_BG}'"""
+            """CASE
+           WHEN am.l10n_bg_narration ? 'bg_BG' THEN am.l10n_bg_narration#>>'{bg_BG}'
+           WHEN am.l10n_bg_narration ? 'en_US' THEN am.l10n_bg_narration#>>'{en_US}'
+           ELSE am.l10n_bg_narration::text
+           END"""
         )
     else:
         return (
-            """#>>'{bg_BG}'"""
-            if env.company.is_l10n_bg_multilanguage
-            else """"""
+            f"""CASE
+           WHEN {field_name} ? 'bg_BG' THEN {field_name}#>>'{'bg_BG'}'
+           WHEN {field_name} ? 'en_US' THEN {field_name}#>>'{'en_US'}'
+           ELSE {field_name}::text
+           END"""
+            if field_name and env.company.is_l10n_bg_multilanguage.get("l10n_bg_multilang", '') == 'installed'
+            else f"""{field_name}"""
         )
 
+def l10n_bg_odoo_compatible_line(env, mode):
+    l10n_bg_compatible_odoo = env.user.company_id.l10n_bg_odoo_compatible
+    if l10n_bg_compatible_odoo and mode == "tag_22":
+        return """"""
+    elif not l10n_bg_compatible_odoo and mode == "tag_22":
+        return """*-1"""
 
 def l10n_bg_odoo_compatible(env, mode):
     l10n_bg_compatible_odoo = env.user.company_id.l10n_bg_odoo_compatible
@@ -38,10 +56,10 @@ def l10n_bg_odoo_compatible(env, mode):
         ELSE
             SUM(-accs.account_tag_22) + SUM(accs.account_tag_23 + accs.account_tag_24 + accs.account_tag_21)
     END
-) AS account_tag_20"""
+)"""
     elif not l10n_bg_compatible_odoo and mode == "tag_20":
         return """
-        SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) AS account_tag_20
+        SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24)
 """
     elif l10n_bg_compatible_odoo and mode == "tag_22":
         return """(
@@ -51,9 +69,9 @@ def l10n_bg_odoo_compatible(env, mode):
         ELSE
             SUM(-accs.account_tag_22)
     END
-        ) AS account_tag_22"""
+        )"""
     elif not l10n_bg_compatible_odoo and mode == "tag_22":
-        return """SUM(accs.account_tag_22) AS account_tag_22"""
+        return """SUM(accs.account_tag_22)"""
     elif l10n_bg_compatible_odoo and mode == "tag_50":
         return """(
 CASE
@@ -70,9 +88,9 @@ CASE
             ELSE 0.00
     END
 END
-        ) AS account_tag_50"""
+        )"""
     elif not l10n_bg_compatible_odoo and mode == "tag_50":
-        return """SUM(accr.account_tag_50) AS account_tag_50"""
+        return """SUM(accr.account_tag_50)"""
     elif l10n_bg_compatible_odoo and mode == "tag_60":
         return """(
     CASE
@@ -81,9 +99,9 @@ END
         ELSE
             ABS(SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) - SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43))
     END
-) AS account_tag_60"""
+)"""
     elif not l10n_bg_compatible_odoo and mode == "tag_60":
-        return """SUM(accr.account_tag_60) AS account_tag_60"""
+        return """SUM(accr.account_tag_60)"""
 
 
 def _set_options(options, report_date_from, report_date_to):
@@ -524,7 +542,10 @@ class AuditExportFileHelper(models.AbstractModel):
         for line in self._get_l10n_bg_results(report_type, options=options):
             new_line = {}
             for field, helper in fields_to_export.items():
-                new_line[field] = helper(line[field])
+                val = line.get(field)
+                if isinstance(val, dict):
+                    val = list(val.values())[0]
+                new_line[field] = helper(val)
             lines.append(new_line)
 
         line_csv = []
@@ -594,5 +615,5 @@ class AuditExportFileHelper(models.AbstractModel):
             .with_context(**dict(self._context, report_options=options))
             ._table_query
         )
-        # _logger.info(f"SQL QUERY: {full_query}")
+        _logger.warning(f"SQL QUERY {tax_report}: {full_query}")
         return full_query

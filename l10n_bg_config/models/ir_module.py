@@ -10,6 +10,5 @@ class Module(models.Model):
 
     @api.onchange('state')
     def _onchange_state(self):
-        if self.state == 'installed':
-            if self.name in L10N_BG_MULTILANGUAGE:
-                self.env.company.write({'is_l10n_bg_multilanguage': self.state == 'installed'})
+        if self.name in L10N_BG_MULTILANGUAGE:
+            self.env.company.write({'is_l10n_bg_multilanguage': self.env.company.is_l10n_bg_multilanguage.update(self.name, self.state)})

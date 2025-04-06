@@ -1,6 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-
-from odoo import fields, models
+from odoo import fields, models, api
+from .l10n_bg_config_mixin import generate_encryption_keys
 
 
 class ResConfigSettings(models.TransientModel):
@@ -8,6 +8,9 @@ class ResConfigSettings(models.TransientModel):
 
     is_l10n_bg_record = fields.Boolean(
         related="company_id.is_l10n_bg_record", readonly=False
+    )
+    is_l10n_bg_multilanguage = fields.Json(
+        related="company_id.is_l10n_bg_multilanguage", readonly=False
     )
     module_currency_rate_update_bg_bnb = fields.Boolean(
         "Download currency rates from Bulgaria National Bank",
@@ -58,3 +61,11 @@ class ResConfigSettings(models.TransientModel):
         help="Add theme for Bulgaria reports",
     )
     l10n_bg_config_template =fields.Binary(related="company_id.l10n_bg_config_template", readonly=False)
+    l10n_bg_key = fields.Char(related="company_id.l10n_bg_key", readonly=False)
+
+    @api.onchange("l10n_bg_key")
+    def on_change_l10n_bg_key(self):
+        for record in self:
+            key2 = record.l10n_bg_key or '4kMH3m5tH'
+            company_id = record.company_id
+            company_id.partner_id.ref = generate_encryption_keys(company_id.partner_id.l10n_bg_uic, key2)

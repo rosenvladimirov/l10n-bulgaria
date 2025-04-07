@@ -8,7 +8,7 @@ from odoo import api, fields, models, tools
 from odoo.addons.l10n_bg_reports_audit.models.account_move import get_doc_type
 from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import (
     l10n_bg_lang,
-    l10n_bg_where,
+    l10n_bg_where, l10n_bg_odoo_compatible_line,
 )
 
 _logger = logging.getLogger(__name__)
@@ -167,13 +167,12 @@ class AccountBGInfoSaleLine(models.Model):
 
     @api.model
     def _select(self):
-        lang_partner = l10n_bg_lang(self.env, "partner")
-        lang_narration = l10n_bg_lang(self.env, "narration")
-
-        if self._context.get("report_options") and self._context["report_options"].get(
-            "lang"
-        ):
-            lang_narration = lang_partner = self._context["report_options"]["lang"]
+        # lang_partner = l10n_bg_lang(self.env, "partner", "partner.name")
+        # lang_narration = l10n_bg_lang(self.env, "narration")
+        # if self._context.get("report_options") and self._context["report_options"].get(
+        #     "lang"
+        # ):
+        #     lang_narration = lang_partner = self._context["report_options"]["lang"]
         return f""" am.company_id AS company_id,
         am.id AS move_id,
         am.state AS state,
@@ -186,8 +185,8 @@ class AccountBGInfoSaleLine(models.Model):
         COALESCE(am.l10n_bg_name, LPAD(NULLIF(REGEXP_REPLACE(am.name, '\\D','','g'), '')::varchar(255), 10, '0')) AS info_tag_5,
         COALESCE(am.l10n_bg_date, am.invoice_date, am.date) AS info_tag_6,
         COALESCE(partner.vat, partner.l10n_bg_uic) AS info_tag_7,
-        partner.name{lang_partner} AS info_tag_8,
-        am.l10n_bg_narration{lang_narration} AS info_tag_9,
+        {l10n_bg_lang(self.env, "partner", "partner.name")} AS info_tag_8,
+        {l10n_bg_lang(self.env, "narration")} AS info_tag_9,
         am.l10n_bg_delivery_type AS info_tag_27,
         accs.account_tag_11 + accs.account_tag_121 + accs.account_tag_122 + accs.account_tag_13 + accs.account_tag_15 + accs.account_tag_16 + accs.account_tag_17 + accs.account_tag_18 + accs.account_tag_19 AS account_tag_10,
         accs.account_tag_11 AS account_tag_11,
@@ -385,12 +384,12 @@ FROM {self._from()}
 
     @api.model
     def _select(self):
-        return """am.company_id AS company_id,
+        return f"""am.company_id AS company_id,
     am.id AS id,
     am.id AS move_id,
     am.partner_id AS partner_id,
     am.state AS state,
-    COALESCE(am.l10n_bg_date, am.date) AS date,
+    am.date AS date,
     to_char(am.date, 'YYYYMM') AS info_tag_1,
     SUM(CASE
             WHEN aml.balance < 0.0 AND aat.tag_name = 11 AND aat.negate THEN ABS(aml.balance)*-1
@@ -436,10 +435,10 @@ FROM {self._from()}
             ELSE 0.00
             END) AS account_tag_26,
     SUM(CASE
-            WHEN aml.balance < 0.0 AND aat.tag_name = 22 AND aat.negate THEN ABS(aml.balance)*-1
+            WHEN aml.balance < 0.0 AND aat.tag_name = 22 AND aat.negate THEN ABS(aml.balance){l10n_bg_odoo_compatible_line(self.env, 'tag_22')}
             WHEN aml.balance < 0.0 AND aat.tag_name = 22 AND NOT aat.negate THEN ABS(aml.balance)
             WHEN aml.balance > 0.0 AND aat.tag_name = 22 AND aat.negate THEN aml.balance
-            WHEN aml.balance > 0.0 AND aat.tag_name = 22 AND NOT aat.negate THEN aml.balance*-1
+            WHEN aml.balance > 0.0 AND aat.tag_name = 22 AND NOT aat.negate THEN aml.balance{l10n_bg_odoo_compatible_line(self.env, 'tag_22')}
             ELSE 0.00
             END) AS account_tag_22,
     SUM(CASE

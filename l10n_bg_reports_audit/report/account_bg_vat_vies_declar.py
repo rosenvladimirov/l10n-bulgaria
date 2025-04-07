@@ -67,26 +67,26 @@ class AccountBGInfoViesDeclaration(models.Model):
 
     @api.model
     def _select(self):
-        lang = l10n_bg_lang(self.env)
-        lang_ext = l10n_bg_lang(self.env, "partner")
-        if self._context.get("report_options") and self._context["report_options"].get(
-            "lang"
-        ):
-            lang = self._context["report_options"]["lang"]
+        # lang = l10n_bg_lang(self.env)
+        # lang_ext = l10n_bg_lang(self.env, "partner")
+        # if self._context.get("report_options") and self._context["report_options"].get(
+        #     "lang"
+        # ):
+        #     lang = self._context["report_options"]["lang"]
         return f"""acc.company_id AS company_id,
         'VHR' AS info_tag_vhr_1,
         acc.info_tag_vir_7 AS info_tag_vhr_2,
         'VDR' AS info_tag_vdr_1,
         represent_partner.l10n_bg_uic AS info_tag_vdr_2,
-        represent_partner.name{lang_ext} AS info_tag_vdr_3,
-        represent_partner.city{lang} AS info_tag_vdr_4,
+        {l10n_bg_lang(self.env, 'partner', field_name='represent_partner.name')} AS info_tag_vdr_3,
+        {l10n_bg_lang(self.env, field_name='represent_partner.city')} AS info_tag_vdr_4,
         represent_partner.zip AS info_tag_vdr_5,
-        represent_partner.street{lang} AS info_tag_vdr_6,
+        {l10n_bg_lang(self.env, field_name='represent_partner.street')} AS info_tag_vdr_6,
         UPPER(SUBSTRING(represent_partner.type FOR 1)) AS info_tag_vdr_7,
         'VTR' AS info_tag_vtr_1,
-        COALESCE(company_partner.vat, company_partner.l10n_bg_uic) AS info_tag_vtr_2,
-        company_partner.name{lang_ext} AS info_tag_vtr_3,
-        CONCAT (company_partner.city{lang}, ', ', company_partner.street{lang}) AS info_tag_vtr_4,
+        COALESCE(company_partner.l10n_bg_uic, company_partner.vat) AS info_tag_vtr_2,
+        {l10n_bg_lang(self.env, lang_modules='partner', field_name='company_partner.name')} AS info_tag_vtr_3,
+        CONCAT ({l10n_bg_lang(self.env, field_name='company_partner.city')}, ', ', {l10n_bg_lang(self.env, field_name='company_partner.street')}) AS info_tag_vtr_4,
         'TTR' AS info_tag_ttr_1,
         COUNT(acc.partner_id) AS info_tag_vhr_3,
         SUM(acc.account_tag_vir_4 + acc.account_tag_vir_5 + acc.account_tag_vir_6) AS account_tag_ttr_2,

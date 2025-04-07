@@ -29,7 +29,7 @@ class AccountBGTotalSalesLine(models.Model):
     )
     info_tag_3 = fields.Char(string="[02-03] Tax period", readonly=True)
     info_tag_5 = fields.Integer(string="[02-05] Counter sales", readonly=True)
-    info_tag_6 = fields.Integer(string="[02-06] Counter purchases", readonly=True)
+    # info_tag_6 = fields.Integer(string="[02-06] Counter purchases", readonly=True)
     account_tag_10 = fields.Monetary(
         string="[02-10] Total amount of base",
         currency_field="company_currency_id",
@@ -129,14 +129,14 @@ FROM {self._from(where_clause=where_clause)}
     def _select(self):
         return f"""am.company_id AS company_id,
         0 AS move_id,
-        to_char(am.date, 'YYYYMM') AS info_tag_3,
+        accs.info_tag_1 AS info_tag_1,
         COUNT(accs.move_id) AS info_tag_5,
-        COUNT(accs.move_id) AS info_tag_6,
         SUM(accs.account_tag_11) AS account_tag_11,
+        {l10n_bg_odoo_compatible(self.env, 'tag_20')} AS account_tag_20,
         SUM(accs.account_tag_21) AS account_tag_21,
         SUM(accs.account_tag_121 + accs.account_tag_122) AS account_tag_12,
         SUM(accs.account_tag_26) AS account_tag_26,
-        {l10n_bg_odoo_compatible(self.env, 'tag_22')},
+        SUM(accs.account_tag_22) AS account_tag_22,
         SUM(accs.account_tag_23) AS account_tag_23,
         SUM(accs.account_tag_13) AS account_tag_13,
         SUM(accs.account_tag_24) AS account_tag_24,
@@ -151,15 +151,15 @@ FROM {self._from(where_clause=where_clause)}
     @api.model
     def _from(self, where_clause=""):
         return f"""account_move AS am
-LEFT JOIN (SELECT move_id, date, account_tag_21, account_tag_11, account_tag_12, account_tag_121, account_tag_122,
+LEFT JOIN (SELECT move_id, date, info_tag_1, account_tag_21, account_tag_11, account_tag_12, account_tag_121, account_tag_122,
                   account_tag_26, account_tag_23, account_tag_13, account_tag_24, account_tag_14, account_tag_15,
                   account_tag_16, account_tag_17, account_tag_18, account_tag_19, account_tag_25, account_tag_22
-                  FROM account_bg_calc_sales_line{' WHERE ' + where_clause if where_clause else ''}) AS accs
+                  FROM account_bg_calc_sales_line{' WHERE ' + where_clause.replace('am.', 'accs.') if where_clause else ''}) AS accs
     ON am.id = accs.move_id"""
 
     @api.model
     def _group(self):
-        return """am.company_id, info_tag_3"""
+        return """am.company_id, info_tag_1"""
 
     @api.model
     def _where(self):

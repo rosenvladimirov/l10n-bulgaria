@@ -101,7 +101,7 @@ FROM {self._from(where_clause=where_clause)}
         COALESCE(company_partner.l10n_bg_uic, company_partner.vat) AS info_tag_2,
         accp.info_tag_1 AS info_tag_1,
         company.l10n_bg_departament_code AS info_tag_3,
-        0 AS info_tag_4,
+        COUNT(accp.move_id) AS info_tag_4,
         NULL AS info_tag_5,
         NULL AS info_tag_6,
         NULL AS info_tag_7,
@@ -121,7 +121,7 @@ FROM {self._from(where_clause=where_clause)}
     def _from(self, where_clause=""):
         return f"""account_move AS am
 LEFT JOIN (SELECT move_id, info_tag_1, account_tag_30, account_tag_31, account_tag_41, account_tag_32, account_tag_42,
-account_tag_43, account_tag_44 FROM account_bg_calc_purchases_line{' WHERE ' + where_clause if where_clause else ''}) AS accp
+account_tag_43, account_tag_44 FROM account_bg_calc_purchases_line{' WHERE ' + where_clause.replace('am.', 'accp.') if where_clause else ''}) AS accp
         ON am.id = accp.move_id
 LEFT JOIN res_company AS company
     ON am.company_id = company.id

@@ -46,19 +46,19 @@ class AccountBgVatInfoDeclar(models.Model):
 
     @api.model
     def _select(self):
-        lang = l10n_bg_lang(self.env)
-        lang_ext = l10n_bg_lang(self.env, "partner")
-        if self._context.get("report_options") and self._context["report_options"].get(
-            "lang"
-        ):
-            lang = self._context["report_options"]["lang"]
+        # lang = l10n_bg_lang(self.env)
+        # lang_ext = l10n_bg_lang(self.env, "partner")
+        # if self._context.get("report_options") and self._context["report_options"].get(
+        #     "lang"
+        # ):
+        #     lang = self._context["report_options"]["lang"]
         return f"""acc.company_id AS company_id,
         COALESCE(company_partner.vat, company_partner.l10n_bg_uic) AS company_vat,
-        CONCAT (company_partner.city{lang}, ', ', company_partner.street{lang}) AS company_address,
-        company_partner.l10n_bg_uic AS info_tag_1,
-        company_partner.name{lang_ext} AS info_tag_2,
+        CONCAT ({l10n_bg_lang(self.env, field_name='company_partner.city')}, ', ', {l10n_bg_lang(self.env, field_name='company_partner.street')}) AS company_address,
+        COALESCE(company_partner.vat, company_partner.l10n_bg_uic) AS info_tag_1,
+        {l10n_bg_lang(self.env, lang_modules='partner', field_name='company_partner.name')} AS info_tag_2,
         info_tag_3,
-        CONCAT (represent_partner.l10n_bg_uic, ' ', represent_partner.name{lang_ext}) AS info_tag_4,
+        CONCAT (represent_partner.l10n_bg_uic, ' ', {l10n_bg_lang(self.env, lang_modules='partner', field_name='represent_partner.name')}) AS info_tag_4,
         acc.info_tag_5,
         acc.info_tag_6,
         COALESCE(acc.account_tag_10, 0.0) AS account_tag_10,
@@ -114,9 +114,9 @@ LEFT JOIN res_partner AS represent_partner
                 self.env, self._context.get("report_options")
             )
             if len(tax_periods) == 0:
-                return f"""acc.company_id = {self.env.company.id} AND acc.info_tag_3 = '{tax_period}'"""
+                return f"""acc.company_id = {self.env.company.id} AND acc.state = ANY(ARRAY{state}) AND acc.info_tag_3 = '{tax_period}'"""
             else:
-                return f"""acc.company_id = {self.env.company.id} AND acc.info_tag_3 = ANY(ARRAY{tax_periods})"""
+                return f"""acc.company_id = {self.env.company.id} AND acc.state = ANY(ARRAY{state}) AND acc.info_tag_3 = ANY(ARRAY{tax_periods})"""
         return f"""acc.company_id = {self.env.company.id}"""
 
     @api.model
@@ -329,18 +329,19 @@ FROM {self._from(where_clause=where_clause)}
     @api.model
     def _select(self):
         return f""" am.company_id AS company_id,
+        am.state AS state,
         to_char(am.date, 'YYYYMM') AS info_tag_3,
         COUNT(accs.move_id) AS info_tag_5,
         COUNT(accp.move_id) AS info_tag_6,
         SUM(accs.account_tag_11 + accs.account_tag_121 + accs.account_tag_122 + accs.account_tag_13 + accs.account_tag_15 + accs.account_tag_16 + accs.account_tag_17 + accs.account_tag_18 + accs.account_tag_19) AS account_tag_10,
         SUM(accs.account_tag_11) AS account_tag_11,
-        {l10n_bg_odoo_compatible(self.env, 'tag_20')},
+        {l10n_bg_odoo_compatible(self.env, 'tag_20')} AS account_tag_20,
         SUM(accs.account_tag_21) AS account_tag_21,
         SUM(accs.account_tag_121+accs.account_tag_122) AS account_tag_12,
         SUM(accs.account_tag_121) AS account_tag_121,
         SUM(accs.account_tag_122) AS account_tag_122,
         SUM(accs.account_tag_26) AS account_tag_26,
-        {l10n_bg_odoo_compatible(self.env, 'tag_22')},
+        SUM(accs.account_tag_22) AS account_tag_22,
         SUM(accs.account_tag_23) AS account_tag_23,
         SUM(accs.account_tag_13) AS account_tag_13,
         SUM(accs.account_tag_24) AS account_tag_24,
@@ -358,8 +359,8 @@ FROM {self._from(where_clause=where_clause)}
         SUM(accp.account_tag_32) AS account_tag_32,
         SUM(accp.account_tag_42) AS account_tag_42,
         SUM(accp.account_tag_44) AS account_tag_44,
-        {l10n_bg_odoo_compatible(self.env, 'tag_50')},
-        {l10n_bg_odoo_compatible(self.env, 'tag_60')},
+        {l10n_bg_odoo_compatible(self.env, 'tag_50')} AS account_tag_50,
+        {l10n_bg_odoo_compatible(self.env, 'tag_60')} AS account_tag_60,
         SUM(accr.account_tag_70) AS account_tag_70,
         SUM(accr.account_tag_71) AS account_tag_71,
         SUM(accr.account_tag_80) AS account_tag_80,
@@ -385,7 +386,7 @@ LEFT JOIN (SELECT move_id, date, account_tag_50, account_tag_60, account_tag_70,
 
     @api.model
     def _group(self):
-        return """am.company_id, info_tag_3"""
+        return """am.company_id, state, info_tag_3"""
 
     @api.model
     def _where(self):

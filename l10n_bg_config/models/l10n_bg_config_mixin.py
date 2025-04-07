@@ -1,11 +1,33 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+import binascii
 import logging
+from difflib import Differ
 
 from lxml import etree
 
 from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
+
+
+def generate_encryption_keys(key1, key2):
+    encrypted_key = bytes([ord(a) ^ ord(b) for a, b in zip(key1, key2)])
+    return binascii.hexlify(encrypted_key).decode('utf-8')
+
+
+def compare_strings_to_clean(s1, s2):
+    differ = Differ()
+    diff = list(differ.compare(s1, s2))
+    clean_diff = ''.join(line[2:] for line in diff)
+    return clean_diff
+
+
+def decrypt_key(encrypted_key, key1, key2):
+    password = ''
+    if encrypted_key and key2:
+        password = ''.join(chr(a ^ ord(b)) for a, b in zip(encrypted_key, key2))
+    password = compare_strings_to_clean(password, key1)
+    return password.encode()
 
 
 class L10nBGConfigMixin(models.AbstractModel):

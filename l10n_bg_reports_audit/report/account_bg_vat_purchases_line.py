@@ -113,25 +113,25 @@ UNION
 
     @api.model
     def _select(self):
-        lang_partner = l10n_bg_lang(self.env, "partner")
-        lang_narration = l10n_bg_lang(self.env, "narration")
-        if self._context.get("report_options") and self._context["report_options"].get(
-            "lang"
-        ):
-            lang_narration = lang_partner = self._context["report_options"]["lang"]
+        # lang_partner = l10n_bg_lang(self.env, "partner")
+        # lang_narration = l10n_bg_lang(self.env, "narration")
+        # if self._context.get("report_options") and self._context["report_options"].get(
+        #     "lang"
+        # ):
+        #     lang_narration = lang_partner = self._context["report_options"]["lang"]
         return f"""am.company_id AS company_id,
         am.id AS move_id,
         am.partner_id AS partner_id,
         accp.info_tag_1 AS info_tag_1,
-        COALESCE(company_partner.l10n_bg_uic, company_partner.vat) AS info_tag_2,
+        COALESCE(company_partner.vat, company_partner.l10n_bg_uic) AS info_tag_2,
         company.l10n_bg_departament_code AS info_tag_3,
         ROW_NUMBER() OVER(ORDER BY am.date) AS info_tag_4,
         am.l10n_bg_doc_type AS info_tag_5,
         COALESCE(am.ref, LPAD(NULLIF(REGEXP_REPLACE(am.name, '\\D','','g'), '')::varchar(255), 10, '0')) AS info_tag_6,
         COALESCE(am.l10n_bg_date, am.invoice_date, am.date) AS info_tag_7,
         COALESCE(partner.vat, partner.l10n_bg_uic) AS info_tag_8,
-        partner.name{lang_partner} AS info_tag_9,
-        am.l10n_bg_narration{lang_narration} AS info_tag_10,
+        {l10n_bg_lang(self.env, "partner", "partner.name")} AS info_tag_9,
+        {l10n_bg_lang(self.env, "narration")} AS info_tag_10,
         am.l10n_bg_delivery_type AS info_tag_45,
         accp.account_tag_30 AS account_tag_30,
         accp.account_tag_31 AS account_tag_31,
@@ -268,41 +268,41 @@ class AccountBGCalcPurchasesLine(models.Model):
     am.id AS move_id,
     am.partner_id AS partner_id,
     am.state AS state,
-    COALESCE(am.l10n_bg_date, am.date) AS date,
+    am.date AS date,
     to_char(am.date, 'YYYYMM') AS info_tag_1,
     SUM(CASE
-        WHEN aat.tag_name = 30 AND aat.negate THEN aml.balance*-1
-        WHEN aat.tag_name = 30 AND NOT aat.negate THEN aml.balance
+        WHEN aat.tag_name = 30 AND aat.negate THEN ABS(aml.balance)*-1
+        WHEN aat.tag_name = 30 AND NOT aat.negate THEN ABS(aml.balance)
         ELSE 0.00
         END) AS account_tag_30,
     SUM(CASE
-        WHEN aat.tag_name = 31 AND aat.negate THEN aml.balance*-1
-        WHEN aat.tag_name = 31 AND NOT aat.negate THEN aml.balance
+        WHEN aat.tag_name = 31 AND aat.negate THEN ABS(aml.balance)*-1
+        WHEN aat.tag_name = 31 AND NOT aat.negate THEN ABS(aml.balance)
         ELSE 0.00
         END) AS account_tag_31,
     SUM(CASE
-        WHEN aat.tag_name = 41 AND aat.negate THEN aml.balance*-1
-        WHEN aat.tag_name = 41 AND NOT aat.negate THEN aml.balance
+        WHEN aat.tag_name = 41 AND aat.negate THEN ABS(aml.balance)*-1
+        WHEN aat.tag_name = 41 AND NOT aat.negate THEN ABS(aml.balance)
         ELSE 0.00
         END) AS account_tag_41,
     SUM(CASE
-        WHEN aat.tag_name = 32 AND aat.negate THEN aml.balance*-1
-        WHEN aat.tag_name = 32 AND NOT aat.negate THEN aml.balance
+        WHEN aat.tag_name = 32 AND aat.negate THEN ABS(aml.balance)*-1
+        WHEN aat.tag_name = 32 AND NOT aat.negate THEN ABS(aml.balance)
         ELSE 0.00
         END) AS account_tag_32,
     SUM(CASE
-        WHEN aat.tag_name = 42 AND aat.negate THEN aml.balance*-1
-        WHEN aat.tag_name = 42 AND NOT aat.negate THEN aml.balance
+        WHEN aat.tag_name = 42 AND aat.negate THEN ABS(aml.balance)*-1
+        WHEN aat.tag_name = 42 AND NOT aat.negate THEN ABS(aml.balance)
         ELSE 0.00
         END) AS account_tag_42,
     SUM(CASE
-        WHEN aat.tag_name = 43 AND aat.negate THEN aml.balance*-1
-        WHEN aat.tag_name = 43 AND NOT aat.negate THEN aml.balance
+        WHEN aat.tag_name = 43 AND aat.negate THEN ABS(aml.balance)*-1
+        WHEN aat.tag_name = 43 AND NOT aat.negate THEN ABS(aml.balance)
         ELSE 0.00
         END) AS account_tag_43,
     SUM(CASE
-        WHEN aat.tag_name = 44 AND aat.negate THEN aml.balance*-1
-        WHEN aat.tag_name = 44 AND NOT aat.negate THEN aml.balance
+        WHEN aat.tag_name = 44 AND aat.negate THEN ABS(aml.balance)*-1
+        WHEN aat.tag_name = 44 AND NOT aat.negate THEN ABS(aml.balance)
         ELSE 0.00
         END) AS account_tag_44"""
 

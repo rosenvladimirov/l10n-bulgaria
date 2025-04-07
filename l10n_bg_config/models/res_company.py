@@ -1,6 +1,6 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
-
 from odoo import Command, api, fields, models
+from odoo.tools import sql
 
 L10N_BG_MULTILANGUAGE = ("l10n_bg_multilang", "partner_multilang")
 
@@ -46,6 +46,16 @@ class ResCompany(models.Model):
     )
     l10n_bg_departament_code = fields.Integer("Departament code")
     l10n_bg_config_template = fields.Binary("Config Template")
+    l10n_bg_key = fields.Char('Api Key', help='Enter the key to encrypt the data. If not entered, a random key will be generated.')
+
+    def init(self):
+        super().init()
+        if not sql.column_exists(self.env.cr, self._table, "is_l10n_bg_record"):
+            self.env.cr.execute("ALTER TABLE res_company ADD COLUMN is_l10n_bg_record boolean;")
+        if not sql.column_exists(self.env.cr, self._table, "is_l10n_bg_multilanguage"):
+            self.env.cr.execute("ALTER TABLE res_company ADD COLUMN is_l10n_bg_multilanguage boolean;")
+        if not sql.column_exists(self.env.cr, self._table, "l10n_bg_key"):
+            self.env.cr.execute("ALTER TABLE res_company ADD COLUMN l10n_bg_key varchar;")
 
     def _compute_l10n_bg_represent_contact_id(self):
         for record in self:

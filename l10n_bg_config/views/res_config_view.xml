@@ -42,12 +42,45 @@
                                         class="o_light_label"
                                     />
                                 </div>
+                            </div>
+                            <div
+                                class="content-group"
+                                name="l10n_bg_config_is_l10n_bg_setting_api_container"
+                            >
                                 <div class="d-flex">
-                                    <field name="l10n_bg_config_template" class="ml16" />
+                                    <field name="l10n_bg_key" class="ml16" />
                                     <label
-                                        for="l10n_bg_config_template"
+                                        for="l10n_bg_key"
                                         class="o_light_label"
                                     />
+                                </div>
+                            </div>
+                        </setting>
+                        <setting
+                            id="l10n_bg_config_setting_multilang_params"
+                            title="Multilang settings"
+                            string="Multilang settings"
+                            help="Theatrical section for Multilang settings"
+                        >
+                            <div
+                                class="content-group"
+                                name="l10n_bg_config_is_l10n_bg_setting_multilang_container"
+                            >
+                                <field name="is_l10n_bg_multilanguage" class="ml16" widget="jsonb"/>
+                            </div>
+                        </setting>
+                        <setting
+                            id="l10n_bg_config_setting_template"
+                            title="Bulgaria setting file"
+                            string="Bulgaria setting file"
+                            help="Theatrical section for setting by file"
+                        >
+                            <div
+                                class="content-group"
+                                name="l10n_bg_config_template_container"
+                            >
+                                <div class="d-flex">
+                                    <field name="l10n_bg_config_template" class="ml16" />
                                 </div>
                             </div>
                         </setting>

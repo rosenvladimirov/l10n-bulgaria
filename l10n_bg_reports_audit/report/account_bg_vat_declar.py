@@ -335,7 +335,7 @@ FROM {self._from(where_clause=where_clause)}
         COUNT(accp.move_id) AS info_tag_6,
         SUM(accs.account_tag_11 + accs.account_tag_121 + accs.account_tag_122 + accs.account_tag_13 + accs.account_tag_15 + accs.account_tag_16 + accs.account_tag_17 + accs.account_tag_18 + accs.account_tag_19) AS account_tag_10,
         SUM(accs.account_tag_11) AS account_tag_11,
-        {l10n_bg_odoo_compatible(self.env, 'tag_20')} AS account_tag_20,
+        SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) AS account_tag_20,
         SUM(accs.account_tag_21) AS account_tag_21,
         SUM(accs.account_tag_121+accs.account_tag_122) AS account_tag_12,
         SUM(accs.account_tag_121) AS account_tag_121,

@@ -17,8 +17,7 @@ def l10n_bg_lang(env, lang_modules="partner", field_name=""):
            WHEN {field_name} ? 'en_US' THEN {field_name}#>>'{{{'en_US'}}}'
            ELSE {field_name}::text
            END"""
-            if field_name and (isinstance(env.company.is_l10n_bg_multilanguage, dict)
-                               and env.company.is_l10n_bg_multilanguage.get("partner_multilang", '') == 'installed')
+            if field_name and env.company.is_l10n_bg_multilanguage.get("partner_multilang", '') == 'installed'
             else f"""{field_name}"""
         )
     elif lang_modules == "narration":

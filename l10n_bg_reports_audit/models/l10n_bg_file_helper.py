@@ -75,32 +75,20 @@ def l10n_bg_odoo_compatible(env, mode):
         return """SUM(accs.account_tag_22)"""
     elif l10n_bg_compatible_odoo and mode == "tag_50":
         return """(
-CASE
-    WHEN SUM(accs.account_tag_22) >= 0 THEN
-        CASE
-            WHEN SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) - SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43) >= 0 THEN
-                ABS(SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) - SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43))
-            ELSE 0.00
-        END
-    ELSE
-        CASE
-            WHEN SUM(accs.account_tag_22) < 0 THEN
-                ABS(SUM(accs.account_tag_22)) + SUM(accs.account_tag_23 + accs.account_tag_24 + accs.account_tag_21) - SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43)
-            ELSE 0.00
-    END
-END
-        )"""
+    CASE
+        WHEN SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) - SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43) > 0 THEN
+            ABS(SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) - SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43))
+        ELSE 0.00
+    END)"""
     elif not l10n_bg_compatible_odoo and mode == "tag_50":
         return """SUM(accr.account_tag_50)"""
     elif l10n_bg_compatible_odoo and mode == "tag_60":
         return """(
     CASE
-        WHEN SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) - SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43) > 0 THEN
-            0.00
-        ELSE
+        WHEN SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) - SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43) < 0 THEN
             ABS(SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) - SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43))
-    END
-)"""
+        ELSE 0.00
+    END)"""
     elif not l10n_bg_compatible_odoo and mode == "tag_60":
         return """SUM(accr.account_tag_60)"""
 

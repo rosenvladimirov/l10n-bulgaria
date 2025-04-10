@@ -112,4 +112,3 @@ class ResCompany(models.Model):
         elif not company:
             company = self
         return company.chart_template == "bg"
-

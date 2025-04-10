@@ -22,6 +22,7 @@
         "views/account_account_tag_views.xml",
         "views/account_move_views.xml",
         "views/res_config_view.xml",
+        "views/res_company_views.xml",
         "views/account_menuitem.xml",
     ],
     "installable": True,

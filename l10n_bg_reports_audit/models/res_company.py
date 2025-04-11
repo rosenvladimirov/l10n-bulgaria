@@ -24,25 +24,25 @@ class ResCompany(models.Model):
     l10n_bg_tax_contact_id = fields.Many2one(
         "res.partner",
         string="TAX Report creator",
-        compute="_compute_l10n_bg_represent_contact_id",
-        inverse="_inverse_l10n_bg_represent_contact_id",
+        compute="_compute_l10n_bg_tax_contact_id",
+        inverse="_inverse_l10n_bg_tax_contact_id",
         store=True,
     )
 
     @api.depends("partner_id")
-    def _compute_l10n_bg_represent_contact_id(self):
+    def _compute_l10n_bg_tax_contact_id(self):
         for record in self:
             tax_contact_id = record.partner_id.child_ids.filtered(
-                lambda r: r.type == "represent"
+                lambda r: r.type in ["represent", "agent", "tax"]
             )
             if len(tax_contact_id) > 1:
                 tax_contact_id = tax_contact_id[1]
             record.l10n_bg_tax_contact_id = tax_contact_id
 
     @api.depends("partner_id")
-    def _inverse_l10n_bg_represent_contact_id(self):
+    def _inverse_l10n_bg_tax_contact_id(self):
         for record in self:
-            if record.l10n_bg_tax_contact_id:
+            if record.l10n_bg_tax_contact_id.type not in ["represent", "agent", "tax"]:
                 record.l10n_bg_tax_contact_id.type = "represent"
                 record.partner_id.child_ids = [
                     Command.link(record.l10n_bg_tax_contact_id.id)

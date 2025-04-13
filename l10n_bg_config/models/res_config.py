@@ -61,11 +61,11 @@ class ResConfigSettings(models.TransientModel):
         help="Add theme for Bulgaria reports",
     )
     l10n_bg_config_template =fields.Binary(related="company_id.l10n_bg_config_template", readonly=False)
-    l10n_bg_key = fields.Char(related="company_id.l10n_bg_key", readonly=False)
+    l10n_bg_key = fields.Char(related="company_id.partner_id.l10n_bg_key", readonly=False)
 
     @api.onchange("l10n_bg_key")
     def on_change_l10n_bg_key(self):
         for record in self:
-            key2 = record.l10n_bg_key or '4kMH3m5tH'
+            key2 = record.l10n_bg_key
             company_id = record.company_id
             company_id.partner_id.ref = generate_encryption_keys(company_id.partner_id.l10n_bg_uic, key2)

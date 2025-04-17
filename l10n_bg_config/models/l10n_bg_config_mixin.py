@@ -19,11 +19,11 @@ def generate_key2(length):
 
 def generate_encryption_keys(key1, key2):
     if not key1:
-        key1 = random.randint(1, 99999999999)
+        key1 = str(random.randint(1, 99999999999))
     if not key2:
         key2 = generate_key2(11)
     encrypted_key = bytes([ord(a) ^ ord(b) for a, b in zip(key1, key2)])
-    return binascii.hexlify(encrypted_key).decode('utf-8')
+    return binascii.hexlify(encrypted_key).decode('ascii')
 
 
 def compare_strings_to_clean(s1, s2):

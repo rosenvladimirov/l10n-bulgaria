@@ -10,7 +10,6 @@ def post_init_hook(env):
     for partner_id in env["res.partner"].search([]):
         partner_id.with_context(lang="bg_BG").write(
             {
-                "name": partner_id.name,
                 "city": partner_id.city,
                 "street": partner_id.street,
             }

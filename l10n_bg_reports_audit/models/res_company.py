@@ -3,8 +3,8 @@
 from odoo import Command, _, api, fields, models
 
 L10N_BG_INTRASTAT = [
-    ("standard", _("Standard base on levelling up")),
-    ("statistical", _("Statistical base on levelling up")),
+    ("standard", "Standard base on levelling up"),
+    ("statistical", "Statistical base on levelling up"),
 ]
 
 

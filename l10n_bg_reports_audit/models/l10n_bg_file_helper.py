@@ -410,10 +410,10 @@ L10N_BG_REPORTS = {
 
 def get_l10n_bg_applicability(res):
     return [
-        ("declaration", _("Declaration")),
-        ("purchase", _("Purchase report")),
-        ("sale", _("Sale report")),
-        ("vies", _("VIES Report")),
+        ("declaration", "Declaration"),
+        ("purchase", "Purchase report"),
+        ("sale", "Sale report"),
+        ("vies", "VIES Report"),
     ]
 
 

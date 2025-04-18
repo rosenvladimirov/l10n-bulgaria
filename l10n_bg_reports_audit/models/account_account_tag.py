@@ -9,11 +9,14 @@ class AccountAccountTag(models.Model):
     _name = "account.account.tag"
 
     l10n_bg_applicability = fields.Selection(
-        selection=get_l10n_bg_applicability(), string="Use for"
+        selection="_get_l10n_bg_applicability", string="Use for"
     )
     l10n_bg_code = fields.Char(
         "Code", compute="_compute_l10n_bg_code", help="A technical field for tag code"
     )
+
+    def _get_l10n_bg_applicability(self):
+        return get_l10n_bg_applicability(self)
 
     def _compute_l10n_bg_code(self):
         for record in self:

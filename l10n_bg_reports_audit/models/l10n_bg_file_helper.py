@@ -1,7 +1,7 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 import logging
 
-from odoo import _, fields, models
+from odoo import fields, models, _
 from dateutil.relativedelta import relativedelta
 
 _logger = logging.getLogger(__name__)
@@ -408,7 +408,7 @@ L10N_BG_REPORTS = {
 }
 
 
-def get_l10n_bg_applicability():
+def get_l10n_bg_applicability(res):
     return [
         ("declaration", _("Declaration")),
         ("purchase", _("Purchase report")),

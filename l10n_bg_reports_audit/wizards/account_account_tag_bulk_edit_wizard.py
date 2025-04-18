@@ -16,9 +16,12 @@ class AccountAccountTagBulkEditWizard(models.TransientModel):
 
     tag_ids = fields.Many2many('account.account.tag', string='Tags')
     l10n_bg_applicability = fields.Selection(
-        selection=get_l10n_bg_applicability(), string="Use for"
+        selection="_get_l10n_bg_applicability", string="Use for"
     )
     l10n_bg_config_file = fields.Binary(string="Config File")
+
+    def _get_l10n_bg_applicability(self):
+        return get_l10n_bg_applicability(self)
 
     def action_apply(self):
         for tag in self.tag_ids:

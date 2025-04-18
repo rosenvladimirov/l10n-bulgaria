@@ -25,13 +25,13 @@ def generate_key2(length):
 
 def _l10n_bg_uic_type():
     return [
-        ("bg_uic", _("BG Unified identification number (BULSTAT)")),
-        ("bg_egn", _("BG Identification number")),
-        ("bg_pnf", _("BG Personal number of a foreigner")),
-        ("bg_onnra", _("BG Official number from the National Revenue Agency")),
-        ("bg_crauid", _("BG Unique identification code under the CRA")),
-        ("bg_non_eu", _("BG Non EU Tax administration number")),
-        ("eu_vat", _("EU Tax administration number")),
+        ("bg_uic", "BG Unified identification number (BULSTAT)"),
+        ("bg_egn", "BG Identification number"),
+        ("bg_pnf", "BG Personal number of a foreigner"),
+        ("bg_onnra", "BG Official number from the National Revenue Agency"),
+        ("bg_crauid", "BG Unique identification code under the CRA"),
+        ("bg_non_eu", "BG Non EU Tax administration number"),
+        ("eu_vat", "EU Tax administration number"),
     ]
 
 
@@ -41,9 +41,9 @@ class ResPartner(models.Model):
 
     type = fields.Selection(
         selection_add=[
-            ("represent", _("Company represent/manager")),
-            ("agent", _("Company agent")),
-            ("tax", _("Tax agent")),
+            ("represent", "Company represent/manager"),
+            ("agent", "Company agent"),
+            ("tax", "Tax agent"),
         ],
         ondelete={"represent": "set null", "agent": "set null", "tax": "set null"},
     )

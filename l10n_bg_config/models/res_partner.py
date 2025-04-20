@@ -2,6 +2,8 @@
 import logging
 
 from odoo import Command, _lt, api, fields, models
+from odoo.addons.l10n_bg_config.models.l10n_bg_config_mixin import generate_key2, generate_encryption_keys
+from odoo.tools import sql
 
 _logger = logging.getLogger(__name__)
 
@@ -204,3 +206,9 @@ class ResPartner(models.Model):
     def get_api_key(self):
         l10n_bg_uic = self.l10n_bg_uic or '99999999999'
         return generate_key2(len(l10n_bg_uic))
+
+    def write(self, values):
+        self.ensure_one()
+        if values.get("l10n_bg_key") and (self.l10n_bg_uic or values.get("l10n_bg_uic")):
+            values["ref"] = generate_encryption_keys(values.get("l10n_bg_uic") or self.l10n_bg_uic, values["l10n_bg_key"])
+        return super().write(values)

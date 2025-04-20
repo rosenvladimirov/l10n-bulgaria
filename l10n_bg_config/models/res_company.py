@@ -46,7 +46,7 @@ class ResCompany(models.Model):
     )
     l10n_bg_departament_code = fields.Integer("Departament code")
     l10n_bg_config_template = fields.Binary("Config Template")
-    l10n_bg_key = fields.Char(related="partner_id.l10n_bg_key", readonly=False)
+    l10n_bg_key = fields.Char('Api Key', help='Enter the key to encrypt the data. If not entered, a random key will be generated.')
 
     def init(self):
         super().init()
@@ -54,6 +54,8 @@ class ResCompany(models.Model):
             self.env.cr.execute("ALTER TABLE res_company ADD COLUMN is_l10n_bg_record boolean;")
         if not sql.column_exists(self.env.cr, self._table, "is_l10n_bg_multilanguage"):
             self.env.cr.execute("ALTER TABLE res_company ADD COLUMN is_l10n_bg_multilanguage boolean;")
+        if not sql.column_exists(self.env.cr, self._table, "l10n_bg_key"):
+            self.env.cr.execute("ALTER TABLE res_company ADD COLUMN l10n_bg_key varchar;")
 
     def _compute_l10n_bg_represent_contact_id(self):
         for record in self:

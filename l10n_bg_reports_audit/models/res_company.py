@@ -1,10 +1,10 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import Command, _lt, api, fields, models
+from odoo import Command, _, api, fields, models
 
 L10N_BG_INTRASTAT = [
-    ("standard", _lt("Standard base on levelling up")),
-    ("statistical", _lt("Statistical base on levelling up")),
+    ("standard", "Standard base on levelling up"),
+    ("statistical", "Statistical base on levelling up"),
 ]
 
 

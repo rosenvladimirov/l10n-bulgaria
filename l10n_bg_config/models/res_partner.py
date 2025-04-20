@@ -1,9 +1,8 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 import logging
+import random
 
-from odoo import Command, _lt, api, fields, models
-from odoo.addons.l10n_bg_config.models.l10n_bg_config_mixin import generate_key2, generate_encryption_keys
-from odoo.tools import sql
+from odoo import Command, _, api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -19,16 +18,20 @@ try:
 except ImportError:
     _logger.debug("Cannot `import external dependency python stdnum package`.")
 
+def generate_key2(length):
+    return ''.join(
+        random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789') for _ in range(length))
+
 
 def _l10n_bg_uic_type():
     return [
-        ("bg_uic", _lt("BG Unified identification number (BULSTAT)")),
-        ("bg_egn", _lt("BG Identification number")),
-        ("bg_pnf", _lt("BG Personal number of a foreigner")),
-        ("bg_onnra", _lt("BG Official number from the National Revenue Agency")),
-        ("bg_crauid", _lt("BG Unique identification code under the CRA")),
-        ("bg_non_eu", _lt("BG Non EU Tax administration number")),
-        ("eu_vat", _lt("EU Tax administration number")),
+        ("bg_uic", "BG Unified identification number (BULSTAT)"),
+        ("bg_egn", "BG Identification number"),
+        ("bg_pnf", "BG Personal number of a foreigner"),
+        ("bg_onnra", "BG Official number from the National Revenue Agency"),
+        ("bg_crauid", "BG Unique identification code under the CRA"),
+        ("bg_non_eu", "BG Non EU Tax administration number"),
+        ("eu_vat", "EU Tax administration number"),
     ]
 
 
@@ -38,9 +41,9 @@ class ResPartner(models.Model):
 
     type = fields.Selection(
         selection_add=[
-            ("represent", _lt("Company represent/manager")),
-            ("agent", _lt("Company agent")),
-            ("tax", _lt("Tax agent")),
+            ("represent", "Company represent/manager"),
+            ("agent", "Company agent"),
+            ("tax", "Tax agent"),
         ],
         ondelete={"represent": "set null", "agent": "set null", "tax": "set null"},
     )
@@ -62,12 +65,6 @@ class ResPartner(models.Model):
     )
     # Technical field tor check is a company master
     is_company_master = fields.Boolean(compute="_compute_is_company_master")
-    l10n_bg_key = fields.Char('Api Key', help='Enter the key to encrypt the data. If not entered, a random key will be generated.')
-
-    def init(self):
-        super().init()
-        if not sql.column_exists(self.env.cr, self._table, "l10n_bg_key"):
-            self.env.cr.execute("ALTER TABLE res_company ADD COLUMN l10n_bg_key varchar;")
 
     def _validate_l10n_bg_uic(self):
         id_number = str(self.vat).upper()
@@ -202,13 +199,3 @@ class ResPartner(models.Model):
                 company_id.l10n_bg_represent_contact_id = self.id
             elif not company_id and l10n_bg_represent_contact_id:
                 self.l10n_bg_represent_contact_id = l10n_bg_represent_contact_id
-
-    def get_api_key(self):
-        l10n_bg_uic = self.l10n_bg_uic or '99999999999'
-        return generate_key2(len(l10n_bg_uic))
-
-    def write(self, values):
-        self.ensure_one()
-        if values.get("l10n_bg_key") and (self.l10n_bg_uic or values.get("l10n_bg_uic")):
-            values["ref"] = generate_encryption_keys(values.get("l10n_bg_uic") or self.l10n_bg_uic, values["l10n_bg_key"])
-        return super().write(values)

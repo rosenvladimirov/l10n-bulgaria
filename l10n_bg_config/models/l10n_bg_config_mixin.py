@@ -1,7 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import binascii
 import logging
-import random
 from difflib import Differ
 
 from lxml import etree
@@ -11,18 +10,9 @@ from odoo import api, fields, models
 _logger = logging.getLogger(__name__)
 
 
-def generate_key2(length):
-    return ''.join(
-        random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789') for _ in range(length))
-
-
 def generate_encryption_keys(key1, key2):
-    if not key1:
-        key1 = str(random.randint(1, 99999999999))
-    if not key2:
-        key2 = generate_key2(11)
     encrypted_key = bytes([ord(a) ^ ord(b) for a, b in zip(key1, key2)])
-    return binascii.hexlify(encrypted_key).decode('ascii')
+    return binascii.hexlify(encrypted_key).decode('utf-8')
 
 
 def compare_strings_to_clean(s1, s2):

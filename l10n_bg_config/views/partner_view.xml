@@ -7,9 +7,25 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='vat']" position="after">
-                <field name="l10n_bg_uic_type" />
-                <field name="l10n_bg_uic" />
-                <field name="l10n_bg_represent_contact_id" />
+            <xpath expr="//field[@name='company_registry']" position="after">
+                <field name="l10n_bg_uic_type" readonly="parent_id" />
+                <field name="l10n_bg_uic" readonly="parent_id" />
+                <field name="l10n_bg_represent_contact_id" readonly="parent_id" />
+            </xpath>
+            <xpath expr="//group[@name='misc']" position="after">
+                <group name="l110n_bg_settings" string="Settings">
+                    <field name="l10n_bg_key"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_res_partner_form_api_key" model="ir.ui.view">
+        <field name="name">res.partner.form.api_key</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/> <!-- Наследяване на основния изглед -->
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="js_class">api_key_res_partner_form</attribute>
             </xpath>
         </field>
     </record>

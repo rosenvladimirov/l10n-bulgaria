@@ -1,4 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+import base64
 import binascii
 import logging
 import random
@@ -12,9 +13,11 @@ from odoo import api, fields, models
 _logger = logging.getLogger(__name__)
 
 
-def generate_key2(length):
+def generate_key2(length, template=None):
+    if template is None:
+        template = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     return ''.join(
-        random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789') for _ in range(length))
+        random.choice(template) for _ in range(length))
 
 
 def generate_encryption_keys(key1, key2):
@@ -23,7 +26,7 @@ def generate_encryption_keys(key1, key2):
     if not key2:
         key2 = generate_key2(11)
     encrypted_key = bytes([ord(a) ^ ord(b) for a, b in zip(key1, key2)])
-    return binascii.hexlify(encrypted_key).decode('ascii')
+    return encrypted_key
 
 
 def compare_strings_to_clean(s1, s2):
@@ -34,10 +37,15 @@ def compare_strings_to_clean(s1, s2):
 
 
 def decrypt_key(encrypted_key, key1, key2):
-    password = ''
+    password = generate_key2(len(key1))
     if encrypted_key and key2:
-        password = ''.join(chr(a ^ ord(b)) for a, b in zip(encrypted_key, key2))
+        # key2 = binascii.unhexlify(key2)
+        key2 = base64.b64decode(key2)
+        password = ''.join(chr(ord(a) ^ ord(b)) for a, b in zip(encrypted_key, str(key2, 'ascii')))
     password = compare_strings_to_clean(password, key1)
+    if password:
+        password = generate_key2(len(password), template=password)
+    _logger.info(f"Keys {key1} {str(key2, 'utf-8')} {encrypted_key} {password}")
     return password.encode()
 
 

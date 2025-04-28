@@ -1,4 +1,5 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
+import base64
 import logging
 
 from odoo import Command, _, api, fields, models
@@ -63,6 +64,11 @@ class ResPartner(models.Model):
     # Technical field tor check is a company master
     is_company_master = fields.Boolean(compute="_compute_is_company_master")
     l10n_bg_key = fields.Char('Api Key', help='Enter the key to encrypt the data. If not entered, a random key will be generated.')
+    l10n_bg_crypt_key = fields.Binary(
+        'Crypt Key',
+        attachment=False,
+        help='Enter the key to decrypt the data. If not entered, a random key will be generated.'
+    )
 
     def init(self):
         super().init()
@@ -210,5 +216,5 @@ class ResPartner(models.Model):
     def write(self, values):
         self.ensure_one()
         if values.get("l10n_bg_key") and (self.l10n_bg_uic or values.get("l10n_bg_uic")):
-            values["ref"] = generate_encryption_keys(values.get("l10n_bg_uic") or self.l10n_bg_uic, values["l10n_bg_key"])
+            values["l10n_bg_crypt_key"] = base64.b64encode(generate_encryption_keys(values.get("l10n_bg_uic") or self.l10n_bg_uic, values["l10n_bg_key"]))
         return super().write(values)

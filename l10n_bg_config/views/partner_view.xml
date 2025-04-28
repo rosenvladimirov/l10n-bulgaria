@@ -14,6 +14,7 @@
             <xpath expr="//group[@name='misc']" position="after">
                 <group name="l110n_bg_settings" string="Settings">
                     <field name="l10n_bg_key"/>
+                    <field name="l10n_bg_crypt_key" invisible="1"/>
                 </group>
             </xpath>
         </field>

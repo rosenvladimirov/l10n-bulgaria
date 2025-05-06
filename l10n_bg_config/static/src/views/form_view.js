@@ -56,7 +56,7 @@ export class ApiKeyPartnerFormController extends FormController {
             { context: { ...this.context } }
         );
         console.log(result);
-        // Извличане на стойността от резултата
+        // Retrieve the value from the result
         if (result) {
             const message = _t(`The API Key is: ${result}`);
             this.notification.add(message, { type: "info" });
@@ -73,7 +73,7 @@ export class ApiKeyPartnerFormController extends FormController {
     }
 
     _focusField(fieldName) {
-        // Намерете елемента за полето по неговото име
+        // Find the field item by his name
         const fieldElement = document.querySelector(`[name="${fieldName}"]`);
 
         if (fieldElement) {

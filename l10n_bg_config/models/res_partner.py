@@ -1,8 +1,10 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
+import base64
 import logging
-import random
 
 from odoo import Command, _, api, fields, models
+from odoo.addons.l10n_bg_config.models.l10n_bg_config_mixin import generate_key2, generate_encryption_keys
+from odoo.tools import sql
 
 _logger = logging.getLogger(__name__)
 
@@ -17,10 +19,6 @@ try:
     )
 except ImportError:
     _logger.debug("Cannot `import external dependency python stdnum package`.")
-
-def generate_key2(length):
-    return ''.join(
-        random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789') for _ in range(length))
 
 
 def _l10n_bg_uic_type():
@@ -65,6 +63,17 @@ class ResPartner(models.Model):
     )
     # Technical field tor check is a company master
     is_company_master = fields.Boolean(compute="_compute_is_company_master")
+    l10n_bg_key = fields.Char('Api Key', help='Enter the key to encrypt the data. If not entered, a random key will be generated.')
+    l10n_bg_crypt_key = fields.Binary(
+        'Crypt Key',
+        attachment=False,
+        help='Enter the key to decrypt the data. If not entered, a random key will be generated.'
+    )
+
+    def init(self):
+        super().init()
+        if not sql.column_exists(self.env.cr, self._table, "l10n_bg_key"):
+            self.env.cr.execute("ALTER TABLE res_company ADD COLUMN l10n_bg_key varchar;")
 
     def _validate_l10n_bg_uic(self):
         id_number = str(self.vat).upper()
@@ -199,3 +208,15 @@ class ResPartner(models.Model):
                 company_id.l10n_bg_represent_contact_id = self.id
             elif not company_id and l10n_bg_represent_contact_id:
                 self.l10n_bg_represent_contact_id = l10n_bg_represent_contact_id
+
+    def get_api_key(self):
+        l10n_bg_uic = self.l10n_bg_uic or '99999999999'
+        return generate_key2(len(l10n_bg_uic))
+
+    def _update_key(self, **values):
+        if values.get("l10n_bg_key") and (self.l10n_bg_uic or values.get("l10n_bg_uic")):
+            values["l10n_bg_crypt_key"] = base64.b64encode(generate_encryption_keys(values.get("l10n_bg_uic") or self.l10n_bg_uic, values["l10n_bg_key"]))
+
+    def write(self, values):
+        self._update_key(**values)
+        return super().write(values)

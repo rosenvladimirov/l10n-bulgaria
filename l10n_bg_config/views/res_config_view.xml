@@ -215,6 +215,10 @@
                                         widget="upgrade_boolean"
 
                                     />
+                                    <label
+                                        for="module_l10n_bg_vat_reports"
+                                        class="o_light_label"
+                                    />
                                 </div>
                             </div>
                         </setting>
@@ -257,6 +261,10 @@
                                         name="module_currency_rate_live_fix"
                                         class="ml16"
                                         widget="upgrade_boolean"
+                                    />
+                                    <label
+                                        for="module_currency_rate_live_fix"
+                                        class="o_light_label"
                                     />
                                 </div>
                             </div>

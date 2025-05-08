@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0-20241008\n"
+"Project-Id-Version: Odoo Server 18.0+e-20250408\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-17 20:25+0000\n"
-"PO-Revision-Date: 2025-02-17 20:25+0000\n"
+"POT-Creation-Date: 2025-05-08 10:44+0000\n"
+"PO-Revision-Date: 2025-05-08 10:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,13 +16,8 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_bg_config
-#: model:ir.model.fields,help:l10n_bg_config.field_res_partner__type
-#: model:ir.model.fields,help:l10n_bg_config.field_res_users__type
-msgid ""
-"- Contact: Use this to organize the contact details of employees of a given company (e.g. CEO, CFO, ...).\n"
-"- Invoice Address: Preferred address for all invoices. Selected by default when you invoice an order that belongs to this company.\n"
-"- Delivery Address: Preferred address for all deliveries. Selected by default when you deliver an order that belongs to this company.\n"
-"- Other: Other address for the company (e.g. subsidiary, ...)"
+#: model:ir.model,name:l10n_bg_config.model_account_chart_template
+msgid "Account Chart Template"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -31,8 +26,20 @@ msgid "Account Tag"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_vat_reports
+msgid ""
+"Add VAT reports  and exports files for Bulgaria base on EE report engine"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_assets
 msgid "Add rules for tax desperation base Bulgarian law (EE)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_report_vat
+msgid ""
+"Add tax reports and exports files for Bulgaria base on OCA report engine"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -51,6 +58,8 @@ msgid "Additional data in address like "
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_location__type
+#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_person__type
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__type
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__type
 msgid "Address Type"
@@ -64,56 +73,64 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_config
-#. odoo-python
-#: code:addons/l10n_bg_config/models/res_partner.py:0
+#: model:ir.model.fields,help:l10n_bg_config.field_res_company__is_l10n_bg_multilanguage
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__is_l10n_bg_multilanguage
+msgid "Allows to set multilanguage in Bulgaria accounting"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_company__is_l10n_bg_tax_report
+msgid "Allows to set tax report in Bulgaria accounting"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_location__l10n_bg_key
+#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_person__l10n_bg_key
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_key
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__l10n_bg_key
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_key
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_key
+msgid "Api Key"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_egn
-#, python-format
 msgid "BG Identification number"
 msgstr ""
 
 #. module: l10n_bg_config
-#. odoo-python
-#: code:addons/l10n_bg_config/models/res_partner.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_non_eu
-#, python-format
 msgid "BG Non EU Tax administration number"
 msgstr ""
 
 #. module: l10n_bg_config
-#. odoo-python
-#: code:addons/l10n_bg_config/models/res_partner.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_onnra
-#, python-format
 msgid "BG Official number from the National Revenue Agency"
 msgstr ""
 
 #. module: l10n_bg_config
-#. odoo-python
-#: code:addons/l10n_bg_config/models/res_partner.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_pnf
-#, python-format
 msgid "BG Personal number of a foreigner"
 msgstr ""
 
 #. module: l10n_bg_config
-#. odoo-python
-#: code:addons/l10n_bg_config/models/res_partner.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_uic
-#, python-format
 msgid "BG Unified identification number (BULSTAT)"
 msgstr ""
 
 #. module: l10n_bg_config
-#. odoo-python
-#: code:addons/l10n_bg_config/models/res_partner.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_crauid
-#, python-format
 msgid "BG Unique identification code under the CRA"
 msgstr ""
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "Bank - modules"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Bank currency download fix"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -142,8 +159,40 @@ msgid "Bulgaria - Intrastat Product Declaration"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__is_l10n_bg_multilanguage
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__is_l10n_bg_multilanguage
+msgid "Bulgaria - Multilanguage"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_report_theme
 msgid "Bulgaria - Report Theme"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__is_l10n_bg_tax_report
+msgid "Bulgaria - Tax Report"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_report_vat
+msgid "Bulgaria - Tax Report  export files (OCA)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__is_l10n_bg_tax_report_with_vat
+msgid "Bulgaria - Tax Report with VAT"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__is_l10n_bg_record
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__is_l10n_bg_record
+msgid "Bulgaria - Use Bulgaria Accounting"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_vat_reports
+msgid "Bulgaria - VAT Reports export files (EE)"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -154,6 +203,22 @@ msgstr ""
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "Bulgaria cites, melisipalies, states..."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Bulgaria setting file"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_company_form
+msgid "Bulgaria settings"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_move_form
+msgid "Bulgarian VAT"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -183,6 +248,8 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_fsm_location__l10n_bg_uic_type
+#: model:ir.model.fields,help:l10n_bg_config.field_fsm_person__l10n_bg_uic_type
 #: model:ir.model.fields,help:l10n_bg_config.field_res_company__l10n_bg_uic_type
 #: model:ir.model.fields,help:l10n_bg_config.field_res_partner__l10n_bg_uic_type
 #: model:ir.model.fields,help:l10n_bg_config.field_res_users__l10n_bg_uic_type
@@ -195,24 +262,24 @@ msgid "Companies"
 msgstr ""
 
 #. module: l10n_bg_config
-#. odoo-python
-#: code:addons/l10n_bg_config/models/res_partner.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__type__agent
-#, python-format
 msgid "Company agent"
 msgstr ""
 
 #. module: l10n_bg_config
-#. odoo-python
-#: code:addons/l10n_bg_config/models/res_partner.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__type__represent
-#, python-format
 msgid "Company represent/manager"
 msgstr ""
 
 #. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_res_config_settings
 msgid "Config Settings"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_config_template
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__l10n_bg_config_template
+msgid "Config Template"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -223,6 +290,20 @@ msgstr ""
 #. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_res_country
 msgid "Country"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_location__l10n_bg_crypt_key
+#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_person__l10n_bg_crypt_key
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_crypt_key
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_crypt_key
+msgid "Crypt Key"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__l10n_bg_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__l10n_bg_date
+msgid "Date of locale document"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -247,15 +328,34 @@ msgstr ""
 
 #. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_currency_rate_update_bg_bnb
-msgid "Download currency rates from Bulgaria National Bank"
+msgid "Download currency rates from Bulgaria National Bank (OCA)"
 msgstr ""
 
 #. module: l10n_bg_config
-#. odoo-python
-#: code:addons/l10n_bg_config/models/res_partner.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__eu_vat
-#, python-format
 msgid "EU Tax administration number"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_fsm_location__l10n_bg_crypt_key
+#: model:ir.model.fields,help:l10n_bg_config.field_fsm_person__l10n_bg_crypt_key
+#: model:ir.model.fields,help:l10n_bg_config.field_res_partner__l10n_bg_crypt_key
+#: model:ir.model.fields,help:l10n_bg_config.field_res_users__l10n_bg_crypt_key
+msgid ""
+"Enter the key to decrypt the data. If not entered, a random key will be "
+"generated."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_fsm_location__l10n_bg_key
+#: model:ir.model.fields,help:l10n_bg_config.field_fsm_person__l10n_bg_key
+#: model:ir.model.fields,help:l10n_bg_config.field_res_company__l10n_bg_key
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__l10n_bg_key
+#: model:ir.model.fields,help:l10n_bg_config.field_res_partner__l10n_bg_key
+#: model:ir.model.fields,help:l10n_bg_config.field_res_users__l10n_bg_key
+msgid ""
+"Enter the key to encrypt the data. If not entered, a random key will be "
+"generated."
 msgstr ""
 
 #. module: l10n_bg_config
@@ -269,19 +369,37 @@ msgid "Extend address with Bulgaria localization."
 msgstr ""
 
 #. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Fix coefficient in Automatic Currency Rates (EE)"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_intrastat
 msgid "Generate XML files for Bulgaria intrastat (EE)"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__is_l10n_bg_record
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__is_l10n_bg_record
+#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_location__is_l10n_bg_record
+#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_person__is_l10n_bg_record
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_config_mixin__is_l10n_bg_record
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__is_l10n_bg_record
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__is_l10n_bg_record
+msgid "Is Bulgaria Record"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_location__is_company_master
+#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_person__is_company_master
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__is_company_master
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__is_company_master
 msgid "Is Company Master"
 msgstr ""
 
 #. module: l10n_bg_config
-#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__is_l10n_bg_record
-msgid "Is L10N Bg Record"
+#: model:ir.model,name:l10n_bg_config.model_account_move
+msgid "Journal Entry"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -290,8 +408,33 @@ msgid "Layout in Name views"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_currency_rate_live_fix
+msgid "Live Currency Rate Fix (EE)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_currency_rate_live_fix
+msgid "Live Currency Rate Fix for Bulgaria (EE) module"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_l10n_bg_config_mixin
+msgid "Mixin model for applying to any object that use Bulgarian Accounting"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_ir_module_module
+msgid "Module"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "Multilang cyrillic support"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Multilang settings"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -317,6 +460,12 @@ msgstr ""
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "National Revenue Agency departments, offices and head office."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__l10n_bg_name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__l10n_bg_name
+msgid "Number of locale document"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -346,12 +495,17 @@ msgstr ""
 
 #. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_reports_audit
-msgid "Provide all Accounting TAX Audit reports for Bulgarian - NRA."
+msgid "Provide base for Accounting TAX Audit reports for Bulgarian - NRA."
 msgstr ""
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "Reform the reports forms support for Bulgaria"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Report audit for tax administration base"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -365,9 +519,18 @@ msgid "Report printing forms"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_location__l10n_bg_represent_contact_id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_person__l10n_bg_represent_contact_id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_represent_contact_id
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_represent_contact_id
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_represent_contact_id
 msgid "Representative"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_partner_form
+msgid "Settings"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -376,16 +539,56 @@ msgid "Switch on multilanguage support"
 msgstr ""
 
 #. module: l10n_bg_config
-#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_represent_contact_id
-msgid "TAX Report creator"
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__type__tax
+msgid "Tax agent"
+msgstr ""
+
+#. module: l10n_bg_config
+#. odoo-javascript
+#: code:addons/l10n_bg_config/static/src/views/form_view.js:0
+msgid "The API Key is: ${result}"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"The module provides files export for VAT reporting in compliance with "
+"Bulgarian legislation base on EE reports"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"The module provides files export for VAT reporting in compliance with "
+"Bulgarian legislation base on OCA reports"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"The module provides support for financial and tax reporting in compliance "
+"with Bulgarian legislation."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Theatrical section for Multilang settings"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Theatrical section for setting by file"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Theatrical section for settings"
 msgstr ""
 
 #. module: l10n_bg_config
 #. odoo-python
-#: code:addons/l10n_bg_config/models/res_partner.py:0
-#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__type__tax
-#, python-format
-msgid "Tax agent"
+#: code:addons/l10n_bg_config/hooks.py:0
+msgid "This module is only for Bulgaria"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -394,6 +597,8 @@ msgid "Transliterate partner, city, street names ISO9 and other"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_location__l10n_bg_uic_type
+#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_person__l10n_bg_uic_type
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_uic_type
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_uic_type
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_uic_type
@@ -401,6 +606,8 @@ msgid "Type of Bulgaria UID"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_location__l10n_bg_uic
+#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_person__l10n_bg_uic
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_uic
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_uic
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_uic
@@ -408,6 +615,8 @@ msgid "Unique identification code"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_fsm_location__l10n_bg_uic
+#: model:ir.model.fields,help:l10n_bg_config.field_fsm_person__l10n_bg_uic
 #: model:ir.model.fields,help:l10n_bg_config.field_res_company__l10n_bg_uic
 #: model:ir.model.fields,help:l10n_bg_config.field_res_partner__l10n_bg_uic
 #: model:ir.model.fields,help:l10n_bg_config.field_res_users__l10n_bg_uic
@@ -423,6 +632,26 @@ msgstr ""
 #. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_city
 msgid "Upload cites, municipalities, states, villages and manastiries"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "VAT Report for tax administration (EE)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "VAT Report for tax administration (EE))"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "VAT Report for tax administration (OCA)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "VAT Report for tax administration (OCA))"
 msgstr ""
 
 #. module: l10n_bg_config

@@ -156,8 +156,8 @@
                         </setting>
                         <setting
                             id="l10n_bg_reports_audit_modules"
-                            title="Report audit for tax administration"
-                            string="Report audit for tax administration"
+                            title="Report audit for tax administration base"
+                            string="Report audit for tax administration base"
                             help="The module provides support for financial and tax reporting in compliance with Bulgarian legislation."
                         >
                             <div
@@ -176,17 +176,59 @@
                                 </div>
                             </div>
                         </setting>
+                        <setting
+                            id="l10n_bg_report_vat_modules"
+                            title="VAT Report for tax administration (OCA))"
+                            string="VAT Report for tax administration (OCA)"
+                            help="The module provides files export for VAT reporting in compliance with Bulgarian legislation base on OCA reports"
+                        >
+                            <div
+                                class="content-group"
+                                name="l10n_bg_report_vat_setting_container"
+                            >
+                                <div class="d-flex">
+                                    <field
+                                        name="module_l10n_bg_report_vat"
+                                        class="ml16"
+                                    />
+                                    <label
+                                        for="module_l10n_bg_report_vat"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </setting>
+                        <setting
+                            id="l10n_bg_vat_reports_modules"
+                            title="VAT Report for tax administration (EE))"
+                            string="VAT Report for tax administration (EE)"
+                            help="The module provides files export for VAT reporting in compliance with Bulgarian legislation base on EE reports"
+                        >
+                            <div
+                                class="content-group"
+                                name="l10n_bg_vat_reports_setting_container"
+                            >
+                                <div class="d-flex">
+                                    <field
+                                        name="module_l10n_bg_vat_reports"
+                                        class="ml16"
+                                        widget="upgrade_boolean"
+
+                                    />
+                                </div>
+                            </div>
+                        </setting>
                     </block>
                     <block title="Bank - modules" name="l10n_bg_bank">
                         <setting
-                            id="l10n_bg_bank_modules"
+                            id="l10n_bg_oca_bank_modules"
                             title="Bank related Modules"
                             string="Bank related Modules"
                             help="Will update daily from cron only if is checked Automatic Currency Rates (OCA) and you added a rate_provider"
                         >
                             <div
                                 class="content-group"
-                                name="l10n_bg_bank_setting_container"
+                                name="l10n_bg_bank_setting_oca_container"
                             >
                                 <div class="d-flex">
                                     <field
@@ -196,6 +238,25 @@
                                     <label
                                         for="module_currency_rate_update_bg_bnb"
                                         class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </setting>
+                        <setting
+                            id="l10n_bg_ee_bank_modules"
+                            title="Bank currency download fix"
+                            string="Bank currency download fix"
+                            help="Fix coefficient in Automatic Currency Rates (EE)"
+                        >
+                            <div
+                                class="content-group"
+                                name="l10n_bg_bank_setting_ee_container"
+                            >
+                                <div class="d-flex">
+                                    <field
+                                        name="module_currency_rate_live_fix"
+                                        class="ml16"
+                                        widget="upgrade_boolean"
                                     />
                                 </div>
                             </div>

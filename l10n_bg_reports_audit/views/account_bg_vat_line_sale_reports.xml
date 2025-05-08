@@ -6,6 +6,7 @@
          <field name="arch" type="xml">
             <search>
                 <field name="info_tag_1" />
+                <field name="move_id" />
                 <field name="partner_id" string="Customer" />
 <!--                <field name="company_id" groups="base.group_multi_company" />-->
                 <field name="move_id" string="Invoice/Move" />

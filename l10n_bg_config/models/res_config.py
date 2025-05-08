@@ -13,7 +13,7 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.is_l10n_bg_multilanguage", readonly=False
     )
     module_currency_rate_update_bg_bnb = fields.Boolean(
-        "Download currency rates from Bulgaria National Bank",
+        "Download currency rates from Bulgaria National Bank (OCA)",
         help="Central currency rates downloaded from National Bank of Bulgaria",
     )
     module_l10n_bg_city = fields.Boolean(
@@ -46,7 +46,7 @@ class ResConfigSettings(models.TransientModel):
     )
     module_l10n_bg_reports_audit = fields.Boolean(
         "Bulgaria - Accounting TAX Audit reports",
-        help="Provide all Accounting TAX Audit reports for Bulgarian - NRA.",
+        help="Provide base for Accounting TAX Audit reports for Bulgarian - NRA.",
     )
     module_l10n_bg_intrastat = fields.Boolean(
         "Bulgaria - Intrastat",
@@ -59,6 +59,14 @@ class ResConfigSettings(models.TransientModel):
     module_l10n_bg_report_theme = fields.Boolean(
         "Bulgaria - Report Theme",
         help="Add theme for Bulgaria reports",
+    )
+    module_l10n_bg_vat_reports = fields.Boolean(
+        "Bulgaria - VAT Reports export files (EE)",
+        help="Add VAT reports  and exports files for Bulgaria base on EE report engine",
+    )
+    module_l10n_bg_tax_report = fields.Boolean(
+        "Bulgaria - Tax Report  export files (OCA)",
+        help="Add tax reports and exports files for Bulgaria base on OCA report engine",
     )
     l10n_bg_config_template =fields.Binary(related="company_id.l10n_bg_config_template", readonly=False)
     l10n_bg_key = fields.Char(related="company_id.partner_id.l10n_bg_key", readonly=False)

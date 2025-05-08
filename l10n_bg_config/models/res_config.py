@@ -64,7 +64,7 @@ class ResConfigSettings(models.TransientModel):
         "Bulgaria - VAT Reports export files (EE)",
         help="Add VAT reports  and exports files for Bulgaria base on EE report engine",
     )
-    module_l10n_bg_tax_report = fields.Boolean(
+    module_l10n_bg_report_vat = fields.Boolean(
         "Bulgaria - Tax Report  export files (OCA)",
         help="Add tax reports and exports files for Bulgaria base on OCA report engine",
     )

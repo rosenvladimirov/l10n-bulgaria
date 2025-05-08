@@ -16,6 +16,10 @@ class ResConfigSettings(models.TransientModel):
         "Download currency rates from Bulgaria National Bank (OCA)",
         help="Central currency rates downloaded from National Bank of Bulgaria",
     )
+    module_currency_rate_live_fix = fields.Boolean(
+        "Live Currency Rate Fix (EE)",
+        help="Live Currency Rate Fix for Bulgaria (EE) module",
+    )
     module_l10n_bg_city = fields.Boolean(
         "Upload Bulgaria city",
         help="Upload cites, municipalities, states, villages and manastiries",

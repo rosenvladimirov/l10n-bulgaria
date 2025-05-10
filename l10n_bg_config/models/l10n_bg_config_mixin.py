@@ -56,7 +56,7 @@ class L10nBGConfigMixin(models.AbstractModel):
     )
 
     is_l10n_bg_record = fields.Boolean(
-        string="Is Romanian Record",
+        string="Is Bulgaria Record",
         compute="_compute_is_l10n_bg_record",
         readonly=False,
     )

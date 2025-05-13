@@ -8,19 +8,71 @@
             <xpath expr="//field[@name='logo']" position="after">
                 <field name="logo_print" widget="image" options="{'size': [0, 50]}" />
             </xpath>
-            <xpath expr="//field[@name='layout_background_image']" position="after">
-                <field
-                    name="layout_background_header_image"
-                    options="{'accepted_file_extensions': 'image/*'}"
-                    invisible="layout_background != 'Custom'"
-                    required="layout_background == 'Custom'"
-                >Upload your header file</field>
-                <field
-                    name="layout_background_footer_image"
-                    options="{'accepted_file_extensions': 'image/*'}"
-                    invisible="layout_background != 'Custom'"
-                    required="layout_background == 'Custom'"
-                >Upload your footer file</field>
+            <xpath expr="//field[@name='layout_background_image']" position="replace"/>
+            <xpath expr="//label[@for='primary_color']" position="replace"/>
+            <xpath expr="//div[hasclass('o_document_layout_colors')]" position="replace"/>
+            <xpath expr="//group" position="after">
+                <group>
+                    <group string="Base &amp; Selection theme Colors">
+                        <separator string="Selection theme Colors" colspan="2"/>
+                        <field name="selection_colors" nolabel="1" colspan="2">
+                            <tree create="false" delete="false" editable="top">
+                                <field name="name" readonly="1" force_save="1"/>
+                                <field name="color" widget="color"/>
+                                <field name="color_rgb" readonly="0" column_invisible="1"/>
+                            </tree>
+                        </field>
+                        <separator string="Base Colors" colspan="2"/>
+                        <div class="o_document_layout_colors d-flex align-items-end mb-4">
+                            <field name="primary_color" widget="color" class="w-auto m-0 me-1"/>
+                            <field name="secondary_color" widget="color" class="w-auto m-0"/>
+                            <a class="o_custom_colors btn btn-secondary btn-sm position-relative ms-2" role="button" title="Reset to logo colors" invisible="not custom_colors">
+                                <i class="fa fa-repeat"/> Reset
+                                <field name="custom_colors" class="position-absolute top-0 start-0 w-100 h-100 opacity-0" nolabel="1"/>
+                            </a>
+                        </div>
+                    </group>
+                    <group string="Background images">
+                        <separator string="Portrait" colspan="2"/>
+                        <field
+                            name="layout_background_image"
+                            options="{'accepted_file_extensions': 'image/*'}"
+                            invisible="layout_background != 'Custom'"
+                            required="layout_background == 'Custom'"
+                        >Upload your article file</field>
+                        <field
+                            name="layout_background_header_image"
+                            options="{'accepted_file_extensions': 'image/*'}"
+                            invisible="layout_background != 'Custom'"
+                            required="layout_background == 'Custom'"
+                        >Upload your header file</field>
+                        <field
+                            name="layout_background_footer_image"
+                            options="{'accepted_file_extensions': 'image/*'}"
+                            invisible="layout_background != 'Custom'"
+                            required="layout_background == 'Custom'"
+                        >Upload your footer file</field>
+                        <separator string="Landscape"  colspan="2"/>
+                        <field
+                            name="layout_background_l_image"
+                            options="{'accepted_file_extensions': 'image/*'}"
+                            invisible="layout_background != 'Custom'"
+                            required="layout_background == 'Custom'"
+                        >Upload your article file</field>
+                        <field
+                            name="layout_background_l_header_image"
+                            options="{'accepted_file_extensions': 'image/*'}"
+                            invisible="layout_background != 'Custom'"
+                            required="layout_background == 'Custom'"
+                        >Upload your header file</field>
+                        <field
+                            name="layout_background_l_footer_image"
+                            options="{'accepted_file_extensions': 'image/*'}"
+                            invisible="layout_background != 'Custom'"
+                            required="layout_background == 'Custom'"
+                        >Upload your footer file</field>
+                    </group>
+                </group>
             </xpath>
         </field>
     </record>

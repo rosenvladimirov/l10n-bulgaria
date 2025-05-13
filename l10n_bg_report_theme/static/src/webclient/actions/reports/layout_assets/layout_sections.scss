@@ -15,15 +15,15 @@ strong {
     margin-right: auto;
     line-height: 1.3;
     background: white !important;
-    width: $o-default-width-report-page !important;
+    width: 210mm !important;
     @media (min-width: 3508px) {
-        width: $o-landscape-width-report-page !important;
+        width: 297mm !important;
     }
 }
 .page[size="A4"] {
-    width: $o-default-width-report-page !important;
+    width: 210mm !important;
     @media (min-width: 3508px) {
-        width: $o-landscape-width-report-page !important;
+        width: 297mm !important;
     }
 }
 .o_sections_footer,
@@ -38,9 +38,9 @@ strong {
     background-position: bottom center;
     background-color: transparent !important;
     color: $o-default-report-base-color;
-    width: $o-default-width-report-page !important;
+    width: 210mm !important;
     @media (min-width: 3508px) {
-        width: $o-landscape-width-report-page !important;
+        width: 297mm !important;
     }
 }
 .o_section_line {
@@ -103,9 +103,9 @@ strong {
     margin-top: 0;
     border-bottom: 1px rgba($o-default-report-border-color, 0.5);
     color: $o-default-report-base-color;
-    height: $o-default-height-report-page-header !important;
+    height: 30mm !important;
     @media (min-width: 3508px) {
-        height: $o-landscape-height-report-page-header !important;
+        height: 30mm !important;
     }
     /* logos */
     img {
@@ -125,19 +125,19 @@ strong {
     padding-top: 5px;
     padding-bottom: 0;
     margin-bottom: 0;
-    height: $o-default-height-report-page-footer !important;
+    height: 20mm !important;
     @media (min-width: 3508px) {
-        height: $o-landscape-height-report-page-footer !important;
+        height: 20mm !important;
     }
     ul {
         margin: 4px 0;
     }
 }
 .o_sections_article {
-    height: $o-default-height-report-page-article !important;
+    height: 247mm !important;
     //background-image: $o-default-report-background-article;
     @media (min-width: 3508px) {
-        height: $o-landscape-height-report-page-article !important;
+        height: 210mm !important;
         //background-image: $o-landscape-report-background-article;
     }
     #total strong {

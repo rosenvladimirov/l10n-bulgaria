@@ -17,6 +17,7 @@
         "purchase",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "views/report_templates.xml",
         "data/report_layout.xml",
         "data/report_paperformat_data.xml",
@@ -27,13 +28,15 @@
         "views/purchase_order_templates.xml",
         "views/purchase_quotation_templates.xml",
     ],
+
     "demo": [],
     "assets": {
         "web.report_assets_common": [
             "l10n_bg_report_theme/static/src/webclient/actions/sffont.scss",
-            "l10n_bg_report_theme/static/src/webclient/actions/reports/report.scss",
-            "l10n_bg_report_theme/static/src/webclient/actions/reports/layout_assets/layout_sections.scss",
+            "l10n_bg_report_theme/static/src/webclient/actions/reports/report_variable_colors.scss",
+            "l10n_bg_report_theme/static/src/webclient/actions/reports/report_variable_fonts.scss",
             "l10n_bg_report_theme/static/src/webclient/actions/reports/layout_assets/layout_background.scss",
+            "l10n_bg_report_theme/static/src/webclient/actions/reports/layout_assets/layout_sections.scss"
         ],
     },
 }

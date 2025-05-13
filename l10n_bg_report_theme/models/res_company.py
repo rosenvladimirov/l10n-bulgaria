@@ -17,6 +17,11 @@ class Company(models.Model):
     )
     layout_background_header_image = fields.Binary("Background Header Image")
     layout_background_footer_image = fields.Binary("Background Footer Image")
+
+    layout_background_l_image = fields.Binary("Background Article Image-landscape")
+    layout_background_l_header_image = fields.Binary("Background Header Image-landscape")
+    layout_background_l_footer_image = fields.Binary("Background Footer Image-landscape")
+
     logo_print = fields.Binary("Logo print")
     font = fields.Selection(
         selection_add=[

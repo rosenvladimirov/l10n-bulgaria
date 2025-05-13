@@ -33,7 +33,6 @@
     "assets": {
         "web.report_assets_common": [
             "l10n_bg_report_theme/static/src/webclient/actions/sffont.scss",
-            "l10n_bg_report_theme/static/src/webclient/actions/reports/report_variable_sizes.scss",
             "l10n_bg_report_theme/static/src/webclient/actions/reports/report_variable_colors.scss",
             "l10n_bg_report_theme/static/src/webclient/actions/reports/report_variable_fonts.scss",
             "l10n_bg_report_theme/static/src/webclient/actions/reports/layout_assets/layout_background.scss",

@@ -40,6 +40,6 @@
                 <t t-set="name_date" t-value="''" />
             </t>
         </xpath>
-        <xpath expr="//h2" position="replace" />
+        <xpath expr="//h2" position="replace"/>
     </template>
 </odoo>

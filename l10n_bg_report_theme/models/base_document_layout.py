@@ -2,19 +2,31 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 import logging
 
-from odoo import api, fields, models, tools
+from odoo import api, fields, models
 _logger = logging.getLogger(__name__)
 
 
 class BaseDocumentLayout(models.TransientModel):
     _inherit = "base.document.layout"
 
+    # Portrait
     layout_background_header_image = fields.Binary(
         related="company_id.layout_background_header_image", readonly=False
     )
     layout_background_footer_image = fields.Binary(
         related="company_id.layout_background_footer_image", readonly=False
     )
+    # Landscape
+    layout_background_l_image = fields.Binary(
+        related="company_id.layout_background_l_image", readonly=False
+    )
+    layout_background_l_header_image = fields.Binary(
+        related="company_id.layout_background_l_header_image", readonly=False
+    )
+    layout_background_l_footer_image = fields.Binary(
+        related="company_id.layout_background_l_footer_image", readonly=False
+    )
+
     logo_print = fields.Binary(related="company_id.logo_print", readonly=False)
     preview_logo_print = fields.Binary(
         related="logo_print", string="Preview print logo"
@@ -26,6 +38,19 @@ class BaseDocumentLayout(models.TransientModel):
     mobile = fields.Char(related="company_id.mobile", readonly=True)
     # sender = fields.Many2one(related='company_id.partner_id', readonly=True)
     # recipient = fields.Many2one(related='company_id.partner_id', readonly=True)
+
+    selection_colors = fields.One2many(
+        'base.document.layout.colors',
+        'base_document_layout_id',
+        string='Colors',
+    )
+
+    def default_get(self, fields_list):
+        res = super().default_get(fields_list)
+        colorset = self.env['base.document.layout.colors'].load_scss_colors()
+        if colorset:
+            res['selection_colors'] = colorset
+        return res
 
     @api.onchange("logo_print")
     def _onchange_logo_print(self):
@@ -102,3 +127,8 @@ class BaseDocumentLayout(models.TransientModel):
                     report_saleorder_document_id.with_context(**dict(self._context, active_test=False)).active = \
                         template.report_layout_id.id == report_layout_id.id
         return res
+
+    # def write(self, vals):
+    #     res = super().write(vals)
+    #     self.selection_colors.save_scss_colors()
+    #     return res

@@ -9,11 +9,15 @@
         </xpath>
     </template>
     <template id="deal_no_partner">
-        <t t-set="sender_vat_label" t-value="sender.country_id.vat_label" />
+        <t t-if="not sender_vat_label">
+            <t t-set="sender_vat_label" t-value="sender.country_id.vat_label" />
+        </t>
         <t t-if="not sender_vat_label">
             <t t-set="sender_vat_label">TIN</t>
         </t>
-        <t t-set="recipient_vat_label" t-value="recipient.country_id.vat_label" />
+        <t t-if="not recipient_vat_label">
+            <t t-set="recipient_vat_label" t-value="recipient.country_id.vat_label" />
+        </t>
         <t t-if="not recipient_vat_label">
             <t t-set="recipient_vat_label">TIN</t>
         </t>
@@ -210,61 +214,76 @@
         </div>
     </template>
     <template id="external_layout_sections">
+        <t t-set="header_shape_height" t-value="'174'"/>
+        <t t-set="layout_background_header_url"
+            t-value="'data:image/png;base64,%s' % company.layout_background_header_image.decode('utf-8') if company.layout_background_header_image and company.layout_background == 'Custom' else ''" />
+        <t t-set="layout_background_l_header_url"
+            t-value="'data:image/png;base64,%s' % company.layout_background_l_header_image.decode('utf-8') if company.layout_background_l_header_image and company.layout_background == 'Custom' else ''" />
+
         <div
-            t-attf-class="header o_company_#{company.id}_layout {{  'o_report_layout_header_background' if company.layout_background == 'Section'  else  '' }}"
-            t-att-style="report_header_style"
+            t-attf-class="o_company_#{company.id}_layout header o_sections_header {{  'o_report_layout_header_background' if company.layout_background == 'Custom'  else  '' }} {{report_type != 'pdf' and 'h-0'}}"
+            t-attf-style="{{ 'background-image: url(%s);' % layout_background_header_url if layout_background_header_url else '' }} {{report_type != 'pdf' and 'width: 100% !important'}}"
         >
-            <div class="o_sections_header">
-                <div class="row mb8" style="vertical-align:middle;">
-                    <div class="col-8">
-                        <img
-                            t-if="company.logo_print"
-                            t-att-src="image_data_uri(company.logo_print)"
-                            alt="Logo"
-                            style="max-height: 60px; vertical-align:middle;"
-                        />
-                    </div>
-                    <div class="col-1 text-start" />
-                    <div class="col-3 text-start o_sections_name">
-                        <ul class="list-unstyled">
-                            <li t-if="company.is_company_details_empty">
-                                <li t-if="company.phone"><i class="fa fa-phone" /> <span
-                                        t-field="company.phone"
-                                    /></li>
-                                <li t-if="company.mobile"><i
-                                        class="fa fa-mobile"
-                                    /> <span t-field="company.mobile" /></li>
-                                <li t-if="company.email"><i class="fa fa-at" /> <span
-                                        t-field="company.email"
-                                    /></li>
-                                <li t-if="company.website"><i
-                                        class="fa fa-globe"
-                                    /> <span t-field="company.website" /></li>
-                            </li>
-                            <li t-else="">
-                                <span
-                                    class="company_address"
-                                    t-esc="company.company_details"
-                                />
-                            </li>
-                        </ul>
-                    </div>
+            <t t-if="company.layout_background in ['Geometric', 'Custom']">
+                <t t-attf-style="{{
+                    '@media (min-width: 1122px) {
+                        background-image: url(%s);
+                    }' % layout_background_l_header_url }}"/>
+            </t>
+            <div class="row" style="vertical-align:middle;">
+                <div class="col-8">
+                    <img
+                        t-if="company.logo_print"
+                        t-att-src="image_data_uri(company.logo_print)"
+                        alt="Logo"
+                        style="max-height: 60px; vertical-align:middle;"
+                    />
+                </div>
+                <div class="col-1 text-start" />
+                <div class="col-3 text-start o_sections_name">
+                    <ul class="list-unstyled">
+                        <li t-if="company.is_company_details_empty">
+                            <li t-if="company.phone"><i class="fa fa-phone" /> <span
+                                    t-field="company.phone"
+                                /></li>
+                            <li t-if="company.mobile"><i
+                                    class="fa fa-mobile"
+                                /> <span t-field="company.mobile" /></li>
+                            <li t-if="company.email"><i class="fa fa-at" /> <span
+                                    t-field="company.email"
+                                /></li>
+                            <li t-if="company.website"><i
+                                    class="fa fa-globe"
+                                /> <span t-field="company.website" /></li>
+                        </li>
+                        <li t-else="">
+                            <span
+                                class="company_address"
+                                t-esc="company.company_details"
+                            />
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
+        <t t-set="layout_background_url"
+            t-value="'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg'" />
+        <t t-set="layout_background_url_landscape"
+            t-value="'data:image/png;base64,%s' % company.layout_background_l_image.decode('utf-8') if company.layout_background_l_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg'" />
+
         <div
-            t-attf-class="article o_sections_article o_company_#{company.id}_layout {{  'o_report_layout_background' if company.layout_background in ['Custom', 'Geometric']  else  'o_report_layout_article_background' }}"
+            t-attf-class="o_company_#{company.id}_layout article o_sections_article {{  'o_report_layout_article_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
+            t-attf-style="{{ 'background-image: url(%s);' % layout_background_url if layout_background_url else '' }} {{report_type != 'pdf' and 'margin-top:' + header_shape_height + 'px;'}} {{report_type != 'pdf' and 'width: 100% !important'}}"
             t-att-data-oe-model="o and o._name"
             t-att-data-oe-id="o and o.id"
             t-att-data-oe-lang="o and o.env.context.get('lang')"
         >
-            <style
-                t-if="company.layout_background in ['Custom', 'Geometric'] and company.layout_background_image"
-            >
-                <t
-                    t-esc="'background-image: %s;' % url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}})"
-                />
-            </style>
+            <t t-if="company.layout_background in ['Geometric', 'Custom']">
+                <t t-attf-style="{{
+                    '@media (min-width: 1122px) {
+                        background-image: url(%s);
+                    }' % layout_background_url_landscape }}"/>
+            </t>
             <t name="document_name" t-call="l10n_bg_report_theme.document_name" />
             <div class="pt-5">
                 <!-- This div ensures that the address is not cropped by the header. -->
@@ -282,9 +301,22 @@
             />
             <t t-out="0" />
         </div>
+
+        <t t-set="layout_background_footer_url"
+            t-value="'data:image/png;base64,%s' % company.layout_background_footer_image.decode('utf-8') if company.layout_background_footer_image and company.layout_background == 'Custom' else ''" />
+        <t t-set="layout_background_l_footer_url"
+            t-value="'data:image/png;base64,%s' % company.layout_background_l_footer_image.decode('utf-8') if company.layout_background_l_footer_image and company.layout_background == 'Custom' else ''" />
+
         <div
-            t-attf-class="footer o_sections_footer o_company_#{company.id}_layout {{  'o_report_layout_article_background' if company.layout_background == 'Section'  else  '' }}"
+            t-attf-class="o_company_#{company.id}_layout footer o_sections_footer {{  'o_report_layout_footer_background' if company.layout_background == 'Custom'  else  '' }}"
+            t-attf-style="{{ 'background-image: url(%s);' % layout_background_footer_url if layout_background_footer_url else '' }} {{report_type != 'pdf' and 'width: 100% !important'}}"
         >
+            <t t-if="company.layout_background in ['Geometric', 'Custom']">
+                <t t-attf-style="{{
+                    '@media (min-width: 1122px) {
+                        background-image: url(%s);
+                    }' % layout_background_l_footer_url }}"/>
+            </t>
             <div
                 class="row"
                 style="max-height: 60px; vertical-align:middle;"
@@ -312,13 +344,23 @@
             expr='//t[@t-elif="layout == &apos;web.external_layout_bubble&apos;"]'
             position="after"
         >
-            <t t-elif="layout == 'l10n_bg_report_theme.external_layout_sections'">
+            <t t-elif="layout == 'report_theme_sections.external_layout_sections'">
                 :root {
                     --font-family: <t t-esc="font" />;
                     --primary-color:  <t t-esc='primary' />;
                     --secondary-color: <t t-esc='secondary' />;
                 }
             </t>
+        </xpath>
+    </template>
+    <template id="report_invoice_wizard_section_preview" inherit_id="web.report_invoice_wizard_preview">
+        <xpath expr="//t[@t-set='layout_document_title']" position="before">
+            <t t-set="name_label">
+                <span>Invoice</span>
+            </t>
+           <t t-set="name">
+               <span>INV/2023/00003</span>
+           </t>
         </xpath>
     </template>
 </odoo>

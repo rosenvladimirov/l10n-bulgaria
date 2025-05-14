@@ -16,24 +16,24 @@
                     <group string="Base &amp; Selection theme Colors">
                         <separator string="Selection theme Colors" colspan="2"/>
                         <field name="selection_colors" nolabel="1" colspan="2">
-                            <tree create="false" delete="false" editable="top">
+                            <list create="false" delete="false" editable="top">
                                 <field name="name" readonly="1" force_save="1"/>
                                 <field name="color" widget="color"/>
                                 <field name="color_rgb" readonly="0" column_invisible="1"/>
-                            </tree>
+                            </list>
                         </field>
                         <separator string="Base Colors" colspan="2"/>
-                        <div class="o_document_layout_colors d-flex align-items-end mb-4">
-                            <field name="primary_color" widget="color" class="w-auto m-0 me-1"/>
-                            <field name="secondary_color" widget="color" class="w-auto m-0"/>
-                            <a class="o_custom_colors btn btn-secondary btn-sm position-relative ms-2" role="button" title="Reset to logo colors" invisible="not custom_colors">
-                                <i class="fa fa-repeat"/> Reset
-                                <field name="custom_colors" class="position-absolute top-0 start-0 w-100 h-100 opacity-0" nolabel="1"/>
-                            </a>
-                        </div>
+                            <div class="o_document_layout_colors d-flex align-items-end mb-4">
+                                <field name="primary_color" widget="color" class="w-auto m-0 me-1"/>
+                                <field name="secondary_color" widget="color" class="w-auto m-0"/>
+                                <a class="o_custom_colors btn btn-secondary btn-sm position-relative ms-2" role="button" title="Reset to logo colors" invisible="not custom_colors">
+                                    <i class="fa fa-repeat"/> Reset
+                                    <field name="custom_colors" class="position-absolute top-0 start-0 w-100 h-100 opacity-0" nolabel="1"/>
+                                </a>
+                            </div>
                     </group>
-                    <group string="Background images">
-                        <separator string="Portrait" colspan="2"/>
+                    <group string="Background images" infisible="layout_background != 'Custom'">
+                        <separator string="Portrait" colspan="2" infisible="layout_background != 'Custom'"/>
                         <field
                             name="layout_background_image"
                             options="{'accepted_file_extensions': 'image/*'}"
@@ -52,7 +52,7 @@
                             invisible="layout_background != 'Custom'"
                             required="layout_background == 'Custom'"
                         >Upload your footer file</field>
-                        <separator string="Landscape"  colspan="2"/>
+                        <separator string="Landscape"  colspan="2" infisible="layout_background != 'Custom'"/>
                         <field
                             name="layout_background_l_image"
                             options="{'accepted_file_extensions': 'image/*'}"

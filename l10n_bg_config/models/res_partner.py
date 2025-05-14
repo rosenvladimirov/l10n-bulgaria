@@ -70,10 +70,10 @@ class ResPartner(models.Model):
         help='Enter the key to decrypt the data. If not entered, a random key will be generated.'
     )
 
-    def init(self):
-        super().init()
+    def __init__(self, env, ids=(), prefetch_ids=()):
+        super().__init__(env, ids=ids, prefetch_ids=prefetch_ids)
         if not sql.column_exists(self.env.cr, self._table, "l10n_bg_key"):
-            self.env.cr.execute("ALTER TABLE res_company ADD COLUMN l10n_bg_key varchar;")
+            self.env.cr.execute("ALTER TABLE res_partner ADD COLUMN l10n_bg_key varchar;")
 
     def _validate_l10n_bg_uic(self):
         id_number = str(self.vat).upper()

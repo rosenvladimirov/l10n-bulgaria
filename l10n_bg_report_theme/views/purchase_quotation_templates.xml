@@ -4,9 +4,9 @@
         id="report_purchasequotation_document"
         inherit_id="purchase.report_purchasequotation_document"
     >
-        <xpath expr="//div[hasclass('page')]/t[@t-set='layout_document_title']" position="replace" />
-        <xpath expr="//t[@t-set='address']" position="replace" />
-        <xpath expr="//t[@t-set='information_block']" position="replace" />
+        <xpath expr="//div[hasclass('page')]/t[@t-set='layout_document_title']" position="replace" t-if="company.is_l10n_bg_record"/>
+        <xpath expr="//t[@t-set='address']" position="replace" t-if="company.is_l10n_bg_record"/>
+        <xpath expr="//t[@t-set='information_block']" position="replace" t-if="company.is_l10n_bg_record"/>
         <xpath expr="//t[@t-set='o']" position="after">
             <t t-set="no_deal_partner" t-value="False" />
             <t t-set="sender" t-value="o.partner_id" />

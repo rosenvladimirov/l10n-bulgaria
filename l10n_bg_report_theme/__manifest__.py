@@ -15,6 +15,7 @@
         "account",
         "stock",
         "purchase",
+        "l10n_bg_config",
     ],
     "data": [
         "security/ir.model.access.csv",

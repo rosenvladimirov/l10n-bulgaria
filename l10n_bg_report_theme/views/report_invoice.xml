@@ -40,6 +40,6 @@
                 <t t-set="name_date" t-value="''" />
             </t>
         </xpath>
-        <xpath expr="//t[@t-set='layout_document_title']" position="replace"/>
+        <xpath expr="//t[@t-set='layout_document_title']" position="replace" t-if="company.is_l10n_bg_record"/>
     </template>
 </odoo>

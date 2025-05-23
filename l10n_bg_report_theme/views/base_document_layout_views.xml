@@ -39,19 +39,19 @@
                             options="{'accepted_file_extensions': 'image/*'}"
                             invisible="layout_background != 'Custom'"
                             required="layout_background == 'Custom'"
-                        >Upload your article file</field>
+                        >Upload your article file 247x210mm</field>
                         <field
                             name="layout_background_header_image"
                             options="{'accepted_file_extensions': 'image/*'}"
                             invisible="layout_background != 'Custom'"
                             required="layout_background == 'Custom'"
-                        >Upload your header file</field>
+                        >Upload your header file 30x210mm</field>
                         <field
                             name="layout_background_footer_image"
                             options="{'accepted_file_extensions': 'image/*'}"
                             invisible="layout_background != 'Custom'"
                             required="layout_background == 'Custom'"
-                        >Upload your footer file</field>
+                        >Upload your footer file 20x210mm</field>
                         <separator string="Landscape"  colspan="2" infisible="layout_background != 'Custom'"/>
                         <field
                             name="layout_background_l_image"

@@ -15,21 +15,18 @@ class Partner(models.Model):
         compute="_compute_l10n_bg_street_data",
         inverse="_inverse_l10n_bg_street_data",
         store=True,
-        translate=True,
     )
     street_floor_number = fields.Char(
         "Floor Number",
         compute="_compute_l10n_bg_street_data",
         inverse="_inverse_l10n_bg_street_data",
         store=True,
-        translate=True,
     )
     street_sector_number = fields.Char(
         "Sector Name/Number",
         compute="_compute_l10n_bg_street_data",
         inverse="_inverse_l10n_bg_street_data",
         store=True,
-        translate=True,
     )
 
     def _inverse_l10n_bg_street_data(self):

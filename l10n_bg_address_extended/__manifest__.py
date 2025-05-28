@@ -7,6 +7,7 @@
     "category": "Localization",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "description": """
+    Perfect for organizations requiring precise Bulgarian address formatting and management within their Odoo implementation.
     """,
     "depends": [
         "base",

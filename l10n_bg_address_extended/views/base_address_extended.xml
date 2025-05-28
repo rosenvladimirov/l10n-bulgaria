@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="address_street_extended_form" model="ir.ui.view">
+    <record id="l10n_bg_address_street_extended_form" model="ir.ui.view">
         <field name="name">partner.form.address.extended</field>
         <field name="model">res.partner</field>
         <field name="priority" eval="900" />
@@ -33,6 +33,107 @@
                     />
                 </div>
             </xpath>
+        </field>
+    </record>
+<!--    <record id="address_street_extended_company_form" model="ir.ui.view">-->
+<!--        <field name="name">company.form.address.extended</field>-->
+<!--        <field name="model">res.company</field>-->
+<!--        <field name="priority" eval="15"/>-->
+<!--        <field name="inherit_id" ref="base.view_company_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//page/group/group" position="replace">-->
+<!--                <group>-->
+<!--                    <field name="partner_id" string="Contact" readonly="1" required="0" groups="base.group_no_one"/>-->
+<!--                    <span class="o_form_label o_td_label o_address_type" name="address_name">-->
+<!--                        <span>Address</span>-->
+<!--                    </span>-->
+<!--                    <div class="o_address_format">-->
+<!--                        <field name="country_enforce_cities" invisible="1"/>-->
+<!--                        <field name="street" placeholder="Street..." class="o_address_street oe_read_only"/>-->
+<!--                        <div class="oe_edit_only o_row">-->
+<!--                            <field-->
+<!--                                name="street_name"-->
+<!--                                placeholder="Street"-->
+<!--                                style="flex: 3 1 auto"-->
+<!--                            />-->
+<!--                            <span> </span>-->
+<!--                            <field-->
+<!--                                name="street_number"-->
+<!--                                placeholder="House #"-->
+<!--                                style="flex: 1 1 auto"-->
+<!--                            />-->
+<!--                            <span> - </span>-->
+<!--                            <field-->
+<!--                                name="street_number2"-->
+<!--                                placeholder="Door #"-->
+<!--                                style="flex: 1 1 auto"-->
+<!--                            />-->
+<!--                        </div>-->
+<!--                        <div class="oe_edit_only o_row">-->
+<!--                            <field-->
+<!--                                name="street_sector_number"-->
+<!--                                placeholder="Sector name/Number"-->
+<!--                                style="flex: 3 1 auto"-->
+<!--                            />-->
+<!--                            <span> </span>-->
+<!--                            <field-->
+<!--                                name="street_building_number"-->
+<!--                                placeholder="Building  #"-->
+<!--                                style="flex: 1 1 auto"-->
+<!--                            />-->
+<!--                            <span> - </span>-->
+<!--                            <field-->
+<!--                                name="street_floor_number"-->
+<!--                                placeholder="Floor #"-->
+<!--                                style="flex: 1 1 auto"-->
+<!--                            />-->
+<!--                        </div>-->
+<!--                        <field name="street2" placeholder="Street 2..." class="o_address_street"/>-->
+<!--                        <field name="city_id"-->
+<!--                               placeholder="City"-->
+<!--                               class="o_address_city"-->
+<!--                               domain="[('country_id', '=', country_id)]"-->
+<!--                               invisible="not country_enforce_cities"-->
+<!--                               context="{'default_country_id': country_id, 'default_state_id': state_id, 'default_zipcode': zip}"/>-->
+<!--                        <field name="city"-->
+<!--                               placeholder="City"-->
+<!--                               class="o_address_city"-->
+<!--                               invisible="country_enforce_cities and (city_id or city in ('', False))"/>-->
+<!--                        <field name="state_id"-->
+<!--                               class="o_address_state"-->
+<!--                               placeholder="State"-->
+<!--                               options="{'no_open': True, 'no_quick_create': True}"-->
+<!--                               context="{'default_country_id': country_id}"/>-->
+<!--                        <field name="zip" placeholder="ZIP" class="o_address_zip"/>-->
+<!--                        <field name="country_id"-->
+<!--                               placeholder="Country"-->
+<!--                               class="o_address_country"-->
+<!--                               options="{'no_open': True, 'no_create': True}"/>-->
+<!--                    </div>-->
+<!--                    <field name="vat"/>-->
+<!--                    <field name="company_registry"/>-->
+<!--                    <field name="currency_id" options="{'no_create': True, 'no_open': True}" id="company_currency" context="{'active_test': False}"/>-->
+<!--                </group>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+    <record id="view_company_form_city_id" model="ir.ui.view">
+        <field name="name">company.form.address.extended.city_id</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="city" position="attributes">
+                <attribute name="invisible">country_enforce_cities and (city_id or city in ('', False))</attribute>
+            </field>
+            <field name="city" position="before">
+                <field name="country_enforce_cities" invisible="1"/>
+                <field name="city_id"
+                       placeholder="City"
+                       class="o_address_city"
+                       domain="[('country_id', '=', country_id)]"
+                       invisible="not country_enforce_cities"
+                       context="{'default_country_id': country_id, 'default_state_id': state_id, 'default_zipcode': zip}"/>
+            </field>
         </field>
     </record>
 </odoo>

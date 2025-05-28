@@ -35,7 +35,6 @@ class AccountMoveBgCustoms(models.Model):
         states={"draft": [("readonly", False)]},
     )
 
-
     l10n_bg_customs_date_creation = fields.Date(
         "Theatrical field with Created Date", required=True, default=fields.Date.today()
     )

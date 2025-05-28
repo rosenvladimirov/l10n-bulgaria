@@ -9,8 +9,14 @@
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'depends': [
         'account',
+        'l10n_bg_reports_audit',
+        'l10n_bg_config',
+        'l10n_bg_tax_offices',
     ],
     'data': [
+        'security/ir.model.access.csv',
+        'views/account_fiscal_position_tax_action.xml',
+        'views/partner.xml'
     ],
     'demo': [
     ],

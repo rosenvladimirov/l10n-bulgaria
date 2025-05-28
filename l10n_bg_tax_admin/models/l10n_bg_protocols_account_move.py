@@ -150,3 +150,12 @@ class AccountMoveBgProtocol(models.Model):
             if draft_node := arch.xpath("""//span[@invisible="l10n_bg_protocol_name == '/' and not posted_before and not quick_edit_mode"]"""):
                 draft_node[0].set('invisible', "l10n_bg_protocol_name or l10n_bg_protocol_placeholder or quick_edit_mode")
         return arch, view
+
+    # -------------------------------------------------------------------------
+    # Actions buttons
+    # -------------------------------------------------------------------------
+    def action_post(self):
+        return self.l10n_bg_protocol_move_id.action_post()
+
+    def action_cancel(self):
+        return self.l10n_bg_protocol_move_id.unpost()

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_fiscal_position_form_inherit" model="ir.ui.view">
+        <field name="name">account.fiscal.position.form.inherit</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Tax Actions" name="tax_actions">
+                    <field name="tax_action_map_ids">
+                        <list string="Tax Actions" editable="bottom">
+                            <field name="move_type"/>
+                            <field name="l10n_bg_type_vat"/>
+                            <field name="l10n_bg_doc_type"/>
+                            <field name="l10n_bg_narration"/>
+                            <field name="new_entry"/>
+                            <field name="dest_move_type" column_invisible="new_entry"/>
+                            <field name="position_dest_id" column_invisible="new_entry"/>
+                            <field name="account_id" column_invisible="new_entry"/>
+                            <field name="factor_percent" column_invisible="new_entry"/>
+                        </list>
+                        <form string="Tax Action">
+                            <sheet>
+                                <group>
+                                    <group>
+                                        <field name="move_type"/>
+                                        <field name="company_id" groups="base.group_multi_company"/>
+                                    </group>
+                                    <group>
+                                        <field name="new_entry"/>
+                                        <field name="dest_move_type" invisible="new_entry"/>
+                                        <field name="position_dest_id" invisible="new_entry"/>
+                                        <field name="account_id" invisible="new_entry"/>
+                                        <field name="factor_percent" invisible="new_entry"/>
+                                    </group>
+                                </group>
+                                <group string="Auto Fill Settings">
+                                    <group>
+                                        <field name="l10n_bg_type_vat"/>
+                                        <field name="l10n_bg_doc_type"/>
+                                    </group>
+                                    <group>
+                                        <field name="l10n_bg_narration"/>
+                                    </group>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -213,10 +213,13 @@ class ResPartner(models.Model):
         l10n_bg_uic = self.l10n_bg_uic or '99999999999'
         return generate_key2(len(l10n_bg_uic))
 
-    def _update_key(self, **values):
+    def _update_key(self, values):
         if values.get("l10n_bg_key") and (self.l10n_bg_uic or values.get("l10n_bg_uic")):
-            values["l10n_bg_crypt_key"] = base64.b64encode(generate_encryption_keys(values.get("l10n_bg_uic") or self.l10n_bg_uic, values["l10n_bg_key"]))
+            return base64.b64encode(generate_encryption_keys(values.get("l10n_bg_uic") or self.l10n_bg_uic, values["l10n_bg_key"]))
+        return False
 
     def write(self, values):
-        self._update_key(**values)
+        l10n_bg_crypt_key = self._update_key(values)
+        if l10n_bg_crypt_key:
+            values['l10n_bg_crypt_key'] = l10n_bg_crypt_key
         return super().write(values)

@@ -27,7 +27,12 @@
         "views/account_move_views.xml",
     ],
     "demo": [],
-
+    "external_dependencies": {
+        "python": [  # Python third party libraries required for module
+            "difflib",
+            "random",
+        ]
+    },
     'images': [
         'static/description/banner.png',
     ],

@@ -1,6 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import base64
-import binascii
 import logging
 import random
 from difflib import Differ
@@ -32,11 +31,13 @@ def generate_encryption_keys(key1, key2):
 def compare_strings_to_clean(s1, s2):
     differ = Differ()
     diff = list(differ.compare(s1, s2))
-    clean_diff = ''.join(line[2:] for line in diff)
+    clean_diff = ''.join(line[2:] for line in diff if line[0] != ' ')
     return clean_diff
 
 
 def decrypt_key(encrypted_key, key1, key2):
+    if not key1:
+        key1 = str(random.randint(1, 99999999999))
     password = generate_key2(len(key1))
     if encrypted_key and key2:
         # key2 = binascii.unhexlify(key2)
@@ -45,7 +46,7 @@ def decrypt_key(encrypted_key, key1, key2):
     password = compare_strings_to_clean(password, key1)
     if password:
         password = generate_key2(len(password), template=password)
-    _logger.info(f"Keys {key1} {str(key2, 'utf-8')} {encrypted_key} {password}")
+    # _logger.info(f"Keys {key1} {str(key2, 'utf-8')} {encrypted_key} {password}")
     return password.encode()
 
 

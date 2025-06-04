@@ -1,6 +1,10 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
+import base64
+
 from odoo import Command, api, fields, models
+from odoo.tests import result
 from odoo.tools import sql
+import xml.etree.ElementTree as ET
 
 L10N_BG_MULTILANGUAGE = ("l10n_bg_multilang", "partner_multilang")
 
@@ -45,7 +49,7 @@ class ResCompany(models.Model):
         store=True,
     )
     l10n_bg_departament_code = fields.Integer("Departament code")
-    l10n_bg_config_template = fields.Binary("Config Template")
+    l10n_bg_config_template = fields.Binary("Config Template", attachment=False)
     l10n_bg_key = fields.Char(related="partner_id.l10n_bg_key", readonly=False)
 
     def init(self):
@@ -110,3 +114,37 @@ class ResCompany(models.Model):
         elif not company:
             company = self
         return company.chart_template == "bg"
+
+    @staticmethod
+    def _xml_to_dict(xml_text):
+        root = ET.fromstring(xml_text)
+        res = {}
+        for setting in root.findall('.//settings/setting'):
+            model = setting.get('model')
+            field = setting.get('field')
+            value_type = setting.get('value')
+            codes = setting.text.strip().split(',')
+
+            if model not in res:
+                res[model] = {}
+            if field not in res[model]:
+                res[model][field] = {}
+
+            res[model][field][value_type] = codes
+        return res
+
+    def xml_to_dict(self, xml_text):
+        old_settings =  base64.b64decode(self.l10n_bg_config_template) or {}
+        res = self._xml_to_dict(xml_text)
+        if res:
+            old_settings.update(res)
+            self.write({
+                'l10n_bg_config_template': base64.b64encode(old_settings)
+                })
+        return base64.b64decode(self.l10n_bg_config_template)
+
+    def _process_config_file(self):
+        pass
+
+    def action_process_config_file(self):
+        self._process_config_file()

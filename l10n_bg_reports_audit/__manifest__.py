@@ -1,11 +1,11 @@
 {
     "name": "Bulgarian Accounting Reports",
-    "version": "18.0.4.0.0",
+    "version": "18.0.4.0.1",
     "category": "Accounting/Localizations/Reporting",
     "summary": """
     Reporting for Bulgarian Localization technical module
     """,
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-bulgaria",
     "depends": [
@@ -16,6 +16,7 @@
         "l10n_bg_config",
     ],
     "data": [
+        "data/account_account_tag_function.xml",
         "security/ir.model.access.csv",
         "wizards/account_account_tag_bulk_edit_wizard.xml",
         "views/account_bg_vat_line_sale_reports.xml",

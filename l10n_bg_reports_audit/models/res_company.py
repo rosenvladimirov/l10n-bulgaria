@@ -1,4 +1,5 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
+import base64
 
 from odoo import Command, _, api, fields, models
 
@@ -47,3 +48,14 @@ class ResCompany(models.Model):
                 record.partner_id.child_ids = [
                     Command.link(record.l10n_bg_tax_contact_id.id)
                 ]
+
+    def _process_config_file(self):
+        super()._process_config_file()
+        file_content_json = base64.b64decode(self.l10n_bg_config_template) or {}
+        for key, value in file_content_json.get('account.account.tag', {}).items():
+            for tag_key, tags in value.items():
+                tag_id = self.env['account.account.tag'].search([('name', 'in', tags.split(','))])
+                if tag_id:
+                    tag_id.write({
+                        key: tag_key
+                    })

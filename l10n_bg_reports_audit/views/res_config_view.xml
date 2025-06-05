@@ -48,6 +48,38 @@
                         </div>
                     </setting>
                     <setting
+                        id="l10n_bg_audit_assistant_setting"
+                        title="Assistant"
+                        string="Assistant"
+                        help="Assistant to help configure bulgarian accounting tags manual."
+                    >
+                        <div class="content-group" name="l10n_bg_report_audit_report_assistant">
+                            <div class="d-flex">
+                                <button name="l10n_bg_reports_audit.action_account_tags_bulk_edit"
+                                    string="Bulk Edit"
+                                    type="action"
+                                    class="oe_highlight"
+                                    groups="account.group_account_manager" />
+                            </div>
+                        </div>
+                    </setting>
+                    <setting
+                        id="l10n_bg_audit_by_file_setting"
+                        title="Re configure"
+                        string="Re configure"
+                        help="Use the already loaded settings to reset everything to their original state."
+                    >
+                        <div class="content-group" name="l10n_bg_report_audit_report_file_setting_force">
+                            <div class="d-flex">
+                                <button name="action_update_l10n_bg_report_audit_settings"
+                                    string="Force re-configure"
+                                    type="object"
+                                    class="oe_highlight"
+                                    groups="account.group_account_manager" />
+                            </div>
+                        </div>
+                    </setting>
+                    <setting
                         id="l10n_bg_audit_report_setting"
                         title="Vat &amp; Intrastat"
                         string="Vat &amp; Intrastat"
@@ -93,22 +125,6 @@
                                     for="l10n_bg_intra_stat_outcomes"
                                     class="o_light_label"
                                 />
-                            </div>
-                        </div>
-                    </setting>
-                    <setting
-                        id="l10n_bg_audit_assistant_setting"
-                        title="Assistant"
-                        string="Assistant"
-                        help="Assistant to help configure bulgarian accounting."
-                    >
-                        <div class="content-group" name="l10n_bg_report_audit_report_assistant">
-                            <div class="d-flex">
-                                <button name="l10n_bg_reports_audit.action_account_tags_bulk_edit"
-                                    string="Bulk Edit"
-                                    type="action"
-                                    class="oe_highlight"
-                                    groups="account.group_account_manager" />
                             </div>
                         </div>
                     </setting>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_settings_xml_file_form" model="ir.ui.view">
+        <field name="name">account.settings.xml.file.form</field>
+        <field name="model">account.settings.xml.file</field>
+        <field name="arch" type="xml">
+            <form string="Bulk Edit Account Tags">
+                <h1>XML Configuration File for Odoo</h1>
+
+                <p>This XML file is used to mass apply values to specific fields in records of a given model in Odoo.</p>
+
+                <h2>Element Structure</h2>
+                <ul>
+                    <li><strong>model</strong> – Odoo model where the records are located (e.g., <code>account.account.tag</code>)</li>
+                    <li><strong>field</strong> – The field where the value will be written</li>
+                    <li><strong>value</strong> – The value that will be written to the field</li>
+                    <li><strong>Text content</strong> – Filter indicating which records the value should be applied to (e.g., by IDs or codes)</li>
+                </ul>
+
+                <h2>Example XML</h2>
+<pre><code>&lt;configuration&gt;
+    &lt;settings&gt;
+        &lt;setting model="account.account.tag" field="l10n_bg_applicability" value="sale"&gt;
+            -11,+11,-12_1,-12_2,+12_1,+12_2,-13,+13,-14,+14,-15,+15,-16,+16,-17,+17,-18,+18,-19,+19,-21,+21,-22,+22,-23,+23,-24,+24
+        &lt;/setting&gt;
+        &lt;setting model="account.account.tag" field="l10n_bg_applicability" value="purchase"&gt;
+            -30,+30,-31,+31,-32,+32,-41,+41,-42,+42
+        &lt;/setting&gt;
+    &lt;/settings&gt;
+&lt;/configuration&gt;
+</code></pre>
+
+                <h2>Application</h2>
+                <p>This file can be used by:</p>
+                <ul>
+                    <li>A script that reads the XML and applies the values using Odoo ORM or XML-RPC</li>
+                    <li>A localization or configuration module that automates the settings</li>
+                    <li>An installation process where field values are set based on predefined criteria</li>
+                </ul>
+                <group>
+                    <field name="l10n_bg_config_file"/>
+                </group>
+                <footer>
+                    <button string="Upload config" type="object" name="action_process_config_file" class="btn-primary" invisible="not l10n_bg_config_file"/>
+                    <button special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_account_account_settings_xml_file" model="ir.actions.act_window">
+        <field name="name">Bulk Edit Account Tags</field>
+        <field name="res_model">account.settings.xml.file</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_account_settings_xml_file_form"/>
+    </record>
+</odoo>

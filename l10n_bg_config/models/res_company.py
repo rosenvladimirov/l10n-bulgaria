@@ -1,8 +1,8 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 import base64
+import json
 
 from odoo import Command, api, fields, models
-from odoo.tests import result
 from odoo.tools import sql
 import xml.etree.ElementTree as ET
 
@@ -134,14 +134,15 @@ class ResCompany(models.Model):
         return res
 
     def xml_to_dict(self, xml_text):
-        old_settings =  base64.b64decode(self.l10n_bg_config_template) or {}
+        old_settings = self.l10n_bg_config_template and json.loads(self.l10n_bg_config_template) or {}
         res = self._xml_to_dict(xml_text)
         if res:
             old_settings.update(res)
+            new_settings = json.dumps(old_settings).encode('utf-8')
             self.write({
-                'l10n_bg_config_template': base64.b64encode(old_settings)
+                'l10n_bg_config_template': new_settings
                 })
-        return base64.b64decode(self.l10n_bg_config_template)
+        return self.l10n_bg_config_template and json.loads(self.l10n_bg_config_template) or {}
 
     def _process_config_file(self):
         pass

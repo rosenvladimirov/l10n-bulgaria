@@ -13,6 +13,16 @@
                     invisible="1"
                     groups="account.group_account_manager"
                 />
+                <field
+                    name="l10n_bg_config_template"
+                    invisible="1"
+                />
+                <field
+                    name="is_l10n_bg_multilanguage"
+                    widget="jsonb"
+                    invisible="1"
+                />
+
                 <app
                     data-string="Bulgaria Localization"
                     string="Bulgaria Localization"
@@ -43,6 +53,13 @@
                                     />
                                 </div>
                             </div>
+                        </setting>
+                        <setting
+                            id="l10n_bg_config_setting_api"
+                            title="API key for external functionality"
+                            string="API key for external functionality"
+                            help="Enter API Key to use additional functionality related to the Bulgaria localization. For more information contact with developer."
+                        >
                             <div
                                 class="content-group"
                                 name="l10n_bg_config_is_l10n_bg_setting_api_container"
@@ -57,31 +74,35 @@
                             </div>
                         </setting>
                         <setting
-                            id="l10n_bg_config_setting_multilang_params"
-                            title="Multilang settings"
-                            string="Multilang settings"
-                            help="Theatrical section for Multilang settings"
+                            id="l10n_bg_config_setting_config_params"
+                            title="Configuration file settings"
+                            string="Configuration file settings"
+                            help="Use configuration files to set up different Odoo parameters. For example, changing tags, their configuration. Adding new tags, etc."
                         >
                             <div
                                 class="content-group"
-                                name="l10n_bg_config_is_l10n_bg_setting_multilang_container"
+                                name="l10n_bg_config_is_l10n_bg_setting_container"
                             >
-                                <field name="is_l10n_bg_multilanguage" class="ml16" widget="jsonb"/>
+                                <button name="%(l10n_bg_config.action_account_account_settings_xml_file)d"
+                                    string="Upload configuration file"
+                                    type="action"
+                                    class="oe_highlight"/>
                             </div>
                         </setting>
                         <setting
-                            id="l10n_bg_config_setting_template"
-                            title="Bulgaria setting file"
-                            string="Bulgaria setting file"
-                            help="Theatrical section for setting by file"
+                            id="l10n_bg_config_setting_preview_params"
+                            title="Preview file settings"
+                            string="Preview file settings"
+                            help="Preview configuration setting uploaded in system by configuration files."
                         >
                             <div
                                 class="content-group"
-                                name="l10n_bg_config_template_container"
+                                name="l10n_bg_config_is_l10n_bg_setting_preview_container"
                             >
-                                <div class="d-flex">
-                                    <field name="l10n_bg_config_template" class="ml16" />
-                                </div>
+                                <button name="%(l10n_bg_config.action_account_settings_xml_file)d"
+                                    string="Preview configuration settings"
+                                    type="action"
+                                    class="oe_highlight"/>
                             </div>
                         </setting>
                     </block>

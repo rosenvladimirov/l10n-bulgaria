@@ -6,7 +6,7 @@
     "summary": """
         This module allows you to install and configure all
         the localization modules related to Bulgaria.""",
-    "version": "18.0.3.0.0",
+    "version": "18.0.4.0.2",
     # OCA Metadata
     "development_status": 'Beta',
     "license": "AGPL-3",
@@ -18,8 +18,14 @@
         "base_vat",
         "l10n_bg",
     ],
+    'external_dependencies': {
+        'python': ['xmltodict'],
+    },
     "data": [
         "data/res_lang_data.xml",
+        "security/ir.model.access.csv",
+        "wizards/account_account_tag_bulk_edit_wizard.xml",
+        "wizards/account_settings_preview_xml_file.xml",
         "views/res_config_view.xml",
         "views/account_account_tag_views.xml",
         "views/partner_view.xml",
@@ -27,12 +33,6 @@
         "views/account_move_views.xml",
     ],
     "demo": [],
-    "external_dependencies": {
-        "python": [  # Python third party libraries required for module
-            "difflib",
-            "random",
-        ]
-    },
     'images': [
         'static/description/banner.png',
     ],

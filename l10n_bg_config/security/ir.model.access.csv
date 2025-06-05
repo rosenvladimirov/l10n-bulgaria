@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_settings_xml_file_user,account.settings.xml.file.user,model_account_settings_xml_file,account.group_account_user,1,1,1,1
+access_account_settings_xml_file_manager,account.settings.xml.file.manager,model_account_settings_xml_file,account.group_account_manager,1,1,1,1
+access_account_settings_preview_xml_file_account_user,account.settings.preview.xml.file.account.user,model_account_settings_preview_xml_file,account.group_account_user,1,1,1,1
+access_account_settings_preview_xml_file_account_manager,account.settings.preview.xml.file.account.manager,model_account_settings_preview_xml_file,account.group_account_manager,1,1,1,1

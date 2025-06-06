@@ -18,4 +18,12 @@
         "views/base_address_extended.xml",
     ],
     "license": "AGPL-3",
+    'images': [
+        'static/description/banner.png',
+    ],
+    'tags': ['localization', 'bulgaria', 'configuration'],
+
+    # Version requirements
+    'odoo_version': '18.0',
+    'python_version': '>=3.11',
 }

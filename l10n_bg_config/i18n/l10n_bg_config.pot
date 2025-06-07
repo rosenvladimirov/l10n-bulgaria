@@ -4,16 +4,72 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e-20250408\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-08 10:44+0000\n"
-"PO-Revision-Date: 2025-05-08 10:44+0000\n"
+"POT-Creation-Date: 2025-06-07 10:49+0000\n"
+"PO-Revision-Date: 2025-06-07 10:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid ""
+"<code>&lt;configuration&gt;\n"
+"    &lt;settings&gt;\n"
+"        &lt;setting model=\"account.account.tag\" field=\"l10n_bg_applicability\" value=\"sale\"&gt;\n"
+"            -11,+11,-12_1,-12_2,+12_1,+12_2,-13,+13,-14,+14,-15,+15,-16,+16,-17,+17,-18,+18,-19,+19,-21,+21,-22,+22,-23,+23,-24,+24\n"
+"        &lt;/setting&gt;\n"
+"        &lt;setting model=\"account.account.tag\" field=\"l10n_bg_applicability\" value=\"purchase\"&gt;\n"
+"            -30,+30,-31,+31,-32,+32,-41,+41,-42,+42\n"
+"        &lt;/setting&gt;\n"
+"    &lt;/settings&gt;\n"
+"&lt;/configuration&gt;\n"
+"</code>"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid ""
+"<strong>Text content</strong> – Filter indicating which records the value "
+"should be applied to (e.g., by IDs or codes)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "<strong>field</strong> – The field where the value will be written"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid ""
+"<strong>model</strong> – Odoo model where the records are located (e.g., "
+"<code>account.account.tag</code>)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "<strong>value</strong> – The value that will be written to the field"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "A localization or configuration module that automates the settings"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid ""
+"A script that reads the XML and applies the values using Odoo ORM or XML-RPC"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "API key for external functionality"
+msgstr ""
 
 #. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_account_chart_template
@@ -58,8 +114,6 @@ msgid "Additional data in address like "
 msgstr ""
 
 #. module: l10n_bg_config
-#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_location__type
-#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_person__type
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__type
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__type
 msgid "Address Type"
@@ -84,13 +138,23 @@ msgid "Allows to set tax report in Bulgaria accounting"
 msgstr ""
 
 #. module: l10n_bg_config
-#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_location__l10n_bg_key
-#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_person__l10n_bg_key
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid ""
+"An installation process where field values are set based on predefined "
+"criteria"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_key
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__l10n_bg_key
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_key
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_key
 msgid "Api Key"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "Application"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -207,11 +271,6 @@ msgstr ""
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
-msgid "Bulgaria setting file"
-msgstr ""
-
-#. module: l10n_bg_config
-#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_company_form
 msgid "Bulgaria settings"
 msgstr ""
@@ -237,6 +296,12 @@ msgid "Bulgarian registration codes base on OCA module partner_identification"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.actions.act_window,name:l10n_bg_config.action_account_account_settings_xml_file
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "Bulk Edit Account Tags"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_currency_rate_update_bg_bnb
 msgid "Central currency rates downloaded from National Bank of Bulgaria"
 msgstr ""
@@ -248,12 +313,15 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_config
-#: model:ir.model.fields,help:l10n_bg_config.field_fsm_location__l10n_bg_uic_type
-#: model:ir.model.fields,help:l10n_bg_config.field_fsm_person__l10n_bg_uic_type
 #: model:ir.model.fields,help:l10n_bg_config.field_res_company__l10n_bg_uic_type
 #: model:ir.model.fields,help:l10n_bg_config.field_res_partner__l10n_bg_uic_type
 #: model:ir.model.fields,help:l10n_bg_config.field_res_users__l10n_bg_uic_type
 msgid "Choice type of Bulgaria UID."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_preview_xml_file_form
+msgid "Close"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -283,6 +351,17 @@ msgid "Config Template"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__l10n_bg_config_file
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__l10n_bg_config_file
+msgid "Config xml File"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Configuration file settings"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_res_partner
 msgid "Contact"
 msgstr ""
@@ -293,8 +372,18 @@ msgid "Country"
 msgstr ""
 
 #. module: l10n_bg_config
-#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_location__l10n_bg_crypt_key
-#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_person__l10n_bg_crypt_key
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__create_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_crypt_key
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_crypt_key
 msgid "Crypt Key"
@@ -314,6 +403,12 @@ msgstr ""
 #. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_account_tag__description
 msgid "Description"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__display_name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__display_name
+msgid "Display Name"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -337,8 +432,18 @@ msgid "EU Tax administration number"
 msgstr ""
 
 #. module: l10n_bg_config
-#: model:ir.model.fields,help:l10n_bg_config.field_fsm_location__l10n_bg_crypt_key
-#: model:ir.model.fields,help:l10n_bg_config.field_fsm_person__l10n_bg_crypt_key
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "Element Structure"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"Enter API Key to use additional functionality related to the Bulgaria "
+"localization. For more information contact with developer."
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_partner__l10n_bg_crypt_key
 #: model:ir.model.fields,help:l10n_bg_config.field_res_users__l10n_bg_crypt_key
 msgid ""
@@ -347,8 +452,6 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_config
-#: model:ir.model.fields,help:l10n_bg_config.field_fsm_location__l10n_bg_key
-#: model:ir.model.fields,help:l10n_bg_config.field_fsm_person__l10n_bg_key
 #: model:ir.model.fields,help:l10n_bg_config.field_res_company__l10n_bg_key
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__l10n_bg_key
 #: model:ir.model.fields,help:l10n_bg_config.field_res_partner__l10n_bg_key
@@ -356,6 +459,11 @@ msgstr ""
 msgid ""
 "Enter the key to encrypt the data. If not entered, a random key will be "
 "generated."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "Example XML"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -379,10 +487,14 @@ msgid "Generate XML files for Bulgaria intrastat (EE)"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__is_l10n_bg_record
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__is_l10n_bg_record
-#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_location__is_l10n_bg_record
-#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_person__is_l10n_bg_record
 #: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_config_mixin__is_l10n_bg_record
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__is_l10n_bg_record
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__is_l10n_bg_record
@@ -390,8 +502,6 @@ msgid "Is Bulgaria Record"
 msgstr ""
 
 #. module: l10n_bg_config
-#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_location__is_company_master
-#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_person__is_company_master
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__is_company_master
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__is_company_master
 msgid "Is Company Master"
@@ -400,6 +510,18 @@ msgstr ""
 #. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_account_move
 msgid "Journal Entry"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__write_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__write_date
+msgid "Last Updated on"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -430,11 +552,6 @@ msgstr ""
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "Multilang cyrillic support"
-msgstr ""
-
-#. module: l10n_bg_config
-#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
-msgid "Multilang settings"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -489,6 +606,33 @@ msgid "Partners & Addresses"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"Preview configuration setting uploaded in system by configuration files."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Preview configuration settings"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Preview file settings"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.actions.act_window,name:l10n_bg_config.action_account_settings_xml_file
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_preview_xml_file_form
+msgid "Preview setting as XML"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_account_settings_preview_xml_file
+msgid "Preview setting as xml file"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_intrastat_product
 msgid "Provide Intrastat Product Declaration. (OCA)"
 msgstr ""
@@ -519,12 +663,15 @@ msgid "Report printing forms"
 msgstr ""
 
 #. module: l10n_bg_config
-#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_location__l10n_bg_represent_contact_id
-#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_person__l10n_bg_represent_contact_id
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_represent_contact_id
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_represent_contact_id
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_represent_contact_id
 msgid "Representative"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_preview_xml_file_form
+msgid "Save like XML"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -572,17 +719,19 @@ msgstr ""
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
-msgid "Theatrical section for Multilang settings"
-msgstr ""
-
-#. module: l10n_bg_config
-#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
-msgid "Theatrical section for setting by file"
-msgstr ""
-
-#. module: l10n_bg_config
-#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "Theatrical section for settings"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid ""
+"This XML file is used to mass apply values to specific fields in records of "
+"a given model in Odoo."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "This file can be used by:"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -597,8 +746,6 @@ msgid "Transliterate partner, city, street names ISO9 and other"
 msgstr ""
 
 #. module: l10n_bg_config
-#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_location__l10n_bg_uic_type
-#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_person__l10n_bg_uic_type
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_uic_type
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_uic_type
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_uic_type
@@ -606,8 +753,6 @@ msgid "Type of Bulgaria UID"
 msgstr ""
 
 #. module: l10n_bg_config
-#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_location__l10n_bg_uic
-#: model:ir.model.fields,field_description:l10n_bg_config.field_fsm_person__l10n_bg_uic
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_uic
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_uic
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_uic
@@ -615,8 +760,6 @@ msgid "Unique identification code"
 msgstr ""
 
 #. module: l10n_bg_config
-#: model:ir.model.fields,help:l10n_bg_config.field_fsm_location__l10n_bg_uic
-#: model:ir.model.fields,help:l10n_bg_config.field_fsm_person__l10n_bg_uic
 #: model:ir.model.fields,help:l10n_bg_config.field_res_company__l10n_bg_uic
 #: model:ir.model.fields,help:l10n_bg_config.field_res_partner__l10n_bg_uic
 #: model:ir.model.fields,help:l10n_bg_config.field_res_users__l10n_bg_uic
@@ -632,6 +775,28 @@ msgstr ""
 #. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_city
 msgid "Upload cites, municipalities, states, villages and manastiries"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "Upload config"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Upload configuration file"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_account_settings_xml_file
+msgid "Upload setting xml file"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"Use configuration files to set up different Odoo parameters. For example, "
+"changing tags, their configuration. Adding new tags, etc."
 msgstr ""
 
 #. module: l10n_bg_config
@@ -659,4 +824,14 @@ msgstr ""
 msgid ""
 "Will update daily from cron only if is checked Automatic Currency Rates "
 "(OCA) and you added a rate_provider"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "XML Configuration File for Odoo"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__l10n_bg_config_file_preview
+msgid "XML Preview"
 msgstr ""

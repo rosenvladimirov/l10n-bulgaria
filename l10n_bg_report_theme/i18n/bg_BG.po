@@ -6,28 +6,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-10 13:47+0000\n"
-"PO-Revision-Date: 2025-03-10 22:20+0200\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2025-06-08 10:39+0000\n"
+"PO-Revision-Date: 2025-06-08 14:22+0300\n"
+"Last-Translator: Rosen Vladimirov <vladimirov.rosen@gmail.com>\n"
 "Language-Team: \n"
 "Language: bg_BG\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_wizard_section_preview
+msgid "Invoice"
+msgstr "Фактура"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
-#, fuzzy
-msgid "<strong class=\"o_section_labels\">Shipping address:</strong>"
-msgstr "<strong class=\"o_section_labels\">Адрес за доставка:</strong>"
+msgid "Shipping address:"
+msgstr "Адрес за доставка:"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
-#, fuzzy
-msgid "<strong class=\"o_section_labels\">The Attention of:</strong>"
-msgstr "<strong class=\"o_section_labels\">Вниманието на:</strong>"
+msgid "The Attention of:"
+msgstr "Вниманието на:"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
@@ -35,23 +38,54 @@ msgid "Address:"
 msgstr "Адрес:"
 
 #. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__layout_background_l_image
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background_l_image
+msgid "Background Article Image-landscape"
+msgstr "Справочна статия Изображение-пейзаж"
+
+#. module: l10n_bg_report_theme
 #: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__layout_background_footer_image
 #: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background_footer_image
-#, fuzzy
 msgid "Background Footer Image"
 msgstr "Фоново изображение на колонтитула"
 
 #. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__layout_background_l_footer_image
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background_l_footer_image
+msgid "Background Footer Image-landscape"
+msgstr "Фоново изображение в долния колонтитул - пейзаж"
+
+#. module: l10n_bg_report_theme
 #: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__layout_background_header_image
 #: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background_header_image
-#, fuzzy
 msgid "Background Header Image"
 msgstr "Изображение на фона на заглавието"
 
 #. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__layout_background_l_header_image
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background_l_header_image
+msgid "Background Header Image-landscape"
+msgstr "Заглавие на фона на изображението - пейзаж"
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Background images"
+msgstr "Фонови изображения"
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Base & Selection theme Colors"
+msgstr "Базово цветове и за Селекция тема"
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Base Colors"
+msgstr "Основни цветове"
+
+#. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
 msgid "CUSTOMER"
-msgstr "КЛИЕНТ"
+msgstr "ПОТРЕБИТЕЛ"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
@@ -59,9 +93,24 @@ msgid "Cancelled Invoice"
 msgstr "Анулирана фактура"
 
 #. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__color
+msgid "Color"
+msgstr "Цвят"
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__color_rgb
+msgid "Color RGB"
+msgstr "Цвят RGB"
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__selection_colors
+msgid "Colors"
+msgstr "Цветове"
+
+#. module: l10n_bg_report_theme
 #: model:ir.model,name:l10n_bg_report_theme.model_res_company
 msgid "Companies"
-msgstr "Компании"
+msgstr "Фирми"
 
 #. module: l10n_bg_report_theme
 #: model:ir.model,name:l10n_bg_report_theme.model_base_document_layout
@@ -70,14 +119,33 @@ msgstr "Оформление на документите на фирмата"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
-#, fuzzy
 msgid "Company/Person Name:"
-msgstr "Име на компанията/лицето:"
+msgstr "Име на фирмата/лицето:"
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__create_uid
+msgid "Created by"
+msgstr "Създадена от"
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__create_date
+msgid "Created on"
+msgstr "Създаден на"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
 msgid "Credit Note"
 msgstr "Кредитна бележка"
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_report_theme
+#: model:ir.model,name:l10n_bg_report_theme.model_base_document_layout_colors
+msgid "Document Layout Colors Configuration"
+msgstr "Конфигурация на цветовете за оформлението на документа"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
@@ -95,31 +163,47 @@ msgid "From:"
 msgstr "От:"
 
 #. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__id
+msgid "ID"
+msgstr "Номер (ID)"
+
+#. module: l10n_bg_report_theme
 #: model:ir.model.fields.selection,name:l10n_bg_report_theme.selection__res_company__layout_background__section
-#, fuzzy
 msgid "Included in layout"
 msgstr "Включено в оформлението"
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
-msgid "Invoice"
-msgstr "Фактура"
-
-#. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
-#, fuzzy
 msgid "Invoicing address:"
 msgstr "Адрес за фактуриране:"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
-#, fuzzy
 msgid "Invoicing and shipping address:"
 msgstr "Фактуриране и адрес за доставка:"
 
 #. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Landscape"
+msgstr "Пейзаж"
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__write_uid
+msgid "Last Updated by"
+msgstr "Последно актуализиран от"
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__write_date
+msgid "Last Updated on"
+msgstr "Последно актуализиран на"
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__base_document_layout_id
+msgid "Layout"
+msgstr "Оформление"
+
+#. module: l10n_bg_report_theme
 #: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background
-#, fuzzy
 msgid "Layout Background"
 msgstr "Фон на оформлението"
 
@@ -130,22 +214,19 @@ msgstr "Лого"
 
 #. module: l10n_bg_report_theme
 #: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__logo_print_primary_color
-#, fuzzy
 msgid "Logo Print Primary Color"
 msgstr "Лого печат Основен цвят"
 
 #. module: l10n_bg_report_theme
 #: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__logo_print_secondary_color
-#, fuzzy
 msgid "Logo Print Secondary Color"
 msgstr "Лого печат Вторичен цвят"
 
 #. module: l10n_bg_report_theme
 #: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__logo_print
 #: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__logo_print
-#, fuzzy
 msgid "Logo print"
-msgstr "Печат на лого"
+msgstr "Лого за печат"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_company_form
@@ -158,13 +239,22 @@ msgid "Mobile"
 msgstr "Мобилен"
 
 #. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__name
+msgid "Name"
+msgstr "Име"
+
+#. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.external_layout_sections
 msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
-msgstr "Страница: <span class=\"page\"/> / <span class=\"topage\"/>"
+msgstr "Страница: <span class=\"page\"> / <span class=\"topage\">"
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Portrait"
+msgstr "Портрет"
 
 #. module: l10n_bg_report_theme
 #: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__preview_logo_print
-#, fuzzy
 msgid "Preview print logo"
 msgstr "Преглед на логото за печат"
 
@@ -174,14 +264,17 @@ msgid "Report Action"
 msgstr "Доклад за действие"
 
 #. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Reset to logo colors"
+msgstr "Връщане до подразбиране на цветовете на логото"
+
+#. module: l10n_bg_report_theme
 #: model:ir.model.fields.selection,name:l10n_bg_report_theme.selection__res_company__font__sf_text
-#, fuzzy
 msgid "SF Text"
 msgstr "SF Текст"
 
 #. module: l10n_bg_report_theme
 #: model:ir.model.fields.selection,name:l10n_bg_report_theme.selection__res_company__font__sf_pro_text
-#, fuzzy
 msgid "SF Text Pro"
 msgstr "SF Text Pro"
 
@@ -191,36 +284,57 @@ msgid "SUPPLIER"
 msgstr "ДОСТАВЧИК"
 
 #. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Selection theme Colors"
+msgstr "Цветове на темата секции"
+
+#. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
 msgid "Str.:"
-msgstr "Ул:"
+msgstr "ул.:"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
-#, fuzzy
 msgid "TIN"
-msgstr "TIN"
+msgstr "ЕИК"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
-#, fuzzy
+msgid "Upload your article file"
+msgstr "Качете файла на основната секция"
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Upload your article file 247x210mm"
+msgstr "Качете файла за основната секция с размер 247x210mm"
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
 msgid "Upload your footer file"
-msgstr "Качване на файла с колонтитула"
+msgstr "Качване на файла за колонтитула"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
-#, fuzzy
+msgid "Upload your footer file 20x210mm"
+msgstr "Качване на файл за колонтитул с размер 20x210mm"
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
 msgid "Upload your header file"
-msgstr "Качване на заглавния файл"
+msgstr "Качване на файла за част заглавие"
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Upload your header file 30x210mm"
+msgstr "Качете своя файл за част заглавие с размер 30x210mm"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
 msgid "Vendor Bill"
-msgstr "Сметка на доставчика"
+msgstr "Фактура за покупка"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
-#, fuzzy
 msgid "Vendor Credit Note"
 msgstr "Кредитно известие на доставчика"

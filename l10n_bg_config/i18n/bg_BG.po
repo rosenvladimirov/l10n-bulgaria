@@ -1,4 +1,4 @@
-# Translation of Odoo Server.
+# Translation of Odoo Server. RV
 # This file contains the translation of the following modules:
 # 	* l10n_bg_config
 #
@@ -16,39 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.6\n"
-
-#. module: l10n_bg_config
-#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
-msgid ""
-"<code>&lt;configuration&gt;\n"
-"    &lt;settings&gt;\n"
-"        &lt;setting model=\"account.account.tag\" "
-"field=\"l10n_bg_applicability\" value=\"sale\"&gt;\n"
-"            -11,+11,-12_1,-12_2,+12_1,+12_2,-13,+13,-14,+14,-15,+15,-16,"
-"+16,-17,+17,-18,+18,-19,+19,-21,+21,-22,+22,-23,+23,-24,+24\n"
-"        &lt;/setting&gt;\n"
-"        &lt;setting model=\"account.account.tag\" "
-"field=\"l10n_bg_applicability\" value=\"purchase\"&gt;\n"
-"            -30,+30,-31,+31,-32,+32,-41,+41,-42,+42\n"
-"        &lt;/setting&gt;\n"
-"    &lt;/settings&gt;\n"
-"&lt;/configuration&gt;\n"
-"</code>"
-msgstr ""
-"<code>&lt;configuration&gt;\r\n"
-"    &lt;settings&gt;\r\n"
-"        &lt;setting model=\"account.account.tag\" "
-"field=\"l10n_bg_applicability\" value=\"sale\"&gt;\r\n"
-"            -11,+11,-12_1,-12_2,+12_1,+12_2,-13,+13,-14,+14,-15,+15,-16,"
-"+16,-17,+17,-18,+18,-19,+19,-21,+21,-22,+22,-23,+23,-24,+24\r\n"
-"        &lt;/setting&gt;\r\n"
-"        &lt;setting model=\"account.account.tag\" "
-"field=\"l10n_bg_applicability\" value=\"purchase\"&gt;\r\n"
-"            -30,+30,-31,+31,-32,+32,-41,+41,-42,+42\r\n"
-"        &lt;/setting&gt;\r\n"
-"    &lt;/settings&gt;\r\n"
-"&lt;/configuration&gt;\r\n"
-"</code>"
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form

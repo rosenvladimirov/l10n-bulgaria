@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-25 06:51+0000\n"
-"PO-Revision-Date: 2025-02-25 06:51+0000\n"
+"POT-Creation-Date: 2025-06-07 11:44+0000\n"
+"PO-Revision-Date: 2025-06-07 11:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -50,10 +50,7 @@ msgid "Accounting Reports"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_type_vat__standard
-#, python-format
 msgid "Accounting document"
 msgstr ""
 
@@ -77,30 +74,41 @@ msgid "An obligation to submit intra-Community supplies"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_account_tag_bulk_edit_wizard_form
+msgid "Apply by choice"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__51
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__51
-#, python-format
 msgid ""
 "Arrival of goods on the territory of the country under the regime of storage"
 " of goods until demand under Art. 15a of VAT"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_type_vat__117_protocol
-#, python-format
 msgid "Art. 117 - Protocols"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_type_vat__119_report
-#, python-format
 msgid "Art. 119 - Report for sales"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.res_config_settings_view_form
+msgid "Assistant"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.res_config_settings_view_form
+msgid "Assistant to help configure bulgarian accounting tags manual."
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_l10n_bg_export_file
+msgid "Audit Reports File Helper"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -137,6 +145,23 @@ msgid "Bulgaria audit reports"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.res_config_settings_view_form
+msgid "Bulk Edit"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.actions.act_window,name:l10n_bg_reports_audit.action_account_tags_bulk_edit
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_account_tag_bulk_edit_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_account_tag_bulk_edit_wizard_form
+msgid "Bulk Edit Account Tags"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_account_tag_bulk_edit_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_calc_purchases_line__state__cancel
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_calc_sales_line__state__cancel
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_calc_vies_line__state__cancel
@@ -168,9 +193,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__company_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__company_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_total_declar__company_id
-#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_search
-#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_search
-#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_search
 msgid "Company"
 msgstr ""
 
@@ -212,29 +234,30 @@ msgid "Counter sales"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_account_tag_bulk_edit_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_account_tag_bulk_edit_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__03
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__03
-#, python-format
 msgid "Credit note"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__23
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__23
-#, python-format
 msgid "Credit note art. 126b"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__13
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__13
-#, python-format
 msgid "Credit notice - cash statement"
 msgstr ""
 
@@ -242,6 +265,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__company_currency_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__company_currency_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__company_currency_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__company_currency_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__company_currency_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_calc_declar__company_currency_id
@@ -254,6 +279,8 @@ msgstr ""
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__partner_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__partner_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__partner_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__partner_id
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_search
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_search
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_search
@@ -261,11 +288,8 @@ msgid "Customer"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__07
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__07
-#, python-format
 msgid "Customs declarations"
 msgstr ""
 
@@ -278,29 +302,15 @@ msgid "Date"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__02
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__02
-#, python-format
 msgid "Debit note"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__12
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__12
-#, python-format
 msgid "Debit notice - cash reporting"
-msgstr ""
-
-#. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
-#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_applicability__declaration
-#, python-format
-msgid "Declaration"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -309,24 +319,19 @@ msgid "Delivery according to Art. 163a or import under Art. 167a of the VAT"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__01
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__01
-#, python-format
 msgid "Delivery under Part I of Annex 2 of VAT"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__02
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__02
-#, python-format
 msgid "Delivery under Part II of Annex 2 of VAT"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_account_tag_bulk_edit_wizard__display_name
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__display_name
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__display_name
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__display_name
@@ -363,10 +368,7 @@ msgid "Draft"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_type_vat__dropship
-#, python-format
 msgid "Dropship/Try party deal"
 msgstr ""
 
@@ -381,11 +383,18 @@ msgid "EE settings"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_type_vat__out_customs
-#, python-format
 msgid "Export Customs declaration"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.res_config_settings_view_form
+msgid "Force re-configure"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_export_file__report_date_from
+msgid "From"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -396,6 +405,7 @@ msgid "Group By..."
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_account_tag_bulk_edit_wizard__id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__id
@@ -412,37 +422,25 @@ msgid "ID"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_type_vat__in_customs
-#, python-format
 msgid "Import Customs declaration"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__03
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__03
-#, python-format
 msgid "Import under Annex 3 of VAT"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__01
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__01
-#, python-format
 msgid "Invoice"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__11
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__11
-#, python-format
 msgid "Invoice - cash reporting"
 msgstr ""
 
@@ -453,12 +451,22 @@ msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_account_tag__is_l10n_bg_record
-msgid "Is Romanian Record"
+msgid "Is Bulgaria Record"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model,name:l10n_bg_reports_audit.model_account_move
 msgid "Journal Entry"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_account_tag_bulk_edit_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_account_tag_bulk_edit_wizard__write_date
+msgid "Last Updated on"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -473,11 +481,8 @@ msgid "Mandatory Declaration thresholds. Calculate VAT base on formula."
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__54
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__54
-#, python-format
 msgid "Marriage/absence/destruction of goods under Art. 15a, para. 10 of VAT"
 msgstr ""
 
@@ -485,7 +490,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bank_statement_line__l10n_bg_narration
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__info_tag_9
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_move__l10n_bg_narration
-#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_payment__l10n_bg_narration
 msgid "Narration for audit report"
 msgstr ""
 
@@ -583,124 +587,71 @@ msgid "Posted Journal Items"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__95
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__95
-#, python-format
 msgid "Protocol for free provision of foodstuffs"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__29
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__29
-#, python-format
 msgid "Protocol under Art. 126b"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__91
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__93
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__91
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__93
-#, python-format
 msgid "Protocol under Art. 151c"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__94
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__94
-#, python-format
 msgid "Protocol under Art. 151c, para. 7"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__92
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__92
-#, python-format
 msgid "Protocol under Art. 151g"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__50
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__50
-#, python-format
 msgid "Protocols fuel supplies"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__09
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__09
-#, python-format
 msgid "Protocols or other"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
-#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_applicability__purchase
-#, python-format
-msgid "Purchase report"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.res_config_settings_view_form
+msgid "Re configure"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_purchases_line_tree
-msgid "Purchases"
-msgstr ""
-
-#. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__53
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__53
-#, python-format
 msgid ""
 "Replacement of the person for whom the goods were intended without "
 "termination of the contract under Art. 15a, para. 4 of VAT"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
-#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_applicability__sale
-#, python-format
-msgid "Sale report"
-msgstr ""
-
-#. module: l10n_bg_reports_audit
-#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_sales_line_tree
-#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.view_account_bg_calc_vies_line_tree
-msgid "Sales"
-msgstr ""
-
-#. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__84
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__84
-#, python-format
 msgid "Sales of flour"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__81
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__81
-#, python-format
 msgid "Sales report - tickets"
 msgstr ""
 
@@ -710,27 +661,18 @@ msgid "Settings"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__82
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__82
-#, python-format
 msgid "Special tax order"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/res_company.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__res_company__l10n_bg_intra_stat_type__standard
-#, python-format
 msgid "Standard base on levelling up"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/res_company.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__res_company__l10n_bg_intra_stat_type__statistical
-#, python-format
 msgid "Statistical base on levelling up"
 msgstr ""
 
@@ -744,38 +686,26 @@ msgid "Status"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__05
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__05
-#, python-format
 msgid "Storeable goods receive from EU"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__04
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__04
-#, python-format
 msgid "Storeable goods sent to EU"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__07
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__07
-#, python-format
 msgid "Supply, import or IC acquisition of bread"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__08
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__08
-#, python-format
 msgid "Supply, import or IC acquisition of flour"
 msgstr ""
 
@@ -797,14 +727,21 @@ msgid "TO-trilateral operations 02-25"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_account_tag_bulk_edit_wizard__tag_ids
+msgid "Tags"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__58
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_delivery_type__58
-#, python-format
 msgid ""
 "Termination of the contract under the mode of storage of goods until "
 "requested under Art. 15a of VAT"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_export_file__report_date_to
+msgid "To"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -932,7 +869,6 @@ msgstr ""
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bank_statement_line__l10n_bg_type_vat
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_move__l10n_bg_type_vat
-#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_payment__l10n_bg_type_vat
 msgid "Type of numbering"
 msgstr ""
 
@@ -950,7 +886,14 @@ msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_account_tag__l10n_bg_applicability
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_account_tag_bulk_edit_wizard__l10n_bg_applicability
 msgid "Use for"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.res_config_settings_view_form
+msgid ""
+"Use the already loaded settings to reset everything to their original state."
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -1011,14 +954,6 @@ msgid "VIES Declaration for Analysis in Bulgarian Localization"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
-#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_applicability__vies
-#, python-format
-msgid "VIES Report"
-msgstr ""
-
-#. module: l10n_bg_reports_audit
 #: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_calc_vies_line
 msgid "VIES line for Analysis in Bulgarian Localization"
 msgstr ""
@@ -1031,7 +966,6 @@ msgstr ""
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bank_statement_line__l10n_bg_delivery_type
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_move__l10n_bg_delivery_type
-#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_payment__l10n_bg_delivery_type
 msgid "Vat type delivery"
 msgstr ""
 
@@ -1039,7 +973,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bank_statement_line__l10n_bg_doc_type
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__info_tag_4
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_move__l10n_bg_doc_type
-#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_payment__l10n_bg_doc_type
 msgid "Vat type document"
 msgstr ""
 
@@ -1321,11 +1254,6 @@ msgid "[02-05] Vat type document"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__info_tag_6
-msgid "[02-06] Counter purchases"
-msgstr ""
-
-#. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__info_tag_6
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__info_tag_6
 msgid "[02-06] Document number"
@@ -1356,6 +1284,11 @@ msgid "[02-10] Narration for audit report"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_10
+msgid "[02-10] Total amount of VAT charged"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_sales_line__account_tag_10
 msgid "[02-10] Total amount of base"
 msgstr ""
@@ -1367,21 +1300,25 @@ msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_11
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_11
 msgid "[02-11] Base for taxation with 20%"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_121
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_121
 msgid "[02-12-1] Base ICA (1)"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_122
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_122
 msgid "[02-12-2] Base ICA (2)"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_12
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_12
 msgid "[02-12] Base ICA"
 msgstr ""
 
@@ -1397,6 +1334,7 @@ msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_14
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_14
 msgid "[02-14] Base export 0%"
 msgstr ""
 
@@ -1408,6 +1346,7 @@ msgstr ""
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_15
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__account_tag_vir_4
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_15
 msgid "[02-15] Base ICD of goods 0%"
 msgstr ""
 
@@ -1418,6 +1357,7 @@ msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_16
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_16
 msgid "[02-16] Base 0% under Art. 140, par, 1 and Art. 173"
 msgstr ""
 
@@ -1434,6 +1374,7 @@ msgstr ""
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_17
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__account_tag_vir_6
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_17
 msgid "[02-17] Base under Art. 21 on the territory of the EU"
 msgstr ""
 
@@ -1444,11 +1385,13 @@ msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_18
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_18
 msgid "[02-18] Base under Art. 69, paragraph 2 on the territory of the EU"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_19
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_19
 msgid "[02-19] Base educated and ICA"
 msgstr ""
 
@@ -1459,6 +1402,7 @@ msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_20
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_20
 msgid "[02-20] All VAT charged"
 msgstr ""
 
@@ -1469,6 +1413,7 @@ msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_21
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_21
 msgid "[02-21] VAT 20%"
 msgstr ""
 
@@ -1484,6 +1429,7 @@ msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_22
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_22
 msgid "[02-22] VAT ICA and art. 82, par. 2-5"
 msgstr ""
 
@@ -1494,6 +1440,7 @@ msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_23
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_23
 msgid "[02-23] VAT-personal needs"
 msgstr ""
 
@@ -1504,17 +1451,20 @@ msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_24
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_24
 msgid "[02-24] VAT-tourist services 9%"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_25
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__account_tag_vir_5
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_25
 msgid "[02-25] TO-trilateral operations"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__account_tag_26
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__account_tag_26
 msgid "[02-26] Base art. 82, paragraphs 2-5"
 msgstr ""
 
@@ -1561,36 +1511,43 @@ msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__account_tag_30
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__account_tag_30
 msgid "[03-30] Base without tax credit"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__account_tag_31
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__account_tag_31
 msgid "[03-31] Base full tax credit"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__account_tag_32
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__account_tag_32
 msgid "[03-32] Base partly tax credit"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__account_tag_41
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__account_tag_41
 msgid "[03-41] VAT full tax credit"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__account_tag_42
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__account_tag_42
 msgid "[03-42] VAT partly tax credit"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__account_tag_43
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__account_tag_43
 msgid "[03-43] Annual adjustment - art. 73, paragraph 8"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__account_tag_44
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__account_tag_44
 msgid ""
 "[03-44] Base when acquiring goods from an intermediary in a tripartite "
 "operation"
@@ -1673,10 +1630,7 @@ msgid "[VHR-3] Number of documents in the vies journal"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
-#. odoo-python
-#: code:addons/l10n_bg_reports_audit/models/l10n_bg_file_helper.py:0
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__83
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_doc_type__83
-#, python-format
 msgid "sales of bread"
 msgstr ""

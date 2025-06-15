@@ -6,6 +6,7 @@ from psycopg2 import sql
 from odoo import api, fields, models, tools
 
 from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import (
+    l10n_bg_extend_address,
     l10n_bg_lang,
     l10n_bg_odoo_compatible,
     l10n_bg_where, list_months_between_dates,
@@ -54,7 +55,7 @@ class AccountBgVatInfoDeclar(models.Model):
         #     lang = self._context["report_options"]["lang"]
         return f"""acc.company_id AS company_id,
         COALESCE(company_partner.vat, company_partner.l10n_bg_uic) AS company_vat,
-        CONCAT ({l10n_bg_lang(self.env, field_name='company_partner.city')}, ', ', {l10n_bg_lang(self.env, field_name='company_partner.street')}) AS company_address,
+        CONCAT ({l10n_bg_lang(self.env, lang_modules='partner', field_name='company_partner.city')}, ', ', {l10n_bg_lang(self.env, lang_modules='partner', field_name='company_partner.street')}) AS company_address,
         COALESCE(company_partner.vat, company_partner.l10n_bg_uic) AS info_tag_1,
         {l10n_bg_lang(self.env, lang_modules='partner', field_name='company_partner.name')} AS info_tag_2,
         info_tag_3,
@@ -105,7 +106,7 @@ LEFT JOIN res_company AS company
 LEFT JOIN res_partner AS company_partner
     ON company.partner_id = company_partner.id
 LEFT JOIN res_partner AS represent_partner
-    ON company.l10n_bg_tax_contact_id = represent_partner.id"""
+    ON company.l10n_bg_tax_contact_id = represent_partner.id""" + l10n_bg_extend_address(self.env)
 
     @api.model
     def _where(self):

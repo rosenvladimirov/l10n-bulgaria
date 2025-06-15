@@ -1,11 +1,14 @@
 {
     "name": "Bulgarian Accounting Reports",
-    "version": "18.0.5.0.2",
+    "version": "18.0.5.0.3",
+    "development_status": "Production/Stable",
+    "maintainers": ["rosenvladimirov", "deyanlyubenov"],
+    "description": "Reporting for Bulgarian Localization technical module.",
     "category": "Accounting/Localizations/Reporting",
     "summary": """
     Reporting for Bulgarian Localization technical module
     """,
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "depends": [

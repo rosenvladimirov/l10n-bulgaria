@@ -4,10 +4,55 @@ import logging
 from odoo import fields, models, _
 from dateutil.relativedelta import relativedelta
 
+from odoo.addons import l10n_bg_city
+
 _logger = logging.getLogger(__name__)
+
+L10N_BG_ADDRESS_EXTEND = [
+    'l10n_bg_city'
+]
+
+L10N_BG_MULTILANGUAGE = [
+    "l10n_bg_multilang", "partner_multilang"
+]
+
+
+def _l10n_bg_extend_address(env):
+    l10n_bg = env["ir.module.module"].search(
+        [
+            ("name", "in", L10N_BG_ADDRESS_EXTEND),
+            ("state", "=", "installed"),
+        ]
+    )
+    return l10n_bg
+
+
+def _l10n_bg_multilanguage(env):
+    l10n_bg = env["ir.module.module"].search(
+        [
+            ("name", "in", L10N_BG_MULTILANGUAGE),
+            ("state", "=", "installed"),
+        ]
+    )
+    return l10n_bg
+
+
+def l10n_bg_extend_address(env, model="company_partner"):
+    if not _l10n_bg_extend_address(env):
+        return f"""
+LEFT JOIN res_city AS {model}_city
+    ON {model}.city_id = res_city.id
+        """
+    return """"""
 
 
 def l10n_bg_lang(env, lang_modules="partner", field_name=""):
+
+    if l10n_bg_extend_address(env) and lang_modules == "partner" and field_name == "company_partner.city":
+        field_name = "company_partner_city.name"
+    if l10n_bg_extend_address(env) and lang_modules == "partner" and field_name == "represent_partner.city":
+        field_name = "represent_partner_city.name"
+
     if lang_modules == "partner":
         return (
             f"""CASE
@@ -598,5 +643,5 @@ class AuditExportFileHelper(models.AbstractModel):
             .with_context(**dict(self._context, report_options=options))
             ._table_query
         )
-        _logger.warning(f"SQL QUERY {tax_report}: {full_query}")
+        _logger.debug(f"SQL QUERY {tax_report}: {full_query}")
         return full_query

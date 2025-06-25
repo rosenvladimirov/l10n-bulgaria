@@ -41,31 +41,27 @@ class AccountFiscalPosition(models.Model):
     )
     tax_action_map = fields.Binary(compute='_compute_tax_action_map')
 
-    @api.depends(
-        'tax_action_map_ids.position_dest_id',
-        'tax_action_map_ids.dest_move_type',
-        'tax_action_map_ids.l10n_bg_type_vat',
-        'tax_action_map_ids.l10n_bg_doc_type',
-        'tax_action_map_ids.l10n_bg_narration',
-        'tax_action_map_ids.account_id',
-        'tax_action_map_ids.factor_percent',
-    )
+    @api.depends('tax_action_map_ids')
     def _compute_tax_action_map(self):
+        tax_action_map = defaultdict(dict)
         for position in self:
-            tax_action_map = {}
             for tl in position.tax_action_map_ids:
                 tax_action_map[f"{tl.move_type}-{position.id}"].update({
-                    'position_dest_id': tl.position_dest_id.id,
-                    'dest_move_type': tl.dest_move_type,
+                    'l10n_bg_move_type': tl.l10n_bg_move_type,
                     'l10n_bg_type_vat': tl.l10n_bg_type_vat,
+                    'move_type': tl.move_type,
+                    # Auto fill entries
                     'l10n_bg_doc_type': tl.l10n_bg_doc_type,
                     'l10n_bg_narration': tl.l10n_bg_narration,
+                    # Replacement
+                    'dest_move_type': tl.dest_move_type,
+                    'position_dest_id': tl.position_dest_id.id,
                     'account_id': tl.account_id.id,
                     'factor_percent': tl.factor_percent,
                 })
                 if tl.position_dest_id:
                     tax_action_map.update(tl.position_dest_id._compute_tax_action_map())
-            position.tax_action_map = tax_action_map
+            position.tax_action_map = dict(tax_action_map)
 
 
 class AccountFiscalPositionTaxAction(models.Model):
@@ -87,21 +83,21 @@ class AccountFiscalPositionTaxAction(models.Model):
         related='position_id.company_id',
         store=True
     )
+    l10n_bg_move_type = fields.Selection(
+        BG_MOVE_TYPES,
+        string="Type of fiscal position",
+        default="standard",
+        copy=False,
+    )
     move_type = fields.Selection(
         MOVE_TYPES,
-        string="BG type of move",
+        string="Type of move",
         copy=False,
     )
     # If new entry need
-    new_entry = fields.Boolean(
-        string="New entry",
-        default=False,
-        help="If new entry need"
-    )
     dest_move_type = fields.Selection(
-        BG_MOVE_TYPES,
-        string="BG type of move",
-        default="standard",
+        MOVE_TYPES,
+        string="Replacement Type of move",
         copy=False,
     )
     position_dest_id = fields.Many2one(
@@ -122,14 +118,14 @@ class AccountFiscalPositionTaxAction(models.Model):
     # Auto fill entries
     l10n_bg_type_vat = fields.Selection(
         selection=get_type_vat(),
-        string="Type of numbering",
+        string="Type of VAT",
         default="standard",
         copy=False,
         required=True,
     )
     l10n_bg_doc_type = fields.Selection(
         selection=get_doc_type(),
-        string="Vat type document",
+        string="VAT type document",
         default="01",
         copy=False,
         required=True,

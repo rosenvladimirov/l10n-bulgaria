@@ -7,31 +7,31 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page string="Tax Actions" name="tax_actions">
-                    <field name="tax_action_map_ids">
+                    <field name="tax_action_map_ids" widget="one2many" context="{'default_company_id': company_id}">
                         <list string="Tax Actions" editable="bottom">
                             <field name="move_type"/>
+                            <field name="l10n_bg_move_type"/>
                             <field name="l10n_bg_type_vat"/>
                             <field name="l10n_bg_doc_type"/>
                             <field name="l10n_bg_narration"/>
-                            <field name="new_entry"/>
-                            <field name="dest_move_type" column_invisible="new_entry"/>
-                            <field name="position_dest_id" column_invisible="new_entry"/>
-                            <field name="account_id" column_invisible="new_entry"/>
-                            <field name="factor_percent" column_invisible="new_entry"/>
+                            <field name="position_dest_id"/>
+                            <field name="dest_move_type"/>
+                            <field name="account_id"/>
+                            <field name="factor_percent"/>
                         </list>
                         <form string="Tax Action">
                             <sheet>
                                 <group>
                                     <group>
                                         <field name="move_type"/>
+                                        <field name="l10n_bg_move_type"/>
                                         <field name="company_id" groups="base.group_multi_company"/>
                                     </group>
                                     <group>
-                                        <field name="new_entry"/>
-                                        <field name="dest_move_type" invisible="new_entry"/>
-                                        <field name="position_dest_id" invisible="new_entry"/>
-                                        <field name="account_id" invisible="new_entry"/>
-                                        <field name="factor_percent" invisible="new_entry"/>
+                                        <field name="position_dest_id"/>
+                                        <field name="dest_move_type"/>
+                                        <field name="account_id"/>
+                                        <field name="factor_percent"/>
                                     </group>
                                 </group>
                                 <group string="Auto Fill Settings">

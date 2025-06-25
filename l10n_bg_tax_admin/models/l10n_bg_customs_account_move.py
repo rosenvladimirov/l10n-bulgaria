@@ -11,7 +11,7 @@ class AccountMoveBgCustoms(models.Model):
     _inherits = {"account.move": "l10n_bg_customs_move_id"}
     _inherit = ['mail.thread.main.attachment', 'mail.activity.mixin', 'sequence.mixin']
     _description = "VAT customs declaration for income invoices"
-    _order = "l10n_bg_customs_date desc, l10n_bg_customs_name desc, id desc"
+    _order = "l10n_bg_customs_date_creation desc, l10n_bg_customs_name desc, id desc"
     _mail_post_access = "read"
     _check_company_auto = True
     _sequence_field = "l10n_bg_customs_name"
@@ -38,10 +38,6 @@ class AccountMoveBgCustoms(models.Model):
     l10n_bg_customs_date_creation = fields.Date(
         "Theatrical field with Created Date", required=True, default=fields.Date.today()
     )
-
-    l10n_bg_customs_date = fields.Date(
-        "Customs date", copy=False, default=fields.Date.today()
-    )
     l10n_bg_customs_name = fields.Char(
         string="Customs Declaration Number",
         compute="_compute_l10n_bg_customs_name",
@@ -58,7 +54,7 @@ class AccountMoveBgCustoms(models.Model):
     # -------------------------------------------------------------------------
     # COMPUTE METHODS
     # -------------------------------------------------------------------------
-    @api.depends('l10n_bg_customs_move_id.posted_before', 'l10n_bg_customs_move_id.state', 'l10n_bg_customs_date')
+    @api.depends('l10n_bg_customs_move_id.posted_before', 'l10n_bg_customs_move_id.state', 'l10n_bg_customs_move_id.l10n_bg_customs_date')
     def _compute_l10n_bg_customs_name(self):
         self = self.sorted(lambda m: (m.date, m.ref or '', m._origin.id))
 
@@ -72,7 +68,7 @@ class AccountMoveBgCustoms(models.Model):
                 # Reset to draft
                 record.l10n_bg_customs_name = False
                 continue
-            if (record.l10n_bg_customs_date and not move_has_l10n_bg_customs_name
+            if (record.l10n_bg_customs_move_id.l10n_bg_customs_date and not move_has_l10n_bg_customs_name
                 and record.l10n_bg_customs_move_id.state != 'draft'):
                 record._set_next_sequence()
         self._inverse_l10n_bg_customs_name()
@@ -85,7 +81,7 @@ class AccountMoveBgCustoms(models.Model):
         for record in self:
             record.l10n_bg_customs_highest_name = record._get_last_sequence()
 
-    @api.depends('l10n_bg_customs_date', 'l10n_bg_customs_name', 'posted_before', 'sequence_number', 'sequence_prefix', 'state')
+    @api.depends('l10n_bg_customs_move_id.l10n_bg_customs_date', 'l10n_bg_customs_name', 'posted_before', 'sequence_number', 'sequence_prefix', 'state')
     def _compute_l10n_bg_customs_name_placeholder(self):
         for record in self:
             if (not record.l10n_bg_customs_name or record.l10n_bg_customs_name == '/') and not record._get_last_sequence():
@@ -114,7 +110,6 @@ class AccountMoveBgCustoms(models.Model):
     def _get_last_sequence(self, relaxed=False, with_prefix=None):
         res = super()._get_last_sequence(relaxed=relaxed, with_prefix=with_prefix)
         padded_number = res.replace(with_prefix, '') if with_prefix else res
-        padded_number = padded_number.zfill(10)
         res = with_prefix + padded_number[len(with_prefix):] if with_prefix else padded_number
         return res
 

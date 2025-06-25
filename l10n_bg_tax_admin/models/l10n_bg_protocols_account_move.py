@@ -1,7 +1,7 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 import logging
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 _logger = logging.getLogger(__name__)
 
@@ -11,7 +11,7 @@ class AccountMoveBgProtocol(models.Model):
     _inherits = {"account.move": "l10n_bg_protocol_move_id"}
     _inherit = ['mail.thread.main.attachment', 'mail.activity.mixin', 'sequence.mixin']
     _description = "VAT Protocol for invoice art. 117(2)"
-    _order = "l10n_bg_protocol_date desc, l10n_bg_protocol_name desc, id desc"
+    _order = "l10n_bg_protocol_date_creation desc, l10n_bg_protocol_name desc, id desc"
     _mail_post_access = "read"
     _check_company_auto = True
     _sequence_field = "l10n_bg_protocol_name"
@@ -45,9 +45,6 @@ class AccountMoveBgProtocol(models.Model):
         default='117',
         required=True,
     )
-    l10n_bg_protocol_date = fields.Date(
-        "Protocol date", copy=False, default=fields.Date.today()
-    )
     l10n_bg_protocol_name = fields.Char(
         string="Protocol Number",
         compute="_compute_l10n_bg_protocol_name",
@@ -60,11 +57,16 @@ class AccountMoveBgProtocol(models.Model):
     )
     l10n_bg_protocol_placeholder = fields.Char(compute='_compute_l10n_bg_protocol_placeholder')
     l10n_bg_protocol_highest_name = fields.Char(compute='_compute_l10n_bg_protocol_highest_name')
+    l10n_bg_tax_totals = fields.Binary(
+        string="Protocol Totals",
+        compute='_compute_l10n_bg_tax_totals',
+        exportable=False,
+    )
 
     # -------------------------------------------------------------------------
     # COMPUTE METHODS
     # -------------------------------------------------------------------------
-    @api.depends('l10n_bg_protocol_move_id.posted_before', 'l10n_bg_protocol_move_id.state', 'l10n_bg_protocol_date')
+    @api.depends('l10n_bg_protocol_move_id.posted_before', 'l10n_bg_protocol_move_id.state', 'l10n_bg_protocol_move_id.l10n_bg_protocol_date')
     def _compute_l10n_bg_protocol_name(self):
         self = self.sorted(lambda m: (m.date, m.ref or '', m._origin.id))
 
@@ -91,7 +93,7 @@ class AccountMoveBgProtocol(models.Model):
         for record in self:
             record.l10n_bg_protocol_highest_name = record._get_last_sequence()
 
-    @api.depends('l10n_bg_protocol_date', 'l10n_bg_protocol_name', 'posted_before', 'sequence_number', 'sequence_prefix', 'state')
+    @api.depends('l10n_bg_protocol_move_id.l10n_bg_protocol_date', 'l10n_bg_protocol_name', 'posted_before', 'sequence_number', 'sequence_prefix', 'state')
     def _compute_l10n_bg_protocol_placeholder(self):
         for protocol in self:
             if (not protocol.l10n_bg_protocol_name or protocol.l10n_bg_protocol_name == '/') and not protocol._get_last_sequence():
@@ -102,12 +104,55 @@ class AccountMoveBgProtocol(models.Model):
             else:
                 protocol.l10n_bg_protocol_placeholder = False
 
+    @api.depends_context('lang')
+    @api.depends('l10n_bg_protocol_move_id')
+    def _compute_l10n_bg_tax_totals(self):
+        for protocol in self:
+            move = protocol.l10n_bg_protocol_move_id
+            if move.is_invoice(include_receipts=True):
+                base_lines, _tax_lines = move._get_rounded_base_and_tax_lines()
+                # Модифицираме tax_details за всеки ред
+                for line in base_lines:
+                    # Филтрираме само данъците за продажби
+                    filtered_taxes_data = [
+                        tax_data for tax_data in line['tax_details']['taxes_data']
+                        if (tax_data['tax'].mapped('invoice_repartition_line_ids').mapped('tag_ids')
+                           or tax_data['tax'].mapped('refund_repartition_line_ids').mapped('tag_ids'))
+                        and tax_data['is_reverse_charge']
+                    ]
+                    for tax_data in filtered_taxes_data:
+                        tax_data['tax_amount'] = abs(tax_data['tax_amount'])
+                        tax_data['base_amount'] = abs(tax_data['base_amount'])
+                        tax_data['tax_amount_currency'] = abs(tax_data['tax_amount_currency'])
+                        tax_data['base_amount_currency'] = abs(tax_data['base_amount_currency'])
+
+                    _logger.info(f"filtered_taxes_data: {filtered_taxes_data}\ntaxes_data{[tax_data for tax_data in line['tax_details']['taxes_data']]}")
+                    # Обновяваме tax_details само с данъците за продажби
+                    line['tax_details']['taxes_data'] = filtered_taxes_data
+
+                l10n_bg_tax_totals = self.env['account.tax']._get_tax_totals_summary(
+                    base_lines=base_lines,
+                    currency=move.currency_id,
+                    company=move.company_id,
+                    cash_rounding=move.l10n_bg_protocol_move_id.invoice_cash_rounding_id,
+                )
+                l10n_bg_tax_totals['display_in_company_currency'] = (
+                    move.company_id.display_invoice_tax_company_currency
+                    and move.company_currency_id != move.currency_id
+                    and l10n_bg_tax_totals.get('has_tax_groups', False)
+                )
+                protocol.l10n_bg_tax_totals = l10n_bg_tax_totals
+
+            else:
+                # Non-invoice moves don't support that field (because of multicurrency: all lines of the invoice share the same currency)
+                protocol.tax_totals = None
+
     # -------------------------------------------------------------------------
     # SEQUENCE MIXIN
     # -------------------------------------------------------------------------
     def _get_last_sequence_domain(self, relaxed=False):
         self.ensure_one()
-        where_string = "WHERE name != '/'"
+        where_string = "WHERE l10n_bg_protocol_name != '/'"
         param = {}
         if not relaxed:
             param['anti_regex'] = self._make_regex_non_capturing(self._sequence_yearly_regex.split('(?P<seq>')[0]) + '$'
@@ -120,7 +165,7 @@ class AccountMoveBgProtocol(models.Model):
     def _get_last_sequence(self, relaxed=False, with_prefix=None):
         res = super()._get_last_sequence(relaxed=relaxed, with_prefix=with_prefix)
         padded_number = res.replace(with_prefix, '') if with_prefix else res
-        padded_number = padded_number.zfill(10)
+        padded_number = padded_number and padded_number.zfill(10) or ''
         res = with_prefix + padded_number[len(with_prefix):] if with_prefix else padded_number
         return res
 
@@ -157,5 +202,20 @@ class AccountMoveBgProtocol(models.Model):
     def action_post(self):
         return self.l10n_bg_protocol_move_id.action_post()
 
-    def action_cancel(self):
-        return self.l10n_bg_protocol_move_id.unpost()
+    def button_cancel(self):
+        return self.l10n_bg_protocol_move_id.button_cancel()
+
+    def button_draft(self):
+        return self.l10n_bg_protocol_move_id.button_draft()
+
+    def action_open_business_doc(self):
+        self.ensure_one()
+        return {
+            'name': _("Vendor Bill"),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'views': [(False, 'form')],
+            'res_model': 'account.move',
+            'res_id': self.l10n_bg_protocol_move_id.id,
+            'target': 'current',
+        }

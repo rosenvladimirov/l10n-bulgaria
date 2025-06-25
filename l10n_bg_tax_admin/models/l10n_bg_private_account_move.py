@@ -11,7 +11,7 @@ class AccountMoveBgPrivate(models.Model):
     _inherits = {"account.move": "l10n_bg_private_move_id"}
     _inherit = ['mail.thread.main.attachment', 'mail.activity.mixin', 'sequence.mixin']
     _description = "VAT Protocol for private usage invoices art. 117(2)"
-    _order = "l10n_bg_private_date desc, l10n_bg_private_name desc, id desc"
+    _order = "l10n_bg_private_date_creation desc, l10n_bg_private_name desc, id desc"
     _mail_post_access = "read"
     _check_company_auto = True
     _sequence_field = "l10n_bg_private_name"
@@ -50,9 +50,6 @@ class AccountMoveBgPrivate(models.Model):
         default='117',
         required=True,
     )
-    l10n_bg_private_date = fields.Date(
-        "Private deal date", copy=False, default=fields.Date.today()
-    )
     l10n_bg_private_name = fields.Char(
         string="Private Document Number",
         compute="_compute_l10n_bg_private_name",
@@ -69,7 +66,7 @@ class AccountMoveBgPrivate(models.Model):
     # -------------------------------------------------------------------------
     # COMPUTE METHODS
     # -------------------------------------------------------------------------
-    @api.depends('l10n_bg_private_move_id.posted_before', 'l10n_bg_private_move_id.state', 'l10n_bg_private_date')
+    @api.depends('l10n_bg_private_move_id.posted_before', 'l10n_bg_private_move_id.state', 'l10n_bg_private_move_id.l10n_bg_private_date')
     def _compute_l10n_bg_private_name(self):
         self = self.sorted(lambda m: (m.date, m.ref or '', m._origin.id))
 
@@ -83,7 +80,7 @@ class AccountMoveBgPrivate(models.Model):
                 # Reset to draft
                 record.l10n_bg_private_name = False
                 continue
-            if (record.l10n_bg_private_date and not move_has_l10n_bg_private_name
+            if (record.l10n_bg_private_move_id.l10n_bg_private_date and not move_has_l10n_bg_private_name
                 and record.l10n_bg_private_move_id.state != 'draft'):
                 record._set_next_sequence()
         self._inverse_l10n_bg_private_name()
@@ -96,7 +93,7 @@ class AccountMoveBgPrivate(models.Model):
         for record in self:
             record.l10n_bg_private_highest_name = record._get_last_sequence()
 
-    @api.depends('l10n_bg_private_date', 'move_type', 'l10n_bg_private_name', 'posted_before', 'sequence_number', 'sequence_prefix', 'state')
+    @api.depends('l10n_bg_private_move_id.l10n_bg_private_date', 'move_type', 'l10n_bg_private_name', 'posted_before', 'sequence_number', 'sequence_prefix', 'state')
     def _compute_l10n_bg_private_name_placeholder(self):
         for record in self:
             if (not record.l10n_bg_private_name or record.l10n_bg_private_name == '/') and not record._get_last_sequence():
@@ -125,7 +122,7 @@ class AccountMoveBgPrivate(models.Model):
     def _get_last_sequence(self, relaxed=False, with_prefix=None):
         res = super()._get_last_sequence(relaxed=relaxed, with_prefix=with_prefix)
         padded_number = res.replace(with_prefix, '') if with_prefix else res
-        padded_number = padded_number.zfill(10)
+        padded_number = padded_number and padded_number.zfill(10) or ''
         res = with_prefix + padded_number[len(with_prefix):] if with_prefix else padded_number
         return res
 

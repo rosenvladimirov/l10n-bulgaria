@@ -3,7 +3,6 @@
 import logging
 from collections import defaultdict
 from contextlib import contextmanager
-from multiprocessing.connection import default_family
 
 from odoo import Command, _, api, fields, models
 from odoo.addons.l10n_bg_tax_admin.models.partner import BG_MOVE_TYPES
@@ -29,6 +28,9 @@ class AccountMove(models.Model):
         "Technical Protocol number",
         copy=False,
     )
+    l10n_bg_protocol_date = fields.Date(
+        "Protocol date", copy=False, default=fields.Date.today()
+    )
     l10n_bg_protocol_move_id = fields.Many2one(
         "account.move.bg.protocol",
         "Protocol",
@@ -43,6 +45,9 @@ class AccountMove(models.Model):
         "Technical Protocol number",
         copy=False,
     )
+    l10n_bg_private_date = fields.Date(
+        "Private deal date", copy=False, default=fields.Date.today()
+    )
     l10n_bg_private_move_id = fields.Many2one(
         "account.move.bg.private",
         "Self signed Private VAT",
@@ -56,6 +61,9 @@ class AccountMove(models.Model):
     l10n_bg_customs_number = fields.Char(
         "Technical Protocol number",
         store=True,
+    )
+    l10n_bg_customs_date = fields.Date(
+        "Customs date", copy=False, default=fields.Date.today()
     )
     l10n_bg_customs_move_id = fields.Many2one(
         "account.move.bg.customs",
@@ -75,7 +83,7 @@ class AccountMove(models.Model):
     # --------------------------
     # COMPUTE METHODS
     # --------------------------
-    @api.depends('fiscal_position_id')
+    @api.depends('fiscal_position_id', 'state')
     def _compute_l10n_bg_move_type(self):
         for move in self:
             if not move.fiscal_position_id:
@@ -84,40 +92,39 @@ class AccountMove(models.Model):
                 self._inverse_l10n_bg_move_type()
 
     def _inverse_l10n_bg_move_type(self):
-        for move in self:
+        for move in self.filtered(lambda r: r.state == 'draft'):
             if not move.l10n_bg_move_type or not move.fiscal_position_id:
                 l10n_bg_move_type = 'standard'
             else:
                 l10n_bg_move_type = move.l10n_bg_move_type
 
-            new_fiscal_position = self.env['account.fiscal.position'].tax_action_map or defaultdict(dict)
-            key_value = f"{move.move_type}-{move.fiscal_position_id.id}"
+            fiscal_position_id = move.fiscal_position_id
+            if fiscal_position_id:
+                new_fiscal_position = move.fiscal_position_id.tax_action_map or defaultdict(dict)
+                key_value = f"{move.move_type}-{fiscal_position_id.id}"
 
-            if move.fiscal_position_id and move.l10n_bg_move_type != new_fiscal_position[key_value]['l10n_bg_type_vat']:
-                l10n_bg_move_type = new_fiscal_position[key_value]['l10n_bg_type_vat']
+                if (new_fiscal_position.get(key_value) and
+                    move.l10n_bg_move_type != new_fiscal_position[key_value]['l10n_bg_move_type']):
+                    l10n_bg_move_type = new_fiscal_position[key_value]['l10n_bg_move_type']
 
             move.l10n_bg_move_type = l10n_bg_move_type
 
     @contextmanager
     def _sync_invoice(self, container):
-        def get_defaults(mv):
-            new_fiscal_position = self.env['account.fiscal.position'].tax_action_map or defaultdict(dict)
+        def get_defaults(mv, new_fiscal_position):
             key_value = f"{mv.move_type}-{mv.fiscal_position_id.id}"
             defaults = {}
 
             if new_fiscal_position.get(key_value):
                 defaults = {
-                    'l10n_bg_move_type': new_fiscal_position[key_value]['l10n_bg_type_vat'],
+                    'l10n_bg_move_type': new_fiscal_position[key_value]['l10n_bg_move_type'],
                     'l10n_bg_doc_type': new_fiscal_position[key_value]['l10n_bg_doc_type'],
                     'l10n_bg_narration': new_fiscal_position[key_value]['l10n_bg_narration'],
+                    'dest_move_type': new_fiscal_position[key_value]['dest_move_type'],
+                    'position_dest_id': new_fiscal_position[key_value]['position_dest_id'],
+                    'account_id': new_fiscal_position[key_value]['account_id'],
+                    'factor_percent': new_fiscal_position[key_value]['factor_percent'],
                 }
-                if mv.position_dest_id:
-                    defaults.update({
-                        'move_type': new_fiscal_position[key_value]['dest_move_type'],
-                        'position_dest_id': new_fiscal_position[key_value]['position_dest_id'].id,
-                        "line_ids": [Command.clear()],
-                        'invoice_line_ids': [Command.clear()],
-                    })
             return defaults, new_fiscal_position, key_value
 
         def reset_external(old, field_name=False):
@@ -154,11 +161,11 @@ class AccountMove(models.Model):
             amount_total = sum(line.amount_currency for line in base_lines)
             return amount_total * (factor_percent / 100)
 
-        def prepare_move_line_values(invoice_id, account_id, amount_currency_total, currency_rate, tax_ids, nra_id):
+        def prepare_move_line_values(invoice_id, account_id, amount_currency_total, currency_rate, tax_ids, res_nra_id):
             return Command.create({
                 "display_type": "product",
                 "account_id": account_id.id,
-                "partner_id": nra_id.id,
+                "partner_id": res_nra_id.id,
                 "currency_id": invoice_id.currency_id.id,
                 "amount_currency": amount_currency_total,
                 "balance": amount_currency_total * currency_rate,
@@ -174,29 +181,28 @@ class AccountMove(models.Model):
                 tax_ids = map_id.map_tax(tax_ids)
             return tax_ids
 
-        def process_destination_move(source_move, default_values, fiscal_position, doc_type, nra_id):
-            if not default_values.get('position_dest_id'):
-                return
-
-            dest_key = f"{default_values['move_type']}-{default_values['position_dest_id'].id}"
+        def process_destination_move(source_move, dest_default_values, dest_fiscal_position, doc_type, base_nra_id):
+            if not dest_default_values.get('position_dest_id'):
+                return self.env['account.move']
+            position_dest_id = self.env['account.fiscal.position'].browse(dest_default_values['position_dest_id'])
+            dest_key = f"{dest_default_values['dest_move_type']}-{position_dest_id.id}"
             currency_rate = source_move.l10n_bg_currency_rate if doc_type == 'customs' else source_move.currency_rate
-            partner_id = nra_id.id if doc_type == 'customs' else source_move.partner_id.id
+            partner_id = base_nra_id.id if doc_type == 'customs' else source_move.partner_id.id
 
             base_values = {
                 "partner_id": partner_id,
                 "partner_shipping_id": source_move.partner_shipping_id.id,
                 f'l10n_bg_{doc_type}_move_id': source_move.id,
                 f'l10n_bg_{doc_type}_number': getattr(source_move, f'l10n_bg_{doc_type}_number'),
-                f'l10n_bg_{doc_type}_vat_date': getattr(source_move, f'l10n_bg_{doc_type}_vat_date'),
-                'l10n_bg_type_vat': fiscal_position[dest_key]['l10n_bg_type_vat'],
-                'l10n_bg_doc_type': fiscal_position[dest_key]['l10n_bg_doc_type'],
-                'l10n_bg_narration': fiscal_position[dest_key]['l10n_bg_narration'],
-                'invoice_line_ids': dest_aml(source_move, fiscal_position, currency_rate),
+                f'l10n_bg_{doc_type}_date': getattr(source_move, f'l10n_bg_{doc_type}_date'),
+                'line_ids': [Command.clear()],
+                'invoice_line_ids': dest_aml(source_move, dest_fiscal_position, currency_rate, base_nra_id),
             }
-            default_values.update(base_values)
-            setattr(source_move, f'l10n_bg_{doc_type}_move_id', source_move.copy(default=default_values))
+            dest_default_values.update({key: value for key, value in base_values.items() if key == dest_key})
+            return source_move.copy(default=dest_default_values)
+            # setattr(source_move, f'l10n_bg_{doc_type}_move_id', source_move.copy(default=dest_default_values))
 
-        def dest_aml(invoice_id, map_action, currency_rate):
+        def dest_aml(invoice_id, map_action, currency_rate, base_nra_id):
             base_lines = invoice_id.invoice_line_ids.filtered(lambda r: r.display_type == "product")
             factor_percent = map_action.get('factor_percent', 100.0)
             currency_rate = currency_rate or 1.0
@@ -206,7 +212,7 @@ class AccountMove(models.Model):
             tax_ids = get_tax_ids(account_id, invoice_id, map_action.get('position_dest_id'), self.env)
 
             return [
-                prepare_move_line_values(invoice_id, account_id, amount_currency_total, currency_rate, tax_ids, nra_id)]
+                prepare_move_line_values(invoice_id, account_id, amount_currency_total, currency_rate, tax_ids, base_nra_id)]
 
         before = {
             rec_move: get_move_data(rec_move)
@@ -219,29 +225,61 @@ class AccountMove(models.Model):
         nra_id = self.env.ref("l10n_bg_tax_offices.nra", raise_if_not_found=False)
 
         for move in container['records'].filtered(lambda m: m.is_invoice(True)):
-            if before[move]['l10n_bg_move_type'] == move.l10n_bg_move_type:
+            new_move = self.env['account.move']
+            l10n_bg_move_type = move.l10n_bg_move_type
+            if move.state != 'posted':
                 continue
 
-            default_values, fiscal_position, _ = get_defaults(move)
+            l10n_bg_mapping = move.fiscal_position_id.tax_action_map or defaultdict(dict)
+
+            default_values, fiscal_position, base_key_id = get_defaults(move, l10n_bg_mapping)
             vals = {
                 field: default_values[field]
-                for field in ('l10n_bg_type_vat', 'l10n_bg_doc_type', 'l10n_bg_narration')
+                for field in ('l10n_bg_type_vat', 'l10n_bg_doc_type', 'l10n_bg_narration', 'l10n_bg_move_type')
                 if field in default_values
             }
 
-            if move.l10n_bg_move_type == 'standard':
+            if l10n_bg_move_type == 'standard':
                 vals.update(reset_external_all(before[move]))
-            elif move.l10n_bg_move_type == 'protocol':
+            elif l10n_bg_move_type == 'protocol':
                 vals.update(reset_external(before[move], 'protocol'))
-                vals.update({
-                    'l10n_bg_protocol_move_id': self.env['account.move.bg.protocol'].create({
-                        'l10n_bg_protocol_move_id': move.id,
-                    })
-                })
-            elif move.l10n_bg_move_type == 'invoice_customs':
-                process_destination_move(move, default_values, fiscal_position, 'customs', nra_id)
-            elif move.l10n_bg_move_type == 'invoice_private':
-                process_destination_move(move, default_values, fiscal_position, 'private', nra_id)
+                new_move = self.env['account.move.bg.protocol'].create({'l10n_bg_protocol_move_id': move.id,})
+            elif l10n_bg_move_type == 'invoice_customs':
+                new_move = process_destination_move(move, default_values, l10n_bg_mapping, 'customs', nra_id)
+            elif l10n_bg_move_type == 'invoice_private':
+                new_move = process_destination_move(move, default_values, l10n_bg_mapping, 'private', nra_id)
+            elif fiscal_position.get(base_key_id) and fiscal_position[base_key_id]['position_dest_id']:
+                pass
 
+            if new_move:
+                vals.update({
+                    f'l10n_bg_{l10n_bg_move_type}_move_id': new_move.id,
+                    f'l10n_bg_{l10n_bg_move_type}_number': getattr(new_move, f'l10n_bg_{l10n_bg_move_type}_number'),
+                    f'l10n_bg_{l10n_bg_move_type}_date': getattr(new_move, f'l10n_bg_{l10n_bg_move_type}_date_creation'),
+                })
             if vals:
                 move.write(vals)
+
+    def action_open_protocol(self):
+        self.ensure_one()
+        return {
+            'name': _("Protocol Entry"),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'views': [(False, 'form')],
+            'res_model': 'account.move.bg.protocol',
+            'res_id': self.l10n_bg_protocol_move_id.id,
+            'target': 'current',
+        }
+
+    def action_open_private(self):
+        self.ensure_one()
+        return {
+            'name': _("Self Signed VAT - Entry"),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'views': [(False, 'form')],
+            'res_model': 'account.move.bg.private',
+            'res_id': self.l10n_bg_private_move_id.id,
+            'target': 'current',
+        }

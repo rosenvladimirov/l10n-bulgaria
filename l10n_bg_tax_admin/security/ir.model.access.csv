@@ -1,3 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_account_fiscal_position_tax_action_map_user,account.fiscal.position.tax.action.map user,model_account_fiscal_position_tax_action_map,account.group_account_user,1,0,0,0
-access_account_fiscal_position_tax_action_map_manager,account.fiscal.position.tax.action.map manager,model_account_fiscal_position_tax_action_map,account.group_account_manager,1,1,1,1
+access_account_fiscal_position_tax_action_map_user,account.fiscal.position.tax.action user,model_account_fiscal_position_tax_action,account.group_account_user,1,0,0,0
+access_account_fiscal_position_tax_action_map_manager,account.fiscal.position.tax.action manager,model_account_fiscal_position_tax_action,account.group_account_manager,1,1,1,1
+access_account_move_bg_protocol_user,account.move.bg.protocol user,model_account_move_bg_protocol,account.group_account_user,1,1,1,1
+access_account_move_bg_private_user,account.move.bg.private user,model_account_move_bg_private,account.group_account_user,1,1,1,1
+access_account_move_bg_customs_user,account.move.bg.customs user,model_account_move_bg_customs,account.group_account_user,1,1,1,1

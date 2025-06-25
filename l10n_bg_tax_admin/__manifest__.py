@@ -18,7 +18,9 @@
         'views/account_fiscal_position_tax_action.xml',
         'views/account_move_views.xml',
         'views/account_move_bg_protocol.xml',
-        'views/partner.xml'
+        'views/partner.xml',
+        'views/report_protocol.xml',
+        'views/reports.xml',
     ],
     'demo': [
     ],

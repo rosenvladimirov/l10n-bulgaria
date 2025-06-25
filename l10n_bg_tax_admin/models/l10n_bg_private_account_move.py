@@ -62,6 +62,10 @@ class AccountMoveBgPrivate(models.Model):
     )
     l10n_bg_private_name_placeholder = fields.Char(compute='_compute_l10n_bg_private_name_placeholder')
     l10n_bg_private_highest_name = fields.Char(compute='_compute_l10n_bg_private_highest_name')
+    currency_id = fields.Many2one(
+        string='Protocol Currency',
+        related='l10n_bg_private_move_id.company_currency_id', readonly=True,
+    )
 
     # -------------------------------------------------------------------------
     # COMPUTE METHODS

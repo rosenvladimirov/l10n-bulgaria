@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
     <!-- Темплейт за една данъчна група -->
-    <t t-name="l10n_bg_tax_admin.SignedTaxTotals">
+    <t t-name="l10n_bg_tax_admin.SignedTaxGroup">
         <tr>
             <td class="o_td_label">
                 <label class="o_form_label o_tax_total_label" t-out="props.taxGroup.group_name"/>
@@ -30,7 +30,7 @@
                         </td>
                     </tr>
                     <t t-foreach="subtotal.tax_groups" t-as="taxGroup" t-key="taxGroup_index">
-                        <SignedTaxTotalsComponent
+                        <SignedTaxGroup
                             totals="totals"
                             subtotal="subtotal"
                             taxGroup="taxGroup"

@@ -19,6 +19,7 @@
                                 <field name="l10n_bg_protocol_move_id" string="Related Document" widget="statinfo" readonly="1"/>
                             </button>
                         </div>
+                        <field name="currency_id" invisible="1"/>
                         <div class="oe_title">
                             <span class="o_form_label" invisible="l10n_bg_protocol_name">Draft</span>
                             <h1>
@@ -52,7 +53,10 @@
                                         <field name="quantity" readonly="1"/>
                                         <field name="l10n_bg_price_unit" readonly="1"/>
                                         <field name="tax_ids" widget="many2many_tags" readonly="1"/>
-                                        <field name="balance" string="Total Amount" readonly="1"/>
+                                        <field name="balance" string="Total Amount" readonly="1" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                                        <field name="currency_id" column_invisible="True"/>
+                                        <field name="company_id" column_invisible="True"/>
+                                        <field name="company_currency_id" column_invisible="True"/>
                                     </list>
                                 </field>
                                 <group col="12" class="oe_invoice_lines_tab overflow-hidden">

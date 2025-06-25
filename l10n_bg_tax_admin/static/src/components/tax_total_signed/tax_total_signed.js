@@ -10,12 +10,16 @@ import {
 } from "@odoo/owl";
 
 class SignedTaxGroup extends Component {
-    static template = "l10n_bg_tax_admin.SignedTaxTotals";
+    static template = "l10n_bg_tax_admin.SignedTaxGroup";
     static props = {
         totals: { optional: true },
         subtotal: { optional: true },
         taxGroup: { optional: true },
     };
+
+    formatMonetary(value) {
+        return formatMonetary(value, {currencyId: this.props.totals.company_currency_id});
+    }
 }
 
 export class SignedTaxTotalsComponent extends Component {
@@ -33,7 +37,7 @@ export class SignedTaxTotalsComponent extends Component {
 
     formatMonetary(value) {
         return formatMonetary(value, {
-            currencyId: this.totals.currency_id
+            currencyId: this.totals.company_currency_id
         });
     }
 

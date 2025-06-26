@@ -2,6 +2,9 @@
 import logging
 
 from odoo import api, fields, models
+from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import (
+    get_type_vat,
+)
 
 _logger = logging.getLogger(__name__)
 
@@ -23,32 +26,18 @@ class AccountMoveBgPrivate(models.Model):
         required=True,
         index=True,
     )
-    l10n_bg_private_invoice_ids = fields.Many2many(
-        "account.move",
-        "invoices_private_vat_rel",
-        "private_id",
-        "invoice_id",
-        string="Used invoices for private vat",
-        check_company=True,
-        copy=False,
-        readonly=True,
-        states={"draft": [("readonly", False)]},
+    l10n_bg_private_type_vat = fields.Selection(
+        related="l10n_bg_private_move_id.l10n_bg_type_vat",
+        store=True,
     )
-
+    l10n_bg_private_currency_id = fields.Many2one(
+        'res.currency',
+        string="Currency",
+        related='company_id.currency_id'
+    )
 
     l10n_bg_private_date_creation = fields.Date(
         "Theatrical field with Created Date", required=True, default=fields.Date.today()
-    )
-
-    l10n_bg_private_private_type = fields.Selection(
-        [
-            ('117', 'Art. 117 (2)'),
-            ('117_debit', 'Debit Art. 117 (2)'),
-            ('117_credit', 'Credit Art. 117 (2)'),
-        ],
-        string="Private document Type",
-        default='117',
-        required=True,
     )
     l10n_bg_private_name = fields.Char(
         string="Private Document Number",
@@ -63,14 +52,19 @@ class AccountMoveBgPrivate(models.Model):
     l10n_bg_private_name_placeholder = fields.Char(compute='_compute_l10n_bg_private_name_placeholder')
     l10n_bg_private_highest_name = fields.Char(compute='_compute_l10n_bg_private_highest_name')
     currency_id = fields.Many2one(
-        string='Protocol Currency',
+        string='Protocol Currency (private)',
         related='l10n_bg_private_move_id.company_currency_id', readonly=True,
+    )
+    l10n_bg_tax_totals = fields.Binary(
+        string="Private Totals",
+        compute='_compute_l10n_bg_tax_totals',
+        exportable=False,
     )
 
     # -------------------------------------------------------------------------
     # COMPUTE METHODS
     # -------------------------------------------------------------------------
-    @api.depends('l10n_bg_private_move_id.posted_before', 'l10n_bg_private_move_id.state', 'l10n_bg_private_move_id.l10n_bg_private_date')
+    @api.depends('l10n_bg_private_move_id.posted_before', 'l10n_bg_private_move_id.state', 'l10n_bg_private_move_id.l10n_bg_date')
     def _compute_l10n_bg_private_name(self):
         self = self.sorted(lambda m: (m.date, m.ref or '', m._origin.id))
 
@@ -84,7 +78,7 @@ class AccountMoveBgPrivate(models.Model):
                 # Reset to draft
                 record.l10n_bg_private_name = False
                 continue
-            if (record.l10n_bg_private_move_id.l10n_bg_private_date and not move_has_l10n_bg_private_name
+            if (record.l10n_bg_private_move_id.l10n_bg_date and not move_has_l10n_bg_private_name
                 and record.l10n_bg_private_move_id.state != 'draft'):
                 record._set_next_sequence()
         self._inverse_l10n_bg_private_name()
@@ -97,7 +91,7 @@ class AccountMoveBgPrivate(models.Model):
         for record in self:
             record.l10n_bg_private_highest_name = record._get_last_sequence()
 
-    @api.depends('l10n_bg_private_move_id.l10n_bg_private_date', 'move_type', 'l10n_bg_private_name', 'posted_before', 'sequence_number', 'sequence_prefix', 'state')
+    @api.depends('l10n_bg_private_move_id.l10n_bg_date', 'move_type', 'l10n_bg_private_name', 'posted_before', 'sequence_number', 'sequence_prefix', 'state')
     def _compute_l10n_bg_private_name_placeholder(self):
         for record in self:
             if (not record.l10n_bg_private_name or record.l10n_bg_private_name == '/') and not record._get_last_sequence():
@@ -107,6 +101,47 @@ class AccountMoveBgPrivate(models.Model):
                 record.l10n_bg_private_name_placeholder = sequence_format_string.format(**sequence_format_values)
             else:
                 record.l10n_bg_private_name_placeholder = False
+
+    @api.depends_context('lang')
+    @api.depends('l10n_bg_private_move_id')
+    def _compute_l10n_bg_tax_totals(self):
+        for private in self:
+            move = private.l10n_bg_private_move_id
+            if move.is_invoice(include_receipts=True):
+                base_lines, _tax_lines = move._get_rounded_base_and_tax_lines()
+                # Модифицираме tax_details за всеки ред
+                for line in base_lines:
+                    # Филтрираме само данъците за продажби
+                    filtered_taxes_data = [
+                        tax_data for tax_data in line['tax_details']['taxes_data']
+                        if (tax_data['tax'].mapped('invoice_repartition_line_ids').mapped('tag_ids')
+                            or tax_data['tax'].mapped('refund_repartition_line_ids').mapped('tag_ids'))
+                           and tax_data['is_reverse_charge']
+                    ]
+                    for tax_data in filtered_taxes_data:
+                        tax_data['tax_amount'] = abs(tax_data['tax_amount'])
+                        tax_data['base_amount'] = abs(tax_data['base_amount'])
+                        tax_data['tax_amount_currency'] = abs(tax_data['tax_amount_currency'])
+                        tax_data['base_amount_currency'] = abs(tax_data['base_amount_currency'])
+                    # Обновяваме tax_details само с данъците за продажби
+                    line['tax_details']['taxes_data'] = filtered_taxes_data
+
+                l10n_bg_tax_totals = self.env['account.tax']._get_tax_totals_summary(
+                    base_lines=base_lines,
+                    currency=move.currency_id,
+                    company=move.company_id,
+                    cash_rounding=move.l10n_bg_private_move_id.invoice_cash_rounding_id,
+                )
+                l10n_bg_tax_totals['display_in_company_currency'] = (
+                    move.company_id.display_invoice_tax_company_currency
+                    and move.company_currency_id != move.currency_id
+                    and l10n_bg_tax_totals.get('has_tax_groups', False)
+                )
+                private.l10n_bg_tax_totals = l10n_bg_tax_totals
+
+            else:
+                # Non-invoice moves don't support that field (because of multicurrency: all lines of the invoice share the same currency)
+                private.tax_totals = None
 
     # -------------------------------------------------------------------------
     # SEQUENCE MIXIN
@@ -156,3 +191,40 @@ class AccountMoveBgPrivate(models.Model):
             if draft_node := arch.xpath("""//span[@invisible="l10n_bg_private_name == '/' and not posted_before and not quick_edit_mode"]"""):
                 draft_node[0].set('invisible', "l10n_bg_private_name or l10n_bg_private_name_placeholder or quick_edit_mode")
         return arch, view
+
+    # -------------------------------------------------------------------------
+    # Actions buttons
+    # -------------------------------------------------------------------------
+    def action_post(self):
+        res = self.l10n_bg_private_move_id.action_post()
+        if not res:
+            # Инвалидизираме кеша
+            self.invalidate_recordset()
+            # Презареждаме записа от базата данни
+            self.env.cache.invalidate()
+            return {
+                'type': 'ir.actions.act_window',
+                'res_model': self._name,
+                'res_id': self.id,
+                'view_mode': 'form',
+                'target': 'current',
+            }
+        return res
+
+    def button_cancel(self):
+        return self.l10n_bg_private_move_id.button_cancel()
+
+    def button_draft(self):
+        return self.l10n_bg_private_move_id.button_draft()
+
+    def action_open_business_doc(self):
+        self.ensure_one()
+        return {
+            'name': _("Vendor Bill"),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'views': [(False, 'form')],
+            'res_model': 'account.move',
+            'res_id': self.l10n_bg_private_move_id.id,
+            'target': 'current',
+        }

@@ -32,7 +32,6 @@ class AccountMoveBgCustoms(models.Model):
         check_company=True,
         copy=False,
         readonly=True,
-        states={"draft": [("readonly", False)]},
     )
 
     l10n_bg_customs_date_creation = fields.Date(

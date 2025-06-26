@@ -6,7 +6,7 @@
     "summary": """
         This module allows you to install and configure all
         the localization modules related to Bulgaria.""",
-    "version": "18.0.4.0.2",
+    "version": "18.0.4.0.3",
     # OCA Metadata
     "development_status": 'Beta',
     "license": "AGPL-3",

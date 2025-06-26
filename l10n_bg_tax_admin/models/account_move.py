@@ -24,35 +24,23 @@ class AccountMove(models.Model):
     # ---------------
     # PROTOCOL FIELDS
     # ---------------
-    l10n_bg_protocol_number = fields.Char(
-        "Technical Protocol number",
-        copy=False,
-    )
-    l10n_bg_protocol_date = fields.Date(
-        "Protocol date", copy=False, default=fields.Date.today()
-    )
     l10n_bg_protocol_move_id = fields.Many2one(
         "account.move.bg.protocol",
         "Protocol",
         readonly=True,
-        states={"draft": [("readonly", False)]},
     )
 
     # --------------------------
     # Private credit reverse VAT
     # --------------------------
-    l10n_bg_private_number = fields.Char(
-        "Technical Protocol number",
-        copy=False,
-    )
-    l10n_bg_private_date = fields.Date(
-        "Private deal date", copy=False, default=fields.Date.today()
-    )
     l10n_bg_private_move_id = fields.Many2one(
         "account.move.bg.private",
         "Self signed Private VAT",
         readonly=True,
-        states={"draft": [("readonly", False)]},
+    )
+    l10n_bg_private_percentage = fields.Float(
+        "Percent for partly VAT credit",
+        default=100.00
     )
 
     # --------------------------
@@ -69,7 +57,6 @@ class AccountMove(models.Model):
         "account.move.bg.customs",
         "Self signed Private VAT",
         readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     l10n_bg_currency_rate = fields.Float(
         "Statistic Currency rate",
@@ -119,6 +106,7 @@ class AccountMove(models.Model):
                 defaults = {
                     'l10n_bg_move_type': new_fiscal_position[key_value]['l10n_bg_move_type'],
                     'l10n_bg_doc_type': new_fiscal_position[key_value]['l10n_bg_doc_type'],
+                    'l10n_bg_type_vat': new_fiscal_position[key_value]['l10n_bg_type_vat'],
                     'l10n_bg_narration': new_fiscal_position[key_value]['l10n_bg_narration'],
                     'dest_move_type': new_fiscal_position[key_value]['dest_move_type'],
                     'position_dest_id': new_fiscal_position[key_value]['position_dest_id'],
@@ -134,8 +122,10 @@ class AccountMove(models.Model):
             if old[delete_name]:
                 old[delete_name].unlink()
             return {
-                f'l10n_bg_{field_name}_number': False,
-                f'l10n_bg_{field_name}_date': False,
+                # f'l10n_bg_{field_name}_number': False,
+                'l10n_bg_name': False,
+                'l10n_bg_date': False,
+                # f'l10n_bg_{field_name}_date': False,
                 f'l10n_bg_{field_name}_move_id': False,
             }
 
@@ -149,12 +139,14 @@ class AccountMove(models.Model):
             return {
                 'fiscal_position_id': move.fiscal_position_id,
                 'l10n_bg_move_type': move.l10n_bg_move_type,
-                'l10n_bg_customs_number': move.l10n_bg_customs_number,
+                'l10n_bg_type_vat': move.l10n_bg_type_vat,
+                # 'l10n_bg_customs_number': move.l10n_bg_customs_number,
+                # 'l10n_bg_customs_date': move.l10n_bg_customs_date,
                 'l10n_bg_customs_move_id': move.l10n_bg_customs_move_id,
-                'l10n_bg_private_number': move.l10n_bg_private_number,
                 'l10n_bg_private_move_id': move.l10n_bg_private_move_id,
-                'l10n_bg_protocol_number': move.l10n_bg_protocol_number,
                 'l10n_bg_protocol_move_id': move.l10n_bg_protocol_move_id,
+                'l10n_bg_name': move.l10n_bg_name,
+                'l10n_bg_date': move.l10n_bg_date,
             }
 
         def calculate_amount_currency(base_lines, factor_percent):
@@ -193,8 +185,11 @@ class AccountMove(models.Model):
                 "partner_id": partner_id,
                 "partner_shipping_id": source_move.partner_shipping_id.id,
                 f'l10n_bg_{doc_type}_move_id': source_move.id,
-                f'l10n_bg_{doc_type}_number': getattr(source_move, f'l10n_bg_{doc_type}_number'),
-                f'l10n_bg_{doc_type}_date': getattr(source_move, f'l10n_bg_{doc_type}_date'),
+                f'l10n_bg_{doc_type}_type_vat': getattr(source_move, 'l10n_bg_type_vat'),
+                # 'l10n_bg_name': getattr(source_move, f'l10n_bg_{doc_type}_number'),
+                # 'l10n_bg_date': getattr(source_move, f'l10n_bg_{doc_type}_date'),
+                # 'l10n_bg_customs_number': getattr(source_move, 'l10n_bg_customs_number'),
+                # 'l10n_bg_customs_date': getattr(source_move, 'l10n_bg_customs_date'),
                 'line_ids': [Command.clear()],
                 'invoice_line_ids': dest_aml(source_move, dest_fiscal_position, currency_rate, base_nra_id),
             }
@@ -226,6 +221,7 @@ class AccountMove(models.Model):
 
         for move in container['records'].filtered(lambda m: m.is_invoice(True)):
             new_move = self.env['account.move']
+            l10n_bg_type_vat = move.l10n_bg_type_vat
             l10n_bg_move_type = move.l10n_bg_move_type
             if move.state != 'posted':
                 continue
@@ -235,7 +231,7 @@ class AccountMove(models.Model):
             default_values, fiscal_position, base_key_id = get_defaults(move, l10n_bg_mapping)
             vals = {
                 field: default_values[field]
-                for field in ('l10n_bg_type_vat', 'l10n_bg_doc_type', 'l10n_bg_narration', 'l10n_bg_move_type')
+                for field in ('l10n_bg_doc_type', 'l10n_bg_narration', 'l10n_bg_type_vat')
                 if field in default_values
             }
 
@@ -243,19 +239,24 @@ class AccountMove(models.Model):
                 vals.update(reset_external_all(before[move]))
             elif l10n_bg_move_type == 'protocol':
                 vals.update(reset_external(before[move], 'protocol'))
-                new_move = self.env['account.move.bg.protocol'].create({'l10n_bg_protocol_move_id': move.id,})
+                new_move = self.env['account.move.bg.protocol'].create({
+                    'l10n_bg_protocol_move_id': move.id,
+                })
+            elif l10n_bg_move_type == 'private':
+                vals.update(reset_external(before[move], 'private'))
+                new_move = self.env['account.move.bg.private'].create({
+                    'l10n_bg_private_move_id': move.id,
+                })
             elif l10n_bg_move_type == 'invoice_customs':
                 new_move = process_destination_move(move, default_values, l10n_bg_mapping, 'customs', nra_id)
-            elif l10n_bg_move_type == 'invoice_private':
-                new_move = process_destination_move(move, default_values, l10n_bg_mapping, 'private', nra_id)
             elif fiscal_position.get(base_key_id) and fiscal_position[base_key_id]['position_dest_id']:
                 pass
 
             if new_move:
                 vals.update({
                     f'l10n_bg_{l10n_bg_move_type}_move_id': new_move.id,
-                    f'l10n_bg_{l10n_bg_move_type}_number': getattr(new_move, f'l10n_bg_{l10n_bg_move_type}_number'),
-                    f'l10n_bg_{l10n_bg_move_type}_date': getattr(new_move, f'l10n_bg_{l10n_bg_move_type}_date_creation'),
+                    'l10n_bg_name': getattr(new_move, f'l10n_bg_{l10n_bg_move_type}_name'),
+                    'l10n_bg_date': getattr(new_move, f'l10n_bg_{l10n_bg_move_type}_date_creation'),
                 })
             if vals:
                 move.write(vals)

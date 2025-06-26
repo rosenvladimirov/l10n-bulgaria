@@ -18,6 +18,7 @@
                 position="inside"
             >
                 <field name="l10n_bg_move_type" readonly="state != 'draft'"/>
+                <field name="l10n_bg_private_percentage" readonly="state != 'draft'"/>
             </xpath>
             <xpath
                 expr="//group[@id='account_bg_vat_entry']"

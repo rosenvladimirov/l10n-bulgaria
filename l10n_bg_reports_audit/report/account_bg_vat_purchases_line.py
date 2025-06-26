@@ -127,7 +127,7 @@ UNION
         company.l10n_bg_departament_code AS info_tag_3,
         ROW_NUMBER() OVER(ORDER BY am.date) AS info_tag_4,
         am.l10n_bg_doc_type AS info_tag_5,
-        COALESCE(am.ref, LPAD(NULLIF(REGEXP_REPLACE(am.name, '\\D','','g'), '')::varchar(255), 10, '0')) AS info_tag_6,
+        COALESCE(am.l10n_bg_name, am.ref, LPAD(NULLIF(REGEXP_REPLACE(am.name, '\\D','','g'), '')::varchar(255), 10, '0')) AS info_tag_6,
         COALESCE(am.l10n_bg_date, am.invoice_date, am.date) AS info_tag_7,
         COALESCE(partner.vat, partner.l10n_bg_uic) AS info_tag_8,
         {l10n_bg_lang(self.env, "partner", "partner.name")} AS info_tag_9,

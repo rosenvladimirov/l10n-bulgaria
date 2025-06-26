@@ -2,7 +2,9 @@
 import logging
 
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import (
+    get_type_vat,
+)
 
 _logger = logging.getLogger(__name__)
 
@@ -27,24 +29,15 @@ class AccountMoveBgProtocol(models.Model):
     l10n_bg_protocol_date_creation = fields.Date(
         "Created Date", required=True, default=fields.Date.today()
     )
+    l10n_bg_protocol_type_vat = fields.Selection(
+        related="l10n_bg_protocol_move_id.l10n_bg_type_vat",
+        store=True,
+    )
 
     l10n_bg_protocol_currency_id = fields.Many2one(
         'res.currency',
         string="Currency",
         related='company_id.currency_id'
-    )
-    l10n_bg_protocol_type = fields.Selection(
-        [
-            ('117', 'Art. 117 (2)'),
-            ('117_debit', 'Debit Art. 117 (2)'),
-            ('117_credit', 'Credit Art. 117 (2)'),
-            ('119', 'Summarising report for Sales Art. 119 (1)'),
-            ('120_1', 'Other report Sales Art. 120 (1)'),
-            ('120_4', 'Other report Purchases Art. 121 (4)'),
-        ],
-        string="Protocol Type",
-        default='117',
-        required=True,
     )
     l10n_bg_protocol_name = fields.Char(
         string="Protocol Number",
@@ -67,7 +60,7 @@ class AccountMoveBgProtocol(models.Model):
     # -------------------------------------------------------------------------
     # COMPUTE METHODS
     # -------------------------------------------------------------------------
-    @api.depends('l10n_bg_protocol_move_id.posted_before', 'l10n_bg_protocol_move_id.state', 'l10n_bg_protocol_move_id.l10n_bg_protocol_date')
+    @api.depends('l10n_bg_protocol_move_id.l10n_bg_date', 'l10n_bg_protocol_move_id.posted_before', 'l10n_bg_protocol_move_id.state')
     def _compute_l10n_bg_protocol_name(self):
         self = self.sorted(lambda m: (m.date, m.ref or '', m._origin.id))
 
@@ -94,7 +87,7 @@ class AccountMoveBgProtocol(models.Model):
         for record in self:
             record.l10n_bg_protocol_highest_name = record._get_last_sequence()
 
-    @api.depends('l10n_bg_protocol_move_id.l10n_bg_protocol_date', 'l10n_bg_protocol_name', 'posted_before', 'sequence_number', 'sequence_prefix', 'state')
+    @api.depends('l10n_bg_protocol_move_id.l10n_bg_date', 'l10n_bg_protocol_name', 'posted_before', 'sequence_number', 'sequence_prefix', 'state')
     def _compute_l10n_bg_protocol_placeholder(self):
         for protocol in self:
             if (not protocol.l10n_bg_protocol_name or protocol.l10n_bg_protocol_name == '/') and not protocol._get_last_sequence():
@@ -126,8 +119,6 @@ class AccountMoveBgProtocol(models.Model):
                         tax_data['base_amount'] = abs(tax_data['base_amount'])
                         tax_data['tax_amount_currency'] = abs(tax_data['tax_amount_currency'])
                         tax_data['base_amount_currency'] = abs(tax_data['base_amount_currency'])
-
-                    _logger.info(f"filtered_taxes_data: {filtered_taxes_data}\ntaxes_data{[tax_data for tax_data in line['tax_details']['taxes_data']]}")
                     # Обновяваме tax_details само с данъците за продажби
                     line['tax_details']['taxes_data'] = filtered_taxes_data
 
@@ -201,7 +192,20 @@ class AccountMoveBgProtocol(models.Model):
     # Actions buttons
     # -------------------------------------------------------------------------
     def action_post(self):
-        return self.l10n_bg_protocol_move_id.action_post()
+        res = self.l10n_bg_protocol_move_id.action_post()
+        if not res:
+            # Инвалидизираме кеша
+            self.invalidate_recordset()
+            # Презареждаме записа от базата данни
+            self.env.cache.invalidate()
+            return {
+                'type': 'ir.actions.act_window',
+                'res_model': self._name,
+                'res_id': self.id,
+                'view_mode': 'form',
+                'target': 'current',
+            }
+        return res
 
     def button_cancel(self):
         return self.l10n_bg_protocol_move_id.button_cancel()

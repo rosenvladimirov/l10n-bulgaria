@@ -14,7 +14,9 @@
                         name="l10n_bg_name"
                         invisible="[('l10n_bg_type_vat', 'in', ['standard', 'in_customs'])]"
                     />
-                    <field name="l10n_bg_date" />
+                    <field name="l10n_bg_date"
+                           invisible="[('l10n_bg_type_vat', 'in', ['standard', 'in_customs'])]"
+                    />
                 </group>
             </xpath>
             <xpath

@@ -516,13 +516,18 @@ def get_doc_type():
 def get_type_vat():
     return [
         ("standard", "Accounting document"),
-        ("117_protocol", "Art. 117 - Protocols"),
+        ("117_protocol_82_2", "(SER) Art. 117, para. 1, item 1 in connection with Art. 82, para. 2, item 3 of the VAT Act"),
+        ("117_protocol_84", "(ICD) Art. 117, para. 1, item 1 in connection with Art. 84 of the VAT Act"),
+        ("117_protocol_6_4", "(DON) Art. 117 of the VAT Act in connection with Art. 6, para. 4"),
+        ("117_protocol_6_3", "(PRIV) Art. 117 of the VAT Act in connection with Art. 6, para. 3"),
+        ("117_protocol_15", "(TRI) Art. 117 of the VAT Act in connection with Art. 15"),
+        ("117_protocol_82_2_2", "(TER) Art. 117 of the VAT Act in connection with Art. 82, para. 2, item 2"),
         ("119_report", "Art. 119 - Report for sales"),
         # ('120_sales_report', 'Art. 119 - Report for sales-special rules'),
         # ('120_purchase_report', 'Art. 119 - Report for purchase-special rules'),
         ("in_customs", "Import Customs declaration"),
         ("out_customs", "Export Customs declaration"),
-        ("dropship", "Dropship/Try party deal"),
+        # ("dropship", "Dropship/Try party deal"),
     ]
 
 

@@ -11,12 +11,22 @@ from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import (
 
 _logger = logging.getLogger(__name__)
 
+MOVE_TYPES_TYPE_VAT = {
+    'standard' : 'standard',
+    '117_protocol_82_2': 'protocol',
+    '117_protocol_84': 'protocol',
+    '117_protocol_6_4': 'protocol',
+    '117_protocol_6_3': 'private',
+    '117_protocol_15': 'protocol',
+    '117_protocol_82_2_2': 'protocol',
+    '119_report': 'protocol_119',
+}
+
 BG_MOVE_TYPES = [
     ('standard', 'Standard'),
     ('customs', 'Customs'),
     ('invoice_customs', 'Invoice include in customs'),
     ('private', 'Private'),
-    ('invoice_private', 'Invoice base for private'),
     ('protocol', 'Protocol'),
 ]
 
@@ -136,3 +146,8 @@ class AccountFiscalPositionTaxAction(models.Model):
         required=True,
     )
 
+    @api.onchange('l10n_bg_type_vat')
+    def onchange_l10n_bg_type_vat(self):
+        for record in self:
+            if MOVE_TYPES_TYPE_VAT.get(record.l10n_bg_type_vat):
+                record.l10n_bg_move_type = MOVE_TYPES_TYPE_VAT[record.l10n_bg_type_vat]

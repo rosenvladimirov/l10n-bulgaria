@@ -4,7 +4,7 @@
 {
     'name': 'Bulgaria Tax Assistant',
     'summary': """This is a technical module that adds the necessary functionalities required by Bulgarian legislation.""",
-    'version': '18.0.2.0.0',
+    'version': '18.0.4.0.1',
     'license': 'AGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'depends': [
@@ -18,8 +18,10 @@
         'views/account_fiscal_position_tax_action.xml',
         'views/account_move_views.xml',
         'views/account_move_bg_protocol.xml',
+        'views/account_move_bg_private.xml',
         'views/partner.xml',
         'views/report_protocol.xml',
+        'views/report_private.xml',
         'views/reports.xml',
     ],
     'demo': [

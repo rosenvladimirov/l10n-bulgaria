@@ -1,7 +1,7 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 import logging
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import (
     get_type_vat,
 )

@@ -4,7 +4,6 @@ import logging
 from odoo import fields, models, _
 from dateutil.relativedelta import relativedelta
 
-from odoo.addons import l10n_bg_city
 
 _logger = logging.getLogger(__name__)
 
@@ -38,7 +37,7 @@ def _l10n_bg_multilanguage(env):
 
 
 def l10n_bg_extend_address(env, model="company_partner"):
-    if not _l10n_bg_extend_address(env):
+    if _l10n_bg_extend_address(env):
         return f"""
 LEFT JOIN res_city AS {model}_city
     ON {model}.city_id = res_city.id

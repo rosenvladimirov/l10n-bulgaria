@@ -40,7 +40,7 @@ def l10n_bg_extend_address(env, model="company_partner"):
     if _l10n_bg_extend_address(env):
         return f"""
 LEFT JOIN res_city AS {model}_city
-    ON {model}.city_id = res_city.id
+    ON {model}.city_id = {model}_city.id
         """
     return """"""
 

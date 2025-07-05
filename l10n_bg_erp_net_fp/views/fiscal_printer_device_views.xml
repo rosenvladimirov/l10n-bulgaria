@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="view_fiscal_printer_device_form" model="ir.ui.view">
+        <field name="name">fiscal.printer.device.form</field>
+        <field name="model">fiscal.printer.device</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_test_z_report" string="Тестов Z отчет" type="object"
+                            class="oe_highlight" confirm="Сигурни ли сте, че искате да генерирате Z отчет?"/>
+                    <button name="print_x_report" string="X Отчет" type="object" class="oe_highlight"/>
+                    <button name="print_z_report" string="Z Отчет" type="object" class="oe_highlight"
+                            confirm="Сигурни ли сте, че искате да генерирате Z отчет?"/>
+                    <button name="get_printer_status" string="Статус" type="object"/>
+                    <button name="open_cash_drawer" string="Отвори чекмедже" type="object"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Име на устройство"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Основни настройки">
+                            <field name="host"/>
+                            <field name="printer_id"/>
+                            <field name="active"/>
+                            <field name="ssl_verify"/>
+                        </group>
+                        <group string="Разширени настройки">
+                            <field name="timeout"/>
+                            <field name="retry_count"/>
+                        </group>
+                    </group>
+                    <group string="Автоматизация">
+                        <group>
+                            <field name="auto_z_report"/>
+                            <field name="z_report_hour" attrs="{'invisible': [('auto_z_report', '=', False)]}"/>
+                            <field name="z_report_minute" attrs="{'invisible': [('auto_z_report', '=', False)]}"/>
+                            <field name="last_z_report" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_fiscal_printer_device_tree" model="ir.ui.view">
+        <field name="name">fiscal.printer.device.tree</field>
+        <field name="model">fiscal.printer.device</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="host"/>
+                <field name="printer_id"/>
+                <field name="active"/>
+                <field name="last_z_report"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_fiscal_printer_device_search" model="ir.ui.view">
+        <field name="name">fiscal.printer.device.search</field>
+        <field name="model">fiscal.printer.device</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="host"/>
+                <field name="printer_id"/>
+                <filter string="Активни" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Автоматичен Z отчет" name="auto_z" domain="[('auto_z_report', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+</odoo>

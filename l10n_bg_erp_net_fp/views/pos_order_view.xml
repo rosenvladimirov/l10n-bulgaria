@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_pos_form_inherit_fiscal_printer" model="ir.ui.view">
+        <field name="name">pos.order.form.inherit.fiscal.printer</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_print_fiscal_receipt"
+                        string="Печат на фискален бон"
+                        type="object"
+                        attrs="{'invisible': ['|', ('state', 'not in', ['paid', 'done', 'invoiced']), ('fiscal_receipt_number', '!=', False)]}"
+                        groups="point_of_sale.group_pos_user"/>
+            </xpath>
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="fiscal_receipt_number"/>
+                <field name="fiscal_receipt_datetime"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

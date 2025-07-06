@@ -14,6 +14,16 @@ class AccountAccountTag(models.Model):
     l10n_bg_code = fields.Char(
         "Code", compute="_compute_l10n_bg_code", help="A technical field for tag code"
     )
+    applicability = fields.Selection(
+        selection_add=[
+            ("l10n_bg_partner", "BG-NSI Usage for Partners"),
+            ("l10n_bg_product", "BG-NSI Usage for Products")
+        ],
+        ondelete={
+        "l10n_bg_partner": "set default",
+        "l10n_bg_product": "set default"
+        },
+    )
 
     def _get_l10n_bg_applicability(self):
         return get_l10n_bg_applicability(self)

@@ -1,6 +1,6 @@
 {
     "name": "Bulgarian Accounting Reports",
-    "version": "18.0.5.0.6",
+    "version": "18.0.6.0.1",
     "development_status": "Production/Stable",
     "maintainers": ["rosenvladimirov", "deyanlyubenov"],
     "description": "Reporting for Bulgarian Localization technical module.",
@@ -26,6 +26,8 @@
         "views/account_bg_vat_line_purchase_reports.xml",
         "views/account_bg_vat_line_vies_reports.xml",
         "views/account_account_tag_views.xml",
+        "views/product_view.xml",
+        "views/res_partner.xml",
         "views/account_move_views.xml",
         "views/res_config_view.xml",
         "views/res_company_views.xml",

@@ -222,6 +222,7 @@ class ResPartner(models.Model):
         l10n_bg_crypt_key = self._update_key(values)
         if l10n_bg_crypt_key:
             values['l10n_bg_crypt_key'] = l10n_bg_crypt_key
+        res = super().write(values)
         if values.get("type") and values["type"] == "represent":
             company_id = self.env["res.company"].search(
                 [("partner_id", "=", self.id)], limit=1
@@ -230,7 +231,6 @@ class ResPartner(models.Model):
                 company_id.l10n_bg_represent_contact_id = self.id
             elif not company_id and self.parent_id:
                 self.parent_id.l10n_bg_represent_contact_id = self.id
-        res = super().write(values)
         if "vat" in values and not self._context.get('block_validate', False):
             self.with_context(dict(**self._context, block_validate=True))._validate_l10n_bg_uic()
         return res

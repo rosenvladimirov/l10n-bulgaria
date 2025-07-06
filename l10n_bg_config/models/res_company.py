@@ -75,6 +75,9 @@ class ResCompany(models.Model):
                 record.partner_id.child_ids = [
                     Command.link(record.l10n_bg_represent_contact_id.id)
                 ]
+            else:
+                record.l10n_bg_represent_contact_id = False
+                record.partner_id.child_ids.filtered(lambda r: r.id == record.id).type = "contact"
 
     @api.depends("chart_template")
     def _compute_is_l10n_bg_record(self):

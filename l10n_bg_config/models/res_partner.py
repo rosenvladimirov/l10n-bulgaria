@@ -159,9 +159,13 @@ class ResPartner(models.Model):
 
     def _compute_l10n_bg_represent_contact_id(self):
         for record in self:
-            record.l10n_bg_represent_contact_id = record.child_ids.filtered(
+            l10n_bg_represent_contact_id = record.child_ids.filtered(
                 lambda r: r.type == "represent"
             )
+            if len(l10n_bg_represent_contact_id) > 1:
+                l10n_bg_represent_contact_id = l10n_bg_represent_contact_id[0]
+
+            record.l10n_bg_represent_contact_id = l10n_bg_represent_contact_id
 
     def _inverse_l10n_bg_represent_contact_id(self):
         for record in self:
@@ -172,6 +176,7 @@ class ResPartner(models.Model):
                 ]
             else:
                 record.l10n_bg_represent_contact_id = False
+                record.child_ids.filtered(lambda r: r.id == record.id).type = "contact"
 
     def get_api_key(self):
         l10n_bg_uic = self.l10n_bg_uic or '99999999999'

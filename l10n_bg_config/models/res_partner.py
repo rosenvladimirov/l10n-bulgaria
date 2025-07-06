@@ -61,8 +61,6 @@ class ResPartner(models.Model):
         string="Unique identification code",
         help="Unique identification code for the Bulgaria received from trade registry",
     )
-    # Technical field tor check is a company master
-    # is_company_master = fields.Boolean(compute="_compute_is_company_master")
     l10n_bg_key = fields.Char('Api Key', help='Enter the key to encrypt the data. If not entered, a random key will be generated.')
     l10n_bg_crypt_key = fields.Binary(
         'Crypt Key',
@@ -174,40 +172,6 @@ class ResPartner(models.Model):
                 ]
             else:
                 record.l10n_bg_represent_contact_id = False
-
-    # def _compute_is_company_master(self):
-    #     for record in self:
-    #         company_id = self.env["res.company"].search(
-    #             [("partner_id", "=", record.id)], limit=1
-    #         )
-    #         if company_id and (
-    #             company_id.l10n_bg_represent_contact_id.id == record.id
-    #             or company_id.partner_id.id == record.id
-    #         ):
-    #             record.is_company_master = True
-    #         else:
-    #             record.is_company_master = False
-
-    # @api.onchange("vies_valid")
-    # def _onchange_vies_valid(self):
-    #     self._validate_l10n_bg_uic()
-
-    # @api.onchange("type")
-    # @api.depends("child_ids")
-    # def _onchange_type(self):
-    #     if self.type == "represent":
-    #         l10n_bg_represent_contact_id = self.child_ids.filtered(
-    #             lambda r: r.type == "represent"
-    #         )
-    #         if len(l10n_bg_represent_contact_id) > 1:
-    #             l10n_bg_represent_contact_id = l10n_bg_represent_contact_id[1]
-    #         company_id = self.env["res.company"].search(
-    #             [("partner_id", "=", self.id)], limit=1
-    #         )
-    #         if company_id:
-    #             company_id.l10n_bg_represent_contact_id = self.id
-    #         elif not company_id and l10n_bg_represent_contact_id:
-    #             self.l10n_bg_represent_contact_id = l10n_bg_represent_contact_id
 
     def get_api_key(self):
         l10n_bg_uic = self.l10n_bg_uic or '99999999999'

@@ -65,7 +65,7 @@ class ResCompany(models.Model):
                 lambda r: r.type == "represent"
             )
             if len(represent_contact_id) > 1:
-                represent_contact_id = represent_contact_id[1]
+                represent_contact_id = represent_contact_id[0]
             record.l10n_bg_represent_contact_id = represent_contact_id
 
     def _inverse_l10n_bg_represent_contact_id(self):

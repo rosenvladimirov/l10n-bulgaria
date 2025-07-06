@@ -34,21 +34,24 @@ class ResCompany(models.Model):
     @api.depends("partner_id")
     def _compute_l10n_bg_tax_contact_id(self):
         for record in self:
-            tax_contact_id = record.partner_id.child_ids.filtered(
-                lambda r: r.type in ["represent", "agent", "tax"]
+            l10n_bg_tax_contact_id = record.partner_id.child_ids.filtered(
+                lambda r: r.type == "represent"
             )
-            if len(tax_contact_id) > 1:
-                tax_contact_id = tax_contact_id[1]
-            record.l10n_bg_tax_contact_id = tax_contact_id
+            if len(l10n_bg_tax_contact_id) > 1:
+                l10n_bg_tax_contact_id = l10n_bg_tax_contact_id[0]
+            record.l10n_bg_tax_contact_id = l10n_bg_tax_contact_id
 
-    @api.depends("partner_id")
     def _inverse_l10n_bg_tax_contact_id(self):
         for record in self:
-            if record.l10n_bg_tax_contact_id.type not in ["represent", "agent", "tax"]:
-                record.l10n_bg_tax_contact_id.type = "represent"
+            if record.l10n_bg_tax_contact_id:
+                if record.l10n_bg_tax_contact_id.type not in ["represent", "agent", "tax"]:
+                    record.l10n_bg_tax_contact_id.type = "represent"
                 record.partner_id.child_ids = [
                     Command.link(record.l10n_bg_tax_contact_id.id)
                 ]
+            else:
+                record.l10n_bg_tax_contact_id = False
+                record.partner_id.child_ids.filtered(lambda r: r.id == record.id).type = "contact"
 
     def _process_l10n_bg_report_audit_config_file(self):
         file_content_json = self.l10n_bg_config_template and json.loads(self.l10n_bg_config_template) or {}

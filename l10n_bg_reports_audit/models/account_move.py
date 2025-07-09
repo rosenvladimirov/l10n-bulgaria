@@ -1,6 +1,6 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models
+from odoo import fields, models, tools
 
 from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import (
     get_delivery_type,

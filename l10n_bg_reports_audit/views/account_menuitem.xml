@@ -22,5 +22,10 @@
             sequence="3"
             action="l10n_bg_reports_audit.action_account_bg_calc_vies_line_line"
         />
+        <menuitem
+            id="menu_action_account_bg_partner_pivot"
+            sequence="4"
+            action="l10n_bg_reports_audit.action_account_bg_partner_pivot"
+        />
     </menuitem>
 </odoo>

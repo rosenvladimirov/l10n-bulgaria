@@ -9,7 +9,7 @@ class ProductTemplate(models.Model):
     l10n_bg_account_tag_ids = fields.Many2many(
         string="NSI Account Tags",
         comodel_name='account.account.tag',
-        relation='l10n_bg_product_template_account_tag_rel',  # Нова уникална релационна таблица
+        relation='l10n_bg_product_template_account_tag_rel',
         column1='product_template_id',
         column2='account_tag_id',
         domain="[('applicability', '=', 'l10n_bg_product')]",

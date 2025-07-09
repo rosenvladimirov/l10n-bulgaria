@@ -41,6 +41,7 @@ class ResCompany(models.Model):
                 l10n_bg_tax_contact_id = l10n_bg_tax_contact_id[0]
             record.l10n_bg_tax_contact_id = l10n_bg_tax_contact_id
 
+    @api.depends("partner_id")
     def _inverse_l10n_bg_tax_contact_id(self):
         for record in self:
             if record.l10n_bg_tax_contact_id:

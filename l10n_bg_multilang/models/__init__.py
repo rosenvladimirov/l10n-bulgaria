@@ -6,3 +6,4 @@ from . import res_bank
 from . import resource
 from . import stock_warehouse
 from . import hr_employee
+from . import resource_resource

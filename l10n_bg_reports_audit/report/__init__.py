@@ -10,3 +10,4 @@ from . import account_bg_vat_vies_line
 from . import account_bg_vat_vies_total
 from . import account_bg_vat_vies_declar
 from . import account_bg_partner
+from . import account_bg_products

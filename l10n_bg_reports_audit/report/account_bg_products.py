@@ -10,11 +10,11 @@ from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import l10n_bg
 _logger = logging.getLogger(__name__)
 
 
-class AccountBGCalcPartnerLine(models.Model):
-    """Base model for new Bulgarian Partner trail balance reports."""
+class AccountBGCalcProductLine(models.Model):
+    """Base model for new Bulgarian Products trail balance reports."""
 
-    _name = "account.bg.calc.partner.line"
-    _description = "Partner lines for Calculation Partner Trail Balance in Bulgarian Localization"
+    _name = "account.bg.calc.product.line"
+    _description = "Lines for Calculation Product Trail Balance in Bulgarian Localization"
     _auto = False
     _order = "move_id asc"
 
@@ -29,7 +29,7 @@ class AccountBGCalcPartnerLine(models.Model):
     id = fields.Integer(string="ID", readonly=True, related="move_id.id")
 
     date = fields.Date(related="move_id.date", readonly=True)
-    partner_id = fields.Many2one("res.partner", "Customer", readonly=True)
+    product_id = fields.Many2one("product.product", "Product", readonly=True)
 
     state = fields.Selection(
         [
@@ -107,7 +107,7 @@ class AccountBGCalcPartnerLine(models.Model):
         company_id,
         id,
         move_id,
-        partner_id,
+        product_id,
         account_id,
         state,
         date,
@@ -159,7 +159,7 @@ class AccountBGCalcPartnerLine(models.Model):
             am.company_id,
             am.id,
             am.id AS move_id,
-            am.partner_id,
+            aml.product_id,
             aml.account_id,
             am.state,
             am.date,
@@ -181,7 +181,7 @@ class AccountBGCalcPartnerLine(models.Model):
             am.company_id,
             am.id,
             am.id AS move_id,
-            am.partner_id,
+            aml.product_id,
             aml.account_id,
             am.state,
             am.date,
@@ -203,7 +203,7 @@ class AccountBGCalcPartnerLine(models.Model):
             am.company_id,
             am.id,
             am.id AS move_id,
-            am.partner_id,
+            aml.product_id,
             aml.account_id,
             am.state,
             am.date,
@@ -214,7 +214,7 @@ class AccountBGCalcPartnerLine(models.Model):
             aml.balance,
             'final' as balance_type
         FROM {self._from()}
-        WHERE acc.reconcile = true
+        WHERE aml.product_id IS NOT NULL
           AND acc.deprecated = false
           {'AND ' + company if company else ''} AND am.date <= {date_to}
         ORDER BY date  -- сортираме още в базовия SELECT
@@ -233,7 +233,7 @@ class AccountBGCalcPartnerLine(models.Model):
     def _where(self):
         if self._context.get("report_options"):
             account_type = self._context.get("account_type")
-            return f"""acc.reconcile = true AND acc.account_type = '{account_type}'"""
+            return f"""acc.account_type = '{account_type}'"""
         return """"""
 
     @api.model
@@ -242,7 +242,7 @@ class AccountBGCalcPartnerLine(models.Model):
         company_id,
         id,
         move_id,
-        partner_id,
+        product_id,
         account_id,
         state,
         date,

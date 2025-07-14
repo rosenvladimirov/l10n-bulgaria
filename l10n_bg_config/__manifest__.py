@@ -6,7 +6,7 @@
     "summary": """
         This module allows you to install and configure all
         the localization modules related to Bulgaria.""",
-    "version": "18.0.5.0.1",
+    "version": "18.0.6.0.2",
     # OCA Metadata
     "development_status": 'Beta',
     "license": "LGPL-3",
@@ -26,6 +26,7 @@
         "security/ir.model.access.csv",
         "wizards/account_account_tag_bulk_edit_wizard.xml",
         "wizards/account_settings_preview_xml_file.xml",
+        "wizards/account_chart_template_plugins.xml",
         "views/res_config_view.xml",
         "views/account_account_tag_views.xml",
         "views/partner_view.xml",

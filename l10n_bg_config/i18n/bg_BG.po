@@ -1,4 +1,4 @@
-# Translation of Odoo Server. RV
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* l10n_bg_config
 #
@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-07 10:49+0000\n"
-"PO-Revision-Date: 2025-06-07 14:21+0300\n"
+"POT-Creation-Date: 2025-07-14 06:54+0000\n"
+"PO-Revision-Date: 2025-07-14 10:04+0300\n"
 "Last-Translator: Rosen Vladimirov <vladimirov.rosen@gmail.com>\n"
 "Language-Team: \n"
-"Language: bg_BG\n"
+"Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,11 +20,30 @@ msgstr ""
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
 msgid ""
+"<code>&lt;configuration&gt;\n"
+"    &lt;settings&gt;\n"
+"        &lt;setting model=\"account.account.tag\" "
+"field=\"l10n_bg_applicability\" value=\"sale\"&gt;\n"
+"            -11,+11,-12_1,-12_2,+12_1,+12_2,-13,+13,-14,+14,-15,+15,-16,"
+"+16,-17,+17,-18,+18,-19,+19,-21,+21,-22,+22,-23,+23,-24,+24\n"
+"        &lt;/setting&gt;\n"
+"        &lt;setting model=\"account.account.tag\" "
+"field=\"l10n_bg_applicability\" value=\"purchase\"&gt;\n"
+"            -30,+30,-31,+31,-32,+32,-41,+41,-42,+42\n"
+"        &lt;/setting&gt;\n"
+"    &lt;/settings&gt;\n"
+"&lt;/configuration&gt;\n"
+"</code>"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid ""
 "<strong>Text content</strong> – Filter indicating which records the value "
 "should be applied to (e.g., by IDs or codes)"
 msgstr ""
-"<strong>Текстово съдържание</strong> - Филтър, указващ към кои записи трябва "
-"да се приложи стойността (напр. по идентификатори или кодове)"
+"<strong>Текстово съдържание</strong> - Филтър, указващ към кои записи "
+"трябва да се приложи стойността (напр. по идентификатори или кодове)"
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
@@ -66,12 +85,12 @@ msgstr "API ключ за допълнителни функционалност�
 #. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_account_chart_template
 msgid "Account Chart Template"
-msgstr "Шаблон на сметкоплан"
+msgstr "Шаблон за схема на сметката"
 
 #. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_account_account_tag
 msgid "Account Tag"
-msgstr "Ключета за сметки"
+msgstr "Етикет на сметка"
 
 #. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_vat_reports
@@ -115,7 +134,7 @@ msgstr "Допълнителни данни в адрес като"
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__type
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__type
 msgid "Address Type"
-msgstr "Тип на адреса"
+msgstr "Вид на адрес"
 
 #. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_tax_offices
@@ -154,12 +173,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_key
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_key
 msgid "Api Key"
-msgstr "Api Key"
+msgstr "Ключ за API"
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
 msgid "Application"
 msgstr "Приложение"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_plugins_wizard_form
+msgid "Apply"
+msgstr "Потвърди"
 
 #. module: l10n_bg_config
 #: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_egn
@@ -308,13 +332,19 @@ msgid "Bulk Edit Account Tags"
 msgstr "Групово редактиране на ключета за фискални позиции"
 
 #. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_plugins_wizard_form
+msgid "Cancel"
+msgstr "Откажи"
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_currency_rate_update_bg_bnb
 msgid "Central currency rates downloaded from National Bank of Bulgaria"
 msgstr "Централни валутни курсове, изтеглени от Българската народна банка"
 
 #. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_multilang
-msgid "Change to multilingual support for fields without native configurations"
+msgid ""
+"Change to multilingual support for fields without native configurations"
 msgstr ""
 "Промяна към многоезична поддръжка за полета без стандартна конфигурация"
 
@@ -324,6 +354,12 @@ msgstr ""
 #: model:ir.model.fields,help:l10n_bg_config.field_res_users__l10n_bg_uic_type
 msgid "Choice type of Bulgaria UID."
 msgstr "Вид избор на ЕИК за България."
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_plugins_wizard_form
+msgid "Choose actions for each plugin through the appropriate checkerboards."
+msgstr "Изберете действия за всеки плъгин чрез съответните редове за избор."
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_preview_xml_file_form
@@ -336,6 +372,11 @@ msgid "Companies"
 msgstr "Фирми"
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__company_id
+msgid "Company"
+msgstr "Фирма"
+
+#. module: l10n_bg_config
 #: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__type__agent
 msgid "Company agent"
 msgstr "Данъчен представител на фирмата"
@@ -346,9 +387,14 @@ msgid "Company represent/manager"
 msgstr "Представител/мениджър на компанията"
 
 #. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Config Plugins"
+msgstr "Настой добавки"
+
+#. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_res_config_settings
 msgid "Config Settings"
-msgstr "Настройки на конфигурацията"
+msgstr "Конфигурационни настройки"
 
 #. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_config_template
@@ -378,12 +424,16 @@ msgid "Country"
 msgstr "Държава"
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__create_uid
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__create_uid
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__create_uid
 msgid "Created by"
 msgstr "Създадена от"
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__create_date
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__create_date
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__create_date
 msgid "Created on"
@@ -412,6 +462,8 @@ msgid "Description"
 msgstr "Описание"
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__display_name
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__display_name
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__display_name
 msgid "Display Name"
@@ -457,8 +509,9 @@ msgid ""
 "Enter API Key to use additional functionality related to the Bulgaria "
 "localization. For more information contact with developer."
 msgstr ""
-"Въведете API ключ, за да използвате допълнителни функционалности, свързани с "
-"локализацията на България. За повече информация се свържете с разработчика."
+"Въведете API ключ, за да използвате допълнителни функционалности, свързани "
+"с локализацията на България. За повече информация се свържете с "
+"разработчика."
 
 #. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_partner__l10n_bg_crypt_key
@@ -479,8 +532,8 @@ msgid ""
 "Enter the key to encrypt the data. If not entered, a random key will be "
 "generated."
 msgstr ""
-"Въведете ключа за криптиране на данните. Ако не е въведен, ще бъде генериран "
-"случаен ключ."
+"Въведете ключа за криптиране на данните. Ако не е въведен, ще бъде "
+"генериран случаен ключ."
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
@@ -503,15 +556,47 @@ msgid "Fix coefficient in Automatic Currency Rates (EE)"
 msgstr "Поправка на коефициент при свалянето на валутни курсове (EE)"
 
 #. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_plugins_wizard_line__state__to_install
+msgid "For installation"
+msgstr "За инсталиране"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__force_update
+msgid "Force Update"
+msgstr "Актуализирай локализацията"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_account_plugins_wizard__force_update
+msgid "Force update of plugins even if they are already installed"
+msgstr "Принудително актуализиране на добавките, дори ако вече са инсталирани"
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_intrastat
 msgid "Generate XML files for Bulgaria intrastat (EE)"
 msgstr "Генериране на XML файлове за Интрастат България (EE)"
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__id
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__id
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__id
 msgid "ID"
 msgstr "Номер (ID)"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__to_install
+msgid "Install"
+msgstr "инсталирай"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Install/Uninstall Plugins"
+msgstr "Инсталирай/Деинсталирай добавки"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_plugins_wizard_line__state__installed
+msgid "Installed"
+msgstr "Инсталиран"
 
 #. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__is_l10n_bg_record
@@ -523,23 +608,21 @@ msgid "Is Bulgaria Record"
 msgstr "Това е специфичен запис за България"
 
 #. module: l10n_bg_config
-#: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__is_company_master
-#: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__is_company_master
-msgid "Is Company Master"
-msgstr "Дали компанията е Майка"
-
-#. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_account_move
 msgid "Journal Entry"
-msgstr "Счетоводен запис"
+msgstr "Записи в дневника"
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__write_uid
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__write_uid
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__write_uid
 msgid "Last Updated by"
 msgstr "Последно актуализиран от"
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__write_date
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__write_date
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__write_date
 msgid "Last Updated on"
@@ -559,6 +642,26 @@ msgstr "поправка на свалянето на валутния курс 
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_currency_rate_live_fix
 msgid "Live Currency Rate Fix for Bulgaria (EE) module"
 msgstr "Поправка на свалянето на валутния курс за България (EE)"
+
+#. module: l10n_bg_config
+#: model:ir.actions.act_window,name:l10n_bg_config.action_account_plugins_wizard
+msgid "Manage Plugins"
+msgstr "Управление на добавки"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_plugins_wizard_form
+msgid "Manage plugins"
+msgstr "Управление на добавки"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_account_plugins_wizard_line__to_install
+msgid "Mark for installation"
+msgstr "Отбележи за инсталиране"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_account_plugins_wizard_line__to_uninstall
+msgid "Mark for uninstallation"
+msgstr "Отбележи за деинсталиране"
 
 #. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_l10n_bg_config_mixin
@@ -593,6 +696,11 @@ msgid "NRA Bulgaria, tax offices and departments"
 msgstr "НАП България, данъчни служби и отдели"
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__name
+msgid "Name"
+msgstr "Име"
+
+#. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "National Revenue Agency"
 msgstr "Национална агенция по приходите"
@@ -601,6 +709,11 @@ msgstr "Национална агенция по приходите"
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "National Revenue Agency departments, offices and head office."
 msgstr "Отдели, служби и централа на Националната агенция по приходите."
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_plugins_wizard_line__state__uninstalled
+msgid "Not installed"
+msgstr "Не е инсталиран"
 
 #. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__l10n_bg_name
@@ -627,6 +740,21 @@ msgstr "Транслитериране на имена на партньори"
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "Partners & Addresses"
 msgstr "Партньори и адреси"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__plugin_id
+msgid "Plugin"
+msgstr "Добавка"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__plugin_line_ids
+msgid "Plugins"
+msgstr "Добавки"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_account_plugins_wizard_line
+msgid "Plugins Wizard Line"
+msgstr "Линии на помощника за инсталация на добавки"
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
@@ -708,6 +836,11 @@ msgid "Settings"
 msgstr "Настройки"
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__state
+msgid "State"
+msgstr "Статус"
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_multilang
 msgid "Switch on multilanguage support"
 msgstr "Включване на многоезичната поддръжка"
@@ -776,6 +909,11 @@ msgid "This module is only for Bulgaria"
 msgstr "Този модул е предназначен само за България"
 
 #. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_plugins_wizard_line__state__to_remove
+msgid "To remove"
+msgstr "За премахване"
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_partner_multilang
 msgid "Transliterate partner, city, street names ISO9 and other"
 msgstr "Транслитериране на имена на партньори, градове, улици ISO-9 и други"
@@ -786,6 +924,11 @@ msgstr "Транслитериране на имена на партньори, 
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_uic_type
 msgid "Type of Bulgaria UID"
 msgstr "Вид на ЕИК за България"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__to_uninstall
+msgid "Uninstall"
+msgstr "Деинсталирай"
 
 #. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_uic
@@ -864,8 +1007,18 @@ msgid ""
 "Will update daily from cron only if is checked Automatic Currency Rates "
 "(OCA) and you added a rate_provider"
 msgstr ""
-"Ще се актуализира ежедневно от cron само ако е маркирано Автоматични валутни "
-"курсове (OCA) и сте добавили rate_provider"
+"Ще се актуализира ежедневно от cron само ако е маркирано Автоматични "
+"валутни курсове (OCA) и сте добавили rate_provider"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__wizard_id
+msgid "Wizard"
+msgstr "Помощник"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_account_plugins_wizard
+msgid "Wizard for accounting plugins"
+msgstr "Помощник за управление на добавки за счетоводството"
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form

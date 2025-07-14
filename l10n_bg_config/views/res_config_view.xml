@@ -105,6 +105,22 @@
                                     class="oe_highlight"/>
                             </div>
                         </setting>
+                        <setting
+                            id="l10n_bg_config_setting_plugins_params"
+                            title="Install/Uninstall Plugins"
+                            string="Install/Uninstall Plugins"
+                            help="Choose actions for each plugin through the appropriate checkerboards."
+                        >
+                            <div
+                                class="content-group"
+                                name="l10n_bg_config_is_l10n_bg_setting_plugins_container"
+                            >
+                                <button name="%(l10n_bg_config.action_account_plugins_wizard)d"
+                                    string="Config Plugins"
+                                    type="action"
+                                    class="oe_highlight"/>
+                            </div>
+                        </setting>
                     </block>
                     <block title="Multilang cyrillic support" name="l10n_bg_multilang">
                         <setting

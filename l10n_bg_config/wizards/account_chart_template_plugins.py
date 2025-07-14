@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, Command
 from odoo.exceptions import UserError
 from odoo.addons.l10n_bg_config.models.chart_template import BASE_MODULE, PLUGINS_SUFFIX
 
@@ -31,7 +31,7 @@ class AccountPluginsWizard(models.TransientModel):
 
         plugin_lines = []
         for plugin in plugins:
-            plugin_lines.append((0, 0, {
+            plugin_lines.append(Command.create({
                 'plugin_id': plugin.id,
                 'name': plugin.shortdesc or plugin.name,
                 'state': plugin.state,
@@ -68,7 +68,6 @@ class AccountPluginsWizard(models.TransientModel):
         to_uninstall = self.plugin_line_ids.filtered(
             lambda l: l.to_uninstall and l.plugin_id.state == 'installed'
         ).mapped('plugin_id')
-
         if to_install:
             for plugin in to_install:
                 plugin.button_immediate_install()
@@ -77,15 +76,8 @@ class AccountPluginsWizard(models.TransientModel):
                 plugins.button_immediate_uninstall()
 
         if self.force_update:
-            self.env['account.chart.template'].try_loading(self.company_id.chart_template, company=self.company_id)
+            self.env['account.chart.template'].try_loading(self.company_id.chart_template, company=self.company_id, force_create=True)
 
-        return {
-            'type': 'ir.actions.act_window',
-            'res_model': self._name,
-            'views': [[self.env.ref('l10n_bg_config.view_account_plugins_wizard_form').id, 'form']],
-            'res_id': self.id,
-            'target': 'main',
-        }
 
 class AccountPluginsWizardLine(models.TransientModel):
     _name = 'account.plugins.wizard.line'

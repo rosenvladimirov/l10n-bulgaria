@@ -5,7 +5,7 @@
     "name": "Report Theme Sections",
     "summary": """
         Report theme separate on sections.""",
-    "version": "18.0.2.0.0",
+    "version": "18.0.3.0.1",
     "license": "AGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",

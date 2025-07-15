@@ -1,5 +1,6 @@
 # Copyright 2023 Rosen Vladimirov
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+import datetime
 import logging
 
 from odoo import models, tools
@@ -14,14 +15,17 @@ class IrActionsReport(models.Model):
     def _get_rendering_context(self, report, docids, data):
         values = super()._get_rendering_context(report, docids, data)
         env = self.env
+
+        def safe_format_date(date, lang_code=False, date_format=False):
+            """Safe wrapper for format_date that handles datetime objects"""
+            if isinstance(date, datetime.datetime):
+                date = date.date()
+            return format_date(env, date, lang_code=lang_code, date_format=date_format)
+
         # _logger.warning(f"REPORT {values}")
         values.update(
             {
-                "format_date": lambda date,
-                                      lang_code=False,
-                                      date_format=False: format_date(
-                    env, date, lang_code=lang_code, date_format=date_format
-                ),
+                "format_date": safe_format_date,
                 "format_datetime": lambda dt,
                                           tz=False,
                                           dt_format=False,

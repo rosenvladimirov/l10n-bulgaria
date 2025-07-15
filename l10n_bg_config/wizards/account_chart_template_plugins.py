@@ -1,6 +1,10 @@
+import logging
+
 from odoo import models, fields, api, Command
-from odoo.exceptions import UserError
 from odoo.addons.l10n_bg_config.models.chart_template import BASE_MODULE, PLUGINS_SUFFIX
+from odoo.exceptions import UserError
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountPluginsWizard(models.TransientModel):
@@ -68,15 +72,18 @@ class AccountPluginsWizard(models.TransientModel):
         to_uninstall = self.plugin_line_ids.filtered(
             lambda l: l.to_uninstall and l.plugin_id.state == 'installed'
         ).mapped('plugin_id')
-        if to_install:
-            for plugin in to_install:
-                plugin.button_immediate_install()
-        if to_uninstall:
-            for plugins in to_uninstall:
-                plugins.button_immediate_uninstall()
+        try:
+            if to_install:
+                for plugin in to_install:
+                    plugin.button_immediate_install()
+            if to_uninstall:
+                for plugins in to_uninstall:
+                    plugins.button_immediate_uninstall()
 
-        if self.force_update:
-            self.env['account.chart.template'].try_loading(self.company_id.chart_template, company=self.company_id, force_create=True)
+            if self.force_update:
+                self.env['account.chart.template'].try_loading(self.company_id.chart_template, company=self.company_id, force_create=True)
+        except Exception as e:
+            _logger.warning(f"Error during plugin installation or uninstallation: {str(e)}")
 
 
 class AccountPluginsWizardLine(models.TransientModel):

@@ -144,8 +144,8 @@ strong {
         color: $o-default-report-primary-color;
     }
     #informations strong {
-        color: $o-default-report-base-color;
-        background-color: $o-default-report-footer-background-color;
+        color: $o-default-report-base-color !important;
+        background-color: $o-default-report-footer-background-color !important;
     }
     > h2 {
         text-transform: uppercase;
@@ -160,10 +160,10 @@ strong {
             border: 1px solid $o-default-report-border-color;
             tr th {
                 font-weight: 600;
-                border: 1px solid rgba($o-default-report-primary-color, 0.9);
+                border: 1px solid rgba($o-default-report-primary-color, 0.9) !important;
                 text-transform: uppercase;
-                color: $o-default-report-inverse-color;
-                background-color: rgba($o-default-report-primary-color, 0.9);
+                color: $o-default-report-inverse-color !important;
+                background-color: rgba($o-default-report-primary-color, 0.9) !important;
             }
         }
         tbody {
@@ -193,6 +193,32 @@ strong {
                 }
             }
         }
+
+        // ДОБАВЯМЕ САМО DISPLAY FIX-a В КРАЯ
+        display: table !important;
+        grid-template-columns: none !important;
+        width: 100% !important;
+        border-collapse: collapse !important;
+        border-spacing: 0 !important;
+
+        thead {
+            display: table-header-group !important;
+        }
+
+        tbody {
+            display: table-row-group !important;
+        }
+
+        tr {
+            display: table-row !important;
+        }
+
+        th, td {
+            display: table-cell !important;
+            padding: 8px !important;
+            vertical-align: top !important;
+        }
+
     }
     /*Total table*/
     /* row div rule compat 12.0 */

@@ -3,7 +3,7 @@
 import datetime
 import logging
 
-from odoo import models, tools
+from odoo import models, tools, fields
 from odoo.tools.misc import format_date, format_datetime, format_time
 
 _logger = logging.getLogger(__name__)
@@ -17,12 +17,30 @@ class IrActionsReport(models.Model):
         env = self.env
 
         def safe_format_date(date, lang_code=False, date_format=False):
-            """Safe wrapper for format_date that handles datetime objects"""
-            if isinstance(date, datetime.datetime):
-                date = date.date()
-            return format_date(env, date, lang_code=lang_code, date_format=date_format)
+            """Safe wrapper that formats date WITH time if it's a datetime object"""
+            if not date:
+                return ''
 
-        # _logger.warning(f"REPORT {values}")
+            # Ако е datetime.datetime, използваме format_datetime
+            if isinstance(date, datetime.datetime):
+                try:
+                    # Използваме format_datetime БЕЗ dt_format параметъра
+                    # Нека Odoo избере подходящия формат
+                    return format_datetime(env, date, tz=False, lang_code=lang_code)
+                except Exception as e:
+                    _logger.error(f"Error in format_datetime: {e}")
+                    # Fallback към strftime с дата и час
+                    return date.strftime('%d.%m.%Y %H:%M')
+
+            # Ако е само date, използваме format_date
+            else:
+                try:
+                    return format_date(env, date, lang_code=lang_code, date_format=date_format)
+                except Exception as e:
+                    _logger.error(f"Error in format_date: {e}")
+                    # Fallback към strftime само с дата
+                    return date.strftime('%d.%m.%Y')
+
         values.update(
             {
                 "format_date": safe_format_date,
@@ -44,5 +62,4 @@ class IrActionsReport(models.Model):
                 "format_duration": lambda value: tools.format_duration(value),
             }
         )
-        # _logger.info(f"REPORT {values}")
         return values

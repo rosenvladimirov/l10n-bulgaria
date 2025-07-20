@@ -3,14 +3,14 @@
     <template
         id="report_purchaseorder_document"
         inherit_id="purchase.report_purchaseorder_document"
+        active="False"
     >
         <xpath
             expr="//div[hasclass('page')]/div[hasclass('mt-4')]"
             position="replace"
-            t-if="company.is_l10n_bg_record"
         />
-        <xpath expr="//t[@t-set='address']" position="replace" t-if="company.is_l10n_bg_record"/>
-        <xpath expr="//t[@t-if='o.dest_address_id']" position="replace" t-if="company.is_l10n_bg_record"/>
+        <xpath expr="//t[@t-set='address']" position="replace"/>
+        <xpath expr="//t[@t-if='o.dest_address_id']" position="replace"/>
         <xpath expr="//t[@t-set='o']" position="after">
             <t t-set="no_deal_partner" t-value="False" />
             <t t-set="sender" t-value="o.partner_id" />

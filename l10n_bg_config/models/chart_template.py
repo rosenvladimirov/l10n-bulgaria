@@ -103,14 +103,14 @@ class AccountChartTemplate(models.AbstractModel):
             self._get_bg_tax_data
         )
 
-    @template(model='account.fiscal.position')
-    def _get_bg_fiscal_position_data(self, template_code, module=BASE_MODULE):
-        return self._parse_csv(template_code, 'account.fiscal.position', module)
-
-    @template(model='account.fiscal.position')
-    def _get_account_fiscal_position(self, template_code):
-        return self._update_template_data(
-            super()._get_account_tax(template_code),
-            template_code,
-            self._get_bg_fiscal_position_data
-        )
+    # @template(model='account.fiscal.position')
+    # def _get_bg_fiscal_position_data(self, template_code, module=BASE_MODULE):
+    #     return self._parse_csv(template_code, 'account.fiscal.position', module)
+    #
+    # @template(model='account.fiscal.position')
+    # def _get_account_fiscal_position(self, template_code):
+    #     return self._update_template_data(
+    #         super()._get_account_tax(template_code),
+    #         template_code,
+    #         self._get_bg_fiscal_position_data
+    #     )

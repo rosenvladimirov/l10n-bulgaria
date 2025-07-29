@@ -31,3 +31,7 @@ class ResConfigSettings(models.TransientModel):
         "Accounting Reports",
         help="View and create reports",
     )
+
+    def action_update_l10n_bg_report_audit_settings(self):
+        for record in self:
+            record.company_id._process_l10n_bg_report_audit_config_file()

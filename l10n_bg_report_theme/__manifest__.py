@@ -28,7 +28,11 @@
         "views/purchase_order_templates.xml",
         "views/purchase_quotation_templates.xml",
     ],
-
+    "external_dependencies": {
+        "python": [
+            "webcolors",
+        ]
+    },
     "demo": [],
     "assets": {
         "web.report_assets_common": [

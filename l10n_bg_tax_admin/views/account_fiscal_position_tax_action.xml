@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="view_account_fiscal_position_tax_action_form" model="ir.ui.view">
+        <field name="name">account.fiscal.position.tax.action.form</field>
+        <field name="model">account.fiscal.position.tax.action</field>
+        <field name="arch" type="xml">
+            <form string="Tax Action">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="position_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="move_type"/>
+                            <field name="l10n_bg_move_type"/>
+                        </group>
+                        <group>
+                            <field name="dest_move_type"/>
+                            <field name="position_dest_id"/>
+                            <field name="account_id"/>
+                            <field name="factor_percent"/>
+                        </group>
+                    </group>
+                    <group string="Auto Fill Settings">
+                        <group>
+                            <field name="l10n_bg_type_vat"/>
+                            <field name="l10n_bg_doc_type"/>
+                        </group>
+                        <group>
+                            <field name="l10n_bg_narration"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree/List View -->
+    <record id="view_account_fiscal_position_tax_action_tree" model="ir.ui.view">
+        <field name="name">account.fiscal.position.tax.action.tree</field>
+        <field name="model">account.fiscal.position.tax.action</field>
+        <field name="arch" type="xml">
+            <tree string="Tax Actions" editable="top">
+                <field name="position_id"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+                <field name="move_type"/>
+                <field name="l10n_bg_move_type"/>
+                <field name="dest_move_type" optional="show"/>
+                <field name="position_dest_id" optional="show"/>
+                <field name="l10n_bg_type_vat"/>
+                <field name="l10n_bg_doc_type"/>
+                <field name="factor_percent"/>
+                <field name="l10n_bg_narration" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View (препоръчително) -->
+    <record id="view_account_fiscal_position_tax_action_search" model="ir.ui.view">
+        <field name="name">account.fiscal.position.tax.action.search</field>
+        <field name="model">account.fiscal.position.tax.action</field>
+        <field name="arch" type="xml">
+            <search string="Search Tax Actions">
+                <field name="position_id"/>
+                <field name="move_type"/>
+                <field name="l10n_bg_move_type"/>
+                <field name="l10n_bg_type_vat"/>
+                <separator/>
+                <filter string="Standard Move Type" name="standard" domain="[('l10n_bg_move_type', '=', 'standard')]"/>
+                <filter string="Protocol Move Type" name="protocol" domain="[('l10n_bg_move_type', '=', 'protocol')]"/>
+                <filter string="Private Move Type" name="private" domain="[('l10n_bg_move_type', '=', 'private')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Fiscal Position" name="group_position" context="{'group_by': 'position_id'}"/>
+                    <filter string="Move Type" name="group_move_type" context="{'group_by': 'move_type'}"/>
+                    <filter string="BG Move Type" name="group_bg_move_type" context="{'group_by': 'l10n_bg_move_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action Window (препоръчително) -->
+    <record id="action_account_fiscal_position_tax_action" model="ir.actions.act_window">
+        <field name="name">Tax Actions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.fiscal.position.tax.action</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new tax action mapping
+            </p>
+            <p>
+                Tax actions define how different move types should be handled
+                for specific fiscal positions.
+            </p>
+        </field>
+    </record>
+</odoo>

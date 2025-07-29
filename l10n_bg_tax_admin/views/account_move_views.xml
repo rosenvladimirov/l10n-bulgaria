@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="l10n_bg_config.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_protocol" type="object" class="oe_stat_button" icon="fa-book" invisible="not l10n_bg_protocol_move_id">
+                    <field name="l10n_bg_name" string="Related Protocol" widget="statinfo" readonly="1"/>
+                </button>
+                <button name="action_open_private" type="object" class="oe_stat_button" icon="fa-book" invisible="not l10n_bg_private_move_id">
+                    <field name="l10n_bg_name" string="Related Self signed" widget="statinfo" readonly="1"/>
+                </button>
+            </xpath>
+            <xpath
+                expr="//group[@id='account_bg_vat']"
+                position="inside"
+            >
+                <field name="l10n_bg_move_type" readonly="state != 'draft'"/>
+                <field name="l10n_bg_private_percentage" readonly="state != 'draft'"/>
+            </xpath>
+            <xpath
+                expr="//group[@id='account_bg_vat_entry']"
+                position="inside"
+            >
+                <field name="l10n_bg_move_type" readonly="state != 'draft'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

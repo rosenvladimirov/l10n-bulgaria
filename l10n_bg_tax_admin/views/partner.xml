@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_fiscal_position_form_inherit" model="ir.ui.view">
+        <field name="name">account.fiscal.position.form.inherit</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Tax Actions" name="tax_actions">
+                    <field name="tax_action_map_ids" widget="one2many" context="{'default_company_id': company_id}">
+                        <tree string="Tax Actions" editable="bottom">
+                            <field name="move_type" required="1"/>
+                            <field name="l10n_bg_move_type"/>
+                            <field name="l10n_bg_type_vat"/>
+                            <field name="l10n_bg_doc_type"/>
+                            <field name="l10n_bg_narration" optional="show"/>
+                            <field name="position_dest_id" optional="show"/>
+                            <field name="dest_move_type" optional="show"/>
+                            <field name="account_id" optional="show"/>
+                            <field name="factor_percent" optional="show"/>
+                            <!-- Hidden fields for context -->
+                            <field name="company_id" column_invisible="1"/>
+                        </tree>
+                        <form string="Tax Action">
+                            <sheet>
+                                <group>
+                                    <group>
+                                        <field name="move_type"/>
+                                        <field name="l10n_bg_move_type"/>
+                                        <field name="company_id" groups="base.group_multi_company"/>
+                                    </group>
+                                    <group>
+                                        <field name="position_dest_id"/>
+                                        <field name="dest_move_type"/>
+                                        <field name="account_id"/>
+                                        <field name="factor_percent"/>
+                                    </group>
+                                </group>
+                                <group string="Auto Fill Settings">
+                                    <group>
+                                        <field name="l10n_bg_type_vat"/>
+                                        <field name="l10n_bg_doc_type"/>
+                                    </group>
+                                    <group>
+                                        <field name="l10n_bg_narration"/>
+                                    </group>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Optional: Add security for better user experience -->
+    <record id="account_fiscal_position_form_inherit_security" model="ir.ui.view">
+        <field name="name">account.fiscal.position.form.inherit.security</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account_fiscal_position_form_inherit"/>
+        <field name="groups_id" eval="[(4, ref('account.group_account_manager'))]"/>
+        <field name="arch" type="xml">
+            <page name="tax_actions" position="attributes">
+                <attribute name="invisible">not user_has_groups('account.group_account_manager')</attribute>
+            </page>
+        </field>
+    </record>
+</odoo>

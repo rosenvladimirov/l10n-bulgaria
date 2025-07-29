@@ -127,8 +127,3 @@ class BaseDocumentLayout(models.TransientModel):
                     report_saleorder_document_id.with_context(**dict(self._context, active_test=False)).active = \
                         template.report_layout_id.id == report_layout_id.id
         return res
-
-    # def write(self, vals):
-    #     res = super().write(vals)
-    #     self.selection_colors.save_scss_colors()
-    #     return res

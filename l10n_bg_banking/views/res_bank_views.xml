@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="view_res_bank_form_ex" model="ir.ui.view">
+            <field name="name">res.bank.form.extend</field>
+            <field name="inherit_id" ref="base.view_res_bank_form"/>
+            <field name="model">res.bank</field>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='communication_details']" position="after">
+                    <group name="psd2_details">
+                        <field name="psd2_bank_section_name"/>
+
+                        <button name="action_import_psd2_statements"
+                                type="object"
+                                string="Import PSD2 Statement"
+                                class="btn-primary"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

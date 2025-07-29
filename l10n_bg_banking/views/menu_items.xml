@@ -1,0 +1,12 @@
+<odoo>
+    <menuitem id="menu_res_bank_root"
+              parent="account.menu_finance_configuration"
+              name="Bank Management"
+              sequence="10"/>
+
+    <menuitem id="menu_res_bank"
+              name="Banks"
+              parent="menu_res_bank_root"
+              action="base.action_res_bank_form"
+              sequence="20"/>
+</odoo>

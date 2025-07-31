@@ -12,6 +12,8 @@
         'l10n_bg_reports_audit',
         'l10n_bg_config',
         'l10n_bg_tax_offices',
+        'stock_landed_costs',
+        'stock_delivery',
     ],
     'data': [
         'security/ir.model.access.csv',

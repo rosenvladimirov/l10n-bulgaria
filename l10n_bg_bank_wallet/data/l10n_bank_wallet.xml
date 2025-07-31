@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Категория за Crypto Wallet -->
+    <record id="category_crypto_wallet" model="ir.module.category">
+        <field name="name">Криптиран портфел</field>
+        <field name="description">Управление на криптирани портфели и ключове</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <!-- Група за потребители на портфели -->
+    <record id="group_crypto_wallet_user" model="res.groups">
+        <field name="name">Потребител на портфел</field>
+        <field name="category_id" ref="category_crypto_wallet"/>
+        <field name="comment">Може да създава и управлява собствени портфели</field>
+    </record>
+
+    <!-- Група за мениджъри на портфели -->
+    <record id="group_crypto_wallet_manager" model="res.groups">
+        <field name="name">Мениджър на портфели</field>
+        <field name="category_id" ref="category_crypto_wallet"/>
+        <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_user'))]"/>
+        <field name="comment">Може да управлява всички портфели в системата</field>
+    </record>
+
+    <!-- Record Rule: Потребителите виждат само собствените си портфели -->
+    <record id="crypto_wallet_user_rule" model="ir.rule">
+        <field name="name">Crypto Wallet: собствени портфели</field>
+        <field name="model_id" ref="model_crypto_wallet"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_crypto_wallet_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <!-- Record Rule: Мениджърите виждат всички портфели -->
+    <record id="crypto_wallet_manager_rule" model="ir.rule">
+        <field name="name">Crypto Wallet: всички портфели за мениджъри</field>
+        <field name="model_id" ref="model_crypto_wallet"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_crypto_wallet_manager'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <!-- Record Rule: Портални потребители само четене на собствени -->
+    <record id="crypto_wallet_portal_rule" model="ir.rule">
+        <field name="name">Crypto Wallet: portal read-only</field>
+        <field name="model_id" ref="model_crypto_wallet"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+</odoo>

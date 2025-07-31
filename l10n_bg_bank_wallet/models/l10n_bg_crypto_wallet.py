@@ -15,48 +15,123 @@ _logger = logging.getLogger(__name__)
 
 class CryptoWallet(models.Model):
     _name = 'crypto.wallet'
-    _description = 'Виртуален криптиран портфел за ключове'
+    _description = 'Virtual encrypted wallet for keys'
     _rec_name = 'name'
 
-    name = fields.Char('Име на портфела', required=True)
-    user_id = fields.Many2one('res.users', 'Потребител', required=True, default=lambda self: self.env.user)
-    encrypted_data = fields.Text('Криптирани данни', readonly=True)
-    salt = fields.Text('Salt за криптиране', readonly=True)
-    is_locked = fields.Boolean('Заключен', default=True)
-    created_date = fields.Datetime('Създаден на', default=fields.Datetime.now, readonly=True)
-    last_accessed = fields.Datetime('Последно отворен', readonly=True)
+    name = fields.Char('Stored key name', required=True)
+    user_id = fields.Many2one('res.users', 'User', required=True, default=lambda self: self.env.user)
+    encrypted_data = fields.Text('Encrypted data', readonly=True)
+    salt = fields.Text('Salt to encrypt', readonly=True)
+    is_locked = fields.Boolean('Locked', default=True)
+    created_date = fields.Datetime('Created on', default=fields.Datetime.now, readonly=True)
+    last_accessed = fields.Datetime('Last opened', readonly=True)
 
     # Виртуални полета за ключовете (не се съхраняват в БД)
-    master_password = fields.Char('Главна парола', store=False)
-    decrypted_keys = fields.Text('Декриптирани ключове', store=False, readonly=True)
+    master_password = fields.Char('Master password', store=False)
+    decrypted_keys = fields.Text('Decrypted Keys', store=False, readonly=True)
 
-    @api.model
-    def create(self, vals):
-        """Създава нов криптиран портфел"""
-        if 'master_password' not in vals:
-            # Ако няма master_password, използва паролата на потребителя
-            user_id = vals.get('user_id', self.env.user.id)
-            user = self.env['res.users'].browse(user_id)
-            vals['master_password'] = user.password
+    @api.model_create_multi
+    def create(self, vals_list):
+        """Създава нови crypto wallet записи"""
+        # Обработка на master_password за всеки запис
+        processed_vals_list = []
+        master_passwords = []
 
-        master_password = vals.pop('master_password')
-        wallet = super().create(vals)
+        for vals in vals_list:
+            processed_vals = vals.copy()
 
-        # Инициализира празен портфел
-        wallet._initialize_wallet(master_password)
-        return wallet
+            if 'master_password' not in processed_vals:
+                # Ако няма master_password, използва паролата на потребителя
+                user_id = processed_vals.get('user_id', self.env.user.id)
+                user = self.env['res.users'].browse(user_id)
+                master_password = user.password
+            else:
+                master_password = processed_vals.pop('master_password')
+
+            master_passwords.append(master_password)
+            processed_vals_list.append(processed_vals)
+
+        # Създава записите
+        wallets = super().create(processed_vals_list)
+
+        # Инициализира всеки портфел
+        for wallet, master_password in zip(wallets, master_passwords):
+            wallet._initialize_wallet(master_password)
+
+        return wallets
+
+    def write(self, vals):
+        """Обновява crypto wallet записи"""
+        # Ако има master_password в vals, трябва да го обработим специално
+        if 'master_password' in vals:
+            master_password = vals.pop('master_password')
+
+            # Първо правим стандартното обновяване
+            result = super().write(vals)
+
+            # След това обработваме master_password за всеки запис
+            for wallet in self:
+                if wallet.encrypted_data:
+                    # Ако портфелът вече има данни, трябва да ги прекриптираме
+                    try:
+                        current_password = wallet.get_master_password_for_user()
+                        wallet_data = wallet.unlock_wallet(current_password)
+                        wallet._reencrypt_wallet_with_new_key(wallet_data, master_password)
+                    except Exception as e:
+                        _logger.error(f"Failed to reencrypt wallet during write: {str(e)}")
+                        # Fallback - създаваме нов портфел
+                        wallet._initialize_wallet(master_password)
+                else:
+                    # Ако няма данни, просто инициализираме
+                    wallet._initialize_wallet(master_password)
+
+            return result
+        else:
+            # Стандартно обновяване без master_password
+            return super().write(vals)
 
     def get_master_password_for_user(self):
-        """Връща master password-a за портфела - хеша на паролата на потребителя"""
+        """
+        Retrieves the master password associated with the current user's account.
+        This method accesses the password stored within the user data corresponding to the
+        user's unique identifier. It should be used with caution to maintain security
+        of sensitive information.
+
+        :return: Password associated with the current user's account
+        :rtype: str
+        """
         return self.user_id.password
 
     def unlock_with_user_password(self):
-        """Отключва портфела с текущата парола на потребителя"""
+        """
+        Unlocks the wallet using the user's master password.
+
+        This method retrieves the master password associated with the current user
+        and attempts to unlock the wallet using that password.
+
+        :return: The result of the wallet unlocking operation.
+        :rtype: bool
+        """
         master_password = self.get_master_password_for_user()
         return self.unlock_wallet(master_password)
 
     def add_key_with_user_password(self, key_name, key_type, key_data):
-        """Добавя ключ използвайки паролата на потребителя"""
+        """
+        Adds a key with the user's master password.
+
+        This method is responsible for invoking the `add_key` method by supplying
+        the user's master password, along with the key name, type, and data provided
+        as arguments. It helps in securely associating a key with a specific user.
+
+        :param key_name: Name of the key to be added
+        :type key_name: str
+        :param key_type: Type of the key to be added
+        :type key_type: str
+        :param key_data: Data of the key to be added
+        :type key_data: str
+        :return: Result of the `add_key` method
+        :rtype: Any
+        """
         master_password = self.get_master_password_for_user()
         return self.add_key(key_name, key_type, key_data, master_password)
 

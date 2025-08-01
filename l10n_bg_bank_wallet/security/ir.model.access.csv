@@ -1,9 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_crypto_wallet_user,crypto.wallet.user,model_crypto_wallet,l10n_bg_bank_wallet.group_crypto_wallet_user,1,1,1,1
-access_crypto_wallet_manager,crypto.wallet.manager,model_crypto_wallet,l10n_bg_bank_wallet.group_crypto_wallet_manager,1,1,1,1
-access_crypto_wallet_portal,crypto.wallet.portal,model_crypto_wallet,base.group_portal,1,0,0,0
-access_crypto_wallet_public,crypto.wallet.public,model_crypto_wallet,base.group_public,0,0,0,0
-access_crypto_wallet_add_key_wizard_user,crypto.wallet.add.key.wizard.user,model_crypto_wallet_add_key_wizard,l10n_bg_bank_wallet.group_crypto_wallet_user,1,1,1,1
-access_crypto_wallet_add_key_wizard_manager,crypto.wallet.add.key.wizard.manager,model_crypto_wallet_add_key_wizard,l10n_bg_bank_wallet.group_crypto_wallet_manager,1,1,1,1
-access_crypto_wallet_add_key_wizard_portal,crypto.wallet.add.key.wizard.portal,model_crypto_wallet_add_key_wizard,base.group_portal,0,0,0,0
-access_crypto_wallet_add_key_wizard_public,crypto.wallet.add.key.wizard.public,model_crypto_wallet_add_key_wizard,base.group_public,0,0,0,0
+access_crypto_wallet_read,crypto.wallet.read,model_crypto_wallet,group_crypto_wallet_read,1,0,0,0
+access_crypto_wallet_write,crypto.wallet.write,model_crypto_wallet,group_crypto_wallet_write,1,1,1,0
+access_crypto_wallet_generate,crypto.wallet.generate,model_crypto_wallet,group_crypto_wallet_generate,1,1,1,0
+access_crypto_wallet_export,crypto.wallet.export,model_crypto_wallet,group_crypto_wallet_export,1,0,0,0
+access_crypto_wallet_admin,crypto.wallet.admin,model_crypto_wallet,group_crypto_wallet_admin,1,1,1,1
+access_crypto_wallet_permission_read,crypto.wallet.permission.read,model_crypto_wallet_permission,group_crypto_wallet_read,1,0,0,0
+access_crypto_wallet_permission_write,crypto.wallet.permission.write,model_crypto_wallet_permission,group_crypto_wallet_write,1,1,1,0
+access_crypto_wallet_permission_admin,crypto.wallet.permission.admin,model_crypto_wallet_permission,group_crypto_wallet_admin,1,1,1,1

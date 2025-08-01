@@ -28,21 +28,21 @@ The `l10n_bg_crypto_wallet` module implements a **three-layer security system** 
 ```
 
 ┌─────────────────────────────────────────────────────────────┐
-│                    Layer 3: Application Logic              │
-│  • Python programmatic checks                              │
+│                    Layer 3: Application Logic               │
+│  • Python programmatic checks                               │
 │  • Temporal permissions                                     │
-│  • Audit trail and logging                                 │
+│  • Audit trail and logging                                  │
 ├─────────────────────────────────────────────────────────────┤
-│                    Layer 2: Odoo Security                  │
-│  • Access Control Lists (ACL)                              │
-│  • Record Rules                                            │
-│  • Security Groups                                         │
+│                    Layer 2: Odoo Security                   │
+│  • Access Control Lists (ACL)                               │
+│  • Record Rules                                             │
+│  • Security Groups                                          │
 ├─────────────────────────────────────────────────────────────┤
-│                    Layer 1: Cryptography                   │
-│  • AES-256 encryption (Fernet)                            │
-│  • PBKDF2 key derivation                                   │
-│  • Individual salt values                                  │
-│  • Protected files (600 permissions)                       │
+│                    Layer 1: Cryptography                    │
+│  • AES-256 encryption (Fernet)                              │
+│  • PBKDF2 key derivation                                    │
+│  • Individual salt values                                   │
+│  • Protected files (600 permissions)                        │
 └─────────────────────────────────────────────────────────────┘
 ```
 ---

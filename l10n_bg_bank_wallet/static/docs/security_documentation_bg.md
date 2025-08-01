@@ -28,21 +28,21 @@
 ```
 
 ┌─────────────────────────────────────────────────────────────┐
-│                    Слой 3: Application Logic               │
-│  • Програмни проверки в Python                             │
+│                    Слой 3: Application Logic                │
+│  • Програмни проверки в Python                              │
 │  • Temporal permissions                                     │
-│  • Audit trail и logging                                   │
+│  • Audit trail и logging                                    │
 ├─────────────────────────────────────────────────────────────┤
-│                    Слой 2: Odoo Security                   │
-│  • Access Control Lists (ACL)                              │
-│  • Record Rules                                            │
-│  • Security Groups                                         │
+│                    Слой 2: Odoo Security                    │
+│  • Access Control Lists (ACL)                               │
+│  • Record Rules                                             │
+│  • Security Groups                                          │
 ├─────────────────────────────────────────────────────────────┤
-│                    Слой 1: Криптография                    │
-│  • AES-256 шифроване (Fernet)                             │
-│  • PBKDF2 key derivation                                   │
-│  • Индивидуални salt стойности                             │
-│  • Защитени файлове (600 permissions)                      │
+│                    Слой 1: Криптография                     │
+│  • AES-256 шифроване (Fernet)                               │
+│  • PBKDF2 key derivation                                    │
+│  • Индивидуални salt стойности                              │
+│  • Защитени файлове (600 permissions)                       │
 └─────────────────────────────────────────────────────────────┘
 ```
 ---

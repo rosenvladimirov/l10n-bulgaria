@@ -1,4 +1,3 @@
-```markdown
 # Crypto Wallet Security Documentation
 
 ## Overview

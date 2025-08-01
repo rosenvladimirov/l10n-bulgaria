@@ -1,7 +1,3 @@
-Ето документацията като Markdown файл:
-
-<llm:snippet-file>SECURITY_DOCUMENTATION.md</llm:snippet-file>
-```markdown
 # Crypto Wallet Security Documentation
 
 ## Обзор

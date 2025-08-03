@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="crypto_wallet_tree_view" model="ir.ui.view">
+        <field name="name">crypto.wallet.tree</field>
+        <field name="model">crypto.wallet</field>
+        <field name="arch" type="xml">
+            <tree string="Криптирани портфели" create="1" edit="1" delete="1">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="is_locked" widget="boolean_toggle"/>
+                <field name="created_date"/>
+                <field name="last_accessed"/>
+                <button name="unlock_wallet_action"
+                        type="object"
+                        string="Отключи"
+                        icon="fa-unlock"
+                        attrs="{'invisible': [('is_locked', '=', False)]}"/>
+                <button name="lock_wallet"
+                        type="object"
+                        string="Заключи"
+                        icon="fa-lock"
+                        attrs="{'invisible': [('is_locked', '=', True)]}"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="crypto_wallet_form_view" model="ir.ui.view">
+        <field name="name">crypto.wallet.form</field>
+        <field name="model">crypto.wallet</field>
+        <field name="arch" type="xml">
+            <form string="Криптиран портфел">
+                <header>
+                    <button name="unlock_wallet_action"
+                            type="object"
+                            string="Отключи портфела"
+                            class="btn-primary"
+                            attrs="{'invisible': [('is_locked', '=', False)]}"/>
+                    <button name="lock_wallet"
+                            type="object"
+                            string="Заключи портфела"
+                            class="btn-secondary"
+                            attrs="{'invisible': [('is_locked', '=', True)]}"/>
+                    <button name="change_master_password_action"
+                            type="object"
+                            string="Промени главната парола"
+                            class="btn-warning"/>
+                    <button name="export_wallet_action"
+                            type="object"
+                            string="Експортирай портфела"
+                            class="btn-info"/>
+                    <field name="is_locked" widget="statusbar" statusbar_visible="locked,unlocked"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="view_keys_action"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-key">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Ключове</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Име на портфела"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="user_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="created_date" readonly="1"/>
+                            <field name="last_accessed" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="is_locked" readonly="1"/>
+                            <field name="salt" readonly="1" password="True"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Съдържание на портфела" attrs="{'invisible': [('is_locked', '=', True)]}">
+                            <group>
+                                <field name="decrypted_keys" widget="ace" options="{'mode': 'json'}" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Управление на ключове" attrs="{'invisible': [('is_locked', '=', True)]}">
+                            <group>
+                                <button name="add_key_action"
+                                        type="object"
+                                        string="Добави ключ"
+                                        class="btn-primary"/>
+                                <button name="list_keys_action"
+                                        type="object"
+                                        string="Покажи всички ключове"
+                                        class="btn-info"/>
+                            </group>
+                        </page>
+                        <page string="Криптирани данни">
+                            <group>
+                                <field name="encrypted_data" widget="text" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="crypto_wallet_search_view" model="ir.ui.view">
+        <field name="name">crypto.wallet.search</field>
+        <field name="model">crypto.wallet</field>
+        <field name="arch" type="xml">
+            <search string="Търсене в портфели">
+                <field name="name" string="Име на портфела"/>
+                <field name="user_id" string="Потребител"/>
+                <filter string="Моите портфели"
+                        name="my_wallets"
+                        domain="[('user_id', '=', uid)]"/>
+                <filter string="Заключени"
+                        name="locked"
+                        domain="[('is_locked', '=', True)]"/>
+                <filter string="Отключени"
+                        name="unlocked"
+                        domain="[('is_locked', '=', False)]"/>
+                <separator/>
+                <filter string="Създадени този месец"
+                        name="this_month"
+                        domain="[('created_date', '&gt;=', datetime.datetime.now().replace(day=1))]"/>
+                <group expand="0" string="Групиране">
+                    <filter string="По потребител" name="group_by_user" context="{'group_by': 'user_id'}"/>
+                    <filter string="По статус" name="group_by_status" context="{'group_by': 'is_locked'}"/>
+                    <filter string="По месец на създаване" name="group_by_month" context="{'group_by': 'created_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="crypto_wallet_action" model="ir.actions.act_window">
+        <field name="name">Криптирани портфели</field>
+        <field name="res_model">crypto.wallet</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_my_wallets': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Създайте вашия първи криптиран портфел!
+            </p>
+            <p>
+                Криптираните портфели ви позволяват да съхранявате сигурно
+                пароли, API ключове и други чувствителни данни.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="crypto_wallet_menu_root"
+              name="Криптирани портфели"
+              web_icon="static/description/icon.png"
+              sequence="100"/>
+
+    <menuitem id="crypto_wallet_menu"
+              name="Портфели"
+              parent="crypto_wallet_menu_root"
+              action="crypto_wallet_action"
+              sequence="10"/>
+
+</odoo>

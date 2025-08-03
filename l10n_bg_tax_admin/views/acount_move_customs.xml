@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="view_account_move_bg_customs_form" model="ir.ui.view">
+        <field name="name">account.move.bg.customs.form</field>
+        <field name="model">account.move.bg.customs</field>
+        <field name="arch" type="xml">
+            <form string="Митническа декларация">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,posted,cancel"/>
+                </header>
+                <sheet>
+                    <!-- Основни документи -->
+                    <div class="oe_title">
+                        <h1>
+                            <field name="l10n_bg_customs_name" placeholder="Митническа декларация №"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group name="customs_main" string="Основни данни">
+                            <field name="l10n_bg_customs_move_id"/>
+                            <field name="l10n_bg_customs_date_creation"/>
+                            <field name="declaration_number"/>
+                            <field name="declaration_date"/>
+                            <field name="responsible_id"/>
+                        </group>
+                        <group name="customs_related" string="Свързани документи">
+                            <field name="l10n_bg_customs_invoice_ids" widget="many2many_tags"/>
+                            <field name="customs_documents" widget="many2many_tags"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <!-- Данни за стоката и произход -->
+                        <group name="customs_origin" string="Произход и доставка">
+                            <field name="country_of_origin_id"/>
+                            <field name="country_of_dispatch_id"/>
+                            <field name="incoterm_location"/>
+                            <field name="transport_mode"/>
+                        </group>
+
+                        <!-- Опаковки -->
+                        <group name="customs_package" string="Опаковки">
+                            <field name="package_type"/>
+                            <field name="package_count"/>
+                            <field name="package_description"/>
+                        </group>
+                    </group>
+
+                    <!-- Митнически данни -->
+                    <group name="customs_details" string="Митнически данни">
+                        <group>
+                            <field name="customs_procedure"/>
+                            <field name="total_customs_value"/>
+                            <field name="total_expenses"/>
+                            <field name="total_gross_weight"/>
+                        </group>
+                    </group>
+
+                    <!-- Детайлни редове -->
+                    <notebook>
+                        <page string="Стоки и разходи" name="invoice_lines">
+                            <field name="invoice_line_ids" widget="section_and_note_one2many" mode="tree,kanban" readonly="1">
+                                <tree string="Стоки" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="l10n_bg_customs_value"/>
+                                    <field name="l10n_bg_is_customs_expense"/>
+                                    <field name="quantity"/>
+                                    <field name="product_uom_id" groups="uom.group_uom"/>
+                                    <field name="l10n_bg_weight_gross"/>
+                                    <field name="price_unit"/>
+                                    <field name="tax_ids" widget="many2many_tags"/>
+                                    <field name="price_subtotal"/>
+                                    <field name="price_total"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="company_currency_id" invisible="1"/>
+                                </tree>
+                                <form string="Стоки">
+                                    <group>
+                                        <group>
+                                            <field name="product_id"/>
+                                            <field name="name"/>
+                                            <field name="l10n_bg_customs_value"/>
+                                            <field name="l10n_bg_is_customs_expense"/>
+                                            <field name="quantity"/>
+                                            <field name="product_uom_id" groups="uom.group_uom"/>
+                                        </group>
+                                        <group>
+                                            <field name="l10n_bg_weight_gross"/>
+                                            <field name="price_unit"/>
+                                            <field name="tax_ids" widget="many2many_tags"/>
+                                            <field name="price_subtotal"/>
+                                            <field name="price_total"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                            <group class="oe_subtotal_footer">
+                                <field name="total_customs_value" widget="monetary"/>
+                                <field name="total_expenses" widget="monetary"/>
+                                <field name="total_gross_weight"/>
+                                <field name="amount_untaxed" widget="monetary"/>
+                                <field name="amount_tax" widget="monetary"/>
+                                <field name="amount_total" class="oe_subtotal_footer_separator" widget="monetary"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                        </page>
+
+                        <!-- Нов таб за счетоводни статии -->
+                        <page string="Счетоводни статии" name="accounting_entries">
+                            <field name="line_ids" widget="section_and_note_one2many">
+                                <tree string="Счетоводни статии" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="account_id"/>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="analytic_distribution" widget="analytic_distribution" groups="analytic.group_analytic_accounting"/>
+                                    <field name="debit" sum="Общо дебит"/>
+                                    <field name="credit" sum="Общо кредит"/>
+                                    <field name="amount_currency" groups="base.group_multi_currency"/>
+                                    <field name="currency_id" groups="base.group_multi_currency"/>
+                                    <field name="tax_ids" widget="many2many_tags"/>
+                                    <field name="tax_line_id"/>
+                                    <field name="tax_tag_ids" widget="many2many_tags"/>
+                                    <field name="tax_base_amount"/>
+                                    <field name="company_currency_id" invisible="1"/>
+                                    <field name="company_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Други информация" name="other_info">
+                            <group>
+                                <group string="Митнически данни">
+                                    <field name="customs_procedure"/>
+                                    <field name="l10n_bg_customs_highest_name"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <!-- Чат и логове -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_account_move_bg_customs_tree" model="ir.ui.view">
+        <field name="name">account.move.bg.customs.tree</field>
+        <field name="model">account.move.bg.customs</field>
+        <field name="arch" type="xml">
+            <tree string="Митнически декларации" decoration-info="state == 'draft'" decoration-muted="state == 'cancel'">
+                <field name="l10n_bg_customs_name"/>
+                <field name="l10n_bg_customs_date_creation"/>
+                <field name="declaration_number"/>
+                <field name="declaration_date"/>
+                <field name="country_of_origin_id"/>
+                <field name="customs_procedure"/>
+                <field name="total_customs_value"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_account_move_bg_customs_search" model="ir.ui.view">
+        <field name="name">account.move.bg.customs.search</field>
+        <field name="model">account.move.bg.customs</field>
+        <field name="arch" type="xml">
+            <search string="Търсене в митнически декларации">
+                <field name="l10n_bg_customs_name"/>
+                <field name="declaration_number"/>
+                <field name="country_of_origin_id"/>
+                <field name="customs_procedure"/>
+                <separator/>
+                <filter string="Чернови" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Потвърдени" name="posted" domain="[('state','=','posted')]"/>
+                <filter string="Отказани" name="cancelled" domain="[('state','=','cancel')]"/>
+                <group expand="0" string="Групиране">
+                    <filter string="Държава на произход" name="group_country" context="{'group_by': 'country_of_origin_id'}"/>
+                    <filter string="Митнически режим" name="group_procedure" context="{'group_by': 'customs_procedure'}"/>
+                    <filter string="Месец" name="group_month" context="{'group_by': 'declaration_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_account_move_bg_customs" model="ir.actions.act_window">
+        <field name="name">Митнически декларации</field>
+        <field name="res_model">account.move.bg.customs</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_account_move_bg_customs_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Създайте първата си митническа декларация
+            </p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_crypto_wallet_read,crypto.wallet.read,model_crypto_wallet,group_crypto_wallet_read,1,0,0,0
+access_crypto_wallet_write,crypto.wallet.write,model_crypto_wallet,group_crypto_wallet_write,1,1,1,0
+access_crypto_wallet_generate,crypto.wallet.generate,model_crypto_wallet,group_crypto_wallet_generate,1,1,1,0
+access_crypto_wallet_export,crypto.wallet.export,model_crypto_wallet,group_crypto_wallet_export,1,0,0,0
+access_crypto_wallet_admin,crypto.wallet.admin,model_crypto_wallet,group_crypto_wallet_admin,1,1,1,1
+access_crypto_wallet_permission_read,crypto.wallet.permission.read,model_crypto_wallet_permission,group_crypto_wallet_read,1,0,0,0
+access_crypto_wallet_permission_write,crypto.wallet.permission.write,model_crypto_wallet_permission,group_crypto_wallet_write,1,1,1,0
+access_crypto_wallet_permission_admin,crypto.wallet.permission.admin,model_crypto_wallet_permission,group_crypto_wallet_admin,1,1,1,1

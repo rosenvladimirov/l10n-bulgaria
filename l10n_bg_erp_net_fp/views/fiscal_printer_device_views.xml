@@ -5,35 +5,48 @@
         <field name="name">fiscal.printer.device.form</field>
         <field name="model">fiscal.printer.device</field>
         <field name="arch" type="xml">
-            <form>
+            <form string="Fiscal Printer Device">
                 <header>
-                    <button name="action_test_z_report" string="Тестов Z отчет" type="object"
-                            class="oe_highlight" confirm="Сигурни ли сте, че искате да генерирате Z отчет?"/>
-                    <button name="print_x_report" string="X Отчет" type="object" class="oe_highlight"/>
-                    <button name="print_z_report" string="Z Отчет" type="object" class="oe_highlight"
-                            confirm="Сигурни ли сте, че искате да генерирате Z отчет?"/>
-                    <button name="get_printer_status" string="Статус" type="object"/>
-                    <button name="open_cash_drawer" string="Отвори чекмедже" type="object"/>
+                    <button name="action_test_z_report"
+                            string="Test Z Report"
+                            type="object"
+                            class="btn-primary"
+                            confirm="Are you sure you want to generate a Z report?"/>
+                    <button name="print_x_report"
+                            string="X Report"
+                            type="object"
+                            class="btn-primary"/>
+                    <button name="print_z_report"
+                            string="Z Report"
+                            type="object"
+                            class="btn-primary"
+                            confirm="Are you sure you want to generate a Z report?"/>
+                    <button name="get_printer_status"
+                            string="Status"
+                            type="object"/>
+                    <button name="open_cash_drawer"
+                            string="Open Drawer"
+                            type="object"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="name" placeholder="Име на устройство"/>
+                            <field name="name" placeholder="Device Name"/>
                         </h1>
                     </div>
                     <group>
-                        <group string="Основни настройки">
+                        <group string="Basic Settings">
                             <field name="host"/>
                             <field name="printer_id"/>
                             <field name="active"/>
                             <field name="ssl_verify"/>
                         </group>
-                        <group string="Разширени настройки">
+                        <group string="Advanced Settings">
                             <field name="timeout"/>
                             <field name="retry_count"/>
                         </group>
                     </group>
-                    <group string="Автоматизация">
+                    <group string="Automation">
                         <group>
                             <field name="auto_z_report"/>
                             <field name="z_report_hour" attrs="{'invisible': [('auto_z_report', '=', False)]}"/>
@@ -41,28 +54,24 @@
                             <field name="last_z_report" readonly="1"/>
                         </group>
                     </group>
+                    <chatter/>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>
 
-    <!-- Tree View -->
-    <record id="view_fiscal_printer_device_tree" model="ir.ui.view">
-        <field name="name">fiscal.printer.device.tree</field>
+    <!-- List View (Odoo 18) -->
+    <record id="view_fiscal_printer_device_list" model="ir.ui.view">
+        <field name="name">fiscal.printer.device.list</field>
         <field name="model">fiscal.printer.device</field>
         <field name="arch" type="xml">
-            <tree>
+            <list string="Fiscal Printer Devices">
                 <field name="name"/>
                 <field name="host"/>
                 <field name="printer_id"/>
                 <field name="active"/>
                 <field name="last_z_report"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -71,13 +80,43 @@
         <field name="name">fiscal.printer.device.search</field>
         <field name="model">fiscal.printer.device</field>
         <field name="arch" type="xml">
-            <search>
+            <search string="Fiscal Printer Devices">
                 <field name="name"/>
                 <field name="host"/>
                 <field name="printer_id"/>
-                <filter string="Активни" name="active" domain="[('active', '=', True)]"/>
-                <filter string="Автоматичен Z отчет" name="auto_z" domain="[('auto_z_report', '=', True)]"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Auto Z Report" name="auto_z" domain="[('auto_z_report', '=', True)]"/>
             </search>
         </field>
     </record>
+
+    <!-- Action -->
+    <record id="action_fiscal_printer_device" model="ir.actions.act_window">
+        <field name="name">Fiscal Printers</field>
+        <field name="res_model">fiscal.printer.device</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_fiscal_printer_device_list"/>
+        <field name="search_view_id" ref="view_fiscal_printer_device_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first fiscal printer!
+            </p>
+            <p>
+                Configure fiscal printers for your POS systems.
+            </p>
+        </field>
+    </record>
+
+    <!-- Root menu for fiscal devices in POS Configuration -->
+    <menuitem id="menu_fiscal_printer_root"
+              name="Fiscal Devices"
+              parent="point_of_sale.menu_point_config_product"
+              sequence="30"/>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_fiscal_printer_device"
+              name="Fiscal Printers"
+              action="action_fiscal_printer_device"
+              parent="menu_fiscal_printer_root"
+              sequence="20"/>
 </odoo>

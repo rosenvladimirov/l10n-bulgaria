@@ -6,27 +6,29 @@
         <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
         <field name="arch" type="xml">
             <!-- Добавяме fiscal printer настройки в other_devices секцията -->
-            <xpath expr="//setting[@id='other_devices']" position="inside">
-                <div class="content-group mt16">
-                    <div class="row">
-                        <div class="col-lg-4 o_light_label">
-                            <label string="Fiscal Printer" for="auto_fiscal_printing"/>
+            <xpath expr="//setting[@id='other_devices']" position="after">
+                <setting id="erp_net_fp" string="ErpNet.FP Printers" help="Connect device to your PoS by ErpNet.FP server">
+                    <div class="content-group mt16">
+                        <div class="row">
+                            <div class="col-lg-4 o_light_label">
+                                <label string="Fiscal Printer" for="auto_fiscal_printing"/>
+                            </div>
+                            <div class="col-lg-8">
+                                <field name="auto_fiscal_printing"/>
+                            </div>
                         </div>
-                        <div class="col-lg-8">
-                            <field name="auto_fiscal_printing"/>
+                        <div class="row" invisible="not auto_fiscal_printing">
+                            <div class="col-lg-4 o_light_label ps-4">
+                                <label string="Printer Device" for="fiscal_printer_id"/>
+                            </div>
+                            <div class="col-lg-8">
+                                <field name="fiscal_printer_id"
+                                       options="{'no_create': True}"
+                                       context="{'default_active': True}"/>
+                            </div>
                         </div>
                     </div>
-                    <div class="row" invisible="not auto_fiscal_printing">
-                        <div class="col-lg-4 o_light_label ps-4">
-                            <label string="FP.Server Printer Device" for="fiscal_printer_id"/>
-                        </div>
-                        <div class="col-lg-8">
-                            <field name="fiscal_printer_id"
-                                   options="{'no_create': True}"
-                                   context="{'default_active': True}"/>
-                        </div>
-                    </div>
-                </div>
+                </setting>
             </xpath>
         </field>
     </record>

@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
         <field name="arch" type="xml">
             <!-- Добавяме fiscal printer настройки в other_devices секцията -->
-            <xpath expr="//setting[@id='pos_other_devices']" position="inside">
+            <xpath expr="//setting[@id='other_devices']" position="inside">
                 <div class="content-group mt16">
                     <div class="row">
                         <div class="col-lg-4 o_light_label">

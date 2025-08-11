@@ -33,6 +33,11 @@ msgid "The Attention of:"
 msgstr "Вниманието на:"
 
 #. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "<strong>Deal Date</strong>"
+msgstr "<strong>Дата на данъчното събитие</strong>"
+
+#. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
 msgid "Address:"
 msgstr "Адрес:"
@@ -300,6 +305,11 @@ msgid "TIN"
 msgstr "ЕИК"
 
 #. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.document_tax_totals_template_extended
+msgid "<span>Untaxed Amount</span>"
+msgstr "<span>Основа</span>"
+
+#. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
 msgid "Upload your article file"
 msgstr "Качете файла на основната секция"
@@ -338,17 +348,3 @@ msgstr "Фактура за покупка"
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
 msgid "Vendor Credit Note"
 msgstr "Кредитно известие на доставчика"
-
-#. module: account
-#. odoo-javascript
-#. odoo-python
-#: code:addons/account/models/account_move.py:0
-#: code:addons/account/models/account_tax.py:0
-#: code:addons/account/static/src/helpers/account_tax.js:0
-#: model:ir.model.fields,field_description:account.field_account_bank_statement_line__amount_untaxed
-#: model:ir.model.fields,field_description:account.field_account_invoice_report__price_subtotal
-#: model:ir.model.fields,field_description:account.field_account_move__amount_untaxed
-#: model_terms:ir.ui.view,arch_db:account.document_tax_totals_template
-#: model_terms:ir.ui.view,arch_db:account.document_tax_totals_company_currency_template
-msgid "Untaxed Amount"
-msgstr "Основа"

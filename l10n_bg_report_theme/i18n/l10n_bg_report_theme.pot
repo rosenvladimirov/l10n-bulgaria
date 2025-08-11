@@ -27,7 +27,7 @@ msgstr ""
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
-msgid Shipping address:"
+msgid "Shipping address:"
 msgstr ""
 
 #. module: l10n_bg_report_theme
@@ -345,4 +345,18 @@ msgstr ""
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
 msgid "Vendor Credit Note"
+msgstr ""
+
+#. module: account
+#. odoo-javascript
+#. odoo-python
+#: code:addons/account/models/account_move.py:0
+#: code:addons/account/models/account_tax.py:0
+#: code:addons/account/static/src/helpers/account_tax.js:0
+#: model:ir.model.fields,field_description:account.field_account_bank_statement_line__amount_untaxed
+#: model:ir.model.fields,field_description:account.field_account_invoice_report__price_subtotal
+#: model:ir.model.fields,field_description:account.field_account_move__amount_untaxed
+#: model_terms:ir.ui.view,arch_db:account.document_tax_totals_template
+#: model_terms:ir.ui.view,arch_db:account.document_tax_totals_company_currency_template
+msgid "Untaxed Amount"
 msgstr ""

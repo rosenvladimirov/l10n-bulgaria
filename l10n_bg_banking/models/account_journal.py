@@ -6,19 +6,21 @@ from odoo import models
 class AccountJournal(models.Model):
     _inherit = 'account.journal'
 
-    def import_psd2_transactions(self, transaction_list):
+    def import_infopay_transactions(self, transaction_list):
+        """Import transactions from Infopay API response"""
         currency = self.env['res.currency']
         for journal in self:
             for tx in transaction_list:
+                transaction_amount = tx.get('amount', {})
                 vals = {
-                    'transaction_id': tx.get('transactionId'),
+                    'transaction_id': tx.get('id'),
                     'booking_date': tx.get('bookingDate'),
                     'value_date': tx.get('valueDate'),
-                    'amount': tx.get('transactionAmount', {}).get('amount'),
-                    'currency_id': currency.search([('name', '=', tx.get('transactionAmount', {}).get('currency'))],
+                    'amount': transaction_amount.get('amount'),
+                    'currency_id': currency.search([('name', '=', transaction_amount.get('currency', 'BGN'))],
                                                    limit=1).id,
                     'partner_name': tx.get('creditorName') or tx.get('debtorName'),
-                    'ref': tx.get('remittanceInformationUnstructured') or tx.get('transactionId'),
+                    'ref': tx.get('description') or tx.get('id'),
                     'account_iban': (
                         (tx.get('creditorAccount') or {}).get('iban') or
                         (tx.get('debtorAccount') or {}).get('iban')
@@ -37,7 +39,8 @@ class AccountJournal(models.Model):
                     self.env['bank.transaction'].create(vals)
 
     def _parse_bank_statement_file(self, attachment):
-        if not "PSD2" in attachment.name:
+        """Parse bank statement file - check if it's an Infopay import"""
+        if not "Infopay" in attachment.name:
             return super()._parse_bank_statement_file(attachment)
 
         transactions = self.env['bank.transaction'].search([
@@ -56,7 +59,7 @@ class AccountJournal(models.Model):
             key = (tx.account_iban, tx.booking_date)
             if key not in grouped:
                 grouped[key] = {
-                    'name': f'Statement {tx.booking_date}',
+                    'name': 'Statement {}'.format(tx.booking_date),
                     'date': tx.booking_date,
                     'transactions': [],
                 }

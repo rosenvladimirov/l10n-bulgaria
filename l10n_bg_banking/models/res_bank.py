@@ -1,13 +1,11 @@
 import datetime
 import random
 import time
-from configparser import ConfigParser
 
 import requests
 
 from odoo import fields, models
 from odoo.exceptions import UserError
-from odoo.tools import config
 
 
 def clean_dict_for_json(d):
@@ -28,29 +26,31 @@ class TransientAttachment(models.TransientModel):
     name = fields.Char(string="Name", required=True)
     raw = fields.Boolean(string="Raw Data", required=True, default=False)
 
+
 class ResBank(models.Model):
     _inherit = 'res.bank'
 
-    psd2_oauth_url = fields.Char(string="PSD2 OAuth URL", store=False)
-    psd2_base_url = fields.Char(string="PSD2 Base URL", store=False)
-    psd2_accounts_api_url = fields.Char(string="PSD2 Accounts API URL", store=False)
-    psd2_payments_api_url = fields.Char(string="PSD2 Accounts API URL", store=False)
-    psd2_client_id = fields.Char(string="PSD2 Client ID", store=False)
-    psd2_client_secret = fields.Char(string="PSD2 Client Secret", store=False)
-    psd2_client_certificate_path = fields.Char(string="PSD2 Client Certificate Path", store=False)
-    psd2_client_key_path = fields.Char(string="PSD2 Client Key Path", store=False)
-    psd2_scope = fields.Char(string="PSD2 Scope", store=False)
-    access_token = fields.Char(string="Access Token", store=True)
+    # Infopay API Configuration
+    infopay_api_url = fields.Char(string="Infopay API URL", default="https://integration.infopay.bg")
+    infopay_client_id = fields.Char(string="Infopay Client ID")
+    infopay_access_token = fields.Char(string="Infopay Access Token", store=True)
+    
+    # Session management
+    infopay_session_id = fields.Char(string="Infopay Session ID", store=True)
+    infopay_session_expiry = fields.Datetime(string="Session Expiry")
+    
+    # Bank-specific configuration
+    bank_code = fields.Char(string="Bank Code")
+    account_iban = fields.Char(string="Account IBAN")
 
-    psd2_bank_section_name = fields.Char(string="PSD2 Bank Section Name")
-
-    def action_import_psd2_statements(self):
+    def action_import_infopay_statements(self):
+        """Import bank statements from Infopay API"""
         journals = self._get_bank_journals()
         for journal in journals:
             request_id = str(random.randint(100000000000000, 640812354371500))
 
             attachment = {
-                'name': f"PSD2 Bank Statement Generation {request_id}",
+                'name': "Infopay Bank Statement Generation {}".format(request_id),
                 'raw': True,
             }
 
@@ -60,161 +60,244 @@ class ResBank(models.Model):
             journal._import_bank_statement(attachments)
 
     def _get_bank_journals(self):
-        if not self.psd2_bank_section_name:
-            return []
+        """Get bank journals and import transactions from Infopay"""
+        if not self.infopay_client_id or not self.infopay_access_token:
+            raise UserError("Infopay Client ID and Access Token must be configured.")
 
         journals = []
 
-        if not self._load_config_settings():
-            return journals
-
         try:
-            if not self.access_token:
-                self.access_token = self._get_access_token()
+            # Ensure we have a valid session
+            if not self._is_session_valid():
+                self._create_infopay_session()
 
-            # generate request ID random number
-            request_id = str(random.randint(100000000000000, 640812354371500))
-            # generate consent ID random number
-            consent_id = str(random.randint(10000000000000, 76594129403900))
-
-            accounts_response = self._get_accounts_list(request_id, consent_id)
-
+            # Get accounts from Infopay
+            accounts_response = self._get_accounts_list()
             if not accounts_response:
-                raise UserError("Failed to fetch accounts from PSD2 API.")
+                raise UserError("Failed to fetch accounts from Infopay API.")
 
-            accounts = accounts_response.json().get('accounts', [])
+            accounts = accounts_response.get('accounts', [])
 
             # Process the accounts and import them into Odoo
             for account in accounts:
                 iban = account.get('iban', '')
-                transactions = account.get('_links', {}).get('transactions', {})
-                transactions_href = transactions.get('href', '')
+                account_id = account.get('id', '')
+                
+                # Get transactions for this account
+                transactions_response = self._get_transactions(account_id)
+                if not transactions_response:
+                    continue
 
-                transactions_json = self._get_transactions(transactions_href, request_id, consent_id).json()
-
-                transactions = transactions_json.get('transactions', {})
+                transactions = transactions_response.get('transactions', [])
 
                 journal = self.env['account.journal'].search([('bank_account_id.acc_number', '=', iban)], limit=1)
                 if not journal:
                     continue
 
-                for tx in transactions.get('booked', []):
-                    transaction_amount = tx.get('transactionAmount')
-
+                for tx in transactions:
+                    transaction_amount = tx.get('amount', {})
+                    
                     vals = {
-                        'transaction_id': tx.get('transactionId'),
+                        'transaction_id': tx.get('id'),
                         'booking_date': tx.get('bookingDate'),
                         'value_date': tx.get('valueDate'),
                         'amount': transaction_amount.get('amount'),
-                        'currency_id': self.env['res.currency'].search([('name', '=', transaction_amount.get('currency'))],
+                        'currency_id': self.env['res.currency'].search([('name', '=', transaction_amount.get('currency', 'BGN'))],
                                                                        limit=1).id,
-                        'partner_name': tx.get('creditorName', None) or tx.get('debtorName'),
-                        'ref': tx.get('remittanceInformationUnstructured', None) or tx.get('transactionId'),
+                        'partner_name': tx.get('creditorName') or tx.get('debtorName'),
+                        'ref': tx.get('description') or tx.get('id'),
                         'account_iban': iban,
                         'journal_id': journal.id,
                         'raw_data': tx,
                     }
+                    
                     existing = self.env['bank.transaction'].search([
                         ('transaction_id', '=', vals['transaction_id']),
                         ('journal_id', '=', journal.id)
                     ], limit=1)
+                    
                     if existing:
                         existing.write(clean_dict_for_json(vals))
                     else:
                         self.env['bank.transaction'].create(clean_dict_for_json(vals))
 
                 journals.append(journal)
+                
         except Exception as e:
-            raise UserError(f"PSD2 API Error: {e}")
+            raise UserError("Infopay API Error: {}".format(e))
+        finally:
+            # Clean up session after operations
+            self._cleanup_infopay_session()
 
         return journals
 
-    def _get_access_token(self):
-        url = self.psd2_oauth_url
+    def _is_session_valid(self):
+        """Check if the current session is still valid"""
+        if not self.infopay_session_id or not self.infopay_session_expiry:
+            return False
+        
+        # Check if session expires in the next 5 minutes
+        from datetime import datetime, timedelta
+        now = datetime.now()
+        expiry = fields.Datetime.from_string(self.infopay_session_expiry)
+        return now < expiry - timedelta(minutes=5)
+
+    def _create_infopay_session(self):
+        """Create a new session with Infopay API"""
+        url = "{}/api/session".format(self.infopay_api_url)
+
+        headers = {
+            "Authorization": "Bearer {}".format(self.infopay_access_token),
+            "X-Client-ID": self.infopay_client_id,
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
 
         data = {
-            "grant_type": "client_credentials",
-            "scope": self.psd2_scope,
-            "client_id": self.psd2_client_id,
-            "client_secret": self.psd2_client_secret,
+            "client_id": self.infopay_client_id,
+            "scope": "accounts transactions",
+            "duration": 3600  # 1 hour session
         }
 
-        time.sleep(3)
-        # Provide your cert and key files
-        response = requests.post(
-            url,
-            data=data,
-            cert=(self.psd2_client_certificate_path, self.psd2_client_key_path),
-            verify=False
-        )
+        try:
+            response = requests.post(url, headers=headers, json=data, timeout=30)
+            response.raise_for_status()
+            
+            session_data = response.json()
+            session_id = session_data.get("session_id")
+            expires_in = session_data.get("expires_in", 3600)
+            
+            if not session_id:
+                raise UserError("Failed to create session with Infopay API.")
+            
+            # Calculate expiry time
+            from datetime import datetime, timedelta
+            expiry_time = datetime.now() + timedelta(seconds=expires_in)
+            
+            # Update the record with new session
+            self.write({
+                'infopay_session_id': session_id,
+                'infopay_session_expiry': fields.Datetime.to_string(expiry_time)
+            })
+            
+            return session_id
+            
+        except requests.exceptions.RequestException as e:
+            raise UserError("Failed to create session with Infopay API: {}".format(e))
 
-        print("Status:", response.status_code)
-        print("Response:", response.text)
+    def _cleanup_infopay_session(self):
+        """Clean up the session with Infopay API"""
+        if not self.infopay_session_id:
+            return
 
-        access_token = response.json().get("access_token")
-        if not access_token:
-            raise UserError("Failed to obtain access token from PSD2 API.")
-        return access_token
+        url = "{}/api/session/{}".format(self.infopay_api_url, self.infopay_session_id)
 
-    def _get_accounts_list(self, request_id, consent_id, recursion = 0):
         headers = {
-            "Authorization": f'Bearer {self.access_token}',
-            "X-Request-ID": request_id,
-            "Consent-ID": consent_id,
-            "Accept": "application/json"
+            "Authorization": "Bearer {}".format(self.infopay_access_token),
+            "X-Client-ID": self.infopay_client_id,
+            "Accept": "application/json",
+            "Content-Type": "application/json"
         }
 
-        url = f'{self.psd2_accounts_api_url}?withBalance=false'
+        try:
+            response = requests.delete(url, headers=headers, timeout=30)
+            # Don't raise error if cleanup fails, just log it
+            if response.status_code == 200:
+                # Clear session data
+                self.write({
+                    'infopay_session_id': False,
+                    'infopay_session_expiry': False
+                })
+        except requests.exceptions.RequestException:
+            # Ignore cleanup errors
+            pass
 
-        return self._execute_get_request(headers, url, recursion)
-
-    def _get_transactions(self, url_path, request_id, consent_id, recursion = 0):
+    def _get_accounts_list(self):
+        """Get list of accounts from Infopay API"""
         headers = {
-            "Authorization": f'Bearer {self.access_token}',
-            "X-Request-ID": request_id,
-            "Consent-ID": consent_id,
-            "Accept": "application/json"
+            "Authorization": "Bearer {}".format(self.infopay_access_token),
+            "X-Client-ID": self.infopay_client_id,
+            "X-Session-ID": self.infopay_session_id,
+            "Accept": "application/json",
+            "Content-Type": "application/json"
         }
 
-        url = f'{self.psd2_base_url}{url_path}?bookingStatus=booked'
+        url = "{}/api/v1/accounts".format(self.infopay_api_url)
 
-        return self._execute_get_request(headers, url, recursion)
+        return self._execute_get_request(headers, url)
 
-    def _execute_get_request(self, headers, url, recursion):
-        time.sleep(3)
-        response = requests.get(url,
-                                headers=headers,
-                                cert=(self.psd2_client_certificate_path, self.psd2_client_key_path),
-                                verify=False)
-        if recursion > 1:
-            return response
-        if response.status_code == 401:
-            self.access_token = self._get_access_token()
-            headers["Authorization"] = f"Bearer {self.access_token}"
-            return self._execute_get_request(headers, url, recursion + 1)
-        return response
+    def _get_transactions(self, account_id, date_from=None, date_to=None):
+        """Get transactions for a specific account from Infopay API"""
+        headers = {
+            "Authorization": "Bearer {}".format(self.infopay_access_token),
+            "X-Client-ID": self.infopay_client_id,
+            "X-Session-ID": self.infopay_session_id,
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
 
-    def _load_config_settings(self):
-        config_path = config.rcfile
-        if not config_path:
-            raise UserError("Configuration file not found.")
-        parser = ConfigParser()
-        parser.read(config_path)
+        url = "{}/api/v1/accounts/{}/transactions".format(self.infopay_api_url, account_id)
+        
+        # Add date filters if provided
+        params = {}
+        if date_from:
+            params['dateFrom'] = date_from
+        if date_to:
+            params['dateTo'] = date_to
 
-        if not self.psd2_bank_section_name:
-            return False
+        return self._execute_get_request(headers, url, params)
 
-        section = f"bank:{self.psd2_bank_section_name}"
-        if not parser.has_section(section):
-            return False
+    def _execute_get_request(self, headers, url, params=None):
+        """Execute GET request to Infopay API with session handling"""
+        try:
+            response = requests.get(url, headers=headers, params=params, timeout=30)
+            
+            if response.status_code == 401:
+                # Session might be expired, try to create a new one
+                self._create_infopay_session()
+                headers["X-Session-ID"] = self.infopay_session_id
+                response = requests.get(url, headers=headers, params=params, timeout=30)
+            
+            response.raise_for_status()
+            return response.json()
+            
+        except requests.exceptions.RequestException as e:
+            raise UserError("Failed to communicate with Infopay API: {}".format(e))
 
-        self.psd2_oauth_url = parser.get(section, 'psd2_oauth_url')
-        self.psd2_base_url = parser.get(section, 'psd2_base_url')
-        self.psd2_accounts_api_url = parser.get(section, 'psd2_accounts_api_url')
-        self.psd2_payments_api_url = parser.get(section, 'psd2_payments_api_url')
-        self.psd2_client_id = parser.get(section, 'psd2_client_id')
-        self.psd2_client_secret = parser.get(section, 'psd2_client_secret')
-        self.psd2_client_certificate_path = parser.get(section, 'psd2_client_certificate_path')
-        self.psd2_client_key_path = parser.get(section, 'psd2_client_key_path')
-        self.psd2_scope = parser.get(section, 'psd2_scope')
-        return True
+    def action_test_infopay_connection(self):
+        """Test the connection to Infopay API"""
+        try:
+            if not self.infopay_client_id or not self.infopay_access_token:
+                raise UserError("Infopay Client ID and Access Token must be configured.")
+
+            # Test session creation
+            session_id = self._create_infopay_session()
+            
+            # Test accounts endpoint
+            accounts = self._get_accounts_list()
+            
+            # Clean up session
+            self._cleanup_infopay_session()
+            
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': 'Connection Test',
+                    'message': 'Successfully connected to Infopay API. Found {} accounts.'.format(
+                        len(accounts.get('accounts', []))
+                    ),
+                    'type': 'success',
+                }
+            }
+            
+        except Exception as e:
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': 'Connection Test Failed',
+                    'message': str(e),
+                    'type': 'danger',
+                }
+            }

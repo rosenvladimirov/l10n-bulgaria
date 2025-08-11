@@ -6,12 +6,25 @@
             <field name="model">res.bank</field>
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='communication_details']" position="after">
-                    <group name="psd2_details">
-                        <field name="psd2_bank_section_name"/>
+                    <group name="infopay_details" string="Infopay API Configuration">
+                        <field name="infopay_api_url"/>
+                        <field name="infopay_client_id"/>
+                        <field name="infopay_access_token" password="True"/>
+                        
+                        <field name="infopay_session_id" readonly="1"/>
+                        <field name="infopay_session_expiry" readonly="1"/>
+                        
+                        <field name="bank_code"/>
+                        <field name="account_iban"/>
 
-                        <button name="action_import_psd2_statements"
+                        <button name="action_test_infopay_connection"
                                 type="object"
-                                string="Import PSD2 Statement"
+                                string="Test Connection"
+                                class="btn-secondary"/>
+                        
+                        <button name="action_import_infopay_statements"
+                                type="object"
+                                string="Import Infopay Statement"
                                 class="btn-primary"/>
                     </group>
                 </xpath>

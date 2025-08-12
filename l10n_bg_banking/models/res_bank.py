@@ -1,4 +1,5 @@
 import datetime
+import json
 import random
 import time
 
@@ -34,11 +35,11 @@ class ResBank(models.Model):
     infopay_api_url = fields.Char(string="Infopay API URL", default="https://integration.infopay.bg")
     infopay_client_id = fields.Char(string="Infopay Client ID")
     infopay_access_token = fields.Char(string="Infopay Access Token", store=True)
-    
+
     # Session management
     infopay_session_id = fields.Char(string="Infopay Session ID", store=True)
-    infopay_session_expiry = fields.Datetime(string="Session Expiry")
-    
+    infopay_session_key = fields.Char(string="Infopay Session ID", store=True)
+
     # Bank-specific configuration
     bank_code = fields.Char(string="Bank Code")
     account_iban = fields.Char(string="Account IBAN")
@@ -82,7 +83,7 @@ class ResBank(models.Model):
             for account in accounts:
                 iban = account.get('iban', '')
                 account_id = account.get('id', '')
-                
+
                 # Get transactions for this account
                 transactions_response = self._get_transactions(account_id)
                 if not transactions_response:
@@ -96,7 +97,7 @@ class ResBank(models.Model):
 
                 for tx in transactions:
                     transaction_amount = tx.get('amount', {})
-                    
+
                     vals = {
                         'transaction_id': tx.get('id'),
                         'booking_date': tx.get('bookingDate'),
@@ -110,19 +111,19 @@ class ResBank(models.Model):
                         'journal_id': journal.id,
                         'raw_data': tx,
                     }
-                    
+
                     existing = self.env['bank.transaction'].search([
                         ('transaction_id', '=', vals['transaction_id']),
                         ('journal_id', '=', journal.id)
                     ], limit=1)
-                    
+
                     if existing:
                         existing.write(clean_dict_for_json(vals))
                     else:
                         self.env['bank.transaction'].create(clean_dict_for_json(vals))
 
                 journals.append(journal)
-                
+
         except Exception as e:
             raise UserError("Infopay API Error: {}".format(e))
         finally:
@@ -135,7 +136,7 @@ class ResBank(models.Model):
         """Check if the current session is still valid"""
         if not self.infopay_session_id or not self.infopay_session_expiry:
             return False
-        
+
         # Check if session expires in the next 5 minutes
         from datetime import datetime, timedelta
         now = datetime.now()
@@ -147,41 +148,38 @@ class ResBank(models.Model):
         url = "{}/api/session".format(self.infopay_api_url)
 
         headers = {
-            "Authorization": "Bearer {}".format(self.infopay_access_token),
-            "X-Client-ID": self.infopay_client_id,
-            "Accept": "application/json",
+            "accept": "application/json",
             "Content-Type": "application/json"
         }
 
         data = {
-            "client_id": self.infopay_client_id,
-            "scope": "accounts transactions",
-            "duration": 3600  # 1 hour session
+            "uniqueId": self.infopay_client_id,
+            "accessToken": self.infopay_access_token
         }
 
         try:
+            json_data = json.dumps(data, indent=2, ensure_ascii=False)
+            print(f"Sending data to {url}:")
+            print(f"Headers: {json.dumps(headers, indent=2)}")
+            print(f"Data: {json_data}")
             response = requests.post(url, headers=headers, json=data, timeout=30)
             response.raise_for_status()
-            
+
             session_data = response.json()
             session_id = session_data.get("session_id")
-            expires_in = session_data.get("expires_in", 3600)
-            
+            sessin_key = session_data.get("session_key")
+
             if not session_id:
                 raise UserError("Failed to create session with Infopay API.")
-            
-            # Calculate expiry time
-            from datetime import datetime, timedelta
-            expiry_time = datetime.now() + timedelta(seconds=expires_in)
-            
+
             # Update the record with new session
             self.write({
                 'infopay_session_id': session_id,
-                'infopay_session_expiry': fields.Datetime.to_string(expiry_time)
+                'infopay_session_key': sessin_key,
             })
-            
+
             return session_id
-            
+
         except requests.exceptions.RequestException as e:
             raise UserError("Failed to create session with Infopay API: {}".format(e))
 
@@ -190,23 +188,22 @@ class ResBank(models.Model):
         if not self.infopay_session_id:
             return
 
-        url = "{}/api/session/{}".format(self.infopay_api_url, self.infopay_session_id)
+        url = "{}/api/session/close".format(self.infopay_api_url)
 
         headers = {
-            "Authorization": "Bearer {}".format(self.infopay_access_token),
-            "X-Client-ID": self.infopay_client_id,
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            "accept": "application/json",
+            "sessionId": self.infopay_session_id,
+            "sessionKey": self.infopay_session_key
         }
 
         try:
-            response = requests.delete(url, headers=headers, timeout=30)
+            response = requests.post(url, headers=headers, timeout=30)
             # Don't raise error if cleanup fails, just log it
             if response.status_code == 200:
                 # Clear session data
                 self.write({
                     'infopay_session_id': False,
-                    'infopay_session_expiry': False
+                    'infopay_session_key': False
                 })
         except requests.exceptions.RequestException:
             # Ignore cleanup errors
@@ -215,21 +212,19 @@ class ResBank(models.Model):
     def _get_accounts_list(self):
         """Get list of accounts from Infopay API"""
         headers = {
-            "Authorization": "Bearer {}".format(self.infopay_access_token),
-            "X-Client-ID": self.infopay_client_id,
-            "X-Session-ID": self.infopay_session_id,
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            "accept": "application/json",
+            "sessionId": self.infopay_session_id,
+            "sessionKey": self.infopay_session_key,
         }
 
-        url = "{}/api/v1/accounts".format(self.infopay_api_url)
+        url = "{}/api/accounts".format(self.infopay_api_url)
 
         return self._execute_get_request(headers, url)
 
     def _get_transactions(self, account_id, date_from=None, date_to=None):
         """Get transactions for a specific account from Infopay API"""
         headers = {
-            "Authorization": "Bearer {}".format(self.infopay_access_token),
+            "accept": "application/json",
             "X-Client-ID": self.infopay_client_id,
             "X-Session-ID": self.infopay_session_id,
             "Accept": "application/json",
@@ -237,7 +232,7 @@ class ResBank(models.Model):
         }
 
         url = "{}/api/v1/accounts/{}/transactions".format(self.infopay_api_url, account_id)
-        
+
         # Add date filters if provided
         params = {}
         if date_from:
@@ -251,16 +246,17 @@ class ResBank(models.Model):
         """Execute GET request to Infopay API with session handling"""
         try:
             response = requests.get(url, headers=headers, params=params, timeout=30)
-            
+
             if response.status_code == 401:
                 # Session might be expired, try to create a new one
                 self._create_infopay_session()
-                headers["X-Session-ID"] = self.infopay_session_id
+                headers["sessionId"] = self.infopay_session_id
+                headers["sessionKey"] = self.infopay_session_key
                 response = requests.get(url, headers=headers, params=params, timeout=30)
-            
+
             response.raise_for_status()
             return response.json()
-            
+
         except requests.exceptions.RequestException as e:
             raise UserError("Failed to communicate with Infopay API: {}".format(e))
 
@@ -272,13 +268,13 @@ class ResBank(models.Model):
 
             # Test session creation
             session_id = self._create_infopay_session()
-            
+
             # Test accounts endpoint
             accounts = self._get_accounts_list()
-            
+
             # Clean up session
             self._cleanup_infopay_session()
-            
+
             return {
                 'type': 'ir.actions.client',
                 'tag': 'display_notification',
@@ -290,7 +286,7 @@ class ResBank(models.Model):
                     'type': 'success',
                 }
             }
-            
+
         except Exception as e:
             return {
                 'type': 'ir.actions.client',

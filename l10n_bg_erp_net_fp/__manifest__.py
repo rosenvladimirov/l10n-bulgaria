@@ -37,6 +37,7 @@
         'views/fiscal_printer_device_views.xml',
         'views/fiscal_printer_status_views.xml',
         'views/pos_config_view.xml',
+        'views/res_config_settings_views.xml',
         'views/pos_order_view.xml',
     ],
     'demo': [

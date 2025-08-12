@@ -1,45 +1,74 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <template id="document_tax_totals_template_extended" inherit_id="account.document_tax_totals_template">
+        <xpath expr="//tr[@class='o_subtotal']" position="replace">
+            <tr class="o_subtotal">
+                <td>
+                    <span>Untaxed Amount</span>
+                </td>
+                <td class="text-end">
+                    <span t-att-class="oe_subtotal_footer_separator"
+                          t-out="subtotal['base_amount_currency']"
+                          t-options='{"widget": "monetary", "display_currency": currency}'
+                    >27.00
+                    </span>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+
     <template id="report_invoice_document" inherit_id="account.report_invoice_document" active="False">
         <xpath expr="//t[@t-set='o']" position="after">
-            <t t-set="sender" t-value="o.company_id.partner_id" />
-            <t t-set="recipient" t-value="o.partner_id" />
+            <t t-set="sender" t-value="o.company_id.partner_id"/>
+            <t t-set="recipient" t-value="o.partner_id"/>
             <t t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
-               <!--t-value="'Invoice'"/>-->
+                <!--t-value="'Invoice'"/>-->
                 <t t-set="name_label">Invoice</t>
             </t>
             <t t-if="o.move_type == 'out_invoice' and o.state == 'draft'">
-               <!--t-value="'Draft Invoice'"/>-->
+                <!--t-value="'Draft Invoice'"/>-->
                 <t t-set="name_label">Draft Invoice</t>
             </t>
             <t t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">
-               <!--t-value="'Cancelled Invoice'"/>-->
+                <!--t-value="'Cancelled Invoice'"/>-->
                 <t t-set="name_label">Cancelled Invoice</t>
             </t>
             <t t-if="o.move_type == 'out_refund'">
-               <!--t-value="'Credit Note'"/>-->
+                <!--t-value="'Credit Note'"/>-->
                 <t t-set="name_label">Credit Note</t>
             </t>
             <t t-if="o.move_type == 'in_refund'">
-               <!--t-value="'Vendor Credit Note'"/>-->
+                <!--t-value="'Vendor Credit Note'"/>-->
                 <t t-set="name_label">Vendor Credit Note</t>
             </t>
             <t t-if="o.move_type == 'in_invoice'">
-               <!--t-value="'Vendor Bill'"/>-->
+                <!--t-value="'Vendor Bill'"/>-->
                 <t t-set="name_label">Vendor Bill</t>
             </t>
             <t t-if="o.name != '/'">
-                <t t-set="name" t-value="o._get_invoice_computed_reference()" />
+                <t t-set="name" t-value="o._get_invoice_computed_reference()"/>
                 <t
                     t-set="name_date"
                     t-value="format_date(o.invoice_date, lang_code=o.partner_id.lang, date_format='medium')"
                 />
             </t>
             <t t-else="">
-                <t t-set="name" t-value="''" />
-                <t t-set="name_date" t-value="''" />
+                <t t-set="name" t-value="''"/>
+                <t t-set="name_date" t-value="''"/>
             </t>
         </xpath>
         <xpath expr="//t[@t-set='layout_document_title']" position="replace"/>
+        <xpath expr="//div[@id='informations']" position="inside">
+            <div class="col" t-if="o.l10n_bg_deal_date" name="l10n_bg_deal_date">
+                <strong>Deal Date</strong>
+                <div t-field="o.l10n_bg_deal_date">2023-09-25</div>
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-if='o.tax_totals']" position="replace">
+            <t t-if="o.tax_totals" t-call="l10n_bg_report_theme.document_tax_totals_template_extended">
+                <t t-set="tax_totals" t-value="o.tax_totals"/>
+                <t t-set="currency" t-value="o.currency_id"/>
+            </t>
+        </xpath>
     </template>
 </odoo>

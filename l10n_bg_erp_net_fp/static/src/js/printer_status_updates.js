@@ -1,54 +1,49 @@
-odoo.define('fiscal_printer.PrinterStatusUpdates', function (require) {
-    "use strict";
+/** @odoo-module **/
 
-    var ListController = require('web.ListController');
-    var ListView = require('web.ListView');
-    var viewRegistry = require('web.view_registry');
-    var BusService = require('bus.BusService');
+import { ListController } from "@web/views/list/list_controller";
+import { listView } from "@web/views/list/list_view";
+import { registry } from "@web/core/registry";
 
-    var PrinterListController = ListController.extend({
-        init: function () {
-            this._super.apply(this, arguments);
-            this._startBusListener();
-        },
+export class PrinterListController extends ListController {
+    setup() {
+        super.setup();
+        this._startBusListener();
+    }
 
-        _startBusListener: function () {
-            var self = this;
-            this.call('bus_service', 'onNotification', this, function (notifications) {
-                notifications.forEach(function (notification) {
-                    if (notification[0] === 'fiscal.printer.status') {
-                        var message = notification[1];
-                        if (message.type === 'printer_status_update') {
-                            self._handleStatusUpdate(message);
-                        }
-                    }
-                });
-            });
-            this.call('bus_service', 'startPolling');
-        },
+    _startBusListener() {
+        const busService = this.env.services.bus_service;
+        if (busService) {
+            busService.addEventListener('notification', this._onBusNotification.bind(this));
+            busService.startPolling();
+        }
+    }
 
-        _handleStatusUpdate: function (data) {
-            var self = this;
-            // Намиране на реда в списъка и обновяване на данните
-            var record = self.model.get(self.handle).data.find(
-                function(r) {
-                    return r.data.id === data.printer_id;
+    _onBusNotification(notifications) {
+        for (const notification of notifications) {
+            if (notification.type === 'fiscal.printer.status') {
+                const message = notification.payload;
+                if (message.type === 'printer_status_update') {
+                    this._handleStatusUpdate(message);
                 }
-            );
-
-            if (record) {
-                self.model.reload(record.id).then(function () {
-                    self.renderer.updateRecord(record);
-                });
             }
-        },
-    });
+        }
+    }
 
-    var PrinterListView = ListView.extend({
-        config: _.extend({}, ListView.prototype.config, {
-            Controller: PrinterListController,
-        }),
-    });
+    async _handleStatusUpdate(data) {
+        // Намиране на реда в списъка и обновяване на данните
+        const records = this.model.root.records;
+        const record = records.find(r => r.resId === data.printer_id);
 
-    viewRegistry.add('printer_status_list', PrinterListView);
-});
+        if (record) {
+            await this.model.root.load();
+            this.render();
+        }
+    }
+}
+
+export const printerListView = {
+    ...listView,
+    Controller: PrinterListController,
+};
+
+registry.category("views").add("printer_status_list", printerListView);

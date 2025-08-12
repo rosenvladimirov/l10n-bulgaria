@@ -446,6 +446,12 @@ msgid "Crypt Key"
 msgstr "Криптографски ключ"
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__l10n_bg_deal_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__l10n_bg_deal_date
+msgid "Date of deal"
+msgstr "Дата на данъчното събитие"
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__l10n_bg_date
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__l10n_bg_date
 msgid "Date of locale document"

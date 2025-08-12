@@ -33,6 +33,11 @@ msgid "The Attention of:"
 msgstr "Вниманието на:"
 
 #. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "<strong>Deal Date</strong>"
+msgstr "<strong>Дата на данъчното събитие</strong>"
+
+#. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
 msgid "Address:"
 msgstr "Адрес:"
@@ -85,7 +90,7 @@ msgstr "Основни цветове"
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
 msgid "CUSTOMER"
-msgstr "ПОТРЕБИТЕЛ"
+msgstr "ПОЛУЧАТЕЛ"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
@@ -298,6 +303,11 @@ msgstr "ул.:"
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
 msgid "TIN"
 msgstr "ЕИК"
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.document_tax_totals_template_extended
+msgid "<span>Untaxed Amount</span>"
+msgstr "<span>Основа</span>"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout

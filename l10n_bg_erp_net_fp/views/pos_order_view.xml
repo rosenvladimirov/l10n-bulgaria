@@ -7,14 +7,14 @@
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
                 <button name="action_print_fiscal_receipt"
-                        string="Печат на фискален бон"
+                        string="Print Fiscal Receipt"
                         type="object"
-                        attrs="{'invisible': ['|', ('state', 'not in', ['paid', 'done', 'invoiced']), ('fiscal_receipt_number', '!=', False)]}"
+                        invisible="state not in ('paid', 'done', 'invoiced') or fiscal_receipt_number"
                         groups="point_of_sale.group_pos_user"/>
             </xpath>
             <xpath expr="//field[@name='amount_total']" position="after">
-                <field name="fiscal_receipt_number"/>
-                <field name="fiscal_receipt_datetime"/>
+                <field name="fiscal_receipt_number" readonly="1"/>
+                <field name="fiscal_receipt_datetime" readonly="1"/>
             </xpath>
         </field>
     </record>

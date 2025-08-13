@@ -74,7 +74,7 @@ class AccountJournal(models.Model):
 
     def _parse_bank_statement_file_custom(self, attachment):
         transactions = self.env['bank.transaction'].search([
-            ('account_iban', '=', self.bank_account_id.acc_number)
+            ('journal_id', '=', self.id)
         ])
 
         if not transactions:

@@ -84,17 +84,6 @@ class ResBank(models.Model):
                 iban = account.get('IBAN', '')
                 account_id = account.get('AccountId', '')
 
-                # Get transactions for this account using configured date range
-                transactions_response = self._get_transactions(
-                    account_id,
-                    self.integration_start_date,
-                    self.integration_end_date
-                )
-                if not transactions_response:
-                    continue
-
-                transactions = transactions_response.get('Transactions', [])
-
                 journal = self.env['account.journal'].search([('bank_account_id.acc_number', '=', iban)], limit=1)
                 if not journal:
                     # Create a new journal if it doesn't exist
@@ -109,18 +98,34 @@ class ResBank(models.Model):
                         }).id,
                     })
 
-                for tx in transactions:
-                    transaction_amount = tx.get('amount', {})
+                # Get transactions for this account using configured date range
+                transactions_response = self._get_transactions(
+                    account_id,
+                    self.integration_start_date,
+                    self.integration_end_date
+                )
+                if not transactions_response:
+                    continue
+
+                transactions = transactions_response.get('Transactions', {})
+
+                if not transactions:
+                    continue
+
+                booked_transactions = transactions.get('Booked', [])
+
+                for tx in booked_transactions:
+                    transaction_amount = tx.get('TransactionAmount', {})
 
                     vals = {
-                        'transaction_id': tx.get('id'),
-                        'booking_date': tx.get('bookingDate'),
-                        'value_date': tx.get('valueDate'),
+                        'transaction_id': tx.get('TransactionId'),
+                        'booking_date': tx.get('BookingDate'),
+                        'value_date': tx.get('ValueDate'),
                         'amount': transaction_amount.get('amount'),
                         'currency_id': self.env['res.currency'].search([('name', '=', transaction_amount.get('currency', 'BGN'))],
                                                                        limit=1).id,
-                        'partner_name': tx.get('creditorName') or tx.get('debtorName'),
-                        'ref': tx.get('description') or tx.get('id'),
+                        'partner_name': tx.get('CreditorName') or tx.get('DebtorName'),
+                        'ref': tx.get('RemittanceInformationUnstructured') or tx.get('TransactionId'),
                         'account_iban': iban,
                         'journal_id': journal.id,
                         'raw_data': tx,

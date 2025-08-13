@@ -14,8 +14,8 @@
                         <field name="infopay_session_id" readonly="1"/>
                         <field name="infopay_session_key" readonly="1"/>
 
-                        <field name="bank_code"/>
-                        <field name="account_iban"/>
+                        <field name="integration_start_date"/>
+                        <field name="integration_end_date"/>
 
                         <button name="action_test_infopay_connection"
                                 type="object"

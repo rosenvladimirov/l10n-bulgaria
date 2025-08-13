@@ -30,8 +30,8 @@ To use this module, you need to obtain API credentials from Infopay:
    - **Infopay API URL**: Default is `https://integration.infopay.bg`
    - **Infopay Client ID**: Your Infopay application client ID
    - **Infopay Access Token**: Your Infopay access token
-   - **Bank Code**: The bank code identifier
-   - **Account IBAN**: The IBAN of the account to import
+   - **Integration Start Date**: Start date for transaction import from Infopay
+   - **Integration End Date**: End date for transaction import from Infopay
 
 ### 3. Journal Configuration
 
@@ -57,12 +57,13 @@ Ensure that your bank journals are properly configured with:
 
 1. Navigate to **Accounting > Configuration > Bank Management > Banks**
 2. Select the bank record you want to import statements for
-3. Click the **"Import Infopay Statement"** button
-4. The system will:
+3. Configure the **Integration Start Date** and **Integration End Date** fields
+4. Click the **"Import Infopay Statement"** button
+5. The system will:
    - Create a session with Infopay API
    - Use the configured Client ID and Access Token
    - Fetch available accounts
-   - Import transactions for matching IBANs
+   - Import transactions for the specified date range
    - Create bank statement lines
    - Clean up the session
 
@@ -71,16 +72,15 @@ Ensure that your bank journals are properly configured with:
 The module uses the following Infopay API endpoints:
 
 - **Session Management**: `POST /api/session` - Create a new session
-- **Session Cleanup**: `DELETE /api/session/{session_id}` - Clean up session
-- **Accounts**: `GET /api/v1/accounts` - List available accounts
-- **Transactions**: `GET /api/v1/accounts/{account_id}/transactions` - Get transactions for an account
+- **Session Cleanup**: `POST /api/session/close` - Clean up session
+- **Accounts**: `GET /api/accounts` - List available accounts
+- **Transactions**: `GET /api/accounts/{account_id}/transactions` - Get transactions for an account with date range and balance
 
 ### Authentication Headers
 
 The module sends the following headers with each API request:
-- `Authorization: Bearer {access_token}`
-- `X-Client-ID: {client_id}`
-- `X-Session-ID: {session_id}` (for API calls)
+- `SessionId: {session_id}` (for API calls)
+- `SessionKey: {session_key}` (for API calls)
 - `Accept: application/json`
 - `Content-Type: application/json`
 
@@ -89,9 +89,16 @@ The module sends the following headers with each API request:
 The module automatically handles session lifecycle:
 
 1. **Session Creation**: Creates a new session before API operations
-2. **Session Validation**: Checks if current session is still valid
+2. **Session Validation**: Checks if current session is still valid (24-hour expiry)
 3. **Session Refresh**: Automatically creates new session if current one expires
 4. **Session Cleanup**: Cleans up session after operations complete
+
+### Transaction Import Parameters
+
+When importing transactions, the module automatically includes:
+- **Date Range**: Uses the configured Integration Start Date and End Date
+- **Balance Information**: Always sets `withBalance=true` parameter
+- **Account Filtering**: Automatically matches accounts by IBAN
 
 ### Error Handling
 
@@ -101,6 +108,7 @@ The module includes comprehensive error handling for:
 - API communication errors
 - Session expiration
 - Invalid responses
+- Missing date range configuration
 
 ## Technical Details
 

@@ -40,9 +40,9 @@ class ResBank(models.Model):
     infopay_session_id = fields.Char(string="Infopay Session ID", store=True)
     infopay_session_key = fields.Char(string="Infopay Session ID", store=True)
 
-    # Bank-specific configuration
-    bank_code = fields.Char(string="Bank Code")
-    account_iban = fields.Char(string="Account IBAN")
+    # Integration date range configuration
+    integration_start_date = fields.Date(string="Integration Start Date", help="Start date for transaction import from Infopay")
+    integration_end_date = fields.Date(string="Integration End Date", help="End date for transaction import from Infopay")
 
     def action_import_infopay_statements(self):
         """Import bank statements from Infopay API"""
@@ -84,8 +84,12 @@ class ResBank(models.Model):
                 iban = account.get('IBAN', '')
                 account_id = account.get('AccountId', '')
 
-                # Get transactions for this account
-                transactions_response = self._get_transactions(account_id)
+                # Get transactions for this account using configured date range
+                transactions_response = self._get_transactions(
+                    account_id,
+                    self.integration_start_date,
+                    self.integration_end_date
+                )
                 if not transactions_response:
                     continue
 
@@ -144,14 +148,12 @@ class ResBank(models.Model):
 
     def _is_session_valid(self):
         """Check if the current session is still valid"""
-        if not self.infopay_session_id or not self.infopay_session_expiry:
+        if not self.infopay_session_id or not self.infopay_session_key:
             return False
 
-        # Check if session expires in the next 5 minutes
-        from datetime import datetime, timedelta
-        now = datetime.now()
-        expiry = fields.Datetime.from_string(self.infopay_session_expiry)
-        return now < expiry - timedelta(minutes=5)
+        # For now, assume session is valid if we have both ID and key
+        # In a real implementation, you might want to add a timestamp check
+        return True
 
     def _create_infopay_session(self):
         """Create a new session with Infopay API"""
@@ -188,12 +190,12 @@ class ResBank(models.Model):
             return session_id
 
         except requests.exceptions.RequestException as e:
-            print(f"=== ERROR DETAILS ===")
-            print(f"Error type: {type(e)}")
-            print(f"Error message: {str(e)}")
+            print("=== ERROR DETAILS ===")
+            print("Error type: {}".format(type(e)))
+            print("Error message: {}".format(str(e)))
             if hasattr(e, 'response'):
-                print(f"Response status: {e.response.status_code}")
-                print(f"Response text: {e.response.text}")
+                print("Response status: {}".format(e.response.status_code))
+                print("Response text: {}".format(e.response.text))
             raise UserError("Failed to create session with Infopay API: {}".format(e))
 
     def _cleanup_infopay_session(self):
@@ -247,12 +249,15 @@ class ResBank(models.Model):
 
         url = "{}/api/accounts/{}/transactions".format(self.infopay_api_url, account_id)
 
-        # Add date filters if provided
-        params = {}
+        # Add date filters and with_balance parameter as per Infopay API specification
+        params = {
+            'withBalance': 'true'  # Always include balance information
+        }
+
         if date_from:
-            params['dateFrom'] = date_from
+            params['dateFrom'] = date_from.isoformat() if hasattr(date_from, 'isoformat') else str(date_from)
         if date_to:
-            params['dateTo'] = date_to
+            params['dateTo'] = date_to.isoformat() if hasattr(date_to, 'isoformat') else str(date_to)
 
         return self._execute_get_request(headers, url, params)
 

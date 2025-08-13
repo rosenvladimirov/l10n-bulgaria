@@ -81,19 +81,29 @@ class ResBank(models.Model):
 
             # Process the accounts and import them into Odoo
             for account in accounts:
-                iban = account.get('iban', '')
-                account_id = account.get('id', '')
+                iban = account.get('IBAN', '')
+                account_id = account.get('AccountId', '')
 
                 # Get transactions for this account
                 transactions_response = self._get_transactions(account_id)
                 if not transactions_response:
                     continue
 
-                transactions = transactions_response.get('transactions', [])
+                transactions = transactions_response.get('Transactions', [])
 
                 journal = self.env['account.journal'].search([('bank_account_id.acc_number', '=', iban)], limit=1)
                 if not journal:
-                    continue
+                    # Create a new journal if it doesn't exist
+                    journal = self.env['account.journal'].create({
+                        'name': account.get('AccountName', 'Infopay Account'),
+                        'code': account.get('AccountCode', 'IPAY'),
+                        'type': 'bank',
+                        'bank_account_id': self.env['res.partner.bank'].create({
+                            'acc_number': iban,
+                            'bank_id': self.id,
+                            'partner_id': self.env.user.partner_id.id,
+                        }).id,
+                    })
 
                 for tx in transactions:
                     transaction_amount = tx.get('amount', {})

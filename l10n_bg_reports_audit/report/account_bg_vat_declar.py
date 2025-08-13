@@ -47,19 +47,13 @@ class AccountBgVatInfoDeclar(models.Model):
 
     @api.model
     def _select(self):
-        # lang = l10n_bg_lang(self.env)
-        # lang_ext = l10n_bg_lang(self.env, "partner")
-        # if self._context.get("report_options") and self._context["report_options"].get(
-        #     "lang"
-        # ):
-        #     lang = self._context["report_options"]["lang"]
         return f"""acc.company_id AS company_id,
         COALESCE(company_partner.vat, company_partner.l10n_bg_uic) AS company_vat,
-        CONCAT ({l10n_bg_lang(self.env, lang_modules='partner', field_name='company_partner.city')}, ', ', {l10n_bg_lang(self.env, lang_modules='partner', field_name='company_partner.street')}) AS company_address,
+        CONCAT({l10n_bg_lang(self.env, lang_modules='partner', field_name='company_partner.city')}, ', ', {l10n_bg_lang(self.env, lang_modules='partner', field_name='company_partner.street')}) AS company_address,
         COALESCE(company_partner.vat, company_partner.l10n_bg_uic) AS info_tag_1,
         {l10n_bg_lang(self.env, lang_modules='partner', field_name='company_partner.name')} AS info_tag_2,
         info_tag_3,
-        CONCAT (represent_partner.l10n_bg_uic, ' ', {l10n_bg_lang(self.env, lang_modules='partner', field_name='represent_partner.name')}) AS info_tag_4,
+        CONCAT(represent_partner.l10n_bg_uic, '/', {l10n_bg_lang(self.env, lang_modules='partner', field_name='represent_partner.name')}) AS info_tag_4,
         acc.info_tag_5,
         acc.info_tag_6,
         COALESCE(acc.account_tag_10, 0.0) AS account_tag_10,
@@ -100,7 +94,8 @@ class AccountBgVatInfoDeclar(models.Model):
 
     @api.model
     def _from(self):
-        return """account_bg_vat_calc_declar AS acc
+        calc_declaration = self.env['account.bg.vat.calc.declar']._table_query
+        return f"""({calc_declaration}) AS acc
 LEFT JOIN res_company AS company
     ON acc.company_id = company.id
 LEFT JOIN res_partner AS company_partner

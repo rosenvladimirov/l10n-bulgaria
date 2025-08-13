@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="base.view_company_form" />
         <field name="arch" type="xml">
             <xpath expr="//group[@name='social_media']" position="before">
-                <group name="bl10n_bg_registers" string="Bulgaria settings">
+                <group name="l10n_bg_registers" string="Bulgaria settings">
                     <field name="l10n_bg_uic" readonly="0" />
                     <field name="l10n_bg_uic_type" readonly="0" />
                     <field name="l10n_bg_represent_contact_id" />

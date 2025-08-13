@@ -27,12 +27,17 @@ msgstr ""
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
-msgid Shipping address:"
+msgid "Shipping address:"
 msgstr ""
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
 msgid "The Attention of:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "<strong>Deal Date</strong>"
 msgstr ""
 
 #. module: l10n_bg_report_theme
@@ -305,6 +310,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
 msgid "TIN"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.document_tax_totals_template_extended
+msgid "<span>Untaxed Amount</span>"
 msgstr ""
 
 #. module: l10n_bg_report_theme

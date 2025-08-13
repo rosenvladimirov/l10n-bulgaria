@@ -77,7 +77,7 @@ class ResBank(models.Model):
             if not accounts_response:
                 raise UserError("Failed to fetch accounts from Infopay API.")
 
-            accounts = accounts_response.get('accounts', [])
+            accounts = accounts_response.get('Accounts', [])
 
             # Process the accounts and import them into Odoo
             for account in accounts:
@@ -149,7 +149,8 @@ class ResBank(models.Model):
 
         headers = {
             "accept": "application/json",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "User-Agent": "curl/7.68.0"
         }
 
         data = {
@@ -158,16 +159,12 @@ class ResBank(models.Model):
         }
 
         try:
-            json_data = json.dumps(data, indent=2, ensure_ascii=False)
-            print(f"Sending data to {url}:")
-            print(f"Headers: {json.dumps(headers, indent=2)}")
-            print(f"Data: {json_data}")
             response = requests.post(url, headers=headers, json=data, timeout=30)
             response.raise_for_status()
 
             session_data = response.json()
-            session_id = session_data.get("session_id")
-            sessin_key = session_data.get("session_key")
+            session_id = session_data.get("SessionId")
+            sessin_key = session_data.get("SessionKey")
 
             if not session_id:
                 raise UserError("Failed to create session with Infopay API.")
@@ -181,6 +178,12 @@ class ResBank(models.Model):
             return session_id
 
         except requests.exceptions.RequestException as e:
+            print(f"=== ERROR DETAILS ===")
+            print(f"Error type: {type(e)}")
+            print(f"Error message: {str(e)}")
+            if hasattr(e, 'response'):
+                print(f"Response status: {e.response.status_code}")
+                print(f"Response text: {e.response.text}")
             raise UserError("Failed to create session with Infopay API: {}".format(e))
 
     def _cleanup_infopay_session(self):
@@ -192,8 +195,9 @@ class ResBank(models.Model):
 
         headers = {
             "accept": "application/json",
-            "sessionId": self.infopay_session_id,
-            "sessionKey": self.infopay_session_key
+            "SessionId": self.infopay_session_id,
+            "SessionKey": self.infopay_session_key,
+            "User-Agent": "curl/7.68.0"
         }
 
         try:
@@ -213,8 +217,9 @@ class ResBank(models.Model):
         """Get list of accounts from Infopay API"""
         headers = {
             "accept": "application/json",
-            "sessionId": self.infopay_session_id,
-            "sessionKey": self.infopay_session_key,
+            "SessionId": self.infopay_session_id,
+            "SessionKey": self.infopay_session_key,
+            "User-Agent": "curl/7.68.0"
         }
 
         url = "{}/api/accounts".format(self.infopay_api_url)
@@ -225,13 +230,12 @@ class ResBank(models.Model):
         """Get transactions for a specific account from Infopay API"""
         headers = {
             "accept": "application/json",
-            "X-Client-ID": self.infopay_client_id,
-            "X-Session-ID": self.infopay_session_id,
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            "SessionId": self.infopay_session_id,
+            "SessionKey": self.infopay_session_key,
+            "User-Agent": "curl/7.68.0"
         }
 
-        url = "{}/api/v1/accounts/{}/transactions".format(self.infopay_api_url, account_id)
+        url = "{}/api/accounts/{}/transactions".format(self.infopay_api_url, account_id)
 
         # Add date filters if provided
         params = {}
@@ -267,7 +271,7 @@ class ResBank(models.Model):
                 raise UserError("Infopay Client ID and Access Token must be configured.")
 
             # Test session creation
-            session_id = self._create_infopay_session()
+            self._create_infopay_session()
 
             # Test accounts endpoint
             accounts = self._get_accounts_list()
@@ -281,7 +285,7 @@ class ResBank(models.Model):
                 'params': {
                     'title': 'Connection Test',
                     'message': 'Successfully connected to Infopay API. Found {} accounts.'.format(
-                        len(accounts.get('accounts', []))
+                        len(accounts.get('Accounts', []))
                     ),
                     'type': 'success',
                 }

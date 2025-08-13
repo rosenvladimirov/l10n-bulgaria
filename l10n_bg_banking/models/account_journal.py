@@ -1,54 +1,84 @@
-from setuptools.dist import sequence
-
-from odoo import models
+from odoo import models, tools, _
+from odoo.exceptions import UserError, RedirectWarning
 
 
 class AccountJournal(models.Model):
     _inherit = 'account.journal'
 
-    def import_infopay_transactions(self, transaction_list):
-        """Import transactions from Infopay API response"""
-        currency = self.env['res.currency']
-        for journal in self:
-            for tx in transaction_list:
-                transaction_amount = tx.get('amount', {})
-                vals = {
-                    'transaction_id': tx.get('id'),
-                    'booking_date': tx.get('bookingDate'),
-                    'value_date': tx.get('valueDate'),
-                    'amount': transaction_amount.get('amount'),
-                    'currency_id': currency.search([('name', '=', transaction_amount.get('currency', 'BGN'))],
-                                                   limit=1).id,
-                    'partner_name': tx.get('creditorName') or tx.get('debtorName'),
-                    'ref': tx.get('description') or tx.get('id'),
-                    'account_iban': (
-                        (tx.get('creditorAccount') or {}).get('iban') or
-                        (tx.get('debtorAccount') or {}).get('iban')
-                    ),
-                    'journal_id': journal.id,
-                    'raw_data': tx,
-                }
-                # Upsert
-                existing = self.env['bank.transaction'].search([
-                    ('transaction_id', '=', vals['transaction_id']),
-                    ('journal_id', '=', journal.id)
-                ], limit=1)
-                if existing:
-                    existing.write(vals)
-                else:
-                    self.env['bank.transaction'].create(vals)
+    def _import_bank_statement_custom(self, attachments):
+        statement_ids_all = []
+        notifications_all = {}
+        errors = {}
+        # Let the appropriate implementation module parse the file and return the required data
+        # The active_id is passed in context in case an implementation module requires information about the wizard state (see QIF)
+        for attachment in attachments:
+            try:
+                currency_code, account_number, stmts_vals = self._parse_bank_statement_file_custom(attachment)
+                # Check raw data
+                self._check_parsed_data(stmts_vals, account_number)
+                # Try to find the currency and journal in odoo
+                journal = self._find_additional_data(currency_code, account_number)
+                # If no journal found, ask the user about creating one
+                if not journal.default_account_id:
+                    raise UserError(_('You have to set a Default Account for the journal: %s', journal.name))
+                # Prepare statement data to be used for bank statements creation
+                stmts_vals = self._complete_bank_statement_vals(stmts_vals, journal, account_number, attachment)
+                # Create the bank statements
+                statement_ids, dummy, notifications = self._create_bank_statements(stmts_vals)
+                statement_ids_all.extend(statement_ids)
 
-    def _parse_bank_statement_file(self, attachment):
-        """Parse bank statement file - check if it's an Infopay import"""
-        if not "Infopay" in attachment.name:
-            return super()._parse_bank_statement_file(attachment)
+                # Now that the import worked out, set it as the bank_statements_source of the journal
+                if journal.bank_statements_source != 'file_import':
+                    # Use sudo() because only 'account.group_account_manager'
+                    # has write access on 'account.journal', but 'account.group_account_user'
+                    # must be able to import bank statement files
+                    journal.sudo().bank_statements_source = 'file_import'
 
+                msg = ""
+                for notif in notifications:
+                    msg += (
+                        f"{notif['message']}"
+                    )
+                if notifications:
+                    notifications_all[attachment.name] = msg
+            except (UserError, RedirectWarning) as e:
+                errors[attachment.name] = e.args[0]
+
+        statements = self.env['account.bank.statement'].browse(statement_ids_all)
+        line_to_reconcile = statements.line_ids
+        if line_to_reconcile:
+            # 'limit_time_real_cron' defaults to -1.
+            # Manual fallback applied for non-POSIX systems where this key is disabled (set to None).
+            cron_limit_time = tools.config['limit_time_real_cron'] or -1
+            limit_time = cron_limit_time if 0 < cron_limit_time < 180 else 180
+            line_to_reconcile._cron_try_auto_reconcile_statement_lines(limit_time=limit_time)
+
+        result = self.env['account.bank.statement.line']._action_open_bank_reconciliation_widget(
+            extra_domain=[('statement_id', 'in', statements.ids)],
+            default_context={
+                'search_default_not_matched': True,
+                'default_journal_id': statements[:1].journal_id.id,
+                'notifications': notifications_all,
+            },
+        )
+
+        if errors:
+            error_msg = _("The following files could not be imported:\n")
+            error_msg += "\n".join([f"- {attachment_name}: {msg}" for attachment_name, msg in errors.items()])
+            if statements:
+                self.env.cr.commit()  # save the correctly uploaded statements to the db before raising the errors
+                raise RedirectWarning(error_msg, result, _('View successfully imported statements'))
+            else:
+                raise UserError(error_msg)
+        return result
+
+    def _parse_bank_statement_file_custom(self, attachment):
         transactions = self.env['bank.transaction'].search([
             ('account_iban', '=', self.bank_account_id.acc_number)
         ])
 
         if not transactions:
-            return super()._parse_bank_statement_file(attachment)
+            raise UserError(_("No transactions found for the specified account."))
 
         currency_code = transactions[0].currency_id.name
         account_number = transactions[0].account_iban

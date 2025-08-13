@@ -52,13 +52,13 @@ class ResBank(models.Model):
 
             attachment = {
                 'name': "Infopay Bank Statement Generation {}".format(request_id),
-                'raw': True,
+                'raw': "",
             }
 
             # Create a transient attachment
             attachments = self.env['transient.attachment'].create(attachment)
 
-            journal._import_bank_statement(attachments)
+            journal._import_bank_statement_custom(attachments)
 
     def _get_bank_journals(self):
         """Get bank journals and import transactions from Infopay"""

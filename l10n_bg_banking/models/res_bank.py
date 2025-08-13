@@ -87,9 +87,12 @@ class ResBank(models.Model):
                 journal = self.env['account.journal'].search([('bank_account_id.acc_number', '=', iban)], limit=1)
                 if not journal:
                     # Create a new journal if it doesn't exist
+                    # Generate unique journal code using account ID or IBAN
+                    account_code = account_id or iban.replace(' ', '').upper()[:10]
+
                     journal = self.env['account.journal'].create({
                         'name': account.get('AccountName', 'Infopay Account'),
-                        'code': account.get('AccountCode', 'IPAY'),
+                        'code': account_code,
                         'type': 'bank',
                         'bank_account_id': self.env['res.partner.bank'].create({
                             'acc_number': iban,

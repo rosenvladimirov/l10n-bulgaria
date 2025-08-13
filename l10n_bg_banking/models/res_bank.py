@@ -105,7 +105,7 @@ class ResBank(models.Model):
                         'bank_account_id': self.env['res.partner.bank'].create({
                             'acc_number': iban,
                             'bank_id': self.id,
-                            'partner_id': self.env.user.partner_id.id,
+                            'partner_id': self.env.company.partner_id.id,
                         }).id,
                     })
 
@@ -269,8 +269,9 @@ class ResBank(models.Model):
             if response.status_code == 401:
                 # Session might be expired, try to create a new one
                 self._create_infopay_session()
-                headers["sessionId"] = self.infopay_session_id
-                headers["sessionKey"] = self.infopay_session_key
+                # Update headers with new session data using correct keys
+                headers["SessionId"] = self.infopay_session_id
+                headers["SessionKey"] = self.infopay_session_key
                 response = requests.get(url, headers=headers, params=params, timeout=30)
 
             response.raise_for_status()

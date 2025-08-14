@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_tariff" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.tariff.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Bulgaria Customs" string="Bulgaria Customs" data-key="l10n_bg_customs">
+                    <h2>Митнически настройки</h2>
+
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="l10n_bg_taric_api_enabled"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="l10n_bg_taric_api_enabled"/>
+                                <div class="text-muted">
+                                    Автоматично търсене на тарифни ставки в ЕС ТАРИК системата
+                                </div>
+                                <div class="content-group" attrs="{'invisible': [('l10n_bg_taric_api_enabled', '=', False)]}">
+                                    <div class="mt16">
+                                        <label for="l10n_bg_taric_api_url" string="TARIC API URL"/>
+                                        <field name="l10n_bg_taric_api_url" placeholder="https://ec.europa.eu/taxation_customs/dds2/taric/api/v1"/>
+                                    </div>
+                                    <div class="mt8">
+                                        <label for="l10n_bg_taric_cache_duration" string="Cache Duration (hours)"/>
+                                        <field name="l10n_bg_taric_cache_duration"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="l10n_bg_default_tariff_rate"/>
+                                <field name="l10n_bg_default_tariff_rate"/>
+                                <div class="text-muted">
+                                    Стандартна тарифна ставка когато не може да се намери в ТАРИК системата
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_config_settings_tariff_fields" model="ir.model">
+        <field name="name">res.config.settings</field>
+        <field name="model">res.config.settings</field>
+    </record>
+
+    <!-- Добавяме полетата в settings модела -->
+    <record model="ir.model.fields" id="field_res_config_settings_l10n_bg_taric_api_enabled">
+        <field name="name">l10n_bg_taric_api_enabled</field>
+        <field name="model_id" ref="base.model_res_config_settings"/>
+        <field name="ttype">boolean</field>
+        <field name="related">company_id.l10n_bg_taric_api_enabled</field>
+        <field name="readonly">0</field>
+    </record>
+
+    <record model="ir.model.fields" id="field_res_config_settings_l10n_bg_taric_api_url">
+        <field name="name">l10n_bg_taric_api_url</field>
+        <field name="model_id" ref="base.model_res_config_settings"/>
+        <field name="ttype">char</field>
+        <field name="related">company_id.l10n_bg_taric_api_url</field>
+        <field name="readonly">0</field>
+    </record>
+
+    <record model="ir.model.fields" id="field_res_config_settings_l10n_bg_taric_cache_duration">
+        <field name="name">l10n_bg_taric_cache_duration</field>
+        <field name="model_id" ref="base.model_res_config_settings"/>
+        <field name="ttype">integer</field>
+        <field name="related">company_id.l10n_bg_taric_cache_duration</field>
+        <field name="readonly">0</field>
+    </record>
+
+    <record model="ir.model.fields" id="field_res_config_settings_l10n_bg_default_tariff_rate">
+        <field name="name">l10n_bg_default_tariff_rate</field>
+        <field name="model_id" ref="base.model_res_config_settings"/>
+        <field name="ttype">float</field>
+        <field name="related">company_id.l10n_bg_default_tariff_rate</field>
+        <field name="readonly">0</field>
+    </record>
+</odoo>

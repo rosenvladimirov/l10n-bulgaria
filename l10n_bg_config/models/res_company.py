@@ -52,13 +52,6 @@ class ResCompany(models.Model):
     l10n_bg_config_template = fields.Binary("Config Template", attachment=False)
     l10n_bg_key = fields.Char(related="partner_id.l10n_bg_key", readonly=False)
 
-    # def init(self):
-    #     super().init()
-    #     if not sql.column_exists(self.env.cr, self._table, "is_l10n_bg_record"):
-    #         self.env.cr.execute("ALTER TABLE res_company ADD COLUMN is_l10n_bg_record boolean;")
-    #     if not sql.column_exists(self.env.cr, self._table, "is_l10n_bg_multilanguage"):
-    #         self.env.cr.execute("ALTER TABLE res_company ADD COLUMN is_l10n_bg_multilanguage boolean;")
-
     def _compute_l10n_bg_represent_contact_id(self):
         for record in self:
             represent_contact_id = record.partner_id.child_ids.filtered(

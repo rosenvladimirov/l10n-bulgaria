@@ -117,14 +117,34 @@ class ResBank(models.Model):
 
                 booked_transactions = transactions.get('Booked', [])
 
+                # Get account balance information if available
+                account_balance = transactions.get('AccountBalance', {})
+                opening_balance = account_balance.get('amount', 0.0) if account_balance else 0.0
+
+                # Sort transactions by date and time to ensure proper balance calculation
+                booked_transactions.sort(key=lambda x: (
+                    x.get('BookingDate', ''),
+                    x.get('ValueDate', ''),
+                    x.get('TransactionId', '')
+                ))
+
+                # Calculate running balances
+                current_balance = opening_balance
+
                 for tx in booked_transactions:
                     transaction_amount = tx.get('TransactionAmount', {})
+                    amount = transaction_amount.get('amount', 0.0)
+
+                    # Get balance information from transaction if available
+                    balance_info = tx.get('Balance', {})
+                    balance_after = balance_info.get('amount', current_balance + amount) if balance_info else current_balance + amount
+                    balance_before = current_balance
 
                     vals = {
                         'transaction_id': tx.get('TransactionId'),
                         'booking_date': tx.get('BookingDate'),
                         'value_date': tx.get('ValueDate'),
-                        'amount': transaction_amount.get('amount'),
+                        'amount': amount,
                         'currency_id': self.env['res.currency'].search([('name', '=', transaction_amount.get('currency', 'BGN'))],
                                                                        limit=1).id,
                         'partner_name': tx.get('CreditorName') or tx.get('DebtorName'),
@@ -132,6 +152,9 @@ class ResBank(models.Model):
                         'account_iban': iban,
                         'journal_id': journal.id,
                         'raw_data': tx,
+                        'balance_after_transaction': balance_after,
+                        'balance_before_transaction': balance_before,
+                        'running_balance': current_balance,
                     }
 
                     existing = self.env['bank.transaction'].search([
@@ -143,6 +166,9 @@ class ResBank(models.Model):
                         existing.write(clean_dict_for_json(vals))
                     else:
                         self.env['bank.transaction'].create(clean_dict_for_json(vals))
+
+                    # Update running balance for next transaction
+                    current_balance = balance_after
 
                 journals.append(journal)
 
@@ -268,6 +294,19 @@ class ResBank(models.Model):
             params['dateTo'] = date_to.isoformat() if hasattr(date_to, 'isoformat') else str(date_to)
 
         return self._execute_get_request(headers, url, params)
+
+    def _get_account_balance(self, account_id):
+        """Get current balance for a specific account from Infopay API"""
+        headers = {
+            "accept": "application/json",
+            "SessionId": self.infopay_session_id,
+            "SessionKey": self.infopay_session_key,
+            "User-Agent": "curl/7.68.0"
+        }
+
+        url = "{}/api/accounts/{}/balance".format(self.infopay_api_url, account_id)
+
+        return self._execute_get_request(headers, url)
 
     def _execute_get_request(self, headers, url, params=None):
         """Execute GET request to Infopay API with session handling"""

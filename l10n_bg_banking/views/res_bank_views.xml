@@ -30,5 +30,106 @@
                 </xpath>
             </field>
         </record>
+
+        <!-- Account Journal View for Banking Operations -->
+        <!-- Removed problematic view inheritance - will use separate actions instead -->
+
+        <!-- Balance Verification Actions -->
+        <record id="action_verify_statement_balances" model="ir.actions.act_window">
+            <field name="name">Verify Statement Balances</field>
+            <field name="res_model">account.journal</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <field name="context">{'default_action': 'verify_balances'}</field>
+            <field name="binding_model_id" ref="account.model_account_journal"/>
+            <field name="binding_view_types">form</field>
+        </record>
+
+        <record id="action_get_current_balance" model="ir.actions.act_window">
+            <field name="name">Get Current Balance from API</field>
+            <field name="res_model">account.journal</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <field name="context">{'default_action': 'get_balance'}</field>
+            <field name="binding_model_id" ref="account.model_account_journal"/>
+            <field name="binding_view_types">form</field>
+        </record>
+
+        <!-- Bank Transaction Views -->
+        <record id="view_bank_transaction_tree" model="ir.ui.view">
+            <field name="name">bank.transaction.tree</field>
+            <field name="model">bank.transaction</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list string="Bank Transactions">
+                    <field name="transaction_id"/>
+                    <field name="booking_date"/>
+                    <field name="value_date"/>
+                    <field name="amount"/>
+                    <field name="currency_id"/>
+                    <field name="partner_name"/>
+                    <field name="ref"/>
+                    <field name="account_iban"/>
+                    <field name="journal_id"/>
+                    <field name="balance_after_transaction"/>
+                    <field name="balance_before_transaction"/>
+                    <field name="running_balance"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_bank_transaction_form" model="ir.ui.view">
+            <field name="name">bank.transaction.form</field>
+            <field name="model">bank.transaction</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Bank Transaction">
+                    <sheet>
+                        <group>
+                            <group string="Transaction Details">
+                                <field name="transaction_id"/>
+                                <field name="booking_date"/>
+                                <field name="value_date"/>
+                                <field name="amount"/>
+                                <field name="currency_id"/>
+                            </group>
+                            <group string="Partner Information">
+                                <field name="partner_name"/>
+                                <field name="ref"/>
+                                <field name="account_iban"/>
+                                <field name="journal_id"/>
+                            </group>
+                        </group>
+                        <group string="Balance Information">
+                            <field name="balance_before_transaction"/>
+                            <field name="balance_after_transaction"/>
+                            <field name="running_balance"/>
+                        </group>
+                        <group string="Statement Information">
+                            <field name="statement_id"/>
+                            <field name="statement_line_id"/>
+                        </group>
+                        <group string="Raw Data">
+                            <field name="raw_data"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_bank_transaction" model="ir.actions.act_window">
+            <field name="name">Bank Transactions</field>
+            <field name="res_model">bank.transaction</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No bank transactions found
+                </p>
+                <p>
+                    Bank transactions will appear here after importing statements from Infopay.
+                </p>
+            </field>
+        </record>
     </data>
 </odoo>

@@ -1,6 +1,6 @@
 # L10n BG Banking - Infopay Integration
 
-This module provides integration with the Infopay API for importing bank statements and transactions from Bulgarian banks.
+This module provides integration with the Infopay API for importing bank statements and transactions from Bulgarian banks with **enhanced balance management**.
 
 ## Features
 
@@ -10,6 +10,69 @@ This module provides integration with the Infopay API for importing bank stateme
 - **Currency Support**: Supports multiple currencies (defaults to BGN)
 - **Transaction Import**: Import bank statements and transactions into Odoo
 - **Connection Testing**: Built-in connection test functionality
+- **🆕 Enhanced Balance Management**: Proper balance tracking and verification
+- **🆕 Statement Balance Verification**: Verify statement balances against transaction amounts
+- **🆕 API Balance Comparison**: Compare statement balances with current API balances
+- **🆕 Running Balance Calculation**: Track running balances for each transaction
+
+## Balance Management Features
+
+### Enhanced Statement Import with Balances
+
+The refactored statement import logic now properly handles balance information from the Infopay API:
+
+- **Opening Balances**: Each statement includes the correct opening balance from the API
+- **Closing Balances**: Statements are created with accurate closing balances
+- **Transaction Balances**: Each transaction includes balance before and after
+- **Running Balances**: Calculated running balances for verification purposes
+
+### Balance Verification Tools
+
+The module provides several tools to ensure statement accuracy:
+
+1. **Statement Balance Verification**: Verify that statement balances are consistent with transaction amounts
+2. **API Balance Comparison**: Compare statement closing balances with current API balances
+3. **Balance Discrepancy Detection**: Automatic detection and reporting of balance mismatches
+4. **Transaction Balance Tracking**: Track balance changes for each individual transaction
+
+### Balance Data Structure
+
+Each bank transaction now includes:
+
+- `balance_before_transaction`: Account balance before this transaction
+- `balance_after_transaction`: Account balance after this transaction  
+- `running_balance`: Calculated running balance for verification
+- `statement_id`: Link to the bank statement
+- `statement_line_id`: Link to the statement line
+
+## Technical Improvements
+
+### Refactored Statement Import Logic
+
+The statement import process has been completely refactored to handle balance data properly:
+
+1. **API Balance Extraction**: The system now properly extracts balance information from the Infopay API response
+2. **Transaction Sorting**: Transactions are sorted by date and time to ensure proper balance calculation
+3. **Balance Calculation**: Running balances are calculated for each transaction
+4. **Statement Creation**: Bank statements are created with proper opening and closing balances
+5. **Balance Verification**: Automatic verification of balance consistency
+
+### Enhanced Data Models
+
+The `bank.transaction` model has been enhanced with:
+
+- **Balance Fields**: New fields to store balance information from the API
+- **Statement Links**: Direct links to bank statements and statement lines
+- **Data Integrity**: Better data validation and consistency checks
+
+### Improved Error Handling
+
+The refactored code includes:
+
+- **Balance Validation**: Automatic detection of balance discrepancies
+- **Detailed Logging**: Comprehensive logging of balance calculations
+- **User Notifications**: Clear feedback about balance verification results
+- **Graceful Degradation**: System continues to work even with minor balance issues
 
 ## Configuration
 
@@ -66,6 +129,39 @@ Ensure that your bank journals are properly configured with:
    - Import transactions for the specified date range
    - Create bank statement lines
    - Clean up the session
+
+### Balance Verification and Management
+
+#### Verifying Statement Balances
+
+1. Navigate to **Accounting > Configuration > Bank Management > Bank Journals**
+2. Select the bank journal you want to verify
+3. Click the **"Verify Statement Balances"** button
+4. The system will:
+   - Check all statements for balance consistency
+   - Compare opening + transaction amounts with closing balances
+   - Report any discrepancies found
+   - Show detailed balance information for each statement
+
+#### Getting Current Balance from API
+
+1. Navigate to **Accounting > Configuration > Bank Management > Bank Journals**
+2. Select the bank journal you want to check
+3. Click the **"Get Current Balance from API"** button
+4. The system will:
+   - Connect to Infopay API
+   - Fetch current account balance
+   - Compare with latest statement closing balance
+   - Report any differences found
+
+#### Viewing Transaction Balances
+
+1. Navigate to **Accounting > Configuration > Bank Management > Bank Transactions**
+2. View all imported transactions with balance information
+3. Each transaction shows:
+   - Balance before and after the transaction
+   - Running balance for verification
+   - Link to corresponding statement and line
 
 ### API Endpoints Used
 
@@ -151,6 +247,29 @@ The module maps Infopay API responses to Odoo models:
 3. **No Accounts Found**: Verify your API permissions and account access
 4. **Session Expired**: The module should handle this automatically
 5. **No Transactions**: Ensure the account IBAN matches between Infopay and Odoo
+6. **🆕 Balance Discrepancies**: Use the balance verification tools to identify and resolve issues
+7. **🆕 Incorrect Statement Balances**: Verify that the API is returning correct balance information
+
+### Balance-Specific Troubleshooting
+
+#### Statement Balance Mismatches
+
+If you encounter balance discrepancies:
+
+1. **Use Balance Verification**: Run the "Verify Statement Balances" action to identify issues
+2. **Check API Balances**: Use "Get Current Balance from API" to compare with current balances
+3. **Review Transaction Order**: Ensure transactions are properly sorted by date and time
+4. **Check Currency**: Verify that all amounts are in the same currency
+5. **API Data Quality**: Some APIs may have timing issues with balance updates
+
+#### Transaction Balance Issues
+
+If individual transaction balances seem incorrect:
+
+1. **Check Raw Data**: Review the raw data from the API for balance information
+2. **Verify API Response**: Ensure the API is returning balance data with each transaction
+3. **Check Date Ranges**: Balance calculations depend on proper transaction ordering
+4. **Review Logs**: Check Odoo logs for balance calculation warnings
 
 ### Debug Information
 

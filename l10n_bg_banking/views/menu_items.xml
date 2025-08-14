@@ -9,4 +9,33 @@
               parent="menu_res_bank_root"
               action="base.action_res_bank_form"
               sequence="20"/>
+
+    <menuitem id="menu_account_journal_banking"
+              name="Bank Journals"
+              parent="menu_res_bank_root"
+              action="account.action_account_journal_form"
+              sequence="30"/>
+
+    <menuitem id="menu_balance_verification"
+              name="Balance Verification"
+              parent="menu_res_bank_root"
+              sequence="35"/>
+
+    <menuitem id="menu_verify_statement_balances"
+              name="Verify Statement Balances"
+              parent="menu_balance_verification"
+              action="action_verify_statement_balances"
+              sequence="10"/>
+
+    <menuitem id="menu_get_current_balance"
+              name="Get Current Balance from API"
+              parent="menu_balance_verification"
+              action="action_get_current_balance"
+              sequence="20"/>
+
+    <menuitem id="menu_bank_transaction"
+              name="Bank Transactions"
+              parent="menu_res_bank_root"
+              action="action_bank_transaction"
+              sequence="40"/>
 </odoo>

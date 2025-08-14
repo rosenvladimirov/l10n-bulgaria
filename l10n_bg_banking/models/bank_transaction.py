@@ -15,3 +15,12 @@ class BankTransaction(models.Model):
     account_iban = fields.Char(string="Account IBAN")
     journal_id = fields.Many2one('account.journal', string="Journal")
     raw_data = fields.Json(string="Raw Data")
+    
+    # Balance-related fields
+    balance_after_transaction = fields.Monetary(string="Balance After Transaction", help="Account balance after this transaction")
+    balance_before_transaction = fields.Monetary(string="Balance Before Transaction", help="Account balance before this transaction")
+    running_balance = fields.Monetary(string="Running Balance", help="Calculated running balance")
+    
+    # Statement-related fields
+    statement_id = fields.Many2one('account.bank.statement', string="Bank Statement")
+    statement_line_id = fields.Many2one('account.bank.statement.line', string="Statement Line")

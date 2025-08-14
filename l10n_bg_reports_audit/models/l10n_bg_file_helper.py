@@ -91,6 +91,7 @@ def l10n_bg_odoo_compatible_line(env, mode):
         return """"""
     elif not l10n_bg_compatible_odoo and mode == "tag_22":
         return """*-1"""
+    return """"""
 
 
 def l10n_bg_odoo_compatible(env, mode):
@@ -661,5 +662,5 @@ class AuditExportFileHelper(models.AbstractModel):
             .with_context(**dict(self._context, report_options=options))
             ._table_query
         )
-        _logger.info(f"SQL QUERY {tax_report}: {full_query}")
+        _logger.debug(f"SQL QUERY {tax_report}: {full_query}")
         return full_query

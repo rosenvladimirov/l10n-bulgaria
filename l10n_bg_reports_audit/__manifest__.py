@@ -1,6 +1,6 @@
 {
     "name": "Bulgarian Accounting Reports",
-    "version": "18.0.6.0.2",
+    "version": "18.0.7.0.1",
     "development_status": "Production/Stable",
     "maintainers": ["rosenvladimirov", "deyanlyubenov"],
     "description": "Reporting for Bulgarian Localization technical module.",

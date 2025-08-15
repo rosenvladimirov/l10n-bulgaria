@@ -53,31 +53,32 @@ def l10n_bg_lang(env, lang_modules="partner", field_name=""):
         field_name = "represent_partner_city.name"
 
     if lang_modules == "partner":
+        _logger.info(f"l10n_bg_lang: lang_modules == partner: {field_name} - {lang_modules}")
         return (
-            f"""CASE
+            f"""(CASE
            WHEN {field_name} ? 'bg_BG' THEN {field_name}#>>'{{{'bg_BG'}}}'
            WHEN {field_name} ? 'en_US' THEN {field_name}#>>'{{{'en_US'}}}'
            ELSE {field_name}::text
-           END"""
+           END)"""
             if field_name and (isinstance(env.company.is_l10n_bg_multilanguage, dict)
                                and env.company.is_l10n_bg_multilanguage.get("partner_multilang", '') == 'installed')
             else f"""{field_name}"""
         )
     elif lang_modules == "narration":
         return (
-            """CASE
+            """(CASE
            WHEN am.l10n_bg_narration ? 'bg_BG' THEN am.l10n_bg_narration#>>'{bg_BG}'
            WHEN am.l10n_bg_narration ? 'en_US' THEN am.l10n_bg_narration#>>'{en_US}'
            ELSE am.l10n_bg_narration::text
-           END"""
+           END)"""
         )
     else:
         return (
-            f"""CASE
+            f"""(CASE
            WHEN {field_name} ? 'bg_BG' THEN {field_name}#>>'{{{'bg_BG'}}}'
            WHEN {field_name} ? 'en_US' THEN {field_name}#>>'{{{'en_US'}}}'
            ELSE {field_name}::text
-           END"""
+           END)"""
             if field_name
                and env.company.is_l10n_bg_multilanguage
                and env.company.is_l10n_bg_multilanguage.get("l10n_bg_multilang", '') == 'installed'
@@ -90,51 +91,65 @@ def l10n_bg_odoo_compatible_line(env, mode):
         return """"""
     elif not l10n_bg_compatible_odoo and mode == "tag_22":
         return """*-1"""
+    return """"""
+
 
 def l10n_bg_odoo_compatible(env, mode):
     l10n_bg_compatible_odoo = env.user.company_id.l10n_bg_odoo_compatible
-    if l10n_bg_compatible_odoo and mode == "tag_20":
-        return """(
+    _logger.info(f"l10n_bg_compatible_odoo: {l10n_bg_compatible_odoo} - {mode}")
+
+    # Общи SQL фрагменти за избягване на дублиране
+    sales_vat_sum = "SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24)"
+    purchase_vat_sum = "SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43)"
+    vat_difference = f"COALESCE({sales_vat_sum}, 0) - COALESCE({purchase_vat_sum}, 0)"
+
+    # Mapping на режимите към SQL заявките
+    sql_mapping = {
+        # Tag 20 логика
+        ("tag_20", True): f"""(
     CASE
         WHEN SUM(accs.account_tag_22) <= 0 THEN
             ABS(SUM(accs.account_tag_22)) + SUM(accs.account_tag_23 + accs.account_tag_24 + accs.account_tag_21)
         ELSE
             SUM(-accs.account_tag_22) + SUM(accs.account_tag_23 + accs.account_tag_24 + accs.account_tag_21)
-    END
-)"""
-    elif not l10n_bg_compatible_odoo and mode == "tag_20":
-        return """
-        SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24)
-"""
-    elif l10n_bg_compatible_odoo and mode == "tag_22":
-        return """(
+    END)""",
+
+        ("tag_20", False): f"{sales_vat_sum}",
+
+        # Tag 22 логика
+        ("tag_22", True): """(
     CASE
         WHEN SUM(accs.account_tag_22) < 0 THEN
             ABS(SUM(accs.account_tag_22))
         ELSE
             SUM(-accs.account_tag_22)
-    END
-        )"""
-    elif not l10n_bg_compatible_odoo and mode == "tag_22":
-        return """SUM(accs.account_tag_22)"""
-    elif l10n_bg_compatible_odoo and mode == "tag_50":
-        return """(
+    END)""",
+
+        ("tag_22", False): "SUM(accs.account_tag_22)",
+
+        # Tag 50 логика (дължим ДДС)
+        ("tag_50", True): f"""(
     CASE
-        WHEN SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) - SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43) > 0 THEN
-            ABS(SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) - SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43))
+        WHEN {vat_difference} > 0 THEN
+            ABS({vat_difference})
         ELSE 0.00
-    END)"""
-    elif not l10n_bg_compatible_odoo and mode == "tag_50":
-        return """SUM(accr.account_tag_50)"""
-    elif l10n_bg_compatible_odoo and mode == "tag_60":
-        return """(
+    END)""",
+
+        ("tag_50", False): "SUM(accr.account_tag_50)",
+
+        # Tag 60 логика (възстановяване на ДДС)
+        ("tag_60", True): f"""(
     CASE
-        WHEN SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) - SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43) < 0 THEN
-            ABS(SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) - SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43))
+        WHEN {vat_difference} < 0 THEN
+            ABS({vat_difference})
         ELSE 0.00
-    END)"""
-    elif not l10n_bg_compatible_odoo and mode == "tag_60":
-        return """SUM(accr.account_tag_60)"""
+    END)""",
+
+        ("tag_60", False): "SUM(accr.account_tag_60)",
+    }
+
+    # Върни съответната SQL заявка или празен string
+    return sql_mapping.get((mode, l10n_bg_compatible_odoo), "")
 
 
 def _set_options(options, report_date_from, report_date_to):

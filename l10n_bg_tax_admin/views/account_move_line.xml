@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_move_line_form_tariff_corrected" model="ir.ui.view">
-        <field name="name">account.move.line.form.tariff.corrected</field>
+    <record id="view_move_line_form_tariff_enhanced" model="ir.ui.view">
+        <field name="name">account.move.line.form.tariff.enhanced</field>
         <field name="model">account.move.line</field>
         <field name="inherit_id" ref="account.view_move_line_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='tax_ids']" position="after">
-                <group string="HS/Тарифен код" attrs="{'invisible': [('display_type', '!=', False)]}">
+                <group string="Тарифен код (CN/HS/Intrastat)" attrs="{'invisible': [('display_type', '!=', False)]}">
                     <group>
                         <field name="l10n_bg_tariff_code"
                                widget="char"
                                placeholder="85333900 (CN) / 853339 (HS)"
-                               help="Автоматично от product.hs_code или Intrastat"/>
+                               help="Автоматично се извлича от продукта или Intrastat"/>
                         <field name="l10n_bg_tariff_code_manual"
                                attrs="{'invisible': [('l10n_bg_tariff_code_manual', '=', False)]}"
                                placeholder="Ръчно въведен код"/>
@@ -31,32 +31,9 @@
                         </div>
                     </group>
                     <group>
-                        <!-- Използваме product_id.country_of_origin вместо отделно поле -->
-                        <label for="product_id" string="Страна на произход"/>
-                        <div class="o_row">
-                            <field name="product_id"
-                                   readonly="1"
-                                   invisible="1"/>
-                            <field name="product_id"
-                                   string=""
-                                   context="{'form_view_ref': 'product.product_template_only_form_view'}"
-                                   attrs="{'readonly': [('parent_state', '!=', 'draft')]}"
-                                   options="{'no_create': True}"
-                                   invisible="1"/>
-                            <span attrs="{'invisible': [('product_id', '=', False)]}">
-                                <field name="product_id"
-                                       string=""
-                                       readonly="1"
-                                       options="{'no_open': True}"/>
-                                →
-                                <field name="product_id"
-                                       string=""
-                                       readonly="1"
-                                       options="{'no_open': True, 'no_create': True}"
-                                       widget="many2one"
-                                       context="{'show_country_of_origin': True}"/>
-                            </span>
-                        </div>
+                        <field name="l10n_bg_country_origin_id"
+                               options="{'no_create': True}"
+                               help="Влияе върху тарифната ставка"/>
                         <field name="l10n_bg_customs_value"
                                attrs="{'required': [('l10n_bg_is_customs_expense', '=', False)]}"
                                help="Стойност за митническо облагане"/>
@@ -84,14 +61,15 @@
         </field>
     </record>
 
-    <record id="view_move_line_tree_tariff_corrected" model="ir.ui.view">
-        <field name="name">account.move.line.tree.tariff.corrected</field>
+    <!-- Enhanced tree view със compatibility badges -->
+    <record id="view_move_line_tree_tariff_enhanced" model="ir.ui.view">
+        <field name="name">account.move.line.tree.tariff.enhanced</field>
         <field name="model">account.move.line</field>
         <field name="inherit_id" ref="account.view_move_line_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='price_total']" position="after">
                 <field name="l10n_bg_tariff_code"
-                       string="HS/Тарифен код"
+                       string="Тарифен код"
                        optional="hide"/>
                 <field name="l10n_bg_tariff_rate"
                        widget="percentage"
@@ -103,19 +81,21 @@
                 <field name="l10n_bg_customs_value"
                        string="Митн. стойност"
                        optional="hide"/>
+                <field name="l10n_bg_country_origin_id"
+                       string="Произход"
+                       optional="hide"/>
             </xpath>
 
             <xpath expr="//tree" position="inside">
                 <header>
                     <button name="action_update_tariff_rate"
-                            string="🔄 Обнови тарифни ставки"
+                            string="Обнови тарифни ставки"
                             type="object"
                             class="btn-secondary"/>
-                    <button name="action_sync_hs_codes"
-                            string="🔄 Синхронизирай HS кодове"
+                    <button name="action_validate_tariff_code"
+                            string="✓ Валидирай кодове"
                             type="object"
-                            class="btn-secondary"
-                            help="Копира тарифните кодове в product.hs_code"/>
+                            class="btn-secondary"/>
                 </header>
             </xpath>
         </field>

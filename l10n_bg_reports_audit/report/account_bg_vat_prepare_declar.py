@@ -82,6 +82,7 @@ class AccountBGResultDeclar(models.Model):
         return """am.company_id AS company_id,
     am.id AS move_id,
     am.date,
+    am.state,
     SUM(CASE WHEN aat.tag_name = 50 AND aat.negate THEN ABS(aml.balance)*-1
         WHEN aat.tag_name = 50 AND NOT aat.negate THEN ABS(aml.balance)
         ELSE 0.00 END) AS account_tag_50,
@@ -129,4 +130,4 @@ class AccountBGResultDeclar(models.Model):
 
     @api.model
     def _group(self):
-        return """am.company_id, am.id, am.date"""
+        return """am.company_id, am.id, am.date,  am.state"""

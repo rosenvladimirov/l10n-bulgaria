@@ -16,11 +16,18 @@
 
                         <field name="integration_start_date"/>
                         <field name="integration_end_date"/>
+                        <field name="date_range_display" readonly="1"/>
 
                         <button name="action_test_infopay_connection"
                                 type="object"
                                 string="Test Connection"
                                 class="btn-secondary"/>
+
+                        <button name="action_reset_to_previous_month"
+                                type="object"
+                                string="Reset to Previous Month"
+                                class="btn-secondary"
+                                help="Reset integration dates to previous month"/>
 
                         <button name="action_import_infopay_statements"
                                 type="object"

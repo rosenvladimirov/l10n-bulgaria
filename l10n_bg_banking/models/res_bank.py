@@ -5,8 +5,21 @@ import time
 
 import requests
 
-from odoo import fields, models
+from odoo import fields, models, api
 from odoo.exceptions import UserError
+
+
+def get_previous_month_dates():
+    """Get start and end dates for the previous month"""
+    today = datetime.date.today()
+    # Get first day of current month
+    first_day_current_month = today.replace(day=1)
+    # Get last day of previous month
+    last_day_previous_month = first_day_current_month - datetime.timedelta(days=1)
+    # Get first day of previous month
+    first_day_previous_month = last_day_previous_month.replace(day=1)
+
+    return first_day_previous_month, last_day_previous_month
 
 
 def clean_dict_for_json(d):
@@ -41,8 +54,15 @@ class ResBank(models.Model):
     infopay_session_key = fields.Char(string="Infopay Session ID", store=True)
 
     # Integration date range configuration
-    integration_start_date = fields.Date(string="Integration Start Date", help="Start date for transaction import from Infopay")
-    integration_end_date = fields.Date(string="Integration End Date", help="End date for transaction import from Infopay")
+    integration_start_date = fields.Date(string="Integration Start Date", 
+                                        help="Start date for transaction import from Infopay. Defaults to first day of previous month.",
+                                        default=lambda self: get_previous_month_dates()[0])
+    integration_end_date = fields.Date(string="Integration End Date", 
+                                      help="End date for transaction import from Infopay. Defaults to last day of previous month.",
+                                      default=lambda self: get_previous_month_dates()[1])
+    
+    # Computed field for display
+    date_range_display = fields.Char(string="Date Range", compute='_compute_date_range_display', store=False)
 
     def action_import_infopay_statements(self):
         """Import bank statements from Infopay API"""
@@ -271,6 +291,34 @@ class ResBank(models.Model):
         url = "{}/api/accounts".format(self.infopay_api_url)
 
         return self._execute_get_request(headers, url)
+
+    @api.depends('integration_start_date', 'integration_end_date')
+    def _compute_date_range_display(self):
+        """Compute a user-friendly display of the date range"""
+        for record in self:
+            if record.integration_start_date and record.integration_end_date:
+                start_str = record.integration_start_date.strftime('%Y-%m-%d')
+                end_str = record.integration_end_date.strftime('%Y-%m-%d')
+                record.date_range_display = f"{start_str} to {end_str}"
+            else:
+                record.date_range_display = "Not set"
+
+    def action_reset_to_previous_month(self):
+        """Reset integration dates to previous month"""
+        start_date, end_date = get_previous_month_dates()
+        self.write({
+            'integration_start_date': start_date,
+            'integration_end_date': end_date,
+        })
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Dates Reset',
+                'message': f'Integration dates reset to previous month: {start_date} to {end_date}',
+                'type': 'success',
+            }
+        }
 
     def _get_transactions(self, account_id, date_from=None, date_to=None):
         """Get transactions for a specific account from Infopay API"""

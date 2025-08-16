@@ -5,7 +5,7 @@ import time
 
 import requests
 
-from odoo import fields, models
+from odoo import fields, models, api
 from odoo.exceptions import UserError
 
 
@@ -40,18 +40,286 @@ class ResBank(models.Model):
     infopay_session_id = fields.Char(string="Infopay Session ID", store=True)
     infopay_session_key = fields.Char(string="Infopay Session ID", store=True)
 
-    # Integration date range configuration
-    integration_start_date = fields.Date(string="Integration Start Date", help="Start date for transaction import from Infopay")
-    integration_end_date = fields.Date(string="Integration End Date", help="End date for transaction import from Infopay")
+    # Month selection for integration
+    integration_month = fields.Selection([
+        ('01', 'January'),
+        ('02', 'February'),
+        ('03', 'March'),
+        ('04', 'April'),
+        ('05', 'May'),
+        ('06', 'June'),
+        ('07', 'July'),
+        ('08', 'August'),
+        ('09', 'September'),
+        ('10', 'October'),
+        ('11', 'November'),
+        ('12', 'December')
+    ], string="Integration Month", default=lambda self: str(datetime.date.today().month).zfill(2),
+       help="Select month for transaction import from Infopay")
+
+    # Year selection for integration
+    integration_year = fields.Integer(string="Integration Year",
+                                    default=lambda self: datetime.date.today().year,
+                                    help="Select year for transaction import from Infopay")
+
+    # Integration date range configuration (computed from month and year)
+    integration_start_date = fields.Date(string="Integration Start Date",
+                                       compute='_compute_integration_dates',
+                                       store=True,
+                                       help="Start date for transaction import from Infopay (first day of selected month)")
+    integration_end_date = fields.Date(string="Integration End Date",
+                                     compute='_compute_integration_dates',
+                                     store=True,
+                                     help="End date for transaction import from Infopay (last day of selected month)")
+
+    # Human-readable period description
+    integration_period_display = fields.Char(string="Integration Period",
+                                           compute='_compute_period_display',
+                                           store=False,
+                                           help="Human-readable description of the selected integration period")
+
+    # Integration period status
+    integration_period_status = fields.Selection([
+        ('not_set', 'Not Set'),
+        ('current', 'Current Month'),
+        ('past', 'Past Month'),
+        ('future', 'Future Month (Invalid)')
+    ], string="Period Status", compute='_compute_period_status', store=False)
+
+    # Compact period summary
+    integration_period_summary = fields.Char(string="Period Summary",
+                                           compute='_compute_period_summary',
+                                           store=False,
+                                           help="Compact summary of the integration period")
+
+    @api.depends('integration_month', 'integration_year')
+    def _compute_integration_dates(self):
+        """Compute start and end dates based on selected month and year"""
+        for record in self:
+            if record.integration_month and record.integration_year:
+                # Create start date (first day of selected month and year)
+                start_date = datetime.date(record.integration_year, int(record.integration_month), 1)
+
+                # Create end date (last day of selected month and year)
+                if int(record.integration_month) == 12:
+                    # December - last day is December 31st
+                    end_date = datetime.date(record.integration_year, 12, 31)
+                else:
+                    # For other months, get the first day of next month and subtract 1 day
+                    next_month = int(record.integration_month) + 1
+                    next_month_first = datetime.date(record.integration_year, next_month, 1)
+                    end_date = next_month_first - datetime.timedelta(days=1)
+
+                record.integration_start_date = start_date
+                record.integration_end_date = end_date
+            else:
+                record.integration_start_date = False
+                record.integration_end_date = False
+
+    @api.depends('integration_month', 'integration_year')
+    def _compute_period_display(self):
+        """Compute human-readable period description"""
+        for record in self:
+            if record.integration_month and record.integration_year:
+                month_name = dict(self._fields['integration_month'].selection).get(record.integration_month)
+                record.integration_period_display = f"{month_name} {record.integration_year}"
+            else:
+                record.integration_period_display = "Not set"
+
+    @api.depends('integration_month', 'integration_year')
+    def _compute_period_status(self):
+        """Compute the status of the selected integration period"""
+        for record in self:
+            if not record.integration_month or not record.integration_year:
+                record.integration_period_status = 'not_set'
+                continue
+
+            today = datetime.date.today()
+            selected_date = datetime.date(record.integration_year, int(record.integration_month), 1)
+
+            if selected_date > today:
+                record.integration_period_status = 'future'
+            elif selected_date.year == today.year and selected_date.month == today.month:
+                record.integration_period_status = 'current'
+            else:
+                record.integration_period_status = 'past'
+
+    @api.depends('integration_month', 'integration_year', 'integration_start_date', 'integration_end_date')
+    def _compute_period_summary(self):
+        """Compute a compact summary of the integration period"""
+        for record in self:
+            if record.integration_month and record.integration_year and record.integration_start_date and record.integration_end_date:
+                month_name = dict(self._fields['integration_month'].selection).get(record.integration_month)
+                start_str = record.integration_start_date.strftime('%d/%m/%Y')
+                end_str = record.integration_end_date.strftime('%d/%m/%Y')
+                record.integration_period_summary = f"{month_name} {record.integration_year} ({start_str} - {end_str})"
+            else:
+                record.integration_period_summary = "Not configured"
+
+    @api.constrains('integration_year')
+    def _check_integration_year(self):
+        """Validate that the integration year is reasonable"""
+        for record in self:
+            if record.integration_year:
+                current_year = datetime.date.today().year
+                if record.integration_year < 2000 or record.integration_year > current_year + 1:
+                    raise UserError("Integration year must be between 2000 and {}.".format(current_year + 1))
+
+    @api.constrains('integration_month', 'integration_year')
+    def _check_integration_period(self):
+        """Validate that the selected period is not in the future"""
+        for record in self:
+            if record.integration_month and record.integration_year:
+                today = datetime.date.today()
+                selected_date = datetime.date(record.integration_year, int(record.integration_month), 1)
+
+                if selected_date > today:
+                    raise UserError("Cannot select a period in the future. Please select a past or current month.")
+
+    def action_set_current_month(self):
+        """Set the current month and year for integration"""
+        today = datetime.date.today()
+        self.write({
+            'integration_month': str(today.month).zfill(2),
+            'integration_year': today.year,
+        })
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Month Updated',
+                'message': 'Set to current month: {} {}'.format(
+                    dict(self._fields['integration_month'].selection).get(str(today.month).zfill(2)),
+                    today.year
+                ),
+                'type': 'success',
+            }
+        }
+
+    def action_previous_month(self):
+        """Navigate to the previous month"""
+        if not self.integration_month or not self.integration_year:
+            return self.action_set_current_month()
+
+        current_month = int(self.integration_month)
+        current_year = self.integration_year
+
+        if current_month == 1:
+            # January -> December of previous year
+            new_month = '12'
+            new_year = current_year - 1
+        else:
+            # Previous month of same year
+            new_month = str(current_month - 1).zfill(2)
+            new_year = current_year
+
+        self.write({
+            'integration_month': new_month,
+            'integration_year': new_year,
+        })
+
+        month_name = dict(self._fields['integration_month'].selection).get(new_month)
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Month Updated',
+                'message': 'Moved to: {} {}'.format(month_name, new_year),
+                'type': 'success',
+            }
+        }
+
+    def action_next_month(self):
+        """Navigate to the next month"""
+        if not self.integration_month or not self.integration_year:
+            return self.action_set_current_month()
+
+        current_month = int(self.integration_month)
+        current_year = self.integration_year
+
+        if current_month == 12:
+            # December -> January of next year
+            new_month = '01'
+            new_year = current_year + 1
+        else:
+            # Next month of same year
+            new_month = str(current_month + 1).zfill(2)
+            new_year = current_year
+
+        self.write({
+            'integration_month': new_month,
+            'integration_year': new_year,
+        })
+
+        month_name = dict(self._fields['integration_month'].selection).get(new_month)
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Month Updated',
+                'message': 'Moved to: {} {}'.format(month_name, new_year),
+                'type': 'success',
+            }
+        }
+
+    def action_reset_to_current_period(self):
+        """Reset the integration period to the current month and year"""
+        today = datetime.date.today()
+        self.write({
+            'integration_month': str(today.month).zfill(2),
+            'integration_year': today.year,
+        })
+
+        month_name = dict(self._fields['integration_month'].selection).get(str(today.month).zfill(2))
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Period Reset',
+                'message': f'Reset to current period: {month_name} {today.year}',
+                'type': 'success',
+            }
+        }
+
 
     def action_import_infopay_statements(self):
         """Import bank statements from Infopay API"""
+        # Ensure dates are computed before proceeding
+        self._compute_integration_dates()
+
+        if not self.integration_start_date or not self.integration_end_date:
+            raise UserError("Please select a month for integration before importing statements.")
+
+        # Show confirmation message with period details
+        month_name = dict(self._fields['integration_month'].selection).get(self.integration_month)
+        start_date = self.integration_start_date.strftime('%B %d, %Y')
+        end_date = self.integration_end_date.strftime('%B %d, %Y')
+
+        # Ask for confirmation
+        if not self.env.context.get('skip_confirmation'):
+            return {
+                'type': 'ir.actions.act_window',
+                'name': 'Confirm Import',
+                'res_model': 'bank.import.confirmation.wizard',
+                'view_mode': 'form',
+                'target': 'new',
+                'context': {
+                    'default_bank_id': self.id,
+                    'default_period_display': f"{month_name} {self.integration_year}",
+                    'default_start_date': start_date,
+                    'default_end_date': end_date,
+                }
+            }
+
         journals = self._get_bank_journals()
         for journal in journals:
             request_id = str(random.randint(100000000000000, 640812354371500))
 
             attachment = {
-                'name': "Infopay Bank Statement Generation {}".format(request_id),
+                'name': "Infopay Bank Statement Generation {} - {} {} {}".format(
+                    request_id, month_name, self.integration_year,
+                    "({} to {})".format(start_date, end_date)
+                ),
                 'raw': "",
             }
 
@@ -59,6 +327,17 @@ class ResBank(models.Model):
             attachments = self.env['transient.attachment'].create(attachment)
 
             journal._import_bank_statement_custom(attachments)
+
+        # Show success message
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Import Started',
+                'message': f'Started importing transactions for {month_name} {self.integration_year} ({start_date} to {end_date})',
+                'type': 'success',
+            }
+        }
 
     def _get_bank_journals(self):
         """Get bank journals and import transactions from Infopay"""

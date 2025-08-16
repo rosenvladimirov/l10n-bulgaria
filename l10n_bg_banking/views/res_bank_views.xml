@@ -14,8 +14,31 @@
                         <field name="infopay_session_id" readonly="1"/>
                         <field name="infopay_session_key" readonly="1"/>
 
-                        <field name="integration_start_date"/>
-                        <field name="integration_end_date"/>
+                        <field name="integration_year"/>
+                        <field name="integration_month"/>
+                        <field name="integration_period_display" readonly="1"/>
+                        <field name="integration_period_status" readonly="1"/>
+                        <field name="integration_period_summary" readonly="1"/>
+                        <field name="integration_start_date" readonly="1"/>
+                        <field name="integration_end_date" readonly="1"/>
+
+                        <button name="action_previous_month"
+                                type="object"
+                                string="← Previous Month"
+                                class="btn-secondary"/>
+                        <button name="action_set_current_month"
+                                type="object"
+                                string="Set Current Month"
+                                class="btn-secondary"/>
+                        <button name="action_next_month"
+                                type="object"
+                                string="Next Month →"
+                                class="btn-secondary"/>
+
+                        <button name="action_reset_to_current_period"
+                                type="object"
+                                string="Reset to Current"
+                                class="btn-warning"/>
 
                         <button name="action_test_infopay_connection"
                                 type="object"

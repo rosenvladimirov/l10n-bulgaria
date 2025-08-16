@@ -25,5 +25,6 @@
         'security/ir.model.access.csv',
         'views/res_bank_views.xml',
         'views/menu_items.xml',
+        'views/bank_import_confirmation_wizard_views.xml',
     ],
 }

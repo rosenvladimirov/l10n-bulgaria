@@ -4,9 +4,9 @@
             <field name="name">bank.import.confirmation.wizard.form</field>
             <field name="model">bank.import.confirmation.wizard</field>
             <field name="arch" type="xml">
-                <form string="Confirm Bank Import">
+                <form string="Confirm InfoPay Import">
                     <group>
-                        <field name="bank_id" invisible="1"/>
+                        <field name="config_id" invisible="1"/>
                         <field name="period_display"/>
                         <field name="start_date"/>
                         <field name="end_date"/>

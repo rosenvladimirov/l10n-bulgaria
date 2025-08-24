@@ -16,15 +16,22 @@
         - Support for multiple accounts and currencies
         - Connection testing functionality
         - Automatic session lifecycle management
+        
+        Dependencies:
+        - Python requests module (pip install requests)
+        - Odoo base_setup module
+        - Odoo account module
+        - Odoo account_bank_statement_import module
     """,
     'author': 'Rosen Vladimirov, Deyan Lyubenov',
     'license': 'OEEL-1',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria-ee',
-    'depends': ["base", "account", "account_bank_statement_import"],
+    'depends': ["base", "base_setup", "account", "account_bank_statement_import"],
     'data': [
         'security/ir.model.access.csv',
         'views/res_bank_views.xml',
         'views/menu_items.xml',
         'views/bank_import_confirmation_wizard_views.xml',
+        'views/res_config_settings_views.xml',
     ],
 }

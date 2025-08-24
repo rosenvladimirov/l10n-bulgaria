@@ -6,9 +6,11 @@ class AccountJournal(models.Model):
     _inherit = 'account.journal'
 
     def _import_bank_statement_custom(self, attachments):
+        """Custom bank statement import method for InfoPay integration"""
         statement_ids_all = []
         notifications_all = {}
         errors = {}
+        
         # Let the appropriate implementation module parse the file and return the required data
         # The active_id is passed in context in case an implementation module requires information about the wizard state (see QIF)
         for attachment in attachments:
@@ -73,6 +75,7 @@ class AccountJournal(models.Model):
         return result
 
     def _parse_bank_statement_file_custom(self, attachment):
+        """Parse bank statement file for InfoPay transactions"""
         transactions = self.env['bank.transaction'].search([
             ('journal_id', '=', self.id)
         ])

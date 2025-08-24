@@ -6,7 +6,7 @@
             <field name="model">res.bank</field>
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='communication_details']" position="after">
-                    <group name="infopay_details" string="Infopay API Configuration">
+                    <group name="infopay_details" string="InfoPay API Configuration">
                         <field name="infopay_api_url"/>
                         <field name="infopay_client_id"/>
                         <field name="infopay_access_token" password="True"/>
@@ -40,15 +40,10 @@
                                 string="Reset to Current"
                                 class="btn-warning"/>
 
-                        <button name="action_test_infopay_connection"
+                        <button name="action_sync_global_config"
                                 type="object"
-                                string="Test Connection"
-                                class="btn-secondary"/>
-
-                        <button name="action_import_infopay_statements"
-                                type="object"
-                                string="Import Infopay Statement"
-                                class="btn-primary"/>
+                                string="Sync with Global Config"
+                                class="btn-info"/>
                     </group>
                 </xpath>
             </field>

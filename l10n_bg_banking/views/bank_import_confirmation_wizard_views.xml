@@ -1,21 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
         <record id="view_bank_import_confirmation_wizard_form" model="ir.ui.view">
             <field name="name">bank.import.confirmation.wizard.form</field>
             <field name="model">bank.import.confirmation.wizard</field>
             <field name="arch" type="xml">
-                <form string="Confirm InfoPay Import">
-                    <group>
-                        <field name="config_id" invisible="1"/>
-                        <field name="period_display"/>
-                        <field name="start_date"/>
-                        <field name="end_date"/>
-                    </group>
+                <form string="InfoPay Import Wizard">
+                    <sheet>
+                        <group>
+                            <group string="Configuration">
+                                <field name="config_id" readonly="1"/>
+                                <field name="integration_month"/>
+                                <field name="integration_year"/>
+                                <field name="period_display" readonly="1"/>
+                            </group>
+                            <group string="Period Details">
+                                <field name="start_date" readonly="1"/>
+                                <field name="end_date" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <group string="Status" invisible="status == 'draft'">
+                            <field name="status" readonly="1"/>
+                            <field name="status_message" readonly="1" nolabel="1"/>
+                        </group>
+                        
+                        <group string="Results" invisible="status != 'completed'">
+                            <field name="transactions_imported" readonly="1"/>
+                            <field name="journals_processed" readonly="1"/>
+                        </group>
+                    </sheet>
+                    
                     <footer>
                         <button name="action_confirm_import" 
                                 type="object" 
-                                string="Confirm Import" 
-                                class="btn-primary"/>
+                                string="Start Import" 
+                                class="btn-primary"
+                                invisible="status in ['importing', 'completed']"/>
+                        <button name="action_retry" 
+                                type="object" 
+                                string="Retry" 
+                                class="btn-secondary"
+                                invisible="status != 'error'"/>
                         <button name="action_cancel" 
                                 type="object" 
                                 string="Cancel" 
@@ -23,6 +49,13 @@
                     </footer>
                 </form>
             </field>
+        </record>
+
+        <record id="action_bank_import_confirmation_wizard" model="ir.actions.act_window">
+            <field name="name">InfoPay Import</field>
+            <field name="res_model">bank.import.confirmation.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
         </record>
     </data>
 </odoo>

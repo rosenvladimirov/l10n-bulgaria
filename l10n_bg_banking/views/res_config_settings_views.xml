@@ -34,9 +34,6 @@
                                         <field name="infopay_access_token" password="True" placeholder="Your Access Token"/>
                                     </div>
                                 </div>
-                                <div class="content-group mt8">
-                                    <button name="action_configure_journals" type="object" string="Configure Journals" class="btn-primary"/>
-                                </div>
                             </div>
                         </setting>
 
@@ -58,26 +55,26 @@
                                         <field name="integration_month"/>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-lg-4 o_light_label">
+                                        <label for="integration_period_display" string="Period"/>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <field name="integration_period_display" readonly="1"/>
+                                    </div>
+                                </div>
+                                <div class="content-group mt8">
+                                    <button name="action_previous_month" type="object" string="← Previous Month" class="btn-secondary"/>
+                                    <button name="action_set_current_month" type="object" string="Set Current Month" class="btn-secondary"/>
+                                    <button name="action_next_month" type="object" string="Next Month →" class="btn-secondary"/>
+                                </div>
                             </div>
                         </setting>
 
-                        <setting id="infopay_status" title="Status" string="Status" help="Current status of InfoPay integration">
+                        <setting id="infopay_import" title="Import" string="Import" help="Start the InfoPay import process">
                             <div class="content-group">
-                                <div class="row">
-                                    <div class="col-lg-4 o_light_label">
-                                        <label for="infopay_status" string="Status"/>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <field name="infopay_status" readonly="1"/>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-4 o_light_label">
-                                        <label for="configured_journals_count" string="Configured Journals"/>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <field name="configured_journals_count" readonly="1"/>
-                                    </div>
+                                <div class="content-group mt8">
+                                    <button name="action_start_infopay_import" type="object" string="Start InfoPay Import" class="btn-success"/>
                                 </div>
                             </div>
                         </setting>

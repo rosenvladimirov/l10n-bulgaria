@@ -1,52 +1,8 @@
 <odoo>
     <data>
-        <record id="view_res_bank_form_ex" model="ir.ui.view">
-            <field name="name">res.bank.form.extend</field>
-            <field name="inherit_id" ref="base.view_res_bank_form"/>
-            <field name="model">res.bank</field>
-            <field name="arch" type="xml">
-                <xpath expr="//group[@name='communication_details']" position="after">
-                    <group name="infopay_details" string="InfoPay API Configuration">
-                        <field name="infopay_api_url"/>
-                        <field name="infopay_client_id"/>
-                        <field name="infopay_access_token" password="True"/>
-
-                        <field name="infopay_session_id" readonly="1"/>
-                        <field name="infopay_session_key" readonly="1"/>
-
-                        <field name="integration_year"/>
-                        <field name="integration_month"/>
-                        <field name="integration_period_display" readonly="1"/>
-                        <field name="integration_period_status" readonly="1"/>
-                        <field name="integration_period_summary" readonly="1"/>
-                        <field name="integration_start_date" readonly="1"/>
-                        <field name="integration_end_date" readonly="1"/>
-
-                        <button name="action_previous_month"
-                                type="object"
-                                string="← Previous Month"
-                                class="btn-secondary"/>
-                        <button name="action_set_current_month"
-                                type="object"
-                                string="Set Current Month"
-                                class="btn-secondary"/>
-                        <button name="action_next_month"
-                                type="object"
-                                string="Next Month →"
-                                class="btn-secondary"/>
-
-                        <button name="action_reset_to_current_period"
-                                type="object"
-                                string="Reset to Current"
-                                class="btn-warning"/>
-
-                        <button name="action_sync_global_config"
-                                type="object"
-                                string="Sync with Global Config"
-                                class="btn-info"/>
-                    </group>
-                </xpath>
-            </field>
-        </record>
+        <!-- 
+        Note: All InfoPay functionality has been moved to the wizard
+        This view now only extends the base res.bank form without additional fields
+        -->
     </data>
 </odoo>

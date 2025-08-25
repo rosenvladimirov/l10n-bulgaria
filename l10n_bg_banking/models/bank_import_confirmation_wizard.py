@@ -22,20 +22,6 @@ class BankImportConfirmationWizard(models.TransientModel):
     # Configuration reference
     config_id = fields.Many2one('res.config.settings', string='Configuration', required=True)
 
-    # Period configuration
-    integration_month = fields.Selection([
-        ('01', 'January'), ('02', 'February'), ('03', 'March'), ('04', 'April'),
-        ('05', 'May'), ('06', 'June'), ('07', 'July'), ('08', 'August'),
-        ('09', 'September'), ('10', 'October'), ('11', 'November'), ('12', 'December')
-    ], string="Integration Month", required=True)
-
-    integration_year = fields.Integer(string="Integration Year", required=True)
-
-    # Computed fields
-    period_display = fields.Char(string="Period", compute='_compute_period_display', store=False)
-    start_date = fields.Date(string="Start Date", compute='_compute_dates', store=False)
-    end_date = fields.Date(string="End Date", compute='_compute_dates', store=False)
-
     # Status fields
     status = fields.Selection([
         ('draft', 'Draft'),
@@ -61,30 +47,6 @@ class BankImportConfirmationWizard(models.TransientModel):
                 record.period_display = f"{month_name} {record.integration_year}"
             else:
                 record.period_display = "Not set"
-
-    @api.depends('integration_month', 'integration_year')
-    def _compute_dates(self):
-        """Compute start and end dates based on selected month and year"""
-        for record in self:
-            if record.integration_month and record.integration_year:
-                # Create start date (first day of selected month and year)
-                start_date = datetime.date(record.integration_year, int(record.integration_month), 1)
-
-                # Create end date (last day of selected month and year)
-                if int(record.integration_month) == 12:
-                    # December - last day is December 31st
-                    end_date = datetime.date(record.integration_year, 12, 31)
-                else:
-                    # For other months, get the first day of next month and subtract 1 day
-                    next_month = int(record.integration_month) + 1
-                    next_month_first = datetime.date(record.integration_year, next_month, 1)
-                    end_date = next_month_first - datetime.timedelta(days=1)
-
-                record.start_date = start_date
-                record.end_date = end_date
-            else:
-                record.start_date = False
-                record.end_date = False
 
     @api.model
     def create(self, vals):
@@ -173,9 +135,6 @@ class BankImportConfirmationWizard(models.TransientModel):
 
         if not self.config_id.infopay_access_token:
             raise UserError("InfoPay Access Token is not configured.")
-
-        if not self.integration_month or not self.integration_year:
-            raise UserError("Integration period is not set.")
 
     def _get_configured_journals(self):
         """Get all bank journals that have bank accounts with IBAN configured"""
@@ -306,10 +265,14 @@ class BankImportConfirmationWizard(models.TransientModel):
                 'sessionKey': session_data['sessionKey']
             }
 
+            # Use very old start date (1900-01-01) and current date for end date
+            start_date = datetime.date(1900, 1, 1)
+            end_date = datetime.date.today()
+
             params = {
                 'accountId': account.get('id'),
-                'startDate': self.start_date.strftime('%Y-%m-%d'),
-                'endDate': self.end_date.strftime('%Y-%m-%d')
+                'startDate': start_date.strftime('%Y-%m-%d'),
+                'endDate': end_date.strftime('%Y-%m-%d')
             }
 
             response = requests.get(url, headers=headers, params=params, timeout=30)

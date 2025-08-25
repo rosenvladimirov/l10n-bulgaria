@@ -10,41 +10,34 @@
                         <group>
                             <group string="Configuration">
                                 <field name="config_id" readonly="1"/>
-                                <field name="integration_month"/>
-                                <field name="integration_year"/>
-                                <field name="period_display" readonly="1"/>
-                            </group>
-                            <group string="Period Details">
-                                <field name="start_date" readonly="1"/>
-                                <field name="end_date" readonly="1"/>
                             </group>
                         </group>
-                        
+
                         <group string="Status" invisible="status == 'draft'">
                             <field name="status" readonly="1"/>
                             <field name="status_message" readonly="1" nolabel="1"/>
                         </group>
-                        
+
                         <group string="Results" invisible="status != 'completed'">
                             <field name="transactions_imported" readonly="1"/>
                             <field name="journals_processed" readonly="1"/>
                         </group>
                     </sheet>
-                    
+
                     <footer>
-                        <button name="action_confirm_import" 
-                                type="object" 
-                                string="Start Import" 
+                        <button name="action_confirm_import"
+                                type="object"
+                                string="Start Import"
                                 class="btn-primary"
                                 invisible="status in ['importing', 'completed']"/>
-                        <button name="action_retry" 
-                                type="object" 
-                                string="Retry" 
+                        <button name="action_retry"
+                                type="object"
+                                string="Retry"
                                 class="btn-secondary"
                                 invisible="status != 'error'"/>
-                        <button name="action_cancel" 
-                                type="object" 
-                                string="Cancel" 
+                        <button name="action_cancel"
+                                type="object"
+                                string="Cancel"
                                 class="btn-secondary"/>
                     </footer>
                 </form>

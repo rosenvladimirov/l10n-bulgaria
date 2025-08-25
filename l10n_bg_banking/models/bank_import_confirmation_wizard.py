@@ -9,10 +9,22 @@ _logger = logging.getLogger(__name__)
 # Check if requests module is available
 try:
     import requests
+
     REQUESTS_AVAILABLE = True
 except ImportError:
     REQUESTS_AVAILABLE = False
     _logger.warning("Python 'requests' module not available. InfoPay integration will not work.")
+
+
+def clean_dict_for_json(d):
+    if isinstance(d, dict):
+        return {k: clean_dict_for_json(v) for k, v in d.items()}
+    elif isinstance(d, list):
+        return [clean_dict_for_json(i) for i in d]
+    elif isinstance(d, (datetime.date, datetime.datetime)):
+        return d.isoformat()
+    else:
+        return d
 
 
 class BankImportConfirmationWizard(models.TransientModel):
@@ -37,27 +49,6 @@ class BankImportConfirmationWizard(models.TransientModel):
     # Import results
     transactions_imported = fields.Integer(string="Transactions Imported", default=0, readonly=True)
     journals_processed = fields.Integer(string="Journals Processed", default=0, readonly=True)
-
-    @api.depends('integration_month', 'integration_year')
-    def _compute_period_display(self):
-        """Compute human-readable period description"""
-        for record in self:
-            if record.integration_month and record.integration_year:
-                month_name = dict(self._fields['integration_month'].selection).get(record.integration_month)
-                record.period_display = f"{month_name} {record.integration_year}"
-            else:
-                record.period_display = "Not set"
-
-    @api.model
-    def create(self, vals):
-        """Set default values from configuration"""
-        if 'config_id' in vals:
-            config = self.env['res.config.settings'].browse(vals['config_id'])
-            if not vals.get('integration_month'):
-                vals['integration_month'] = config.integration_month
-            if not vals.get('integration_year'):
-                vals['integration_year'] = config.integration_year
-        return super().create(vals)
 
     def action_confirm_import(self):
         """Start the InfoPay import process"""
@@ -94,8 +85,39 @@ class BankImportConfirmationWizard(models.TransientModel):
             # Import transactions for each journal
             total_transactions = 0
             for journal in journals:
-                transactions = self._import_transactions_for_journal(journal, session_data)
-                total_transactions += len(transactions)
+                booked_transactions = self._import_transactions_for_journal(journal, session_data)
+                iban = journal.bank_account_id.acc_number.replace(' ', '')
+                for tx in booked_transactions:
+                    transaction_amount = tx.get('TransactionAmount', {})
+
+                    vals = {
+                        'transaction_id': tx.get('TransactionId'),
+                        'booking_date': tx.get('BookingDate'),
+                        'value_date': tx.get('ValueDate'),
+                        'amount': transaction_amount.get('amount'),
+                        'currency_id': self.env['res.currency'].search(
+                            [('name', '=', transaction_amount.get('currency', 'BGN'))],
+                            limit=1).id,
+                        'partner_name': tx.get('CreditorName') or tx.get('DebtorName'),
+                        'ref': tx.get('RemittanceInformationUnstructured') or tx.get('TransactionId'),
+                        'account_iban': iban,
+                        'journal_id': journal.id,
+                        'raw_data': tx,
+                    }
+
+                    existing = self.env['bank.transaction'].search([
+                        ('transaction_id', '=', vals['transaction_id']),
+                        ('journal_id', '=', journal.id)
+                    ], limit=1)
+
+                    if existing:
+                        existing.write(clean_dict_for_json(vals))
+                    else:
+                        self.env['bank.transaction'].create(clean_dict_for_json(vals))
+
+                total_transactions += len(booked_transactions)
+
+                journal._import_bank_statement_custom()
 
             # Cleanup session
             self._cleanup_infopay_session(session_data)
@@ -188,7 +210,9 @@ class BankImportConfirmationWizard(models.TransientModel):
         try:
             url = f"{self.config_id.infopay_api_url}/api/session/cleanup"
             headers = {
-                'Content-Type': 'application/json',
+                "accept": "application/json",
+                "Content-Type": "application/json",
+                "User-Agent": "curl/7.68.0",
                 'sessionId': session_data['sessionId'],
                 'sessionKey': session_data['sessionKey']
             }
@@ -201,27 +225,14 @@ class BankImportConfirmationWizard(models.TransientModel):
         """Import transactions for a specific journal"""
         try:
             # Get account list for this journal's IBAN
-            accounts = self._get_accounts_list(session_data, journal.bank_account_id.acc_number)
+            accounts = self._get_accounts_list(session_data, journal.bank_account_id.acc_number.replace(' ', ''))
 
             transactions = []
             for account in accounts:
                 account_transactions = self._get_transactions(session_data, account, journal)
                 transactions.extend(account_transactions)
 
-            # Create bank transactions
-            created_transactions = []
-            for trans_data in transactions:
-                transaction = self.env['bank.transaction'].create({
-                    'journal_id': journal.id,
-                    'transaction_date': trans_data.get('date'),
-                    'amount': trans_data.get('amount', 0.0),
-                    'description': trans_data.get('description', ''),
-                    'reference': trans_data.get('reference', ''),
-                    'currency_id': journal.currency_id.id or journal.company_id.currency_id.id,
-                })
-                created_transactions.append(transaction)
-
-            return created_transactions
+            return transactions
 
         except Exception as e:
             _logger.error(f"Failed to import transactions for journal {journal.name}: {e}")
@@ -230,9 +241,11 @@ class BankImportConfirmationWizard(models.TransientModel):
     def _get_accounts_list(self, session_data, iban):
         """Get list of accounts from InfoPay"""
         try:
-            url = f"{self.config_id.infopay_api_url}/api/accounts/list"
+            url = f"{self.config_id.infopay_api_url}/api/accounts"
             headers = {
-                'Content-Type': 'application/json',
+                "accept": "application/json",
+                "Content-Type": "application/json",
+                "User-Agent": "curl/7.68.0",
                 'sessionId': session_data['sessionId'],
                 'sessionKey': session_data['sessionKey']
             }
@@ -241,15 +254,10 @@ class BankImportConfirmationWizard(models.TransientModel):
             response.raise_for_status()
 
             data = response.json()
-            if data.get('success'):
-                # Filter accounts by IBAN if provided
-                accounts = data.get('accounts', [])
-                if iban:
-                    accounts = [acc for acc in accounts if acc.get('iban') == iban]
-                return accounts
-            else:
-                _logger.error(f"Failed to get accounts list: {data}")
-                return []
+            accounts = data.get('Accounts', [])
+            if iban:
+                accounts = [acc for acc in accounts if acc.get('IBAN') == iban]
+            return accounts
 
         except requests.exceptions.RequestException as e:
             _logger.error(f"Failed to get accounts list: {e}")
@@ -258,9 +266,11 @@ class BankImportConfirmationWizard(models.TransientModel):
     def _get_transactions(self, session_data, account, journal):
         """Get transactions for a specific account and period"""
         try:
-            url = f"{self.config_id.infopay_api_url}/api/transactions"
+            url = f"{self.config_id.infopay_api_url}/api/accounts/{account.get('AccountId')}/transactions"
             headers = {
-                'Content-Type': 'application/json',
+                "accept": "application/json",
+                "Content-Type": "application/json",
+                "User-Agent": "curl/7.68.0",
                 'sessionId': session_data['sessionId'],
                 'sessionKey': session_data['sessionKey']
             }
@@ -270,20 +280,18 @@ class BankImportConfirmationWizard(models.TransientModel):
             end_date = datetime.date.today()
 
             params = {
-                'accountId': account.get('id'),
-                'startDate': start_date.strftime('%Y-%m-%d'),
-                'endDate': end_date.strftime('%Y-%m-%d')
+                'dateFrom': start_date.strftime('%Y-%m-%d'),
+                'dateTo': end_date.strftime('%Y-%m-%d')
             }
 
             response = requests.get(url, headers=headers, params=params, timeout=30)
             response.raise_for_status()
 
             data = response.json()
-            if data.get('success'):
-                return data.get('transactions', [])
-            else:
-                _logger.error(f"Failed to get transactions: {data}")
+            trs = data.get('Transactions')
+            if not trs:
                 return []
+            return trs.get('Booked', [])
 
         except requests.exceptions.RequestException as e:
             _logger.error(f"Failed to get transactions: {e}")

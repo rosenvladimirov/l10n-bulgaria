@@ -61,6 +61,9 @@ class BankImportConfirmationWizard(models.TransientModel):
         # Start import process
         self.write({'status': 'validating'})
 
+        # Create InfoPay session
+        session_data = self._create_infopay_session()
+
         try:
             # Check for configured journals
             journals = self._get_configured_journals()
@@ -72,8 +75,6 @@ class BankImportConfirmationWizard(models.TransientModel):
                 'status_message': f"Found {len(journals)} configured journal(s). Connecting to InfoPay..."
             })
 
-            # Create InfoPay session
-            session_data = self._create_infopay_session()
             if not session_data:
                 raise UserError("Failed to create InfoPay session. Please check your credentials.")
 
@@ -119,8 +120,7 @@ class BankImportConfirmationWizard(models.TransientModel):
 
                 journal._import_bank_statement_custom()
 
-            # Cleanup session
-            self._cleanup_infopay_session(session_data)
+                booked_transactions.unlink()
 
             self.write({
                 'status': 'completed',
@@ -146,6 +146,9 @@ class BankImportConfirmationWizard(models.TransientModel):
                 'status_message': f"Import failed: {str(e)}"
             })
             raise UserError(f"Import failed: {str(e)}")
+        finally:
+            # Cleanup session
+            self._cleanup_infopay_session(session_data)
 
     def _validate_configuration(self):
         """Validate that InfoPay configuration is complete"""

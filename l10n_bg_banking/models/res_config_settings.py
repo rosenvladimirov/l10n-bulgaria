@@ -34,3 +34,18 @@ class ResConfigSettings(models.TransientModel):
                 'default_config_id': self.id,
             }
         }
+
+    def action_clear_transactions(self):
+        """Clear all imported transactions"""
+        transactions = self.env['bank.transaction'].search([])
+        count = len(transactions)
+        transactions.unlink()
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Transactions Cleared',
+                'message': f'Successfully deleted {count} transactions.',
+                'sticky': False,
+            }
+        }

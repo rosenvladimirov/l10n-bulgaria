@@ -139,7 +139,7 @@ class BankImportConfirmationWizard(models.TransientModel):
                 total_transactions += len(booked_transactions)
 
             for journal in journals:
-                journal._import_bank_statement_custom()
+                journal._import_bank_statement_infopay()
 
             self.write({
                 'status': 'completed',

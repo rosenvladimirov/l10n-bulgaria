@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit_l10n_bg_banking" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.l10n.bg.banking</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="InfoPay Banking Integration" string="InfoPay Banking Integration" name="l10n_bg_banking">
+                    <block title="Configuration" name="infopay_configuration">
+                        <setting id="infopay_api_settings" title="API Configuration" string="API Configuration" help="Configure InfoPay API connection settings">
+                            <div class="content-group">
+                                <div class="row">
+                                    <div class="col-lg-4 o_light_label">
+                                        <label for="infopay_api_url" string="API URL"/>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <field name="infopay_api_url" placeholder="https://integration.infopay.bg"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 o_light_label">
+                                        <label for="infopay_client_id" string="Client ID"/>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <field name="infopay_client_id" placeholder="Your Client ID"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 o_light_label">
+                                        <label for="infopay_access_token" string="Access Token"/>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <field name="infopay_access_token" password="True" placeholder="Your Access Token"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </setting>
+
+                        <setting id="infopay_import" title="Import" string="Import" help="Start the InfoPay import process">
+                            <div class="content-group">
+                                <div class="content-group mt8">
+                                    <button name="action_start_infopay_import" type="object" string="Start InfoPay Import" class="btn-success"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

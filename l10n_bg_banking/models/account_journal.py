@@ -1,48 +1,39 @@
 from odoo import models, tools, _
 from odoo.exceptions import UserError, RedirectWarning
+from odoo.addons.base.models.res_bank import sanitize_account_number
 
 
 class AccountJournal(models.Model):
     _inherit = 'account.journal'
 
-    def _import_bank_statement_custom(self, attachments):
+    def _import_bank_statement_custom(self):
+        """Custom bank statement import method for InfoPay integration"""
         statement_ids_all = []
         notifications_all = {}
-        errors = {}
+
         # Let the appropriate implementation module parse the file and return the required data
         # The active_id is passed in context in case an implementation module requires information about the wizard state (see QIF)
-        for attachment in attachments:
-            try:
-                currency_code, account_number, stmts_vals = self._parse_bank_statement_file_custom(attachment)
-                # Check raw data
-                self._check_parsed_data(stmts_vals, account_number)
-                # Try to find the currency and journal in odoo
-                journal = self._find_additional_data(currency_code, account_number)
-                # If no journal found, ask the user about creating one
-                if not journal.default_account_id:
-                    raise UserError(_('You have to set a Default Account for the journal: %s', journal.name))
-                # Prepare statement data to be used for bank statements creation
-                stmts_vals = self._complete_bank_statement_vals(stmts_vals, journal, account_number, attachment)
-                # Create the bank statements
-                statement_ids, dummy, notifications = self._create_bank_statements(stmts_vals)
-                statement_ids_all.extend(statement_ids)
+        currency_code, account_number, stmts_vals = self._parse_bank_statement_from_transactions()
+        # Check raw data
+        self._check_parsed_data(stmts_vals, account_number)
+        # Try to find the currency and journal in odoo
+        journal = self._find_additional_data(currency_code, account_number)
+        # If no journal found, ask the user about creating one
+        if not journal.default_account_id:
+            raise UserError(_('You have to set a Default Account for the journal: %s', journal.name))
+        # Prepare statement data to be used for bank statements creation
+        stmts_vals = self._complete_bank_statement_vals_custom(stmts_vals, journal, account_number)
+        # Create the bank statements
+        statement_ids, dummy, notifications = self._create_bank_statements(stmts_vals)
+        statement_ids_all.extend(statement_ids)
 
-                # Now that the import worked out, set it as the bank_statements_source of the journal
-                if journal.bank_statements_source != 'file_import':
-                    # Use sudo() because only 'account.group_account_manager'
-                    # has write access on 'account.journal', but 'account.group_account_user'
-                    # must be able to import bank statement files
-                    journal.sudo().bank_statements_source = 'file_import'
-
-                msg = ""
-                for notif in notifications:
-                    msg += (
-                        f"{notif['message']}"
-                    )
-                if notifications:
-                    notifications_all[attachment.name] = msg
-            except (UserError, RedirectWarning) as e:
-                errors[attachment.name] = e.args[0]
+        msg = ""
+        for notif in notifications:
+            msg += (
+                f"{notif['message']}"
+            )
+        if notifications:
+            notifications_all = msg
 
         statements = self.env['account.bank.statement'].browse(statement_ids_all)
         line_to_reconcile = statements.line_ids
@@ -62,17 +53,44 @@ class AccountJournal(models.Model):
             },
         )
 
-        if errors:
-            error_msg = _("The following files could not be imported:\n")
-            error_msg += "\n".join([f"- {attachment_name}: {msg}" for attachment_name, msg in errors.items()])
-            if statements:
-                self.env.cr.commit()  # save the correctly uploaded statements to the db before raising the errors
-                raise RedirectWarning(error_msg, result, _('View successfully imported statements'))
-            else:
-                raise UserError(error_msg)
         return result
 
-    def _parse_bank_statement_file_custom(self, attachment):
+    def _complete_bank_statement_vals_custom(self, stmts_vals, journal, account_number):
+        for st_vals in stmts_vals:
+            if not st_vals.get('reference'):
+                st_vals['reference'] = True
+            for line_vals in st_vals['transactions']:
+                line_vals['journal_id'] = journal.id
+                unique_import_id = line_vals.get('unique_import_id')
+                if unique_import_id:
+                    sanitized_account_number = sanitize_account_number(account_number)
+                    line_vals['unique_import_id'] = (
+                                                            sanitized_account_number and sanitized_account_number + '-' or '') + str(
+                        journal.id) + '-' + unique_import_id
+
+                if not line_vals.get('partner_bank_id'):
+                    # Find the partner and his bank account or create the bank account. The partner selected during the
+                    # reconciliation process will be linked to the bank when the statement is closed.
+                    identifying_string = line_vals.get('account_number')
+                    if identifying_string:
+                        if line_vals.get('partner_id'):
+                            partner_bank = self.env['res.partner.bank'].search([
+                                ('acc_number', '=', identifying_string),
+                                ('partner_id', '=', line_vals['partner_id'])
+                            ])
+                        else:
+                            partner_bank = self.env['res.partner.bank'].search([
+                                ('acc_number', '=', identifying_string),
+                                ('company_id', 'in', (False, journal.company_id.id))
+                            ])
+                        # If multiple partners share the same account number, do not try to guess and just avoid setting it
+                        if partner_bank and len(partner_bank) == 1:
+                            line_vals['partner_bank_id'] = partner_bank.id
+                            line_vals['partner_id'] = partner_bank.partner_id.id
+        return stmts_vals
+
+    def _parse_bank_statement_from_transactions(self):
+        """Parse bank statement from InfoPay transactions"""
         transactions = self.env['bank.transaction'].search([
             ('journal_id', '=', self.id)
         ])

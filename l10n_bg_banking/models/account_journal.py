@@ -8,42 +8,32 @@ class AccountJournal(models.Model):
 
     def _import_bank_statement_custom(self):
         """Custom bank statement import method for InfoPay integration"""
-        statement_ids_all = {}
+        statement_ids_all = []
         notifications_all = {}
 
         # Let the appropriate implementation module parse the file and return the required data
         # The active_id is passed in context in case an implementation module requires information about the wizard state (see QIF)
-        try:
-            currency_code, account_number, stmts_vals = self._parse_bank_statement_file_custom()
-            # Check raw data
-            self._check_parsed_data(stmts_vals, account_number)
-            # Try to find the currency and journal in odoo
-            journal = self._find_additional_data(currency_code, account_number)
-            # If no journal found, ask the user about creating one
-            if not journal.default_account_id:
-                raise UserError(_('You have to set a Default Account for the journal: %s', journal.name))
-            # Prepare statement data to be used for bank statements creation
-            stmts_vals = self._complete_bank_statement_vals_custom(stmts_vals, journal, account_number)
-            # Create the bank statements
-            statement_ids, dummy, notifications = self._create_bank_statements(stmts_vals)
-            statement_ids_all.extend(statement_ids)
+        currency_code, account_number, stmts_vals = self._parse_bank_statement_from_transactions()
+        # Check raw data
+        self._check_parsed_data(stmts_vals, account_number)
+        # Try to find the currency and journal in odoo
+        journal = self._find_additional_data(currency_code, account_number)
+        # If no journal found, ask the user about creating one
+        if not journal.default_account_id:
+            raise UserError(_('You have to set a Default Account for the journal: %s', journal.name))
+        # Prepare statement data to be used for bank statements creation
+        stmts_vals = self._complete_bank_statement_vals_custom(stmts_vals, journal, account_number)
+        # Create the bank statements
+        statement_ids, dummy, notifications = self._create_bank_statements(stmts_vals)
+        statement_ids_all.extend(statement_ids)
 
-            # Now that the import worked out, set it as the bank_statements_source of the journal
-            if journal.bank_statements_source != 'file_import':
-                # Use sudo() because only 'account.group_account_manager'
-                # has write access on 'account.journal', but 'account.group_account_user'
-                # must be able to import bank statement files
-                journal.sudo().bank_statements_source = 'file_import'
-
-            msg = ""
-            for notif in notifications:
-                msg += (
-                    f"{notif['message']}"
-                )
-            if notifications:
-                notifications_all = msg
-        except (UserError, RedirectWarning) as e:
-            errors = e.args[0]
+        msg = ""
+        for notif in notifications:
+            msg += (
+                f"{notif['message']}"
+            )
+        if notifications:
+            notifications_all = msg
 
         statements = self.env['account.bank.statement'].browse(statement_ids_all)
         line_to_reconcile = statements.line_ids
@@ -63,14 +53,6 @@ class AccountJournal(models.Model):
             },
         )
 
-        if errors:
-            error_msg = _("The following files could not be imported:\n")
-            error_msg += "\n".join([f"- {errors}"])
-            if statements:
-                self.env.cr.commit()  # save the correctly uploaded statements to the db before raising the errors
-                raise RedirectWarning(error_msg, result, _('View successfully imported statements'))
-            else:
-                raise UserError(error_msg)
         return result
 
     def _complete_bank_statement_vals_custom(self, stmts_vals, journal, account_number):
@@ -107,8 +89,8 @@ class AccountJournal(models.Model):
                             line_vals['partner_id'] = partner_bank.partner_id.id
         return stmts_vals
 
-    def _parse_bank_statement_file_custom(self):
-        """Parse bank statement file for InfoPay transactions"""
+    def _parse_bank_statement_from_transactions(self):
+        """Parse bank statement from InfoPay transactions"""
         transactions = self.env['bank.transaction'].search([
             ('journal_id', '=', self.id)
         ])

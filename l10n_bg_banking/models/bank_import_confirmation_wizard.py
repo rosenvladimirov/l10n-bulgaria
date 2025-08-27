@@ -27,6 +27,15 @@ def clean_dict_for_json(d):
         return d
 
 
+def get_configured_journals(env):
+    """Get all bank journals that have bank accounts with IBAN configured"""
+    return env['account.journal'].search([
+        ('type', '=', 'bank'),
+        ('bank_account_id', '!=', False),
+        ('bank_account_id.acc_number', '!=', False)
+    ])
+
+
 class BankImportConfirmationWizard(models.TransientModel):
     _name = 'bank.import.confirmation.wizard'
     _description = 'InfoPay Import Wizard'
@@ -61,22 +70,19 @@ class BankImportConfirmationWizard(models.TransientModel):
         # Start import process
         self.write({'status': 'validating'})
 
+        self.write({
+            'status': 'connecting',
+            'status_message': f"Connecting to InfoPay..."
+        })
         # Create InfoPay session
         session_data = self._create_infopay_session()
+        if not session_data:
+            raise UserError("Failed to create InfoPay session. Please check your credentials.")
 
         try:
-            # Check for configured journals
-            journals = self._get_configured_journals()
-            if not journals:
-                raise UserError("No bank journals with IBAN configured found. Please configure bank journals first.")
-
-            self.write({
-                'status': 'connecting',
-                'status_message': f"Found {len(journals)} configured journal(s). Connecting to InfoPay..."
-            })
-
-            if not session_data:
-                raise UserError("Failed to create InfoPay session. Please check your credentials.")
+            configured_journals = get_configured_journals(self.env)
+            if not configured_journals:
+                raise UserError("No journals are configured for InfoPay import. Please configure at least one journal.")
 
             self.write({
                 'status': 'importing',
@@ -84,10 +90,24 @@ class BankImportConfirmationWizard(models.TransientModel):
             })
 
             # Import transactions for each journal
+            accounts = self._get_accounts_list(session_data)
+
+            # Refresh balances and transactions
+            self.refresh_balances_and_transactions(session_data, accounts)
+
+            # Wait a bit for the transactions to be available
             total_transactions = 0
-            for journal in journals:
-                booked_transactions = self._import_transactions_for_journal(journal, session_data)
-                iban = journal.bank_account_id.acc_number.replace(' ', '')
+            journals = []
+            for account in accounts:
+                iban = account.get('IBAN')
+                journal = next((j for j in configured_journals if
+                                j.bank_account_id and j.bank_account_id.acc_number.replace(' ', '') == iban), False)
+                if not journal:
+                    continue
+
+                journals.append(journal)
+
+                booked_transactions = self._get_transactions(session_data, account)
                 for tx in booked_transactions:
                     transaction_amount = tx.get('TransactionAmount', {})
 
@@ -118,9 +138,8 @@ class BankImportConfirmationWizard(models.TransientModel):
 
                 total_transactions += len(booked_transactions)
 
+            for journal in journals:
                 journal._import_bank_statement_custom()
-
-                booked_transactions.unlink()
 
             self.write({
                 'status': 'completed',
@@ -160,14 +179,6 @@ class BankImportConfirmationWizard(models.TransientModel):
 
         if not self.config_id.infopay_access_token:
             raise UserError("InfoPay Access Token is not configured.")
-
-    def _get_configured_journals(self):
-        """Get all bank journals that have bank accounts with IBAN configured"""
-        return self.env['account.journal'].search([
-            ('type', '=', 'bank'),
-            ('bank_account_id', '!=', False),
-            ('bank_account_id.acc_number', '!=', False)
-        ])
 
     def _create_infopay_session(self):
         """Create a new session with Infopay API"""
@@ -224,81 +235,53 @@ class BankImportConfirmationWizard(models.TransientModel):
         except Exception as e:
             _logger.warning(f"Failed to cleanup InfoPay session: {e}")
 
-    def _import_transactions_for_journal(self, journal, session_data):
-        """Import transactions for a specific journal"""
-        try:
-            # Get account list for this journal's IBAN
-            accounts = self._get_accounts_list(session_data, journal.bank_account_id.acc_number.replace(' ', ''))
-
-            transactions = []
-            for account in accounts:
-                account_transactions = self._get_transactions(session_data, account, journal)
-                transactions.extend(account_transactions)
-
-            return transactions
-
-        except Exception as e:
-            _logger.error(f"Failed to import transactions for journal {journal.name}: {e}")
-            raise UserError(f"Failed to import transactions for journal {journal.name}: {e}")
-
-    def _get_accounts_list(self, session_data, iban):
+    def _get_accounts_list(self, session_data):
         """Get list of accounts from InfoPay"""
-        try:
-            url = f"{self.config_id.infopay_api_url}/api/accounts"
-            headers = {
-                "accept": "application/json",
-                "Content-Type": "application/json",
-                "User-Agent": "curl/7.68.0",
-                'sessionId': session_data['sessionId'],
-                'sessionKey': session_data['sessionKey']
-            }
+        url = f"{self.config_id.infopay_api_url}/api/accounts"
+        headers = {
+            "accept": "application/json",
+            "Content-Type": "application/json",
+            "User-Agent": "curl/7.68.0",
+            'sessionId': session_data['sessionId'],
+            'sessionKey': session_data['sessionKey']
+        }
 
-            response = requests.get(url, headers=headers, timeout=30)
-            response.raise_for_status()
+        response = requests.get(url, headers=headers, timeout=30)
+        response.raise_for_status()
 
-            data = response.json()
-            accounts = data.get('Accounts', [])
-            if iban:
-                accounts = [acc for acc in accounts if acc.get('IBAN') == iban]
-            return accounts
+        data = response.json()
+        accounts = data.get('Accounts', [])
+        return accounts
 
-        except requests.exceptions.RequestException as e:
-            _logger.error(f"Failed to get accounts list: {e}")
-            return []
-
-    def _get_transactions(self, session_data, account, journal):
+    def _get_transactions(self, session_data, account):
         """Get transactions for a specific account and period"""
-        try:
-            url = f"{self.config_id.infopay_api_url}/api/accounts/{account.get('AccountId')}/transactions"
-            headers = {
-                "accept": "application/json",
-                "Content-Type": "application/json",
-                "User-Agent": "curl/7.68.0",
-                'sessionId': session_data['sessionId'],
-                'sessionKey': session_data['sessionKey']
-            }
+        url = f"{self.config_id.infopay_api_url}/api/accounts/{account.get('AccountId')}/transactions"
+        headers = {
+            "accept": "application/json",
+            "Content-Type": "application/json",
+            "User-Agent": "curl/7.68.0",
+            'sessionId': session_data['sessionId'],
+            'sessionKey': session_data['sessionKey']
+        }
 
-            # Use very old start date (1900-01-01) and current date for end date
-            start_date = datetime.date(1900, 1, 1)
-            end_date = datetime.date.today()
+        # Use very old start date (1900-01-01) and current date for end date
+        beginning_of_current_month = datetime.date.today().replace(day=1)
+        end_date = datetime.date.today()
+        start_date = (beginning_of_current_month - datetime.timedelta(days=1)).replace(day=1)
 
-            params = {
-                'dateFrom': start_date.strftime('%Y-%m-%d'),
-                'dateTo': end_date.strftime('%Y-%m-%d')
-            }
+        params = {
+            'dateFrom': start_date.strftime('%Y-%m-%d'),
+            'dateTo': end_date.strftime('%Y-%m-%d')
+        }
 
-            response = requests.get(url, headers=headers, params=params, timeout=30)
-            response.raise_for_status()
+        response = requests.get(url, headers=headers, params=params, timeout=30)
+        response.raise_for_status()
 
-            data = response.json()
-            trs = data.get('Transactions')
-            if not trs:
-                return []
-            return trs.get('Booked', [])
-
-        except requests.exceptions.RequestException as e:
-            _logger.error(f"Failed to get transactions: {e}")
+        data = response.json()
+        trs = data.get('Transactions')
+        if not trs:
             return []
+        return trs.get('Booked', [])
 
     def action_cancel(self):
         """Cancel the import operation"""
@@ -308,3 +291,24 @@ class BankImportConfirmationWizard(models.TransientModel):
         """Retry the import operation"""
         self.write({'status': 'draft', 'status_message': ''})
         return self.action_confirm_import()
+
+    def refresh_balances_and_transactions(self, session_data, accounts):
+        url = f"{self.config_id.infopay_api_url}/api/synchronizations/balancesAndTransactions/refresh"
+
+        headers = {
+            "accept": "application/json",
+            "Content-Type": "application/json",
+            "User-Agent": "curl/7.68.0",
+            'sessionId': session_data['sessionId'],
+            'sessionKey': session_data['sessionKey']
+        }
+
+        account_ids = [acc.get('AccountId') for acc in accounts if acc.get('AccountId')]
+
+        data = {
+            "AccountIds": account_ids
+        }
+
+        response = requests.post(url, headers=headers, json=data, timeout=30)
+        response.raise_for_status()
+

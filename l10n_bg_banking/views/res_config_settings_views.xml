@@ -41,7 +41,6 @@
                             <div class="content-group">
                                 <div class="content-group mt8">
                                     <button name="action_start_infopay_import" type="object" string="Start InfoPay Import" class="btn-success"/>
-                                    <button name="action_clear_transactions" type="object" string="Clear Imported Transactions" class="btn-secondary ml8"/>
                                 </div>
                             </div>
                         </setting>

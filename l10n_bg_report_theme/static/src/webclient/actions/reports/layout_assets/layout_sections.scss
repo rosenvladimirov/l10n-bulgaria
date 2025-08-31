@@ -252,3 +252,102 @@ strong {
         }
     }
 }
+.o_sections_signatures {
+    color: $o-default-report-base-color;
+    margin-top: 10mm;
+
+    .alert {
+        background-color: transparent !important;
+        border: none;
+        margin-bottom: 0;
+
+        h6 {
+            color: $o-default-report-primary-color;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+
+            i {
+                margin-right: 5px;
+            }
+        }
+    }
+
+    table {
+        border: 1px solid $o-default-report-border-color;
+        background-color: transparent !important;
+
+        // Apply the same table display fixes as other tables
+        display: table !important;
+        grid-template-columns: none !important;
+        width: 100% !important;
+        border-collapse: collapse !important;
+        border-spacing: 0 !important;
+
+        thead {
+            display: table-header-group !important;
+            background-color: rgba($o-default-report-primary-color, 0.1);
+
+            .o_signatures_column_header {
+                font-weight: 600;
+                border: 1px solid $o-default-report-border-color;
+                text-transform: uppercase;
+                color: $o-default-report-base-color;
+                background-color: rgba($o-default-report-primary-color, 0.1) !important;
+                padding: 8px !important;
+                text-align: center;
+                width: 50%;
+            }
+        }
+
+        tbody {
+            display: table-row-group !important;
+            color: $o-default-report-base-color;
+
+            tr {
+                display: table-row !important;
+                border: none;
+
+                &.o_signatures_row {
+                    height: 120px;
+                    vertical-align: bottom;
+                }
+
+                td {
+                    display: table-cell !important;
+                    border: 1px solid rgba($o-default-report-border-color, 0.5);
+                    padding: 8px !important;
+                    vertical-align: top !important;
+
+                    &.text-center {
+                        text-align: center;
+                    }
+
+                    &.text-end {
+                        text-align: right;
+                    }
+
+                    strong {
+                        color: $o-default-report-primary-color;
+                        font-weight: 600;
+                    }
+
+                    small {
+                        font-size: 8px;
+                        color: $o-default-report-base-color;
+
+                        &.o_signatures_date {
+                            font-size: 9px;
+                        }
+                    }
+
+                    .o_signatures_field {
+                        margin-top: 80px;
+                        border-top: 1px solid $o-default-report-border-color;
+                        padding-top: 5px;
+                    }
+                }
+            }
+        }
+    }
+}

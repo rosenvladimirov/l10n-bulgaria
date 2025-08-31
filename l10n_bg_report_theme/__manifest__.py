@@ -19,6 +19,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "security/security.xml",
         "views/report_templates.xml",
         "data/report_layout.xml",
         "data/report_paperformat_data.xml",

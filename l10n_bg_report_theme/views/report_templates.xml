@@ -82,9 +82,9 @@
         </div>
     </template>
     <template id="deal_partner">
-<!--         t-value="'SUPPLIER'"-->
+        <!-- t-value="'SUPPLIER'"-->
         <t t-set="sender_name">SUPPLIER</t>
-<!--        t-value="'CUSTOMER'"-->
+        <!--        t-value="'CUSTOMER'"-->
         <t t-set="recipient_name">CUSTOMER</t>
         <t t-if="reverce">
             <t t-if="sender">
@@ -212,6 +212,94 @@
                 </h6>
             </div>
         </div>
+        <div class="row o_sections_name" t-if="original_copies">
+            <div class="col-8"></div>
+            <div class="col-4">
+                <h6>
+                    <span t-esc="original_copies" />
+                </h6>
+            </div>
+        </div>
+    </template>
+    <template id="signatures_section">
+        <!-- Signatures control section - only for group_control_signatures -->
+        <div class="row mt8 o_sections_signatures" name="signatures_section"
+             groups="l10n_bg_report_theme.group_control_signatures">
+            <!-- Set variables for labels -->
+            <t t-set="representative_label" t-if="not representative_label">Representative</t>
+            <t t-set="user_label" t-if="not user_label">User</t>
+            <t t-set="name_and_surname_label" t-if="not name_and_surname_label">Name and Surname</t>
+            <t t-set="signature_and_stamp_label" t-if="not signature_and_stamp_label">Signature and Stamp</t>
+            <t t-set="user_id_label" t-if="not user_id_label">User ID</t>
+            <t t-set="date_label" t-if="not date_label">Date</t>
+            <t t-set="not_specified_label" t-if="not not_specified_label">Not specified</t>
+            <t t-set="parties_signatures_title" t-if="not parties_signatures_title">Parties Signatures</t>
+            <t t-set="signature_placeholder" t-if="not signature_placeholder">____________________</t>
+
+            <div class="col-12" name="signatures_control">
+                <div class="alert alert-secondary">
+                    <h6><i class="fa fa-pencil"/> <t t-esc="parties_signatures_title"/></h6>
+                    <table class="table table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="o_signatures_column_header text-center" t-esc="recipient_name" />
+                                <th class="o_signatures_column_header text-center" t-esc="sender_name" />
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Display names from the system -->
+                            <tr t-if="o.partner_shipping_id or o.partner_id.l10n_bg_represent_contact_id">
+                                <td class="text-center">
+                                    <strong t-esc="representative_label"/>:<br/>
+                                    <span t-if="o.partner_shipping_id" t-esc="o.partner_shipping_id.name"/>
+                                    <span t-elif="o.partner_id.l10n_bg_represent_contact_id" t-esc="o.partner_id.l10n_bg_represent_contact_id.name"/>
+                                    <span t-else="" t-esc="not_specified_label"/>
+                                </td>
+                                <td class="text-center">
+                                    <strong t-esc="user_label"/>:<br/>
+                                    <span t-esc="o.env.user.name"/> (<t t-esc="user_id_label"/>: <span t-esc="o.env.user.id"/>)
+                                </td>
+                            </tr>
+
+                            <!-- Signature fields -->
+                            <tr class="o_signatures_row">
+                                <td class="text-center">
+                                    <div class="o_signatures_field">
+                                        <small>
+                                            <t t-esc="name_and_surname_label"/>:
+                                            <span t-if="o.partner_shipping_id" t-esc="o.partner_shipping_id.name"/>
+                                            <span t-elif="o.partner_id.l10n_bg_represent_contact_id" t-esc="o.partner_id.l10n_bg_represent_contact_id.name"/>
+                                            <span t-else="" t-esc="signature_placeholder"/>
+                                            <br/>
+                                            <t t-esc="signature_and_stamp_label"/>: <t t-esc="signature_placeholder"/>
+                                        </small>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="o_signatures_field">
+                                        <small>
+                                            <t t-esc="name_and_surname_label"/>: <span t-esc="o.env.user.name"/>
+                                            <br/>
+                                            <t t-esc="user_id_label"/>: <span t-esc="o.env.user.id"/>
+                                        </small>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Date in bottom right corner -->
+                            <tr>
+                                <td></td>
+                                <td class="text-end">
+                                    <small class="o_signatures_date">
+                                        <t t-esc="date_label"/>: <span t-esc="datetime.datetime.now().strftime('%d/%m/%Y')" />
+                                    </small>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </template>
     <template id="external_layout_sections">
         <t t-set="header_shape_height" t-value="'174'"/>
@@ -300,6 +388,12 @@
                 t-if="(no_deal_partner and sender and recipient)"
             />
             <t t-out="0" />
+            <t
+                name="signatures_section"
+                t-call="l10n_bg_report_theme.signatures_section"
+                t-if="issuer_name and representative_name"
+                groups="l10n_bg_report_theme.group_control_signatures"
+            />
         </div>
 
         <t t-set="layout_background_footer_url"

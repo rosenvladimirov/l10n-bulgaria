@@ -18,6 +18,7 @@
         'views/report_invoice_copy.xml',
     ],
     'demo': [],
+    "license": "AGPL-3",
     'installable': True,
     'application': False,
     'auto_install': False,

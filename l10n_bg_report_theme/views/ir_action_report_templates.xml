@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="report_saleorder_raw" inherit_id="sale.report_saleorder_raw">
+    <template id="report_saleorder_raw" inherit_id="sale.report_saleorder_raw" active="False">
         <xpath expr="//t[@t-call='sale.report_saleorder_document']" position="before">
             <t t-set="o" t-value="doc" />
         </xpath>
@@ -50,6 +50,6 @@
                 <t t-set="name_date" t-value="''" />
             </t>
         </xpath>
-        <xpath expr="//t[@t-set='layout_document_title']" position="replace" t-if="company.is_l10n_bg_record"/>
+        <xpath expr="//t[@t-set='layout_document_title']" position="replace"/>
     </template>
 </odoo>

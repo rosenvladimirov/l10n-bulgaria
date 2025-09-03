@@ -391,7 +391,7 @@
             <t
                 name="signatures_section"
                 t-call="l10n_bg_report_theme.signatures_section"
-                t-if="issuer_name and representative_name"
+                t-if="sender and recipient"
                 groups="l10n_bg_report_theme.group_control_signatures"
             />
         </div>

@@ -85,7 +85,7 @@ msgstr "API ключ за допълнителни функционалност�
 #. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_account_chart_template
 msgid "Account Chart Template"
-msgstr "Шаблон на сметкоплан"
+msgstr "Шаблон за схема на сметката"
 
 #. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_account_account_tag
@@ -394,7 +394,7 @@ msgstr "Настой добавки"
 #. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_res_config_settings
 msgid "Config Settings"
-msgstr "Настройки на конфигурацията"
+msgstr "Конфигурационни настройки"
 
 #. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_config_template
@@ -616,7 +616,7 @@ msgstr "Това е специфичен запис за България"
 #. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_account_move
 msgid "Journal Entry"
-msgstr "Счетоводен запис"
+msgstr "Записи в дневника"
 
 #. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__write_uid

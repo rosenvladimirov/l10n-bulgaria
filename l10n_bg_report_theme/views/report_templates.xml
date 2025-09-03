@@ -254,16 +254,15 @@
                         </thead>
                         <tbody>
                             <!-- Display names from the system -->
-                            <tr t-if="o.partner_shipping_id or o.partner_id.l10n_bg_represent_contact_id">
+                            <tr t-if="recipient.l10n_bg_represent_contact_id">
                                 <td class="text-center">
                                     <strong t-esc="representative_label"/>:<br/>
-                                    <span t-if="o.partner_shipping_id" t-field="o.partner_shipping_id"/>
-                                    <span t-elif="recipient.l10n_bg_represent_contact_id" t-field="recipient.l10n_bg_represent_contact_id"/>
+                                    <span t-if="recipient.l10n_bg_represent_contact_id" t-field="recipient.l10n_bg_represent_contact_id"/>
                                     <span t-else="" t-esc="not_specified_label"/>
                                 </td>
                                 <td class="text-center">
-                                    <strong t-esc="user_label"/>:<br/>
-                                    <span t-esc="recipient.l10n_bg_represent_contact_id.name"/> (<t t-esc="user_id_label"/>: <span t-esc="recipient.l10n_bg_represent_contact_id.id"/>)
+                                    <strong t-esc="name_and_surname_label"/>:<br/>
+                                    <span t-esc="sender.l10n_bg_represent_contact_id.name"/> (<t t-esc="user_label"/>: <span t-esc="sender.l10n_bg_represent_contact_id.id"/>)
                                 </td>
                             </tr>
 
@@ -273,7 +272,7 @@
                                     <div class="o_signatures_field">
                                         <small>
                                             <t t-esc="name_and_surname_label"/>:
-                                            <span t-if="sender.l10n_bg_represent_contact_id" t-esc="sender.l10n_bg_represent_contact_id"/>
+                                            <span t-if="recipient.l10n_bg_represent_contact_id" t-esc="recipient.l10n_bg_represent_contact_id.name"/>
                                             <span t-else="" t-esc="signature_placeholder"/>
                                             <br/>
                                             <t t-esc="signature_and_stamp_label"/>: <t t-esc="signature_placeholder"/>
@@ -283,7 +282,7 @@
                                 <td class="text-center">
                                     <div class="o_signatures_field">
                                         <small>
-                                            <t t-esc="name_and_surname_label"/>: <span t-esc="o.env.user.name"/>
+                                            <t t-esc="user_label"/>: <span t-esc="o.env.user.name"/>
                                             <br/>
                                             <t t-esc="user_id_label"/>: <span t-esc="o.env.user.id"/>
                                         </small>
@@ -293,8 +292,7 @@
 
                             <!-- Date in bottom right corner -->
                             <tr>
-                                <td></td>
-                                <td class="text-end">
+                                <td colspan="2" class="text-end">
                                     <small class="o_signatures_date">
                                         <t t-esc="date_label"/>: <span t-esc="datetime.datetime.now().strftime('%d/%m/%Y')" />
                                     </small>

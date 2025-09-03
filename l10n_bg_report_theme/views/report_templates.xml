@@ -257,13 +257,13 @@
                             <tr t-if="o.partner_shipping_id or o.partner_id.l10n_bg_represent_contact_id">
                                 <td class="text-center">
                                     <strong t-esc="representative_label"/>:<br/>
-                                    <span t-if="o.partner_shipping_id" t-esc="o.partner_shipping_id.name"/>
-                                    <span t-elif="o.partner_id.l10n_bg_represent_contact_id" t-esc="o.partner_id.l10n_bg_represent_contact_id.name"/>
+                                    <span t-if="o.partner_shipping_id" t-field="o.partner_shipping_id"/>
+                                    <span t-elif="recipient.l10n_bg_represent_contact_id" t-field="recipient.l10n_bg_represent_contact_id"/>
                                     <span t-else="" t-esc="not_specified_label"/>
                                 </td>
                                 <td class="text-center">
                                     <strong t-esc="user_label"/>:<br/>
-                                    <span t-esc="o.env.user.name"/> (<t t-esc="user_id_label"/>: <span t-esc="o.env.user.id"/>)
+                                    <span t-esc="recipient.l10n_bg_represent_contact_id.name"/> (<t t-esc="user_id_label"/>: <span t-esc="recipient.l10n_bg_represent_contact_id.id"/>)
                                 </td>
                             </tr>
 
@@ -273,8 +273,7 @@
                                     <div class="o_signatures_field">
                                         <small>
                                             <t t-esc="name_and_surname_label"/>:
-                                            <span t-if="o.partner_shipping_id" t-esc="o.partner_shipping_id.name"/>
-                                            <span t-elif="o.partner_id.l10n_bg_represent_contact_id" t-esc="o.partner_id.l10n_bg_represent_contact_id.name"/>
+                                            <span t-if="sender.l10n_bg_represent_contact_id" t-esc="sender.l10n_bg_represent_contact_id"/>
                                             <span t-else="" t-esc="signature_placeholder"/>
                                             <br/>
                                             <t t-esc="signature_and_stamp_label"/>: <t t-esc="signature_placeholder"/>

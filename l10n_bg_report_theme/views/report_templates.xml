@@ -138,17 +138,9 @@
                         </tr>
                         <tr name="cites">
                             <td class="o_selection_custom_name">Address: </td>
-                            <td><span t-field="recipient.zip" /> <span
-                                    t-field="recipient.city"
-                                /><span t-if="recipient.country_id">, <span
-                                        t-field="recipient.country_id"
-                                    /></span></td>
+                            <td><span t-field="recipient.zip" /> <span t-if="'city_id' not in recipient._fields" t-field="recipient.city"/> <span t-if="'city_id' in recipient._fields" t-field="recipient.city_id"/> <span t-if="recipient.country_id">, <span t-field="recipient.country_id"/></span></td>
                             <td class="o_selection_custom_name">Address: </td>
-                            <td><span t-field="sender.zip" /> <span
-                                    t-field="sender.city"
-                                /><span t-if="sender.country_id">, <span
-                                        t-field="sender.country_id"
-                                    /></span></td>
+                            <td><span t-field="sender.zip" /> <span t-if="'city_id' not in sender._fields" t-field="sender.city"/> <span t-if="'city_id' in sender._fields" t-field="sender.city_id"/> <span t-if="sender.country_id">, <span t-field="sender.country_id"/></span></td>
                         </tr>
                         <tr name="addresses">
                             <t t-if="recipient.street">
@@ -190,6 +182,20 @@
                                         t-esc="sender_vat_label"
                                     />: </td>
                                 <td><span t-field="sender.vat" /></td>
+                            </t>
+                            <t t-else=""><td /><td /></t>
+                        </tr>
+                         <tr name="represent" groups="l10n_bg_report_theme.group_control_represent_person">
+                            <t t-if="recipient.l10n_bg_represent_contact_id">
+                                <td class="o_selection_custom_name">Represent contact: </td>
+                                <td><span t-field="recipient.l10n_bg_represent_contact_id"/></td>
+                            </t>
+                            <t t-else="">
+                                <td /><td />
+                            </t>
+                            <t t-if="sender.l10n_bg_represent_contact_id">
+                                <td class="o_selection_custom_name">Represent contact: </td>
+                                <td><span t-field="sender.l10n_bg_represent_contact_id"/></td>
                             </t>
                             <t t-else=""><td /><td /></t>
                         </tr>

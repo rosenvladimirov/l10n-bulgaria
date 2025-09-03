@@ -44,16 +44,11 @@
             <field name="comment">Users who can view and control deal dates in documents</field>
         </record>
 
-        <!-- Group for full report control -->
-        <record id="group_full_report_control" model="res.groups">
-            <field name="name">Full Report Control</field>
+        <!-- Group for represent person control -->
+        <record id="group_control_represent_person" model="res.groups">
+            <field name="name">Represent Person Control</field>
             <field name="category_id" ref="category_l10n_bg_report_theme"/>
-            <field name="comment">Users with full access to all report control features</field>
-            <field name="implied_ids" eval="[(4, ref('group_control_due_date')),
-                                              (4, ref('group_control_delivery_date')),
-                                              (4, ref('group_control_signatures')),
-                                              (4, ref('group_control_date_format')),
-                                              (4, ref('l10n_bg_deal_date'))]"/>
+            <field name="comment">Users who can view and control represent person information in documents</field>
         </record>
 
     </data>

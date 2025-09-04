@@ -34,27 +34,31 @@
     This module is essential for Bulgarian companies to comply with local labor regulations
     and properly classify employees according to Bulgarian standards.
         """,
-    'author': 'Your Company',
-    'website': 'https://github.com/your-company',
-    'license': 'AGPL-3',
+    'author': 'Rosen Vladimirov',
+    'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
+    'license': 'LGPL-3',
     'depends': [
         'base',
         'hr',
         'hr_contract',
     ],
-    'external_dependencies': {
-        'python': [],
-    },
     'data': [
         'security/ir.model.access.csv',
         'data/bg_nkpd_classifications.csv',
         'data/bg_mod_economic_activities.csv',
-        'views/hr_menus.xml',
         'views/bg_nkpd_classification.xml',
         'views/bg_mod_economic_activity.xml',
+        'views/hr_menus.xml',
+    ],
+    'images': [
+        'static/description/banner.png',
+        'static/description/icon.png',
     ],
     'demo': [],
     'installable': True,
     'auto_install': False,
     'application': False,
+    'maintainers': ['rosenvladimirov'],
+    'contributors': ['Rosen Vladimirov'],
+    'support': 'https://github.com/rosenvladimirov/l10n-bulgaria/issues',
 }

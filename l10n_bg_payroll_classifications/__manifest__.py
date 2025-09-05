@@ -44,8 +44,8 @@
     ],
     'data': [
         'security/ir.model.access.csv',
-        'data/bg_ncop_classifications.csv',
-        'data/bg_mod_economic_activities.csv',
+        'data/bg.hr.payroll.economic.activity.csv',
+        'data/bg.hr.payroll.ncop.classification.csv',
         'views/bg_ncop_classification.xml',
         'views/bg_mod_economic_activity.xml',
         'views/hr_menus.xml',

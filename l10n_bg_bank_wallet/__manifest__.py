@@ -52,6 +52,7 @@ Supported Key Types:
         'web',
     ],
     'data': [
+        'security/l10n_bg_crypto_wallet.xml',
         'security/ir.model.access.csv',
         'data/l10n_bank_wallet.xml',
         'views/l10n_bg_crypto_wallet.xml',

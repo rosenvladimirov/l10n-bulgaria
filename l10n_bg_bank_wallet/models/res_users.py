@@ -1,5 +1,19 @@
+import logging
+
+from odoo import models, fields
+
+_logger = logging.getLogger(__name__)
+
+
 class Users(models.Model):
     _inherit = 'res.users'
+
+    crypto_wallet_ids = fields.One2many(
+        'crypto.wallet',
+        'user_id',
+        string='Crypto Wallets',
+        help='Криптирани портфейли на потребителя'
+    )
 
     @classmethod
     def _check_credentials(cls, env, credential):

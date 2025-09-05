@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Категория за групи -->
+        <record id="module_crypto_wallet_category" model="ir.module.category">
+            <field name="name">Crypto Wallet</field>
+            <field name="description">Управление на криптографски портфейли</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <!-- Основни групи за достъп -->
+
+        <!-- Група за четене -->
+        <record id="group_crypto_wallet_read" model="res.groups">
+            <field name="name">Crypto Wallet - Четене</field>
+            <field name="category_id" ref="module_crypto_wallet_category"/>
+            <field name="comment">Може да чете и разглежда ключове от портфейли</field>
+        </record>
+
+        <!-- Група за писане -->
+        <record id="group_crypto_wallet_write" model="res.groups">
+            <field name="name">Crypto Wallet - Писане</field>
+            <field name="category_id" ref="module_crypto_wallet_category"/>
+            <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_read'))]"/>
+            <field name="comment">Може да създава, редактира и премахва ключове в портфейли</field>
+        </record>
+
+        <!-- Група за администрация -->
+        <record id="group_crypto_wallet_admin" model="res.groups">
+            <field name="name">Crypto Wallet - Администратор</field>
+            <field name="category_id" ref="module_crypto_wallet_category"/>
+            <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_write'))]"/>
+            <field name="comment">Пълни права за управление на портфейли, включително промяна на пароли и почистване на файлове</field>
+        </record>
+
+        <!-- Група за генериране на ключове -->
+        <record id="group_crypto_wallet_generate" model="res.groups">
+            <field name="name">Crypto Wallet - Генериране</field>
+            <field name="category_id" ref="module_crypto_wallet_category"/>
+            <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_write'))]"/>
+            <field name="comment">Може да генерира криптографски ключове (RSA, EC)</field>
+        </record>
+
+        <!-- Група за експорт -->
+        <record id="group_crypto_wallet_export" model="res.groups">
+            <field name="name">Crypto Wallet - Експорт</field>
+            <field name="category_id" ref="module_crypto_wallet_category"/>
+            <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_read'))]"/>
+            <field name="comment">Може да експортира портфейли за backup</field>
+        </record>
+
+        <!-- Правила за достъп до записи -->
+
+        <!-- Правило за собствени портфейли -->
+        <record id="crypto_wallet_own_records_rule" model="ir.rule">
+            <field name="name">Own Crypto Wallets</field>
+            <field name="model_id" ref="model_crypto_wallet"/>
+            <field name="domain_force">[('user_id', '=', user.id)]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="groups" eval="[(4, ref('group_crypto_wallet_read'))]"/>
+        </record>
+
+        <!-- Правило за администратори -->
+        <record id="crypto_wallet_admin_rule" model="ir.rule">
+            <field name="name">Admin Access to All Wallets</field>
+            <field name="model_id" ref="model_crypto_wallet"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="groups" eval="[(4, ref('group_crypto_wallet_admin'))]"/>
+        </record>
+
+        <!-- Правила за разрешения -->
+
+        <!-- Правило за собствени разрешения -->
+        <record id="crypto_wallet_permission_own_rule" model="ir.rule">
+            <field name="name">Own Crypto Wallet Permissions</field>
+            <field name="model_id" ref="model_crypto_wallet_permission"/>
+            <field name="domain_force">['|', ('user_id', '=', user.id), '|', ('wallet_id.user_id', '=', user.id), ('granted_by', '=', user.id)]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="groups" eval="[(4, ref('group_crypto_wallet_read'))]"/>
+        </record>
+
+        <!-- Правило за администратори на разрешения -->
+        <record id="crypto_wallet_permission_admin_rule" model="ir.rule">
+            <field name="name">Admin Access to All Permissions</field>
+            <field name="model_id" ref="model_crypto_wallet_permission"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="groups" eval="[(4, ref('group_crypto_wallet_admin'))]"/>
+        </record>
+
+        <!-- Присвояване на права на потребители по подразбиране -->
+
+        <!-- Основните потребители получават права за четене -->
+        <record id="base.group_user" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_read'))]"/>
+        </record>
+
+        <!-- Мениджърите получават права за писане -->
+        <record id="base.group_system" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_admin'))]"/>
+        </record>
+
+    </data>
+</odoo>

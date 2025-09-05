@@ -3,6 +3,8 @@ import os
 import json
 import base64
 import uuid
+
+from datetime import datetime
 from pathlib import Path
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
@@ -190,8 +192,8 @@ class CryptoWallet(models.Model):
                 'name': file_path.name,
                 'path': str(file_path),
                 'size': stat.st_size,
-                'created': fields.Datetime.from_timestamp(stat.st_ctime),
-                'modified': fields.Datetime.from_timestamp(stat.st_mtime),
+                'created': datetime.fromtimestamp(stat.st_ctime),
+                'modified': datetime.fromtimestamp(stat.st_mtime),
                 'permissions': oct(stat.st_mode)[-3:]
             })
 

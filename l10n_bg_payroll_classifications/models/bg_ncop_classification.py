@@ -5,37 +5,37 @@ from odoo.exceptions import ValidationError
 
 
 class BGNCOPClassification(models.Model):
-    _name = 'bg.ncop.classification'
+    _name = 'bg.hr.payroll.ncop.classification'
     _description = 'Bulgarian NCOP Classification 2011'
     _order = 'code'
 
     name = fields.Char(string='Position Name', required=True, translate=True)
     code = fields.Char(string='NKPD Code', required=True, index=True,
                        help='8-digit NKPD code')
-    parent_id = fields.Many2one('bg.ncop.classification', string='Parent Position')
-    child_ids = fields.One2many('bg.ncop.classification', 'parent_id', string='Child Positions')
+    parent_id = fields.Many2one('bg.hr.payroll.ncop.classification', string='Parent Position')
+    child_ids = fields.One2many('bg.hr.payroll.ncop.classification', 'parent_id', string='Child Positions')
     active = fields.Boolean(string='Active', default=True)
 
     level = fields.Selection([
-        ('class', 'Class (Клас)'),
-        ('sub_class', 'Sub-class (Подклас)'),
-        ('unit_group', 'Unit Group (Група)'),
-        ('occupation', 'Occupation (Единична група)')
+        ('class', 'Class'),
+        ('sub_class', 'Sub-class'),
+        ('unit_group', 'Unit Group'),
+        ('occupation', 'Occupation')
     ], string='Level', required=True,
-        help='Hierarchical level in NKPD structure')
+        help='Hierarchical level in NCOP structure')
 
     # Qualification group mapping for MOD calculation
     qualification_group = fields.Selection([
-        ('manager', 'Managers (Ръководители)'),
-        ('specialist', 'Specialists (Специалисти)'),
-        ('technician', 'Technicians (Техници)'),
-        ('clerk', 'Clerks (Помощен административен персонал)'),
-        ('service', 'Service Workers (Работници, заети с услуги)'),
-        ('skilled', 'Skilled Workers (Квалифицирани работници)'),
-        ('operator', 'Machine Operators (Машинисти и оператори)'),
-        ('elementary', 'Elementary Occupations (Професии, неизискващи квалификация)')
+        ('manager', 'Managers'),
+        ('specialist', 'Specialists'),
+        ('technician', 'Technicians'),
+        ('clerk', 'Clerks'),
+        ('service', 'Service Workers'),
+        ('skilled', 'Skilled Workers'),
+        ('operator', 'Machine Operators'),
+        ('elementary', 'Elementary Occupations')
     ], string='Qualification Group',
-        help='Qualification group for MOD calculation based on NKPD class')
+        help='Qualification group for MOD calculation based on NCOP class')
 
     # Required education level
     education_level = fields.Selection([
@@ -120,7 +120,7 @@ class BGNCOPClassification(models.Model):
         return self.qualification_group or 'elementary'
 
     def get_hierarchy_path(self):
-        """Get full hierarchical path from class to this position"""
+        """Get a full hierarchical path from class to this position"""
         self.ensure_one()
         path = []
         current = self

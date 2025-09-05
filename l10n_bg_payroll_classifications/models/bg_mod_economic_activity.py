@@ -5,14 +5,14 @@ from odoo.exceptions import ValidationError
 
 
 class BGModEconomicActivity(models.Model):
-    _name = 'bg.mod.economic.activity'
+    _name = 'bg.hr.payroll.economic.activity'
     _description = 'Bulgarian Economic Activity (KID) for MOD'
     _order = 'code'
 
     name = fields.Char(string='Activity Name', required=True, translate=True)
     code = fields.Char(string='KID Code', required=True, index=True)
-    parent_id = fields.Many2one('bg.mod.economic.activity', string='Parent Activity')
-    child_ids = fields.One2many('bg.mod.economic.activity', 'parent_id', string='Child Activities')
+    parent_id = fields.Many2one('bg.hr.payroll.economic.activity', string='Parent Activity')
+    child_ids = fields.One2many('bg.hr.payroll.economic.activity', 'parent_id', string='Child Activities')
     active = fields.Boolean(string='Active', default=True)
     level = fields.Selection([
         ('section', 'Section'),
@@ -63,7 +63,7 @@ class BGModEconomicActivity(models.Model):
         return super().search_read(domain, fields, offset, limit, order)
 
     def get_effective_mod(self, qualification_group):
-        """Get effective MOD for given qualification group"""
+        """Get effective MOD for a given qualification group"""
         self.ensure_one()
         mapping = {
             'manager': self.mod_manager,

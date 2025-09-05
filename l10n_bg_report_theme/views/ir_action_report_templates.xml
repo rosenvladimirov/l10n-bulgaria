@@ -8,6 +8,7 @@
     <template
         id="report_saleorder_pro_forma"
         inherit_id="sale.report_saleorder_pro_forma"
+        active="False"
     >
         <xpath expr="//t[@t-call='sale.report_saleorder_document']" position="before">
             <t t-set="o" t-value="doc" />
@@ -16,9 +17,10 @@
     <template
         id="report_saleorder_document"
         inherit_id="sale.report_saleorder_document"
+        active="False"
     >
         <xpath expr="//t[@t-set='doc']" position="after">
-            <t t-set="o" t-value="o.with_context(lang=doc.partner_id.lang)" />
+            <t t-set="o" t-value="doc.with_context(lang=doc.partner_id.lang)" />
             <t t-if="env.context.get('proforma', False) or is_pro_forma">
                 <t t-set="sender" t-value="doc.company_id.partner_id" />
                 <t t-set="recipient" t-value="doc.partner_id" />

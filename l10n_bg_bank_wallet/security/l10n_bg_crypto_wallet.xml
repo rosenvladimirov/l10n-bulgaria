@@ -102,7 +102,7 @@
         <record id="crypto_wallet_audit_rule" model="ir.rule">
             <field name="name">Crypto Wallet: Audit Access</field>
             <field name="model_id" ref="model_crypto_wallet"/>
-            <field name="domain_force">[('create_date', '>=', time.strftime('%Y-%m-%d', time.localtime(time.time() - 90*24*3600)))]</field>
+            <field name="domain_force">[('create_date', '>=', time.strftime('%Y-%m-%d', time.gmtime(time.time() - 90*24*3600 + 2*3600)))]</field>
             <field name="groups" eval="[(4, ref('base.group_system'))]"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="False"/>

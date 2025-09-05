@@ -54,7 +54,6 @@ Supported Key Types:
     'data': [
         'security/l10n_bg_crypto_wallet.xml',
         'security/ir.model.access.csv',
-        'data/l10n_bank_wallet.xml',
         'views/l10n_bg_crypto_wallet.xml',
         'wizards/crypto_wallet_add_key_wizard.xml',
         'wizards/crypto_wallet_unlock_wizard.xml',

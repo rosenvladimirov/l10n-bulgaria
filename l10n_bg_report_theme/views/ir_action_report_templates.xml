@@ -42,6 +42,12 @@
             </t>
             <t t-if="o.name != '/'">
                 <t t-set="name" t-value="o.name" />
+                <div t-if="doc.date_order" class="col" name="informations_date">
+                    <strong t-if="is_proforma">Issued Date</strong>
+                    <strong t-elif="doc.state in ['draft', 'sent']">Quotation Date</strong>
+                    <strong t-else="">Order Date</strong>
+                    <div t-field="doc.date_order" t-options='{"widget": "date"}'>2023-12-31</div>
+                </div>
                 <t
                     t-set="name_date"
                     t-value="format_date(o.date_order, lang_code=o.partner_id.lang)"

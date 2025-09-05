@@ -57,6 +57,11 @@ Supported Key Types:
         'data/l10n_bank_wallet.xml',
         'views/l10n_bg_crypto_wallet.xml',
         'wizards/crypto_wallet_add_key_wizard.xml',
+        'wizards/crypto_wallet_unlock_wizard.xml',
+        'wizards/crypto_wallet_change_password_wizard.xml',
+        'wizards/crypto_wallet_export_wizard.xml',
+        'wizards/crypto_wallet_key_manager_wizard.xml',
+        'wizards/crypto_wallet_generate_keypair_wizard.xml',
     ],
     'demo': [],
     'images': [

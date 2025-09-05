@@ -2,57 +2,57 @@
 <odoo>
     <data noupdate="1">
 
-        <!-- Категория за групи -->
+        <!-- Category for groups -->
         <record id="module_crypto_wallet_category" model="ir.module.category">
             <field name="name">Crypto Wallet</field>
-            <field name="description">Управление на криптографски портфейли</field>
+            <field name="description">Cryptographic wallet management</field>
             <field name="sequence">3</field>
         </record>
 
-        <!-- Основни групи за достъп -->
+        <!-- Basic access groups -->
 
-        <!-- Група за четене -->
+        <!-- Read group -->
         <record id="group_crypto_wallet_read" model="res.groups">
-            <field name="name">Crypto Wallet - Четене</field>
+            <field name="name">Crypto Wallet - Read</field>
             <field name="category_id" ref="module_crypto_wallet_category"/>
-            <field name="comment">Може да чете и разглежда ключове от портфейли</field>
+            <field name="comment">Can read and view keys from wallets</field>
         </record>
 
-        <!-- Група за писане -->
+        <!-- Write group -->
         <record id="group_crypto_wallet_write" model="res.groups">
-            <field name="name">Crypto Wallet - Писане</field>
+            <field name="name">Crypto Wallet - Write</field>
             <field name="category_id" ref="module_crypto_wallet_category"/>
             <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_read'))]"/>
-            <field name="comment">Може да създава, редактира и премахва ключове в портфейли</field>
+            <field name="comment">Can create, edit and remove keys in wallets</field>
         </record>
 
-        <!-- Група за администрация -->
+        <!-- Admin group -->
         <record id="group_crypto_wallet_admin" model="res.groups">
-            <field name="name">Crypto Wallet - Администратор</field>
+            <field name="name">Crypto Wallet - Administrator</field>
             <field name="category_id" ref="module_crypto_wallet_category"/>
             <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_write'))]"/>
-            <field name="comment">Пълни права за управление на портфейли, включително промяна на пароли и почистване на файлове</field>
+            <field name="comment">Full rights for wallet management, including password changes and file cleanup</field>
         </record>
 
-        <!-- Група за генериране на ключове -->
+        <!-- Key generation group -->
         <record id="group_crypto_wallet_generate" model="res.groups">
-            <field name="name">Crypto Wallet - Генериране</field>
+            <field name="name">Crypto Wallet - Generate</field>
             <field name="category_id" ref="module_crypto_wallet_category"/>
             <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_write'))]"/>
-            <field name="comment">Може да генерира криптографски ключове (RSA, EC)</field>
+            <field name="comment">Can generate cryptographic keys (RSA, EC)</field>
         </record>
 
-        <!-- Група за експорт -->
+        <!-- Export group -->
         <record id="group_crypto_wallet_export" model="res.groups">
-            <field name="name">Crypto Wallet - Експорт</field>
+            <field name="name">Crypto Wallet - Export</field>
             <field name="category_id" ref="module_crypto_wallet_category"/>
             <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_read'))]"/>
-            <field name="comment">Може да експортира портфейли за backup</field>
+            <field name="comment">Can export wallets for backup</field>
         </record>
 
-        <!-- Правила за достъп до записи -->
+        <!-- Record access rules -->
 
-        <!-- Правило за собствени портфейли -->
+        <!-- Rule for own wallets -->
         <record id="crypto_wallet_own_records_rule" model="ir.rule">
             <field name="name">Own Crypto Wallets</field>
             <field name="model_id" ref="model_crypto_wallet"/>
@@ -64,7 +64,7 @@
             <field name="groups" eval="[(4, ref('group_crypto_wallet_read'))]"/>
         </record>
 
-        <!-- Правило за администратори -->
+        <!-- Rule for administrators -->
         <record id="crypto_wallet_admin_rule" model="ir.rule">
             <field name="name">Admin Access to All Wallets</field>
             <field name="model_id" ref="model_crypto_wallet"/>
@@ -76,9 +76,9 @@
             <field name="groups" eval="[(4, ref('group_crypto_wallet_admin'))]"/>
         </record>
 
-        <!-- Правила за разрешения -->
+        <!-- Permission rules -->
 
-        <!-- Правило за собствени разрешения -->
+        <!-- Rule for own permissions -->
         <record id="crypto_wallet_permission_own_rule" model="ir.rule">
             <field name="name">Own Crypto Wallet Permissions</field>
             <field name="model_id" ref="model_crypto_wallet_permission"/>
@@ -90,7 +90,7 @@
             <field name="groups" eval="[(4, ref('group_crypto_wallet_read'))]"/>
         </record>
 
-        <!-- Правило за администратори на разрешения -->
+        <!-- Rule for permission administrators -->
         <record id="crypto_wallet_permission_admin_rule" model="ir.rule">
             <field name="name">Admin Access to All Permissions</field>
             <field name="model_id" ref="model_crypto_wallet_permission"/>
@@ -102,14 +102,14 @@
             <field name="groups" eval="[(4, ref('group_crypto_wallet_admin'))]"/>
         </record>
 
-        <!-- Присвояване на права на потребители по подразбиране -->
+        <!-- Assigning rights to users by default -->
 
-        <!-- Основните потребители получават права за четене -->
+        <!-- Basic users get read rights -->
         <record id="base.group_user" model="res.groups">
             <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_read'))]"/>
         </record>
 
-        <!-- Мениджърите получават права за писане -->
+        <!-- Managers get write rights -->
         <record id="base.group_system" model="res.groups">
             <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_admin'))]"/>
         </record>

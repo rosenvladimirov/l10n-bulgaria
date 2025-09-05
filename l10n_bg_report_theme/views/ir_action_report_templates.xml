@@ -52,6 +52,12 @@
                 <t t-set="name_date" t-value="''" />
             </t>
         </xpath>
+        <xpath expr="//div[@name='informations_date']" position="attributes">
+            <attribute name="groups">l10n_bg_report_theme.group_control_delivery_date</attribute>
+        </xpath>
+        <xpath expr="//div[@t-if='doc.user_id.name']" position="attributes">
+            <attribute name="groups">l10n_bg_report_theme.group_control_sale_person</attribute>
+        </xpath>
         <xpath expr="//t[@t-set='layout_document_title']" position="replace"/>
     </template>
 </odoo>

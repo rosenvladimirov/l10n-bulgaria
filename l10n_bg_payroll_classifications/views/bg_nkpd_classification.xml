@@ -134,7 +134,7 @@
 
     <!-- NKPD Classification Action -->
     <record id="action_bg_ncop_classification" model="ir.actions.act_window">
-        <field name="name">NKPD Classifications</field>
+        <field name="name">NCOP Classifications</field>
         <field name="res_model">bg.ncop.classification</field>
         <field name="view_mode">tree,form,kanban</field>
         <field name="view_id" ref="view_bg_ncop_classification_tree"/>

@@ -6,7 +6,7 @@ from odoo.exceptions import ValidationError
 
 class BGNCOPClassification(models.Model):
     _name = 'bg.ncop.classification'
-    _description = 'Bulgarian NKPD Classification 2011'
+    _description = 'Bulgarian NCOP Classification 2011'
     _order = 'code'
 
     name = fields.Char(string='Position Name', required=True, translate=True)

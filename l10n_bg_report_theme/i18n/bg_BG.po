@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-03 10:16+0000\n"
-"PO-Revision-Date: 2025-09-03 13:22+0300\n"
+"POT-Creation-Date: 2025-09-05 11:59+0000\n"
+"PO-Revision-Date: 2025-09-05 15:00+0300\n"
 "Last-Translator: Rosen Vladimirov <vladimirov.rosen@gmail.com>\n"
 "Language-Team: \n"
 "Language: bg\n"
@@ -16,6 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.7\n"
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_saleorder_document
+msgid "&gt;"
+msgstr ""
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
@@ -61,7 +66,7 @@ msgstr ""
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_wizard_section_preview
 msgid "<span>INV/2023/00003</span>"
-msgstr "<span>INV/2023/00003</span>"
+msgstr ""
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_wizard_section_preview
@@ -107,7 +112,7 @@ msgstr "Тема за България - печатни форми"
 #: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__layout_background_l_image
 #: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background_l_image
 msgid "Background Article Image-landscape"
-msgstr "Фоново изображение за тялото-пейзаж"
+msgstr "Справочна статия Изображение-пейзаж"
 
 #. module: l10n_bg_report_theme
 #: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__layout_background_footer_image
@@ -131,7 +136,7 @@ msgstr "Изображение на фона на заглавието"
 #: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__layout_background_l_header_image
 #: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background_l_header_image
 msgid "Background Header Image-landscape"
-msgstr "Фоново изображение за горен колонтитул - пейзаж"
+msgstr "Заглавие на фона на изображението - пейзаж"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
@@ -141,7 +146,7 @@ msgstr "Фонови изображения"
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
 msgid "Base & Selection theme Colors"
-msgstr "Базови цветове и за тема Селекция"
+msgstr "Базово цветове и за Селекция тема"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
@@ -382,6 +387,11 @@ msgid "Preview print logo"
 msgstr "Преглед на логото за печат"
 
 #. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_saleorder_document
+msgid "Pro-Forma Invoice #"
+msgstr "Проформа Фактура #"
+
+#. module: l10n_bg_report_theme
 #: model:ir.model,name:l10n_bg_report_theme.model_ir_actions_report
 msgid "Report Action"
 msgstr "Докладване на действие"
@@ -414,12 +424,17 @@ msgstr "SF Текст"
 #. module: l10n_bg_report_theme
 #: model:ir.model.fields.selection,name:l10n_bg_report_theme.selection__res_company__font__sf_pro_text
 msgid "SF Text Pro"
-msgstr "SF Text Pro"
+msgstr ""
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
 msgid "SUPPLIER"
 msgstr "ДОСТАВЧИК"
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.group_control_sale_person
+msgid "Sale Person Control"
+msgstr "Контрол на продавача"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
@@ -485,32 +500,52 @@ msgstr "Потребителско ID"
 #. module: l10n_bg_report_theme
 #: model:res.groups,comment:l10n_bg_report_theme.group_control_date_format
 msgid "Users who can control date formats (with or without time)"
-msgstr "Потребители, които могат да контролират форматите на датите (с или без време)"
+msgstr ""
+"Потребители, които могат да контролират форматите на датите (с или без "
+"време)"
 
 #. module: l10n_bg_report_theme
 #: model:res.groups,comment:l10n_bg_report_theme.l10n_bg_deal_date
 msgid "Users who can view and control deal dates in documents"
-msgstr "Потребители, които могат да преглеждат и контролират датите на сделките в документите"
+msgstr ""
+"Потребители, които могат да преглеждат и контролират датите на сделките в "
+"документите"
 
 #. module: l10n_bg_report_theme
 #: model:res.groups,comment:l10n_bg_report_theme.group_control_delivery_date
 msgid "Users who can view and control delivery dates in invoices"
-msgstr "Потребители, които могат да преглеждат и контролират датите на доставка във фактурите"
+msgstr ""
+"Потребители, които могат да преглеждат и контролират датите на доставка във "
+"фактурите"
 
 #. module: l10n_bg_report_theme
 #: model:res.groups,comment:l10n_bg_report_theme.group_control_due_date
 msgid "Users who can view and control payment due dates in invoices"
-msgstr "Потребители, които могат да преглеждат и контролират датите на плащане във фактурите"
+msgstr ""
+"Потребители, които могат да преглеждат и контролират датите на плащане във "
+"фактурите"
 
 #. module: l10n_bg_report_theme
 #: model:res.groups,comment:l10n_bg_report_theme.group_control_represent_person
-msgid "Users who can view and control represent person information in documents"
-msgstr "Потребители, които могат да преглеждат и контролират информацията за лицето в документите"
+msgid ""
+"Users who can view and control represent person information in documents"
+msgstr ""
+"Потребители, които могат да преглеждат и контролират информацията за лицето "
+"в документите"
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_sale_person
+msgid "Users who can view and control sale person information in sales"
+msgstr ""
+"Потребители, които могат да преглеждат и контролират информацията за "
+"продавача в продажбите"
 
 #. module: l10n_bg_report_theme
 #: model:res.groups,comment:l10n_bg_report_theme.group_control_signatures
 msgid "Users who can view the signatures section for deal parties in invoices"
-msgstr "Потребители, които могат да преглеждат раздела с подписи за страните по сделката във фактурите"
+msgstr ""
+"Потребители, които могат да преглеждат раздела с подписи за страните по "
+"сделката във фактурите"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
@@ -525,4 +560,4 @@ msgstr "Кредитно известие на доставчика"
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.signatures_section
 msgid "____________________"
-msgstr "____________________"
+msgstr ""

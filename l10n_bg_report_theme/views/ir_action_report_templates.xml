@@ -24,7 +24,7 @@
             <t t-if="env.context.get('proforma', False) or is_pro_forma">
                 <t t-set="sender" t-value="doc.company_id.partner_id" />
                 <t t-set="recipient" t-value="doc.partner_id" />
-                <t t-set="name_label">Pro-Forma Invoice #</t>>
+                <t t-set="name_label">Pro-Forma Invoice #</t>
                 <t t-set="no_deal_partner" t-value="False" />
             </t>
             <t t-if="not env.context.get('proforma', False) or not is_pro_forma">

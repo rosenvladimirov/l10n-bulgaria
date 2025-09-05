@@ -1,11 +1,12 @@
+
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Tree View -->
+    <!-- List View -->
     <record id="crypto_wallet_tree_view" model="ir.ui.view">
-        <field name="name">crypto.wallet.tree</field>
+        <field name="name">crypto.wallet.list</field>
         <field name="model">crypto.wallet</field>
         <field name="arch" type="xml">
-            <tree string="Crypto Wallets" create="1" edit="1" delete="1">
+            <list string="Crypto Wallets" create="1" edit="1" delete="1">
                 <field name="name"/>
                 <field name="user_id"/>
                 <field name="is_locked" widget="boolean_toggle"/>
@@ -21,7 +22,7 @@
                         string="Lock"
                         icon="fa-lock"
                         attrs="{'invisible': [('is_locked', '=', True)]}"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -143,7 +144,7 @@
     <record id="crypto_wallet_action" model="ir.actions.act_window">
         <field name="name">Crypto Wallets</field>
         <field name="res_model">crypto.wallet</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="context">{'search_default_my_wallets': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

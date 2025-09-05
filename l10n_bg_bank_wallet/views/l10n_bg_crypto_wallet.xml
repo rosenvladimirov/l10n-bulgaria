@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- List View -->
@@ -16,12 +15,12 @@
                         type="object"
                         string="Unlock"
                         icon="fa-unlock"
-                        attrs="{'invisible': [('is_locked', '=', False)]}"/>
+                        invisible="not is_locked"/>
                 <button name="lock_wallet"
                         type="object"
                         string="Lock"
                         icon="fa-lock"
-                        attrs="{'invisible': [('is_locked', '=', True)]}"/>
+                        invisible="is_locked"/>
             </list>
         </field>
     </record>
@@ -37,12 +36,12 @@
                             type="object"
                             string="Unlock Wallet"
                             class="btn-primary"
-                            attrs="{'invisible': [('is_locked', '=', False)]}"/>
+                            invisible="not is_locked"/>
                     <button name="lock_wallet"
                             type="object"
                             string="Lock Wallet"
                             class="btn-secondary"
-                            attrs="{'invisible': [('is_locked', '=', True)]}"/>
+                            invisible="is_locked"/>
                     <button name="action_change_master_password"
                             type="object"
                             string="Change Master Password"
@@ -82,12 +81,12 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="Wallet Content" attrs="{'invisible': [('is_locked', '=', True)]}">
+                        <page string="Wallet Content" invisible="is_locked">
                             <group>
                                 <field name="decrypted_keys" widget="ace" options="{'mode': 'json'}" readonly="1"/>
                             </group>
                         </page>
-                        <page string="Key Management" attrs="{'invisible': [('is_locked', '=', True)]}">
+                        <page string="Key Management" invisible="is_locked">
                             <group>
                                 <button name="action_add_key"
                                         type="object"

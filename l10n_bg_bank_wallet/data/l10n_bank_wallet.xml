@@ -74,75 +74,11 @@
         <record id="crypto_wallet_sensitive_operations_rule" model="ir.rule">
             <field name="name">Crypto Wallet: Sensitive Operations</field>
             <field name="model_id" ref="model_crypto_wallet"/>
-            <field name="domain_force">['|', ('user_id', '=', user.id), ('user_id.id', 'in', [uid for uid in user.groups_id.users.ids if any(g.name == 'Crypto Wallet: Administrator' for g in env['res.users'].browse(uid).groups_id)])]</field>
+            <field name="domain_force">[('user_id', '=', user.id)]</field>
             <field name="groups" eval="[(4, ref('group_crypto_wallet_export')), (4, ref('group_crypto_wallet_generate'))]"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
             <field name="perm_create" eval="True"/>
-            <field name="perm_unlink" eval="False"/>
-        </record>
-
-        <!-- Record Rules for crypto.wallet.permission -->
-
-        <!-- Rule 5: Users can see permissions granted to them -->
-        <record id="crypto_wallet_permission_user_rule" model="ir.rule">
-            <field name="name">Crypto Wallet Permission: User View</field>
-            <field name="model_id" ref="model_crypto_wallet_permission"/>
-            <field name="domain_force">[('user_id', '=', user.id)]</field>
-            <field name="groups" eval="[(4, ref('group_crypto_wallet_read'))]"/>
-            <field name="perm_read" eval="True"/>
-            <field name="perm_write" eval="False"/>
-            <field name="perm_create" eval="False"/>
-            <field name="perm_unlink" eval="False"/>
-        </record>
-
-        <!-- Rule 6: Wallet owners can manage permissions for their wallets -->
-        <record id="crypto_wallet_permission_owner_rule" model="ir.rule">
-            <field name="name">Crypto Wallet Permission: Owner Manage</field>
-            <field name="model_id" ref="model_crypto_wallet_permission"/>
-            <field name="domain_force">[('wallet_id.user_id', '=', user.id)]</field>
-            <field name="groups" eval="[(4, ref('group_crypto_wallet_write'))]"/>
-            <field name="perm_read" eval="True"/>
-            <field name="perm_write" eval="True"/>
-            <field name="perm_create" eval="True"/>
-            <field name="perm_unlink" eval="True"/>
-        </record>
-
-        <!-- Rule 7: Admins can manage all permissions -->
-        <record id="crypto_wallet_permission_admin_rule" model="ir.rule">
-            <field name="name">Crypto Wallet Permission: Admin All</field>
-            <field name="model_id" ref="model_crypto_wallet_permission"/>
-            <field name="domain_force">[(1, '=', 1)]</field>
-            <field name="groups" eval="[(4, ref('group_crypto_wallet_admin'))]"/>
-            <field name="perm_read" eval="True"/>
-            <field name="perm_write" eval="True"/>
-            <field name="perm_create" eval="True"/>
-            <field name="perm_unlink" eval="True"/>
-        </record>
-
-        <!-- Advanced Record Rules -->
-
-        <!-- Rule 8: Time-based access for temporary permissions -->
-        <record id="crypto_wallet_time_based_rule" model="ir.rule">
-            <field name="name">Crypto Wallet: Time-based Access</field>
-            <field name="model_id" ref="model_crypto_wallet"/>
-            <field name="domain_force">[
-                '|',
-                ('user_id', '=', user.id),
-                ('id', 'in', [
-                    p.wallet_id.id for p in env['crypto.wallet.permission'].search([
-                        ('user_id', '=', user.id),
-                        ('is_active', '=', True),
-                        '|',
-                        ('expires_date', '=', False),
-                        ('expires_date', '>', datetime.datetime.now())
-                    ])
-                ])
-            ]</field>
-            <field name="groups" eval="[(4, ref('group_crypto_wallet_read'))]"/>
-            <field name="perm_read" eval="True"/>
-            <field name="perm_write" eval="False"/>
-            <field name="perm_create" eval="False"/>
             <field name="perm_unlink" eval="False"/>
         </record>
 

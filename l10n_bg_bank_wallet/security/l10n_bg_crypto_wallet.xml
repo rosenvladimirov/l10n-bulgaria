@@ -18,7 +18,7 @@
             <field name="comment">Can read and view keys from wallets</field>
         </record>
 
-        <!-- Write group -->
+        <!-- Write a group -->
         <record id="group_crypto_wallet_write" model="res.groups">
             <field name="name">Crypto Wallet - Write</field>
             <field name="category_id" ref="module_crypto_wallet_category"/>
@@ -75,34 +75,6 @@
             <field name="perm_unlink" eval="True"/>
             <field name="groups" eval="[(4, ref('group_crypto_wallet_admin'))]"/>
         </record>
-
-        <!-- Permission rules -->
-
-        <!-- Rule for own permissions -->
-        <record id="crypto_wallet_permission_own_rule" model="ir.rule">
-            <field name="name">Own Crypto Wallet Permissions</field>
-            <field name="model_id" ref="model_crypto_wallet_permission"/>
-            <field name="domain_force">['|', ('user_id', '=', user.id), '|', ('wallet_id.user_id', '=', user.id), ('granted_by', '=', user.id)]</field>
-            <field name="perm_read" eval="True"/>
-            <field name="perm_write" eval="True"/>
-            <field name="perm_create" eval="True"/>
-            <field name="perm_unlink" eval="True"/>
-            <field name="groups" eval="[(4, ref('group_crypto_wallet_read'))]"/>
-        </record>
-
-        <!-- Rule for permission administrators -->
-        <record id="crypto_wallet_permission_admin_rule" model="ir.rule">
-            <field name="name">Admin Access to All Permissions</field>
-            <field name="model_id" ref="model_crypto_wallet_permission"/>
-            <field name="domain_force">[(1, '=', 1)]</field>
-            <field name="perm_read" eval="True"/>
-            <field name="perm_write" eval="True"/>
-            <field name="perm_create" eval="True"/>
-            <field name="perm_unlink" eval="True"/>
-            <field name="groups" eval="[(4, ref('group_crypto_wallet_admin'))]"/>
-        </record>
-
-        <!-- Assigning rights to users by default -->
 
         <!-- Basic users get read rights -->
         <record id="base.group_user" model="res.groups">

@@ -3,32 +3,28 @@
 
     <!-- NKPD Classification Tree View -->
     <record id="view_bg_ncop_classification_tree" model="ir.ui.view">
-        <field name="name">bg.ncop.classification.tree</field>
-        <field name="model">bg.ncop.classification</field>
+        <field name="name">bg.hr.payroll.ncop.classification.tree</field>
+        <field name="model">bg.hr.payroll.ncop.classification</field>
         <field name="arch" type="xml">
-            <tree string="NKPD Classifications" expand="0" create="1" edit="1" delete="1">
+            <list string="NKPD Classifications" expand="0" create="1" edit="1" delete="1">
                 <field name="code"/>
                 <field name="name"/>
                 <field name="level"/>
                 <field name="qualification_group"/>
                 <field name="education_level"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <!-- NKPD Classification Form View -->
     <record id="view_bg_ncop_classification_form" model="ir.ui.view">
-        <field name="name">bg.ncop.classification.form</field>
-        <field name="model">bg.ncop.classification</field>
+        <field name="name">bg.hr.payroll.ncop.classification.form</field>
+        <field name="model">bg.hr.payroll.ncop.classification</field>
         <field name="arch" type="xml">
             <form string="NKPD Classification">
+                <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
-                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
-                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
-                        </button>
-                    </div>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>
                         <h1><field name="name" placeholder="Position Name"/></h1>
@@ -43,6 +39,7 @@
                         <group>
                             <field name="education_level"/>
                             <field name="experience_years"/>
+                            <field name="active"/>
                         </group>
                     </group>
                     <group string="Validity Period">
@@ -59,12 +56,12 @@
                         </page>
                         <page string="Child Positions" invisible="level == 'occupation'">
                             <field name="child_ids" readonly="1">
-                                <tree>
+                                <list>
                                     <field name="code"/>
                                     <field name="name"/>
                                     <field name="level"/>
                                     <field name="qualification_group"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
@@ -75,8 +72,8 @@
 
     <!-- NKPD Classification Search View -->
     <record id="view_bg_ncop_classification_search" model="ir.ui.view">
-        <field name="name">bg.ncop.classification.search</field>
-        <field name="model">bg.ncop.classification</field>
+        <field name="name">bg.hr.payroll.ncop.classification.search</field>
+        <field name="model">bg.hr.payroll.ncop.classification</field>
         <field name="arch" type="xml">
             <search string="Search NKPD Classifications">
                 <field name="name" string="Position Name"/>
@@ -105,8 +102,8 @@
 
     <!-- NKPD Classification Kanban View -->
     <record id="view_bg_ncop_classification_kanban" model="ir.ui.view">
-        <field name="name">bg.ncop.classification.kanban</field>
-        <field name="model">bg.ncop.classification</field>
+        <field name="name">bg.hr.payroll.ncop.classification.kanban</field>
+        <field name="model">bg.hr.payroll.ncop.classification</field>
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile">
                 <field name="name"/>
@@ -135,8 +132,8 @@
     <!-- NKPD Classification Action -->
     <record id="action_bg_ncop_classification" model="ir.actions.act_window">
         <field name="name">NCOP Classifications</field>
-        <field name="res_model">bg.ncop.classification</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="res_model">bg.hr.payroll.ncop.classification</field>
+        <field name="view_mode">list,form,kanban</field>
         <field name="view_id" ref="view_bg_ncop_classification_tree"/>
         <field name="search_view_id" ref="view_bg_ncop_classification_search"/>
         <field name="context">{'search_default_active': 1}</field>

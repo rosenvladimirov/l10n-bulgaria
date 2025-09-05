@@ -3,31 +3,27 @@
 
     <!-- Economic Activity Tree View -->
     <record id="view_bg_mod_economic_activity_tree" model="ir.ui.view">
-        <field name="name">bg.mod.economic.activity.tree</field>
-        <field name="model">bg.mod.economic.activity</field>
+        <field name="name">bg.hr.payroll.economic.activity.tree</field>
+        <field name="model">bg.hr.payroll.economic.activity</field>
         <field name="arch" type="xml">
-            <tree string="Economic Activities (KID)" expand="0" create="1" edit="1" delete="1">
+            <list string="Economic Activities (KID)" expand="0" create="1" edit="1" delete="1">
                 <field name="code"/>
                 <field name="name"/>
                 <field name="level"/>
                 <field name="tzpb_rate" string="TZPB %"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <!-- Economic Activity Form View -->
     <record id="view_bg_mod_economic_activity_form" model="ir.ui.view">
-        <field name="name">bg.mod.economic.activity.form</field>
-        <field name="model">bg.mod.economic.activity</field>
+        <field name="name">bg.hr.payroll.economic.activity.form</field>
+        <field name="model">bg.hr.payroll.economic.activity</field>
         <field name="arch" type="xml">
             <form string="Economic Activity (KID)">
+                <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
-                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
-                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
-                        </button>
-                    </div>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>
                         <h1><field name="name" placeholder="Activity Name"/></h1>
@@ -40,6 +36,7 @@
                         </group>
                         <group>
                             <field name="tzpb_rate" string="TZPB Rate (%)"/>
+                            <field name="active"/>
                         </group>
                     </group>
                     <group string="Validity Period">
@@ -75,12 +72,12 @@
                         </page>
                         <page string="Child Activities" invisible="level == 'class'">
                             <field name="child_ids" readonly="1">
-                                <tree>
+                                <list>
                                     <field name="code"/>
                                     <field name="name"/>
                                     <field name="level"/>
                                     <field name="tzpb_rate"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
@@ -91,8 +88,8 @@
 
     <!-- Economic Activity Search View -->
     <record id="view_bg_mod_economic_activity_search" model="ir.ui.view">
-        <field name="name">bg.mod.economic.activity.search</field>
-        <field name="model">bg.mod.economic.activity</field>
+        <field name="name">bg.hr.payroll.economic.activity.search</field>
+        <field name="model">bg.hr.payroll.economic.activity</field>
         <field name="arch" type="xml">
             <search string="Search Economic Activities">
                 <field name="name" string="Activity Name"/>
@@ -116,8 +113,8 @@
 
     <!-- Economic Activity Kanban View -->
     <record id="view_bg_mod_economic_activity_kanban" model="ir.ui.view">
-        <field name="name">bg.mod.economic.activity.kanban</field>
-        <field name="model">bg.mod.economic.activity</field>
+        <field name="name">bg.hr.payroll.economic.activity.kanban</field>
+        <field name="model">bg.hr.payroll.economic.activity</field>
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile">
                 <field name="name"/>
@@ -146,8 +143,8 @@
     <!-- Economic Activity Action -->
     <record id="action_bg_mod_economic_activity" model="ir.actions.act_window">
         <field name="name">Economic Activities (KID)</field>
-        <field name="res_model">bg.mod.economic.activity</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="res_model">bg.hr.payroll.economic.activity</field>
+        <field name="view_mode">list,form,kanban</field>
         <field name="view_id" ref="view_bg_mod_economic_activity_tree"/>
         <field name="search_view_id" ref="view_bg_mod_economic_activity_search"/>
         <field name="context">{'search_default_active': 1}</field>

@@ -102,14 +102,13 @@
         <record id="crypto_wallet_audit_rule" model="ir.rule">
             <field name="name">Crypto Wallet: Audit Access</field>
             <field name="model_id" ref="model_crypto_wallet"/>
-            <field name="domain_force">[('created_date', '>=', datetime.date.today() - datetime.timedelta(days=90))]</field>
+            <field name="domain_force">[('created_date', '>=', (DateTime.today() - relativedelta(days=90)).strftime('%Y-%m-%d %H:%M:%S'))]</field>
             <field name="groups" eval="[(4, ref('base.group_system'))]"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="False"/>
             <field name="perm_unlink" eval="False"/>
         </record>
-
 
     </data>
 </odoo>

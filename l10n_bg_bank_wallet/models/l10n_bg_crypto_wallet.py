@@ -168,8 +168,8 @@ class CryptoWallet(models.Model):
     master_password = fields.Char('Master password', store=False)
     decrypted_keys = fields.Text('Decrypted Keys', store=False, readonly=True)
 
-    def __init__(self, pool, cr):
-        super().__init__(pool, cr)
+    def __init__(self, env, ids, prefetch_ids):
+        super().__init__(env, ids, prefetch_ids)
         self._filesystem_manager = None
         self._crypto_manager = CryptographyManager()
 

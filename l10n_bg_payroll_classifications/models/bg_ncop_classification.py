@@ -4,7 +4,7 @@ from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 
 
-class BGNKPDClassification(models.Model):
+class BGNCOPClassification(models.Model):
     _name = 'bg.ncop.classification'
     _description = 'Bulgarian NKPD Classification 2011'
     _order = 'code'

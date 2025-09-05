@@ -82,7 +82,7 @@ Models
 Data Files
 ----------
 
-* **bg_nkpd_classifications.csv** - Core NCOP classifications
+* **bg_ncop_classifications.csv** - Core NCOP classifications
 * **bg_mod_economic_activities.csv** - Economic activities with MOD rates
 * **List_Of_Occupations_01_01_2025.csv** - Current list of occupations
 * **Structure_NKPD_2011_01_01_2022.csv** - NCOP 2011 structure

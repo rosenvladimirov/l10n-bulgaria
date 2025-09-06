@@ -6,24 +6,18 @@
               name="Bulgarian HR"
               parent="hr.menu_human_resources_configuration"
               sequence="100"/>
-
-    <!-- Configuration Menu -->
-    <menuitem id="menu_bg_hr_configuration"
-              name="Configuration"
-              parent="menu_bg_hr_localization_root"
-              sequence="100"/>
-
+ mahni wsquick_add_
     <!-- NKPD Classifications Menu -->
     <menuitem id="menu_bg_nkpd_classification"
               name="NKPD Classifications"
-              parent="menu_bg_hr_configuration"
+              parent="menu_bg_hr_localization_root"
               action="action_bg_ncop_classification"
               sequence="10"/>
 
     <!-- Economic Activities Menu -->
     <menuitem id="menu_bg_mod_economic_activity"
               name="Economic Activities (KID)"
-              parent="menu_bg_hr_configuration"
+              parent="menu_bg_hr_localization_root"
               action="action_bg_mod_economic_activity"
               sequence="20"/>
 

@@ -10,6 +10,14 @@
                 <field name="code"/>
                 <field name="name"/>
                 <field name="level"/>
+                <field name="mod_manager"/>
+                <field name="mod_specialist"/>
+                <field name="mod_technician"/>
+                <field name="mod_operator"/>
+                <field name="mod_service"/>
+                <field name="mod_clerk"/>
+                <field name="mod_elementary"/>
+                <field name="mod_elementary"/>
                 <field name="active"/>
             </list>
         </field>

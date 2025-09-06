@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
@@ -12,6 +13,7 @@
                 <field name="level"/>
                 <field name="qualification_group"/>
                 <field name="education_level"/>
+                <field name="skill_level"/>
                 <field name="active"/>
             </list>
         </field>
@@ -33,8 +35,9 @@
                     <group>
                         <group>
                             <field name="level"/>
-                            <field name="parent_id" domain="[('level', 'in', ['class', 'sub_class', 'unit_group'])]"/>
+                            <field name="parent_id" domain="[('level', 'in', ['major_group', 'sub_major_group', 'minor_group', 'unit_group'])]"/>
                             <field name="qualification_group"/>
+                            <field name="skill_level"/>
                         </group>
                         <group>
                             <field name="education_level"/>
@@ -79,9 +82,11 @@
                 <field name="name" string="Position Name"/>
                 <field name="code" string="NKPD Code"/>
                 <field name="qualification_group"/>
+                <field name="level"/>
                 <filter string="Active" name="active" domain="[('active','=',True)]"/>
                 <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
                 <separator/>
+                <filter string="Military" name="military" domain="[('qualification_group','=','military')]"/>
                 <filter string="Managers" name="managers" domain="[('qualification_group','=','manager')]"/>
                 <filter string="Specialists" name="specialists" domain="[('qualification_group','=','specialist')]"/>
                 <filter string="Technicians" name="technicians" domain="[('qualification_group','=','technician')]"/>
@@ -90,6 +95,12 @@
                 <filter string="Skilled Workers" name="skilled" domain="[('qualification_group','=','skilled')]"/>
                 <filter string="Machine Operators" name="operators" domain="[('qualification_group','=','operator')]"/>
                 <filter string="Elementary" name="elementary" domain="[('qualification_group','=','elementary')]"/>
+                <separator/>
+                <filter string="Major Group" name="major_group" domain="[('level','=','major_group')]"/>
+                <filter string="Sub-Major Group" name="sub_major_group" domain="[('level','=','sub_major_group')]"/>
+                <filter string="Minor Group" name="minor_group" domain="[('level','=','minor_group')]"/>
+                <filter string="Unit Group" name="unit_group" domain="[('level','=','unit_group')]"/>
+                <filter string="Occupation" name="occupation" domain="[('level','=','occupation')]"/>
                 <separator/>
                 <group expand="0" string="Group By">
                     <filter string="Level" name="level" context="{'group_by': 'level'}"/>

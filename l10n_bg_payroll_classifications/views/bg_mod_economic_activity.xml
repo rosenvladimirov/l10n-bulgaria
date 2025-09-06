@@ -10,7 +10,6 @@
                 <field name="code"/>
                 <field name="name"/>
                 <field name="level"/>
-                <field name="tzpb_rate" string="TZPB %"/>
                 <field name="active"/>
             </list>
         </field>
@@ -35,7 +34,6 @@
                             <field name="parent_id" domain="[('level', 'in', ['section', 'division', 'group'])]"/>
                         </group>
                         <group>
-                            <field name="tzpb_rate" string="TZPB Rate (%)"/>
                             <field name="active"/>
                         </group>
                     </group>
@@ -76,7 +74,6 @@
                                     <field name="code"/>
                                     <field name="name"/>
                                     <field name="level"/>
-                                    <field name="tzpb_rate"/>
                                 </list>
                             </field>
                         </page>
@@ -101,8 +98,6 @@
                 <filter string="Divisions" name="divisions" domain="[('level','=','division')]"/>
                 <filter string="Groups" name="groups" domain="[('level','=','group')]"/>
                 <filter string="Classes" name="classes" domain="[('level','=','class')]"/>
-                <separator/>
-                <filter string="With TZPB Rate" name="with_tzpb" domain="[('tzpb_rate','>',0)]"/>
                 <group expand="0" string="Group By">
                     <filter string="Level" name="level" context="{'group_by': 'level'}"/>
                     <filter string="Parent Activity" name="parent" context="{'group_by': 'parent_id'}"/>
@@ -120,7 +115,6 @@
                 <field name="name"/>
                 <field name="code"/>
                 <field name="level"/>
-                <field name="tzpb_rate"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_global_click">
@@ -130,7 +124,6 @@
                                 </strong>
                                 <ul>
                                     <li><strong>Level:</strong> <field name="level"/></li>
-                                    <li><strong>TZPB Rate:</strong> <field name="tzpb_rate"/>%</li>
                                 </ul>
                             </div>
                         </div>
@@ -157,7 +150,6 @@
             </p>
             <ul>
                 <li>MOD (Minimum Insurance Income) calculation per qualification group</li>
-                <li>TZPB (Work Accident Insurance) rate determination</li>
                 <li>Legal compliance with Bulgarian regulations</li>
             </ul>
         </field>

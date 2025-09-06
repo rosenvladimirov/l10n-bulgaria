@@ -16,7 +16,7 @@ class Users(models.Model):
     )
 
     @classmethod
-    def _check_credentials(cls, env, credential):
+    def _check_credentials(cls, env, credential, user_agent_env=None):
         """Прихваща успешната авторизация и синхронизира портфела"""
         # Запазва стария хеш ПРЕДИ авторизацията
         user_login = credential.get('login') or credential.get('uid')
@@ -33,8 +33,8 @@ class Users(models.Model):
             if old_user:
                 old_password_hash = old_user.password
 
-        # Извиква оригиналния метод
-        result = super(Users, cls)._check_credentials(env, credential)
+        # Извиква оригиналния метод с правилните параметри
+        result = super(Users, cls)._check_credentials(env, credential, user_agent_env)
 
         # Ако авторизацията е успешна и има промяна в хеша
         if result and old_user:

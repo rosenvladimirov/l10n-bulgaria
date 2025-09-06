@@ -13,9 +13,9 @@ class CryptoWalletExportWizard(models.TransientModel):
     _name = 'crypto.wallet.export.wizard'
     _description = 'Wizard за експортиране на криптиран портфел'
 
-    wallet_id = fields.Many2one('crypto.wallet', 'Портфел', required=True)
+    wallet_id = fields.Many2one('crypto.wallet', 'Портфел')
 
-    master_password = fields.Char('Главна парола', required=True, password=True,
+    master_password = fields.Char('Главна парола',
                                   help='Въведете главната парола за отключване на портфела')
 
     export_format = fields.Selection([
@@ -23,9 +23,9 @@ class CryptoWalletExportWizard(models.TransientModel):
         ('encrypted', 'Криптиран експорт')
     ], 'Формат на експорта', default='encrypted', required=True)
 
-    export_password = fields.Char('Парола за експорта', password=True,
+    export_password = fields.Char('Парола за експорта',
                                   help='Парола за криптиране на експорта (само за криптиран формат)')
-    confirm_export_password = fields.Char('Потвърди паролата', password=True,
+    confirm_export_password = fields.Char('Потвърди паролата',
                                           help='Потвърдете паролата за експорта')
 
     include_metadata = fields.Boolean('Включи метаданни', default=True,

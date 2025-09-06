@@ -11,8 +11,8 @@ class CryptoWalletUnlockWizard(models.TransientModel):
     _name = 'crypto.wallet.unlock.wizard'
     _description = 'Wizard за отключване на криптиран портфел'
 
-    wallet_id = fields.Many2one('crypto.wallet', 'Портфел', required=True)
-    master_password = fields.Char('Главна парола', required=True, password=True,
+    wallet_id = fields.Many2one('crypto.wallet', 'Портфел')
+    master_password = fields.Char('Главна парола',
                                   help='Въведете главната парола за отключване на портфела')
 
     use_user_password = fields.Boolean('Използвай паролата на потребителя', default=True,

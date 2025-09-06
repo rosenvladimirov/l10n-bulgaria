@@ -11,13 +11,13 @@ class CryptoWalletChangePasswordWizard(models.TransientModel):
     _name = 'crypto.wallet.change.password.wizard'
     _description = 'Wizard за промяна на главната парола на портфела'
 
-    wallet_id = fields.Many2one('crypto.wallet', 'Портфел', required=True)
+    wallet_id = fields.Many2one('crypto.wallet', 'Портфел')
 
-    old_password = fields.Char('Стара парола', required=True, password=True,
+    old_password = fields.Char('Стара парола',
                                help='Въведете текущата главна парола')
-    new_password = fields.Char('Нова парола', required=True, password=True,
+    new_password = fields.Char('Нова парола',
                                help='Въведете новата главна парола')
-    confirm_password = fields.Char('Потвърди новата парола', required=True, password=True,
+    confirm_password = fields.Char('Потвърди новата парола',
                                    help='Въведете отново новата парола за потвърждение')
 
     use_current_user_password = fields.Boolean('Използвай паролата на потребителя като стара',

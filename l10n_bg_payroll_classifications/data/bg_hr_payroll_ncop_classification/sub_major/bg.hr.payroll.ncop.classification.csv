@@ -1,4 +1,4 @@
-id,name,code,level,qualification_group,education_level,skill_level,date_from,active,parent_id
+id,name,code,level,qualification_group,education_level,skill_level,date_from,active,parent_id/id
 bg_ncop_01,Служители във въоръжените сили,01,sub_major_group,military,secondary,2,2025-01-01,TRUE,bg_ncop_0
 bg_ncop_11,Законодатели висши представители и изпълнителни директори,11,sub_major_group,manager,higher,4,2025-01-01,TRUE,bg_ncop_1
 bg_ncop_12,Административни ръководители и ръководители в търговски дружества,12,sub_major_group,manager,higher,4,2025-01-01,TRUE,bg_ncop_1

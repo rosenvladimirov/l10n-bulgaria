@@ -1,4 +1,4 @@
-id,name,code,level,qualification_group,education_level,skill_level,date_from,active,parent_id
+id,name,code,level,qualification_group,education_level,skill_level,date_from,active,parent_id/id
 bg_ncop_0,Професии във въоръжените сили,0,major_group,military,secondary,2,2025-01-01,TRUE,
 bg_ncop_1,Ръководители,1,major_group,manager,higher,4,2025-01-01,TRUE,
 bg_ncop_2,Специалисти,2,major_group,specialist,higher,4,2025-01-01,TRUE,

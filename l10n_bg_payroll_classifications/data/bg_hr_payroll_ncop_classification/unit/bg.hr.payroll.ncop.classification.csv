@@ -1,4 +1,4 @@
-id,name,code,level,qualification_group,education_level,skill_level,date_from,active,parent_id
+id,name,code,level,qualification_group,education_level,skill_level,date_from,active,parent_id/id
 bg_ncop_0110,Длъжности заемани от офицери,0110,unit_group,military,secondary,2,2025-01-01,TRUE
 bg_ncop_0210,Длъжности заемани от сержанти,0210,unit_group,military,secondary,2,2025-01-01,TRUE
 bg_ncop_0310,Длъжности заемани от войници,0310,unit_group,military,secondary,2,2025-01-01,TRUE

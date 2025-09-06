@@ -17,8 +17,9 @@ class BGNCOPClassification(models.Model):
     active = fields.Boolean(string='Active', default=True)
 
     level = fields.Selection([
-        ('class', 'Class'),
-        ('sub_class', 'Sub-class'),
+        ('major_group', 'Major Group'),
+        ('sub_major_group', 'Sub-Major Group'),
+        ('minor_group', 'Minor Group'),
         ('unit_group', 'Unit Group'),
         ('occupation', 'Occupation')
     ], string='Level', required=True,
@@ -26,6 +27,7 @@ class BGNCOPClassification(models.Model):
 
     # Qualification group mapping for MOD calculation
     qualification_group = fields.Selection([
+        ('military', 'Military'),
         ('manager', 'Managers'),
         ('specialist', 'Specialists'),
         ('technician', 'Technicians'),
@@ -41,16 +43,17 @@ class BGNCOPClassification(models.Model):
     education_level = fields.Selection([
         ('none', 'No formal education'),
         ('primary', 'Primary education'),
-        ('secondary_basic', 'Basic secondary education'),
-        ('secondary_complete', 'Complete secondary education'),
-        ('vocational', 'Vocational education'),
-        ('higher_bachelor', 'Higher education - Bachelor'),
-        ('higher_master', 'Higher education - Master'),
-        ('higher_doctoral', 'Higher education - Doctoral')
+        ('secondary', 'Secondary education'),
+        ('higher', 'Higher education')
     ], string='Education Level',
         help='Minimum required education level for this position')
 
     # Skills and experience requirements
+    skill_level = fields.Integer(
+        string='Skill Level',
+        help='Skill level (1-4) according to NCOP classification'
+    )
+
     skills_requirements = fields.Text(string='Skills Requirements')
     experience_years = fields.Integer(string='Required Experience (years)', default=0)
 
@@ -58,6 +61,7 @@ class BGNCOPClassification(models.Model):
     date_from = fields.Date(string='Valid From', default=fields.Date.today)
     date_to = fields.Date(string='Valid To')
 
+    @api.depends('code', 'name')
     def _compute_display_name(self):
         """Override display name computation for Odoo 18"""
         for record in self:
@@ -69,6 +73,7 @@ class BGNCOPClassification(models.Model):
         if self.code and len(self.code) >= 1:
             class_digit = self.code[0]
             mapping = {
+                '0': 'military',  # Клас 0 - Професии във въоръжените сили
                 '1': 'manager',  # Клас 1 - Ръководители
                 '2': 'specialist',  # Клас 2 - Специалисти
                 '3': 'technician',  # Клас 3 - Техници
@@ -85,14 +90,17 @@ class BGNCOPClassification(models.Model):
     def _onchange_code_set_level(self):
         """Auto-determine level based on code length and content"""
         if self.code:
-            if len(self.code) == 1:
-                self.level = 'class'
-            elif len(self.code) == 2:
-                self.level = 'sub_class'
-            elif len(self.code) == 3:
-                self.level = 'unit_group'
-            elif len(self.code) >= 4:
-                self.level = 'occupation'
+            code_len = len(self.code)
+            if code_len == 1:
+                self.level = 'major_group'  # Основна група (клас)
+            elif code_len == 2:
+                self.level = 'sub_major_group'  # Подгрупа
+            elif code_len == 3:
+                self.level = 'minor_group'  # Малка grupa
+            elif code_len == 4:
+                self.level = 'unit_group'  # Единична група
+            elif code_len >= 5:
+                self.level = 'occupation'  # Конкретна професия
 
     @api.constrains('code')
     def _check_unique_code(self):

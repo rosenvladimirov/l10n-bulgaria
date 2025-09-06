@@ -38,7 +38,6 @@
     'depends': [
         'base',
         'hr',
-        'hr_contract',
     ],
     'data': [
         'security/ir.model.access.csv',

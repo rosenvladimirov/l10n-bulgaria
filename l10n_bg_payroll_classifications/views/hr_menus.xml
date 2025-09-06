@@ -17,7 +17,7 @@
     <menuitem id="menu_bg_nkpd_classification"
               name="NKPD Classifications"
               parent="menu_bg_hr_configuration"
-              action="action_bg_nkpd_classification"
+              action="action_bg_ncop_classification"
               sequence="10"/>
 
     <!-- Economic Activities Menu -->

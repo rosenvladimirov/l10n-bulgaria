@@ -44,7 +44,14 @@ class BGModEconomicActivity(models.Model):
     date_to = fields.Date(string='Valid To')
 
     @api.depends('code', 'name')
+    def _compute_display_name(self):
+        """Override display name computation for Odoo 18"""
+        for record in self:
+            record.display_name = f"[{record.code}] {record.name}"
+
+    @api.depends('code', 'name')
     def name_get(self):
+        """Legacy method for backward compatibility"""
         result = []
         for record in self:
             name = f"[{record.code}] {record.name}"

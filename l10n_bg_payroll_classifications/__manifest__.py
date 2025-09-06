@@ -1,7 +1,7 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Bulgarian HR Payroll Classifications',
-    'version': '18.0.1.0.0',
+    'version': '18.0.3.0.1',
     'category': 'Human Resources/Localization',
     'summary': 'Bulgarian localization for HR payroll with NKPD and Economic Activity classifications',
     'description': """
@@ -16,7 +16,6 @@
     * Economic Activities (KID) classification with MOD rates
     * Bulgarian-specific HR menus structure
     * Integration with standard HR modules
-    * Support for TZPB (Work Accident Insurance) rates per activity
 
     NCOP Classifications:
     --------------------
@@ -28,7 +27,6 @@
     -------------------------
     * Full KID classification structure (Sections, Divisions, Groups, Classes)
     * MOD (Minimum Insurance Income) rates by qualification groups
-    * TZPB rates per economic activity
     * Hierarchical structure with parent-child relationships
 
     This module is essential for Bulgarian companies to comply with local labor regulations

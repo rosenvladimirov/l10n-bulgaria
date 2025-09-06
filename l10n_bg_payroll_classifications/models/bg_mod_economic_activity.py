@@ -39,9 +39,10 @@ class BGModEconomicActivity(models.Model):
     mod_elementary = fields.Float(string='MOD - Elementary Occupations', default=0.0,
                                  help='Minimum insurance income for elementary occupations')
 
-    # TZPB rate
-    tzpb_rate = fields.Float(string='TZPB Rate (%)', default=0.0,
-                            help='Work accident and occupational disease insurance rate')
+    # TZPB параментри
+    tzbp_parameter = fields.Char(string='TZBP Parameter',
+                                 help='Work accident and occupational disease insurance parameter')
+    tzbp_code = fields.Char(string='TZBP Code', help='TZBP Code')
 
     # Validity periods
     date_from = fields.Date(string='Valid From', required=True, default=fields.Date.today)

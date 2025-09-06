@@ -1,4 +1,3 @@
-
 id,name,code,level,qualification_group,education_level,skill_level,date_from,active,parent_id/id
 bg_ncop_011,ДЛЪЖНОСТИ ЗАЕМАНИ ОТ ОФИЦЕРИ,011,minor_group,military,secondary,2,2025-01-01,True,bg_ncop_01
 bg_ncop_021,ДЛЪЖНОСТИ ЗАЕМАНИ ОТ СЕРЖАНТИ,021,minor_group,military,secondary,2,2025-01-01,True,bg_ncop_01

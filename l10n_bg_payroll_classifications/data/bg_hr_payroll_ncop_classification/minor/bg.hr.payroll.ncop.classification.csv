@@ -57,15 +57,15 @@ bg_ncop_524,ДРУГИ ПРОДАВАЧИ,524,minor_group,service,secondary,2,20
 bg_ncop_531,РАБОТНИЦИ ЗА ГРИЖИ В ДОМАШНИ УСЛОВИЯ,531,minor_group,service,secondary,2,2025-01-01,true,bg_ncop_53
 bg_ncop_532,РАБОТНИЦИ ЗА ЛИЧНА ГРИЖА В ЗДРАВНИТЕ ЗАВЕДЕНИЯ,532,minor_group,service,secondary,2,2025-01-01,true,bg_ncop_53
 bg_ncop_541,ОХРАНИТЕЛИ,541,minor_group,service,secondary,2,2025-01-01,true,bg_ncop_54
-bg_ncop_611,ПРОИЗВОДИТЕЛИ НА СЕЛСКОСТОПАНСКИ ПРОДУКТИ ЗА ПАЗАРА,611,minor_group,clerkskilled,secondary,2,2025-01-01,true,bg_ncop_61
-bg_ncop_612,ПРОИЗВОДИТЕЛИ НА ЖИВОТИНСКИ ПРОДУКТИ ЗА ПАЗАРА,612,minor_group,clerkskilled,secondary,2,2025-01-01,true,bg_ncop_61
-bg_ncop_613,ПРОИЗВОДИТЕЛИ НА СМЕСЕНИ СЕЛСКОСТОПАНСКИ И ЖИВОТИНСКИ ПРОДУКТИ ЗА ПАЗАРА,613,minor_group,clerkskilled,secondary,2,2025-01-01,true,bg_ncop_61
-bg_ncop_621,ПРОИЗВОДИТЕЛИ НА СЕЛСКОСТОПАНСКИ ПРОДУКТИ ЗА ПРЕПИТАНИЕ,621,minor_group,clerkskilled,secondary,2,2025-01-01,true,bg_ncop_62
-bg_ncop_622,ПРОИЗВОДИТЕЛИ НА ЖИВОТИНСКИ ПРОДУКТИ ЗА ПРЕПИТАНИЕ,622,minor_group,clerkskilled,secondary,2,2025-01-01,true,bg_ncop_62
-bg_ncop_623,ПРОИЗВОДИТЕЛИ НА СМЕСЕНИ СЕЛСКОСТОПАНСКИ И ЖИВОТИНСКИ ПРОДУКТИ ЗА ПРЕПИТАНИЕ,623,minor_group,clerkskilled,secondary,2,2025-01-01,true,bg_ncop_62
-bg_ncop_631,ПРОИЗВОДИТЕЛИ НА ПРОДУКТИ ОТ РИБОЛОВ И АКВАКУЛТУРИ ЗА ПАЗАРА,631,minor_group,clerkskilled,secondary,2,2025-01-01,true,bg_ncop_63
-bg_ncop_632,ПРОИЗВОДИТЕЛИ НА ПРОДУКТИ ОТ РИБОЛОВ И АКВАКУЛТУРИ ЗА ПРЕПИТАНИЕ,632,minor_group,clerkskilled,secondary,2,2025-01-01,true,bg_ncop_63
-bg_ncop_634,ЛОВЦИ И КАПАНДЖИИ,634,minor_group,clerkskilled,secondary,2,2025-01-01,true,bg_ncop_63
+bg_ncop_611,ПРОИЗВОДИТЕЛИ НА СЕЛСКОСТОПАНСКИ ПРОДУКТИ ЗА ПАЗАРА,611,minor_group,clerk,skilled,secondary,2,2025-01-01,true,bg_ncop_61
+bg_ncop_612,ПРОИЗВОДИТЕЛИ НА ЖИВОТИНСКИ ПРОДУКТИ ЗА ПАЗАРА,612,minor_group,clerk,skilled,secondary,2,2025-01-01,true,bg_ncop_61
+bg_ncop_613,ПРОИЗВОДИТЕЛИ НА СМЕСЕНИ СЕЛСКОСТОПАНСКИ И ЖИВОТИНСКИ ПРОДУКТИ ЗА ПАЗАРА,613,minor_group,clerk,skilled,secondary,2,2025-01-01,true,bg_ncop_61
+bg_ncop_621,ПРОИЗВОДИТЕЛИ НА СЕЛСКОСТОПАНСКИ ПРОДУКТИ ЗА ПРЕПИТАНИЕ,621,minor_group,clerk,skilled,secondary,2,2025-01-01,true,bg_ncop_62
+bg_ncop_622,ПРОИЗВОДИТЕЛИ НА ЖИВОТИНСКИ ПРОДУКТИ ЗА ПРЕПИТАНИЕ,622,minor_group,clerk,skilled,secondary,2,2025-01-01,true,bg_ncop_62
+bg_ncop_623,ПРОИЗВОДИТЕЛИ НА СМЕСЕНИ СЕЛСКОСТОПАНСКИ И ЖИВОТИНСКИ ПРОДУКТИ ЗА ПРЕПИТАНИЕ,623,minor_group,clerk,skilled,secondary,2,2025-01-01,true,bg_ncop_62
+bg_ncop_631,ПРОИЗВОДИТЕЛИ НА ПРОДУКТИ ОТ РИБОЛОВ И АКВАКУЛТУРИ ЗА ПАЗАРА,631,minor_group,clerk,skilled,secondary,2,2025-01-01,true,bg_ncop_63
+bg_ncop_632,ПРОИЗВОДИТЕЛИ НА ПРОДУКТИ ОТ РИБОЛОВ И АКВАКУЛТУРИ ЗА ПРЕПИТАНИЕ,632,minor_group,clerk,skilled,secondary,2,2025-01-01,true,bg_ncop_63
+bg_ncop_634,ЛОВЦИ И КАПАНДЖИИ,634,minor_group,clerk,skilled,secondary,2,2025-01-01,true,bg_ncop_63
 bg_ncop_711,РАБОТНИЦИ В СТРОИТЕЛСТВОТО НА СГРАДИ,711,minor_group,skilled,secondary,2,2025-01-01,true,bg_ncop_71
 bg_ncop_712,РАБОТНИЦИ В СТРОИТЕЛНИЯ ДОВЪРШИТЕЛНИ РАБОТИ НА СГРАДИ,712,minor_group,skilled,secondary,2,2025-01-01,true,bg_ncop_71
 bg_ncop_713,БОЯДЖИИ ПОЧИСТВАНЕ И СЪОТВЕТНИТЕ РАБОТНИЦИ,713,minor_group,skilled,secondary,2,2025-01-01,true,bg_ncop_71

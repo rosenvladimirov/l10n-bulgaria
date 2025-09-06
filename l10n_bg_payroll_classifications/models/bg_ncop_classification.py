@@ -10,8 +10,8 @@ class BGNCOPClassification(models.Model):
     _order = 'code'
 
     name = fields.Char(string='Position Name', required=True, translate=True)
-    code = fields.Char(string='NKPD Code', required=True, index=True,
-                       help='8-digit NKPD code')
+    code = fields.Char(string='NCOP Code', required=True, index=True,
+                       help='8-digit NCOP code')
     parent_id = fields.Many2one('bg.hr.payroll.ncop.classification', string='Parent Position')
     child_ids = fields.One2many('bg.hr.payroll.ncop.classification', 'parent_id', string='Child Positions')
     active = fields.Boolean(string='Active', default=True)

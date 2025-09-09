@@ -27,14 +27,14 @@
             <t t-else="">
                 <t t-set="name" t-value="''" />
             </t>
-            <t t-if="env.context.get('proforma', False) or is_proforma">
+            <t t-if="env.context.get('proforma', False) or is_pro_forma">
                 <t t-set="sender" t-value="o.company_id.partner_id" />
                 <t t-set="recipient" t-value="o.partner_id" />
                 <t t-set="name_label">Pro-Forma Invoice #</t>
                 <t t-set="no_deal_partner" t-value="False" />
                 <t t-set="name_date" t-value="format_date(o.date_order, lang_code=o.partner_id.lang, widget='date')"/>
             </t>
-            <t t-elif="not env.context.get('proforma', False) or not is_proforma">
+            <t t-else="">
                 <t t-if="o.state in ['draft','sent'] and not is_proforma">
                     <t t-set="name_label">Quotation #</t>
                 </t>
@@ -50,7 +50,7 @@
                     <t t-set="name_date" t-value="format_date(o.date_order, lang_code=o.partner_id.lang)"/>
                 </t>
             </t>
-          </xpath>
+        </xpath>
         <xpath expr="//div[@name='informations_date']" position="attributes">
             <attribute name="groups">l10n_bg_report_theme.group_control_delivery_date</attribute>
         </xpath>

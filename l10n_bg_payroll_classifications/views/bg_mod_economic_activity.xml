@@ -2,8 +2,8 @@
 <odoo>
 
     <!-- Economic Activity Tree View -->
-    <record id="view_bg_mod_economic_activity_tree" model="ir.ui.view">
-        <field name="name">bg.hr.payroll.economic.activity.tree</field>
+    <record id="view_bg_mod_economic_activity_list" model="ir.ui.view">
+        <field name="name">bg.hr.payroll.economic.activity.list</field>
         <field name="model">bg.hr.payroll.economic.activity</field>
         <field name="arch" type="xml">
             <list string="Economic Activities (KID)" expand="0" create="1" edit="1" delete="1">
@@ -146,7 +146,7 @@
         <field name="name">Economic Activities (KID)</field>
         <field name="res_model">bg.hr.payroll.economic.activity</field>
         <field name="view_mode">list,form,kanban</field>
-        <field name="view_id" ref="view_bg_mod_economic_activity_tree"/>
+        <field name="view_id" ref="view_bg_mod_economic_activity_list"/>
         <field name="search_view_id" ref="view_bg_mod_economic_activity_search"/>
         <field name="context">{'search_default_active': 1}</field>
         <field name="help" type="html">

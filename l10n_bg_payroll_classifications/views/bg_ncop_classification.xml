@@ -2,8 +2,8 @@
 <odoo>
 
     <!-- NKPD Classification Tree View -->
-    <record id="view_bg_ncop_classification_tree" model="ir.ui.view">
-        <field name="name">bg.hr.payroll.ncop.classification.tree</field>
+    <record id="view_bg_ncop_classification_list" model="ir.ui.view">
+        <field name="name">bg.hr.payroll.ncop.classification.list</field>
         <field name="model">bg.hr.payroll.ncop.classification</field>
         <field name="arch" type="xml">
             <list string="NKPD Classifications" expand="0" create="1" edit="1" delete="1">
@@ -144,7 +144,7 @@
         <field name="name">NCOP Classifications</field>
         <field name="res_model">bg.hr.payroll.ncop.classification</field>
         <field name="view_mode">list,form,kanban</field>
-        <field name="view_id" ref="view_bg_ncop_classification_tree"/>
+        <field name="view_id" ref="view_bg_ncop_classification_list"/>
         <field name="search_view_id" ref="view_bg_ncop_classification_search"/>
         <field name="context">{'search_default_active': 1}</field>
         <field name="help" type="html">

@@ -21,51 +21,36 @@
     >
         <xpath expr="//t[@t-set='doc']" position="after">
             <t t-set="o" t-value="doc.with_context(lang=doc.partner_id.lang)" />
-            <t t-if="env.context.get('proforma', False) or is_proforma">
-                <t t-set="sender" t-value="doc.company_id.partner_id" />
-                <t t-set="recipient" t-value="doc.partner_id" />
-                <t t-set="name_label">Pro-Forma Invoice #</t>
-                <t t-set="no_deal_partner" t-value="False" />
-            </t>
-            <t t-elif="not env.context.get('proforma', False) or not is_proforma">
-                <t t-set="no_deal_partner" t-value="False" />
-                <t t-set="sender" t-value="doc.company_id.partner_id" />
-                <t t-set="recipient" t-value="doc.partner_id" />
-                <t t-set="recipient_invoice_id" t-value="doc.partner_invoice_id" />
-                <t t-set="recipient_shipping_id" t-value="doc.partner_shipping_id" />
-            </t>
-            <t t-if="doc.state in ['draft','sent'] and not is_proforma">
-                <t t-set="name_label">Quotation #</t>
-            </t>
-            <t t-elif="doc.state not in ['draft','sent'] and not is_proforma">
-                <t t-set="name_label">Order #</t>
-            </t>
             <t t-if="o.name != '/'">
-                <t t-set="name" t-value="o.name" />
-                <div t-if="doc.date_order" class="col" name="informations_date">
-                    <strong t-if="is_proforma">Issued Date</strong>
-                    <strong t-elif="doc.state in ['draft', 'sent']">Quotation Date</strong>
-                    <strong t-else="">Order Date</strong>
-                    <div t-field="doc.date_order" t-options='{"widget": "date"}'>2023-12-31</div>
-                </div>
-                <t
-                    t-if="is_proforma"
-                    t-set="name_date"
-                    t-value="format_date(o.date_order, lang_code=o.partner_id.lang, widget='date')">
-                    2023-12-31
-                </t>
-                <t
-                    t-if="not is_proforma"
-                    t-set="name_date"
-                    t-value="format_date(o.date_order, lang_code=o.partner_id.lang)">
-                    2023-12-31 00:00:00
-                </t>
+                <t t-set="name" t-value="o.name"/>
             </t>
             <t t-else="">
                 <t t-set="name" t-value="''" />
-                <t t-set="name_date" t-value="''" />
             </t>
-        </xpath>
+            <t t-if="env.context.get('proforma', False) or is_proforma">
+                <t t-set="sender" t-value="o.company_id.partner_id" />
+                <t t-set="recipient" t-value="o.partner_id" />
+                <t t-set="name_label">Pro-Forma Invoice #</t>
+                <t t-set="no_deal_partner" t-value="False" />
+                <t t-set="name_date" t-value="format_date(o.date_order, lang_code=o.partner_id.lang, widget='date')"/>
+            </t>
+            <t t-elif="not env.context.get('proforma', False) or not is_proforma">
+                <t t-if="o.state in ['draft','sent'] and not is_proforma">
+                    <t t-set="name_label">Quotation #</t>
+                </t>
+                <t t-elif="o.state not in ['draft','sent'] and not is_proforma">
+                    <t t-set="name_label">Order #</t>
+                </t>
+                <t t-if="o.name != '/'">
+                    <t t-set="no_deal_partner" t-value="True" />
+                    <t t-set="sender" t-value="o.company_id.partner_id" />
+                    <t t-set="recipient" t-value="o.partner_id" />
+                    <t t-set="recipient_invoice_id" t-value="o.partner_invoice_id" />
+                    <t t-set="recipient_shipping_id" t-value="o.partner_shipping_id" />
+                    <t t-set="name_date" t-value="format_date(o.date_order, lang_code=o.partner_id.lang)"/>
+                </t>
+            </t>
+          </xpath>
         <xpath expr="//div[@name='informations_date']" position="attributes">
             <attribute name="groups">l10n_bg_report_theme.group_control_delivery_date</attribute>
         </xpath>

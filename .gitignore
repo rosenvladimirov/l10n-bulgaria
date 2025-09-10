@@ -86,3 +86,4 @@ docs/_build/
 
 # OCA rules
 !static/lib/
+/l10n_bg_payroll_classifications/static/docs/Structure_NKPD_2011_01_01_2022.csv

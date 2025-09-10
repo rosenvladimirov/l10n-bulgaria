@@ -6,7 +6,7 @@
               name="Bulgarian HR"
               parent="hr.menu_human_resources_configuration"
               sequence="100"/>
- mahni wsquick_add_
+
     <!-- NKPD Classifications Menu -->
     <menuitem id="menu_bg_nkpd_classification"
               name="NKPD Classifications"

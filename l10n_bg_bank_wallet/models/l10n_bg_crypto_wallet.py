@@ -598,8 +598,23 @@ class CryptoWallet(models.Model):
 
         return wallet
 
+    @api.model
+    def get_user_wallet(self, user_id=None):
+        """Get a user wallet without creating if it doesn't exist"""
+        self._check_permission_level('read')
+
+        if not user_id:
+            user_id = self.env.user.id
+
+        wallet = self.search([('user_id', '=', user_id), ('name', '=', 'System Keys')], limit=1)
+
+        if not wallet:
+            raise UserError(f'Няма създаден портфейл за потребител с ID {user_id}')
+
+        return wallet
+
     def quick_access(self, key_name, user_id=None):
-        """Quick access to key"""
+        """Quick access to the key"""
         self._check_permission_level('read')
         wallet = self.get_user_wallet_or_create(user_id)
         user = self.env['res.users'].browse(user_id or self.env.user.id)

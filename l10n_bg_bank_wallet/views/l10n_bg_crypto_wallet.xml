@@ -50,7 +50,7 @@
                             type="object"
                             string="Export Wallet"
                             class="btn-info"/>
-                    <field name="is_locked" widget="statusbar" statusbar_visible="locked,unlocked"/>
+                    <field name="is_locked" widget="boolean_toggle" readonly="1"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">

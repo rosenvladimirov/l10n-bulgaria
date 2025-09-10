@@ -204,19 +204,9 @@ class CryptoWallet(models.Model):
             raise AccessError(f'Нямате достъп до портфел "{self.name}"')
         return True
 
-    @api.model
-    def check_access_rights(self, operation, raise_exception=True):
-        """Override for additional rights checks"""
-        result = super().check_access_rights(operation, raise_exception=False)
-
-        if not result and raise_exception:
-            raise AccessError(f'Нямате права за операция "{operation}" върху Crypto Wallet записи')
-
-        return result
-
-    def check_access(self, operation, values=None):
+    def check_access(self, operation):
         """Override for record access checks - updated for Odoo 18.0"""
-        super().check_access(operation, values)
+        super().check_access(operation)
 
         # Additional checks for existing records
         for record in self:

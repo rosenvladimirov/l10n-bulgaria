@@ -103,6 +103,14 @@ class AccountChartTemplate(models.AbstractModel):
             self._get_bg_tax_data
         )
 
+    @template(model='account.journal')
+    def _get_account_journal(self, template_code):
+        res = super()._get_account_journal(template_code)
+        update_func = getattr(self, f'_get_{template_code}_account_journal', None)
+        if update_func:
+            res.update(update_func(template_code))
+        return res
+
     # @template(model='account.fiscal.position')
     # def _get_bg_fiscal_position_data(self, template_code, module=BASE_MODULE):
     #     return self._parse_csv(template_code, 'account.fiscal.position', module)

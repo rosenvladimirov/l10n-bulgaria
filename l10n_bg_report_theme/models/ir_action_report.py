@@ -16,7 +16,7 @@ class IrActionsReport(models.Model):
         values = super()._get_rendering_context(report, docids, data)
         env = self.env
 
-        def safe_format_date(date, lang_code=False, date_format=False):
+        def safe_format_date(date, lang_code=False, date_format=False, widget=False):
             """Safe wrapper that formats date WITH time if it's a datetime object"""
             if not date:
                 return ''
@@ -26,10 +26,14 @@ class IrActionsReport(models.Model):
                 try:
                     # Използваме format_datetime БЕЗ dt_format параметъра
                     # Нека Odoo избере подходящия формат
-                    return format_datetime(env, date, tz=False, lang_code=lang_code)
+                    if widget == 'date':
+                        return format_date(env, date, lang_code=lang_code)
+                    return format_datetime(env, date, tz=False, dt_format=date_format, lang_code=lang_code)
                 except Exception as e:
                     _logger.error(f"Error in format_datetime: {e}")
                     # Fallback към strftime с дата и час
+                    if widget == 'date':
+                        return date.strftime('%d.%m.%Y')
                     return date.strftime('%d.%m.%Y %H:%M')
 
             # Ако е само date, използваме format_date

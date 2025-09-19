@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Tree View -->
+    <!-- List View -->
     <record id="crypto_wallet_tree_view" model="ir.ui.view">
-        <field name="name">crypto.wallet.tree</field>
+        <field name="name">crypto.wallet.list</field>
         <field name="model">crypto.wallet</field>
         <field name="arch" type="xml">
-            <tree string="Криптирани портфели" create="1" edit="1" delete="1">
+            <list string="Crypto Wallets" create="1" edit="1" delete="1">
                 <field name="name"/>
                 <field name="user_id"/>
                 <field name="is_locked" widget="boolean_toggle"/>
                 <field name="created_date"/>
                 <field name="last_accessed"/>
-                <button name="unlock_wallet_action"
+                <button name="action_unlock_wallet"
                         type="object"
-                        string="Отключи"
+                        string="Unlock"
                         icon="fa-unlock"
-                        attrs="{'invisible': [('is_locked', '=', False)]}"/>
+                        invisible="not is_locked"/>
                 <button name="lock_wallet"
                         type="object"
-                        string="Заключи"
+                        string="Lock"
                         icon="fa-lock"
-                        attrs="{'invisible': [('is_locked', '=', True)]}"/>
-            </tree>
+                        invisible="is_locked"/>
+            </list>
         </field>
     </record>
 
@@ -30,43 +30,43 @@
         <field name="name">crypto.wallet.form</field>
         <field name="model">crypto.wallet</field>
         <field name="arch" type="xml">
-            <form string="Криптиран портфел">
+            <form string="Crypto Wallet">
                 <header>
-                    <button name="unlock_wallet_action"
+                    <button name="action_unlock_wallet"
                             type="object"
-                            string="Отключи портфела"
+                            string="Unlock Wallet"
                             class="btn-primary"
-                            attrs="{'invisible': [('is_locked', '=', False)]}"/>
+                            invisible="not is_locked"/>
                     <button name="lock_wallet"
                             type="object"
-                            string="Заключи портфела"
+                            string="Lock Wallet"
                             class="btn-secondary"
-                            attrs="{'invisible': [('is_locked', '=', True)]}"/>
-                    <button name="change_master_password_action"
+                            invisible="is_locked"/>
+                    <button name="action_change_master_password"
                             type="object"
-                            string="Промени главната парола"
+                            string="Change Master Password"
                             class="btn-warning"/>
-                    <button name="export_wallet_action"
+                    <button name="action_export_wallet"
                             type="object"
-                            string="Експортирай портфела"
+                            string="Export Wallet"
                             class="btn-info"/>
-                    <field name="is_locked" widget="statusbar" statusbar_visible="locked,unlocked"/>
+                    <field name="is_locked" widget="boolean_toggle" readonly="1"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="view_keys_action"
+                        <button name="action_manage_keys"
                                 type="object"
                                 class="oe_stat_button"
                                 icon="fa-key">
                             <div class="o_stat_info">
-                                <span class="o_stat_text">Ключове</span>
+                                <span class="o_stat_text">Keys</span>
                             </div>
                         </button>
                     </div>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>
                         <h1>
-                            <field name="name" placeholder="Име на портфела"/>
+                            <field name="name" placeholder="Wallet Name"/>
                         </h1>
                     </div>
                     <group>
@@ -81,24 +81,24 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="Съдържание на портфела" attrs="{'invisible': [('is_locked', '=', True)]}">
+                        <page string="Wallet Content" invisible="is_locked">
                             <group>
                                 <field name="decrypted_keys" widget="ace" options="{'mode': 'json'}" readonly="1"/>
                             </group>
                         </page>
-                        <page string="Управление на ключове" attrs="{'invisible': [('is_locked', '=', True)]}">
+                        <page string="Key Management" invisible="is_locked">
                             <group>
-                                <button name="add_key_action"
+                                <button name="action_add_key"
                                         type="object"
-                                        string="Добави ключ"
+                                        string="Add Key"
                                         class="btn-primary"/>
-                                <button name="list_keys_action"
+                                <button name="action_list_keys"
                                         type="object"
-                                        string="Покажи всички ключове"
+                                        string="Show All Keys"
                                         class="btn-info"/>
                             </group>
                         </page>
-                        <page string="Криптирани данни">
+                        <page string="Encrypted Data">
                             <group>
                                 <field name="encrypted_data" widget="text" readonly="1"/>
                             </group>
@@ -114,26 +114,26 @@
         <field name="name">crypto.wallet.search</field>
         <field name="model">crypto.wallet</field>
         <field name="arch" type="xml">
-            <search string="Търсене в портфели">
-                <field name="name" string="Име на портфела"/>
-                <field name="user_id" string="Потребител"/>
-                <filter string="Моите портфели"
+            <search string="Search in Wallets">
+                <field name="name" string="Wallet Name"/>
+                <field name="user_id" string="User"/>
+                <filter string="My Wallets"
                         name="my_wallets"
                         domain="[('user_id', '=', uid)]"/>
-                <filter string="Заключени"
+                <filter string="Locked"
                         name="locked"
                         domain="[('is_locked', '=', True)]"/>
-                <filter string="Отключени"
+                <filter string="Unlocked"
                         name="unlocked"
                         domain="[('is_locked', '=', False)]"/>
                 <separator/>
-                <filter string="Създадени този месец"
+                <filter string="Created This Month"
                         name="this_month"
                         domain="[('created_date', '&gt;=', datetime.datetime.now().replace(day=1))]"/>
-                <group expand="0" string="Групиране">
-                    <filter string="По потребител" name="group_by_user" context="{'group_by': 'user_id'}"/>
-                    <filter string="По статус" name="group_by_status" context="{'group_by': 'is_locked'}"/>
-                    <filter string="По месец на създаване" name="group_by_month" context="{'group_by': 'created_date:month'}"/>
+                <group expand="0" string="Group By">
+                    <filter string="By User" name="group_by_user" context="{'group_by': 'user_id'}"/>
+                    <filter string="By Status" name="group_by_status" context="{'group_by': 'is_locked'}"/>
+                    <filter string="By Creation Month" name="group_by_month" context="{'group_by': 'created_date:month'}"/>
                 </group>
             </search>
         </field>
@@ -141,29 +141,29 @@
 
     <!-- Action -->
     <record id="crypto_wallet_action" model="ir.actions.act_window">
-        <field name="name">Криптирани портфели</field>
+        <field name="name">Crypto Wallets</field>
         <field name="res_model">crypto.wallet</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="context">{'search_default_my_wallets': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Създайте вашия първи криптиран портфел!
+                Create your first crypto wallet!
             </p>
             <p>
-                Криптираните портфели ви позволяват да съхранявате сигурно
-                пароли, API ключове и други чувствителни данни.
+                Crypto wallets allow you to securely store
+                passwords, API keys and other sensitive data.
             </p>
         </field>
     </record>
 
     <!-- Menu -->
     <menuitem id="crypto_wallet_menu_root"
-              name="Криптирани портфели"
-              web_icon="static/description/icon.png"
+              name="Crypto Wallets"
+              web_icon="l10n_bg_bank_wallet,static/description/icon.png"
               sequence="100"/>
 
     <menuitem id="crypto_wallet_menu"
-              name="Портфели"
+              name="Wallets"
               parent="crypto_wallet_menu_root"
               action="crypto_wallet_action"
               sequence="10"/>

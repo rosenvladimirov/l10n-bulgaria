@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Export Wallet Wizard Form View -->
+    <record id="view_crypto_wallet_export_wizard_form" model="ir.ui.view">
+        <field name="name">crypto.wallet.export.wizard.form</field>
+        <field name="model">crypto.wallet.export.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Експортиране на портфел">
+                <div class="alert alert-info" role="alert" invisible="context.get('show_export_result')">
+                    <strong>Експортиране на портфел</strong><br/>
+                    Експортирайте данните от портфела за backup или пренасяне.
+                    Препоръчваме криптиран експорт за по-висока сигурност.
+                </div>
+
+                <div class="alert alert-success" role="alert" invisible="not context.get('show_export_result')">
+                    <strong>Експортът е завършен успешно!</strong><br/>
+                    Данните са готови за изтегляне или копиране.
+                </div>
+
+                <sheet>
+                    <!-- Настройки на експорта -->
+                    <group string="Настройки на експорта" invisible="context.get('show_export_result')">
+                        <group>
+                            <field name="wallet_id" readonly="1"/>
+                            <field name="export_format"/>
+                            <field name="include_metadata"/>
+                        </group>
+                        <group>
+                            <field name="use_user_password"/>
+                            <field name="master_password" password="True"
+                                   invisible="use_user_password"
+                                   placeholder="Въведете главната парола..."/>
+                        </group>
+                    </group>
+
+                    <group string="Парола за експорта"
+                           invisible="export_format != 'encrypted' or context.get('show_export_result')">
+                        <group>
+                            <field name="export_password" password="True"
+                                   placeholder="Въведете парола за експорта..."/>
+                        </group>
+                        <group>
+                            <field name="confirm_export_password" password="True"
+                                   placeholder="Потвърдете паролата..."/>
+                        </group>
+                    </group>
+
+                    <!-- Резултат от експорта -->
+                    <group string="Експортирани данни" invisible="not context.get('show_export_result')">
+                        <field name="export_filename" readonly="1"/>
+                        <field name="export_data" widget="text" readonly="1"
+                               options="{'max_height': 400}"/>
+                    </group>
+                </sheet>
+
+                <footer>
+                    <!-- Бутони за експорт -->
+                    <div invisible="context.get('show_export_result')">
+                        <button string="Експортиране" name="export_wallet" type="object"
+                                class="btn-primary" data-hotkey="q"/>
+                        <button string="Отказ" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                    </div>
+
+                    <!-- Бутони за резултата -->
+                    <div invisible="not context.get('show_export_result')">
+                        <button string="Изтегли файл" name="download_export" type="object"
+                                class="btn-primary" data-hotkey="q"/>
+                        <button string="Копирай в клипборда" name="copy_to_clipboard" type="object"
+                                class="btn-secondary"/>
+                        <button string="Готово" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                    </div>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

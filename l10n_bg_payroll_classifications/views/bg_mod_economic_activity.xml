@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Economic Activity Tree View -->
+    <record id="view_bg_mod_economic_activity_list" model="ir.ui.view">
+        <field name="name">bg.hr.payroll.economic.activity.list</field>
+        <field name="model">bg.hr.payroll.economic.activity</field>
+        <field name="arch" type="xml">
+            <list string="Economic Activities (KID)" expand="0" create="1" edit="1" delete="1">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="level"/>
+                <field name="mod_manager"/>
+                <field name="mod_specialist"/>
+                <field name="mod_technician"/>
+                <field name="mod_operator"/>
+                <field name="mod_service"/>
+                <field name="mod_clerk"/>
+                <field name="mod_elementary"/>
+                <field name="mod_elementary"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Economic Activity Form View -->
+    <record id="view_bg_mod_economic_activity_form" model="ir.ui.view">
+        <field name="name">bg.hr.payroll.economic.activity.form</field>
+        <field name="model">bg.hr.payroll.economic.activity</field>
+        <field name="arch" type="xml">
+            <form string="Economic Activity (KID)">
+                <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="Activity Name"/></h1>
+                        <h2><field name="code" placeholder="KID Code"/></h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="level"/>
+                            <field name="parent_id" domain="[('level', 'in', ['section', 'division', 'group'])]"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Validity Period">
+                        <group>
+                            <field name="date_from"/>
+                        </group>
+                        <group>
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="MOD by Qualification Groups">
+                            <group string="Management and Specialist Positions">
+                                <group>
+                                    <field name="mod_manager" string="Managers (лв.)"/>
+                                    <field name="mod_specialist" string="Specialists (лв.)"/>
+                                </group>
+                                <group>
+                                    <field name="mod_technician" string="Technicians (лв.)"/>
+                                    <field name="mod_clerk" string="Clerks (лв.)"/>
+                                </group>
+                            </group>
+                            <group string="Worker Positions">
+                                <group>
+                                    <field name="mod_service" string="Service Workers (лв.)"/>
+                                    <field name="mod_skilled" string="Skilled Workers (лв.)"/>
+                                </group>
+                                <group>
+                                    <field name="mod_operator" string="Machine Operators (лв.)"/>
+                                    <field name="mod_elementary" string="Elementary Occupations (лв.)"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Child Activities" invisible="level == 'class'">
+                            <field name="child_ids" readonly="1">
+                                <list>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="level"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Economic Activity Search View -->
+    <record id="view_bg_mod_economic_activity_search" model="ir.ui.view">
+        <field name="name">bg.hr.payroll.economic.activity.search</field>
+        <field name="model">bg.hr.payroll.economic.activity</field>
+        <field name="arch" type="xml">
+            <search string="Search Economic Activities">
+                <field name="name" string="Activity Name"/>
+                <field name="code" string="KID Code"/>
+                <filter string="Active" name="active" domain="[('active','=',True)]"/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                <separator/>
+                <filter string="Sections" name="sections" domain="[('level','=','section')]"/>
+                <filter string="Divisions" name="divisions" domain="[('level','=','division')]"/>
+                <filter string="Groups" name="groups" domain="[('level','=','group')]"/>
+                <filter string="Classes" name="classes" domain="[('level','=','class')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Level" name="level" context="{'group_by': 'level'}"/>
+                    <filter string="Parent Activity" name="parent" context="{'group_by': 'parent_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Economic Activity Kanban View -->
+    <record id="view_bg_mod_economic_activity_kanban" model="ir.ui.view">
+        <field name="name">bg.hr.payroll.economic.activity.kanban</field>
+        <field name="model">bg.hr.payroll.economic.activity</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="level"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="code"/> - <field name="name"/>
+                                </strong>
+                                <ul>
+                                    <li><strong>Level:</strong> <field name="level"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Economic Activity Action -->
+    <record id="action_bg_mod_economic_activity" model="ir.actions.act_window">
+        <field name="name">Economic Activities (KID)</field>
+        <field name="res_model">bg.hr.payroll.economic.activity</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="view_id" ref="view_bg_mod_economic_activity_list"/>
+        <field name="search_view_id" ref="view_bg_mod_economic_activity_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Economic Activity!
+            </p>
+            <p>
+                Economic Activities (KID) are used for:
+            </p>
+            <ul>
+                <li>MOD (Minimum Insurance Income) calculation per qualification group</li>
+                <li>Legal compliance with Bulgarian regulations</li>
+            </ul>
+        </field>
+    </record>
+
+</odoo>

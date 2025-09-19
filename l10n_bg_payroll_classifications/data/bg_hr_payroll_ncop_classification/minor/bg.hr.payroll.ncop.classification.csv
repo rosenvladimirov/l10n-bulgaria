@@ -1,0 +1,131 @@
+id,name,code,level,qualification_group,education_level,skill_level,date_from,active,parent_id/id
+bg_ncop_011,ДЛЪЖНОСТИ ЗАЕМАНИ ОТ ОФИЦЕРИ,011,minor_group,military,secondary,2,2025-01-01,True,bg_ncop_01
+bg_ncop_021,ДЛЪЖНОСТИ ЗАЕМАНИ ОТ СЕРЖАНТИ,021,minor_group,military,secondary,2,2025-01-01,True,bg_ncop_01
+bg_ncop_031,ДЛЪЖНОСТИ ЗАЕМАНИ ОТ ВОЙНИЦИ,031,minor_group,military,secondary,2,2025-01-01,True,bg_ncop_01
+bg_ncop_111,ЗАКОНОДАТЕЛИ И ВИСШИ ПРЕДСТАВИТЕЛИ,111,minor_group,manager,higher,4,2025-01-01,True,bg_ncop_11
+bg_ncop_112,УПРАВЛЯВАЩИ И ИЗПЪЛНИТЕЛНИ ДИРЕКТОРИ,112,minor_group,manager,higher,4,2025-01-01,True,bg_ncop_11
+bg_ncop_121,РЪКОВОДИТЕЛИ В БИЗНЕС УСЛУГИТЕ И АДМИНИСТРАТИВНИТЕ ДЕЙНОСТИ,121,minor_group,manager,higher,4,2025-01-01,True,bg_ncop_12
+bg_ncop_122,РЪКОВОДИТЕЛИ ПО ПРОДАЖБИ МАРКЕТИНГ И РАЗВОЙНА ДЕЙНОСТ,122,minor_group,manager,higher,4,2025-01-01,True,bg_ncop_12
+bg_ncop_131,РЪКОВОДИТЕЛИ В СЕЛСКОТО ГОРСКОТО И РИБНОТО СТОПАНСТВО,131,minor_group,manager,secondary,3,2025-01-01,True,bg_ncop_13
+bg_ncop_132,РЪКОВОДИТЕЛИ В ПРЕРАБОТВАЩАТА И ДОБИВНАТА ПРОМИШЛЕНОСТ СТРОИТЕЛСТВОТО И ДИСТРИБУЦИЯТА,132,minor_group,manager,secondary,3,2025-01-01,True,bg_ncop_13
+bg_ncop_133,РЪКОВОДИТЕЛИ В ОБЛАСТТА НА ИНФОРМАЦИОННИТЕ И КОМУНИКАЦИОННИТЕ ТЕХНОЛОГИИ,133,minor_group,manager,higher,4,2025-01-01,True,bg_ncop_13
+bg_ncop_134,РЪКОВОДИТЕЛИ В ОБЛАСТТА НА ПРОФЕСИОНАЛНИТЕ УСЛУГИ,134,minor_group,manager,higher,4,2025-01-01,True,bg_ncop_13
+bg_ncop_141,УПРАВИТЕЛИ НА ХОТЕЛИ И РЕСТОРАНТИ,141,minor_group,manager,secondary,3,2025-01-01,True,bg_ncop_14
+bg_ncop_142,РЪКОВОДИТЕЛИ В ТЪРГОВИЯТА НА ЕДРО И ДРЕБНО,142,minor_group,manager,secondary,3,2025-01-01,True,bg_ncop_14
+bg_ncop_143,РЪКОВОДИТЕЛИ НА ДРУГИ УСЛУГИ,143,minor_group,manager,secondary,3,2025-01-01,True,bg_ncop_14
+bg_ncop_211,СПЕЦИАЛИСТИ ПО ФИЗИЧЕСКИ И ХИМИЧЕСКИ НАУКИ И НАУКИ ЗА ЗЕМЯТА,211,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_21
+bg_ncop_212,МАТЕМАТИЦИ АКТЮЕРИ И СТАТИСТИЦИ,212,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_21
+bg_ncop_213,СПЕЦИАЛИСТИ ПО ЕСТЕСТВЕНИ НАУКИ,213,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_21
+bg_ncop_214,СПЕЦИАЛИСТИ ПО ТЕХНИЧЕСКИ НАУКИ БЕЗ ИНЖЕНЕРИ ПО ЕЛЕКТРОТЕХНОЛОГИИ,214,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_21
+bg_ncop_215,ИНЖЕНЕРИ ПО ЕЛЕКТРОТЕХНОЛОГИИ,215,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_21
+bg_ncop_216,АРХИТЕКТИ ПРОЕКТАНТИ ЗЕМЕМЕРИ И ДИЗАЙНЕРИ,216,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_21
+bg_ncop_221,ЛЕКАРИ,221,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_22
+bg_ncop_222,МЕДИЦИНСКИ СЕСТРИ И АКУШЕРКИ,222,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_22
+bg_ncop_223,СПЕЦИАЛИСТИ В ОБЛАСТТА НА ТРАДИЦИОННАТА И КОМПЛЕМЕНТАРНА МЕДИЦИНА,223,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_22
+bg_ncop_224,ПАРАМЕДИЦИНСКИ СПЕЦИАЛИСТИ,224,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_22
+bg_ncop_225,ВЕТЕРИНАРИ,225,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_22
+bg_ncop_226,ДРУГИ МЕДИЦИНСКИ И ЗДРАВНИ СПЕЦИАЛИСТИ,226,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_22
+bg_ncop_231,ПРЕПОДАВАТЕЛИ ВЪВ ВИСШИ УЧИЛИЩА,231,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_23
+bg_ncop_232,УЧИТЕЛИ ПО ПРОФЕСИОНАЛНА ПОДГОТОВКА В ПРОФЕСИОНАЛНОТО ОБРАЗОВАНИЕ И ОБУЧЕНИЕ И ПРЕПОДАВАТЕЛИ В ЦПО И В ПРОФЕСИОНАЛНИТЕ КОЛЕЖИ,232,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_23
+bg_ncop_233,УЧИТЕЛИ ПО ОБЩООБРАЗОВАТЕЛНА ПОДГОТОВКА В СРЕДНОТО ОБРАЗОВАНИЕ V-XII КЛАС,233,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_23
+bg_ncop_234,УЧИТЕЛИ В НАЧАЛЕН ЕТАП НА ОСНОВНОТО ОБРАЗОВАНИЕ I-IV КЛАС И В ПРЕДУЧИЛИЩНО ВЪЗПИТАНИЕ И ПОДГОТОВКА,234,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_23
+bg_ncop_235,ДРУГИ ПРЕПОДАВАТЕЛИ,235,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_23
+bg_ncop_241,ФИНАНСОВИ СПЕЦИАЛИСТИ,241,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_24
+bg_ncop_242,АДМИНИСТРАТИВНИ СПЕЦИАЛИСТИ,242,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_24
+bg_ncop_243,СПЕЦИАЛИСТИ ПО ПРОДАЖБИ МАРКЕТИНГ И ВРЪЗКИ С ОБЩЕСТВЕНОСТТА,243,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_24
+bg_ncop_251,РАЗРАБОТЧИЦИ НА СОФТУЕР И СОФТУЕРНИ ПРИЛОЖЕНИЯ И АНАЛИЗАТОРИ,251,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_25
+bg_ncop_252,СПЕЦИАЛИСТИ ПО БАЗИ ДАННИ И МРЕЖИ,252,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_25
+bg_ncop_261,ЮРИСТИ,261,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_26
+bg_ncop_262,БИБЛИОТЕКАРИ АРХИВИСТИ И УРЕДНИЦИ,262,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_26
+bg_ncop_263,СПЕЦИАЛИСТИ ПО ОБЩЕСТВЕНИ НАУКИ И РЕЛИГИОЗНИ СПЕЦИАЛИСТИ,263,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_26
+bg_ncop_264,ПИСАТЕЛИ ЖУРНАЛИСТИ И ЕЗИКОВЕДИ,264,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_26
+bg_ncop_265,ТВОРЦИ И ИЗПЪЛНИТЕЛИ,265,minor_group,specialist,higher,4,2025-01-01,True,bg_ncop_26
+bg_ncop_311,ПРИЛОЖНИ СПЕЦИАЛИСТИ ВЪВ ФИЗИЧЕСКИТЕ И ТЕХНИЧЕСКИТЕ НАУКИ,311,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_31
+bg_ncop_312,ПРИЛОЖНИ СПЕЦИАЛИСТИ С КОНТРОЛНИ ФУНКЦИИ В ДОБИВНАТА И ПРЕРАБОТВАЩАТА ПРОМИШЛЕНОСТ И СТРОИТЕЛСТВОТО,312,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_31
+bg_ncop_313,ТЕХНИЦИ ПО КОНТРОЛ НА ПРОИЗВОДСТВЕНИ ПРОЦЕСИ,313,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_31
+bg_ncop_314,ПРИРОДОНАУЧНИ ТЕХНИЦИ И СРОДНИ НА ТЯХ СПЕЦИАЛИСТИ,314,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_31
+bg_ncop_315,КОРАБНИ И АВИАЦИОННИ СПЕЦИАЛИСТИ,315,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_31
+bg_ncop_321,ПРИЛОЖНИ СПЕЦИАЛИСТИ В МЕДИЦИНАТА И ФАРМАЦИЯТА,321,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_32
+bg_ncop_322,ПОМОЩНИК-МЕДИЦИНСКИ СЕСТРИ И ПОМОЩНИК-АКУШЕРКИ,322,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_32
+bg_ncop_323,ПРИЛОЖНИ СПЕЦИАЛИСТИ В ОБЛАСТТА НА ТРАДИЦИОННАТА И КОМПЛЕМЕНТАРНАТА МЕДИЦИНА,323,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_32
+bg_ncop_324,ВЕТЕРИНАРНИ ТЕХНИЦИ И АСИСТЕНТИ,324,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_32
+bg_ncop_325,ДРУГИ ПРИЛОЖНИ СПЕЦИАЛИСТИ В ЗДРАВЕОПАЗВАНЕТО,325,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_32
+bg_ncop_331,ПРИЛОЖНИ СПЕЦИАЛИСТИ ПО ФИНАНСИ И МАТЕМАТИКА,331,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_33
+bg_ncop_332,ПОСРЕДНИЦИ В ТЪРГОВИЯТА И ПРОДАЖБИТЕ,332,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_33
+bg_ncop_333,ПОСРЕДНИЦИ В БИЗНЕС УСЛУГИТЕ,333,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_33
+bg_ncop_334,АДМИНИСТРАТИВНИ ПРИЛОЖНИ СПЕЦИАЛИСТИ,334,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_33
+bg_ncop_335,ПРИЛОЖНИ СПЕЦИАЛИСТИ В ДЪРЖАВНАТА АДМИНИСТРАЦИЯ,335,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_33
+bg_ncop_341,ПРИЛОЖНИ СПЕЦИАЛИСТИ ПО ЮРИДИЧЕСКИ И СОЦИАЛНИ ДЕЙНОСТИ РЕЛИГИОЗНИ СЛУЖИТЕЛИ,341,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_34
+bg_ncop_342,СПОРТИСТИ И РАБОТЕЩИ В ОБЛАСТТА НА СПОРТА,342,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_34
+bg_ncop_343,ПРИЛОЖНИ СПЕЦИАЛИСТИ В ОБЛАСТТА НА ИЗКУСТВАТА КУЛТУРАТА И КУЛИНАРСТВОТО,343,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_34
+bg_ncop_351,ТЕХНИЦИ В ОБЛАСТТА НА ИНФОРМАЦИОННИТЕ И КОМУНИКАЦИОННИ ТЕХНОЛОГИИ И ОБСЛУЖВАНЕ НА ПОТРЕБИТЕЛИ,351,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_35
+bg_ncop_352,ТЕХНИЦИ ПО РАДИО- ТЕЛЕВИЗИОННА И ДАЛЕКОСЪОБЩИТЕЛНА ТЕХНИКА,352,minor_group,technician,secondary,3,2025-01-01,True,bg_ncop_35
+bg_ncop_411,ОБЩИ АДМИНИСТРАТИВНИ СЛУЖИТЕЛИ,411,minor_group,clerk,secondary,2,2025-01-01,True,bg_ncop_41
+bg_ncop_412,СЕКРЕТАРИ С ОБЩИ ФУНКЦИИ,412,minor_group,clerk,secondary,2,2025-01-01,True,bg_ncop_41
+bg_ncop_413,ОПЕРАТОРИ НА ОРГАНИЗАЦИОННА ТЕХНИКА,413,minor_group,clerk,secondary,2,2025-01-01,True,bg_ncop_41
+bg_ncop_421,КАСИЕРИ ИНКАСАТОРИ И СРОДНИ НА ТЯХ,421,minor_group,clerk,secondary,2,2025-01-01,True,bg_ncop_42
+bg_ncop_422,ПЕРСОНАЛ ИНФОРМИРАЩ КЛИЕНТИ,422,minor_group,clerk,secondary,2,2025-01-01,True,bg_ncop_42
+bg_ncop_431,ПЕРСОНАЛ ВОДЕЩ СЧЕТОВОДНИ СМЕТКИ И ДОКУМЕНТИ,431,minor_group,clerk,secondary,2,2025-01-01,True,bg_ncop_43
+bg_ncop_432,ПЕРСОНАЛ ВОДЕЩ СТОКОВИ И ТРАНСПОРТНИ ДОКУМЕНТИ,432,minor_group,clerk,secondary,2,2025-01-01,True,bg_ncop_43
+bg_ncop_441,ДРУГ ПОМОЩЕН АДМИНИСТРАТИВЕН ПЕРСОНАЛ,441,minor_group,clerk,secondary,2,2025-01-01,True,bg_ncop_44
+bg_ncop_511,ОБСЛУЖВАЩ ПЕРСОНАЛ В ТРАНСПОРТА,511,minor_group,service,secondary,2,2025-01-01,True,bg_ncop_51
+bg_ncop_512,ГОТВАЧИ,512,minor_group,service,secondary,2,2025-01-01,True,bg_ncop_51
+bg_ncop_513,СЕРВИТЬОРИ И БАРМАНИ,513,minor_group,service,secondary,2,2025-01-01,True,bg_ncop_51
+bg_ncop_514,ФРИЗЬОРИ КОЗМЕТИЦИ И СРОДНИ НА ТЯХ,514,minor_group,service,secondary,2,2025-01-01,True,bg_ncop_51
+bg_ncop_515,ДОМАКИНИ И ИКОНОМИ,515,minor_group,service,secondary,2,2025-01-01,True,bg_ncop_51
+bg_ncop_516,ДРУГ ОБСЛУЖВАЩ ПЕРСОНАЛ,516,minor_group,service,secondary,2,2025-01-01,True,bg_ncop_51
+bg_ncop_521,ПРОДАВАЧИ НА ПАЗАРИ И АМБУЛАНТНИ ТЪРГОВЦИ,521,minor_group,service,secondary,2,2025-01-01,True,bg_ncop_52
+bg_ncop_522,ПРОДАВАЧИ В МАГАЗИНИ,522,minor_group,service,secondary,2,2025-01-01,True,bg_ncop_52
+bg_ncop_523,КАСИЕРИ И ПРОДАВАЧИ НА БИЛЕТИ,523,minor_group,service,secondary,2,2025-01-01,True,bg_ncop_52
+bg_ncop_524,ДРУГ ПЕРСОНАЛ ЗАЕТ С ТЪРГОВИЯ,524,minor_group,service,secondary,2,2025-01-01,True,bg_ncop_52
+bg_ncop_531,ПЕРСОНАЛ ГРИЖЕЩ СЕ ЗА ДЕЦА И ПОМОЩНИЦИ НА УЧИТЕЛИ,531,minor_group,service,secondary,2,2025-01-01,True,bg_ncop_53
+bg_ncop_532,ПЕРСОНАЛ ПОЛАГАЩ ЗДРАВНИ ГРИЖИ ЗА ХОРА,532,minor_group,service,secondary,2,2025-01-01,True,bg_ncop_53
+bg_ncop_541,ПЕРСОНАЛ ОСИГУРЯВАЩ ЗАЩИТА И СИГУРНОСТ,541,minor_group,service,secondary,2,2025-01-01,True,bg_ncop_54
+bg_ncop_611,ГРАДИНАРИ И РАСТЕНИЕВЪДИ,611,minor_group,skilled,primary,2,2025-01-01,True,bg_ncop_61
+bg_ncop_612,ЖИВОТНОВЪДИ,612,minor_group,skilled,primary,2,2025-01-01,True,bg_ncop_61
+bg_ncop_613,ПРОИЗВОДИТЕЛИ НА СМЕСЕНА ЖИВОТНОВЪДНА И РАСТЕНИЕВЪДНА ПРОДУКЦИЯ,613,minor_group,skilled,primary,2,2025-01-01,True,bg_ncop_61
+bg_ncop_621,ГОРСКИ РАБОТНИЦИ И СРОДНИ НА ТЯХ,621,minor_group,skilled,primary,2,2025-01-01,True,bg_ncop_62
+bg_ncop_622,РИБОЛОВЦИ И ЛОВЦИ,622,minor_group,skilled,primary,2,2025-01-01,True,bg_ncop_62
+bg_ncop_631,РАСТЕНИЕВЪДИ ПРОИЗВЕЖДАЩИ ЗА СОБСТВЕНО ПОТРЕБЛЕНИЕ,631,minor_group,skilled,primary,1,2025-01-01,True,bg_ncop_63
+bg_ncop_632,ЖИВОТНОВЪДИ ПРОИЗВЕЖДАЩИ ЗА СОБСТВЕНО ПОТРЕБЛЕНИЕ,632,minor_group,skilled,primary,1,2025-01-01,True,bg_ncop_63
+bg_ncop_633,СЕЛСКОСТОПАНСКИ РАБОТНИЦИ ОТГЛЕЖДАЩИ РАСТЕНИЯ И ЖИВОТНИ ЗА СОБСТВЕНО ПОТРЕБЛЕНИЕ,633,minor_group,skilled,primary,1,2025-01-01,True,bg_ncop_63
+bg_ncop_634,РИБОЛОВЦИ ЛОВЦИ И БЕРАЧИ ПРОИЗВЕЖДАЩИ ЗА СОБСТВЕНО ПОТРЕБЛЕНИЕ,634,minor_group,skilled,primary,1,2025-01-01,True,bg_ncop_63
+bg_ncop_711,СТРОИТЕЛИ НА СГРАДИ И СРОДНИ НА ТЯХ,711,minor_group,skilled,secondary,2,2025-01-01,True,bg_ncop_71
+bg_ncop_712,РАБОТНИЦИ ПО ДОВЪРШИТЕЛНИ РАБОТИ В СТРОИТЕЛСТВОТО И СРОДНИ НА ТЯХ,712,minor_group,skilled,secondary,2,2025-01-01,True,bg_ncop_71
+bg_ncop_713,БОЯДЖИИ ЧИСТАЧИ НА ФАСАДИ И СРОДНИ НА ТЯХ,713,minor_group,skilled,secondary,2,2025-01-01,True,bg_ncop_71
+bg_ncop_721,ЛЕЯЦИ ЗАВАРЧИЦИ ТЕНЕКЕДЖИИ МОНТАЖНИЦИ НА МЕТАЛНИ КОНСТРУКЦИИ И СРОДНИ НА ТЯХ,721,minor_group,skilled,secondary,2,2025-01-01,True,bg_ncop_72
+bg_ncop_722,КОВАЧИ ПРОИЗВОДИТЕЛИ НА ИНСТРУМЕНТИ И СРОДНИ НА ТЯХ,722,minor_group,skilled,secondary,2,2025-01-01,True,bg_ncop_72
+bg_ncop_723,МАШИННИ МЕХАНИЦИ И МОНТЬОРИ,723,minor_group,skilled,secondary,2,2025-01-01,True,bg_ncop_72
+bg_ncop_731,ЗАНАЯТЧИИ,731,minor_group,skilled,secondary,2,2025-01-01,True,bg_ncop_73
+bg_ncop_732,ПЕЧАТАРИ И СРОДНИ НА ТЯХ,732,minor_group,skilled,secondary,2,2025-01-01,True,bg_ncop_73
+bg_ncop_741,РАБОТНИЦИ ПО ИНСТАЛИРАНЕ И РЕМОНТ НА ЕЛЕКТРИЧЕСКИ СЪОРЪЖЕНИЯ,741,minor_group,skilled,secondary,2,2025-01-01,True,bg_ncop_74
+bg_ncop_742,РАБОТНИЦИ ПО ИНСТАЛИРАНЕ И РЕМОНТ НА ЕЛЕКТРОННИ И ТЕЛЕКОМУНИКАЦИОННИ СЪОРЪЖЕНИЯ,742,minor_group,skilled,secondary,2,2025-01-01,True,bg_ncop_74
+bg_ncop_751,РАБОТНИЦИ ПО ПРОИЗВОДСТВО НА ХРАНИ И СРОДНИ НА ТЯХ,751,minor_group,skilled,secondary,2,2025-01-01,True,bg_ncop_75
+bg_ncop_752,РАБОТНИЦИ ПО ОБРАБОТКА НА ДЪРВО МЕБЕЛИСТИ И СРОДНИ НА ТЯХ,752,minor_group,skilled,secondary,2,2025-01-01,True,bg_ncop_75
+bg_ncop_753,РАБОТНИЦИ ПО ПРОИЗВОДСТВО НА ОБЛЕКЛО И СРОДНИ НА ТЯХ,753,minor_group,skilled,secondary,2,2025-01-01,True,bg_ncop_75
+bg_ncop_754,ДРУГИ КВАЛИФИЦИРАНИ РАБОТНИЦИ И СРОДНИ НА ТЯХ ЗАНАЯТЧИИ,754,minor_group,skilled,secondary,2,2025-01-01,True,bg_ncop_75
+bg_ncop_811,МАШИННИ ОПЕРАТОРИ В МИННОДОБИВА И ДОБИВА НА МИНЕРАЛИ,811,minor_group,operator,secondary,2,2025-01-01,True,bg_ncop_81
+bg_ncop_812,МАШИННИ ОПЕРАТОРИ В МЕТАЛУРГИЧНОТО ПРОИЗВОДСТВО И МЕТАЛООБРАБОТВАНЕТО,812,minor_group,operator,secondary,2,2025-01-01,True,bg_ncop_81
+bg_ncop_813,МАШИННИ ОПЕРАТОРИ В ХИМИЧЕСКОТО ПРОИЗВОДСТВО И ПРОИЗВОДСТВОТО НА ФОТОГРАФСКИ ПРОДУКТИ,813,minor_group,operator,secondary,2,2025-01-01,True,bg_ncop_81
+bg_ncop_814,МАШИННИ ОПЕРАТОРИ В ПРОИЗВОДСТВОТО НА КАУЧУК ПЛАСТМАСИ И ХАРТИЕНИ ИЗДЕЛИЯ,814,minor_group,operator,secondary,2,2025-01-01,True,bg_ncop_81
+bg_ncop_815,МАШИННИ ОПЕРАТОРИ В ТЕКСТИЛНОТО ШИВАШКОТО И КОЖАРСКОТО ПРОИЗВОДСТВО,815,minor_group,operator,secondary,2,2025-01-01,True,bg_ncop_81
+bg_ncop_816,МАШИННИ ОПЕРАТОРИ В ХРАНИТЕЛНО-ВКУСОВАТА ПРОМИШЛЕНОСТ,816,minor_group,operator,secondary,2,2025-01-01,True,bg_ncop_81
+bg_ncop_817,МАШИННИ ОПЕРАТОРИ В ДЪРВООБРАБОТВАЩАТА И ХАРТИЕНАТА ПРОМИШЛЕНОСТ,817,minor_group,operator,secondary,2,2025-01-01,True,bg_ncop_81
+bg_ncop_818,ДРУГИ ОПЕРАТОРИ НА СТАЦИОНАРНИ МАШИНИ И СЪОРЪЖЕНИЯ,818,minor_group,operator,secondary,2,2025-01-01,True,bg_ncop_81
+bg_ncop_821,МОНТАЖНИЦИ,821,minor_group,operator,secondary,2,2025-01-01,True,bg_ncop_82
+bg_ncop_831,ЛОКОМОТИВНИ МАШИНИСТИ И СРОДНИ НА ТЯХ,831,minor_group,operator,secondary,2,2025-01-01,True,bg_ncop_83
+bg_ncop_832,ВОДАЧИ НА ЛЕКИ АВТОМОБИЛИ И МОТОЦИКЛЕТИ,832,minor_group,operator,secondary,2,2025-01-01,True,bg_ncop_83
+bg_ncop_833,ВОДАЧИ НА ТЕЖКОТОВАРНИ АВТОМОБИЛИ И АВТОБУСИ,833,minor_group,operator,secondary,2,2025-01-01,True,bg_ncop_83
+bg_ncop_834,ОПЕРАТОРИ НА ПОДВИЖНИ СЪОРЪЖЕНИЯ,834,minor_group,operator,secondary,2,2025-01-01,True,bg_ncop_83
+bg_ncop_835,ПАЛУБНИ МОРЯЦИ И СРОДНИ НА ТЯХ,835,minor_group,operator,secondary,2,2025-01-01,True,bg_ncop_83
+bg_ncop_911,ЧИСТАЧИ И ПОМОЩНИЦИ В ДОМАКИНСТВА ХОТЕЛИ И УЧРЕЖДЕНИЯ,911,minor_group,elementary,primary,1,2025-01-01,True,bg_ncop_91
+bg_ncop_912,МИЯЧИ НА ПРЕВОЗНИ СРЕДСТВА ПРОЗОРЦИ ПЕРАЧИ И СРОДНИ НА ТЯХ,912,minor_group,elementary,primary,1,2025-01-01,True,bg_ncop_91
+bg_ncop_921,РАБОТНИЦИ В СЕЛСКОТО ГОРСКОТО И РИБНОТО СТОПАНСТВО,921,minor_group,elementary,primary,1,2025-01-01,True,bg_ncop_92
+bg_ncop_931,РАБОТНИЦИ В ДОБИВНАТА ПРОМИШЛЕНОСТ И СТРОИТЕЛСТВОТО,931,minor_group,elementary,primary,1,2025-01-01,True,bg_ncop_93
+bg_ncop_932,РАБОТНИЦИ В ПРЕРАБОТВАЩАТА ПРОМИШЛЕНОСТ,932,minor_group,elementary,primary,1,2025-01-01,True,bg_ncop_93
+bg_ncop_933,РАБОТНИЦИ В ТРАНСПОРТА И СКЛАДИРАНЕТО,933,minor_group,elementary,primary,1,2025-01-01,True,bg_ncop_93
+bg_ncop_941,ПОМОЩНИЦИ ПРИ ПРИГОТВЯНЕТО НА ХРАНИ,941,minor_group,elementary,primary,1,2025-01-01,True,bg_ncop_94
+bg_ncop_951,РАБОТНИЦИ ИЗВЪРШВАЩИ УСЛУГИ НА УЛИЦАТА,951,minor_group,elementary,primary,1,2025-01-01,True,bg_ncop_95
+bg_ncop_952,УЛИЧНИ ПРОДАВАЧИ НА НЕХРАНИТЕЛНИ СТОКИ,952,minor_group,elementary,primary,1,2025-01-01,True,bg_ncop_95
+bg_ncop_961,РАБОТНИЦИ ПО СЪБИРАНЕ И СОРТИРАНЕ НА ОТПАДЪЦИ,961,minor_group,elementary,primary,1,2025-01-01,True,bg_ncop_96
+bg_ncop_962,ДРУГИ НЕКВАЛИФИЦИРАНИ РАБОТНИЦИ,962,minor_group,elementary,primary,1,2025-01-01,True,bg_ncop_96

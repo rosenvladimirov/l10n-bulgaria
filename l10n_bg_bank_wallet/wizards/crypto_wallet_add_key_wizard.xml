@@ -89,7 +89,7 @@
     <!-- Menu item -->
     <menuitem id="menu_crypto_wallet_add_key"
               name="Добави ключ"
-              parent="menu_crypto_wallet_main"
+              parent="crypto_wallet_menu_root"
               action="action_crypto_wallet_add_key_wizard"
               sequence="20"/>
 

@@ -13,6 +13,8 @@ REPORT_REFS = {
     'purchase_quotation': 'l10n_bg_report_theme.report_purchasequotation_document',
     'purchase_order': 'l10n_bg_report_theme.report_purchaseorder_document',
     'sale_order': 'l10n_bg_report_theme.report_saleorder_document',
+    'sale_order_raw': 'l10n_bg_report_theme.report_saleorder_raw',
+    'sale_order_pro_forma': 'l10n_bg_report_theme.report_saleorder_pro_forma',
 }
 
 

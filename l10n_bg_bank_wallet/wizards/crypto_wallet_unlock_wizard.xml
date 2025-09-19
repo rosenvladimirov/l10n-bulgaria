@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Unlock Wallet Wizard Form View -->
+    <record id="view_crypto_wallet_unlock_wizard_form" model="ir.ui.view">
+        <field name="name">crypto.wallet.unlock.wizard.form</field>
+        <field name="model">crypto.wallet.unlock.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Отключи портфела">
+                <div class="alert alert-info" role="alert">
+                    <strong>Отключване на портфел</strong><br/>
+                    Въведете главната парола за отключване на криптирания портфел.
+                    Портфелът ще остане отключен до края на сесията.
+                </div>
+                <sheet>
+                    <group>
+                        <field name="wallet_id" readonly="1"/>
+                        <field name="use_user_password"/>
+                        <field name="master_password" password="True"
+                               invisible="use_user_password"
+                               placeholder="Въведете главната парола..."/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Отключи" name="unlock_wallet" type="object"
+                            class="btn-primary" data-hotkey="q"/>
+                    <button string="Отключи и покажи ключове" name="unlock_and_show_keys"
+                            type="object" class="btn-secondary"/>
+                    <button string="Отказ" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

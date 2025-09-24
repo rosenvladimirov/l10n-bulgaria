@@ -122,7 +122,7 @@ class AccountChartTemplate(models.AbstractModel):
         if type_template == 'account.account' and hasattr(self, '_get_bg_template_data'):
             bg_template_data = self._get_bg_template_data()
             account_mask = bg_template_data.get('account_mask') or None
-            target_len = bg_template_data.get('code_digits') - 1 or 6
+            target_len = int(bg_template_data.get('code_digits')) - 1 or 6
             if account_mask:
                 for account_data in result.values():
                     account_data['code'] = apply_mask_zip(account_data['code'], account_mask, target_len=target_len)

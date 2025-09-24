@@ -126,17 +126,14 @@ class AccountChartTemplate(models.AbstractModel):
             except (TypeError, ValueError):
                 target_len = 6
 
-            updated_result = {}
             if account_mask:
                 for key, account_data in result.items():
-                    updated_result[key] = account_data.copy()
-                    updated_result[key]['code'] = apply_mask_zip(
+                    result[key]['code'] = apply_mask_zip(
                         account_data['code'],
                         account_mask,
                         target_len=target_len,
                         fill_char='0'
                     )
-                result.update(updated_result)
         return result
 
     @template(model='account.account')

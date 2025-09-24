@@ -1,6 +1,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import logging
+import re
+
 from odoo import models
 from odoo.addons.account.models.chart_template import template
 from itertools import zip_longest
@@ -16,48 +18,45 @@ def apply_mask_zip(
         mask: str,
         placeholder: str = '#',
         target_len: int | None = None,
-        fill_char: str = '0',            # NEW: символ за допълване
+        fill_char: str | None = None,
 ) -> str:
     """
-    Налага маска върху низ, премахва излишните разделители
-    и при нужда допълва 'value' до target_len.
-
-    Параметри
-    ---------
-    value       : входният низ (напр. '601')
-    mask        : маската (напр. '###.####')
-    placeholder : символ-заместител (по подразбиране '#')
-    target_len  : желана минимална дължина на value.
-    fill_char   : символ, с който да се допълни (по подразб. последният от value).
-
-    Примери
-    -------
-    apply_mask_zip('601', '###.####')                         -> '601'
-    apply_mask_zip('601', '###.####', target_len=6)           -> '601.111'
-    apply_mask_zip('601', '###.####', target_len=6, fill_char='0') -> '601.000'
+    Форматира 'value' по дадена 'mask', като:
+      • пропуска разделителите от маската, ако няма оставащи цифри;
+      • допълва липсващи позиции с fill_char;
+      • НЕ брои вече присъстващи разделители във value.
     """
-    # ---------- Допълване до target_len ----------
-    if target_len is not None and len(value) < target_len:
+    # ----------- Премахваме всички нецифрови символи от входа -----------
+    raw_value = re.sub(r'\D', '', value)       # само цифри
+    value = raw_value                          # занапред работим с прочистен низ
+
+    # ----------- Изчисляване на минималната изисквана дължина -----------
+    placeholders = mask.count(placeholder)
+    min_len = placeholders if target_len is None else max(placeholders, target_len)
+
+    # ----------- Допълване, ако е необходимо -----------
+    if len(value) < min_len:
         if fill_char is None:
             fill_char = value[-1] if value else '0'
-        value = value + fill_char * (target_len - len(value))
+        value += fill_char * (min_len - len(value))
 
-    digits_iter = iter(value)
-    result = []
-    pending_sep = None
+    # ----------- Прилагане на маската -----------
+    digits = iter(value)
+    result, pending_sep = [], None
 
-    for m_ch, d_ch in zip_longest(mask, digits_iter, fillvalue=None):
-        if m_ch == placeholder:
+    for m_ch, d_ch in zip_longest(mask, digits, fillvalue=None):
+        if m_ch == placeholder:            # позиция за цифра
             if d_ch is None:
                 break
+        else:                              # разделител от маската
+            pending_sep = m_ch
             if pending_sep:
                 result.append(pending_sep)
                 pending_sep = None
-            result.append(d_ch)
-        else:                       # разделител (. - / и др.)
-            pending_sep = m_ch
+        result.append(d_ch)
 
-    leftover = ''.join(digits_iter)
+    # Остатъчни цифри (ако value е по-дълъг от маската)
+    leftover = ''.join(digits)
     if leftover:
         if pending_sep:
             result.append(pending_sep)
@@ -122,10 +121,22 @@ class AccountChartTemplate(models.AbstractModel):
         if type_template == 'account.account' and hasattr(self, '_get_bg_template_data'):
             bg_template_data = self._get_bg_template_data()
             account_mask = bg_template_data.get('account_mask') or None
-            target_len = int(bg_template_data.get('code_digits')) - 1 or 6
+            try:
+                target_len = int(bg_template_data.get('code_digits', 6))
+            except (TypeError, ValueError):
+                target_len = 6
+
+            updated_result = {}
             if account_mask:
-                for account_data in result.values():
-                    account_data['code'] = apply_mask_zip(account_data['code'], account_mask, target_len=target_len)
+                for key, account_data in result.items():
+                    updated_result[key] = account_data.copy()
+                    updated_result[key]['code'] = apply_mask_zip(
+                        account_data['code'],
+                        account_mask,
+                        target_len=target_len,
+                        fill_char='0'
+                    )
+                result.update(updated_result)
         return result
 
     @template(model='account.account')
@@ -191,7 +202,7 @@ class AccountChartTemplate(models.AbstractModel):
     def _get_bg_template_data_external(self):
         return {
             'account_mask': '###.###',
-            'code_digits': '7',
+            'code_digits': '6',
         }
 
     @template('bg')

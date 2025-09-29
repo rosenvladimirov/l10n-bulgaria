@@ -2,7 +2,6 @@
 import base64
 
 from odoo import fields, models, api
-from .l10n_bg_config_mixin import generate_encryption_keys
 
 
 class ResConfigSettings(models.TransientModel):

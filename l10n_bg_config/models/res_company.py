@@ -3,7 +3,6 @@ import base64
 import json
 
 from odoo import Command, api, fields, models
-from odoo.tools import sql
 import xml.etree.ElementTree as ET
 
 L10N_BG_MULTILANGUAGE = ("l10n_bg_multilang", "partner_multilang")

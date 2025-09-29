@@ -4,7 +4,6 @@ import logging
 
 from odoo import Command, _, api, fields, models
 from odoo.addons.l10n_bg_config.models.l10n_bg_config_mixin import generate_key2, generate_encryption_keys
-from odoo.tools import sql
 
 _logger = logging.getLogger(__name__)
 

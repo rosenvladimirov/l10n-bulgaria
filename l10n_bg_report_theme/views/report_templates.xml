@@ -238,9 +238,12 @@
         <div class="row mt8 o_sections_signatures" name="signatures_section"
              groups="l10n_bg_report_theme.group_control_signatures">
             <!-- Set variables for labels -->
-            <t t-set="name_and_surname_label" t-if="not name_and_surname_label">Name and Surname</t>
-            <t t-set="signature_and_stamp_label" t-if="not signature_and_stamp_label">Signature and Stamp</t>
-            <t t-set="signature_placeholder" t-if="not signature_placeholder">____________________</t>
+
+            <t t-if="recipient_name" t-set="name_and_surname_label" t-value="recipient_name"/>
+            <t t-if="not name_and_surname_label" t-set="name_and_surname_label">CUSTOMER</t>
+            <t t-if="not signature_and_stamp_label" t-set="signature_and_stamp_label">Signature and Stamp</t>
+            <t t-if="not signature_placeholder" t-set="signature_placeholder">____________________</t>
+            <t t-if="not name_and_sender_label" t-set="name_and_sender_label">COMPILER</t>
 
             <div class="col-12" name="signatures_control">
                 <div class="row">
@@ -259,7 +262,7 @@
                     <div class="col-6 text-center">
                         <div class="o_signatures_field">
                             <small>
-                                <t t-esc="name_and_surname_label"/>: <span t-esc="o.env.user.name"/>
+                                <t t-esc="name_and_sender_label"/>: <span t-esc="o.env.user.name"/>
                                 <br/>
                                 <t t-esc="signature_and_stamp_label"/>: <t t-esc="signature_placeholder"/>
                             </small>

@@ -108,6 +108,19 @@
         <t t-if="not recipient_vat_label">
             <t t-set="recipient_vat_label">TIN</t>
         </t>
+        <t t-if="not sender_uic_label">
+            <t t-set="sender_vat_label">UIC</t>
+        </t>
+        <t t-if="not recipient_uic_label">
+            <t t-set="recipient_vat_label">UIC</t>
+        </t>
+        <t t-if="not sender_contact_label">
+            <t t-set="sender_vat_label">Represent contact</t>
+        </t>
+        <t t-if="not recipient_contact_label">
+            <t t-set="recipient_vat_label">Represent contact</t>
+        </t>
+
         <div class="row mt8 o_sections_deal" name="deal" t-if="recipient and sender">
             <div class="col-12" name="deal_table">
                 <table class="table o_deal_table table-sm mt-4" name="deal_header">
@@ -167,18 +180,30 @@
                             <td />
                             <td><span t-field="sender.street2" /></td>
                         </tr>
-                        <tr name="vatnumber">
-                            <t t-if="recipient.vat and 'l10n_bg_uic' in recipient._fields">
+                        <tr name="uic_number" t-if="'l10n_bg_uic' in recipient._fields and recipient.l10n_bg_uic or sender.l10n_bg_uic">
+                            <t t-if="recipient.l10n_bg_uic">
                                 <td class="o_selection_custom_name"><t
-                                        t-esc="recipient_vat_label"
+                                        t-esc="recipient_uic_label"
                                     />: </td>
-                                <td><span t-esc="recipient.vat or recipient.l10n_bg_uic"/></td>
+                                <td><span t-esc="recipient.l10n_bg_uic"/></td>
                             </t>
-                            <t t-elif="recipient.vat and 'l10n_bg_uic' not in recipient._fields">
+                            <t t-else="">
+                                <td /><td />
+                            </t>
+                            <t t-if="sender.l10n_bg_uic">
+                                <td class="o_selection_custom_name"><t
+                                        t-esc="sender_uic_label"
+                                    />: </td>
+                                <td><span t-field="sender.l10n_bg_uic"/></td>
+                            </t>
+                            <t t-else=""><td /><td /></t>
+                        </tr>
+                        <tr name="vat_number" t-if="recipient.vat or sender.vat">
+                            <t t-if="recipient.vat">
                                 <td class="o_selection_custom_name"><t
                                         t-esc="recipient_vat_label"
                                     />: </td>
-                                <td><span t-field="recipient.vat"/></td>
+                                <td><span t-esc="recipient.vat"/></td>
                             </t>
                             <t t-else="">
                                 <td /><td />
@@ -193,14 +218,18 @@
                         </tr>
                          <tr name="represent" groups="l10n_bg_report_theme.group_control_represent_person">
                             <t t-if="recipient.l10n_bg_represent_contact_id">
-                                <td class="o_selection_custom_name">Represent contact: </td>
+                                <td class="o_selection_custom_name"><t
+                                        t-esc="recipient_contact_label"
+                                    />: </td>
                                 <td><span t-esc="recipient.l10n_bg_represent_contact_id.name"/></td>
                             </t>
                             <t t-else="">
                                 <td /><td />
                             </t>
                             <t t-if="sender.l10n_bg_represent_contact_id">
-                                <td class="o_selection_custom_name">Represent contact: </td>
+                                <td class="o_selection_custom_name"><t
+                                        t-esc="sender_contact_label"
+                                    />: </td>
                                 <td><span t-esc="sender.l10n_bg_represent_contact_id.name"/></td>
                             </t>
                             <t t-else=""><td /><td /></t>

@@ -109,16 +109,16 @@
             <t t-set="recipient_vat_label">TIN</t>
         </t>
         <t t-if="not sender_uic_label">
-            <t t-set="sender_vat_label">UIC</t>
+            <t t-set="sender_uic_label">UIC</t>
         </t>
         <t t-if="not recipient_uic_label">
-            <t t-set="recipient_vat_label">UIC</t>
+            <t t-set="recipient_uic_label">UIC</t>
         </t>
         <t t-if="not sender_contact_label">
-            <t t-set="sender_vat_label">Represent contact</t>
+            <t t-set="sender_contact_label">Sender represent contact</t>
         </t>
         <t t-if="not recipient_contact_label">
-            <t t-set="recipient_vat_label">Represent contact</t>
+            <t t-set="recipient_contact_label">Represent contact</t>
         </t>
 
         <div class="row mt8 o_sections_deal" name="deal" t-if="recipient and sender">
@@ -184,7 +184,7 @@
                             <t t-if="recipient.l10n_bg_uic">
                                 <td class="o_selection_custom_name"><t
                                         t-esc="recipient_uic_label"
-                                    />: </td>
+                                    />:<span/></td>
                                 <td><span t-esc="recipient.l10n_bg_uic"/></td>
                             </t>
                             <t t-else="">
@@ -193,7 +193,7 @@
                             <t t-if="sender.l10n_bg_uic">
                                 <td class="o_selection_custom_name"><t
                                         t-esc="sender_uic_label"
-                                    />: </td>
+                                    />:<span/></td>
                                 <td><span t-field="sender.l10n_bg_uic"/></td>
                             </t>
                             <t t-else=""><td /><td /></t>
@@ -202,7 +202,7 @@
                             <t t-if="recipient.vat">
                                 <td class="o_selection_custom_name"><t
                                         t-esc="recipient_vat_label"
-                                    />: </td>
+                                    />:<span/></td>
                                 <td><span t-esc="recipient.vat"/></td>
                             </t>
                             <t t-else="">
@@ -211,7 +211,7 @@
                             <t t-if="sender.vat">
                                 <td class="o_selection_custom_name"><t
                                         t-esc="sender_vat_label"
-                                    />: </td>
+                                    />:<span/></td>
                                 <td><span t-field="sender.vat" /></td>
                             </t>
                             <t t-else=""><td /><td /></t>
@@ -220,7 +220,7 @@
                             <t t-if="recipient.l10n_bg_represent_contact_id">
                                 <td class="o_selection_custom_name"><t
                                         t-esc="recipient_contact_label"
-                                    />: </td>
+                                    />:<span/></td>
                                 <td><span t-esc="recipient.l10n_bg_represent_contact_id.name"/></td>
                             </t>
                             <t t-else="">
@@ -229,7 +229,7 @@
                             <t t-if="sender.l10n_bg_represent_contact_id">
                                 <td class="o_selection_custom_name"><t
                                         t-esc="sender_contact_label"
-                                    />: </td>
+                                    />:<span/></td>
                                 <td><span t-esc="sender.l10n_bg_represent_contact_id.name"/></td>
                             </t>
                             <t t-else=""><td /><td /></t>

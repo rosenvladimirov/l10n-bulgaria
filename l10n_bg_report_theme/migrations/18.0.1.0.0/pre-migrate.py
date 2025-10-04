@@ -17,7 +17,7 @@ NEW_MODULE_NAME = os.path.basename(
 
 def migrate(cr, version):
     """
-    Rename the module from report_theme_sections to the new module name (Odoo 18)
+    Migrate module data from OLD to NEW name, then delete old module record (Odoo 18)
     """
     _logger.info(f'Migration running from module directory: {NEW_MODULE_NAME}')
 
@@ -27,10 +27,10 @@ def migrate(cr, version):
 
     # Проверка дали старият модул съществува
     cr.execute("""
-        SELECT id, name, state
-        FROM ir_module_module
-        WHERE name = %s
-    """, (OLD_MODULE_NAME,))
+               SELECT id, name, state
+               FROM ir_module_module
+               WHERE name = %s
+               """, (OLD_MODULE_NAME,))
 
     old_module = cr.fetchone()
 
@@ -40,64 +40,46 @@ def migrate(cr, version):
 
     old_module_id = old_module[0]
     _logger.info(f'Found module {OLD_MODULE_NAME} (ID: {old_module_id}, State: {old_module[2]})')
+    _logger.info(f'Migrating data: {OLD_MODULE_NAME} → {NEW_MODULE_NAME}')
 
-    # Проверка дали новият модул вече съществува
-    cr.execute("""
-        SELECT id, name
-        FROM ir_module_module
-        WHERE name = %s
-    """, (NEW_MODULE_NAME,))
+    # 1. Обнови external IDs
+    cr.execute("SELECT COUNT(*) FROM ir_model_data WHERE module = %s", (OLD_MODULE_NAME,))
+    count = cr.fetchone()[0]
 
-    new_module = cr.fetchone()
-
-    if new_module:
-        _logger.error(f'Module {NEW_MODULE_NAME} already exists (ID: {new_module[0]}). Cannot rename. Migration aborted.')
-        return
-
-    _logger.info(f'Starting module rename: {OLD_MODULE_NAME} → {NEW_MODULE_NAME}')
-
-    # 1. Обнови името в ir_module_module
-    cr.execute("""
-        UPDATE ir_module_module
-        SET name = %s
-        WHERE name = %s
-        RETURNING id
-    """, (NEW_MODULE_NAME, OLD_MODULE_NAME))
-
-    new_module_id = cr.fetchone()[0]
-    _logger.info(f'✓ Updated ir_module_module: module renamed (ID: {new_module_id})')
-
-    # 2. Обнови external IDs
-    cr.execute("""
-        UPDATE ir_model_data
-        SET module = %s
-        WHERE module = %s
-    """, (NEW_MODULE_NAME, OLD_MODULE_NAME))
-    _logger.info(f'✓ Updated ir_model_data: {cr.rowcount} record(s)')
-
-    # 3. Обнови зависимости
-    cr.execute("""
-        UPDATE ir_module_module_dependency
-        SET name = %s
-        WHERE name = %s
-    """, (NEW_MODULE_NAME, OLD_MODULE_NAME))
-    _logger.info(f'✓ Updated dependencies: {cr.rowcount} record(s)')
-
-    # 4. Обнови constraints (колоната е 'module', не 'module_id')
-    cr.execute("""
-        SELECT EXISTS (
-            SELECT FROM information_schema.columns
-            WHERE table_name = 'ir_model_constraint'
-            AND column_name = 'module'
-        )
-    """)
-
-    if cr.fetchone()[0]:
+    if count > 0:
         cr.execute("""
-            UPDATE ir_model_constraint
-            SET module = %s
-            WHERE module = %s
-        """, (new_module_id, old_module_id))
-        _logger.info(f'✓ Updated constraints: {cr.rowcount} record(s)')
+                   UPDATE ir_model_data
+                   SET module = %s
+                   WHERE module = %s
+                   """, (NEW_MODULE_NAME, OLD_MODULE_NAME))
+        _logger.info(f'✓ Updated ir_model_data: {cr.rowcount} record(s)')
+    else:
+        _logger.info(f'✓ No external IDs to update')
 
-    _logger.info(f'✓ Module rename completed successfully: {OLD_MODULE_NAME} → {NEW_MODULE_NAME}')
+    # 2. Обнови зависимости в други модули
+    cr.execute("SELECT COUNT(*) FROM ir_module_module_dependency WHERE name = %s", (OLD_MODULE_NAME,))
+    count = cr.fetchone()[0]
+
+    if count > 0:
+        cr.execute("""
+                   UPDATE ir_module_module_dependency
+                   SET name = %s
+                   WHERE name = %s
+                   """, (NEW_MODULE_NAME, OLD_MODULE_NAME))
+        _logger.info(f'✓ Updated dependencies: {cr.rowcount} record(s)')
+    else:
+        _logger.info(f'✓ No dependencies to update')
+
+    # 3. Обнови constraints - трябва да остане старото ID докато не се изтрие модулът
+    # Constraints се обновяват автоматично след като новият модул се зареди
+    _logger.info(f'✓ Constraints will be updated when new module loads')
+
+    # 4. ИЗТРИЙ стария модул запис
+    cr.execute("""
+               DELETE
+               FROM ir_module_module
+               WHERE id = %s
+               """, (old_module_id,))
+    _logger.info(f'✓ Deleted old module record: {OLD_MODULE_NAME} (ID: {old_module_id})')
+
+    _logger.info(f'✓ Migration completed. Odoo will now load the new module: {NEW_MODULE_NAME}')

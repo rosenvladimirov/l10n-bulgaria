@@ -284,7 +284,7 @@ def convert_date_vies(value):
     return f"{month}/{year}"[:7]
 
 
-def parce_fload_4(value, arrangement="R"):
+def parce_fload_4_2(value, arrangement="R"):
     value = value or 0.00
     if arrangement == "L":
         return f"{value:.2f}".ljust(4, " ")[:4]
@@ -340,7 +340,7 @@ L10N_BG_DECLARATION_FIELDS = {
     "account_tag_32": lambda value: parce_fload_15_2(value),
     "account_tag_42": lambda value: parce_fload_15_2(value),
     "account_tag_43": lambda value: parce_fload_15_2(value),
-    "account_tag_33": lambda value: parce_fload_4(value),
+    "account_tag_33": lambda value: parce_fload_4_2(value),
     "account_tag_40": lambda value: parce_fload_15_2(value),
     "account_tag_50": lambda value: parce_fload_15_2(value),
     "account_tag_60": lambda value: parce_fload_15_2(value),

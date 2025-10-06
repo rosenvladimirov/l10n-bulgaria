@@ -287,8 +287,8 @@ def convert_date_vies(value):
 def parce_fload_4(value, arrangement="R"):
     value = value or 0.00
     if arrangement == "L":
-        return f"{value:.2f}".ljust(4)[:4]
-    return f"{value:.2f}".rjust(4)[:4]
+        return f"{value:.2f}".ljust(4, " ")[:4]
+    return f"{value:.2f}".rjust(4, " ")[:4]
 
 
 def parce_fload_15_2(value, arrangement="R"):

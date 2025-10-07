@@ -24,6 +24,7 @@ class AccountBgVatInfoDeclar(models.Model):
     company_id = fields.Many2one("res.company", "Company", readonly=True)
     company_vat = fields.Char(string="UIC", readonly=True)
     company_address = fields.Char(string="Company address", readonly=True)
+    # represent_contact_type = fields.Char(string="Represent contact type", readonly=True)
 
     info_tag_1 = fields.Char(string="TIN", readonly=True)
     info_tag_2 = fields.Char(string="[00-02] Name of the Legal Entity", readonly=True)
@@ -50,7 +51,7 @@ class AccountBgVatInfoDeclar(models.Model):
         return f"""acc.company_id AS company_id,
         COALESCE(company_partner.vat, company_partner.l10n_bg_uic) AS company_vat,
         CONCAT({l10n_bg_lang(self.env, lang_modules='partner', field_name='company_partner.city')}, ', ', {l10n_bg_lang(self.env, lang_modules='partner', field_name='company_partner.street')}) AS company_address,
-        COALESCE(company_partner.vat, company_partner.l10n_bg_uic) AS info_tag_1,
+        COALESCE(company_partner.l10n_bg_uic, company_partner.vat) AS info_tag_1,
         {l10n_bg_lang(self.env, lang_modules='partner', field_name='company_partner.name')} AS info_tag_2,
         info_tag_3,
         CONCAT(represent_partner.l10n_bg_uic, '/', {l10n_bg_lang(self.env, lang_modules='partner', field_name='represent_partner.name')}) AS info_tag_4,

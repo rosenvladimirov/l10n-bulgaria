@@ -1,5 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import base64
+import json
 
 from odoo import fields, models, api
 
@@ -13,6 +14,11 @@ class ResConfigSettings(models.TransientModel):
     is_l10n_bg_multilanguage = fields.Json(
         related="company_id.is_l10n_bg_multilanguage", readonly=False
     )
+    is_l10n_bg_multilanguage_text = fields.Text(
+        string="Multilanguage Settings",
+        compute="_compute_multilanguage_text"
+    )
+
     module_currency_rate_update_bg_bnb = fields.Boolean(
         "Download currency rates from Bulgaria National Bank (OCA)",
         help="Central currency rates downloaded from National Bank of Bulgaria",
@@ -76,9 +82,17 @@ class ResConfigSettings(models.TransientModel):
     l10n_bg_config_template =fields.Binary(related="company_id.l10n_bg_config_template", readonly=False)
     l10n_bg_key = fields.Char(related="company_id.partner_id.l10n_bg_key", readonly=False)
 
-    # @api.onchange("l10n_bg_key")
-    # def on_change_l10n_bg_key(self):
-    #     for record in self:
-    #         key2 = record.l10n_bg_key
-    #         company_id = record.company_id
-    #         company_id.partner_id.ref = generate_encryption_keys(company_id.partner_id.l10n_bg_uic, key2)
+    @api.depends('company_id.is_l10n_bg_multilanguage')
+    def _compute_multilanguage_text(self):
+        for record in self:
+            multilang_data = record.company_id.is_l10n_bg_multilanguage
+
+            if multilang_data and isinstance(multilang_data, dict):
+                # Форматиране на JSON за четимост
+                record.is_l10n_bg_multilanguage_text = json.dumps(
+                    multilang_data,
+                    indent=4,
+                    ensure_ascii=False
+                )
+            else:
+                record.is_l10n_bg_multilanguage_text = "No data"

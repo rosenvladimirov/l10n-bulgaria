@@ -17,6 +17,15 @@ L10N_BG_MULTILANGUAGE = [
 ]
 
 
+def account_tag_33_43(env,report_options):
+    account_tag_33 = account_tag_43 = False
+    if report_options.get("account_tag_33"):
+        account_tag_33 = report_options.get("account_tag_33")
+    if report_options.get("account_tag_43"):
+        account_tag_43 = report_options.get("account_tag_43")
+    return account_tag_33, account_tag_43
+
+
 def _l10n_bg_extend_address(env):
     l10n_bg = env["ir.module.module"].search(
         [
@@ -316,8 +325,8 @@ L10N_BG_DECLARATION_FIELDS = {
     "info_tag_2": lambda value: parce_str_50(value),
     "info_tag_3": lambda value: parce_str_6(value),
     "info_tag_4": lambda value: parce_str_50(value),
-    "info_tag_5": lambda value: parce_integer_15(value),
-    "info_tag_6": lambda value: parce_integer_15(value),
+    "info_tag_5": lambda value: parce_integer_15(value, arrangement='R'),
+    "info_tag_6": lambda value: parce_integer_15(value, arrangement='R'),
     "account_tag_10": lambda value: parce_fload_15_2(value),
     "account_tag_20": lambda value: parce_fload_15_2(value),
     "account_tag_11": lambda value: parce_fload_15_2(value),

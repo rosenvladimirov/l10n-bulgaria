@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="document_tax_totals_template_extended" inherit_id="account.document_tax_totals_template">
-        <xpath expr="//tr[@class='o_subtotal']" position="replace">
+        <xpath expr="//tr[hasclass='o_subtotal']" position="replace">
             <tr class="o_subtotal">
                 <td>
                     <span>Untaxed Amount</span>

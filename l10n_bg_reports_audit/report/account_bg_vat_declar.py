@@ -9,7 +9,9 @@ from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import (
     l10n_bg_extend_address,
     l10n_bg_lang,
     l10n_bg_odoo_compatible,
-    l10n_bg_where, list_months_between_dates,
+    l10n_bg_where,
+    list_months_between_dates,
+    account_tag_33_43
 )
 
 _logger = logging.getLogger(__name__)
@@ -51,7 +53,7 @@ class AccountBgVatInfoDeclar(models.Model):
         return f"""acc.company_id AS company_id,
         COALESCE(company_partner.vat, company_partner.l10n_bg_uic) AS company_vat,
         CONCAT({l10n_bg_lang(self.env, lang_modules='partner', field_name='company_partner.city')}, ', ', {l10n_bg_lang(self.env, lang_modules='partner', field_name='company_partner.street')}) AS company_address,
-        COALESCE(company_partner.l10n_bg_uic, company_partner.vat) AS info_tag_1,
+        COALESCE(company_partner.vat, company_partner.l10n_bg_uic) AS info_tag_1,
         {l10n_bg_lang(self.env, lang_modules='partner', field_name='company_partner.name')} AS info_tag_2,
         info_tag_3,
         CONCAT(represent_partner.l10n_bg_uic, '/', {l10n_bg_lang(self.env, lang_modules='partner', field_name='represent_partner.name')}) AS info_tag_4,
@@ -78,7 +80,7 @@ class AccountBgVatInfoDeclar(models.Model):
         COALESCE(acc.account_tag_25, 0.0) AS account_tag_25,
         COALESCE(acc.account_tag_30, 0.0) AS account_tag_30,
         COALESCE(acc.account_tag_31, 0.0) AS account_tag_31,
-        COALESCE(acc.account_tag_40, 0.0) AS account_tag_40,
+        COALESCE(acc.account_tag_41 + account_tag_42*account_tag_33 + account_tag_43, 0.0) AS account_tag_40,
         COALESCE(acc.account_tag_41, 0.0) AS account_tag_41,
         COALESCE(acc.account_tag_32, 0.0) AS account_tag_32,
         COALESCE(acc.account_tag_33, 0.0) AS account_tag_33,
@@ -325,6 +327,14 @@ FROM {self._from(where_clause=where_clause)}
 
     @api.model
     def _select(self):
+        account_tag_33, account_tag_43 = 0.0, 0.0
+        if self._context.get("report_options"):
+            account_tag_33, account_tag_43 = account_tag_33_43(self.env, self._context.get("report_options"))
+            if not account_tag_33:
+                account_tag_33 = 0.0
+            if not account_tag_43:
+                account_tag_43 = 0.0
+
         return f""" am.company_id AS company_id,
         am.state AS state,
         to_char(am.date, 'YYYYMM') AS info_tag_3,
@@ -351,7 +361,7 @@ FROM {self._from(where_clause=where_clause)}
         SUM(accs.account_tag_25) AS account_tag_25,
         SUM(accp.account_tag_30 + accp.account_tag_44) AS account_tag_30,
         SUM(accp.account_tag_31) AS account_tag_31,
-        SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43) AS account_tag_40,
+        SUM(accp.account_tag_41 + accp.account_tag_42*{account_tag_33} + accp.account_tag_43) AS account_tag_40,
         SUM(accp.account_tag_41) AS account_tag_41,
         SUM(accp.account_tag_32) AS account_tag_32,
         SUM(accp.account_tag_42) AS account_tag_42,
@@ -363,7 +373,8 @@ FROM {self._from(where_clause=where_clause)}
         SUM(accr.account_tag_80) AS account_tag_80,
         SUM(accr.account_tag_81) AS account_tag_81,
         SUM(accr.account_tag_82) AS account_tag_82,
-        0.0 AS account_tag_33, 0.0 AS account_tag_43"""
+        {account_tag_33} AS account_tag_33,
+        {account_tag_43} AS account_tag_43"""
 
     @api.model
     def _from(self, where_clause=""):

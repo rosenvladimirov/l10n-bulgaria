@@ -17,11 +17,6 @@
                     name="l10n_bg_config_template"
                     invisible="1"
                 />
-                <field
-                    name="is_l10n_bg_multilanguage"
-                    widget="jsonb"
-                    invisible="1"
-                />
 
                 <app
                     data-string="Bulgaria Localization"
@@ -51,6 +46,18 @@
                                         for="is_l10n_bg_record"
                                         class="o_light_label"
                                     />
+                                </div>
+                                <div class="mt16">
+                                    <div class="row">
+                                        <label for="is_l10n_bg_multilanguage_text" string="Multilanguage Modules" class="col-lg-3 o_light_label" />
+                                        <div class="col-lg-9">
+                                            <field name="is_l10n_bg_multilanguage_text"
+                                                   widget="text"
+                                                   readonly="1"
+                                                   nolabel="1"
+                                                   style="font-family: monospace; white-space: pre-wrap;" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </setting>

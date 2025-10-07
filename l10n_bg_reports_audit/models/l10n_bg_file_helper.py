@@ -1,4 +1,5 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
+import json
 import logging
 
 from odoo import fields, models, _
@@ -54,7 +55,7 @@ def l10n_bg_lang(env, lang_modules="partner", field_name=""):
         field_name = "represent_partner_city.name"
 
     if lang_modules == "partner":
-        _logger.info(f"l10n_bg_lang: lang_modules == partner: {field_name} - {lang_modules}")
+        _logger.debug(f"l10n_bg_lang: lang_modules == partner: {field_name} - {lang_modules}")
         return (
             f"""(CASE
            WHEN {field_name} ? 'bg_BG' THEN {field_name}#>>'{{{'bg_BG'}}}'
@@ -588,8 +589,32 @@ class AuditExportFileHelper(models.AbstractModel):
             new_line = {}
             for field, helper in fields_to_export.items():
                 val = line.get(field)
+
                 if isinstance(val, dict):
-                    val = list(val.values())[0]
+                    val = list(val.values())[-1]
+
+                elif isinstance(val, str) and val.find('{') != -1:
+                    try:
+                        if val.count('{') > 1:
+                            wrapped_json = '{"value": [' + val + ']}'
+                            parsed_data = json.loads(wrapped_json)
+                            # Обединяваме всички стойности със запетая
+                            if parsed_data.get('value'):
+                                values = []
+                                for obj in parsed_data['value']:
+                                    if isinstance(obj, dict):
+                                        values.append(list(obj.values())[0])
+                                    else:
+                                        values.append(str(obj))
+                                val = ', '.join(values)
+                        else:
+                            val = json.loads(val)
+
+                        if isinstance(val, dict):
+                            val = list(val.values())[-1]
+                    except json.JSONDecodeError:
+                        pass
+
                 new_line[field] = helper(val)
             lines.append(new_line)
 

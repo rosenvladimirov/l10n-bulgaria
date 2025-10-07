@@ -17,7 +17,7 @@ L10N_BG_MULTILANGUAGE = [
 ]
 
 
-def account_tag_33_43(env,report_options):
+def account_tag_33_43(env, report_options):
     account_tag_33 = account_tag_43 = False
     if report_options.get("account_tag_33"):
         account_tag_33 = report_options.get("account_tag_33")
@@ -102,13 +102,19 @@ def l10n_bg_odoo_compatible_line(env, mode):
     return """"""
 
 
-def l10n_bg_odoo_compatible(env, mode):
+def l10n_bg_odoo_compatible(env, mode, report_options=None):
     l10n_bg_compatible_odoo = env.user.company_id.l10n_bg_odoo_compatible
-    _logger.info(f"l10n_bg_compatible_odoo: {l10n_bg_compatible_odoo} - {mode}")
+    _logger.debug(f"l10n_bg_compatible_odoo: {l10n_bg_compatible_odoo} - {mode}")
+
+    account_tag_33, account_tag_43 = account_tag_33_43(env, report_options=report_options or {})
+    if not account_tag_33:
+        account_tag_33 = 0.00
+    if not account_tag_43:
+        account_tag_43 = 0.00
 
     # Общи SQL фрагменти за избягване на дублиране
     sales_vat_sum = "SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24)"
-    purchase_vat_sum = "SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43)"
+    purchase_vat_sum = f"SUM(accp.account_tag_41 + accp.account_tag_42*{account_tag_33} + {account_tag_43})"
     vat_difference = f"COALESCE({sales_vat_sum}, 0) - COALESCE({purchase_vat_sum}, 0)"
 
     # Mapping на режимите към SQL заявките

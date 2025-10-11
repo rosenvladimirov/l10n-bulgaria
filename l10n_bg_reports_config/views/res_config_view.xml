@@ -55,7 +55,7 @@
                     >
                         <div class="content-group" name="l10n_bg_report_audit_report_assistant">
                             <div class="d-flex">
-                                <button name="l10n_bg_reports_audit.action_account_tags_bulk_edit"
+                                <button name="l10n_bg_reports_config.action_account_tags_bulk_edit"
                                     string="Bulk Edit"
                                     type="action"
                                     class="oe_highlight"

@@ -382,10 +382,10 @@ FROM {self._from(where_clause=where_clause)}
 LEFT JOIN (SELECT move_id, date, account_tag_21, account_tag_11, account_tag_12, account_tag_121, account_tag_122,
                   account_tag_26, account_tag_23, account_tag_13, account_tag_24, account_tag_14, account_tag_15,
                   account_tag_16, account_tag_17, account_tag_18, account_tag_19, account_tag_25, account_tag_22
-            FROM account_bg_calc_sales_line AS acc{' WHERE ' + where_clause.replace('am.', 'acc.') if where_clause else ''})AS accs
+            FROM ({self.env['account.bg.calc.sales.line']._table_query}) AS acc{' WHERE ' + where_clause.replace('am.', 'acc.') if where_clause else ''})AS accs
     ON am.id = accs.move_id
 LEFT JOIN (SELECT move_id, date, account_tag_30, account_tag_31, account_tag_41, account_tag_32, account_tag_42,
-                  account_tag_43, account_tag_44 FROM account_bg_calc_purchases_line AS acc{' WHERE ' + where_clause.replace('am.', 'acc.') if where_clause else ''}) AS accp
+                  account_tag_43, account_tag_44 FROM ({self.env['account.bg.calc.purchases.line']._table_query}) AS acc{' WHERE ' + where_clause.replace('am.', 'acc.') if where_clause else ''}) AS accp
     ON am.id = accp.move_id
 LEFT JOIN (SELECT move_id, date, account_tag_50, account_tag_60, account_tag_70, account_tag_71, account_tag_80,
                   account_tag_81, account_tag_82

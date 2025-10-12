@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Intrastat Threshold Tree View -->
-    <record id="view_l10n_bg_intrastat_threshold_tree" model="ir.ui.view">
-        <field name="name">l10n.bg.intrastat.threshold.tree</field>
+    <!-- Intrastat Threshold List View -->
+    <record id="view_l10n_bg_intrastat_threshold_list" model="ir.ui.view">
+        <field name="name">l10n.bg.intrastat.threshold.list</field>
         <field name="model">l10n.bg.intrastat.threshold</field>
         <field name="arch" type="xml">
-            <tree string="Intrastat Thresholds">
+            <list string="Intrastat Thresholds">
                 <field name="company_id" column_invisible="context.get('hide_company', False)"/>
                 <field name="year"/>
                 <field name="month"/>
@@ -16,8 +16,8 @@
                 <field name="threshold_dispatches_standard" widget="monetary"/>
                 <field name="threshold_dispatches_extended" widget="monetary"/>
                 <field name="currency_id" column_invisible="1"/>
-                <field name="active" column_invisible="1"/>
-            </tree>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
         </field>
     </record>
 
@@ -28,9 +28,7 @@
         <field name="arch" type="xml">
             <form string="Intrastat Threshold">
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
-                        <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active == True"/>
-                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                     <group>
                         <group>
                             <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
@@ -95,7 +93,7 @@
     <record id="action_l10n_bg_intrastat_threshold" model="ir.actions.act_window">
         <field name="name">Intrastat Thresholds</field>
         <field name="res_model">l10n.bg.intrastat.threshold</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="context">{'search_default_active': 1, 'search_default_current_year': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -107,13 +105,13 @@
         </field>
     </record>
 
-    <!-- VAT Ratio History Tree View -->
-    <record id="view_l10n_bg_vat_ratio_history_tree" model="ir.ui.view">
-        <field name="name">l10n.bg.vat.ratio.history.tree</field>
+    <!-- VAT Ratio History List View -->
+    <record id="view_l10n_bg_vat_ratio_history_list" model="ir.ui.view">
+        <field name="name">l10n.bg.vat.ratio.history.list</field>
         <field name="model">l10n.bg.vat.ratio.history</field>
         <field name="arch" type="xml">
-            <tree string="VAT Ratio History" decoration-muted="active == False"
-                  decoration-warning="is_provisional == True" decoration-success="is_computed == True">
+            <list string="VAT Ratio History" decoration-muted="not active"
+                  decoration-warning="is_provisional" decoration-success="is_computed">
                 <field name="company_id" column_invisible="context.get('hide_company', False)"/>
                 <field name="year"/>
                 <field name="month"/>
@@ -125,8 +123,8 @@
                 <field name="is_computed" widget="boolean_toggle" optional="show"/>
                 <field name="is_provisional" widget="boolean_toggle" optional="show"/>
                 <field name="currency_id" column_invisible="1"/>
-                <field name="active" column_invisible="1"/>
-            </tree>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
         </field>
     </record>
 
@@ -141,22 +139,21 @@
                             string="Compute from VAT Declarations"
                             type="object"
                             class="oe_highlight"
-                            invisible="is_manual == True"
+                            invisible="is_manual"
                             confirm="This will recalculate the ratio based on VAT declaration data. Continue?"/>
                     <button name="action_calculate_annual_adjustment"
                             string="Calculate Annual Adjustment (Art. 73, Para. 8)"
                             type="object"
                             class="btn-secondary"
-                            invisible="month != False"
+                            invisible="month"
                             confirm="This will calculate the annual adjustment for partial VAT credit. Continue?"/>
                 </header>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
-                        <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active == True"/>
-                        <widget name="web_ribbon" title="Manual" bg_color="text-bg-warning" invisible="is_manual == False"/>
-                        <widget name="web_ribbon" title="Computed" bg_color="text-bg-success" invisible="is_computed == False"/>
-                        <widget name="web_ribbon" title="Provisional" bg_color="text-bg-info" invisible="is_provisional == False"/>
-                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <widget name="web_ribbon" title="Manual" bg_color="text-bg-warning" invisible="not is_manual"/>
+                    <widget name="web_ribbon" title="Computed" bg_color="text-bg-success" invisible="not is_computed"/>
+                    <widget name="web_ribbon" title="Provisional" bg_color="text-bg-info" invisible="not is_provisional"/>
+
                     <group>
                         <group>
                             <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
@@ -171,7 +168,7 @@
                             <field name="active" invisible="1"/>
                             <field name="is_manual"/>
                             <field name="is_computed"/>
-                            <field name="is_provisional" invisible="month == False"/>
+                            <field name="is_provisional" invisible="not month"/>
                         </group>
                     </group>
 
@@ -291,7 +288,7 @@
     <record id="action_l10n_bg_vat_ratio_history" model="ir.actions.act_window">
         <field name="name">VAT Ratio History</field>
         <field name="res_model">l10n.bg.vat.ratio.history</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="context">{'search_default_active': 1, 'search_default_current_year': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

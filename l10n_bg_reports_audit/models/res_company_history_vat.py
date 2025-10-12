@@ -360,7 +360,8 @@ class L10nBgVatRatioHistory(models.Model):
         ratio = self.search(domain, limit=1)
         return ratio.vat_ratio if ratio else 0.0
 
-    def _get_tax_period(self, year, month):
+    @staticmethod
+    def _get_tax_period(year, month):
         """Get tax period string for queries."""
         return f"{year}{str(month).zfill(2)}" if month else None
 
@@ -394,7 +395,8 @@ class L10nBgVatRatioHistory(models.Model):
 
         return query, params
 
-    def _extract_boxes_from_result(self, result):
+    @staticmethod
+    def _extract_boxes_from_result(result):
         """Extract and validate box values from query result."""
         all_boxes = VAT_RATIO_BOX_FIELDS["numerator"] + VAT_RATIO_BOX_FIELDS["denominator"]
         boxes = {box: 0.0 for box in all_boxes}
@@ -440,8 +442,9 @@ class L10nBgVatRatioHistory(models.Model):
         )
         return self._build_empty_ratio_result(tax_period, year, month)
 
-    def _build_ratio_result_from_record(self, record, tax_period, year, is_copied=False):
-        """Build ratio result dictionary from existing record."""
+    @staticmethod
+    def _build_ratio_result_from_record(record, tax_period, year, is_copied=False):
+        """Build the ratio result dictionary from existing record."""
         result = {
             "vat_ratio": record.vat_ratio,
             "numerator_box_11": record.numerator_box_11,
@@ -470,7 +473,8 @@ class L10nBgVatRatioHistory(models.Model):
 
         return result
 
-    def _build_empty_ratio_result(self, tax_period, year, month):
+    @staticmethod
+    def _build_empty_ratio_result(tax_period, year, month):
         """Build empty ratio result when no data is found."""
         return {
             "vat_ratio": 0.0,
@@ -519,7 +523,7 @@ class L10nBgVatRatioHistory(models.Model):
     @api.model
     def compute_ratio_from_vat_declarations(self, year, month=None, company=None):
         """
-        Compute VAT ratio from VAT declaration data.
+        Compute a VAT ratio from VAT declaration data.
         According to Art. 73 of the Bulgarian VAT Act.
 
         If no data exists for the period, returns the last known coefficient.
@@ -537,7 +541,7 @@ class L10nBgVatRatioHistory(models.Model):
         # Extract box values
         boxes, has_data = self._extract_boxes_from_result(result)
 
-        # If no data found, try to get last known coefficient
+        # If no data found, try to get the last known coefficient
         if not has_data:
             _logger.info(
                 f"No VAT declaration data found for period {tax_period or year}. "
@@ -545,7 +549,7 @@ class L10nBgVatRatioHistory(models.Model):
             )
             return self._get_last_known_ratio(company, year, month, tax_period)
 
-        # Calculate ratio from boxes
+        # Calculate a ratio from boxes
         ratio_result = self._calculate_ratio_from_boxes(boxes)
         ratio_result.update({
             "is_manual": False,
@@ -555,46 +559,6 @@ class L10nBgVatRatioHistory(models.Model):
         })
 
         return ratio_result
-
-    def _prepare_notification(self, result):
-        """Prepare notification message based on computation result."""
-        if result["is_computed"]:
-            message = _(
-                "VAT ratio computed from declarations: %.2f%%\n"
-                "Numerator: %.2f %s\n"
-                "Denominator: %.2f %s"
-            ) % (
-                          result["vat_ratio"],
-                          result["numerator_total"],
-                          self.currency_id.symbol,
-                          result["denominator_total"],
-                          self.currency_id.symbol,
-                      )
-            if result["is_provisional"]:
-                message += "\n" + _("(Provisional - will be adjusted at year end)")
-
-            return {
-                "type": "success",
-                "message": message,
-                "sticky": False,
-            }
-        else:
-            if "copied from last known coefficient" in result.get("notes", ""):
-                message = result["notes"]
-                notification_type = "warning"
-            else:
-                message = _(
-                    "No VAT declaration data found for this period.\n"
-                    "No previous coefficient found either.\n"
-                    "Please enter values manually."
-                )
-                notification_type = "warning"
-
-            return {
-                "type": notification_type,
-                "message": message,
-                "sticky": True,
-            }
 
     def name_get(self):
         """Custom name_get to show company in the name."""

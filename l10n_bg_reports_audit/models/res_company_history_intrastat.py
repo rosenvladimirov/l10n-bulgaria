@@ -15,6 +15,14 @@ class L10nBgIntrastatThreshold(models.Model):
     _check_company_auto = True
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
+    company_id = fields.Many2one(
+        "res.company",
+        string="Company",
+        required=True,
+        default=lambda self: self.env.company,
+        ondelete="cascade",
+    )
+
     year = fields.Integer(
         string="Year",
         required=True,

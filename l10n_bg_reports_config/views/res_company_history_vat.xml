@@ -6,9 +6,8 @@
         <field name="model">l10n.bg.intrastat.threshold</field>
         <field name="arch" type="xml">
             <list string="Intrastat Thresholds">
-                <field name="company_id" column_invisible="context.get('hide_company', False)"/>
-                <field name="year"/>
-                <field name="month"/>
+                <field name="year" widget="integer"/>
+                <field name="month" widget="integer"/>
                 <field name="date_from"/>
                 <field name="date_to"/>
                 <field name="threshold_arrivals_standard" widget="monetary"/>
@@ -31,9 +30,8 @@
                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                     <group>
                         <group>
-                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
-                            <field name="year"/>
-                            <field name="month"/>
+                            <field name="year" widget="integer"/>
+                            <field name="month" widget="integer"/>
                             <field name="date_from"/>
                             <field name="date_to"/>
                         </group>
@@ -71,18 +69,14 @@
         <field name="model">l10n.bg.intrastat.threshold</field>
         <field name="arch" type="xml">
             <search string="Search Intrastat Thresholds">
-                <field name="year"/>
+                <field name="year" widget="integer"/>
                 <field name="month"/>
-                <field name="company_id" groups="base.group_multi_company"/>
                 <filter string="Active" name="active" domain="[('active', '=', True)]"/>
                 <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
                 <separator/>
                 <filter string="Current Year" name="current_year"
                         domain="[('year', '=', context_today().year)]"/>
                 <group expand="0" string="Group By">
-                    <filter string="Company" name="group_company"
-                            context="{'group_by': 'company_id'}"
-                            groups="base.group_multi_company"/>
                     <filter string="Year" name="group_year" context="{'group_by': 'year'}"/>
                 </group>
             </search>
@@ -112,9 +106,8 @@
         <field name="arch" type="xml">
             <list string="VAT Ratio History" decoration-muted="not active"
                   decoration-warning="is_provisional" decoration-success="is_computed">
-                <field name="company_id" column_invisible="context.get('hide_company', False)"/>
-                <field name="year"/>
-                <field name="month"/>
+                <field name="year" widget="integer"/>
+                <field name="month" widget="integer"/>
                 <field name="period_type" optional="hide"/>
                 <field name="vat_ratio" string="Ratio (%)" widget="percentage" decoration-bf="1"/>
                 <field name="numerator_total" widget="monetary" optional="hide"/>
@@ -156,8 +149,7 @@
 
                     <group>
                         <group>
-                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
-                            <field name="year"/>
+                            <field name="year" widget="integer"/>
                             <field name="month" placeholder="Leave empty for annual coefficient"/>
                             <field name="period_type" invisible="1"/>
                             <field name="date_from"/>
@@ -177,7 +169,7 @@
                             <field name="vat_ratio" widget="percentage" class="oe_inline"/>
                         </group>
                         <group>
-                            <label string="Formula: (Numerator / Denominator) × 100%" colspan="2"/>
+                            <span class="o_form_label">Formula: (Numerator / Denominator) × 100%</span>
                         </group>
                     </group>
 
@@ -259,9 +251,8 @@
         <field name="model">l10n.bg.vat.ratio.history</field>
         <field name="arch" type="xml">
             <search string="Search VAT Ratio History">
-                <field name="year"/>
+                <field name="year" widget="integer"/>
                 <field name="month"/>
-                <field name="company_id" groups="base.group_multi_company"/>
                 <filter string="Active" name="active" domain="[('active', '=', True)]"/>
                 <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
                 <separator/>
@@ -274,9 +265,6 @@
                 <filter string="Monthly" name="monthly" domain="[('month', '!=', False)]"/>
                 <filter string="Annual" name="annual" domain="[('month', '=', False)]"/>
                 <group expand="0" string="Group By">
-                    <filter string="Company" name="group_company"
-                            context="{'group_by': 'company_id'}"
-                            groups="base.group_multi_company"/>
                     <filter string="Year" name="group_year" context="{'group_by': 'year'}"/>
                     <filter string="Period Type" name="group_period_type" context="{'group_by': 'period_type'}"/>
                 </group>

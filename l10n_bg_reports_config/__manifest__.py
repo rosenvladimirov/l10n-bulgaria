@@ -16,6 +16,7 @@
         "l10n_bg_config",
     ],
     "data": [
+        'security/ir.model.access.csv',
         "wizards/account_account_tag_bulk_edit_wizard.xml",
         "views/account_bg_vat_line_sale_reports.xml",
         "views/account_bg_vat_line_purchase_reports.xml",
@@ -28,6 +29,8 @@
         "views/account_move_views.xml",
         "views/res_config_view.xml",
         "views/res_company_views.xml",
+        "views/res_company_history_intrastat.xml",
+        "views/res_company_history_vat.xml",
         "views/account_menuitem.xml",
     ],
     "installable": True,

@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- List View -->
+    <!-- Intrastat Threshold List View -->
     <record id="view_l10n_bg_intrastat_threshold_list" model="ir.ui.view">
         <field name="name">l10n.bg.intrastat.threshold.list</field>
         <field name="model">l10n.bg.intrastat.threshold</field>
         <field name="arch" type="xml">
             <list string="Intrastat Thresholds">
-                <field name="display_name"/>
-                <field name="year"/>
-                <field name="month"/>
+                <field name="year" widget="integer"/>
+                <field name="month" widget="integer"/>
                 <field name="date_from"/>
                 <field name="date_to"/>
-                <field name="threshold_arrivals_standard"/>
-                <field name="threshold_arrivals_extended"/>
-                <field name="threshold_dispatches_standard"/>
-                <field name="threshold_dispatches_extended"/>
-                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="threshold_arrivals_standard" widget="monetary"/>
+                <field name="threshold_arrivals_extended" widget="monetary"/>
+                <field name="threshold_dispatches_standard" widget="monetary"/>
+                <field name="threshold_dispatches_extended" widget="monetary"/>
+                <field name="currency_id" column_invisible="1"/>
                 <field name="active" widget="boolean_toggle"/>
             </list>
         </field>
     </record>
 
-    <!-- Form View -->
+    <!-- Intrastat Threshold Form View -->
     <record id="view_l10n_bg_intrastat_threshold_form" model="ir.ui.view">
         <field name="name">l10n.bg.intrastat.threshold.form</field>
         <field name="model">l10n.bg.intrastat.threshold</field>
@@ -31,28 +30,27 @@
                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                     <group>
                         <group>
-                            <field name="year"/>
-                            <field name="month"/>
-                            <field name="company_id" groups="base.group_multi_company"/>
-                            <field name="currency_id" invisible="1"/>
-                        </group>
-                        <group>
+                            <field name="year" widget="integer"/>
+                            <field name="month" widget="integer"/>
                             <field name="date_from"/>
                             <field name="date_to"/>
+                        </group>
+                        <group>
+                            <field name="currency_id" invisible="1"/>
                             <field name="active" invisible="1"/>
                         </group>
                     </group>
                     <notebook>
-                        <page string="Arrivals (Intra-Community Acquisitions)" name="arrivals">
+                        <page string="Arrivals (Acquisitions)" name="arrivals">
                             <group>
-                                <field name="threshold_arrivals_extended" widget="monetary"/>
                                 <field name="threshold_arrivals_standard" widget="monetary"/>
+                                <field name="threshold_arrivals_extended" widget="monetary"/>
                             </group>
                         </page>
-                        <page string="Dispatches (Intra-Community Supplies)" name="dispatches">
+                        <page string="Dispatches (Supplies)" name="dispatches">
                             <group>
-                                <field name="threshold_dispatches_extended" widget="monetary"/>
                                 <field name="threshold_dispatches_standard" widget="monetary"/>
+                                <field name="threshold_dispatches_extended" widget="monetary"/>
                             </group>
                         </page>
                         <page string="Notes" name="notes">
@@ -60,60 +58,43 @@
                         </page>
                     </notebook>
                 </sheet>
-                <chatter>
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </chatter>
+                <chatter/>
             </form>
         </field>
     </record>
 
-    <!-- Search View -->
+    <!-- Intrastat Threshold Search View -->
     <record id="view_l10n_bg_intrastat_threshold_search" model="ir.ui.view">
         <field name="name">l10n.bg.intrastat.threshold.search</field>
         <field name="model">l10n.bg.intrastat.threshold</field>
         <field name="arch" type="xml">
-            <search string="Intrastat Thresholds">
-                <field name="year"/>
+            <search string="Search Intrastat Thresholds">
+                <field name="year" widget="integer"/>
                 <field name="month"/>
-                <field name="company_id" groups="base.group_multi_company"/>
                 <filter string="Active" name="active" domain="[('active', '=', True)]"/>
                 <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
                 <separator/>
-                <filter string="Monthly" name="monthly" domain="[('month', '!=', False)]"/>
-                <filter string="Annual" name="annual" domain="[('month', '=', False)]"/>
-                <separator/>
                 <filter string="Current Year" name="current_year"
-                    domain="[('year', '=', context_today().year)]"/>
+                        domain="[('year', '=', context_today().year)]"/>
                 <group expand="0" string="Group By">
-                    <filter string="Year" name="group_by_year" context="{'group_by': 'year'}"/>
-                    <filter string="Month" name="group_by_month" context="{'group_by': 'month'}"/>
-                    <filter string="Company" name="group_by_company"
-                        context="{'group_by': 'company_id'}"
-                        groups="base.group_multi_company"/>
+                    <filter string="Year" name="group_year" context="{'group_by': 'year'}"/>
                 </group>
             </search>
         </field>
     </record>
 
-    <!-- Action -->
+    <!-- Intrastat Threshold Action -->
     <record id="action_l10n_bg_intrastat_threshold" model="ir.actions.act_window">
         <field name="name">Intrastat Thresholds</field>
         <field name="res_model">l10n.bg.intrastat.threshold</field>
         <field name="view_mode">list,form</field>
-        <field name="context">{
-            'search_default_active': 1,
-            'search_default_current_year': 1,
-        }</field>
+        <field name="context">{'search_default_active': 1, 'search_default_current_year': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create your first Intrastat threshold
             </p>
             <p>
-                Define thresholds for Intrastat reporting according to Bulgarian legislation.
-                Thresholds determine when companies must submit Intrastat declarations
-                for intra-Community acquisitions (arrivals) and supplies (dispatches).
+                Define thresholds for Intrastat reporting by year and month.
             </p>
         </field>
     </record>

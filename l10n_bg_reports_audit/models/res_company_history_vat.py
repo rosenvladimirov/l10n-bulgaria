@@ -23,6 +23,14 @@ class L10nBgVatRatioHistory(models.Model):
     _rec_name = "display_name"
     _check_company_auto = True
 
+    company_id = fields.Many2one(
+        "res.company",
+        string="Company",
+        required=True,
+        default=lambda self: self.env.company,
+        ondelete="cascade",
+    )
+
     year = fields.Integer(
         string="Year",
         required=True,
@@ -188,15 +196,6 @@ class L10nBgVatRatioHistory(models.Model):
         precompute=True,
     )
 
-    company_id = fields.Many2one(
-        "res.company",
-        string="Company",
-        required=True,
-        default=lambda self: self.env.company,
-        ondelete="cascade",
-        check_company=True,
-    )
-
     display_name = fields.Char(
         string="Display Name",
         compute="_compute_display_name",
@@ -238,6 +237,8 @@ class L10nBgVatRatioHistory(models.Model):
 
     @api.depends("year", "month")
     def _compute_dates(self):
+        from datetime import date, timedelta
+
         for record in self:
             if not record.year:
                 continue
@@ -245,16 +246,16 @@ class L10nBgVatRatioHistory(models.Model):
             if record.month:
                 # Monthly period
                 month_int = int(record.month)
-                record.date_from = fields.Date(record.year, month_int, 1)
+                record.date_from = date(record.year, month_int, 1)
                 if month_int == 12:
-                    record.date_to = fields.Date(record.year, 12, 31)
+                    record.date_to = date(record.year, 12, 31)
                 else:
-                    next_month = fields.Date(record.year, month_int + 1, 1)
+                    next_month = date(record.year, month_int + 1, 1)
                     record.date_to = next_month - timedelta(days=1)
             else:
                 # Annual period
-                record.date_from = fields.Date(record.year, 1, 1)
-                record.date_to = fields.Date(record.year, 12, 31)
+                record.date_from = date(record.year, 1, 1)
+                record.date_to = date(record.year, 12, 31)
 
     @api.depends(
         "numerator_box_11",

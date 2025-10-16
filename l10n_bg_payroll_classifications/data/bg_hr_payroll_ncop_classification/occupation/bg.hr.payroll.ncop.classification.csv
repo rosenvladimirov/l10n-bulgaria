@@ -2666,7 +2666,7 @@ bg_ncop_33433009,Изпълнителен секретар офис,33433009,occ
 bg_ncop_33433010,Секретар на управителен съвет,33433010,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3343
 bg_ncop_33433011,Асистент офис,33433011,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3343
 bg_ncop_33433012,Квестор,33433012,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3343
-bg_ncop_33443001,Медицински секретар,33443001,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3344
+bg_ncop_33443001,Медицински секретар,33443001,occupation,technician,higher,4,2025-01-01,true,bg_ncop_3344
 bg_ncop_33513001,Граничен ветеринарен инспектор,33513001,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3351
 bg_ncop_33513002,Инспектор митнически документи,33513002,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3351
 bg_ncop_33513003,Инспектор паспортна проверка,33513003,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3351
@@ -2677,43 +2677,43 @@ bg_ncop_33513008,Митнически сътрудник,33513008,occupation,tec
 bg_ncop_33513009,Младши митнически специалист,33513009,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3351
 bg_ncop_33513010,Старши митнически специалист,33513010,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3351
 bg_ncop_33513011,Митнически дознател,33513011,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3351
-bg_ncop_33525001,Финансов ревизор,33525001,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3352
-bg_ncop_33526002,Главен данъчен инспектор,33526002,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3352
-bg_ncop_33526003,Главен финансов ревизор,33526003,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3352
-bg_ncop_33525004,Данъчен инспектор,33525004,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3352
-bg_ncop_33525005,Старши данъчен инспектор,33525005,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3352
-bg_ncop_33525006,Старши финансов ревизор,33525006,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3352
-bg_ncop_33524007,Главен специалист Сметна палата,33524007,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3352
-bg_ncop_33524008,Специалист Сметна палата,33524008,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3352
-bg_ncop_33524009,Старши специалист Сметна палата,33524009,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3352
-bg_ncop_33533001,Инспектор трудови злополуки,33533001,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3353
-bg_ncop_33533002,Инспектор пенсионен архив,33533002,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3353
-bg_ncop_33533003,Инспектор пенсионен,33533003,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3353
-bg_ncop_33533004,Инспектор социално осигуряване,33533004,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3353
-bg_ncop_33533005,Инспектор социално-осигурителни рискове,33533005,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3353
-bg_ncop_33533006,Сътрудник пенсии,33533006,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3353
-bg_ncop_33533007,"Социален сътрудник, социално подпомагане",33533007,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3353
-bg_ncop_33533008,Сътрудник социалноосигурителен иск,33533008,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3353
-bg_ncop_33533009,Специалист социално осигуряване,33533009,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3353
-bg_ncop_33533010,Контрольор пенсии,33533010,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3353
-bg_ncop_33533011,Социален работник администрация,33533011,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3353
-bg_ncop_33533012,"Социален сътрудник, закрила на детето",33533012,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3353
-bg_ncop_33533013,"Социален сътрудник, хора с увреждания и социални услуги",33533013,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3353
-bg_ncop_33533014,Социален сътрудник,33533014,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3353
-bg_ncop_33543001,Служител паспортна служба,33543001,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3354
-bg_ncop_33543002,Служител разрешителни за строеж,33543002,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3354
-bg_ncop_33543003,Служител разрешителни за осъществяване на икономическа дейност,33543003,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3354
-bg_ncop_33553001,Агент справки в полиция,33553001,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3355
-bg_ncop_33553002,Инспектор полиция,33553002,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3355
-bg_ncop_33553003,Полицейски командир,33553003,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3355
-bg_ncop_33553004,Разузнавач,33553004,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3355
-bg_ncop_33553005,Районен инспектор,33553005,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3355
-bg_ncop_33553006,Старши инспектор полиция,33553006,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3355
-bg_ncop_33553007,Старши инспектор противопожарна охрана,33553007,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3355
-bg_ncop_33553008,Старши полицейски командир,33553008,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3355
-bg_ncop_33553009,Старши разузнавач,33553009,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3355
-bg_ncop_33553010,Дактилоскопист,33553010,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3355
-bg_ncop_33553011,Оперативен работник,33553011,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3355
+bg_ncop_33525001,Финансов ревизор,33525001,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3352
+bg_ncop_33526002,Главен данъчен инспектор,33526002,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3352
+bg_ncop_33526003,Главен финансов ревизор,33526003,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3352
+bg_ncop_33525004,Данъчен инспектор,33525004,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3352
+bg_ncop_33525005,Старши данъчен инспектор,33525005,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3352
+bg_ncop_33525006,Старши финансов ревизор,33525006,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3352
+bg_ncop_33524007,Главен специалист Сметна палата,33524007,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3352
+bg_ncop_33524008,Специалист Сметна палата,33524008,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3352
+bg_ncop_33524009,Старши специалист Сметна палата,33524009,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3352
+bg_ncop_33533001,Инспектор трудови злополуки,33533001,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3353
+bg_ncop_33533002,Инспектор пенсионен архив,33533002,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3353
+bg_ncop_33533003,Инспектор пенсионен,33533003,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3353
+bg_ncop_33533004,Инспектор социално осигуряване,33533004,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3353
+bg_ncop_33533005,Инспектор социално-осигурителни рискове,33533005,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3353
+bg_ncop_33533006,Сътрудник пенсии,33533006,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3353
+bg_ncop_33533007,"Социален сътрудник, социално подпомагане",33533007,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3353
+bg_ncop_33533008,Сътрудник социалноосигурителен иск,33533008,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3353
+bg_ncop_33533009,Специалист социално осигуряване,33533009,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3353
+bg_ncop_33533010,Контрольор пенсии,33533010,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3353
+bg_ncop_33533011,Социален работник администрация,33533011,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3353
+bg_ncop_33533012,"Социален сътрудник, закрила на детето",33533012,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3353
+bg_ncop_33533013,"Социален сътрудник, хора с увреждания и социални услуги",33533013,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3353
+bg_ncop_33533014,Социален сътрудник,33533014,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3353
+bg_ncop_33543001,Служител паспортна служба,33543001,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3354
+bg_ncop_33543002,Служител разрешителни за строеж,33543002,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3354
+bg_ncop_33543003,Служител разрешителни за осъществяване на икономическа дейност,33543003,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3354
+bg_ncop_33553001,Агент справки в полиция,33553001,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3355
+bg_ncop_33553002,Инспектор полиция,33553002,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3355
+bg_ncop_33553003,Полицейски командир,33553003,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3355
+bg_ncop_33553004,Разузнавач,33553004,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3355
+bg_ncop_33553005,Районен инспектор,33553005,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3355
+bg_ncop_33553006,Старши инспектор полиция,33553006,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3355
+bg_ncop_33553007,Старши инспектор противопожарна охрана,33553007,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3355
+bg_ncop_33553008,Старши полицейски командир,33553008,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3355
+bg_ncop_33553009,Старши разузнавач,33553009,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3355
+bg_ncop_33553010,Дактилоскопист,33553010,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3355
+bg_ncop_33553011,Оперативен работник,33553011,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3355
 bg_ncop_33596001,Дипломатически куриер,33596001,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3359
 bg_ncop_33596002,Изпълнителен секретар консулска служба,33596002,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3359
 bg_ncop_33596003,Стажант-аташе дипломатическо представителство,33596003,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3359
@@ -2787,14 +2787,14 @@ bg_ncop_34223008,Служител спортна организация,34223008
 bg_ncop_34223009,Организатор спортни прояви и първенства,34223009,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3422
 bg_ncop_34223010,Инструктор спортен,34223010,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3422
 bg_ncop_34227011,Главен треньор,34227011,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3422
-bg_ncop_34233001,Инструктор безмоторно летене,34233001,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3423
-bg_ncop_34233002,Инструктор парашутизъм,34233002,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3423
-bg_ncop_34233003,Инструктор управление на платноход,34233003,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3423
-bg_ncop_34233004,Фитнес инструктор,34233004,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3423
-bg_ncop_34233005,Инструктор езда,34233005,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3423
-bg_ncop_34233006,Личен треньор,34233006,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3423
-bg_ncop_34233007,Ски учител,34233007,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3423
-bg_ncop_34236008,Спортен аниматор,34236008,occupation,technician,higher,#REF!,2025-01-01,true,bg_ncop_3423
+bg_ncop_34233001,Инструктор безмоторно летене,34233001,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3423
+bg_ncop_34233002,Инструктор парашутизъм,34233002,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3423
+bg_ncop_34233003,Инструктор управление на платноход,34233003,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3423
+bg_ncop_34233004,Фитнес инструктор,34233004,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3423
+bg_ncop_34233005,Инструктор езда,34233005,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3423
+bg_ncop_34233006,Личен треньор,34233006,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3423
+bg_ncop_34233007,Ски учител,34233007,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3423
+bg_ncop_34236008,Спортен аниматор,34236008,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3423
 bg_ncop_34313001,Фотограф,34313001,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3431
 bg_ncop_34313002,Фоторепортер,34313002,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3431
 bg_ncop_34313003,Въздушна фотография,34313003,occupation,technician,higher,3,2025-01-01,true,bg_ncop_3431
@@ -3018,9 +3018,9 @@ bg_ncop_42262002,Рецепционист приемна на лекар,4226200
 bg_ncop_42262003,Рецепционист,42262003,occupation,clerk,secondary,2,2025-01-01,true,bg_ncop_4226
 bg_ncop_42270001,Анкетьор маркетингови изследвания,42270001,occupation,clerk,secondary,2,2025-01-01,true,bg_ncop_4227
 bg_ncop_42270002,Анкетьор,42270002,occupation,clerk,secondary,2,2025-01-01,true,bg_ncop_4227
-bg_ncop_42292001,Информатор приемна,42292001,occupation,clerk,secondary,#REF!,2025-01-01,true,bg_ncop_4229
-bg_ncop_42292002,Информатор културна организация културен   институт,42292002,occupation,clerk,secondary,#REF!,2025-01-01,true,bg_ncop_4229
-bg_ncop_42292003,Информатор,42292003,occupation,clerk,secondary,#REF!,2025-01-01,true,bg_ncop_4229
+bg_ncop_42292001,Информатор приемна,42292001,occupation,clerk,secondary,2,2025-01-01,true,bg_ncop_4229
+bg_ncop_42292002,Информатор културна организация културен   институт,42292002,occupation,clerk,secondary,2,2025-01-01,true,bg_ncop_4229
+bg_ncop_42292003,Информатор,42292003,occupation,clerk,secondary,2,2025-01-01,true,bg_ncop_4229
 bg_ncop_43112001,Калкулант,43112001,occupation,clerk,secondary,2,2025-01-01,true,bg_ncop_4311
 bg_ncop_43112002,Касиер домакин,43112002,occupation,clerk,secondary,2,2025-01-01,true,bg_ncop_4311
 bg_ncop_43112003,Касиер счетоводство,43112003,occupation,clerk,secondary,2,2025-01-01,true,bg_ncop_4311
@@ -3230,15 +3230,15 @@ bg_ncop_52111003,Продавач улична сергия,52111003,occupation,
 bg_ncop_52120001,Продавач бюфет,52120001,occupation,service,secondary,2,2025-01-01,true,bg_ncop_5212
 bg_ncop_52120002,Продавач закуски и напитки,52120002,occupation,service,secondary,2,2025-01-01,true,bg_ncop_5212
 bg_ncop_52120003,Продавач хранителни продукти,52120003,occupation,service,secondary,2,2025-01-01,true,bg_ncop_5212
-bg_ncop_52213001,Управител търговия на дребно (доставки по домовете),52213001,occupation,service,secondary,#REF!,2025-01-01,true,bg_ncop_5221
-bg_ncop_52213002,Управител търговия на дребно (магазини на самообслужване),52213002,occupation,service,secondary,#REF!,2025-01-01,true,bg_ncop_5221
-bg_ncop_52213003,Собственик малък магазин,52213003,occupation,service,secondary,#REF!,2025-01-01,true,bg_ncop_5221
-bg_ncop_52213004,Собственик павилион за вестници,52213004,occupation,service,secondary,#REF!,2025-01-01,true,bg_ncop_5221
-bg_ncop_52223001,Супервайзър магазин,52223001,occupation,service,secondary,#REF!,2025-01-01,true,bg_ncop_5222
-bg_ncop_52223002,Специалист с контролни функции търговия,52223002,occupation,service,secondary,#REF!,2025-01-01,true,bg_ncop_5222
-bg_ncop_52232001,Продавач-консултант,52232001,occupation,service,secondary,#REF!,2025-01-01,true,bg_ncop_5223
-bg_ncop_52232002,Асистент-продавач,52232002,occupation,service,secondary,#REF!,2025-01-01,true,bg_ncop_5223
-bg_ncop_52233003,"Консултант козметични, парфюмерийни, био продукти и битова химия",52233003,occupation,service,secondary,#REF!,2025-01-01,true,bg_ncop_5223
+bg_ncop_52213001,Управител търговия на дребно (доставки по домовете),52213001,occupation,service,secondary,2,2025-01-01,true,bg_ncop_5221
+bg_ncop_52213002,Управител търговия на дребно (магазини на самообслужване),52213002,occupation,service,secondary,2,2025-01-01,true,bg_ncop_5221
+bg_ncop_52213003,Собственик малък магазин,52213003,occupation,service,secondary,2,2025-01-01,true,bg_ncop_5221
+bg_ncop_52213004,Собственик павилион за вестници,52213004,occupation,service,secondary,2,2025-01-01,true,bg_ncop_5221
+bg_ncop_52223001,Супервайзър магазин,52223001,occupation,service,secondary,2,2025-01-01,true,bg_ncop_5222
+bg_ncop_52223002,Специалист с контролни функции търговия,52223002,occupation,service,secondary,2,2025-01-01,true,bg_ncop_5222
+bg_ncop_52232001,Продавач-консултант,52232001,occupation,service,secondary,2,2025-01-01,true,bg_ncop_5223
+bg_ncop_52232002,Асистент-продавач,52232002,occupation,service,secondary,2,2025-01-01,true,bg_ncop_5223
+bg_ncop_52233003,"Консултант козметични, парфюмерийни, био продукти и битова химия",52233003,occupation,service,secondary,2,2025-01-01,true,bg_ncop_5223
 bg_ncop_52301001,Касиер,52301001,occupation,service,secondary,2,2025-01-01,true,bg_ncop_5230
 bg_ncop_52301002,Маркировач ресторант,52301002,occupation,service,secondary,2,2025-01-01,true,bg_ncop_5230
 bg_ncop_52300003,Продавач билети,52300003,occupation,service,secondary,2,2025-01-01,true,bg_ncop_5230
@@ -5235,10 +5235,10 @@ bg_ncop_83432017,Оператор шлюз канал или пристанищ�
 bg_ncop_83432018,Работник шлюз док,83432018,occupation,operator,secondary,2,2025-01-01,true,bg_ncop_8343
 bg_ncop_83432019,Работник работещ за издигане на руда,83432019,occupation,operator,secondary,2,2025-01-01,true,bg_ncop_8343
 bg_ncop_83432020,Оператор краново-фартова техника,83432020,occupation,operator,secondary,2,2025-01-01,true,bg_ncop_8343
-bg_ncop_83442001,Водач (оператор) открита платформа с повдигащо устройство,83442001,occupation,operator,secondary,#REF!,2025-01-01,true,bg_ncop_8344
-bg_ncop_83442002,Водач (оператор) платформа - промишлен транспорт,83442002,occupation,operator,secondary,#REF!,2025-01-01,true,bg_ncop_8344
-bg_ncop_83442003,Водач електрокар,83442003,occupation,operator,secondary,#REF!,2025-01-01,true,bg_ncop_8344
-bg_ncop_83442004,Водач мотокар,83442004,occupation,operator,secondary,#REF!,2025-01-01,true,bg_ncop_8344
+bg_ncop_83442001,Водач (оператор) открита платформа с повдигащо устройство,83442001,occupation,operator,secondary,2,2025-01-01,true,bg_ncop_8344
+bg_ncop_83442002,Водач (оператор) платформа - промишлен транспорт,83442002,occupation,operator,secondary,2,2025-01-01,true,bg_ncop_8344
+bg_ncop_83442003,Водач електрокар,83442003,occupation,operator,secondary,2,2025-01-01,true,bg_ncop_8344
+bg_ncop_83442004,Водач мотокар,83442004,occupation,operator,secondary,2,2025-01-01,true,bg_ncop_8344
 bg_ncop_83502001,Боцман палубен,83502001,occupation,operator,secondary,2,2025-01-01,true,bg_ncop_8350
 bg_ncop_83502002,Кормчия спасителна лодка,83502002,occupation,operator,secondary,2,2025-01-01,true,bg_ncop_8350
 bg_ncop_83502003,Кормчия корабен,83502003,occupation,operator,secondary,2,2025-01-01,true,bg_ncop_8350

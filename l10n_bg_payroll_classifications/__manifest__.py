@@ -1,7 +1,7 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Bulgarian HR Payroll Classifications',
-    'version': '18.0.4.0.2',
+    'version': '18.0.5.0.1',
     'category': 'Human Resources/Localization',
     'summary': 'Bulgarian localization for HR payroll with NKPD and Economic Activity classifications',
     'description': """
@@ -52,6 +52,7 @@
         'data/bg_hr_payroll_ncop_classification/occupation/bg.hr.payroll.ncop.classification.csv',
         'views/bg_ncop_classification.xml',
         'views/bg_mod_economic_activity.xml',
+        'views/hr_job_views.xml',
         'views/hr_menus.xml',
     ],
     'images': [

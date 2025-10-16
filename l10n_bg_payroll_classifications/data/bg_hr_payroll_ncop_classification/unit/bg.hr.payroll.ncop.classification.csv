@@ -57,6 +57,8 @@ bg_ncop_2166,Графични дизайнери и мултимедийни д�
 bg_ncop_2211,Лекари,2211,unit_group,specialist,higher,4,2025-01-01,true,bg_ncop_221
 bg_ncop_2212,Специалисти по обществено здраве,2212,unit_group,specialist,higher,4,2025-01-01,true,bg_ncop_221
 bg_ncop_2220,Медицински сестри и акушерки,2220,unit_group,specialist,higher,4,2025-01-01,true,bg_ncop_222
+bg_ncop_2221,Медицински сестри,2221,unit_group,specialist,higher,4,2025-01-01,true,bg_ncop_222
+bg_ncop_2222,Акушерки,2222,unit_group,specialist,higher,4,2025-01-01,true,bg_ncop_222
 bg_ncop_2230,Традиционни и комплементарни лекари,2230,unit_group,specialist,higher,4,2025-01-01,true,bg_ncop_223
 bg_ncop_2240,Парамедици,2240,unit_group,specialist,higher,4,2025-01-01,true,bg_ncop_224
 bg_ncop_2250,Ветеринарни лекари,2250,unit_group,specialist,higher,4,2025-01-01,true,bg_ncop_225
@@ -156,19 +158,43 @@ bg_ncop_3221,Медицински сестри (освен средно ниво
 bg_ncop_3222,Акушерки,3222,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_322
 bg_ncop_3230,Традиционни и комплементарни помощни специалисти по медицина,3230,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_323
 bg_ncop_3240,Ветеринарни техници и помощници,3240,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_324
+bg_ncop_3253,Здравни работници в общности,3253,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_325
+bg_ncop_3254,Оптици техници,3254,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_325
+bg_ncop_3255,Приложни специалисти във физиотерапията,3255,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_325
+bg_ncop_3257,Инспектори по медицинска екология здравословни и безопасни условия на труд и сродни на тях,3257,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_325
+bg_ncop_3258,Приложни специалисти в оказването на спешна медицинска помощ,3258,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_325
+bg_ncop_3259,Други приложни специалисти в здравеопазването н.д.,3259,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_325
 bg_ncop_3311,Преподаватели в началното образование,3311,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_331
 bg_ncop_3312,Преподаватели в предучилищното образование,3312,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_331
+bg_ncop_3313,Оперативни счетоводители,3313,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_331
+bg_ncop_3314,Приложни специалисти по статистика математика и сродни на тях,3314,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_331
+bg_ncop_3315,Оценители на имущество и щети,3315,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_331
 bg_ncop_3321,Преподаватели в средното образование,3321,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_332
+bg_ncop_3322,Търговски представители,3322,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_332
+bg_ncop_3323,Търговски представители по закупуване на стоки,3323,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_332
+bg_ncop_3324,Търговски посредници,3324,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_332
 bg_ncop_3330,Преподаватели в специалното образование,3330,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_333
+bg_ncop_3331,Агенти по спедиция на товари,3331,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_333
+bg_ncop_3332,Организатори на конференции и събития,3332,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_333
+bg_ncop_3333,Трудови посредници,3333,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_333
+bg_ncop_3334,Агенти на недвижими имоти и управление на собственост,3334,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_333
+bg_ncop_3339,Посредници в бизнес услугите н.д.,3335,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_333
 bg_ncop_3341,Други помощни преподаватели,3341,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_334
 bg_ncop_3342,Други помощни специалисти в образованието,3342,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_334
+bg_ncop_3343,Административни и изпълнителни секретари,3343,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_334
+bg_ncop_3344,Медицински секретари,3344,unit_group,technician,higher,4,2025-01-02,true,bg_ncop_334
 bg_ncop_3351,Техници за обучение по информационни и комуникационни технологии,3351,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_335
+bg_ncop_3352,Служители в държавната администрация извършващи данъчен и финансов контрол,3352,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_335
+bg_ncop_3353,Служители в държавната администрация по социално подпомагане и социално осигуряване,3353,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_335
+bg_ncop_3354,Служители в държавната администрация издаващи разрешителни и лицензии,3354,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_335
+bg_ncop_3355,Полицейски инспектори и оперативни работници,3355,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_335
 bg_ncop_3359,Други помощни специалисти в образованието н.д.,3359,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_335
 bg_ncop_3411,Помощни специалисти в правните дейности,3411,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_341
 bg_ncop_3412,Помощни специалисти в социалната работа,3412,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_341
 bg_ncop_3413,Помощни специалисти в религиозните дейности,3413,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_341
 bg_ncop_3421,Спортни треньори инструктори и съдии,3421,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_342
 bg_ncop_3422,Инструктори по фитнес и развлекателни дейности,3422,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_342
+bg_ncop_3423,Фитнес инструктори и ръководители на програми за отдих и спорт,3423,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_342
 bg_ncop_3431,Фотографи,3431,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_343
 bg_ncop_3432,Дизайнери на интериори и декоратори,3432,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_343
 bg_ncop_3433,Галерии музеи и библиотеки техници,3433,unit_group,technician,higher,3,2025-01-01,true,bg_ncop_343
@@ -195,6 +221,7 @@ bg_ncop_4224,Рецепционисти (хотели),4224,unit_group,clerk,sec
 bg_ncop_4225,Служители за обследвания и прови на пазара,4225,unit_group,clerk,secondary,2,2025-01-01,true,bg_ncop_422
 bg_ncop_4226,Рецепционисти общи,4226,unit_group,clerk,secondary,2,2025-01-01,true,bg_ncop_422
 bg_ncop_4227,Служители за обслужване на клиенти,4227,unit_group,clerk,secondary,2,2025-01-01,true,bg_ncop_422
+bg_ncop_4229,Персонал информиращ клиенти н.д.,4229,unit_group,clerk,secondary,2,2025-01-01,true,bg_ncop_422
 bg_ncop_4311,Служители за счетоводна отчетност и водене на отчети,4311,unit_group,clerk,secondary,2,2025-01-01,true,bg_ncop_431
 bg_ncop_4312,Служители за водене на статистически отчети,4312,unit_group,clerk,secondary,2,2025-01-01,true,bg_ncop_431
 bg_ncop_4313,Служители във финансовите отчети,4313,unit_group,clerk,secondary,2,2025-01-01,true,bg_ncop_431
@@ -228,6 +255,9 @@ bg_ncop_5169,Работници в услугите за лична грижа �
 bg_ncop_5211,Продавачи в магазини,5211,unit_group,service,secondary,2,2025-01-01,true,bg_ncop_521
 bg_ncop_5212,Продавачи на кафе чай и сладкиши,5212,unit_group,service,secondary,2,2025-01-01,true,bg_ncop_521
 bg_ncop_5220,Продавачи на пазари,5220,unit_group,service,secondary,2,2025-01-01,true,bg_ncop_522
+bg_ncop_5221,Собственици на малки магазини,5221,unit_group,service,secondary,2,2025-01-01,true,bg_ncop_522
+bg_ncop_5222,Супервайзъри магазини,5222,unit_group,service,secondary,2,2025-01-01,true,bg_ncop_522
+bg_ncop_5223,Продавач-консултанти,5223,unit_group,service,secondary,2,2025-01-01,true,bg_ncop_522
 bg_ncop_5230,Касиери и билетопродавци,5230,unit_group,service,secondary,2,2025-01-01,true,bg_ncop_523
 bg_ncop_5241,Модели за мода фитнес и други цели,5241,unit_group,service,secondary,2,2025-01-01,true,bg_ncop_524
 bg_ncop_5242,Демонстратори на продукти и търговски представители,5242,unit_group,service,secondary,2,2025-01-01,true,bg_ncop_524
@@ -370,6 +400,7 @@ bg_ncop_8332,Машинисти на вериги и селскостопанс�
 bg_ncop_8341,Капитани палубни офицери и лоцмани,8341,unit_group,operator,secondary,2,2025-01-01,true,bg_ncop_834
 bg_ncop_8342,Инженери палубни офицери машинисти и сродни работници,8342,unit_group,operator,secondary,2,2025-01-01,true,bg_ncop_834
 bg_ncop_8343,Палубни работници и сродни работници,8343,unit_group,operator,secondary,2,2025-01-01,true,bg_ncop_834
+bg_ncop_8344,Оператори на подемно-транспортни съоръжения,8344,unit_group,operator,secondary,2,2025-01-01,true,bg_ncop_834
 bg_ncop_8350,Пилоти на самолети и сродни помощни работници,8350,unit_group,operator,secondary,2,2025-01-01,true,bg_ncop_835
 bg_ncop_9111,Почистващи и помощници в офиси хотели и други заведения,9111,unit_group,elementary,primary,1,2025-01-01,true,bg_ncop_911
 bg_ncop_9112,Почистващи и помощници в превозни средства,9112,unit_group,elementary,primary,1,2025-01-01,true,bg_ncop_911

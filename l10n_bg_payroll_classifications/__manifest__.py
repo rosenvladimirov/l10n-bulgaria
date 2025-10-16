@@ -49,6 +49,7 @@
         'data/bg_hr_payroll_ncop_classification/sub_major/bg.hr.payroll.ncop.classification.csv',
         'data/bg_hr_payroll_ncop_classification/minor/bg.hr.payroll.ncop.classification.csv',
         'data/bg_hr_payroll_ncop_classification/unit/bg.hr.payroll.ncop.classification.csv',
+        'data/bg_hr_payroll_ncop_classification/occupation/bg.hr.payroll.ncop.classification.csv',
         'views/bg_ncop_classification.xml',
         'views/bg_mod_economic_activity.xml',
         'views/hr_menus.xml',

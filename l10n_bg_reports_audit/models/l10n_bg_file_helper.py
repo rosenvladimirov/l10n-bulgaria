@@ -183,7 +183,7 @@ def _set_options(options, report_date_from, report_date_to):
     return options
 
 
-def l10n_bg_where(env, report_options):
+def l10n_bg_where(env, report_options, model_report='sale'):
     date_now = fields.Date.to_string(fields.Date.today())
     date_from = report_options["date"].get("date_from") or date_now
     date_to = report_options["date"].get("date_to") or date_now
@@ -193,6 +193,9 @@ def l10n_bg_where(env, report_options):
     unposted_in_period = report_options.get("unposted_in_period", False)
     all_entries = report_options["all_entries"]
     state = ["posted", "cancel"]
+    if model_report == 'purchase':
+        state = ["posted"]
+
     tax_periods = [tax_period] if tax_period else []
 
     if not tax_period and date_from and not date_to:

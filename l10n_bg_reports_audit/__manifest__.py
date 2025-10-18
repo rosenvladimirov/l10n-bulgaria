@@ -1,6 +1,6 @@
 {
     "name": "Bulgarian Accounting Reports Base",
-    "version": "8.0.2",
+    "version": "8.0.3",
     "development_status": "Production/Stable",
     "maintainers": ["rosenvladimirov", "deyanlyubenov"],
     "description": "Technical base module for Bulgarian accounting reports with SQL queries and tag configurations.",

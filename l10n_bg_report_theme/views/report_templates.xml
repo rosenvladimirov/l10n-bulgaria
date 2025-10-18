@@ -438,7 +438,7 @@
             expr='//t[@t-elif="layout == &apos;web.external_layout_bubble&apos;"]'
             position="after"
         >
-            <t t-elif="layout == 'report_theme_sections.external_layout_sections'">
+            <t t-elif="layout == 'l10n_bg_report_theme.external_layout_sections'">
                 :root {
                     --font-family: <t t-esc="font" />;
                     --primary-color:  <t t-esc='primary' />;

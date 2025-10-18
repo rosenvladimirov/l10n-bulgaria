@@ -66,4 +66,5 @@
     'maintainers': ['rosenvladimirov'],
     'contributors': ['Rosen Vladimirov'],
     'support': 'https://github.com/rosenvladimirov/l10n-bulgaria/issues',
+    'countries': ['BG'],
 }

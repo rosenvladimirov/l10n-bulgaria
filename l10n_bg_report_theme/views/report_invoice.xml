@@ -51,13 +51,6 @@
             </div>
         </xpath>
 
-        <xpath expr="//t[@t-if='o.tax_totals']" position="replace">
-            <t t-if="o.tax_totals" t-call="l10n_bg_report_theme.document_tax_totals_template_extended">
-                <t t-set="tax_totals" t-value="o.tax_totals"/>
-                <t t-set="currency" t-value="o.currency_id"/>
-            </t>
-        </xpath>
-
         <!-- Add groups attribute to the due_date div -->
         <xpath expr="//div[@name='due_date']" position="attributes">
             <attribute name="groups">l10n_bg_report_theme.group_control_due_date</attribute>

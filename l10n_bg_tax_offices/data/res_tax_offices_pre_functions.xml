@@ -2,8 +2,8 @@
 <odoo>
     <function name="write" model="ir.model.data">
         <function name="search" model="ir.model.data">
-            <value eval="[('module', '=', 'l10n_bg_tax_offices'), ('model', '=', 'res.partner'), ('name', '=', 'nra')]"/>
+            <value eval="[('module', '=', ['l10n_bg_tax_offices', 'l10n_bg']), ('model', '=', 'res.partner'), ('name', '=', 'nra%')]"/>
         </function>
-        <value eval="{'noupdate': False, 'module': 'l10n_bg'}"/>
+        <value eval="{'noupdate': False, 'module': 'l10n_bg_tax_offices'}"/>
     </function>
 </odoo>

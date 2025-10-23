@@ -285,22 +285,23 @@
                     <div class="col-6 text-center">
                         <div class="mt32 mr4">
                             <small>
-                                <t t-esc="name_and_surname_label"/>:<span/><t t-esc="signature_placeholder"/><span/><t t-esc="signature_placeholder"/>
-<!--                                <br/>-->
-<!--                                <t t-esc="signature_and_stamp_label"/>: <t t-esc="signature_placeholder"/>-->
+                                <t t-esc="name_and_surname_label"/>:<span/><t t-esc="signature_placeholder"/>
                             </small>
                         </div>
                     </div>
-
                     <!-- Right signature -->
                     <div class="col-6 text-center">
                         <div class="mt32 mr4">
                             <small>
-                                <t t-esc="name_and_sender_label"/>:<span/><span t-esc="user_name"/><span/><t t-esc="signature_placeholder"/>
-<!--                                <br/>-->
-<!--                                <t t-esc="signature_and_stamp_label"/>: <t t-esc="signature_placeholder"/>-->
+                                <t t-esc="name_and_sender_label"/>:<span/><t t-esc="signature_placeholder"/>
                             </small>
                         </div>
+                    </div>
+                </div>
+                <div class="row" t-if="user_name">
+                    <div class="col-6 text-center"/>
+                    <div class="col-6 text-center">
+                        <span t-esc="user_name"/>
                     </div>
                 </div>
             </div>

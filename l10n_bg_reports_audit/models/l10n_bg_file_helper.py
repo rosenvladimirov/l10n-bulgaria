@@ -59,9 +59,17 @@ def l10n_bg_lang(env, lang_modules="partner", field_name=""):
     is_l10n_bg_multilanguage = isinstance(env.company.is_l10n_bg_multilanguage, dict) and env.company.is_l10n_bg_multilanguage.get("l10n_bg_multilang", '') == 'installed'
 
     if l10n_bg_extend_address(env) and lang_modules == "partner" and field_name == "company_partner.city":
-        field_name = "company_partner_city.name"
+        field_name = f"""(CASE
+        WHEN company_partner_city.name ? 'bg_BG' THEN company_partner_city.name#>>'{{{'bg_BG'}}}'
+        WHEN company_partner_city.name ? 'en_US' THEN company_partner_city.name#>>'{{{'en_US'}}}'
+        ELSE company_partner_city.name::text
+        END)"""
     if l10n_bg_extend_address(env) and lang_modules == "partner" and field_name == "represent_partner.city":
-        field_name = "represent_partner_city.name"
+        field_name = f"""(CASE
+        WHEN represent_partner_city.name ? 'bg_BG' THEN represent_partner_city.name#>>'{{{'bg_BG'}}}'
+        WHEN represent_partner_city.name ? 'en_US' THEN represent_partner_city.name#>>'{{{'en_US'}}}'
+        ELSE represent_partner_city.name::text
+        END)"""
 
     if lang_modules == "partner":
         _logger.debug(f"l10n_bg_lang: lang_modules == partner: {field_name} - {lang_modules}")

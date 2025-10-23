@@ -267,7 +267,14 @@
         <div class="row mt8 o_sections_signatures" name="signatures_section"
              groups="l10n_bg_report_theme.group_control_signatures">
             <!-- Set variables for labels -->
-
+            <t t-if="o">
+                <t t-set="sign_signature" t-value="o.env.user.sign_signature"/>
+                <t t-set="user_name" t-value="o.env.user.name"/>
+            </t>
+            <t t-if="doc">
+                <t t-set="sign_signature" t-value="doc.env.user.sign_signature"/>
+                <t t-set="user_name" t-value="doc.env.user.name"/>
+            </t>
             <t t-if="recipient_name" t-set="name_and_surname_label" t-value="recipient_name"/>
             <t t-if="not name_and_surname_label" t-set="name_and_surname_label">CUSTOMER</t>
             <t t-if="not signature_and_stamp_label" t-set="signature_and_stamp_label">Signature and Stamp</t>
@@ -289,11 +296,17 @@
 
                     <!-- Right signature -->
                     <div class="col-6 text-center">
-                        <div class="o_signatures_field">
+                        <div  t-if="not sign_signature" class="mt32 ml64 mr4">
                             <small>
-                                <t t-esc="name_and_sender_label"/>: <span t-esc="o.env.user.name"/>
+                                <t t-esc="name_and_sender_label"/>: <span t-esc="user_name"/>
                                 <br/>
                                 <t t-esc="signature_and_stamp_label"/>: <t t-esc="signature_placeholder"/>
+                            </small>
+                        </div>
+                        <div t-if="sign_signature" class="mt32 ml64 mr4" name="signature">
+                            <img t-att-src="image_data_uri(sign_signature)" style="max-height: 4cm; max-width: 8cm;"/>
+                            <small>
+                                <p t-esc="user_name"/>
                             </small>
                         </div>
                     </div>

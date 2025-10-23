@@ -34,7 +34,7 @@ strong {
 .o_sections_header,
 .o_sections_article {
     font-family: $o-default-report-font;
-    font-size: 10px;
+    font-size: $o-default-report-font-size;
     padding-left: 15px;
     padding-right: 15px;
     background-repeat: no-repeat;
@@ -347,7 +347,6 @@ strong {
 
                     .o_signatures_field {
                         margin-top: 80px;
-                        border-top: 1px solid $o-default-report-border-color;
                         padding-top: 5px;
                     }
                 }

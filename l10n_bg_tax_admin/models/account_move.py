@@ -217,7 +217,7 @@ class AccountMove(models.Model):
         with super()._sync_invoice(container):
             yield
 
-        nra_id = self.env.ref("l10n_bg_tax_offices.nra", raise_if_not_found=False)
+        nra_id = self.env.ref("l10n_bg.nra", raise_if_not_found=False)
 
         for move in container['records'].filtered(lambda m: m.is_invoice(True)):
             new_move = self.env['account.move']

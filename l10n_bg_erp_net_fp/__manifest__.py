@@ -21,7 +21,7 @@
    * Support for different printer models
    * Bulgarian tax group mapping (А, Б, В, Г)
 """,
-    'version': '18.0.1.0.0',
+    'version': '18.0.3.0.1',
     'license': 'AGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',

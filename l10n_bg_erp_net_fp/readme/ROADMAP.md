@@ -1,6 +1,6 @@
 - Add support for refund receipts (сторно бонове)
 - Implement duplicate receipt printing from POS UI
-- Add real-time printer status widget in POS interface
+- Add a real-time printer status widget in the POS interface
 - Support for multiple fiscal printers per POS terminal
 - Fiscal memory download and archiving functionality
 - KLEN (journal) report viewer and export

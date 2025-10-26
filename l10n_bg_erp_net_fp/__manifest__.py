@@ -7,17 +7,20 @@
         Integration with ERP.BG fiscal printers through ErpNet.FP server.
         Supports real-time fiscal receipt printing and status monitoring.""",
     'description': """
-                           This module provides integration between Odoo POS and fiscal printers
-                           supported by ErpNet.FP server. Features include:
+   This module provides integration between Odoo POS and fiscal printers
+   supported by ErpNet.FP server. Features include:
 
-                           * Real-time fiscal receipt printing
-                           * Printer status monitoring
-                           * Automatic receipt reprint on error
-                           * Multiple printer support
-                           * Background printer status updates
-                           * Detailed error logging
-                           * Support for different printer models
-                       """,
+   * Real-time fiscal receipt printing from POS
+   * Direct browser-to-printer communication for receipts
+   * Backend support for Z/X reports and administrative operations
+   * Printer status monitoring
+   * Automatic fallback to standard printing on error
+   * Multiple printer support
+   * Background printer status updates
+   * Detailed error logging
+   * Support for different printer models
+   * Bulgarian tax group mapping (А, Б, В, Г)
+""",
     'version': '18.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
@@ -29,7 +32,8 @@
         'base',
         'bus',
         'mail',
-        'point_of_sale'
+        'point_of_sale',
+        'account',
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -37,6 +41,7 @@
         'views/fiscal_printer_device_views.xml',
         'views/fiscal_printer_status_views.xml',
         'views/pos_config_view.xml',
+        'views/pos_printer_views.xml',
         'views/res_config_settings_views.xml',
         'views/pos_order_view.xml',
         'views/account_tax_views.xml',
@@ -46,6 +51,9 @@
     'assets': {
         'web.assets_backend': [
             'l10n_bg_erp_net_fp/static/src/js/printer_status_updates.js',
+        ],
+        'point_of_sale._assets_pos': [
+            'l10n_bg_erp_net_fp/static/src/js/erpnet_fp_redirect.js',
         ],
     },
     'installable': True,

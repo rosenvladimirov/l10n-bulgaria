@@ -11,7 +11,6 @@ from odoo.addons.l10n_bg_erp_net_fp.models.exceptions import (
     FiscalPrinterResponseError
 )
 
-
 _logger = logging.getLogger(__name__)
 
 
@@ -26,8 +25,8 @@ class FiscalPrinterDevice(models.Model):
     active = fields.Boolean('Active', default=True)
     timeout = fields.Integer('Timeout', default=30, help='Timeout in seconds')
     retry_count = fields.Integer('Retry Count', default=3, help='Number of retries on failure')
-    ssl_verify = fields.Boolean('Verify SSL', default=True,
-                               help='Verify SSL certificates using system CA certificates')
+    ssl_verify = fields.Boolean('Verify SSL', default=False,
+                                help='Verify SSL certificates (disable for self-signed certificates)')
 
     auto_z_report = fields.Boolean('Автоматичен Z отчет', default=False,
                                    help='Автоматично генериране на Z отчет')
@@ -43,7 +42,7 @@ class FiscalPrinterDevice(models.Model):
             if not 0 <= record.z_report_hour <= 23:
                 raise ValidationError(_('Часът трябва да бъде между 0 и 23'))
             if not 0 <= record.z_report_minute <= 59:
-                raise ValidationError(_('Минутите трябва да бъдат между 0 и 59'))
+                raise ValidationError(_('Минутите трябва да бъдат mellan 0 и 59'))
 
     @api.model
     def _cron_generate_z_reports(self):
@@ -69,7 +68,6 @@ class FiscalPrinterDevice(models.Model):
                 result = device.print_z_report()
                 device.last_z_report = fields.Datetime.now()
 
-                # Добавяме съобщение в чата
                 device.message_post(
                     body=_("Успешно генериран Z отчет"),
                     message_type='notification',
@@ -84,7 +82,6 @@ class FiscalPrinterDevice(models.Model):
                 _logger.error(f"{device.name}: {error_message}")
                 device.env.cr.rollback()
 
-                # Добавяме съобщение за грешка в чата
                 device.message_post(
                     body=error_message,
                     message_type='notification',
@@ -92,9 +89,7 @@ class FiscalPrinterDevice(models.Model):
                 )
 
     def action_test_z_report(self):
-        """
-        Тестово действие за Z отчет
-        """
+        """Тестово действие за Z отчет"""
         self.ensure_one()
         try:
             self.print_z_report()
@@ -119,17 +114,39 @@ class FiscalPrinterDevice(models.Model):
                 }
             }
 
+    def action_test_x_report(self):
+        """Тестово действие за X отчет"""
+        self.ensure_one()
+        try:
+            self.print_x_report()
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': _('Успех'),
+                    'message': _('X отчетът е генериран успешно'),
+                    'type': 'success',
+                }
+            }
+        except Exception as e:
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': _('Грешка'),
+                    'message': str(e),
+                    'type': 'danger',
+                }
+            }
+
     def _get_session(self):
-        """Създава нова сесия за HTTP заявки с SSL поддръжка"""
+        """Създава нова сесия за HTTP заявки"""
         session = requests.Session()
         session.headers.update({
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         })
-
-        # Използваме системните CA сертификати
         session.verify = self.ssl_verify
-
         return session
 
     @api.constrains('host')
@@ -141,7 +158,6 @@ class FiscalPrinterDevice(models.Model):
                     raise ValidationError(_('Invalid host URL format'))
                 if parsed.scheme not in ['http', 'https']:
                     raise ValidationError(_('URL scheme must be http or https'))
-                # Проверка дали HTTPS се използва правилно
                 if parsed.scheme == 'https' and not record.ssl_verify:
                     _logger.warning('HTTPS is used with disabled SSL verification for %s', record.name)
             except Exception as e:
@@ -161,13 +177,8 @@ class FiscalPrinterDevice(models.Model):
 
     def _make_request(self, method, endpoint, data=None, params=None):
         """
-        Общ метод за HTTP заявки
-        :param method: HTTP метод ('GET' или 'POST')
-        :param endpoint: крайна точка на API
-        :param data: данни за заявката (за POST)
-        :param params: параметри на URL (за GET)
-        :return: JSON отговор
-        :raises: FiscalPrinterError при проблем с комуникацията
+        Общ метод за HTTP заявки към ErpNet.FP
+        Използва се само от backend операции (Z отчети, X отчети и др.)
         """
         url = urljoin(self.host, endpoint)
         session = self._get_session()
@@ -181,14 +192,14 @@ class FiscalPrinterDevice(models.Model):
                         url,
                         params=params,
                         timeout=self.timeout,
-                        verify=True
+                        verify=self.ssl_verify
                     )
                 elif method == 'POST':
                     response = session.post(
                         url,
                         json=data,
                         timeout=self.timeout,
-                        verify=True
+                        verify=self.ssl_verify
                     )
                 else:
                     raise FiscalPrinterError(_(f'Unsupported HTTP method: {method}'))
@@ -196,6 +207,11 @@ class FiscalPrinterDevice(models.Model):
                 response.raise_for_status()
                 return response.json()
 
+            except requests.exceptions.SSLError as e:
+                error_msg = f"SSL Error: {str(e)}. Try disabling SSL verification."
+                _logger.error(error_msg)
+                if attempt == self.retry_count - 1:
+                    raise FiscalPrinterError(_(error_msg))
             except requests.exceptions.HTTPError as e:
                 error_msg = f"HTTP Error: {e.response.status_code} - {e.response.text}"
                 _logger.error(error_msg)
@@ -209,7 +225,8 @@ class FiscalPrinterDevice(models.Model):
             finally:
                 session.close()
 
-    # Информационни методи
+    # ========== ИНФОРМАЦИОННИ МЕТОДИ ==========
+
     def get_printers(self):
         """Получаване на списък с всички принтери"""
         return self._make_request('GET', 'printers')
@@ -222,57 +239,22 @@ class FiscalPrinterDevice(models.Model):
         """Статус на принтера"""
         return self._make_request('GET', f'printers/{self.printer_id}/status')
 
-    # Печат на документи
-    def print_receipt(self, receipt_data):
-        """
-        Печат на фискален бон
-        :param receipt_data: dict с данни за бона
-        :raises: ValidationError при невалидни данни
-        Пример:
-        {
-            "uniqueSale": true,
-            "items": [
-                {
-                    "text": "Продукт 1",
-                    "quantity": 1,
-                    "unitPrice": 10.50,
-                    "taxGroup": "Б"
-                }
-            ],
-            "payments": [
-                {
-                    "amount": 10.50,
-                    "paymentType": "cash"
-                }
-            ]
-        }
-        """
-        if not isinstance(receipt_data, dict):
-            raise ValidationError(_('Receipt data must be a dictionary'))
+    # ========== X И Z ОТЧЕТИ (BACKEND) ==========
 
-        required_fields = ['items', 'payments']
-        for field in required_fields:
-            if field not in receipt_data:
-                raise ValidationError(_(f'Missing required field: {field}'))
+    def print_x_report(self):
+        """Печат на X отчет"""
+        return self._make_request('POST', f'printers/{self.printer_id}/xreport')
 
-        return self._make_request('POST', f'printers/{self.printer_id}/receipt', receipt_data)
+    def print_z_report(self):
+        """Печат на Z отчет"""
+        return self._make_request('POST', f'printers/{self.printer_id}/zreport')
 
-    def print_reversal_receipt(self, reversal_data):
-        """
-        Печат на сторно бон
-        :param reversal_data: dict с данни за сторно бона
-        :raises: ValidationError при невалидни данни
-        """
-        if not isinstance(reversal_data, dict):
-            raise ValidationError(_('Reversal data must be a dictionary'))
-
-        return self._make_request('POST', f'printers/{self.printer_id}/reversalreceipt', reversal_data)
+    # ========== СЛУЖЕБНИ ОПЕРАЦИИ (BACKEND) ==========
 
     def print_withdraw(self, amount):
         """
         Служебно изведени
         :param amount: сума за извеждане
-        :raises: ValidationError при невалидна сума
         """
         if not isinstance(amount, (int, float)) or amount <= 0:
             raise ValidationError(_('Amount must be a positive number'))
@@ -284,7 +266,6 @@ class FiscalPrinterDevice(models.Model):
         """
         Служебно въведени
         :param amount: сума за въвеждане
-        :raises: ValidationError при невалидна сума
         """
         if not isinstance(amount, (int, float)) or amount <= 0:
             raise ValidationError(_('Amount must be a positive number'))
@@ -292,16 +273,8 @@ class FiscalPrinterDevice(models.Model):
         data = {"amount": amount}
         return self._make_request('POST', f'printers/{self.printer_id}/deposit', data)
 
-    # X и Z отчети
-    def print_x_report(self):
-        """Печат на X отчет"""
-        return self._make_request('POST', f'printers/{self.printer_id}/xreport')
+    # ========== ДОПЪЛНИТЕЛНИ ОТЧЕТИ (BACKEND) ==========
 
-    def print_z_report(self):
-        """Печат на Z отчет"""
-        return self._make_request('POST', f'printers/{self.printer_id}/zreport')
-
-    # Допълнителни отчети
     def print_duplicate(self):
         """Печат на дубликат на последния бон"""
         return self._make_request('POST', f'printers/{self.printer_id}/duplicate')
@@ -315,7 +288,6 @@ class FiscalPrinterDevice(models.Model):
         Информация за КЛЕН
         :param from_date: начална дата (ISO формат)
         :param to_date: крайна дата (ISO формат)
-        :raises: ValidationError при невалиден формат на дата
         """
         params = {}
 
@@ -341,10 +313,24 @@ class FiscalPrinterDevice(models.Model):
         """
         Изпращане на директна команда към устройството
         :param command: командата като string
-        :raises: ValidationError при невалидна команда
         """
         if not isinstance(command, str) or not command.strip():
             raise ValidationError(_('Command must be a non-empty string'))
 
         data = {"Command": command}
         return self._make_request('POST', f'printers/{self.printer_id}/raw', data)
+
+    # ========== МЕТОДИ ЗА СТОРНО И ОБРАТНИ БОНОВЕ (BACKEND) ==========
+
+    def print_reversal_receipt(self, reversal_data):
+        """
+        Печат на сторно бон
+        :param reversal_data: dict с данни за сторно бона
+        """
+        if not isinstance(reversal_data, dict):
+            raise ValidationError(_('Reversal data must be a dictionary'))
+
+        return self._make_request('POST', f'printers/{self.printer_id}/reversalreceipt', reversal_data)
+
+    # ЗАБЕЛЕЖКА: print_receipt() методът е ПРЕМАХНАТ
+    # Печатът на обикновени касови бонове се прави директно от POS frontend

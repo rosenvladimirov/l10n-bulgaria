@@ -61,16 +61,17 @@
     </record>
 
     <!-- List View (Odoo 18) -->
-    <record id="view_fiscal_printer_device_list" model="ir.ui.view">
-        <field name="name">fiscal.printer.device.list</field>
+    <record id="view_fiscal_printer_device_tree" model="ir.ui.view">
+        <field name="name">fiscal.printer.device.tree</field>
         <field name="model">fiscal.printer.device</field>
         <field name="arch" type="xml">
-            <list string="Fiscal Printer Devices">
+            <list js_class="fiscal_printer_status_list">
                 <field name="name"/>
                 <field name="host"/>
                 <field name="printer_id"/>
+                <field name="current_status"/>
+                <field name="is_ready"/>
                 <field name="active"/>
-                <field name="last_z_report"/>
             </list>
         </field>
     </record>

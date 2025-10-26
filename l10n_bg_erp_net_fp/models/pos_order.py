@@ -5,54 +5,46 @@ from odoo.exceptions import ValidationError
 class PosOrder(models.Model):
     _inherit = 'pos.order'
 
-    l10n_bg_fiscal_receipt_number = fields.Char(string='Fiscal Receipt Number', readonly=True)
-    l10n_bg_fiscal_receipt_datetime = fields.Datetime(string='Fiscal Receipt Date/Time', readonly=True)
+    # Полета за фискални данни (попълват се от frontend)
+    l10n_bg_fiscal_receipt_datetime = fields.Datetime(
+        string='Дата/Час на фискален бон',
+        readonly=True,
+        help='Времето на издаване на фискалния бон'
+    )
+    l10n_bg_fiscal_receipt_number = fields.Char(
+        string='Фискален номер',
+        readonly=True,
+        help='Номер на фискалния бон от ErpNet.FP'
+    )
+    l10n_bg_fiscal_memory_number = fields.Char(
+        string='Фискална памет',
+        readonly=True,
+        help='Сериен номер на фискалната памет'
+    )
 
-    def action_print_fiscal_receipt(self):
-        """Print fiscal receipt"""
-        self.ensure_one()
-        if not self.config_id.fiscal_printer_id:
-            raise ValidationError(_('No configured fiscal printer for this POS terminal'))
+    @api.model
+    def _order_fields(self, ui_order):
+        """Добавяне на фискални полета при синхронизация от POS"""
+        order_fields = super()._order_fields(ui_order)
 
-        receipt_data = self._prepare_fiscal_receipt_data()
+        # Добавяме фискалните данни ако са налични от frontend
+        if ui_order.get('l10n_bg_fiscal_receipt_number'):
+            order_fields['l10n_bg_fiscal_receipt_number'] = ui_order['l10n_bg_fiscal_receipt_number']
 
-        try:
-            result = self.config_id.fiscal_printer_id.print_receipt(receipt_data)
-            self.l10n_bg_fiscal_receipt_number = result.get('receiptNumber')
-            self.l10n_bg_fiscal_receipt_datetime = fields.Datetime.now()
-            self.message_post(body=_('Fiscal receipt printed successfully'))
-        except Exception as e:
-            self.message_post(body=_('Error printing fiscal receipt: %s') % str(e))
-            raise ValidationError(_('Error printing fiscal receipt: %s') % str(e))
+        if ui_order.get('l10n_bg_fiscal_memory_number'):
+            order_fields['l10n_bg_fiscal_memory_number'] = ui_order['l10n_bg_fiscal_memory_number']
 
-    def _prepare_fiscal_receipt_data(self):
-        """Prepare data for fiscal receipt"""
-        self.ensure_one()
-        items = []
+        if ui_order.get('l10n_bg_fiscal_receipt_datetime'):
+            order_fields['l10n_bg_fiscal_receipt_datetime'] = ui_order['l10n_bg_fiscal_receipt_datetime']
 
-        for line in self.lines:
-            tax_group = line.tax_ids.mapped('tax_group_id').id or 0
-            item = {
-                "text": line.product_id.name,
-                "quantity": line.qty,
-                "unitPrice": line.price_unit,
-                "taxGroup": tax_group,
-            }
-            items.append(item)
+        return order_fields
 
-        payments = []
-        for payment in self.payment_ids:
-            payment_type = "cash"  # Default
-            if hasattr(payment.payment_method_id, 'use_payment_terminal') and payment.payment_method_id.use_payment_terminal == 'card':
-                payment_type = "card"
-
-            payments.append({
-                "amount": payment.amount,
-                "paymentType": payment_type
-            })
-
-        return {
-            "uniqueSale": True,
-            "items": items,
-            "payments": payments
-        }
+    def _export_for_ui(self, order):
+        """Експорт на фискални данни към POS frontend"""
+        result = super()._export_for_ui(order)
+        result.update({
+            'l10n_bg_fiscal_receipt_number': order.l10n_bg_fiscal_receipt_number,
+            'l10n_bg_fiscal_memory_number': order.l10n_bg_fiscal_memory_number,
+            'l10n_bg_fiscal_receipt_datetime': order.l10n_bg_fiscal_receipt_datetime,
+        })
+        return result

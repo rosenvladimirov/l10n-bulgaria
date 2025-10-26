@@ -7,12 +7,12 @@ class PosOrder(models.Model):
 
     # Полета за фискални данни (попълват се от frontend)
     l10n_bg_fiscal_receipt_datetime = fields.Datetime(
-        string='Дата/Час на фискален бон',
+        string='Date/Time of fiscal receipt',
         readonly=True,
-        help='Времето на издаване на фискалния бон'
+        help='The time of issuing the fiscal receipt'
     )
     l10n_bg_fiscal_receipt_number = fields.Char(
-        string='Фискален номер',
+        string='Fiscal number',
         readonly=True,
         help='Номер на фискалния бон от ErpNet.FP'
     )

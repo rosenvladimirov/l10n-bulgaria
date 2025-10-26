@@ -6,12 +6,12 @@ class PosConfig(models.Model):
 
     fiscal_printer_id = fields.Many2one(
         'fiscal.printer.device',
-        string='Фискален принтер',
+        string='Fiscal printer',
         domain=[('active', '=', True)],
-        help='Фискален принтер за този POS терминал'
+        help='Fiscal printer for this POS terminal'
     )
     auto_fiscal_printing = fields.Boolean(
-        'Автоматичен печат',
+        'Automatic printing',
         default=True,
-        help='Автоматично отпечатване на фискален бон при приключване на поръчка'
+        help='Automatically print a fiscal voucher upon completion of an order'
     )

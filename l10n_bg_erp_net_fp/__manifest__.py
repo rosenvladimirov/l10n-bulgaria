@@ -39,6 +39,7 @@
         'views/pos_config_view.xml',
         'views/res_config_settings_views.xml',
         'views/pos_order_view.xml',
+        'views/account_tax_views.xml',
     ],
     'demo': [
     ],

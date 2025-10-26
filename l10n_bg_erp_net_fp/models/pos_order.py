@@ -5,8 +5,8 @@ from odoo.exceptions import ValidationError
 class PosOrder(models.Model):
     _inherit = 'pos.order'
 
-    fiscal_receipt_number = fields.Char(string='Fiscal Receipt Number', readonly=True)
-    fiscal_receipt_datetime = fields.Datetime(string='Fiscal Receipt Date/Time', readonly=True)
+    l10n_bg_fiscal_receipt_number = fields.Char(string='Fiscal Receipt Number', readonly=True)
+    l10n_bg_fiscal_receipt_datetime = fields.Datetime(string='Fiscal Receipt Date/Time', readonly=True)
 
     def action_print_fiscal_receipt(self):
         """Print fiscal receipt"""
@@ -18,8 +18,8 @@ class PosOrder(models.Model):
 
         try:
             result = self.config_id.fiscal_printer_id.print_receipt(receipt_data)
-            self.fiscal_receipt_number = result.get('receiptNumber')
-            self.fiscal_receipt_datetime = fields.Datetime.now()
+            self.l10n_bg_fiscal_receipt_number = result.get('receiptNumber')
+            self.l10n_bg_fiscal_receipt_datetime = fields.Datetime.now()
             self.message_post(body=_('Fiscal receipt printed successfully'))
         except Exception as e:
             self.message_post(body=_('Error printing fiscal receipt: %s') % str(e))
@@ -31,7 +31,7 @@ class PosOrder(models.Model):
         items = []
 
         for line in self.lines:
-            tax_group = line.product_id.categ_id.get_fiscal_tax_group() if hasattr(line.product_id.categ_id, 'get_fiscal_tax_group') else 'A'
+            tax_group = line.tax_ids.mapped('tax_group_id').id or 0
             item = {
                 "text": line.product_id.name,
                 "quantity": line.qty,

@@ -1,17 +1,16 @@
-from odoo import models, fields, api, _
-
+# models/pos_config.py
+from odoo import models, fields
 
 class PosConfig(models.Model):
     _inherit = 'pos.config'
 
-    fiscal_printer_id = fields.Many2one(
+    l10n_bg_fiscal_printer_id = fields.Many2one(
         'fiscal.printer.device',
-        string='Fiscal printer',
-        domain=[('active', '=', True)],
-        help='Fiscal printer for this POS terminal'
+        string='Фискален принтер',
+        help='Фискален принтер за тази POS конфигурация'
     )
-    auto_fiscal_printing = fields.Boolean(
-        'Automatic printing',
+    l10n_bg_auto_z_on_close = fields.Boolean(
+        string='Автоматичен Z отчет при затваряне',
         default=True,
-        help='Automatically print a fiscal voucher upon completion of an order'
+        help='Автоматично отпечатване на Z отчет при затваряне на сесията'
     )

@@ -28,21 +28,21 @@ class FiscalPrinterDevice(models.Model):
     ssl_verify = fields.Boolean('Verify SSL', default=False,
                                 help='Verify SSL certificates (disable for self-signed certificates)')
 
-    auto_z_report = fields.Boolean('Автоматичен Z отчет', default=False,
-                                   help='Автоматично генериране на Z отчет')
-    z_report_hour = fields.Integer('Час за Z отчет', default=23,
-                                   help='Час за генериране на Z отчет (0-23)')
-    z_report_minute = fields.Integer('Минута за Z отчет', default=59,
-                                     help='Минута за генериране на Z отчет (0-59)')
-    last_z_report = fields.Datetime('Последен Z отчет', readonly=True)
+    auto_z_report = fields.Boolean('Automatic Z report', default=False,
+                                   help='Automatic generation of Z report')
+    z_report_hour = fields.Integer('Z report time', default=23,
+                                   help='Time to generate Z report (0-23)')
+    z_report_minute = fields.Integer('Minute for Z report', default=59,
+                                     help='Minute to generate Z report (0-59)')
+    last_z_report = fields.Datetime('Last Z report', readonly=True)
 
     @api.constrains('z_report_hour', 'z_report_minute')
     def _check_time_values(self):
         for record in self:
             if not 0 <= record.z_report_hour <= 23:
-                raise ValidationError(_('Часът трябва да бъде между 0 и 23'))
+                raise ValidationError(_('The time must be between 0 and 23'))
             if not 0 <= record.z_report_minute <= 59:
-                raise ValidationError(_('Минутите трябва да бъдат mellan 0 и 59'))
+                raise ValidationError(_('Minutes must be between 0 and 59'))
 
     @api.model
     def _cron_generate_z_reports(self):
@@ -64,21 +64,21 @@ class FiscalPrinterDevice(models.Model):
                 continue
 
             try:
-                _logger.info(f"Започване на автоматичен Z отчет за {device.name}")
+                _logger.info(f"Start an automatic Z report for {device.name}")
                 result = device.print_z_report()
                 device.last_z_report = fields.Datetime.now()
 
                 device.message_post(
-                    body=_("Успешно генериран Z отчет"),
+                    body=_("Successfully generated Z report"),
                     message_type='notification',
                     subtype_id=self.env.ref('mail.mt_note').id
                 )
 
                 device.env.cr.commit()
-                _logger.info(f"Успешен Z отчет за {device.name}")
+                _logger.info(f"Successful Z report for {device.name}")
 
             except Exception as e:
-                error_message = f"Грешка при генериране на Z отчет: {str(e)}"
+                error_message = f"Error generating Z report: {str(e)}"
                 _logger.error(f"{device.name}: {error_message}")
                 device.env.cr.rollback()
 
@@ -98,8 +98,8 @@ class FiscalPrinterDevice(models.Model):
                 'type': 'ir.actions.client',
                 'tag': 'display_notification',
                 'params': {
-                    'title': _('Успех'),
-                    'message': _('Z отчетът е генериран успешно'),
+                    'title': _('Success'),
+                    'message': _('The Z report has been generated successfully'),
                     'type': 'success',
                 }
             }
@@ -108,7 +108,7 @@ class FiscalPrinterDevice(models.Model):
                 'type': 'ir.actions.client',
                 'tag': 'display_notification',
                 'params': {
-                    'title': _('Грешка'),
+                    'title': _('Error'),
                     'message': str(e),
                     'type': 'danger',
                 }
@@ -123,8 +123,8 @@ class FiscalPrinterDevice(models.Model):
                 'type': 'ir.actions.client',
                 'tag': 'display_notification',
                 'params': {
-                    'title': _('Успех'),
-                    'message': _('X отчетът е генериран успешно'),
+                    'title': _('Success'),
+                    'message': _('X report generated successfully'),
                     'type': 'success',
                 }
             }
@@ -133,7 +133,7 @@ class FiscalPrinterDevice(models.Model):
                 'type': 'ir.actions.client',
                 'tag': 'display_notification',
                 'params': {
-                    'title': _('Грешка'),
+                    'title': _('Error'),
                     'message': str(e),
                     'type': 'danger',
                 }
@@ -331,6 +331,3 @@ class FiscalPrinterDevice(models.Model):
             raise ValidationError(_('Reversal data must be a dictionary'))
 
         return self._make_request('POST', f'printers/{self.printer_id}/reversalreceipt', reversal_data)
-
-    # ЗАБЕЛЕЖКА: print_receipt() методът е ПРЕМАХНАТ
-    # Печатът на обикновени касови бонове се прави директно от POS frontend

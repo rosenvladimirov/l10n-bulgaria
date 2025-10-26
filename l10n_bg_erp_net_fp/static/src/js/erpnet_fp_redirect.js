@@ -25,7 +25,7 @@ patch(ReceiptScreen.prototype, {
 
         // Ако няма конфигуриран фискален принтер -> стандартен печат
         if (!fiscalPrinter) {
-            console.log("Няма конфигуриран ErpNet.FP принтер, използва се стандартен печат");
+            console.log("There is no ErpNet.FP printer configured, standard printing is used");
             return await super.doFullPrint();
         }
 
@@ -33,9 +33,9 @@ patch(ReceiptScreen.prototype, {
         const printerId = fiscalPrinter.l10n_bg_printer_id;
 
         if (!baseUrl || !printerId) {
-            console.error("Невалидна конфигурация на фискален принтер");
+            console.error("Invalid fiscal printer configuration");
             this.notification.add(
-                this.env._t("Грешка в конфигурацията на фискалния принтер"),
+                this.env._t("Fiscal printer configuration error"),
                 { type: "danger" }
             );
             return await super.doFullPrint();
@@ -54,7 +54,7 @@ patch(ReceiptScreen.prototype, {
             if (result && result.ok) {
                 // Успешен фискален печат
                 this.notification.add(
-                    this.env._t("Фискален бон отпечатан успешно") +
+                    this.env._t("Fiscal receipt printed successfully") +
                     (result.receiptNumber ? ` №${result.receiptNumber}` : ""),
                     { type: "success", timeout: 3000 }
                 );
@@ -67,13 +67,13 @@ patch(ReceiptScreen.prototype, {
 
                 return; // НЕ печатаме локално
             } else {
-                throw new Error(result?.error || "Принтерът върна грешка");
+                throw new Error(result?.error || "The printer returned an error");
             }
         } catch (error) {
-            console.error("Грешка при фискален печат:", error);
+            console.error("Fiscal stamp error:", error);
             this.notification.add(
-                this.env._t("Грешка при фискален печат: ") + error.message + ". " +
-                this.env._t("Използва се стандартен печат."),
+                this.env._t("Fiscal stamp error: ") + error.message + ". " +
+                this.env._t("A standard seal is used."),
                 { type: "warning" }
             );
             return await super.doFullPrint();

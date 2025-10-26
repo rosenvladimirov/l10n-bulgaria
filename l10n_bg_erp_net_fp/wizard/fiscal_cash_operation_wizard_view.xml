@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_fiscal_cash_operation_wizard_form" model="ir.ui.view">
+            <field name="name">fiscal.cash.operation.wizard.form</field>
+            <field name="model">fiscal.cash.operation.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Office cash operation">
+                    <group>
+                        <field name="session_id" invisible="1"/>
+                        <field name="operation_type" readonly="1"/>
+                        <field name="amount"/>
+                        <field name="reason"/>
+                    </group>
+                    <footer>
+                        <button string="Изпълни" name="action_execute" type="object" class="btn-primary"/>
+                        <button string="Отказ" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

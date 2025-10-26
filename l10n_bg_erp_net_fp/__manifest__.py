@@ -42,9 +42,10 @@
         'views/fiscal_printer_status_views.xml',
         'views/pos_config_view.xml',
         'views/pos_printer_views.xml',
-        'views/res_config_settings_views.xml',
+        'views/pos_session_view.xml',
         'views/pos_order_view.xml',
         'views/account_tax_views.xml',
+        'wizard/fiscal_cash_operation_wizard_view.xml',
     ],
     'demo': [
     ],

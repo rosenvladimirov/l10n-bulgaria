@@ -1,63 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- Fiscal Printer Status List View (Odoo 18) -->
-        <record id="view_fiscal_printer_status_list" model="ir.ui.view">
-            <field name="name">fiscal.printer.status.list</field>
-            <field name="model">fiscal.printer.status</field>
+        <!-- Fiscal Printer Device Form View -->
+        <record id="view_fiscal_printer_device_form" model="ir.ui.view">
+            <field name="name">fiscal.printer.device.form</field>
+            <field name="model">fiscal.printer.device</field>
             <field name="arch" type="xml">
-                <list string="Status History">
-                    <field name="create_date"/>
-                    <field name="printer_id"/>
-                    <field name="status"/>
-                    <field name="error_message"/>
-                    <field name="is_ready"/>
-                    <field name="paper_available"/>
-                    <field name="document_number"/>
-                </list>
-            </field>
-        </record>
-
-        <!-- Fiscal Printer Status Form View -->
-        <record id="view_fiscal_printer_status_form" model="ir.ui.view">
-            <field name="name">fiscal.printer.status.form</field>
-            <field name="model">fiscal.printer.status</field>
-            <field name="arch" type="xml">
-                <form string="Fiscal Printer Status">
+                <form string="Fiscal Printer Device">
+                    <header>
+                        <button name="action_test_z_report"
+                                string="Тест Z отчет"
+                                type="object"
+                                class="btn-primary"/>
+                        <button name="action_test_x_report"
+                                string="Тест X отчет"
+                                type="object"
+                                class="btn-secondary"/>
+                        <button name="action_cleanup_old_status"
+                                string="Изчисти стара история"
+                                type="object"
+                                class="btn-warning"
+                                confirm="Сигурни ли сте, че искате да изтриете старата история?"/>
+                        <button name="update_status"
+                                string="Обнови статус"
+                                type="object"
+                                class="btn-info"/>
+                    </header>
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object"
+                                    name="action_view_status_history"
+                                    class="oe_stat_button"
+                                    icon="fa-list">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="status_count"/>
+                                    </span>
+                                    <span class="o_stat_text">История</span>
+                                </div>
+                            </button>
+                        </div>
                         <group>
-                            <group>
+                            <group name="basic_info">
+                                <field name="name"/>
+                                <field name="host"/>
                                 <field name="printer_id"/>
-                                <field name="create_date" readonly="1"/>
-                                <field name="status"/>
-                                <field name="error_message"/>
+                                <field name="active"/>
                             </group>
-                            <group>
-                                <field name="is_ready"/>
-                                <field name="paper_available"/>
-                                <field name="fiscal_memory_available"/>
-                                <field name="document_number"/>
-                                <field name="serial_number"/>
-                                <field name="firmware_version"/>
+                            <group name="status_info">
+                                <field name="current_status" readonly="1"/>
+                                <field name="is_ready" readonly="1"/>
+                                <field name="timeout"/>
+                                <field name="retry_count"/>
+                                <field name="ssl_verify"/>
                             </group>
                         </group>
+                        <group string="Настройки за история">
+                            <group>
+                                <field name="status_history_days"/>
+                            </group>
+                        </group>
+                        <group string="Автоматичен Z отчет">
+                            <group>
+                                <field name="auto_z_report"/>
+                                <field name="z_report_hour" invisible="not auto_z_report"/>
+                                <field name="z_report_minute" invisible="not auto_z_report"/>
+                                <field name="last_z_report" readonly="1" invisible="not auto_z_report"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Последни статуси" name="status_history">
+                                <field name="status_ids" readonly="1">
+                                    <tree limit="20">
+                                        <field name="create_date"/>
+                                        <field name="status"/>
+                                        <field name="is_ready"/>
+                                        <field name="paper_available"/>
+                                        <field name="error_message"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
                 </form>
             </field>
         </record>
 
+        <!-- Fiscal Printer Device List View -->
+        <record id="view_fiscal_printer_device_list" model="ir.ui.view">
+            <field name="name">fiscal.printer.device.list</field>
+            <field name="model">fiscal.printer.device</field>
+            <field name="arch" type="xml">
+                <list string="Fiscal Printers">
+                    <field name="name"/>
+                    <field name="host"/>
+                    <field name="printer_id"/>
+                    <field name="current_status"/>
+                    <field name="is_ready"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
         <!-- Action -->
-        <record id="action_fiscal_printer_status" model="ir.actions.act_window">
-            <field name="name">Status History</field>
-            <field name="res_model">fiscal.printer.status</field>
+        <record id="action_fiscal_printer_device" model="ir.actions.act_window">
+            <field name="name">Fiscal Printers</field>
+            <field name="res_model">fiscal.printer.device</field>
             <field name="view_mode">list,form</field>
         </record>
 
-        <!-- Submenu: Status History -->
-        <menuitem id="menu_fiscal_printer_status"
-                  name="Status History"
+        <!-- Menu: Root -->
+        <menuitem id="menu_fiscal_printer_root"
+                  name="Fiscal Printers"
+                  parent="point_of_sale.menu_point_root"
+                  sequence="50"/>
+
+        <!-- Menu: Devices -->
+        <menuitem id="menu_fiscal_printer_device"
+                  name="Devices"
                   parent="menu_fiscal_printer_root"
-                  action="action_fiscal_printer_status"
-                  sequence="20"/>
+                  action="action_fiscal_printer_device"
+                  sequence="10"/>
+
     </data>
 </odoo>

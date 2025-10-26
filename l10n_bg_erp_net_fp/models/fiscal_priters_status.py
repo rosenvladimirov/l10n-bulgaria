@@ -10,6 +10,7 @@ class FiscalPrinterDevice(models.Model):
     _inherit = 'fiscal.printer.device'
 
     status_ids = fields.One2many('fiscal.printer.status', 'printer_id', string='Статусна история')
+    status_count = fields.Integer('Брой статуси', compute='_compute_status_count')
     current_status = fields.Char('Текущ статус', compute='_compute_current_status', store=False)
     is_ready = fields.Boolean('Готов', compute='_compute_current_status', store=False)
 
@@ -19,6 +20,12 @@ class FiscalPrinterDevice(models.Model):
         default=30,
         help='Брой дни за запазване на статусна история. По-старите записи се изтриват автоматично.'
     )
+
+    @api.depends('status_ids')
+    def _compute_status_count(self):
+        """Брои всички статуси"""
+        for printer in self:
+            printer.status_count = len(printer.status_ids)
 
     def _compute_current_status(self):
         """Изчислява текущия статус от последния запис"""
@@ -135,4 +142,16 @@ class FiscalPrinterDevice(models.Model):
                 'message': message,
                 'type': 'success' if count > 0 else 'info',
             }
+        }
+
+    def action_view_status_history(self):
+        """Отваря списък със статусите на този принтер"""
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('История на статуси'),
+            'res_model': 'fiscal.printer.status',
+            'view_mode': 'list,form',
+            'domain': [('printer_id', '=', self.id)],
+            'context': {'default_printer_id': self.id},
         }

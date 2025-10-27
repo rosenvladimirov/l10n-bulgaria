@@ -28,6 +28,14 @@ class FiscalPrinterDevice(models.Model):
     ssl_verify = fields.Boolean('Verify SSL', default=False,
                                 help='Verify SSL certificates (disable for self-signed certificates)')
 
+    # Нов режим на работа
+    connection_mode = fields.Selection([
+        ('direct', 'Direct (Server can access printer)'),
+        ('proxy', 'Browser Proxy (Printer in local network)'),
+    ], string='Connection Mode', default='direct', required=True, tracking=True,
+        help='Direct: Server connects directly to printer\n'
+             'Browser Proxy: Browser makes requests and sends results to server')
+
     auto_z_report = fields.Boolean('Automatic Z report', default=False,
                                    help='Automatic generation of Z report')
     z_report_hour = fields.Integer('Z report time', default=23,
@@ -175,17 +183,50 @@ class FiscalPrinterDevice(models.Model):
                     }
                 }
 
+    @api.onchange('host')
+    def _onchange_host(self):
+        """Автоматично определя режима на работа базирано на host"""
+        if self.host:
+            parsed = urlparse(self.host)
+            hostname = parsed.hostname or ''
+
+            # Ако е localhost или 127.0.0.1 - direct mode
+            if hostname in ['localhost', '127.0.0.1', '::1']:
+                self.connection_mode = 'direct'
+            # Ако е локален IP (192.168.x.x, 10.x.x.x, 172.16-31.x.x) или .local
+            elif (hostname.startswith('192.168.') or
+                  hostname.startswith('10.') or
+                  hostname.startswith('172.') or
+                  hostname.endswith('.local')):
+                self.connection_mode = 'proxy'
+                return {
+                    'warning': {
+                        'title': _('Connection Mode'),
+                        'message': _('Local network address detected. Connection mode set to "Browser Proxy".')
+                    }
+                }
+
     def _make_request(self, method, endpoint, data=None, params=None):
         """
-        Общ метод за HTTP заявки към ErpNet.FP
-        Използва се само от backend операции (Z отчети, X отчети и др.)
+        Унифициран метод за HTTP заявки
+        Автоматично избира между direct и proxy режим
+        """
+        if self.connection_mode == 'direct':
+            return self._make_direct_request(method, endpoint, data, params)
+        else:
+            return self._make_proxy_request(method, endpoint, data, params)
+
+    def _make_direct_request(self, method, endpoint, data=None, params=None):
+        """
+        Директна HTTP заявка от сървъра към принтера
+        Използва се когато сървърът има достъп до принтера
         """
         url = urljoin(self.host, endpoint)
         session = self._get_session()
 
         for attempt in range(self.retry_count):
             try:
-                _logger.debug(f"Making {method} request to {url}")
+                _logger.debug(f"[DIRECT] Making {method} request to {url}")
 
                 if method == 'GET':
                     response = session.get(
@@ -221,9 +262,68 @@ class FiscalPrinterDevice(models.Model):
                 error_msg = f"Communication error: {str(e)}"
                 _logger.error(error_msg)
                 if attempt == self.retry_count - 1:
-                    raise FiscalPrinterError(_(error_msg))
+                    raise FiscalPrinterConnectionError(_(error_msg))
             finally:
                 session.close()
+
+    def _make_proxy_request(self, method, endpoint, data=None, params=None):
+        """
+        Proxy HTTP заявка през браузъра
+        Използва се когато принтерът е в локална мрежа и сървърът няма достъп
+        """
+        import uuid
+        import time
+
+        request_id = str(uuid.uuid4())
+
+        _logger.info(f"[PROXY] Sending request {request_id} to browser for {self.name}")
+
+        # Изпращаме заявка към браузъра
+        self.env['bus.bus']._sendone(
+            self.env.user.partner_id,
+            'fiscal.printer.request',
+            {
+                'type': 'printer_request',
+                'request_id': request_id,
+                'printer_id': self.id,
+                'method': method,
+                'endpoint': endpoint,
+                'data': data,
+                'params': params,
+            }
+        )
+
+        # Чакаме отговор от браузъра
+        start_time = time.time()
+        timeout = self.timeout
+
+        while time.time() - start_time < timeout:
+            # Проверяваме за отговор
+            response = self.env['fiscal.printer.response'].search([
+                ('request_id', '=', request_id),
+                ('printer_id', '=', self.id)
+            ], limit=1)
+
+            if response:
+                _logger.info(f"[PROXY] Received response for request {request_id}")
+
+                if response.success:
+                    # Изтриваме отговора след прочитане
+                    response_data = response.get_data()
+                    response.unlink()
+                    return response_data
+                else:
+                    error_msg = response.error_message
+                    response.unlink()
+                    raise FiscalPrinterError(error_msg)
+
+            # Commit за да видим новите записи
+            self.env.cr.commit()
+            time.sleep(0.5)
+
+        raise FiscalPrinterConnectionError(
+            _('Timeout waiting for browser response. Make sure browser is open and has access to printer.')
+        )
 
     # ========== ИНФОРМАЦИОННИ МЕТОДИ ==========
 
@@ -239,7 +339,7 @@ class FiscalPrinterDevice(models.Model):
         """Статус на принтера"""
         return self._make_request('GET', f'printers/{self.printer_id}/status')
 
-    # ========== X И Z ОТЧЕТИ (BACKEND) ==========
+    # ========== X И Z ОТЧЕТИ ==========
 
     def print_x_report(self):
         """Печат на X отчет"""
@@ -249,7 +349,7 @@ class FiscalPrinterDevice(models.Model):
         """Печат на Z отчет"""
         return self._make_request('POST', f'printers/{self.printer_id}/zreport')
 
-    # ========== СЛУЖЕБНИ ОПЕРАЦИИ (BACKEND) ==========
+    # ========== СЛУЖЕБНИ ОПЕРАЦИИ ==========
 
     def print_withdraw(self, amount):
         """
@@ -273,7 +373,7 @@ class FiscalPrinterDevice(models.Model):
         data = {"amount": amount}
         return self._make_request('POST', f'printers/{self.printer_id}/deposit', data)
 
-    # ========== ДОПЪЛНИТЕЛНИ ОТЧЕТИ (BACKEND) ==========
+    # ========== ДОПЪЛНИТЕЛНИ ОТЧЕТИ ==========
 
     def print_duplicate(self):
         """Печат на дубликат на последния бон"""
@@ -320,7 +420,7 @@ class FiscalPrinterDevice(models.Model):
         data = {"Command": command}
         return self._make_request('POST', f'printers/{self.printer_id}/raw', data)
 
-    # ========== МЕТОДИ ЗА СТОРНО И ОБРАТНИ БОНОВЕ (BACKEND) ==========
+    # ========== МЕТОДИ ЗА СТОРНО И ОБРАТНИ БОНОВЕ ==========
 
     def print_reversal_receipt(self, reversal_data):
         """

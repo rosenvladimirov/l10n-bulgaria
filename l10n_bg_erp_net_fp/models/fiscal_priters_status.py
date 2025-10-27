@@ -36,48 +36,28 @@ class FiscalPrinterDevice(models.Model):
 
     def update_status(self):
         """
-        Обновява статуса на принтера (извиква се ръчно или от cron)
-        ЗАБЕЛЕЖКА: Това е опционално - не е нужно за печат на бонове
+        Заявка за обновяване на статуса на принтера
+        Изпраща bus notification към браузъра, който прави реалната заявка
         """
         self.ensure_one()
-        try:
-            status_data = self.get_printer_status()
 
-            self.env['fiscal.printer.status'].create({
+        # Изпращаме bus notification към всички активни клиенти
+        self.env['bus.bus']._sendone(
+            self.env.user.partner_id,
+            'fiscal.printer.status',
+            {
+                'type': 'check_printer_status',
                 'printer_id': self.id,
-                'status': status_data.get('status'),
-                'error_message': status_data.get('errorMessage'),
-                'is_ready': status_data.get('ok', False),
-                'paper_available': status_data.get('paperAvailable', False),
-                'fiscal_memory_available': status_data.get('fiscalMemoryAvailable', False),
-                'document_number': status_data.get('documentNumber'),
-                'serial_number': status_data.get('serialNumber'),
-                'firmware_version': status_data.get('firmwareVersion')
-            })
+                'name': self.name,
+            }
+        )
 
-            # Notification за frontend (опционално)
-            self.env['bus.bus']._sendone(
-                'fiscal.printer.status',
-                'printer_status_update',
-                {
-                    'type': 'printer_status_update',
-                    'printer_id': self.id,
-                    'name': self.name,
-                    'status': status_data.get('status'),
-                    'is_ready': status_data.get('ok', False),
-                    'error_message': status_data.get('errorMessage'),
-                    'last_update': fields.Datetime.now().isoformat()
-                }
-            )
+        _logger.info(f"Изпратена заявка за проверка на статус на {self.name}")
 
-        except Exception as e:
-            _logger.error(f"Грешка при обновяване на статус на {self.name}: {str(e)}")
-            self.env['fiscal.printer.status'].create({
-                'printer_id': self.id,
-                'status': 'error',
-                'error_message': str(e),
-                'is_ready': False
-            })
+    def action_request_status(self):
+        """Публичен метод за заявка на статус (извиква се от UI)"""
+        self.update_status()
+        return True
 
     @api.model
     def _cron_cleanup_status_history(self):

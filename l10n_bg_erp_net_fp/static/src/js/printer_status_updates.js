@@ -4,65 +4,69 @@ import { ListController } from "@web/views/list/list_controller";
 import { listView } from "@web/views/list/list_view";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
-import { onWillStart, onMounted } from "@odoo/owl";
+import { onMounted, onWillUnmount } from "@odoo/owl";
+import { jsonrpc } from "@web/core/network/rpc_service";
 
 /**
- * Real-time обновяване на статус на фискални принтери
- * Използва се в backend list view на fiscal.printer.device
+ * List controller за fiscal.printer.device
+ * Добавя периодична проверка на статус
  */
 export class FiscalPrinterListController extends ListController {
     setup() {
         super.setup();
-        this.busService = useService("bus_service");
-
-        onWillStart(async () => {
-            await this._subscribeToBus();
-        });
+        this.fiscalPrinterService = useService("fiscal_printer");
+        this.statusCheckInterval = null;
 
         onMounted(() => {
-            this._addBusListener();
+            this._startStatusPolling();
+        });
+
+        onWillUnmount(() => {
+            this._stopStatusPolling();
         });
     }
 
-    async _subscribeToBus() {
-        // Абонираме се за канала за статуси на принтери
-        if (this.busService) {
-            this.busService.addChannel("fiscal.printer.status");
+    /**
+     * Стартира периодична проверка на статуса на принтерите
+     */
+    _startStatusPolling() {
+        // Проверка на всеки 30 секунди
+        this.statusCheckInterval = setInterval(() => {
+            this._checkAllPrintersStatus();
+        }, 30000);
+
+        // Веднага правим първа проверка
+        this._checkAllPrintersStatus();
+    }
+
+    _stopStatusPolling() {
+        if (this.statusCheckInterval) {
+            clearInterval(this.statusCheckInterval);
+            this.statusCheckInterval = null;
         }
     }
 
-    _addBusListener() {
-        if (this.busService) {
-            this.busService.addEventListener(
-                "notification",
-                this._onBusNotification.bind(this)
-            );
-        }
-    }
+    /**
+     * Проверява статуса на всички принтери в списъка
+     */
+    async _checkAllPrintersStatus() {
+        const records = this.model.root.records;
 
-    _onBusNotification({ detail: notifications }) {
-        for (const notification of notifications) {
-            const { type, payload } = notification;
+        for (const record of records) {
+            const printerId = record.data.id;
+            const printerName = record.data.name;
 
-            if (type === "fiscal.printer.status" && payload.type === "printer_status_update") {
-                this._handleStatusUpdate(payload);
+            // Изпращаме заявка за проверка (глобалният сервис ще я обработи)
+            try {
+                await this.orm.call(
+                    'fiscal.printer.device',
+                    'action_request_status',
+                    [[printerId]]
+                );
+            } catch (error) {
+                console.error(`Error requesting status for ${printerName}:`, error);
             }
         }
-    }
-
-    async _handleStatusUpdate(data) {
-        // Показваме notification за промяна
-        this.env.services.notification.add(
-            `Принтер ${data.name}: ${data.status}`,
-            {
-                type: data.is_ready ? "success" : "warning",
-                timeout: 3000,
-            }
-        );
-
-        // Опреснявяме списъка
-        await this.model.root.load();
-        this.render();
     }
 }
 

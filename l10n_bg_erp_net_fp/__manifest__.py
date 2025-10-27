@@ -20,6 +20,7 @@
    * Detailed error logging
    * Support for different printer models
    * Bulgarian tax group mapping (А, Б, В, Г)
+   * Dual connection mode: Direct (server) and Proxy (browser)
 """,
     'version': '18.0.3.0.1',
     'license': 'AGPL-3',
@@ -45,12 +46,15 @@
         'views/pos_session_view.xml',
         'views/pos_order_view.xml',
         'views/account_tax_views.xml',
+        'views/fiscal_printer_response_views.xml',
+        'views/menu_items.xml',
         'wizard/fiscal_cash_operation_wizard_view.xml',
     ],
     'demo': [
     ],
     'assets': {
         'web.assets_backend': [
+            'l10n_bg_erp_net_fp/static/src/js/fiscal_printer_service.js',
             'l10n_bg_erp_net_fp/static/src/js/printer_status_updates.js',
         ],
         'point_of_sale._assets_pos': [

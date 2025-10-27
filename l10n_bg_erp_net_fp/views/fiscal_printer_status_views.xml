@@ -21,10 +21,11 @@
                                 type="object"
                                 class="btn-warning"
                                 confirm="Сигурни ли сте, че искате да изтриете старата история?"/>
-                        <button name="update_status"
+                        <button name="action_request_status"
                                 string="Обнови статус"
                                 type="object"
-                                class="btn-info"/>
+                                class="btn-primary"
+                                icon="fa-refresh"/>
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
@@ -113,19 +114,6 @@
             <field name="res_model">fiscal.printer.device</field>
             <field name="view_mode">list,form</field>
         </record>
-
-        <!-- Menu: Root -->
-        <menuitem id="menu_fiscal_printer_root"
-                  name="Fiscal Printers"
-                  parent="point_of_sale.menu_point_root"
-                  sequence="50"/>
-
-        <!-- Menu: Devices -->
-        <menuitem id="menu_fiscal_printer_device"
-                  name="Devices"
-                  parent="menu_fiscal_printer_root"
-                  action="action_fiscal_printer_device"
-                  sequence="10"/>
 
     </data>
 </odoo>

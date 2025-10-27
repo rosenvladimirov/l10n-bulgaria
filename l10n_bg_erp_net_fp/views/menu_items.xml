@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu: Root -->
+    <menuitem id="menu_fiscal_printer_root"
+              name="Fiscal Printers"
+              parent="point_of_sale.menu_point_root"
+              sequence="50"/>
+
+    <!-- Menu: Devices -->
+    <menuitem id="menu_fiscal_printer_device"
+              name="Devices"
+              parent="menu_fiscal_printer_root"
+              action="action_fiscal_printer_device"
+              sequence="10"/>
+
+    <!-- Menu (опционално - само за debugging) -->
+    <menuitem id="menu_fiscal_printer_response"
+              name="Printer Responses"
+              parent="menu_fiscal_printer_root"
+              action="action_fiscal_printer_response"
+              groups="base.group_system"
+              sequence="99"/>
+
+</odoo>

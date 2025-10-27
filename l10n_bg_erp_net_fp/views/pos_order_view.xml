@@ -41,7 +41,7 @@
             <field name="arch" type="xml">
 
                 <!-- Добавяне на филтър за фискални бонове -->
-                <xpath expr="//filter[@name='invoiced']" position="after">
+                <xpath expr="//search" position="inside">
                     <separator/>
                     <filter string="With Fiscal Receipt"
                             name="with_fiscal_receipt"

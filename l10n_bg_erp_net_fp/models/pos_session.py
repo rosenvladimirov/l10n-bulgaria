@@ -16,12 +16,18 @@ class PosSession(models.Model):
     l10n_bg_z_report_printed = fields.Boolean('Z отчет отпечатан', readonly=True, default=False)
     l10n_bg_z_report_datetime = fields.Datetime('Дата/Час на Z отчет', readonly=True)
 
-    def _load_pos_data_fields(self, config):
+    def _load_pos_data_fields(self, config_id):
         """Зареждане на необходимите полета за фискален принтер"""
-        fields_map = super()._load_pos_data_fields(config)
+        fields_map = super()._load_pos_data_fields(config_id)
+
+        # Проверка дали резултатът е речник
+        if not isinstance(fields_map, dict):
+            fields_map = {}
 
         # POS Printer полета
-        fields_map.setdefault("pos.printer", set()).update({
+        if "pos.printer" not in fields_map:
+            fields_map["pos.printer"] = set()
+        fields_map["pos.printer"].update({
             "name",
             "id",
             "printer_type",
@@ -30,13 +36,17 @@ class PosSession(models.Model):
         })
 
         # Данъчни групи
-        fields_map.setdefault("account.tax", set()).update({
+        if "account.tax" not in fields_map:
+            fields_map["account.tax"] = set()
+        fields_map["account.tax"].update({
             "tax_group_id",
             "amount",
             "name"
         })
 
-        fields_map.setdefault("account.tax.group", set()).update({
+        if "account.tax.group" not in fields_map:
+            fields_map["account.tax.group"] = set()
+        fields_map["account.tax.group"].update({
             "id",
             "name",
             "l10n_bg_fiscal_tax_group",

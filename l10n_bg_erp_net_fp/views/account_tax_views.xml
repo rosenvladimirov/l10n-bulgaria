@@ -5,7 +5,7 @@
         <field name="model">account.tax.group</field>
         <field name="inherit_id" ref="account.view_tax_group_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//sheet/group[1]" position="inside">
+            <xpath expr="//sheet/group[1]/group" position="inside">
                 <field name="l10n_bg_fiscal_tax_group"/>
             </xpath>
         </field>

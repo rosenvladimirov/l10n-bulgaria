@@ -40,7 +40,6 @@
         'security/ir.model.access.csv',
         'data/fiscal_printer_device_cron.xml',
         'views/fiscal_printer_device_views.xml',
-        'views/fiscal_printer_status_views.xml',
         'views/pos_config_view.xml',
         'views/pos_printer_views.xml',
         'views/pos_session_view.xml',

@@ -40,26 +40,5 @@
             </field>
         </record>
 
-        <!-- Добавяне на ErpNet.FP информация в pos.config форма -->
-        <record id="view_pos_config_form_inherit_erp_net_fp" model="ir.ui.view">
-            <field name="name">pos.config.form.erp.net.fp</field>
-            <field name="model">pos.config</field>
-            <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
-            <field name="arch" type="xml">
-
-                <!-- Добавяне на информационна група за ErpNet.FP -->
-                <xpath expr="//page[@name='devices']" position="inside">
-                    <group string="ErpNet.FP Фискални принтери" name="fiscal_printers">
-                        <field name="printer_ids"
-                               domain="[('printer_type', '=', 'erp_net_fp')]"
-                               context="{'default_printer_type': 'erp_net_fp'}"
-                               widget="many2many_tags"
-                               options="{'no_create': False}"/>
-                    </group>
-                </xpath>
-
-            </field>
-        </record>
-
     </data>
 </odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="mrp_workcenter_form_inherit" model="ir.ui.view">
+            <field name="name">mrp.workcenter.form.inherit</field>
+            <field name="model">mrp.workcenter</field>
+            <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='costing']" position="inside">
+                    <field name="labor_cost_method"/>
+                    <label for="costs_quantity" invisible="labor_cost_method != 'quantity'"/>
+                    <div id="costs_quantity" invisible="labor_cost_method != 'quantity'">
+                        <field name="costs_quantity" widget="monetary" class="oe_inline"/> per produced unit
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

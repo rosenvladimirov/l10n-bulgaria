@@ -9,13 +9,21 @@
             <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
             <field name="arch" type="xml">
 
-                <!-- Добавяме ErpNet.FP секция в Devices страницата -->
-                <xpath expr="//page[@name='devices']" position="inside">
-                    <group string="Фискален принтер ErpNet.FP" name="fiscal_printer_group">
+                <!-- Добавяме ErpNet.FP секция след IoT Box настройката -->
+                <xpath expr="//setting[@string='IoT Box']" position="after">
+                    <setting string="Fiscal printer ErpNet.FP">
                         <field name="l10n_bg_fiscal_printer_id"/>
-                        <field name="l10n_bg_auto_z_on_close"
-                               invisible="not l10n_bg_fiscal_printer_id"/>
-                    </group>
+                        <div class="content-group mt16" invisible="not l10n_bg_fiscal_printer_id">
+                            <div class="row">
+                                <div class="col-lg-5 o_light_label">
+                                    <label string="Automatic Z report on closing" for="l10n_bg_auto_z_on_close"/>
+                                </div>
+                                <div class="col-lg-7">
+                                    <field name="l10n_bg_auto_z_on_close"/>
+                                </div>
+                            </div>
+                        </div>
+                    </setting>
                 </xpath>
 
             </field>

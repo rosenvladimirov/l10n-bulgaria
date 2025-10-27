@@ -2,7 +2,7 @@ from odoo import api, fields, models, _
 
 
 class AccountTaxGroup(models.Model):
-    _name = 'account.tax.group'
+    _inherit = 'account.tax.group'
 
     l10n_bg_fiscal_tax_group = fields.Selection([
         ('А', 'A - VAT 0%'),

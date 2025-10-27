@@ -25,9 +25,10 @@ class MrpWorkorder(models.Model):
         for workorder in self:
             workcenter_id = workorder.workcenter_id
             if workcenter_id.labor_cost_method == 'hour':
-                total += super(workorder)._cal_cost(date=date)
+                # Извикваме базовия метод само за този конкретен workorder
+                total += super(MrpWorkorder, workorder)._cal_cost(date=date)
             elif workcenter_id.labor_cost_method == 'quantity':
-                total += workcenter_id.costs_quantity/workcenter_id.default_capacity * workorder.qty_producing
+                total += workcenter_id.costs_quantity / workcenter_id.default_capacity * workorder.qty_producing
         return total
 
     def button_finish(self):

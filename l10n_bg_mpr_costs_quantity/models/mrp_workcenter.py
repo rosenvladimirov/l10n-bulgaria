@@ -14,4 +14,8 @@ class MrpWorkcenter(models.Model):
             '- hour: uses costs_hour from work center\n'
             '- quantity: uses quantity_cost from work center')
 
-    costs_quantity = fields.Float(string='Cost per single', help='Single produced unit cost.', default=0.0, tracking=True)
+    costs_quantity = fields.Float(
+        string='Cost per single',
+        help='Single produced unit cost.',
+        tracking=True
+    )

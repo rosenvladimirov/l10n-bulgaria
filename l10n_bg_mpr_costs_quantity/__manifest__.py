@@ -13,11 +13,11 @@
     'depends': [
         'mrp',
         'mrp_account',
+        'mrp_workorder',
         'hr',  # За hourly cost на служители
     ],
     'data': [
-        'views/res_company_views.xml',
-        'views/mrp_production_views.xml',
+        'views/mrp_workcenter_views.xml',
     ],
     'installable': True,
     'application': False,

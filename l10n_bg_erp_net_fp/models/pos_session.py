@@ -16,43 +16,20 @@ class PosSession(models.Model):
     l10n_bg_z_report_printed = fields.Boolean('Z отчет отпечатан', readonly=True, default=False)
     l10n_bg_z_report_datetime = fields.Datetime('Дата/Час на Z отчет', readonly=True)
 
+    @api.model
     def _load_pos_data_fields(self, config_id):
         """Зареждане на необходимите полета за фискален принтер"""
-        fields_map = super()._load_pos_data_fields(config_id)
+        fields = super()._load_pos_data_fields(config_id)
 
-        # Проверка дали резултатът е речник
-        if not isinstance(fields_map, dict):
-            fields_map = {}
+        # Добавяме полета за сесията
+        fields.extend([
+            'l10n_bg_fiscal_printer_id',
+            'l10n_bg_last_x_report',
+            'l10n_bg_z_report_printed',
+            'l10n_bg_z_report_datetime',
+        ])
 
-        # POS Printer полета
-        if "pos.printer" not in fields_map:
-            fields_map["pos.printer"] = set()
-        fields_map["pos.printer"].update({
-            "name",
-            "id",
-            "printer_type",
-            "l10n_bg_printer_id",
-            "l10n_bg_proxy_ip",
-        })
-
-        # Данъчни групи
-        if "account.tax" not in fields_map:
-            fields_map["account.tax"] = set()
-        fields_map["account.tax"].update({
-            "tax_group_id",
-            "amount",
-            "name"
-        })
-
-        if "account.tax.group" not in fields_map:
-            fields_map["account.tax.group"] = set()
-        fields_map["account.tax.group"].update({
-            "id",
-            "name",
-            "l10n_bg_fiscal_tax_group",
-        })
-
-        return fields_map
+        return fields
 
     # ========== X ОТЧЕТ ==========
 
@@ -174,7 +151,8 @@ class PosSession(models.Model):
 
     # ========== ВАЛИДАЦИЯ ПРИ ЗАТВАРЯНЕ ==========
 
-    def action_pos_session_closing_control(self):
+    def action_pos_session_closing_control(self, balancing_account=False, amount_to_balance=0,
+                                           bank_payment_method_diffs=None):
         """Разширение за автоматичен Z отчет при затваряне"""
         # Проверка дали трябва да се отпечата Z отчет
         if self.config_id.l10n_bg_auto_z_on_close and self.l10n_bg_fiscal_printer_id:
@@ -187,4 +165,5 @@ class PosSession(models.Model):
                           'Моля, отпечатайте Z отчета ръчно преди затваряне.') % str(e)
                     )
 
-        return super().action_pos_session_closing_control()
+        return super().action_pos_session_closing_control(balancing_account, amount_to_balance,
+                                                          bank_payment_method_diffs)

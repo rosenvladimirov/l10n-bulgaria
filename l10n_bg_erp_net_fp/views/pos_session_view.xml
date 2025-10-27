@@ -35,8 +35,8 @@
                 </xpath>
 
                 <!-- Добавяне на фискални полета -->
-                <xpath expr="//group[@name='session']" position="after">
-                    <group string="Фискален принтер"
+                <xpath expr="//sheet/group[1]" position="after">
+                    <group string="Fiscal printer"
                            invisible="not l10n_bg_fiscal_printer_id"
                            name="fiscal_printer_info">
                         <field name="l10n_bg_fiscal_printer_id"/>

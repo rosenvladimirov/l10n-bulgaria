@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- List View (в Odoo 18 вече не е 'tree', а 'list') -->

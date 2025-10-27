@@ -71,13 +71,13 @@
                         <notebook>
                             <page string="Последни статуси" name="status_history">
                                 <field name="status_ids" readonly="1">
-                                    <tree limit="20">
+                                    <list limit="20">
                                         <field name="create_date"/>
                                         <field name="status"/>
                                         <field name="is_ready"/>
                                         <field name="paper_available"/>
                                         <field name="error_message"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                         </notebook>

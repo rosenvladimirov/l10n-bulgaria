@@ -4,7 +4,7 @@ from datetime import datetime
 from urllib.parse import urlparse, urljoin
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
-from odoo.addons.l10n_bg_erp_net_fp.models.exceptions import (
+from odoo.addons.l10n_bg_erp_net_fp.models.erp_net_fp_exceptions import (
     FiscalPrinterError,
     FiscalPrinterConnectionError,
     FiscalPrinterValidationError,

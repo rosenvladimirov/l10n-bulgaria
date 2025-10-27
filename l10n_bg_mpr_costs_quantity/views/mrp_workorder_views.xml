@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Work Order view - покажи labor cost -->
+    <record id="view_mrp_workorder_form_labor_cost" model="ir.ui.view">
+        <field name="name">mrp.workorder.form.labor.cost</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='time']" position="after">
+                <group string="Labor Cost" name="group_labor_cost">
+                    <field name="employee_hourly_cost"
+                           widget="monetary"
+                           readonly="1"/>
+                    <field name="real_labor_cost"
+                           widget="monetary"
+                           readonly="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

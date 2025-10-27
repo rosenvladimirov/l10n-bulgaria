@@ -5,7 +5,6 @@ import { listView } from "@web/views/list/list_view";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { onMounted, onWillUnmount } from "@odoo/owl";
-import { jsonrpc } from "@web/core/network/rpc_service";
 
 /**
  * List controller за fiscal.printer.device
@@ -15,6 +14,7 @@ export class FiscalPrinterListController extends ListController {
     setup() {
         super.setup();
         this.fiscalPrinterService = useService("fiscal_printer");
+        this.orm = useService("orm");
         this.statusCheckInterval = null;
 
         onMounted(() => {

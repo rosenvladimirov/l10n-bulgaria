@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
-import { jsonrpc } from "@web/core/network/rpc_service";
+import { rpc } from "@web/core/network/rpc";
 
 /**
  * Глобален сервис за комуникация с фискални принтери
@@ -60,7 +60,7 @@ export const fiscalPrinterService = {
 
             try {
                 // Взимаме конфигурация
-                const config = await jsonrpc('/fiscal_printer/get_printer_config', {
+                const config = await rpc('/fiscal_printer/get_printer_config', {
                     printer_id: printer_id
                 });
 
@@ -78,7 +78,7 @@ export const fiscalPrinterService = {
                 const response = await makePrinterRequest(url, method, requestData, params);
 
                 // Изпращаме отговор към сървъра
-                await jsonrpc('/fiscal_printer/send_response', {
+                await rpc('/fiscal_printer/send_response', {
                     request_id: request_id,
                     printer_id: printer_id,
                     success: true,
@@ -91,7 +91,7 @@ export const fiscalPrinterService = {
                 console.error(`[FiscalPrinter] Error handling request ${request_id}:`, error);
 
                 // Изпращаме грешката към сървъра
-                await jsonrpc('/fiscal_printer/send_response', {
+                await rpc('/fiscal_printer/send_response', {
                     request_id: request_id,
                     printer_id: printer_id,
                     success: false,
@@ -107,7 +107,7 @@ export const fiscalPrinterService = {
             console.log(`[FiscalPrinter] Status check requested for printer ${data.name}`);
 
             try {
-                const config = await jsonrpc('/fiscal_printer/get_printer_config', {
+                const config = await rpc('/fiscal_printer/get_printer_config', {
                     printer_id: data.printer_id
                 });
 
@@ -121,7 +121,7 @@ export const fiscalPrinterService = {
 
                 const statusData = await makePrinterRequest(url, 'GET');
 
-                await jsonrpc('/fiscal_printer/update_status', {
+                await rpc('/fiscal_printer/update_status', {
                     printer_id: data.printer_id,
                     status_data: statusData
                 });
@@ -131,7 +131,7 @@ export const fiscalPrinterService = {
             } catch (error) {
                 console.error(`[FiscalPrinter] Error checking status:`, error);
 
-                await jsonrpc('/fiscal_printer/update_status', {
+                await rpc('/fiscal_printer/update_status', {
                     printer_id: data.printer_id,
                     status_data: {
                         status: 'error',

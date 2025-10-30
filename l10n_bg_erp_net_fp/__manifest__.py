@@ -46,6 +46,7 @@
         'views/pos_order_view.xml',
         'views/account_tax_views.xml',
         'views/fiscal_printer_response_views.xml',
+        'views/res_config_settings_views.xml',
         'views/menu_items.xml',
         'wizard/fiscal_cash_operation_wizard_view.xml',
     ],

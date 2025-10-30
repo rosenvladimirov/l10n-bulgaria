@@ -8,3 +8,4 @@ from . import account_tax_group
 from . import pos_printer
 from . import pos_session
 from . import erp_net_fp_exceptions
+from . import res_config_settings

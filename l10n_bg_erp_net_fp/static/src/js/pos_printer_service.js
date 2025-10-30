@@ -1,3 +1,4 @@
+
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
@@ -31,7 +32,7 @@ patch(PrinterService.prototype, {
 
         // Изчакваме POS да е достъпен
         let attempts = 0;
-        const maxAttempts = 20; // 10 секунди общо
+        const maxAttempts = 20;
 
         while (attempts < maxAttempts) {
             await new Promise(resolve => setTimeout(resolve, 500));
@@ -41,7 +42,6 @@ patch(PrinterService.prototype, {
             if (pos && pos.config) {
                 console.log("[PosPrinter] ✅ POS service found!");
 
-                // Изчакваме още малко за да се заредят принтерите
                 await new Promise(resolve => setTimeout(resolve, 1000));
 
                 const printers = pos.orderPrinters || pos.printers || pos.config?.printers || [];
@@ -80,7 +80,6 @@ patch(PrinterService.prototype, {
 
                         console.log("[PosPrinter] ✅ ErpNet.FP fiscal printer initialized successfully!");
 
-                        // Показваме notification
                         if (this.env?.services?.notification) {
                             this.env.services.notification.add(
                                 _t("Fiscal printer ErpNet.FP is ready"),
@@ -110,26 +109,6 @@ patch(PrinterService.prototype, {
     },
 
     /**
-     * Избор на принтер според контекста
-     */
-    _selectPrinter(options = {}) {
-        console.log("[PosPrinter] 🔍 Selecting printer...");
-        console.log("[PosPrinter]    Options:", options);
-        console.log("[PosPrinter]    Fiscal printer available:", !!this.fiscalPrinter);
-        console.log("[PosPrinter]    Standard printer available:", !!this.standardPrinter);
-
-        // Ако има фискален принтер И не е kitchen order
-        if (this.fiscalPrinter && !options.kitchen) {
-            console.log("[PosPrinter] ✅ Selected: FISCAL printer");
-            return this.fiscalPrinter;
-        }
-
-        // Стандартен принтер за останалите случаи
-        console.log("[PosPrinter] ✅ Selected: STANDARD printer");
-        return this.standardPrinter;
-    },
-
-    /**
      * @override
      * Разширяваме printHtml за да използваме фискален принтер
      */
@@ -137,26 +116,29 @@ patch(PrinterService.prototype, {
         console.log("[PosPrinter] 🖨️ printHtml called");
         console.log("[PosPrinter]    Element:", el);
         console.log("[PosPrinter]    Options:", options);
+        console.log("[PosPrinter]    Fiscal printer available:", !!this.fiscalPrinter);
+        console.log("[PosPrinter]    Standard printer available:", !!this.standardPrinter);
 
-        const selectedPrinter = this._selectPrinter(options);
+        // Проверка дали трябва да използваме фискален принтер
+        const shouldUseFiscal = this.fiscalPrinter && !options.kitchen;
 
-        // Ако е избран фискален принтер
-        if (selectedPrinter === this.fiscalPrinter) {
+        console.log("[PosPrinter]    Should use fiscal:", shouldUseFiscal);
+
+        // Ако имаме и трябва да използваме фискален принтер
+        if (shouldUseFiscal) {
             console.log("[PosPrinter] 🔵 Starting FISCAL print...");
 
-            // Временно заменяме device
             const originalDevice = this.device;
-            this.device = selectedPrinter;
+            this.device = this.fiscalPrinter;
 
             try {
-                const result = await selectedPrinter.printReceipt(el);
+                const result = await this.fiscalPrinter.printReceipt(el);
 
                 console.log("[PosPrinter] Fiscal print result:", result);
 
                 if (!result.successful) {
                     console.error("[PosPrinter] ❌ Fiscal print failed:", result);
 
-                    // Показваме грешка
                     if (this.env?.services?.notification) {
                         this.env.services.notification.add(
                             _t("Fiscal printer error: ") + (result.message?.body || "Unknown error"),
@@ -164,17 +146,14 @@ patch(PrinterService.prototype, {
                         );
                     }
 
-                    // Възстановяваме оригиналния device
                     this.device = originalDevice;
 
-                    // Опитваме със стандартния принтер
-                    console.log("[PosPrinter] 🔄 Trying standard printer...");
+                    console.log("[PosPrinter] 🔄 Trying standard printer as fallback...");
                     return await super.printHtml(el, { ...options, webPrintFallback: true });
                 }
 
                 console.log("[PosPrinter] ✅ Fiscal print SUCCESS!");
 
-                // Показваме успех
                 if (this.env?.services?.notification) {
                     this.env.services.notification.add(
                         _t("Fiscal receipt printed") +
@@ -183,17 +162,14 @@ patch(PrinterService.prototype, {
                     );
                 }
 
-                // Възстановяваме device
                 this.device = originalDevice;
                 return true;
 
             } catch (error) {
                 console.error("[PosPrinter] ❌ Fiscal print error:", error);
 
-                // Възстановяваме device
                 this.device = originalDevice;
 
-                // Fallback към стандартен принтер
                 console.log("[PosPrinter] 🔄 Fallback to standard printer...");
                 return await super.printHtml(el, { ...options, webPrintFallback: true });
             }

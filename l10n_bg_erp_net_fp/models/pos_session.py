@@ -43,6 +43,39 @@ class PosSession(models.Model):
         if self.state != 'opened':
             raise UserError(_('X отчет може да се отпечата само при отворена сесия'))
 
+        # Проверка дали принтерът е достъпен
+        printer_check = self.l10n_bg_fiscal_printer_id.check_printer_available()
+
+        if not printer_check['available']:
+            error_msg = printer_check.get('error', _('Принтерът не е достъпен'))
+            mode = printer_check.get('mode', 'unknown')
+
+            help_text = ''
+            if mode == 'proxy':
+                help_text = _(
+                    '\n\nМоля, уверете се че:\n'
+                    '• Браузърът с ErpNet прокси е отворен\n'
+                    '• Принтерът е свързан и включен\n'
+                    '• Прокси приложението има достъп до принтера'
+                )
+            elif mode == 'direct':
+                help_text = _(
+                    '\n\nМоля, проверете:\n'
+                    '• ErpNet.FP сървърът е стартиран\n'
+                    '• Принтерът е достъпен от сървъра'
+                )
+
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': _('Принтерът не е достъпен'),
+                    'message': error_msg + help_text,
+                    'type': 'danger',
+                    'sticky': True,
+                }
+            }
+
         try:
             result = self.l10n_bg_fiscal_printer_id.print_x_report()
             self.l10n_bg_last_x_report = fields.Datetime.now()
@@ -62,13 +95,21 @@ class PosSession(models.Model):
                 }
             }
         except Exception as e:
+            error_msg = str(e)
+            if 'Timeout waiting for browser' in error_msg:
+                error_msg = _(
+                    'Няма връзка с фискалния принтер.\n\n'
+                    'Моля, отворете браузъра с ErpNet прокси приложението.'
+                )
+
             return {
                 'type': 'ir.actions.client',
                 'tag': 'display_notification',
                 'params': {
                     'title': _('Грешка'),
-                    'message': str(e),
+                    'message': error_msg,
                     'type': 'danger',
+                    'sticky': True,
                 }
             }
 
@@ -83,6 +124,30 @@ class PosSession(models.Model):
 
         if self.l10n_bg_z_report_printed:
             raise UserError(_('Z отчет вече е отпечатан за тази сесия'))
+
+        # Проверка дали принтерът е достъпен
+        printer_check = self.l10n_bg_fiscal_printer_id.check_printer_available()
+
+        if not printer_check['available']:
+            error_msg = printer_check.get('error', _('Принтерът не е достъпен'))
+            mode = printer_check.get('mode', 'unknown')
+
+            help_text = ''
+            if mode == 'proxy':
+                help_text = _(
+                    '\n\nМоля, уверете се че:\n'
+                    '• Браузърът с ErpNet прокси е отворен\n'
+                    '• Принтерът е свързан и включен\n'
+                    '• Прокси приложението има достъп до принтера'
+                )
+            elif mode == 'direct':
+                help_text = _(
+                    '\n\nМоля, проверете:\n'
+                    '• ErpNet.FP сървърът е стартиран\n'
+                    '• Принтерът е достъпен от сървъра'
+                )
+
+            raise UserError(error_msg + help_text)
 
         try:
             result = self.l10n_bg_fiscal_printer_id.print_z_report()
@@ -107,13 +172,21 @@ class PosSession(models.Model):
                 }
             }
         except Exception as e:
+            error_msg = str(e)
+            if 'Timeout waiting for browser' in error_msg:
+                error_msg = _(
+                    'Няма връзка с фискалния принтер.\n\n'
+                    'Моля, отворете браузъра с ErpNet прокси приложението.'
+                )
+
             return {
                 'type': 'ir.actions.client',
                 'tag': 'display_notification',
                 'params': {
                     'title': _('Грешка'),
-                    'message': str(e),
+                    'message': error_msg,
                     'type': 'danger',
+                    'sticky': True,
                 }
             }
 
@@ -148,6 +221,23 @@ class PosSession(models.Model):
                 'default_operation_type': 'deposit'
             }
         }
+
+    def action_check_printer(self):
+        """Проверка на връзката с фискалния принтер"""
+        self.ensure_one()
+
+        if not self.l10n_bg_fiscal_printer_id:
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': _('Внимание'),
+                    'message': _('Няма конфигуриран фискален принтер'),
+                    'type': 'warning',
+                }
+            }
+
+        return self.l10n_bg_fiscal_printer_id.action_check_connection()
 
     # ========== ВАЛИДАЦИЯ ПРИ ЗАТВАРЯНЕ ==========
 

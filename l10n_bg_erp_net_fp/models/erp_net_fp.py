@@ -325,6 +325,101 @@ class FiscalPrinterDevice(models.Model):
             _('Timeout waiting for browser response. Make sure browser is open and has access to printer.')
         )
 
+    def check_printer_available(self):
+        """
+        Проверява дали принтерът е достъпен
+        Връща dict с информация за статуса
+        """
+        try:
+            if self.connection_mode == 'direct':
+                # За direct режим - проверяваме директно
+                result = self._make_direct_request('GET', f'printers/{self.printer_id}/status')
+                return {
+                    'available': True,
+                    'mode': 'direct',
+                    'status': result
+                }
+            else:
+                # За proxy режим - проверяваме през браузъра
+                result = self._make_proxy_request('GET', f'printers/{self.printer_id}/status')
+                return {
+                    'available': True,
+                    'mode': 'proxy',
+                    'status': result
+                }
+        except FiscalPrinterConnectionError as e:
+            return {
+                'available': False,
+                'error': str(e),
+                'mode': self.connection_mode
+            }
+        except Exception as e:
+            return {
+                'available': False,
+                'error': str(e),
+                'mode': self.connection_mode
+            }
+
+    def action_check_connection(self):
+        """Action за проверка на връзката от UI"""
+        self.ensure_one()
+
+        result = self.check_printer_available()
+
+        if result['available']:
+            message = _('Принтерът е достъпен и готов за работа')
+            if result.get('status'):
+                status = result['status']
+                if isinstance(status, dict):
+                    details = []
+                    if status.get('deviceSerialNumber'):
+                        details.append(f"Сериен №: {status['deviceSerialNumber']}")
+                    if status.get('firmwareVersion'):
+                        details.append(f"Firmware: {status['firmwareVersion']}")
+                    if details:
+                        message += '\n\n' + '\n'.join(details)
+
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': _('✅ Връзка успешна'),
+                    'message': message,
+                    'type': 'success',
+                    'sticky': False,
+                }
+            }
+        else:
+            error_msg = result.get('error', _('Непозната грешка'))
+            mode = result.get('mode', 'unknown')
+
+            help_text = ''
+            if mode == 'proxy':
+                help_text = _(
+                    '\n\nЗа режим "Browser Proxy":\n'
+                    '• Отворете браузър на машината с достъп до принтера\n'
+                    '• Стартирайте ErpNet.FP прокси приложението\n'
+                    '• Уверете се, че принтерът е включен и свързан'
+                )
+            elif mode == 'direct':
+                help_text = _(
+                    '\n\nЗа режим "Direct":\n'
+                    '• Проверете дали ErpNet.FP сървърът е стартиран\n'
+                    '• Проверете host адреса: %s\n'
+                    '• Уверете се, че принтерът е достъпен от сървъра'
+                ) % self.host
+
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': _('❌ Няма връзка'),
+                    'message': error_msg + help_text,
+                    'type': 'danger',
+                    'sticky': True,
+                }
+            }
+
     # ========== ИНФОРМАЦИОННИ МЕТОДИ ==========
 
     def get_printers(self):

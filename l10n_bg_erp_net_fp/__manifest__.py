@@ -54,13 +54,13 @@
     'demo': [
     ],
     'assets': {
+        # Backend assets (само за backend, БЕЗ POS зависимости)
         'web.assets_backend': [
             'l10n_bg_erp_net_fp/static/src/js/fiscal_printer_service.js',
             'l10n_bg_erp_net_fp/static/src/js/printer_status_updates.js',
         ],
-        # ВАЖНО: Използвай point_of_sale.assets (без подчертавка преди assets)
-        'point_of_sale._assets': [
-            ('include', 'web._assets_helpers'),
+        # POS assets (само за POS)
+        'point_of_sale._assets_pos': [
             'l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js',
             'l10n_bg_erp_net_fp/static/src/js/pos_printer_service.js',
         ],

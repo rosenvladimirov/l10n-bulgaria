@@ -41,19 +41,45 @@ patch(PrinterService.prototype, {
             if (pos && pos.config) {
                 console.log("[PosPrinter] ✅ POS service found!");
 
+                // Изчакваме още малко за да се заредят данните
                 await new Promise(resolve => setTimeout(resolve, 1000));
 
-                const printers = pos.orderPrinters || pos.printers || pos.config?.printers || [];
-                console.log("[PosPrinter] 📋 Available printers:", printers);
-                console.log("[PosPrinter] 📊 Printers count:", printers.length);
+                // Правилният начин да вземем принтерите в Odoo 17/18
+                let printers = [];
+
+                // Опит 1: pos.printers (Odoo 17+)
+                if (pos.printers && Array.isArray(pos.printers)) {
+                    printers = pos.printers;
+                    console.log("[PosPrinter] 📋 Found printers from pos.printers");
+                }
+                // Опит 2: pos.config.printer_ids (през config)
+                else if (pos.config.printer_ids && Array.isArray(pos.config.printer_ids)) {
+                    printers = pos.config.printer_ids;
+                    console.log("[PosPrinter] 📋 Found printers from pos.config.printer_ids");
+                }
+                // Опит 3: Директно от models
+                else if (pos.models && pos.models['pos.printer']) {
+                    printers = Array.from(pos.models['pos.printer'].getAll());
+                    console.log("[PosPrinter] 📋 Found printers from pos.models");
+                }
+                // Опит 4: pos.orderPrinters (стар начин)
+                else if (pos.orderPrinters && Array.isArray(pos.orderPrinters)) {
+                    printers = pos.orderPrinters;
+                    console.log("[PosPrinter] 📋 Found printers from pos.orderPrinters");
+                }
+
+                console.log("[PosPrinter] 📊 Total printers found:", printers.length);
+                console.log("[PosPrinter] 📋 All printers:", printers);
 
                 if (printers.length > 0) {
                     printers.forEach((p, index) => {
                         console.log(`[PosPrinter] Printer ${index + 1}:`, {
+                            id: p.id,
                             name: p.name,
                             type: p.printer_type,
                             proxy_ip: p.l10n_bg_proxy_ip,
-                            printer_id: p.l10n_bg_printer_id
+                            printer_id: p.l10n_bg_printer_id,
+                            epson_printer_ip: p.epson_printer_ip,
                         });
                     });
                 }
@@ -63,7 +89,8 @@ patch(PrinterService.prototype, {
                 );
 
                 if (fiscalPrinterConfig) {
-                    console.log("[PosPrinter] 🎯 Found ErpNet.FP fiscal printer config:");
+                    console.log("[PosPrinter] 🎯 Found ErpNet.FP fiscal printer:");
+                    console.log("[PosPrinter]    ID:", fiscalPrinterConfig.id);
                     console.log("[PosPrinter]    Name:", fiscalPrinterConfig.name);
                     console.log("[PosPrinter]    Type:", fiscalPrinterConfig.printer_type);
                     console.log("[PosPrinter]    Base URL:", fiscalPrinterConfig.l10n_bg_proxy_ip);
@@ -93,7 +120,16 @@ patch(PrinterService.prototype, {
                     return;
                 } else {
                     console.warn("[PosPrinter] ⚠️ No ErpNet.FP fiscal printer configured");
-                    console.log("[PosPrinter] 💡 Available printer types:", printers.map(p => p.printer_type));
+
+                    if (printers.length > 0) {
+                        console.log("[PosPrinter] 💡 Available printer types:", printers.map(p => ({
+                            name: p.name,
+                            type: p.printer_type
+                        })));
+                    } else {
+                        console.log("[PosPrinter] 💡 No printers found in POS configuration");
+                    }
+
                     this.fiscalPrinterInitialized = true;
                     return;
                 }

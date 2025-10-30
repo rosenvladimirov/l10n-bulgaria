@@ -40,32 +40,25 @@ patch(PrinterService.prototype, {
 
             if (pos && pos.config) {
                 console.log("[PosPrinter] ✅ POS service found!");
+                console.log("[PosPrinter] 📋 POS config:", pos.config);
 
-                // Изчакваме още малко за да се заредят данните
                 await new Promise(resolve => setTimeout(resolve, 1000));
 
-                // Правилният начин да вземем принтерите в Odoo 17/18
+                // Правилният начин: Принтерите са в pos.config.printer_ids
                 let printers = [];
 
-                // Опит 1: pos.printers (Odoo 17+)
-                if (pos.printers && Array.isArray(pos.printers)) {
-                    printers = pos.printers;
-                    console.log("[PosPrinter] 📋 Found printers from pos.printers");
-                }
-                // Опит 2: pos.config.printer_ids (през config)
-                else if (pos.config.printer_ids && Array.isArray(pos.config.printer_ids)) {
-                    printers = pos.config.printer_ids;
-                    console.log("[PosPrinter] 📋 Found printers from pos.config.printer_ids");
-                }
-                // Опит 3: Директно от models
-                else if (pos.models && pos.models['pos.printer']) {
-                    printers = Array.from(pos.models['pos.printer'].getAll());
-                    console.log("[PosPrinter] 📋 Found printers from pos.models");
-                }
-                // Опит 4: pos.orderPrinters (стар начин)
-                else if (pos.orderPrinters && Array.isArray(pos.orderPrinters)) {
-                    printers = pos.orderPrinters;
-                    console.log("[PosPrinter] 📋 Found printers from pos.orderPrinters");
+                if (pos.config.printer_ids && Array.isArray(pos.config.printer_ids)) {
+                    // printer_ids е масив с IDs
+                    const printerIds = pos.config.printer_ids;
+                    console.log("[PosPrinter] 📋 Printer IDs from config:", printerIds);
+
+                    // Намираме принтерите от models
+                    if (pos.models && pos.models['pos.printer']) {
+                        printers = Array.from(pos.models['pos.printer'].getAll()).filter(p => printerIds.includes(p.id));
+                        console.log("[PosPrinter] 📋 Found printers from models");
+                    }
+                } else {
+                    console.warn("[PosPrinter] ⚠️ No printer_ids in pos.config");
                 }
 
                 console.log("[PosPrinter] 📊 Total printers found:", printers.length);
@@ -79,7 +72,6 @@ patch(PrinterService.prototype, {
                             type: p.printer_type,
                             proxy_ip: p.l10n_bg_proxy_ip,
                             printer_id: p.l10n_bg_printer_id,
-                            epson_printer_ip: p.epson_printer_ip,
                         });
                     });
                 }
@@ -128,6 +120,8 @@ patch(PrinterService.prototype, {
                         })));
                     } else {
                         console.log("[PosPrinter] 💡 No printers found in POS configuration");
+                        console.log("[PosPrinter] 💡 pos.config.printer_ids:", pos.config.printer_ids);
+                        console.log("[PosPrinter] 💡 pos.models:", Object.keys(pos.models || {}));
                     }
 
                     this.fiscalPrinterInitialized = true;

@@ -4,7 +4,6 @@ import { _t } from "@web/core/l10n/translation";
 import { patch } from "@web/core/utils/patch";
 import { PrinterService } from "@point_of_sale/app/printer/printer_service";
 import { ErpNetFPPrinter } from "@l10n_bg_erp_net_fp/js/erp_net_fp_printer";
-import { onMounted } from "@odoo/owl";
 
 /**
  * Patch на PrinterService за добавяне на ErpNet.FP поддръжка
@@ -16,10 +15,8 @@ patch(PrinterService.prototype, {
         this.standardPrinter = this.device;
         this.fiscalPrinterInitialized = false;
 
-        // Изчакваме POS да се монтира
-        onMounted(() => {
-            this._initializeFiscalPrinter();
-        });
+        // Стартираме инициализацията асинхронно
+        this._initializeFiscalPrinter();
     },
 
     /**
@@ -34,12 +31,18 @@ patch(PrinterService.prototype, {
 
         // Изчакваме POS да е достъпен
         let attempts = 0;
-        while (attempts < 10) {
+        const maxAttempts = 20; // 10 секунди общо
+
+        while (attempts < maxAttempts) {
             await new Promise(resolve => setTimeout(resolve, 500));
 
             const pos = this.env?.services?.pos;
+
             if (pos && pos.config) {
                 console.log("[PosPrinter] ✅ POS service found!");
+
+                // Изчакваме още малко за да се заредят принтерите
+                await new Promise(resolve => setTimeout(resolve, 1000));
 
                 const printers = pos.orderPrinters || pos.printers || pos.config?.printers || [];
                 console.log("[PosPrinter] 📋 Available printers:", printers);
@@ -63,41 +66,46 @@ patch(PrinterService.prototype, {
                 if (fiscalPrinterConfig) {
                     console.log("[PosPrinter] 🎯 Found ErpNet.FP fiscal printer config:");
                     console.log("[PosPrinter]    Name:", fiscalPrinterConfig.name);
+                    console.log("[PosPrinter]    Type:", fiscalPrinterConfig.printer_type);
                     console.log("[PosPrinter]    Base URL:", fiscalPrinterConfig.l10n_bg_proxy_ip);
                     console.log("[PosPrinter]    Printer ID:", fiscalPrinterConfig.l10n_bg_printer_id);
 
-                    this.fiscalPrinter = new ErpNetFPPrinter();
-                    this.fiscalPrinter.setup({
-                        baseUrl: fiscalPrinterConfig.l10n_bg_proxy_ip,
-                        printerId: fiscalPrinterConfig.l10n_bg_printer_id,
-                        pos: pos,
-                    });
+                    try {
+                        this.fiscalPrinter = new ErpNetFPPrinter();
+                        this.fiscalPrinter.setup({
+                            baseUrl: fiscalPrinterConfig.l10n_bg_proxy_ip,
+                            printerId: fiscalPrinterConfig.l10n_bg_printer_id,
+                            pos: pos,
+                        });
 
-                    console.log("[PosPrinter] ✅ ErpNet.FP fiscal printer initialized successfully!");
+                        console.log("[PosPrinter] ✅ ErpNet.FP fiscal printer initialized successfully!");
 
-                    // Показваме notification
-                    if (this.env?.services?.notification) {
-                        this.env.services.notification.add(
-                            _t("Fiscal printer ErpNet.FP is ready"),
-                            { type: "success" }
-                        );
+                        // Показваме notification
+                        if (this.env?.services?.notification) {
+                            this.env.services.notification.add(
+                                _t("Fiscal printer ErpNet.FP is ready"),
+                                { type: "success" }
+                            );
+                        }
+                    } catch (error) {
+                        console.error("[PosPrinter] ❌ Error creating fiscal printer:", error);
                     }
 
                     this.fiscalPrinterInitialized = true;
                     return;
                 } else {
                     console.warn("[PosPrinter] ⚠️ No ErpNet.FP fiscal printer configured");
-                    console.log("[PosPrinter] 💡 To configure: Settings → Printers → Add printer with type 'erp_net_fp'");
+                    console.log("[PosPrinter] 💡 Available printer types:", printers.map(p => p.printer_type));
                     this.fiscalPrinterInitialized = true;
                     return;
                 }
             }
 
-            console.log(`[PosPrinter] ⏳ Waiting for POS... (attempt ${attempts + 1}/10)`);
+            console.log(`[PosPrinter] ⏳ Waiting for POS... (attempt ${attempts + 1}/${maxAttempts})`);
             attempts++;
         }
 
-        console.error("[PosPrinter] ❌ POS service not found after 10 attempts");
+        console.error("[PosPrinter] ❌ POS service not found after maximum attempts");
         this.fiscalPrinterInitialized = true;
     },
 

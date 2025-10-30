@@ -276,28 +276,57 @@ class FiscalPrinterDevice(models.Model):
 
         request_id = str(uuid.uuid4())
 
-        _logger.info(f"[PROXY] Sending request {request_id} to browser for {self.name}")
+        _logger.info("=" * 80)
+        _logger.info(f"[PROXY] 🚀 STARTING PROXY REQUEST")
+        _logger.info(f"[PROXY] Request ID: {request_id}")
+        _logger.info(f"[PROXY] Printer: {self.name} (ID: {self.id})")
+        _logger.info(f"[PROXY] Method: {method}")
+        _logger.info(f"[PROXY] Endpoint: {endpoint}")
+        _logger.info(f"[PROXY] Data: {data}")
+        _logger.info(f"[PROXY] Params: {params}")
+        _logger.info("=" * 80)
 
         # Изпращаме заявка към браузъра
-        self.env['bus.bus']._sendone(
-            self.env.user.partner_id,
-            'fiscal.printer.request',
-            {
-                'type': 'printer_request',
-                'request_id': request_id,
-                'printer_id': self.id,
-                'method': method,
-                'endpoint': endpoint,
-                'data': data,
-                'params': params,
-            }
-        )
+        bus_message = {
+            'type': 'printer_request',
+            'request_id': request_id,
+            'printer_id': self.id,
+            'printer_name': self.name,
+            'method': method,
+            'endpoint': endpoint,
+            'data': data,
+            'params': params,
+        }
+
+        _logger.info(f"[PROXY] 📡 Sending bus notification...")
+        _logger.info(f"[PROXY]    Channel: fiscal.printer.request")
+        _logger.info(f"[PROXY]    User: {self.env.user.name} (ID: {self.env.user.id})")
+        _logger.info(f"[PROXY]    Message: {bus_message}")
+
+        # ВАЖНО: Използваме send вместо _sendone за глобален broadcast
+        self.env['bus.bus']._sendmany([
+            (self.env.cr.dbname, 'fiscal.printer.request', bus_message)
+        ])
+
+        # Commit за да се изпрати bus notification-а
+        self.env.cr.commit()
+
+        _logger.info(f"[PROXY] ✅ Bus notification sent and committed!")
 
         # Чакаме отговор от браузъра
         start_time = time.time()
         timeout = self.timeout
+        check_count = 0
+
+        _logger.info(f"[PROXY] ⏳ Waiting for response (timeout: {timeout}s)...")
 
         while time.time() - start_time < timeout:
+            check_count += 1
+            elapsed = time.time() - start_time
+
+            if check_count % 10 == 1:  # Лог на всеки 5 секунди (10 * 0.5s)
+                _logger.info(f"[PROXY] ⏱️ Still waiting... ({elapsed:.1f}s / {timeout}s)")
+
             # Проверяваме за отговор
             response = self.env['fiscal.printer.response'].search([
                 ('request_id', '=', request_id),
@@ -305,21 +334,34 @@ class FiscalPrinterDevice(models.Model):
             ], limit=1)
 
             if response:
-                _logger.info(f"[PROXY] Received response for request {request_id}")
+                _logger.info(f"[PROXY] 📬 Response found! (after {elapsed:.2f}s)")
+                _logger.info(f"[PROXY]    Response ID: {response.id}")
+                _logger.info(f"[PROXY]    Success: {response.success}")
+                _logger.info(f"[PROXY]    Error: {response.error_message}")
 
                 if response.success:
                     # Изтриваме отговора след прочитане
                     response_data = response.get_data()
+                    _logger.info(f"[PROXY] ✅ Request successful!")
+                    _logger.info(f"[PROXY]    Data: {response_data}")
                     response.unlink()
+                    _logger.info("=" * 80)
                     return response_data
                 else:
                     error_msg = response.error_message
+                    _logger.error(f"[PROXY] ❌ Request failed: {error_msg}")
                     response.unlink()
+                    _logger.info("=" * 80)
                     raise FiscalPrinterError(error_msg)
 
             # Commit за да видим новите записи
             self.env.cr.commit()
             time.sleep(0.5)
+
+        _logger.error(f"[PROXY] ⏰ TIMEOUT after {timeout}s!")
+        _logger.error(f"[PROXY]    No response received from browser")
+        _logger.error(f"[PROXY]    Checks performed: {check_count}")
+        _logger.info("=" * 80)
 
         raise FiscalPrinterConnectionError(
             _('Timeout waiting for browser response. Make sure browser is open and has access to printer.')

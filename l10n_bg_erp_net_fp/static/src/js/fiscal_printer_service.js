@@ -19,6 +19,7 @@ export const fiscalPrinterService = {
         console.log("[FiscalPrinter] Bus service available:", !!bus_service);
         console.log("[FiscalPrinter] Notification service available:", !!notification);
 
+
         /**
          * Абонира се за bus каналите
          */
@@ -26,6 +27,7 @@ export const fiscalPrinterService = {
             if (!isSubscribed && bus_service) {
                 console.log("%c[FiscalPrinter] 📡 SUBSCRIBING TO BUS CHANNELS", "color: #2196F3; font-weight: bold");
 
+                // Абонираме се за глобалните канали (без user-specific)
                 bus_service.addChannel("fiscal.printer.status");
                 console.log("[FiscalPrinter] ✅ Subscribed to: fiscal.printer.status");
 
@@ -35,8 +37,19 @@ export const fiscalPrinterService = {
                 bus_service.addEventListener("notification", onBusNotification);
                 console.log("[FiscalPrinter] ✅ Event listener added");
 
+                // Тестов лог за да видим какви notifications получаваме
+                console.log("[FiscalPrinter] 🔍 Active bus channels:", bus_service.channels);
+
                 isSubscribed = true;
                 console.log("%c[FiscalPrinter] ✅ SUBSCRIPTION COMPLETE", "color: #4CAF50; font-weight: bold");
+
+                // Изпращаме тестов сигнал към сървъра че сме готови
+                console.log("[FiscalPrinter] 📡 Sending ready signal to server...");
+                rpc('/fiscal_printer/browser_ready', {}).then(() => {
+                    console.log("[FiscalPrinter] ✅ Server notified that browser is ready");
+                }).catch(err => {
+                    console.warn("[FiscalPrinter] ⚠️ Could not notify server (endpoint may not exist):", err);
+                });
             } else {
                 if (isSubscribed) {
                     console.log("[FiscalPrinter] ⚠️ Already subscribed");

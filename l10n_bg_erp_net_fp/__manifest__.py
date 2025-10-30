@@ -1,3 +1,4 @@
+
 # Copyright 2025 Rosen Vladimirov
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
@@ -57,12 +58,14 @@
             'l10n_bg_erp_net_fp/static/src/js/fiscal_printer_service.js',
             'l10n_bg_erp_net_fp/static/src/js/printer_status_updates.js',
         ],
-        'point_of_sale._assets_pos': [
+        # ВАЖНО: Използвай point_of_sale.assets (без подчертавка преди assets)
+        'point_of_sale._assets': [
+            ('include', 'web._assets_helpers'),
             'l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js',
             'l10n_bg_erp_net_fp/static/src/js/pos_printer_service.js',
         ],
     },
     'installable': True,
     'auto_install': False,
-    'application': True,
+    'application': False,
 }

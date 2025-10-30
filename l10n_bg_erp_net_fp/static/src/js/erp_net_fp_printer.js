@@ -1,3 +1,5 @@
+/** @odoo-module **/
+
 import { _t } from "@web/core/l10n/translation";
 import { BasePrinter } from "@point_of_sale/app/printer/base_printer";
 

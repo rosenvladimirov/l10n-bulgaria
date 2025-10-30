@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
+from odoo.tools import float_round
 
 
 class MrpWorkorder(models.Model):
@@ -23,12 +24,15 @@ class MrpWorkorder(models.Model):
         """
         total = 0
         for workorder in self:
-            workcenter_id = workorder.workcenter_id
-            if workcenter_id.labor_cost_method == 'hour':
+            workcenter = workorder.workcenter_id
+            if workcenter.labor_cost_method == 'hour':
                 # Извикваме базовия метод само за този конкретен workorder
                 total += super(MrpWorkorder, workorder)._cal_cost(date=date)
-            elif workcenter_id.labor_cost_method == 'quantity':
-                total += workcenter_id.costs_quantity / workcenter_id.default_capacity * workorder.qty_producing
+            elif workcenter.labor_cost_method == 'quantity':
+                product = self.product_id.product_tmpl_id
+                capacity = workcenter._get_capacity(product)
+                cycle_number = float_round(workorder.qty_producing / capacity, precision_digits=0, rounding_method='UP')
+                total += cycle_number * workcenter.costs_quantity
         return total
 
     def button_finish(self):

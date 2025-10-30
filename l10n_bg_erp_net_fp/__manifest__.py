@@ -57,7 +57,8 @@
             'l10n_bg_erp_net_fp/static/src/js/printer_status_updates.js',
         ],
         'point_of_sale._assets_pos': [
-            'l10n_bg_erp_net_fp/static/src/js/erpnet_fp_redirect.js',
+            'l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js',
+            'l10n_bg_erp_net_fp/static/src/js/pos_printer_service.js',
         ],
     },
     'installable': True,

@@ -9,6 +9,7 @@
             <field name="l10n_bg_code">01</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_01"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_22"/>
@@ -23,6 +24,7 @@
             <field name="l10n_bg_code">02</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_02"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_22"/>
@@ -37,6 +39,7 @@
             <field name="l10n_bg_code">03</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_03"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_22"/>
@@ -51,6 +54,7 @@
             <field name="l10n_bg_code">04</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_04"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_11"/>
@@ -65,6 +69,7 @@
             <field name="l10n_bg_code">05</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_05"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_11"/>
@@ -79,6 +84,7 @@
             <field name="l10n_bg_code">06</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_06"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_22"/>
@@ -93,6 +99,7 @@
             <field name="l10n_bg_code">07</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_07"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_10"/>
@@ -107,6 +114,7 @@
             <field name="l10n_bg_code">08</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_08"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_22"/>
@@ -121,6 +129,7 @@
             <field name="l10n_bg_code">09</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_09"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_22"/>
@@ -135,6 +144,7 @@
             <field name="l10n_bg_code">10</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_10"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_22"/>
@@ -149,6 +159,7 @@
             <field name="l10n_bg_code">11</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_11"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_22"/>
@@ -163,6 +174,7 @@
             <field name="l10n_bg_code">12</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_12"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_10"/>
@@ -177,6 +189,7 @@
             <field name="l10n_bg_code">13</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_13"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_22"/>
@@ -191,6 +204,7 @@
             <field name="l10n_bg_code">14</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_14"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_22"/>
@@ -205,6 +219,7 @@
             <field name="l10n_bg_code">15</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_15"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_11"/>
@@ -219,6 +234,7 @@
             <field name="l10n_bg_code">16</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_16"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_11"/>
@@ -233,6 +249,7 @@
             <field name="l10n_bg_code">17</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_17"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="icon_id" ref="hr_holidays.icon_22"/>

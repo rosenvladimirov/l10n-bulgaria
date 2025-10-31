@@ -7,7 +7,7 @@
             <field name="model">hr.leave.type</field>
             <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='name']" position="after">
+                <xpath expr="//group[@id='time_off_requests']" position="inside">
                     <field name="l10n_bg_code" placeholder="e.g. KT155, NSSI01"/>
                 </xpath>
                 <xpath expr="//group[@name='visual']" position="before">
@@ -38,9 +38,6 @@
                     <field name="l10n_bg_allow_paid_days" invisible="1"/>
                     <field name="l10n_bg_allow_paid_days" optional="hide" column_invisible="not l10n_bg_allow_paid_days"/>
                 </field>
-                <xpath expr="//field[@name='name']" position="after">
-                    <field name="code" optional="show"/>
-                </xpath>
             </field>
         </record>
 

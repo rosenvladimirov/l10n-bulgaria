@@ -1,3 +1,15 @@
-The cyrillic not use the latin letters and this give problems in ordering in list and kanban views. Bulgarian law wand to use for names of people, companies, city and street to be transliterated to latin letters using ISO9.
-Кирилицата не използва латински бикви и това създава проблем при сортиране в изгледите тип лист и канбан. Пример букват Г и G се намират на ралични позиции, това води до конфизни ситуации при ориентиране по екрана. Българското закодателство задалжава всички документи изготвяни и позвани на територията на страната да се изписват на кирилица. Има закон за транслитерацията, който дефинира правилата за изписване имената на хората, градовете и улиците на латиница. В предходните версии и текущата dispray_name не е преводимо. Във версия 16.0 е въведено compute filed с визможност за мултиезичност, но то се използва само в справките, но не и в интерфейса. С модула се цели да се реши проблема на езици ползващи различни от латинските символи.
+**Version 18.0.1.0.4**
 
+- Automatic language detection using lingua and langdetect libraries
+- Multi-language search with JSONB support
+- Automatic sorting by user's language in list and kanban views
+- Support for Bulgarian, Russian, Serbian, Macedonian, Ukrainian, and Belarusian
+- Mixin architecture for easy extension to custom models
+
+**Background:**
+
+The Cyrillic alphabet does not use Latin letters, which creates problems with ordering in list and kanban views. Bulgarian law requires names of people, companies, cities, and streets to be transliterated to Latin letters using ISO 9.
+
+In previous Odoo versions, `display_name` was not translatable. Version 16.0 introduced computed fields with multilingual capability, but only for reports, not the interface.
+
+This module aims to solve the problem for languages using different character sets by providing automatic transliteration and proper multi-language support.

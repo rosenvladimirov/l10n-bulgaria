@@ -14,16 +14,16 @@
                 <div class="col-lg-12 text-center pt32">
                     <h1 class="mb-4 text-white">Partner Multilang</h1>
                     <p class="lead text-white mb-5">
-                        Support for multilingual names with transliteration - ISO9, ΕΛΟΤ 743, and easy field translations for partners
+                        Automatic transliteration and multi-language support for partners, companies, and addresses
                     </p>
-                    <div class="d-flex justify-content-center mb-3">
-                        <a href="https://odoo-community.org/page/development-status" class="mx-1">
+                    <div class="d-flex justify-content-center mb-3 flex-wrap">
+                        <a href="https://odoo-community.org/page/development-status" class="mx-1 mb-2">
                             <img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" />
                         </a>
-                        <a href="http://www.gnu.org/licenses/agpl-3.0-standalone.html" class="mx-1">
+                        <a href="http://www.gnu.org/licenses/agpl-3.0-standalone.html" class="mx-1 mb-2">
                             <img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" />
                         </a>
-                        <a href="https://github.com/OCA/partner-contact/tree/16.0/partner_multilang" class="mx-1">
+                        <a href="https://github.com/OCA/partner-contact/tree/18.0/partner_multilang" class="mx-1 mb-2">
                             <img alt="OCA/partner-contact" src="https://img.shields.io/badge/github-OCA%2Fpartner--contact-lightgray.png?logo=github" />
                         </a>
                     </div>
@@ -32,113 +32,358 @@
         </div>
     </section>
 
-    <!-- Main Content -->
-    <section class="s_text_block pt48 pb32">
+    <!-- Important Note -->
+    <section class="s_features pt48 pb32">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <p class="lead">
-                        This module extends the functionality of multilingual names to support transliterate ISO9, ΕΛΟΤ 743 
-                        and to allow you to add easy field with translations on partner.
-                    </p>
+                    <div class="alert alert-info">
+                        <i class="fa fa-info-circle fa-2x float-start me-3"></i>
+                        <p class="mb-0">This module extends the functionality of multilingual names to support automatic transliteration 
+                        (ISO 9, ΕΛΟΤ 743) and provides easy field translations for partners, companies, and addresses. 
+                        Perfect for Cyrillic, Greek, and other non-Latin scripts.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Use Cases -->
-    <section class="s_features pt48 pb32 bg-light">
+    <!-- Key Features -->
+    <section class="s_features pt48 pb32">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 s_title pb32">
+                    <h2 class="text-center">Key Features</h2>
+                </div>
+                <div class="col-lg-4 pt16 pb16">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fa fa-language fa-3x mb-3 text-o-color-1"></i>
+                            <h3 class="card-title">Automatic Transliteration</h3>
+                            <p class="card-text">Automatically detects language and transliterates names from Cyrillic, Greek, and other scripts to Latin using lingua and transliterate libraries</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 pt16 pb16">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fa fa-search fa-3x mb-3 text-o-color-1"></i>
+                            <h3 class="card-title">Multi-Language Search</h3>
+                            <p class="card-text">Search partners in any language - finds records using original or transliterated names with JSONB translation support</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 pt16 pb16">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fa fa-sort-alpha-asc fa-3x mb-3 text-o-color-1"></i>
+                            <h3 class="card-title">Smart Sorting</h3>
+                            <p class="card-text">List and Kanban views automatically sort by user's language for proper alphabetical ordering</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Supported Languages -->
+    <section class="s_text_block pt48 pb48 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 s_title pb32">
+                    <h2 class="text-center">Supported Languages</h2>
+                </div>
+                <div class="col-lg-8 mx-auto">
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-3">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <i class="fa fa-globe fa-2x mb-2 text-o-color-1"></i>
+                                    <h5>Bulgarian (bg)</h5>
+                                    <p class="small text-muted mb-0">ISO 9 standard</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <i class="fa fa-globe fa-2x mb-2 text-o-color-2"></i>
+                                    <h5>Russian (ru)</h5>
+                                    <p class="small text-muted mb-0">ISO 9 standard</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <i class="fa fa-globe fa-2x mb-2 text-o-color-3"></i>
+                                    <h5>Serbian (sr)</h5>
+                                    <p class="small text-muted mb-0">Cyrillic to Latin</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <i class="fa fa-globe fa-2x mb-2 text-o-color-1"></i>
+                                    <h5>Macedonian (mk)</h5>
+                                    <p class="small text-muted mb-0">Cyrillic to Latin</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <i class="fa fa-globe fa-2x mb-2 text-o-color-2"></i>
+                                    <h5>Ukrainian (uk)</h5>
+                                    <p class="small text-muted mb-0">Cyrillic to Latin</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <i class="fa fa-globe fa-2x mb-2 text-o-color-3"></i>
+                                    <h5>Belarusian (be)</h5>
+                                    <p class="small text-muted mb-0">Cyrillic to Latin</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert alert-success mt-4">
+                        <i class="fa fa-lightbulb-o me-2"></i>
+                        <strong>Auto-detection:</strong> The module automatically detects the input language using the Lingua library (primary) and langdetect (fallback).
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases / Context -->
+    <section class="s_features pt48 pb32">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 s_title pb32">
                     <h2 class="text-center">Use Cases / Context</h2>
                 </div>
                 <div class="col-lg-8 mx-auto">
-                    <p>This module is technical solution for support of transliterate.</p>
-                    <ul class="list-group list-group-flush mb-4">
-                        <li class="list-group-item bg-transparent">The countries using cyrillic letters have legal requirements for transliteration to latin.</li>
-                        <li class="list-group-item bg-transparent">Greek and many other languages with non-latin alphabets.</li>
-                    </ul>
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-balance-scale text-o-color-1 me-2"></i>Legal Requirements</h5>
+                            <p class="card-text">Countries using Cyrillic letters (Bulgaria, Russia, Serbia, Macedonia, Ukraine) 
+                            have legal requirements for transliteration to Latin in official documents.</p>
+                        </div>
+                    </div>
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-sort-amount-asc text-o-color-2 me-2"></i>Sorting Problems</h5>
+                            <p class="card-text">Non-Latin scripts create sorting issues in list and kanban views. 
+                            For example, Cyrillic "Г" and Latin "G" are positioned differently, leading to confusion.</p>
+                        </div>
+                    </div>
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-building text-o-color-3 me-2"></i>International Business</h5>
+                            <p class="card-text">Companies working internationally need partner names displayed in multiple scripts 
+                            for better communication and document management.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Installation and Configuration -->
-    <section class="s_three_columns pt48 pb32">
+    <!-- Configuration Steps -->
+    <section class="s_process_steps pt48 pb32 o_cc o_cc2">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4 pt16 pb16">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body text-center">
-                            <i class="fa fa-download fa-3x mb-3 text-o-color-1"></i>
-                            <h3 class="card-title">Installation</h3>
-                            <p class="card-text">To install this module, you just need to install it from the Apps menu - no additional setup required.</p>
-                        </div>
-                    </div>
+            <div class="row s_process_steps_step">
+                <div class="col-lg-12 s_title pb32">
+                    <h2 class="text-center">Configuration</h2>
                 </div>
-                <div class="col-lg-4 pt16 pb16">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body text-center">
-                            <i class="fa fa-cogs fa-3x mb-3 text-o-color-2"></i>
-                            <h3 class="card-title">Configuration</h3>
-                            <ul class="list-unstyled text-left">
-                                <li><i class="fa fa-check text-success mr-2"></i> Add field name display_name_xx where xx is language code.</li>
-                                <li><i class="fa fa-check text-success mr-2"></i> Example: display_name_bg.</li>
-                                <li><i class="fa fa-check text-success mr-2"></i> Add transliterate engine for current language.</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="col-lg-3 text-center pb16">
+                    <span class="s_process_steps_icon fa fa-download fa-2x mb-3 rounded-circle bg-o-color-1"></span>
+                    <h3>Step 1</h3>
+                    <p>Install the module from Apps menu</p>
                 </div>
-                <div class="col-lg-4 pt16 pb16">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body text-center">
-                            <i class="fa fa-book fa-3x mb-3 text-o-color-3"></i>
-                            <h3 class="card-title">Usage</h3>
-                            <ul class="list-unstyled text-left">
-                                <li><i class="fa fa-check text-success mr-2"></i> Create additional module and add field name display_name_xx.</li>
-                                <li><i class="fa fa-check text-success mr-2"></i> Create transliterate library.</li>
-                                <li><i class="fa fa-check text-success mr-2"></i> Inherit the fields and library in res.partner.</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="col-lg-3 text-center pb16">
+                    <span class="s_process_steps_icon fa fa-cog fa-2x mb-3 rounded-circle bg-o-color-2"></span>
+                    <h3>Step 2</h3>
+                    <p>Go to Settings → Translations → Languages</p>
+                </div>
+                <div class="col-lg-3 text-center pb16">
+                    <span class="s_process_steps_icon fa fa-check-square fa-2x mb-3 rounded-circle bg-o-color-3"></span>
+                    <h3>Step 3</h3>
+                    <p>Enable "Transliterate" checkbox for desired languages</p>
+                </div>
+                <div class="col-lg-3 text-center pb16">
+                    <span class="s_process_steps_icon fa fa-rocket fa-2x mb-3 rounded-circle bg-o-color-1"></span>
+                    <h3>Step 4</h3>
+                    <p>Start creating partners - transliteration is automatic!</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Roadmap and Changelog -->
-    <section class="s_tabs pt48 pb32 bg-light">
+    <!-- Technical Details -->
+    <section class="s_text_block pt48 pb48 bg-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 s_title pb32">
-                    <h2 class="text-center">Roadmap & Changelog</h2>
+                    <h2 class="text-center">Technical Details</h2>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-10 mx-auto">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#roadmap" role="tab">Known Issues / Roadmap</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#changelog" role="tab">Changelog</a>
-                        </li>
-                    </ul>
-                    
-                    <div class="tab-content border border-top-0 p-3">
-                        <div class="tab-pane fade show active" id="roadmap" role="tabpanel">
-                            <ul>
-                                <li>l10n_bg_multilan - add support for ISO9 and law Bulgarian transliteration</li>
-                                <li>l10n_gr_multilan - add support for ΕΛΟΤ 743</li>
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="fa fa-database text-o-color-1 me-2"></i>Transliterated Fields</h4>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Partners:</strong> name, street, street2, city, function, company_name, commercial_company_name</li>
+                                <li class="list-group-item"><strong>Companies:</strong> name, street, street2, city</li>
+                                <li class="list-group-item"><strong>Country States:</strong> name</li>
                             </ul>
                         </div>
-                        <div class="tab-pane fade" id="changelog" role="tabpanel">
-                            <p>
-                                The cyrillic letters don't use the latin alphabet which creates problems in ordering in list and kanban views.
-                                Bulgarian law requires names of people, companies, cities and streets to be transliterated to latin
-                                letters using ISO9.
-                            </p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="fa fa-code text-o-color-2 me-2"></i>Dependencies</h4>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><code>transliterate</code> - Language-specific transliteration</li>
+                                <li class="list-group-item"><code>unidecode</code> - Universal Unicode to ASCII</li>
+                                <li class="list-group-item"><code>lingua</code> - Accurate language detection</li>
+                            </ul>
+                            <div class="alert alert-warning mt-3 mb-0">
+                                <small><i class="fa fa-exclamation-triangle me-2"></i>These packages are automatically installed via pip when you install the module.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage Examples -->
+    <section class="s_text_block pt48 pb32">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 s_title pb32">
+                    <h2 class="text-center">Usage Examples</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 shadow">
+                        <div class="card-header text-white" style="background-color: #714B67;">
+                            <h5 class="mb-0"><i class="fa fa-user-plus me-2"></i>Example 1: Bulgarian Partner</h5>
+                        </div>
+                        <div class="card-body">
+                            <ol class="mb-0">
+                                <li>Set language to Bulgarian (bg_BG)</li>
+                                <li>Enable "Transliterate" for Bulgarian</li>
+                                <li>Create partner: "Росен Владимиров"</li>
+                                <li>Auto-generated English: "Rosen Vladimirov"</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 shadow">
+                        <div class="card-header text-white" style="background-color: #714B67;">
+                            <h5 class="mb-0"><i class="fa fa-search-plus me-2"></i>Example 2: Multi-Language Search</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Search for partners using either script:</p>
+                            <ul class="mb-0">
+                                <li>Search "Росен" → finds partner</li>
+                                <li>Search "Rosen" → finds same partner</li>
+                                <li>Works with all active languages</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 shadow">
+                        <div class="card-header text-white" style="background-color: #714B67;">
+                            <h5 class="mb-0"><i class="fa fa-sort-alpha-asc me-2"></i>Example 3: Automatic Sorting</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Partners sorted by user language:</p>
+                            <ul class="mb-0">
+                                <li><strong>Bulgarian view:</strong> "Анна, Борис, Георги"</li>
+                                <li><strong>English view:</strong> "Anna, Boris, Georgi"</li>
+                                <li>Proper alphabetical order in both</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Extend to Custom Models -->
+    <section class="s_text_block pt48 pb48 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 s_title pb32">
+                    <h2 class="text-center">Extend to Custom Models</h2>
+                </div>
+                <div class="col-lg-10 mx-auto">
+                    <p class="lead text-center mb-4">Easy to add transliteration support to your custom models:</p>
+                    <pre class="bg-dark text-light p-4 rounded"><code>from odoo import api, fields, models
+
+class CustomModel(models.Model):
+    _inherit = ['your.model', 'res.transliterate.mixin']
+    _name = "your.model"
+    
+    name = fields.Char(translate=True)
+    description = fields.Char(translate=True)
+    
+    @api.model
+    def _get_transliterate_fields(self):
+        res = super()._get_transliterate_fields()
+        return res + ['name', 'description']</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section class="s_text_block pt48 pb32">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 s_title pb32">
+                    <h2 class="text-center">Roadmap</h2>
+                </div>
+                <div class="col-lg-10 mx-auto">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="card border-primary h-100">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="mb-0">Short-term</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="mb-0">
+                                        <li><strong>l10n_bg_multilan:</strong> ISO 9 and Bulgarian law compliance</li>
+                                        <li><strong>l10n_gr_multilan:</strong> ΕΛΟΤ 743 Greek standard</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card border-success h-100">
+                                <div class="card-header bg-success text-white">
+                                    <h5 class="mb-0">Long-term</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="mb-0">
+                                        <li>Arabic, Hebrew, Armenian, Georgian support</li>
+                                        <li>Performance optimizations and caching</li>
+                                        <li>Product names and document integration</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -147,7 +392,7 @@
     </section>
 
     <!-- Bug Tracker -->
-    <section class="s_text_block pt48 pb32">
+    <section class="s_text_block pt48 pb32 bg-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 s_title pb32">
@@ -155,11 +400,12 @@
                 </div>
                 <div class="col-lg-10 mx-auto">
                     <div class="alert alert-info">
+                        <i class="fa fa-github fa-2x float-start me-3"></i>
                         <p>
-                            Bugs are tracked on <a href="https://github.com/OCA/partner-contact/issues">GitHub Issues</a>.
+                            Bugs are tracked on <a href="https://github.com/OCA/partner-contact/issues" target="_blank"><strong>GitHub Issues</strong></a>.
                             In case of trouble, please check there if your issue has already been reported.
-                            If you spotted it first, help us to smash it by providing a detailed and welcomed
-                            <a href="https://github.com/OCA/partner-contact/issues/new?body=module:%20partner_multilang%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.
+                            If you spotted it first, help us smash it by providing a detailed and welcomed
+                            <a href="https://github.com/OCA/partner-contact/issues/new?body=module:%20partner_multilang%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**" target="_blank">feedback</a>.
                         </p>
                         <p class="mb-0">
                             <strong>Note:</strong> Do not contact contributors directly about support or help with technical issues.
@@ -170,76 +416,72 @@
         </div>
     </section>
 
-    <!-- Credits -->
+    <!-- Credits Section -->
     <section class="s_team pt48 pb48 o_cc o_cc1">
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center mb-5">
                     <h2 class="text-o-color-1 fw-bold">Credits</h2>
+                    <p class="lead text-muted">The team behind Partner Multilang</p>
                 </div>
             </div>
-            
-            <!-- Authors and Contributors -->
             <div class="row justify-content-center">
                 <div class="col-lg-4 mb-4">
                     <div class="card text-center h-100 shadow-sm border-0">
                         <div class="card-body">
-                            <h5 class="card-title text-o-color-1">Authors</h5>
-                            <ul class="list-unstyled">
-                                <li>Rosen Vladimirov</li>
-                            </ul>
+                            <img src="https://github.com/rosenvladimirov.png" alt="Rosen Vladimirov" class="rounded-circle mb-3" style="width: 96px; height: 96px; object-fit: cover;">
+                            <h5 class="card-title text-o-color-1">Rosen Vladimirov</h5>
+                            <p class="text-o-color-1 opacity-75 mb-2">Author & Maintainer</p>
+                            <p class="small text-muted mb-3">vladimirov.rosen@gmail.com</p>
+                            <div class="border-top pt-3">
+                                <a href="https://github.com/rosenvladimirov" class="btn btn-sm btn-outline-primary me-2" style="color: #714B67; border-color: #714B67;">
+                                    <i class="fa fa-github"></i> GitHub
+                                </a>
+                                <a href="mailto:vladimirov.rosen@gmail.com" class="btn btn-sm btn-primary" style="background-color: #714B67; border-color: #714B67;">
+                                    <i class="fa fa-envelope"></i> Contact
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
                     <div class="card text-center h-100 shadow-sm border-0">
                         <div class="card-body">
-                            <h5 class="card-title text-o-color-1">Contributors</h5>
-                            <ul class="list-unstyled">
-                                <li>Rosen Vladimirov <a href="mailto:vladimirov.rosen@gmail.com">vladimirov.rosen@gmail.com</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card text-center h-100 shadow-sm border-0">
-                        <div class="card-body">
-                            <h5 class="card-title text-o-color-1">Other Credits</h5>
-                            <p>The development of this module has been financially supported by:</p>
-                            <ul class="list-unstyled">
-                                <li>BioPrint Ltd.</li>
-                            </ul>
+                            <img src="https://odoo-community.org/web/image/website/1/logo/Odoo%20Community%20Association?unique=716d000" alt="OCA" class="mb-3" style="width: 96px; height: 96px; object-fit: contain;">
+                            <h5 class="card-title text-o-color-1">Odoo Community Association</h5>
+                            <p class="text-o-color-1 opacity-75 mb-2">Project Maintainer</p>
+                            <p class="small text-muted mb-3">Supporting collaborative development</p>
+                            <div class="border-top pt-3">
+                                <a href="https://odoo-community.org" class="btn btn-sm btn-outline-primary me-2" style="color: #714B67; border-color: #714B67;">
+                                    <i class="fa fa-globe"></i> Website
+                                </a>
+                                <a href="https://github.com/OCA/partner-contact" class="btn btn-sm btn-primary" style="background-color: #714B67; border-color: #714B67;">
+                                    <i class="fa fa-github"></i> Repository
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Maintainers -->
             <div class="row mt-4">
-                <div class="col-lg-12 text-center">
+                <div class="col-lg-8 mx-auto">
                     <div class="card shadow-sm border-0">
-                        <div class="card-body">
-                            <h5 class="card-title text-o-color-1">Maintainers</h5>
-                            <p>This module is maintained by the OCA.</p>
-                            <a class="d-block mb-3" href="https://odoo-community.org">
-                                <img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" style="max-width: 200px;"/>
-                            </a>
-                            <p>
-                                OCA, or the Odoo Community Association, is a nonprofit organization whose
-                                mission is to support the collaborative development of Odoo features and
-                                promote its widespread use.
-                            </p>
-                            <p>
-                                This module is part of the <a href="https://github.com/OCA/partner-contact/tree/16.0/partner_multilang">OCA/partner-contact</a> project on GitHub.
-                            </p>
-                            <p>
-                                You are welcome to contribute. To learn how please visit <a href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.
-                            </p>
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-o-color-1">Financial Support</h5>
+                            <p class="mb-2">The development of this module has been financially supported by:</p>
+                            <h6 class="text-o-color-1 mb-0">BioPrint Ltd.</h6>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-lg-10 mx-auto text-center">
+                    <p class="lead">This module is part of the <a href="https://github.com/OCA/partner-contact/tree/18.0/partner_multilang" target="_blank">OCA/partner-contact</a> project on GitHub.</p>
+                    <p>You are welcome to contribute. To learn how, please visit <a href="https://odoo-community.org/page/Contribute" target="_blank">https://odoo-community.org/page/Contribute</a>.</p>
                 </div>
             </div>
         </div>
     </section>
+
 </body>
 </html>

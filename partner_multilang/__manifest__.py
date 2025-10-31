@@ -22,6 +22,9 @@
     "data": [
         "views/res_lang_views.xml",
     ],
+    'images': [
+        'static/description/banner.png',
+    ],
     "demo": [],
     "installable": True,
     "pre_init_hook": "pre_init_hook",

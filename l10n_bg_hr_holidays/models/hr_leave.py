@@ -7,8 +7,6 @@ from odoo.exceptions import ValidationError
 class HRLeave(models.Model):
     _inherit = 'hr.leave'
 
-    code = fields.Char('Code')
-
     # Нови полета за функционалността
     l10n_bg_paid_days_unpaid_leave = fields.Float(
         string='Paid Days',
@@ -38,11 +36,6 @@ class HRLeave(models.Model):
         related='holiday_status_id.l10n_bg_leave_reason_id',
         store=True,
     )
-
-    @api.depends('code')
-    def _compute_display_name(self):
-        for record in self:
-            record.display_name = f"{record.code and f'[{record.code}] '}{record.name}"
 
     @api.depends('holiday_status_id', 'holiday_status_id.l10n_bg_allow_paid_days')
     def _compute_show_paid_days_fields(self):

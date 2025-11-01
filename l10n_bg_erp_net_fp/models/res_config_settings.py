@@ -7,11 +7,11 @@ class ResConfigSettings(models.TransientModel):
     l10n_bg_fiscal_printer_id = fields.Many2one(
         related='pos_config_id.l10n_bg_fiscal_printer_id',
         readonly=False,
-        string='Фискален принтер'
+        string='Fiscal printer'
     )
 
     l10n_bg_auto_z_on_close = fields.Boolean(
         related='pos_config_id.l10n_bg_auto_z_on_close',
         readonly=False,
-        string='Автоматичен Z отчет'
+        string='Automatic Z report'
     )

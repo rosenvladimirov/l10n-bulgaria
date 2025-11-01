@@ -12,9 +12,39 @@ class PosSession(models.Model):
         store=True,
         readonly=True
     )
-    l10n_bg_last_x_report = fields.Datetime('Последен X отчет', readonly=True)
-    l10n_bg_z_report_printed = fields.Boolean('Z отчет отпечатан', readonly=True, default=False)
-    l10n_bg_z_report_datetime = fields.Datetime('Дата/Час на Z отчет', readonly=True)
+    l10n_bg_last_x_report = fields.Datetime(
+        'Last X report',
+        readonly=True
+    )
+    l10n_bg_z_report_printed = fields.Boolean(
+        'Z report printed',
+        readonly=True,
+        default=False
+    )
+    l10n_bg_z_report_datetime = fields.Datetime(
+        'Z Report Date/Time',
+        readonly=True
+    )
+    l10n_bg_erp_net_fp_ip = fields.Char(
+        'ErpNet.FP IP',
+        compute='_compute_l10n_bg_erp_net_fp_ip',
+        store=True
+    )
+    l10n_bg_erp_net_fp_host = fields.Char(
+        'ErpNet.FP Host',
+        compute='_compute_l10n_bg_erp_net_fp_host',
+        store=True
+    )
+
+    @api.depends('l10n_bg_fiscal_printer_id', 'l10n_bg_fiscal_printer_id.printer_id')
+    def _compute_l10n_bg_erp_net_fp_ip(self):
+        for config in self:
+            config.l10n_bg_erp_net_fp_ip = config.l10n_bg_fiscal_printer_id.printer_id
+
+    @api.depends('l10n_bg_fiscal_printer_id', 'l10n_bg_fiscal_printer_id.host')
+    def _compute_l10n_bg_erp_net_fp_host(self):
+        for config in self:
+            config.l10n_bg_erp_net_fp_host = config.l10n_bg_fiscal_printer_id.host
 
     @api.model
     def _load_pos_data_fields(self, config_id):
@@ -23,7 +53,8 @@ class PosSession(models.Model):
 
         # Добавяме полета за сесията
         fiscal_fields = [
-            'l10n_bg_fiscal_printer_id',
+            'l10n_bg_erp_net_fp_host',
+            'l10n_bg_erp_net_fp_ip',
             'l10n_bg_last_x_report',
             'l10n_bg_z_report_printed',
             'l10n_bg_z_report_datetime',

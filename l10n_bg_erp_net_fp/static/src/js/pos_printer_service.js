@@ -1,42 +1,32 @@
 /** @odoo-module **/
 
-import { _t } from "@web/core/l10n/translation";
 import { patch } from "@web/core/utils/patch";
-import { BasePrinter } from "@point_of_sale/app/printer/base_printer";
+import { PrinterService } from "@point_of_sale/app/printer/printer_service";
 
-console.log("[FiscalPrinter] 🔧 Loading Fiscal Printer BasePrinter Patch...");
+console.log("[FiscalPrinter] 🔧 Loading Fiscal Printer PrinterService Patch...");
 
 /**
- * Patch на BasePrinter.printReceipt() за да skip-нем печата
+ * Patch на PrinterService.print() за да skip-нем печата
  * ако order-ът е вече фискализиран
- *
- * ВАЖНО: Patch-ваме BasePrinter, не PrinterService!
- * По този начин работи за ВСИЧКИ видове принтери (IoT, ePOS, и т.н.)
  */
-patch(BasePrinter.prototype, {
-
+patch(PrinterService.prototype, {
     /**
      * @override
      * Проверяваме дали order-ът е вече фискализиран ПРЕДИ да печатаме
      */
-    async printReceipt(receipt) {
-        console.log("[FiscalPrinter] 🖨️ BasePrinter.printReceipt() called");
+    async print(component, props, options) {
+        console.log("[FiscalPrinter] 🖨️ PrinterService.print() called");
 
         // ════════════════════════════════════════════════════════════
         // ПРОВЕРКА: Дали order-ът вече е фискализиран?
         // ════════════════════════════════════════════════════════════
-
-        // Опит да вземем order от различни източници
         let order = null;
 
-        // Метод 1: От window.__fiscalPrinterPosStore (set в payment_screen.js)
+        // Опит да вземем order от различни източници
         if (window.__fiscalPrinterCurrentOrder) {
             order = window.__fiscalPrinterCurrentOrder;
             console.log("[FiscalPrinter]    Order from window.__fiscalPrinterCurrentOrder");
-        }
-
-        // Метод 2: От global POS store
-        if (!order && window.__fiscalPrinterPosStore) {
+        } else if (window.__fiscalPrinterPosStore) {
             try {
                 order = window.__fiscalPrinterPosStore.get_order?.();
                 console.log("[FiscalPrinter]    Order from window.__fiscalPrinterPosStore");
@@ -58,7 +48,7 @@ patch(BasePrinter.prototype, {
             console.log("[FiscalPrinter]    Fiscal Receipt #:", order.l10n_bg_fiscal_receipt_number);
 
             // Връщаме success БЕЗ да печатаме
-            return { successful: true };
+            return true;
         }
 
         // ════════════════════════════════════════════════════════════
@@ -67,8 +57,8 @@ patch(BasePrinter.prototype, {
         console.log("[FiscalPrinter] 🟢 Order not fiscalized, proceeding with normal print");
 
         // Извикваме оригиналния метод
-        return await super.printReceipt(receipt);
+        return await super.print(component, props, options);
     },
 });
 
-console.log("[FiscalPrinter] ✅ BasePrinter patched successfully");
+console.log("[FiscalPrinter] ✅ PrinterService patched successfully");

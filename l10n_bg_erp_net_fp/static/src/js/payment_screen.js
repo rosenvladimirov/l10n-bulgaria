@@ -71,6 +71,9 @@ patch(PaymentScreen.prototype, {
                     order.l10n_bg_fiscal_receipt_number = result.fiscalData?.receiptNumber;
                     order.l10n_bg_fiscal_memory_number = result.fiscalData?.fiscalMemorySerialNumber;
                     order.l10n_bg_is_fiscalized = true;  // ← FLAG за BasePrinter!
+                    window.__fiscalPrinterCurrentOrder.l10n_bg_is_fiscalized = true;
+                    window.__fiscalPrinterCurrentOrder.l10n_bg_fiscal_receipt_number = result.fiscalData?.receiptNumber;
+                    window.__fiscalPrinterCurrentOrder.l10n_bg_fiscal_memory_number = result.fiscalData?.fiscalMemorySerialNumber;
 
                     // Notification за успех
                     if (this.env?.services?.notification) {

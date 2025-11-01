@@ -51,6 +51,7 @@ export class ErpNetFPPrinter {
      * @param {Object} order - POS Order обект от Odoo
      * @returns {Promise<Object>} Result with successful flag and optional fiscalData
      */
+
     async printReceipt(order) {
         console.log("[ErpNetFPPrinter] ═══════════════════════════════════════");
         console.log("[ErpNetFPPrinter] 🎯 printReceipt() called");
@@ -106,12 +107,49 @@ export class ErpNetFPPrinter {
             if (result && result.ok) {
                 console.log("[ErpNetFPPrinter] ✅ Fiscal print SUCCESS!");
                 console.log("[ErpNetFPPrinter]    Receipt #:", result.receiptNumber);
+                console.log("[ErpNetFPPrinter]    Receipt DateTime:", result.receiptDateTime);
                 console.log("[ErpNetFPPrinter]    Fiscal Memory #:", result.fiscalMemorySerialNumber);
+
+                // Актуализираме order с фискалните данни
+                if (order) {
+                    order.l10n_bg_fiscal_receipt_number = result.receiptNumber;
+                    // Конвертираме към Odoo datetime формат: 'YYYY-MM-DD HH:MM:SS'
+                    // ErpNet.FP връща: "2019-05-17T13:55:18"
+                    // Odoo очаква: "2019-05-17 13:55:18"
+                    if (result.receiptDateTime) {
+                        // Заменяме 'T' с интервал и премахваме всичко след секундите
+                        const dateTimeStr = result.receiptDateTime
+                            .replace('T', ' ')     // 2019-05-17T13:55:18 -> 2019-05-17 13:55:18
+                            .replace('Z', '')      // Премахваме Z ако има
+                            .split('.')[0];        // Премахваме милисекунди ако има
+
+                        order.l10n_bg_fiscal_receipt_datetime = dateTimeStr;
+                    } else {
+                        // Fallback към текущо време в Odoo формат
+                        const now = new Date();
+                        const year = now.getFullYear();
+                        const month = String(now.getMonth() + 1).padStart(2, '0');
+                        const day = String(now.getDate()).padStart(2, '0');
+                        const hours = String(now.getHours()).padStart(2, '0');
+                        const minutes = String(now.getMinutes()).padStart(2, '0');
+                        const seconds = String(now.getSeconds()).padStart(2, '0');
+
+                        order.l10n_bg_fiscal_receipt_datetime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+                    }
+                    order.l10n_bg_fiscal_memory_number = result.fiscalMemorySerialNumber;
+                    order.l10n_bg_is_fiscalized = true;
+
+                    console.log("[ErpNetFPPrinter] ✅ Order updated with fiscal data");
+                    console.log("[ErpNetFPPrinter]    order.l10n_bg_fiscal_receipt_number:", order.l10n_bg_fiscal_receipt_number);
+                    console.log("[ErpNetFPPrinter]    order.l10n_bg_fiscal_receipt_datetime:", order.l10n_bg_fiscal_receipt_datetime);
+                    console.log("[ErpNetFPPrinter]    order.l10n_bg_fiscal_memory_number:", order.l10n_bg_fiscal_memory_number);
+                }
 
                 return {
                     successful: true,
                     fiscalData: {
                         receiptNumber: result.receiptNumber,
+                        receiptDateTime: result.receiptDateTime,
                         fiscalMemorySerialNumber: result.fiscalMemorySerialNumber,
                     },
                 };
@@ -171,6 +209,8 @@ export class ErpNetFPPrinter {
      */
     _prepareFiscalReceiptData(order, posConfig, options = {}) {
         const items = [];
+        const amount_return = order.amount_return;
+        let all_payments = 0;
 
         // В Odoo 18 е order.lines
         const orderLines = order.lines || order.get_orderlines?.() || [];
@@ -203,11 +243,21 @@ export class ErpNetFPPrinter {
         for (const payment of paymentLines) {
             const paymentAmount = Math.max(0, payment.get_amount?.() || payment.amount || 0);
             const paymentType = this._getPaymentType(payment);
+            console.log("[ErpNetFPPrinter] Payment:", payment, "Amount:", paymentAmount);
             if (paymentAmount === 0) continue;
+            all_payments += paymentAmount;
 
             payments.push({
                 amount: paymentAmount,
                 paymentType: paymentType,
+            });
+        }
+
+        // Добавяме рестото ако има
+        if (all_payments > 0 && amount_return < 0 && all_payments + amount_return !== 0) {
+            payments.push({
+                amount: (all_payments + amount_return) * -1,
+                paymentType: 'change',
             });
         }
 

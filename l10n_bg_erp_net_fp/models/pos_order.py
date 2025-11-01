@@ -21,6 +21,11 @@ class PosOrder(models.Model):
         readonly=True,
         help='Сериен номер на фискалната памет'
     )
+    l10n_bg_is_fiscalized = fields.Boolean(
+        string='Is fiscalized?',
+        readonly=True,
+        help='Is the order fiscalized?'
+    )
 
     @api.model
     def _order_fields(self, ui_order):

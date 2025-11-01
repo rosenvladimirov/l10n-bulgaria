@@ -23,7 +23,7 @@
    * Bulgarian tax group mapping (А, Б, В, Г)
    * Dual connection mode: Direct (server) and Proxy (browser)
 """,
-    'version': '18.0.5.0.4',
+    'version': '18.0.6.0.1',
     'license': 'AGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
@@ -64,6 +64,8 @@
             'l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js',
             'l10n_bg_erp_net_fp/static/src/js/pos_printer_service.js',
             'l10n_bg_erp_net_fp/static/src/js/payment_screen.js',
+            'l10n_bg_erp_net_fp/static/src/js/close_pos_popup_patch.js',
+            'l10n_bg_erp_net_fp/static/src/xml/pos_close_popup_template.xml',
         ],
     },
     'installable': True,

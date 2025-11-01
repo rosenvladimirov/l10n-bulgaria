@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!-- Override на ClosePosPopup за добавяне на ErpNet.FP бутони -->
+    <t t-name="point_of_sale.ClosePosPopup" t-inherit="point_of_sale.ClosePosPopup" t-inherit-mode="extension">
+
+        <!-- Добавяме бутони за X и Z отчет след "Daily Sale" бутона -->
+        <xpath expr="//button[contains(@class, 'button icon btn btn-secondary')][@t-on-click='downloadSalesReport']" position="after">
+
+            <!-- X Отчет бутон -->
+            <button t-if="pos.config.l10n_bg_fiscal_printer_id"
+                    class="button btn btn-info"
+                    t-att-class="this.ui.isSmall ? 'w-100' : 'btn-lg'"
+                    t-on-click="() => this.printXReport()"
+                    title="Междинен отчет (без нулиране)">
+                X Отчет
+                <i t-if="!this.ui.isSmall" class="fa fa-file-text-o" role="img"/>
+            </button>
+
+            <!-- Z Отчет бутон -->
+            <button t-if="pos.config.l10n_bg_fiscal_printer_id"
+                    class="button btn btn-warning"
+                    t-att-class="this.ui.isSmall ? 'w-100' : 'btn-lg'"
+                    t-on-click="() => this.printZReport()"
+                    title="Дневен фискален отчет (с нулиране)">
+                Z Отчет
+                <i t-if="!this.ui.isSmall" class="fa fa-file-archive-o" role="img"/>
+            </button>
+
+        </xpath>
+
+    </t>
+
+</templates>

@@ -270,22 +270,3 @@ class PosSession(models.Model):
             }
 
         return self.l10n_bg_fiscal_printer_id.action_check_connection()
-
-    # ========== ВАЛИДАЦИЯ ПРИ ЗАТВАРЯНЕ ==========
-
-    def action_pos_session_closing_control(self, balancing_account=False, amount_to_balance=0,
-                                           bank_payment_method_diffs=None):
-        """Разширение за автоматичен Z отчет при затваряне"""
-        # Проверка дали трябва да се отпечата Z отчет
-        if self.config_id.l10n_bg_auto_z_on_close and self.l10n_bg_fiscal_printer_id:
-            if not self.l10n_bg_z_report_printed:
-                try:
-                    self.action_print_z_report()
-                except Exception as e:
-                    raise UserError(
-                        _('Грешка при печат на Z отчет: %s\n'
-                          'Моля, отпечатайте Z отчета ръчно преди затваряне.') % str(e)
-                    )
-
-        return super().action_pos_session_closing_control(balancing_account, amount_to_balance,
-                                                          bank_payment_method_diffs)

@@ -37,7 +37,6 @@
     'images': [
         'static/description/banner.png',
     ],
-
     "assets": {
         "web.assets_backend": [
             "l10n_bg_config/static/src/**/*",

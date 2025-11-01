@@ -86,4 +86,7 @@ Full documentation available in the module's data folder:
     'contributors': ['Rosen Vladimirov'],
     'support': 'https://github.com/rosenvladimirov/l10n-bulgaria/issues',
     'countries': ['BG'],
+    'images': [
+        'static/description/banner.png',
+    ],
 }

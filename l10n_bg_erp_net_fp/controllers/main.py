@@ -6,6 +6,9 @@ from odoo import http
 from odoo.http import request
 
 _logger = logging.getLogger(__name__)
+_logger.info("=" * 80)
+_logger.info("🚀 FiscalPrinterController LOADING")
+_logger.info("=" * 80)
 
 
 class FiscalPrinterController(http.Controller):

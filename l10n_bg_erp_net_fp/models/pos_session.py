@@ -7,7 +7,7 @@ class PosSession(models.Model):
 
     l10n_bg_fiscal_printer_id = fields.Many2one(
         'fiscal.printer.device',
-        string='Фискален принтер',
+        string='Fiscal printer',
         related='config_id.l10n_bg_fiscal_printer_id',
         store=True,
         readonly=True
@@ -19,17 +19,28 @@ class PosSession(models.Model):
     @api.model
     def _load_pos_data_fields(self, config_id):
         """Зареждане на необходимите полета за фискален принтер"""
-        fields = super()._load_pos_data_fields(config_id)
+        res = super()._load_pos_data_fields(config_id)
 
         # Добавяме полета за сесията
-        fields.extend([
+        fiscal_fields = [
             'l10n_bg_fiscal_printer_id',
             'l10n_bg_last_x_report',
             'l10n_bg_z_report_printed',
             'l10n_bg_z_report_datetime',
-        ])
+        ]
 
-        return fields
+        res.extend(fiscal_fields)
+
+        # DEBUG лог
+        import logging
+        _logger = logging.getLogger(__name__)
+        _logger.info("=" * 80)
+        _logger.info("POS Session fields to load:")
+        _logger.info(f"  All fields: {res}")
+        _logger.info(f"  Fiscal fields: {fiscal_fields}")
+        _logger.info("=" * 80)
+
+        return res
 
     # ========== X ОТЧЕТ ==========
 

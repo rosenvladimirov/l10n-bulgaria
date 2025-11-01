@@ -303,10 +303,12 @@ class FiscalPrinterDevice(models.Model):
         _logger.info(f"[PROXY]    User: {self.env.user.name} (ID: {self.env.user.id})")
         _logger.info(f"[PROXY]    Message: {bus_message}")
 
-        # ВАЖНО: Използваме send вместо _sendone за глобален broadcast
-        self.env['bus.bus']._sendmany([
-            (self.env.cr.dbname, 'fiscal.printer.request', bus_message)
-        ])
+        # Изпращаме bus notification
+        self.env['bus.bus']._sendone(
+            'fiscal.printer.request',
+            'fiscal.printer.request',
+            bus_message
+        )
 
         # Commit за да се изпрати bus notification-а
         self.env.cr.commit()

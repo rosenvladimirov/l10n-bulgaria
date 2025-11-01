@@ -2,8 +2,26 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { patch } from "@web/core/utils/patch";
+import { PosStore } from "@point_of_sale/app/store/pos_store";
 import { PrinterService } from "@point_of_sale/app/printer/printer_service";
 import { ErpNetFPPrinter } from "@l10n_bg_erp_net_fp/js/erp_net_fp_printer";
+
+console.log("[PosPrinter] 🔧 Loading POS Fiscal Printer Extension...");
+
+/**
+ * Patch на PosStore за да catch-нем когато е ready
+ */
+patch(PosStore.prototype, {
+    async setup() {
+        await super.setup(...arguments);
+        console.log("[PosPrinter] 🎯 PosStore is ready!");
+        console.log("[PosPrinter] 📋 Session:", this.session);
+        console.log("[PosPrinter] 📋 Config:", this.config);
+
+        // Запазваме референция към POS store
+        window.__fiscalPrinterPosStore = this;
+    }
+});
 
 /**
  * Patch на PrinterService за добавяне на ErpNet.FP поддръжка
@@ -11,123 +29,182 @@ import { ErpNetFPPrinter } from "@l10n_bg_erp_net_fp/js/erp_net_fp_printer";
 patch(PrinterService.prototype, {
     setup(env, { renderer }) {
         super.setup(...arguments);
+
         this.fiscalPrinter = null;
         this.standardPrinter = this.device;
-        this.fiscalPrinterInitialized = false;
 
-        // Стартираме инициализацията асинхронно
-        this._initializeFiscalPrinter();
+        console.log("[PosPrinter] 🚀 PrinterService.setup() called");
+
+        // Стартираме инициализацията АСИНХРОННО
+        setTimeout(() => {
+            this._initializeFiscalPrinter(env).catch(err => {
+                console.error("[PosPrinter] ❌ Error during initialization:", err);
+            });
+        }, 100);
     },
 
     /**
      * Инициализация на фискален принтер от session данните
      */
-    async _initializeFiscalPrinter() {
-        if (this.fiscalPrinterInitialized) {
+    async _initializeFiscalPrinter(env) {
+        console.log("[PosPrinter] 🔄 Starting fiscal printer initialization...");
+
+        // Чакаме PosStore да е готов
+        let attempts = 0;
+        while (!window.__fiscalPrinterPosStore && attempts < 100) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            attempts++;
+
+            if (attempts % 20 === 0) {
+                console.log(`[PosPrinter] ⏳ Waiting for PosStore... (${attempts * 100}ms)`);
+            }
+        }
+
+        const pos = window.__fiscalPrinterPosStore;
+
+        if (!pos) {
+            console.error("[PosPrinter] ❌ PosStore not available after timeout");
             return;
         }
 
-        console.log("[PosPrinter] 🔄 Starting fiscal printer initialization...");
+        console.log("[PosPrinter] ✅ PosStore found!");
+        console.log("[PosPrinter] 📋 Session:", pos.session);
+        console.log("[PosPrinter] 📋 Config:", pos.config);
 
-        // Изчакваме POS да е достъпен
-        let attempts = 0;
-        const maxAttempts = 20;
+        // Фискалният принтер е в session.l10n_bg_fiscal_printer_id
+        const fiscalPrinterId = pos.session?.l10n_bg_fiscal_printer_id;
 
-        while (attempts < maxAttempts) {
-            await new Promise(resolve => setTimeout(resolve, 500));
+        console.log("[PosPrinter] 🔍 Fiscal printer ID from session:", fiscalPrinterId);
 
-            const pos = this.env?.services?.pos;
-
-            if (pos && pos.session && pos.config) {
-                console.log("[PosPrinter] ✅ POS service found!");
-                console.log("[PosPrinter] 📋 Session:", pos.session);
-                console.log("[PosPrinter] 📋 Config:", pos.config);
-
-                await new Promise(resolve => setTimeout(resolve, 500));
-
-                // Фискалният принтер е в session.l10n_bg_fiscal_printer_id
-                const fiscalPrinterId = pos.session.l10n_bg_fiscal_printer_id;
-
-                console.log("[PosPrinter] 🔍 Fiscal printer ID from session:", fiscalPrinterId);
-
-                if (!fiscalPrinterId) {
-                    console.warn("[PosPrinter] ⚠️ No fiscal printer configured in session");
-                    this.fiscalPrinterInitialized = true;
-                    return;
-                }
-
-                // Намираме принтера в loaded data
-                let fiscalPrinterConfig = null;
-
-                // Опит 1: Директно от ID (ако е число)
-                if (typeof fiscalPrinterId === 'number') {
-                    if (pos.models && pos.models['fiscal.printer.device']) {
-                        fiscalPrinterConfig = pos.models['fiscal.printer.device'].get(fiscalPrinterId);
-                        console.log("[PosPrinter] 📋 Found fiscal printer from models");
-                    }
-                }
-                // Опит 2: Ако е масив [id, name]
-                else if (Array.isArray(fiscalPrinterId) && fiscalPrinterId.length > 0) {
-                    const printerId = fiscalPrinterId[0];
-                    if (pos.models && pos.models['fiscal.printer.device']) {
-                        fiscalPrinterConfig = pos.models['fiscal.printer.device'].get(printerId);
-                        console.log("[PosPrinter] 📋 Found fiscal printer from models (array format)");
-                    }
-                }
-
-                if (!fiscalPrinterConfig) {
-                    console.error("[PosPrinter] ❌ Fiscal printer not found in loaded data");
-                    console.log("[PosPrinter] 💡 Available models:", Object.keys(pos.models || {}));
-                    this.fiscalPrinterInitialized = true;
-                    return;
-                }
-
-                console.log("[PosPrinter] 🎯 Found ErpNet.FP fiscal printer:");
-                console.log("[PosPrinter]    ID:", fiscalPrinterConfig.id);
-                console.log("[PosPrinter]    Name:", fiscalPrinterConfig.name);
-                console.log("[PosPrinter]    Host:", fiscalPrinterConfig.host);
-                console.log("[PosPrinter]    Printer ID:", fiscalPrinterConfig.printer_id);
-                console.log("[PosPrinter]    Full config:", fiscalPrinterConfig);
-
-                // Проверка дали има нужните полета
-                if (!fiscalPrinterConfig.host || !fiscalPrinterConfig.printer_id) {
-                    console.error("[PosPrinter] ❌ Fiscal printer config is incomplete");
-                    console.log("[PosPrinter]    host:", fiscalPrinterConfig.host);
-                    console.log("[PosPrinter]    printer_id:", fiscalPrinterConfig.printer_id);
-                    this.fiscalPrinterInitialized = true;
-                    return;
-                }
-
-                try {
-                    this.fiscalPrinter = new ErpNetFPPrinter();
-                    this.fiscalPrinter.setup({
-                        baseUrl: fiscalPrinterConfig.host,
-                        printerId: fiscalPrinterConfig.printer_id,
-                        pos: pos,
-                    });
-
-                    console.log("[PosPrinter] ✅ ErpNet.FP fiscal printer initialized successfully!");
-
-                    if (this.env?.services?.notification) {
-                        this.env.services.notification.add(
-                            _t("Fiscal printer ErpNet.FP is ready"),
-                            { type: "success" }
-                        );
-                    }
-                } catch (error) {
-                    console.error("[PosPrinter] ❌ Error creating fiscal printer:", error);
-                }
-
-                this.fiscalPrinterInitialized = true;
-                return;
-            }
-
-            console.log(`[PosPrinter] ⏳ Waiting for POS... (attempt ${attempts + 1}/${maxAttempts})`);
-            attempts++;
+        if (!fiscalPrinterId) {
+            console.warn("[PosPrinter] ⚠️ No fiscal printer configured in session");
+            return;
         }
 
-        console.error("[PosPrinter] ❌ POS service not found after maximum attempts");
-        this.fiscalPrinterInitialized = true;
+        // Намираме конфигурацията на принтера
+        const fiscalPrinterConfig = await this._findFiscalPrinterConfig(env, pos, fiscalPrinterId);
+
+        if (!fiscalPrinterConfig) {
+            console.error("[PosPrinter] ❌ Fiscal printer not found");
+            return;
+        }
+
+        console.log("[PosPrinter] 🎯 Found ErpNet.FP fiscal printer:");
+        console.log("[PosPrinter]    ID:", fiscalPrinterConfig.id);
+        console.log("[PosPrinter]    Name:", fiscalPrinterConfig.name);
+        console.log("[PosPrinter]    Host:", fiscalPrinterConfig.host);
+        console.log("[PosPrinter]    Printer ID:", fiscalPrinterConfig.printer_id);
+        console.log("[PosPrinter]    Connection mode:", fiscalPrinterConfig.connection_mode);
+
+        // Проверка дали има нужните полета
+        if (!fiscalPrinterConfig.host || !fiscalPrinterConfig.printer_id) {
+            console.error("[PosPrinter] ❌ Fiscal printer config is incomplete");
+            return;
+        }
+
+        try {
+            this.fiscalPrinter = new ErpNetFPPrinter();
+            this.fiscalPrinter.setup({
+                baseUrl: fiscalPrinterConfig.host,
+                printerId: fiscalPrinterConfig.printer_id,
+                connectionMode: fiscalPrinterConfig.connection_mode,
+                pos: pos,
+            });
+
+            console.log("[PosPrinter] ✅ ErpNet.FP fiscal printer initialized successfully!");
+
+            if (env.services?.notification) {
+                env.services.notification.add(
+                    _t("Фискален принтер ErpNet.FP е готов"),
+                    { type: "success" }
+                );
+            }
+        } catch (error) {
+            console.error("[PosPrinter] ❌ Error creating fiscal printer:", error);
+        }
+    },
+
+    /**
+     * Намира конфигурацията на фискалния принтер
+     */
+    async _findFiscalPrinterConfig(env, pos, fiscalPrinterId) {
+        console.log("[PosPrinter] 🔍 Looking for fiscal printer config...");
+        console.log("[PosPrinter]    Printer ID:", fiscalPrinterId);
+
+        let printerId = fiscalPrinterId;
+
+        // Ако е масив [id, name], вземаме id-то
+        if (Array.isArray(fiscalPrinterId)) {
+            printerId = fiscalPrinterId[0];
+            console.log("[PosPrinter]    Extracted ID from array:", printerId);
+        }
+
+        // Опит 1: pos.models['fiscal.printer.device']
+        if (pos.models?.['fiscal.printer.device']) {
+            console.log("[PosPrinter] 🔍 Searching in pos.models...");
+            const model = pos.models['fiscal.printer.device'];
+
+            if (typeof model.get === 'function') {
+                const config = model.get(printerId);
+                if (config) {
+                    console.log("[PosPrinter] ✅ Found in pos.models via .get()");
+                    return config;
+                }
+            }
+
+            if (typeof model.getAll === 'function') {
+                const all = model.getAll();
+                const config = all.find(p => p.id === printerId);
+                if (config) {
+                    console.log("[PosPrinter] ✅ Found in pos.models via .getAll()");
+                    return config;
+                }
+            }
+        }
+
+        // Опит 2: pos.data
+        if (pos.data?.models?.['fiscal.printer.device']) {
+            console.log("[PosPrinter] 🔍 Searching in pos.data.models...");
+            const records = pos.data.models['fiscal.printer.device'];
+
+            if (Array.isArray(records)) {
+                const config = records.find(p => p.id === printerId);
+                if (config) {
+                    console.log("[PosPrinter] ✅ Found in pos.data.models array");
+                    return config;
+                }
+            } else if (typeof records.get === 'function') {
+                const config = records.get(printerId);
+                if (config) {
+                    console.log("[PosPrinter] ✅ Found in pos.data.models via .get()");
+                    return config;
+                }
+            }
+        }
+
+        // Опит 3: Директна RPC заявка
+        console.log("[PosPrinter] 🔍 Not found in cache, fetching from server...");
+        try {
+            const orm = env.services.orm;
+            const result = await orm.call('fiscal.printer.device', 'read', [[printerId]], {
+                fields: ['id', 'name', 'host', 'printer_id', 'connection_mode']
+            });
+
+            if (result && result.length > 0) {
+                console.log("[PosPrinter] ✅ Fetched from server");
+                return result[0];
+            }
+        } catch (error) {
+            console.error("[PosPrinter] ❌ Error fetching from server:", error);
+        }
+
+        console.error("[PosPrinter] ❌ Fiscal printer config not found anywhere");
+        console.log("[PosPrinter] 💡 Available data:");
+        console.log("[PosPrinter]    - pos.models:", Object.keys(pos.models || {}));
+        console.log("[PosPrinter]    - pos.data:", pos.data);
+        console.log("[PosPrinter]    - pos.data.models:", Object.keys(pos.data?.models || {}));
+
+        return null;
     },
 
     /**
@@ -139,10 +216,9 @@ patch(PrinterService.prototype, {
         console.log("[PosPrinter]    Element:", el);
         console.log("[PosPrinter]    Options:", options);
         console.log("[PosPrinter]    Fiscal printer available:", !!this.fiscalPrinter);
-        console.log("[PosPrinter]    Standard printer available:", !!this.standardPrinter);
 
         // Проверка дали трябва да използваме фискален принтер
-        const shouldUseFiscal = this.fiscalPrinter && !options.kitchen;
+        const shouldUseFiscal = this.fiscalPrinter && !options.kitchen && !options.skipFiscal;
 
         console.log("[PosPrinter]    Should use fiscal:", shouldUseFiscal);
 
@@ -163,7 +239,7 @@ patch(PrinterService.prototype, {
 
                     if (this.env?.services?.notification) {
                         this.env.services.notification.add(
-                            _t("Fiscal printer error: ") + (result.message?.body || "Unknown error"),
+                            _t("Грешка при фискален печат: ") + (result.message?.body || "Неизвестна грешка"),
                             { type: "danger" }
                         );
                     }
@@ -178,7 +254,7 @@ patch(PrinterService.prototype, {
 
                 if (this.env?.services?.notification) {
                     this.env.services.notification.add(
-                        _t("Fiscal receipt printed") +
+                        _t("Фискален бон отпечатан") +
                         (result.fiscalData?.receiptNumber ? ` №${result.fiscalData.receiptNumber}` : ""),
                         { type: "success" }
                     );
@@ -202,3 +278,5 @@ patch(PrinterService.prototype, {
         return await super.printHtml(el, options);
     },
 });
+
+console.log("[PosPrinter] ✅ PrinterService patched successfully");

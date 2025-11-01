@@ -239,6 +239,7 @@ export class ErpNetFPPrinter {
                 unitPrice: unitPrice,
                 taxGroup: this._getTaxGroup(line, order),
             };
+            amount_return += parseFloat((item.quantity * item.unitPrice).toFixed(2));
 
             const discount = line.get_discount?.() || line.discount || 0;
             if (discount && discount > 0) {
@@ -246,7 +247,6 @@ export class ErpNetFPPrinter {
                 item.priceModifierValue = discount;
                 item.unitPrice = line.getUnitDisplayPriceBeforeDiscount?.() || (item.unitPrice / (1 - discount / 100));
             }
-            amount_return += parseFloat((item.quantity * item.unitPrice).toFixed(2));
             items.push(item);
         }
 

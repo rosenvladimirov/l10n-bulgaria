@@ -199,6 +199,7 @@ export class ErpNetFPPrinter {
         }
     }
 
+
     /**
      * Подготвя данните за фискален бон
      *
@@ -211,18 +212,31 @@ export class ErpNetFPPrinter {
         const items = [];
         const amount_return = order.amount_return;
         let all_payments = 0;
+        const isReversal = options.isReversal || false;
 
         // В Odoo 18 е order.lines
         const orderLines = order.lines || order.get_orderlines?.() || [];
 
         for (const line of orderLines) {
+            // Вземаме количеството
+            let quantity = line.get_quantity?.() || line.qty || 0;
+            let unitPrice = line.get_unit_display_price?.() || line.price || 0;
+
+            // ════════════════════════════════════════════════════════════
+            // ВАЖНО: За сторно бонове ErpNet.FP изисква ПОЛОЖИТЕЛНИ стойности
+            // ════════════════════════════════════════════════════════════
+            if (isReversal) {
+                quantity = Math.abs(quantity);
+                unitPrice = Math.abs(unitPrice);
+            }
+
             const item = {
                 text: line.get_full_product_name?.() ||
                       line.full_product_name ||
                       line.product?.display_name ||
                       _t("Product"),
-                quantity: line.get_quantity?.() || line.qty || 0,
-                unitPrice: line.get_unit_display_price?.() || line.price || 0,
+                quantity: quantity,
+                unitPrice: unitPrice,
                 taxGroup: this._getTaxGroup(line, order),
             };
 
@@ -242,9 +256,20 @@ export class ErpNetFPPrinter {
         const paymentLines = order.payment_ids || order.get_paymentlines?.() || [];
 
         for (const payment of paymentLines) {
-            const paymentAmount = Math.max(0, payment.get_amount?.() || payment.amount || 0);
+            let paymentAmount = payment.get_amount?.() || payment.amount || 0;
+
+            // ════════════════════════════════════════════════════════════
+            // ВАЖНО: За сторно бонове ErpNet.FP изисква ПОЛОЖИТЕЛНИ стойности
+            // ════════════════════════════════════════════════════════════
+            if (isReversal) {
+                paymentAmount = Math.abs(paymentAmount);
+            } else {
+                paymentAmount = Math.max(0, paymentAmount);
+            }
+
             const paymentType = this._getPaymentType(payment);
             console.log("[ErpNetFPPrinter] Payment:", payment, "Amount:", paymentAmount);
+
             if (paymentAmount === 0) continue;
             all_payments += paymentAmount;
 
@@ -254,8 +279,8 @@ export class ErpNetFPPrinter {
             });
         }
 
-        // Добавяме рестото ако има
-        if (all_payments > 0 && amount_return < 0 && all_payments + amount_return !== 0) {
+        // Добавяме рестото ако има (само за нормални бонове, не за сторно)
+        if (!isReversal && all_payments > 0 && amount_return < 0 && all_payments + amount_return !== 0) {
             payments.push({
                 amount: (all_payments + amount_return) * -1,
                 paymentType: 'change',

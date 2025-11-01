@@ -43,7 +43,14 @@ patch(PaymentScreen.prototype, {
         console.log("[FiscalPayment] Fiscal printer ID:", fiscalPrinterId);
 
         if (fiscalPrinterHost && fiscalPrinterId && order) {
-            console.log("[FiscalPayment] 🚀 Fiscal printer configured, sending to printer...");
+            console.log("[FiscalPayment] 🚀 Fiscal printer configured, checking order type...");
+
+            // ════════════════════════════════════════════════════════════
+            // ПРОВЕРКА: Дали е СТОРНО поръчка?
+            // ════════════════════════════════════════════════════════════
+            const isRefundOrder = this._isRefundOrder(order);
+
+            console.log("[FiscalPayment] Is refund order:", isRefundOrder);
 
             try {
                 // Създаваме fiscal printer instance
@@ -52,10 +59,27 @@ patch(PaymentScreen.prototype, {
                     printerId: fiscalPrinterId,
                 });
 
+                let result;
+
                 // ════════════════════════════════════════════════════════════
-                // ИЗПРАЩАМЕ КЪМ FISCAL PRINTER ПРЕДИ ДА ФИНАЛИЗИРАМЕ ORDER-А
+                // АКО Е СТОРНО - ИЗПРАЩАМЕ REVERSAL RECEIPT
                 // ════════════════════════════════════════════════════════════
-                const result = await fiscalPrinter.printReceipt(order);
+                if (isRefundOrder) {
+                    console.log("[FiscalPayment] 🔄 Processing REFUND order...");
+
+                    const reason = this._getRefundReason(order);
+                    console.log("[FiscalPayment] Refund reason:", reason);
+
+                    result = await fiscalPrinter.printReversalReceipt(order, reason);
+
+                }
+                // ════════════════════════════════════════════════════════════
+                // АКО Е НОРМАЛНА ПОРЪЧКА - ИЗПРАЩАМЕ НОРМАЛЕН RECEIPT
+                // ════════════════════════════════════════════════════════════
+                else {
+                    console.log("[FiscalPayment] 📄 Processing NORMAL order...");
+                    result = await fiscalPrinter.printReceipt(order);
+                }
 
                 console.log("[FiscalPayment] Fiscal printer result:", result);
 
@@ -71,14 +95,23 @@ patch(PaymentScreen.prototype, {
                     order.l10n_bg_fiscal_receipt_number = result.fiscalData?.receiptNumber;
                     order.l10n_bg_fiscal_memory_number = result.fiscalData?.fiscalMemorySerialNumber;
                     order.l10n_bg_is_fiscalized = true;  // ← FLAG за BasePrinter!
+
+                    if (isRefundOrder) {
+                        order.l10n_bg_is_reversal = true;  // ← Маркираме като сторно
+                    }
+
                     window.__fiscalPrinterCurrentOrder.l10n_bg_is_fiscalized = true;
                     window.__fiscalPrinterCurrentOrder.l10n_bg_fiscal_receipt_number = result.fiscalData?.receiptNumber;
                     window.__fiscalPrinterCurrentOrder.l10n_bg_fiscal_memory_number = result.fiscalData?.fiscalMemorySerialNumber;
 
                     // Notification за успех
                     if (this.env?.services?.notification) {
+                        const message = isRefundOrder
+                            ? _t("Сторно бон отпечатан ")
+                            : _t("Фискален бон отпечатан ");
+
                         this.env.services.notification.add(
-                            _t("Фискален бон отпечатан ") +
+                            message +
                             (result.fiscalData?.receiptNumber ? `№${result.fiscalData.receiptNumber}` : ""),
                             { type: "success" }
                         );
@@ -93,8 +126,10 @@ patch(PaymentScreen.prototype, {
                     // ════════════════════════════════════════════════════════════
 
                     if (this.env?.services?.notification) {
+                        const errorType = isRefundOrder ? _t("сторно бон") : _t("фискален бон");
+
                         this.env.services.notification.add(
-                            _t("Грешка при фискален печат: ") +
+                            _t("Грешка при печат на ") + errorType + ": " +
                             (result.message?.body || "Неизвестна грешка") +
                             _t("\n\nПоръчката НЕ МОЖЕ да бъде валидирана без фискален бон!"),
                             {
@@ -138,6 +173,51 @@ patch(PaymentScreen.prototype, {
         // ════════════════════════════════════════════════════════════
         console.log("[FiscalPayment] ✅ Proceeding to normal order validation...");
         return await super.validateOrder(isForceValidate);
+    },
+
+    /**
+     * Проверява дали поръчката е сторно (refund)
+     *
+     * @param {Object} order - POS Order
+     * @returns {Boolean} true ако е сторно поръчка
+     */
+    _isRefundOrder(order) {
+        const orderLines = order.lines || order.get_orderlines?.() || [];
+
+        // Проверяваме дали има линии с отрицателни количества
+        // или дали има refunded_orderline_id
+        for (const line of orderLines) {
+            const qty = line.get_quantity?.() || line.qty || 0;
+
+            // Ако има отрицателно количество И има refunded_orderline_id -> СТОРНО
+            if (qty < 0 && line.refunded_orderline_id) {
+                console.log("[FiscalPayment] Found refund line:", line);
+                console.log("[FiscalPayment]    Qty:", qty);
+                console.log("[FiscalPayment]    Refunded line:", line.refunded_orderline_id);
+                return true;
+            }
+        }
+
+        return false;
+    },
+
+    /**
+     * Определя причината за сторниране
+     *
+     * @param {Object} order - POS Order
+     * @returns {String} "operator-error", "refund", или "tax-base-reduction"
+     */
+    _getRefundReason(order) {
+        // Може да добавите логика за избор на причина
+        // Например от popup или от order properties
+
+        // По подразбиране връщаме "refund"
+        return "refund";
+
+        // Алтернативно можете да проверите:
+        // if (order.refund_reason) return order.refund_reason;
+        // if (order.is_operator_error) return "operator-error";
+        // if (order.is_tax_reduction) return "tax-base-reduction";
     }
 });
 

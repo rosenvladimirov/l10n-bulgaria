@@ -166,9 +166,10 @@ export class ErpNetFPPrinter {
      *
      * @param {Object} order - POS Order обект
      * @param {Object} posConfig - POS Configuration
+     * @param {Object} options - Допълнителни опции (operator, operatorPassword, info, etc.)
      * @returns {Object} Fiscal receipt data
      */
-    _prepareFiscalReceiptData(order, posConfig) {
+    _prepareFiscalReceiptData(order, posConfig, options = {}) {
         const items = [];
 
         // В Odoo 18 е order.lines
@@ -179,7 +180,7 @@ export class ErpNetFPPrinter {
                 text: line.get_full_product_name?.() ||
                       line.full_product_name ||
                       line.product?.display_name ||
-                      _t("Продукт"),
+                      _t("Product"),
                 quantity: line.get_quantity?.() || line.qty || 0,
                 unitPrice: line.get_unit_display_price?.() || line.price || 0,
                 taxGroup: this._getTaxGroup(line, order),
@@ -202,6 +203,7 @@ export class ErpNetFPPrinter {
         for (const payment of paymentLines) {
             const paymentAmount = Math.max(0, payment.get_amount?.() || payment.amount || 0);
             const paymentType = this._getPaymentType(payment);
+            if (paymentAmount <= 0) continue;
 
             payments.push({
                 amount: paymentAmount,
@@ -213,11 +215,26 @@ export class ErpNetFPPrinter {
         // Формат: XX123456-YYYY-1234567 (ErpNet.FP изискване)
         const uniqueSaleNumber = this._formatUniqueSaleNumber(order, posConfig);
 
-        return {
+        const receiptData = {
             uniqueSaleNumber: uniqueSaleNumber,
             items: items,
             payments: payments,
         };
+
+        // Operator credentials (ако са предоставени)
+        if (options.operator) {
+            receiptData.operator = options.operator;
+        }
+        if (options.operatorPassword) {
+            receiptData.operatorPassword = options.operatorPassword;
+        }
+
+        // Info section (ако е предоставена)
+        if (options.info) {
+            receiptData.info = options.info;
+        }
+
+        return receiptData;
     }
 
     /**
@@ -427,5 +444,488 @@ export class ErpNetFPPrinter {
             },
             errorCode: "ERPNET_FP_CONFIG_ERROR",
         };
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // ДОПЪЛНИТЕЛНИ ERPNET.FP МЕТОДИ
+    // ═══════════════════════════════════════════════════════════════
+
+    /**
+     * Печат на сторно бон (Reversal Receipt)
+     * КРИТИЧНО: Законово изискване в България!
+     *
+     * @param {Object} originalReceipt - Оригинален бон данни
+     * @param {Object} order - POS Order с продуктите за сторниране
+     * @param {String} reason - Причина: "operator-error", "refund", "tax-base-reduction"
+     * @returns {Promise<Object>} Result
+     */
+    async printReversalReceipt(originalReceipt, order, reason = "operator-error") {
+        console.log("[ErpNetFPPrinter] 🔄 printReversalReceipt() called");
+
+        if (!this.baseUrl || !this.printerId) {
+            console.error("[ErpNetFPPrinter] ❌ Printer not configured!");
+            return this.getConfigError();
+        }
+
+        if (!originalReceipt || !originalReceipt.receiptNumber) {
+            return {
+                successful: false,
+                message: {
+                    title: _t("Липсва оригинален бон"),
+                    body: _t("Трябва да предоставите данни от оригиналния бон."),
+                },
+            };
+        }
+
+        const posConfig = order.pos?.config || order.config || { name: "POS" };
+        const receiptData = this._prepareFiscalReceiptData(order, posConfig);
+
+        // Добавяме данните от оригиналния бон
+        receiptData.receiptNumber = originalReceipt.receiptNumber;
+        receiptData.receiptDateTime = originalReceipt.receiptDateTime;
+        receiptData.fiscalMemorySerialNumber = originalReceipt.fiscalMemorySerialNumber;
+        receiptData.reason = reason;
+
+        // ВАЖНО: uniqueSaleNumber трябва да е същият като оригиналния!
+        receiptData.uniqueSaleNumber = originalReceipt.uniqueSaleNumber;
+
+        try {
+            const url = `${this.baseUrl}/printers/${encodeURIComponent(this.printerId)}/reversalreceipt`;
+
+            console.log("[ErpNetFPPrinter] 🌐 POST reversal to:", url);
+
+            const response = await this._fetchWithTimeout(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify(receiptData),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (result.ok) {
+                console.log("[ErpNetFPPrinter] ✅ Reversal print SUCCESS!");
+                return {
+                    successful: true,
+                    fiscalData: {
+                        receiptNumber: result.receiptNumber,
+                        fiscalMemorySerialNumber: result.fiscalMemorySerialNumber,
+                    },
+                };
+            } else {
+                throw new Error(this._extractErrorMessages(result));
+            }
+        } catch (error) {
+            console.error("[ErpNetFPPrinter] ❌ Reversal error:", error);
+            return {
+                successful: false,
+                message: {
+                    title: _t("Грешка при сторно печат"),
+                    body: error.message || _t("Неизвестна грешка"),
+                },
+            };
+        }
+    }
+
+    /**
+     * X Отчет (междинен, без нулиране)
+     *
+     * @param {String} operator - Оператор ID
+     * @param {String} operatorPassword - Парола на оператор
+     * @returns {Promise<Object>} Result
+     */
+    async printXReport(operator = "1", operatorPassword = "0000") {
+        console.log("[ErpNetFPPrinter] 📊 printXReport() called");
+
+        if (!this.baseUrl || !this.printerId) {
+            return this.getConfigError();
+        }
+
+        try {
+            const url = `${this.baseUrl}/printers/${encodeURIComponent(this.printerId)}/xreport`;
+
+            const response = await this._fetchWithTimeout(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify({
+                    operator: operator,
+                    operatorPassword: operatorPassword,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (result.ok) {
+                console.log("[ErpNetFPPrinter] ✅ X Report SUCCESS!");
+                return { successful: true };
+            } else {
+                throw new Error(this._extractErrorMessages(result));
+            }
+        } catch (error) {
+            console.error("[ErpNetFPPrinter] ❌ X Report error:", error);
+            return {
+                successful: false,
+                message: {
+                    title: _t("Грешка при X отчет"),
+                    body: error.message,
+                },
+            };
+        }
+    }
+
+    /**
+     * Z Отчет (дневен фискален, с нулиране)
+     * КРИТИЧНО: Законово изискване - задължителен в края на деня!
+     *
+     * @param {String} operator - Оператор ID
+     * @param {String} operatorPassword - Парола на оператор
+     * @returns {Promise<Object>} Result
+     */
+    async printZReport(operator = "1", operatorPassword = "0000") {
+        console.log("[ErpNetFPPrinter] 📊 printZReport() called");
+
+        if (!this.baseUrl || !this.printerId) {
+            return this.getConfigError();
+        }
+
+        try {
+            const url = `${this.baseUrl}/printers/${encodeURIComponent(this.printerId)}/zreport`;
+
+            const response = await this._fetchWithTimeout(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify({
+                    operator: operator,
+                    operatorPassword: operatorPassword,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (result.ok) {
+                console.log("[ErpNetFPPrinter] ✅ Z Report SUCCESS!");
+                return { successful: true };
+            } else {
+                throw new Error(this._extractErrorMessages(result));
+            }
+        } catch (error) {
+            console.error("[ErpNetFPPrinter] ❌ Z Report error:", error);
+            return {
+                successful: false,
+                message: {
+                    title: _t("Грешка при Z отчет"),
+                    body: error.message,
+                },
+            };
+        }
+    }
+
+    /**
+     * Служебно вкарване на пари в касата (Deposit)
+     *
+     * @param {Number} amount - Сума
+     * @param {String} text - Описание
+     * @returns {Promise<Object>} Result
+     */
+    async depositMoney(amount, text = "Начална каса") {
+        console.log("[ErpNetFPPrinter] 💰 depositMoney() called");
+
+        if (!this.baseUrl || !this.printerId) {
+            return this.getConfigError();
+        }
+
+        try {
+            const url = `${this.baseUrl}/printers/${encodeURIComponent(this.printerId)}/deposit`;
+
+            const response = await this._fetchWithTimeout(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify({
+                    amount: amount,
+                    text: text,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (result.ok) {
+                console.log("[ErpNetFPPrinter] ✅ Deposit SUCCESS!");
+                return { successful: true };
+            } else {
+                throw new Error(this._extractErrorMessages(result));
+            }
+        } catch (error) {
+            console.error("[ErpNetFPPrinter] ❌ Deposit error:", error);
+            return {
+                successful: false,
+                message: {
+                    title: _t("Грешка при вкарване на пари"),
+                    body: error.message,
+                },
+            };
+        }
+    }
+
+    /**
+     * Служебно изкарване на пари от касата (Withdraw)
+     *
+     * @param {Number} amount - Сума
+     * @param {String} text - Описание
+     * @returns {Promise<Object>} Result
+     */
+    async withdrawMoney(amount, text = "Разход") {
+        console.log("[ErpNetFPPrinter] 💸 withdrawMoney() called");
+
+        if (!this.baseUrl || !this.printerId) {
+            return this.getConfigError();
+        }
+
+        try {
+            const url = `${this.baseUrl}/printers/${encodeURIComponent(this.printerId)}/withdraw`;
+
+            const response = await this._fetchWithTimeout(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify({
+                    amount: amount,
+                    text: text,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (result.ok) {
+                console.log("[ErpNetFPPrinter] ✅ Withdraw SUCCESS!");
+                return { successful: true };
+            } else {
+                throw new Error(this._extractErrorMessages(result));
+            }
+        } catch (error) {
+            console.error("[ErpNetFPPrinter] ❌ Withdraw error:", error);
+            return {
+                successful: false,
+                message: {
+                    title: _t("Грешка при изкарване на пари"),
+                    body: error.message,
+                },
+            };
+        }
+    }
+
+    /**
+     * Проверка на статуса на принтера
+     *
+     * @returns {Promise<Object>} Status information
+     */
+    async getStatus() {
+        if (!this.baseUrl || !this.printerId) {
+            return { successful: false, online: false };
+        }
+
+        try {
+            const url = `${this.baseUrl}/printers/${encodeURIComponent(this.printerId)}/status`;
+
+            const response = await this._fetchWithTimeout(url, {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                },
+            }, 5000); // По-кратък timeout за status check
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            return {
+                successful: true,
+                online: result.ok,
+                deviceDateTime: result.deviceDateTime,
+                messages: result.messages,
+            };
+        } catch (error) {
+            console.error("[ErpNetFPPrinter] Status check error:", error);
+            return {
+                successful: false,
+                online: false,
+            };
+        }
+    }
+
+    /**
+     * Получаване на информация за принтера
+     *
+     * @returns {Promise<Object>} Printer information
+     */
+    async getPrinterInfo() {
+        if (!this.baseUrl || !this.printerId) {
+            return { successful: false };
+        }
+
+        try {
+            const url = `${this.baseUrl}/printers/${encodeURIComponent(this.printerId)}`;
+
+            const response = await this._fetchWithTimeout(url, {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            return {
+                successful: true,
+                info: result,
+            };
+        } catch (error) {
+            console.error("[ErpNetFPPrinter] Get info error:", error);
+            return {
+                successful: false,
+                message: error.message,
+            };
+        }
+    }
+
+    /**
+     * Получаване на текущата сума в касата
+     *
+     * @returns {Promise<Object>} Cash amount
+     */
+    async getCurrentCash() {
+        if (!this.baseUrl || !this.printerId) {
+            return { successful: false };
+        }
+
+        try {
+            const url = `${this.baseUrl}/printers/${encodeURIComponent(this.printerId)}/cash`;
+
+            const response = await this._fetchWithTimeout(url, {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (result.ok) {
+                return {
+                    successful: true,
+                    amount: result.amount,
+                };
+            } else {
+                throw new Error(this._extractErrorMessages(result));
+            }
+        } catch (error) {
+            console.error("[ErpNetFPPrinter] Get cash error:", error);
+            return {
+                successful: false,
+                message: error.message,
+            };
+        }
+    }
+
+    /**
+     * Печат на дубликат на последния бон
+     *
+     * @returns {Promise<Object>} Result
+     */
+    async printLastReceiptDuplicate() {
+        console.log("[ErpNetFPPrinter] 📄 printLastReceiptDuplicate() called");
+
+        if (!this.baseUrl || !this.printerId) {
+            return this.getConfigError();
+        }
+
+        try {
+            const url = `${this.baseUrl}/printers/${encodeURIComponent(this.printerId)}/lastreceipt`;
+
+            const response = await this._fetchWithTimeout(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (result.ok) {
+                console.log("[ErpNetFPPrinter] ✅ Duplicate print SUCCESS!");
+                return { successful: true };
+            } else {
+                throw new Error(this._extractErrorMessages(result));
+            }
+        } catch (error) {
+            console.error("[ErpNetFPPrinter] ❌ Duplicate print error:", error);
+            return {
+                successful: false,
+                message: {
+                    title: _t("Грешка при печат на дубликат"),
+                    body: error.message,
+                },
+            };
+        }
+    }
+
+    /**
+     * Helper: Извлича error съобщения от result
+     */
+    _extractErrorMessages(result) {
+        if (Array.isArray(result.messages)) {
+            return result.messages
+                .filter((m) => m.type === "error")
+                .map((m) => m.text || m.code)
+                .join("; ");
+        }
+        return _t("Принтерът върна грешка");
     }
 }

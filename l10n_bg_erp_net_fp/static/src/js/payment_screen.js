@@ -1,3 +1,4 @@
+
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
@@ -48,9 +49,9 @@ patch(PaymentScreen.prototype, {
             // ════════════════════════════════════════════════════════════
             // ПРОВЕРКА: Дали е СТОРНО поръчка?
             // ════════════════════════════════════════════════════════════
-            const isRefundOrder = this._isRefundOrder(order);
+            const refundInfo = this._getRefundInfo(order);
 
-            console.log("[FiscalPayment] Is refund order:", isRefundOrder);
+            console.log("[FiscalPayment] Is refund order:", refundInfo.isRefund);
 
             try {
                 // Създаваме fiscal printer instance
@@ -64,13 +65,18 @@ patch(PaymentScreen.prototype, {
                 // ════════════════════════════════════════════════════════════
                 // АКО Е СТОРНО - ИЗПРАЩАМЕ REVERSAL RECEIPT
                 // ════════════════════════════════════════════════════════════
-                if (isRefundOrder) {
+                if (refundInfo.isRefund && refundInfo.originalOrder) {
                     console.log("[FiscalPayment] 🔄 Processing REFUND order...");
+                    console.log("[FiscalPayment] Original order:", refundInfo.originalOrder.name);
 
                     const reason = this._getRefundReason(order);
                     console.log("[FiscalPayment] Refund reason:", reason);
 
-                    result = await fiscalPrinter.printReversalReceipt(order, reason);
+                    result = await fiscalPrinter.printReversalReceipt(
+                        refundInfo.originalOrder,
+                        order,
+                        reason
+                    );
 
                 }
                 // ════════════════════════════════════════════════════════════
@@ -96,7 +102,7 @@ patch(PaymentScreen.prototype, {
                     order.l10n_bg_fiscal_memory_number = result.fiscalData?.fiscalMemorySerialNumber;
                     order.l10n_bg_is_fiscalized = true;  // ← FLAG за BasePrinter!
 
-                    if (isRefundOrder) {
+                    if (refundInfo.isRefund) {
                         order.l10n_bg_is_reversal = true;  // ← Маркираме като сторно
                     }
 
@@ -106,7 +112,7 @@ patch(PaymentScreen.prototype, {
 
                     // Notification за успех
                     if (this.env?.services?.notification) {
-                        const message = isRefundOrder
+                        const message = refundInfo.isRefund
                             ? _t("Сторно бон отпечатан ")
                             : _t("Фискален бон отпечатан ");
 
@@ -126,7 +132,7 @@ patch(PaymentScreen.prototype, {
                     // ════════════════════════════════════════════════════════════
 
                     if (this.env?.services?.notification) {
-                        const errorType = isRefundOrder ? _t("сторно бон") : _t("фискален бон");
+                        const errorType = refundInfo.isRefund ? _t("сторно бон") : _t("фискален бон");
 
                         this.env.services.notification.add(
                             _t("Грешка при печат на ") + errorType + ": " +
@@ -176,29 +182,40 @@ patch(PaymentScreen.prototype, {
     },
 
     /**
-     * Проверява дали поръчката е сторно (refund)
+     * Извлича информация за сторно поръчка
      *
      * @param {Object} order - POS Order
-     * @returns {Boolean} true ако е сторно поръчка
+     * @returns {Object} { isRefund: boolean, originalOrder: Object|null }
      */
-    _isRefundOrder(order) {
+    _getRefundInfo(order) {
         const orderLines = order.lines || order.get_orderlines?.() || [];
 
         // Проверяваме дали има линии с отрицателни количества
-        // или дали има refunded_orderline_id
+        // и извличаме оригиналния order
         for (const line of orderLines) {
             const qty = line.get_quantity?.() || line.qty || 0;
 
             // Ако има отрицателно количество И има refunded_orderline_id -> СТОРНО
             if (qty < 0 && line.refunded_orderline_id) {
-                console.log("[FiscalPayment] Found refund line:", line);
-                console.log("[FiscalPayment]    Qty:", qty);
+                const originalOrder = line.refunded_orderline_id.order_id;
+
+                console.log("[FiscalPayment] 📋 Found refund line:");
+                console.log("[FiscalPayment]    Current line qty:", qty);
                 console.log("[FiscalPayment]    Refunded line:", line.refunded_orderline_id);
-                return true;
+                console.log("[FiscalPayment]    Original order:", originalOrder?.name);
+                console.log("[FiscalPayment]    Original order fiscal #:", originalOrder?.l10n_bg_fiscal_receipt_number);
+
+                return {
+                    isRefund: true,
+                    originalOrder: originalOrder,
+                };
             }
         }
 
-        return false;
+        return {
+            isRefund: false,
+            originalOrder: null,
+        };
     },
 
     /**

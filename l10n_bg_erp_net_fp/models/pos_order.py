@@ -26,6 +26,11 @@ class PosOrder(models.Model):
         readonly=True,
         help='Is the order fiscalized?'
     )
+    l10n_bg_is_reversal = fields.Boolean(
+        string='Is reversal?',
+        readonly=True,
+        help='Is the order reversal?'
+    )
 
     # @api.model
     # def _order_fields(self, ui_order):

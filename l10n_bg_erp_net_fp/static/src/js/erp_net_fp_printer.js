@@ -530,45 +530,105 @@ export class ErpNetFPPrinter {
      * Печат на сторно бон (Reversal Receipt)
      * КРИТИЧНО: Законово изискване в България!
      *
-     * @param {Object} originalReceipt - Оригинален бон данни
-     * @param {Object} order - POS Order с продуктите за сторниране
+     * @param {Object} originalOrder - Оригиналната поръчка (която се сторнира)
+     * @param {Object} refundOrder - Текущата сторно поръчка
      * @param {String} reason - Причина: "operator-error", "refund", "tax-base-reduction"
      * @returns {Promise<Object>} Result
      */
-    async printReversalReceipt(originalReceipt, order, reason = "operator-error") {
+    async printReversalReceipt(originalOrder, refundOrder, reason = "refund") {
         console.log("[ErpNetFPPrinter] 🔄 printReversalReceipt() called");
+        console.log("[ErpNetFPPrinter]    Original order:", originalOrder?.name);
+        console.log("[ErpNetFPPrinter]    Refund order:", refundOrder?.name);
 
         if (!this.baseUrl || !this.printerId) {
             console.error("[ErpNetFPPrinter] ❌ Printer not configured!");
             return this.getConfigError();
         }
 
-        if (!originalReceipt || !originalReceipt.receiptNumber) {
+        if (!originalOrder) {
             return {
                 successful: false,
                 message: {
-                    title: _t("Липсва оригинален бон"),
-                    body: _t("Трябва да предоставите данни от оригиналния бон."),
+                    title: _t("Липсва оригинална поръчка"),
+                    body: _t("Не може да се намери оригиналната поръчка за сторниране."),
                 },
             };
         }
 
-        const posConfig = order.pos?.config || order.config || { name: "POS" };
-        const receiptData = this._prepareFiscalReceiptData(order, posConfig);
+        // ════════════════════════════════════════════════════════════
+        // ИЗВЛИЧАМЕ ФИСКАЛНИТЕ ДАННИ ОТ ОРИГИНАЛНАТА ПОРЪЧКА
+        // ════════════════════════════════════════════════════════════
+        const originalFiscalData = {
+            receiptNumber: originalOrder.l10n_bg_fiscal_receipt_number,
+            receiptDateTime: originalOrder.l10n_bg_fiscal_receipt_datetime,
+            fiscalMemorySerialNumber: originalOrder.l10n_bg_fiscal_memory_number,
+            uniqueSaleNumber: originalOrder.l10n_bg_unique_sale_number,
+        };
+
+        console.log("[ErpNetFPPrinter] 📋 Original fiscal data:");
+        console.log("[ErpNetFPPrinter]    Receipt #:", originalFiscalData.receiptNumber);
+        console.log("[ErpNetFPPrinter]    Receipt DateTime:", originalFiscalData.receiptDateTime);
+        console.log("[ErpNetFPPrinter]    Fiscal Memory #:", originalFiscalData.fiscalMemorySerialNumber);
+        console.log("[ErpNetFPPrinter]    Unique Sale #:", originalFiscalData.uniqueSaleNumber);
+
+        // Валидация
+        if (!originalFiscalData.receiptNumber) {
+            return {
+                successful: false,
+                message: {
+                    title: _t("Липсва фискален номер"),
+                    body: _t("Оригиналната поръчка няма фискален номер. Не може да се направи сторно."),
+                },
+            };
+        }
+
+        // Ако няма uniqueSaleNumber, опитваме се да го реконструираме
+        if (!originalFiscalData.uniqueSaleNumber) {
+            console.warn("[ErpNetFPPrinter] ⚠️ uniqueSaleNumber not found in original order, reconstructing...");
+            const posConfig = originalOrder.pos?.config || originalOrder.config || { name: "POS" };
+            originalFiscalData.uniqueSaleNumber = this._formatUniqueSaleNumber(originalOrder, posConfig);
+        }
+
+        // Конвертираме receiptDateTime към ErpNet.FP формат ако е в Odoo формат
+        if (originalFiscalData.receiptDateTime && originalFiscalData.receiptDateTime.includes(' ')) {
+            // От "2019-05-17 13:55:18" към "2019-05-17T13:55:18"
+            originalFiscalData.receiptDateTime = originalFiscalData.receiptDateTime.replace(' ', 'T');
+        }
+
+        // ════════════════════════════════════════════════════════════
+        // ПОДГОТВЯМЕ СТОРНО ДАННИТЕ С ПОЛОЖИТЕЛНИ СТОЙНОСТИ
+        // ════════════════════════════════════════════════════════════
+        const posConfig = refundOrder.pos?.config || refundOrder.config || { name: "POS" };
+
+        // ВАЖНО: Подаваме isReversal: true за да конвертира към положителни стойности
+        const receiptData = this._prepareFiscalReceiptData(refundOrder, posConfig, { isReversal: true });
 
         // Добавяме данните от оригиналния бон
-        receiptData.receiptNumber = originalReceipt.receiptNumber;
-        receiptData.receiptDateTime = originalReceipt.receiptDateTime;
-        receiptData.fiscalMemorySerialNumber = originalReceipt.fiscalMemorySerialNumber;
+        receiptData.receiptNumber = originalFiscalData.receiptNumber;
+        receiptData.receiptDateTime = originalFiscalData.receiptDateTime;
+        receiptData.fiscalMemorySerialNumber = originalFiscalData.fiscalMemorySerialNumber;
         receiptData.reason = reason;
 
         // ВАЖНО: uniqueSaleNumber трябва да е същият като оригиналния!
-        receiptData.uniqueSaleNumber = originalReceipt.uniqueSaleNumber;
+        receiptData.uniqueSaleNumber = originalFiscalData.uniqueSaleNumber;
 
+        console.log("[ErpNetFPPrinter] 📤 Reversal receipt data:");
+        console.log("[ErpNetFPPrinter]    uniqueSaleNumber:", receiptData.uniqueSaleNumber);
+        console.log("[ErpNetFPPrinter]    receiptNumber:", receiptData.receiptNumber);
+        console.log("[ErpNetFPPrinter]    receiptDateTime:", receiptData.receiptDateTime);
+        console.log("[ErpNetFPPrinter]    fiscalMemorySerialNumber:", receiptData.fiscalMemorySerialNumber);
+        console.log("[ErpNetFPPrinter]    reason:", receiptData.reason);
+        console.log("[ErpNetFPPrinter]    items:", receiptData.items);
+        console.log("[ErpNetFPPrinter]    payments:", receiptData.payments);
+
+        // ════════════════════════════════════════════════════════════
+        // ИЗПРАЩАМЕ КЪМ FISCAL PRINTER
+        // ════════════════════════════════════════════════════════════
         try {
             const url = `${this.baseUrl}/printers/${encodeURIComponent(this.printerId)}/reversalreceipt`;
 
             console.log("[ErpNetFPPrinter] 🌐 POST reversal to:", url);
+            console.log("[ErpNetFPPrinter] 📤 Body:", JSON.stringify(receiptData, null, 2));
 
             const response = await this._fetchWithTimeout(url, {
                 method: "POST",
@@ -580,17 +640,42 @@ export class ErpNetFPPrinter {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
+                const errorText = await response.text();
+                console.error("[ErpNetFPPrinter] ❌ HTTP error:", response.status, errorText);
+                throw new Error(`HTTP ${response.status}: ${errorText}`);
             }
 
             const result = await response.json();
+            console.log("[ErpNetFPPrinter] 📥 Reversal response:", result);
 
             if (result.ok) {
                 console.log("[ErpNetFPPrinter] ✅ Reversal print SUCCESS!");
+                console.log("[ErpNetFPPrinter]    Reversal Receipt #:", result.receiptNumber);
+
+                // Актуализираме refund order с данните от сторно бона
+                if (refundOrder) {
+                    refundOrder.l10n_bg_fiscal_receipt_number = result.receiptNumber;
+
+                    if (result.receiptDateTime) {
+                        const dateTimeStr = result.receiptDateTime
+                            .replace('T', ' ')
+                            .replace('Z', '')
+                            .split('.')[0];
+                        refundOrder.l10n_bg_fiscal_receipt_datetime = dateTimeStr;
+                    }
+
+                    refundOrder.l10n_bg_fiscal_memory_number = result.fiscalMemorySerialNumber;
+                    refundOrder.l10n_bg_is_fiscalized = true;
+                    refundOrder.l10n_bg_is_reversal = true;  // Маркираме като сторно
+
+                    console.log("[ErpNetFPPrinter] ✅ Reversal order updated with fiscal data");
+                }
+
                 return {
                     successful: true,
                     fiscalData: {
                         receiptNumber: result.receiptNumber,
+                        receiptDateTime: result.receiptDateTime,
                         fiscalMemorySerialNumber: result.fiscalMemorySerialNumber,
                     },
                 };
@@ -605,6 +690,7 @@ export class ErpNetFPPrinter {
                     title: _t("Грешка при сторно печат"),
                     body: error.message || _t("Неизвестна грешка"),
                 },
+                errorCode: "ERPNET_FP_REVERSAL_ERROR",
             };
         }
     }

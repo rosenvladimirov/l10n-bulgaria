@@ -210,7 +210,7 @@ export class ErpNetFPPrinter {
      */
     _prepareFiscalReceiptData(order, posConfig, options = {}) {
         const items = [];
-        const amount_return = order.amount_return;
+        let amount_return = 0;
         let all_payments = 0;
         const isReversal = options.isReversal || false;
 
@@ -220,7 +220,7 @@ export class ErpNetFPPrinter {
         for (const line of orderLines) {
             // Вземаме количеството
             let quantity = line.get_quantity?.() || line.qty || 0;
-            let unitPrice = line.get_display_price?.() || line.price || 0;
+            let unitPrice = line.get_unit_display_price?.() || line.price || 0;
 
             // ════════════════════════════════════════════════════════════
             // ВАЖНО: За сторно бонове ErpNet.FP изисква ПОЛОЖИТЕЛНИ стойности
@@ -244,9 +244,9 @@ export class ErpNetFPPrinter {
             if (discount && discount > 0) {
                 item.priceModifierType = "discount-percent";
                 item.priceModifierValue = discount;
-                item.unitPrice = line.getUnitDisplayPriceBeforeDiscount?.() * line.get_quantity() || (item.unitPrice / (1 - discount / 100))*line.get_quantity();
+                item.unitPrice = line.getUnitDisplayPriceBeforeDiscount?.() || (item.unitPrice / (1 - discount / 100));
             }
-
+            amount_return += parseFloat((item.quantity * item.unitPrice).toFixed(2));
             items.push(item);
         }
 
@@ -280,9 +280,9 @@ export class ErpNetFPPrinter {
         }
 
         // Добавяме рестото ако има (само за нормални бонове, не за сторно)
-        if (!isReversal && all_payments > 0 && amount_return < 0 && all_payments + amount_return !== 0) {
+        if (!isReversal && all_payments > 0 && amount_return > 0 && all_payments - amount_return !== 0) {
             payments.push({
-                amount: (all_payments + amount_return) * -1,
+                amount: parseFloat(((all_payments - amount_return) * -1).toFixed(2)),
                 paymentType: 'change',
             });
         }

@@ -210,13 +210,81 @@ export class ErpNetFPPrinter {
         }
 
         // Уникален номер на продажбата
-        const uniqueSaleNumber = `${posConfig?.name || "POS"}-${order.name || order.uid}`;
+        // Формат: XX123456-YYYY-1234567 (ErpNet.FP изискване)
+        const uniqueSaleNumber = this._formatUniqueSaleNumber(order, posConfig);
 
         return {
             uniqueSaleNumber: uniqueSaleNumber,
             items: items,
             payments: payments,
         };
+    }
+
+    /**
+     * Форматира уникален номер на продажбата според ErpNet.FP изискванията
+     *
+     * Формат: XX123456-YYYY-1234567
+     * - XX123456: Printer ID (например DT279013, dt737851 -> DT737851)
+     * - YYYY: 4 буквено-цифрени символа (POS session илиsequencial counter)
+     * - 1234567: 7 цифри (order sequence number)
+     *
+     * Regex: ^[A-Z]{2}[0-9]{6}-[A-Z0-9]{4}-[0-9]{7}$
+     *
+     * @param {Object} order - POS Order обект
+     * @param {Object} posConfig - POS Configuration
+     * @returns {String} Форматиран уникален номер
+     */
+    _formatUniqueSaleNumber(order, posConfig) {
+        // Част 1: Printer ID (2 букви + 6 цифри)
+        // Пример: dt737851 -> DT737851
+        const printerIdUpper = this.printerId.toUpperCase();
+
+        // Извличаме букви и цифри от printer ID
+        let letters = "";
+        let digits = "";
+
+        for (let char of printerIdUpper) {
+            if (/[A-Z]/.test(char) && letters.length < 2) {
+                letters += char;
+            } else if (/[0-9]/.test(char) && digits.length < 6) {
+                digits += char;
+            }
+        }
+
+        // Гарантираме, че имаме точно 2 букви и 6 цифри
+        while (letters.length < 2) letters += "XX"[letters.length];
+        while (digits.length < 6) digits = "0" + digits;
+
+        const printerPart = letters + digits;
+
+        // Част 2: 4 буквено-цифрени символа - POS config ID като 4-символен код
+        const posId = posConfig?.id || posConfig?.session_id || 1;
+        const posPart = String(posId).padStart(4, '0').slice(-4);
+
+        // Част 3: 7 цифри - order sequence number
+        // Опитваме се да извлечем числа от order.name
+        let orderNumber = String(order.sequence_number || order.id || 1);
+
+        if (order.name) {
+            const matches = order.name.match(/\d+/g);
+            if (matches && matches.length > 0) {
+                // Вземаме всички числа и ги комбинираме
+                orderNumber = matches.join('');
+            }
+        }
+
+        // Вземаме последните 7 цифри или допълваме с нули
+        const orderSeq = orderNumber.padStart(7, '0').slice(-7);
+
+        // Комбинираме всички части
+        const uniqueSaleNumber = `${printerPart}-${posPart}-${orderSeq}`;
+
+        console.log("[ErpNetFPPrinter] Generated uniqueSaleNumber:", uniqueSaleNumber);
+        console.log("[ErpNetFPPrinter]    Printer ID part:", printerPart, `(from ${this.printerId})`);
+        console.log("[ErpNetFPPrinter]    POS/Session part:", posPart);
+        console.log("[ErpNetFPPrinter]    Order seq:", orderSeq);
+
+        return uniqueSaleNumber;
     }
 
     /**

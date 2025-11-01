@@ -220,7 +220,7 @@ export class ErpNetFPPrinter {
         for (const line of orderLines) {
             // Вземаме количеството
             let quantity = line.get_quantity?.() || line.qty || 0;
-            let unitPrice = line.get_unit_display_price?.() || line.price || 0;
+            let unitPrice = line.get_display_price?.() || line.price || 0;
 
             // ════════════════════════════════════════════════════════════
             // ВАЖНО: За сторно бонове ErpNet.FP изисква ПОЛОЖИТЕЛНИ стойности
@@ -244,7 +244,7 @@ export class ErpNetFPPrinter {
             if (discount && discount > 0) {
                 item.priceModifierType = "discount-percent";
                 item.priceModifierValue = discount;
-                item.unitPrice = line.getUnitDisplayPriceBeforeDiscount?.() || (item.unitPrice / (1 - discount / 100));
+                item.unitPrice = line.getUnitDisplayPriceBeforeDiscount?.() * line.get_quantity() || (item.unitPrice / (1 - discount / 100))*line.get_quantity();
             }
 
             items.push(item);

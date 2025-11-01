@@ -4,7 +4,6 @@ import { ClosePosPopup } from "@point_of_sale/app/navbar/closing_popup/closing_p
 import { patch } from "@web/core/utils/patch";
 import { _t } from "@web/core/l10n/translation";
 import { ErpNetFPPrinter } from "@l10n_bg_erp_net_fp/js/erp_net_fp_printer";
-import { ConfirmPopup } from "@point_of_sale/app/utils/confirm_popup/confirm_popup";
 
 patch(ClosePosPopup.prototype, {
 
@@ -82,19 +81,6 @@ patch(ClosePosPopup.prototype, {
                 _t("Фискалният принтер не е конфигуриран"),
                 { type: "warning" }
             );
-            return;
-        }
-
-        // Потвърждение преди Z отчет (критично!)
-        const confirmed = await this.env.services.dialog.add(
-            ConfirmPopup,
-            {
-                title: _t("Z Отчет"),
-                body: _t("Z отчетът нулира дневните данни във фискалното устройство. Продължи?"),
-            }
-        );
-
-        if (!confirmed) {
             return;
         }
 

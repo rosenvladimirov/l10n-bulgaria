@@ -230,6 +230,7 @@ export class ErpNetFPPrinter {
             if (discount && discount > 0) {
                 item.priceModifierType = "discount-percent";
                 item.priceModifierValue = discount;
+                item.unitPrice = line.getUnitDisplayPriceBeforeDiscount?.() || (item.unitPrice / (1 - discount / 100));
             }
 
             items.push(item);

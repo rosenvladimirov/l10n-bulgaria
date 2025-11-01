@@ -61,16 +61,6 @@ class PosSession(models.Model):
         ]
 
         res.extend(fiscal_fields)
-
-        # DEBUG лог
-        import logging
-        _logger = logging.getLogger(__name__)
-        _logger.info("=" * 80)
-        _logger.info("POS Session fields to load:")
-        _logger.info(f"  All fields: {res}")
-        _logger.info(f"  Fiscal fields: {fiscal_fields}")
-        _logger.info("=" * 80)
-
         return res
 
     # ========== X ОТЧЕТ ==========
@@ -80,10 +70,10 @@ class PosSession(models.Model):
         self.ensure_one()
 
         if not self.l10n_bg_fiscal_printer_id:
-            raise UserError(_('Няма конфигуриран фискален принтер за тази POS сесия'))
+            raise UserError(_('There is no fiscal printer configured for this POS session'))
 
         if self.state != 'opened':
-            raise UserError(_('X отчет може да се отпечата само при отворена сесия'))
+            raise UserError(_('An X report can only be printed with an open session'))
 
         # Проверка дали принтерът е достъпен
         printer_check = self.l10n_bg_fiscal_printer_id.check_printer_available()

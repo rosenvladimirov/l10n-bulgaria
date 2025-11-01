@@ -203,7 +203,7 @@ export class ErpNetFPPrinter {
         for (const payment of paymentLines) {
             const paymentAmount = Math.max(0, payment.get_amount?.() || payment.amount || 0);
             const paymentType = this._getPaymentType(payment);
-            if (paymentAmount <= 0) continue;
+            if (paymentAmount === 0) continue;
 
             payments.push({
                 amount: paymentAmount,

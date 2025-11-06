@@ -6,16 +6,15 @@
         <field name="inherit_id" ref="account.view_move_line_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='tax_ids']" position="after">
-                <group string="HS/Тарифен код" attrs="{'invisible': [('display_type', '!=', False)]}">
+                <group string="HS/Тарифен код" invisible="display_type">
                     <group>
                         <field name="l10n_bg_tariff_code"
                                widget="char"
                                placeholder="85333900 (CN) / 853339 (HS)"
-                               help="Автоматично от product.hs_code или Intrastat"/>
-                        <field name="l10n_bg_tariff_code_manual"
-                               attrs="{'invisible': [('l10n_bg_tariff_code_manual', '=', False)]}"
-                               placeholder="Ръчно въведен код"/>
-                        <label for="l10n_bg_tariff_rate" string="Тарифна ставка"/>
+                               help="Automatically from product.hs_code or Intrastat"/>
+                        <field name="l10n_bg_tariff_code_manual" invisible="not l10n_bg_tariff_code_manual"
+                               placeholder="Manually entered code"/>
+                        <label for="l10n_bg_tariff_rate" string="Tariff rate"/>
                         <div class="o_row">
                             <field name="l10n_bg_tariff_rate"
                                    widget="percentage"
@@ -26,8 +25,8 @@
                                     string="🔄"
                                     type="object"
                                     class="btn btn-link"
-                                    title="Обнови от TARIC"
-                                    attrs="{'invisible': [('l10n_bg_tariff_code', '=', False)]}"/>
+                                    title="Updated by TARIC"
+                                    invisible="not l10n_bg_tariff_code"/>
                         </div>
                     </group>
                     <group>
@@ -40,7 +39,7 @@
                             <field name="product_id"
                                    string=""
                                    context="{'form_view_ref': 'product.product_template_only_form_view'}"
-                                   attrs="{'readonly': [('parent_state', '!=', 'draft')]}"
+                                   readonly="parent_state != 'draft'"
                                    options="{'no_create': True}"
                                    invisible="1"/>
                             <span attrs="{'invisible': [('product_id', '=', False)]}">

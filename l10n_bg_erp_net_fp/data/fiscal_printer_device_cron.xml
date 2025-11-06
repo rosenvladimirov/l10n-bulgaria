@@ -4,7 +4,7 @@
 
         <!-- Cron за автоматични Z отчети -->
         <record id="ir_cron_generate_z_reports" model="ir.cron">
-            <field name="name">Генериране на автоматични Z отчети</field>
+            <field name="name">Generate automatic Z reports</field>
             <field name="model_id" ref="model_fiscal_printer_device"/>
             <field name="state">code</field>
             <field name="code">model._cron_generate_z_reports()</field>
@@ -15,7 +15,7 @@
 
         <!-- Cron за изчистване на статусна история (седмично) -->
         <record id="ir_cron_cleanup_printer_status_history" model="ir.cron">
-            <field name="name">Изчистване на стара статусна история на принтери</field>
+            <field name="name">Clearing old printer status history</field>
             <field name="model_id" ref="model_fiscal_printer_device"/>
             <field name="state">code</field>
             <field name="code">model._cron_cleanup_status_history()</field>

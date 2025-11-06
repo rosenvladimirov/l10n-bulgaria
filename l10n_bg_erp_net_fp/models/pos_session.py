@@ -263,8 +263,8 @@ class PosSession(models.Model):
                 'type': 'ir.actions.client',
                 'tag': 'display_notification',
                 'params': {
-                    'title': _('Внимание'),
-                    'message': _('Няма конфигуриран фискален принтер'),
+                    'title': _('Attention'),
+                    'message': _('There is no fiscal printer configured'),
                     'type': 'warning',
                 }
             }

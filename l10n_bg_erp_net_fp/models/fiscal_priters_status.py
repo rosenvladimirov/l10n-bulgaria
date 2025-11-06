@@ -16,9 +16,9 @@ class FiscalPrinterDevice(models.Model):
 
     # Настройки за история
     status_history_days = fields.Integer(
-        string='Дни за съхранение на история',
+        string='History storage days',
         default=30,
-        help='Брой дни за запазване на статусна история. По-старите записи се изтриват автоматично.'
+        help='Number of days to keep status history. Older records are automatically deleted.'
     )
 
     @api.depends('status_ids')
@@ -31,7 +31,7 @@ class FiscalPrinterDevice(models.Model):
         """Изчислява текущия статус от последния запис"""
         for printer in self:
             last_status = printer.status_ids.sorted('create_date', reverse=True)[:1]
-            printer.current_status = last_status.status if last_status else 'Няма информация'
+            printer.current_status = last_status.status if last_status else 'There is no information'
             printer.is_ready = last_status.is_ready if last_status else False
 
     def update_status(self):
@@ -52,7 +52,7 @@ class FiscalPrinterDevice(models.Model):
             }
         )
 
-        _logger.info(f"Изпратена заявка за проверка на статус на {self.name}")
+        _logger.info(f"Request sent to check status of {self.name}")
 
     def action_request_status(self):
         """Публичен метод за заявка на статус (извиква се от UI)"""
@@ -65,7 +65,7 @@ class FiscalPrinterDevice(models.Model):
         Крон задача за автоматично изчистване на стара история
         Изпълнява се седмично
         """
-        _logger.info("Започване на изчистване на статусна история на фискални принтери")
+        _logger.info("Start clearing status history of fiscal printers")
 
         printers = self.search([('active', '=', True)])
         total_deleted = 0
@@ -86,15 +86,15 @@ class FiscalPrinterDevice(models.Model):
                     old_statuses.unlink()
                     total_deleted += count
                     _logger.info(
-                        f"Изтрити {count} стари статуса за принтер '{printer.name}' "
+                        f"Deleted {count} old printer status '{printer.name}' "
                         f"(по-стари от {printer.status_history_days} дни)"
                     )
 
             except Exception as e:
-                _logger.error(f"Грешка при изчистване на история за {printer.name}: {str(e)}")
+                _logger.error(f"Error clearing history for {printer.name}: {str(e)}")
                 continue
 
-        _logger.info(f"Приключено изчистване на статусна история. Общо изтрити: {total_deleted} записа")
+        _logger.info(f"Finished clearing status history. Total Deleted: {total_deleted} the record")
         return total_deleted
 
     def action_cleanup_old_status(self):
@@ -112,13 +112,13 @@ class FiscalPrinterDevice(models.Model):
             old_statuses.unlink()
             message = f'Изтрити {count} стари статуса (по-стари от {self.status_history_days} дни)'
         else:
-            message = 'Няма стари статуси за изтриване'
+            message = 'There are no old statuses to delete'
 
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                'title': _('Изчистване на история'),
+                'title': _('Clear history'),
                 'message': message,
                 'type': 'success' if count > 0 else 'info',
             }
@@ -129,7 +129,7 @@ class FiscalPrinterDevice(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': _('История на статуси'),
+            'name': _('Status history'),
             'res_model': 'fiscal.printer.status',
             'view_mode': 'list,form',
             'domain': [('printer_id', '=', self.id)],

@@ -284,3 +284,18 @@ class AccountMove(models.Model):
             'res_id': self.l10n_bg_private_move_id.id,
             'target': 'current',
         }
+
+    def action_open_customs(self):
+        """Отваря свързаната митническа декларация"""
+        self.ensure_one()
+        if not self.l10n_bg_customs_move_id:
+            return False
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Customs declaration for VAT'),
+            'res_model': 'account.move.bg.customs',
+            'res_id': self.l10n_bg_customs_move_id.id,
+            'view_mode': 'form',
+            'target': 'current',
+        }

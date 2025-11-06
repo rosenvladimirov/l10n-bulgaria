@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form_taric" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.taric</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="50" />
+        <field name="inherit_id" ref="l10n_bg_config.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='l10n_bg_contact_setting_container']" position="after">
+                <block title="TARIC API Settings" name="l10n_bg_taric">
+                    <setting
+                        id="l10n_bg_taric_api_enabled_setting"
+                        title="Enable TARIC API"
+                        string="Enable TARIC API"
+                        help="Enable automatic TARIC lookup for tariff rates"
+                    >
+                        <div
+                            class="content-group"
+                            name="l10n_bg_taric_api_enabled_container"
+                        >
+                            <div class="d-flex">
+                                <field
+                                    name="l10n_bg_taric_api_enabled"
+                                    class="ml16"
+                                />
+                                <label
+                                    for="l10n_bg_taric_api_enabled"
+                                    class="o_light_label"
+                                />
+                            </div>
+                        </div>
+                    </setting>
+                    <setting
+                        id="l10n_bg_taric_api_url_setting"
+                        title="TARIC API URL"
+                        string="TARIC API URL"
+                        help="URL of the European TARIC API system"
+                    >
+                        <div
+                            class="content-group"
+                            name="l10n_bg_taric_api_url_container"
+                        >
+                            <div class="row mt16">
+                                <label for="l10n_bg_taric_api_url" string="API URL" class="col-lg-3 o_light_label" />
+                                <field
+                                    name="l10n_bg_taric_api_url"
+                                    class="col-lg-9"
+                                />
+                            </div>
+                        </div>
+                    </setting>
+                    <setting
+                        id="l10n_bg_taric_cache_duration_setting"
+                        title="TARIC Cache Duration"
+                        string="TARIC Cache Duration"
+                        help="How many hours to cache tariff rates"
+                    >
+                        <div
+                            class="content-group"
+                            name="l10n_bg_taric_cache_duration_container"
+                        >
+                            <div class="row mt16">
+                                <label for="l10n_bg_taric_cache_duration" string="Cache Duration (hours)" class="col-lg-3 o_light_label" />
+                                <field
+                                    name="l10n_bg_taric_cache_duration"
+                                    class="col-lg-9"
+                                />
+                            </div>
+                        </div>
+                    </setting>
+                    <setting
+                        id="l10n_bg_default_tariff_rate_setting"
+                        title="Default Tariff Rate"
+                        string="Default Tariff Rate"
+                        help="Default tariff rate when it cannot be found in TARIC"
+                    >
+                        <div
+                            class="content-group"
+                            name="l10n_bg_default_tariff_rate_container"
+                        >
+                            <div class="row mt16">
+                                <label for="l10n_bg_default_tariff_rate" string="Default Rate (%)" class="col-lg-3 o_light_label" />
+                                <field
+                                    name="l10n_bg_default_tariff_rate"
+                                    class="col-lg-9"
+                                />
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

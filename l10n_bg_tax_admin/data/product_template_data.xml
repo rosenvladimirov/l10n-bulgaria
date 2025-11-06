@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <!-- Актуализиране на съществуващ продукт за транспортни разходи -->
+        <!-- Update existing product for transport costs -->
         <record id="stock_landed_costs.product_product_freight_external" model="product.template">
             <field name="l10n_bg_is_customs_expense" eval="True"/>
         </record>
 
-        <!-- Товаро-разтоварни дейности -->
+        <!-- Loading and unloading activities -->
         <record id="product_customs_loading" model="product.template">
-            <field name="name">Товаро-разтоварни дейности</field>
+            <field name="name">Loading and Unloading Services</field>
             <field name="type">service</field>
             <field name="l10n_bg_is_customs_expense" eval="True"/>
             <field name="landed_cost_ok" eval="True"/>
@@ -19,9 +19,9 @@
             <field name="image_1920" type="base64" file="l10n_bg_tax_admin/static/img/forklift.png"/>
         </record>
 
-        <!-- Обработка на товари -->
+        <!-- Cargo handling -->
         <record id="product_customs_handling" model="product.template">
-            <field name="name">Обработка на товари</field>
+            <field name="name">Cargo Handling</field>
             <field name="type">service</field>
             <field name="l10n_bg_is_customs_expense" eval="True"/>
             <field name="landed_cost_ok" eval="True"/>
@@ -32,9 +32,9 @@
             <field name="image_1920" type="base64" file="l10n_bg_tax_admin/static/img/handling.png"/>
         </record>
 
-        <!-- Контейнерни разходи -->
+        <!-- Container charges -->
         <record id="product_customs_container" model="product.template">
-            <field name="name">Контейнерни разходи</field>
+            <field name="name">Container Charges</field>
             <field name="type">service</field>
             <field name="l10n_bg_is_customs_expense" eval="True"/>
             <field name="landed_cost_ok" eval="True"/>
@@ -45,9 +45,9 @@
             <field name="image_1920" type="base64" file="l10n_bg_tax_admin/static/img/container.png"/>
         </record>
 
-        <!-- Застраховка -->
+        <!-- Insurance -->
         <record id="product_customs_insurance" model="product.template">
-            <field name="name">Застраховка на товари</field>
+            <field name="name">Cargo Insurance</field>
             <field name="type">service</field>
             <field name="l10n_bg_is_customs_expense" eval="True"/>
             <field name="landed_cost_ok" eval="True"/>
@@ -58,9 +58,9 @@
             <field name="image_1920" type="base64" file="l10n_bg_tax_admin/static/img/insurance.png"/>
         </record>
 
-        <!-- Комисионна -->
+        <!-- Commission -->
         <record id="product_customs_commission" model="product.template">
-            <field name="name">Комисионна</field>
+            <field name="name">Commission</field>
             <field name="type">service</field>
             <field name="l10n_bg_is_customs_expense" eval="True"/>
             <field name="landed_cost_ok" eval="True"/>
@@ -71,9 +71,9 @@
             <field name="image_1920" type="base64" file="l10n_bg_tax_admin/static/img/commission.png"/>
         </record>
 
-        <!-- Митнически услуги -->
+        <!-- Customs services -->
         <record id="product_customs_brokerage" model="product.template">
-            <field name="name">Митнически услуги</field>
+            <field name="name">Customs Brokerage</field>
             <field name="type">service</field>
             <field name="l10n_bg_is_customs_expense" eval="True"/>
             <field name="landed_cost_ok" eval="True"/>
@@ -84,9 +84,9 @@
             <field name="image_1920" type="base64" file="l10n_bg_tax_admin/static/img/customs.png"/>
         </record>
 
-        <!-- Опаковане -->
+        <!-- Packaging -->
         <record id="product_customs_packaging" model="product.template">
-            <field name="name">Опаковане</field>
+            <field name="name">Packaging</field>
             <field name="type">service</field>
             <field name="l10n_bg_is_customs_expense" eval="True"/>
             <field name="landed_cost_ok" eval="True"/>
@@ -97,9 +97,9 @@
             <field name="image_1920" type="base64" file="l10n_bg_tax_admin/static/img/package.png"/>
         </record>
 
-        <!-- Складиране -->
+        <!-- Storage -->
         <record id="product_customs_storage" model="product.template">
-            <field name="name">Складиране</field>
+            <field name="name">Storage</field>
             <field name="type">service</field>
             <field name="l10n_bg_is_customs_expense" eval="True"/>
             <field name="landed_cost_ok" eval="True"/>

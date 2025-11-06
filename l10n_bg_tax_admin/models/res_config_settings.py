@@ -1,31 +1,34 @@
-
 from odoo import models, fields, api
 
 
-class ResCompany(models.Model):
-    _inherit = 'res.company'
+class ResConfigSettings(models.TransientModel):
+    _inherit = 'res.config.settings'
 
     # TARIC API settings
     l10n_bg_taric_api_url = fields.Char(
+        related='company_id.l10n_bg_taric_api_url',
         string='TARIC API URL',
-        default='https://ec.europa.eu/taxation_customs/dds2/taric/api/v1',
+        readonly=False,
         help="URL of the European TARIC API system"
     )
 
     l10n_bg_taric_api_enabled = fields.Boolean(
+        related='company_id.l10n_bg_taric_api_enabled',
         string='Enable TARIC API',
-        default=True,
+        readonly=False,
         help="Enable automatic TARIC lookup"
     )
 
     l10n_bg_taric_cache_duration = fields.Integer(
+        related='company_id.l10n_bg_taric_cache_duration',
         string='TARIC Cache Duration (hours)',
-        default=24,
+        readonly=False,
         help="How many hours to cache tariff rates"
     )
 
     l10n_bg_default_tariff_rate = fields.Float(
+        related='company_id.l10n_bg_default_tariff_rate',
         string='Default Tariff Rate (%)',
-        default=5.0,
+        readonly=False,
         help="Default tariff rate when it cannot be found in TARIC"
     )

@@ -1,0 +1,31 @@
+
+.o_markdown_content pre {
+    background: #2d2d2d;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+.o_markdown_search {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.o_md_icon_container {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    z-index: 10;
+}
+
+.o_md_icon_container i {
+    font-size: 18px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.o_md_icon_container i:hover {
+    color: #007bff;
+}

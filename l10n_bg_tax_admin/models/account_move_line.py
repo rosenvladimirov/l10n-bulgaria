@@ -10,11 +10,52 @@ _logger = logging.getLogger(__name__)
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
+    l10n_bg_move_type = fields.Selection(
+        related='move_id.l10n_bg_move_type',
+    )
+
     l10n_bg_price_unit = fields.Monetary(
         string='Unit price currency (balance)',
         compute='_compute_l10n_bg_price_unit', store=True, readonly=False,
         currency_field='company_currency_id',
         tracking=True,
+    )
+
+    # ДАНЪК ВЪРХУ РАЗХОДИ В НАТУРА
+    # Метод 1: Изчисляване по изминати километри (чл. 215а, ал. 2, т. 1, буква а)
+    l10n_bg_personal_consumption = fields.Float(
+        string='Personal consumption',
+        help="Mileage for personal use",
+        tracking=True,
+    )
+
+    l10n_bg_total_consumption = fields.Float(
+        string='Total consumption',
+        help="Total kilometers traveled",
+        tracking=True,
+    )
+
+    l10n_bg_consumption_uom_id = fields.Many2one(
+        'uom.uom',
+        string='Мерна единица',
+        domain="[('category_id.name', 'in', ['Length', 'Working Time'])]",
+        default=lambda self: self.env.ref('uom.product_uom_km', raise_if_not_found=False),
+        help="Мерна единица за измерване на консумацията (км или часове)"
+    )
+
+    l10n_bg_consumption_coefficient = fields.Float(
+        string='Коефициент (%)',
+        compute='_compute_l10n_bg_consumption_coefficient',
+        inverse='_inverse_l10n_bg_consumption_coefficient',
+        store=True,
+        readonly=False,
+        help="Съотношение между личната и общата консумация в проценти. "
+             "Автоматично изчислено: (Лична консумация / Общо консумация) × 100"
+    )
+
+    l10n_bg_consumption_coefficient_manual = fields.Float(
+        string='Ръчен коефициент (%)',
+        help="Ръчно въведен коефициент, който замества автоматичното изчисление"
     )
 
     # Митнически данни
@@ -45,9 +86,6 @@ class AccountMoveLine(models.Model):
         string='Is Customs Expense',
         help="Notes if this is a customs fee/expense"
     )
-
-    # Използваме съществуващото поле за страна на произход вместо ново
-    # l10n_bg_country_origin_id - ПРЕМАХНАТО (използваме product_id.country_of_origin)
 
     # Тарифен код с backward compatibility за HS/CN/Intrastat
     l10n_bg_tariff_code = fields.Char(
@@ -87,6 +125,65 @@ class AccountMoveLine(models.Model):
         for line in self:
             quantity = line.quantity == 0 and 1 or line.quantity
             line.l10n_bg_price_unit = line.balance / quantity
+
+    @api.onchange('product_id')
+    def _onchange_product_id_tariff(self):
+        """Обновява тарифната информация при смяна на продукта"""
+        if self.product_id:
+            self._compute_l10n_bg_tariff_code()
+            self._compute_l10n_bg_tariff_rate()
+
+    @api.depends('l10n_bg_personal_consumption', 'l10n_bg_total_consumption',
+                 'l10n_bg_consumption_coefficient_manual', 'l10n_bg_move_type')
+    def _compute_l10n_bg_consumption_coefficient(self):
+        """Изчислява коефициента на личната консумация спрямо общата
+
+        Формула: (Лична консумация / Общо консумация) × 100
+        Ако личната или общата консумация е 0, по подразбиране е 50%
+        Може да се коригира ръчно чрез l10n_bg_consumption_coefficient_manual
+        Изчислението се прилага само при l10n_bg_move_type == 'private'
+        """
+        for line in self:
+            # Изчисляваме само ако е private тип
+            if line.l10n_bg_move_type != 'private':
+                line.l10n_bg_consumption_coefficient = 0.0
+                continue
+
+            # Ако има ръчно въведен коефициент, използваме него
+            if line.l10n_bg_consumption_coefficient_manual:
+                line.l10n_bg_consumption_coefficient = line.l10n_bg_consumption_coefficient_manual
+                continue
+
+            # Проверка дали общата консумация е 0 или липсва
+            if not line.l10n_bg_total_consumption or line.l10n_bg_total_consumption == 0:
+                line.l10n_bg_consumption_coefficient = 50.0
+                continue
+
+            # Проверка дали личната консумация е 0 или липсва
+            if not line.l10n_bg_personal_consumption or line.l10n_bg_personal_consumption == 0:
+                line.l10n_bg_consumption_coefficient = 50.0
+                continue
+
+            # Изчисляваме процента: (Лична / Общо) × 100
+            coefficient = (line.l10n_bg_personal_consumption / line.l10n_bg_total_consumption) * 100.0
+
+            # Ограничаваме между 0% и 100%
+            line.l10n_bg_consumption_coefficient = min(max(coefficient, 0.0), 100.0)
+
+    def _inverse_l10n_bg_consumption_coefficient(self):
+        """Позволява ръчна корекция на коефициента"""
+        for line in self:
+            if line.l10n_bg_consumption_coefficient is not False:
+                # Записваме ръчно въведената стойност
+                line.l10n_bg_consumption_coefficient_manual = line.l10n_bg_consumption_coefficient
+
+    @api.onchange('l10n_bg_personal_consumption', 'l10n_bg_total_consumption')
+    def _onchange_consumption_values(self):
+        """Изчиства ръчния коефициент при промяна на консумацията"""
+        for line in self:
+            if line.l10n_bg_personal_consumption or line.l10n_bg_total_consumption:
+                # Изчистваме ръчния коефициент, за да се преизчисли автоматично
+                line.l10n_bg_consumption_coefficient_manual = 0.0
 
     def _get_tariff_code_from_intrastat(self, product):
         """Метод за извличане на тарифен код от intrastat система

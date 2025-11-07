@@ -9,6 +9,8 @@
                 expr="//group[@id='account_bg_vat']"
                 position="inside"
             >
+                <field name="l10n_bg_name" />
+                <field name="l10n_bg_date" />
                 <field name="l10n_bg_narration" />
                 <field name="l10n_bg_type_vat" />
                 <field name="l10n_bg_doc_type" />
@@ -18,6 +20,8 @@
                 expr="//group[@id='account_bg_vat_entry']"
                 position="inside"
             >
+                <field name="l10n_bg_name" />
+                <field name="l10n_bg_date" />
                 <field name="l10n_bg_narration" />
                 <field name="l10n_bg_type_vat" />
                 <field name="l10n_bg_doc_type" />

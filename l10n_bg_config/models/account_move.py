@@ -26,6 +26,7 @@ class AccountMove(models.Model):
 
     @api.depends("name", "ref", "state")
     def _compute_l10n_bg_name(self):
+        country_id = self.env.ref('base.bg')
         for move in self:
             if move.state == 'draft':
                 # В режим драфт използваме съхранената стойност
@@ -33,14 +34,18 @@ class AccountMove(models.Model):
             else:
                 # Форматираме name до 10 цифри
                 formatted_name = move._format_l10n_bg_name(move.name)
+                if move.partner_id and move.partner_id.country_id.id == country_id.id:
+                    formatted_ref = move._format_l10n_bg_name(move.ref)
+                else:
+                    formatted_ref = move.ref
 
                 # Проверяваме дали ръчно зададената стойност е различна от автоматичната
-                if move.l10n_bg_name_value and move.l10n_bg_name_value != formatted_name and move.l10n_bg_name_value != move.ref:
+                if move.l10n_bg_name_value and (move.l10n_bg_name_value != formatted_ref or move.l10n_bg_name_value != formatted_name):
                     # Запазваме ръчно зададената стойност
                     move.l10n_bg_name = move.l10n_bg_name_value
                 else:
                     # Използваме форматираното name или ref
-                    move.l10n_bg_name = move.ref or formatted_name
+                    move.l10n_bg_name = formatted_ref or formatted_name
 
     def _inverse_l10n_bg_name(self):
         for move in self:
@@ -58,6 +63,7 @@ class AccountMove(models.Model):
             return ''
 
         # Извличаме само цифрите от name
+        name = name.split('/')[-1] if '/' in name else name
         digits = ''.join(filter(str.isdigit, name))
 
         if not digits:
@@ -66,7 +72,7 @@ class AccountMove(models.Model):
         # Попълваме с нули до 10 цифри
         return digits.zfill(10)
 
-    @api.depends("invoice_date", "date")
+    @api.depends("invoice_date", "date", "delivery_date")
     def _compute_l10n_bg_deal_date(self):
         for move in self:
-            move.l10n_bg_deal_date = move.invoice_date or move.date
+            move.l10n_bg_deal_date = move.delivery_date or move.invoice_date or move.date

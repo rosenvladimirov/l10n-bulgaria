@@ -1,6 +1,6 @@
 
 # Copyright 2025 Rosen Vladimirov
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
 {
     'name': 'ErpNet.FP Fiscal Printer for odoo',
@@ -8,27 +8,27 @@
         Integration with ERP.BG fiscal printers through ErpNet.FP server.
         Supports real-time fiscal receipt printing and status monitoring.""",
     'description': """
-   This module provides integration between Odoo POS and fiscal printers
-   supported by ErpNet.FP server. Features include:
+This module provides integration between Odoo POS and fiscal printers
+supported by ErpNet.FP server. Features include:
 
-   * Real-time fiscal receipt printing from POS
-   * Direct browser-to-printer communication for receipts
-   * Backend support for Z/X reports and administrative operations
-   * Printer status monitoring
-   * Automatic fallback to standard printing on error
-   * Multiple printer support
-   * Background printer status updates
-   * Detailed error logging
-   * Support for different printer models
-   * Bulgarian tax group mapping (А, Б, В, Г)
-   * Dual connection mode: Direct (server) and Proxy (browser)
+* Real-time fiscal receipt printing from POS
+* Direct browser-to-printer communication for receipts
+* Backend support for Z/X reports and administrative operations
+* Printer status monitoring
+* Automatic fallback to standard printing on error
+* Multiple printer support
+* Background printer status updates
+* Detailed error logging
+* Support for different printer models
+* Bulgarian tax group mapping (А, Б, В, Г)
+* Dual connection mode: Direct (server) and Proxy (browser)
 """,
     'version': '18.0.7.0.1',
-    'license': 'AGPL-3',
+    'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
     'category': 'Point Of Sale',
-    'development_status': 'Beta',
+    "development_status": "Production/Stable",
     'maintainers': ['rosenvladimirov'],
     'depends': [
         'base',

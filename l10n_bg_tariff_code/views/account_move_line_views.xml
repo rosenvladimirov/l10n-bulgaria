@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_line_form_tariff" model="ir.ui.view">
+        <field name="name">account.move.line.form.tariff</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='information']" position="inside">
+                <group string="Tariff Code (CN/HS/Intrastat)">
+                    <group>
+                        <field name="l10n_bg_tariff_code"
+                               widget="char"
+                               placeholder="85333900 (CN) / 853339 (HS)"
+                               help="Automatically extracted from product or Intrastat"/>
+                        <field name="l10n_bg_tariff_code_manual"
+                               invisible="not l10n_bg_tariff_code_manual"
+                               placeholder="Manually entered code"/>
+                        <field name="l10n_bg_tariff_description"
+                               invisible="not l10n_bg_tariff_description"
+                               readonly="1"
+                               widget="text"/>
+                        <label for="l10n_bg_tariff_rate" string="Tariff Rate"/>
+                        <div class="o_row">
+                            <field name="l10n_bg_tariff_rate_manual" invisible="1"/>
+                            <field name="l10n_bg_tariff_rate"
+                                   widget="percentage"
+                                   decoration-success="l10n_bg_tariff_rate == 0.0"
+                                   decoration-info="l10n_bg_tariff_rate &lt; 5.0"
+                                   decoration-warning="l10n_bg_tariff_rate >= 10.0"/>
+                            <button name="action_update_tariff_rate"
+                                    string="🔄"
+                                    type="object"
+                                    class="btn btn-link"
+                                    title="Update from TARIC"
+                                    invisible="not l10n_bg_tariff_code"/>
+                        </div>
+                        <field name="l10n_bg_tariff_last_update" readonly="1"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_line_tree_tariff" model="ir.ui.view">
+        <field name="name">account.move.line.tree.tariff</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_currency']" position="before">
+                <field name="l10n_bg_tariff_rate_manual" column_invisible="1"/>
+                <field name="l10n_bg_tariff_code"
+                       string="Tariff Code"
+                       optional="hide"/>
+                <field name="l10n_bg_tariff_rate"
+                       widget="percentage"
+                       string="Rate"
+                       optional="hide"
+                       decoration-success="l10n_bg_tariff_rate == 0.0"
+                       decoration-info="l10n_bg_tariff_rate &lt; 5.0"
+                       decoration-warning="l10n_bg_tariff_rate >= 10.0"/>
+            </xpath>
+
+            <xpath expr="//list" position="inside">
+                <header>
+                    <button name="action_update_tariff_rate"
+                            string="Update Tariff Rates"
+                            type="object"
+                            class="btn-secondary"/>
+                    <button name="action_sync_hs_codes"
+                            string="🔄 Sync HS Codes"
+                            type="object"
+                            class="btn-secondary"
+                            help="Copy tariff codes to product HS codes"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+</odoo>

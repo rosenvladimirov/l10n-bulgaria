@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view_tariff" model="ir.ui.view">
+        <field name="name">product.template.form.tariff</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock_delivery.product_template_hs_code"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='hs_code']" position="after">
+                <field name="l10n_bg_tariff_description" readonly="1"/>
+                <label for="l10n_bg_tariff_rate" string="Default Tariff Rate"/>
+                <div class="o_row">
+                    <field name="l10n_bg_tariff_rate_manual" invisible="1"/>
+                    <field name="l10n_bg_tariff_rate" widget="percentage" readonly="1"/>
+                    <button name="action_update_tariff_rate"
+                            string="🔄"
+                            type="object"
+                            class="btn btn-link"
+                            title="Update from TARIC"/>
+                </div>
+                <field name="l10n_bg_tariff_last_update" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

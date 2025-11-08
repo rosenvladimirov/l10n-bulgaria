@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu Items -->
+    <menuitem id="menu_l10n_bg_taric_root"
+              name="TARIC"
+              parent="account.menu_finance_configuration"
+              sequence="100"/>
+
+    <menuitem id="menu_l10n_bg_taric_cache"
+              name="TARIC Cache"
+              parent="menu_l10n_bg_taric_root"
+              action="action_l10n_bg_taric_cache"
+              sequence="10"/>
+
+    <menuitem id="menu_l10n_bg_taric_import"
+              name="Import TARIC Data"
+              parent="menu_l10n_bg_taric_root"
+              action="action_l10n_bg_taric_import"
+              sequence="20"/>
+</odoo>

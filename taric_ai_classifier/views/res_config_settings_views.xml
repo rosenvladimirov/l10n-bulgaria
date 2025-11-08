@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_taric" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.taric</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="TARIC &amp; INTRASTAT AI" data-key="taric_ai_classifier">
+                    <h2>🤖 AI Classification Settings</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="auto_classify_enabled"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="auto_classify_enabled"/>
+                                <div class="text-muted">
+                                    Automatically suggest TARIC codes when creating products
+                                </div>
+                                <div class="content-group" invisible="not auto_classify_enabled">
+                                    <div class="row mt16">
+                                        <label for="min_confidence_threshold" class="col-3 col-lg-3 o_light_label"/>
+                                        <field name="min_confidence_threshold"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="auto_apply_high_confidence" class="col-3 col-lg-3 o_light_label"/>
+                                        <field name="auto_apply_high_confidence"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="anthropic_api_key" string="Anthropic API Key"/>
+                                <div class="text-muted">
+                                    Get your API key from: https://console.anthropic.com/
+                                </div>
+                                <field name="anthropic_api_key" password="True" placeholder="sk-ant-..."/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

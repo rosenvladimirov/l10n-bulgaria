@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Product Template Form View -->
+    <record id="product_template_form_view_taric" model="ir.ui.view">
+        <field name="name">product.template.form.taric</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_information']" position="after">
+                <page string="TARIC &amp; INTRASTAT" name="taric_intrastat">
+                    <group>
+                        <group string="Classification">
+                            <field name="taric_code_id" options="{'no_create': True}"/>
+                            <field name="cn8_code" readonly="1"/>
+                            <field name="intrastat_code_id" options="{'no_create': True}"/>
+                            <field name="ai_classification_confidence" widget="progressbar"/>
+                            <field name="classification_verified" readonly="1"/>
+                        </group>
+                        <group string="Customs Info">
+                            <field name="country_of_origin_id"/>
+                            <field name="supplementary_unit" readonly="1"/>
+                            <field name="supplementary_quantity"/>
+                            <field name="intrastat_transaction_code"/>
+                        </group>
+                    </group>
+                    <group>
+                        <button name="action_classify_with_ai" 
+                                string="🤖 Classify with AI"
+                                type="object"
+                                class="oe_highlight"
+                                help="Use AI to suggest TARIC codes"/>
+                        <button name="action_verify_taric_code" 
+                                string="✓ Verify Code Online"
+                                type="object"
+                                attrs="{'invisible': [('taric_code_id', '=', False)]}"/>
+                        <button name="action_view_classification_history" 
+                                string="📋 View History"
+                                type="object"/>
+                    </group>
+                    <field name="classification_history_ids" mode="tree">
+                        <tree>
+                            <field name="create_date"/>
+                            <field name="taric_code_id"/>
+                            <field name="classification_method"/>
+                            <field name="confidence_score" widget="progressbar"/>
+                            <field name="user_id"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Product Tree View -->
+    <record id="product_template_tree_view_taric" model="ir.ui.view">
+        <field name="name">product.template.tree.taric</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='list_price']" position="after">
+                <field name="cn8_code" optional="show"/>
+                <field name="ai_classification_confidence" optional="hide" widget="progressbar"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Action for batch classification -->
+    <record id="action_batch_classify_products" model="ir.actions.act_window">
+        <field name="name">Batch Classify Products</field>
+        <field name="res_model">batch.classify.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

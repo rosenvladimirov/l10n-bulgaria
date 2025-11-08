@@ -221,7 +221,11 @@ class AccountMoveLine(models.Model):
 
             if not company.l10n_bg_taric_api_enabled:
                 if not line.l10n_bg_tariff_rate:
-                    line.l10n_bg_tariff_rate = company.l10n_bg_default_tariff_rate
+                    # Нормализираме company default rate
+                    default_rate = company.l10n_bg_default_tariff_rate
+                    if default_rate > 1:
+                        default_rate = default_rate / 100.0
+                    line.l10n_bg_tariff_rate = default_rate
                 continue
 
             try:
@@ -239,15 +243,21 @@ class AccountMoveLine(models.Model):
                 if tariff_rate is not None:
                     line.l10n_bg_tariff_rate = tariff_rate
                     line.l10n_bg_tariff_last_update = fields.Datetime.now()
-                    _logger.info(f"Обновена тарифна ставка за код {line.l10n_bg_tariff_code}: {tariff_rate}%")
+                    _logger.info(f"Обновена тарифна ставка за код {line.l10n_bg_tariff_code}: {tariff_rate * 100}%")
                 else:
                     if not line.l10n_bg_tariff_rate:
-                        line.l10n_bg_tariff_rate = company.l10n_bg_default_tariff_rate
+                        default_rate = company.l10n_bg_default_tariff_rate
+                        if default_rate > 1:
+                            default_rate = default_rate / 100.0
+                        line.l10n_bg_tariff_rate = default_rate
 
             except Exception as e:
                 _logger.warning(f"Грешка при търсене на тарифна ставка за код {line.l10n_bg_tariff_code}: {e}")
                 if not line.l10n_bg_tariff_rate:
-                    line.l10n_bg_tariff_rate = company.l10n_bg_default_tariff_rate
+                    default_rate = company.l10n_bg_default_tariff_rate
+                    if default_rate > 1:
+                        default_rate = default_rate / 100.0
+                    line.l10n_bg_tariff_rate = default_rate
 
     def _inverse_l10n_bg_tariff_rate(self):
         """Позволява ръчно въвеждане на тарифна ставка"""
@@ -308,16 +318,12 @@ class AccountMoveLine(models.Model):
         for attempt in range(max_retries):
             try:
                 # XI (Northern Ireland) следва EU TARIC правилата
-                # Опитваме различни API endpoints
                 urls_to_try = [
                     f"https://www.trade-tariff.service.gov.uk/xi/api/v2/commodities/{cn_code}",
                     f"https://api.trade-tariff.service.gov.uk/xi/api/v2/commodities/{cn_code}",
                 ]
 
-                params = {
-                    'as_of': fields.Date.today().isoformat(),
-                }
-
+                params = {'as_of': fields.Date.today().isoformat()}
                 headers = {
                     'User-Agent': 'Odoo-BG-Tariff/2.0',
                     'Accept': 'application/json',
@@ -326,223 +332,150 @@ class AccountMoveLine(models.Model):
 
                 response = None
                 for url in urls_to_try:
-                    _logger.info(f"UK Tariff (XI): Requesting {url} with params {params}")
+                    _logger.info(f"UK Tariff (XI): Requesting {url}")
                     try:
                         response = requests.get(url, params=params, headers=headers, timeout=15)
-                        _logger.info(f"UK Tariff (XI): Response status {response.status_code} for {cn_code} from {url}")
+                        _logger.info(f"UK Tariff (XI): Response status {response.status_code}")
 
                         if response.status_code == 200:
                             break
                         elif response.status_code == 404:
-                            _logger.debug(f"UK Tariff (XI): 404 from {url}, trying next endpoint")
                             continue
                     except Exception as e:
                         _logger.debug(f"UK Tariff (XI): Error from {url}: {e}")
                         continue
 
                 if not response or response.status_code != 200:
-                    if response:
-                        _logger.debug(f"UK Tariff (XI): Final status {response.status_code} for {cn_code}")
-                        if response.status_code in [403, 404]:
-                            _logger.debug(f"UK Tariff (XI): Response text: {response.text[:500]}")
                     return None
 
-                try:
-                    data = response.json()
-                    _logger.info(f"UK Tariff (XI): Successfully parsed JSON response for {cn_code}")
-                except ValueError as e:
-                    _logger.warning(f"UK Tariff (XI): Invalid JSON response for {cn_code}: {e}")
-                    return None
+                data = response.json()
+                _logger.info(f"UK Tariff (XI): Successfully parsed JSON")
 
                 # Извличаме описанието
                 if 'data' in data and 'attributes' in data['data']:
                     description = data['data']['attributes'].get('description')
-                    if description:
-                        _logger.info(f"UK Tariff (XI): Found description for {cn_code}: {description[:100]}")
-                        if not self.l10n_bg_tariff_description:
-                            self.l10n_bg_tariff_description = description
+                    if description and not self.l10n_bg_tariff_description:
+                        self.l10n_bg_tariff_description = description
 
                 # Търсим мерки (measures)
-                if 'included' in data:
-                    measures_count = sum(1 for item in data['included'] if item.get('type') == 'measure')
-                    _logger.info(f"UK Tariff (XI): Found {measures_count} measures in response for {cn_code}")
+                if 'included' not in data:
+                    return None
 
-                    applicable_rates = []
+                applicable_rates = []
 
-                    for item in data['included']:
-                        if item.get('type') != 'measure':
-                            continue
+                for item in data['included']:
+                    if item.get('type') != 'measure':
+                        continue
 
-                        attrs = item.get('attributes', {})
-                        relationships = item.get('relationships', {})
+                    relationships = item.get('relationships', {})
 
-                        # Извличаме measure_type от relationships
-                        measure_type_data = relationships.get('measure_type', {}).get('data', {})
-                        measure_type = measure_type_data.get('id') if isinstance(measure_type_data, dict) else None
+                    # Извличаме measure_type
+                    measure_type_data = relationships.get('measure_type', {}).get('data', {})
+                    measure_type = measure_type_data.get('id') if isinstance(measure_type_data, dict) else None
 
-                        # Извличаме geographical_area от relationships
-                        geo_area_data = relationships.get('geographical_area', {}).get('data', {})
-                        geo_area = geo_area_data.get('id') if isinstance(geo_area_data, dict) else None
+                    # Извличаме geographical_area
+                    geo_area_data = relationships.get('geographical_area', {}).get('data', {})
+                    geo_area = geo_area_data.get('id') if isinstance(geo_area_data, dict) else None
 
-                        _logger.debug(f"UK Tariff (XI): Measure - type: {measure_type}, geo: {geo_area}")
+                    # Проверяваме geographical_area
+                    country_specific = False
+                    if geo_area and geo_area == country_code:
+                        country_specific = True
+                    elif geo_area and geo_area != '1011' and geo_area != country_code:
+                        continue
 
-                        # Проверяваме за географска област (страна на произход)
-                        country_specific = False
-                        if geo_area and geo_area == country_code:
-                            country_specific = True
-                            _logger.info(f"UK Tariff (XI): Found country-specific measure for {country_code}")
-                        elif geo_area and geo_area != '1011' and geo_area != country_code:
-                            _logger.debug(f"UK Tariff (XI): Skipping measure - geo_area {geo_area} doesn't match {country_code}")
-                            continue
+                    # Measure types
+                    applicable_measure_types = ['103', '105', '142', '112', '695', '551', '552', '553', '554']
 
-                        # Разширен списък от measure types
-                        applicable_measure_types = ['103', '105', '142', '112', '695', '551', '552', '553', '554']
+                    if measure_type and str(measure_type) in applicable_measure_types:
+                        duty_expr_id = relationships.get('duty_expression', {}).get('data', {}).get('id')
 
-                        if measure_type and str(measure_type) in applicable_measure_types:
-                            _logger.info(f"UK Tariff (XI): Found applicable measure type {measure_type} for {cn_code}")
+                        # Намираме duty_expression
+                        duty_expression = None
+                        for included_item in data.get('included', []):
+                            if (included_item.get('type') == 'duty_expression' and
+                                included_item.get('id') == duty_expr_id):
+                                duty_expression = included_item.get('attributes', {})
+                                break
 
-                            # Duty expression трябва да се търси в included секцията
-                            duty_expr_id = relationships.get('duty_expression', {}).get('data', {}).get('id')
-                            _logger.debug(f"UK Tariff (XI): Duty expression ID: {duty_expr_id}")
+                        if duty_expression:
+                            base = duty_expression.get('base', '')
+                            formatted_base = duty_expression.get('formatted_base', '')
 
-                            # Намираме duty_expression в included
-                            duty_expression = None
-                            for included_item in data.get('included', []):
-                                if (included_item.get('type') == 'duty_expression' and
-                                    included_item.get('id') == duty_expr_id):
-                                    duty_expression = included_item.get('attributes', {})
-                                    break
+                            if base:
+                                numbers = re.findall(r'\d+\.?\d*', str(base))
+                                if numbers:
+                                    rate = float(numbers[0])
 
-                            if duty_expression:
-                                base = duty_expression.get('base', '')
-                                formatted_base = duty_expression.get('formatted_base', '')
+                                    # КОНВЕРТИРАМЕ В DECIMAL ФОРМАТ (0.50 = 50%)
+                                    if '%' in str(formatted_base) or '%' in str(base):
+                                        rate_decimal = rate / 100.0
+                                    elif rate > 100:
+                                        rate_decimal = rate / 10000.0
+                                    elif rate > 1:
+                                        rate_decimal = rate / 100.0
+                                    else:
+                                        rate_decimal = rate
 
-                                _logger.info(f"UK Tariff (XI): Duty base: '{base}', formatted: '{formatted_base}'")
+                                    # Приоритет
+                                    priority = 0
+                                    if country_specific:
+                                        priority = 100
+                                    elif measure_type in ['695', '551', '552', '553', '554']:
+                                        priority = 50
+                                    elif measure_type == '103':
+                                        priority = 10
+                                    else:
+                                        priority = 5
 
-                                if base:
-                                    # Извличаме числовата стойност
-                                    numbers = re.findall(r'\d+\.?\d*', str(base))
-                                    if numbers:
+                                    applicable_rates.append({
+                                        'rate': rate_decimal,
+                                        'type': measure_type,
+                                        'priority': priority,
+                                        'geo_area': geo_area,
+                                        'country_specific': country_specific
+                                    })
 
-                                        rate = float(numbers[0])
-                                        _logger.info(f"UK Tariff (XI): Extracted rate value: {rate}")
+                                    _logger.info(
+                                        f"UK Tariff (XI): Found {rate}% = {rate_decimal} decimal "
+                                        f"(type {measure_type}, priority {priority})")
 
-                                        # КОНВЕРТИРАМЕ ВСИЧКИ СТАВКИ В DECIMAL ФОРМАТ (0.50 = 50%)
-                                        # Проверяваме дали е процент
-                                        if '%' in str(formatted_base) or '%' in str(base):
-                                            # rate е вече в проценти (50), конвертираме в decimal
-                                            rate_decimal = rate / 100.0
-                                            _logger.info(f"UK Tariff (XI): Converted {rate}% to decimal {rate_decimal}")
-                                        elif rate > 100:
-                                            # Конвертираме от basis points (5000 -> 50 -> 0.50)
-                                            rate_decimal = rate / 10000.0
-                                            _logger.info(
-                                                f"UK Tariff (XI): Converted from basis points: {rate} -> {rate_decimal}")
-                                        elif rate > 1:
-                                            # Вероятно е в проценти без символ (50 -> 0.50)
-                                            rate_decimal = rate / 100.0
-                                            _logger.info(
-                                                f"UK Tariff (XI): Assumed percentage, converted {rate} -> {rate_decimal}")
-                                        else:
-                                            # Вече е в decimal формат (0.50)
-                                            rate_decimal = rate
-                                            _logger.info(f"UK Tariff (XI): Already in decimal format: {rate_decimal}")
+                # Избираме ставката с най-висок приоритет
+                if applicable_rates:
+                    applicable_rates.sort(key=lambda x: (-x['priority'], -x['rate']))
+                    best_rate = applicable_rates[0]
 
-                                        # Приоритет: country-specific > additional duties > standard duties
-                                        priority = 0
-                                        if country_specific:
-                                            priority = 100
-                                        elif measure_type in ['695', '551', '552', '553', '554']:
-                                            priority = 50
-                                        elif measure_type == '103':
-                                            priority = 10
-                                        else:
-                                            priority = 5
+                    _logger.info(
+                        f"✓ UK Tariff (XI): Selected rate {best_rate['rate'] * 100}% "
+                        f"(type {best_rate['type']}, country_specific: {best_rate['country_specific']})")
 
-                                        applicable_rates.append({
-                                            'rate': rate_decimal,  # Съхраняваме в decimal формат
-                                            'type': measure_type,
-                                            'priority': priority,
-                                            'geo_area': geo_area,
-                                            'country_specific': country_specific
-                                        })
-
-                                        _logger.info(
-                                            f"UK Tariff (XI): Found rate {rate}% (stored as {rate_decimal}) for {cn_code} "
-                                            f"(type {measure_type}, priority {priority}, geo {geo_area})")
-
-                    # Избираме ставката с най-висок приоритет
-                    if applicable_rates:
-                        applicable_rates.sort(key=lambda x: (-x['priority'], -x['rate']))
-                        best_rate = applicable_rates[0]
-
-                        _logger.info(
-                            f"✓ UK Tariff (XI): Selected rate {best_rate['rate']}% for {cn_code} "
-                            f"(type {best_rate['type']}, geo {best_rate['geo_area']}, "
-                            f"country_specific: {best_rate['country_specific']})")
-
-                        if len(applicable_rates) > 1:
-                            other_rates = [f"{r['rate']}% (type {r['type']})" for r in applicable_rates[1:]]
-                            _logger.info(f"UK Tariff (XI): Other available rates: {', '.join(other_rates)}")
-
-                        return best_rate['rate']
-
-                    # Ако не сме намерили нищо, изброяваме всички measure types
-                    all_measure_types = set()
-                    all_geo_areas = set()
-                    for item in data['included']:
-                        if item.get('type') == 'measure':
-                            rels = item.get('relationships', {})
-                            mt_data = rels.get('measure_type', {}).get('data', {})
-                            ga_data = rels.get('geographical_area', {}).get('data', {})
-
-                            mt = mt_data.get('id') if isinstance(mt_data, dict) else 'unknown'
-                            ga = ga_data.get('id') if isinstance(ga_data, dict) else 'unknown'
-
-                            all_measure_types.add(str(mt))
-                            all_geo_areas.add(str(ga))
-
-                    _logger.info(f"UK Tariff (XI): Available measure types for {cn_code}: {sorted(all_measure_types)}")
-                    _logger.info(f"UK Tariff (XI): Available geo areas for {cn_code}: {sorted(all_geo_areas)}")
-
-                else:
-                    _logger.info(f"UK Tariff (XI): No 'included' section in response for {cn_code}")
+                    return best_rate['rate']
 
                 return None
 
             except requests.exceptions.Timeout:
-                _logger.warning(f"UK Tariff (XI) timeout for {cn_code} (attempt {attempt + 1}/{max_retries})")
                 if attempt < max_retries - 1:
                     time.sleep(2 ** attempt)
                     continue
                 return None
 
-            except requests.exceptions.RequestException as e:
-                _logger.info(f"UK Tariff (XI) request error for {cn_code}: {e}")
+            except requests.exceptions.RequestException:
                 if attempt < max_retries - 1:
                     time.sleep(2 ** attempt)
                     continue
                 return None
 
             except Exception as e:
-                _logger.error(f"UK Tariff (XI) unexpected error for {cn_code}: {e}")
-                _logger.error(f"UK Tariff (XI) full traceback:", exc_info=True)
+                _logger.error(f"UK Tariff (XI) error: {e}", exc_info=True)
                 return None
 
         return None
 
     def _fetch_from_api_store(self, cn_code, country_code='CN', max_retries=2):
-        """
-        Извлича данни от API Store - неофициален агрегатор на EU Open Data
-        API Store е третостранна услуга: https://api.store/
-
-        Забележка: Този метод изисква конфигуриран URL в настройките
-        """
+        """Извлича данни от API Store"""
         try:
             company = self.env.company
-            base_url = company.l10n_bg_taric_api_url
-
-            if not base_url:
+            if not company.l10n_bg_taric_api_url:
                 return None
 
             headers = {
@@ -552,13 +485,9 @@ class AccountMoveLine(models.Model):
 
             for attempt in range(max_retries):
                 try:
-                    params = {
-                        'code': cn_code,
-                        'country': country_code,
-                    }
-
+                    params = {'code': cn_code, 'country': country_code}
                     response = requests.get(
-                        base_url,
+                        company.l10n_bg_taric_api_url,
                         params=params,
                         headers=headers,
                         timeout=10
@@ -568,36 +497,29 @@ class AccountMoveLine(models.Model):
                         data = response.json()
                         rate = self._parse_api_store_response(data, cn_code)
                         if rate is not None:
-                            _logger.info(f"✓ API Store: Found rate {rate}% for {cn_code}")
                             return rate
-
                     elif response.status_code == 404:
-                        _logger.info(f"API Store: No data found for {cn_code}")
                         return None
 
                 except requests.exceptions.Timeout:
-                    _logger.warning(f"API Store timeout (attempt {attempt + 1}/{max_retries})")
                     if attempt < max_retries - 1:
                         time.sleep(1)
                         continue
-
-                except requests.exceptions.RequestException as e:
-                    _logger.warning(f"API Store request error: {e}")
+                except requests.exceptions.RequestException:
                     break
 
         except Exception as e:
-            _logger.error(f"API Store unexpected error: {e}")
+            _logger.error(f"API Store error: {e}")
 
         return None
 
     def _parse_api_store_response(self, data, cn_code):
-        """Парсва отговора от API Store и извлича duty rate"""
+        """Парсва отговора от API Store"""
         try:
             if not data or not isinstance(data, dict):
                 return None
 
             measures = []
-
             if 'measures' in data:
                 measures = data['measures']
             elif 'data' in data:
@@ -608,9 +530,6 @@ class AccountMoveLine(models.Model):
                         measures = data['data']['measures']
                     elif 'attributes' in data['data']:
                         measures = [data['data']]
-
-            if not measures:
-                return None
 
             for measure in measures:
                 if not isinstance(measure, dict):
@@ -632,25 +551,21 @@ class AccountMoveLine(models.Model):
                             duty_expr.get('measurement_unit', '') or duty_expr.get('measurementUnit', ''))
                         formatted_base = str(duty_expr.get('formatted_base', '') or duty_expr.get('formattedBase', ''))
 
-                        # КОНВЕРТИРАМЕ В DECIMAL ФОРМАТ
+                        # КОНВЕРТИРАМЕ В DECIMAL
                         if '%' in formatted_base or 'percent' in measurement_unit.lower():
-                            # rate е в проценти, конвертираме в decimal
                             return rate / 100.0
                         elif rate > 100:
-                            # Basis points
                             return rate / 10000.0
                         elif rate > 1:
-                            # Вероятно проценти
                             return rate / 100.0
                         else:
-                            # Вече decimal
                             return rate
 
                     except (ValueError, TypeError):
                         continue
 
         except Exception as e:
-            _logger.warning(f"Error parsing API Store response: {e}")
+            _logger.warning(f"Error parsing API Store: {e}")
 
         return None
 
@@ -658,21 +573,12 @@ class AccountMoveLine(models.Model):
         """Връща стандартната тарифна ставка според страната на произход"""
         cached_rate = self._get_cached_taric_rate(self.l10n_bg_tariff_code, country_code)
         if cached_rate is not None:
-            _logger.info(f"Using cached TARIC rate {cached_rate} for {self.l10n_bg_tariff_code}")
             return cached_rate
 
-        # ВСИЧКИ DEFAULT RATES В DECIMAL ФОРМАТ
+        # ВСИЧКИ RATES В DECIMAL ФОРМАТ
         default_rates = {
-            'CN': 0.065,  # 6.5%
-            'IN': 0.045,  # 4.5%
-            'US': 0.032,  # 3.2%
-            'JP': 0.021,  # 2.1%
-            'KR': 0.025,  # 2.5%
-            'TR': 0.018,  # 1.8%
-            'TH': 0.030,  # 3.0%
-            'VN': 0.042,  # 4.2%
-            'MY': 0.035,  # 3.5%
-            'ID': 0.040,  # 4.0%
+            'CN': 0.065, 'IN': 0.045, 'US': 0.032, 'JP': 0.021, 'KR': 0.025,
+            'TR': 0.018, 'TH': 0.030, 'VN': 0.042, 'MY': 0.035, 'ID': 0.040,
         }
 
         eu_countries = ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR',
@@ -682,9 +588,8 @@ class AccountMoveLine(models.Model):
         if country_code in eu_countries:
             return 0.0
 
-        # Company default също трябва да е в decimal
-        rate = default_rates.get(country_code, self.env.company.l10n_bg_default_tariff_rate / 100.0)
-        _logger.info(f"Using default rate {rate} ({rate * 100}%) for country {country_code}")
+        rate = default_rates.get(country_code, 0.065)
+        _logger.info(f"Using default rate {rate * 100}% for country {country_code}")
         return rate
 
     def _get_cached_taric_rate(self, cn_code, country_code):

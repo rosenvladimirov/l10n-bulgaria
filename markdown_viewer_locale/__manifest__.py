@@ -1,18 +1,18 @@
 {
-    'name': 'Markdown Viewer Locale Dropdown',
-    'version': '7.0',
+    'name': 'Markdown Viewer Locale',
+    'version': '5.0',
     'category': 'Tools',
-    'summary': 'View localized Markdown files with dropdown for language and document selection',
+    'summary': 'View localized Markdown files based on user language',
     'depends': ['web'],
     'assets': {
         'web.assets_backend': [
-            'markdown_viewer_locale_dropdown/static/lib/marked.min.js',
-            'markdown_viewer_locale_dropdown/static/lib/highlight.min.js',
-            'markdown_viewer_locale_dropdown/static/src/js/markdown_popup.js',
-            'markdown_viewer_locale_dropdown/static/src/css/markdown_popup.css',
+            'https://cdn.jsdelivr.net/npm/marked/marked.min.js',
+            'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js',
+            'markdown_viewer_locale/static/src/js/markdown_popup.js',
+            'markdown_viewer_locale/static/src/css/markdown_popup.css',
         ],
         'web.assets_qweb': [
-            'markdown_viewer_locale_dropdown/static/src/xml/markdown_popup.xml',
+            'markdown_viewer_locale/static/src/xml/markdown_popup.xml',
         ],
     },
     'data': [

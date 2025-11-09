@@ -662,7 +662,7 @@ class AccountMoveLine(models.Model):
                 'simple_notification',
                 {
                     'type': 'info',
-                    'message': 'Няма продукти за обновяване',
+                    'message': 'There are no products to update',
                     'sticky': False,
                 }
             )

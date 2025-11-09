@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- ПЪРВО: Разширяваме ControlPanel за да създадем НАШ slot -->
+    <t t-name="MarkdownControlPanel" t-inherit="web.ControlPanel" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o_cp_pager')]" position="before">
+            <t t-slot="control-panel-markdown-docs-button"/>
+        </xpath>
+    </t>
+
+    <!-- ВТОРО: Използваме НАШ slot във FormView -->
+    <t t-name="Markdown.FormView" t-inherit="web.FormView" t-inherit-mode="extension">
+        <xpath expr="//Layout" position="inside">
+            <t t-set-slot="control-panel-markdown-docs-button">
+                <button class="o_markdown_docs_btn btn btn-link p-0 opacity-trigger-hover"
+                        type="button"
+                        t-on-click="onClickMarkdownPopup"
+                        title="Open Markdown Documentation">
+                    <t t-call="Markdown.Icon"/>
+                </button>
+            </t>
+        </xpath>
+    </t>
+
+    <!-- Икона - официален Markdown лого -->
+    <t t-name="Markdown.Icon">
+        <svg viewBox="0 0 208 128" xmlns="http://www.w3.org/2000/svg"
+             style="width: 28px; height: 18px; vertical-align: middle;">
+            <rect width="198" height="118" x="5" y="5"
+                  ry="10" stroke="currentColor" stroke-width="10" fill="none"/>
+            <path d="M30 98V30h20l20 25 20-25h20v68H90V59L70 84 50 59v39zm125 0l-30-33h20V30h20v35h20z"
+                  fill="currentColor"/>
+        </svg>
+    </t>
+</templates>

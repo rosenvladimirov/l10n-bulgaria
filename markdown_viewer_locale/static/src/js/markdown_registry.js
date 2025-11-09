@@ -128,16 +128,6 @@ markdownRegistry.register(
     null  // null = показва се навсякъде
 );
 
-markdownRegistry.register(
-    'system_overview',
-    'markdown_viewer_locale',
-    'system_overview.md',
-    'System Overview',
-    'General',
-    'Overview of system capabilities',
-    null
-);
-
 // ДОКУМЕНТАЦИИ ЗА КОНКРЕТНИ МОДЕЛИ
 
 // CRM - Contacts/Partners
@@ -149,80 +139,6 @@ markdownRegistry.register(
     'CRM',
     'How to manage contacts and partners',
     ['res.partner', 'res.company']  // Показва се само в тези модели
-);
-
-// Sales
-markdownRegistry.register(
-    'sale_order_help',
-    'markdown_viewer_locale',
-    'sale_order_help.md',
-    'Sales Orders Guide',
-    'Sales',
-    'Create and manage sales orders',
-    ['sale.order', 'sale.order.line']
-);
-
-markdownRegistry.register(
-    'quotation_help',
-    'markdown_viewer_locale',
-    'quotation_help.md',
-    'Quotations Guide',
-    'Sales',
-    'How to create quotations',
-    'sale.order'  // Може да е и string
-);
-
-// Accounting
-markdownRegistry.register(
-    'invoice_help',
-    'markdown_viewer_locale',
-    'invoice_help.md',
-    'Invoices Guide',
-    'Accounting',
-    'Invoice management and workflows',
-    ['account.move', 'account.move.line']
-);
-
-markdownRegistry.register(
-    'payment_help',
-    'markdown_viewer_locale',
-    'payment_help.md',
-    'Payments Guide',
-    'Accounting',
-    'How to register payments',
-    ['account.payment']
-);
-
-// Inventory
-markdownRegistry.register(
-    'product_help',
-    'markdown_viewer_locale',
-    'product_help.md',
-    'Products Guide',
-    'Inventory',
-    'Product catalog and variants',
-    ['product.product', 'product.template']
-);
-
-markdownRegistry.register(
-    'stock_help',
-    'markdown_viewer_locale',
-    'stock_help.md',
-    'Stock Operations',
-    'Inventory',
-    'Manage inventory and stock moves',
-    ['stock.picking', 'stock.move']
-);
-
-// HR
-markdownRegistry.register(
-    'employee_help',
-    'markdown_viewer_locale',
-    'employee_help.md',
-    'Employee Management',
-    'Human Resources',
-    'How to manage employee records',
-    ['hr.employee']
 );
 
 console.log("✅ Markdown Registry инициализиран с", markdownRegistry.getAll().length, "документации");

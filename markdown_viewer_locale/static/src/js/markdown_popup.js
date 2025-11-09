@@ -23,29 +23,114 @@ patch(FormController.prototype, {
 
         ev.preventDefault();
 
-        // Показваме индекс
-        this.showMarkdownIndex();
+        // Вземаме текущия модел
+        const resModel = this.props.resModel || this.model?.config?.resModel;
+        console.log("📦 Текущ модел:", resModel);
+
+        // Показваме индекс филтриран по модел
+        this.showMarkdownIndex(resModel);
     },
 
     /**
-     * Показва индекс с всички документации
+     * Взема езика на потребителя
      */
-    showMarkdownIndex() {
-        console.log("📚 Показване на индекс");
+    getUserLanguage() {
+        // Опит 1: От session.bundle_params.lang (Odoo 18)
+        if (session?.bundle_params?.lang) {
+            console.log("✅ Език от session.bundle_params:", session.bundle_params.lang);
+            return session.bundle_params.lang;
+        }
 
-        const lang = session?.user_context?.lang || 'en_US';
+        // Опит 2: От session.user_context (по-стари версии)
+        if (session?.user_context?.lang) {
+            console.log("✅ Език от session.user_context:", session.user_context.lang);
+            return session.user_context.lang;
+        }
+
+        // Опит 3: От user_settings
+        if (session?.user_settings?.lang) {
+            console.log("✅ Език от user_settings:", session.user_settings.lang);
+            return session.user_settings.lang;
+        }
+
+        // Опит 4: От this.env.services.user
+        try {
+            const userService = this.env?.services?.user;
+            if (userService?.context?.lang) {
+                console.log("✅ Език от user service:", userService.context.lang);
+                return userService.context.lang;
+            }
+            if (userService?.lang) {
+                console.log("✅ Език от user.lang:", userService.lang);
+                return userService.lang;
+            }
+        } catch (e) {
+            console.warn("⚠️ Грешка при достъп до user service:", e);
+        }
+
+        // Опит 5: От odoo (legacy)
+        if (typeof odoo !== 'undefined' && odoo?.session_info?.user_context?.lang) {
+            console.log("✅ Език от odoo.session_info:", odoo.session_info.user_context.lang);
+            return odoo.session_info.user_context.lang;
+        }
+
+        // Fallback
+        console.warn("⚠️ Не може да се разпознае езикът, използвам en_US");
+        return 'en_US';
+    },
+
+    /**
+     * Показва индекс с всички документации филтрирани по модел
+     */
+    showMarkdownIndex(resModel = null) {
+        console.log("📚 Показване на индекс за модел:", resModel || 'all');
+
+        const lang = this.getUserLanguage();
         const langName = lang === 'bg_BG' ? 'Български' : 'English';
 
-        // Вземаме всички документации групирани по категория
-        const docsByCategory = markdownRegistry.getAllByCategory();
+        console.log("🌍 Разпознат език:", lang, "Име:", langName);
+
+        // Вземаме документации за текущия модел
+        const docsByCategory = markdownRegistry.getAllByCategory(resModel);
+        const totalDocs = Object.values(docsByCategory).reduce((sum, docs) => sum + docs.length, 0);
+
+        console.log("📊 Намерени документации:", totalDocs);
+
+        // Ако няма документации
+        if (totalDocs === 0) {
+            const noDocsHTML = `
+                <div class="markdown-index">
+                    <div class="alert alert-warning">
+                        <i class="fa fa-exclamation-triangle"></i>
+                        <strong>No documentation available / Няма налична документация</strong>
+                        <p class="mb-0 mt-2">
+                            No documentation has been registered for model: <code>${resModel || 'unknown'}</code>
+                        </p>
+                    </div>
+                </div>
+            `;
+            this.showMarkdownModal(noDocsHTML, 'Documentation Index / Індекс на документацията', true);
+            return;
+        }
 
         // Генерираме HTML за индекса
         let indexHTML = `
             <div class="markdown-index">
                 <div class="alert alert-info mb-3">
-                    <i class="fa fa-language"></i>
-                    <strong>Language / Език:</strong> ${langName}
-                    <small class="text-muted">(автоматично разпознат)</small>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fa fa-language"></i>
+                            <strong>Language / Език:</strong> ${langName}
+                        </div>
+                        ${resModel ? `
+                        <div>
+                            <i class="fa fa-database"></i><span/><strong>Model:</strong><span/><code>${resModel}</code>
+                        </div>
+                        ` : ''}
+                    </div>
+                    <small class="text-muted d-block mt-2">
+                        Found ${totalDocs} documentation(s) / Намерени ${totalDocs} документации
+                    </small>
                 </div>
         `;
 
@@ -55,11 +140,25 @@ patch(FormController.prototype, {
                 <div class="category-section mb-4">
                     <h4 class="border-bottom pb-2 mb-3">
                         <i class="fa fa-folder-open text-primary"></i> ${category}
+                        <span class="badge bg-secondary ms-2">${docs.length}</span>
                     </h4>
                     <div class="list-group">
             `;
 
             docs.forEach(doc => {
+                // Показваме за кои модели е документацията
+                let modelsInfo = '';
+                if (doc.models && doc.models.length > 0) {
+                    const modelsList = doc.models.join(', ');
+                    modelsInfo = `
+                        <div class="mt-1">
+                            <small class="text-info">
+                                <i class="fa fa-tag"></i> ${modelsList}
+                            </small>
+                        </div>
+                    `;
+                }
+
                 indexHTML += `
                     <a href="#"
                        class="list-group-item list-group-item-action markdown-doc-link"
@@ -70,7 +169,8 @@ patch(FormController.prototype, {
                                 ${doc.title}
                             </h6>
                         </div>
-                        ${doc.description ? `<small class="text-muted">${doc.description}</small>` : ''}
+                        ${doc.description ? `<small class="text-muted d-block">${doc.description}</small>` : ''}
+                        ${modelsInfo}
                     </a>
                 `;
             });
@@ -131,8 +231,7 @@ patch(FormController.prototype, {
         console.log("📄 loadMarkdown стартиран:", moduleName, fileNameBase);
 
         try {
-            // Безопасен достъп до езика
-            const lang = session?.user_context?.lang || 'en_US';
+            const lang = this.getUserLanguage();
             const suffix = lang.split('_')[0];
             const localizedFile = fileNameBase.replace('.md', `.${suffix}.md`);
 
@@ -181,9 +280,10 @@ patch(FormController.prototype, {
             console.log("🎨 HTML конвертиран (първите 100 символа):", htmlContent.substring(0, 100));
 
             // Добавяме бутон "Назад към индекс"
+            const resModel = this.props.resModel || this.model?.config?.resModel;
             const contentWithBackButton = `
                 <div class="mb-3">
-                    <button class="btn btn-sm btn-outline-secondary o_markdown_back_btn">
+                    <button class="btn btn-sm btn-outline-secondary o_markdown_back_btn" data-res-model="${resModel || ''}">
                         <i class="fa fa-arrow-left"></i> Back to Index / Назад към индекс
                     </button>
                 </div>
@@ -209,7 +309,8 @@ patch(FormController.prototype, {
         const backBtn = document.querySelector('.o_markdown_back_btn');
         if (backBtn) {
             backBtn.addEventListener('click', () => {
-                this.showMarkdownIndex();
+                const resModel = backBtn.dataset.resModel || null;
+                this.showMarkdownIndex(resModel);
             });
         }
     },

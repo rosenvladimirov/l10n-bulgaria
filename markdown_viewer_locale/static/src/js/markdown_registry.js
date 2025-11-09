@@ -128,17 +128,4 @@ markdownRegistry.register(
     null  // null = показва се навсякъде
 );
 
-// ДОКУМЕНТАЦИИ ЗА КОНКРЕТНИ МОДЕЛИ
-
-// CRM - Contacts/Partners
-markdownRegistry.register(
-    'partner_help',
-    'markdown_viewer_locale',
-    'partner_help.md',
-    'Contacts & Partners Guide',
-    'CRM',
-    'How to manage contacts and partners',
-    ['res.partner', 'res.company']  // Показва се само в тези модели
-);
-
 console.log("✅ Markdown Registry инициализиран с", markdownRegistry.getAll().length, "документации");

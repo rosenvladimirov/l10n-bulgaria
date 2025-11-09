@@ -23,6 +23,9 @@
              'markdown_viewer_locale/static/src/js/markdown_popup.js'),
         ],
     },
+    'images': [
+        'static/description/banner.png',
+    ],
     "installable": True,
     "application": False,
 }

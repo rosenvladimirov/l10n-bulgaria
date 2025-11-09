@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulgarian HR Payroll Classifications</title>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="s_cover pt64 pb64" style="background-color: #714B67;">
+        <div class="container">
+            <!-- Main Title -->
+            <div class="row s_nb_column_fixed">
+                <div class="col-lg-12 text-center pt32">
+                    <h1 class="mb-4 text-white">Bulgarian HR Payroll Classifications</h1>
+                    <p class="lead text-white mb-5">
+                        Odoo module that provides Bulgarian localization for HR and payroll classifications. The module includes complete management of NCOP (National Classification of Occupations and Positions) and Economic Activities (KID) with MOD rates for compliance with Bulgarian labor regulations.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="s_features pt48 pb32">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 s_title pb32">
+                    <h2 class="text-center">Key Features</h2>
+                </div>
+                <div class="col-lg-6 pt16 pb16">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fa fa-briefcase fa-3x mb-3 text-o-color-1"></i>
+                            <h3 class="card-title">NCOP (National Classification of Occupations and Positions)</h3>
+                            <ul class="card-text text-start">
+                                <li>Complete NCOP 2011 hierarchy</li>
+                                <li>Professional groups - Organization by classes, sub-classes, groups and unit groups</li>
+                                <li>Qualification grouping - Automatic linking with MOD categories</li>
+                                <li>Education requirements - Definition of minimum education levels</li>
+                                <li>Skills and experience - Description of requirements for each position</li>
+                                <li>Employee integration - Connection with positions in HR module</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 pt16 pb16">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fa fa-industry fa-3x mb-3 text-o-color-2"></i>
+                            <h3 class="card-title">Economic Activities (KID)</h3>
+                            <ul class="card-text text-start">
+                                <li>KID classification structure - Complete hierarchy (Sections, Divisions, Groups, Classes)</li>
+                                <li>MOD rates by qualification - Minimum insurance income for 8 qualification groups:
+                                    <ul>
+                                        <li>Managers</li>
+                                        <li>Specialists</li>
+                                        <li>Technicians</li>
+                                        <li>Clerks (Administrative support personnel)</li>
+                                        <li>Service Workers</li>
+                                        <li>Skilled Workers</li>
+                                        <li>Machine Operators and Assemblers</li>
+                                        <li>Elementary Occupations</li>
+                                    </ul>
+                                </li>
+                                <li>TZPB rates - Work Accident and Occupational Disease insurance rates</li>
+                                <li>Validity periods - Management of validity dates for rate changes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Specifications -->
+    <section class="s_features pt48 pb32 o_cc o_cc2">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="fw-bold">Technical Specifications</h2>
+                    <p class="lead text-muted">Detailed model and data structure</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Models</h5>
+                            <h6 class="text-muted mt-3">bg.ncop.classification</h6>
+                            <p class="card-text">Model for NCOP classifications with the following key fields:</p>
+                            <ul class="small">
+                                <li><code>code</code> - 8-digit NCOP code</li>
+                                <li><code>name</code> - Position name (translatable)</li>
+                                <li><code>level</code> - Hierarchical level (class, sub-class, group, unit group)</li>
+                                <li><code>qualification_group</code> - Qualification group for MOD calculations</li>
+                                <li><code>education_level</code> - Minimum education level</li>
+                                <li><code>skills_requirements</code> - Skills requirements</li>
+                                <li><code>experience_years</code> - Required years of experience</li>
+                            </ul>
+                            
+                            <h6 class="text-muted mt-3">bg.mod.economic.activity</h6>
+                            <p class="card-text">Model for economic activities with MOD rates:</p>
+                            <ul class="small">
+                                <li><code>code</code> - KID code</li>
+                                <li><code>name</code> - Activity name (translatable)</li>
+                                <li><code>level</code> - Level in hierarchy (section, division, group, class)</li>
+                                <li><code>mod_*</code> fields - MOD rates for each qualification group</li>
+                                <li><code>tzpb_rate</code> - TZPB rate in percentage</li>
+                                <li><code>date_from/date_to</code> - Validity period</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Data Files</h5>
+                            <ul>
+                                <li><code>bg_ncop_classifications.csv</code> - Core NCOP classifications</li>
+                                <li><code>bg_mod_economic_activities.csv</code> - Economic activities with MOD rates</li>
+                                <li><code>List_Of_Occupations_01_01_2025.csv</code> - Current list of occupations</li>
+                                <li><code>Structure_NKPD_2011_01_01_2022.csv</code> - NCOP 2011 structure</li>
+                            </ul>
+                            
+                            <h5 class="card-title mt-4">Views</h5>
+                            <ul>
+                                <li>Menu structure - Bulgarian HR menu with appropriate sections</li>
+                                <li>NCOP views - Tree and form views for NCOP classifications</li>
+                                <li>KID views - Management of economic activities and MOD rates</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="s_features pt48 pb32">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="fw-bold">Use Cases</h2>
+                    <p class="lead text-muted">This module is essential for Bulgarian companies that need to:</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 mb-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <i class="fa fa-balance-scale fa-3x mb-3 text-o-color-1"></i>
+                            <h5 class="card-title">Comply with Labor Legislation</h5>
+                            <p class="card-text">Proper classification of employees according to NCOP</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <i class="fa fa-calculator fa-3x mb-3 text-o-color-2"></i>
+                            <h5 class="card-title">Insurance Accounting</h5>
+                            <p class="card-text">Calculate correct MOD amounts by qualification groups</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <i class="fa fa-shield-alt fa-3x mb-3 text-o-color-3"></i>
+                            <h5 class="card-title">TZPB Insurance</h5>
+                            <p class="card-text">Apply correct rates for work accidents</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <i class="fa fa-users fa-3x mb-3 text-o-color-1"></i>
+                            <h5 class="card-title">HR Management</h5>
+                            <p class="card-text">Structured management of positions and professions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">The module is particularly useful for:</h5>
+                            <ul>
+                                <li>Medium and large enterprises with diverse professions</li>
+                                <li>HR consulting firms</li>
+                                <li>Accounting firms serving multiple clients</li>
+                                <li>Companies working with public procurement (NCOP requirement)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Steps -->
+    <section class="s_process_steps pt48 pb32 o_cc o_cc2">
+        <div class="container">
+            <div class="row s_process_steps_step">
+                <div class="col-lg-12 s_title pb32">
+                    <h2 class="text-center">Installation and Configuration Process</h2>
+                </div>
+                <div class="col-lg-3 text-center pb16">
+                    <span class="s_process_steps_icon fa fa-download fa-2x mb-3 rounded-circle bg-o-color-1"></span>
+                    <h3>Step 1</h3>
+                    <p>Copy the module to the <code>addons</code> directory of Odoo</p>
+                </div>
+                <div class="col-lg-3 text-center pb16">
+                    <span class="s_process_steps_icon fa fa-sync fa-2x mb-3 rounded-circle bg-o-color-2"></span>
+                    <h3>Step 2</h3>
+                    <p>Update the module list</p>
+                </div>
+                <div class="col-lg-3 text-center pb16">
+                    <span class="s_process_steps_icon fa fa-cog fa-2x mb-3 rounded-circle bg-o-color-3"></span>
+                    <h3>Step 3</h3>
+                    <p>Install <code>l10n_bg_payroll_classifications</code></p>
+                </div>
+                <div class="col-lg-3 text-center pb16">
+                    <span class="s_process_steps_icon fa fa-check fa-2x mb-3 rounded-circle bg-o-color-1"></span>
+                    <h3>Step 4</h3>
+                    <p>Data will be loaded automatically</p>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Configuration</h5>
+                            <ol>
+                                <li>Go to <strong>Human Resources > Configuration > Bulgarian Classifications</strong></li>
+                                <li>Review and update NCOP classifications as needed</li>
+                                <li>Configure MOD rates in <strong>Human Resources > Configuration > Economic Activities</strong></li>
+                                <li>Link employees with appropriate NCOP positions</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compatibility -->
+    <section class="s_features pt48 pb32">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h2 class="fw-bold">Compatibility</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fa fa-check text-success me-2"></i> Odoo 18.0+</li>
+                                <li class="mb-2"><i class="fa fa-check text-success me-2"></i> Depends on: <code>base</code>, <code>hr</code>, <code>hr_contract</code></li>
+                                <li class="mb-2"><i class="fa fa-check text-success me-2"></i> Works well with other Bulgarian L10N modules</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Credits Section -->
+    <section class="s_team pt48 pb48 o_cc o_cc1">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="text-o-color-1 fw-bold">Credits</h2>
+                    <p class="lead text-muted">The amazing team behind Bulgarian localization</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 mb-4">
+                    <div class="card text-center h-100 shadow-sm border-0">
+                        <div class="card-body">
+                            <img src="https://github.com/rosenvladimirov.png" alt="Developer" class="rounded-circle mb-3" style="width: 96px; height: 96px; object-fit: cover;">
+                            <h5 class="card-title text-o-color-1">Developer</h5>
+                            <p class="text-o-color-1 opacity-75 mb-2">Lead Developer</p>
+                            <p class="small text-muted mb-3">vladimirov.rosen@gmail.com</p>
+                            <div class="border-top pt-3">
+                                <a href="mailto:vladimirov.rosen@gmail.com" class="btn btn-sm btn-primary" style="background-color: #714B67; border-color: #714B67;">
+                                    <i class="fa fa-envelope"></i> Contact
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card text-center h-100 shadow-sm border-0">
+                        <div class="card-body">
+                            <img src="https://odoo-community.org/web/image/website/1/logo/Odoo%20Community%20Association?unique=716d000" alt="OCA" class="mb-3" style="width: 96px; height: 96px; object-fit: contain;">
+                            <h5 class="card-title text-o-color-1">Odoo Community Association</h5>
+                            <p class="text-o-color-1 opacity-75 mb-2">Project Maintainer</p>
+                            <p class="small text-muted mb-3">Supporting collaborative development</p>
+                            <div class="border-top pt-3">
+                                <a href="https://odoo-community.org" class="btn btn-sm btn-outline-primary me-2" style="color: #714B67; border-color: #714B67;">
+                                    <i class="fa fa-globe"></i> Website
+                                </a>
+                                <a href="https://github.com/OCA/l10n-bulgaria" class="btn btn-sm btn-primary" style="background-color: #714B67; border-color: #714B67;">
+                                    <i class="fa fa-github"></i> Repository
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <p class="text-muted">
+                        <strong>License:</strong> This module is distributed under the AGPL-3 license. See the LICENSE file for details.
+                    </p>
+                    <p class="text-o-color-1 opacity-75">
+                        Want to contribute? Visit our
+                        <a href="https://github.com/OCA/l10n-bulgaria/tree/18.0/l10n_bg_payroll_classifications" class="text-primary" style="color: #714B67 !important;">GitHub repository</a>
+                    </p>
+                    <p class="text-muted small">
+                        <strong>Bug Tracker:</strong> Bugs are tracked on GitHub Issues. In case of trouble, please check there if your issue has already been reported.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

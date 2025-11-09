@@ -69,6 +69,9 @@ supported by ErpNet.FP server. Features include:
             'l10n_bg_erp_net_fp/static/src/js/cash_move_popup.js',
         ],
     },
+    'images': [
+        'static/description/banner.png',
+    ],
     'installable': True,
     'auto_install': False,
     'application': False,

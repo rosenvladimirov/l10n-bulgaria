@@ -9,23 +9,23 @@ Markdown Viewer Locale
 
 |badge1|
 
-Преглед на локализирани Markdown файлове въз основа на езика на потребителя.
+View localized Markdown files based on user language.
 
-**Основни функции:**
+**Key Features:**
 
-* Автоматично зареждане на Markdown файлове според езика на потребителя
-* Fallback към основния файл, ако липсва локализация
-* Интегрирана функция за търсене в съдържанието
-* Syntax highlighting за code блокове
-* Модален прозорец на цял екран
+* Automatic loading of Markdown files according to user language
+* Fallback to main file if localization is missing
+* Integrated content search function
+* Syntax highlighting for code blocks
+* Full-screen modal window
 
-Използване
-==========
+Usage
+=====
 
-Метод 1: Snippet шаблон
------------------------
+Method 1: Snippet Template
+---------------------------
 
-След инсталиране на модула, добавете snippet-а във вашите изгледи:
+After installing the module, add the snippet to your views:
 
 .. code-block:: xml
 
@@ -34,24 +34,24 @@ Markdown Viewer Locale
         <t t-set="md_module" t-value="'your_module_name'"/>
     </t>
 
-Метод 2: Директен линк
-----------------------
+Method 2: Direct Link
+---------------------
 
-Използвайте директно линк с data атрибути:
+Use a direct link with data attributes:
 
 .. code-block:: xml
 
     <a href="#" class="o_show_markdown"
        data-md-file="readme.md"
        data-md-module="your_module_name"
-       title="Виж документацията">
+       title="View Documentation">
         <i class="fa fa-book fa-lg"></i>
     </a>
 
-Метод 3: Икона във формуляр (препоръчително)
---------------------------------------------
+Method 3: Icon in Form (Recommended)
+-------------------------------------
 
-За да добавите икона за документация във формуляр на Odoo:
+To add a documentation icon to an Odoo form:
 
 .. code-block:: xml
 
@@ -61,11 +61,11 @@ Markdown Viewer Locale
             <field name="model">account.move</field>
             <field name="inherit_id" ref="account.view_move_form"/>
             <field name="arch" type="xml">
-                <!-- Вмъкваме икона вътре във формата -->
+                <!-- Insert icon inside the form -->
                 <xpath expr="//form" position="inside">
                     <div class="o_md_icon_container">
                         <i class="fa fa-book o_show_markdown"
-                           title="Документация"
+                           title="Documentation"
                            data-md-file="l10n_bg_tax_admin_documentation.md"
                            data-md-module="l10n_bg_tax_admin"></i>
                     </div>
@@ -74,7 +74,7 @@ Markdown Viewer Locale
         </record>
     </odoo>
 
-**Важно:** Добавете CSS стилове за позициониране на иконата:
+**Important:** Add CSS styles to position the icon:
 
 .. code-block:: css
 
@@ -96,10 +96,10 @@ Markdown Viewer Locale
         color: #45a049;
     }
 
-Структура на файловете
-=======================
+File Structure
+==============
 
-Създайте Markdown файлове в следната структура:
+Create Markdown files in the following structure:
 
 .. code-block:: text
 
@@ -107,28 +107,28 @@ Markdown Viewer Locale
     └── static/
         └── src/
             └── md/
-                ├── readme.md                              # Основен файл (fallback)
-                ├── readme.bg.md                           # Българска версия
-                ├── readme.en.md                           # Английска версия
-                ├── l10n_bg_tax_admin_documentation.md     # Документация (fallback)
-                ├── l10n_bg_tax_admin_documentation.bg.md  # Документация (BG)
-                └── l10n_bg_tax_admin_documentation.en.md  # Документация (EN)
+                ├── readme.md                              # Main file (fallback)
+                ├── readme.bg.md                           # Bulgarian version
+                ├── readme.en.md                           # English version
+                ├── l10n_bg_tax_admin_documentation.md     # Documentation (fallback)
+                ├── l10n_bg_tax_admin_documentation.bg.md  # Documentation (BG)
+                └── l10n_bg_tax_admin_documentation.en.md  # Documentation (EN)
 
-Модулът автоматично ще зареди файла според езика на потребителя (напр. за ``bg_BG`` ще търси ``l10n_bg_tax_admin_documentation.bg.md``).
+The module will automatically load the file according to the user's language (e.g., for ``bg_BG`` it will look for ``l10n_bg_tax_admin_documentation.bg.md``).
 
-Проверка на работоспособността
-================================
+Functionality Check
+===================
 
-**Стъпка 1: Проверка на файловете**
+**Step 1: Check Files**
 
-Уверете се, че Markdown файловете са на правилното място:
+Make sure Markdown files are in the correct location:
 
 .. code-block:: bash
 
-    # Проверете структурата на файловете
+    # Check file structure
     ls -la your_module/static/src/md/
 
-Трябва да видите файловете:
+You should see the files:
 
 .. code-block:: text
 
@@ -136,150 +136,150 @@ Markdown Viewer Locale
     l10n_bg_tax_admin_documentation.bg.md
     l10n_bg_tax_admin_documentation.en.md
 
-**Стъпка 2: Рестартирайте Odoo**
+**Step 2: Restart Odoo**
 
 .. code-block:: bash
 
-    # Рестартирайте сървъра и обновете модула
+    # Restart server and update module
     odoo-bin -u markdown_viewer_locale,l10n_bg_tax_admin
 
-**Стъпка 3: Изчистете кеша на браузъра**
+**Step 3: Clear Browser Cache**
 
-Натиснете ``Ctrl+Shift+R`` (или ``Cmd+Shift+R`` на Mac) за да изчистите кеша.
+Press ``Ctrl+Shift+R`` (or ``Cmd+Shift+R`` on Mac) to clear the cache.
 
-**Стъпка 4: Отворете формуляра**
+**Step 4: Open Form**
 
-Отворете формуляр на ``account.move`` и потърсете иконата 📚 в горния десен ъгъл.
+Open an ``account.move`` form and look for the 📚 icon in the top right corner.
 
-**Стъпка 5: Тестване**
+**Step 5: Testing**
 
-1. Кликнете на иконата 📚
-2. Трябва да се отвори модален прозорец с документацията
-3. Проверете дали се зарежда правилният език (според ``bg_BG``, ``en_US``, и т.н.)
-4. Тествайте функцията за търсене
+1. Click on the 📚 icon
+2. A modal window with documentation should open
+3. Check if the correct language is loaded (according to ``bg_BG``, ``en_US``, etc.)
+4. Test the search function
 
-**Стъпка 6: Проверка в конзолата на браузъра**
+**Step 6: Check Browser Console**
 
-Отворете Developer Tools (F12) и проверете за грешки:
+Open Developer Tools (F12) and check for errors:
 
 .. code-block:: javascript
 
-    // Трябва да видите зареждане на файловете
-    // Ако има грешка 404, проверете пътищата
+    // You should see files loading
+    // If there's a 404 error, check the paths
 
-**Отстраняване на проблеми**
+**Troubleshooting**
 
-Ако иконата не се показва:
+If the icon doesn't show:
 
-1. **Проверете CSS стиловете** - Добавете ``.o_md_icon_container`` стилове в CSS файла
-2. **Проверете XPath** - Уверете се, че ``//form`` съществува в изгледа
-3. **Проверете класа** - Трябва да е ``.o_show_markdown``, не ``.o_show_markdown_dropdown``
-4. **Проверете assets** - Уверете се, че JS и CSS файловете са добавени в манифеста
+1. **Check CSS styles** - Add ``.o_md_icon_container`` styles to CSS file
+2. **Check XPath** - Make sure ``//form`` exists in the view
+3. **Check class** - It should be ``.o_show_markdown``, not ``.o_show_markdown_dropdown``
+4. **Check assets** - Make sure JS and CSS files are added to the manifest
 
-Ако модалът не се отваря:
+If the modal doesn't open:
 
-1. **Проверете конзолата** - Потърсете JavaScript грешки
-2. **Проверете пътя** - Уверете се, че ``data-md-module`` и ``data-md-file`` са правилни
-3. **Проверете файловете** - Уверете се, че Markdown файловете съществуват
+1. **Check console** - Look for JavaScript errors
+2. **Check path** - Make sure ``data-md-module`` and ``data-md-file`` are correct
+3. **Check files** - Make sure Markdown files exist
 
-Ако се вижда грешка 404:
+If you see a 404 error:
 
 .. code-block:: text
 
     GET http://localhost:8069/l10n_bg_tax_admin/static/src/md/l10n_bg_tax_admin_documentation.bg.md 404
 
-Това означава, че:
+This means:
 
-* Файлът липсва на указаното място
-* Името на модула е грешно в ``data-md-module``
-* Името на файла е грешно в ``data-md-file``
+* The file is missing from the specified location
+* The module name is incorrect in ``data-md-module``
+* The file name is incorrect in ``data-md-file``
 
-Поддържани езици
-================
+Supported Languages
+===================
 
-Модулът поддържа всички езици, като използва първата част от locale кода:
+The module supports all languages, using the first part of the locale code:
 
 * ``bg_BG`` → ``documentation.bg.md``
 * ``en_US`` → ``documentation.en.md``
 * ``de_DE`` → ``documentation.de.md``
 * ``fr_FR`` → ``documentation.fr.md``
-* и т.н.
+* etc.
 
-Функция за търсене
-==================
+Search Function
+===============
 
-Вградената функция за търсене позволява на потребителите да намират бързо информация в документацията.
-Намерените текстове се осветяват с жълт фон.
+The built-in search function allows users to quickly find information in the documentation.
+Found texts are highlighted with a yellow background.
 
-Изисквания
-==========
+Requirements
+============
 
 * Odoo 16.0+
 * Bootstrap 5
-* Библиотека marked.js (включена)
-* Библиотека highlight.js (включена)
+* marked.js library (included)
+* highlight.js library (included)
 
-Конфигурация
-============
+Configuration
+=============
 
-Не се изисква допълнителна конфигурация. Модулът работи веднага след инсталиране.
+No additional configuration required. The module works immediately after installation.
 
-Бъг тракер
-==========
+Bug Tracker
+===========
 
-Ако откриете проблеми, моля докладвайте ги в GitHub Issues.
+If you find any issues, please report them in GitHub Issues.
 
-Автори
-======
+Authors
+=======
 
-* Вашата компания/име
+* Your company/name
 
-Съдържание
-==========
+Contents
+========
 
 * ``static/lib/marked.min.js``: Markdown parser
-* ``static/lib/highlight.min.js``: Syntax highlighting за код
-* ``static/src/js/markdown_popup.js``: JavaScript компонент
-* ``static/src/css/markdown_popup.css``: Стилове
-* ``static/src/xml/markdown_popup.xml``: OWL шаблон
-* ``views/markdown_snippet.xml``: Snippet за добавяне в изгледи
+* ``static/lib/highlight.min.js``: Syntax highlighting for code
+* ``static/src/js/markdown_popup.js``: JavaScript component
+* ``static/src/css/markdown_popup.css``: Styles
+* ``static/src/xml/markdown_popup.xml``: OWL template
+* ``views/markdown_snippet.xml``: Snippet for adding to views
 
-Примерна документация
-=====================
+Sample Documentation
+====================
 
-Създайте ``l10n_bg_tax_admin_documentation.bg.md``:
+Create ``l10n_bg_tax_admin_documentation.en.md``:
 
 .. code-block:: markdown
 
-    # Документация за НАП администрация
+    # Tax Administration Documentation
 
-    ## Въведение
+    ## Introduction
 
-    Този модул предоставя функционалност за работа с НАП.
+    This module provides functionality for working with the Tax Authority.
 
-    ## Функции
+    ## Features
 
-    * Генериране на XML файлове
-    * Валидация на данни
-    * Изпращане към НАП
+    * Generate XML files
+    * Data validation
+    * Submission to Tax Authority
 
-    ## Примерен код
+    ## Sample Code
 
     ```python
     def generate_xml(self):
-        # Генериране на XML
+        # Generate XML
         return xml_content
     ```
 
-Лиценз
-======
+License
+=======
 
 LGPL-3
 
-Одобрения
-=========
+Credits
+=======
 
-Този модул използва следните библиотеки:
+This module uses the following libraries:
 
 * `marked.js <https://marked.js.org/>`_ - MIT License
 * `highlight.js <https://highlightjs.org/>`_ - BSD License

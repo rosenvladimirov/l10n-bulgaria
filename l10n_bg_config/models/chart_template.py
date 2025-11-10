@@ -128,6 +128,7 @@ class AccountChartTemplate(models.AbstractModel):
 
             if account_mask:
                 for key, account_data in result.items():
+                    _logger.info(f"Applying mask {account_mask} to key: {key} account_data: {account_data}")
                     result[key]['code'] = apply_mask_zip(
                         account_data['code'],
                         account_mask,

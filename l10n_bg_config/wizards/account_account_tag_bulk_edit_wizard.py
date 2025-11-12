@@ -4,7 +4,6 @@ import logging
 import xml.etree.ElementTree as ET
 
 from odoo import api, fields, models
-from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import get_l10n_bg_applicability
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)

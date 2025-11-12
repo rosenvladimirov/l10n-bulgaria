@@ -3,6 +3,7 @@ import json
 import logging
 
 from odoo import fields, models, _
+from odoo import release
 from dateutil.relativedelta import relativedelta
 
 
@@ -15,6 +16,26 @@ L10N_BG_ADDRESS_EXTEND = [
 L10N_BG_MULTILANGUAGE = [
     "l10n_bg_multilang", "partner_multilang"
 ]
+
+
+def l10n_bg_get_tag_negate_sql(table_alias='aat_base'):
+    """
+    Връща SQL за извличане на negate флага в зависимост от версията на Odoo.
+
+    В Odoo 18 и по-рано: използва полето tax_negate
+    В Odoo 19+: проверява дали името започва с минус
+
+    :param table_alias: Алиас на таблицата account_account_tag (по подразбиране 'aat_base')
+    :return: SQL израз за negate полето
+    """
+    odoo_version = int(release.version.split('.')[0])
+
+    if odoo_version < 19:
+        # Odoo 18 и по-рано
+        return f"{table_alias}.tax_negate AS negate"
+    else:
+        # Odoo 19+
+        return f"STARTS_WITH({table_alias}.name#>>'{{en_US}}', '-') AS negate"
 
 
 def account_tag_33_43(env, report_options):

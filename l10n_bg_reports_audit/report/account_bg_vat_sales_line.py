@@ -541,7 +541,7 @@ FROM {self._from()}
     LEFT JOIN account_account_tag_account_move_line_rel AS tag_line_rel
         ON tag_line_rel.account_move_line_id = aml.id
     LEFT JOIN (SELECT id,
-                    NULLIF(REGEXP_REPLACE(account_account_tag.name#>>'{en_US}', '\\D','','g'), '')::numeric AS tag_name,
+                    NULLIF(REGEXP_REPLACE(account_account_tag.name#>>'{{en_US}}', '\\D','','g'), '')::numeric AS tag_name,
                     {tax_negate},
                     l10n_bg_applicability
                     FROM account_account_tag

@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { ClosePosPopup } from "@point_of_sale/app/store/opening_control_popup/opening_control_popup";
+import { ClosePosPopup } from "@point_of_sale/app/navbar/closing_popup/closing_popup";
 import { patch } from "@web/core/utils/patch";
 import { _t } from "@web/core/l10n/translation";
 import { ErpNetFPPrinter } from "@l10n_bg_erp_net_fp/js/erp_net_fp_printer";

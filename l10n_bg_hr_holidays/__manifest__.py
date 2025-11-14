@@ -70,8 +70,8 @@ Full documentation available in the module's data folder:
         'l10n_bg',
     ],
     'data': [
-        'data/nssi.leave.reason.csv',
-        'data/hr_holidays_data.xml',
+        # 'data/nssi.leave.reason.csv',
+        # 'data/hr_holidays_data.xml',
         'security/ir.model.access.csv',
         'views/hr_leave_views.xml',
         'views/hr_leave_type_views.xml',

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noudate="1">
+    <data noupdate="1">
         <!-- NSSI Leave Types - Bulgarian Standard Leave Reasons -->
 
         <!-- Occupational disease -->

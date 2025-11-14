@@ -6,16 +6,13 @@ import { parseFloat } from "@web/views/fields/parsers";
 import { OpeningControlPopup } from "@point_of_sale/app/navbar/opening_control_popup/opening_control_popup";
 import { ErpNetFPPrinter } from "@l10n_bg_erp_net_fp/js/erp_net_fp_printer";
 
+// Запазваме оригиналния confirm на popup-а
+const superConfirm = OpeningControlPopup.prototype.confirm;
+
 console.log("[FiscalOpeningControl] 🔧 Loading Fiscal Opening Control Patch...");
 
 patch(OpeningControlPopup.prototype, {
-    /**
-     * @override
-     * При откриване на касата правим фискално „ВКАРВАНЕ ИЛИ ИЗКАРВАНЕ НА ПАРИ“
-     * за сумата на началния кеш. Ако фискалната операция се провали –
-     * блокираме откриването.
-     */
-    async confirm() {
+    async confirm(...args) {
         console.log("[FiscalOpeningControl] ════════════════════════════════");
         console.log("[FiscalOpeningControl] 🎯 confirm() called");
         console.log("[FiscalOpeningControl] Opening cash:", this.state.openingCash);
@@ -26,10 +23,13 @@ patch(OpeningControlPopup.prototype, {
 
         if (!amount) {
             console.log("[FiscalOpeningControl] ⚠️ No opening cash amount, proceeding normally...");
-            return await this._super(...arguments);
+            // 🔧 ВАЖНО: използваме superConfirm, а НЕ this._super
+            if (typeof superConfirm === "function") {
+                return await superConfirm.apply(this, args);
+            }
+            return;
         }
 
-        // Конфигурация на фискален принтер от POS session
         const fiscalPrinterHost = this.pos.session?.l10n_bg_erp_net_fp_host;
         const fiscalPrinterId = this.pos.session?.l10n_bg_erp_net_fp_ip;
 
@@ -45,11 +45,10 @@ patch(OpeningControlPopup.prototype, {
                     printerId: fiscalPrinterId,
                 });
 
-                const reason = (this.state.notes || "").trim() ||
+                const reason =
+                    (this.state.notes || "").trim() ||
                     "ВКАРВАНЕ ИЛИ ИЗКАРВАНЕ НА ПАРИ - Начален кеш";
 
-                // Тук реално се изпълнява командата „ВКАРВАНЕ ИЛИ ИЗКАРВАНЕ НА ПАРИ“
-                // като депозит (вкарване) на пари в касата.
                 console.log("[FiscalOpeningControl] 💰 Calling depositMoney()...");
                 const result = await fiscalPrinter.depositMoney(amount, reason);
 
@@ -59,37 +58,57 @@ patch(OpeningControlPopup.prototype, {
                     console.error("[FiscalOpeningControl] ❌ Fiscal opening deposit FAILED:", result);
 
                     notification.add(
-                        _t("Грешка при фискално вкарване на пари при откриване на касата: ") +
-                        (result.message?.body || _t("Неизвестна грешка")) +
-                        _t("\n\nОперацията НЕ МОЖЕ да бъде завършена без фискален принтер!"),
+                        _t(
+                            "Грешка при фискално вкарване на пари при откриване на касата: "
+                        ) +
+                            (result.message?.body || _t("Неизвестна грешка")) +
+                            _t(
+                                "\n\nОперацията НЕ МОЖЕ да бъде завършена без фискален принтер!"
+                            ),
                         { type: "danger", sticky: true }
                     );
 
-                    console.log("[FiscalOpeningControl] ⛔ Opening control BLOCKED due to fiscal printer failure");
+                    console.log(
+                        "[FiscalOpeningControl] ⛔ Opening control BLOCKED due to fiscal printer failure"
+                    );
                     return;
                 }
 
-                console.log("[FiscalOpeningControl] ✅ Fiscal opening deposit SUCCESS!");
+                console.log(
+                    "[FiscalOpeningControl] ✅ Fiscal opening deposit SUCCESS!"
+                );
             } catch (error) {
                 console.error("[FiscalOpeningControl] ❌ Fiscal printer error:", error);
 
                 notification.add(
-                    _t("Грешка при комуникация с фискален принтер при откриване на касата: ") +
-                    error.message +
-                    _t("\n\nОперацията НЕ МОЖЕ да бъде завършена без фискален принтер!"),
+                    _t(
+                        "Грешка при комуникация с фискален принтер при откриване на касата: "
+                    ) +
+                        error.message +
+                        _t(
+                            "\n\nОперацията НЕ МОЖЕ да бъде завършена без фискален принтер!"
+                        ),
                     { type: "danger", sticky: true }
                 );
 
-                console.log("[FiscalOpeningControl] ⛔ Opening control BLOCKED due to fiscal printer error");
+                console.log(
+                    "[FiscalOpeningControl] ⛔ Opening control BLOCKED due to fiscal printer error"
+                );
                 return;
             }
         } else {
-            console.log("[FiscalOpeningControl] ⚠️ Fiscal printer not configured, proceeding without fiscal deposit...");
+            console.log(
+                "[FiscalOpeningControl] ⚠️ Fiscal printer not configured, proceeding without fiscal deposit..."
+            );
         }
 
-        // Ако всичко е наред (или няма фискален принтер) – продължаваме с оригиналния flow
-        console.log("[FiscalOpeningControl] ✅ Proceeding to original OpeningControl confirm...");
-        return await this._super(...arguments);
+        console.log(
+            "[FiscalOpeningControl] ✅ Proceeding to original OpeningControl confirm..."
+        );
+        if (typeof superConfirm === "function") {
+            return await superConfirm.apply(this, args);
+        }
+        return;
     },
 });
 

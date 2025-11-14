@@ -12,12 +12,10 @@
                 </xpath>
                 <xpath expr="//group[@name='visual']" position="before">
                     <group>
-                        <group name="l10n_bg_config" string="BG Configuration leaves">
+                        <group name="l10n_bg_config" string="BG Configuration">
                             <field name="l10n_bg_allow_paid_days"
                                    help="Check this if this leave type is unpaid by default"/>
                             <field name="l10n_bg_paid_days_unpaid_leave" invisible="not l10n_bg_allow_paid_days"/>
-                        </group>
-                        <group name="l10n_bg_save" string="BG Configuration">
                             <field name="l10n_bg_leave_reason_id"
                                    options="{'no_create': True, 'no_create_edit': True}"/>
                         </group>

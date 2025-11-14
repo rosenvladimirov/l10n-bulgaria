@@ -16,6 +16,7 @@
             <field name="color">3</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">10</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- Work accident -->
@@ -31,6 +32,7 @@
             <field name="color">1</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">11</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- Common illness -->
@@ -46,6 +48,7 @@
             <field name="color">3</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">12</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- Maternity – pregnancy and childbirth -->
@@ -91,6 +94,7 @@
             <field name="color">2</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">15</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- Accompanying a sick family member -->
@@ -106,6 +110,7 @@
             <field name="color">5</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">16</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- Sanatorium or spa treatment -->
@@ -136,6 +141,7 @@
             <field name="color">3</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">18</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- Epidemiological isolation -->
@@ -151,6 +157,7 @@
             <field name="color">2</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">19</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- Medical examinations and tests -->
@@ -181,9 +188,10 @@
             <field name="color">7</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">21</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
-        <!-- Reintegration after work accident -->
+        <!-- Reintegration after a work accident -->
         <record id="holiday_status_nssi_13" model="hr.leave.type">
             <field name="name">Reintegration after Work Accident</field>
             <field name="l10n_bg_code">13</field>
@@ -196,6 +204,7 @@
             <field name="color">8</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">22</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- Temporary reassignment for medical reasons -->
@@ -211,6 +220,7 @@
             <field name="color">3</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">23</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- Adoption leave -->
@@ -241,6 +251,7 @@
             <field name="color">9</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">25</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- Mental health leave -->

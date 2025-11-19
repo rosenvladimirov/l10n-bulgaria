@@ -160,7 +160,7 @@ This module is essential for:
 automatically installs it if not present. It serves as the configuration
 backbone for the entire Bulgarian localization ecosystem.
     """,
-    "version": "18.0.6.0.9",
+    "version": "18.0.7.0.1",
     # OCA Metadata
     "development_status": 'Production/Stable',
     "category": 'Localization',

@@ -4,6 +4,7 @@ import logging
 
 from odoo import Command, _, api, fields, models
 from odoo.addons.l10n_bg_config.models.l10n_bg_config_mixin import generate_key2, generate_encryption_keys
+from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
@@ -224,7 +225,7 @@ class ResPartner(models.Model):
                 # Ако има промяна на VAT и партньорът има свързани транзакции
                 if old_vat != new_vat and old_vat and new_vat:
                     # Проверка за съществуващи счетоводни записи
-                    posted_moves = self.env['account.move'].search([
+                    posted_moves = self.env['account.move.line'].search([
                         ('partner_id', '=', record.id),
                         ('move_id.state', '=', 'posted')
                     ], limit=1)

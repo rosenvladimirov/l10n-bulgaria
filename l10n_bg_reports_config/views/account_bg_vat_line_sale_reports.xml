@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_bg_calc_sales_line_search" model="ir.ui.view">
+         <field name="name">account.bg.calc.sales.line.search</field>
+         <field name="model">account.bg.calc.sales.line</field>
+         <field name="arch" type="xml">
+            <search>
+                <field name="info_tag_1" />
+                <field name="move_id" />
+                <field name="partner_id" string="Customer" />
+<!--                <field name="company_id" groups="base.group_multi_company" />-->
+                <field name="move_id" string="Invoice/Move" />
+                <field name="date" />
+                <separator />
+                <filter
+                    name="posted"
+                    string="Posted"
+                    domain="[('state','=','posted')]"
+                    help="Posted Journal Items"
+                />
+               <filter
+                    name="filter_date_last_month"
+                    string="Period: Last month"
+                    domain="[('state','=','posted'), ('info_tag_1', '=', (context_today()+relativedelta(months=-1)).strftime('%Y%m'))]"
+                />
+<!--                <filter-->
+<!--                    name="company"-->
+<!--                    string="Current company"-->
+<!--                    domain="[('company_id','=',env.company_id.id)]"-->
+<!--                    help="Use record only for current company"-->
+<!--                />-->
+                <separator />
+                <group>
+                    <filter
+                        name="groupby_date"
+                        string="Date"
+                        context="{'group_by': 'date'}"
+                    />
+                    <filter
+                        name="groupby_info_tag_1"
+                        string="Period"
+                        context="{'group_by': 'info_tag_1'}"
+                    />
+                    <filter
+                        name="groupby_partner_id"
+                        string="Partner"
+                        context="{'group_by': 'partner_id'}"
+                    />
+<!--                    <filter-->
+<!--                        name="groupby_company_id"-->
+<!--                        string="Company"-->
+<!--                        context="{'group_by': 'company_id'}"-->
+<!--                        groups="base.group_multi_company"-->
+<!--                    />-->
+               </group>
+            </search>
+         </field>
+    </record>
+
+    <record id="view_account_bg_calc_sales_line_tree" model="ir.ui.view">
+         <field name="name">account.bg.calc.sales.line.tree</field>
+         <field name="model">account.bg.calc.sales.line</field>
+         <field name="arch" type="xml">
+            <list>
+                <field name="company_currency_id" column_invisible="1" /> <!-- Technical field: required for monetary widget -->
+                <button
+                    name="open_journal_entry"
+                    string="Open"
+                    type="object"
+                    icon="fa-external-link"
+                    help="Open journal entry"
+                />
+                <field name="move_id" />
+                <field name="date" />
+                <field name="partner_id" />
+                <field name="info_tag_1" />
+                <field name="account_tag_11" sum="Total 02-11" />
+                <field name="account_tag_21" sum="Total 02-21" />
+                <field name="account_tag_12" sum="Total 02-12" />
+                <field name="account_tag_121" sum="Total 02-121" />
+                <field name="account_tag_122" sum="Total 02-122" />
+                <field name="account_tag_26" sum="Total 02-26" />
+                <field name="account_tag_22" sum="Total 02-22" />
+                <field name="account_tag_23" sum="Total 02-23" />
+                <field name="account_tag_24" sum="Total 02-24" />
+                <field name="account_tag_14" sum="Total 02-14" />
+                <field name="account_tag_15" sum="Total 02-15" />
+                <field name="account_tag_16" sum="Total 02-16" />
+                <field name="account_tag_17" sum="Total 02-17" />
+                <field name="account_tag_18" sum="Total 02-18" />
+                <field name="account_tag_19" sum="Total 02-19" />
+                <field name="account_tag_25" sum="Total 02-25" />
+                <field name="state" />
+            </list>
+         </field>
+    </record>
+
+    <record id="view_account_bg_calc_sales_line_pivot" model="ir.ui.view">
+         <field name="name">account.bg.calc.sales.line.pivot</field>
+         <field name="model">account.bg.calc.sales.line</field>
+         <field name="arch" type="xml">
+            <pivot>
+                <field name="info_tag_1" type="col" />
+                <field name="move_id" type="row" />
+                <field name="account_tag_11" type="measure" />
+                <field name="account_tag_21" type="measure" />
+                <field name="account_tag_22" type="measure" />
+                <field name="account_tag_12" type="measure" />
+                <field name="account_tag_14" type="measure" />
+                <field name="account_tag_15" type="measure" />
+                <field name="account_tag_16" type="measure" />
+                <field name="account_tag_17" type="measure" />
+            </pivot>
+         </field>
+    </record>
+
+    <record id="action_account_bg_calc_sales_line_line" model="ir.actions.act_window">
+        <field name="name">VAT Sales report</field>
+        <field name="res_model">account.bg.calc.sales.line</field>
+        <field name="view_mode">pivot,list</field>
+        <field name="context">{'search_default_filter_date_last_month': 1}</field>
+    </record>
+
+</odoo>

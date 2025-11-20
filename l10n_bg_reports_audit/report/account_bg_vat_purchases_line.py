@@ -12,6 +12,7 @@ from odoo.addons.l10n_bg_reports_audit.models.account_move import (
 from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import (
     l10n_bg_lang,
     l10n_bg_where,
+    l10n_bg_get_tag_negate_sql,
 )
 
 _logger = logging.getLogger(__name__)
@@ -31,9 +32,9 @@ class AccountBGInfoPurchasesLine(models.Model):
         readonly=True
     )
     move_id = fields.Many2one(
-        "account.move", string="Account Move", readonly=True, auto_join=True
+        "account.move", string="Account Move", readonly=True,
     )
-    id = fields.Integer(string="ID", readonly=True, related="move_id.id")
+    # id = fields.Integer(string="ID", readonly=True, related="move_id.id")
     partner_id = fields.Many2one("res.partner", "Customer", readonly=True)
 
     info_tag_1 = fields.Char(string="[02-01] Tax period", readonly=True)
@@ -94,13 +95,13 @@ class AccountBGInfoPurchasesLine(models.Model):
     def _table_query(self):
         where_clause = self._where()
         order_clause = self._order_clause()
-        if self._context.get("report_options") and self._context["report_options"].get(
+        if self.env.context.get("report_options") and self.env.context["report_options"].get(
             "force_total", False
         ):
-            report_options = self._context["report_options"].copy()
+            report_options = self.env.context["report_options"].copy()
             report_options["force_total"] = False
             rows = self.with_context(
-                dict(self._context, report_options=report_options)
+                dict(self.env.context, report_options=report_options)
             )._table_query
             total = self.env["account.bg.total.purchases.line"]._table_query
             return f"""{rows}
@@ -115,10 +116,10 @@ UNION
     def _select(self):
         # lang_partner = l10n_bg_lang(self.env, "partner", "partner.name")
         # lang_narration = l10n_bg_lang(self.env, "narration")
-        # if self._context.get("report_options") and self._context["report_options"].get(
+        # if self.env.context.get("report_options") and self.env.context["report_options"].get(
         #     "lang"
         # ):
-        #     lang_narration = lang_partner = self._context["report_options"]["lang"]
+        #     lang_narration = lang_partner = self.env.context["report_options"]["lang"]
         return f"""am.company_id AS company_id,
         am.id AS move_id,
         am.partner_id AS partner_id,
@@ -143,15 +144,10 @@ UNION
 
     @api.model
     def _from(self, where_clause=""):
-        # LEFT JOIN (SELECT res_partner_id_number.id, res_partner_id_number.name, res_partner_id_number.partner_id FROM res_partner_id_number
-        #         LEFT JOIN res_partner_id_category AS id_category
-        #             ON res_partner_id_number.category_id = id_category.id
-        #         WHERE id_category.name#>>'{en_US}' = 'bg_uic' LIMIT 1) AS id_number
-        #     ON partner.id = id_number.partner_id
         return f"""account_move AS am
         JOIN (SELECT move_id, info_tag_1,
                      account_tag_30, account_tag_31, account_tag_41, account_tag_32, account_tag_42, account_tag_43, account_tag_44
-                FROM account_bg_calc_purchases_line AS acc{' WHERE ' + where_clause.replace('am.', 'acc.') if where_clause else ''}) AS accp
+                FROM ({self.env['account.bg.calc.purchases.line']._table_query}) AS acc{' WHERE ' + where_clause.replace('am.', 'acc.') if where_clause else ''}) AS accp
             ON am.id = accp.move_id
         LEFT JOIN res_partner AS partner
             ON am.partner_id = partner.id
@@ -162,9 +158,10 @@ UNION
 
     @api.model
     def _where(self):
-        if self._context.get("report_options"):
+        if self.env.context.get("report_options"):
             date_from, date_to, tax_period, tax_periods, company_id, state = l10n_bg_where(
-                self.env, self._context.get("report_options")
+                self.env, self.env.context.get("report_options"),
+                model_report='purchase',
             )
             return f"""am.company_id = {company_id} AND am.state = ANY(ARRAY{state}) AND am.date >= '{date_from}' AND am.date <= '{date_to}'"""
         return False
@@ -183,14 +180,14 @@ class AccountBGCalcPurchasesLine(models.Model):
     _order = "move_id asc"
 
     company_id = fields.Many2one(
-        "res.company", "Company", readonly=True, auto_join=True
+        "res.company", "Company", readonly=True,
     )
     company_currency_id = fields.Many2one(
         related="company_id.currency_id", readonly=True
     )
 
     move_id = fields.Many2one("account.move", string="Account Move", readonly=True)
-    id = fields.Integer(string="ID", readonly=True, related="move_id.id")
+    # id = fields.Integer(string="ID", readonly=True, related="move_id.id")
 
     date = fields.Date(related="move_id.date", readonly=True)
     partner_id = fields.Many2one("res.partner", "Customer", readonly=True)
@@ -271,65 +268,66 @@ class AccountBGCalcPurchasesLine(models.Model):
     am.date AS date,
     to_char(am.date, 'YYYYMM') AS info_tag_1,
     SUM(CASE
-        WHEN aml.balance > 0.0 AND aat.tag_name = 30 AND aat.negate THEN ABS(aml.balance)*-1
-        WHEN aml.balance > 0.0 AND aat.tag_name = 30 AND NOT aat.negate THEN ABS(aml.balance)
-        WHEN aml.balance < 0.0 AND aat.tag_name = 30 AND aat.negate THEN aml.balance*-1
-        WHEN aml.balance < 0.0 AND aat.tag_name = 30 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance > 0.0 AND aat.tag_name = 30 AND aat.negate THEN aml.balance*-1
+        WHEN aml.balance > 0.0 AND aat.tag_name = 30 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 30 AND aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 30 AND NOT aat.negate THEN abs(aml.balance)
         ELSE 0.00
         END) AS account_tag_30,
     SUM(CASE
-        WHEN aml.balance > 0.0 AND aat.tag_name = 31 AND aat.negate THEN ABS(aml.balance)*-1
-        WHEN aml.balance > 0.0 AND aat.tag_name = 31 AND NOT aat.negate THEN ABS(aml.balance)
-        WHEN aml.balance < 0.0 AND aat.tag_name = 31 AND aat.negate THEN aml.balance*-1
-        WHEN aml.balance < 0.0 AND aat.tag_name = 31 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance > 0.0 AND aat.tag_name = 31 AND aat.negate THEN aml.balance*-1
+        WHEN aml.balance > 0.0 AND aat.tag_name = 31 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 31 AND aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 31 AND NOT aat.negate THEN abs(aml.balance)
         ELSE 0.00
         END) AS account_tag_31,
     SUM(CASE
-        WHEN aml.balance > 0.0 AND aat.tag_name = 41 AND aat.negate THEN ABS(aml.balance)*-1
-        WHEN aml.balance > 0.0 AND aat.tag_name = 41 AND NOT aat.negate THEN ABS(aml.balance)
-        WHEN aml.balance < 0.0 AND aat.tag_name = 41 AND aat.negate THEN aml.balance*-1
-        WHEN aml.balance < 0.0 AND aat.tag_name = 41 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance > 0.0 AND aat.tag_name = 41 AND aat.negate THEN aml.balance*-1
+        WHEN aml.balance > 0.0 AND aat.tag_name = 41 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 41 AND aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 41 AND NOT aat.negate THEN abs(aml.balance)
         ELSE 0.00
         END) AS account_tag_41,
     SUM(CASE
-        WHEN aml.balance > 0.0 AND aat.tag_name = 32 AND aat.negate THEN ABS(aml.balance)*-1
-        WHEN aml.balance > 0.0 AND aat.tag_name = 32 AND NOT aat.negate THEN ABS(aml.balance)
-        WHEN aml.balance < 0.0 AND aat.tag_name = 32 AND aat.negate THEN aml.balance*-1
-        WHEN aml.balance < 0.0 AND aat.tag_name = 32 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance > 0.0 AND aat.tag_name = 32 AND aat.negate THEN aml.balance*-1
+        WHEN aml.balance > 0.0 AND aat.tag_name = 32 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 32 AND aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 32 AND NOT aat.negate THEN abs(aml.balance)
         ELSE 0.00
         END) AS account_tag_32,
     SUM(CASE
-        WHEN aml.balance > 0.0 AND aat.tag_name = 42 AND aat.negate THEN ABS(aml.balance)*-1
-        WHEN aml.balance > 0.0 AND aat.tag_name = 42 AND NOT aat.negate THEN ABS(aml.balance)
-        WHEN aml.balance < 0.0 AND aat.tag_name = 42 AND aat.negate THEN aml.balance*-1
-        WHEN aml.balance < 0.0 AND aat.tag_name = 42 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance > 0.0 AND aat.tag_name = 42 AND aat.negate THEN aml.balance*-1
+        WHEN aml.balance > 0.0 AND aat.tag_name = 42 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 42 AND aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 42 AND NOT aat.negate THEN abs(aml.balance)
         ELSE 0.00
         END) AS account_tag_42,
     SUM(CASE
-        WHEN aml.balance > 0.0 AND aat.tag_name = 43 AND aat.negate THEN ABS(aml.balance)*-1
-        WHEN aml.balance > 0.0 AND aat.tag_name = 43 AND NOT aat.negate THEN ABS(aml.balance)
-        WHEN aml.balance < 0.0 AND aat.tag_name = 43 AND aat.negate THEN aml.balance*-1
-        WHEN aml.balance < 0.0 AND aat.tag_name = 43 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance > 0.0 AND aat.tag_name = 43 AND aat.negate THEN aml.balance*-1
+        WHEN aml.balance > 0.0 AND aat.tag_name = 43 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 43 AND aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 43 AND NOT aat.negate THEN abs(aml.balance)
         ELSE 0.00
         END) AS account_tag_43,
     SUM(CASE
-        WHEN aml.balance > 0.0 AND aat.tag_name = 44 AND aat.negate THEN ABS(aml.balance)*-1
-        WHEN aml.balance > 0.0 AND aat.tag_name = 44 AND NOT aat.negate THEN ABS(aml.balance)
-        WHEN aml.balance < 0.0 AND aat.tag_name = 44 AND aat.negate THEN aml.balance*-1
-        WHEN aml.balance < 0.0 AND aat.tag_name = 44 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance > 0.0 AND aat.tag_name = 44 AND aat.negate THEN aml.balance*-1
+        WHEN aml.balance > 0.0 AND aat.tag_name = 44 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 44 AND aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 44 AND NOT aat.negate THEN abs(aml.balance)
         ELSE 0.00
         END) AS account_tag_44"""
 
     @api.model
     def _from(self):
-        return """account_move_line AS aml
+        tax_negate = l10n_bg_get_tag_negate_sql(table_alias='account_account_tag')
+        return f"""account_move_line AS aml
     LEFT JOIN account_move AS am
         ON aml.move_id = am.id
     LEFT JOIN account_account_tag_account_move_line_rel AS tag_line_rel
         ON tag_line_rel.account_move_line_id = aml.id
     LEFT JOIN (SELECT id,
-                    NULLIF(REGEXP_REPLACE(account_account_tag.name#>>'{en_US}', '\\D','','g'), '')::numeric AS tag_name,
-                    account_account_tag.tax_negate AS negate,
+                    NULLIF(REGEXP_REPLACE(account_account_tag.name#>>'{{en_US}}', '\\D','','g'), '')::numeric AS tag_name,
+                    {tax_negate},
                     l10n_bg_applicability
                     FROM account_account_tag
                     WHERE applicability = 'taxes') AS aat
@@ -341,9 +339,9 @@ class AccountBGCalcPurchasesLine(models.Model):
 
     @api.model
     def _where(self):
-        if self._context.get("report_options"):
+        if self.env.context.get("report_options"):
             date_from, date_to, tax_period, tax_periods, company_id, state = l10n_bg_where(
-                self.env, self._context.get("report_options")
+                self.env, self.env.context.get("report_options")
             )
             return f"""am.company_id = {company_id} AND am.state = ANY(ARRAY{state}) AND aat.l10n_bg_applicability = 'purchase' AND am.date >= '{date_from}' AND am.date <= '{date_to}'"""
         return """aat.l10n_bg_applicability = 'purchase'"""

@@ -11,9 +11,6 @@ class AccountAccountTag(models.Model):
     l10n_bg_applicability = fields.Selection(
         selection="_get_l10n_bg_applicability", string="Use for"
     )
-    l10n_bg_code = fields.Char(
-        "Code", compute="_compute_l10n_bg_code", help="A technical field for tag code"
-    )
     applicability = fields.Selection(
         selection_add=[
             ("l10n_bg_partner", "BG-NSI Usage for Partners"),
@@ -27,17 +24,3 @@ class AccountAccountTag(models.Model):
 
     def _get_l10n_bg_applicability(self):
         return get_l10n_bg_applicability(self)
-
-    def _compute_l10n_bg_code(self):
-        for record in self:
-            record.l10n_bg_code = "".join(filter(str.isdigit, record.name.upper()))
-
-    def action_bulk_edit(self):
-        self.ensure_one()
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Bulk Edit Tags',
-            'res_model': 'account.account.tag.bulk.edit.wizard',
-            'view_mode': 'form',
-            'target': 'new',
-        }

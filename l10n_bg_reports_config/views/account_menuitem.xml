@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Top menu item for Bulgaria reports -->
+    <menuitem
+        id="menu_account_l10n_bg_vat_report"
+        parent="account.account_reports_management_menu"
+        name="Bulgaria audit reports"
+        sequence="99"
+    >
+        <menuitem
+            id="menu_current_account_vat_report"
+            sequence="1"
+            action="l10n_bg_reports_config.action_account_bg_calc_sales_line_line"
+        />
+        <menuitem
+            id="menu_current_account_vat_purchase_report"
+            sequence="2"
+            action="l10n_bg_reports_config.action_account_bg_calc_purchases_line"
+        />
+        <menuitem
+            id="menu_current_account_vat_vies_report"
+            sequence="3"
+            action="l10n_bg_reports_config.action_account_bg_calc_vies_line_line"
+        />
+        <menuitem
+            id="menu_action_account_bg_partner_pivot"
+            sequence="4"
+            action="l10n_bg_reports_config.action_account_bg_partner_pivot"
+        />
+        <menuitem
+            id="menu_action_account_bg_product_pivot"
+            sequence="5"
+            action="l10n_bg_reports_config.action_account_bg_product_pivot"
+        />
+    </menuitem>
+
+    <!-- Menu Items for Configuration -->
+    <menuitem id="menu_l10n_bg_configuration"
+              name="Bulgarian Configuration"
+              parent="account.menu_finance_configuration"
+              sequence="100"/>
+
+    <menuitem id="menu_l10n_bg_intrastat_threshold"
+              name="Intrastat Thresholds"
+              parent="menu_l10n_bg_configuration"
+              action="l10n_bg_reports_config.action_l10n_bg_intrastat_threshold"
+              sequence="10"/>
+
+    <menuitem id="menu_l10n_bg_vat_ratio_history"
+              name="VAT Ratio History (Art. 73)"
+              parent="menu_l10n_bg_configuration"
+              action="l10n_bg_reports_config.action_l10n_bg_vat_ratio_history"
+              sequence="20"/>
+</odoo>

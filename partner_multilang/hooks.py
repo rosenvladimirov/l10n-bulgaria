@@ -13,7 +13,7 @@ _logger = logging.getLogger(__name__)
 def pre_init_hook(env):
     lang = env['res.lang'].with_context(active_test=False).search([('code', '=', 'bg_BG'), ('active', '=', False)])
     if lang:
-        lang.toggle_active()
+        lang.action_unarchive()
 
 
 def post_init_hook(env):

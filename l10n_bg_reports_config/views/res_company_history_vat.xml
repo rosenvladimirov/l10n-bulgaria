@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Intrastat Threshold List View -->
+    <record id="view_l10n_bg_intrastat_threshold_list" model="ir.ui.view">
+        <field name="name">l10n.bg.intrastat.threshold.list</field>
+        <field name="model">l10n.bg.intrastat.threshold</field>
+        <field name="arch" type="xml">
+            <list string="Intrastat Thresholds">
+                <field name="year" widget="integer"/>
+                <field name="month" widget="integer"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="threshold_arrivals_standard" widget="monetary"/>
+                <field name="threshold_arrivals_extended" widget="monetary"/>
+                <field name="threshold_dispatches_standard" widget="monetary"/>
+                <field name="threshold_dispatches_extended" widget="monetary"/>
+                <field name="currency_id" column_invisible="1"/><!-- Technical field: required for monetary widget -->
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Intrastat Threshold Form View -->
+    <record id="view_l10n_bg_intrastat_threshold_form" model="ir.ui.view">
+        <field name="name">l10n.bg.intrastat.threshold.form</field>
+        <field name="model">l10n.bg.intrastat.threshold</field>
+        <field name="arch" type="xml">
+            <form string="Intrastat Threshold">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <group>
+                        <group>
+                            <field name="year" widget="integer"/>
+                            <field name="month" widget="integer"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group>
+                            <field name="currency_id" invisible="1"/><!-- Technical field: required for monetary widget -->
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Arrivals (Acquisitions)" name="arrivals">
+                            <group>
+                                <field name="threshold_arrivals_standard" widget="monetary"/>
+                                <field name="threshold_arrivals_extended" widget="monetary"/>
+                            </group>
+                        </page>
+                        <page string="Dispatches (Supplies)" name="dispatches">
+                            <group>
+                                <field name="threshold_dispatches_standard" widget="monetary"/>
+                                <field name="threshold_dispatches_extended" widget="monetary"/>
+                            </group>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Additional information about this threshold..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Intrastat Threshold Search View -->
+    <record id="view_l10n_bg_intrastat_threshold_search" model="ir.ui.view">
+        <field name="name">l10n.bg.intrastat.threshold.search</field>
+        <field name="model">l10n.bg.intrastat.threshold</field>
+        <field name="arch" type="xml">
+            <search string="Search Intrastat Thresholds">
+                <field name="year" widget="integer"/>
+                <field name="month"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Current Year" name="current_year"
+                        domain="[('year', '=', context_today().year)]"/>
+                <group>
+                    <filter string="Year" name="group_year" context="{'group_by': 'year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Intrastat Threshold Action -->
+    <record id="action_l10n_bg_intrastat_threshold" model="ir.actions.act_window">
+        <field name="name">Intrastat Thresholds</field>
+        <field name="res_model">l10n.bg.intrastat.threshold</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1, 'search_default_current_year': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Intrastat threshold
+            </p>
+            <p>
+                Define thresholds for Intrastat reporting by year and month.
+            </p>
+        </field>
+    </record>
+
+    <!-- VAT Ratio History List View -->
+    <record id="view_l10n_bg_vat_ratio_history_list" model="ir.ui.view">
+        <field name="name">l10n.bg.vat.ratio.history.list</field>
+        <field name="model">l10n.bg.vat.ratio.history</field>
+        <field name="arch" type="xml">
+            <list string="VAT Ratio History" decoration-muted="not active"
+                  decoration-warning="is_provisional" decoration-success="is_computed">
+                <field name="year" widget="integer"/>
+                <field name="month" widget="integer"/>
+                <field name="period_type" optional="hide"/>
+                <field name="vat_ratio" string="Ratio (%)" widget="percentage" decoration-bf="1"/>
+                <field name="numerator_total" widget="monetary" optional="hide"/>
+                <field name="denominator_total" widget="monetary" optional="hide"/>
+                <field name="is_manual" widget="boolean_toggle" optional="show"/>
+                <field name="is_computed" widget="boolean_toggle" optional="show"/>
+                <field name="is_provisional" widget="boolean_toggle" optional="show"/>
+                <field name="currency_id" column_invisible="1"/><!-- Technical field: required for monetary widget -->
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- VAT Ratio History Form View -->
+    <record id="view_l10n_bg_vat_ratio_history_form" model="ir.ui.view">
+        <field name="name">l10n.bg.vat.ratio.history.form</field>
+        <field name="model">l10n.bg.vat.ratio.history</field>
+        <field name="arch" type="xml">
+            <form string="VAT Ratio History (Art. 73)">
+                <header>
+                    <button name="action_compute_from_declarations"
+                            string="Compute from VAT Declarations"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="is_manual"
+                            confirm="This will recalculate the ratio based on VAT declaration data. Continue?"/>
+                    <button name="action_calculate_annual_adjustment"
+                            string="Calculate Annual Adjustment (Art. 73, Para. 8)"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="month"
+                            confirm="This will calculate the annual adjustment for partial VAT credit. Continue?"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <widget name="web_ribbon" title="Manual" bg_color="text-bg-warning" invisible="not is_manual"/>
+                    <widget name="web_ribbon" title="Computed" bg_color="text-bg-success" invisible="not is_computed"/>
+                    <widget name="web_ribbon" title="Provisional" bg_color="text-bg-info" invisible="not is_provisional"/>
+
+                    <group>
+                        <group>
+                            <field name="year" widget="integer"/>
+                            <field name="month" placeholder="Leave empty for annual coefficient"/>
+                            <field name="period_type" invisible="1"/><!-- Technical field: used in domain/compute -->
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group>
+                            <field name="currency_id" invisible="1"/><!-- Technical field: required for monetary widget -->
+                            <field name="is_manual"/>
+                            <field name="is_computed"/>
+                            <field name="is_provisional" invisible="not month"/><!-- Technical field: used in domain/compute -->
+                        </group>
+                    </group>
+
+                    <group string="VAT Ratio Calculation (Art. 73, Para. 2)">
+                        <group>
+                            <field name="vat_ratio" widget="percentage" class="oe_inline"/>
+                        </group>
+                        <group>
+                            <span class="o_form_label">Formula: (Numerator / Denominator) × 100%</span>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Numerator (Art. 73, Para. 3)" name="numerator">
+                            <group>
+                                <group string="Taxable Supplies">
+                                    <field name="numerator_box_11" widget="monetary"/>
+                                    <field name="numerator_box_13" widget="monetary"/>
+                                </group>
+                                <group string="Supplies Outside Bulgaria &amp; Other">
+                                    <field name="numerator_box_14" widget="monetary"/>
+                                    <field name="numerator_box_15" widget="monetary"/>
+                                    <field name="numerator_box_16" widget="monetary"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="numerator_total" widget="monetary" class="oe_subtotal_footer_separator" readonly="1"/>
+                            </group>
+                        </page>
+
+                        <page string="Denominator (Art. 73, Para. 4)" name="denominator">
+                            <group>
+                                <group string="Includes Numerator">
+                                    <label string="Numerator Total" for="numerator_total"/>
+                                    <div class="o_row">
+                                        <field name="numerator_total" widget="monetary" readonly="1" nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group string="Plus Additional Items">
+                                    <field name="denominator_box_17" widget="monetary"/>
+                                    <field name="denominator_box_18" widget="monetary"/>
+                                    <field name="denominator_box_19" widget="monetary"/>
+                                    <field name="denominator_box_42" widget="monetary"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="denominator_total" widget="monetary" class="oe_subtotal_footer_separator" readonly="1"/>
+                            </group>
+                        </page>
+
+                        <page string="Notes &amp; Instructions" name="notes">
+                            <group>
+                                <field name="notes" nolabel="1" placeholder="Additional information about this ratio calculation..."/>
+                            </group>
+                            <group string="Instructions (Art. 73)">
+                                <div class="alert alert-info" role="alert">
+                                    <h4>Numerator includes (Art. 73, Para. 3):</h4>
+                                    <ul>
+                                        <li><strong>Box 11:</strong> Tax base of taxable supplies</li>
+                                        <li><strong>Box 13:</strong> Received payments before taxable event</li>
+                                        <li><strong>Box 14:</strong> Supplies outside Bulgaria (Art. 69, Para. 2)</li>
+                                        <li><strong>Box 15:</strong> Payments for Box 14 supplies</li>
+                                        <li><strong>Box 16:</strong> Supplies without tax credit (Art. 70, Para. 1, Items 3-5)</li>
+                                    </ul>
+                                    <h4>Denominator includes (Art. 73, Para. 4):</h4>
+                                    <ul>
+                                        <li><strong>Numerator total</strong></li>
+                                        <li><strong>Box 17:</strong> Supplies outside Bulgaria (not Art. 69, Para. 2)</li>
+                                        <li><strong>Box 18:</strong> Exempt supplies (excluding Art. 50, Para. 1, Item 2)</li>
+                                        <li><strong>Box 19:</strong> Non-economic activities</li>
+                                        <li><strong>Box 42:</strong> Received subsidies (partial tax credit adjustment)</li>
+                                    </ul>
+                                    <p><strong>Rounding:</strong> Coefficient is rounded UP to second decimal place (e.g., 0.125 → 0.13)</p>
+                                    <p><strong>Note:</strong> Monthly coefficients are provisional and will be adjusted at year end according to Art. 73, Para. 8.</p>
+                                </div>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- VAT Ratio History Search View -->
+    <record id="view_l10n_bg_vat_ratio_history_search" model="ir.ui.view">
+        <field name="name">l10n.bg.vat.ratio.history.search</field>
+        <field name="model">l10n.bg.vat.ratio.history</field>
+        <field name="arch" type="xml">
+            <search string="Search VAT Ratio History">
+                <field name="year" widget="integer"/>
+                <field name="month"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Manual" name="manual" domain="[('is_manual', '=', True)]"/>
+                <filter string="Computed" name="computed" domain="[('is_computed', '=', True)]"/>
+                <filter string="Provisional" name="provisional" domain="[('is_provisional', '=', True)]"/>
+                <separator/>
+                <filter string="Current Year" name="current_year"
+                        domain="[('year', '=', context_today().year)]"/>
+                <filter string="Monthly" name="monthly" domain="[('month', '!=', False)]"/>
+                <filter string="Annual" name="annual" domain="[('month', '=', False)]"/>
+                <group>
+                    <filter string="Year" name="group_year" context="{'group_by': 'year'}"/>
+                    <filter string="Period Type" name="group_period_type" context="{'group_by': 'period_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- VAT Ratio History Action -->
+    <record id="action_l10n_bg_vat_ratio_history" model="ir.actions.act_window">
+        <field name="name">VAT Ratio History</field>
+        <field name="res_model">l10n.bg.vat.ratio.history</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1, 'search_default_current_year': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first VAT ratio record
+            </p>
+            <p>
+                Define VAT ratios according to Art. 73, Para. 5 of the VAT Act.
+                You can enter ratios manually or compute them from VAT declaration data.
+            </p>
+        </field>
+    </record>
+
+</odoo>

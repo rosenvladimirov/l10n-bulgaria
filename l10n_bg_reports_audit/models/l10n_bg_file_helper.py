@@ -3,6 +3,7 @@ import json
 import logging
 
 from odoo import fields, models, _
+from odoo import release
 from dateutil.relativedelta import relativedelta
 
 
@@ -15,6 +16,51 @@ L10N_BG_ADDRESS_EXTEND = [
 L10N_BG_MULTILANGUAGE = [
     "l10n_bg_multilang", "partner_multilang"
 ]
+
+
+def _get_odoo_version():
+    """
+    Връща мажорната версия на Odoo.
+
+    :return: Мажорна версия като integer (например 18, 19)
+    """
+    return int(release.version.split('.')[0])
+
+
+def l10n_bg_get_tag_negate_sql(table_alias='aat_base'):
+    """
+    Връща SQL за извличане на negate флага в зависимост от версията на Odoo.
+
+    В Odoo 18 и по-рано: използва полето tax_negate
+    В Odoo 19+: проверява дали името започва с минус
+
+    :param table_alias: Алиас на таблицата account_account_tag (по подразбиране 'aat_base')
+    :return: SQL израз за negate полето
+    """
+    if _get_odoo_version() < 19:
+        # Odoo 18 и по-рано
+        return f"{table_alias}.tax_negate AS negate"
+    else:
+        # Odoo 19+
+        return f"STARTS_WITH({table_alias}.name#>>'{{en_US}}', '-') AS negate"
+
+
+def l10n_bg_get_account_deprecated_sql(table_alias='acc'):
+    """
+    Връща SQL условие за филтриране на deprecated сметки в зависимост от версията на Odoo.
+
+    В Odoo 18 и по-рано: използва полето deprecated
+    В Odoo 19+: полето deprecated е премахнато, използва active
+
+    :param table_alias: Алиас на таблицата account_account (по подразбиране 'acc')
+    :return: SQL условие за deprecated полето
+    """
+    if _get_odoo_version() < 19:
+        # Odoo 18 и по-рано
+        return f"{table_alias}.deprecated = false"
+    else:
+        # Odoo 19+ - полето deprecated е премахнато, използваме active
+        return f"{table_alias}.active = true"
 
 
 def account_tag_33_43(env, report_options):
@@ -59,9 +105,17 @@ def l10n_bg_lang(env, lang_modules="partner", field_name=""):
     is_l10n_bg_multilanguage = isinstance(env.company.is_l10n_bg_multilanguage, dict) and env.company.is_l10n_bg_multilanguage.get("l10n_bg_multilang", '') == 'installed'
 
     if l10n_bg_extend_address(env) and lang_modules == "partner" and field_name == "company_partner.city":
-        field_name = "company_partner_city.name"
+        field_name = f"""(CASE
+        WHEN company_partner_city.name ? 'bg_BG' THEN company_partner_city.name#>>'{{{'bg_BG'}}}'
+        WHEN company_partner_city.name ? 'en_US' THEN company_partner_city.name#>>'{{{'en_US'}}}'
+        ELSE company_partner_city.name::text
+        END)"""
     if l10n_bg_extend_address(env) and lang_modules == "partner" and field_name == "represent_partner.city":
-        field_name = "represent_partner_city.name"
+        field_name = f"""(CASE
+        WHEN represent_partner_city.name ? 'bg_BG' THEN represent_partner_city.name#>>'{{{'bg_BG'}}}'
+        WHEN represent_partner_city.name ? 'en_US' THEN represent_partner_city.name#>>'{{{'en_US'}}}'
+        ELSE represent_partner_city.name::text
+        END)"""
 
     if lang_modules == "partner":
         _logger.debug(f"l10n_bg_lang: lang_modules == partner: {field_name} - {lang_modules}")
@@ -183,7 +237,7 @@ def _set_options(options, report_date_from, report_date_to):
     return options
 
 
-def l10n_bg_where(env, report_options):
+def l10n_bg_where(env, report_options, model_report='sale'):
     date_now = fields.Date.to_string(fields.Date.today())
     date_from = report_options["date"].get("date_from") or date_now
     date_to = report_options["date"].get("date_to") or date_now
@@ -193,6 +247,9 @@ def l10n_bg_where(env, report_options):
     unposted_in_period = report_options.get("unposted_in_period", False)
     all_entries = report_options["all_entries"]
     state = ["posted", "cancel"]
+    if model_report == 'purchase':
+        state = ["posted"]
+
     tax_periods = [tax_period] if tax_period else []
 
     if not tax_period and date_from and not date_to:
@@ -685,8 +742,8 @@ class AuditExportFileHelper(models.AbstractModel):
 
     def _get_l10n_bg_results(self, tax_report, options=False):
         full_query = self._build_l10n_bg_query(tax_report, options=options)
-        self._cr.execute(full_query, [])
-        results = self._cr.dictfetchall()
+        self.env.cr.execute(full_query, [])
+        results = self.env.cr.dictfetchall()
         return results
 
     def _build_l10n_bg_query(self, tax_report, options=False):
@@ -697,7 +754,7 @@ class AuditExportFileHelper(models.AbstractModel):
             return ""
         full_query = (
             self.env[sql_query]
-            .with_context(**dict(self._context, report_options=options))
+            .with_context(**dict(self.env.context, report_options=options))
             ._table_query
         )
         _logger.debug(f"SQL QUERY {tax_report}: {full_query}")

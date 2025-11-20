@@ -85,8 +85,8 @@ class AccountBGTotalViesDeclaration(models.Model):
 
     @api.model
     def _where(self):
-        if self._context.get("report_options"):
-            report_options = self._context.get("report_options")
+        if self.env.context.get("report_options"):
+            report_options = self.env.context.get("report_options")
             date_from = report_options["date"]["date_from"]
             date_from_date = fields.Date.from_string(date_from)
             tax_period = date_from_date.strftime("%Y%m")

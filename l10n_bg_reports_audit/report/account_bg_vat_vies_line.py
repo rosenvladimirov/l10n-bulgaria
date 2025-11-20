@@ -5,7 +5,7 @@ from psycopg2 import sql
 
 from odoo import api, fields, models, tools
 
-from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import l10n_bg_where
+from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import l10n_bg_where, l10n_bg_get_tag_negate_sql
 
 _logger = logging.getLogger(__name__)
 
@@ -95,14 +95,15 @@ FROM {self._from()}
 
     @api.model
     def _from(self):
-        return """account_move_line AS aml
+        tax_negate = l10n_bg_get_tag_negate_sql(table_alias='account_account_tag')
+        return f"""account_move_line AS aml
     LEFT JOIN account_move AS am
         ON aml.move_id = am.id
     LEFT JOIN account_account_tag_account_move_line_rel AS tag_line_rel
         ON tag_line_rel.account_move_line_id = aml.id
     LEFT JOIN (SELECT id,
-                    NULLIF(REGEXP_REPLACE(account_account_tag.name#>>'{en_US}', '\\D','','g'), '')::numeric AS tag_name,
-                    account_account_tag.tax_negate AS negate,
+                    NULLIF(REGEXP_REPLACE(account_account_tag.name#>>'{{en_US}}', '\\D','','g'), '')::numeric AS tag_name,
+                    {tax_negate},
                     l10n_bg_applicability
                     FROM account_account_tag
                     WHERE applicability = 'taxes') AS aat
@@ -116,8 +117,8 @@ FROM {self._from()}
 
     @api.model
     def _where(self):
-        if self._context.get("report_options"):
-            # report_options = self._context.get('report_options')
+        if self.env.context.get("report_options"):
+            # report_options = self.env.context.get('report_options')
             # date_from = report_options['date']['date_from']
             # date_to = report_options['date']['date_to']
             # company_id = self.env.company.id
@@ -126,7 +127,7 @@ FROM {self._from()}
             # if unposted_in_period:
             #     state.append('draft')
             date_from, date_to, tax_period, tax_periods, company_id, state = l10n_bg_where(
-                self.env, self._context.get("report_options")
+                self.env, self.env.context.get("report_options")
             )
             return f"""am.company_id = {company_id} AND am.state = ANY(ARRAY{state}) AND aat.l10n_bg_applicability = 'sale' AND aat.tag_name = ANY(ARRAY[15, 25, 17]) AND aml.balance != 0 AND am.date >= '{date_from}' AND am.date <= '{date_to}'"""
         return """aat.l10n_bg_applicability = 'sale' AND aat.tag_name = ANY(ARRAY[15,25,17]) AND aml.balance != 0"""

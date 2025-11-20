@@ -15,11 +15,11 @@
                     </p>
                     <group>
                         <field name="force_update"/>
-                        <field name="company_id" invisible="1"/>
+                        <field name="company_id" invisible="1"/><!-- Technical field: used in domain/compute -->
                     </group>
                     <field name="plugin_line_ids">
                         <list editable="bottom" create="0" delete="0">
-                            <field name="plugin_id" column_invisible="1" force_save="1"/>
+                            <field name="plugin_id" column_invisible="1" force_save="1"/><!-- Technical field: used in domain/compute -->
                             <field name="name"/>
                             <field name="state"/>
                             <field name="to_install" readonly="state == 'installed'"/>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <settings>
+        <setting model="account.account.tag" field="l10n_bg_applicability" value="sale">11,12_1,12_2,13,14,15,16,17,18,19,21,22,23,24</setting>
+        <setting model="account.account.tag" field="l10n_bg_applicability" value="purchase">30,31,32,41,42</setting>
+    </settings>
+</configuration>

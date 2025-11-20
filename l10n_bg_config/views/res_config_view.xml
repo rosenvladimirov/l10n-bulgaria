@@ -7,16 +7,16 @@
         <field name="inherit_id" ref="base.res_config_settings_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//form" position="inside">
-                <field name="is_l10n_bg_record" invisible="1" />
+                <field name="is_l10n_bg_record" invisible="1" /><!-- Technical field: used in domain/compute -->
                 <field
                     name="country_code"
                     invisible="1"
                     groups="account.group_account_manager"
-                />
+                /><!-- Technical field: used in domain/compute -->
                 <field
                     name="l10n_bg_config_template"
                     invisible="1"
-                />
+                /><!-- Technical field: used in domain/compute -->
 
                 <app
                     data-string="Bulgaria Localization"
@@ -34,7 +34,7 @@
                             id="l10n_bg_config_setting_params"
                             title="Bulgaria settings"
                             string="Bulgaria settings"
-                            help="Theatrical section for settings"
+                            help="Theoretical section for settings"
                         >
                             <div
                                 class="content-group"
@@ -337,9 +337,9 @@
                         </setting>
                         <setting
                             id="l10n_bg_city_setting_container"
-                            title="Bulgarian cites"
-                            string="Bulgarian cites"
-                            help="Bulgaria cites, melisipalies, states..."
+                            title="Bulgarian cities"
+                            string="Bulgarian cities"
+                            help="Bulgaria cities, melisipalies, states..."
                         >
                             <div class="d-flex">
                                 <field name="module_l10n_bg_city" class="ml16" />

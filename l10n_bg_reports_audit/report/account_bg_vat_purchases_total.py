@@ -134,9 +134,9 @@ LEFT JOIN res_partner AS company_partner
 
     @api.model
     def _where(self):
-        if self._context.get("report_options"):
+        if self.env.context.get("report_options"):
             date_from, date_to, tax_period, tax_periods, company_id, state = l10n_bg_where(
-                self.env, self._context.get("report_options")
+                self.env, self.env.context.get("report_options")
             )
             return f"""am.company_id = {company_id} AND am.state = ANY(ARRAY{state}) AND am.date >= '{date_from}' AND am.date <= '{date_to}'"""
         return ""

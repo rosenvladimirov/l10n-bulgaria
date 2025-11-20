@@ -5,7 +5,8 @@ from psycopg2 import sql
 
 from datetime import datetime, timedelta, date
 from odoo import api, fields, models, tools
-from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import l10n_bg_where
+from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import l10n_bg_where, \
+    l10n_bg_get_account_deprecated_sql
 
 _logger = logging.getLogger(__name__)
 
@@ -19,14 +20,14 @@ class AccountBGCalcPartnerLine(models.Model):
     _order = "move_id asc"
 
     company_id = fields.Many2one(
-        "res.company", "Company", readonly=True, auto_join=True
+        "res.company", "Company", readonly=True,
     )
     company_currency_id = fields.Many2one(
         related="company_id.currency_id", readonly=True
     )
 
     move_id = fields.Many2one("account.move", string="Account Move", readonly=True)
-    id = fields.Integer(string="ID", readonly=True, related="move_id.id")
+    # id = fields.Integer(string="ID", readonly=True, related="move_id.id")
 
     date = fields.Date(related="move_id.date", readonly=True)
     partner_id = fields.Many2one("res.partner", "Customer", readonly=True)
@@ -128,9 +129,9 @@ class AccountBGCalcPartnerLine(models.Model):
 
     @api.model
     def _select(self):
-        if self._context.get("report_options"):
+        if self.env.context.get("report_options"):
             date_from, date_to, tax_period, tax_periods, company_id, state = l10n_bg_where(
-                self.env, self._context.get("report_options")
+                self.env, self.env.context.get("report_options")
             )
             date_from_obj = datetime.strptime(date_from, '%Y-%m-%d').date()
             # Проверка дали date_from е първо число на годината
@@ -152,6 +153,7 @@ class AccountBGCalcPartnerLine(models.Model):
             date_from = "date_trunc('year', CURRENT_DATE)"
             date_to = "CURRENT_DATE"
             company = ""
+        deprecated = l10n_bg_get_account_deprecated_sql(table_alias='acc')
 
         return f"""
         /* Начално салдо */
@@ -171,7 +173,7 @@ class AccountBGCalcPartnerLine(models.Model):
             'initial' as balance_type
         FROM {self._from()}
         WHERE acc.reconcile = true
-          AND acc.deprecated = false
+          AND {deprecated}
           {'AND ' + company if company else ''} AND am.date <= {date_from_initial}
 
         UNION ALL
@@ -193,7 +195,7 @@ class AccountBGCalcPartnerLine(models.Model):
             'movement' as balance_type
         FROM {self._from()}
         WHERE acc.reconcile = true
-          AND acc.deprecated = false
+          AND {deprecated}
           {'AND ' + company if company else ''} AND am.date BETWEEN {date_from} AND {date_to}
 
         UNION ALL
@@ -215,7 +217,7 @@ class AccountBGCalcPartnerLine(models.Model):
             'final' as balance_type
         FROM {self._from()}
         WHERE acc.reconcile = true
-          AND acc.deprecated = false
+          AND {deprecated}
           {'AND ' + company if company else ''} AND am.date <= {date_to}
         ORDER BY date  -- сортираме още в базовия SELECT
 """
@@ -231,8 +233,8 @@ class AccountBGCalcPartnerLine(models.Model):
 
     @api.model
     def _where(self):
-        if self._context.get("report_options"):
-            account_type = self._context.get("account_type")
+        if self.env.context.get("report_options"):
+            account_type = self.env.context.get("account_type")
             return f"""acc.reconcile = true AND acc.account_type = '{account_type}'"""
         return """"""
 

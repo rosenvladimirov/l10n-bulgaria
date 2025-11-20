@@ -150,18 +150,18 @@ class ResTransliterate(models.AbstractModel):
             if field_name not in self._fields.keys():
                 continue
             if not new_record:
-                new_record = not getattr(self.with_context(**dict(self._context, lang="en_US")), field_name)
-            # _logger.info(f'New record: {new_record} {getattr(self.with_context(**dict(self._context, lang="en_US")), field_name)}')
+                new_record = not getattr(self.with_context(**dict(self.env.context, lang="en_US")), field_name)
+            # _logger.info(f'New record: {new_record} {getattr(self.with_context(**dict(self.env.context, lang="en_US")), field_name)}')
             if vals.get(field_name) and new_record:
                 current_lang, transliterate = self._check_lang(vals[field_name])
                 # # Save in user lang
-                # record = self.with_context(**dict(self._context, lang=current_lang, update_lang=True))
+                # record = self.with_context(**dict(self.env.context, lang=current_lang, update_lang=True))
                 # record.write({
                 #   field_name: vals[field_name],
                 # })
                 # if transliterate save transliterated
                 if transliterate and current_lang != "en_US":
-                    record = self.with_context(**dict(self._context, lang="en_US", update_lang=True))
+                    record = self.with_context(**dict(self.env.context, lang="en_US", update_lang=True))
                     record.write({
                         field_name: partner_name_translate(vals[field_name], current_lang, transliterate)
                     })
@@ -175,7 +175,7 @@ class ResTransliterate(models.AbstractModel):
 
     def write(self, vals):
         res = super().write(vals)
-        if not self._context.get('update_lang', False):
+        if not self.env.context.get('update_lang', False):
             for record in self:
                 record._force_multilanguage(vals, new_record=False)
         return res

@@ -7,3 +7,5 @@ from . import products
 from . import account_account_tag
 from . import account_move
 from . import account_move_line
+from . import res_company_history_vat
+from . import res_company_history_intrastat

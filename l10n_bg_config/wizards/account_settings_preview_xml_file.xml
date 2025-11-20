@@ -6,21 +6,49 @@
         <field name="arch" type="xml">
             <form string="Preview setting as XML">
                 <sheet>
-                    <field name="l10n_bg_config_file_preview" nolabel="1" readonly="1"/>
-                    <footer>
-                        <button string="Save like XML"
-                                name="save_xml"
-                                type="object"
-                                class="btn-primary"/>
-                        <button string="Close" special="cancel"/>
-                    </footer>
+                    <div class="alert alert-info mb-3" role="alert">
+                        <div class="d-flex align-items-start">
+                            <i class="fa fa-info-circle me-2 mt-1" title="Information"/>
+                            <div>
+                                <strong>Current Configuration Preview</strong>
+                                <div class="mt-2">
+                                    <small>
+                                        This is a visual representation of your current configuration.
+                                    </small>
+                                </div>
+                                <div class="mt-1">
+                                    <small>
+                                        <strong>Important:</strong> The downloaded file cannot be used directly for re-import. It serves only as documentation and backup reference.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <group>
+                        <field name="l10n_bg_config_file_preview"
+                               nolabel="1"
+                               widget="ace"
+                               options="{'mode': 'xml', 'showPrintMargin': false, 'highlightActiveLine': true, 'theme': 'chrome'}"
+                               style="min-height: 500px;"/>
+                    </group>
                 </sheet>
+                <footer>
+                    <button string="Download XML"
+                            name="save_xml"
+                            type="object"
+                            class="btn-primary"
+                            icon="fa-download"/>
+                    <button string="Close"
+                            special="cancel"
+                            class="btn-secondary"/>
+                </footer>
             </form>
         </field>
     </record>
 
     <record id="action_account_settings_xml_file" model="ir.actions.act_window">
-        <field name="name">Preview setting as XML</field>
+        <field name="name">Preview Configuration as XML</field>
         <field name="res_model">account.settings.preview.xml.file</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

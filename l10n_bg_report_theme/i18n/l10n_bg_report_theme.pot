@@ -1,0 +1,358 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_report_theme
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-08 10:39+0000\n"
+"PO-Revision-Date: 2025-06-08 10:39+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_wizard_section_preview
+msgid "INV/2023/00003"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_wizard_section_preview
+msgid "Invoice"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
+msgid "Shipping address:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
+msgid "The Attention of:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "<strong>Deal Date</strong>"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+msgid "Address:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__layout_background_l_image
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background_l_image
+msgid "Background Article Image-landscape"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__layout_background_footer_image
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background_footer_image
+msgid "Background Footer Image"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__layout_background_l_footer_image
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background_l_footer_image
+msgid "Background Footer Image-landscape"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__layout_background_header_image
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background_header_image
+msgid "Background Header Image"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__layout_background_l_header_image
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background_l_header_image
+msgid "Background Header Image-landscape"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Background images"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Base & Selection theme Colors"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Base Colors"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+msgid "CUSTOMER"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "Cancelled Invoice"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__color
+msgid "Color"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__color_rgb
+msgid "Color RGB"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__selection_colors
+msgid "Colors"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model,name:l10n_bg_report_theme.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model,name:l10n_bg_report_theme.model_base_document_layout
+msgid "Company Document Layout"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+msgid "Company/Person Name:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "Credit Note"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model,name:l10n_bg_report_theme.model_base_document_layout_colors
+msgid "Document Layout Colors Configuration"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "Draft Invoice"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__font
+msgid "Font"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
+msgid "From:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields.selection,name:l10n_bg_report_theme.selection__res_company__layout_background__section
+msgid "Included in layout"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "Invoice"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
+msgid "Invoicing address:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
+msgid "Invoicing and shipping address:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Landscape"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__base_document_layout_id
+msgid "Layout"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__layout_background
+msgid "Layout Background"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.external_layout_sections
+msgid "Logo"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__logo_print_primary_color
+msgid "Logo Print Primary Color"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__logo_print_secondary_color
+msgid "Logo Print Secondary Color"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__logo_print
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__logo_print
+msgid "Logo print"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_company_form
+msgid "Logos"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__mobile
+msgid "Mobile"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout_colors__name
+msgid "Name"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.external_layout_sections
+msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Portrait"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_base_document_layout__preview_logo_print
+msgid "Preview print logo"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model,name:l10n_bg_report_theme.model_ir_actions_report
+msgid "Report Action"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Reset to logo colors"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields.selection,name:l10n_bg_report_theme.selection__res_company__font__sf_text
+msgid "SF Text"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.model.fields.selection,name:l10n_bg_report_theme.selection__res_company__font__sf_pro_text
+msgid "SF Text Pro"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+msgid "SUPPLIER"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Selection theme Colors"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+msgid "Str.:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+msgid "TIN"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.document_tax_totals_template_extended
+msgid "<span>Untaxed Amount</span>"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Upload your article file"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Upload your article file 247x210mm"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Upload your footer file"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Upload your footer file 20x210mm"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Upload your header file"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Upload your header file 30x210mm"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "Vendor Bill"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "Vendor Credit Note"
+msgstr ""

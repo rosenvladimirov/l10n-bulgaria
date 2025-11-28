@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document" active="False">
+        <xpath expr="//t[@t-set='o']" position="after">
+            <t t-set="sender" t-value="o.company_id.partner_id"/>
+            <t t-set="recipient" t-value="o.partner_id"/>
+            <t t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
+                <!--t-value="'Invoice'"/>-->
+                <t t-set="name_label">Invoice</t>
+            </t>
+            <t t-if="o.move_type == 'out_invoice' and o.state == 'draft'">
+                <!--t-value="'Draft Invoice'"/>-->
+                <t t-set="name_label">Draft Invoice</t>
+            </t>
+            <t t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">
+                <!--t-value="'Cancelled Invoice'"/>-->
+                <t t-set="name_label">Cancelled Invoice</t>
+            </t>
+            <t t-if="o.move_type == 'out_refund'">
+                <!--t-value="'Credit Note'"/>-->
+                <t t-set="name_label">Credit Note</t>
+            </t>
+            <t t-if="o.move_type == 'in_refund'">
+                <!--t-value="'Vendor Credit Note'"/>-->
+                <t t-set="name_label">Vendor Credit Note</t>
+            </t>
+            <t t-if="o.move_type == 'in_invoice'">
+                <!--t-value="'Vendor Bill'"/>-->
+                <t t-set="name_label">Vendor Bill</t>
+            </t>
+            <t t-if="o.name != '/'">
+                <t t-set="name" t-value="o._get_invoice_computed_reference()"/>
+                <t
+                    t-set="name_date"
+                    t-value="format_date(o.invoice_date, lang_code=o.partner_id.lang, date_format='medium')"
+                />
+            </t>
+            <t t-else="">
+                <t t-set="name" t-value="''"/>
+                <t t-set="name_date" t-value="''"/>
+            </t>
+            <t t-set="original_copies">ORIGINAL</t>
+        </xpath>
+
+        <xpath expr="//t[@t-set='layout_document_title']" position="replace"/>
+
+        <xpath expr="//div[@id='informations']" position="inside">
+            <div class="col" t-if="o.l10n_bg_deal_date" name="l10n_bg_deal_date" groups="l10n_bg_report_theme.l10n_bg_deal_date">
+                <strong>Deal Date</strong>
+                <div t-field="o.l10n_bg_deal_date">2023-09-25</div>
+            </div>
+        </xpath>
+
+        <!-- Add groups attribute to the due_date div -->
+        <xpath expr="//div[@name='due_date']" position="attributes">
+            <attribute name="groups">l10n_bg_report_theme.group_control_due_date</attribute>
+        </xpath>
+
+        <!-- Add groups attribute to the delivery_date div -->
+        <xpath expr="//div[@name='delivery_date']" position="attributes">
+            <attribute name="groups">l10n_bg_report_theme.group_control_delivery_date</attribute>
+        </xpath>
+
+    </template>
+</odoo>

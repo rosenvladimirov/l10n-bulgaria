@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="address_layout" inherit_id="web.address_layout">
+        <xpath expr="//t[@t-set='colclass']" position="after">
+            <t t-set="show_address" t-value="false" t-if="not show_address" />
+        </xpath>
+        <xpath expr="//div[@name='address']" position="attributes">
+            <attribute name="t-if" add="show_address" separator="and" />
+        </xpath>
+    </template>
+    <template id="deal_no_partner">
+        <t t-if="not sender_vat_label">
+            <t t-set="sender_vat_label" t-value="sender.country_id.vat_label" />
+        </t>
+        <t t-if="not sender_vat_label">
+            <t t-set="sender_vat_label">TIN</t>
+        </t>
+        <t t-if="not recipient_vat_label">
+            <t t-set="recipient_vat_label" t-value="recipient.country_id.vat_label" />
+        </t>
+        <t t-if="not recipient_vat_label">
+            <t t-set="recipient_vat_label">TIN</t>
+        </t>
+        <div class="row mt8" name="deal">
+            <div class="col-6" name="offer_recipient">
+                <t t-if="recipient_contact_id">
+                    <strong class="o_section_labels">The Attention of:</strong>
+                    <div t-field="recipient_contact_id.name" />
+                    <div
+                        t-out="recipient_contact_id"
+                        name="contact_name"
+                        t-options="{'widget': 'contact', 'fields': ['phone'], 'no_marker': True}"
+                    />
+                </t>
+                <div
+                    name="invoice_shipping_address"
+                    t-if="recipient_shipping_id and recipient_invoice_id"
+                >
+                    <strong
+                        class="o_section_labels"
+                        t-if="recipient_shipping_id == recipient_invoice_id"
+                    >Invoicing and shipping address:</strong>
+                    <strong
+                        class="o_section_labels"
+                        t-if="recipient_shipping_id != recipient_invoice_id"
+                    >Invoicing address:</strong>
+                </div>
+                <t t-if="recipient_invoice_id">
+                    <div
+                        t-out="recipient_invoice_id"
+                        t-options="{'widget': 'contact', 'fields': ['address', 'name'], 'no_marker': True, 'phone_icons': True}"
+                        name="invoice_address"
+                    />
+                    <p t-if="recipient.vat"><t t-esc="recipient_vat_label" />: <span
+                            t-field="recipient.vat"
+                        /></p>
+                </t>
+                <t
+                    t-if="recipient_shipping_id and recipient_invoice_id and recipient_shipping_id != recipient_invoice_id"
+                >
+                    <div name="shipping_address">
+                        <strong class="o_section_labels">Shipping address:</strong>
+                        <div
+                            t-out="recipient_shipping_id"
+                            t-options="{'widget': 'contact', 'fields': ['address', 'name', 'phone'], 'no_marker': True, 'phone_icons': True}"
+                        />
+                    </div>
+                </t>
+            </div>
+            <div class="col-6 o_sections_information">
+                <strong class="o_section_labels" t-if="sender">From:</strong>
+                <div
+                    t-if="sender"
+                    t-out="sender"
+                    t-options="{'widget': 'contact', 'fields': ['address', 'name', 'phone'], 'no_marker': True, 'phone_icons': True}"
+                />
+                <div name="company_vat_number" t-if="sender and sender.vat"><span
+                        t-if="sender"
+                        t-esc="sender_vat_label"
+                    />: <span t-if="sender" t-field="sender.vat" /></div>
+            </div>
+        </div>
+    </template>
+    <template id="deal_partner">
+        <!-- t-value="'SUPPLIER'"-->
+        <t t-set="sender_name">SUPPLIER</t>
+        <!--        t-value="'CUSTOMER'"-->
+        <t t-set="recipient_name">CUSTOMER</t>
+        <t t-if="reverce">
+            <t t-if="sender">
+                <t t-set="recipient_new" t-value="sender" />
+            </t>
+            <t t-if="recipient">
+                <t t-set="sender_new" t-value="recipient" />
+            </t>
+            <t t-set="recipient" t-value="recipient_new" />
+            <t t-set="sender" t-value="sender_new" />
+<!--             t-value="'CUSTOMER'"/>-->
+            <t t-set="sender_name">CUSTOMER</t>
+<!--             t-value="'SUPPLIER'"-->
+            <t t-set="recipient_name">SUPPLIER</t>
+        </t>
+        <t t-set="sender_vat_label" t-value="sender.country_id.vat_label" />
+        <t t-if="not sender_vat_label">
+            <t t-set="sender_vat_label">TIN</t>
+        </t>
+        <t t-set="recipient_vat_label" t-value="recipient.country_id.vat_label" />
+        <t t-if="not recipient_vat_label">
+            <t t-set="recipient_vat_label">TIN</t>
+        </t>
+        <t t-if="not sender_uic_label">
+            <t t-set="sender_uic_label">UIC</t>
+        </t>
+        <t t-if="not recipient_uic_label">
+            <t t-set="recipient_uic_label">UIC</t>
+        </t>
+        <t t-if="not sender_contact_label">
+            <t t-set="sender_contact_label">Sender represent contact</t>
+        </t>
+        <t t-if="not recipient_contact_label">
+            <t t-set="recipient_contact_label">Represent contact</t>
+        </t>
+
+        <div class="row mt8 o_sections_deal" name="deal" t-if="recipient and sender">
+            <div class="col-12" name="deal_table">
+                <table class="table o_deal_table table-sm mt-4" name="deal_header">
+                    <thead name="deal_head">
+                        <tr>
+                            <th colspan="2" style="width:50%;" t-esc="recipient_name" />
+                            <th colspan="2" style="width:50%;" t-esc="sender_name" />
+                        </tr>
+                    </thead>
+                    <tbody name="deal_body">
+                        <tr name="partners">
+                            <td
+                                class="o_selection_custom_name"
+                            >Company/Person Name: </td>
+                            <td><strong><span t-field="recipient.name" /></strong></td>
+
+                            <td
+                                class="o_selection_custom_name"
+                            >Company/Person Name: </td>
+                            <t t-if="sender.parent_id">
+                                <td><strong><span
+                                            t-field="sender.parent_id.name"
+                                        /></strong></td>
+                            </t>
+                            <t t-else="">
+                                <td><strong><span t-field="sender.name" /></strong></td>
+                            </t>
+                        </tr>
+                        <tr name="cites">
+                            <td class="o_selection_custom_name">Address: </td>
+                            <td><span t-field="recipient.zip" /> <span t-if="'city_id' not in recipient._fields" t-field="recipient.city"/> <span t-if="'city_id' in recipient._fields" t-esc="recipient.city_id.name"/> <span t-if="recipient.country_id">, <span t-field="recipient.country_id"/></span></td>
+                            <td class="o_selection_custom_name">Address: </td>
+                            <td><span t-field="sender.zip" /> <span t-if="'city_id' not in sender._fields" t-field="sender.city"/> <span t-if="'city_id' in sender._fields" t-esc="sender.city_id.name"/> <span t-if="sender.country_id">, <span t-field="sender.country_id"/></span></td>
+                        </tr>
+                        <tr name="addresses">
+                            <t t-if="recipient.street">
+                                <td class="o_selection_custom_name">Str.: </td>
+                                <td><span t-esc="recipient.street" /></td>
+                            </t>
+                            <t t-else="">
+                                <td /><td />
+                            </t>
+                            <t t-if="sender.street">
+                                <td class="o_selection_custom_name">Str.: </td>
+                                <td><span t-esc="sender.street" /></td>
+                            </t>
+                            <t t-else="">
+                                <td /><td />
+                            </t>
+                        </tr>
+                        <tr
+                            t-if="recipient.street2 or sender.street2"
+                            name="addresses_second"
+                        >
+                            <td />
+                            <td><span t-field="recipient.street2" /></td>
+                            <td />
+                            <td><span t-field="sender.street2" /></td>
+                        </tr>
+                        <tr name="uic_number" t-if="'l10n_bg_uic' in recipient._fields and recipient.l10n_bg_uic or sender.l10n_bg_uic">
+                            <t t-if="recipient.l10n_bg_uic">
+                                <td class="o_selection_custom_name"><t
+                                        t-esc="recipient_uic_label"
+                                    />:<span/></td>
+                                <td><span t-esc="recipient.l10n_bg_uic"/></td>
+                            </t>
+                            <t t-else="">
+                                <td /><td />
+                            </t>
+                            <t t-if="sender.l10n_bg_uic">
+                                <td class="o_selection_custom_name"><t
+                                        t-esc="sender_uic_label"
+                                    />:<span/></td>
+                                <td><span t-field="sender.l10n_bg_uic"/></td>
+                            </t>
+                            <t t-else=""><td /><td /></t>
+                        </tr>
+                        <tr name="vat_number" t-if="recipient.vat or sender.vat">
+                            <t t-if="recipient.vat">
+                                <td class="o_selection_custom_name"><t
+                                        t-esc="recipient_vat_label"
+                                    />:<span/></td>
+                                <td><span t-esc="recipient.vat"/></td>
+                            </t>
+                            <t t-else="">
+                                <td /><td />
+                            </t>
+                            <t t-if="sender.vat">
+                                <td class="o_selection_custom_name"><t
+                                        t-esc="sender_vat_label"
+                                    />:<span/></td>
+                                <td><span t-field="sender.vat" /></td>
+                            </t>
+                            <t t-else=""><td /><td /></t>
+                        </tr>
+                         <tr name="represent" groups="l10n_bg_report_theme.group_control_represent_person">
+                            <t t-if="recipient.l10n_bg_represent_contact_id">
+                                <td class="o_selection_custom_name"><t
+                                        t-esc="recipient_contact_label"
+                                    />:<span/></td>
+                                <td><span t-esc="recipient.l10n_bg_represent_contact_id.name"/></td>
+                            </t>
+                            <t t-else="">
+                                <td /><td />
+                            </t>
+                            <t t-if="sender.l10n_bg_represent_contact_id">
+                                <td class="o_selection_custom_name"><t
+                                        t-esc="sender_contact_label"
+                                    />:<span/></td>
+                                <td><span t-esc="sender.l10n_bg_represent_contact_id.name"/></td>
+                            </t>
+                            <t t-else=""><td /><td /></t>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+    <template id="document_name">
+        <div class="row o_sections_name">
+            <div class="col-8">
+                <h5>
+                    <span t-esc="name_label" />
+                    <span t-esc="name" />
+                </h5>
+            </div>
+            <div class="col-4">
+                <h6>
+                    <span t-esc="name_date" />
+                </h6>
+            </div>
+        </div>
+        <div class="row o_sections_name" t-if="original_copies">
+            <div class="col-8"></div>
+            <div class="col-4">
+                <h6>
+                    <span t-esc="original_copies" />
+                </h6>
+            </div>
+        </div>
+    </template>
+    <template id="signatures_section">
+        <!-- Signatures control section - only for group_control_signatures -->
+        <div class="row mt8 o_sections_signatures" name="signatures_section"
+             groups="l10n_bg_report_theme.group_control_signatures">
+            <!-- Set variables for labels -->
+            <t t-if="o">
+                <t t-set="user_name" t-value="o.env.user.name"/>
+            </t>
+            <t t-if="doc">
+                <t t-set="user_name" t-value="doc.env.user.name"/>
+            </t>
+            <t t-if="recipient_name" t-set="name_and_surname_label" t-value="recipient_name"/>
+            <t t-if="not name_and_surname_label" t-set="name_and_surname_label">CUSTOMER</t>
+            <t t-if="not signature_and_stamp_label" t-set="signature_and_stamp_label">Signature and Stamp</t>
+            <t t-if="not signature_placeholder" t-set="signature_placeholder">____________________</t>
+            <t t-if="not name_and_sender_label" t-set="name_and_sender_label">COMPILER</t>
+
+            <div class="col-12" name="signatures_control">
+                <div class="row">
+                    <!-- Left signature -->
+                    <div class="col-6 text-center">
+                        <div class="mt32 mr4">
+                            <small>
+                                <t t-esc="name_and_surname_label"/>:<span/><t t-esc="signature_placeholder"/>
+                            </small>
+                        </div>
+                    </div>
+                    <!-- Right signature -->
+                    <div class="col-6 text-center">
+                        <div class="mt32 mr4">
+                            <small>
+                                <t t-esc="name_and_sender_label"/>:<span/><t t-esc="signature_placeholder"/>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" t-if="user_name">
+                    <div class="col-6 text-center"/>
+                    <div class="col-6 text-center">
+                        <span t-esc="user_name"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="external_layout_sections">
+        <t t-set="header_shape_height" t-value="'174'"/>
+        <t t-set="layout_background_header_url"
+            t-value="'data:image/png;base64,%s' % company.layout_background_header_image.decode('utf-8') if company.layout_background_header_image and company.layout_background == 'Custom' else ''" />
+        <t t-set="layout_background_l_header_url"
+            t-value="'data:image/png;base64,%s' % company.layout_background_l_header_image.decode('utf-8') if company.layout_background_l_header_image and company.layout_background == 'Custom' else ''" />
+
+        <div
+            t-attf-class="o_company_#{company.id}_layout header o_sections_header {{  'o_report_layout_header_background' if company.layout_background == 'Custom'  else  '' }} {{report_type != 'pdf' and 'h-0'}}"
+            t-attf-style="{{ 'background-image: url(%s);' % layout_background_header_url if layout_background_header_url else '' }} {{report_type != 'pdf' and 'width: 100% !important'}}"
+        >
+            <t t-if="company.layout_background in ['Geometric', 'Custom']">
+                <t t-attf-style="{{
+                    '@media (min-width: 1122px) {
+                        background-image: url(%s);
+                    }' % layout_background_l_header_url }}"/>
+            </t>
+            <div class="row" style="vertical-align:middle;">
+                <div class="col-8">
+                    <img
+                        t-if="company.logo_print"
+                        t-att-src="image_data_uri(company.logo_print)"
+                        alt="Logo"
+                        style="max-height: 60px; vertical-align:middle;"
+                    />
+                </div>
+                <div class="col-1 text-start" />
+                <div class="col-3 text-start o_sections_name">
+                    <ul class="list-unstyled">
+                        <li t-if="company.is_company_details_empty">
+                            <li t-if="company.phone"><i class="fa fa-phone" /> <span
+                                    t-field="company.phone"
+                                /></li>
+                            <li t-if="company.email"><i class="fa fa-at" /> <span
+                                    t-field="company.email"
+                                /></li>
+                            <li t-if="company.website"><i
+                                    class="fa fa-globe"
+                                /> <span t-field="company.website" /></li>
+                        </li>
+                        <li t-else="">
+                            <span
+                                class="company_address"
+                                t-esc="company.company_details"
+                            />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <t t-set="layout_background_url"
+            t-value="'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg'" />
+        <t t-set="layout_background_url_landscape"
+            t-value="'data:image/png;base64,%s' % company.layout_background_l_image.decode('utf-8') if company.layout_background_l_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg'" />
+
+        <div
+            t-attf-class="o_company_#{company.id}_layout article o_sections_article {{  'o_report_layout_article_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
+            t-attf-style="{{ 'background-image: url(%s);' % layout_background_url if layout_background_url else '' }} {{report_type != 'pdf' and 'margin-top:' + header_shape_height + 'px;'}} {{report_type != 'pdf' and 'width: 100% !important'}}"
+            t-att-data-oe-model="o and o._name"
+            t-att-data-oe-id="o and o.id"
+            t-att-data-oe-lang="o and o.env.context.get('lang')"
+        >
+            <t t-if="company.layout_background in ['Geometric', 'Custom']">
+                <t t-attf-style="{{
+                    '@media (min-width: 1122px) {
+                        background-image: url(%s);
+                    }' % layout_background_url_landscape }}"/>
+            </t>
+            <t name="document_name" t-call="l10n_bg_report_theme.document_name" />
+            <div class="pt-5">
+                <!-- This div ensures that the address is not cropped by the header. -->
+                <t t-call="web.address_layout" />
+            </div>
+            <t
+                name="deal_partner"
+                t-call="l10n_bg_report_theme.deal_partner"
+                t-if="(not no_deal_partner and sender and recipient)"
+            />
+            <t
+                name="deal_no_partner"
+                t-call="l10n_bg_report_theme.deal_no_partner"
+                t-if="(no_deal_partner and sender and recipient)"
+            />
+            <t t-out="0" />
+            <t
+                name="signatures_section"
+                t-call="l10n_bg_report_theme.signatures_section"
+                t-if="sender and recipient"
+                groups="l10n_bg_report_theme.group_control_signatures"
+            />
+        </div>
+
+        <t t-set="layout_background_footer_url"
+            t-value="'data:image/png;base64,%s' % company.layout_background_footer_image.decode('utf-8') if company.layout_background_footer_image and company.layout_background == 'Custom' else ''" />
+        <t t-set="layout_background_l_footer_url"
+            t-value="'data:image/png;base64,%s' % company.layout_background_l_footer_image.decode('utf-8') if company.layout_background_l_footer_image and company.layout_background == 'Custom' else ''" />
+
+        <div
+            t-attf-class="o_company_#{company.id}_layout footer o_sections_footer {{  'o_report_layout_footer_background' if company.layout_background == 'Custom'  else  '' }}"
+            t-attf-style="{{ 'background-image: url(%s);' % layout_background_footer_url if layout_background_footer_url else '' }} {{report_type != 'pdf' and 'width: 100% !important'}}"
+        >
+            <t t-if="company.layout_background in ['Geometric', 'Custom']">
+                <t t-attf-style="{{
+                    '@media (min-width: 1122px) {
+                        background-image: url(%s);
+                    }' % layout_background_l_footer_url }}"/>
+            </t>
+            <div
+                class="row"
+                style="max-height: 60px; vertical-align:middle;"
+                t-if="report_type == 'pdf'"
+            >
+                <div class="col-3 text-start">
+                    Page: <span class="page" /> / <span class="topage" />
+                </div>
+                <div t-if="display_name_in_footer" class="text-muted col-9">
+                    <span t-field="o.name" />
+                </div>
+            </div>
+            <div class="row" t-if="company.report_footer">
+                <div class="col-12 text-start" style="font-size: 8px">
+                    <div t-field="company.report_footer" />
+                </div>
+            </div>
+        </div>
+    </template>
+    <template
+        id="styles_company_report_sections"
+        inherit_id="web.styles_company_report"
+    >
+        <xpath
+            expr='//t[@t-elif="layout == &apos;web.external_layout_bubble&apos;"]'
+            position="after"
+        >
+            <t t-elif="layout == 'l10n_bg_report_theme.external_layout_sections'">
+                :root {
+                    --font-family: <t t-esc="font" />;
+                    --primary-color:  <t t-esc='primary' />;
+                    --secondary-color: <t t-esc='secondary' />;
+                }
+            </t>
+        </xpath>
+    </template>
+    <template id="report_invoice_wizard_section_preview" inherit_id="web.report_invoice_wizard_preview">
+        <xpath expr="//t[@t-set='layout_document_title']" position="before">
+            <t t-set="name_label">
+                <span>Invoice</span>
+            </t>
+           <t t-set="name">
+               <span>INV/2023/00003</span>
+           </t>
+        </xpath>
+    </template>
+</odoo>

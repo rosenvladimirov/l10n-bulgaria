@@ -49,15 +49,6 @@ class BGModEconomicActivity(models.Model):
         for record in self:
             record.display_name = f"[{record.code}] {record.name}"
 
-    @api.depends('code', 'name')
-    def name_get(self):
-        """Legacy method for backward compatibility"""
-        result = []
-        for record in self:
-            name = f"[{record.code}] {record.name}"
-            result.append((record.id, name))
-        return result
-
     @api.model
     def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None):
         """Override to improve performance when loading large datasets"""

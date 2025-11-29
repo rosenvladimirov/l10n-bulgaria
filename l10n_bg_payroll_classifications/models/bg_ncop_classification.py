@@ -63,7 +63,7 @@ class BGNCOPClassification(models.Model):
 
     @api.depends('code', 'name')
     def _compute_display_name(self):
-        """Override display name computation for Odoo 18"""
+        """Override display name computation for Odoo 19"""
         for record in self:
             record.display_name = f"[{record.code}] {record.name}"
 

@@ -17,7 +17,6 @@
                 <field name="mod_service"/>
                 <field name="mod_clerk"/>
                 <field name="mod_elementary"/>
-                <field name="mod_elementary"/>
                 <field name="active"/>
             </list>
         </field>
@@ -97,8 +96,9 @@
         <field name="model">bg.hr.payroll.economic.activity</field>
         <field name="arch" type="xml">
             <search string="Search Economic Activities">
-                <field name="name" string="Activity Name"/>
+                <field name="name" string="Activity Name" filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]"/>
                 <field name="code" string="KID Code"/>
+                <separator/>
                 <filter string="Active" name="active" domain="[('active','=',True)]"/>
                 <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
                 <separator/>
@@ -106,9 +106,9 @@
                 <filter string="Divisions" name="divisions" domain="[('level','=','division')]"/>
                 <filter string="Groups" name="groups" domain="[('level','=','group')]"/>
                 <filter string="Classes" name="classes" domain="[('level','=','class')]"/>
-                <group expand="0" string="Group By">
-                    <filter string="Level" name="level" context="{'group_by': 'level'}"/>
-                    <filter string="Parent Activity" name="parent" context="{'group_by': 'parent_id'}"/>
+                <group>
+                    <filter string="Level" name="group_by_level" context="{'group_by': 'level'}"/>
+                    <filter string="Parent Activity" name="group_by_parent" context="{'group_by': 'parent_id'}"/>
                 </group>
             </search>
         </field>
@@ -124,16 +124,14 @@
                 <field name="code"/>
                 <field name="level"/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_global_click">
-                            <div class="oe_kanban_details">
-                                <strong class="o_kanban_record_title">
-                                    <field name="code"/> - <field name="name"/>
-                                </strong>
-                                <ul>
-                                    <li><strong>Level:</strong> <field name="level"/></li>
-                                </ul>
-                            </div>
+                    <t t-name="card">
+                        <div class="oe_kanban_details">
+                            <strong class="o_kanban_record_title">
+                                <field name="code"/> - <field name="name"/>
+                            </strong>
+                            <ul>
+                                <li><strong>Level:</strong> <field name="level"/></li>
+                            </ul>
                         </div>
                     </t>
                 </templates>

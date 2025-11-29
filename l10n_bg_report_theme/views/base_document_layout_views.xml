@@ -19,7 +19,7 @@
                             <list create="false" delete="false" editable="top">
                                 <field name="name" readonly="1" force_save="1"/>
                                 <field name="color" widget="color"/>
-                                <field name="color_rgb" readonly="0" column_invisible="1"/>
+                                <field name="color_rgb" readonly="0" column_invisible="1"/><!-- Hidden field required for onchange calculation -->
                             </list>
                         </field>
                         <separator string="Base Colors" colspan="2"/>

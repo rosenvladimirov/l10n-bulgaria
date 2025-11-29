@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_nssi_leave_reason_user,NSSI leave reason - read,model_nssi_leave_reason,base.group_user,1,0,0,0
+access_nssi_leave_reason_hr_manager,NSSI leave reason - full,model_nssi_leave_reason,hr_holidays.group_hr_holidays_manager,1,1,1,1

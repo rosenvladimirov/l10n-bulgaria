@@ -1,0 +1,635 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_payroll_classifications
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e-20251015\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-16 06:40+0000\n"
+"PO-Revision-Date: 2025-10-16 09:56+0300\n"
+"Last-Translator: Rosen Vladimirov <vladimirov.rosen@gmail.com>\n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.8\n"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,help:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__code
+msgid "8-digit NCOP code"
+msgstr "8-цифрен НКПД код"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_kanban
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_kanban
+msgid "<strong>Level:</strong>"
+msgstr "<strong>Ниво:</strong>"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_kanban
+msgid "<strong>Qualification:</strong>"
+msgstr "<strong>Квалификация:</strong>"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__active
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__active
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+msgid "Active"
+msgstr "Активно"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__name
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_search
+msgid "Activity Name"
+msgstr "Наименование на дейността"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+msgid "Archived"
+msgstr "Архивирано"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model,name:l10n_bg_payroll_classifications.model_bg_hr_payroll_economic_activity
+msgid "Bulgarian Economic Activity (KID) for MOD"
+msgstr "Икономическа дейност в България (КИД) за МОД"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.ui.menu,name:l10n_bg_payroll_classifications.menu_bg_hr_localization_root
+msgid "Bulgarian HR"
+msgstr "ТРЗ"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model,name:l10n_bg_payroll_classifications.model_bg_hr_payroll_ncop_classification
+msgid "Bulgarian NCOP Classification 2011"
+msgstr "НКПД Класификатор за 2011 г"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__child_ids
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+msgid "Child Activities"
+msgstr "Подчинени икономически дейности"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__child_ids
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_form
+msgid "Child Positions"
+msgstr "Позиции на Икономически дейности"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_economic_activity__level__class
+msgid "Class"
+msgstr "Клас"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_search
+msgid "Classes"
+msgstr "Класове"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__qualification_group__clerk
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+msgid "Clerks"
+msgstr "Служители"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+msgid "Clerks (лв.)"
+msgstr "Служители (лв.)"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.actions.act_window,help:l10n_bg_payroll_classifications.action_bg_mod_economic_activity
+msgid "Create your first Economic Activity!"
+msgstr "Създайте първата си икономическа дейност!"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.actions.act_window,help:l10n_bg_payroll_classifications.action_bg_ncop_classification
+msgid "Create your first NKPD Classification!"
+msgstr "Създайте първата си класификация на НКИД!"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__create_uid
+msgid "Created by"
+msgstr "Създадена от"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__create_date
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__create_date
+msgid "Created on"
+msgstr "Създаден на"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.actions.act_window,help:l10n_bg_payroll_classifications.action_bg_ncop_classification
+msgid "Defining job positions and their requirements"
+msgstr "Определяне на длъжностите и изискванията към тях"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_form
+msgid "Describe required skills and competencies..."
+msgstr "Опишете необходимите умения и компетенции..."
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__display_name
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_economic_activity__level__division
+msgid "Division"
+msgstr "Отдел"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_search
+msgid "Divisions"
+msgstr "Дивизии"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.actions.act_window,name:l10n_bg_payroll_classifications.action_bg_mod_economic_activity
+#: model:ir.ui.menu,name:l10n_bg_payroll_classifications.menu_bg_mod_economic_activity
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_list
+msgid "Economic Activities (KID)"
+msgstr "Икономически дейности (КИД)"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.actions.act_window,help:l10n_bg_payroll_classifications.action_bg_mod_economic_activity
+msgid "Economic Activities (KID) are used for:"
+msgstr "Икономически дейности (КИД) се използват за:"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+msgid "Economic Activity (KID)"
+msgstr "Икономическа дейност (КИД)"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__education_level
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+msgid "Education Level"
+msgstr "Ниво на образование"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+msgid "Elementary"
+msgstr "Нискоквалифицирани"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__qualification_group__elementary
+msgid "Elementary Occupations"
+msgstr "Нискоквалифицирани професии"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+msgid "Elementary Occupations (лв.)"
+msgstr "Нискоквалифицирани професии (лв.)"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_economic_activity__level__group
+msgid "Group"
+msgstr "Група"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+msgid "Group By"
+msgstr "Групирай по"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_search
+msgid "Groups"
+msgstr "Групи"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,help:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__level
+msgid "Hierarchical level in NCOP structure"
+msgstr "Йерархично ниво в структурата на НКПД"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__education_level__higher
+msgid "Higher education"
+msgstr "Висше образование"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__id
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__id
+msgid "ID"
+msgstr "Номер (ID)"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_search
+msgid "KID Code"
+msgstr "Код КИД"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.actions.act_window,help:l10n_bg_payroll_classifications.action_bg_ncop_classification
+msgid "Labor Code compliance"
+msgstr "В съотведствие с  Кодекса на труда"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__write_uid
+msgid "Last Updated by"
+msgstr "Последно актуализиран от"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__write_date
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__write_date
+msgid "Last Updated on"
+msgstr "Последно актуализиран на"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.actions.act_window,help:l10n_bg_payroll_classifications.action_bg_mod_economic_activity
+msgid "Legal compliance with Bulgarian regulations"
+msgstr "Законово съответствие с българските разпоредби"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__level
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__level
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+msgid "Level"
+msgstr "Ниво"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.actions.act_window,help:l10n_bg_payroll_classifications.action_bg_mod_economic_activity
+msgid "MOD (Minimum Insurance Income) calculation per qualification group"
+msgstr "Изчисляване на МОД (минимален осигурителен доход) за квалификационна група"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.actions.act_window,help:l10n_bg_payroll_classifications.action_bg_ncop_classification
+msgid "MOD (Minimum Insurance Income) calculations"
+msgstr "Изчисления на МОД (минимален осигурителен доход)"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__mod_clerk
+msgid "MOD - Clerks"
+msgstr "МОД - Служители"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__mod_elementary
+msgid "MOD - Elementary Occupations"
+msgstr "МОД - Основни професии"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__mod_operator
+msgid "MOD - Machine Operators"
+msgstr "МОД - Оператори на машини"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__mod_manager
+msgid "MOD - Managers"
+msgstr "МОД - Мениджъри"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__mod_service
+msgid "MOD - Service Workers"
+msgstr "МОД - Работници в сферата на услугите"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__mod_skilled
+msgid "MOD - Skilled Workers"
+msgstr "МОД - Квалифицирани работници"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__mod_specialist
+msgid "MOD - Specialists"
+msgstr "МОД - Специалисти"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__mod_technician
+msgid "MOD - Technicians"
+msgstr "МОД - Техници"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+msgid "MOD by Qualification Groups"
+msgstr "МОД по квалификационни групи"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__qualification_group__operator
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+msgid "Machine Operators"
+msgstr "Оператори на машини"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+msgid "Machine Operators (лв.)"
+msgstr "Оператори на машини (лв.)"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__level__major_group
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+msgid "Major Group"
+msgstr "Основна група"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+msgid "Management and Specialist Positions"
+msgstr "Ръководни и специализирани длъжности"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__qualification_group__manager
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+msgid "Managers"
+msgstr "Ръководители"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+msgid "Managers (лв.)"
+msgstr "Мениджъри (лв.)"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__qualification_group__military
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+msgid "Military"
+msgstr "Военно"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,help:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__mod_clerk
+msgid "Minimum insurance income for clerks"
+msgstr "Минимален осигурителен доход за служителите"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,help:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__mod_elementary
+msgid "Minimum insurance income for elementary occupations"
+msgstr "Минимален осигурителен доход за нискоквалифицирани професии"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,help:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__mod_operator
+msgid "Minimum insurance income for machine operators"
+msgstr "Минимален осигурителен доход за оператори на машини"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,help:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__mod_manager
+msgid "Minimum insurance income for managers"
+msgstr "Минимален осигурителен доход за мениджъри"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,help:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__mod_service
+msgid "Minimum insurance income for service workers"
+msgstr "Минимален осигурителен доход за работещите в сферата на услугите"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,help:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__mod_skilled
+msgid "Minimum insurance income for skilled workers"
+msgstr "Минимален осигурителен доход за квалифицирани работници"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,help:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__mod_specialist
+msgid "Minimum insurance income for specialists"
+msgstr "Минимален осигурителен доход за специалисти"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,help:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__mod_technician
+msgid "Minimum insurance income for technicians"
+msgstr "Минимален осигурителен доход за техници"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,help:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__education_level
+msgid "Minimum required education level for this position"
+msgstr "Минимално изисквано ниво на образование за тази позиция"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__level__minor_group
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+#, fuzzy
+msgid "Minor Group"
+msgstr "Малка група"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.actions.act_window,name:l10n_bg_payroll_classifications.action_bg_ncop_classification
+msgid "NCOP Classifications"
+msgstr "Класификации на НКИД"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__code
+msgid "NCOP Code"
+msgstr "Код НКИД"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.actions.act_window,help:l10n_bg_payroll_classifications.action_bg_ncop_classification
+msgid "NKPD (National Classification of Professions and Positions) is used for:"
+msgstr "НКПД (Национална класификация на професиите и длъжностите) се използва за:"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_form
+msgid "NKPD Classification"
+msgstr "Класификация на НКПД"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.ui.menu,name:l10n_bg_payroll_classifications.menu_bg_nkpd_classification
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_list
+msgid "NKPD Classifications"
+msgstr "Класификации на НКПД"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+msgid "NKPD Code"
+msgstr "Код НКПД"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__education_level__none
+msgid "No formal education"
+msgstr "Без образование"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__level__occupation
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+msgid "Occupation"
+msgstr "Заемана Длъжност"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__parent_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_search
+msgid "Parent Activity"
+msgstr "Икономическа дейност родител"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__parent_id
+#, fuzzy
+msgid "Parent Position"
+msgstr "Позиция на родителя"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__name
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+#, fuzzy
+msgid "Position Name"
+msgstr "Име на позицията"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__education_level__primary
+#, fuzzy
+msgid "Primary education"
+msgstr "Начално образование"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__qualification_group
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+#, fuzzy
+msgid "Qualification Group"
+msgstr "Квалификационна група"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,help:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__qualification_group
+msgid "Qualification group for MOD calculation based on NCOP class"
+msgstr "Квалификационна група за изчисляване на МОД въз основа на класа НКПД"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.ui.menu,name:l10n_bg_payroll_classifications.menu_bg_hr_reports
+msgid "Reports"
+msgstr "Отчети"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__experience_years
+#, fuzzy
+msgid "Required Experience (years)"
+msgstr "Изискван опит (години)"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_search
+#, fuzzy
+msgid "Search Economic Activities"
+msgstr "Търсене на икономически дейности"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+msgid "Search NKPD Classifications"
+msgstr "Търсене в класификациите на НКПД"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__education_level__secondary
+#, fuzzy
+msgid "Secondary education"
+msgstr "Средно образование"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_economic_activity__level__section
+msgid "Section"
+msgstr "Раздел"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_search
+msgid "Sections"
+msgstr "Раздели"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__qualification_group__service
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+#, fuzzy
+msgid "Service Workers"
+msgstr "Работници в сферата на услугите"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+#, fuzzy
+msgid "Service Workers (лв.)"
+msgstr "Работници в сферата на услугите (лв.)"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__skill_level
+msgid "Skill Level"
+msgstr "Ниво на умение"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,help:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__skill_level
+msgid "Skill level (1-4) according to NCOP classification"
+msgstr "Ниво на умения (1-4) според класификацията на НКПД"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__qualification_group__skilled
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+#, fuzzy
+msgid "Skilled Workers"
+msgstr "Квалифицирани работници"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+#, fuzzy
+msgid "Skilled Workers (лв.)"
+msgstr "Квалифицирани работници (лв.)"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__skills_requirements
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_form
+#, fuzzy
+msgid "Skills Requirements"
+msgstr "Изисквания към уменията"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__qualification_group__specialist
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+#, fuzzy
+msgid "Specialists"
+msgstr "Специалисти"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+#, fuzzy
+msgid "Specialists (лв.)"
+msgstr "Специалисти (лв.)"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__level__sub_major_group
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+#, fuzzy
+msgid "Sub-Major Group"
+msgstr "Подголяма група"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__qualification_group__technician
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+#, fuzzy
+msgid "Technicians"
+msgstr "Техници"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+#, fuzzy
+msgid "Technicians (лв.)"
+msgstr "Техници (лв.)"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields.selection,name:l10n_bg_payroll_classifications.selection__bg_hr_payroll_ncop_classification__level__unit_group
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_search
+#, fuzzy
+msgid "Unit Group"
+msgstr "Група единици"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__date_from
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__date_from
+#, fuzzy
+msgid "Valid From"
+msgstr "Валидно от"
+
+#. module: l10n_bg_payroll_classifications
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_economic_activity__date_to
+#: model:ir.model.fields,field_description:l10n_bg_payroll_classifications.field_bg_hr_payroll_ncop_classification__date_to
+#, fuzzy
+msgid "Valid To"
+msgstr "Валидно до"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_ncop_classification_form
+#, fuzzy
+msgid "Validity Period"
+msgstr "Период на валидност"
+
+#. module: l10n_bg_payroll_classifications
+#: model_terms:ir.ui.view,arch_db:l10n_bg_payroll_classifications.view_bg_mod_economic_activity_form
+#, fuzzy
+msgid "Worker Positions"
+msgstr "Работнически позиции"

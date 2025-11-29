@@ -12,7 +12,7 @@ class Partner(models.Model):
     _inherit = ['res.partner', 'res.transliterate.mixin']
     _name = "res.partner"
 
-    name = fields.Char(translate=True)
+    name = fields.Char(translate=True, index='trigram')
     street = fields.Char(translate=True)
     street2 = fields.Char(translate=True)
     city = fields.Char(translate=True)

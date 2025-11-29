@@ -33,11 +33,25 @@ class AccountAccountSettingPreviewWizard(models.TransientModel):
     def default_get(self, fields_list):
         res = super().default_get(fields_list)
         try:
-            data_dict = self.env.company.l10n_bg_config_template and json.loads(
-                self.env.company.l10n_bg_config_template) or {}
+            # Parse JSON template
+            template = self.env.company.l10n_bg_config_template
+            if not template:
+                res['l10n_bg_config_file_preview'] = '<!-- No configuration template available -->'
+                return res
 
-            # Ensure single root element
-            if data_dict and 'odoo' not in data_dict:
+            data_dict = json.loads(template)
+
+            # КРИТИЧНО: Увери се че data_dict е dict, не list или string
+            if not isinstance(data_dict, dict):
+                _logger.warning(f"Invalid data type in template: {type(data_dict)}")
+                data_dict = {'data': data_dict}
+
+            # Ensure single root element named 'odoo'
+            if 'odoo' not in data_dict:
+                # Ако има множество keys на top level, обвий ги в 'odoo'
+                data_dict = {'odoo': data_dict}
+            elif len(data_dict) > 1:
+                # Ако има 'odoo' key НО и други keys, обвий всичко
                 data_dict = {'odoo': data_dict}
 
             # Generate XML for download
@@ -49,6 +63,9 @@ class AccountAccountSettingPreviewWizard(models.TransientModel):
             formatted_xml = xmltodict.unparse(processed_dict, pretty=True, indent='  ')
             res['l10n_bg_config_file_preview'] = formatted_xml
 
+        except json.JSONDecodeError as e:
+            _logger.error(f"JSON parsing error: {str(e)}")
+            res['l10n_bg_config_file_preview'] = f'<!-- JSON Error: {str(e)} -->'
         except Exception as e:
             _logger.error(f"Error processing XML data: {str(e)}")
             res['l10n_bg_config_file_preview'] = f'<!-- Error: {str(e)} -->'
@@ -62,7 +79,11 @@ class AccountAccountSettingPreviewWizard(models.TransientModel):
             data_dict = xmltodict.parse(xml_content)
 
             # Ensure single root element
-            if data_dict and 'odoo' not in data_dict:
+            if not isinstance(data_dict, dict):
+                data_dict = {'odoo': {'data': data_dict}}
+            elif 'odoo' not in data_dict:
+                data_dict = {'odoo': data_dict}
+            elif len(data_dict) > 1:
                 data_dict = {'odoo': data_dict}
 
             processed_dict = convert_lists_to_string(data_dict)

@@ -1,6 +1,6 @@
 {
     "name": "Partner Multilang",
-    "version": '19.0.1.0.2',
+    "version": '19.0.1.0.5',
     "license": "AGPL-3",
     "category": "Localization",
     "author": "Rosen Vladimirov, Odoo Community Association (OCA)",
@@ -353,5 +353,4 @@ international compatibility while preserving native language data.
     "installable": True,
     "pre_init_hook": "pre_init_hook",
     "post_init_hook": "post_init_hook",
-    "post_load": "post_load_hook",
 }

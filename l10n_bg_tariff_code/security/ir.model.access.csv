@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_l10n_bg_taric_cache_user,l10n_bg.taric.cache user,model_l10n_bg_taric_cache,account.group_account_user,1,0,0,0
+access_l10n_bg_taric_cache_manager,l10n_bg.taric.cache manager,model_l10n_bg_taric_cache,account.group_account_manager,1,1,1,1
+access_l10n_bg_taric_import_wizard,l10n_bg.taric.import.wizard,model_l10n_bg_taric_import_wizard,account.group_account_manager,1,1,1,1

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bg_ncop_classification_user,bg.hr.payroll.ncop.classification.user,model_bg_hr_payroll_ncop_classification,base.group_user,1,0,0,0
+access_bg_ncop_classification_hr_user,bg.hr.payroll.ncop.classification.hr.user,model_bg_hr_payroll_ncop_classification,hr.group_hr_user,1,1,1,0
+access_bg_ncop_classification_hr_manager,bg.hr.payroll.ncop.classification.hr.manager,model_bg_hr_payroll_ncop_classification,hr.group_hr_manager,1,1,1,1
+access_bg_mod_economic_activity_user,bg.hr.payroll.mod.economic.activity.user,model_bg_hr_payroll_economic_activity,base.group_user,1,0,0,0
+access_bg_mod_economic_activity_hr_user,bg.hr.payroll.mod.economic.activity.hr.user,model_bg_hr_payroll_economic_activity,hr.group_hr_user,1,1,1,0
+access_bg_mod_economic_activity_hr_manager,bg.hr.payroll.mod.economic.activity.hr.manager,model_bg_hr_payroll_economic_activity,hr.group_hr_manager,1,1,1,1

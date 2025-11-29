@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- NSSI Leave Types - Bulgarian Standard Leave Reasons -->
+
+        <!-- Occupational disease -->
+        <record id="holiday_status_nssi_01" model="hr.leave.type">
+            <field name="name">Occupational Disease</field>
+            <field name="l10n_bg_code">01</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_01"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">3</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">10</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+        </record>
+
+        <!-- Work accident -->
+        <record id="holiday_status_nssi_02" model="hr.leave.type">
+            <field name="name">Work Accident</field>
+            <field name="l10n_bg_code">02</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_02"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">1</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">11</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+        </record>
+
+        <!-- Common illness -->
+        <record id="holiday_status_nssi_03" model="hr.leave.type">
+            <field name="name">Common Illness</field>
+            <field name="l10n_bg_code">03</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_03"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">3</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">12</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+        </record>
+
+        <!-- Maternity – pregnancy and childbirth -->
+        <record id="holiday_status_nssi_04" model="hr.leave.type">
+            <field name="name">Maternity - Pregnancy and Childbirth</field>
+            <field name="l10n_bg_code">04</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_04"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">9</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">13</field>
+        </record>
+
+        <!-- Childcare up to 2 years -->
+        <record id="holiday_status_nssi_05" model="hr.leave.type">
+            <field name="name">Childcare up to 2 Years</field>
+            <field name="l10n_bg_code">05</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_05"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">9</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">14</field>
+        </record>
+
+        <!-- Quarantine -->
+        <record id="holiday_status_nssi_06" model="hr.leave.type">
+            <field name="name">Quarantine</field>
+            <field name="l10n_bg_code">06</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_06"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">2</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">15</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+        </record>
+
+        <!-- Accompanying a sick family member -->
+        <record id="holiday_status_nssi_07" model="hr.leave.type">
+            <field name="name">Accompanying a Sick Family Member</field>
+            <field name="l10n_bg_code">07</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_07"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">5</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">16</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+        </record>
+
+        <!-- Sanatorium or spa treatment -->
+        <record id="holiday_status_nssi_08" model="hr.leave.type">
+            <field name="name">Sanatorium or Spa Treatment</field>
+            <field name="l10n_bg_code">08</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_08"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">6</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">17</field>
+        </record>
+
+        <!-- Recovery after illness -->
+        <record id="holiday_status_nssi_09" model="hr.leave.type">
+            <field name="name">Recovery after Illness</field>
+            <field name="l10n_bg_code">09</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_09"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">3</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">18</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+        </record>
+
+        <!-- Epidemiological isolation -->
+        <record id="holiday_status_nssi_10" model="hr.leave.type">
+            <field name="name">Epidemiological Isolation</field>
+            <field name="l10n_bg_code">10</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_10"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">2</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">19</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+        </record>
+
+        <!-- Medical examinations and tests -->
+        <record id="holiday_status_nssi_11" model="hr.leave.type">
+            <field name="name">Medical Examinations and Tests</field>
+            <field name="l10n_bg_code">11</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_11"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">4</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">20</field>
+        </record>
+
+        <!-- Organ donation -->
+        <record id="holiday_status_nssi_12" model="hr.leave.type">
+            <field name="name">Organ Donation</field>
+            <field name="l10n_bg_code">12</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_12"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">7</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">21</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+        </record>
+
+        <!-- Reintegration after a work accident -->
+        <record id="holiday_status_nssi_13" model="hr.leave.type">
+            <field name="name">Reintegration after Work Accident</field>
+            <field name="l10n_bg_code">13</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_13"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">8</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">22</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+        </record>
+
+        <!-- Temporary reassignment for medical reasons -->
+        <record id="holiday_status_nssi_14" model="hr.leave.type">
+            <field name="name">Temporary Reassignment for Medical Reasons</field>
+            <field name="l10n_bg_code">14</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_14"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">3</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">23</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+        </record>
+
+        <!-- Adoption leave -->
+        <record id="holiday_status_nssi_15" model="hr.leave.type">
+            <field name="name">Adoption Leave</field>
+            <field name="l10n_bg_code">15</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_15"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">9</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">24</field>
+        </record>
+
+        <!-- In-vitro procedures -->
+        <record id="holiday_status_nssi_16" model="hr.leave.type">
+            <field name="name">In-vitro Procedures</field>
+            <field name="l10n_bg_code">16</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_16"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">9</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">25</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+        </record>
+
+        <!-- Mental health leave -->
+        <record id="holiday_status_nssi_17" model="hr.leave.type">
+            <field name="name">Mental Health Leave</field>
+            <field name="l10n_bg_code">17</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_17"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">5</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">26</field>
+        </record>
+
+        <!-- ============================================ -->
+        <!-- КОДЕКС НА ТРУДА - ПЛАТЕНИ ГОДИШНИ ОТПУСКИ -->
+        <!-- ============================================ -->
+
+        <!-- Basic Annual Paid Leave - Art. 155 KT -->
+        <record id="holiday_status_kt_annual" model="hr.leave.type">
+            <field name="name">Annual Paid Leave</field>
+            <field name="l10n_bg_code">KT155</field>
+            <field name="requires_allocation">yes</field>
+            <field name="allocation_validation_type">hr</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">False</field>
+            <field name="icon_id" ref="hr_holidays.icon_1"/>
+            <field name="color">10</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">100</field>
+        </record>
+
+        <!-- Additional Leave for Specific Working Conditions - Art. 156 KT -->
+        <record id="holiday_status_kt_hazardous" model="hr.leave.type">
+            <field name="name">Additional Leave - Hazardous Conditions</field>
+            <field name="l10n_bg_code">KT156A</field>
+            <field name="requires_allocation">yes</field>
+            <field name="allocation_validation_type">hr</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">False</field>
+            <field name="icon_id" ref="hr_holidays.icon_1"/>
+            <field name="color">1</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">101</field>
+        </record>
+
+        <!-- Additional Leave for Irregular Working Hours - Art. 156 KT -->
+        <record id="holiday_status_kt_irregular" model="hr.leave.type">
+            <field name="name">Additional Leave - Irregular Working Hours</field>
+            <field name="l10n_bg_code">KT156B</field>
+            <field name="requires_allocation">yes</field>
+            <field name="allocation_validation_type">hr</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">False</field>
+            <field name="icon_id" ref="hr_holidays.icon_1"/>
+            <field name="color">4</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">102</field>
+        </record>
+
+        <!-- Additional Leave for Disabled Workers - Art. 156 KT -->
+        <record id="holiday_status_kt_disabled" model="hr.leave.type">
+            <field name="name">Additional Leave - Reduced Work Capacity</field>
+            <field name="l10n_bg_code">KT156C</field>
+            <field name="requires_allocation">yes</field>
+            <field name="allocation_validation_type">hr</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="icon_id" ref="hr_holidays.icon_1"/>
+            <field name="color">8</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">103</field>
+        </record>
+
+        <!-- ============================================ -->
+        <!-- КОДЕКС НА ТРУДА - ЧЛ. 157 ОТПУСКИ ЗА ГРАЖДАНСКИ ЗАДЪЛЖЕНИЯ -->
+        <!-- ============================================ -->
+
+        <!-- Marriage Leave - Art. 157(1) KT -->
+        <record id="holiday_status_kt_marriage" model="hr.leave.type">
+            <field name="name">Marriage Leave</field>
+            <field name="l10n_bg_code">KT157-1</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">9</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">200</field>
+        </record>
+
+        <!-- Blood Donation Leave - Art. 157(2) KT -->
+        <record id="holiday_status_kt_blood_donation" model="hr.leave.type">
+            <field name="name">Blood Donation Leave</field>
+            <field name="l10n_bg_code">KT157-2</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">7</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">201</field>
+        </record>
+
+        <!-- Bereavement Leave - Art. 157(3) KT -->
+        <record id="holiday_status_kt_bereavement" model="hr.leave.type">
+            <field name="name">Bereavement Leave</field>
+            <field name="l10n_bg_code">KT157-3</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">2</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">202</field>
+        </record>
+
+        <!-- Court Summons Leave - Art. 157(4) KT -->
+        <record id="holiday_status_kt_court" model="hr.leave.type">
+            <field name="name">Court Summons Leave</field>
+            <field name="l10n_bg_code">KT157-4</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">4</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">203</field>
+        </record>
+
+        <!-- Public Office or Jury Duty Leave - Art. 157(5) KT -->
+        <record id="holiday_status_kt_public_duty" model="hr.leave.type">
+            <field name="name">Public Office / Jury Duty Leave</field>
+            <field name="l10n_bg_code">KT157-5</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">6</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">204</field>
+        </record>
+
+        <!-- Job Search Leave - Art. 157(6) KT -->
+        <record id="holiday_status_kt_job_search" model="hr.leave.type">
+            <field name="name">Job Search Leave</field>
+            <field name="l10n_bg_code">KT157-6</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">False</field>
+            <field name="color">5</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">205</field>
+        </record>
+
+        <!-- Disaster Response Training Leave - Art. 157(7) KT -->
+        <record id="holiday_status_kt_disaster_training" model="hr.leave.type">
+            <field name="name">Disaster Response Training Leave</field>
+            <field name="l10n_bg_code">KT157-7</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">1</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">206</field>
+        </record>
+
+        <!-- Pregnancy Medical Check-ups Leave - Art. 157(2) KT -->
+        <record id="holiday_status_kt_pregnancy_checkup" model="hr.leave.type">
+            <field name="name">Pregnancy Medical Check-ups</field>
+            <field name="l10n_bg_code">KT157A-2</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">9</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">207</field>
+        </record>
+
+        <!-- ============================================ -->
+        <!-- КОДЕКС НА ТРУДА - ДРУГИ СПЕЦИАЛНИ ОТПУСКИ -->
+        <!-- ============================================ -->
+
+        <!-- Voluntary Reserve Military Service Leave - Art. 158 KT -->
+        <record id="holiday_status_kt_reserve_service" model="hr.leave.type">
+            <field name="name">Voluntary Reserve Military Service</field>
+            <field name="l10n_bg_code">KT158</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">8</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">300</field>
+        </record>
+
+        <!-- Unpaid Leave - Art. 160 KT -->
+        <record id="holiday_status_kt_unpaid" model="hr.leave.type">
+            <field name="name">Unpaid Leave</field>
+            <field name="l10n_bg_code">KT160</field>
+            <field name="requires_allocation">no</field>
+            <field name="unpaid">True</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">False</field>
+            <field name="icon_id" ref="hr_holidays.icon_1"/>
+            <field name="color">2</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">301</field>
+        </record>
+
+        <!-- Professional / Creative Leave (Paid) - Art. 161 KT -->
+        <record id="holiday_status_kt_professional_paid" model="hr.leave.type">
+            <field name="name">Professional / Creative Leave (Paid)</field>
+            <field name="l10n_bg_code">KT161A</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="icon_id" ref="hr_holidays.icon_1"/>
+            <field name="color">10</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">302</field>
+        </record>
+
+        <!-- Professional / Creative Leave (Unpaid) - Art. 161 KT -->
+        <record id="holiday_status_kt_professional_unpaid" model="hr.leave.type">
+            <field name="name">Professional / Creative Leave (Unpaid)</field>
+            <field name="l10n_bg_code">KT161B</field>
+            <field name="requires_allocation">no</field>
+            <field name="unpaid">True</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="icon_id" ref="hr_holidays.icon_1"/>
+            <field name="color">2</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">303</field>
+        </record>
+
+        <!-- ============================================ -->
+        <!-- КОДЕКС НА ТРУДА - ОТПУСКИ ЗА МАЙЧИНСТВО И БАЩИНСТВО -->
+        <!-- ============================================ -->
+
+        <!-- Maternity Leave (410 days) - Art. 163 KT -->
+        <record id="holiday_status_kt_maternity_410" model="hr.leave.type">
+            <field name="name">Maternity Leave (410 days)</field>
+            <field name="l10n_bg_code">KT163</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">9</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">400</field>
+        </record>
+
+        <!-- Childcare Leave (up to 2 years) - Art. 164 KT -->
+        <record id="holiday_status_kt_childcare_2y" model="hr.leave.type">
+            <field name="name">Childcare Leave (up to 2 years)</field>
+            <field name="l10n_bg_code">KT164</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">9</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">401</field>
+        </record>
+
+        <!-- Paternity Leave (15 days) - Art. 163(10) & 164(3) KT -->
+        <record id="holiday_status_kt_paternity" model="hr.leave.type">
+            <field name="name">Paternity Leave (15 days)</field>
+            <field name="l10n_bg_code">KT163-10</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">9</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">402</field>
+        </record>
+
+        <!-- Breastfeeding / Baby Care Leave - Art. 166 KT -->
+        <record id="holiday_status_kt_breastfeeding" model="hr.leave.type">
+            <field name="name">Breastfeeding / Baby Care Leave</field>
+            <field name="l10n_bg_code">KT166</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">9</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">403</field>
+        </record>
+
+        <!-- Leave for Death/Serious Illness of Parent - Art. 167 KT -->
+        <record id="holiday_status_kt_parent_illness" model="hr.leave.type">
+            <field name="name">Leave for Death/Serious Illness of Parent</field>
+            <field name="l10n_bg_code">KT167</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">2</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">404</field>
+        </record>
+
+        <!-- Unpaid Childcare Leave (up to 8 years) - Art. 167a KT -->
+        <record id="holiday_status_kt_childcare_8y" model="hr.leave.type">
+            <field name="name">Unpaid Childcare Leave (up to 8 years)</field>
+            <field name="l10n_bg_code">KT167A</field>
+            <field name="requires_allocation">no</field>
+            <field name="unpaid">True</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">2</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">405</field>
+        </record>
+
+        <!-- Leave for Multiple Children - Art. 168 KT -->
+        <record id="holiday_status_kt_multiple_children" model="hr.leave.type">
+            <field name="name">Leave for Multiple Children</field>
+            <field name="l10n_bg_code">KT168</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">9</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">406</field>
+        </record>
+
+        <!-- ============================================ -->
+        <!-- КОДЕКС НА ТРУДА - ОТПУСКИ ЗА ОБУЧЕНИЕ -->
+        <!-- ============================================ -->
+
+        <!-- Educational Leave (25 days/year) - Art. 169 KT -->
+        <record id="holiday_status_kt_education_annual" model="hr.leave.type">
+            <field name="name">Educational Leave (25 days/year)</field>
+            <field name="l10n_bg_code">KT169</field>
+            <field name="requires_allocation">yes</field>
+            <field name="allocation_validation_type">hr</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">6</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">500</field>
+        </record>
+
+        <!-- Final Exam Leave (30 days) - Art. 170 KT -->
+        <record id="holiday_status_kt_final_exam" model="hr.leave.type">
+            <field name="name">Final Exam Leave (30 days)</field>
+            <field name="l10n_bg_code">KT170</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">6</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">501</field>
+        </record>
+
+        <!-- PhD Research Leave (6 months) - Art. 171 KT -->
+        <record id="holiday_status_kt_phd_research" model="hr.leave.type">
+            <field name="name">PhD Research Leave (6 months)</field>
+            <field name="l10n_bg_code">KT171A</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">6</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">502</field>
+        </record>
+
+        <!-- PhD Defense Leave (12 months) - Art. 171 KT -->
+        <record id="holiday_status_kt_phd_defense" model="hr.leave.type">
+            <field name="name">PhD Defense Leave (12 months)</field>
+            <field name="l10n_bg_code">KT171B</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">6</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">503</field>
+        </record>
+
+    </data>
+</odoo>

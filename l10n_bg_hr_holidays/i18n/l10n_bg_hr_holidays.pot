@@ -1,0 +1,500 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_hr_holidays
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-01 08:06+0000\n"
+"PO-Revision-Date: 2025-11-01 08:06+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_07
+msgid "Accompanying a Sick Family Member"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_07
+msgid "Accompanying a sick family member"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_hazardous
+msgid "Additional Leave - Hazardous Conditions"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_irregular
+msgid "Additional Leave - Irregular Working Hours"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_disabled
+msgid "Additional Leave - Reduced Work Capacity"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_15
+msgid "Adoption Leave"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_15
+msgid "Adoption leave"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_leave_type__l10n_bg_allow_paid_days
+msgid "Allow Paid Days"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_annual
+msgid "Annual Paid Leave"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_type_view_form_paid_days
+msgid "BG Configuration"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_type_view_form_paid_days
+msgid "BG Configuration leaves"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_bereavement
+msgid "Bereavement Leave"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_blood_donation
+msgid "Blood Donation Leave"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_breastfeeding
+msgid "Breastfeeding / Baby Care Leave"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_type_view_form_paid_days
+msgid "Check this if this leave type is unpaid by default"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_childcare_2y
+msgid "Childcare Leave (up to 2 years)"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_05
+msgid "Childcare up to 2 Years"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_05
+msgid "Childcare up to 2 years"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_leave_type__l10n_bg_code
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_nssi_leave_reason__code
+msgid "Code"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_03
+msgid "Common Illness"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_03
+msgid "Common illness"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_court
+msgid "Court Summons Leave"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr_holidays.action_nssi_leave_reason
+msgid "Create a new leave reason code"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_nssi_leave_reason__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_nssi_leave_reason__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_disaster_training
+msgid "Disaster Response Training Leave"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_nssi_leave_reason__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_education_annual
+msgid "Educational Leave (25 days/year)"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_leave__l10n_bg_effective_unpaid_days
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_view_form_paid_days
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_view_list_paid_days
+msgid "Effective Unpaid Days"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_10
+msgid "Epidemiological Isolation"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_10
+msgid "Epidemiological isolation"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_final_exam
+msgid "Final Exam Leave (30 days)"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_nssi_leave_reason__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_16
+msgid "In-vitro Procedures"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_16
+msgid "In-vitro procedures"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,help:l10n_bg_hr_holidays.field_hr_leave_type__l10n_bg_code
+msgid "Internal code for the leave type (e.g., KT155, NSSI01)"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_job_search
+msgid "Job Search Leave"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_nssi_leave_reason__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_nssi_leave_reason__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_leave__l10n_bg_leave_reason_id
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_leave_type__l10n_bg_leave_reason_id
+msgid "Leave Reason"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_parent_illness
+msgid "Leave for Death/Serious Illness of Parent"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_multiple_children
+msgid "Leave for Multiple Children"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_marriage
+msgid "Marriage Leave"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_04
+msgid "Maternity - Pregnancy and Childbirth"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_maternity_410
+msgid "Maternity Leave (410 days)"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_04
+msgid "Maternity – pregnancy and childbirth"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_11
+msgid "Medical Examinations and Tests"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_11
+msgid "Medical examinations and tests"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_17
+msgid "Mental Health Leave"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_17
+msgid "Mental health leave"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.view_nssi_leave_reason_form
+msgid "NSSI Leave Reason"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.actions.act_window,name:l10n_bg_hr_holidays.action_nssi_leave_reason
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.view_nssi_leave_reason_tree
+msgid "NSSI Leave Reasons"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model,name:l10n_bg_hr_holidays.model_nssi_leave_reason
+msgid "NSSI – Leave Reasons (Appendix №9)"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,help:l10n_bg_hr_holidays.field_hr_leave__l10n_bg_paid_days_unpaid_leave
+#: model:ir.model.fields,help:l10n_bg_hr_holidays.field_hr_leave_type__l10n_bg_paid_days_unpaid_leave
+msgid ""
+"Number of days to be paid when the leave type is unpaid. These days will be "
+"deducted from the total unpaid days."
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_01
+msgid "Occupational Disease"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_01
+msgid "Occupational disease"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr_holidays.action_nssi_leave_reason
+msgid "Official list used in Appendix №9 to NSSI."
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_12
+msgid "Organ Donation"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_12
+msgid "Organ donation"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_leave__l10n_bg_paid_days_unpaid_leave
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_leave_type__l10n_bg_paid_days_unpaid_leave
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_view_form_paid_days
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_view_list_paid_days
+msgid "Paid Days"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#. odoo-python
+#: code:addons/l10n_bg_hr_holidays/models/hr_leave.py:0
+msgid ""
+"Paid days (%.1f) exceed definned leave days (%.1f). Please adjust the "
+"values."
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#. odoo-python
+#: code:addons/l10n_bg_hr_holidays/models/hr_leave.py:0
+msgid "Paid days cannot be negative for leave request \"%s\"."
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_paternity
+msgid "Paternity Leave (15 days)"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_phd_defense
+msgid "PhD Defense Leave (12 months)"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_phd_research
+msgid "PhD Research Leave (6 months)"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_pregnancy_checkup
+msgid "Pregnancy Medical Check-ups"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_professional_paid
+msgid "Professional / Creative Leave (Paid)"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_professional_unpaid
+msgid "Professional / Creative Leave (Unpaid)"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_public_duty
+msgid "Public Office / Jury Duty Leave"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_06
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_06
+msgid "Quarantine"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_nssi_leave_reason__name
+msgid "Reason"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_09
+msgid "Recovery after Illness"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_09
+msgid "Recovery after illness"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_13
+msgid "Reintegration after Work Accident"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_13
+msgid "Reintegration after work accident"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_08
+msgid "Sanatorium or Spa Treatment"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_08
+msgid "Sanatorium or spa treatment"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_leave__l10n_bg_show_paid_days_fields
+msgid "Show Paid Days Fields"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,help:l10n_bg_hr_holidays.field_hr_leave__l10n_bg_show_paid_days_fields
+msgid "Technical field to control visibility of paid days fields"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,help:l10n_bg_hr_holidays.field_hr_leave_type__l10n_bg_allow_paid_days
+msgid ""
+"Technical field to determine if paid days can be specified for this leave "
+"type"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_14
+msgid "Temporary Reassignment for Medical Reasons"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_14
+msgid "Temporary reassignment for medical reasons"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.constraint,message:l10n_bg_hr_holidays.constraint_nssi_leave_reason_code_unique
+msgid "The code must be unique."
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model,name:l10n_bg_hr_holidays.model_hr_leave
+msgid "Time Off"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model,name:l10n_bg_hr_holidays.model_hr_leave_type
+msgid "Time Off Type"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,help:l10n_bg_hr_holidays.field_hr_leave__l10n_bg_effective_unpaid_days
+msgid "Total unpaid days minus the paid days (for unpaid leave types only)"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_childcare_8y
+msgid "Unpaid Childcare Leave (up to 8 years)"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_unpaid
+msgid "Unpaid Leave"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_reserve_service
+msgid "Voluntary Reserve Military Service"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#. odoo-python
+#: code:addons/l10n_bg_hr_holidays/models/hr_leave.py:0
+msgid "Warning"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_02
+msgid "Work Accident"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_02
+msgid "Work accident"
+msgstr ""
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_type_view_form_paid_days
+msgid "e.g. KT155, NSSI01"
+msgstr ""

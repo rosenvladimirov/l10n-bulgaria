@@ -1,0 +1,165 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_bg_multilang
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e-20191023\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-21 14:01+0000\n"
+"PO-Revision-Date: 2021-04-21 14:01+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_partner_display_name_bg
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_users_display_name_bg
+msgid "BG Name"
+msgstr "BG Име"
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_res_bank
+msgid "Bank"
+msgstr "Банка"
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_res_company
+msgid "Companies"
+msgstr "Компании"
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_res_partner
+msgid "Contact"
+msgstr "Контакт"
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_res_country
+msgid "Country"
+msgstr "Държава"
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_res_country_state
+msgid "Country state"
+msgstr "Провинция"
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_res_currency
+msgid "Currency"
+msgstr "Валута"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_partner_display_lang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_users_display_lang
+msgid "Display Lang"
+msgstr "Език за показване"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_l10n_bg_multilang_transliterate_display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,help:l10n_bg_multilang.field_res_country_title_format
+msgid "Display format to use for partner belonging to this country.\n"
+"\n"
+"You can use python-style string pattern with all the fields of the title (for example, use '%(title)s' to display the field 'title') plus\n"
+"%(partner)s: use the partner name\n"
+"%(academic_title_display)s: the code of the academic_title_display"
+msgstr "Display format to use for partner belonging to this country.\n"
+"\n"
+"You can use python-style string pattern with all the fields of the title (for example, use '%(title)s' to display the field 'title') plus\n"
+"%(partner)s: use the partner name\n"
+"%(academic_title_display)s: the code of the academic_title_display"
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_hr_employee
+msgid "Employee"
+msgstr "Служител"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_partner_display_name_el
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_users_display_name_el
+msgid "GR Name"
+msgstr "GR Name"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_l10n_bg_multilang_transliterate_id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,help:l10n_bg_multilang.field_res_company_lang
+msgid "If the selected language is loaded in the system, all documents related to this contact will be printed in this language. If not, it will be English."
+msgstr "If the selected language is loaded in the system, all documents related to this contact will be printed in this language. If not, it will be English."
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_company_lang
+msgid "Language"
+msgstr "Език"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_l10n_bg_multilang_transliterate___last_update
+msgid "Last Modified on"
+msgstr "Последно обновено на"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_country_title_format
+msgid "Layout in Name views"
+msgstr "Layout in Name views"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_partner_name_with_title
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_users_name_with_title
+msgid "Partner name with title"
+msgstr "Partner name with title"
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_resource_resource
+msgid "Resource Detail"
+msgstr "Детайли за ресурса"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_hr_employee_name_related
+msgid "Resource Name"
+msgstr "Име на ресурс"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_partner_display_name_en
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_users_display_name_en
+msgid "SRC Name"
+msgstr "SRC Име"
+
+#. module: l10n_bg_multilang
+#: model:ir.ui.view,arch_db:l10n_bg_multilang.view_country_form
+msgid "Title format..."
+msgstr "Title format..."
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_res_users
+msgid "Users"
+msgstr "Потребители"
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_stock_warehouse
+msgid "Warehouse"
+msgstr "Склад"
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_account_group
+msgid "account.group"
+msgstr "account.group"
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_ir_translation
+msgid "ir.translation"
+msgstr "ir.translation"
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_l10n_bg_multilang_transliterate
+msgid "l10n_bg_multilang.transliterate"
+msgstr "l10n_bg_multilang.transliterate"
+

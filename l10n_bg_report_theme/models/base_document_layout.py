@@ -132,7 +132,7 @@ class BaseDocumentLayout(models.TransientModel):
         layout_id = reports['layout']
         for key, report in reports.items():
             if report and key != 'layout':
-                report.with_context(**dict(self._context, active_test=False)).active = \
+                report.with_context(**dict(self.env.context, active_test=False)).active = \
                     self.report_layout_id.id == layout_id.id
 
     @api.model_create_multi

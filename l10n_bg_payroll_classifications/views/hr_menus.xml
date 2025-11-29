@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Main Bulgarian Localization Menu -->
+    <menuitem id="menu_bg_hr_localization_root"
+              name="Bulgarian HR"
+              parent="hr.menu_human_resources_configuration"
+              sequence="100"/>
+
+    <!-- NKPD Classifications Menu -->
+    <menuitem id="menu_bg_nkpd_classification"
+              name="NKPD Classifications"
+              parent="menu_bg_hr_localization_root"
+              action="action_bg_ncop_classification"
+              sequence="10"/>
+
+    <!-- Economic Activities Menu -->
+    <menuitem id="menu_bg_mod_economic_activity"
+              name="Economic Activities (KID)"
+              parent="menu_bg_hr_localization_root"
+              action="action_bg_mod_economic_activity"
+              sequence="20"/>
+
+    <!-- Reports Menu -->
+    <menuitem id="menu_bg_hr_reports"
+              name="Reports"
+              parent="menu_bg_hr_localization_root"
+              sequence="200"/>
+
+</odoo>

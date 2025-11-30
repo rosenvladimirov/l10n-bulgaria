@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Extended HR Contract Template Form View -->
+    <record id="hr_contract_template_form_view_extended" model="ir.ui.view">
+        <field name="name">hr.contract.template.form.extended</field>
+        <field name="model">hr.version</field>
+        <field name="inherit_id" ref="hr.hr_contract_template_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Add location info in a top_info_right group -->
+            <xpath expr="//group[@name='top_info_right']" position="inside">
+                <field name="work_location_id" readonly="0" groups="!hr.group_hr_manager" options="{'no_open': True, 'no_create': True}"/>
+                <field name="work_location_id" readonly="0" groups="hr.group_hr_manager"/>
+                <field name="work_location" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

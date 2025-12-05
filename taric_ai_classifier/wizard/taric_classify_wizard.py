@@ -75,7 +75,7 @@ class TaricClassifyWizard(models.TransientModel):
         taric_record = TaricCode.search([('code', '=', code)], limit=1)
 
         if not taric_record:
-            # Create new TARIC code record
+            # Create a new TARIC code record
             vals = {
                 'code': code,
                 'cn8_code': code[:8] if len(code) >= 8 else code,

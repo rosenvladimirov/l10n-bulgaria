@@ -12,9 +12,6 @@ class TaricClassifyWizard(models.TransientModel):
 
     product_id = fields.Many2one('product.template', string='Product',
                                  required=True)
-    product_description = fields.Text('Product Description', readonly=True,
-                                     related='product_id.name')
-
     suggestion_ids = fields.One2many('taric.classify.suggestion',
                                      'wizard_id',
                                      string='AI Suggestions')

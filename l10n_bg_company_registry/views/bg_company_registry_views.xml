@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Company Registry Tree View -->
+    <record id="view_bg_company_registry_tree" model="ir.ui.view">
+        <field name="name">bg.company.registry.tree</field>
+        <field name="model">bg.company.registry</field>
+        <field name="arch" type="xml">
+            <list string="Bulgarian Company Registry"
+                  decoration-muted="status=='inactive'"
+                  decoration-danger="status=='deleted'">
+                <field name="eik"/>
+                <field name="company_name_bg"/>
+                <field name="company_name_en" optional="hide"/>
+                <field name="legal_form_bg"/>
+                <field name="vat_number" optional="show"/>
+                <field name="city_bg" optional="show"/>
+                <field name="registration_date" optional="hide"/>
+                <field name="status" optional="show"/>
+                <field name="partner_id" optional="hide"/>
+                <field name="data_last_updated" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Company Registry Form View -->
+    <record id="view_bg_company_registry_form" model="ir.ui.view">
+        <field name="name">bg.company.registry.form</field>
+        <field name="model">bg.company.registry</field>
+        <field name="arch" type="xml">
+            <form string="Company Registry Data">
+                <header>
+                    <field name="status" widget="statusbar"
+                           statusbar_visible="active,inactive,liquidation"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_create_partner"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-building"
+                                invisible="partner_id">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Create</span>
+                                <span class="o_stat_text">Partner</span>
+                            </div>
+                        </button>
+                        <button name="action_view_partner"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-building"
+                                invisible="not partner_id">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">View</span>
+                                <span class="o_stat_text">Partner</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <group>
+                        <group string="Company Identification">
+                            <field name="eik"/>
+                            <field name="bulstat"/>
+                            <field name="vat_number"/>
+                            <field name="vat_registered"/>
+                        </group>
+                        <group string="Data Source">
+                            <field name="data_source" readonly="1"/>
+                            <field name="data_last_updated" readonly="1"/>
+                            <field name="partner_id"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Company Names">
+                            <field name="company_name_bg"/>
+                            <field name="company_name_en"/>
+                        </group>
+                        <group string="Legal Form">
+                            <field name="legal_form_bg"/>
+                            <field name="legal_form_en"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Address" name="address">
+                            <group>
+                                <group string="Bulgarian Address">
+                                    <field name="address_full_bg"/>
+                                    <field name="city_bg"/>
+                                    <field name="street_bg"/>
+                                    <field name="postal_code"/>
+                                </group>
+                                <group string="English Address">
+                                    <field name="address_full_en"/>
+                                    <field name="city_en"/>
+                                    <field name="street_en"/>
+                                    <field name="country_code"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Registration" name="registration">
+                            <group>
+                                <group>
+                                    <field name="registration_date"/>
+                                    <field name="registration_number"/>
+                                    <field name="court"/>
+                                </group>
+                                <group>
+                                    <field name="activity_code"/>
+                                    <label for="activity_description_bg"/>
+                                    <field name="activity_description_bg" nolabel="1"/>
+                                    <label for="activity_description_en"/>
+                                    <field name="activity_description_en" nolabel="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Company Registry Search View -->
+    <record id="view_bg_company_registry_search" model="ir.ui.view">
+        <field name="name">bg.company.registry.search</field>
+        <field name="model">bg.company.registry</field>
+        <field name="arch" type="xml">
+            <search string="Search Companies">
+                <field name="eik" string="EIK"/>
+                <field name="bulstat" string="BULSTAT"/>
+                <field name="company_name_bg" string="Company Name (BG)"
+                       filter_domain="[('company_name_bg', 'ilike', self)]"/>
+                <field name="company_name_en" string="Company Name (EN)"
+                       filter_domain="[('company_name_en', 'ilike', self)]"/>
+                <field name="vat_number" string="VAT Number"/>
+                <field name="city_bg" string="City"/>
+
+                <filter string="Active" name="active"
+                        domain="[('status', '=', 'active')]"/>
+                <filter string="Inactive" name="inactive"
+                        domain="[('status', '=', 'inactive')]"/>
+                <filter string="In Liquidation" name="liquidation"
+                        domain="[('status', '=', 'liquidation')]"/>
+
+                <separator/>
+                <filter string="VAT Registered" name="vat_registered"
+                        domain="[('vat_registered', '=', True)]"/>
+                <filter string="Has Partner" name="has_partner"
+                        domain="[('partner_id', '!=', False)]"/>
+                <filter string="No Partner" name="no_partner"
+                        domain="[('partner_id', '=', False)]"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Legal Form" name="group_legal_form"
+                            context="{'group_by': 'legal_form_bg'}"/>
+                    <filter string="City" name="group_city"
+                            context="{'group_by': 'city_bg'}"/>
+                    <filter string="Status" name="group_status"
+                            context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Company Registry Action -->
+    <record id="action_bg_company_registry" model="ir.actions.act_window">
+        <field name="name">Bulgarian Company Registry</field>
+        <field name="res_model">bg.company.registry</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No company data found
+            </p>
+            <p>
+                Import company data from Bulgarian Open Data Portal (data.egov.bg)
+                to search and use company information.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_bg_company_registry_root"
+              name="Bulgarian Registry"
+              sequence="100"
+              web_icon="l10n_bg_company_registry,static/description/icon.png"/>
+
+    <menuitem id="menu_bg_company_registry"
+              name="Company Registry"
+              parent="menu_bg_company_registry_root"
+              action="action_bg_company_registry"
+              sequence="10"/>
+</odoo>

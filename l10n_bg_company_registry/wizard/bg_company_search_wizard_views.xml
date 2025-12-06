@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Wizard Form View -->
+    <record id="view_bg_company_search_wizard_form" model="ir.ui.view">
+        <field name="name">bg.company.search.wizard.form</field>
+        <field name="model">bg.company.search.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Търсене на българска компания">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id" invisible="1"/>
+                            <field name="search_type" widget="radio"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="search_eik"
+                                   placeholder="Въведете ЕИК (9 или 13 цифри)"
+                                   invisible="search_type != 'eik'"
+                                   required="search_type == 'eik'"/>
+                            <field name="search_name"
+                                   placeholder="Въведете име на фирма (минимум 3 символа)"
+                                   invisible="search_type != 'name'"
+                                   required="search_type == 'name'"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <button name="action_search"
+                                string="Търсене"
+                                type="object"
+                                class="btn-primary"
+                                icon="fa-search"/>
+                    </group>
+
+                    <separator string="Резултати от търсенето"
+                               invisible="not company_ids"/>
+
+                    <group invisible="not company_ids">
+                        <field name="company_ids" nolabel="1" mode="tree">
+                            <list string="Companies found"
+                                  create="false"
+                                  delete="false"
+                                  decoration-info="id == parent.selected_company_id">
+                                <field name="eik"/>
+                                <field name="company_name_bg"/>
+                                <field name="company_name_en"/>
+                                <field name="legal_form_bg"/>
+                                <field name="city_bg"/>
+                                <field name="vat_number"/>
+                            </list>
+                        </field>
+                    </group>
+
+                    <separator string="Избрана компания"
+                               invisible="not selected_company_id"/>
+
+                    <group invisible="not selected_company_id">
+                        <group>
+                            <field name="selected_company_id"
+                                   domain="[('id', 'in', company_ids)]"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="display_eik"/>
+                            <field name="display_vat"/>
+                            <field name="display_legal_form"/>
+                        </group>
+                        <group>
+                            <field name="display_name_bg"/>
+                            <field name="display_name_en"/>
+                            <field name="display_address_bg"/>
+                        </group>
+                    </group>
+
+                </sheet>
+                <footer>
+                    <button name="action_populate_partner"
+                            string="Fill in partner"
+                            type="object"
+                            class="btn-primary"
+                            invisible="not selected_company_id or not partner_id"
+                            icon="fa-download"/>
+                    <button name="action_create_partner"
+                            string="Create a new partner"
+                            type="object"
+                            class="btn-success"
+                            invisible="not selected_company_id or partner_id"
+                            icon="fa-plus"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Wizard Action -->
+    <record id="action_bg_company_search_wizard" model="ir.actions.act_window">
+        <field name="name">Search for a Bulgarian company</field>
+        <field name="res_model">bg.company.search.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{}</field>
+    </record>
+
+</odoo>

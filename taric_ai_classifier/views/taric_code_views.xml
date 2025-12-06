@@ -103,7 +103,7 @@
     <record id="action_taric_code" model="ir.actions.act_window">
         <field name="name">TARIC Codes</field>
         <field name="res_model">taric.code</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="taric_code_search_view"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -117,14 +117,9 @@
     </record>
 
     <!-- Menu Items -->
-    <menuitem id="menu_taric_root"
-              name="TARIC &amp; INTRASTAT"
-              parent="account.menu_finance"
-              sequence="100"/>
-
     <menuitem id="menu_taric_codes"
               name="TARIC Codes"
-              parent="menu_taric_root"
+              parent="account.menu_finance_configuration"
               action="action_taric_code"
               sequence="10"/>
 </odoo>

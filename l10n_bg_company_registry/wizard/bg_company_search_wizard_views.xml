@@ -40,7 +40,7 @@
                                invisible="not company_ids"/>
 
                     <group invisible="not company_ids">
-                        <field name="company_ids" nolabel="1" mode="tree">
+                        <field name="company_ids" nolabel="1" mode="list">
                             <list string="Companies found"
                                   create="false"
                                   delete="false"

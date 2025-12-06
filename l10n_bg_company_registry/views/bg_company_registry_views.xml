@@ -167,7 +167,7 @@
     <record id="action_bg_company_registry" model="ir.actions.act_window">
         <field name="name">Bulgarian Company Registry</field>
         <field name="res_model">bg.company.registry</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="context">{'search_default_active': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

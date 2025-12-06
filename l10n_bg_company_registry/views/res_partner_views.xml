@@ -26,7 +26,7 @@
             <xpath expr="//notebook" position="inside">
                 <page string="Bulgarian Company Info"
                       name="bg_company_info"
-                      invisible="not is_company and is_l10n_bg_record">
+                      invisible="not is_company">
                     <group>
                         <group string="Company Names">
                             <label for="name"/>
@@ -46,7 +46,7 @@
 
                     <group>
                         <group string="Legal Information">
-                            <field name="l10n_bg_legal_form" placeholder="Ltd., Co., etc."/>
+                            <field name="l10n_bg_legal_form" placeholder="ООД, ЕООД, АД, etc."/>
                             <field name="l10n_bg_registration_date"/>
                             <field name="company_registry" string="Registration Number"/>
                             <field name="l10n_bg_registration_court"/>
@@ -67,7 +67,7 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_tree"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='display_name']" position="after">
+            <xpath expr="//field[@name='name']" position="after">
                 <field name="l10n_bg_uic" optional="hide" string="EIK"/>
                 <field name="l10n_bg_legal_form" optional="hide"/>
             </xpath>

@@ -15,13 +15,9 @@ class TaricClassifyWizard(models.TransientModel):
     suggestion_ids = fields.One2many('taric.classify.suggestion',
                                      'wizard_id',
                                      string='AI Suggestions')
-
     selected_suggestion_id = fields.Many2one('taric.classify.suggestion',
                                             string='Selected Code')
-
-    custom_code = fields.Char('Custom TARIC Code', size=10,
-                             help='Enter code manually if not in suggestions')
-
+    custom_code = fields.Char('Custom TARIC Code', help='Enter code manually if not in suggestions')
     notes = fields.Char('Classification Notes')
 
     @api.model
@@ -216,9 +212,6 @@ class BatchClassifyWizard(models.TransientModel):
                         if not taric_record:
                             taric_record = TaricCode.create({
                                 'code': code,
-                                'cn8_code': code[:8],
-                                'description_en': best_suggestion.get('description_en'),
-                                'description_bg': best_suggestion.get('description_bg'),
                                 'confidence_score': best_suggestion.get('confidence'),
                             })
 

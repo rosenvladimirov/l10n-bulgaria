@@ -14,17 +14,16 @@
                     <notebook>
                         <page string="AI Suggestions">
                             <field name="suggestion_ids" mode="tree" readonly="1">
-                                <list decoration-success="confidence&gt;90" decoration-info="confidence&gt;70 and confidence&lt;=90" decoration-warning="confidence&lt;=70">
+                                <list decoration-success="confidence&gt;90"
+                                      decoration-info="confidence&gt;70 and confidence&lt;=90"
+                                      decoration-warning="confidence&lt;=70">
                                     <field name="sequence" widget="handle"/>
                                     <field name="code"/>
                                     <field name="description_en"/>
                                     <field name="description_bg"/>
                                     <field name="confidence" widget="progressbar"/>
                                     <field name="supplementary_unit"/>
-                                    <button name="%(action_select_suggestion)d"
-                                            string="Select"
-                                            type="action"
-                                            class="btn-primary"/>
+                                    <field name="reasoning"/>
                                 </list>
                             </field>
                             <group>
@@ -37,12 +36,6 @@
                             <group>
                                 <field name="custom_code" placeholder="e.g., 12345678"/>
                                 <field name="notes" placeholder="Reason for manual classification..."/>
-                            </group>
-                        </page>
-                        <page string="AI Reasoning">
-                            <field name="selected_suggestion_id" invisible="1"/>
-                            <group attrs="{'invisible': [('selected_suggestion_id', '=', False)]}">
-                                <field name="selected_suggestion_id.reasoning" readonly="1" nolabel="1"/>
                             </group>
                         </page>
                     </notebook>
@@ -79,21 +72,23 @@
                         <field name="product_ids" widget="many2many_tags"/>
                     </group>
 
-                    <group attrs="{'invisible': [('progress', '=', 0)]}">
+                    <group invisible="progress == 0">
                         <field name="progress" widget="progressbar"/>
                         <field name="status" readonly="1"/>
                     </group>
 
-                    <notebook attrs="{'invisible': [('result_ids', '=', [])]}">
+                    <notebook invisible="not result_ids">
                         <page string="Results">
                             <field name="result_ids" readonly="1">
-                                <tree decoration-success="status=='success'" decoration-danger="status=='error'" decoration-warning="status=='pending'">
+                                <list decoration-success="status=='success'"
+                                      decoration-danger="status=='error'"
+                                      decoration-warning="status=='pending'">
                                     <field name="product_id"/>
                                     <field name="status"/>
                                     <field name="taric_code"/>
                                     <field name="confidence" widget="progressbar"/>
                                     <field name="message"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
@@ -103,10 +98,26 @@
                             name="action_classify_batch"
                             type="object"
                             class="btn-primary"
-                            attrs="{'invisible': [('progress', '&gt;', 0)]}"/>
+                            invisible="progress &gt; 0"/>
                     <button string="Close" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
         </field>
+    </record>
+
+    <!-- Action for Classification Wizard -->
+    <record id="action_taric_classify_wizard" model="ir.actions.act_window">
+        <field name="name">AI Classification</field>
+        <field name="res_model">taric.classify.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Action for Batch Classification -->
+    <record id="action_batch_classify_wizard" model="ir.actions.act_window">
+        <field name="name">Batch Classification</field>
+        <field name="res_model">batch.classify.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
     </record>
 </odoo>

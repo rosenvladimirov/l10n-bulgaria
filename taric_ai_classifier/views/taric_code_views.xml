@@ -5,16 +5,16 @@
         <field name="name">taric.code.tree</field>
         <field name="model">taric.code</field>
         <field name="arch" type="xml">
-            <tree string="TARIC Codes" decoration-success="verified==True" decoration-warning="confidence_score&lt;80">
+            <list string="TARIC Codes" decoration-success="verified==True" decoration-warning="confidence_score&lt;80">
                 <field name="code"/>
                 <field name="cn8_code"/>
-                <field name="description_en"/>
+                <field name="description"/>
                 <field name="supplementary_unit"/>
                 <field name="duty_rate"/>
                 <field name="confidence_score" widget="progressbar" optional="show"/>
                 <field name="verified" widget="boolean_toggle" optional="show"/>
                 <field name="active" widget="boolean_toggle" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -25,17 +25,18 @@
         <field name="arch" type="xml">
             <form string="TARIC Code">
                 <header>
-                    <button name="action_verify_code" 
-                            string="Verify Online" 
-                            type="object" 
+                    <button name="action_verify_code"
+                            string="Verify Online"
+                            type="object"
                             class="oe_highlight"/>
                     <field name="verified" widget="statusbar"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button class="oe_stat_button" 
-                                type="object"
-                                name="action_view_products"
+                        <button class="oe_stat_button"
+                                type="action"
+                                name="%(taric_ai_classifier.action_product_template)d"
+                                context="{'search_default_taric_code_id': active_id}"
                                 icon="fa-cube">
                             <field string="Products" name="product_ids" widget="statinfo"/>
                         </button>
@@ -48,18 +49,17 @@
                             <field name="valid_from"/>
                             <field name="valid_to"/>
                         </group>
-                        <group string="AI & Verification">
+                        <group string="AI and Verification">
                             <field name="confidence_score" widget="progressbar"/>
                             <field name="verified"/>
-                            <field name="verified_by_id" attrs="{'invisible': [('verified', '=', False)]}"/>
-                            <field name="verified_date" attrs="{'invisible': [('verified', '=', False)]}"/>
+                            <field name="verified_by_id" invisible="not verified"/>
+                            <field name="verified_date" invisible="not verified"/>
                         </group>
                     </group>
                     <notebook>
                         <page string="Description">
                             <group>
-                                <field name="description_en" placeholder="English description..."/>
-                                <field name="description_bg" placeholder="Описание на български..."/>
+                                <field name="description" placeholder="Description..."/>
                             </group>
                         </page>
                         <page string="Customs Information">
@@ -76,13 +76,13 @@
                         </page>
                         <page string="Classification History">
                             <field name="classification_history_ids" readonly="1">
-                                <tree>
+                                <list>
                                     <field name="create_date"/>
                                     <field name="product_id"/>
                                     <field name="classification_method"/>
                                     <field name="confidence_score" widget="progressbar"/>
                                     <field name="user_id"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
@@ -99,8 +99,7 @@
             <search string="Search TARIC Codes">
                 <field name="code"/>
                 <field name="cn8_code"/>
-                <field name="description_en"/>
-                <field name="description_bg"/>
+                <field name="description"/>
                 <filter string="Verified" name="verified" domain="[('verified', '=', True)]"/>
                 <filter string="Unverified" name="unverified" domain="[('verified', '=', False)]"/>
                 <filter string="High Confidence" name="high_confidence" domain="[('confidence_score', '&gt;', 90)]"/>
@@ -128,6 +127,14 @@
                 Use the AI classification tool to automatically suggest codes for your products.
             </p>
         </field>
+    </record>
+
+    <!-- Action for Product Template (for smart button) -->
+    <record id="action_product_template" model="ir.actions.act_window">
+        <field name="name">Products</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('taric_code_id', '=', active_id)]</field>
     </record>
 
     <!-- Menu Items -->

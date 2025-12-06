@@ -48,6 +48,7 @@ Usage
         'base',
         'product',
         'stock',
+        'stock_delivery',
         'account',
     ],
     'external_dependencies': {

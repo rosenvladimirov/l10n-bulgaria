@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('settings')]" position="inside">
                 <div class="app_settings_block" data-string="TARIC &amp; INTRASTAT AI" data-key="taric_ai_classifier">
-                    <h2>🤖 AI Classification Settings</h2>
+                    <h2>AI Classification Settings</h2>
                     <div class="row mt16 o_settings_container">
                         <div class="col-12 col-lg-6 o_setting_box">
                             <div class="o_setting_left_pane">

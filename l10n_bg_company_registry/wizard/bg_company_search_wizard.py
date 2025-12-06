@@ -115,7 +115,10 @@ class BgCompanySearchWizard(models.TransientModel):
 
     def _fetch_from_ckan_api(self, eik):
         """
-        Fetch company data from data.egov.bg CKAN API
+        Fetch company data from data.egov.bg API
+
+        Note: data.egov.bg may have changed their API structure.
+        This method tries multiple approaches.
 
         Args:
             eik (str): Company EIK number
@@ -126,70 +129,121 @@ class BgCompanySearchWizard(models.TransientModel):
         if not eik:
             return False
 
-        # CKAN API endpoint for data.egov.bg
-        base_url = "https://data.egov.bg/api/3/action"
-
         try:
-            _logger.info(f"Fetching company data from CKAN API for EIK: {eik}")
+            _logger.info(f"Fetching company data from data.egov.bg for EIK: {eik}")
 
-            # First, get the Trade Register dataset metadata
-            # Dataset ID for Bulgarian Trade Register
-            dataset_id = "2df0c2af-e769-4397-be33-fcbe269806f3"
+            # Approach 1: Try the custom data.egov.bg API
+            # Based on: https://data.egov.bg/api/getDatasetDetails
+            try:
+                custom_api_url = "https://data.egov.bg/api/getDatasetDetails"
+                response = requests.get(
+                    custom_api_url,
+                    params={'dataset_uri': '5b15917a'},  # Trade Register dataset
+                    timeout=30
+                )
 
-            # Get package/dataset details
-            package_show_url = f"{base_url}/package_show"
+                if response.status_code == 200:
+                    _logger.info("Successfully connected to data.egov.bg custom API")
+                    # Parse response and search for EIK
+                    # Note: The actual structure depends on the API response
+                    data = response.json()
+                    # TODO: Parse the data structure once we know the format
+
+            except Exception as e:
+                _logger.debug(f"Custom API approach failed: {str(e)}")
+
+            # Approach 2: Try CKAN API with correct base URL
+            base_url = "https://data.egov.bg/api/3/action"
+
+            # Try to search packages/datasets
+            search_url = f"{base_url}/package_search"
             response = requests.get(
-                package_show_url,
-                params={'id': dataset_id},
+                search_url,
+                params={
+                    'q': f'name:trade-register OR title:търговски*',
+                    'rows': 5
+                },
                 timeout=30
             )
 
-            if response.status_code != 200:
-                _logger.warning(f"Failed to fetch dataset from CKAN API: {response.status_code}")
-                return False
+            if response.status_code == 200:
+                result = response.json()
+                if result.get('success'):
+                    datasets = result.get('result', {}).get('results', [])
+                    _logger.info(f"Found {len(datasets)} datasets related to trade register")
 
-            dataset_info = response.json()
+                    # Try to find the correct dataset
+                    for dataset in datasets:
+                        dataset_id = dataset.get('id') or dataset.get('name')
+                        _logger.info(f"Checking dataset: {dataset.get('title')} (ID: {dataset_id})")
 
-            if not dataset_info.get('success'):
-                _logger.warning("CKAN API returned unsuccessful response")
-                return False
+                        # Get package details
+                        package_url = f"{base_url}/package_show"
+                        pkg_response = requests.get(
+                            package_url,
+                            params={'id': dataset_id},
+                            timeout=30
+                        )
 
-            # Get resources (CSV files) from the dataset
-            resources = dataset_info.get('result', {}).get('resources', [])
+                        if pkg_response.status_code == 200:
+                            pkg_data = pkg_response.json()
+                            if pkg_data.get('success'):
+                                resources = pkg_data.get('result', {}).get('resources', [])
 
-            if not resources:
-                _logger.warning("No resources found in Trade Register dataset")
-                return False
+                                # Search through resources
+                                for resource in resources:
+                                    resource_url = resource.get('url')
+                                    resource_format = resource.get('format', '').upper()
 
-            # Search through CSV resources for company data
-            # Usually the first resource is the main data file
-            for resource in resources:
-                resource_url = resource.get('url')
-                resource_format = resource.get('format', '').upper()
+                                    if resource_format in ['CSV', 'TXT', 'XLSX', 'XLS']:
+                                        _logger.info(f"Found resource: {resource.get('name')} ({resource_format})")
+                                        # Try to search in this resource
+                                        company_data = self._search_in_resource(resource_url, resource_format, eik)
+                                        if company_data:
+                                            return company_data
+            else:
+                _logger.warning(f"CKAN API search returned status: {response.status_code}")
 
-                # We're looking for CSV files
-                if resource_format not in ['CSV', 'TXT']:
-                    continue
-
-                _logger.info(f"Searching in resource: {resource.get('name')}")
-
-                # Download and search the CSV file
-                company_data = self._search_in_csv_resource(resource_url, eik)
-
-                if company_data:
-                    return company_data
-
-            _logger.info(f"Company with EIK {eik} not found in CKAN API resources")
+            _logger.info(f"Company with EIK {eik} not found in data.egov.bg")
             return False
 
         except requests.Timeout:
-            _logger.error("Timeout while fetching data from CKAN API")
+            _logger.error("Timeout while fetching data from data.egov.bg")
             return False
         except requests.RequestException as e:
-            _logger.error(f"Error fetching data from CKAN API: {str(e)}")
+            _logger.error(f"Error fetching data from data.egov.bg API: {str(e)}")
             return False
         except Exception as e:
-            _logger.error(f"Unexpected error in CKAN API fetch: {str(e)}")
+            _logger.error(f"Unexpected error in data.egov.bg API fetch: {str(e)}")
+            return False
+
+    def _search_in_resource(self, resource_url, resource_format, eik):
+        """
+        Search for company in a resource file
+
+        Args:
+            resource_url (str): URL to resource file
+            resource_format (str): Format of the resource (CSV, XLSX, etc.)
+            eik (str): Company EIK to search for
+
+        Returns:
+            dict: Company data or False
+        """
+        try:
+            _logger.info(f"Searching in resource: {resource_url}")
+
+            if resource_format in ['CSV', 'TXT']:
+                return self._search_in_csv_resource(resource_url, eik)
+            elif resource_format in ['XLSX', 'XLS']:
+                # For Excel files, you might need openpyxl or xlrd
+                _logger.warning(f"Excel format not yet supported: {resource_format}")
+                return False
+            else:
+                _logger.warning(f"Unsupported resource format: {resource_format}")
+                return False
+
+        except Exception as e:
+            _logger.error(f"Error searching resource: {str(e)}")
             return False
 
     def _search_in_csv_resource(self, csv_url, eik):
@@ -204,31 +258,58 @@ class BgCompanySearchWizard(models.TransientModel):
             dict: Company data or False
         """
         try:
-            # Download CSV content
+            _logger.info(f"Downloading CSV from: {csv_url}")
+
+            # Download CSV content with streaming to handle large files
             response = requests.get(csv_url, timeout=60, stream=True)
 
             if response.status_code != 200:
+                _logger.warning(f"Failed to download CSV: {response.status_code}")
                 return False
 
-            # Parse CSV line by line to find the company
-            # This is more memory efficient for large files
-            import csv
-            from io import StringIO
+            # Try different encodings
+            encodings = ['utf-8', 'windows-1251', 'iso-8859-1']
 
-            # Read the first chunk to detect encoding
-            content = response.content.decode('utf-8', errors='ignore')
+            for encoding in encodings:
+                try:
+                    # Read content
+                    content = response.content.decode(encoding, errors='ignore')
 
-            # Create a CSV reader
-            csv_reader = csv.DictReader(StringIO(content))
+                    # Parse CSV
+                    import csv
+                    from io import StringIO
 
-            for row in csv_reader:
-                # Check if this row matches the EIK
-                row_eik = row.get('EIK', '').strip() or row.get('eik', '').strip()
+                    csv_reader = csv.DictReader(StringIO(content))
 
-                if row_eik == eik:
-                    # Found the company! Parse the data
-                    return self._parse_csv_row_to_company_data(row)
+                    # Search for EIK in CSV
+                    row_count = 0
+                    for row in csv_reader:
+                        row_count += 1
 
+                        # Try different possible column names for EIK
+                        row_eik = (
+                            row.get('EIK', '').strip() or
+                            row.get('eik', '').strip() or
+                            row.get('ЕИК', '').strip() or
+                            row.get('BULSTAT', '').strip() or
+                            row.get('bulstat', '').strip()
+                        )
+
+                        if row_eik == eik:
+                            _logger.info(f"Found company in CSV at row {row_count}!")
+                            return self._parse_csv_row_to_company_data(row)
+
+                    _logger.info(f"Searched {row_count} rows, EIK {eik} not found")
+                    return False
+
+                except UnicodeDecodeError:
+                    _logger.debug(f"Failed to decode with {encoding}, trying next encoding")
+                    continue
+                except Exception as e:
+                    _logger.error(f"Error parsing CSV with {encoding}: {str(e)}")
+                    continue
+
+            _logger.warning("Failed to decode CSV with any supported encoding")
             return False
 
         except Exception as e:

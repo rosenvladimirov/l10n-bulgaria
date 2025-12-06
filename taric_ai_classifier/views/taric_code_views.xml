@@ -32,9 +32,8 @@
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button class="oe_stat_button"
-                                type="action"
-                                name="%(taric_ai_classifier.action_product_template)d"
-                                context="{'search_default_taric_code_id': active_id}"
+                                type="object"
+                                name="action_view_products"
                                 icon="fa-cube">
                             <field string="Products" name="product_ids" widget="statinfo"/>
                         </button>
@@ -61,14 +60,7 @@
                         </page>
                         <page string="Customs Information">
                             <group>
-                                <group>
-                                    <field name="duty_rate"/>
-                                    <field name="duty_type"/>
-                                </group>
-                                <group>
-                                    <field name="supplementary_unit"/>
-                                    <field name="restrictions" placeholder="Any import/export restrictions..."/>
-                                </group>
+                                <field name="duty_rate"/>
                             </group>
                         </page>
                         <page string="Classification History">
@@ -102,7 +94,6 @@
                 <filter string="Active" name="active" domain="[('active', '=', True)]"/>
                 <group expand="0" string="Group By">
                     <filter string="Verification Status" name="group_verified" context="{'group_by': 'verified'}"/>
-                    <filter string="Duty Type" name="group_duty_type" context="{'group_by': 'duty_type'}"/>
                 </group>
             </search>
         </field>
@@ -123,14 +114,6 @@
                 Use the AI classification tool to automatically suggest codes for your products.
             </p>
         </field>
-    </record>
-
-    <!-- Action for Product Template (for smart button) -->
-    <record id="action_product_template" model="ir.actions.act_window">
-        <field name="name">Products</field>
-        <field name="res_model">product.template</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('taric_code_id', '=', active_id)]</field>
     </record>
 
     <!-- Menu Items -->

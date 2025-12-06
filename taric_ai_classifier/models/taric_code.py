@@ -64,6 +64,18 @@ class TaricCode(models.Model):
                 if len(record.code) not in [6, 8, 10]:
                     raise ValidationError('HS/TARIC code must be 6, 8 or 10 digits!')
 
+    def action_view_products(self):
+        """View products using this TARIC code"""
+        self.ensure_one()
+        return {
+            'name': f'Products - {self.code}',
+            'type': 'ir.actions.act_window',
+            'res_model': 'product.template',
+            'view_mode': 'list,form',
+            'domain': [('taric_code_id', '=', self.id)],
+            'context': {'default_taric_code_id': self.id}
+        }
+
     @api.model
     def search_by_ai(self, product_description, product_category=None):
         """

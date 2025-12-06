@@ -1,32 +1,45 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'AI TARIC & INTRASTAT Classifier',
-    'version': '18.0.1.0.0',
-    'category': 'Accounting/Localization',
-    'summary': 'AI-powered automatic classification of TARIC and INTRASTAT codes',
+    'version': '18.0.1.0.1',
+    'category': 'Accounting/Localizations',
+    'summary': 'AI-powered automatic TARIC and INTRASTAT code classification for products',
     'description': """
 AI TARIC & INTRASTAT Code Classifier
 =====================================
 
-Автоматична класификация на стоки със TARIC и INTRASTAT кодове използвайки AI.
+Automatic product classification with TARIC and INTRASTAT codes using AI.
 
-Възможности:
-------------
-* Автоматично предлагане на TARIC кодове чрез AI анализ на продукта
-* Интеграция с официалната TARIC база данни на ЕС
-* INTRASTAT номенклатура за България
-* История на класификации за одит
-* Batch класификация на множество продукти наведнъж
-* Верификация на кодове спрямо официалните портали
-* Автоматично попълване на допълнителни единици (supplementary units)
-* Подръжка на български и английски език
+Features
+--------
+* Automatic TARIC code suggestions through AI product analysis
+* Integration with official EU TARIC database
+* INTRASTAT nomenclature for Bulgaria
+* Classification audit history
+* Batch classification of multiple products
+* Code verification against official portals
+* Automatic supplementary units population
+* Support for Bulgarian and English
 
-Технологии:
------------
-* Claude AI (Anthropic) за интелигентно разпознаване
+Technical Details
+-----------------
+* Claude AI (Anthropic) for intelligent recognition
 * TARIC API integration
 * Combined Nomenclature database
-* Bulgarian NSI INTRASTAT requirements
+* Bulgarian NSI INTRASTAT compliance requirements
+
+Configuration
+-------------
+1. Go to Settings > General Settings > TARIC AI Configuration
+2. Enter your Anthropic API key
+3. Configure classification preferences
+4. Start classifying products!
+
+Usage
+-----
+* Individual product classification: Product form > Action > Classify with AI
+* Batch classification: Product list view > Action > Batch Classify
+* View classification history: Product form > Classification History smart button
     """,
     'author': 'Rosen Vladimirov',
     'website': 'https://github.com/rosenvladimirov',
@@ -36,8 +49,10 @@ AI TARIC & INTRASTAT Code Classifier
         'product',
         'stock',
         'account',
-        'l10n_bg',
     ],
+    'external_dependencies': {
+        'python': ['requests'],
+    },
     'data': [
         'security/ir.model.access.csv',
         'data/taric_data.xml',
@@ -48,6 +63,9 @@ AI TARIC & INTRASTAT Code Classifier
         'wizard/batch_classify_wizard_views.xml',
     ],
     'demo': [],
+    'images': [
+        'static/description/banner.png',
+    ],
     'installable': True,
     'application': False,
     'auto_install': False,

@@ -17,7 +17,7 @@ class ProductTemplate(models.Model):
     intrastat_code_id = fields.Many2one('intrastat.code',
                                        string='INTRASTAT Code',
                                        help='CN8 code for INTRASTAT reporting')
-    
+
     # Additional customs information
     country_of_origin_id = fields.Many2one('res.country',
                                           string='Country of Origin')
@@ -26,7 +26,7 @@ class ProductTemplate(models.Model):
                                     readonly=True)
     supplementary_quantity = fields.Float('Supplementary Quantity',
                                          help='Quantity in supplementary units')
-    
+
     # AI classification
     ai_classification_confidence = fields.Float('AI Confidence',
                                                related='taric_code_id.confidence_score',
@@ -34,12 +34,12 @@ class ProductTemplate(models.Model):
     classification_verified = fields.Boolean('Classification Verified',
                                             related='taric_code_id.verified',
                                             readonly=True)
-    
+
     # History
     classification_history_ids = fields.One2many('taric.classification.history',
                                                 'product_id',
                                                 string='Classification History')
-    
+
     # Statistics for INTRASTAT
     intrastat_transaction_code = fields.Selection([
         ('11', '11 - Outright purchase/sale'),
@@ -58,30 +58,39 @@ class ProductTemplate(models.Model):
     ], string='Transaction Nature',
        help='Nature of transaction for INTRASTAT reporting')
 
+    # Последен метод на класификация
+    classification_method = fields.Selection([
+        ('manual', 'Manual'),
+        ('ai', 'AI Suggested'),
+        ('expert', 'Expert Verified'),
+        ('api', 'API Verified'),
+    ], string='Classification Method', readonly=True,
+       help='How was the current TARIC code assigned')
+
     def action_classify_with_ai(self):
         """Open wizard to classify product using AI"""
         self.ensure_one()
-        
+
         if not self.name and not self.description_sale:
             raise UserError('Product must have a name or description for AI classification!')
-        
+
         # Get product description
         description = f"{self.name}"
         if self.description_sale:
             description += f" - {self.description_sale}"
         if self.categ_id:
             description += f" (Category: {self.categ_id.display_name})"
-        
+
         # Call AI to get suggestions
         TaricCode = self.env['taric.code']
         suggestions = TaricCode.search_by_ai(
             product_description=description,
             product_category=self.categ_id.name if self.categ_id else None
         )
-        
+
         if not suggestions:
             raise UserError('AI could not suggest any codes. Please try manual classification.')
-        
+
         # Show suggestions in a wizard
         return {
             'name': 'AI Classification Suggestions',
@@ -98,16 +107,16 @@ class ProductTemplate(models.Model):
     def action_verify_taric_code(self):
         """Verify current TARIC code online"""
         self.ensure_one()
-        
+
         if not self.taric_code_id:
             raise UserError('No TARIC code assigned to verify!')
-        
+
         return self.taric_code_id.action_verify_code()
 
     def action_view_classification_history(self):
         """View classification history for this product"""
         self.ensure_one()
-        
+
         return {
             'name': f'Classification History - {self.name}',
             'type': 'ir.actions.act_window',
@@ -125,23 +134,34 @@ class ProductTemplate(models.Model):
             intrastat = self.env['intrastat.code'].search([
                 ('cn8_code', '=', self.taric_code_id.cn8_code)
             ], limit=1)
-            
+
             if intrastat:
                 self.intrastat_code_id = intrastat
 
     def write(self, vals):
         """Log classification history when TARIC code changes"""
         result = super().write(vals)
-        
+
         if 'taric_code_id' in vals and vals['taric_code_id']:
+            # Определи метода на класификация
+            method = 'manual'
+            if self.env.context.get('ai_classification'):
+                method = 'ai'
+            elif self.env.context.get('expert_verification'):
+                method = 'expert'
+
             for product in self:
+                # Запази историята
                 self.env['taric.classification.history'].create({
                     'product_id': product.id,
                     'taric_code_id': vals['taric_code_id'],
-                    'classification_method': 'manual',
+                    'classification_method': method,
                     'user_id': self.env.user.id,
                 })
-        
+
+                # Обнови метода на продукта
+                product.classification_method = method
+
         return result
 
 
@@ -154,10 +174,10 @@ class ProductProduct(models.Model):
         Used in INTRASTAT declaration generation
         """
         self.ensure_one()
-        
+
         if not self.product_tmpl_id.intrastat_code_id:
             raise UserError(f'Product {self.name} has no INTRASTAT code assigned!')
-        
+
         return {
             'product_id': self.id,
             'cn8_code': self.cn8_code,

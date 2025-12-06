@@ -1,19 +1,21 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 import logging
+import re
 
-from odoo import models
-from .models.res_transliterate import partner_name_translate
-from .models.res_transliterate import LANGUAGE_MAPPING
+from odoo import models, api
+from odoo.addons.partner_multilang.models.res_transliterate import partner_name_translate
+from odoo.addons.partner_multilang.models.res_transliterate import LANGUAGE_MAPPING
 
-from .odoo.models import regex_order
 
 _logger = logging.getLogger(__name__)
+
+email_addr_escapes_re = re.compile(r'[\\"]')
 
 
 def pre_init_hook(env):
     lang = env['res.lang'].with_context(active_test=False).search([('code', '=', 'bg_BG'), ('active', '=', False)])
     if lang:
-        lang.toggle_active()
+        lang.action_unarchive()
 
 
 def post_init_hook(env):
@@ -30,7 +32,3 @@ def post_init_hook(env):
             _logger.info(f"Partner {text} => {transliterate_lang} The {lang.code} and is a transliterate language: {lang.transliterate}")
             partner_id.with_context(lang=lang.code).name = text
             partner_id.with_context(lang="en_US").name = transliterate_lang
-
-
-def post_load_hook():
-    models.regex_order = regex_order

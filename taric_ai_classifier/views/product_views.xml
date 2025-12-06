@@ -11,14 +11,8 @@
                     <group>
                         <group string="Classification">
                             <field name="taric_code_id" options="{'no_create': True}"/>
-                            <field name="cn8_code" readonly="1"/>
                             <field name="ai_classification_confidence" widget="progressbar"/>
                             <field name="classification_verified" readonly="1"/>
-                        </group>
-                        <group string="Customs Info">
-                            <field name="supplementary_unit" readonly="1"/>
-                            <field name="supplementary_quantity"/>
-                            <field name="intrastat_transaction_code"/>
                         </group>
                     </group>
                     <group>
@@ -56,7 +50,6 @@
         <field name="inherit_id" ref="product.product_template_tree_view"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='list_price']" position="after">
-                <field name="cn8_code" optional="show"/>
                 <field name="ai_classification_confidence" optional="hide" widget="progressbar"/>
             </xpath>
         </field>

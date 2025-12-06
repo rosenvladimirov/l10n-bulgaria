@@ -74,7 +74,6 @@ class TaricClassifyWizard(models.TransientModel):
             # Create a new TARIC code record
             vals = {
                 'code': code,
-                'cn8_code': code[:8] if len(code) >= 8 else code,
                 'confidence_score': confidence,
             }
 

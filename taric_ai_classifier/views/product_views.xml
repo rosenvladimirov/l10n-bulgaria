@@ -11,7 +11,7 @@
                     <field name="taric_code_id" options="{'no_create': True}"/>
                     <field name="ai_classification_confidence" widget="progressbar"/>
                     <field name="classification_verified" readonly="1"/>
-                    <div class="o_row">
+                    <div class="o_row" colspan="2">
                         <button name="action_classify_with_ai"
                                 string="Classify with AI"
                                 type="object"

@@ -225,7 +225,9 @@ class BgCompanySearchWizard(models.TransientModel):
 
         result = {
             'country_code': 'BG',
+            'country_name': '',
             'state_id': False,
+            'state_name': '',
             'city_id': False,
             'city_name': '',
             'zip': '',
@@ -239,86 +241,97 @@ class BgCompanySearchWizard(models.TransientModel):
             'email': '',
         }
 
-        # Extract state/region (Област)
-        state_match = re.search(r'Област:\s*([^,]+)', address_text)
-        if state_match:
-            result['state_name'] = state_match.group(1).strip()
+        # Split address by newlines to process each line
+        lines = [line.strip() for line in address_text.split('\n') if line.strip()]
 
-        # Extract city and postal code
-        city_match = re.search(r'Населено място:\s*(?:гр\.|с\.)\s*([^,]+)(?:,\s*п\.к\.\s*(\d+))?', address_text)
-        if city_match:
-            city_name = city_match.group(1).strip()
-            postal_code = city_match.group(2).strip() if city_match.group(2) else ''
-            result['city_name'] = city_name
-            result['zip'] = postal_code
+        for line in lines:
+            # Extract country (Държава:)
+            if line.startswith('Държава:'):
+                country_match = re.search(r'Държава:\s*(.+)$', line)
+                if country_match:
+                    result['country_name'] = country_match.group(1).strip()
+                continue
 
-        # Extract phone and email from lines with "Телефон:" or "Факс:"
-        phone_email_match = re.search(r'(?:Телефон|Факс):\s*(.+?)(?:\n|$)', address_text)
-        if phone_email_match:
-            contact_info = phone_email_match.group(1).strip()
-            # Check if it's an email (contains @)
-            if '@' in contact_info:
-                result['email'] = contact_info
-            else:
-                # It's a phone number
-                result['phone'] = contact_info
+            # Extract state/region and municipality (Област: ... Община:)
+            if 'Област:' in line:
+                # Format: "Област: Разград, Община: Разград"
+                state_match = re.search(r'Област:\s*([^,]+)', line)
+                if state_match:
+                    result['state_name'] = state_match.group(1).strip()
+                continue
 
-        # Extract street from last line - format: "бул./ул. ул. БЕЛИ ЛОМ № 53, бл. 3, вх. Б, ет. 5, ап. 36"
-        # Split by lines and get the last line that contains бул./ул.
-        lines = address_text.split('\n')
-        street_line = ''
-        for line in reversed(lines):
-            if 'бул./ул.' in line or 'бул.' in line or 'ул.' in line:
-                street_line = line.strip()
-                break
+            # Extract city and postal code
+            # Формат: "Населено място: гр. Разград, п.к. 7200"
+            if 'Населено място:' in line:
+                city_match = re.search(r'Населено място:\s*(?:гр\.|с\.)\s*([^,]+?)(?:,\s*п\.к\.\s*(\d+))?$', line)
+                if city_match:
+                    result['city_name'] = city_match.group(1).strip()
+                    if city_match.group(2):
+                        result['zip'] = city_match.group(2).strip()
+                continue
 
-        if street_line:
-            # Remove "бул./ул." prefix and any additional "ул." or "бул."
-            street_line = re.sub(r'^бул\./ул\.\s*', '', street_line)
-            street_line = re.sub(r'^(?:бул\.|ул\.)\s*', '', street_line)
+            # Extract street (бул./ул.)
+            if 'бул./ул.' in line or (line.startswith('бул.') or line.startswith('ул.')):
+                # Remove "бул./ул." prefix
+                street_line = re.sub(r'^бул\./ул\.\s*', '', line)
+                street_line = re.sub(r'^(?:бул\.|ул\.)\s*', '', street_line)
 
-            # Pattern to extract all address components
-            # Format: ул. БЕЛИ ЛОМ № 53, бл. 3, вх. Б, ет. 5, ап. 36
-            street_pattern = r'^([^№]+?)(?:\s*№\s*(\d+[А-Яа-я]?))?(?:,\s*бл\.\s*(\d+[А-Яа-я]?))?(?:,\s*вх\.\s*([А-Яа-я\d]+))?(?:,\s*ет\.\s*(\d+))?(?:,\s*ап\.\s*(\d+))?'
-            street_match = re.search(street_pattern, street_line)
+                # Pattern to extract all address components
+                # Format: ул. БЕЛИ ЛОМ № 53, бл. 3, вх. Б, ет. 5, ап. 36
+                street_pattern = r'^([^№]+?)(?:\s*№\s*(\d+[А-Яа-я]?))?(?:,?\s*бл\.\s*(\d+[А-Яа-я]?))?(?:,?\s*вх\.\s*([А-Яа-я\d]+))?(?:,?\s*ет\.\s*(\d+))?(?:,?\s*ап\.\s*(\d+))?'
+                street_match = re.search(street_pattern, street_line)
 
-            if street_match:
-                street_name = street_match.group(1).strip()
-                street_number = street_match.group(2) or ''
-                building_number = street_match.group(3) or ''
-                entrance = street_match.group(4) or ''
-                floor_number = street_match.group(5) or ''
-                apartment = street_match.group(6) or ''
+                if street_match:
+                    street_name = street_match.group(1).strip()
+                    street_number = street_match.group(2) or ''
+                    building_number = street_match.group(3) or ''
+                    entrance = street_match.group(4) or ''
+                    floor_number = street_match.group(5) or ''
+                    apartment = street_match.group(6) or ''
 
-                result['street_name'] = street_name
-                result['street_number'] = street_number
+                    result['street_name'] = street_name
+                    result['street_number'] = street_number
 
-                if apartment:
-                    result['street_number2'] = apartment
+                    if apartment:
+                        result['street_number2'] = apartment
 
-                if building_number:
+                    if building_number:
+                        if entrance:
+                            result['street_building_number'] = f"{building_number}, вх. {entrance}"
+                        else:
+                            result['street_building_number'] = building_number
+
+                    if floor_number:
+                        result['street_floor_number'] = floor_number
+
+                    # Build full street
+                    street_parts = [street_name]
+                    if street_number:
+                        street_parts.append(f"№ {street_number}")
+                    if building_number:
+                        street_parts.append(f"бл. {building_number}")
                     if entrance:
-                        result['street_building_number'] = f"{building_number}, вх. {entrance}"
+                        street_parts.append(f"вх. {entrance}")
+                    if floor_number:
+                        street_parts.append(f"ет. {floor_number}")
+                    if apartment:
+                        street_parts.append(f"ап. {apartment}")
+
+                    result['street'] = ', '.join(street_parts)
+                continue
+
+            # Extract phone and email (usually in lines with Телефон:)
+            if 'Телефон:' in line or 'Факс:' in line:
+                contact_match = re.search(r'(?:Телефон|Факс):\s*(.+)$', line)
+                if contact_match:
+                    contact_info = contact_match.group(1).strip()
+                    # Check if it's an email (contains @)
+                    if '@' in contact_info:
+                        result['email'] = contact_info
                     else:
-                        result['street_building_number'] = building_number
-
-                if floor_number:
-                    result['street_floor_number'] = floor_number
-
-                # Build full street
-                street_parts = [street_name]
-                if street_number:
-                    street_parts.append(f"№ {street_number}")
-                if building_number:
-                    street_parts.append(f"бл. {building_number}")
-                if entrance:
-                    street_parts.append(f"вх. {entrance}")
-                if floor_number:
-                    street_parts.append(f"ет. {floor_number}")
-                if apartment:
-                    street_parts.append(f"ап. {apartment}")
-
-                result['street'] = ', '.join(street_parts)
+                        # It's a phone number
+                        result['phone'] = contact_info
+                continue
 
         return result
 
@@ -553,6 +566,24 @@ class BgCompanySearchWizard(models.TransientModel):
         """
         result = self._parse_bulgarian_address_static(address_text)
 
+        # Resolve country_id
+        if result.get('country_name'):
+            # Try to find country by name (e.g., "БЪЛГАРИЯ")
+            country = self.env['res.country'].search([
+                ('name', 'ilike', result['country_name'])
+            ], limit=1)
+
+            # If not found by name, try by code
+            if not country and result.get('country_code'):
+                country = self.env['res.country'].search([
+                    ('code', '=', result['country_code'])
+                ], limit=1)
+
+            if country:
+                result['country_id'] = country.id
+                # Remove country_name as we have country_id now
+                del result['country_name']
+
         # Resolve state_id
         if result.get('state_name'):
             state = self.env['res.country.state'].search([
@@ -565,16 +596,25 @@ class BgCompanySearchWizard(models.TransientModel):
         # Resolve city_id
         if result.get('city_name'):
             city = False
-            # Try by postal code first
+            # Опитваме се първо по пощенски код
             if result.get('zip'):
                 city = self.env['res.city'].search([
                     ('country_id.code', '=', 'BG'),
                     ('zipcode', '=', result['zip'])
                 ])
-            if len(city.ids) > 1:
-                city = city.filtered(lambda city: city.name.lower().\
-                                     startswith(result['city_name'].lower()))
-            # If not found, try by name
+
+                # Ако има повече от един град с този пощенски код, филтрираме по име
+                if len(city) > 1:
+                    city = city.filtered(lambda c: c.name.lower() == result['city_name'].lower())
+                    if not city:
+                        # Опитваме се с частично съвпадение
+                        city = self.env['res.city'].search([
+                            ('country_id.code', '=', 'BG'),
+                            ('zipcode', '=', result['zip']),
+                            ('name', 'ilike', result['city_name'])
+                        ], limit=1)
+
+            # Ако не е намерен по пощенски код, опитваме се по име
             if not city:
                 city = self.env['res.city'].search([
                     ('country_id.code', '=', 'BG'),
@@ -596,8 +636,72 @@ class BgCompanySearchWizard(models.TransientModel):
             return match.group(1).strip()
         return ''
 
+    def action_populate_partner(self):
+        """Populate partner with fetched company data"""
+        self.ensure_one()
+
+        if not self.data_fetched:
+            raise UserError(_('Моля първо изтеглете данните от регистъра'))
+
+        if not self.partner_id:
+            raise UserError(_('Няма зададен партньор'))
+
+        # Get company data from JSON
+        import json
+
+        # Проверка дали има валиден JSON
+        if not self.company_data_json:
+            raise UserError(_('Няма запазени данни от регистъра. Моля, натиснете "Изтегли данни" отново.'))
+
+        try:
+            company_data = json.loads(self.company_data_json)
+        except (json.JSONDecodeError, TypeError) as e:
+            raise UserError(_('Грешка при четене на данните от регистъра: %s') % str(e))
+
+        # Re-parse address to get city_id and state_id
+        if company_data.get('address_full_bg'):
+            parsed_address = self._parse_bulgarian_address(company_data['address_full_bg'])
+            company_data.update(parsed_address)
+
+        # Prepare partner values
+        vals = self._prepare_partner_vals_from_company_data(company_data)
+
+        # Update partner
+        self.partner_id.write(vals)
+
+        # Create or update representative contact
+        if company_data.get('managers') and len(company_data['managers']) > 0:
+            # Вземаме първия управител
+            manager = company_data['managers'][0]
+
+            # Търсим съществуващ представител
+            existing_represent = self.partner_id.child_ids.filtered(lambda r: r.type == 'represent')
+
+            manager_vals = {
+                'name': manager.get('name', ''),
+                'type': 'represent',
+                'parent_id': self.partner_id.id,
+            }
+
+            # Добавяме държава ако е налична
+            if manager.get('country'):
+                country = self.env['res.country'].search([
+                    ('name', 'ilike', manager['country'])
+                ], limit=1)
+                if country:
+                    manager_vals['country_id'] = country.id
+
+            if existing_represent:
+                # Актуализираме съществуващия
+                existing_represent.write(manager_vals)
+            else:
+                # Създаваме нов
+                self.env['res.partner'].create(manager_vals)
+
+        return {'type': 'ir.actions.act_window_close'}
+
     def action_fetch_data(self):
-        """Fetch company data from registry (manual refresh)"""
+        """Fetch company data from a registry (manual refresh)"""
         self.ensure_one()
 
         if not self.eik:
@@ -628,7 +732,8 @@ class BgCompanySearchWizard(models.TransientModel):
         self.original_eik = self.eik
 
         # Populate display fields
-        self.write(self._populate_display_fields(company_data))
+        display_vals = self._populate_display_fields(company_data)
+        self.write(display_vals)
 
         return {
             'type': 'ir.actions.act_window',
@@ -638,62 +743,6 @@ class BgCompanySearchWizard(models.TransientModel):
             'target': 'new',
             'context': self.env.context,
         }
-
-    def action_populate_partner(self):
-        """Populate partner with fetched company data"""
-        self.ensure_one()
-
-        if not self.data_fetched:
-            raise UserError(_('Моля първо изтеглете данните от регистъра'))
-
-        if not self.partner_id:
-            raise UserError(_('Няма зададен партньор'))
-
-        # Get company data from JSON
-        import json
-        company_data = json.loads(self.company_data_json)
-
-        # Reparse address to get city_id and state_id
-        if company_data.get('address_full_bg'):
-            parsed_address = self._parse_bulgarian_address(company_data['address_full_bg'])
-            company_data.update(parsed_address)
-
-        # Prepare partner values
-        vals = self._prepare_partner_vals_from_company_data(company_data)
-
-        # Update partner
-        self.partner_id.write(vals)
-
-        # Create or update a representative contact
-        if company_data.get('managers') and len(company_data['managers']) > 0:
-            # Вземаме първия управител
-            manager = company_data['managers'][0]
-
-            # Търсим съществуващ представител
-            existing_represent = self.partner_id.child_ids.filtered(lambda r: r.type == 'represent')
-
-            manager_vals = {
-                'name': manager.get('name', ''),
-                'type': 'represent',
-                'parent_id': self.partner_id.id,
-            }
-
-            # Добавяме държава ако е налична
-            if manager.get('country'):
-                country = self.env['res.country'].search([
-                    ('name', 'ilike', manager['country'])
-                ], limit=1)
-                if country:
-                    manager_vals['country_id'] = country.id
-
-            if existing_represent:
-                # Актуализираме съществуващия
-                existing_represent.write(manager_vals)
-            else:
-                # Създаваме нов
-                self.env['res.partner'].create(manager_vals)
-
-        return {'type': 'ir.actions.act_window_close'}
 
     @api.model
     def _prepare_partner_vals_from_company_data(self, company_data):
@@ -760,10 +809,14 @@ class BgCompanySearchWizard(models.TransientModel):
         if company_data.get('email'):
             vals['email'] = company_data['email']
 
-        # Country (Bulgaria)
-        country_bg = self.env['res.country'].search([('code', '=', 'BG')], limit=1)
-        if country_bg:
-            vals['country_id'] = country_bg.id
+        # Country - use country_id if available, otherwise default to BG
+        if company_data.get('country_id'):
+            vals['country_id'] = company_data['country_id']
+        else:
+            # Fallback to Bulgaria
+            country_bg = self.env['res.country'].search([('code', '=', 'BG')], limit=1)
+            if country_bg:
+                vals['country_id'] = country_bg.id
 
         # Registration date
         if company_data.get('registration_date'):
@@ -776,7 +829,7 @@ class BgCompanySearchWizard(models.TransientModel):
         if company_data.get('activity_description_bg'):
             vals['l10n_bg_activity_description'] = company_data['activity_description_bg']
 
-        # Set as company
+        # Set as a company
         vals['is_company'] = True
         vals['company_type'] = 'company'
 

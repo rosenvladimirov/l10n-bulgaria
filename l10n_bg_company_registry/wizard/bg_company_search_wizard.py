@@ -307,6 +307,146 @@ class BgCompanySearchWizard(models.TransientModel):
         return result
 
     @staticmethod
+    def _parse_bulgarian_address_static(address_text):
+        """
+        Parse Bulgarian address and map to city_id
+        Static version for use in default_get
+
+        Args:
+            address_text (str): Full address text from registry
+
+        Returns:
+            dict: Parsed address components with city_id
+        """
+        if not address_text:
+            return {}
+
+        result = {
+            'country_code': 'BG',
+            'country_name': '',
+            'state_id': False,
+            'state_name': '',
+            'city_id': False,
+            'city_name': '',
+            'zip': '',
+            'street': '',
+            'street_name': '',
+            'street_number': '',
+            'street_number2': '',
+            'street_building_number': '',
+            'street_floor_number': '',
+            'phone': '',
+            'email': '',
+        }
+
+        # Split the address by newlines to process each line
+        lines = [line.strip() for line in address_text.split('\n') if line.strip()]
+
+        for line in lines:
+            # Extract country (Държава:)
+            if line.startswith('Държава:'):
+                country_match = re.search(r'Държава:\s*(.+)$', line)
+                if country_match:
+                    result['country_name'] = country_match.group(1).strip()
+                continue
+
+            # Extract state/region and municipality (Област: ... Община:)
+            if 'Област:' in line:
+                # Format: "Област: Разград, Община: Разград"
+                state_match = re.search(r'Област:\s*([^,]+)', line)
+                if state_match:
+                    result['state_name'] = state_match.group(1).strip()
+                continue
+
+            # Extract city and postal code
+            # Формат: "Населено място: гр. Разград, п.к. 7200"
+            if 'Населено място:' in line:
+                city_match = re.search(r'Населено място:\s*(?:гр\.|с\.)\s*([^,]+?)(?:,\s*п\.к\.\s*(\d+))?$', line)
+                if city_match:
+                    result['city_name'] = city_match.group(1).strip()
+                    if city_match.group(2):
+                        result['zip'] = city_match.group(2).strip()
+                continue
+
+            # Extract street (бул./ул.)
+            if 'бул./ул.' in line or (line.startswith('бул.') or line.startswith('ул.')):
+                # First, extract contact info if present at the end of the line
+                contact_match = re.search(r'\s+(?:Телефон|Факс):\s*(.+)$', line)
+                if contact_match:
+                    contact_info = contact_match.group(1).strip()
+                    # Check if it's an email (contains @)
+                    if '@' in contact_info:
+                        result['email'] = contact_info
+                    else:
+                        # It's a phone number
+                        result['phone'] = contact_info
+                    # Remove contact info from line before parsing street
+                    line = re.sub(r'\s+(?:Телефон|Факс):.+$', '', line)
+
+                # Remove "бул./ул." prefix
+                street_line = re.sub(r'^бул\./ул\.\s*', '', line)
+                street_line = re.sub(r'^(?:бул\.|ул\.)\s*', '', street_line)
+
+                # Pattern to extract all address components
+                # Format: ул. БЕЛИ ЛОМ № 53, бл. 3, вх. Б, ет. 5, ап. 36
+                street_pattern = r'^([^№]+?)(?:\s*№\s*(\d+[А-Яа-я]?))?(?:,?\s*бл\.\s*(\d+[А-Яа-я]?))?(?:,?\s*вх\.\s*([А-Яа-я\d]+))?(?:,?\s*ет\.\s*(\d+))?(?:,?\s*ап\.\s*(\d+))?'
+                street_match = re.search(street_pattern, street_line)
+
+                if street_match:
+                    street_name = street_match.group(1).strip()
+                    street_number = street_match.group(2) or ''
+                    building_number = street_match.group(3) or ''
+                    entrance = street_match.group(4) or ''
+                    floor_number = street_match.group(5) or ''
+                    apartment = street_match.group(6) or ''
+
+                    result['street_name'] = street_name
+                    result['street_number'] = street_number
+
+                    if apartment:
+                        result['street_number2'] = apartment
+
+                    if building_number:
+                        if entrance:
+                            result['street_building_number'] = f"{building_number}, вх. {entrance}"
+                        else:
+                            result['street_building_number'] = building_number
+
+                    if floor_number:
+                        result['street_floor_number'] = floor_number
+
+                    # Build full street
+                    street_parts = [street_name]
+                    if street_number:
+                        street_parts.append(f"№ {street_number}")
+                    if building_number:
+                        street_parts.append(f"бл. {building_number}")
+                    if entrance:
+                        street_parts.append(f"вх. {entrance}")
+                    if floor_number:
+                        street_parts.append(f"ет. {floor_number}")
+                    if apartment:
+                        street_parts.append(f"ап. {apartment}")
+
+                    result['street'] = ', '.join(street_parts)
+                continue
+
+            # Extract phone and email (usually in lines with Телефон:)
+            if 'Телефон:' in line or 'Факс:' in line:
+                contact_match = re.search(r'(?:Телефон|Факс):\s*(.+)$', line)
+                if contact_match:
+                    contact_info = contact_match.group(1).strip()
+                    # Check if it's an email (contains @)
+                    if '@' in contact_info:
+                        result['email'] = contact_info
+                    else:
+                        # It's a phone number
+                        result['phone'] = contact_info
+                continue
+
+        return result
+
+    @staticmethod
     def _format_company_name(name):
         """
         Format company name to Title Case
@@ -534,73 +674,6 @@ class BgCompanySearchWizard(models.TransientModel):
     def _parse_registry_api_response(self, data):
         """Instance method wrapper"""
         return self._parse_registry_response_static(data)
-
-    def _parse_bulgarian_address(self, address_text):
-        """
-        Instance method wrapper for address parsing
-        Also resolves city_id and state_id from a database
-        """
-        result = self._parse_bulgarian_address_static(address_text)
-
-        # Resolve country_id
-        if result.get('country_name'):
-            # Try to find country by name (e.g., "БЪЛГАРИЯ")
-            country = self.env['res.country'].search([
-                ('name', 'ilike', result['country_name'])
-            ], limit=1)
-
-            # If not found by name, try by code
-            if not country and result.get('country_code'):
-                country = self.env['res.country'].search([
-                    ('code', '=', result['country_code'])
-                ], limit=1)
-
-            if country:
-                result['country_id'] = country.id
-                # Remove country_name as we have country_id now
-                del result['country_name']
-
-        # Resolve state_id
-        if result.get('state_name'):
-            state = self.env['res.country.state'].search([
-                ('country_id.code', '=', 'BG'),
-                ('name', 'ilike', result['state_name'])
-            ], limit=1)
-            if state:
-                result['state_id'] = state.id
-
-        # Resolve city_id
-        if result.get('city_name'):
-            city = False
-            # Опитваме се първо по пощенски код
-            if result.get('zip'):
-                city = self.env['res.city'].search([
-                    ('country_id.code', '=', 'BG'),
-                    ('zipcode', '=', result['zip'])
-                ])
-
-                # Ако има повече от един град с този пощенски код, филтрираме по име
-                if len(city) > 1:
-                    city = city.filtered(lambda c: c.name.lower() == result['city_name'].lower())
-                    if not city:
-                        # Опитваме се с частично съвпадение
-                        city = self.env['res.city'].search([
-                            ('country_id.code', '=', 'BG'),
-                            ('zipcode', '=', result['zip']),
-                            ('name', 'ilike', result['city_name'])
-                        ], limit=1)
-
-            # Ако не е намерен по пощенски код, опитваме се по име
-            if not city:
-                city = self.env['res.city'].search([
-                    ('country_id.code', '=', 'BG'),
-                    ('name', 'ilike', result['city_name'])
-                ], limit=1)
-
-            if city:
-                result['city_id'] = city.id
-
-        return result
 
     @staticmethod
     def _extract_nkid_code(html_data):

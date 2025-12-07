@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- ================================================================== -->
+        <!-- SALARY RULE CATEGORIES (ДЕФИНИРАМЕ ГИ ПЪРВО) -->
+        <!-- ================================================================== -->
+
+        <!-- Base Categories -->
+        <record id="hr_salary_rule_category_base_doo" model="hr.salary.rule.category">
+            <field name="name">ДОО Основа</field>
+            <field name="code">BASE_DOO</field>
+        </record>
+
+        <record id="hr_salary_rule_category_base_zo" model="hr.salary.rule.category">
+            <field name="name">ЗО Основа</field>
+            <field name="code">BASE_ZO</field>
+        </record>
+
+        <record id="hr_salary_rule_category_base_upf" model="hr.salary.rule.category">
+            <field name="name">УПФ Основа</field>
+            <field name="code">BASE_UPF</field>
+        </record>
+
+        <record id="hr_salary_rule_category_base_ppf" model="hr.salary.rule.category">
+            <field name="name">ППФ Основа</field>
+            <field name="code">BASE_PPF</field>
+        </record>
+
+        <record id="hr_salary_rule_category_base_pit" model="hr.salary.rule.category">
+            <field name="name">ДДФЛ Основа</field>
+            <field name="code">BASE_PIT</field>
+        </record>
+
+        <!-- Overtime Category -->
+        <record id="hr_salary_rule_category_overtime" model="hr.salary.rule.category">
+            <field name="name">Извънредно време</field>
+            <field name="code">OVERTIME</field>
+        </record>
+
+        <!-- ================================================================== -->
+        <!-- ОБЩИ ПАРАМЕТРИ ЗА ВСИЧКИ КАТЕГОРИИ ТРУД -->
+        <!-- ================================================================== -->
+
+        <!-- Class (Seniority) Parameters -->
+        <record id="rule_param_bg_class_rate" model="hr.rule.parameter">
+            <field name="name">Клас ставка на година</field>
+            <field name="code">BG_CLASS_RATE</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="rule_param_value_bg_class_rate" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_class_rate"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value">0.006</field> <!-- 0.6% per year -->
+        </record>
+
+        <!-- Rate for average payment per day for the sick off-->
+        <record id="rule_param_bg_insurance_rate" model="hr.rule.parameter">
+            <field name="name">Ставка за заплащане първите дни болничен за сметка на работодателя</field>
+            <field name="code">BG_INSURANCE_RATE</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="rule_param_value_bg_insurance_rate" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_insurance_rate"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value">0.70</field> <!-- 70% per day payment -->
+        </record>
+
+        <record id="rule_param_bg_insurance_months" model="hr.rule.parameter">
+            <field name="name">Месеци за болничен</field>
+            <field name="code">BG_INSURANCE_MONTHS</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="rule_param_value_bg_insurance_months" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_insurance_months"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value">6</field>
+        </record>
+
+        <record id="rule_param_bg_class_max_years" model="hr.rule.parameter">
+            <field name="name">Максимални години за клас</field>
+            <field name="code">BG_CLASS_MAX_YEARS</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="rule_param_value_bg_class_max_years" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_class_max_years"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value">40</field>
+        </record>
+
+        <!-- Insurance Income Limits -->
+        <record id="rule_param_bg_max_ins_base" model="hr.rule.parameter">
+            <field name="name">Максимален осигурителен доход</field>
+            <field name="code">BG_MAX_INS_BASE</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <!-- Q1 2025: 3750 leva -->
+        <record id="rule_param_value_bg_max_ins_base_q1" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_max_ins_base"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value">3750.00</field>
+        </record>
+
+        <!-- From April 2025: 4130 leva -->
+        <record id="rule_param_value_bg_max_ins_base_q2" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_max_ins_base"/>
+            <field name="date_from">2025-04-01</field>
+            <field name="parameter_value">4130.00</field>
+        </record>
+
+        <!-- Minimum Insurance Floor (Optional) -->
+        <record id="rule_param_bg_min_ins_floor" model="hr.rule.parameter">
+            <field name="name">Минимален осигурителен праг</field>
+            <field name="code">BG_MIN_INS_FLOOR</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="rule_param_value_bg_min_ins_floor" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_min_ins_floor"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value">933.00</field> <!-- Basic minimum -->
+        </record>
+
+        <!-- Personal Income Tax (PIT/DDFL) Rate -->
+        <record id="rule_param_bg_pit_rate" model="hr.rule.parameter">
+            <field name="name">ДДФЛ Ставка</field>
+            <field name="code">BG_PIT_RATE</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="rule_param_value_bg_pit_rate" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_pit_rate"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value">0.10</field> <!-- 10% flat tax -->
+        </record>
+
+        <record id="rule_param_bg_overtime_rate" model="hr.rule.parameter">
+            <field name="name">Минимални проценти за извънреден труд</field>
+            <field name="code">BG_OVERTIME_RATE</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="rule_param_bg_overtime_value_rate" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_overtime_rate"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value"><![CDATA[{
+    'BG_OVERTIME_OTWD_RATE': 0.50,
+    'BG_OVERTIME_OTRD_RATE': 0.75,
+    'BG_OVERTIME_OTPH_RATE': 1.00,
+    'BG_OVERTIME_OTST_RATE': 0.50,
+}]]></field> <!-- Комбинирани ДОО ставки по възраст -->
+        </record>
+
+        <!-- ================================================================== -->
+        <!-- ОТДЕЛНИ ПАРАМЕТРИ ЗА ВЪЗРАСТ -->
+        <!-- ================================================================== -->
+
+        <!-- DOO Employee Rates -->
+        <record id="rule_param_bg_doo_combined_rate" model="hr.rule.parameter">
+            <field name="name">ДОО Ставки - Комбинирани</field>
+            <field name="code">BG_DOO_COMBINED_RATES</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="rule_param_value_bg_doo_combined_rate" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_doo_combined_rate"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value"><![CDATA[{
+    'BG_DOO_EMP_RATE': [0.078, 0.098],
+    'BG_DOO_ER_RATE': [0.122, 0.142]
+}]]></field> <!-- Комбинирани ДОО ставки по възраст -->
+        </record>
+
+        <!-- ================================================================== -->
+        <!-- ЗДРАВНО ОСИГУРЯВАНЕ (HEALTH INSURANCE) - ЗА ВСИЧКИ КАТЕГОРИИ -->
+        <!-- ================================================================== -->
+
+        <!-- Health Insurance (ZO) Rates - Combined -->
+        <record id="rule_param_bg_zo_combined_rates" model="hr.rule.parameter">
+            <field name="name">ЗО Ставки - Комбинирани</field>
+            <field name="code">BG_ZO_COMBINED_RATES</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="rule_param_value_bg_zo_combined_rates" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_zo_combined_rates"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value"><![CDATA[{
+    'BG_ZO_EMP_RATE': 0.032,
+    'BG_ZO_ER_RATE': 0.048
+}]]></field> <!-- Комбинирани ЗО ставки -->
+        </record>
+
+        <!-- ================================================================== -->
+        <!-- ПРОФЕСИОНАЛНИ ПЕНСИОННИ ФОНДОВЕ (PPF) - ЗА ВСИЧКИ КАТЕГОРИИ -->
+        <!-- ================================================================== -->
+
+        <!-- Professional Pension Fund (PPF) Rates - Combined -->
+        <record id="rule_param_bg_ppf_combined_rates" model="hr.rule.parameter">
+            <field name="name">ППФ Ставки - Комбинирани</field>
+            <field name="code">BG_PPF_COMBINED_RATES</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="rule_param_value_bg_ppf_combined_rates" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_ppf_combined_rates"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value"><![CDATA[{
+    'BG_PPF_ER_I_RATE': 0.12,
+    'BG_PPF_ER_II_RATE': 0.07,
+    'BG_PPF_ER_III_RATE': 0.00
+}]]></field> <!-- Комбинирани ППФ ставки -->
+        </record>
+
+        <!-- ================================================================== -->
+        <!-- УНИВЕРСАЛНИ ПЕНСИОННИ ФОНДОВЕ (UPF) - ЗА ВСИЧКИ КАТЕГОРИИ -->
+        <!-- ================================================================== -->
+
+        <!-- Universal Pension Fund (UPF) Rates - Combined -->
+        <record id="rule_param_bg_upf_combined_rates" model="hr.rule.parameter">
+            <field name="name">УПФ Ставки - Комбинирани</field>
+            <field name="code">BG_UPF_COMBINED_RATES</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="rule_param_value_bg_upf_combined_rates" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_upf_combined_rates"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value"><![CDATA[{
+    'BG_UPF_EMP_RATE': 0.022,
+    'BG_UPF_ER_RATE': 0.028
+}]]></field> <!-- Комбинирани УПФ ставки -->
+        </record>
+
+        <!-- Occupational Accident and Disease фонд (OAD) Rates - Combined -->
+        <record id="rule_param_bg_tzbp_combined_rates" model="hr.rule.parameter">
+            <field name="name">ТЗБП Ставки - Комбинирани</field>
+            <field name="code">BG_TZBP_COMBINED_RATES</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="rule_param_value_tzbp_upf_combined_rates" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_tzbp_combined_rates"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value"><![CDATA[{
+    'BG_TZBP_RATE_CAT1': 0.011,
+    'BG_TZBP_RATE_CAT2_HI': 0.011,
+    'BG_TZBP_RATE_CAT2_MID': 0.009,
+    'BG_TZBP_RATE_CAT2_LO': 0.007,
+    'BG_TZBP_RATE_CAT3_PROD': 0.007,
+    'BG_TZBP_RATE_CAT3_SRV': 0.005,
+    'BG_TZBP_RATE_CAT3_OFFICE': 0.004,
+}]]></field> <!-- Комбинирани ТЗПБ ставки -->
+        </record>
+
+        <!-- ================================================================== -->
+        <!-- INSURANCE BASE CODE LISTS -->
+        <!-- ================================================================== -->
+
+        <!-- DOO Base Codes -->
+        <record id="rule_param_bg_base_doo_codes" model="hr.rule.parameter">
+            <field name="name">Кодове за ДОО основа</field>
+            <field name="code">BG_BASE_DOO_CODES</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="rule_param_value_bg_base_doo_codes" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_base_doo_codes"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value">"BASIC,OT,CLASS"</field>
+        </record>
+
+        <!-- Health Insurance Base Codes -->
+        <record id="rule_param_bg_base_zo_codes" model="hr.rule.parameter">
+            <field name="name">Кодове за ЗО основа</field>
+            <field name="code">BG_BASE_ZO_CODES</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="rule_param_value_bg_base_zo_codes" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_base_zo_codes"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value">"BASIC,OT,CLASS"</field>
+        </record>
+
+        <!-- UPF Base Codes -->
+        <record id="rule_param_bg_base_upf_codes" model="hr.rule.parameter">
+            <field name="name">Кодове за УПФ основа</field>
+            <field name="code">BG_BASE_UPF_CODES</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="rule_param_value_bg_base_upf_codes" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_base_upf_codes"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value">"BASIC,OT,CLASS"</field>
+        </record>
+
+        <!-- PIT (Tax) Base Codes -->
+        <record id="rule_param_bg_base_pit_codes" model="hr.rule.parameter">
+            <field name="name">Кодове за ДДФЛ основа</field>
+            <field name="code">BG_BASE_PIT_CODES</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="rule_param_value_bg_base_pit_codes" model="hr.rule.parameter.value">
+            <field name="rule_parameter_id" ref="rule_param_bg_base_pit_codes"/>
+            <field name="date_from">2025-01-01</field>
+            <field name="parameter_value">"BASIC,OT,CLASS"</field>
+        </record>
+
+        <!-- ================================================================== -->
+        <!-- INPUT TYPES FOR PAYROLL -->
+        <!-- ================================================================== -->
+
+        <!-- Class Years Input -->
+        <record id="hr_payslip_input_type_class_years" model="hr.payslip.input.type">
+            <field name="name">Години трудов стаж (за клас)</field>
+            <field name="code">CLASS_YEARS</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <!-- Work Category Input -->
+        <record id="hr_payslip_input_type_work_category" model="hr.payslip.input.type">
+            <field name="name">Категория труд (I, II, III)</field>
+            <field name="code">WORK_CATEGORY</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <!-- Birth Year Input -->
+        <record id="hr_payslip_input_type_birth_year" model="hr.payslip.input.type">
+            <field name="name">Година на раждане</field>
+            <field name="code">BIRTH_YEAR</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <!-- Overtime Hours Input -->
+        <record id="hr_payslip_input_type_overtime_hours" model="hr.payslip.input.type">
+            <field name="name">Извънредни часове</field>
+            <field name="code">OT_HOURS</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+        <record id="hr_payslip_input_type_overtime_otrd_hours" model="hr.payslip.input.type">
+            <field name="name">Извънредни часове в неработен ден</field>
+            <field name="code">OTRD_HOURS</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+        <record id="hr_payslip_input_type_overtime_otph_hours" model="hr.payslip.input.type">
+            <field name="name">Извънредни часове в национален празник</field>
+            <field name="code">OTPH_HOURS</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+        <record id="hr_payslip_input_type_overtime_otst_hours" model="hr.payslip.input.type">
+            <field name="name">Извънредни часове при сумирано изчисление</field>
+            <field name="code">OTST_HOURS</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <record id="hr_payslip_input_type_dms_pension" model="hr.payslip.input.type">
+            <field name="name">Допълнително материално стимулиране</field>
+            <field name="code">DMS</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+        <!-- Voluntary Pension Monthly Input -->
+        <record id="hr_payslip_input_type_vol_pension" model="hr.payslip.input.type">
+            <field name="name">Месечна доброволна пенсионна вноска</field>
+            <field name="code">VOL_PENSION</field>
+            <field name="country_id" ref="base.bg"/>
+        </record>
+
+    </data>
+</odoo>

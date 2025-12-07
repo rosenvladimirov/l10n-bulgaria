@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="etz123employer">
+		<xs:annotation>
+			<xs:documentation>Електронен трудов запис за промяна на работодател по чл. 123, ал. 1 или по чл. 123а, ал. 1 или ал. 4 от КТ, или на орган по назначаване</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="formereik" type="bulstat">
+					<xs:annotation>
+						<xs:documentation>4. ЕИК на предишен работодател / орган по назначаване</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="eik" type="bulstat">
+					<xs:annotation>
+						<xs:documentation>5. ЕИК на нов работодател / орган по назначаване</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="contract">
+					<xs:annotation>
+						<xs:documentation>електронен трудов запис</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="rowenum" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:all>
+										<xs:element name="employtype">
+											<xs:annotation>
+												<xs:documentation>1. Вид правоотношение:
+01 – за трудово правоотношение;
+02 – за служебно правоотношение.</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="01"/>
+													<xs:enumeration value="02"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="codecorrection">
+											<xs:annotation>
+												<xs:documentation>2. Код корекция</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:integer">
+													<xs:enumeration value="0"/>
+													<xs:enumeration value="1"/>
+													<xs:enumeration value="2"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="correctiontype">
+											<xs:annotation>
+												<xs:documentation>3. Основание на промяната</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:integer">
+													<xs:enumeration value="0"/>
+													<xs:enumeration value="1"/>
+													<xs:enumeration value="2"/>
+													<xs:enumeration value="3"/>
+													<xs:enumeration value="4"/>
+													<xs:enumeration value="5"/>
+													<xs:enumeration value="6"/>
+													<xs:enumeration value="7"/>
+													<xs:enumeration value="8"/>
+													<xs:enumeration value="9"/>
+													<xs:enumeration value="10"/>
+													<xs:enumeration value="11"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="egn" type="egn">
+											<xs:annotation>
+												<xs:documentation>6. ЕГН (ЛН, ЛНЧ), служебен номер от НАП</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="egntype" type="egntype">
+											<xs:annotation>
+												<xs:documentation>7. Код за ЕГН /ЛН, ЛНЧ/       Сл. номер от НАП :
+0 – ако лицето е с единен граждански номер, 
+2 – ако лицето е с личен номер на чужденец, личен номер или служебен номер, издаден от НАП.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="firstname">
+											<xs:annotation>
+												<xs:documentation>8.Име</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="200"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="secondname" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>9.Презиме</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="200"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="thirdname">
+											<xs:annotation>
+												<xs:documentation>10.Фамилия</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="200"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="contractdate" type="xs:date">
+											<xs:annotation>
+												<xs:documentation>11. Дата на сключване на трудовия договор или на издаване на акта за назначаване</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="contracttype">
+											<xs:annotation>
+												<xs:documentation>12. Основание на трудовия договор или на акта за назначаване</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="3"/>
+													<xs:pattern value="[0-9]{3,3}"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="changedate" type="xs:date">
+											<xs:annotation>
+												<xs:documentation>13. Дата на промяна на работодател/орган по назначаване</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="codeekatte" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>14. Код по ЕКАТТЕ </xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="5"/>
+													<xs:pattern value="[0-9]{5,5}"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:all>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="egn">
+		<xs:restriction base="xs:string">
+			<xs:length value="10"/>
+			<xs:pattern value="[0-9]{10,10}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bulstat">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="13"/>
+			<xs:pattern value="[0-9]{1,13}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="egntype">
+		<xs:annotation>
+			<xs:documentation>0 – ако лицето е с единен граждански номер, или 2 – ако лицето е с личен номер на чужденец, личен номер или служебен номер, издаден от НАП</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:enumeration value="0"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

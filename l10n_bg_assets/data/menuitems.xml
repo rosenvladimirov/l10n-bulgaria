@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem
+        id="menu_action_account_report_assets"
+        name="Tax Depreciation Schedule"
+        action="action_l10n_bg_account_report_assets"
+        parent="account.account_reports_management_menu"
+        groups="account.group_account_readonly"
+    />
+</odoo>

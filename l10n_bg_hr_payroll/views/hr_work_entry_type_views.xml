@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payroll_hr_work_entry_type_view_form_inherit" model="ir.ui.view">
+        <field name="name">payroll.hr.work.entry.type.view.form.inherit</field>
+        <field name="model">hr.work.entry.type</field>
+        <field name="inherit_id" ref="hr_payroll.payroll_hr_work_entry_type_view_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='unpaid_structure_ids']" position="after">
+                <field name="l10n_bg_paid_days_unpaid_leave" invisible="not is_leave"/>
+                <field name="l10n_bg_unpaid_type_id" invisible="not is_leave"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

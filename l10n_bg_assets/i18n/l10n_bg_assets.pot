@@ -1,0 +1,310 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_assets
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-30 01:28+0000\n"
+"PO-Revision-Date: 2025-07-30 01:28+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_assets
+#. odoo-python
+#: code:addons/l10n_bg_assets/report/l10n_bg_account_assets_report.py:0
+msgid "%s m"
+msgstr ""
+
+#. module: l10n_bg_assets
+#. odoo-python
+#: code:addons/l10n_bg_assets/report/l10n_bg_account_assets_report.py:0
+msgid "%s y"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model,name:l10n_bg_assets.model_account_report
+msgid "Accounting Report"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:account.report.column,name:l10n_bg_assets.assets_report_acquisition_date
+msgid "Acquisition Date"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__asset_id
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_freeze_periods__asset_id
+msgid "Asset"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_account_asset__name
+msgid "Asset Name"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model,name:l10n_bg_assets.model_account_asset
+msgid "Asset/Revenue Recognition"
+msgstr ""
+
+#. module: l10n_bg_assets
+#. odoo-python
+#: code:addons/l10n_bg_assets/report/l10n_bg_account_assets_report.py:0
+msgid "Assets"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model,name:l10n_bg_assets.model_bg_account_asset_depreciation_board
+#: model:ir.model,name:l10n_bg_assets.model_bg_account_asset_freeze_periods
+msgid "BG Asset Depreciation Board from law defined"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_account_asset__l10n_bg_disposal_date
+msgid "BG Tax Disposal Date"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_account_asset__l10n_bg_depreciation_ids
+msgid "BG law Depreciation"
+msgstr ""
+
+#. module: l10n_bg_assets
+#. odoo-python
+#: code:addons/l10n_bg_assets/report/l10n_bg_account_assets_report.py:0
+msgid "Book Value"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model,name:l10n_bg_assets.model_bg_account_asset_report_handler
+msgid "Bulgaria Tax Asset Report Custom Handler"
+msgstr ""
+
+#. module: l10n_bg_assets
+#. odoo-python
+#: code:addons/l10n_bg_assets/report/l10n_bg_account_assets_report.py:0
+msgid "Characteristics"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__company_id
+msgid "Company"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_freeze_periods__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__create_date
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_freeze_periods__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_assets
+#. odoo-python
+#: code:addons/l10n_bg_assets/report/l10n_bg_account_assets_report.py:0
+msgid "Depreciation"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model_terms:ir.ui.view,arch_db:l10n_bg_assets.view_account_asset_form
+msgid "Depreciation Method"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__depreciation_value
+msgid "Depreciation value"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__display_name
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_freeze_periods__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:account.report.column,name:l10n_bg_assets.assets_report_duration_rate
+msgid "Duration / Rate"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:account.report.column,name:l10n_bg_assets.assets_report_first_depreciation
+msgid "First Depreciation"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_account_asset__l10n_bg_freeze_period_ids
+msgid "Freeze periods"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__id
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_freeze_periods__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__init_entry
+msgid "Initial Entry"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_account_asset__l10n_bg_tax_model
+msgid "Is Tax Model"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_freeze_periods__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__write_date
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_freeze_periods__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_assets
+#. odoo-python
+#: code:addons/l10n_bg_assets/report/l10n_bg_account_assets_report.py:0
+msgid "Not set"
+msgstr ""
+
+#. module: l10n_bg_assets
+#. odoo-python
+#: code:addons/l10n_bg_assets/report/l10n_bg_account_assets_report.py:0
+msgid "Open Asset"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__original_value
+msgid "Original value"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_account_asset__paused_prorata_date
+msgid "Paused Prorata Date"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_account_asset__l10n_bg_method_percentage
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__method_percentage
+msgid "Percentage Depreciation"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__line_date
+msgid "Period date"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:account.report.column,name:l10n_bg_assets.assets_report_first_method
+msgid "Persentage"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__prorata_date
+msgid "Prorata Date"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__ref
+msgid "Reference"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__salvage_value
+msgid "Salvage value"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__sleep_period_id
+msgid "Sleeping period"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,help:l10n_bg_assets.field_bg_account_asset_depreciation_board__prorata_date
+msgid ""
+"Starting date of the period used in the prorata calculation of the first "
+"depreciation"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model_terms:ir.ui.view,arch_db:l10n_bg_assets.view_account_asset_form
+msgid "Tax Asset Model"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model_terms:ir.ui.view,arch_db:l10n_bg_assets.view_account_asset_form
+msgid "Tax Depreciation Board"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model_terms:ir.ui.view,arch_db:l10n_bg_assets.view_account_asset_form
+msgid "Tax Depreciation Data"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:account.report,name:l10n_bg_assets.l10n_bg_assets_report
+#: model:ir.actions.client,name:l10n_bg_assets.action_l10n_bg_account_report_assets
+#: model:ir.ui.menu,name:l10n_bg_assets.menu_action_account_report_assets
+msgid "Tax Depreciation Schedule"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_account_asset__l10n_bg_tax_model_id
+msgid "Tax Model"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_account_asset__l10n_bg_depreciation_tax_count
+msgid "Tax depreciation line count"
+msgstr ""
+
+#. module: l10n_bg_assets
+#. odoo-python
+#: code:addons/l10n_bg_assets/report/l10n_bg_account_assets_report.py:0
+msgid "Total"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__value
+msgid "Value"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:ir.model.fields,field_description:l10n_bg_assets.field_bg_account_asset_depreciation_board__value_residual
+msgid "Value residual"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:account.report.column,name:l10n_bg_assets.assets_report_balance
+msgid "book_value"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:account.report.column,name:l10n_bg_assets.assets_report_date_from
+#: model:account.report.column,name:l10n_bg_assets.assets_report_depre_date_from
+msgid "date from"
+msgstr ""
+
+#. module: l10n_bg_assets
+#: model:account.report.column,name:l10n_bg_assets.assets_report_assets_date_to
+#: model:account.report.column,name:l10n_bg_assets.assets_report_depre_date_to
+msgid "date to"
+msgstr ""

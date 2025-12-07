@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="l10n_bg_vat_reports.l10n_bg_vat_report_declaration_qweb">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.internal_layout">
+                    <t t-set="name_label" t-value="False"/>
+                    <t t-foreach="vat_report_declaration" t-as="line">
+                        <div class="page">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="8"><strong>Data for the registered company/person</strong></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="4" rowspan="3" class="o_cell_title">
+                                                    <h5>DECLARATION<br/>VALUE ADDED TAX</h5>
+                                                </td>
+                                                <td colspan="4" rowspan="3" class="o_cell_details">
+                                                    <div>TD/Office: <span>_______________________</span></div>
+                                                    <div>Incoming №: <span>____________/_________г.</span></div>
+                                                    <div>Period: <span><t t-esc="line['info_tag_3']"/></span></div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="8" class="o_cell_head_description">
+                                                    <span>Identification number under the VAT: </span><span/><span t-esc="line['company_vat']"/><span> Identification number: </span><span/><span t-esc="line['info_tag_1']"/><br/>
+                                                    <span>Name / description: </span><span t-esc="line['info_tag_2']"/><br/>
+                                                    <span>Correspondence address: </span><span t-esc="line['company_address']"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <!-- ==========================   Section A Start  ============================ -->
+                                        <thead>
+                                            <tr>
+                                                <th colspan="8"><strong>Section A: Details of the value added tax</strong></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>Total amount of tax bases for VAT tax (amount from cell 11 to cell 16)</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span t-esc="line['account_tag_10']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                </td>
+                                                <td class="o_cell_tags"><span>01</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>All VAT accrued (Sum from cell 21 to cell 24)</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_20']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags">
+                                                    <span>20</span>
+                                                </td>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                            <tr>
+                                                <td colspan="4" class="o_cell_group"><strong>TA, to be taxed with a rate of 20%:</strong></td>
+                                                <td colspan="4" class="o_cell_group_empty"/>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>-TA the District, incl. supplies Under conditions of remote sales with a place of performance on the territory of the country</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_11']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>11</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>Accrued VAT amount</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_21']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>21</span></td>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>-To the ТА and to the received deliveries under Art.82, para 2-5 of the VAT Act</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_12']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>12</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>Accrued VAT for ICA and for obtained supplies under Art.82, para 2-5 of the VAT Act</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_22']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>22</span></td>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>TA the taxable deliveries with a rate of 9%</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_13']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>13</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>Accrued VAT 9%</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_24']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>24</span></td>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>Accrued tax for delivering goods and Personal Services</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_23']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>23</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"/>
+                                                <td class="o_cell_empty"/>
+                                                <td class="o_cell_empty"/>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                            <tr>
+                                                <td colspan="4" class="o_cell_group"><strong>TA, to be taxed with a rate of 0%:</strong></td>
+                                                <td colspan="4" class="o_cell_group_empty"/>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>-TA supplies under Chapter III of the VAT Act</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_14']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>14</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"/>
+                                                <td class="o_cell_empty"/>
+                                                <td class="o_cell_empty"/>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>-TA for ICD at goods</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_15']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>15</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"/>
+                                                <td class="o_cell_empty"/>
+                                                <td class="o_cell_empty"/>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>-TA the supplies under Art.140, 146 and Art.173 of the VAT Act*</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_16']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>16</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"/>
+                                                <td class="o_cell_empty"/>
+                                                <td class="o_cell_empty"/>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>-TA the supply of services under Art.21, art.2 with place of performance the territory of another Member State</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_17']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>17</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"/>
+                                                <td class="o_cell_empty"/>
+                                                <td class="o_cell_empty"/>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>-TA the supplies under Art.69, para 2 of the VAT Act, performance territory of another Member State, as well as supplies as an intermediary in a tripartite operation**</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_18']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>18</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"/>
+                                                <td class="o_cell_empty"/>
+                                                <td class="o_cell_empty"/>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>-TA the released supplies and incl. deliveries under terms of remote sales shifted liberated ICA</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_19']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>19</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"/>
+                                                <td class="o_cell_empty"/>
+                                                <td class="o_cell_empty"/>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                        </tbody>
+                                        <!-- ==========================   SECTION A END   =============================== -->
+                                        <!-- ==========================   SECTION B START   ============================= -->
+                                        <thead>
+                                            <tr>
+                                                <th colspan="8" class="o_cell_colspan">Section B: Data on a tax credit right</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>TA and tax on the supplies received, TA, the received deliveries under Article 82, para 2-5 VAT and Imports without a tax credit or no tax</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_30']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>30</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"/>
+                                                <td class="o_cell_empty"/>
+                                                <td class="o_cell_empty"/>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                            <tr>
+                                                <td colspan="4" rowspan="2" class="o_cell_group"><span>TA and tax of the received deliveries, TA, the received deliveries under Article 82, paragraph 2-5 of the VAT Act and imports, as well as to the received deliveries used for deliveries under Article 69, paragraph 2 of the VAT Act:</span></td>
+                                                <td colspan="4" rowspan="2" class="o_cell_group_empty"/>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>- with the right to a full tax credit</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_31']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>31</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>VAT with the right to a full tax credit</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_41']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>41</span></td>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>- with the right to a partial tax credit</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_32']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>32</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>VAT with a partial tax credit right</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_42']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>42</span></td>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"/>
+                                                <td class="o_cell_empty"/>
+                                                <td class="o_cell_empty"/>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>Annual correction under Art.73, paragraph 8 (+/-)</span><br/></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_43']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>43</span></td>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>Coefficient under Art.73, paragraph 5 of the VAT Act</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_33']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>33</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>Total tax credit</span><br/><span>(cell:41+cell:42 cell:33+cell:43)</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_40']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>40</span></td>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                        </tbody>
+                                        <!-- ==========================   SECTION B END   ============================ -->
+                                        <!-- ==========================   SECTION IN START   ============================ -->
+                                        <thead>
+                                            <tr>
+                                                <th colspan="8" class="o_cell_colspan">Section B: Result for the period</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>VAT for importation</span><br/><span>(cell 20 - cell 40) greater than or equal to 0</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_50']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>50</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>VAT for recovery</span><br/><span>(cell 20 - cell 40) less than or equal to 0</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_50']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>60</span></td>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                        </tbody>
+                                        <!-- ==========================   SECTION B END   ============================ -->
+                                        <!-- ==========================   SECTION C START   ============================ -->
+                                        <thead>
+                                            <tr>
+                                                <th colspan="8" class="o_cell_colspan">Section C: VAT for import</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>Deposit tax from cell 50, deducted under the procedure of Art. 92, para 1 of the VAT Act</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_70']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>70</span></td>
+                                                <td colspan="2" rowspan="2" class="o_cell_description"><span>Deposit tax from cell 50, payed effective</span></td>
+                                                <td class="o_cell_amount">
+                                                    <span>
+                                                        <t t-esc="line['account_tag_71']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="o_cell_tags"><span>71</span></td>
+                                            </tr>
+                                            <tr class="o_row_empty"/>
+                                        </tbody>
+                                        <!-- ==========================   SECTION C END   ============================ -->
+                                        <!-- ==========================   D START SECTION  ============================ -->
+                                        <thead>
+                                            <tr>
+                                                <th colspan="8" class="o_cell_colspan">Section D: VAT to be recovered</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="8" style="border: 0; background-color: white !important;">
+                                                    <table class="vat-declaration-table">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td rowspan="2" class="description-cell top"><span>According to Art.92, para 1 VAT within 30 days of the submission of this declaration</span></td>
+                                                            <td class="amount-cell">
+                                                                <span><t t-esc="line['account_tag_80']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/></span>
+                                                            </td>
+                                                            <td class="tag-cell"><span>80</span></td>
+                                                            <td rowspan="2" class="description-cell top"><span>According to Art.92, para 3 VAT within 30 days of the submission of this declaration</span></td>
+                                                            <td class="amount-cell">
+                                                                <span><t t-esc="line['account_tag_81']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/></span>
+                                                            </td>
+                                                            <td class="tag-cell"><span>81</span></td>
+
+                                                            <td rowspan="2" class="description-cell top"><span>According to Art.92, para 4 of the VAT Act within 30 days of the submission of this declaration</span></td>
+                                                            <td class="amount-cell">
+                                                                <span><t t-esc="line['account_tag_82']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/></span>
+                                                            </td>
+                                                            <td class="tag-cell"><span>82</span></td>
+                                                        </tr>
+                                                        <tr class="o_row_empty"/>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <!-- ==========================   SECTION D END   ============================ -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12" stile="font-size: 6px;">
+                                    <span>Undersigned,</span><span/><span t-esc="line['info_tag_4']"/>  <span>I declare that:</span><br/>
+                                    <p>I represent the person specified in cell A, and the information specified in this form is correct and accurate. There are circumstances under Art.92, para 3 and 4 VAT. I know, that for incorrect data I am responsible under Art.313 of the Criminal Code</p>
+                                    <span t-esc="company.l10n_bg_represent_contact_id.type" class="spaced-elements"/><span/><span class="spaced-elements">Position:</span><span/><span class="spaced-elements">Подпис и печат: ______________</span><br/>
+                                    <span>Drafting date: <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/></span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="l10n_bg_vat_reports.vat_report_report_purchases_qweb">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.internal_layout" t-att-data-report-landscape="True">
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="vertical-align:top"><span>Number</span></th>
+                                            <th style="vertical-align:top"><span>Departament</span></th>  <!-- [03-01] -->
+                                            <th style="vertical-align:top"><span>Document type</span></th>  <!-- [03-05] -->
+                                            <th style="vertical-align:top"><span>Document number</span></th>  <!-- [03-06] -->
+                                            <th style="vertical-align:top"><span>Document date</span></th>  <!-- [03-07] -->
+                                            <th style="vertical-align:top"><span>Partner TIN</span></th> <!-- [03-09] -->
+                                            <th style="vertical-align:top"><span>Partner name</span></th> <!-- [03-10] -->
+                                            <th style="vertical-align:top"><span>Description</span></th> <!-- [03-45] -->
+                                            <th style="vertical-align:top"><span>Delivery under Art. 163a of the VAT</span></th>  <!-- [03-30] -->
+                                            <th style="vertical-align:top"><span>TA and tax of the received deliveries, GPs, deliveries received under Article 82, para 2-5 of the VAT Act and imports without the right to a tax credit (DC) or without tax</span></th> <!-- [03-31] -->
+                                            <th style="vertical-align:top"><span>TA the received deliveries, GPs, the received deliveries under Article 82, paragraph 2-5 of the VAT Act, imports, as well as to the gender. supplies used to carry out supplies under Art. 69, para 2 of the VAT Act with the right to full DC</span></th> <!-- [03-41] -->
+                                            <th style="vertical-align:top"><span>VAT with the right to a full tax credit</span></th> <!-- [03-32] -->
+                                            <th style="vertical-align:top"><span>TA the received deliveries, ICD, received under Article 82, para 2-5 VAT, imports as well as to the received deliveries, used for deliveries under Art.69, para 2 VAT with the right to partial DC</span></th> <!-- [03-42] -->
+                                            <th style="vertical-align:top"><span>VAT with a partial tax credit right</span></th> <!-- [03-43] -->
+                                            <th style="vertical-align:top"><span>Annual correction under Article 73, paragraph 8 of the VAT Act</span></th> <!-- [03-44] -->
+                                            <th style="vertical-align:top"><span>TA the acquisition of goods from an intermediary in a tripartite operation</span></th> <!-- [03-45] -->
+                                        </tr>
+                                        <tr>
+                                            <th><span>[03-04]</span></th>
+                                            <th><span>[03-03]</span></th> <!-- department -->
+                                            <th><span>[03-05]</span></th> <!-- type documents -->
+                                            <th><span>[03-06]</span></th> <!-- document dumber -->
+                                            <th><span>[03-07]</span></th> <!-- document data -->
+                                            <th><span>[03-08]</span></th> <!-- Partner TIN -->
+                                            <th><span>[03-09]</span></th> <!-- Partner Name -->
+                                            <th><span>[03-10]</span></th> <!-- Description -->
+                                            <th><span>[03-8a]</span></th> <!-- Delivery under Art. 163a of the VAT -->
+                                            <th><span>[03-30]</span></th> <!-- TА and tax on received deliveries, ICD, deliveries received under Article 82, para 2-5 VAT Act and import without tax credit (DC) or no tax -->
+                                            <th><span>[03-31]</span></th> <!-- TА the supplies received, GRA, Paul. Deliveries under Article 82, paragraph 2-5 of the VAT Act, imports, as well as to the gender. delivery used to carry out delivery under Art. -->
+                                            <th><span>[03-41]</span></th> <!-- VAT with the right to a full tax credit -->
+                                            <th><span>[03-32]</span></th> <!-- To the resulting ones, GRO, gender. Deliveries under Article 82, paragraph 2-5 of the VAT Act, Import, as well as to the received supplies used for the execution of delivery under Art. -->
+                                            <th><span>[03-42]</span></th> <!-- VAT with a partial tax credit right -->
+                                            <th><span>[03-43]</span></th> <!-- Annual correction under Article 73, paragraph 8 of the VAT Act -->
+                                            <th><span>[03-44]</span></th> <!-- TA the acquisition of goods from an intermediary in a tripartite operation -->
+                                        </tr>
+                                        <tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="vat_report_purchase" t-as="line">
+                                            <td><span t-esc="line['info_tag_4']"/></td> <!-- counter -->
+                                            <td><span t-esc="line['info_tag_3']"/></td>  <!-- department -->
+                                            <td><span t-esc="line['info_tag_5']"/></td>  <!-- Document type -->
+                                            <td><span t-esc="line['info_tag_6']"/></td>  <!-- document number -->
+                                            <td><span t-esc="line['info_tag_7']"/></td>  <!-- document date -->
+                                            <td><span t-esc="line['info_tag_8']"/></td>  <!-- TIN partner -->
+                                            <td><span t-esc="line['info_tag_9']"/></td>  <!-- Partner name -->
+                                            <td><span t-esc="line['info_tag_10']"/></td>  <!-- Description -->
+                                            <td><span t-esc="line['info_tag_45']"/></td>  <!-- Delivery under Art. 163a of the VAT -->
+                                            <td><span t-esc="line['account_tag_30']"/></td>  <!-- TA and tax on the supplies received, ICD, the received deliveries under Article 82, paragraph 2-5 of the VAT Act and imports without the right to a tax credit (DC) or no tax -->
+                                            <td><span t-esc="line['account_tag_31']"/></td>  <!-- TА the supplies received, GP, gender. D-ku under Art. supplies used for delivering under Article 69, para 2 of the VAT Act with the right to full DC -->
+                                            <td><span t-esc="line['account_tag_41']"/></td>  <!-- VAT with the right to a full tax credit -->
+                                            <td><span t-esc="line['account_tag_32']"/></td>  <!-- To the received, ICD, supplies received under Article 82, paragraph 2-5 of the VAT Act, imports, as well as to the gender. supplies used for carrying out admission under Article 69, paragraph 2 of the VAT Act with the right to partial DC -->
+                                            <td><span t-esc="line['account_tag_42']"/></td>  <!-- VAT with a partial tax credit right -->
+                                            <td><span t-esc="line['account_tag_43']"/></td>  <!-- Annual correction under Article 73, paragraph 8 of the VAT Act -->
+                                            <td><span t-esc="line['account_tag_44']"/></td>  <!-- To the acquisition of goods from an intermediary in a tripartite operation -->
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr t-foreach="vat_report_declaration" t-as="line">
+                                            <td><span t-esc="line['info_tag_6']"/></td> <!-- counter -->
+                                            <td/> <!-- department -->
+                                            <td/> <!-- Document type -->
+                                            <td/> <!-- document number -->
+                                            <td/> <!-- document date -->
+                                            <td/> <!-- TIN partner -->
+                                            <td/> <!-- Partner name -->
+                                            <td/> <!-- Description -->
+                                            <td/> <!-- Delivery under Art. 163a of the VAT -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_30']"/>
+                                                </span>
+                                            </td>  <!-- TA and tax on the supplies received, ICD, the received deliveries under Article 82, paragraph 2-5 of the VAT Act and imports without the right to a tax credit (DC) or no tax -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_31']"/>
+                                                </span>
+                                            </td>  <!-- TА the supplies received, GP, gender. D-ku under Art. supplies used for delivering under Article 69, para 2 of the VAT Act with the right to full DC -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_41']"/>
+                                                </span>
+                                            </td>  <!-- VAT with the right to a full tax credit -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_32']"/>
+                                                </span>
+                                            </td>  <!-- To the received, ICD, supplies received under Article 82, paragraph 2-5 of the VAT Act, imports, as well as to the gender. supplies used for carrying out admission under Article 69, paragraph 2 of the VAT Act with the right to partial DC -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_42']"/>
+                                                </span>
+                                            </td>  <!-- VAT with a partial tax credit right -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_43']"/>
+                                                </span>
+                                            </td>  <!-- Annual correction under Article 73, paragraph 8 of the VAT Act -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_44']"/>
+                                                </span>
+                                            </td>  <!-- To the acquisition of goods from an intermediary in a tripartite operation -->
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="l10n_bg_vat_reports.l10n_bg_vat_report_report_sales_qweb">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.internal_layout" t-att-data-report-landscape="True">
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="vertical-align:top"><span>Number</span></th>  <!-- 01-03 (1)-->
+                                            <th style="vertical-align:top"><span>Department</span></th>  <!-- 02-02 (2)-->
+                                            <th style="vertical-align:top"><span>Type document</span></th>  <!-- 03-02 (3)-->
+                                            <th style="vertical-align:top"><span>Document number</span></th>    <!-- 04-02 (4)-->
+                                            <th style="vertical-align:top"><span>Document date</span></th>     <!-- 05-02 (5)-->
+                                            <th style="vertical-align:top"><span>Partner TIN</span></th>     <!-- 06-02 (6)-->
+                                            <th style="vertical-align:top"><span>Partner name</span></th>    <!-- 07-02 (7)-->
+                                            <th style="vertical-align:top"><span>Description</span></th>   <!-- 08-02 (8)-->
+                                            <th style="vertical-align:top"><span>Delivery under Art. 163a of the VAT</span></th>  <!-- 09-02 (9)-->
+                                            <th style="vertical-align:top"><span>Total amount of to for VAT taxation</span></th>    <!-- 10-02 (10)-->
+                                            <th style="vertical-align:top"><span>All VAT accrued</span></th>   <!-- 11-02 (11)-->
+                                            <th style="vertical-align:top"><span>ТА to 20% of taxable deliveries, including ...</span></th>   <!-- 12-02 (12)-->
+                                            <th style="vertical-align:top"><span>Accrued VAT for Cl. 11 supplies and charged 20% tax provided by law in other cases</span></th>  <!-- 13-02 (13)-->
+                                            <th style="vertical-align:top"><span>TA for ICD</span></th>     <!-- 14-02 (14)-->
+                                            <th style="vertical-align:top"><span>TА the supplies received under Art. 82, para 2-5 VAT</span></th>     <!-- 15-02 (15)-->
+                                            <th style="vertical-align:top"><span>Accrued VAT for ICD and supplies by k.14</span></th>    <!-- 16-02 (16)-->
+                                            <th style="vertical-align:top"><span>Accrued tax for delivering goods and services for personal needs</span></th> <!-- 17-02 (17)-->
+                                            <th style="vertical-align:top"><span>TA the taxable deliveries with a rate of 7%/8%</span></th>   <!-- 18-02 (18)-->
+                                            <th style="vertical-align:top"><span>VAT charged 7%/8%</span></th>    <!-- 19-02 (19)-->
+                                            <th style="vertical-align:top"><span>TA the supplies with a rate of 0% on Chapter Three of the VAT Act</span></th>     <!-- 20-02 (20)-->
+                                            <th style="vertical-align:top"><span>TA for ICD</span></th> <!-- 21-02 (21)-->
+                                            <th style="vertical-align:top"><span>TA the supplies 0% under Art.</span></th> <!-- 22-02 (22)-->
+                                            <th style="vertical-align:top"><span>TА the delivery of services under Article 21, paragraph 2 of the VAT Act, with a place of performance..</span></th> <!-- 23-02 (23)-->
+                                            <th style="vertical-align:top"><span>TA the supplies under Article 69, paragraph 3 of the VAT Act, including to the supplies at remote sales</span></th> <!-- 24-02 (24)-->
+                                            <th style="vertical-align:top"><span>TA the released supplies and the released ICD</span></th> <!-- 25-02 (25)-->
+                                            <th style="vertical-align:top"><span>TA the supplies as an intermediary in a tripartite operation</span></th> <!-- 26-02 (26)-->
+                                        </tr>
+                                        <tr>
+                                            <th><span>[02-03]</span></th> <!-- 1 -->
+                                            <th><span>[02-02]</span></th> <!-- 2 -->
+                                            <th><span>[02-04]</span></th> <!-- 3 -->
+                                            <th><span>[02-05]</span></th> <!-- 4 -->
+                                            <th><span>[02-06]</span></th> <!-- 5 -->
+                                            <th><span>[02-07]</span></th> <!-- 6 -->
+                                            <th><span>[02-08]</span></th> <!-- 7 -->
+                                            <th><span>[02-09]</span></th> <!-- 8 -->
+                                            <th><span>[02-27]</span></th> <!-- 9 -->
+                                            <th><span>[02-10]</span></th> <!-- 10 -->
+                                            <th><span>[02-20]</span></th> <!-- 11 -->
+                                            <th><span>[02-11]</span></th> <!-- 12 -->
+                                            <th><span>[02-21]</span></th> <!-- 13 -->
+                                            <th><span>[02-12]</span></th> <!-- 14 -->
+                                            <th><span>[02-26]</span></th> <!-- 15 -->
+                                            <th><span>[02-22]</span></th> <!-- 16 -->
+                                            <th><span>[02-23]</span></th> <!-- 17 -->
+                                            <th><span>[02-13]</span></th> <!-- 18 -->
+                                            <th><span>[02-24]</span></th> <!-- 19 -->
+                                            <th><span>[02-14]</span></th> <!-- 20 -->
+                                            <th><span>[02-15]</span></th> <!-- 21 -->
+                                            <th><span>[02-16]</span></th> <!-- 22 -->
+                                            <th><span>[02-17]</span></th> <!-- 23 -->
+                                            <th><span>[02-18]</span></th> <!-- 24 -->
+                                            <th><span>[02-19]</span></th> <!-- 25 -->
+                                            <th><span>[02-25]</span></th> <!-- 26 -->
+                                        </tr>
+                                        <tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="vat_report_sales" t-as="line">
+                                            <td><span t-esc="line['info_tag_3']"/></td> <!-- Next number -->
+                                            <td><span t-esc="line['info_tag_2']"/></td>  <!-- department -->
+                                            <td><span t-esc="line['info_tag_4']"/></td>  <!-- type of document -->
+                                            <td><span t-esc="line['info_tag_5']"/></td>  <!-- document number -->
+                                            <td><span t-esc="line['info_tag_6']"/></td>  <!-- Document date -->
+                                            <td><span t-esc="line['info_tag_7']"/></td>  <!-- Partner TIN -->
+                                            <td><span t-esc="line['info_tag_8']"/></td>  <!-- Partner name -->
+                                            <td><span t-esc="line['info_tag_9']"/></td>  <!-- Description -->
+                                            <td><span t-esc="line['info_tag_27']"/></td>  <!-- Delivery under Art. 163a of the VAT -->
+                                            <td><span t-esc="line['account_tag_10']"/></td>  <!-- Total amount of to for VAT taxation -->
+                                            <td><span t-esc="line['account_tag_20']"/></td>  <!-- All VAT accrued -->
+                                            <td><span t-esc="line['account_tag_11']"/></td>  <!-- Up to a taxable supply 20%, including... -->
+                                            <td><span t-esc="line['account_tag_21']"/></td>  <!-- Accrued VAT for deliveries under k.11 and charged tax 20%provided by law in other cases -->
+                                            <td><span t-esc="line['account_tag_12']"/></td>  <!-- Accrued VAT 20 %-->
+                                            <td><span t-esc="line['account_tag_26']"/></td>  <!-- TA of ICD -->
+                                            <td><span t-esc="line['account_tag_22']"/></td>  <!-- Accrued VAT for ICD and for received deliveries under Art. 82, para. 2 - 5 VAT -->
+                                            <td><span t-esc="line['account_tag_23']"/></td>  <!-- Accrued VAT for GP and supplies by cl.14 -->
+                                            <td><span t-esc="line['account_tag_13']"/></td>  <!-- Accrued VAT 20% in other cases provided in VAT -->
+                                            <td><span t-esc="line['account_tag_24']"/></td>  <!-- TA the taxable deliveries with a rate of 7%/8% -->
+                                            <td><span t-esc="line['account_tag_14']"/></td>  <!-- VAT charged 7%/8% -->
+                                            <td><span t-esc="line['account_tag_15']"/></td>  <!-- TA the supplies with a rate of 0% on Chapter Three of the VAT Act -->
+                                            <td><span t-esc="line['account_tag_16']"/></td>  <!-- TA of ICD -->
+                                            <td><span t-esc="line['account_tag_17']"/></td>  <!-- TA the supplies of services under Article 21, paragraph 2 of the VAT Act, with a place of use... -->
+                                            <td><span t-esc="line['account_tag_18']"/></td>  <!-- TA the delivery under Article 69, paragraph 3 of the VAT Act, incl. To the delivery of remote sales -->
+                                            <td><span t-esc="line['account_tag_19']"/></td>  <!-- TA the released supplies and the released ICD -->
+                                            <td><span t-esc="line['account_tag_25']"/></td>  <!-- TA the supplies as an intermediary in a tripartite operation -->
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr t-foreach="vat_report_declaration" t-as="line">
+                                            <td><span t-esc="line['info_tag_5']"/></td> <!-- Next number -->
+                                            <td/> <!-- type of document -->
+                                            <td/> <!-- type of document -->
+                                            <td/> <!-- document number -->
+                                            <td/> <!-- Document date -->
+                                            <td/> <!-- Partner TIN -->
+                                            <td/> <!-- Partner name -->
+                                            <td/> <!-- Description -->
+                                            <td/> <!-- Delivery under Art. 163a of the VAT -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_10']"/>
+                                                </span>
+                                            </td>  <!-- Total amount of to for VAT taxation -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_20']"/>
+                                                </span>
+                                            </td>  <!-- All VAT accrued -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_11']"/>
+                                                </span>
+                                            </td>  <!-- Up to a taxable supply 20%, including... -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_21']"/>
+                                                </span>
+                                            </td>  <!-- Accrued VAT for deliveries under k.11 and charged tax 20%provided by law in other cases -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_12']"/>
+                                                </span>
+                                            </td>  <!-- Accrued VAT 20 %-->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_26']"/>
+                                                </span>
+                                            </td>  <!-- TA of ICD -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_22']"/>
+                                                </span>
+                                            </td>  <!-- Accrued VAT for ICD and for received deliveries under Art. 82, para. 2 - 5 VAT -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_23']"/>
+                                                </span>
+                                            </td>  <!-- Accrued VAT for GP and supplies by cl.14 -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_13']"/>
+                                                </span>
+                                            </td>  <!-- Accrued VAT 20% in other cases provided in VAT -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_24']"/>
+                                                </span>
+                                            </td>  <!-- TA the taxable deliveries with a rate of 7%/8% -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_14']"/>
+                                                </span>
+                                            </td>  <!-- VAT charged 7%/8% -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_15']"/>
+                                                </span>
+                                            </td>  <!-- TA the supplies with a rate of 0% on Chapter Three of the VAT Act -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_16']"/>
+                                                </span>
+                                            </td>  <!-- TA of ICD -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_17']"/>
+                                                </span>
+                                            </td>  <!-- TA the supplies of services under Article 21, paragraph 2 of the VAT Act, with a place of use... -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_18']"/>
+                                                </span>
+                                            </td>  <!-- TA the delivery under Article 69, paragraph 3 of the VAT Act, incl. To the delivery of remote sales -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_19']"/>
+                                                </span>
+                                            </td>  <!-- TA the released supplies and the released ICD -->
+                                            <td>
+                                                <span>
+                                                    <t t-esc="line['account_tag_25']"/>
+                                                </span>
+                                            </td>  <!-- TA the supplies as an intermediary in a tripartite operation -->
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="l10n_bg_vat_reports.l10n_bg_vat_report_report_vies_qweb">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+                        <div class="report-header">
+                            <table class="vies-table">
+                                <tbody>
+                                    <t t-foreach="vat_report_vies" t-as="line">
+                                        <tr class="company-details">
+                                            <td colspan="3" rowspan="3">
+                                                <h4>VIES DECLARATION</h4>
+                                            </td>
+                                            <td colspan="3"><span class="label">TA/office:</span></td>
+                                        </tr>
+                                        <tr class="company-details">
+                                            <td colspan="2"><span class="label">Incoming №:</span></td>
+                                            <td><span>/</span> <span>г.</span></td>
+                                        </tr>
+                                        <tr class="company-details">
+                                            <td colspan="2"><span class="label">Tax period:</span></td>
+                                            <td><span t-esc="line['info_tag_vhr_2']"/></td>
+                                        </tr>
+
+                                        <tr class="section-header">
+                                            <td colspan="6"><h5>A. Details of the registered person</h5></td>
+                                        </tr>
+                                        <tr class="company-details">
+                                            <td colspan="3"><span class="label">VAT identification number BG</span></td>
+                                            <td colspan="3"><span t-esc="line['info_tag_vhr_2']"/></td>
+                                        </tr>
+                                        <tr class="company-details">
+                                            <td colspan="3"><span class="label">Title/Name</span></td>
+                                            <td colspan="3"><span t-esc="line['info_tag_vtr_3']"/></td>
+                                        </tr>
+                                        <tr class="company-details">
+                                            <td colspan="3"><span class="label">Company address</span></td>
+                                            <td colspan="3"><span t-esc="line['info_tag_vtr_4']"/></td>
+                                        </tr>
+
+                                        <tr class="section-header">
+                                            <td colspan="6"><h5>B. Details of the person submitting the declaration:</h5></td>
+                                        </tr>
+                                        <tr class="submitter-details">
+                                            <td colspan="3"><span class="label">Name</span></td>
+                                            <td colspan="3"><span t-esc="line['info_tag_vdr_3']"/></td>
+                                        </tr>
+                                        <tr class="submitter-details">
+                                            <td colspan="3"><span class="label">PIN/ICF/official number</span></td>
+                                            <td colspan="3"><span t-esc="line['info_tag_vdr_2']"/></td>
+                                        </tr>
+
+                                        <tr class="address-details">
+                                            <td colspan="6"><span class="label">Person address:</span></td>
+                                        </tr>
+                                        <tr class="address-details">
+                                            <td colspan="3"><span class="label">Address</span></td>
+                                            <td colspan="3"><span t-esc="line['info_tag_vdr_6']"/></td>
+                                        </tr>
+                                        <tr class="address-details">
+                                            <td colspan="3"><span class="label">Settlement</span></td>
+                                            <td colspan="3"><span t-esc="line['info_tag_vdr_4']"/></td>
+                                        </tr>
+                                        <tr class="address-details">
+                                            <td colspan="3"><span class="label">ZIP code</span></td>
+                                            <td colspan="3"><span t-esc="line['info_tag_vdr_5']"/></td>
+                                        </tr>
+                                        <tr class="address-details">
+                                            <td colspan="3"><span class="label">As</span></td>
+                                            <td colspan="3"><span t-esc="line['info_tag_vdr_7']"/></td>
+                                        </tr>
+
+                                        <tr class="section-header">
+                                            <td colspan="6">
+                                                <h5>C. Intra-Community supplies and services</h5>
+                                            </td>
+                                        </tr>
+                                        <tr class="summary-section">
+                                            <td colspan="4"><span class="label">Tax Base - Total in BGN (sum of cl.3 + cl.4 + cl.5)</span></td>
+                                            <td colspan="2" class="col-tax numeric"><span t-esc="line['account_tag_ttr_2']"/></td>
+                                        </tr>
+                                        <tr class="summary-section">
+                                            <td colspan="4"><span class="label">Taxation of ICD (sum of cl.3)</span></td>
+                                            <td colspan="2" class="col-tax numeric"><span t-esc="line['account_tag_ttr_3']"/></td>
+                                        </tr>
+                                        <tr class="summary-section">
+                                            <td colspan="4"><span class="label">Total number of lines in section "B"</span></td>
+                                            <td colspan="2" class="col-tax numeric"><span t-esc="line['info_tag_vhr_3']"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                            <table>
+                                <thead class="details-header">
+                                    <tr>
+                                        <th class="col-order">№</th>
+                                        <th class="col-tin">VAT Number</th>
+                                        <th colspan="3" class="col-tax th">Tax base in BGN</th>
+                                        <th class="col-period">Tax Period</th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th class="col-tax th">ICS</th>
+                                        <th class="col-tax th">Tripartite</th>
+                                        <th class="col-tax th">Services</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="vat_report_vies_lines" t-as="line">
+                                        <tr>
+                                            <td class="col-order"><span t-esc="line['info_tag_vir_2']"/></td>
+                                            <td class="col-tin"><span t-esc="line['info_tag_vir_3']"/></td>
+                                            <td class="col-tax numeric"><span t-esc="line['account_tag_vir_4']"/></td>
+                                            <td class="col-tax numeric"><span t-esc="line['account_tag_vir_5']"/></td>
+                                            <td class="col-tax numeric"><span t-esc="line['account_tag_vir_6']"/></td>
+                                            <td class="col-period"><span t-esc="line['info_tag_vir_7']"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

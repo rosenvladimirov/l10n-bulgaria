@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Самостоятелен шаблон за филтри на активите -->
+    <template id="l10n_bg_assets_search_template">
+        <div id="extra_options_dropdown">
+            <div role="menu">
+                <a
+                    role="menuitem"
+                    class="dropdown-item js_account_report_bool_filter"
+                    title="Group By Model"
+                    data-filter="assets_groupby_tax_profile"
+                >Group by profile</a>
+                <a
+                    role="menuitem"
+                    class="dropdown-item js_account_report_bool_filter"
+                    title="Show Only Acquired/Disposed in Period"
+                    data-filter="show_only_acquired_disposed"
+                >In/Out during the period</a>
+            </div>
+        </div>
+    </template>
+
+    <!-- Самостоятелен шаблон за header на таблицата -->
+    <template id="l10n_bg_main_table_header_assets">
+        <tr class="o_account_asset_report_top_header_row">
+            <!-- Characteristics section -->
+            <th colspan="4" class="o_account_reports_header_cell">Characteristics</th>
+
+            <!-- Assets section -->
+            <th colspan="4" class="o_account_reports_header_cell o_account_asset_column_contrast">Assets</th>
+
+            <!-- Depreciation section -->
+            <th colspan="4" class="o_account_reports_header_cell">Depreciation</th>
+
+            <!-- Book Value section -->
+            <th colspan="1" class="o_account_reports_header_cell o_account_asset_column_contrast">Book Value</th>
+        </tr>
+        <tr class="o_account_asset_report_sub_header_row">
+            <!-- Characteristics columns -->
+            <th class="o_account_reports_header_cell">Acquisition Date</th>
+            <th class="o_account_reports_header_cell">First Depreciation</th>
+            <th class="o_account_reports_header_cell">Method</th>
+            <th class="o_account_reports_header_cell">Duration / Rate</th>
+
+            <!-- Assets columns -->
+            <th class="o_account_reports_header_cell o_account_asset_column_contrast">Date From</th>
+            <th class="o_account_reports_header_cell o_account_asset_column_contrast">+</th>
+            <th class="o_account_reports_header_cell o_account_asset_column_contrast">-</th>
+            <th class="o_account_reports_header_cell o_account_asset_column_contrast">Date To</th>
+
+            <!-- Depreciation columns -->
+            <th class="o_account_reports_header_cell">Date From</th>
+            <th class="o_account_reports_header_cell">+</th>
+            <th class="o_account_reports_header_cell">-</th>
+            <th class="o_account_reports_header_cell">Date To</th>
+
+            <!-- Book Value column -->
+            <th class="o_account_reports_header_cell o_account_asset_column_contrast">Balance</th>
+        </tr>
+    </template>
+
+    <!-- Самостоятелен шаблон за основната страница на активите -->
+    <template id="l10n_bg_main_template_assets">
+        <div class="o_account_reports_page o_account_assets_report">
+            <table class="o_account_reports_table">
+                <colgroup>
+                    <col span="4" />
+                    <col class="o_account_asset_column_contrast" />
+                    <col />
+                    <col />
+                    <col class="o_account_asset_column_contrast" />
+                    <col />
+                    <col />
+                    <col />
+                    <col />
+                    <col class="o_account_asset_column_contrast" />
+                </colgroup>
+                <thead>
+                    <t t-call="l10n_bg_assets.l10n_bg_main_table_header_assets"/>
+                </thead>
+                <tbody>
+                    <!-- Тук се зареждат динамично редовете -->
+                </tbody>
+            </table>
+        </div>
+    </template>
+</odoo>

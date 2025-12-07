@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Изглед списък за историята на декларациите -->
+    <record id="view_hr_nssi_declaration_history_tree" model="ir.ui.view">
+        <field name="name">hr.nssi.declaration.history.tree</field>
+        <field name="model">hr.nssi.declaration.history</field>
+        <field name="arch" type="xml">
+            <tree string="NSSI Declaration History" decoration-success="export_status=='exported'"
+                  decoration-info="export_status=='pending'" decoration-warning="export_status=='draft'"
+                  decoration-danger="export_status=='error'">
+                <field name="employee_id"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="export_id"/>
+                <field name="export_date"/>
+                <field name="export_status"/>
+                <field name="user_id"/>
+                <field name="insurance_income" sum="Total Insurance Income"/>
+                <field name="gross_salary" sum="Total Gross"/>
+                <field name="insured_days_total" sum="Total Days"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Изглед форма за историята на декларациите -->
+    <record id="view_hr_nssi_declaration_history_form" model="ir.ui.view">
+        <field name="name">hr.nssi.declaration.history.form</field>
+        <field name="model">hr.nssi.declaration.history</field>
+        <field name="arch" type="xml">
+            <form string="NSSI Declaration History">
+                <header>
+                    <field name="export_status" widget="statusbar" options="{'clickable': '0'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="employee_id" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="export_info" string="Export Information">
+                            <field name="export_id"/>
+                            <field name="export_date"/>
+                            <field name="user_id"/>
+                            <field name="declaration_id"/>
+                        </group>
+                        <group name="declaration_info" string="Declaration Data">
+                            <field name="month"/>
+                            <field name="year"/>
+                            <field name="correction_code"/>
+                            <field name="insurance_type"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Financial Data" name="financial_data">
+                            <group>
+                                <group string="Income and Insurance">
+                                    <field name="insurance_income"/>
+                                    <field name="gross_salary"/>
+                                    <field name="health_insurance_income"/>
+                                    <field name="net_salary"/>
+                                </group>
+                                <group string="Days and Hours">
+                                    <field name="insured_days_total"/>
+                                    <field name="worked_days_with_insurance"/>
+                                    <field name="worked_hours_total"/>
+                                    <field name="overtime_hours"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Error Information" name="error_info" attrs="{'invisible': [('export_status', '!=', 'error')]}">
+                            <group>
+                                <field name="error_message"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Изглед за търсене на история на декларациите -->
+    <record id="view_hr_nssi_declaration_history_search" model="ir.ui.view">
+        <field name="name">hr.nssi.declaration.history.search</field>
+        <field name="model">hr.nssi.declaration.history</field>
+        <field name="arch" type="xml">
+            <search string="Search NSSI Declaration History">
+                <field name="employee_id"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="export_id"/>
+                <field name="export_status"/>
+                <field name="user_id"/>
+
+                <filter string="Exported" name="exported" domain="[('export_status', '=', 'exported')]"/>
+                <filter string="Pending" name="pending" domain="[('export_status', '=', 'pending')]"/>
+                <filter string="Error" name="error" domain="[('export_status', '=', 'error')]"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Employee" name="employee" domain="[]" context="{'group_by':'employee_id'}"/>
+                    <filter string="Export Batch" name="export_batch" domain="[]" context="{'group_by':'export_id'}"/>
+                    <filter string="Export Status" name="status" domain="[]" context="{'group_by':'export_status'}"/>
+                    <filter string="Year" name="year" domain="[]" context="{'group_by':'year'}"/>
+                    <filter string="Month" name="month" domain="[]" context="{'group_by':'month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Изглед списък за групите експортирания -->
+    <record id="view_hr_nssi_export_batch_tree" model="ir.ui.view">
+        <field name="name">hr.nssi.export.batch.tree</field>
+        <field name="model">hr.nssi.export.batch</field>
+        <field name="arch" type="xml">
+            <tree string="NSSI Export Batches" decoration-success="status=='success'"
+                  decoration-info="status=='pending'" decoration-warning="status=='processing'"
+                  decoration-danger="status in ('error', 'cancelled')">
+                <field name="display_name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="export_date"/>
+                <field name="declaration_count"/>
+                <field name="status"/>
+                <field name="user_id"/>
+                <field name="file_size"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Изглед форма за групите експортирания -->
+    <record id="view_hr_nssi_export_batch_form" model="ir.ui.view">
+        <field name="name">hr.nssi.export.batch.form</field>
+        <field name="model">hr.nssi.export.batch</field>
+        <field name="arch" type="xml">
+            <form string="NSSI Export Batch">
+                <header>
+                    <button name="action_collect_declarations" string="Collect Declarations" type="object"
+                            class="oe_highlight" attrs="{'invisible': [('status', '!=', 'draft')]}"/>
+                    <button name="generate_nssi_file" string="Generate File" type="object"
+                            class="oe_highlight" attrs="{'invisible': [('status', '!=', 'pending')]}"/>
+                    <button name="action_download_file" string="Download File" type="object"
+                            attrs="{'invisible': ['|', ('export_file', '=', False), ('status', 'in', ['draft'])]}"/>
+                    <button name="action_retry_export" string="Retry" type="object"
+                            attrs="{'invisible': [('status', 'not in', ['error', 'cancelled'])]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,pending,processing,success"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="display_name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="export_info" string="Export Information">
+                            <field name="name"/>
+                            <field name="company_id" options="{'no_create': True, 'no_open': True}" groups="base.group_multi_company"/>
+                            <field name="user_id"/>
+                            <field name="export_date"/>
+                        </group>
+                        <group name="period_info" string="Period Information">
+                            <field name="month"/>
+                            <field name="year"/>
+                            <field name="declaration_count"/>
+                        </group>
+                    </group>
+                    <group name="file_info" string="File Information" attrs="{'invisible': [('export_file', '=', False)]}">
+                        <field name="file_name"/>
+                        <field name="file_size"/>
+                        <field name="export_file" filename="file_name" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Declarations" name="declarations">
+                            <field name="declaration_ids" readonly="1" context="{'tree_view_ref': 'view_hr_nssi_declaration_history_tree'}">
+                                <tree>
+                                    <field name="employee_id"/>
+                                    <field name="month"/>
+                                    <field name="year"/>
+                                    <field name="export_status"/>
+                                    <field name="insurance_income"/>
+                                    <field name="gross_salary"/>
+                                    <field name="insured_days_total"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Изглед за търсене на групите експортирания -->
+    <record id="view_hr_nssi_export_batch_search" model="ir.ui.view">
+        <field name="name">hr.nssi.export.batch.search</field>
+        <field name="model">hr.nssi.export.batch</field>
+        <field name="arch" type="xml">
+            <search string="Search NSSI Export Batches">
+                <field name="display_name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="user_id"/>
+                <field name="status"/>
+
+                <filter string="Success" name="success" domain="[('status', '=', 'success')]"/>
+                <filter string="Pending" name="pending" domain="[('status', 'in', ['draft', 'pending'])]"/>
+                <filter string="Error" name="error" domain="[('status', '=', 'error')]"/>
+                <filter string="Current Year" name="current_year" domain="[('year', '=', time.strftime('%Y'))]"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Company" name="company" domain="[]" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                    <filter string="Status" name="status" domain="[]" context="{'group_by':'status'}"/>
+                    <filter string="Year" name="year" domain="[]" context="{'group_by':'year'}"/>
+                    <filter string="Month" name="month" domain="[]" context="{'group_by':'month'}"/>
+                    <filter string="User" name="user" domain="[]" context="{'group_by':'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Дейности (actions) за достъп до изгледите -->
+    <record id="action_hr_nssi_declaration_history" model="ir.actions.act_window">
+        <field name="name">NSSI Declaration History</field>
+        <field name="res_model">hr.nssi.declaration.history</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_hr_nssi_declaration_history_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No declaration export history found
+            </p>
+            <p>
+                This view shows the history of exported NSSI declarations.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_hr_nssi_export_batch" model="ir.actions.act_window">
+        <field name="name">NSSI Export Batches</field>
+        <field name="res_model">hr.nssi.export.batch</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_hr_nssi_export_batch_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new NSSI export batch
+            </p>
+            <p>
+                NSSI export batches allow you to collect and export multiple declarations at once.
+            </p>
+        </field>
+    </record>
+
+</odoo>

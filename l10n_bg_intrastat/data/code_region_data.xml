@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_BGS"
+            model="account.intrastat.code"
+        >
+            <field name="code">BGS</field>
+            <field name="name">Burgas</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_BLG"
+            model="account.intrastat.code"
+        >
+            <field name="code">BLG</field>
+            <field name="name">Blagoevgrad</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_VAR"
+            model="account.intrastat.code"
+        >
+            <field name="code">VAR</field>
+            <field name="name">Varna</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_VTR"
+            model="account.intrastat.code"
+        >
+            <field name="code">VTR</field>
+            <field name="name">Veliko Tarnovo</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_VID"
+            model="account.intrastat.code"
+        >
+            <field name="code">VID</field>
+            <field name="name">Vidin</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_VRC"
+            model="account.intrastat.code"
+        >
+            <field name="code">VRC</field>
+            <field name="name">Vratsa</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_GAB"
+            model="account.intrastat.code"
+        >
+            <field name="code">GAB</field>
+            <field name="name">Gabrovo</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_DOB"
+            model="account.intrastat.code"
+        >
+            <field name="code">DOB</field>
+            <field name="name">Dobrich</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_KRZ"
+            model="account.intrastat.code"
+        >
+            <field name="code">KRZ</field>
+            <field name="name">Kardzhali</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_KNL"
+            model="account.intrastat.code"
+        >
+            <field name="code">KNL</field>
+            <field name="name">Kyustendil</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_LOV"
+            model="account.intrastat.code"
+        >
+            <field name="code">LOV</field>
+            <field name="name">Lovech</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_MON"
+            model="account.intrastat.code"
+        >
+            <field name="code">MON</field>
+            <field name="name">Montana</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_PAZ"
+            model="account.intrastat.code"
+        >
+            <field name="code">PAZ</field>
+            <field name="name">Pazardzhik</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_PER"
+            model="account.intrastat.code"
+        >
+            <field name="code">PER</field>
+            <field name="name">Pernik</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_PVN"
+            model="account.intrastat.code"
+        >
+            <field name="code">PVN</field>
+            <field name="name">Pleven</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_PDV"
+            model="account.intrastat.code"
+        >
+            <field name="code">PDV</field>
+            <field name="name">Plovdiv</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_RAZ"
+            model="account.intrastat.code"
+        >
+            <field name="code">RAZ</field>
+            <field name="name">Razgrad</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_RSE"
+            model="account.intrastat.code"
+        >
+            <field name="code">RSE</field>
+            <field name="name">Ruse</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_SLS"
+            model="account.intrastat.code"
+        >
+            <field name="code">SLS</field>
+            <field name="name">Silistra</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_SLV"
+            model="account.intrastat.code"
+        >
+            <field name="code">SLV</field>
+            <field name="name">Sliven</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_SML"
+            model="account.intrastat.code"
+        >
+            <field name="code">SML</field>
+            <field name="name">Smolyan</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_SOF"
+            model="account.intrastat.code"
+        >
+            <field name="code">SOF</field>
+            <field name="name">Sofia (capital)</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_SFO"
+            model="account.intrastat.code"
+        >
+            <field name="code">SFO</field>
+            <field name="name">Sofia</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_SZR"
+            model="account.intrastat.code"
+        >
+            <field name="code">SZR</field>
+            <field name="name">Stara Zagora</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_TGV"
+            model="account.intrastat.code"
+        >
+            <field name="code">TGV</field>
+            <field name="name">Targovishte</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_HKV"
+            model="account.intrastat.code"
+        >
+            <field name="code">HKV</field>
+            <field name="name">Haskovo</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_SHU"
+            model="account.intrastat.code"
+        >
+            <field name="code">SHU</field>
+            <field name="name">Shumen</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_JAM"
+            model="account.intrastat.code"
+        >
+            <field name="code">JAM</field>
+            <field name="name">Yambol</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+        <record
+            id="l10n_bg_intrastat.intrastat_region_bg_XXX"
+            model="account.intrastat.code"
+        >
+            <field name="code">XXX</field>
+            <field name="name">The whole country</field>
+            <field name="type">region</field>
+            <field name="country_id" ref="base.bg" />
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- NAP Export History Views -->
+    <record id="view_nap_export_history_list" model="ir.ui.view">
+        <field name="name">nap.export.history.list</field>
+        <field name="model">l10n_bg.nap.export.history</field>
+        <field name="arch" type="xml">
+            <list string="NAP Export History" create="false">
+                <field name="export_date"/>
+                <field name="contract_id"/>
+                <field name="employee_id"/>
+                <field name="export_type"/>
+                <field name="status" widget="badge"
+                       decoration-success="status == 'success'"
+                       decoration-danger="status == 'error'"
+                       decoration-warning="status == 'pending'"/>
+                <field name="nap_reference"/>
+                <field name="user_id"/>
+                <button name="action_view_xml" string="View XML" type="object" icon="fa-file-code-o"/>
+                <button name="action_download_xml" string="Download" type="object" icon="fa-save" invisible="status not in ['pending', 'processing']"/>
+                <button name="action_retry_export" string="Retry" type="object" icon="fa-refresh" invisible="status not in ['error', 'cancelled']"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_nap_export_history_form" model="ir.ui.view">
+        <field name="name">nap.export.history.form</field>
+        <field name="model">l10n_bg.nap.export.history</field>
+        <field name="arch" type="xml">
+            <form string="NAP Export History">
+                <header>
+                    <button name="action_retry_export" string="Retry Export" type="object" class="btn-primary" invisible="status not in ['error', 'cancelled']"/>
+                    <button name="action_download_xml" string="Download XML" type="object" class="btn-secondary" invisible="not export_xml"/>
+                    <field name="status" widget="statusbar" statusbar_visible="pending,processing,success"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="contract_id" readonly="1" force_save="1"/>
+                            <field name="contract_amendment_id" readonly="1" force_save="1"/>
+                            <field name="employee_id" readonly="1" force_save="1"/>
+                            <field name="export_type" readonly="1" force_save="1"/>
+                            <field name="export_date"/>
+                            <field name="response_date"/>
+                            <field name="type_correction"/>
+                        </group>
+                        <group>
+                            <field name="nap_reference"/>
+                            <field name="file_name" readonly="1" force_save="1"/>
+                            <field name="file_size" readonly="1" force_save="1"/>
+                            <field name="attempt_number" readonly="1" force_save="1"/>
+                            <field name="user_id" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Export Data">
+                            <field name="export_data" widget="text" readonly="1" force_save="1"/>
+                        </page>
+                        <page string="Generated XML">
+                            <field name="export_xml" widget="ace" options="{'mode': 'xml'}"/>
+                        </page>
+                        <page string="Response">
+                            <group>
+                                <field name="response_message" nolabel="1" colspan="2"/>
+                                <field name="error_message" nolabel="1" colspan="2" invisible="not error_message"/>
+                            </group>
+                            <group string="Response XML" invisible="not response_xml">
+                                <field name="response_xml" widget="ace" options="{'mode': 'xml'}" nolabel="1" colspan="2"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- XML-only view for the popup -->
+    <record id="view_nap_export_history_xml_form" model="ir.ui.view">
+        <field name="name">nap.export.history.xml.form</field>
+        <field name="model">l10n_bg.nap.export.history</field>
+        <field name="arch" type="xml">
+            <form string="NAP Export XML">
+                <group>
+                    <field name="display_name" readonly="1"/>
+                </group>
+                <field name="export_xml" widget="ace" options="{'mode': 'xml'}" nolabel="1"/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for NAP Export History -->
+    <record id="action_nap_export_history" model="ir.actions.act_window">
+        <field name="name">NAP Export History</field>
+        <field name="res_model">l10n_bg.nap.export.history</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No NAP export history found!
+            </p>
+            <p>
+                All NAP exports will be logged here for audit and troubleshooting purposes.
+            </p>
+        </field>
+    </record>
+
+</odoo>

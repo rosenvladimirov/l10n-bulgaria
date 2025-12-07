@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- ================================================================== -->
+        <!-- BULGARIAN SALARY RULES WITH PYTHON FORMULAS -->
+        <!-- ================================================================== -->
+
+        <!-- ================================================================== -->
+        <!-- 1. EARNINGS (НАЧИСЛЕНИЯ) -->
+        <!-- ================================================================== -->
+
+        <!-- Basic Salary -->
+        <record id="hr_salary_rule_basic_bg" model="hr.salary.rule">
+            <field name="name">Основна заплата</field>
+            <field name="code">BG_BASIC</field>
+            <field name="category_id" ref="BG_BASE_DOO"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">100</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+total_days = 0.0
+work_days = 0.0
+
+for line in payslip.worked_days_line_ids:
+    if line.code != 'OUT':
+        total_days += line.number_of_days
+    if line.code == 'WORK100':
+        work_days = line.number_of_days
+# Изчисления
+if total_days > 0:
+    result = contract.wage / total_days
+else:
+    result = 0.0
+result_qty = work_days
+            ]]></field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+
+        <!-- Overtime -->
+        <record id="hr_salary_rule_overtime_bg" model="hr.salary.rule">
+            <field name="name">Извънредно време</field>
+            <field name="code">BG_OTWD_HOURS</field>
+            <field name="category_id" ref="BG_BASE_DOO"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">110</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python"><![CDATA[
+result = inputs.get('OTWD_HOURS', {'amount': 0.0})['amount'] != 0.0
+            ]]></field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+result_qty = inputs.get('OTWD_HOURS', {'amount': 0.0})['amount']
+result_rate = 1 + contract.l10n_bg_time_rates_otwd_override
+result = (contract.wage or 0.0) / 168.0
+]]></field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        <record id="hr_salary_rule_overtime_otrd_bg" model="hr.salary.rule">
+            <field name="name">Извънредно време в неработни дни</field>
+            <field name="code">BG_OTRD_HOURS</field>
+            <field name="category_id" ref="BG_BASE_DOO"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">120</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python"><![CDATA[
+result = inputs.get('OTRD_HOURS', {'amount': 0.0})['amount'] != 0.0
+]]></field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+result_qty = inputs.get('OTRD_HOURS', {'amount': 0.0})['amount']
+result_rate = 1 + contract.l10n_bg_time_rates_otnd_override
+result = (contract.wage or 0.0) / 168.0
+]]></field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        <record id="hr_salary_rule_overtime_otph_bg" model="hr.salary.rule">
+            <field name="name">Извънредно време на официални празници</field>
+            <field name="code">BG_OTPH_HOURS</field>
+            <field name="category_id" ref="BG_BASE_DOO"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">130</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python"><![CDATA[
+result = inputs.get('OTPH_HOURS', {'amount': 0.0})['amount'] != 0.0
+            ]]></field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+result_qty = inputs.get('OTPH_HOURS', {'amount': 0.0})['amount']
+result = (contract.wage or 0.0) / 168.0
+result_rate = 1 + contract.l10n_bg_time_rates_otph_override
+]]></field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        <record id="hr_salary_rule_overtime_otst_bg" model="hr.salary.rule">
+            <field name="name">Извънредно време при сумирано изчисление</field>
+            <field name="code">BG_OTST_HOURS</field>
+            <field name="category_id" ref="BG_BASE_DOO"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">140</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python"><![CDATA[
+result = inputs.get('OTST_HOURS', {'amount': 0.0})['amount'] != 0.0
+            ]]></field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+result_qty = inputs.get('OTST_HOURS', {'amount': 0.0})['amount']
+result = (contract.wage or 0.0) / 168.0
+result_rate = 1 + contract.l10n_bg_time_rates_otst_override
+            ]]></field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+
+        <!-- Class Allowance (Seniority) -->
+        <record id="hr_salary_rule_class_bg" model="hr.salary.rule">
+            <field name="name">Клас (трудов стаж)</field>
+            <field name="code">BG_CLASS</field>
+            <field name="category_id" ref="BG_BASE_DOO"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">150</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+work_days= 0.0
+total_days = 0.0
+rate = contract.l10n_bg_seniority_allowance_rate
+years = contract.l10n_bg_seniority_years
+if not years and contract.l10n_bg_class_years_decimal > 0.0:
+    years = contract.l10n_bg_class_years_decimal
+result_qty = years
+result_rate = rate
+for line in payslip.worked_days_line_ids:
+    if line.code != 'OUT':
+        total_days += line.number_of_days
+    if line.code == 'WORK100':
+        work_days = line.number_of_days
+
+# Изчисления
+if total_days > 0:
+    result = (contract.wage / total_days) * work_days
+else:
+    result = 0.0
+            ]]></field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+
+        <!-- Other Permanent Allowances -->
+        <record id="hr_salary_rule_other_allowances_bg" model="hr.salary.rule">
+            <field name="name">Други постоянни добавки</field>
+            <field name="code">BG_OTHER_ALLOW</field>
+            <field name="category_id" ref="BG_BASE_DOO"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">160</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = contract.l10n_bg_other_permanent_allowances > 0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+result = contract.l10n_bg_other_permanent_allowances or 0.0
+            ]]></field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+
+                <!-- Other Permanent Allowances -->
+        <record id="hr_salary_rule_sick_03_allowances_bg" model="hr.salary.rule">
+            <field name="name">Болничен общо заболяване</field>
+            <field name="code">BG_SICK_ALLOW</field>
+            <field name="category_id" ref="BG_BASE_DOO"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">160</field>
+            <field name="condition_python"><![CDATA[
+result = sum([x.number_of_days for x in payslip.worked_days_line_ids if x.code == 'LEAVE110']) != 0.0
+            ]]></field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+total_days = 0.0
+work_days = 0.0
+result_qty = 0.0
+rate = payslip._rule_parameter('BG_INSURANCE_RATE') or 0.0
+
+if 'LEAVE110' in worked_days:
+    result_qty = worked_days['LEAVE110']['number_of_days']
+
+for line in payslip.worked_days_line_ids:
+    if line.code != 'OUT':
+        total_days += line.number_of_days
+    if line.code == 'WORK100':
+        work_days = line.number_of_days
+
+# Изчисления
+if total_days > 0:
+    result = (contract.wage / total_days) * rate
+else:
+    result = 0.0
+
+result_name = 'Болничен общо заболяване за сметка на работодателя'
+            ]]></field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+
+        <!-- Additional Allowances -->
+        <record id="hr_salary_rule_dms_allowances_bg" model="hr.salary.rule">
+            <field name="name">Допълнително материално стимулиране</field>
+            <field name="code">BG_DMS_ALLOW</field>
+            <field name="category_id" ref="BG_BASE_DOO"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">170</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'DMS' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+result = inputs['DMS'].amount
+result_name = inputs['DMS'].name
+            ]]></field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+
+        <!-- Gross Salary -->
+        <record id="hr_salary_rule_gross_bg" model="hr.salary.rule">
+            <field name="name">Брутна заплата</field>
+            <field name="code">BG_GROSS</field>
+            <field name="category_id" ref="BG_GROSS"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">200</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+result = categories['BG_BASE_DOO'] + categories.get('BG_BASE_ZO', 0.0)
+            ]]></field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+
+        <!-- ================================================================== -->
+        <!-- 2. INSURANCE BASE AGGREGATORS (АГРЕГАТОРИ ПО СТЪЛБОВЕ) -->
+        <!-- ================================================================== -->
+
+        <!-- DOO Insurance Base reduced to max -->
+        <!-- ================================================================== -->
+        <!-- 3. INSURANCE CONTRIBUTIONS (ОСИГУРИТЕЛНИ ВНОСКИ) -->
+        <!-- ================================================================== -->
+
+        <!-- DOO Employee Contribution -->
+        <record id="hr_salary_rule_doo_emp_bg" model="hr.salary.rule">
+            <field name="name">ДОО - Работник</field>
+            <field name="code">BG_DOO_EMP_1959</field>
+            <field name="category_id" ref="BG_DED_DOO_EE"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">300</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+if not contract.show_1959_rate:
+    rate = contract.l10n_bg_doo_emp_1960_rate * 100
+else:
+    rate = contract.l10n_bg_doo_emp_1959_rate * 100
+base = categories['BG_BASE_DOO']
+result_qty = -1
+result_rate = rate
+result = base
+            ]]></field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+
+        <!-- ZO Employee Contribution -->
+        <record id="hr_salary_rule_zo_emp_bg" model="hr.salary.rule">
+            <field name="name">ЗО - Работник</field>
+            <field name="code">BG_ZO_EMP</field>
+            <field name="category_id" ref="BG_DED_ZO_EE"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">320</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+base = categories['BG_BASE_DOO']
+rate = contract.l10n_bg_zo_emp_rate * 100
+result_qty = -1
+result_rate = rate
+result = base
+            ]]></field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+
+        <!-- UPF Employee Contribution -->
+        <record id="hr_salary_rule_upf_emp_bg" model="hr.salary.rule">
+            <field name="name">УПФ - Работник</field>
+            <field name="code">BG_UPF_EMP</field>
+            <field name="category_id" ref="BG_DED_UPF_EE"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">330</field>
+            <field name="condition_select">none</field>
+            <field name="condition_python"><![CDATA[
+result = contract.show_1959_rate
+            ]]></field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+if not contract.show_1959_rate:
+    result_qty = 0.0
+    result_rate = 0.0
+    result = 0.0
+else:
+    base = categories['BG_BASE_DOO']
+    rate = contract.l10n_bg_doo_upf_emp_rate * 100
+    result_qty = -1
+    result_rate = rate
+    result = base
+            ]]></field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+
+        <record id="hr_salary_rule_ded_ins_bg" model="hr.salary.rule">
+            <field name="name">Общо утръжки осигуряване</field>
+            <field name="code">BG_DED_INS</field>
+            <field name="category_id" ref="BG_DED"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">400</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+base = categories['BG_DED_DOO_EE'] + categories['BG_DED_ZO_EE'] + categories['BG_DED_UPF_EE']
+result = base
+            ]]></field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+
+        <!-- ================================================================== -->
+        <!-- 4. TAX BASE AND INCOME TAX (ДАНЪЧНА ОСНОВА И ДДФЛ) -->
+        <!-- ================================================================== -->
+
+        <!-- Personal Income Tax Base-->
+        <record id="hr_salary_rule_base_pit_bg" model="hr.salary.rule">
+            <field name="name">ДДФЛ Данъчна основа</field>
+            <field name="code">BG_BASE_PIT</field>
+            <field name="category_id" ref="BG_BASE_PIT"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">500</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+gross_taxable = categories['BG_GROSS'] + categories['BG_DED']
+tax_base = gross_taxable
+result = max(tax_base, 0.0)
+            ]]></field>
+            <field name="appears_on_payslip" eval="False"/>
+        </record>
+
+        <!-- Personal Income Tax (10%) -->
+        <record id="hr_salary_rule_pit_10_bg" model="hr.salary.rule">
+            <field name="name">ДДФЛ</field>
+            <field name="code">BG_PIT_10</field>
+            <field name="category_id" ref="BG_DED"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">600</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+base = categories['BG_BASE_PIT']
+rate = payslip._rule_parameter('BG_PIT_RATE') * 100
+result_qty = -1
+result_rate = rate
+result = base
+            ]]></field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+<!--        <record id="hr_salary_rule_pit_pay_bg" model="hr.salary.rule">-->
+<!--            <field name="name">ДДФЛ за плащане</field>-->
+<!--            <field name="code">BG_PIT_PAY</field>-->
+<!--            <field name="category_id" ref="BG_PIT_PAY"/>-->
+<!--            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>-->
+<!--            <field name="sequence">600</field>-->
+<!--            <field name="condition_select">none</field>-->
+<!--            <field name="amount_select">code</field>-->
+<!--            <field name="amount_python_compute"><![CDATA[-->
+<!--base = categories['BG_BASE_PIT']-->
+<!--            ]]></field>-->
+<!--            <field name="appears_on_payslip" eval="True"/>-->
+<!--        </record>-->
+
+        <!-- ================================================================== -->
+        <!-- 5. NET SALARY -->
+        <!-- ================================================================== -->
+
+        <!-- Net Salary -->
+        <record id="hr_salary_rule_net_bg" model="hr.salary.rule">
+            <field name="name">Нетна заплата</field>
+            <field name="code">BG_NET</field>
+            <field name="category_id" ref="BG_NET"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">999</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+result = categories['BG_GROSS'] + categories['BG_DED']
+            ]]></field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+
+        <!-- ================================================================== -->
+        <!-- 6. EMPLOYER CONTRIBUTIONS (НЕ СЕ ПОКАЗВАТ В РАЗПЛАЩАТЕЛНАТА ВЕДОМОСТ) -->
+        <!-- ================================================================== -->
+
+        <!-- DOO Employer Contribution -->
+        <record id="hr_salary_rule_doo_er_bg" model="hr.salary.rule">
+            <field name="name">ДОО - Работодател</field>
+            <field name="code">BG_DOO_ER_1959</field>
+            <field name="category_id" ref="BG_DOO_ER"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">1000</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+if not contract.show_1959_rate:
+    rate = contract.l10n_bg_doo_er_1960_rate * 100
+else:
+    rate = contract.l10n_bg_doo_er_1959_rate * 100
+base = categories['BG_BASE_DOO'] or 0.0
+result_rate = rate
+result = base
+            ]]></field>
+            <field name="appears_on_payslip" eval="False"/>
+        </record>
+
+        <!-- PPF Employer Contribution-->
+        <record id="hr_salary_rule_ppf_er_bg" model="hr.salary.rule">
+            <field name="name">ППФ - Работодател</field>
+            <field name="code">BG_DOO_PPF_ER</field>
+            <field name="category_id" ref="BG_PPF_ER"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">1020</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python"><![CDATA[
+result = contract.l10n_bg_doo_ppf_rate > 0.0
+            ]]></field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+base = categories['BG_BASE_DOO'] or 0.0
+result_rate = contract.l10n_bg_doo_ppf_rate * 100
+result = base
+            ]]></field>
+            <field name="appears_on_payslip" eval="False"/>
+        </record>
+
+        <!-- PPF Employer Contribution-->
+        <record id="hr_salary_rule_upf_er_bg" model="hr.salary.rule">
+            <field name="name">УПФ - Работодател</field>
+            <field name="code">BG_DOO_UPF_ER</field>
+            <field name="category_id" ref="BG_UPF_ER"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">1030</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python"><![CDATA[
+result = contract.show_1959_rate
+            ]]></field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+if not contract.show_1959_rate:
+    result_qty = 0.0
+    result_rate = 0.0
+    result = 0.0
+else:
+    base = categories['BG_BASE_DOO'] or 0.0
+    result_rate = contract.l10n_bg_doo_upf_er_rate * 100
+    result = base
+            ]]></field>
+            <field name="appears_on_payslip" eval="False"/>
+        </record>
+
+        <!-- ZO Employer Contribution -->
+        <record id="hr_salary_rule_zo_er_bg" model="hr.salary.rule">
+            <field name="name">ЗО - Работодател</field>
+            <field name="code">BG_ZO_ER</field>
+            <field name="category_id" ref="BG_ZO_ER"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">1040</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+base = categories['BG_BASE_DOO'] or 0.0
+result_rate = contract.l10n_bg_zo_er_rate * 100
+result = base
+            ]]></field>
+            <field name="appears_on_payslip" eval="False"/>
+        </record>
+        <record id="hr_salary_rule_only_zo_er_bg" model="hr.salary.rule">
+            <field name="name">Само ЗО - Работодател</field>
+            <field name="code">BG_ONLY_ZO_ER</field>
+            <field name="category_id" ref="BG_ZO_ER"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">1050</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python"><![CDATA[
+result = categories.get('BG_BASE_ZO', 0.0) > 0.0
+            ]]></field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+base = categories['BG_BASE_ZO'] or 0.0
+result_rate = contract.l10n_bg_zo_er_rate * 100
+result = base
+            ]]></field>
+            <field name="appears_on_payslip" eval="False"/>
+        </record>
+
+        <!-- TZPB Employer Contribution -->
+        <record id="hr_salary_rule_tzpb_er_bg" model="hr.salary.rule">
+            <field name="name">ТЗПБ - Работодател</field>
+            <field name="code">BG_TRZP_ER</field>
+            <field name="category_id" ref="BG_TRZP_ER"/>
+            <field name="struct_id" ref="bg_salary_structure_salary_employee"/>
+            <field name="sequence">1060</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute"><![CDATA[
+base = categories['BG_BASE_DOO'] or 0.0
+result_rate = contract.l10n_bg_tzpb_rate * 100
+result = base
+            ]]></field>
+            <field name="appears_on_payslip" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

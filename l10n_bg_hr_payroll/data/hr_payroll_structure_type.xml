@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Structure Type за служители със щатна заплата -->
+        <record id="bg_structure_type_salary_employee" model="hr.payroll.structure.type">
+            <field name="name">Български служители - щатна заплата</field>
+            <field name="country_id" ref="base.bg"/>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- Structure Type за работници със сделна система -->
+        <record id="bg_structure_type_hourly_worker" model="hr.payroll.structure.type">
+            <field name="name">Български работници - сделна система</field>
+            <field name="country_id" ref="base.bg"/>
+            <field name="sequence">20</field>
+        </record>
+
+    </data>
+</odoo>

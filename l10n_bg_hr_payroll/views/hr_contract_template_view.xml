@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Extended HR Contract Template Form View -->
+    <record id="hr_contract_template_form_view_extended" model="ir.ui.view">
+        <field name="name">hr.contract.template.form.extended</field>
+        <field name="model">hr.version</field>
+        <field name="inherit_id" ref="hr.hr_contract_template_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Add Bulgarian-specific fields inside Salary Information -->
+            <xpath expr="//group[@name='salary_info']" position="after">
+                <group name="bg_periods">
+                    <group name="class_period" string="Class System (Класна система)">
+                        <field name="l10n_bg_initial_class_period"/>
+                        <field name="l10n_bg_current_class_period"/>
+                        <field name="l10n_bg_auto_class_increment"/>
+                        <field name="l10n_bg_class_years_integer" readonly="1"/>
+                        <field name="l10n_bg_class_years_decimal" readonly="1"/>
+                    </group>
+                    <group name="seniority" string="Seniority (Трудов стаж)">
+                        <field name="l10n_bg_seniority_years"/>
+                        <field name="l10n_bg_seniority_allowance_rate"/>
+                        <field name="l10n_bg_computed_seniority_allowance" readonly="1"/>
+                        <field name="l10n_bg_insurance_months"/>
+                    </group>
+                </group>
+            </xpath>
+
+            <!-- Add Bulgarian Labor Code page -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Bulgarian Labor Code" name="bg_labor_code">
+                    <group>
+                        <group string="Position Information (NKPD)">
+                            <field name="l10n_bg_qualification_group" options="{'no_create_edit': True}"/>
+                            <field name="l10n_bg_economic_activity_code"/>
+                            <field name="l10n_bg_workplace_code"/>
+                        </group>
+                        <group string="Contract Terms">
+                            <field name="l10n_bg_contract_duration_type" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+
+                    <group string="Working Time">
+                        <group>
+                            <field name="l10n_bg_working_time_type"/>
+                            <field name="l10n_bg_daily_hours"/>
+                        </group>
+                        <group>
+                            <field name="resource_calendar_id"/>
+                        </group>
+                    </group>
+
+                    <group string="Annual Leave (чл. 66 КТ)">
+                        <group>
+                            <field name="l10n_bg_basic_leave_days"/>
+                            <field name="l10n_bg_additional_leave_days"/>
+                        </group>
+                        <group>
+                            <field name="l10n_bg_total_leave_days" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <group string="MOD &amp; Insurance">
+                        <group>
+                            <field name="l10n_bg_computed_mod" readonly="1"/>
+                            <field name="l10n_bg_manual_mod"/>
+                        </group>
+                        <group>
+                            <field name="l10n_bg_effective_mod" readonly="1"/>
+                            <field name="l10n_bg_tzpb_rate" widget="percentage"/>
+                        </group>
+                    </group>
+                </page>
+
+                <page string="NAP Export" name="nap_export">
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_export_to_nap"
+                                string="Export to NAP"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-upload"
+                                invisible="l10n_bg_nap_export_status == 'exported'"/>
+                    </div>
+
+                    <group string="Export Status">
+                        <group>
+                            <field name="l10n_bg_nap_export_status"
+                                   widget="badge"
+                                   decoration-success="l10n_bg_nap_export_status == 'exported'"
+                                   decoration-danger="l10n_bg_nap_export_status == 'error'"
+                                   decoration-warning="l10n_bg_nap_export_status == 'pending'"/>
+                            <field name="l10n_bg_nap_export_date"/>
+                        </group>
+                        <group>
+                            <field name="l10n_bg_uic"/>
+                            <field name="l10n_bg_egn"/>
+                        </group>
+                    </group>
+
+                    <group string="Export History" col="1">
+                        <field name="l10n_bg_nap_export_history_ids" nolabel="1">
+                            <list string="Export History" create="false" edit="false">
+                                <field name="export_date"/>
+                                <field name="export_type"/>
+                                <field name="status"
+                                       widget="badge"
+                                       decoration-success="status == 'success'"
+                                       decoration-danger="status == 'error'"
+                                       decoration-warning="status == 'pending'"/>
+                                <button name="action_view_xml" string="View XML" type="object" icon="fa-file-code-o"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+
+                <page string="NSSI Certificates" name="nssi_certificates">
+                    <field name="l10n_bg_nssi_certificate_ids" nolabel="1">
+                        <list string="NSSI Certificates">
+                            <field name="name"/>
+                            <field name="certificate_type"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="state" widget="badge"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Extended HR Contract Template List View -->
+    <record id="hr_contract_template_list_view_extended" model="ir.ui.view">
+        <field name="name">hr.contract.template.list.extended</field>
+        <field name="model">hr.version</field>
+        <field name="inherit_id" ref="hr.hr_contract_template_list_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='resource_calendar_id']" position="after">
+                <field name="l10n_bg_qualification_group" optional="hide"/>
+                <field name="l10n_bg_effective_mod" optional="hide" string="MOD (лв.)"/>
+                <field name="l10n_bg_contract_duration_type" optional="hide"/>
+                <field name="l10n_bg_total_leave_days" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

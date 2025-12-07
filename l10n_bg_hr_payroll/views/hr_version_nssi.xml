@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree -->
+    <record id="view_hr_leave_nssi_certificate_tree" model="ir.ui.view">
+        <field name="name">hr.leave.nssi.certificate.tree</field>
+        <field name="model">hr.leave.nssi.certificate</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" multi_edit="1" open_form_view="True">
+                <field name="sick_leave_number"/>
+                <field name="leave_sick_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="leave_reason_code" readonly="0"/>
+                <field name="total_income" widget="monetary"
+                       options="{'currency_field': 'company_id.currency_id'}"/>
+                <field name="insured_months"/>
+                <field name="insured_days"/>
+                <field name="bank_account_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_hr_leave_nssi_certificate_form" model="ir.ui.view">
+        <field name="name">hr.leave.nssi.certificate.form</field>
+        <field name="model">hr.leave.nssi.certificate</field>
+        <field name="arch" type="xml">
+            <form string="NSSI Certificate">
+                <group>
+                    <group>
+                        <field name="sick_leave_number"/>
+                        <field name="leave_sick_domain" invisible="1"/>
+                        <field name="leave_sick_id" domain="leave_sick_domain"/>
+                        <field name="leave_reason_code" readonly="1"/>
+                        <field name="date_from" readonly="1"/>
+                        <field name="date_to" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="income_1"/>
+                        <field name="income_2"/>
+                        <field name="income_3"/>
+                        <field name="income_4"/>
+                        <field name="income_5"/>
+                        <field name="income_6"/>
+                        <field name="total_income" readonly="1"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="insured_months" readonly="1"/>
+                    <field name="insured_days" readonly="1"/>
+                    <field name="worked_days_period"/>
+                </group>
+                <group>
+                    <field name="bank_account_id"/>
+                    <field name="nssi_office_code"/>
+                </group>
+                <group>
+                    <field name="representative_name"/>
+                    <field name="representative_position"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hr_contract_form_nssi_tab" model="ir.ui.view">
+        <field name="name">hr.contract.form.nssi.certificate.tab</field>
+        <field name="model">hr.version</field>
+        <field name="inherit_id" ref="hr.hr_contract_template_form_view"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="NSSI Certificates" name="nssi_certificates">
+                    <field name="l10n_bg_nssi_certificate_ids"
+                           nolabel="1"
+                           context="{'default_contract_id': id}">
+                        <list editable="bottom" multi_edit="1" open_form_view="True">
+                            <field name="sick_leave_number"/>
+                            <field name="leave_sick_id"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="leave_reason_code" readonly="0"/>
+                            <field name="total_income" widget="monetary"
+                                   options="{'currency_field': 'company_id.currency_id'}"/>
+                            <field name="insured_months"/>
+                            <field name="insured_days"/>
+                            <field name="bank_account_id" optional="hide"/>
+                        </list>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>

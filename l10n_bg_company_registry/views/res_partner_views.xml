@@ -6,12 +6,18 @@
         <field name="priority">2</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
+            <!-- Замества полето l10n_bg_uic с row за бутон вдясно -->
             <xpath expr="//field[@name='l10n_bg_uic']" position="replace">
-                <field name="l10n_bg_uic"
-                       readonly="parent_id"
-                       widget="l10n_bg_uic_with_fetch"
-                       options="{'button_icon': 'fa-download', 'button_title': 'Download from registry'}"
-                       decoration-info="l10n_bg_uic_type == 'bg_uic' and vat"/>
+                <label for="l10n_bg_uic"/>
+                <div class="o_row">
+                    <field name="l10n_bg_uic" readonly="parent_id" class="oe_inline" nolabel="1"/>
+                    <button name="action_fetch_from_registry"
+                            type="object"
+                            icon="fa-download"
+                            class="btn btn-link px-2"
+                            title="Изтегли данни от търговския регистър по ЕИК"
+                            invisible="l10n_bg_uic_type != 'bg_uic' or not vat"/>
+                </div>
             </xpath>
         </field>
     </record>

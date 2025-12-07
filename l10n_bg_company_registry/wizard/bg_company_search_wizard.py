@@ -953,11 +953,17 @@ class BgCompanySearchWizard(models.TransientModel):
         if company_data.get('street_number2'):
             vals['street_number2'] = company_data['street_number2']
 
-        if company_data.get('street_building_number'):
+        # Проверка дали полетата от extend модула са инсталирани
+        partner_fields = self.env['res.partner']._fields
+
+        if 'street_building_number' in partner_fields and company_data.get('street_building_number'):
             vals['street_building_number'] = company_data['street_building_number']
 
-        if company_data.get('street_floor_number'):
+        if 'street_floor_number' in partner_fields and company_data.get('street_floor_number'):
             vals['street_floor_number'] = company_data['street_floor_number']
+
+        if 'street_sector_number' in partner_fields and company_data.get('street_sector_number'):
+            vals['street_sector_number'] = company_data['street_sector_number']
 
         if company_data.get('street'):
             vals['street'] = company_data['street']

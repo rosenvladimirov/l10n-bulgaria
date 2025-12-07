@@ -58,17 +58,12 @@ License: LGPL-3
         'l10n_bg_city',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'views/res_partner_views.xml',
         'wizard/bg_company_search_wizard_views.xml',
     ],
     'external_dependencies': {
         'python': ['requests'],
-    },
-    'assets': {
-        'web.assets_backend': [
-            'l10n_bg_company_registry/static/src/js/l10n_bg_uic_widget.js',
-            'l10n_bg_company_registry/static/src/xml/l10n_bg_uic_widget.xml',
-        ],
     },
     'installable': True,
     'application': False,

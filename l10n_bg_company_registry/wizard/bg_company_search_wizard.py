@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 
 import logging
@@ -113,224 +114,190 @@ class BgCompanySearchWizard(models.TransientModel):
 
         return False
 
-        def _fetch_from_registry_api(self, eik):
-            """
-            Fetch company data from portal.registryagency.bg API
-
-            This is the actual Bulgarian Trade Registry API endpoint
-
-            Args:
-                eik (str): Company EIK number
-
-            Returns:
-                dict: Company data or False
-            """
-            if not eik:
-                return False
-
-            try:
-                _logger.info(f"Fetching company data from portal.registryagency.bg API for EIK: {eik}")
-
-                # Real API endpoint from portal.registryagency.bg
-                api_url = f"https://portal.registryagency.bg/CR/api/Deeds/{eik}"
-
-                # Current date for query parameter
-                from datetime import datetime
-                current_date = datetime.now().strftime('%Y-%m-%dT23:59:59.999Z')
-
-                response = requests.get(
-                    api_url,
-                    params={
-                        'entryDate': current_date,
-                        'loadFieldsFromAllLegalForms': 'false'
-                    },
-                    headers={
-                        'User-Agent': 'Mozilla/5.0 (compatible; Odoo/18.0)',
-                        'Accept': '*/*',
-                        'Content-Type': 'application/json; charset=utf-8'
-                    },
-                    timeout=30
-                )
-
-                if response.status_code == 200:
-                    _logger.info(f"Successfully fetched company data for EIK: {eik}")
-                    data = response.json()
-
-                    # Parse the response
-                    return self._parse_registry_api_response(data)
-                elif response.status_code == 404:
-                    _logger.warning(f"Company not found in registry for EIK: {eik}")
-                    return False
-                else:
-                    _logger.error(f"Registry API returned status {response.status_code} for EIK: {eik}")
-                    return False
-
-            except requests.Timeout:
-                _logger.error("Timeout while fetching data from registry API")
-                return False
-            except requests.RequestException as e:
-                _logger.error(f"Error fetching data from registry API: {str(e)}")
-                return False
-            except Exception as e:
-                _logger.error(f"Unexpected error in registry API fetch: {str(e)}")
-                return False
-
-        def _parse_registry_api_response(self, data):
-            """
-            Parse response from portal.registryagency.bg API
-
-            Args:
-                data (dict): JSON response from API
-
-            Returns:
-                dict: Standardized company data
-            """
-            try:
-                company_data = {
-                    'eik': data.get('uic', ''),
-                    'company_name_bg': data.get('companyName', ''),
-                    'legal_form_bg': self._get_legal_form_name(data.get('legalForm')),
-                    'vat_number': f"BG{data.get('uic', '')}" if data.get('uic') else '',
-                    'status': 'active',
-                }
-
-                # Parse sections to extract address and other data
-                sections = data.get('sections', [])
-                for section in sections:
-                    sub_deeds = section.get('subDeeds', [])
-                    for sub_deed in sub_deeds:
-                        groups = sub_deed.get('groups', [])
-                        for group in groups:
-                            fields = group.get('fields', [])
-                            for field in fields:
-                                field_code = field.get('nameCode', '')
-
-                                # Extract address (CR_F_5_L)
-                                if field_code == 'CR_F_5_L':
-                                    html_data = field.get('htmlData', '')
-                                    company_data['address_full_bg'] = self._extract_text_from_html(html_data)
-                                    company_data['city_bg'] = self._extract_city_from_address(html_data)
-                                    company_data['postal_code'] = self._extract_postal_code(html_data)
-                                    company_data['street_bg'] = self._extract_street(html_data)
-
-                                # Extract activity (CR_F_6_L)
-                                elif field_code == 'CR_F_6_L':
-                                    html_data = field.get('htmlData', '')
-                                    company_data['activity_description_bg'] = self._extract_text_from_html(html_data)
-
-                                # Extract NKID code (CR_F_6a_L)
-                                elif field_code == 'CR_F_6a_L':
-                                    html_data = field.get('htmlData', '')
-                                    company_data['activity_code'] = self._extract_nkid_code(html_data)
-
-                                # Extract registration date from field action date
-                                if field_code == 'CR_F_1_L':
-                                    action_date = field.get('fieldActionDate', '')
-                                    if action_date:
-                                        company_data['registration_date'] = action_date.split('T')[0]
-
-                _logger.info(f"Parsed company data: {company_data.get('company_name_bg')}")
-                return company_data
-
-            except Exception as e:
-                _logger.error(f"Error parsing registry API response: {str(e)}")
-                return False
-
-        def _get_legal_form_name(self, legal_form_code):
-            """Get legal form name from code"""
-            legal_forms = {
-                10: 'ЕООД',  # Еднолично дружество с ограничена отговорност
-                1: 'ООД',  # Дружество с ограничена отговорност
-                2: 'АД',  # Акционерно дружество
-                3: 'ЕАД',  # Еднолично акционерно дружество
-                4: 'КД',  # Командитно дружество
-                5: 'КДА',  # Командитно дружество с акции
-                6: 'СД',  # Събирателно дружество
-                7: 'ЕТ',  # Едноличен търговец
-            }
-            return legal_forms.get(legal_form_code, '')
-
-        def _extract_text_from_html(self, html_data):
-            """Extract clean text from HTML"""
-            import re
-            # Remove HTML tags
-            text = re.sub(r'<[^>]+>', '', html_data)
-            # Clean up whitespace
-            text = ' '.join(text.split())
-            return text.strip()
-
-        def _extract_city_from_address(self, html_data):
-            """Extract city from address HTML"""
-            import re
-            text = self._extract_text_from_html(html_data)
-            # Look for city pattern: "Населено място: гр. XXXX"
-            match = re.search(r'Населено място:\s*(?:гр\.|с\.)\s*([^,]+)', text)
-            if match:
-                return match.group(1).strip()
-            return ''
-
-        def _extract_postal_code(self, html_data):
-            """Extract postal code from address HTML"""
-            import re
-            text = self._extract_text_from_html(html_data)
-            # Look for postal code pattern: "п.к. XXXX"
-            match = re.search(r'п\.к\.\s*(\d+)', text)
-            if match:
-                return match.group(1).strip()
-            return ''
-
-        def _extract_street(self, html_data):
-            """Extract street from address HTML"""
-            import re
-            text = self._extract_text_from_html(html_data)
-            # Look for street pattern: "бул./ул. XXXX"
-            match = re.search(r'(?:бул\.|ул\.)\s*([^№]+)(?:№\s*(\d+))?', text)
-            if match:
-                street = match.group(1).strip()
-                number = match.group(2)
-                if number:
-                    return f"{street} {number}"
-                return street
-            return ''
-
-        def _extract_nkid_code(self, html_data):
-            """Extract NKID code from HTML"""
-            import re
-            text = self._extract_text_from_html(html_data)
-            # Look for NKID group code
-            match = re.search(r'Група по НКИД:\s*(\d+)', text)
-            if match:
-                return match.group(1).strip()
-            return ''
-
-    def _search_in_resource(self, resource_url, resource_format, eik):
+    def _fetch_from_registry_api(self, eik):
         """
-        Search for company in a resource file
+        Fetch company data from portal.registryagency.bg API
+
+        This is the actual Bulgarian Trade Registry API endpoint
 
         Args:
-            resource_url (str): URL to resource file
-            resource_format (str): Format of the resource (CSV, XLSX, etc.)
-            eik (str): Company EIK to search for
+            eik (str): Company EIK number
 
         Returns:
             dict: Company data or False
         """
-        try:
-            _logger.info(f"Searching in resource: {resource_url}")
+        if not eik:
+            return False
 
-            if resource_format in ['CSV', 'TXT']:
-                return self._search_in_csv_resource(resource_url, eik)
-            elif resource_format in ['XLSX', 'XLS']:
-                # For Excel files, you might need openpyxl or xlrd
-                _logger.warning(f"Excel format not yet supported: {resource_format}")
+        try:
+            _logger.info(f"Fetching company data from portal.registryagency.bg API for EIK: {eik}")
+
+            # Real API endpoint from portal.registryagency.bg
+            api_url = f"https://portal.registryagency.bg/CR/api/Deeds/{eik}"
+
+            # Current date for query parameter
+            from datetime import datetime
+            current_date = datetime.now().strftime('%Y-%m-%dT23:59:59.999Z')
+
+            response = requests.get(
+                api_url,
+                params={
+                    'entryDate': current_date,
+                    'loadFieldsFromAllLegalForms': 'false'
+                },
+                headers={
+                    'User-Agent': 'Mozilla/5.0 (compatible; Odoo/18.0)',
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                timeout=30
+            )
+
+            if response.status_code == 200:
+                _logger.info(f"Successfully fetched company data for EIK: {eik}")
+                data = response.json()
+
+                # Parse the response
+                return self._parse_registry_api_response(data)
+            elif response.status_code == 404:
+                _logger.warning(f"Company not found in registry for EIK: {eik}")
                 return False
             else:
-                _logger.warning(f"Unsupported resource format: {resource_format}")
+                _logger.error(f"Registry API returned status {response.status_code} for EIK: {eik}")
                 return False
 
-        except Exception as e:
-            _logger.error(f"Error searching resource: {str(e)}")
+        except requests.Timeout:
+            _logger.error("Timeout while fetching data from registry API")
             return False
+        except requests.RequestException as e:
+            _logger.error(f"Error fetching data from registry API: {str(e)}")
+            return False
+        except Exception as e:
+            _logger.error(f"Unexpected error in registry API fetch: {str(e)}")
+            return False
+
+    def _parse_registry_api_response(self, data):
+        """
+        Parse response from portal.registryagency.bg API
+
+        Args:
+            data (dict): JSON response from API
+
+        Returns:
+            dict: Standardized company data
+        """
+        try:
+            company_data = {
+                'eik': data.get('uic', ''),
+                'company_name_bg': data.get('companyName', ''),
+                'legal_form_bg': self._get_legal_form_name(data.get('legalForm')),
+                'vat_number': f"BG{data.get('uic', '')}" if data.get('uic') else '',
+                'status': 'active',
+            }
+
+            # Parse sections to extract address and other data
+            sections = data.get('sections', [])
+            for section in sections:
+                sub_deeds = section.get('subDeeds', [])
+                for sub_deed in sub_deeds:
+                    groups = sub_deed.get('groups', [])
+                    for group in groups:
+                        fields_list = group.get('fields', [])
+                        for field in fields_list:
+                            field_code = field.get('nameCode', '')
+
+                            # Extract address (CR_F_5_L)
+                            if field_code == 'CR_F_5_L':
+                                html_data = field.get('htmlData', '')
+                                company_data['address_full_bg'] = self._extract_text_from_html(html_data)
+                                company_data['city_bg'] = self._extract_city_from_address(html_data)
+                                company_data['postal_code'] = self._extract_postal_code(html_data)
+                                company_data['street_bg'] = self._extract_street(html_data)
+
+                            # Extract activity (CR_F_6_L)
+                            elif field_code == 'CR_F_6_L':
+                                html_data = field.get('htmlData', '')
+                                company_data['activity_description_bg'] = self._extract_text_from_html(html_data)
+
+                            # Extract NKID code (CR_F_6a_L)
+                            elif field_code == 'CR_F_6a_L':
+                                html_data = field.get('htmlData', '')
+                                company_data['activity_code'] = self._extract_nkid_code(html_data)
+
+                            # Extract registration date from field action date
+                            if field_code == 'CR_F_1_L':
+                                action_date = field.get('fieldActionDate', '')
+                                if action_date:
+                                    company_data['registration_date'] = action_date.split('T')[0]
+
+            _logger.info(f"Parsed company data: {company_data.get('company_name_bg')}")
+            return company_data
+
+        except Exception as e:
+            _logger.error(f"Error parsing registry API response: {str(e)}")
+            return False
+
+    def _get_legal_form_name(self, legal_form_code):
+        """Get legal form name from code"""
+        legal_forms = {
+            10: 'ЕООД',  # Еднолично дружество с ограничена отговорност
+            1: 'ООД',    # Дружество с ограничена отговорност
+            2: 'АД',     # Акционерно дружество
+            3: 'ЕАД',    # Еднолично акционерно дружество
+            4: 'КД',     # Командитно дружество
+            5: 'КДА',    # Командитно дружество с акции
+            6: 'СД',     # Събирателно дружество
+            7: 'ЕТ',     # Едноличен търговец
+        }
+        return legal_forms.get(legal_form_code, '')
+
+    def _extract_text_from_html(self, html_data):
+        """Extract clean text from HTML"""
+        # Remove HTML tags
+        text = re.sub(r'<[^>]+>', '', html_data)
+        # Clean up whitespace
+        text = ' '.join(text.split())
+        return text.strip()
+
+    def _extract_city_from_address(self, html_data):
+        """Extract city from address HTML"""
+        text = self._extract_text_from_html(html_data)
+        # Look for city pattern: "Населено място: гр. XXXX"
+        match = re.search(r'Населено място:\s*(?:гр\.|с\.)\s*([^,]+)', text)
+        if match:
+            return match.group(1).strip()
+        return ''
+
+    def _extract_postal_code(self, html_data):
+        """Extract postal code from address HTML"""
+        text = self._extract_text_from_html(html_data)
+        # Look for postal code pattern: "п.к. XXXX"
+        match = re.search(r'п\.к\.\s*(\d+)', text)
+        if match:
+            return match.group(1).strip()
+        return ''
+
+    def _extract_street(self, html_data):
+        """Extract street from address HTML"""
+        text = self._extract_text_from_html(html_data)
+        # Look for street pattern: "бул./ул. XXXX"
+        match = re.search(r'(?:бул\.|ул\.)\s*([^№]+)(?:№\s*(\d+))?', text)
+        if match:
+            street = match.group(1).strip()
+            number = match.group(2)
+            if number:
+                return f"{street} {number}"
+            return street
+        return ''
+
+    def _extract_nkid_code(self, html_data):
+        """Extract NKID code from HTML"""
+        text = self._extract_text_from_html(html_data)
+        # Look for NKID group code
+        match = re.search(r'Група по НКИД:\s*(\d+)', text)
+        if match:
+            return match.group(1).strip()
+        return ''
 
     def _search_in_csv_resource(self, csv_url, eik):
         """
@@ -446,7 +413,7 @@ class BgCompanySearchWizard(models.TransientModel):
             if not eik:
                 raise ValidationError(_('Invalid EIK format. Please enter 9 or 13 digits.'))
 
-            # Try to fetch from the official registry API
+            # Try to fetch from official registry API
             _logger.info(f"Attempting to fetch company data from official registry API for EIK: {eik}")
             company_data = self._fetch_from_registry_api(eik)
 

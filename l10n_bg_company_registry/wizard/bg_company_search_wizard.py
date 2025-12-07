@@ -26,6 +26,11 @@ class BgCompanySearchWizard(models.TransientModel):
         required=True
     )
 
+    original_eik = fields.Char(
+        string='Original EIK',
+        help='Original EIK from partner (to detect changes)'
+    )
+
     # Display fields for company data from registry
     display_eik = fields.Char(
         string='EIK',
@@ -89,6 +94,50 @@ class BgCompanySearchWizard(models.TransientModel):
         help='Indicates if data was successfully fetched'
     )
 
+    eik_changed = fields.Boolean(
+        string='EIK Changed',
+        compute='_compute_eik_changed',
+        help='Indicates if EIK was changed by user'
+    )
+
+    @api.depends('eik', 'original_eik')
+    def _compute_eik_changed(self):
+        """Check if EIK was changed from original"""
+        for wizard in self:
+            wizard.eik_changed = (
+                wizard.original_eik and
+                wizard.eik and
+                wizard.eik != wizard.original_eik
+            )
+
+    @api.model
+    def default_get(self, fields_list):
+        """Auto-fetch data when wizard opens if EIK is provided"""
+        res = super().default_get(fields_list)
+
+        # If EIK is provided in context, auto-fetch immediately
+        if res.get('eik'):
+            # Store original EIK
+            res['original_eik'] = res['eik']
+
+            # Try to fetch data automatically
+            try:
+                eik = self._extract_eik_from_vat(res['eik'])
+                if eik:
+                    company_data = self._fetch_from_registry_api_eik_only(eik)
+                    if company_data:
+                        # Populate display fields
+                        res.update(self._populate_display_fields(company_data))
+                        res['data_fetched'] = True
+
+                        # Store JSON data
+                        import json
+                        res['company_data_json'] = json.dumps(company_data, ensure_ascii=False)
+            except Exception as e:
+                _logger.warning(f"Could not auto-fetch data in wizard: {str(e)}")
+
+        return res
+
     @staticmethod
     def _extract_eik_from_vat(vat_number):
         """
@@ -116,15 +165,11 @@ class BgCompanySearchWizard(models.TransientModel):
 
         return False
 
-    def _fetch_from_registry_api(self, eik):
+    @classmethod
+    def _fetch_from_registry_api_eik_only(cls, eik):
         """
-        Fetch company data from portal.registryagency.bg API
-
-        Args:
-            eik (str): Company EIK number
-
-        Returns:
-            dict: Company data or False
+        Static method to fetch from registry (without self)
+        Used in default_get
         """
         if not eik:
             return False
@@ -132,10 +177,8 @@ class BgCompanySearchWizard(models.TransientModel):
         try:
             _logger.info(f"Fetching company data from portal.registryagency.bg API for EIK: {eik}")
 
-            # Real API endpoint from portal.registryagency.bg
             api_url = f"https://portal.registryagency.bg/CR/api/Deeds/{eik}"
 
-            # Current date for query parameter
             from datetime import datetime
             current_date = datetime.now().strftime('%Y-%m-%dT23:59:59.999Z')
 
@@ -156,95 +199,243 @@ class BgCompanySearchWizard(models.TransientModel):
             if response.status_code == 200:
                 _logger.info(f"Successfully fetched company data for EIK: {eik}")
                 data = response.json()
-
-                # Parse the response
-                return self._parse_registry_api_response(data)
-            elif response.status_code == 404:
-                _logger.warning(f"Company not found in registry for EIK: {eik}")
-                return False
+                return cls._parse_registry_response_static(data)
             else:
-                _logger.error(f"Registry API returned status {response.status_code} for EIK: {eik}")
+                _logger.warning(f"Registry API returned status {response.status_code} for EIK: {eik}")
                 return False
 
-        except requests.Timeout:
-            _logger.error("Timeout while fetching data from registry API")
-            return False
-        except requests.RequestException as e:
-            _logger.error(f"Error fetching data from registry API: {str(e)}")
-            return False
         except Exception as e:
-            _logger.error(f"Unexpected error in registry API fetch: {str(e)}")
+            _logger.error(f"Error fetching from registry: {str(e)}")
             return False
 
-    def _parse_registry_api_response(self, data):
+    @staticmethod
+    def _parse_bulgarian_address_static(address_text):
         """
-        Parse response from portal.registryagency.bg API
+        Parse Bulgarian address and map to city_id
+        Static version for use in default_get
 
         Args:
-            data (dict): JSON response from API
+            address_text (str): Full address text from registry
 
         Returns:
-            dict: Standardized company data
+            dict: Parsed address components with city_id
         """
+        if not address_text:
+            return {}
+
+        result = {
+            'country_code': 'BG',
+            'state_id': False,
+            'city_id': False,
+            'city_name': '',
+            'zip': '',
+            'street': '',
+            'street_name': '',
+            'street_number': '',
+            'street_number2': '',
+            'street_building_number': '',
+            'street_floor_number': '',
+        }
+
+        # Extract state/region (Област)
+        state_match = re.search(r'Област:\s*([^,]+)', address_text)
+        if state_match:
+            result['state_name'] = state_match.group(1).strip()
+
+        # Extract city and postal code
+        city_match = re.search(r'Населено място:\s*(?:гр\.|с\.)\s*([^,]+)(?:,\s*п\.к\.\s*(\d+))?', address_text)
+        if city_match:
+            city_name = city_match.group(1).strip()
+            postal_code = city_match.group(2).strip() if city_match.group(2) else ''
+            result['city_name'] = city_name
+            result['zip'] = postal_code
+
+        # Extract street from last line - format: "бул./ул. ул. БЕЛИ ЛОМ № 53, бл. 3, вх. Б, ет. 5, ап. 36"
+        # Split by lines and get the last line that contains бул./ул.
+        lines = address_text.split('\n')
+        street_line = ''
+        for line in reversed(lines):
+            if 'бул./ул.' in line or 'бул.' in line or 'ул.' in line:
+                street_line = line.strip()
+                break
+
+        if street_line:
+            # Remove "бул./ул." prefix and any additional "ул." or "бул."
+            street_line = re.sub(r'^бул\./ул\.\s*', '', street_line)
+            street_line = re.sub(r'^(?:бул\.|ул\.)\s*', '', street_line)
+
+            # Pattern to extract all address components
+            # Format: ул. БЕЛИ ЛОМ № 53, бл. 3, вх. Б, ет. 5, ап. 36
+            street_pattern = r'^([^№]+?)(?:\s*№\s*(\d+[А-Яа-я]?))?(?:,\s*бл\.\s*(\d+[А-Яа-я]?))?(?:,\s*вх\.\s*([А-Яа-я\d]+))?(?:,\s*ет\.\s*(\d+))?(?:,\s*ап\.\s*(\d+))?'
+            street_match = re.search(street_pattern, street_line)
+
+            if street_match:
+                street_name = street_match.group(1).strip()
+                street_number = street_match.group(2) or ''
+                building_number = street_match.group(3) or ''
+                entrance = street_match.group(4) or ''
+                floor_number = street_match.group(5) or ''
+                apartment = street_match.group(6) or ''
+
+                result['street_name'] = street_name
+                result['street_number'] = street_number
+
+                if apartment:
+                    result['street_number2'] = apartment
+
+                if building_number:
+                    if entrance:
+                        result['street_building_number'] = f"{building_number}, вх. {entrance}"
+                    else:
+                        result['street_building_number'] = building_number
+
+                if floor_number:
+                    result['street_floor_number'] = floor_number
+
+                # Build full street
+                street_parts = [street_name]
+                if street_number:
+                    street_parts.append(f"№ {street_number}")
+                if building_number:
+                    street_parts.append(f"бл. {building_number}")
+                if entrance:
+                    street_parts.append(f"вх. {entrance}")
+                if floor_number:
+                    street_parts.append(f"ет. {floor_number}")
+                if apartment:
+                    street_parts.append(f"ап. {apartment}")
+
+                result['street'] = ', '.join(street_parts)
+
+        return result
+
+    @staticmethod
+    def _parse_registry_response_static(data):
+        """Static parser for registry response"""
         try:
-            legal_form_bg = self._get_legal_form_name(data.get('legalForm'))
+            legal_forms = {
+                10: 'ЕООД', 1: 'ООД', 2: 'АД', 3: 'ЕАД',
+                4: 'КД', 5: 'КДА', 6: 'СД', 7: 'ЕТ',
+            }
+
+            legal_form_bg = legal_forms.get(data.get('legalForm'), '')
             company_name_bg = data.get('companyName', '')
+
+            # Добавяме правната форма към българското име
+            if legal_form_bg:
+                company_name_bg_full = f"{company_name_bg} {legal_form_bg}"
+            else:
+                company_name_bg_full = company_name_bg
+
+            # Генериране на английско име от секция 4
+            company_name_en = ''
+            sections = data.get('sections', [])
+            for section in sections:
+                for sub_deed in section.get('subDeeds', []):
+                    for group in sub_deed.get('groups', []):
+                        for field in group.get('fields', []):
+                            if field.get('nameCode') == 'CR_F_4_L':
+                                # Извличаме текста от HTML
+                                html_data = field.get('htmlData', '')
+                                text = re.sub(r'<[^>]+>', '', html_data)
+                                company_name_en = ' '.join(text.split()).strip()
+                                break
+                        if company_name_en:
+                            break
+                    if company_name_en:
+                        break
+                if company_name_en:
+                    break
+
+            # Ако няма намерено английско име от секция 4, генерираме от картата
+            if not company_name_en:
+                legal_form_en_map = {
+                    'ЕООД': 'Ltd.', 'ООД': 'Ltd.', 'АД': 'JSC', 'ЕАД': 'JSC',
+                    'КД': 'LP', 'КДА': 'PLS', 'СД': 'GP', 'ЕТ': '—',
+                }
+                legal_form_en = legal_form_en_map.get(legal_form_bg, legal_form_bg)
+                if company_name_bg and legal_form_en:
+                    company_name_en = f"{company_name_bg} {legal_form_en}"
+                else:
+                    company_name_en = company_name_bg
 
             company_data = {
                 'eik': data.get('uic', ''),
-                'company_name_bg': company_name_bg,
-                'company_name_en': self._generate_english_name(company_name_bg, legal_form_bg),
+                'company_name_bg': company_name_bg_full,
+                'company_name_en': company_name_en,
                 'legal_form_bg': legal_form_bg,
                 'vat_number': f"BG{data.get('uic', '')}" if data.get('uic') else '',
                 'status': 'active',
             }
 
-            # Parse sections to extract address and other data
+            # Parse sections for address and activity
             sections = data.get('sections', [])
             for section in sections:
-                sub_deeds = section.get('subDeeds', [])
-                for sub_deed in sub_deeds:
-                    groups = sub_deed.get('groups', [])
-                    for group in groups:
-                        fields_list = group.get('fields', [])
-                        for field in fields_list:
+                for sub_deed in section.get('subDeeds', []):
+                    for group in sub_deed.get('groups', []):
+                        for field in group.get('fields', []):
                             field_code = field.get('nameCode', '')
+                            html_data = field.get('htmlData', '')
 
-                            # Extract address (CR_F_5_L)
                             if field_code == 'CR_F_5_L':
-                                html_data = field.get('htmlData', '')
-                                address_text = self._extract_text_from_html(html_data)
-                                company_data['address_full_bg'] = address_text
+                                # Extract address
+                                text = re.sub(r'<[^>]+>', '', html_data)
+                                text = ' '.join(text.split())
+                                company_data['address_full_bg'] = text
 
                                 # Parse structured address
-                                parsed_address = self._parse_bulgarian_address(address_text)
+                                parsed_address = BgCompanySearchWizard._parse_bulgarian_address_static(text)
                                 company_data.update(parsed_address)
 
-                            # Extract activity (CR_F_6_L)
                             elif field_code == 'CR_F_6_L':
-                                html_data = field.get('htmlData', '')
-                                company_data['activity_description_bg'] = self._extract_text_from_html(html_data)
+                                text = re.sub(r'<[^>]+>', '', html_data)
+                                company_data['activity_description_bg'] = ' '.join(text.split()).strip()
 
-                            # Extract NKID code (CR_F_6a_L)
                             elif field_code == 'CR_F_6a_L':
-                                html_data = field.get('htmlData', '')
-                                company_data['activity_code'] = self._extract_nkid_code(html_data)
+                                text = re.sub(r'<[^>]+>', '', html_data)
+                                match = re.search(r'Група по НКИД:\s*(\d+)', text)
+                                if match:
+                                    company_data['activity_code'] = match.group(1).strip()
 
-                            # Extract registration date from field action date
-                            if field_code == 'CR_F_1_L':
+                            elif field_code == 'CR_F_1_L':
                                 action_date = field.get('fieldActionDate', '')
                                 if action_date:
                                     company_data['registration_date'] = action_date.split('T')[0]
 
-            _logger.info(f"Parsed company data: {company_data.get('company_name_bg')}")
             return company_data
 
         except Exception as e:
-            _logger.error(f"Error parsing registry API response: {str(e)}")
+            _logger.error(f"Error parsing registry response: {str(e)}")
             return False
 
     @staticmethod
-    def _get_legal_form_name(legal_form_code):
+    def _populate_display_fields(company_data):
+        """Populate display fields from company data"""
+        return {
+            'display_eik': company_data.get('eik', ''),
+            'display_name_bg': company_data.get('company_name_bg', ''),
+            'display_name_en': company_data.get('company_name_en', ''),
+            'display_legal_form_bg': company_data.get('legal_form_bg', ''),
+            'display_vat': company_data.get('vat_number', ''),
+            'display_address_bg': company_data.get('address_full_bg', ''),
+            'display_city': company_data.get('city_name', ''),
+            'display_postal_code': company_data.get('zip', ''),
+            'display_street': company_data.get('street', ''),
+            'display_activity_code': company_data.get('activity_code', ''),
+            'display_activity_description': company_data.get('activity_description_bg', ''),
+            'display_registration_date': company_data.get('registration_date', False),
+        }
+
+    def _fetch_from_registry_api(self, eik):
+        """Instance method wrapper"""
+        return self._fetch_from_registry_api_eik_only(eik)
+
+    def _parse_registry_api_response(self, data):
+        """Instance method wrapper"""
+        return self._parse_registry_response_static(data)
+
+    @staticmethod
+    def _get_legal_form_name(company_name_bg, legal_form_code):
         """Get legal form name from code"""
         legal_forms = {
             10: 'ЕООД',
@@ -261,7 +452,7 @@ class BgCompanySearchWizard(models.TransientModel):
     @staticmethod
     def _generate_english_name(company_name_bg, legal_form_bg):
         """
-        Generate English version by appending transliterated name and legal form
+        Generate an English version by appending transliterated name and legal form
 
         Args:
             company_name_bg (str): Bulgarian company name
@@ -273,168 +464,68 @@ class BgCompanySearchWizard(models.TransientModel):
         if not company_name_bg:
             return ''
 
-        # Transliteration map for legal form
         legal_form_en_map = {
-            'ЕООД': {
-                'short': 'Ltd.',
-                'long': 'Single-Member Limited Liability Company'
-            },
-            'ООД': {
-                'short': 'Ltd.',
-                'long': 'Limited Liability Company'
-            },
-            'АД': {
-                'short': 'JSC',
-                'long': 'Joint-Stock Company'
-            },
-            'ЕАД': {
-                'short': 'JSC',
-                'long': 'Single-Member Joint-Stock Company'
-            },
-            'КД': {
-                'short': 'LP',
-                'long': 'Limited Partnership'
-            },
-            'КДА': {
-                'short': 'PLS',
-                'long': 'Partnership Limited by Shares'
-            },
-            'СД': {
-                'short': 'GP',
-                'long': 'General Partnership'
-            },
-            'ЕТ': {
-                'short': '—',
-                'long': 'Sole Proprietor'
-            },
+            'ЕООД': 'Ltd.',
+            'ООД': 'Ltd.',
+            'АД': 'JSC',
+            'ЕАД': 'JSC',
+            'КД': 'LP',
+            'КДА': 'PLS',
+            'СД': 'GP',
+            'ЕТ': '—',
         }
 
-        # Get English legal form
-        legal_form_en = legal_form_en_map.get(legal_form_bg, {'short': legal_form_bg})
+        legal_form_en = legal_form_en_map.get(legal_form_bg, legal_form_bg)
 
-        # Append to company name
         if legal_form_en:
-            return f"{company_name_bg} {legal_form_en.get('short', legal_form_en)}"
+            return f"{company_name_bg} {legal_form_en}"
 
         return company_name_bg
 
     @staticmethod
     def _extract_text_from_html(html_data):
         """Extract clean text from HTML"""
-        # Remove HTML tags
         text = re.sub(r'<[^>]+>', '', html_data)
-        # Clean up whitespace
         text = ' '.join(text.split())
         return text.strip()
 
     def _parse_bulgarian_address(self, address_text):
         """
-        Parse Bulgarian address and map to city_id
-
-        Args:
-            address_text (str): Full address text from registry
-
-        Returns:
-            dict: Parsed address components with city_id
+        Instance method wrapper for address parsing
+        Also resolves city_id and state_id from database
         """
-        if not address_text:
-            return {}
+        result = self._parse_bulgarian_address_static(address_text)
 
-        result = {
-            'country_code': 'BG',
-            'state_id': False,
-            'city_id': False,
-            'zip': '',
-            'street': '',
-            'street_name': '',
-            'street_number': '',
-            'street_number2': '',
-            'street_building_number': '',
-            'street_floor_number': '',
-        }
-
-        # Extract country
-        country_match = re.search(r'Държава:\s*([А-Я]+)', address_text)
-        if country_match and country_match.group(1) != 'БЪЛГАРИЯ':
-            result['country_code'] = country_match.group(1)
-
-        # Extract state/region (Област)
-        state_match = re.search(r'Област:\s*([^,]+)', address_text)
-        if state_match:
-            state_name = state_match.group(1).strip()
+        # Resolve state_id
+        if result.get('state_name'):
             state = self.env['res.country.state'].search([
                 ('country_id.code', '=', 'BG'),
-                ('name', 'ilike', state_name)
+                ('name', 'ilike', result['state_name'])
             ], limit=1)
             if state:
                 result['state_id'] = state.id
 
-        # Extract city and postal code
-        city_match = re.search(r'Населено място:\s*(?:гр\.|с\.)\s*([^,]+)(?:,\s*п\.к\.\s*(\d+))?', address_text)
-        if city_match:
-            city_name = city_match.group(1).strip()
-            postal_code = city_match.group(2).strip() if city_match.group(2) else ''
-            result['zip'] = postal_code
-
-            # Find city by postal code first, then by name
+        # Resolve city_id
+        if result.get('city_name'):
             city = False
-            if postal_code:
+            # Try by postal code first
+            if result.get('zip'):
                 city = self.env['res.city'].search([
                     ('country_id.code', '=', 'BG'),
-                    ('zipcode', '=', postal_code)
-                ], limit=1)
-
-            # If not found by postal code, search by name
-            if not city and city_name:
+                    ('zipcode', '=', result['zip'])
+                ])
+            if len(city.ids) > 1:
+                city = city.filtered(lambda city: city.name.lower().\
+                                     startswith(result['city_name'].lower()))
+            # If not found, try by name
+            if not city:
                 city = self.env['res.city'].search([
                     ('country_id.code', '=', 'BG'),
-                    ('name', 'ilike', city_name)
+                    ('name', 'ilike', result['city_name'])
                 ], limit=1)
 
             if city:
                 result['city_id'] = city.id
-
-        # Extract street
-        street_pattern = r'(?:бул\.|ул\.)\s*(?:ул\.\s*)?([^№]+)(?:№\s*(\d+[А-Яа-я]?))?(?:,\s*бл\.\s*(\d+[А-Яа-я]?))?(?:,\s*вх\.\s*([А-Яа-я\d]+))?(?:,\s*ет\.\s*(\d+))?(?:,\s*ап\.\s*(\d+))?'
-        street_match = re.search(street_pattern, address_text)
-
-        if street_match:
-            street_name = street_match.group(1).strip()
-            street_number = street_match.group(2) or ''
-            building_number = street_match.group(3) or ''
-            entrance = street_match.group(4) or ''
-            floor_number = street_match.group(5) or ''
-            apartment = street_match.group(6) or ''
-
-            result['street_name'] = street_name
-            result['street_number'] = street_number
-
-            if apartment:
-                result['street_number2'] = apartment
-
-            if building_number:
-                if entrance:
-                    result['street_building_number'] = f"{building_number}, вх. {entrance}"
-                else:
-                    result['street_building_number'] = building_number
-
-            if floor_number:
-                result['street_floor_number'] = floor_number
-
-            # Build full street
-            street_parts = [street_name]
-            if street_number:
-                street_parts.append(f"№ {street_number}")
-            if building_number:
-                street_parts.append(f"бл. {building_number}")
-            if entrance:
-                street_parts.append(f"вх. {entrance}")
-            if floor_number:
-                street_parts.append(f"ет. {floor_number}")
-            if apartment:
-                street_parts.append(f"ап. {apartment}")
-
-            result['street'] = ', '.join(street_parts)
 
         return result
 
@@ -449,7 +540,7 @@ class BgCompanySearchWizard(models.TransientModel):
         return ''
 
     def action_fetch_data(self):
-        """Fetch company data from registry"""
+        """Fetch company data from registry (manual refresh)"""
         self.ensure_one()
 
         if not self.eik:
@@ -476,19 +567,11 @@ class BgCompanySearchWizard(models.TransientModel):
         self.company_data_json = json.dumps(company_data, ensure_ascii=False)
         self.data_fetched = True
 
+        # Update original EIK
+        self.original_eik = self.eik
+
         # Populate display fields
-        self.display_eik = company_data.get('eik', '')
-        self.display_name_bg = company_data.get('company_name_bg', '')
-        self.display_name_en = company_data.get('company_name_en', '')
-        self.display_legal_form_bg = company_data.get('legal_form_bg', '')
-        self.display_vat = company_data.get('vat_number', '')
-        self.display_address_bg = company_data.get('address_full_bg', '')
-        self.display_city = company_data.get('city_id', False) and self.env['res.city'].browse(company_data['city_id']).name or ''
-        self.display_postal_code = company_data.get('zip', '')
-        self.display_street = company_data.get('street', '')
-        self.display_activity_code = company_data.get('activity_code', '')
-        self.display_activity_description = company_data.get('activity_description_bg', '')
-        self.display_registration_date = company_data.get('registration_date', False)
+        self.write(self._populate_display_fields(company_data))
 
         return {
             'type': 'ir.actions.act_window',
@@ -513,12 +596,16 @@ class BgCompanySearchWizard(models.TransientModel):
         import json
         company_data = json.loads(self.company_data_json)
 
+        # Re-parse address to get city_id and state_id
+        if company_data.get('address_full_bg'):
+            parsed_address = self._parse_bulgarian_address(company_data['address_full_bg'])
+            company_data.update(parsed_address)
+
         # Prepare partner values
         vals = self._prepare_partner_vals_from_company_data(company_data)
 
         # Update partner
         self.partner_id.write(vals)
-
         return {'type': 'ir.actions.act_window_close'}
 
     @api.model
@@ -527,7 +614,7 @@ class BgCompanySearchWizard(models.TransientModel):
         Prepare partner values from company data
 
         Args:
-            company_data (dict): Company data from registry
+            company_data (dict): Company data from a registry
 
         Returns:
             dict: Partner values

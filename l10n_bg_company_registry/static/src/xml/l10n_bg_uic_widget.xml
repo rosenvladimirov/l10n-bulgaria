@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="l10n_bg_company_registry.L10nBgUicField" owl="1">
+        <div class="o_field_char o_field_widget d-flex">
+            <input
+                t-if="!props.readonly"
+                class="o_input flex-grow-1"
+                t-att-id="props.id"
+                t-att-type="props.inputType || 'text'"
+                t-att-placeholder="props.placeholder"
+                t-att-maxlength="props.maxLength"
+                t-model="props.record.data[props.name]"
+                t-att-disabled="props.readonly"
+            />
+            <span
+                t-else=""
+                class="o_field_char flex-grow-1"
+                t-esc="props.record.data[props.name]"
+            />
+            <button
+                t-if="showButton"
+                class="btn btn-link text-primary fa fa-download ms-1"
+                type="button"
+                t-on-click="onButtonClick"
+                title="Download data from the commercial register"
+                style="padding: 0; font-size: 1.2em;"
+            />
+        </div>
+    </t>
+</templates>

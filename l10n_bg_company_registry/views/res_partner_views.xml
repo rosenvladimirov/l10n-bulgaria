@@ -1,83 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <!-- Partner Form View Extension -->
-    <record id="view_partner_form_bg_company" model="ir.ui.view">
-        <field name="name">res.partner.form.bg.company</field>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.property.form.l10n_bg</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="priority">2</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
-
-            <!-- Add buttons in the header -->
-            <xpath expr="//sheet" position="before">
-                <header>
-                    <button name="action_search_and_populate"
-                            string="Search Company Registry"
-                            type="object"
-                            class="oe_highlight"
-                            invisible="not is_company and not is_l10n_bg_record"/>
-                    <button name="action_fetch_from_registry"
-                            string="Fetch from Registry"
-                            type="object"
-                            invisible="not is_company or not l10n_bg_uic"/>
-                </header>
-            </xpath>
-
-            <!-- Add a Bulgarian Company Information tab -->
-            <xpath expr="//notebook" position="inside">
-                <page string="Bulgarian Company Info"
-                      name="bg_company_info"
-                      invisible="not is_company and not is_l10n_bg_record">
-                    <group>
-                        <group string="Company Names">
-                            <label for="name"/>
-                            <div>
-                                <field name="name" readonly="1"/>
-                                <span class="text-muted">
-                                    Company name is multilingual.
-                                    Use language switcher to view/edit in different languages.
-                                </span>
-                            </div>
-                        </group>
-                        <group string="Registry Link">
-                            <field name="l10n_bg_registry_id" readonly="1"/>
-                            <field name="l10n_bg_registry_last_sync" readonly="1"/>
-                        </group>
-                    </group>
-
-                    <group>
-                        <group string="Legal Information">
-                            <field name="l10n_bg_legal_form" placeholder="ООД, ЕООД, АД, etc."/>
-                            <field name="l10n_bg_registration_date"/>
-                            <field name="company_registry" string="Registration Number"/>
-                            <field name="l10n_bg_registration_court"/>
-                        </group>
-                        <group string="Economic Activity">
-                            <field name="l10n_bg_activity_code" placeholder="NACE code"/>
-                            <field name="l10n_bg_activity_description" placeholder="Main economic activity"/>
-                        </group>
-                    </group>
-                </page>
-            </xpath>
-        </field>
-    </record>
-
-    <!-- Partner Search View Extension -->
-    <record id="view_res_partner_filter_bg_fields" model="ir.ui.view">
-        <field name="name">res.partner.search.bg.fields</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_res_partner_filter"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="after">
-                <field name="l10n_bg_uic" string="EIK"
-                       filter_domain="[('l10n_bg_uic', 'ilike', self)]"/>
-            </xpath>
-
-            <xpath expr="//filter[@name='inactive']" position="after">
-                <separator/>
-                <filter string="Has EIK" name="has_eik"
-                        domain="[('l10n_bg_uic', '!=', False), ('l10n_bg_uic_type', '=', 'bg_uic')]"/>
-                <filter string="Linked to Registry" name="linked_registry"
-                        domain="[('l10n_bg_registry_id', '!=', False)]"/>
+            <xpath expr="//field[@name='l10n_bg_uic']" position="replace">
+                <field name="l10n_bg_uic"
+                       readonly="parent_id"
+                       widget="l10n_bg_uic_with_fetch"
+                       options="{'button_icon': 'fa-download', 'button_title': 'Download from registry'}"
+                       decoration-info="l10n_bg_uic_type == 'bg_uic' and vat"/>
             </xpath>
         </field>
     </record>

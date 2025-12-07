@@ -1,4 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_bg_company_registry_user,bg.company.registry.user,model_bg_company_registry,base.group_user,1,0,0,0
-access_bg_company_registry_manager,bg.company.registry.manager,model_bg_company_registry,base.group_system,1,1,1,1
-access_bg_company_search_wizard_user,bg.company.search.wizard.user,model_bg_company_search_wizard,base.group_user,1,1,1,1

@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
@@ -6,89 +7,75 @@
         <field name="name">bg.company.search.wizard.form</field>
         <field name="model">bg.company.search.wizard</field>
         <field name="arch" type="xml">
-            <form string="Търсене на българска компания">
+            <form string="Данни от търговски регистър">
                 <sheet>
                     <group>
+                        <field name="partner_id" invisible="1"/>
+                        <field name="data_fetched" invisible="1"/>
+                        <field name="company_data_json" invisible="1"/>
+
                         <group>
-                            <field name="partner_id" invisible="1"/>
-                            <field name="search_type" widget="radio"/>
+                            <field name="eik" placeholder="Въведете ЕИК (9 или 13 цифри)"/>
                         </group>
                     </group>
 
                     <group>
-                        <group>
-                            <field name="search_eik"
-                                   placeholder="Въведете ЕИК (9 или 13 цифри)"
-                                   invisible="search_type != 'eik'"
-                                   required="search_type == 'eik'"/>
-                            <field name="search_name"
-                                   placeholder="Въведете име на фирма (минимум 3 символа)"
-                                   invisible="search_type != 'name'"
-                                   required="search_type == 'name'"/>
-                        </group>
-                    </group>
-
-                    <group>
-                        <button name="action_search"
-                                string="Търсене"
+                        <button name="action_fetch_data"
+                                string="Изтегли данни от регистър"
                                 type="object"
                                 class="btn-primary"
-                                icon="fa-search"/>
+                                icon="fa-download"/>
                     </group>
 
-                    <separator string="Резултати от търсенето"
-                               invisible="not company_ids"/>
+                    <separator string="Данни за компанията"
+                               invisible="not data_fetched"/>
 
-                    <group invisible="not company_ids">
-                        <field name="company_ids" nolabel="1" mode="list">
-                            <list string="Companies found"
-                                  create="false"
-                                  delete="false"
-                                  decoration-info="id == parent.selected_company_id">
-                                <field name="eik"/>
-                                <field name="company_name_bg"/>
-                                <field name="company_name_en"/>
-                                <field name="legal_form_bg"/>
-                                <field name="city_bg"/>
-                                <field name="vat_number"/>
-                            </list>
-                        </field>
-                    </group>
-
-                    <separator string="Избрана компания"
-                               invisible="not selected_company_id"/>
-
-                    <group invisible="not selected_company_id">
+                    <group invisible="not data_fetched">
                         <group>
-                            <field name="selected_company_id"
-                                   domain="[('id', 'in', company_ids)]"
-                                   options="{'no_create': True, 'no_open': True}"/>
                             <field name="display_eik"/>
                             <field name="display_vat"/>
-                            <field name="display_legal_form"/>
+                            <field name="display_legal_form_bg"/>
+                            <field name="display_registration_date"/>
                         </group>
                         <group>
                             <field name="display_name_bg"/>
                             <field name="display_name_en"/>
-                            <field name="display_address_bg"/>
+                            <field name="display_activity_code"/>
                         </group>
+                    </group>
+
+                    <group invisible="not data_fetched">
+                        <group colspan="2">
+                            <field name="display_activity_description" nolabel="1"/>
+                        </group>
+                    </group>
+
+                    <separator string="Адрес"
+                               invisible="not data_fetched"/>
+
+                    <group invisible="not data_fetched">
+                        <group>
+                            <field name="display_city"/>
+                            <field name="display_postal_code"/>
+                        </group>
+                        <group>
+                            <field name="display_street"/>
+                        </group>
+                    </group>
+
+                    <group invisible="not data_fetched">
+                        <field name="display_address_bg" nolabel="1"/>
                     </group>
 
                 </sheet>
                 <footer>
                     <button name="action_populate_partner"
-                            string="Fill in partner"
+                            string="Попълни партньор с данни"
                             type="object"
                             class="btn-primary"
-                            invisible="not selected_company_id or not partner_id"
-                            icon="fa-download"/>
-                    <button name="action_create_partner"
-                            string="Create a new partner"
-                            type="object"
-                            class="btn-success"
-                            invisible="not selected_company_id or partner_id"
-                            icon="fa-plus"/>
-                    <button string="Cancel"
+                            invisible="not data_fetched or not partner_id"
+                            icon="fa-check"/>
+                    <button string="Затвори"
                             class="btn-secondary"
                             special="cancel"/>
                 </footer>
@@ -98,7 +85,7 @@
 
     <!-- Wizard Action -->
     <record id="action_bg_company_search_wizard" model="ir.actions.act_window">
-        <field name="name">Search for a Bulgarian company</field>
+        <field name="name">Данни от търговски регистър</field>
         <field name="res_model">bg.company.search.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

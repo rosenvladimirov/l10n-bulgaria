@@ -80,31 +80,6 @@ Integration module for Odoo that connects to the **Bulgarian Company Registry** 
 - **Solution:** Extended prefix detection to include all address types
 - **Impact:** Now handles residential complexes, resort complexes, localities, and quarters
 
-#### Test Results
-
-Tested with 4 real companies from different cities and address types:
-
-| Company | Type | Address Format | Result |
-|---------|------|----------------|--------|
-| ТЕРАРОС КОМЕРС (Razgrad) | Street with number | ул. БЕЛИ ЛОМ № 53 | ✅ 100% |
-| МЕК електроникс (Varna) | Boulevard with number | бул. Владислав Варненчик № 281 | ✅ 100% |
-| КОНЕКС (Sofia) | Residential complex | ж.к. ДРУЖБА, бл. 76А | ✅ 100% |
-| ОКТА ЛАЙТ (Sofia) | Street with quotes | ул. "Борис Руменов" № 13 | ✅ 100% |
-
-**Improvement:** From 37% average success rate to **100%** (+63% improvement!)
-
-#### Covered Edge Cases
-
-✅ Streets with numbers: `ул. ИМЕ № 53`
-✅ Boulevards with numbers: `бул. ИМЕ № 281`
-✅ Residential complexes WITHOUT numbers: `ж.к. ДРУЖБА`
-✅ Multi-word street names: `Владислав Варненчик`
-✅ **Quotes in street names:** `"Борис Руменов"` (NEW!)
-✅ Email in addresses: Extracted from end of line
-✅ Phone in addresses: Extracted from end of line
-✅ Districts: `р-н Младост`
-✅ Complex addresses: With building/entrance/floor/apartment
-
 ---
 
 ## 📦 Installation
@@ -219,51 +194,6 @@ The API returns comprehensive company information including:
 | Managers | Notes/Comments | Representative list |
 
 ---
-
-## 📍 Address Parsing
-
-### Supported Address Formats
-
-The module intelligently parses all Bulgarian address formats:
-
-#### 1. Streets (ул.)
-```
-ул. БЕЛИ ЛОМ № 53, бл. 3, вх. Б, ет. 5, ап. 36
-```
-**Extracted:**
-- Street name: `БЕЛИ ЛОМ`
-- Street number: `53`
-- Building: `3`
-- Entrance: `Б`
-- Floor: `5`
-- Apartment: `36`
-
-#### 2. Boulevards (бул.)
-```
-бул. Владислав Варненчик № 281
-```
-**Extracted:**
-- Street name: `Владислав Варненчик` (multi-word names supported!)
-- Street number: `281`
-
-#### 3. Residential Complexes (ж.к.)
-```
-ж.к. ДРУЖБА, бл. 76А, вх. Б, ет. 5, ап. 37
-```
-**Extracted:**
-- Complex name: `ДРУЖБА`
-- Building: `76А`
-- Entrance: `Б`
-- Floor: `5`
-- Apartment: `37`
-
-#### 4. Streets with Quotes
-```
-ул. "Борис Руменов" № 13
-```
-**Extracted:**
-- Street name: `"Борис Руменов"` (quotes preserved!)
-- Street number: `13`
 
 #### 5. Additional Supported Prefixes
 

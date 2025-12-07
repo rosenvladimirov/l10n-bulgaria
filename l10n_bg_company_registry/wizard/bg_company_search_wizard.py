@@ -56,7 +56,19 @@ class BgCompanySearchWizard(models.TransientModel):
         string='Address (BG)',
         readonly=True
     )
-    display_city = fields.Char(
+    # Address structured fields
+    display_country_id = fields.Many2one(
+        'res.country',
+        string='Country',
+        readonly=True
+    )
+    display_state_id = fields.Many2one(
+        'res.country.state',
+        string='State',
+        readonly=True
+    )
+    display_city_id = fields.Many2one(
+        'res.city',
         string='City',
         readonly=True
     )
@@ -102,7 +114,7 @@ class BgCompanySearchWizard(models.TransientModel):
 
     @api.depends('eik', 'original_eik')
     def _compute_eik_changed(self):
-        """Check if EIK was changed from original"""
+        """Check if EIK was changed from the original"""
         for wizard in self:
             wizard.eik_changed = (
                 wizard.original_eik and
@@ -126,6 +138,17 @@ class BgCompanySearchWizard(models.TransientModel):
                 if eik:
                     company_data = self._fetch_from_registry_api_eik_only(eik)
                     if company_data:
+                        # Resolve relational fields (country, state, city)
+                        # Note: We need to use self.env even in default_get
+                        # Create a temporary wizard to access self.env
+                        temp_wizard = self.env['bg.company.search.wizard']
+
+                        # Re-parse address to get IDs
+                        if company_data.get('address_full_bg'):
+                            # Call the instance method via temp_wizard
+                            parsed_address = temp_wizard._parse_bulgarian_address(company_data['address_full_bg'])
+                            company_data.update(parsed_address)
+
                         # Populate display fields
                         res.update(self._populate_display_fields(company_data))
                         res['data_fetched'] = True
@@ -291,7 +314,8 @@ class BgCompanySearchWizard(models.TransientModel):
 
                 # Pattern to extract all address components
                 # Format: ул. БЕЛИ ЛОМ № 53, бл. 3, вх. Б, ет. 5, ап. 36
-                street_pattern = r'^([^№]+?)(?:\s*№\s*(\d+[А-Яа-я]?))?(?:,?\s*бл\.\s*(\d+[А-Яа-я]?))?(?:,?\s*вх\.\s*([А-Яа-я\d]+))?(?:,?\s*ет\.\s*(\d+))?(?:,?\s*ап\.\s*(\d+))?'
+                # Using greedy (+) instead of non-greedy (+?) to match full street names
+                street_pattern = r'^([^№]+)(?:\s*№\s*(\d+[А-Яа-я]?))?(?:,?\s*бл\.\s*(\d+[А-Яа-я]?))?(?:,?\s*вх\.\s*([А-Яа-я\d]+))?(?:,?\s*ет\.\s*(\d+))?(?:,?\s*ап\.\s*(\d+))?'
                 street_match = re.search(street_pattern, street_line)
 
                 if street_match:
@@ -559,7 +583,9 @@ class BgCompanySearchWizard(models.TransientModel):
             'display_legal_form_bg': company_data.get('legal_form_bg', ''),
             'display_vat': company_data.get('vat_number', ''),
             'display_address_bg': company_data.get('address_full_bg', ''),
-            'display_city': company_data.get('city_name', ''),
+            'display_country_id': company_data.get('country_id', False),
+            'display_state_id': company_data.get('state_id', False),
+            'display_city_id': company_data.get('city_id', False),
             'display_postal_code': company_data.get('zip', ''),
             'display_street': company_data.get('street', ''),
             'display_activity_code': company_data.get('activity_code', ''),
@@ -738,6 +764,11 @@ class BgCompanySearchWizard(models.TransientModel):
                 'Компанията не е намерена в официалния търговски регистър.\n\n'
                 'Моля проверете дали ЕИК номерът е правилен.'
             ) % eik)
+
+        # Re-parse address to get city_id, state_id, country_id
+        if company_data.get('address_full_bg'):
+            parsed_address = self._parse_bulgarian_address(company_data['address_full_bg'])
+            company_data.update(parsed_address)
 
         # Store data in JSON format
         import json

@@ -9,9 +9,11 @@
             <form string="Данни от търговски регистър">
                 <sheet>
                     <group>
-                        <field name="partner_id" invisible="1"/>
-                        <field name="data_fetched" invisible="1"/>
-                        <field name="company_data_json" invisible="1"/>
+                        <field name="partner_id" invisible="1" force_save="1"/>
+                        <field name="data_fetched" invisible="1" force_save="1"/>
+                        <field name="company_data_json" invisible="1" force_save="1"/>
+                        <field name="original_eik" invisible="1" force_save="1"/>
+                        <field name="eik_changed" invisible="1" force_save="1"/>
 
                         <group>
                             <field name="eik" placeholder="Въведете ЕИК (9 или 13 цифри)"/>
@@ -54,16 +56,21 @@
 
                     <group invisible="not data_fetched">
                         <group>
-                            <field name="display_city"/>
-                            <field name="display_postal_code"/>
+                            <field name="display_country_id"/>
+                            <field name="display_state_id"/>
+                            <field name="display_city_id"/>
                         </group>
                         <group>
+                            <field name="display_postal_code"/>
                             <field name="display_street"/>
                         </group>
                     </group>
 
                     <group invisible="not data_fetched">
-                        <field name="display_address_bg" nolabel="1"/>
+                        <field name="display_address_bg"
+                               string="Пълен адрес (от регистър)"
+                               nolabel="1"
+                               widget="text"/>
                     </group>
 
                 </sheet>

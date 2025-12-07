@@ -396,22 +396,8 @@ class BgCompanySearchWizard(models.TransientModel):
                     result['email'] = email_match.group(1).strip()
                 continue
 
-            # Extract phone (може да е на отделен ред или част от адреса)
-            # Формат: "Телефон: 0888123456" или "Телефон: email@domain.com"
-            if line.startswith('Телефон:') or line.startswith('Факс:'):
-                contact_match = re.search(r'(?:Телефон|Факс):\s*(.+)$', line)
-                if contact_match:
-                    contact_info = contact_match.group(1).strip()
-                    # Check if it's an email (contains @)
-                    if '@' in contact_info:
-                        result['email'] = contact_info
-                    else:
-                        # It's a phone number
-                        result['phone'] = contact_info
-                continue
-
             # Extract street with бул./ул. as a key
-            # Формат: "бул./ул. ул. "Борис Руменов" № 13 Телефон: 0888123456"
+            # Формат: "ж.к. Младост 4, бул./ул. Самара № 2, бл. Адванс Бизнес Център, сграда 2, ет. 8"
             if 'бул./ул.' in line:
                 # Extract everything after "бул./ул." using regex
                 street_match = re.search(r'бул\./ул\.\s*(.+)$', line)
@@ -419,7 +405,7 @@ class BgCompanySearchWizard(models.TransientModel):
                     # Цялата част след "бул./ул."
                     full_street_line = street_match.group(1).strip()
 
-                    # First, check if phone/fax/email is in this line and extract it
+                    # First check if phone/fax/email is in this line and extract it
                     contact_match = re.search(r'\s+(?:Телефон|Факс):\s*(.+)$', full_street_line)
                     if contact_match:
                         contact_info = contact_match.group(1).strip()
@@ -429,66 +415,137 @@ class BgCompanySearchWizard(models.TransientModel):
                         else:
                             # It's a phone number
                             result['phone'] = contact_info
-                        # Remove contact info from the street line before parsing
+                        # Remove contact info from street line before parsing
                         street_line = re.sub(r'\s+(?:Телефон|Факс):.+$', '', full_street_line)
                     else:
                         street_line = full_street_line
 
-                    # Remove the remaining "бул." or "ул." prefix (with optional space and dot)
+                    # Remove remaining "бул." or "ул." prefix (with optional space and dot)
                     street_line = re.sub(r'^(?:бул\.|ул\.)\.?\s*', '', street_line)
 
                     # Премахваме кавички около името на улицата
                     street_line = street_line.replace('"', '').replace('"', '').replace('"', '')
 
-                    # Pattern to extract all address components
-                    # Format: Панайот Хитов № 7, бл. 3, вх. Б, ет. 5, ап. 36
-                    street_pattern = r'^([^№]+?)(?:\s*№\s*(\d+[А-Яа-я]?))?(?:,?\s*бл\.\s*(\d+[А-Яа-я]?))?(?:,?\s*вх\.\s*([А-Яа-я\d]+))?(?:,?\s*ет\.\s*(\d+))?(?:,?\s*ап\.\s*(\d+))?'
-                    address_match = re.search(street_pattern, street_line)
+                    # Разделяме по запетая за да обработим всеки сегмент
+                    segments = [seg.strip() for seg in street_line.split(',')]
 
-                    if address_match:
-                        street_name = address_match.group(1).strip()
-                        street_number = address_match.group(2) or ''
-                        building_number = address_match.group(3) or ''
-                        entrance = address_match.group(4) or ''
-                        floor_number = address_match.group(5) or ''
-                        apartment = address_match.group(6) or ''
+                    street_name = ''
+                    street_number = ''
+                    building_number = ''
+                    building_name = ''
+                    entrance = ''
+                    floor_number = ''
+                    apartment = ''
 
+                    for segment in segments:
+                        # Проверяваме за различни ключови думи
+
+                        # Номер на улица: "№ 2" или "Самара № 2"
+                        if '№' in segment and not street_number:
+                            # Извличаме името на улицата и номера
+                            parts = segment.split('№')
+                            if parts[0].strip() and not street_name:
+                                street_name = parts[0].strip()
+                            if len(parts) > 1:
+                                # Извличаме само цифрите и евентуална буква
+                                num_match = re.search(r'(\d+[А-Яа-я]?)', parts[1])
+                                if num_match:
+                                    street_number = num_match.group(1)
+
+                        # Блок: "бл. 123" или "бл. Адванс Бизнес Център"
+                        elif segment.startswith('бл.'):
+                            building_text = segment[3:].strip()
+                            # Проверяваме дали е число или име
+                            if re.match(r'^\d+[А-Яа-я]?$', building_text):
+                                building_number = building_text
+                            else:
+                                # Това е име на сграда
+                                building_name = building_text
+
+                        # Вход: "вх. Б"
+                        elif segment.startswith('вх.'):
+                            entrance = segment[3:].strip()
+
+                        # Етаж: "ет. 8"
+                        elif segment.startswith('ет.'):
+                            floor_match = re.search(r'(\d+)', segment)
+                            if floor_match:
+                                floor_number = floor_match.group(1)
+
+                        # Апартамент: "ап. 36"
+                        elif segment.startswith('ап.'):
+                            apt_match = re.search(r'(\d+)', segment)
+                            if apt_match:
+                                apartment = apt_match.group(1)
+
+                        # Сграда: "сграда 2"
+                        elif segment.startswith('сграда'):
+                            # Добавяме към building_name
+                            if building_name:
+                                building_name += f", {segment}"
+                            else:
+                                building_name = segment
+
+                        # Ако няма ключова дума и няма име на улица, това е улицата
+                        elif not street_name and not any(
+                            keyword in segment for keyword in ['бл.', 'вх.', 'ет.', 'ап.', 'сграда']):
+                            street_name = segment
+
+                    # Записваме резултатите
+                    if street_name:
                         result['street_name'] = street_name
+
+                    if street_number:
                         result['street_number'] = street_number
 
-                        if apartment:
-                            result['street_number2'] = apartment
+                    if apartment:
+                        result['street_number2'] = apartment
 
+                    # Комбинираме building_number и building_name
+                    if building_number or building_name:
+                        building_parts = []
                         if building_number:
-                            if entrance:
-                                result['street_building_number'] = f"{building_number}, вх. {entrance}"
-                            else:
-                                result['street_building_number'] = building_number
-
-                        if floor_number:
-                            result['street_floor_number'] = floor_number
-
-                        # Build full street with district at the beginning
-                        street_parts = []
-
-                        # Добавяме район в началото ако има
-                        if result.get('district'):
-                            street_parts.append(f"р-н {result['district']}")
-                            del result['district']
-
-                        street_parts.append(street_name)
-                        if street_number:
-                            street_parts.append(f"№ {street_number}")
-                        if building_number:
-                            street_parts.append(f"бл. {building_number}")
+                            building_parts.append(building_number)
+                        if building_name:
+                            building_parts.append(building_name)
                         if entrance:
-                            street_parts.append(f"вх. {entrance}")
-                        if floor_number:
-                            street_parts.append(f"ет. {floor_number}")
-                        if apartment:
-                            street_parts.append(f"ап. {apartment}")
+                            building_parts.append(f"вх. {entrance}")
+                        result['street_building_number'] = ', '.join(building_parts)
+                    elif entrance:
+                        result['street_building_number'] = f"вх. {entrance}"
 
-                        result['street'] = ', '.join(street_parts)
+                    if floor_number:
+                        result['street_floor_number'] = floor_number
+
+                    # Build full street with district and residential complex at the beginning
+                    street_parts = []
+
+                    # Добавяме район в началото ако има
+                    if result.get('district'):
+                        street_parts.append(f"р-н {result['district']}")
+
+                    # Проверяваме дали има ж.к. в оригиналния ред преди бул./ул.
+                    if 'ж.к.' in line:
+                        complex_match = re.search(r'ж\.к\.\s*([^,]+)', line)
+                        if complex_match:
+                            street_parts.append(f"ж.к. {complex_match.group(1).strip()}")
+
+                    if street_name:
+                        street_parts.append(street_name)
+                    if street_number:
+                        street_parts.append(f"№ {street_number}")
+                    if building_number:
+                        street_parts.append(f"бл. {building_number}")
+                    if building_name:
+                        street_parts.append(building_name)
+                    if entrance:
+                        street_parts.append(f"вх. {entrance}")
+                    if floor_number:
+                        street_parts.append(f"ет. {floor_number}")
+                    if apartment:
+                        street_parts.append(f"ап. {apartment}")
+
+                    result['street'] = ', '.join(street_parts)
                 continue
 
         return result

@@ -4,104 +4,104 @@
 [![License](https://img.shields.io/badge/License-LGPL--3-green)](LICENSE)
 [![Version](https://img.shields.io/badge/Version-18.0.1.1.0-blue)](CHANGELOG.md)
 
-Модул за автоматично попълване на партньори с данни от **Търговския регистър на България** чрез официалния API на portal.registryagency.bg.
+Module for automatically populating partner data from the **Bulgarian Trade Registry** via the official portal.registryagency.bg API.
 
 ---
 
 ## ⚡ Quick Start
 
-1. Инсталирай модула в Odoo
-2. Отвори партньор
-3. Въведи ЕИК номер
-4. Натисни "Зареди от регистър"
-5. **Готово!** Всички данни се попълват автоматично
+1. Install the module in Odoo
+2. Open a partner record
+3. Enter the EIK number
+4. Click "Fetch from Registry"
+5. **Done!** All data is populated automatically
 
 ---
 
-## 📋 Възможности
+## 📋 Features
 
-### Основни функции
-- ✅ Търсене на фирми по ЕИК в реално време
-- ✅ Автоматично попълване на всички данни
-- ✅ Структуриран адрес (град, улица, пощенски код)
-- ✅ Правна форма (ООД, ЕООД, АД, ЕТ и др.)
-- ✅ Дата на регистрация
-- ✅ НКИД код и описание на дейност
-- ✅ Управители/представители
-- ✅ Email и телефон (ако са в адреса)
+### Core Functionality
+- ✅ Real-time company search by EIK (Bulgarian company ID)
+- ✅ Automatic population of all company data
+- ✅ Structured address (city, street, postal code, district)
+- ✅ Legal form (ООД, ЕООД, АД, ЕТ, etc.)
+- ✅ Registration date and court
+- ✅ NACE activity code and description
+- ✅ Company managers/representatives
+- ✅ Email and phone (if present in address)
 
-### Поддържани адреси
+### Supported Address Formats
 ```
-✅ ул. ИМЕ № 53, бл. 3, вх. Б, ет. 5, ап. 36
-✅ бул. ИМЕ № 281
-✅ ж.к. ИМЕ, бл. 76А, вх. Б
-✅ ул. "ИМЕ" № 13  (с кавички)
-✅ к.к., м., кв. (курортни комплекси, местности, квартали)
-✅ С район (р-н Младост)
-✅ С email и телефон
+✅ ул. NAME № 53, бл. 3, вх. Б, ет. 5, ап. 36  (street with number)
+✅ бул. NAME № 281  (boulevard)
+✅ ж.к. NAME, бл. 76А, вх. Б  (residential complex)
+✅ ул. "NAME" № 13  (street with quotes)
+✅ к.к., м., кв.  (resort complex, locality, quarter)
+✅ р-н NAME  (with district)
+✅ With email and phone extraction
 ```
 
-**Успеваемост:** 100% при тестване с реални фирми
+**Success Rate:** 100% when tested with real companies
 
 ---
 
-## 🚀 Инсталация
+## 🚀 Installation
 
-### Изисквания
+### Requirements
 
 ```bash
 pip install requests --break-system-packages
 ```
 
-**Необходим модул:**
-- `l10n_bg_partner` - Българска локализация (осигурява полета за ЕИК/БУЛСТАТ)
+**Required Module:**
+- `l10n_bg_partner` - Bulgarian partner localization (provides EIK/UIC fields)
 
-### Стъпки
+### Steps
 
-1. **Копирай** модула в Odoo addons директория:
+1. **Copy** the module to your Odoo addons directory:
    ```bash
    cp -r l10n_bg_partner /path/to/odoo/addons/
    ```
 
-2. **Рестартирай** Odoo:
+2. **Restart** Odoo:
    ```bash
    sudo systemctl restart odoo
    ```
 
-3. **Инсталирай** от Apps menu:
-   - Обнови списъка с приложения
-   - Търси "Bulgarian Partner"
-   - Кликни "Install"
+3. **Install** from Apps menu:
+   - Update Apps List
+   - Search "Bulgarian Partner"
+   - Click "Install"
 
 ---
 
-## 💡 Използване
+## 💡 Usage
 
-### Метод 1: Бърз бутон
+### Method 1: Quick Button
 
-1. Отвори партньор (съществуващ или нов)
-2. Попълни **ЕИК номер**
-3. Натисни **"Зареди от регистър"** (🔄)
-4. Готово!
+1. Open a partner record (existing or new)
+2. Fill in the **EIK number**
+3. Click **"Fetch from Registry"** (🔄)
+4. Done!
 
-### Метод 2: Search Wizard
+### Method 2: Search Wizard
 
-1. Отвори партньор
-2. Натисни **"Търси в регистър"**
-3. Въведи ЕИК (ако не е попълнен)
-4. Натисни **"Търси"**
-5. Прегледай данните
-6. Натисни **"Попълни партньор"**
+1. Open a partner record
+2. Click **"Search Registry"**
+3. Enter EIK (if not filled)
+4. Click **"Search"**
+5. Review the data
+6. Click **"Populate Partner"**
 
-### Метод 3: Нов партньор
+### Method 3: New Partner
 
 1. Contacts → Create
-2. Натисни **"Търси в регистър"**
-3. Въведи ЕИК
-4. Търси и прегледай
-5. Натисни **"Създай нов партньор"**
+2. Click **"Search Registry"**
+3. Enter EIK
+4. Search and review
+5. Click **"Create New Partner"**
 
-### Поддържани ЕИК формати
+### Supported EIK Formats
 
 ```
 123456789          ✅
@@ -112,30 +112,30 @@ bg123456789        ✅
 
 ---
 
-## 🔧 Технически детайли
+## 🔧 Technical Details
 
 ### API Integration
 
 **Endpoint:** `https://portal.registryagency.bg/CR/api/Deeds/{eik}`
 
-- ✅ Директна връзка с официалния регистър
-- ✅ Винаги актуални данни
-- ✅ Без нужда от локална база
-- ✅ Timeout: 30 секунди
+- ✅ Direct connection to official registry
+- ✅ Always up-to-date data
+- ✅ No local database needed
+- ✅ Timeout: 30 seconds
 
-### Попълвани полета
+### Populated Fields
 
-| Данни от регистър | Odoo поле |
-|-------------------|-----------|
-| ЕИК | `l10n_bg_uic` |
-| Фирма | `name` |
-| Адрес | `street`, `city`, `zip`, `state_id` |
-| Правна форма | `l10n_bg_legal_form` |
-| НКИД | `l10n_bg_activity_code` |
-| Дата регистрация | `l10n_bg_registration_date` |
-| Email/Телефон | `email`, `phone` |
+| Registry Data | Odoo Field |
+|---------------|------------|
+| EIK | `l10n_bg_uic` |
+| Company Name | `name` |
+| Address | `street`, `city`, `zip`, `state_id` |
+| Legal Form | `l10n_bg_legal_form` |
+| NACE Code | `l10n_bg_activity_code` |
+| Registration Date | `l10n_bg_registration_date` |
+| Email/Phone | `email`, `phone` |
 
-### Структура на модула
+### Module Structure
 
 ```
 l10n_bg_partner/
@@ -157,62 +157,62 @@ l10n_bg_partner/
 
 ---
 
-## 🆕 Последни подобрения (v18.0.1.1.0)
+## 🆕 Latest Improvements (v18.0.1.1.0)
 
-### Декември 2025 - Address Parsing Overhaul
+### December 2025 - Address Parsing Overhaul
 
-**4 критични поправки:**
+**4 Critical Fixes:**
 
-1. **HTML парсване** - Запазване на структурата на адреса
-2. **Контакти** - Извличане на email/телефон от адреса
-3. **Greedy regex** - Пълни имена на улици (не само първа буква)
-4. **Ж.К. поддръжка** - Жилищни комплекси, к.к., м., кв.
+1. **HTML Parsing** - Preserves address structure (`<br>` → `\n`)
+2. **Contact Extraction** - Email/phone from end of address lines
+3. **Greedy Regex** - Full street names (not just first letter)
+4. **ж.к. Support** - Residential complexes, к.к., м., кв.
 
-**Резултат:** От 37% към **100% успеваемост** (+63%)
+**Result:** From 37% to **100% success rate** (+63%)
 
-**Тествано с:** 4 реални фирми от различни градове и типове адреси
+**Tested with:** 4 real companies from different cities and address types
 
-Детайли: [CHANGELOG.md](CHANGELOG.md)
+Details: [CHANGELOG.md](CHANGELOG.md)
 
 ---
 
-## ❓ Често задавани въпроси
+## ❓ FAQ
 
-### Не се намират данни за ЕИК
+### No data found for EIK
 
-**Възможни причини:**
-- ЕИК номерът е грешен
-- Фирмата не е в Търговския регистър
-- API е временно недостъпен
+**Possible causes:**
+- EIK number is incorrect
+- Company not in Trade Register
+- API temporarily unavailable
 
-**Решение:**
-1. Провери ЕИК номера
-2. Потърси на portal.registryagency.bg ръчно
-3. Опитай по-късно
+**Solution:**
+1. Verify EIK number
+2. Check portal.registryagency.bg manually
+3. Try again later
 
-### Адресът не се попълва правилно
+### Address not populating correctly
 
-**Решение:** Обнови до версия 18.0.1.1.0 - проблемът е поправен
+**Solution:** Update to version 18.0.1.1.0 - issue fixed
 
-### Не виждам бутона "Зареди от регистър"
+### "Fetch from Registry" button not visible
 
-**Причина:** ЕИК полето не е попълнено или типът не е 'bg_uic'
+**Cause:** EIK field not filled or type not 'bg_uic'
 
-**Решение:**
-1. Попълни ЕИК номера
-2. Провери че партньорът е с ЕИК тип (не БУЛСТАТ)
+**Solution:**
+1. Fill in EIK number
+2. Check partner has EIK type (not BULSTAT)
 
 ---
 
 ## 🐛 Debug
 
-Ако има проблеми, провери логовете:
+If issues occur, check logs:
 
 ```bash
 tail -f /var/log/odoo/odoo.log
 ```
 
-Търси за грешки свързани с:
+Look for errors related to:
 - `bg.company.search.wizard`
 - `res.partner`
 - API timeout/connection errors
@@ -221,89 +221,89 @@ tail -f /var/log/odoo/odoo.log
 
 ## 🔄 Upgrade
 
-От версия 18.0.1.0.0 към 18.0.1.1.0:
+From version 18.0.1.0.0 to 18.0.1.1.0:
 
-1. Backup на базата и модула
-2. Замени само файла `bg_company_search_wizard.py`
-3. Рестартирай Odoo
-4. Готово - без миграция на базата!
+1. Backup database and module
+2. Replace only `bg_company_search_wizard.py` file
+3. Restart Odoo
+4. Done - no database migration needed!
 
-Детайли: [UPGRADE_GUIDE.md](UPGRADE_GUIDE.md)
+Details: [UPGRADE_GUIDE.md](UPGRADE_GUIDE.md)
 
 ---
 
 ## 🤝 Contributing
 
-Приноси са добре дошли! Моля прочети [CONTRIBUTING.md](CONTRIBUTING.md) за:
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for:
 - Code style guidelines
 - Testing checklist
-- Pull request процес
+- Pull request process
 
 ---
 
 ## 📝 Changelog
 
 ### [18.0.1.1.0] - 2025-12-07
-- ✅ Поправени 4 критични бъга в адрес парсинга
-- ✅ 100% успеваемост
-- ✅ Поддръжка на всички типове адреси
+- ✅ Fixed 4 critical bugs in address parsing
+- ✅ 100% success rate achieved
+- ✅ Support for all address types
 
 ### [18.0.1.0.0] - 2025-11-XX
-- 🚀 Първо публично издание
+- 🚀 Initial public release
 
-Виж: [CHANGELOG.md](CHANGELOG.md)
+See: [CHANGELOG.md](CHANGELOG.md)
 
 ---
 
 ## 🗺️ Roadmap
 
-**Планирано за 18.0.1.2.0:**
-- [ ] Batch import на множество фирми
-- [ ] Разширено търсене (по град, правна форма)
-- [ ] Export към Excel
+**Planned for 18.0.1.2.0:**
+- [ ] Batch import of multiple companies
+- [ ] Advanced search (by city, legal form)
+- [ ] Export to Excel
 
-**Планирано за 18.0.2.0.0:**
-- [ ] Интеграция с НАП за ДДС проверка
-- [ ] История на промените
-- [ ] Автоматично обновяване
-
----
-
-## 📄 Лиценз
-
-LGPL-3 - виж [LICENSE](LICENSE) файла
+**Planned for 18.0.2.0.0:**
+- [ ] NRA (tax authority) integration for VAT validation
+- [ ] Historical data tracking
+- [ ] Automatic updates
 
 ---
 
-## 👤 Автор
+## 📄 License
+
+LGPL-3 - see [LICENSE](LICENSE) file
+
+---
+
+## 👤 Author
 
 **Rosen Vladimirov**
 Odoo ERP Developer & Bulgarian Localization Specialist
 
 ---
 
-## 🙏 Благодарности
+## 🙏 Acknowledgments
 
-- Агенция по вписванията за публичния API
+- Bulgarian Trade Registry Agency for the public API
 - Odoo Community
-- Всички тестери и contributors
+- All testers and contributors
 
 ---
 
-## ⚠️ Важно
+## ⚠️ Disclaimer
 
-Този модул предоставя данни от официалния регистър "както са". Винаги проверявай критична информация директно на portal.registryagency.bg.
+This module provides data from the official registry "as is". Always verify critical information directly on portal.registryagency.bg.
 
 ---
 
-**Последна актуализация:** 7 Декември 2025
-**Версия:** 18.0.1.1.0
-**Тествано на:** Odoo 16, 17, 18, 19
+**Last Updated:** December 7, 2025
+**Version:** 18.0.2.0.1
+**Tested on:** Odoo 16, 17, 18, 19
 
 ---
 
 <div align="center">
 
-**[⬆ Нагоре](#bulgarian-company-registry-integration-for-odoo)**
+**[⬆ Back to Top](#bulgarian-company-registry-integration-for-odoo)**
 
 </div>

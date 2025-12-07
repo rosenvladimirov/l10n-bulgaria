@@ -244,7 +244,7 @@ class BgCompanySearchWizard(models.TransientModel):
 
         # Resolve country_id
         if result.get('country_name'):
-            # Try to find country by name (e.g., "БЪЛГАРИЯ")
+            # Try to find a country by name (e.g., "БЪЛГАРИЯ")
             # Using =ilike for exact case-insensitive match
             country = bg_env['res.country'].search([
                 ('name', '=ilike', result['country_name'])
@@ -263,11 +263,22 @@ class BgCompanySearchWizard(models.TransientModel):
 
         # Resolve state_id
         if result.get('state_name'):
-            # Using =ilike for exact case-insensitive match
+            state = False
+
+            # Първо опитваме точно съвпадение
             state = bg_env['res.country.state'].search([
                 ('country_id.code', '=', 'BG'),
-                ('name', '=ilike', result['state_name'])
+                ('name', 'ilike', result['state_name'])
             ], limit=1)
+
+            # Ако не е намерена, добавяме префикс "Област " и търсим отново
+            if not state:
+                state_name_with_prefix = f"Област {result['state_name']}"
+                state = bg_env['res.country.state'].search([
+                    ('country_id.code', '=', 'BG'),
+                    ('name', 'ilike', state_name_with_prefix)
+                ], limit=1)
+
             if state:
                 result['state_id'] = state.id
 
@@ -368,71 +379,17 @@ class BgCompanySearchWizard(models.TransientModel):
                         result['zip'] = city_match.group(2).strip()
                 continue
 
-            # Extract street (бул./ул.)
-            if 'бул./ул.' in line or (line.startswith('бул.') or line.startswith('ул.')):
-                # First, extract contact info if present at the end of the line
-                contact_match = re.search(r'\s+(?:Телефон|Факс):\s*(.+)$', line)
-                if contact_match:
-                    contact_info = contact_match.group(1).strip()
-                    # Check if it's an email (contains @)
-                    if '@' in contact_info:
-                        result['email'] = contact_info
-                    else:
-                        # It's a phone number
-                        result['phone'] = contact_info
-                    # Remove contact info from line before parsing street
-                    line = re.sub(r'\s+(?:Телефон|Факс):.+$', '', line)
-
-                # Remove "бул./ул." prefix
-                street_line = re.sub(r'^бул\./ул\.\s*', '', line)
-                street_line = re.sub(r'^(?:бул\.|ул\.)\s*', '', street_line)
-
-                # Pattern to extract all address components
-                # Format: ул. БЕЛИ ЛОМ № 53, бл. 3, вх. Б, ет. 5, ап. 36
-                street_pattern = r'^([^№]+?)(?:\s*№\s*(\d+[А-Яа-я]?))?(?:,?\s*бл\.\s*(\d+[А-Яа-я]?))?(?:,?\s*вх\.\s*([А-Яа-я\d]+))?(?:,?\s*ет\.\s*(\d+))?(?:,?\s*ап\.\s*(\d+))?'
-                street_match = re.search(street_pattern, street_line)
-
-                if street_match:
-                    street_name = street_match.group(1).strip()
-                    street_number = street_match.group(2) or ''
-                    building_number = street_match.group(3) or ''
-                    entrance = street_match.group(4) or ''
-                    floor_number = street_match.group(5) or ''
-                    apartment = street_match.group(6) or ''
-
-                    result['street_name'] = street_name
-                    result['street_number'] = street_number
-
-                    if apartment:
-                        result['street_number2'] = apartment
-
-                    if building_number:
-                        if entrance:
-                            result['street_building_number'] = f"{building_number}, вх. {entrance}"
-                        else:
-                            result['street_building_number'] = building_number
-
-                    if floor_number:
-                        result['street_floor_number'] = floor_number
-
-                    # Build full street
-                    street_parts = [street_name]
-                    if street_number:
-                        street_parts.append(f"№ {street_number}")
-                    if building_number:
-                        street_parts.append(f"бл. {building_number}")
-                    if entrance:
-                        street_parts.append(f"вх. {entrance}")
-                    if floor_number:
-                        street_parts.append(f"ет. {floor_number}")
-                    if apartment:
-                        street_parts.append(f"ап. {apartment}")
-
-                    result['street'] = ', '.join(street_parts)
+            # Extract email from dedicated field
+            # Формат: "Адрес на електронна поща: example@domain.com"
+            if 'Адрес на електронна поща:' in line:
+                email_match = re.search(r'Адрес на електронна поща:\s*(.+)$', line)
+                if email_match:
+                    result['email'] = email_match.group(1).strip()
                 continue
 
-            # Extract phone and email (usually in lines with Телефон:)
-            if 'Телефон:' in line or 'Факс:' in line:
+            # Extract phone (може да е на отделен ред или част от адреса)
+            # Формат: "Телефон: 0888123456" или "Телефон: email@domain.com"
+            if line.startswith('Телефон:') or line.startswith('Факс:'):
                 contact_match = re.search(r'(?:Телефон|Факс):\s*(.+)$', line)
                 if contact_match:
                     contact_info = contact_match.group(1).strip()
@@ -442,6 +399,80 @@ class BgCompanySearchWizard(models.TransientModel):
                     else:
                         # It's a phone number
                         result['phone'] = contact_info
+                continue
+
+            # Extract street with бул./ул. as a key
+            # Формат: "бул./ул. ул. "Борис Руменов" № 13 Телефон: 0888123456"
+            if 'бул./ул.' in line:
+                # Extract everything after "бул./ул." using regex
+                street_match = re.search(r'бул\./ул\.\s*(.+)$', line)
+                if street_match:
+                    # Цялата част след "бул./ул."
+                    full_street_line = street_match.group(1).strip()
+
+                    # First, check if phone/fax/email is in this line and extract it
+                    contact_match = re.search(r'\s+(?:Телефон|Факс):\s*(.+)$', full_street_line)
+                    if contact_match:
+                        contact_info = contact_match.group(1).strip()
+                        # Check if it's an email (contains @)
+                        if '@' in contact_info:
+                            result['email'] = contact_info
+                        else:
+                            # It's a phone number
+                            result['phone'] = contact_info
+                        # Remove contact info from the street line before parsing
+                        street_line = re.sub(r'\s+(?:Телефон|Факс):.+$', '', full_street_line)
+                    else:
+                        street_line = full_street_line
+
+                    # Remove remaining "бул." or "ул." or "р-н" prefix
+                    street_line = re.sub(r'^(?:бул\.|ул\.|р-н)\s*', '', street_line)
+
+                    # Премахваме кавички около името на улицата
+                    street_line = street_line.replace('"', '').replace('"', '').replace('"', '')
+
+                    # Pattern to extract all address components
+                    # Format: БЕЛИ ЛОМ № 53, бл. 3, вх. Б, ет. 5, ап. 36
+                    street_pattern = r'^([^№]+?)(?:\s*№\s*(\d+[А-Яа-я]?))?(?:,?\s*бл\.\s*(\d+[А-Яа-я]?))?(?:,?\s*вх\.\s*([А-Яа-я\d]+))?(?:,?\s*ет\.\s*(\d+))?(?:,?\s*ап\.\s*(\d+))?'
+                    address_match = re.search(street_pattern, street_line)
+
+                    if address_match:
+                        street_name = address_match.group(1).strip()
+                        street_number = address_match.group(2) or ''
+                        building_number = address_match.group(3) or ''
+                        entrance = address_match.group(4) or ''
+                        floor_number = address_match.group(5) or ''
+                        apartment = address_match.group(6) or ''
+
+                        result['street_name'] = street_name
+                        result['street_number'] = street_number
+
+                        if apartment:
+                            result['street_number2'] = apartment
+
+                        if building_number:
+                            if entrance:
+                                result['street_building_number'] = f"{building_number}, вх. {entrance}"
+                            else:
+                                result['street_building_number'] = building_number
+
+                        if floor_number:
+                            result['street_floor_number'] = floor_number
+
+                        # Build a full street
+                        street_parts = [street_name]
+                        if street_number:
+                            street_parts.append(f"№ {street_number}")
+                        if building_number:
+                            street_parts.append(f"бл. {building_number}")
+                        if entrance:
+                            street_parts.append(f"вх. {entrance}")
+                        if floor_number:
+                            street_parts.append(f"ет. {floor_number}")
+                        if apartment:
+                            street_parts.append(f"ап. {apartment}")
+
+                        result['street'] = ', '.join(street_parts)
                 continue
 
         return result

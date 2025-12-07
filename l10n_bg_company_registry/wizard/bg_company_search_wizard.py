@@ -323,6 +323,65 @@ class BgCompanySearchWizard(models.TransientModel):
         return result
 
     @staticmethod
+    def _format_company_name(name):
+        """
+        Format company name to Title Case
+
+        Args:
+            name (str): Company name in uppercase
+
+        Returns:
+            str: Formatted company name
+        """
+        if not name:
+            return name
+
+        # Разделяме по интервали и форматираме всяка дума
+        words = name.split()
+        formatted_words = []
+
+        for word in words:
+            # Запазваме съкращенията с главни букви (2-3 букви)
+            if len(word) <= 3 and word.isupper():
+                formatted_words.append(word)
+            else:
+                # Title case за останалите думи
+                formatted_words.append(word.capitalize())
+
+        return ' '.join(formatted_words)
+
+    @staticmethod
+    def _format_person_name(name):
+        """
+        Format person name: First and middle names in Title Case, last name in UPPERCASE
+
+        Args:
+            name (str): Person name (usually 3 parts: first middle last)
+
+        Returns:
+            str: Formatted person name
+        """
+        if not name:
+            return name
+
+        # Разделяме имената
+        name_parts = name.split()
+
+        if len(name_parts) == 0:
+            return name
+        elif len(name_parts) == 1:
+            # Само едно име - правим го Title Case
+            return name_parts[0].capitalize()
+        elif len(name_parts) == 2:
+            # Две имена - първото Title Case, второто UPPERCASE
+            return f"{name_parts[0].capitalize()} {name_parts[1].upper()}"
+        else:
+            # Три или повече имена - последното UPPERCASE, останалите Title Case
+            formatted_parts = [part.capitalize() for part in name_parts[:-1]]
+            formatted_parts.append(name_parts[-1].upper())
+            return ' '.join(formatted_parts)
+
+    @staticmethod
     def _parse_registry_response_static(data):
         """Static parser for registry response"""
         try:
@@ -332,7 +391,10 @@ class BgCompanySearchWizard(models.TransientModel):
             }
 
             legal_form_bg = legal_forms.get(data.get('legalForm'), '')
-            company_name_bg = data.get('companyName', '')
+            company_name_bg_raw = data.get('companyName', '')
+
+            # Форматираме името на фирмата в Title Case
+            company_name_bg = BgCompanySearchWizard._format_company_name(company_name_bg_raw)
 
             # Добавяме правната форма към българското име
             if legal_form_bg:
@@ -359,6 +421,10 @@ class BgCompanySearchWizard(models.TransientModel):
                         break
                 if company_name_en_raw:
                     break
+
+            # Форматираме английското име
+            if company_name_en_raw:
+                company_name_en_raw = BgCompanySearchWizard._format_company_name(company_name_en_raw)
 
             # Формиране на пълното английско име с правна форма
             legal_form_en_map = {
@@ -438,7 +504,9 @@ class BgCompanySearchWizard(models.TransientModel):
                                             name_part = manager_entry.strip()
 
                                         if name_part:
-                                            manager_data['name'] = name_part
+                                            # Форматираме името на лицето
+                                            formatted_name = BgCompanySearchWizard._format_person_name(name_part)
+                                            manager_data['name'] = formatted_name
                                             company_data['managers'].append(manager_data)
 
                             elif field_code == 'CR_F_1_L':
@@ -478,65 +546,10 @@ class BgCompanySearchWizard(models.TransientModel):
         """Instance method wrapper"""
         return self._parse_registry_response_static(data)
 
-    @staticmethod
-    def _get_legal_form_name(company_name_bg, legal_form_code):
-        """Get legal form name from code"""
-        legal_forms = {
-            10: 'ЕООД',
-            1: 'ООД',
-            2: 'АД',
-            3: 'ЕАД',
-            4: 'КД',
-            5: 'КДА',
-            6: 'СД',
-            7: 'ЕТ',
-        }
-        return legal_forms.get(legal_form_code, '')
-
-    @staticmethod
-    def _generate_english_name(company_name_bg, legal_form_bg):
-        """
-        Generate an English version by appending transliterated name and legal form
-
-        Args:
-            company_name_bg (str): Bulgarian company name
-            legal_form_bg (str): Bulgarian legal form
-
-        Returns:
-            str: English name with transliterated legal form
-        """
-        if not company_name_bg:
-            return ''
-
-        legal_form_en_map = {
-            'ЕООД': 'Ltd.',
-            'ООД': 'Ltd.',
-            'АД': 'JSC',
-            'ЕАД': 'JSC',
-            'КД': 'LP',
-            'КДА': 'PLS',
-            'СД': 'GP',
-            'ЕТ': '—',
-        }
-
-        legal_form_en = legal_form_en_map.get(legal_form_bg, legal_form_bg)
-
-        if legal_form_en:
-            return f"{company_name_bg} {legal_form_en}"
-
-        return company_name_bg
-
-    @staticmethod
-    def _extract_text_from_html(html_data):
-        """Extract clean text from HTML"""
-        text = re.sub(r'<[^>]+>', '', html_data)
-        text = ' '.join(text.split())
-        return text.strip()
-
     def _parse_bulgarian_address(self, address_text):
         """
         Instance method wrapper for address parsing
-        Also resolves city_id and state_id from database
+        Also resolves city_id and state_id from a database
         """
         result = self._parse_bulgarian_address_static(address_text)
 
@@ -640,7 +653,7 @@ class BgCompanySearchWizard(models.TransientModel):
         import json
         company_data = json.loads(self.company_data_json)
 
-        # Re-parse address to get city_id and state_id
+        # Reparse address to get city_id and state_id
         if company_data.get('address_full_bg'):
             parsed_address = self._parse_bulgarian_address(company_data['address_full_bg'])
             company_data.update(parsed_address)
@@ -651,7 +664,7 @@ class BgCompanySearchWizard(models.TransientModel):
         # Update partner
         self.partner_id.write(vals)
 
-        # Create or update representative contact
+        # Create or update a representative contact
         if company_data.get('managers') and len(company_data['managers']) > 0:
             # Вземаме първия управител
             manager = company_data['managers'][0]

@@ -241,7 +241,7 @@ class BgCompanySearchWizard(models.TransientModel):
             'email': '',
         }
 
-        # Split address by newlines to process each line
+        # Split the address by newlines to process each line
         lines = [line.strip() for line in address_text.split('\n') if line.strip()]
 
         for line in lines:
@@ -272,6 +272,19 @@ class BgCompanySearchWizard(models.TransientModel):
 
             # Extract street (бул./ул.)
             if 'бул./ул.' in line or (line.startswith('бул.') or line.startswith('ул.')):
+                # First, extract contact info if present at the end of the line
+                contact_match = re.search(r'\s+(?:Телефон|Факс):\s*(.+)$', line)
+                if contact_match:
+                    contact_info = contact_match.group(1).strip()
+                    # Check if it's an email (contains @)
+                    if '@' in contact_info:
+                        result['email'] = contact_info
+                    else:
+                        # It's a phone number
+                        result['phone'] = contact_info
+                    # Remove contact info from line before parsing street
+                    line = re.sub(r'\s+(?:Телефон|Факс):.+$', '', line)
+
                 # Remove "бул./ул." prefix
                 street_line = re.sub(r'^бул\./ул\.\s*', '', line)
                 street_line = re.sub(r'^(?:бул\.|ул\.)\s*', '', street_line)
@@ -475,9 +488,12 @@ class BgCompanySearchWizard(models.TransientModel):
                             html_data = field.get('htmlData', '')
 
                             if field_code == 'CR_F_5_L':
-                                # Extract address
-                                text = re.sub(r'<[^>]+>', '', html_data)
-                                text = ' '.join(text.split())
+                                # Extract address - preserve line structure by replacing <br> with newline
+                                text = re.sub(r'<br\s*/?>', '\n', html_data)
+                                text = re.sub(r'<[^>]+>', '', text)
+                                # Normalize whitespace per line (not globally)
+                                lines = [' '.join(line.split()) for line in text.split('\n')]
+                                text = '\n'.join(lines).strip()
                                 company_data['address_full_bg'] = text
 
                                 # Parse structured address
@@ -669,7 +685,7 @@ class BgCompanySearchWizard(models.TransientModel):
         # Update partner
         self.partner_id.write(vals)
 
-        # Create or update representative contact
+        # Create or update a representative contact
         if company_data.get('managers') and len(company_data['managers']) > 0:
             # Вземаме първия управител
             manager = company_data['managers'][0]

@@ -340,6 +340,7 @@ class BgCompanySearchWizard(models.TransientModel):
             'city_id': False,
             'city_name': '',
             'zip': '',
+            'district': '',
             'street': '',
             'street_name': '',
             'street_number': '',
@@ -379,6 +380,14 @@ class BgCompanySearchWizard(models.TransientModel):
                         result['zip'] = city_match.group(2).strip()
                 continue
 
+            # Extract district (район)
+            # Формат: "р-н Лозенец"
+            if line.startswith('р-н'):
+                district_match = re.search(r'р-н\s+(.+)$', line)
+                if district_match:
+                    result['district'] = district_match.group(1).strip()
+                continue
+
             # Extract email from dedicated field
             # Формат: "Адрес на електронна поща: example@domain.com"
             if 'Адрес на електронна поща:' in line:
@@ -410,7 +419,7 @@ class BgCompanySearchWizard(models.TransientModel):
                     # Цялата част след "бул./ул."
                     full_street_line = street_match.group(1).strip()
 
-                    # First, check if phone/fax/email is in this line and extract it
+                    # First check if phone/fax/email is in this line and extract it
                     contact_match = re.search(r'\s+(?:Телефон|Факс):\s*(.+)$', full_street_line)
                     if contact_match:
                         contact_info = contact_match.group(1).strip()
@@ -420,19 +429,19 @@ class BgCompanySearchWizard(models.TransientModel):
                         else:
                             # It's a phone number
                             result['phone'] = contact_info
-                        # Remove contact info from the street line before parsing
+                        # Remove contact info from street line before parsing
                         street_line = re.sub(r'\s+(?:Телефон|Факс):.+$', '', full_street_line)
                     else:
                         street_line = full_street_line
 
-                    # Remove remaining "бул." or "ул." or "р-н" prefix
-                    street_line = re.sub(r'^(?:бул\.|ул\.|р-н)\s*', '', street_line)
+                    # Remove remaining "бул." or "ул." prefix (with optional space and dot)
+                    street_line = re.sub(r'^(?:бул\.|ул\.)\.?\s*', '', street_line)
 
                     # Премахваме кавички около името на улицата
                     street_line = street_line.replace('"', '').replace('"', '').replace('"', '')
 
                     # Pattern to extract all address components
-                    # Format: БЕЛИ ЛОМ № 53, бл. 3, вх. Б, ет. 5, ап. 36
+                    # Format: Панайот Хитов № 7, бл. 3, вх. Б, ет. 5, ап. 36
                     street_pattern = r'^([^№]+?)(?:\s*№\s*(\d+[А-Яа-я]?))?(?:,?\s*бл\.\s*(\d+[А-Яа-я]?))?(?:,?\s*вх\.\s*([А-Яа-я\d]+))?(?:,?\s*ет\.\s*(\d+))?(?:,?\s*ап\.\s*(\d+))?'
                     address_match = re.search(street_pattern, street_line)
 
@@ -459,8 +468,15 @@ class BgCompanySearchWizard(models.TransientModel):
                         if floor_number:
                             result['street_floor_number'] = floor_number
 
-                        # Build a full street
-                        street_parts = [street_name]
+                        # Build full street with district at the beginning
+                        street_parts = []
+
+                        # Добавяме район в началото ако има
+                        if result.get('district'):
+                            street_parts.append(f"р-н {result['district']}")
+                            del result['district']
+
+                        street_parts.append(street_name)
                         if street_number:
                             street_parts.append(f"№ {street_number}")
                         if building_number:

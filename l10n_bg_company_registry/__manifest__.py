@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Bulgarian Company Registry Integration',
-    'version': '18.0.1.1.8',
+    'version': '18.0.1.1.9',
     'category': 'Contacts',
     'summary': 'Integration with Bulgarian Open Data Portal (data.egov.bg) - Trade Register',
     'description': """

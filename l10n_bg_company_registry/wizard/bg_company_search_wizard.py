@@ -235,6 +235,8 @@ class BgCompanySearchWizard(models.TransientModel):
             'street_number2': '',
             'street_building_number': '',
             'street_floor_number': '',
+            'phone': '',
+            'email': '',
         }
 
         # Extract state/region (Област)
@@ -249,6 +251,17 @@ class BgCompanySearchWizard(models.TransientModel):
             postal_code = city_match.group(2).strip() if city_match.group(2) else ''
             result['city_name'] = city_name
             result['zip'] = postal_code
+
+        # Extract phone and email from lines with "Телефон:" or "Факс:"
+        phone_email_match = re.search(r'(?:Телефон|Факс):\s*(.+?)(?:\n|$)', address_text)
+        if phone_email_match:
+            contact_info = phone_email_match.group(1).strip()
+            # Check if it's an email (contains @)
+            if '@' in contact_info:
+                result['email'] = contact_info
+            else:
+                # It's a phone number
+                result['phone'] = contact_info
 
         # Extract street from last line - format: "бул./ул. ул. БЕЛИ ЛОМ № 53, бл. 3, вх. Б, ет. 5, ап. 36"
         # Split by lines and get the last line that contains бул./ул.
@@ -328,7 +341,7 @@ class BgCompanySearchWizard(models.TransientModel):
                 company_name_bg_full = company_name_bg
 
             # Генериране на английско име от секция 4
-            company_name_en = ''
+            company_name_en_raw = ''
             sections = data.get('sections', [])
             for section in sections:
                 for sub_deed in section.get('subDeeds', []):
@@ -338,26 +351,30 @@ class BgCompanySearchWizard(models.TransientModel):
                                 # Извличаме текста от HTML
                                 html_data = field.get('htmlData', '')
                                 text = re.sub(r'<[^>]+>', '', html_data)
-                                company_name_en = ' '.join(text.split()).strip()
+                                company_name_en_raw = ' '.join(text.split()).strip()
                                 break
-                        if company_name_en:
+                        if company_name_en_raw:
                             break
-                    if company_name_en:
+                    if company_name_en_raw:
                         break
-                if company_name_en:
+                if company_name_en_raw:
                     break
 
-            # Ако няма намерено английско име от секция 4, генерираме от картата
-            if not company_name_en:
-                legal_form_en_map = {
-                    'ЕООД': 'Ltd.', 'ООД': 'Ltd.', 'АД': 'JSC', 'ЕАД': 'JSC',
-                    'КД': 'LP', 'КДА': 'PLS', 'СД': 'GP', 'ЕТ': '—',
-                }
-                legal_form_en = legal_form_en_map.get(legal_form_bg, legal_form_bg)
-                if company_name_bg and legal_form_en:
-                    company_name_en = f"{company_name_bg} {legal_form_en}"
-                else:
-                    company_name_en = company_name_bg
+            # Формиране на пълното английско име с правна форма
+            legal_form_en_map = {
+                'ЕООД': 'Ltd.', 'ООД': 'Ltd.', 'АД': 'JSC', 'ЕАД': 'JSC',
+                'КД': 'LP', 'КДА': 'PLS', 'СД': 'GP', 'ЕТ': 'ET',
+            }
+            legal_form_en = legal_form_en_map.get(legal_form_bg, '')
+
+            if company_name_en_raw and legal_form_en:
+                company_name_en = f"{company_name_en_raw} {legal_form_en}"
+            elif company_name_en_raw:
+                company_name_en = company_name_en_raw
+            elif company_name_bg and legal_form_en:
+                company_name_en = f"{company_name_bg} {legal_form_en}"
+            else:
+                company_name_en = company_name_bg
 
             company_data = {
                 'eik': data.get('uic', ''),
@@ -366,9 +383,10 @@ class BgCompanySearchWizard(models.TransientModel):
                 'legal_form_bg': legal_form_bg,
                 'vat_number': f"BG{data.get('uic', '')}" if data.get('uic') else '',
                 'status': 'active',
+                'managers': [],  # Списък с управители
             }
 
-            # Parse sections for address and activity
+            # Parse sections for address, activity and managers
             sections = data.get('sections', [])
             for section in sections:
                 for sub_deed in section.get('subDeeds', []):
@@ -396,6 +414,32 @@ class BgCompanySearchWizard(models.TransientModel):
                                 match = re.search(r'Група по НКИД:\s*(\d+)', text)
                                 if match:
                                     company_data['activity_code'] = match.group(1).strip()
+
+                            elif field_code == 'CR_F_7_L':
+                                # Extract managers
+                                text = re.sub(r'<[^>]+>', '', html_data)
+                                text = ' '.join(text.split()).strip()
+
+                                # Разделяме по запетая, ако има повече от един управител
+                                manager_entries = text.split(',')
+                                for manager_entry in manager_entries:
+                                    manager_entry = manager_entry.strip()
+                                    if manager_entry:
+                                        # Формат: "ИМЕ ПРЕЗИМЕ ФАМИЛИЯ, Държава: БЪЛГАРИЯ"
+                                        manager_data = {}
+
+                                        # Извличаме държавата
+                                        country_match = re.search(r'Държава:\s*([^\n,]+)', manager_entry)
+                                        if country_match:
+                                            manager_data['country'] = country_match.group(1).strip()
+                                            # Премахваме частта с държавата от името
+                                            name_part = manager_entry.split('Държава:')[0].strip()
+                                        else:
+                                            name_part = manager_entry.strip()
+
+                                        if name_part:
+                                            manager_data['name'] = name_part
+                                            company_data['managers'].append(manager_data)
 
                             elif field_code == 'CR_F_1_L':
                                 action_date = field.get('fieldActionDate', '')
@@ -606,6 +650,36 @@ class BgCompanySearchWizard(models.TransientModel):
 
         # Update partner
         self.partner_id.write(vals)
+
+        # Create or update representative contact
+        if company_data.get('managers') and len(company_data['managers']) > 0:
+            # Вземаме първия управител
+            manager = company_data['managers'][0]
+
+            # Търсим съществуващ представител
+            existing_represent = self.partner_id.child_ids.filtered(lambda r: r.type == 'represent')
+
+            manager_vals = {
+                'name': manager.get('name', ''),
+                'type': 'represent',
+                'parent_id': self.partner_id.id,
+            }
+
+            # Добавяме държава ако е налична
+            if manager.get('country'):
+                country = self.env['res.country'].search([
+                    ('name', 'ilike', manager['country'])
+                ], limit=1)
+                if country:
+                    manager_vals['country_id'] = country.id
+
+            if existing_represent:
+                # Актуализираме съществуващия
+                existing_represent.write(manager_vals)
+            else:
+                # Създаваме нов
+                self.env['res.partner'].create(manager_vals)
+
         return {'type': 'ir.actions.act_window_close'}
 
     @api.model
@@ -665,6 +739,13 @@ class BgCompanySearchWizard(models.TransientModel):
 
         if company_data.get('street'):
             vals['street'] = company_data['street']
+
+        # Phone and Email
+        if company_data.get('phone'):
+            vals['phone'] = company_data['phone']
+
+        if company_data.get('email'):
+            vals['email'] = company_data['email']
 
         # Country (Bulgaria)
         country_bg = self.env['res.country'].search([('code', '=', 'BG')], limit=1)

@@ -419,7 +419,7 @@ class BgCompanySearchWizard(models.TransientModel):
                     # Цялата част след "бул./ул."
                     full_street_line = street_match.group(1).strip()
 
-                    # First check if phone/fax/email is in this line and extract it
+                    # First, check if phone/fax/email is in this line and extract it
                     contact_match = re.search(r'\s+(?:Телефон|Факс):\s*(.+)$', full_street_line)
                     if contact_match:
                         contact_info = contact_match.group(1).strip()
@@ -429,12 +429,12 @@ class BgCompanySearchWizard(models.TransientModel):
                         else:
                             # It's a phone number
                             result['phone'] = contact_info
-                        # Remove contact info from street line before parsing
+                        # Remove contact info from the street line before parsing
                         street_line = re.sub(r'\s+(?:Телефон|Факс):.+$', '', full_street_line)
                     else:
                         street_line = full_street_line
 
-                    # Remove remaining "бул." or "ул." prefix (with optional space and dot)
+                    # Remove the remaining "бул." or "ул." prefix (with optional space and dot)
                     street_line = re.sub(r'^(?:бул\.|ул\.)\.?\s*', '', street_line)
 
                     # Премахваме кавички около името на улицата

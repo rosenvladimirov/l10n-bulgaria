@@ -822,7 +822,6 @@ class BgCompanySearchWizard(models.TransientModel):
         # Update partner
         self.partner_id.write(vals)
         self.partner_id.update_field_translations('name', {
-            'bg_BG': self.display_name_bg,
             'en_US': self.display_name_en,
         })
 

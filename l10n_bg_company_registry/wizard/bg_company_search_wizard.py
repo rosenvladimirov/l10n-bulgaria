@@ -811,7 +811,7 @@ class BgCompanySearchWizard(models.TransientModel):
         except (json.JSONDecodeError, TypeError) as e:
             raise UserError(_('Грешка при четене на данните от регистъра: %s') % str(e))
 
-        # Re-parse address to get city_id and state_id
+        # Reparse address to get city_id and state_id
         if company_data.get('address_full_bg'):
             parsed_address = self._parse_bulgarian_address(company_data['address_full_bg'])
             company_data.update(parsed_address)

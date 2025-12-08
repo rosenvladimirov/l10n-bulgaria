@@ -822,8 +822,8 @@ class BgCompanySearchWizard(models.TransientModel):
         # Update partner
         self.partner_id.write(vals)
         self.partner_id.update_field_translations('name', {
-            'bg_BG': vals['name'],
-            'en_US': company_data['display_name_en'],
+            'bg_BG': self.display_name_bg,
+            'en_US': self.display_name_en,
         })
 
         # Create or update a representative contact
@@ -924,10 +924,6 @@ class BgCompanySearchWizard(models.TransientModel):
         # Company name
         if company_data.get('company_name_bg'):
             vals['name'] = company_data['company_name_bg']
-            # vals['name'] = {
-            #     'bg_BG': company_data['company_name_bg'],
-            #     'en_US': company_data['company_name_en']
-            # }
 
         # UIC/EIK
         if company_data.get('eik'):

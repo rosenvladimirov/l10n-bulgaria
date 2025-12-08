@@ -21,19 +21,19 @@ class BgCompanySearchWizard(models.TransientModel):
     )
 
     eik = fields.Char(
-        string='EIK',
-        help='Company EIK number (9 or 13 digits)',
+        string='UIC',
+        help='Фирмен EIK номер (9 или 13 цифри)',
         required=True
     )
 
     original_eik = fields.Char(
-        string='Original EIK',
+        string='Original UIC',
         help='Original EIK from partner (to detect changes)'
     )
 
     # Display fields for company data from registry
     display_eik = fields.Char(
-        string='EIK',
+        string='UIC',
         readonly=True
     )
     display_name_bg = fields.Char(
@@ -804,12 +804,12 @@ class BgCompanySearchWizard(models.TransientModel):
 
         # Проверка дали има валиден JSON
         if not self.company_data_json:
-            raise UserError(_('Няма запазени данни от регистъра. Моля, натиснете "Изтегли данни" отново.'))
+            raise UserError(_('No registry data saved. Please press "Download Data" again.'))
 
         try:
             company_data = json.loads(self.company_data_json)
         except (json.JSONDecodeError, TypeError) as e:
-            raise UserError(_('Грешка при четене на данните от регистъра: %s') % str(e))
+            raise UserError(_('Error reading data from registry: %s') % str(e))
 
         # Reparse address to get city_id and state_id
         if company_data.get('address_full_bg'):
@@ -863,22 +863,22 @@ class BgCompanySearchWizard(models.TransientModel):
         self.ensure_one()
 
         if not self.eik:
-            raise ValidationError(_('Моля въведете ЕИК номер'))
+            raise ValidationError(_('Please enter the UIC number'))
 
         # Extract EIK from VAT if needed
         eik = self._extract_eik_from_vat(self.eik)
 
         if not eik:
-            raise ValidationError(_('Невалиден ЕИК формат. Моля въведете 9 или 13 цифри.'))
+            raise ValidationError(_('Invalid UIC format. Please enter 9 or 13 digits.'))
 
         # Fetch from registry API
         company_data = self._fetch_from_registry_api(eik)
 
         if not company_data:
             raise UserError(_(
-                'Не е намерена компания с ЕИК: %s\n\n'
-                'Компанията не е намерена в официалния търговски регистър.\n\n'
-                'Моля проверете дали ЕИК номерът е правилен.'
+                'No company with UIC was found: %s\n\n'
+                'The company was not found in the official trade register.\n\n'
+                'Please check if the UIC number is correct.'
             ) % eik)
 
         # Re-parse address to get city_id, state_id, country_id

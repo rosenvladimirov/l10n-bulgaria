@@ -79,6 +79,7 @@ Version: 19.0.2.0.1 (December 2025)
         'base',
         'contacts',
         'l10n_bg_config',
+        'l10n_bg_city',
     ],
     'data': [
         'security/ir.model.access.csv',

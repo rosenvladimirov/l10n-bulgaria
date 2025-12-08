@@ -820,10 +820,7 @@ class BgCompanySearchWizard(models.TransientModel):
         vals = self._prepare_partner_vals_from_company_data(company_data)
 
         # Update partner
-        self.with_context(context=dict(self.env.context, lang='bg_BG')).partner_id.write(vals)
-        self.with_context(context=dict(self.env.context, lang='en_EN')).partner_id.write({
-            'name': company_data['company_name_en']
-        })
+        self.partner_id.write(vals)
 
         # Create or update a representative contact
         if company_data.get('managers') and len(company_data['managers']) > 0:
@@ -922,7 +919,10 @@ class BgCompanySearchWizard(models.TransientModel):
 
         # Company name
         if company_data.get('company_name_bg'):
-            vals['name'] = company_data['company_name_bg']
+            vals['name'] = {
+                'bg_BG': company_data['company_name_bg'],
+                'en_US': company_data['company_name_en']
+            }
 
         # UIC/EIK
         if company_data.get('eik'):

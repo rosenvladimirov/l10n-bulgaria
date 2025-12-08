@@ -919,10 +919,11 @@ class BgCompanySearchWizard(models.TransientModel):
 
         # Company name
         if company_data.get('company_name_bg'):
-            vals['name'] = {
-                'bg_BG': company_data['company_name_bg'],
-                'en_US': company_data['company_name_en']
-            }
+            vals['name'] = company_data['company_name_bg']
+            # vals['name'] = {
+            #     'bg_BG': company_data['company_name_bg'],
+            #     'en_US': company_data['company_name_en']
+            # }
 
         # UIC/EIK
         if company_data.get('eik'):

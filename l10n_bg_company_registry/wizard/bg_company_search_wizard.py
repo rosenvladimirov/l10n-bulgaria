@@ -31,7 +31,7 @@ class BgCompanySearchWizard(models.TransientModel):
         help='Original EIK from partner (to detect changes)'
     )
 
-    # Display fields for company data from registry
+    # Display fields for company data from the registry
     display_eik = fields.Char(
         string='EIK',
         readonly=True

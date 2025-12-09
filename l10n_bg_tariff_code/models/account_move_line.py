@@ -80,7 +80,7 @@ class AccountMoveLine(models.Model):
 
             # 2. HS Code от stock_delivery модула (приоритет)
             if not tariff_code and line.product_id and hasattr(line.product_id, 'hs_code') and line.product_id.hs_code:
-                normalized = self._normalize_tariff_code(line.product_id.hs_code)
+                normalized = line._normalize_tariff_code(line.product_id.hs_code)
                 if normalized:
                     tariff_code = normalized
 
@@ -88,17 +88,17 @@ class AccountMoveLine(models.Model):
             if not tariff_code and line.product_id:
                 intrastat_code = line._get_tariff_code_from_intrastat(line.product_id)
                 if intrastat_code:
-                    normalized = self._normalize_tariff_code(intrastat_code)
+                    normalized = line._normalize_tariff_code(intrastat_code)
                     if normalized:
                         tariff_code = normalized.ljust(10, '0')
 
             # 4. Търсим в описанието на реда
             if not tariff_code and line.name:
-                tariff_code = self._extract_code_from_text(line.name)
+                tariff_code = line._extract_code_from_text(line.name)
 
             # 5. Fallback към категорията на продукта
             if not tariff_code and line.product_id and line.product_id.categ_id:
-                tariff_code = self._get_category_tariff_code(line.product_id.categ_id)
+                tariff_code = line._get_category_tariff_code(line.product_id.categ_id)
 
             line.l10n_bg_tariff_code = tariff_code
 
@@ -106,7 +106,7 @@ class AccountMoveLine(models.Model):
         """Позволява ръчно задаване на тарифен код"""
         for line in self:
             if line.l10n_bg_tariff_code:
-                normalized = self._normalize_tariff_code(line.l10n_bg_tariff_code)
+                normalized = line._normalize_tariff_code(line.l10n_bg_tariff_code)
                 line.l10n_bg_tariff_code_manual = normalized
 
                 # Ако имаме продукт и той няма HS код, опитваме се да го обновим
@@ -238,7 +238,7 @@ class AccountMoveLine(models.Model):
                                                'country_of_origin') and line.product_id.country_of_origin:
                     country_code = line.product_id.country_of_origin.code
 
-                tariff_rate = self._fetch_tariff_rate(search_code, country_code)
+                tariff_rate = line._fetch_tariff_rate(search_code, country_code)
 
                 if tariff_rate is not None:
                     line.l10n_bg_tariff_rate = tariff_rate

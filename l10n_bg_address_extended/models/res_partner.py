@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 
 
 class Partner(models.Model):
-    _inherit = ["res.partner"]
+    _inherit = "res.partner"
 
     street_building_number = fields.Char(
         "Building Number",

@@ -135,8 +135,23 @@ class Partner(models.Model):
         )
 
     def _get_complete_name(self):
-        name = super()._get_complete_name()
-        if isinstance(name, dict):
-            lang = (self.env.context or {}).get("lang") or "en_US"
-            name = name.get(lang) or name.get("en_US") or next(iter(name.values()), "") or ""
+        self.ensure_one()
+
+        def _as_lang_str(value):
+            if isinstance(value, dict):
+                lang = (self.env.context or {}).get("lang") or "en_US"
+                return value.get(lang) or value.get("en_US") or next(iter(value.values()), "") or ""
+            return value or ""
+
+        displayed_types = self._complete_name_displayed_types
+        type_description = dict(self._fields["type"]._description_selection(self.env))
+
+        name = _as_lang_str(self.name)
+        if self.company_name or self.parent_id:
+            if not name and self.type in displayed_types:
+                name = type_description[self.type]
+            if not self.is_company:
+                parent_name = _as_lang_str(self.sudo().parent_id.name)
+                commercial = _as_lang_str(self.commercial_company_name)
+                name = f"{commercial or parent_name}, {name}"
         return (name or "").strip()

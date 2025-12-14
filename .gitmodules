@@ -2,3 +2,8 @@
 	path = l10n-bulgaria-ee
 	url = git@github.com:rosenvladimirov/l10n-bulgaria-ee.git
 	branch = 18.0
+
+[submodule "partner-contact"]
+	path = partner-contact
+	url = git@github.com:OCA/partner-contact.git
+	branch = 18.0

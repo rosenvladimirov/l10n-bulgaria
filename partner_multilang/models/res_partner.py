@@ -134,4 +134,9 @@ class Partner(models.Model):
             name='', domain=domain, operator=operator, limit=limit, order=order
         )
 
-
+    def _get_complete_name(self):
+        name = super()._get_complete_name()
+        if isinstance(name, dict):
+            lang = (self.env.context or {}).get("lang") or "en_US"
+            name = name.get(lang) or name.get("en_US") or next(iter(name.values()), "") or ""
+        return (name or "").strip()

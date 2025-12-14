@@ -61,4 +61,5 @@ allowing Bulgarian companies to manage projects in both Bulgarian and other lang
     'maintainers': ['rosenvladimirov'],
     'support': 'https://github.com/rosenvladimirov/l10n-bulgaria/issues',
     'countries': ['BG'],
+    "post_init_hook": "post_init_hook",
 }

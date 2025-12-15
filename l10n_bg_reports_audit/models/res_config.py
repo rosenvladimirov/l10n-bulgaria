@@ -19,6 +19,13 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.l10n_bg_intra_stat_type", readonly=False
     )
 
+    l10n_bg_vat_ratio = fields.Float(
+        related="company_id.l10n_bg_vat_ratio", readonly=False
+    )
+    l10n_bg_vat_ratio_history_id = fields.Many2one(
+        related="company_id.l10n_bg_vat_ratio_history_id", readonly=False
+    )
+
     module_account_usability = fields.Boolean(
         "Account - Missing Menus",
         help="Adds missing menu entries for Account module and adds the option to enable Saxon Accounting",

@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="document_tax_totals_template_extended" inherit_id="account.document_tax_totals_template">
-        <xpath expr="//tr[@class='o_subtotal']" position="replace">
-            <tr class="o_subtotal">
-                <td>
-                    <span>Untaxed Amount</span>
-                </td>
-                <td class="text-end">
-                    <span t-att-class="oe_subtotal_footer_separator"
-                          t-out="subtotal['base_amount_currency']"
-                          t-options='{"widget": "monetary", "display_currency": currency}'
-                    >27.00
-                    </span>
-                </td>
-            </tr>
-        </xpath>
-    </template>
-
     <template id="report_invoice_document" inherit_id="account.report_invoice_document" active="False">
         <xpath expr="//t[@t-set='o']" position="after">
             <t t-set="sender" t-value="o.company_id.partner_id"/>
@@ -66,13 +49,6 @@
                 <strong>Deal Date</strong>
                 <div t-field="o.l10n_bg_deal_date">2023-09-25</div>
             </div>
-        </xpath>
-
-        <xpath expr="//t[@t-if='o.tax_totals']" position="replace">
-            <t t-if="o.tax_totals" t-call="l10n_bg_report_theme.document_tax_totals_template_extended">
-                <t t-set="tax_totals" t-value="o.tax_totals"/>
-                <t t-set="currency" t-value="o.currency_id"/>
-            </t>
         </xpath>
 
         <!-- Add groups attribute to the due_date div -->

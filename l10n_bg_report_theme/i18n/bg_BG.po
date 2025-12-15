@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-05 11:59+0000\n"
-"PO-Revision-Date: 2025-09-05 15:00+0300\n"
+"POT-Creation-Date: 2025-10-02 08:22+0000\n"
+"PO-Revision-Date: 2025-10-02 11:25+0300\n"
 "Last-Translator: Rosen Vladimirov <vladimirov.rosen@gmail.com>\n"
 "Language-Team: \n"
 "Language: bg\n"
@@ -18,11 +18,6 @@ msgstr ""
 "X-Generator: Poedit 3.7\n"
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_saleorder_document
-msgid "&gt;"
-msgstr ""
-
-#. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
 msgid "2023-09-25"
 msgstr ""
@@ -30,11 +25,6 @@ msgstr ""
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.document_tax_totals_template_extended
 msgid "27.00"
-msgstr ""
-
-#. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.signatures_section
-msgid ":<br/>"
 msgstr ""
 
 #. module: l10n_bg_report_theme
@@ -61,7 +51,7 @@ msgstr ""
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
 msgid "<i class=\"fa fa-repeat\"/> Reset"
-msgstr ""
+msgstr "<i class=\"fa fa-repeat\"/> Нулиране"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_wizard_section_preview
@@ -76,7 +66,7 @@ msgstr "<span>Фактура</span>"
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.document_tax_totals_template_extended
 msgid "<span>Untaxed Amount</span>"
-msgstr "<span>Основа</span>"
+msgstr "<span>Данъчна основа</span>"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
@@ -154,7 +144,13 @@ msgid "Base Colors"
 msgstr "Основни цветове"
 
 #. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.signatures_section
+msgid "COMPILER"
+msgstr "Съставител"
+
+#. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.signatures_section
 msgid "CUSTOMER"
 msgstr "ПОЛУЧАТЕЛ"
 
@@ -207,11 +203,6 @@ msgstr "Създаден на"
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
 msgid "Credit Note"
 msgstr "Кредитна бележка"
-
-#. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.signatures_section
-msgid "Date"
-msgstr "Дата"
 
 #. module: l10n_bg_report_theme
 #: model:res.groups,name:l10n_bg_report_theme.group_control_date_format
@@ -340,19 +331,14 @@ msgid "Name"
 msgstr "Име"
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.signatures_section
-msgid "Name and Surname"
-msgstr "Име и Фамилия"
-
-#. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.signatures_section
-msgid "Not specified"
-msgstr "Не е посочен"
-
-#. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
 msgid "ORIGINAL"
 msgstr "ОРИГИНАЛ"
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_saleorder_document
+msgid "Order #"
+msgstr "Поръчка #"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.external_layout_sections
@@ -360,11 +346,6 @@ msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
 msgstr ""
 "Страница: <span class=\"page\"> / <span class=\"topage\">\n"
 "                </span></span>"
-
-#. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.signatures_section
-msgid "Parties Signatures"
-msgstr "Подписи на страните"
 
 #. module: l10n_bg_report_theme
 #: model:res.groups,name:l10n_bg_report_theme.group_control_signatures
@@ -389,7 +370,12 @@ msgstr "Преглед на логото за печат"
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_saleorder_document
 msgid "Pro-Forma Invoice #"
-msgstr "Проформа Фактура #"
+msgstr "Проформа ФАКТУРА #"
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_saleorder_document
+msgid "Quotation #"
+msgstr "Оферта #"
 
 #. module: l10n_bg_report_theme
 #: model:ir.model,name:l10n_bg_report_theme.model_ir_actions_report
@@ -403,13 +389,8 @@ msgstr "Контрол на лицето представляващо фирма
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
-msgid "Represent contact:"
-msgstr "Представител за контакт:"
-
-#. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.signatures_section
-msgid "Representative"
-msgstr "Представител"
+msgid "Represent contact"
+msgstr "МОЛ:"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
@@ -419,7 +400,7 @@ msgstr "Връщане до подразбиране на цветовете н�
 #. module: l10n_bg_report_theme
 #: model:ir.model.fields.selection,name:l10n_bg_report_theme.selection__res_company__font__sf_text
 msgid "SF Text"
-msgstr "SF Текст"
+msgstr ""
 
 #. module: l10n_bg_report_theme
 #: model:ir.model.fields.selection,name:l10n_bg_report_theme.selection__res_company__font__sf_pro_text
@@ -434,7 +415,7 @@ msgstr "ДОСТАВЧИК"
 #. module: l10n_bg_report_theme
 #: model:res.groups,name:l10n_bg_report_theme.group_control_sale_person
 msgid "Sale Person Control"
-msgstr "Контрол на продавача"
+msgstr "Контрол на лицето представляващо фирмата"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
@@ -455,6 +436,11 @@ msgstr "ул.:"
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
 msgid "TIN"
+msgstr "ЕИК"
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+msgid "UIC"
 msgstr "ЕИК"
 
 #. module: l10n_bg_report_theme
@@ -486,16 +472,6 @@ msgstr "Качване на файла за част заглавие"
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
 msgid "Upload your header file 30x210mm"
 msgstr "Качете своя файл за част заглавие с размер 30x210mm"
-
-#. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.signatures_section
-msgid "User"
-msgstr "Потребител"
-
-#. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.signatures_section
-msgid "User ID"
-msgstr "Потребителско ID"
 
 #. module: l10n_bg_report_theme
 #: model:res.groups,comment:l10n_bg_report_theme.group_control_date_format

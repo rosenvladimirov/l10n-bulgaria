@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ErpNet.FP Fiscal Printer for Odoo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #875a7b;
+            border-bottom: 3px solid #875a7b;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #875a7b;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #666;
+        }
+        .badges {
+            margin: 20px 0;
+        }
+        .badge {
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .feature-list {
+            background: #f9f9f9;
+            padding: 15px 30px;
+            border-left: 4px solid #875a7b;
+            margin: 20px 0;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        .info {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        ul {
+            line-height: 1.8;
+        }
+        .step {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>ErpNet.FP Fiscal Printer for Odoo 18</h1>
+
+<div class="badges">
+    <img src="https://img.shields.io/badge/maturity-Beta-yellow.png" alt="Beta">
+    <img src="https://img.shields.io/badge/licence-AGPL--3-blue.png" alt="License: AGPL-3">
+    <img src="https://img.shields.io/badge/odoo-18.0-blue.png" alt="Odoo 18.0">
+</div>
+
+<p><strong>Full integration with Bulgarian fiscal printers through ErpNet.FP server for Odoo 18 Point of Sale.</strong></p>
+
+<div class="feature-list">
+    <h3>Key Features:</h3>
+    <ul>
+        <li>✅ <strong>Direct browser-to-printer communication</strong> for fiscal receipts (no backend bottleneck)</li>
+        <li>✅ <strong>Backend support</strong> for administrative operations (Z/X reports, cash operations)</li>
+        <li>✅ <strong>Automatic Z-report</strong> generation on session closing</li>
+        <li>✅ <strong>Real-time printer status</strong> monitoring (optional)</li>
+        <li>✅ <strong>Bulgarian tax group mapping</strong> (А, Б, В, Г)</li>
+        <li>✅ <strong>Cash drawer operations</strong> (deposit/withdraw)</li>
+    </ul>
+</div>
+
+<h2>📋 Features</h2>
+
+<h3>POS Frontend (JavaScript)</h3>
+<ul>
+    <li><strong>Fiscal receipt printing</strong> - Direct communication from browser to ErpNet.FP server</li>
+    <li><strong>Automatic fallback</strong> - Falls back to standard printing on error</li>
+    <li><strong>Tax group mapping</strong> - Automatic mapping of Bulgarian tax groups (А=0%, Б=20%, В=20%, Г=9%)</li>
+    <li><strong>Payment type detection</strong> - Automatic cash/card detection</li>
+    <li><strong>Receipt number tracking</strong> - Saves fiscal receipt number and fiscal memory serial</li>
+</ul>
+
+<h3>Backend Operations (Python)</h3>
+<ul>
+    <li><strong>X Reports</strong> - Intermediate reports without resetting</li>
+    <li><strong>Z Reports</strong> - Daily reports with reset (mandatory before closing)</li>
+    <li><strong>Automatic Z reports</strong> - Scheduled Z reports via cron (configurable time)</li>
+    <li><strong>Cash operations</strong> - Служебно въведени (Deposit) and Служебно изведени (Withdraw)</li>
+    <li><strong>Additional operations</strong> - Duplicate receipts, journal info, status monitoring, cash drawer</li>
+</ul>
+
+<h3>POS Session Integration</h3>
+<ul>
+    <li><strong>Session-level operations</strong> - X/Z reports and cash operations directly from POS session</li>
+    <li><strong>Automatic Z on close</strong> - Optional automatic Z report when closing session</li>
+    <li><strong>Session validation</strong> - Prevents closing without Z report (if configured)</li>
+    <li><strong>History tracking</strong> - Tracks all fiscal operations in session chatter</li>
+</ul>
+
+<h2>⚙️ Configuration</h2>
+
+<h3>Step 1: ErpNet.FP Server Setup</h3>
+
+<p>Install and configure ErpNet.FP server using Docker:</p>
+
+<pre>docker run -d \
+  --name erpnetfp \
+  -p 8001:8001 \
+  -v /dev/usb:/dev/usb \
+  --privileged \
+  rosenvladimirov/erpnetfp:latest</pre>
+
+<p>Or download from: <a href="https://github.com/erpnet/ErpNet.FP" target="_blank">https://github.com/erpnet/ErpNet.FP</a></p>
+
+<h3>Step 2: Configure Fiscal Printer Device</h3>
+
+<div class="step">
+    <p>Go to: <strong>Point of Sale → Configuration → Fiscal Printers → Devices</strong></p>
+    <ol>
+        <li>Click <strong>Create</strong></li>
+        <li>Fill in:
+            <ul>
+                <li><strong>Name:</strong> "Tremol FP-01" (example)</li>
+                <li><strong>Host:</strong> "http://localhost:8001"</li>
+                <li><strong>Printer ID:</strong> "FP_12345" (from ErpNet.FP)</li>
+                <li><strong>SSL Verify:</strong> Disable for self-signed certificates</li>
+                <li><strong>Timeout:</strong> 30 seconds</li>
+                <li><strong>Retry Count:</strong> 3</li>
+            </ul>
+        </li>
+    </ol>
+</div>
+
+<h3>Step 3: Configure Automatic Z Reports (Optional)</h3>
+
+<div class="step">
+    <ul>
+        <li>Enable <strong>Automatic Z Report</strong></li>
+        <li>Set <strong>Z Report Hour:</strong> 23 (11 PM)</li>
+        <li>Set <strong>Z Report Minute:</strong> 59</li>
+    </ul>
+</div>
+
+<h3>Step 4: Configure POS Terminal</h3>
+
+<div class="step">
+    <p>Go to: <strong>Point of Sale → Configuration → Point of Sale</strong></p>
+    <ol>
+        <li>Select your POS</li>
+        <li>Go to <strong>Devices</strong> tab</li>
+        <li>Set <strong>Fiscal Printer:</strong> Select the device from Step 2</li>
+        <li>Enable <strong>Automatic Z Report on Close</strong> (recommended)</li>
+    </ol>
+</div>
+
+<h3>Step 5: Configure Tax Groups</h3>
+
+<div class="step">
+    <p>Go to: <strong>Accounting → Configuration → Tax Groups</strong></p>
+    <p>For each tax group, set <strong>Tax Group for Fiscal Printer:</strong></p>
+    <ul>
+        <li><strong>А</strong> = VAT 0%</li>
+        <li><strong>Б</strong> = VAT 20%</li>
+        <li><strong>В</strong> = VAT 20% (alternative)</li>
+        <li><strong>Г</strong> = VAT 9%</li>
+    </ul>
+</div>
+
+<h2>🚀 Usage</h2>
+
+<h3>1. Fiscal Receipt Printing</h3>
+
+<p>When completing a sale in POS:</p>
+<ol>
+    <li>Add products to cart</li>
+    <li>Click <strong>Payment</strong></li>
+    <li>Select payment method (cash/card)</li>
+    <li>Click <strong>Validate</strong></li>
+    <li>System automatically prints fiscal receipt</li>
+</ol>
+
+<div class="info">
+    <strong>ℹ️ No manual intervention needed!</strong> The receipt is printed automatically.
+</div>
+
+<h3>2. X Report (Intermediate Report)</h3>
+
+<p>During session (no reset):</p>
+<ol>
+    <li>Go to: <strong>Point of Sale → Dashboard → Sessions</strong></li>
+    <li>Open your active session</li>
+    <li>Click <strong>X Report</strong> button</li>
+    <li>Report is printed on fiscal printer</li>
+</ol>
+
+<h3>3. Z Report (Daily Report with Reset)</h3>
+
+<p><strong>Manual Z Report:</strong></p>
+<ol>
+    <li>Go to: <strong>Point of Sale → Dashboard → Sessions</strong></li>
+    <li>Open your session</li>
+    <li>Click <strong>Z Report</strong> button (confirm the dialog)</li>
+    <li>Session can now be closed</li>
+</ol>
+
+<div class="warning">
+    <strong>⚠️ Warning:</strong> Z Report resets daily counters. Run only once per day before closing!
+</div>
+
+<h3>4. Cash Operations</h3>
+
+<p><strong>Служебно въведени (Deposit):</strong></p>
+<ol>
+    <li>Open session</li>
+    <li>Click <strong>Служебно въведени</strong> button</li>
+    <li>Enter amount and reason</li>
+    <li>Click <strong>Execute</strong></li>
+</ol>
+
+<p><strong>Служебно изведени (Withdraw):</strong></p>
+<ol>
+    <li>Open session</li>
+    <li>Click <strong>Служебно изведени</strong> button</li>
+    <li>Enter amount and reason</li>
+    <li>Click <strong>Execute</strong></li>
+</ol>
+
+<h2>🏗️ Technical Details</h2>
+
+<h3>Architecture - Hybrid Approach</h3>
+
+<ul>
+    <li><strong>Receipts</strong> → JavaScript → ErpNet.FP (direct, no backend)</li>
+    <li><strong>Reports</strong> → Python → ErpNet.FP (backend operations)</li>
+</ul>
+
+<p><strong>Why?</strong></p>
+<ul>
+    <li>Receipts are high-frequency → Direct communication avoids backend bottleneck</li>
+    <li>Reports are low-frequency → Backend provides better error handling and logging</li>
+</ul>
+
+<h3>Data Flow - Fiscal Receipt</h3>
+
+<ol>
+    <li>POS Frontend prepares receipt data (items, payments, taxes)</li>
+    <li>JavaScript sends POST to: <code>http://erpnetfp:8001/printers/{printerId}/receipt</code></li>
+    <li>ErpNet.FP prints on fiscal device</li>
+    <li>Returns receipt number and fiscal memory serial</li>
+    <li>JavaScript saves to order</li>
+    <li>Backend persists on sync</li>
+</ol>
+
+<h2>⚠️ Known Issues</h2>
+
+<ul>
+    <li>CORS may block requests if ErpNet.FP not on same domain (use HTTPS)</li>
+    <li>Self-signed SSL certificates require <code>ssl_verify=False</code></li>
+    <li>Browser console shows fetch errors on printer offline (expected behavior)</li>
+</ul>
+
+<h2>🗺️ Roadmap</h2>
+
+<ul>
+    <li>Add support for refund receipts (сторно)</li>
+    <li>Implement duplicate receipt from POS UI</li>
+    <li>Add printer status widget in POS interface</li>
+    <li>Support for multiple printers per POS</li>
+    <li>Fiscal memory download functionality</li>
+    <li>KLEN (journal) report viewer</li>
+</ul>
+
+<h2>🐛 Bug Tracker</h2>
+
+<p>Bugs are tracked on <a href="https://github.com/rosenvladimirov/l10n-bulgaria/issues" target="_blank">GitHub Issues</a>.</p>
+<p>In case of trouble, please check there if your issue has already been reported.</p>
+
+<h2>🔗 Additional Links</h2>
+
+<ul>
+    <li><strong>ErpNet.FP Documentation:</strong> <a href="https://github.com/erpnet/ErpNet.FP/wiki" target="_blank">Wiki</a></li>
+    <li><strong>Dockerized ErpNet.FP:</strong> <a href="https://github.com/rosenvladimirov/ErpNet.FP" target="_blank">GitHub</a></li>
+    <li><strong>Bulgarian Fiscal Regulations:</strong> <a href="https://nap.bg" target="_blank">NAP.bg</a></li>
+</ul>
+
+<h2>👥 Credits</h2>
+
+<h3>Authors</h3>
+<ul>
+    <li>Rosen Vladimirov</li>
+    <li>Terraros Commerce Ltd.</li>
+</ul>
+
+<h3>Contributors</h3>
+<ul>
+    <li>Rosen Vladimirov &lt;vladimirov.rosen@gmail.com&gt;</li>
+</ul>
+
+<h3>Maintainers</h3>
+<p>This module is maintained by the OCA.</p>
+
+<p style="text-align: center; margin-top: 30px;">
+    <a href="https://odoo-community.org" target="_blank">
+        <img src="https://odoo-community.org/logo.png" alt="Odoo Community Association" width="200">
+    </a>
+</p>
+
+<p style="text-align: center;">
+    This module is part of the <a href="https://github.com/OCA/l10n-bulgaria" target="_blank">OCA/l10n-bulgaria</a> project on GitHub.
+</p>
+
+</body>
+</html>

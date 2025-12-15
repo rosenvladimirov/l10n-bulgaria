@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+
+<svg
+   version="1.1"
+   id="Layer_1"
+   width="256px"
+   height="256px"
+   viewBox="0 0 54 64"
+   enable-background="new 0 0 54 64"
+   xml:space="preserve"
+   fill="#000000"
+   sodipodi:docname="contact-book-2-svgrepo-com.svg"
+   inkscape:version="1.4.1-rc (06eac75fbf, 2025-03-29)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"><defs
+   id="defs1">             <clipPath
+   id="clip0_3358_14158"><rect
+     width="50"
+     height="50"
+     fill="#ffffff"
+     id="rect3"
+     x="0"
+     y="0" /></clipPath><linearGradient
+   id="paint0_linear_3358_14158"
+   x1="0"
+   y1="0"
+   x2="58.823502"
+   y2="14.7059"
+   gradientUnits="userSpaceOnUse"><stop
+     stop-color="white"
+     id="stop2" /><stop
+     offset="1"
+     stop-color="white"
+     stop-opacity="0"
+     id="stop3" /></linearGradient></defs><sodipodi:namedview
+   id="namedview1"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   showgrid="false"
+   inkscape:zoom="1.5683594"
+   inkscape:cx="96.916563"
+   inkscape:cy="125.92777"
+   inkscape:window-width="1920"
+   inkscape:window-height="1011"
+   inkscape:window-x="0"
+   inkscape:window-y="0"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_1" />
+
+<rect
+   style="fill:#008000;fill-opacity:1;stroke:#008000;stroke-width:1.88976;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+   id="rect9-8"
+   width="4.5460682"
+   height="12.736519"
+   x="49.080524"
+   y="31.406874"
+   ry="0.96637738" /><rect
+   style="fill:#ffffff;fill-opacity:1;stroke:#21b799;stroke-width:1.88976;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+   id="rect9-8-5"
+   width="4.5460682"
+   height="12.736519"
+   x="49.050419"
+   y="16.544821"
+   ry="0.96637738" /><rect
+   style="fill:#800000;fill-opacity:1;stroke:#800000;stroke-width:1.88976;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+   id="rect9-8-0"
+   width="4.5460682"
+   height="12.736519"
+   x="49.032051"
+   y="46.236286"
+   ry="0.96637738" /><g
+   id="SVGRepo_bgCarrier"
+   stroke-width="0" />
+
+<g
+   id="SVGRepo_tracerCarrier"
+   stroke-linecap="round"
+   stroke-linejoin="round" />
+
+<path
+   id="Shape"
+   sketch:type="MSShapeGroup"
+   fill="none"
+   stroke="#6b6c6e"
+   stroke-width="2"
+   d="M 1,3 C 1,1.9 1.9,1 3,1 h 44 c 1.1,0 2,0.9 2,2 v 58 c 0,1.1 -0.9,2 -2,2 H 3 C 1.9,63 1,62.1 1,61 Z"
+   style="fill:none;stroke:#21b799;stroke-opacity:1;stroke-width:2.00031496;stroke-dasharray:none" /><path
+   id="Shape_4_"
+   sketch:type="MSShapeGroup"
+   fill="none"
+   stroke="#6b6c6e"
+   stroke-width="2"
+   d="M 7,4 V 60"
+   style="stroke:#21b799;stroke-opacity:1" /><path
+   id="Shape_5_"
+   sketch:type="MSShapeGroup"
+   fill="none"
+   stroke="#6b6c6e"
+   stroke-width="2"
+   d="m 21.8,39 c 1.3,-0.6 3.1,-1.7 3.1,-2.7 0,-0.5 -0.2,-0.9 -0.4,-1 C 22,33.9 21.6,29.5 21.4,29.5 20.6,29.5 20,27.4 20,26.1 20,25 20.3,25 20.9,24.7 v -0.2 c 0,-3.6 2.3,-6.5 6,-6.5 3.7,0 6.3,3 6.3,6.6 v 0.2 c 0.6,0.3 0.8,0.5 0.8,1.6 0,1.4 -0.5,3.3 -1.3,3.3 -0.2,0 -0.8,4.3 -3.2,5.7 -0.2,0.1 -0.4,0.3 -0.4,0.8 0,1.2 1.9,2.2 3.2,2.8 1.6,0.8 8.7,1.5 8.7,9 H 12.9 c 0,-7.5 6.9,-8 8.9,-9 z"
+   style="fill:none;stroke:#21b799;stroke-opacity:1" />
+
+</svg>

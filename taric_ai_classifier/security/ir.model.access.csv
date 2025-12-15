@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_taric_code_user,taric.code.user,model_taric_code,base.group_user,1,0,0,0
+access_taric_code_accountant,taric.code.accountant,model_taric_code,account.group_account_user,1,1,1,0
+access_taric_code_manager,taric.code.manager,model_taric_code,account.group_account_manager,1,1,1,1
+access_taric_classification_history_user,taric.classification.history.user,model_taric_classification_history,base.group_user,1,1,1,0
+access_taric_classification_history_accountant,taric.classification.history.accountant,model_taric_classification_history,account.group_account_user,1,1,1,1
+access_taric_classify_wizard_user,taric.classify.wizard.user,model_taric_classify_wizard,base.group_user,1,1,1,1
+access_taric_classify_suggestion_user,taric.classify.suggestion.user,model_taric_classify_suggestion,base.group_user,1,1,1,1
+access_batch_classify_wizard_user,batch.classify.wizard.user,model_batch_classify_wizard,base.group_user,1,1,1,1
+access_batch_classify_result_user,batch.classify.result.user,model_batch_classify_result,base.group_user,1,1,1,1

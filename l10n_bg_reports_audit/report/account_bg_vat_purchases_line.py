@@ -12,6 +12,7 @@ from odoo.addons.l10n_bg_reports_audit.models.account_move import (
 from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import (
     l10n_bg_lang,
     l10n_bg_where,
+    l10n_bg_get_tag_negate_sql,
 )
 
 _logger = logging.getLogger(__name__)
@@ -151,7 +152,7 @@ UNION
         return f"""account_move AS am
         JOIN (SELECT move_id, info_tag_1,
                      account_tag_30, account_tag_31, account_tag_41, account_tag_32, account_tag_42, account_tag_43, account_tag_44
-                FROM account_bg_calc_purchases_line AS acc{' WHERE ' + where_clause.replace('am.', 'acc.') if where_clause else ''}) AS accp
+                FROM ({self.env['account.bg.calc.purchases.line']._table_query}) AS acc{' WHERE ' + where_clause.replace('am.', 'acc.') if where_clause else ''}) AS accp
             ON am.id = accp.move_id
         LEFT JOIN res_partner AS partner
             ON am.partner_id = partner.id
@@ -164,7 +165,8 @@ UNION
     def _where(self):
         if self._context.get("report_options"):
             date_from, date_to, tax_period, tax_periods, company_id, state = l10n_bg_where(
-                self.env, self._context.get("report_options")
+                self.env, self._context.get("report_options"),
+                model_report='purchase',
             )
             return f"""am.company_id = {company_id} AND am.state = ANY(ARRAY{state}) AND am.date >= '{date_from}' AND am.date <= '{date_to}'"""
         return False
@@ -271,65 +273,66 @@ class AccountBGCalcPurchasesLine(models.Model):
     am.date AS date,
     to_char(am.date, 'YYYYMM') AS info_tag_1,
     SUM(CASE
-        WHEN aml.balance > 0.0 AND aat.tag_name = 30 AND aat.negate THEN ABS(aml.balance)*-1
-        WHEN aml.balance > 0.0 AND aat.tag_name = 30 AND NOT aat.negate THEN ABS(aml.balance)
-        WHEN aml.balance < 0.0 AND aat.tag_name = 30 AND aat.negate THEN aml.balance*-1
-        WHEN aml.balance < 0.0 AND aat.tag_name = 30 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance > 0.0 AND aat.tag_name = 30 AND aat.negate THEN aml.balance*-1
+        WHEN aml.balance > 0.0 AND aat.tag_name = 30 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 30 AND aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 30 AND NOT aat.negate THEN abs(aml.balance)
         ELSE 0.00
         END) AS account_tag_30,
     SUM(CASE
-        WHEN aml.balance > 0.0 AND aat.tag_name = 31 AND aat.negate THEN ABS(aml.balance)*-1
-        WHEN aml.balance > 0.0 AND aat.tag_name = 31 AND NOT aat.negate THEN ABS(aml.balance)
-        WHEN aml.balance < 0.0 AND aat.tag_name = 31 AND aat.negate THEN aml.balance*-1
-        WHEN aml.balance < 0.0 AND aat.tag_name = 31 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance > 0.0 AND aat.tag_name = 31 AND aat.negate THEN aml.balance*-1
+        WHEN aml.balance > 0.0 AND aat.tag_name = 31 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 31 AND aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 31 AND NOT aat.negate THEN abs(aml.balance)
         ELSE 0.00
         END) AS account_tag_31,
     SUM(CASE
-        WHEN aml.balance > 0.0 AND aat.tag_name = 41 AND aat.negate THEN ABS(aml.balance)*-1
-        WHEN aml.balance > 0.0 AND aat.tag_name = 41 AND NOT aat.negate THEN ABS(aml.balance)
-        WHEN aml.balance < 0.0 AND aat.tag_name = 41 AND aat.negate THEN aml.balance*-1
-        WHEN aml.balance < 0.0 AND aat.tag_name = 41 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance > 0.0 AND aat.tag_name = 41 AND aat.negate THEN aml.balance*-1
+        WHEN aml.balance > 0.0 AND aat.tag_name = 41 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 41 AND aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 41 AND NOT aat.negate THEN abs(aml.balance)
         ELSE 0.00
         END) AS account_tag_41,
     SUM(CASE
-        WHEN aml.balance > 0.0 AND aat.tag_name = 32 AND aat.negate THEN ABS(aml.balance)*-1
-        WHEN aml.balance > 0.0 AND aat.tag_name = 32 AND NOT aat.negate THEN ABS(aml.balance)
-        WHEN aml.balance < 0.0 AND aat.tag_name = 32 AND aat.negate THEN aml.balance*-1
-        WHEN aml.balance < 0.0 AND aat.tag_name = 32 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance > 0.0 AND aat.tag_name = 32 AND aat.negate THEN aml.balance*-1
+        WHEN aml.balance > 0.0 AND aat.tag_name = 32 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 32 AND aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 32 AND NOT aat.negate THEN abs(aml.balance)
         ELSE 0.00
         END) AS account_tag_32,
     SUM(CASE
-        WHEN aml.balance > 0.0 AND aat.tag_name = 42 AND aat.negate THEN ABS(aml.balance)*-1
-        WHEN aml.balance > 0.0 AND aat.tag_name = 42 AND NOT aat.negate THEN ABS(aml.balance)
-        WHEN aml.balance < 0.0 AND aat.tag_name = 42 AND aat.negate THEN aml.balance*-1
-        WHEN aml.balance < 0.0 AND aat.tag_name = 42 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance > 0.0 AND aat.tag_name = 42 AND aat.negate THEN aml.balance*-1
+        WHEN aml.balance > 0.0 AND aat.tag_name = 42 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 42 AND aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 42 AND NOT aat.negate THEN abs(aml.balance)
         ELSE 0.00
         END) AS account_tag_42,
     SUM(CASE
-        WHEN aml.balance > 0.0 AND aat.tag_name = 43 AND aat.negate THEN ABS(aml.balance)*-1
-        WHEN aml.balance > 0.0 AND aat.tag_name = 43 AND NOT aat.negate THEN ABS(aml.balance)
-        WHEN aml.balance < 0.0 AND aat.tag_name = 43 AND aat.negate THEN aml.balance*-1
-        WHEN aml.balance < 0.0 AND aat.tag_name = 43 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance > 0.0 AND aat.tag_name = 43 AND aat.negate THEN aml.balance*-1
+        WHEN aml.balance > 0.0 AND aat.tag_name = 43 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 43 AND aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 43 AND NOT aat.negate THEN abs(aml.balance)
         ELSE 0.00
         END) AS account_tag_43,
     SUM(CASE
-        WHEN aml.balance > 0.0 AND aat.tag_name = 44 AND aat.negate THEN ABS(aml.balance)*-1
-        WHEN aml.balance > 0.0 AND aat.tag_name = 44 AND NOT aat.negate THEN ABS(aml.balance)
-        WHEN aml.balance < 0.0 AND aat.tag_name = 44 AND aat.negate THEN aml.balance*-1
-        WHEN aml.balance < 0.0 AND aat.tag_name = 44 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance > 0.0 AND aat.tag_name = 44 AND aat.negate THEN aml.balance*-1
+        WHEN aml.balance > 0.0 AND aat.tag_name = 44 AND NOT aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 44 AND aat.negate THEN aml.balance
+        WHEN aml.balance < 0.0 AND aat.tag_name = 44 AND NOT aat.negate THEN abs(aml.balance)
         ELSE 0.00
         END) AS account_tag_44"""
 
     @api.model
     def _from(self):
-        return """account_move_line AS aml
+        tax_negate = l10n_bg_get_tag_negate_sql(table_alias='account_account_tag')
+        return f"""account_move_line AS aml
     LEFT JOIN account_move AS am
         ON aml.move_id = am.id
     LEFT JOIN account_account_tag_account_move_line_rel AS tag_line_rel
         ON tag_line_rel.account_move_line_id = aml.id
     LEFT JOIN (SELECT id,
-                    NULLIF(REGEXP_REPLACE(account_account_tag.name#>>'{en_US}', '\\D','','g'), '')::numeric AS tag_name,
-                    account_account_tag.tax_negate AS negate,
+                    NULLIF(REGEXP_REPLACE(account_account_tag.name#>>'{{en_US}}', '\\D','','g'), '')::numeric AS tag_name,
+                    {tax_negate},
                     l10n_bg_applicability
                     FROM account_account_tag
                     WHERE applicability = 'taxes') AS aat

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- TARIC Code Tree View -->
+    <record id="taric_code_tree_view" model="ir.ui.view">
+        <field name="name">taric.code.tree</field>
+        <field name="model">taric.code</field>
+        <field name="arch" type="xml">
+            <list string="TARIC Codes" decoration-success="verified==True" decoration-warning="confidence_score&lt;80">
+                <field name="code"/>
+                <field name="description"/>
+                <field name="duty_rate"/>
+                <field name="confidence_score" widget="progressbar" optional="show"/>
+                <field name="verified" widget="boolean_toggle" optional="show"/>
+                <field name="active" widget="boolean_toggle" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- TARIC Code Form View -->
+    <record id="taric_code_form_view" model="ir.ui.view">
+        <field name="name">taric.code.form</field>
+        <field name="model">taric.code</field>
+        <field name="arch" type="xml">
+            <form string="TARIC Code">
+                <header>
+                    <button name="action_verify_code"
+                            string="Verify Online"
+                            type="object"
+                            class="oe_highlight"/>
+                    <field name="verified" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button"
+                                type="object"
+                                name="action_view_products"
+                                icon="fa-cube">
+                            <field string="Products" name="product_ids" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group string="Code Information">
+                            <field name="code"/>
+                            <field name="active"/>
+                            <field name="valid_from"/>
+                            <field name="valid_to"/>
+                        </group>
+                        <group string="AI and Verification">
+                            <field name="confidence_score" widget="progressbar"/>
+                            <field name="verified"/>
+                            <field name="verified_by_id" invisible="not verified"/>
+                            <field name="verified_date" invisible="not verified"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <group>
+                                <field name="description" placeholder="Description..."/>
+                            </group>
+                        </page>
+                        <page string="Customs Information">
+                            <group>
+                                <field name="duty_rate"/>
+                            </group>
+                        </page>
+                        <page string="Classification History">
+                            <field name="classification_history_ids" readonly="1">
+                                <list>
+                                    <field name="create_date"/>
+                                    <field name="product_id"/>
+                                    <field name="classification_method"/>
+                                    <field name="confidence_score" widget="progressbar"/>
+                                    <field name="user_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- TARIC Code Search View -->
+    <record id="taric_code_search_view" model="ir.ui.view">
+        <field name="name">taric.code.search</field>
+        <field name="model">taric.code</field>
+        <field name="arch" type="xml">
+            <search string="Search TARIC Codes">
+                <field name="code"/>
+                <field name="description"/>
+                <filter string="Verified" name="verified" domain="[('verified', '=', True)]"/>
+                <filter string="Unverified" name="unverified" domain="[('verified', '=', False)]"/>
+                <filter string="High Confidence" name="high_confidence" domain="[('confidence_score', '&gt;', 90)]"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Verification Status" name="group_verified" context="{'group_by': 'verified'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- TARIC Code Action -->
+    <record id="action_taric_code" model="ir.actions.act_window">
+        <field name="name">TARIC Codes</field>
+        <field name="res_model">taric.code</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="taric_code_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first TARIC code
+            </p>
+            <p>
+                TARIC codes are used for customs classification.
+                Use the AI classification tool to automatically suggest codes for your products.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_taric_codes"
+              name="TARIC Codes"
+              parent="account.menu_finance_configuration"
+              action="action_taric_code"
+              sequence="10"/>
+</odoo>

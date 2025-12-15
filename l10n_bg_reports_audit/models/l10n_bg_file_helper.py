@@ -1,7 +1,9 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
+import json
 import logging
 
 from odoo import fields, models, _
+from odoo import release
 from dateutil.relativedelta import relativedelta
 
 
@@ -14,6 +16,35 @@ L10N_BG_ADDRESS_EXTEND = [
 L10N_BG_MULTILANGUAGE = [
     "l10n_bg_multilang", "partner_multilang"
 ]
+
+
+def l10n_bg_get_tag_negate_sql(table_alias='aat_base'):
+    """
+    Връща SQL за извличане на negate флага в зависимост от версията на Odoo.
+
+    В Odoo 18 и по-рано: използва полето tax_negate
+    В Odoo 19+: проверява дали името започва с минус
+
+    :param table_alias: Алиас на таблицата account_account_tag (по подразбиране 'aat_base')
+    :return: SQL израз за negate полето
+    """
+    odoo_version = int(release.version.split('.')[0])
+
+    if odoo_version < 19:
+        # Odoo 18 и по-рано
+        return f"{table_alias}.tax_negate AS negate"
+    else:
+        # Odoo 19+
+        return f"STARTS_WITH({table_alias}.name#>>'{{en_US}}', '-') AS negate"
+
+
+def account_tag_33_43(env, report_options):
+    account_tag_33 = account_tag_43 = False
+    if report_options.get("account_tag_33"):
+        account_tag_33 = report_options.get("account_tag_33")
+    if report_options.get("account_tag_43"):
+        account_tag_43 = report_options.get("account_tag_43")
+    return account_tag_33, account_tag_43
 
 
 def _l10n_bg_extend_address(env):
@@ -46,22 +77,30 @@ LEFT JOIN res_city AS {model}_city
 
 
 def l10n_bg_lang(env, lang_modules="partner", field_name=""):
+    is_l10n_bg_multilanguage = isinstance(env.company.is_l10n_bg_multilanguage, dict) and env.company.is_l10n_bg_multilanguage.get("l10n_bg_multilang", '') == 'installed'
 
     if l10n_bg_extend_address(env) and lang_modules == "partner" and field_name == "company_partner.city":
-        field_name = "company_partner_city.name"
+        return f"""(CASE
+        WHEN company_partner_city.name ? 'bg_BG' THEN company_partner_city.name#>>'{{{'bg_BG'}}}'
+        WHEN company_partner_city.name ? 'en_US' THEN company_partner_city.name#>>'{{{'en_US'}}}'
+        ELSE company_partner_city.name::text
+        END)"""
     if l10n_bg_extend_address(env) and lang_modules == "partner" and field_name == "represent_partner.city":
-        field_name = "represent_partner_city.name"
+        return f"""(CASE
+        WHEN represent_partner_city.name ? 'bg_BG' THEN represent_partner_city.name#>>'{{{'bg_BG'}}}'
+        WHEN represent_partner_city.name ? 'en_US' THEN represent_partner_city.name#>>'{{{'en_US'}}}'
+        ELSE represent_partner_city.name::text
+        END)"""
 
     if lang_modules == "partner":
-        _logger.info(f"l10n_bg_lang: lang_modules == partner: {field_name} - {lang_modules}")
+        _logger.debug(f"l10n_bg_lang: lang_modules == partner: {field_name} - {lang_modules}")
         return (
             f"""(CASE
            WHEN {field_name} ? 'bg_BG' THEN {field_name}#>>'{{{'bg_BG'}}}'
            WHEN {field_name} ? 'en_US' THEN {field_name}#>>'{{{'en_US'}}}'
            ELSE {field_name}::text
            END)"""
-            if field_name and (isinstance(env.company.is_l10n_bg_multilanguage, dict)
-                               and env.company.is_l10n_bg_multilanguage.get("partner_multilang", '') == 'installed')
+            if field_name and is_l10n_bg_multilanguage
             else f"""{field_name}"""
         )
     elif lang_modules == "narration":
@@ -79,9 +118,7 @@ def l10n_bg_lang(env, lang_modules="partner", field_name=""):
            WHEN {field_name} ? 'en_US' THEN {field_name}#>>'{{{'en_US'}}}'
            ELSE {field_name}::text
            END)"""
-            if field_name
-               and env.company.is_l10n_bg_multilanguage
-               and env.company.is_l10n_bg_multilanguage.get("l10n_bg_multilang", '') == 'installed'
+            if field_name and is_l10n_bg_multilanguage
             else f"""{field_name}"""
         )
 
@@ -94,13 +131,19 @@ def l10n_bg_odoo_compatible_line(env, mode):
     return """"""
 
 
-def l10n_bg_odoo_compatible(env, mode):
+def l10n_bg_odoo_compatible(env, mode, report_options=None):
     l10n_bg_compatible_odoo = env.user.company_id.l10n_bg_odoo_compatible
-    _logger.info(f"l10n_bg_compatible_odoo: {l10n_bg_compatible_odoo} - {mode}")
+    _logger.debug(f"l10n_bg_compatible_odoo: {l10n_bg_compatible_odoo} - {mode}")
+
+    account_tag_33, account_tag_43 = account_tag_33_43(env, report_options=report_options or {})
+    if not account_tag_33:
+        account_tag_33 = 0.00
+    if not account_tag_43:
+        account_tag_43 = 0.00
 
     # Общи SQL фрагменти за избягване на дублиране
     sales_vat_sum = "SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24)"
-    purchase_vat_sum = "SUM(accp.account_tag_41 + accp.account_tag_42 + accp.account_tag_43)"
+    purchase_vat_sum = f"SUM(accp.account_tag_41 + accp.account_tag_42*{account_tag_33} + {account_tag_43})"
     vat_difference = f"COALESCE({sales_vat_sum}, 0) - COALESCE({purchase_vat_sum}, 0)"
 
     # Mapping на режимите към SQL заявките
@@ -169,7 +212,7 @@ def _set_options(options, report_date_from, report_date_to):
     return options
 
 
-def l10n_bg_where(env, report_options):
+def l10n_bg_where(env, report_options, model_report='sale'):
     date_now = fields.Date.to_string(fields.Date.today())
     date_from = report_options["date"].get("date_from") or date_now
     date_to = report_options["date"].get("date_to") or date_now
@@ -179,6 +222,9 @@ def l10n_bg_where(env, report_options):
     unposted_in_period = report_options.get("unposted_in_period", False)
     all_entries = report_options["all_entries"]
     state = ["posted", "cancel"]
+    if model_report == 'purchase':
+        state = ["posted"]
+
     tax_periods = [tax_period] if tax_period else []
 
     if not tax_period and date_from and not date_to:
@@ -284,11 +330,11 @@ def convert_date_vies(value):
     return f"{month}/{year}"[:7]
 
 
-def parce_fload_4(value, arrangement="R"):
+def parce_fload_4_2(value, arrangement="R"):
     value = value or 0.00
     if arrangement == "L":
-        return f"{value:.2f}".ljust(4)[:4]
-    return f"{value:.2f}".rjust(4)[:4]
+        return f"{value:.2f}".ljust(4, " ")[:4]
+    return f"{value:.2f}".rjust(4, " ")[:4]
 
 
 def parce_fload_15_2(value, arrangement="R"):
@@ -317,8 +363,8 @@ L10N_BG_DECLARATION_FIELDS = {
     "info_tag_2": lambda value: parce_str_50(value),
     "info_tag_3": lambda value: parce_str_6(value),
     "info_tag_4": lambda value: parce_str_50(value),
-    "info_tag_5": lambda value: parce_integer_15(value),
-    "info_tag_6": lambda value: parce_integer_15(value),
+    "info_tag_5": lambda value: parce_integer_15(value, arrangement='R'),
+    "info_tag_6": lambda value: parce_integer_15(value, arrangement='R'),
     "account_tag_10": lambda value: parce_fload_15_2(value),
     "account_tag_20": lambda value: parce_fload_15_2(value),
     "account_tag_11": lambda value: parce_fload_15_2(value),
@@ -340,7 +386,7 @@ L10N_BG_DECLARATION_FIELDS = {
     "account_tag_32": lambda value: parce_fload_15_2(value),
     "account_tag_42": lambda value: parce_fload_15_2(value),
     "account_tag_43": lambda value: parce_fload_15_2(value),
-    "account_tag_33": lambda value: parce_fload_4(value),
+    "account_tag_33": lambda value: parce_fload_4_2(value),
     "account_tag_40": lambda value: parce_fload_15_2(value),
     "account_tag_50": lambda value: parce_fload_15_2(value),
     "account_tag_60": lambda value: parce_fload_15_2(value),
@@ -590,8 +636,32 @@ class AuditExportFileHelper(models.AbstractModel):
             new_line = {}
             for field, helper in fields_to_export.items():
                 val = line.get(field)
+
                 if isinstance(val, dict):
-                    val = list(val.values())[0]
+                    val = list(val.values())[-1]
+
+                elif isinstance(val, str) and val.find('{') != -1:
+                    try:
+                        if val.count('{') > 1:
+                            wrapped_json = '{"value": [' + val + ']}'
+                            parsed_data = json.loads(wrapped_json)
+                            # Обединяваме всички стойности със запетая
+                            if parsed_data.get('value'):
+                                values = []
+                                for obj in parsed_data['value']:
+                                    if isinstance(obj, dict):
+                                        values.append(list(obj.values())[0])
+                                    else:
+                                        values.append(str(obj))
+                                val = ', '.join(values)
+                        else:
+                            val = json.loads(val)
+
+                        if isinstance(val, dict):
+                            val = list(val.values())[-1]
+                    except json.JSONDecodeError:
+                        pass
+
                 new_line[field] = helper(val)
             lines.append(new_line)
 

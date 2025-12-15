@@ -1,13 +1,68 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import logging
+import re
+
 from odoo import models
 from odoo.addons.account.models.chart_template import template
+from itertools import zip_longest
 
 _logger = logging.getLogger(__name__)
 
 BASE_MODULE = 'l10n_bg_config'
 PLUGINS_SUFFIX = '_plugins'
+
+
+def apply_mask_zip(
+        value: str,
+        mask: str,
+        placeholder: str = '#',
+        target_len: int | None = None,
+        fill_char: str | None = None,
+) -> str:
+    """
+    Форматира 'value' по дадена 'mask', като:
+      • пропуска разделителите от маската, ако няма оставащи цифри;
+      • допълва липсващи позиции с fill_char;
+      • НЕ брои вече присъстващи разделители във value.
+    """
+    # ----------- Премахваме всички нецифрови символи от входа -----------
+    raw_value = re.sub(r'\D', '', value)       # само цифри
+    value = raw_value                          # занапред работим с прочистен низ
+
+    # ----------- Изчисляване на минималната изисквана дължина -----------
+    placeholders = mask.count(placeholder)
+    min_len = placeholders if target_len is None else max(placeholders, target_len)
+
+    # ----------- Допълване, ако е необходимо -----------
+    if len(value) < min_len:
+        if fill_char is None:
+            fill_char = value[-1] if value else '0'
+        value += fill_char * (min_len - len(value))
+
+    # ----------- Прилагане на маската -----------
+    digits = iter(value)
+    result, pending_sep = [], None
+
+    for m_ch, d_ch in zip_longest(mask, digits, fillvalue=None):
+        if m_ch == placeholder:            # позиция за цифра
+            if d_ch is None:
+                break
+        else:                              # разделител от маската
+            pending_sep = m_ch
+            if pending_sep:
+                result.append(pending_sep)
+                pending_sep = None
+        result.append(d_ch)
+
+    # Остатъчни цифри (ако value е по-дълъг от маската)
+    leftover = ''.join(digits)
+    if leftover:
+        if pending_sep:
+            result.append(pending_sep)
+        result.append(leftover)
+
+    return ''.join(result)
 
 
 class AccountChartTemplate(models.AbstractModel):
@@ -31,7 +86,7 @@ class AccountChartTemplate(models.AbstractModel):
         Retrieves a list of names of installed plugins that match the naming convention
         defined by the `BASE_MODULE` and `PLUGINS_SUFFIX` variables. This method searches
         for modules in the system's environment whose names start with the base module
-        name and plugins suffix, and whose state is marked as installed.
+        name and plugin suffix, and whose state is marked as installed.
 
         :return: A list of installed plugin module names that match the filtering criteria.
         :rtype: list[str]
@@ -41,7 +96,7 @@ class AccountChartTemplate(models.AbstractModel):
             ('state', '=', 'installed')
         ]).mapped('name')
 
-    def _update_template_data(self, base_data, template_code, data_getter):
+    def _update_template_data(self, base_data, template_code, data_getter, type_template=None):
         """
         Updates the provided base data dictionary with additional data fetched
         using a specified template code and data getter. The method also iterates
@@ -63,6 +118,22 @@ class AccountChartTemplate(models.AbstractModel):
 
         for plugin in sorted(self._get_installed_plugins()):
             result.update(data_getter(template_code, plugin))
+        if type_template == 'account.account' and hasattr(self, '_get_bg_template_data'):
+            bg_template_data = self._get_bg_template_data()
+            account_mask = bg_template_data.get('account_mask') or None
+            try:
+                target_len = int(bg_template_data.get('code_digits', 6))
+            except (TypeError, ValueError):
+                target_len = 6
+
+            if account_mask:
+                for key, account_data in result.items():
+                    result[key]['code'] = apply_mask_zip(
+                        account_data['code'],
+                        account_mask,
+                        target_len=target_len,
+                        fill_char='0'
+                    )
         return result
 
     @template(model='account.account')
@@ -74,7 +145,8 @@ class AccountChartTemplate(models.AbstractModel):
         return self._update_template_data(
             super()._get_account_account(template_code),
             template_code,
-            self._get_bg_account_data
+            self._get_bg_account_data,
+            type_template='account.account',
         )
 
     @template(model='account.group')
@@ -122,3 +194,16 @@ class AccountChartTemplate(models.AbstractModel):
     #         template_code,
     #         self._get_bg_fiscal_position_data
     #     )
+
+    @template('bg')
+    def _get_bg_template_data_external(self):
+        return {
+            'account_mask': '###.###',
+            'code_digits': '6',
+        }
+
+    @template('bg')
+    def _get_bg_template_data(self):
+        res = super()._get_bg_template_data()
+        res.update(self._get_bg_template_data_external())
+        return res

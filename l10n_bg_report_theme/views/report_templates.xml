@@ -108,6 +108,19 @@
         <t t-if="not recipient_vat_label">
             <t t-set="recipient_vat_label">TIN</t>
         </t>
+        <t t-if="not sender_uic_label">
+            <t t-set="sender_uic_label">UIC</t>
+        </t>
+        <t t-if="not recipient_uic_label">
+            <t t-set="recipient_uic_label">UIC</t>
+        </t>
+        <t t-if="not sender_contact_label">
+            <t t-set="sender_contact_label">Sender represent contact</t>
+        </t>
+        <t t-if="not recipient_contact_label">
+            <t t-set="recipient_contact_label">Represent contact</t>
+        </t>
+
         <div class="row mt8 o_sections_deal" name="deal" t-if="recipient and sender">
             <div class="col-12" name="deal_table">
                 <table class="table o_deal_table table-sm mt-4" name="deal_header">
@@ -138,9 +151,9 @@
                         </tr>
                         <tr name="cites">
                             <td class="o_selection_custom_name">Address: </td>
-                            <td><span t-field="recipient.zip" /> <span t-if="'city_id' not in recipient._fields" t-field="recipient.city"/> <span t-if="'city_id' in recipient._fields" t-field="recipient.city_id"/> <span t-if="recipient.country_id">, <span t-field="recipient.country_id"/></span></td>
+                            <td><span t-field="recipient.zip" /> <span t-if="'city_id' not in recipient._fields" t-field="recipient.city"/> <span t-if="'city_id' in recipient._fields" t-esc="recipient.city_id.name"/> <span t-if="recipient.country_id">, <span t-field="recipient.country_id"/></span></td>
                             <td class="o_selection_custom_name">Address: </td>
-                            <td><span t-field="sender.zip" /> <span t-if="'city_id' not in sender._fields" t-field="sender.city"/> <span t-if="'city_id' in sender._fields" t-field="sender.city_id"/> <span t-if="sender.country_id">, <span t-field="sender.country_id"/></span></td>
+                            <td><span t-field="sender.zip" /> <span t-if="'city_id' not in sender._fields" t-field="sender.city"/> <span t-if="'city_id' in sender._fields" t-esc="sender.city_id.name"/> <span t-if="sender.country_id">, <span t-field="sender.country_id"/></span></td>
                         </tr>
                         <tr name="addresses">
                             <t t-if="recipient.street">
@@ -167,12 +180,30 @@
                             <td />
                             <td><span t-field="sender.street2" /></td>
                         </tr>
-                        <tr name="vatnumber">
+                        <tr name="uic_number" t-if="'l10n_bg_uic' in recipient._fields and recipient.l10n_bg_uic or sender.l10n_bg_uic">
+                            <t t-if="recipient.l10n_bg_uic">
+                                <td class="o_selection_custom_name"><t
+                                        t-esc="recipient_uic_label"
+                                    />:<span/></td>
+                                <td><span t-esc="recipient.l10n_bg_uic"/></td>
+                            </t>
+                            <t t-else="">
+                                <td /><td />
+                            </t>
+                            <t t-if="sender.l10n_bg_uic">
+                                <td class="o_selection_custom_name"><t
+                                        t-esc="sender_uic_label"
+                                    />:<span/></td>
+                                <td><span t-field="sender.l10n_bg_uic"/></td>
+                            </t>
+                            <t t-else=""><td /><td /></t>
+                        </tr>
+                        <tr name="vat_number" t-if="recipient.vat or sender.vat">
                             <t t-if="recipient.vat">
                                 <td class="o_selection_custom_name"><t
                                         t-esc="recipient_vat_label"
-                                    />: </td>
-                                <td><span t-field="recipient.vat" /></td>
+                                    />:<span/></td>
+                                <td><span t-esc="recipient.vat"/></td>
                             </t>
                             <t t-else="">
                                 <td /><td />
@@ -180,22 +211,26 @@
                             <t t-if="sender.vat">
                                 <td class="o_selection_custom_name"><t
                                         t-esc="sender_vat_label"
-                                    />: </td>
+                                    />:<span/></td>
                                 <td><span t-field="sender.vat" /></td>
                             </t>
                             <t t-else=""><td /><td /></t>
                         </tr>
                          <tr name="represent" groups="l10n_bg_report_theme.group_control_represent_person">
                             <t t-if="recipient.l10n_bg_represent_contact_id">
-                                <td class="o_selection_custom_name">Represent contact: </td>
-                                <td><span t-field="recipient.l10n_bg_represent_contact_id"/></td>
+                                <td class="o_selection_custom_name"><t
+                                        t-esc="recipient_contact_label"
+                                    />:<span/></td>
+                                <td><span t-esc="recipient.l10n_bg_represent_contact_id.name"/></td>
                             </t>
                             <t t-else="">
                                 <td /><td />
                             </t>
                             <t t-if="sender.l10n_bg_represent_contact_id">
-                                <td class="o_selection_custom_name">Represent contact: </td>
-                                <td><span t-field="sender.l10n_bg_represent_contact_id"/></td>
+                                <td class="o_selection_custom_name"><t
+                                        t-esc="sender_contact_label"
+                                    />:<span/></td>
+                                <td><span t-esc="sender.l10n_bg_represent_contact_id.name"/></td>
                             </t>
                             <t t-else=""><td /><td /></t>
                         </tr>
@@ -232,74 +267,42 @@
         <div class="row mt8 o_sections_signatures" name="signatures_section"
              groups="l10n_bg_report_theme.group_control_signatures">
             <!-- Set variables for labels -->
-            <t t-set="representative_label" t-if="not representative_label">Representative</t>
-            <t t-set="user_label" t-if="not user_label">User</t>
-            <t t-set="name_and_surname_label" t-if="not name_and_surname_label">Name and Surname</t>
-            <t t-set="signature_and_stamp_label" t-if="not signature_and_stamp_label">Signature and Stamp</t>
-            <t t-set="user_id_label" t-if="not user_id_label">User ID</t>
-            <t t-set="date_label" t-if="not date_label">Date</t>
-            <t t-set="not_specified_label" t-if="not not_specified_label">Not specified</t>
-            <t t-set="parties_signatures_title" t-if="not parties_signatures_title">Parties Signatures</t>
-            <t t-set="signature_placeholder" t-if="not signature_placeholder">____________________</t>
+            <t t-if="o">
+                <t t-set="user_name" t-value="o.env.user.name"/>
+            </t>
+            <t t-if="doc">
+                <t t-set="user_name" t-value="doc.env.user.name"/>
+            </t>
+            <t t-if="recipient_name" t-set="name_and_surname_label" t-value="recipient_name"/>
+            <t t-if="not name_and_surname_label" t-set="name_and_surname_label">CUSTOMER</t>
+            <t t-if="not signature_and_stamp_label" t-set="signature_and_stamp_label">Signature and Stamp</t>
+            <t t-if="not signature_placeholder" t-set="signature_placeholder">____________________</t>
+            <t t-if="not name_and_sender_label" t-set="name_and_sender_label">COMPILER</t>
 
             <div class="col-12" name="signatures_control">
-                <div class="alert alert-secondary">
-                    <h6><i class="fa fa-pencil"/> <t t-esc="parties_signatures_title"/></h6>
-                    <table class="table table-bordered">
-                        <thead class="table-light">
-                            <tr>
-                                <th class="o_signatures_column_header text-center" t-esc="recipient_name" />
-                                <th class="o_signatures_column_header text-center" t-esc="sender_name" />
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Display names from the system -->
-                            <tr t-if="recipient.l10n_bg_represent_contact_id">
-                                <td class="text-center">
-                                    <strong t-esc="representative_label"/>:<br/>
-                                    <span t-if="recipient.l10n_bg_represent_contact_id" t-field="recipient.l10n_bg_represent_contact_id"/>
-                                    <span t-else="" t-esc="not_specified_label"/>
-                                </td>
-                                <td class="text-center">
-                                    <strong t-esc="name_and_surname_label"/>:<br/>
-                                    <span t-esc="sender.l10n_bg_represent_contact_id.name"/> (<t t-esc="user_label"/>: <span t-esc="sender.l10n_bg_represent_contact_id.id"/>)
-                                </td>
-                            </tr>
-
-                            <!-- Signature fields -->
-                            <tr class="o_signatures_row">
-                                <td class="text-center">
-                                    <div class="o_signatures_field">
-                                        <small>
-                                            <t t-esc="name_and_surname_label"/>:
-                                            <span t-if="recipient.l10n_bg_represent_contact_id" t-esc="recipient.l10n_bg_represent_contact_id.name"/>
-                                            <span t-else="" t-esc="signature_placeholder"/>
-                                            <br/>
-                                            <t t-esc="signature_and_stamp_label"/>: <t t-esc="signature_placeholder"/>
-                                        </small>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="o_signatures_field">
-                                        <small>
-                                            <t t-esc="user_label"/>: <span t-esc="o.env.user.name"/>
-                                            <br/>
-                                            <t t-esc="user_id_label"/>: <span t-esc="o.env.user.id"/>
-                                        </small>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <!-- Date in bottom right corner -->
-                            <tr>
-                                <td colspan="2" class="text-end">
-                                    <small class="o_signatures_date">
-                                        <t t-esc="date_label"/>: <span t-esc="datetime.datetime.now().strftime('%d/%m/%Y')" />
-                                    </small>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="row">
+                    <!-- Left signature -->
+                    <div class="col-6 text-center">
+                        <div class="mt32 mr4">
+                            <small>
+                                <t t-esc="name_and_surname_label"/>:<span/><t t-esc="signature_placeholder"/>
+                            </small>
+                        </div>
+                    </div>
+                    <!-- Right signature -->
+                    <div class="col-6 text-center">
+                        <div class="mt32 mr4">
+                            <small>
+                                <t t-esc="name_and_sender_label"/>:<span/><t t-esc="signature_placeholder"/>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" t-if="user_name">
+                    <div class="col-6 text-center"/>
+                    <div class="col-6 text-center">
+                        <span t-esc="user_name"/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -441,7 +444,7 @@
             expr='//t[@t-elif="layout == &apos;web.external_layout_bubble&apos;"]'
             position="after"
         >
-            <t t-elif="layout == 'report_theme_sections.external_layout_sections'">
+            <t t-elif="layout == 'l10n_bg_report_theme.external_layout_sections'">
                 :root {
                     --font-family: <t t-esc="font" />;
                     --primary-color:  <t t-esc='primary' />;

@@ -1,7 +1,7 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Bulgarian HR Payroll Classifications',
-    'version': '18.0.3.0.1',
+    'version': '18.0.5.0.1',
     'category': 'Human Resources/Localization',
     'summary': 'Bulgarian localization for HR payroll with NKPD and Economic Activity classifications',
     'description': """
@@ -18,13 +18,13 @@
     * Integration with standard HR modules
 
     NCOP Classifications:
-    --------------------
+    ---------------------
     * Complete NCOP hierarchy management (НКПД 2011)
     * Professional groups and categories
     * Integration with employee positions
 
     Economic Activities (KID):
-    -------------------------
+    --------------------------
     * Full KID classification structure (Sections, Divisions, Groups, Classes)
     * MOD (Minimum Insurance Income) rates by qualification groups
     * Hierarchical structure with parent-child relationships
@@ -49,8 +49,10 @@
         'data/bg_hr_payroll_ncop_classification/sub_major/bg.hr.payroll.ncop.classification.csv',
         'data/bg_hr_payroll_ncop_classification/minor/bg.hr.payroll.ncop.classification.csv',
         'data/bg_hr_payroll_ncop_classification/unit/bg.hr.payroll.ncop.classification.csv',
+        'data/bg_hr_payroll_ncop_classification/occupation/bg.hr.payroll.ncop.classification.csv',
         'views/bg_ncop_classification.xml',
         'views/bg_mod_economic_activity.xml',
+        'views/hr_job_views.xml',
         'views/hr_menus.xml',
     ],
     'images': [
@@ -64,4 +66,5 @@
     'maintainers': ['rosenvladimirov'],
     'contributors': ['Rosen Vladimirov'],
     'support': 'https://github.com/rosenvladimirov/l10n-bulgaria/issues',
+    'countries': ['BG'],
 }

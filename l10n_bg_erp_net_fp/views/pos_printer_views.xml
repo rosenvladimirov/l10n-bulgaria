@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Form view за pos.printer с ErpNet.FP настройки -->
+        <record id="view_pos_printer_form_inherit_erp_net_fp" model="ir.ui.view">
+            <field name="name">pos.printer.form.erp.net.fp</field>
+            <field name="model">pos.printer</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_printer_form"/>
+            <field name="arch" type="xml">
+
+                <!-- Добавяне на ErpNet.FP полета след printer_type -->
+                <xpath expr="//field[@name='printer_type']" position="after">
+                    <field name="l10n_bg_fiscal_printer_id"
+                           invisible="printer_type != 'erp_net_fp'"
+                           required="printer_type == 'erp_net_fp'"/>
+                    <field name="l10n_bg_printer_id"
+                           invisible="printer_type != 'erp_net_fp'"
+                           readonly="1"/>
+                    <field name="l10n_bg_proxy_ip"
+                           invisible="printer_type != 'erp_net_fp'"
+                           readonly="1"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Tree view за pos.printer -->
+        <record id="view_pos_printer_tree_inherit_erp_net_fp" model="ir.ui.view">
+            <field name="name">pos.printer.tree.erp.net.fp</field>
+            <field name="model">pos.printer</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_printer"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='proxy_ip']" position="after">
+                    <field name="l10n_bg_printer_id" optional="hide"/>
+                    <field name="l10n_bg_proxy_ip" optional="hide"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

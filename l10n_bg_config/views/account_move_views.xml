@@ -5,18 +5,18 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='id']" position="after">
+                <field name="l10n_bg_name_value" invisible="True"/>
+            </xpath>
             <xpath
                 expr="//page[@id='other_tab']/group[@id='other_tab_group']"
                 position="inside"
             >
-                <group string="Bulgarian VAT" id="account_bg_vat">
-                    <field
-                        name="l10n_bg_name"
-                        invisible="[('l10n_bg_type_vat', 'in', ['standard', 'in_customs'])]"
-                    />
-                    <field name="l10n_bg_date"
-                           invisible="[('l10n_bg_type_vat', 'in', ['standard', 'in_customs'])]"
-                    />
+                <group
+                    string="Bulgarian VAT"
+                    id="account_bg_vat"
+                    invisible="not is_l10n_bg_record"
+                >
                     <field name="l10n_bg_deal_date"/>
                 </group>
             </xpath>
@@ -27,10 +27,9 @@
                 <group
                     string="Bulgarian VAT"
                     id="account_bg_vat_entry"
-                    invisible="[('l10n_bg_type_vat', '=', 'standard')]"
+                    invisible="not is_l10n_bg_record"
                 >
-                    <field name="l10n_bg_name" />
-                    <field name="l10n_bg_date" />
+                    <field name="l10n_bg_deal_date"/>
                 </group>
             </xpath>
         </field>

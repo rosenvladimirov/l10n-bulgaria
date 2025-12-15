@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Product Template Form View -->
+    <record id="product_template_form_view_taric" model="ir.ui.view">
+        <field name="name">product.template.form.taric</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_lots_and_weight']" position="after">
+                <group string="Classification">
+                    <field name="taric_code_id" options="{'no_create': True}"/>
+                    <field name="ai_classification_confidence" widget="progressbar"/>
+                    <field name="classification_verified" readonly="1"/>
+                    <div class="o_row" colspan="2">
+                        <button name="action_classify_with_ai"
+                                string="Classify with AI"
+                                type="object"
+                                class="oe_highlight"
+                                help="Use AI to suggest TARIC codes"/>
+                        <button name="action_verify_taric_code"
+                                string="✓ Verify Code Online"
+                                type="object"
+                                invisible="not taric_code_id"/>
+                        <button name="action_view_classification_history"
+                                string="📋 View History"
+                                type="object"/>
+                    </div>
+                    <field name="classification_history_ids" nolabel="1">
+                        <list>
+                            <field name="create_date"/>
+                            <field name="taric_code_id"/>
+                            <field name="classification_method"/>
+                            <field name="confidence_score" widget="progressbar"/>
+                            <field name="user_id"/>
+                        </list>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Product List View -->
+    <record id="product_template_list_view_taric" model="ir.ui.view">
+        <field name="name">product.template.list.taric</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='list_price']" position="after">
+                <field name="ai_classification_confidence" optional="hide" widget="progressbar"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Action for batch classification -->
+    <record id="action_batch_classify_products" model="ir.actions.act_window">
+        <field name="name">Batch Classify Products</field>
+        <field name="res_model">batch.classify.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

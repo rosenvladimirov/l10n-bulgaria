@@ -1,14 +1,17 @@
-# -*- coding: utf-8 -*-
-
-from odoo import api, fields, models
-
-import logging
-
-_logger = logging.getLogger(__name__)
+from odoo import models, fields
 
 
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    fiscal_printer_id = fields.Many2one(related='pos_config_id.fiscal_printer_id', readonly=False)
-    auto_fiscal_printing = fields.Boolean(related='pos_config_id.auto_fiscal_printing', readonly=False)
+    l10n_bg_fiscal_printer_id = fields.Many2one(
+        related='pos_config_id.l10n_bg_fiscal_printer_id',
+        readonly=False,
+        string='Fiscal printer'
+    )
+
+    l10n_bg_auto_z_on_close = fields.Boolean(
+        related='pos_config_id.l10n_bg_auto_z_on_close',
+        readonly=False,
+        string='Automatic Z report'
+    )

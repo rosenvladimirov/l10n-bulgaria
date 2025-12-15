@@ -1,5 +1,11 @@
-[ Enumerate known caveats and future potential improvements.
-  It is mostly intended for end-users, and can also help
-  potential new contributors discovering new features to implement. ]
-
-- ...
+- Add support for refund receipts (сторно бонове)
+- Implement duplicate receipt printing from POS UI
+- Add a real-time printer status widget in the POS interface
+- Support for multiple fiscal printers per POS terminal
+- Fiscal memory download and archiving functionality
+- KLEN (journal) report viewer and export
+- Receipt preview before printing
+- Custom receipt layouts and templates
+- Support for additional Bulgarian fiscal printer models
+- Integration with external accounting systems
+- Multi-language receipt printing

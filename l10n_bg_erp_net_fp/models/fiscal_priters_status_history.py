@@ -3,16 +3,22 @@ from odoo import models, fields, api, _
 
 class FiscalPrinterStatus(models.Model):
     _name = 'fiscal.printer.status'
-    _description = 'Статус на фискален принтер'
+    _description = 'Fiscal Printer Status'
     _order = 'create_date desc'
 
-    printer_id = fields.Many2one('fiscal.printer.device', string='Фискален принтер', required=True, ondelete='cascade')
-    status = fields.Char('Статус')
-    error_message = fields.Char('Съобщение за грешка')
-    create_date = fields.Datetime('Време на проверка', readonly=True)
-    is_ready = fields.Boolean('Готов за работа')
-    paper_available = fields.Boolean('Налична хартия')
-    fiscal_memory_available = fields.Boolean('Налична фискална памет')
-    document_number = fields.Char('Номер на последен документ')
-    serial_number = fields.Char('Сериен номер')
-    firmware_version = fields.Char('Версия на фърмуера')
+    printer_id = fields.Many2one(
+        'fiscal.printer.device',
+        string='Fiscal printer',
+        required=True,
+        ondelete='cascade',
+        index=True
+    )
+    status = fields.Char('Status', index=True)
+    error_message = fields.Text('Error message')
+    create_date = fields.Datetime('Check time', readonly=True, index=True)
+    is_ready = fields.Boolean('Ready', index=True)
+    paper_available = fields.Boolean('Paper available')
+    fiscal_memory_available = fields.Boolean('Fiscal memory available')
+    document_number = fields.Char('Last document number')
+    serial_number = fields.Char('Serial number')
+    firmware_version = fields.Char('Firmware version')

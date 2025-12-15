@@ -285,7 +285,7 @@ class ResTransliterate(models.AbstractModel):
                 new_record = not getattr(
                     self.with_context(**dict(self.env.context, lang="en_US")),
                     field_name
-                )
+                ) or self.env.context.get('force_multilanguage_update', False)
 
             if vals.get(field_name) and new_record:
                 current_lang, transliterate = self._check_lang(vals[field_name])

@@ -614,8 +614,8 @@ class BgCompanySearchWizard(models.TransientModel):
         """Static parser for registry response"""
         try:
             legal_forms = {
-                10: 'ЕООД', 1: 'ООД', 2: 'АД', 3: 'ЕАД',
-                4: 'КД', 5: 'КДА', 6: 'СД', 7: 'ЕТ',
+                10: 'ЕООД', 4: 'ООД', 5: 'АД', 11: 'ЕАД',
+                3: 'КД', 6: 'КДА', 2: 'СД', 1: 'ЕТ',
             }
 
             legal_form_bg = legal_forms.get(data.get('legalForm'), '')
@@ -821,7 +821,9 @@ class BgCompanySearchWizard(models.TransientModel):
 
         # Update partner
         self.partner_id.write(vals)
-        self.partner_id.update_field_translations('name', {
+        self.partner_id.\
+            with_context(**dict(self.env.context, force_multilanguage_update=True)).\
+            update_field_translations('name', {
             'en_US': self.display_name_en,
         })
 

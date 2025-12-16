@@ -21,17 +21,17 @@ class BgCompanySearchWizard(models.TransientModel):
     )
 
     eik = fields.Char(
-        string='UIC',
-        help='Фирмен EIK номер (9 или 13 цифри)',
+        string='EIK',
+        help='Company EIK number (9 or 13 digits)',
         required=True
     )
 
     original_eik = fields.Char(
         string='Original UIC',
-        help='Original EIK from partner (to detect changes)'
+        help='Original UIC from partner (to detect changes)'
     )
 
-    # Display fields for company data from registry
+    # Display fields for company data from the registry
     display_eik = fields.Char(
         string='UIC',
         readonly=True
@@ -614,8 +614,8 @@ class BgCompanySearchWizard(models.TransientModel):
         """Static parser for registry response"""
         try:
             legal_forms = {
-                10: 'ЕООД', 1: 'ООД', 2: 'АД', 3: 'ЕАД',
-                4: 'КД', 5: 'КДА', 6: 'СД', 7: 'ЕТ',
+                10: 'ЕООД', 4: 'ООД', 5: 'АД', 11: 'ЕАД',
+                3: 'КД', 6: 'КДА', 2: 'СД', 1: 'ЕТ',
             }
 
             legal_form_bg = legal_forms.get(data.get('legalForm'), '')

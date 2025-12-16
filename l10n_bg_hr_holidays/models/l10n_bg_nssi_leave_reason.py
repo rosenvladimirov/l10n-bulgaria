@@ -9,9 +9,10 @@ class NssiLeaveReason(models.Model):
     code = fields.Char(string='Code', size=2, required=True, index=True)
     name = fields.Char(string='Reason', required=True, translate=True)
 
-    _sql_constraints = [
-        ('code_unique', 'unique(code)', 'The code must be unique.'),
-    ]
+    _code_uniq = models.Constraint(
+        'unique (code)',
+        "The code must be unique!",
+    )
 
     @api.depends('code', 'name')
     def _compute_display_name(self):

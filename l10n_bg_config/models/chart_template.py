@@ -109,6 +109,7 @@ class AccountChartTemplate(models.AbstractModel):
         :param data_getter: A callable function that takes the template_code (and
             optionally a plugin) as an argument and returns additional data as a
             dictionary.
+        :param type_template: Optional type identifier for special processing
         :return: A dictionary that combines the base data with updates retrieved
             using the provided data getter and plugin-specific updates.
         :rtype: dict
@@ -118,6 +119,8 @@ class AccountChartTemplate(models.AbstractModel):
 
         for plugin in sorted(self._get_installed_plugins()):
             result.update(data_getter(template_code, plugin))
+        
+        # Special processing for accounts - apply mask formatting
         if type_template == 'account.account' and hasattr(self, '_get_bg_template_data'):
             bg_template_data = self._get_bg_template_data()
             account_mask = bg_template_data.get('account_mask') or None
@@ -136,12 +139,34 @@ class AccountChartTemplate(models.AbstractModel):
                     )
         return result
 
+    # ============================================================================
+    # ACCOUNT.ACCOUNT - Plugin support
+    # ============================================================================
+    
     @template(model='account.account')
     def _get_bg_account_data(self, template_code, module=BASE_MODULE):
+        """
+        Parse account.account data from CSV file.
+        
+        :param template_code: Template code (e.g., 'bg')
+        :param module: Module name (default: BASE_MODULE)
+        :return: Dictionary with account data
+        """
         return self._parse_csv(template_code, 'account.account', module)
 
     @template(model='account.account')
     def _get_account_account(self, template_code):
+        """
+        Override base method to add plugin support for accounts.
+        
+        Loads accounts from:
+        1. Odoo base module (super())
+        2. l10n_bg_config base module
+        3. All l10n_bg_config_plugins_* modules
+        
+        :param template_code: Template code (e.g., 'bg')
+        :return: Combined account data from all sources
+        """
         return self._update_template_data(
             super()._get_account_account(template_code),
             template_code,
@@ -149,54 +174,139 @@ class AccountChartTemplate(models.AbstractModel):
             type_template='account.account',
         )
 
+    # ============================================================================
+    # ACCOUNT.GROUP - Plugin support
+    # ============================================================================
+    
     @template(model='account.group')
     def _get_bg_account_group_data(self, template_code, module=BASE_MODULE):
+        """
+        Parse account.group data from CSV file.
+        
+        :param template_code: Template code (e.g., 'bg')
+        :param module: Module name (default: BASE_MODULE)
+        :return: Dictionary with account group data
+        """
         return self._parse_csv(template_code, 'account.group', module)
 
     @template(model='account.group')
     def _get_account_group(self, template_code):
+        """
+        Override base method to add plugin support for account groups.
+        
+        Loads account groups from:
+        1. Odoo base module (super())
+        2. l10n_bg_config base module
+        3. All l10n_bg_config_plugins_* modules
+        
+        :param template_code: Template code (e.g., 'bg')
+        :return: Combined account group data from all sources
+        """
         return self._update_template_data(
             super()._get_account_group(template_code),
             template_code,
             self._get_bg_account_group_data
         )
 
+    # ============================================================================
+    # ACCOUNT.TAX - Plugin support
+    # ============================================================================
+    
     @template(model='account.tax')
     def _get_bg_tax_data(self, template_code, module=BASE_MODULE):
+        """
+        Parse account.tax data from CSV file and dereference tax tags.
+        
+        :param template_code: Template code (e.g., 'bg')
+        :param module: Module name (default: BASE_MODULE)
+        :return: Dictionary with tax data
+        """
         tax_data = self._parse_csv(template_code, 'account.tax', module)
         self._deref_account_tags(template_code, tax_data)
         return tax_data
 
     @template(model='account.tax')
     def _get_account_tax(self, template_code):
+        """
+        Override base method to add plugin support for taxes.
+        
+        Loads taxes from:
+        1. Odoo base module (super())
+        2. l10n_bg_config base module
+        3. All l10n_bg_config_plugins_* modules
+        
+        :param template_code: Template code (e.g., 'bg')
+        :return: Combined tax data from all sources
+        """
         return self._update_template_data(
             super()._get_account_tax(template_code),
             template_code,
             self._get_bg_tax_data
         )
 
+    # ============================================================================
+    # ACCOUNT.FISCAL.POSITION - Plugin support (NEW!)
+    # ============================================================================
+    
+    @template(model='account.fiscal.position')
+    def _get_bg_fiscal_position_data(self, template_code, module=BASE_MODULE):
+        """
+        Parse account.fiscal.position data from CSV file.
+        
+        :param template_code: Template code (e.g., 'bg')
+        :param module: Module name (default: BASE_MODULE)
+        :return: Dictionary with fiscal position data
+        """
+        return self._parse_csv(template_code, 'account.fiscal.position', module)
+
+    @template(model='account.fiscal.position')
+    def _get_account_fiscal_position(self, template_code):
+        """
+        Override base method to add plugin support for fiscal positions.
+        
+        Loads fiscal positions from:
+        1. Odoo base module (super())
+        2. l10n_bg_config base module
+        3. All l10n_bg_config_plugins_* modules
+        
+        :param template_code: Template code (e.g., 'bg')
+        :return: Combined fiscal position data from all sources
+        """
+        return self._update_template_data(
+            super()._get_account_fiscal_position(template_code),
+            template_code,
+            self._get_bg_fiscal_position_data
+        )
+
+    # ============================================================================
+    # ACCOUNT.JOURNAL - Custom updates
+    # ============================================================================
+    
     @template(model='account.journal')
     def _get_account_journal(self, template_code):
+        """
+        Override base method to add custom journal updates.
+        
+        :param template_code: Template code (e.g., 'bg')
+        :return: Journal data with custom updates
+        """
         res = super()._get_account_journal(template_code)
         update_func = getattr(self, f'_get_{template_code}_account_journal', None)
         if update_func:
             res.update(update_func(template_code))
         return res
 
-    # @template(model='account.fiscal.position')
-    # def _get_bg_fiscal_position_data(self, template_code, module=BASE_MODULE):
-    #     return self._parse_csv(template_code, 'account.fiscal.position', module)
-    #
-    # @template(model='account.fiscal.position')
-    # def _get_account_fiscal_position(self, template_code):
-    #     return self._update_template_data(
-    #         super()._get_account_tax(template_code),
-    #         template_code,
-    #         self._get_bg_fiscal_position_data
-    #     )
-
+    # ============================================================================
+    # TEMPLATE DATA
+    # ============================================================================
+    
     @template('bg')
     def _get_bg_template_data_external(self):
+        """
+        External template data configuration for Bulgarian localization.
+        
+        :return: Dictionary with template configuration
+        """
         return {
             'account_mask': '###.###',
             'code_digits': '6',
@@ -204,6 +314,12 @@ class AccountChartTemplate(models.AbstractModel):
 
     @template('bg')
     def _get_bg_template_data(self):
+        """
+        Complete template data for Bulgarian localization.
+        Combines parent data with external configuration.
+        
+        :return: Dictionary with complete template data
+        """
         res = super()._get_bg_template_data()
         res.update(self._get_bg_template_data_external())
         return res

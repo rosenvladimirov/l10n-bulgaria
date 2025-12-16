@@ -11,4 +11,4 @@
 "","","","","","","","","","100","base","refund","32","","","","","","",""
 "","","","","","","","","","100","tax","refund","42","l10n_bg_4531","","","","","",""
 "","","","","","","","","","-100","tax","refund","","l10n_bg_430","","","","","",""
-"l10n_bg_purchase_vat_20_ptc_ica","206","20% EU PTC","20% Payable Tax Credit – Intra-Community Acquisition","20% Payable Tax Credit – Intra-Community Acquisition","20.0","group","purchase","tax_group_vat_20","","","","","","0% ДДС - ВОП","","fiscal_position_template_in_eu","l10n_bg_purchase_vat_20_ptc","l10n_bg_sale_vat_20_ica||l10n_bg_purchase_vat_20_ica_ptc",""
+"l10n_bg_purchase_vat_20_ptc_ica","206","20% EU PTC","20% Payable Tax Credit – Intra-Community Acquisition","20% Payable Tax Credit – Intra-Community Acquisition","20.0","group","purchase","tax_group_vat_20","","","","","","0% ДДС - ВОП","","fiscal_position_template_in_eu","l10n_bg_purchase_vat_20_ptc","l10n_bg_sale_vat_20_ica,l10n_bg_purchase_vat_20_ica_ptc",""

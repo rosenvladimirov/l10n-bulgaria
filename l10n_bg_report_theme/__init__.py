@@ -10,6 +10,11 @@ def _patch_report_tests():
     which causes different pagination than expected by standard tests.
     """
     try:
+        import odoo
+        # Проверяваме дали сме в тестов режим
+        if not odoo.tools.config.get('test_enable'):
+            return
+
         from odoo.addons.base.tests import test_reports
         import logging
         _logger = logging.getLogger(__name__)

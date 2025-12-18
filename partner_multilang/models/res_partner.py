@@ -26,111 +26,54 @@ class Partner(models.Model):
 
     @api.model
     def _search_multi_lang(self, operator, value, field_list=None):
-        """
-        Constructs a domain for multi-language search by considering translatable fields and
-        language-specific translations. If no value or field list is provided, it returns an
-        empty domain. The method dynamically searches through JSONB translations for all
-        active languages configured in the system.
-
-        :param operator: The comparison operator for the search condition (e.g., '=', 'ilike').
-        :type operator: str
-        :param value: The value to search for in the specified fields.
-        :type value: Any
-        :param field_list: A list of field names where the search will be conducted. Fields
-            must be marked as translatable to be considered.
-        :type field_list: list[str] | None
-        :return: A domain that can be used in searches to filter records based on multi-language
-            criteria.
-        :rtype: list
-        """
         if not value or not field_list:
             return []
 
-        domain = []
-
-        # Кеширане на езиковите кодове, за да избегнем многократни DB заявки
         lang_codes = self.env['res.lang'].sudo().search_read([('active', '=', True)], ['code'])
-        lang_codes = [lang['code'] for lang in lang_codes]
+        final_domain = []
 
         for field_name in field_list:
-            if field_name in self._fields and self._fields[field_name].translate:
-                if not domain:
-                    domain = [(field_name, operator, value)]
-                else:
-                    domain = ['|'] + domain + [(field_name, operator, value)]
+            if field_name not in self._fields or not self._fields[field_name].translate:
+                continue
 
-                # Добавяме търсене в JSONB превода за всеки език
-                for lang_code in lang_codes:
-                    domain = ['|'] + domain + [(f"{field_name}->>'{lang_code}'", operator, value)]
+            # Създаваме група от условия за конкретното поле (OR между езиците)
+            field_domain = [(field_name, operator, value)]
+            for lang in lang_codes:
+                field_domain = ['|'] + field_domain + [(f"{field_name}.{lang['code']}", operator, value)]
 
-        return domain
+            # Добавяме към общия домейн с OR спрямо останалите полета
+            if not final_domain:
+                final_domain = field_domain
+            else:
+                final_domain = ['|'] + final_domain + field_domain
+
+        return final_domain
 
     @api.model
     def _name_search(self, name='', domain=None, operator='ilike', limit=100, order=None):
-        """
-        Search for records using the name and provided domain, operator, limit, and order parameters.
-        The method enhances the multi-language search capability by identifying fields in the domain
-        that need to be translated and applies the corresponding multi-language search logic. If
-        no translation fields are found, it defaults to certain predefined fields. The method builds
-        a combined domain for performing multi-language search in conjunction with the provided domain.
-
-        :param name: The name by which to search.
-        :param domain: Additional domain filters for the search.
-        :type domain: list or None
-        :param operator: The operator to be used in the search criteria.
-        :param limit: The maximum number of records to return.
-        :type limit: int
-        :param order: The order of the results returned.
-        :return: A list of record identifiers matching the search criteria.
-        :rtype: list
-        """
         if not name:
-            return super(Partner, self)._name_search(name=name, domain=domain, operator=operator, limit=limit,
-                                                     order=order)
+            return super()._name_search(name=name, domain=domain, operator=operator, limit=limit, order=order)
 
         domain = domain or []
-
-        # Извличаме полетата, които вече са в домейна за търсене
-        search_fields = set()
         default_fields = {'name', 'company_name', 'commercial_company_name'}
 
+        # 1. Генерираме многоезичния домейн
+        multi_lang_domain = self._search_multi_lang(operator, name, list(default_fields))
+
+        # 2. Филтрираме оригиналния домейн, за да премахнем стандартните търсения по име,
+        # които Odoo добавя автоматично, за да не се дублират с нашето.
+        clean_domain = []
         for item in domain:
-            if isinstance(item, (list, tuple)) and len(item) >= 3 and item[1] == operator and isinstance(item[0], str):
-                field = item[0]
-                # Премахваме оператори за JSONB ако има такива
-                if '->>' in field:
-                    field = field.split('->>')[0]
-                # Добавяме полето към списъка с полета за търсене
-                if field in self._fields and self._fields[field].translate:
-                    search_fields.add(field)
+            if isinstance(item, (list, tuple)) and len(item) >= 3 and item[0] in default_fields:
+                continue
+            clean_domain.append(item)
 
-        # Ако не са намерени полета в домейна, използваме стандартните полета
-        if not search_fields:
-            search_fields = default_fields
+        # 3. Комбинираме: (всичко от clean_domain) AND (нашият multi_lang_domain)
+        # Odoo автоматично добавя '&' между елементите в списъка
+        final_domain = clean_domain + [multi_lang_domain] if multi_lang_domain else clean_domain
 
-        # Създаваме домейн за многоезично търсене
-        multi_lang_domain = self._search_multi_lang(operator, name, list(search_fields))
-
-        # Премахваме оригиналните условия за търсене в полетата, които ще бъдат заменени с многоезични
-        new_domain = []
-        for item in domain:
-            if not (isinstance(item, (list, tuple)) and len(item) >= 3 and
-                    item[1] == operator and isinstance(item[0], str) and
-                    (item[0] in search_fields or item[0].split('->>')[0] in search_fields)):
-                new_domain.append(item)
-
-        # Комбинираме с многоезичните условия
-        if multi_lang_domain:
-            if new_domain:
-                # Използваме AND между съществуващия домейн и новия многоезичен домейн
-                domain = ['&'] * (len(new_domain) - 1) + new_domain + multi_lang_domain
-            else:
-                domain = multi_lang_domain
-        else:
-            domain = new_domain
-
-        return super(Partner, self)._name_search(
-            name='', domain=domain, operator=operator, limit=limit, order=order
+        return super()._name_search(
+            name='', domain=final_domain, operator=operator, limit=limit, order=order
         )
 
     def _get_complete_name(self):

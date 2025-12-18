@@ -279,19 +279,19 @@ class ResTransliterate(models.AbstractModel):
         for field_name in [x for x in TRANSLITERATE_FIELDS if x in self._fields.keys()]:
             if field_name not in self._fields.keys():
                 continue
-
+            force_multilanguage_update = self.env.context.get('force_multilanguage_update', False)
             if not new_record:
                 # Проверка дали полето е празно на en_US
                 new_record = not getattr(
                     self.with_context(**dict(self.env.context, lang="en_US")),
                     field_name
-                ) or self.env.context.get('force_multilanguage_update', False)
+                ) or force_multilanguage_update
 
             if vals.get(field_name) and new_record:
                 current_lang, transliterate = self._check_lang(vals[field_name])
 
                 # Ако е нужна транслитерация и не е en_US
-                if transliterate and current_lang != "en_US":
+                if transliterate and current_lang != "en_US" and not force_multilanguage_update:
                     # Записваме транслитерирана версия на en_US
                     record = self.with_context(
                         **dict(self.env.context, lang="en_US", update_lang=True)

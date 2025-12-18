@@ -6,7 +6,7 @@
         <field name="name">bg.company.search.wizard.form</field>
         <field name="model">bg.company.search.wizard</field>
         <field name="arch" type="xml">
-            <form string="Данни от търговски регистър">
+            <form string="Commercial register data">
                 <sheet>
                     <group>
                         <field name="partner_id" invisible="1" force_save="1"/>
@@ -16,19 +16,19 @@
                         <field name="eik_changed" invisible="1" force_save="1"/>
 
                         <group>
-                            <field name="eik" placeholder="Въведете ЕИК (9 или 13 цифри)"/>
+                            <field name="eik" placeholder="Enter EIC (9 or 13 digits)"/>
                         </group>
                     </group>
 
                     <group>
                         <button name="action_fetch_data"
-                                string="Изтегли данни от регистър"
+                                string="Download data from registry"
                                 type="object"
                                 class="btn-primary"
                                 icon="fa-download"/>
                     </group>
 
-                    <separator string="Данни за компанията"
+                    <separator string="Company data"
                                invisible="not data_fetched"/>
 
                     <group invisible="not data_fetched">
@@ -39,8 +39,8 @@
                             <field name="display_registration_date"/>
                         </group>
                         <group>
-                            <field name="display_name_bg"/>
-                            <field name="display_name_en"/>
+                            <field name="display_name_bg" force_save="1"/>
+                            <field name="display_name_en" force_save="1"/>
                             <field name="display_activity_code"/>
                         </group>
                     </group>
@@ -56,19 +56,19 @@
 
                     <group invisible="not data_fetched">
                         <group>
-                            <field name="display_country_id"/>
-                            <field name="display_state_id"/>
-                            <field name="display_city_id"/>
+                            <field name="display_country_id" force_save="1"/>
+                            <field name="display_state_id" force_save="1"/>
+                            <field name="display_city_id" force_save="1"/>
                         </group>
                         <group>
-                            <field name="display_postal_code"/>
-                            <field name="display_street"/>
+                            <field name="display_postal_code" force_save="1"/>
+                            <field name="display_street" force_save="1"/>
                         </group>
                     </group>
 
                     <group invisible="not data_fetched">
                         <field name="display_address_bg"
-                               string="Пълен адрес (от регистър)"
+                               string="Full address (from register)"
                                nolabel="1"
                                widget="text"/>
                     </group>
@@ -76,12 +76,12 @@
                 </sheet>
                 <footer>
                     <button name="action_populate_partner"
-                            string="Попълни партньор с данни"
+                            string="Fill in partner data"
                             type="object"
                             class="btn-primary"
                             invisible="not data_fetched or not partner_id"
                             icon="fa-check"/>
-                    <button string="Затвори"
+                    <button string="Close"
                             class="btn-secondary"
                             special="cancel"/>
                 </footer>
@@ -91,7 +91,7 @@
 
     <!-- Wizard Action -->
     <record id="action_bg_company_search_wizard" model="ir.actions.act_window">
-        <field name="name">Данни от търговски регистър</field>
+        <field name="name">Commercial register data</field>
         <field name="res_model">bg.company.search.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

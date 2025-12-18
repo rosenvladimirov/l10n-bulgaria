@@ -79,21 +79,26 @@ class Partner(models.Model):
     def _get_complete_name(self):
         self.ensure_one()
 
-        def _as_lang_str(value):
-            if isinstance(value, dict):
-                lang = (self.env.context or {}).get("lang") or "en_US"
-                return value.get(lang) or value.get("en_US") or next(iter(value.values()), "") or ""
-            return value or ""
+        def _get_lang_value(field_value):
+            # Ако полето е речник (JSONB превод), взимаме текущия език
+            if isinstance(field_value, dict):
+                lang = self.env.lang or 'en_US'
+                return field_value.get(lang) or field_value.get('en_US') or next(iter(field_value.values()), '')
+            return field_value or ''
 
         displayed_types = self._complete_name_displayed_types
-        type_description = dict(self._fields["type"]._description_selection(self.env))
+        type_description = dict(self._fields['type']._description_selection(self.env))
 
-        name = _as_lang_str(self.name)
+        # Прилагаме защитата върху името
+        name = _get_lang_value(self.name)
+
         if self.company_name or self.parent_id:
             if not name and self.type in displayed_types:
-                name = type_description[self.type]
+                name = type_description.get(self.type, "")
             if not self.is_company:
-                parent_name = _as_lang_str(self.sudo().parent_id.name)
-                commercial = _as_lang_str(self.commercial_company_name)
+                # Прилагаме защитата и тук за родителските полета
+                commercial = _get_lang_value(self.commercial_company_name)
+                parent_name = _get_lang_value(self.sudo().parent_id.name)
                 name = f"{commercial or parent_name}, {name}"
-        return (name or "").strip()
+
+        return name.strip()

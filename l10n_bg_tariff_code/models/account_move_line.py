@@ -237,13 +237,15 @@ class AccountMoveLine(models.Model):
                 if line.product_id and hasattr(line.product_id,
                                                'country_of_origin') and line.product_id.country_of_origin:
                     country_code = line.product_id.country_of_origin.code
-
-                tariff_rate = line._fetch_tariff_rate(search_code, country_code)
+                if self.env.company.l10n_bg_auto_download:
+                    tariff_rate = line._fetch_tariff_rate(search_code, country_code)
+                else:
+                    tariff_rate = None
 
                 if tariff_rate is not None:
                     line.l10n_bg_tariff_rate = tariff_rate
                     line.l10n_bg_tariff_last_update = fields.Datetime.now()
-                    _logger.info(f"Обновена тарифна ставка за код {line.l10n_bg_tariff_code}: {tariff_rate * 100}%")
+                    _logger.info(f"Updated tariff rate for code {line.l10n_bg_tariff_code}: {tariff_rate * 100}%")
                 else:
                     if not line.l10n_bg_tariff_rate:
                         default_rate = company.l10n_bg_default_tariff_rate
@@ -252,7 +254,7 @@ class AccountMoveLine(models.Model):
                         line.l10n_bg_tariff_rate = default_rate
 
             except Exception as e:
-                _logger.warning(f"Грешка при търсене на тарифна ставка за код {line.l10n_bg_tariff_code}: {e}")
+                _logger.warning(f"Error looking up tariff rate for code {line.l10n_bg_tariff_code}: {e}")
                 if not line.l10n_bg_tariff_rate:
                     default_rate = company.l10n_bg_default_tariff_rate
                     if default_rate > 1:

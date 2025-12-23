@@ -9,6 +9,7 @@
                 <block title="TARIC Integration" name="taric_integration_container">
                     <setting help="Configure access to download from EU TARIC system" name="l10n_bg_taric_setting">
                         <field name="l10n_bg_taric_api_enabled"/>
+                        <field name="l10n_bg_auto_download"/>
                         <div class="content-group" invisible="not l10n_bg_taric_api_enabled">
                             <label for="l10n_bg_taric_api_url"/>
                             <div class="mt8">

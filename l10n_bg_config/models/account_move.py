@@ -7,15 +7,24 @@ class AccountMove(models.Model):
     _inherit = ["account.move", "l10n.bg.config.mixin"]
     _name = "account.move"
 
-    l10n_bg_name = fields.Char(
-        "Number of locale document",
-        compute='_compute_l10n_bg_name',
-        inverse='_inverse_l10n_bg_name',
-        search='_search_l10n_bg_name',
+    # === Override на l10n_bg_document_number с логиката от l10n_bg_name ===
+    l10n_bg_document_number = fields.Char(
+        string="Document Number (BG)",
+        compute='_compute_l10n_bg_document_number',
+        inverse='_inverse_l10n_bg_document_number',
+        search='_search_l10n_bg_document_number',
         store=True,
         index="trigram",
         tracking=True,
-        copy=False
+        copy=False,
+    )
+
+    # === l10n_bg_name като related на l10n_bg_document_number ===
+    l10n_bg_name = fields.Char(
+        string="Number of locale document",
+        related='l10n_bg_document_number',
+        store=True,
+        readonly=False,
     )
     l10n_bg_name_value = fields.Char(
         "Number of locale document (stored)",
@@ -24,34 +33,33 @@ class AccountMove(models.Model):
     l10n_bg_date = fields.Date("Date of locale document", copy=False)
     l10n_bg_deal_date = fields.Date("Date of deal", copy=False, compute='_compute_l10n_bg_deal_date', store=True)
 
+    # === Override на compute за l10n_bg_document_number ===
     @api.depends("name", "ref", "state")
-    def _compute_l10n_bg_name(self):
-        country_id = self.env.ref('base.bg')
+    def _compute_l10n_bg_document_number(self):
+        country_bg = self.env.ref('base.bg')
         for move in self:
             if move.state == 'draft':
-                # В режим драфт използваме съхранената стойност
-                move.l10n_bg_name = move.l10n_bg_name_value
+                move.l10n_bg_document_number = move.l10n_bg_name_value
             else:
-                # Форматираме name до 10 цифри
                 formatted_name = move._format_l10n_bg_name(move.name)
-                if move.partner_id and move.partner_id.country_id.id == country_id.id:
+                if move.partner_id and move.partner_id.country_id.id == country_bg.id:
                     formatted_ref = move._format_l10n_bg_name(move.ref)
                 else:
                     formatted_ref = move.ref
 
-                # Проверяваме дали ръчно зададената стойност е различна от автоматичната
-                if move.l10n_bg_name_value and (move.l10n_bg_name_value != formatted_ref or move.l10n_bg_name_value != formatted_name):
-                    # Запазваме ръчно зададената стойност
-                    move.l10n_bg_name = move.l10n_bg_name_value
+                if move.l10n_bg_name_value and (
+                    move.l10n_bg_name_value != formatted_ref or
+                    move.l10n_bg_name_value != formatted_name
+                ):
+                    move.l10n_bg_document_number = move.l10n_bg_name_value
                 else:
-                    # Използваме форматираното name или ref
-                    move.l10n_bg_name = formatted_ref or formatted_name
+                    move.l10n_bg_document_number = formatted_ref or formatted_name
 
-    def _inverse_l10n_bg_name(self):
+    def _inverse_l10n_bg_document_number(self):
         for move in self:
-            move.l10n_bg_name_value = move.l10n_bg_name
+            move.l10n_bg_name_value = move.l10n_bg_document_number
 
-    def _search_l10n_bg_name(self, operator, value):
+    def _search_l10n_bg_document_number(self, operator, value):
         return [('l10n_bg_name_value', operator, value)]
 
     def _format_l10n_bg_name(self, name):

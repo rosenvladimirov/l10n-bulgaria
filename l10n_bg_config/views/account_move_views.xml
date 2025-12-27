@@ -6,19 +6,7 @@
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='id']" position="after">
-                <field name="l10n_bg_name_value" invisible="True"/>
-            </xpath>
-            <xpath
-                expr="//page[@id='other_tab']/group[@id='other_tab_group']"
-                position="inside"
-            >
-                <group
-                    string="Bulgarian VAT"
-                    id="account_bg_vat"
-                    invisible="not is_l10n_bg_record"
-                >
-                    <field name="l10n_bg_deal_date"/>
-                </group>
+                <field name="l10n_bg_name_value" invisible="1"/>
             </xpath>
             <xpath
                 expr="//page[@id='other_tab_entry']/group[@id='other_tab_entry_group']"
@@ -31,6 +19,25 @@
                 >
                     <field name="l10n_bg_deal_date"/>
                 </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="l10n_bg_move_view_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="l10n_bg_ledger.l10n_bg_move_view_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//page[@id='other_tab']/group[@id='l10n_bg_documents']"
+                position="attributes"
+            >
+                <attribute name="invisible">not is_l10n_bg_record</attribute>
+            </xpath>
+            <xpath
+                expr="//page[@id='other_tab']/group[@id='l10n_bg_documents']"
+                position="inside"
+            >
+                <field name="l10n_bg_deal_date"/>
             </xpath>
         </field>
     </record>

@@ -9,7 +9,7 @@ class AccountMoveLine(models.Model):
         super().init()
         tools.create_index(
             self._cr,
-            'account_move_line_account_date_idx',  # Odoo конвенция за именуване
+            'account_move_line_account_date_idx',
             'account_move_line',
             ['account_id', 'date']
         )

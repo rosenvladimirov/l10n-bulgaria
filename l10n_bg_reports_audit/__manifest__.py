@@ -1,6 +1,6 @@
 {
     "name": "Bulgarian Accounting Reports Base",
-    "version": "18.0.8.0.4",
+    "version": "18.0.9.0.1",
     "development_status": "Production/Stable",
     "maintainers": ["rosenvladimirov", "deyanlyubenov"],
     "description": "Technical base module for Bulgarian accounting reports with SQL queries and tag configurations.",
@@ -15,6 +15,7 @@
         "base",
         "account",
         "l10n_bg",
+        "l10n_bg_ledger",
         "l10n_bg_config",
     ],
     "data": [

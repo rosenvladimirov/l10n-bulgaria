@@ -59,7 +59,6 @@ and localization modules.
 
 **Account Move Enhancements**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Local document numbering system (l10n_bg_name)
 * Automatic number formatting to 10-digit standard
 * Deal date tracking (separate from invoice date)
 * Bulgarian document date management
@@ -160,7 +159,7 @@ This module is essential for:
 automatically installs it if not present. It serves as the configuration
 backbone for the entire Bulgarian localization ecosystem.
     """,
-    "version": "18.0.7.0.1",
+    "version": "18.0.8.0.1",
     # OCA Metadata
     "development_status": 'Production/Stable',
     "category": 'Localization',

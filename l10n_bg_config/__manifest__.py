@@ -172,6 +172,7 @@ backbone for the entire Bulgarian localization ecosystem.
         "base_vat",
         "l10n_bg",
         "l10n_bg_ledger",
+        "l10n_bg_tariff_code",
     ],
     'external_dependencies': {
         'python': ['xmltodict'],

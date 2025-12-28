@@ -5,19 +5,18 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='id']" position="after">
-                <field name="l10n_bg_name_value" invisible="1"/>
+            <!-- Добавяне на тарифни полета в invoice_line_ids list view -->
+            <xpath expr="//page[@id='invoice_tab']/field[@name='invoice_line_ids']/list/field[@name='price_subtotal']" position="after">
+                <field name="l10n_bg_tariff_code" optional="hide" readonly="parent.state != 'draft'"/>
+                <field name="l10n_bg_tariff_rate" optional="hide" readonly="parent.state != 'draft'" widget="percentage"/>
             </xpath>
-            <xpath
-                expr="//page[@id='other_tab_entry']/group[@id='other_tab_entry_group']"
-                position="inside"
-            >
-                <group
-                    string="Bulgarian VAT"
-                    id="account_bg_vat_entry"
-                    invisible="not is_l10n_bg_record"
-                >
-                    <field name="l10n_bg_deal_date"/>
+
+            <!-- Добавяне на тарифни полета в invoice_line_ids form view -->
+            <xpath expr="//page[@id='invoice_tab']/field[@name='invoice_line_ids']/form//group[last()]" position="after">
+                <group string="Customs &amp; Tariff Information">
+                    <field name="l10n_bg_tariff_code"/>
+                    <field name="l10n_bg_tariff_rate" widget="percentage"/>
+                    <field name="l10n_bg_tariff_description" colspan="2"/>
                 </group>
             </xpath>
         </field>

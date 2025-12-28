@@ -171,6 +171,7 @@ backbone for the entire Bulgarian localization ecosystem.
         "account",
         "base_vat",
         "l10n_bg",
+        "l10n_bg_ledger",
     ],
     'external_dependencies': {
         'python': ['xmltodict'],

@@ -25,7 +25,7 @@ class AccountMoveLine(models.Model):
 
     l10n_bg_tariff_code_manual = fields.Char(
         string='Manual Tariff Code',
-        help="Ръчно въведен тарифен код"
+        help="Manually entered tariff code"
     )
 
     # ТАРИК ставка с compute/inverse/store
@@ -39,12 +39,18 @@ class AccountMoveLine(models.Model):
 
     l10n_bg_tariff_rate_manual = fields.Float(
         string='Manual Tariff Rate (%)',
-        help="Ръчно въведена тарифна ставка"
+        help="Manually entered tariff rate"
+    )
+
+    l10n_bg_tariff_rate_is_manual = fields.Boolean(
+        string='Manual Rate Override',
+        default=False,
+        help="Indicates whether the rate is manually entered and should not be recalculated automatically"
     )
 
     l10n_bg_tariff_description = fields.Text(
         string='Tariff Description',
-        help="Описание от ТАРИК системата"
+        help="Description from the TARIC system"
     )
 
     l10n_bg_tariff_last_update = fields.Datetime(
@@ -118,9 +124,9 @@ class AccountMoveLine(models.Model):
                     and normalized and len(normalized) >= 6):
                     try:
                         line.product_id.sudo().write({'hs_code': normalized})
-                        _logger.info(f"Обновен HS код на продукт {line.product_id.name}: {normalized}")
+                        _logger.info(f"Updated HS code of a product {line.product_id.name}: {normalized}")
                     except Exception as e:
-                        _logger.warning(f"Не може да се обнови HS кода на продукта: {e}")
+                        _logger.warning(f"Unable to update product HS code: {e}")
 
     def _normalize_tariff_code(self, code_input):
         """Нормализира тарифния код от различни формати"""
@@ -200,9 +206,13 @@ class AccountMoveLine(models.Model):
                 line.l10n_bg_tariff_rate = line.l10n_bg_tariff_rate_manual
                 continue
 
+            # Пропускаме автоматично преизчисляване ако е маркирано като ръчно
+            if line.l10n_bg_tariff_rate_is_manual:
+                continue
+
             # Защита срещу изтрити записи
             if line.product_id and isinstance(line.product_id.id, int) and not line.product_id.exists():
-                _logger.warning(f"Продуктът за ред {line.id} не съществува")
+                _logger.warning(f"The row product {line.id} does not exist")
                 line.l10n_bg_tariff_rate = 0.0
                 continue
 
@@ -267,6 +277,7 @@ class AccountMoveLine(models.Model):
             if line.l10n_bg_tariff_rate is not False:
                 # Запазваме ръчно въведената стойност
                 line.l10n_bg_tariff_rate_manual = line.l10n_bg_tariff_rate
+                line.l10n_bg_tariff_rate_is_manual = True
                 line.l10n_bg_tariff_last_update = fields.Datetime.now()
 
     def _fetch_tariff_rate(self, cn_code, country_code='CN'):

@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="account.view_move_line_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='information']" position="inside">
-                <group string="Tariff Code (CN/HS/Intrastat)">
+                <group string="Tariff Code (CN/HS/Intrastat)" name="tariff_rate">
                     <group>
                         <field name="l10n_bg_tariff_code"
                                widget="char"
@@ -19,6 +19,7 @@
                                invisible="not l10n_bg_tariff_description"
                                readonly="1"
                                widget="text"/>
+                        <field name="l10n_bg_tariff_rate_is_manual"/>
                         <label for="l10n_bg_tariff_rate" string="Tariff Rate"/>
                         <div class="o_row">
                             <field name="l10n_bg_tariff_rate_manual" invisible="1"/>
@@ -51,6 +52,8 @@
                 <field name="l10n_bg_tariff_code"
                        string="Tariff Code"
                        optional="hide"/>
+                <field name="l10n_bg_tariff_rate_is_manual"
+                       optional="hide"/>
                 <field name="l10n_bg_tariff_rate"
                        widget="percentage"
                        string="Rate"
@@ -75,4 +78,28 @@
             </xpath>
         </field>
     </record>
+
+     <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+         <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@id='invoice_tab']/field[@name='invoice_line_ids']/field[@name='price_subtotal']" position="after">
+                <field name="l10n_bg_tariff_rate_manual" column_invisible="1"/>
+                <field name="l10n_bg_tariff_code"
+                       string="Tariff Code"
+                       optional="hide"/>
+                <field name="l10n_bg_tariff_rate_is_manual"
+                       optional="hide" />
+                <field name="l10n_bg_tariff_rate"
+                       widget="percentage"
+                       string="Rate"
+                       optional="hide"
+                       decoration-success="l10n_bg_tariff_rate == 0.0"
+                       decoration-info="l10n_bg_tariff_rate &lt; 5.0"
+                       decoration-warning="l10n_bg_tariff_rate >= 10.0"/>
+            </xpath>
+        </field>
+     </record>
+
 </odoo>

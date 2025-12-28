@@ -1,4 +1,0 @@
-[submodule "partner-contact"]
-	path = partner-contact
-	url = git@github.com:OCA/partner-contact.git
-	branch = 18.0

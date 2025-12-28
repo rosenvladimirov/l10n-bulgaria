@@ -14,6 +14,7 @@
     "depends": [
         "l10n_bg_reports_audit",
         "l10n_bg_config",
+        "l10n_bg_ledger",
     ],
     "data": [
         'security/ir.model.access.csv',

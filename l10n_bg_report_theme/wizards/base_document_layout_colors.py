@@ -1,25 +1,84 @@
-import base64
+#  Part of Odoo. See LICENSE file for full copyright and licensing details.
+
 import logging
 import os
 import re
+import shutil
+from pathlib import Path
 from odoo import api, fields, models, Command
+from odoo.tools import config
 from webcolors import hex_to_rgb, rgb_to_hex
-
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
 # Constants
 SCSS_FILE_NAME = 'report_variable_colors.scss'
-SCSS_FILE_PATH = ['static', 'src', 'webclient', 'actions', 'reports', SCSS_FILE_NAME]
+SCSS_MODULE_PATH = ['static', 'src', 'webclient', 'actions', 'reports', SCSS_FILE_NAME]
 RGB_FORMAT = "rgb({}, {}, {})"
 SCSS_VAR_FORMAT = "${}: {};\n"
 
 
-def get_scss_file_path():
-    """Returns the full path to the SCSS file."""
-    module_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    return os.path.join(module_path, *SCSS_FILE_PATH)
+def get_odoo_home_scss_dir():
+    """Връща home директорията за SCSS файловете на Odoo потребителя"""
+    # Опитай се да вземеш от config, иначе използвай home
+    custom_path = config.get('custom_scss_path')
+    if custom_path:
+        base_path = Path(custom_path)
+    else:
+        base_path = Path.home() / 'odoo_custom_scss'
+
+    scss_dir = base_path / 'l10n_bg_report_theme'
+    scss_dir.mkdir(parents=True, exist_ok=True)
+    return scss_dir
+
+
+def get_scss_file_path(use_custom=True):
+    """
+    Връща пътя към SCSS файла.
+    Args:
+        use_custom: Ако True, използва файла от home, иначе от модула
+    """
+    if use_custom:
+        # Файл от home директорията
+        custom_dir = get_odoo_home_scss_dir()
+        custom_file = custom_dir / SCSS_FILE_NAME
+
+        # Ако не съществува в home, копирай го от модула
+        if not custom_file.exists():
+            _logger.info(f"Custom SCSS not found, copying from module to {custom_file}")
+            copy_scss_to_home()
+
+        return str(custom_file)
+    else:
+        # Оригинален файл от модула
+        module_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        return os.path.join(module_path, *SCSS_MODULE_PATH)
+
+
+def copy_scss_to_home():
+    """Копира оригиналния SCSS файл в home директорията"""
+    try:
+        source_path = get_scss_file_path(use_custom=False)
+        target_dir = get_odoo_home_scss_dir()
+        target_path = target_dir / SCSS_FILE_NAME
+
+        if not Path(source_path).exists():
+            _logger.error(f"Source SCSS file not found: {source_path}")
+            return False
+
+        # Копирай файла
+        shutil.copy2(source_path, target_path)
+        _logger.info(f"Copied SCSS file from {source_path} to {target_path}")
+
+        # Задай правилни permissions
+        os.chmod(target_path, 0o644)
+
+        return True
+
+    except Exception as e:
+        _logger.error(f"Failed to copy SCSS file to home: {e}")
+        return False
 
 
 def _convert_hex_to_rgb(hex_color):
@@ -29,7 +88,6 @@ def _convert_hex_to_rgb(hex_color):
         return RGB_FORMAT.format(color_hex.red, color_hex.green, color_hex.blue)
     except ValueError as e:
         raise UserError(f"Invalid color format: {hex_color}") from e
-
 
 class DocumentLayoutColorManager(models.TransientModel):
     _name = 'base.document.layout.colors'
@@ -57,10 +115,10 @@ class DocumentLayoutColorManager(models.TransientModel):
 
     @api.model
     def load_scss_colors(self, force_dict=False):
-        """Loads color variables from the SCSS file."""
+        """Loads color variables from the SCSS file (from the home directory)."""
         res = []
         res_dict = {}
-        scss_file_path = get_scss_file_path()
+        scss_file_path = get_scss_file_path(use_custom=True)  # Винаги чете от home
 
         try:
             with open(scss_file_path, 'r', encoding='utf-8') as file:
@@ -80,7 +138,10 @@ class DocumentLayoutColorManager(models.TransientModel):
                     res_dict[var_name] = SCSS_VAR_FORMAT.format(var_name, rgb_value)
 
         except FileNotFoundError:
-            _logger.warning("SCSS file not found at: %s", scss_file_path)
+            _logger.warning("SCSS file not found at: %s. Copying from module...", scss_file_path)
+            copy_scss_to_home()
+            # Опитай отново след копиране
+            return self.load_scss_colors(force_dict=force_dict)
         except Exception as e:
             _logger.error("Failed to load SCSS file: %s", str(e))
 
@@ -88,7 +149,7 @@ class DocumentLayoutColorManager(models.TransientModel):
 
     @api.model
     def save_scss_colors(self, name=None, color=None, color_rgb=None):
-        """Saves color variables to SCSS file."""
+        """Saves color variables to SCSS file in the home directory."""
         try:
             name = name or self.name
             if not name:
@@ -98,13 +159,16 @@ class DocumentLayoutColorManager(models.TransientModel):
             if not color_rgb:
                 raise UserError("Color value is required")
 
-            scss_file_path = get_scss_file_path()
+            scss_file_path = get_scss_file_path(use_custom=True)  # Винаги пише в home
             color_records = self.load_scss_colors(force_dict=True)
             color_records[name] = SCSS_VAR_FORMAT.format(name, color_rgb)
 
             scss_content = "/* colors */\n" + "".join(color_records.values())
+
             with open(scss_file_path, 'w', encoding='utf-8') as file:
                 file.write(scss_content)
+
+            _logger.info(f"Saved SCSS colors to: {scss_file_path}")
 
         except Exception as e:
             error_msg = f"Failed to save SCSS colors: {str(e)}"

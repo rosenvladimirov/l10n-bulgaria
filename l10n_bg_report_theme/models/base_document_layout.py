@@ -1,8 +1,11 @@
-# Copyright 2023 Rosen Vladimirov
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+#  Part of Odoo. See LICENSE file for full copyright and licensing details.
+
 import logging
 from odoo import api, fields, models
+from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_odoo_home_scss_dir, \
+    get_scss_file_path, copy_scss_to_home
 from odoo import tools
+from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
@@ -153,3 +156,32 @@ class BaseDocumentLayout(models.TransientModel):
             for template in self:
                 template._update_active_report_layout()
         return res
+
+    def action_reset_to_default(self):
+        """Копира отново оригиналния SCSS файл от модула в home директорията"""
+        try:
+            # Вземи пътищата
+            source_path = get_scss_file_path(use_custom=False)  # От модула
+            target_path = get_scss_file_path(use_custom=True)  # В home
+
+            # Копирай файла (презаписва съществуващия)
+            copy_scss_to_home()
+            _logger.info(f"Reset SCSS: copied {source_path} to {target_path}")
+
+            # Презареди цветовете от файла
+            self.selection_colors = self.env['base.document.layout.colors'].load_scss_colors()
+
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'message': 'SCSS the file is restored to the original and the colors are reloaded',
+                    'type': 'success',
+                    'sticky': False,
+                }
+            }
+
+        except Exception as e:
+            error_msg = f"Recovery error: {str(e)}"
+            _logger.error(error_msg)
+            raise UserError(error_msg)

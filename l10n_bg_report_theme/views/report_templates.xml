@@ -463,4 +463,12 @@
            </t>
         </xpath>
     </template>
+    <template id="report_assets_conditional" inherit_id="web.report_assets_common">
+        <xpath expr="." position="inside">
+            <!-- Зарежда се само ако е избран 'sections' layout -->
+            <t t-if="request and request.env.company.external_report_layout_id.key == 'sections'">
+                <t t-call-assets="l10n_bg_report_theme.optional_layout" t-css="true"/>
+            </t>
+        </xpath>
+    </template>
 </odoo>

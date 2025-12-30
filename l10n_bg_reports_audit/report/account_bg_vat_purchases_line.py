@@ -275,7 +275,7 @@ class AccountBGCalcPurchasesLine(models.Model):
     SUM(CASE
         WHEN am.state = 'cancel' THEN 0.00
         WHEN aat.tag_name = 30 AND aat.negate THEN aml.balance*-1
-        WHEN AND aat.tag_name = 30 AND NOT aat.negate THEN aml.balance
+        WHEN aat.tag_name = 30 AND NOT aat.negate THEN aml.balance
         ELSE 0.00
         END) AS account_tag_30,
     SUM(CASE

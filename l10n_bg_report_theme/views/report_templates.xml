@@ -459,8 +459,7 @@
                 $o-default-report-font-size: 10px;
 
                 <t t-if="company" t-out="company.get_custom_scss_content()"/>
-                @import "l10n_bg_report_theme/static/src/webclient/actions/reports/layout_assets/layout_background.scss";
-                @import "l10n_bg_report_theme/static/src/webclient/actions/reports/layout_assets/layout_sections.scss";
+                <t t-if="company" t-out="company.get_layout_scss_content()"/>
             </t>
         </xpath>
     </template>

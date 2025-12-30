@@ -172,7 +172,8 @@ class DocumentLayoutColorManager(models.TransientModel):
             company = self.base_document_layout_id.company_id or self.env.company
             if company:
                 company.custom_scss_path = scss_file_path
-                company.asset_modification_date = fields.Datetime.now()
+                # Инвалидиране на кеша на асетите за прегенериране на CSS
+                self.env.registry.clear_cache('assets')
 
             _logger.info(f"Saved SCSS colors to: {scss_file_path}")
 

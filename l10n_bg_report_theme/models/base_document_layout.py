@@ -88,7 +88,7 @@ class BaseDocumentLayout(models.TransientModel):
                 if not company.custom_scss_path:
                     from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_scss_file_path
                     company.custom_scss_path = get_scss_file_path(use_custom=True)
-                company.asset_modification_date = fields.Datetime.now()
+                self.env.registry.clear_cache('assets')
         return res
 
     @api.onchange("logo_print")
@@ -179,8 +179,7 @@ class BaseDocumentLayout(models.TransientModel):
             self.selection_colors = self.env['base.document.layout.colors'].load_scss_colors()
 
             # Инвалидиране на асетите
-            if self.company_id:
-                self.company_id.asset_modification_date = fields.Datetime.now()
+            self.env.registry.clear_cache('assets')
 
             return {
                 'type': 'ir.actions.client',

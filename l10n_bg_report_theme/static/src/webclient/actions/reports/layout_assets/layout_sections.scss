@@ -58,7 +58,7 @@ strong {
 .o_sections_information {
     color: $o-default-report-base-color;
     background-color: $o-default-report-footer-background-color;
-    border: 1px rgba($o-default-report-border-color, 0.7);
+    border: 1px solid rgba($o-default-report-border-color, 0.7);
     margin: -8px;
 }
 .o_sections_name {
@@ -105,7 +105,7 @@ strong {
 .o_sections_header {
     padding-top: 15px;
     margin-top: 0;
-    border-bottom: 1px rgba($o-default-report-border-color, 0.5);
+    border-bottom: 1px solid rgba($o-default-report-border-color, 0.5);
     color: $o-default-report-base-color;
     height: 30mm !important;
     @media (min-width: 3508px) {
@@ -124,7 +124,7 @@ strong {
 }
 .o_sections_footer {
     white-space: nowrap;
-    border-top: 1px rgba($o-default-report-border-color, 0.5);
+    border-top: 1px solid rgba($o-default-report-border-color, 0.5);
     font-size: 10px;
     padding-top: 5px;
     padding-bottom: 0;

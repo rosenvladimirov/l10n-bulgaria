@@ -444,7 +444,7 @@
             expr='//t[@t-elif="layout == &apos;web.external_layout_bubble&apos;"]'
             position="after"
         >
-            <t t-elif="layout == 'l10n_bg_report_theme.external_layout_sections' or (res_company.external_report_layout_id and res_company.external_report_layout_id.xml_id == 'l10n_bg_report_theme.external_layout_sections')">
+            <t t-elif="layout == 'l10n_bg_report_theme.external_layout_sections' or (company.external_report_layout_id and (company.external_report_layout_id.key == 'l10n_bg_report_theme.external_layout_sections' or company.external_report_layout_id.xml_id == 'l10n_bg_report_theme.external_layout_sections'))">
                 :root {
                     --font-family: <t t-esc="font" />;
                     --primary-color:  <t t-esc='primary' />;
@@ -466,8 +466,9 @@
     <template id="report_assets_conditional" inherit_id="web.report_layout">
         <xpath expr="//t[@t-call-assets='web.report_assets_common']" position="after">
             <!-- Зарежда се само ако е избран 'sections' layout -->
-            <t t-if="res_company and res_company.external_report_layout_id and res_company.external_report_layout_id.xml_id == 'l10n_bg_report_theme.external_layout_sections'">
-                <t t-call-assets="l10n_bg_report_theme.optional_layout" t-css="true"/>
+            <t t-set="active_company" t-value="res_company or company or o and o._name == 'res.company' and o or env.company"/>
+            <t t-if="active_company and active_company.external_report_layout_id and (active_company.external_report_layout_id.key == 'l10n_bg_report_theme.external_layout_sections' or active_company.external_report_layout_id.xml_id == 'l10n_bg_report_theme.external_layout_sections')">
+                <t t-call-assets="l10n_bg_report_theme.optional_layout" t-js="false"/>
             </t>
         </xpath>
     </template>

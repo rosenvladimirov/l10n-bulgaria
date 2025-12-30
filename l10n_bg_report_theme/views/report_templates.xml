@@ -8,6 +8,19 @@
             <attribute name="t-if" add="show_address" separator="and" />
         </xpath>
     </template>
+
+    <template id="report_layout_bg" inherit_id="web.report_layout">
+        <xpath expr="//body" position="attributes">
+            <attribute name="t-attf-class" add="o_company_#{res_company.id}_layout" separator=" "/>
+        </xpath>
+    </template>
+
+    <template id="report_preview_layout_bg" inherit_id="web.report_preview_layout">
+        <xpath expr="//body" position="attributes">
+            <attribute name="class" add="o_company_#{res_company.id}_layout" separator=" "/>
+        </xpath>
+    </template>
+
     <template id="deal_no_partner">
         <t t-if="not sender_vat_label">
             <t t-set="sender_vat_label" t-value="sender.country_id.vat_label" />

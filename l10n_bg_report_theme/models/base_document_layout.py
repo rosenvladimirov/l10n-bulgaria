@@ -1,6 +1,7 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import logging
+from markupsafe import Markup
 from odoo import api, fields, models
 from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_odoo_home_scss_dir, \
     get_scss_file_path, copy_scss_to_home
@@ -122,10 +123,10 @@ class BaseDocumentLayout(models.TransientModel):
             wizard.logo_secondary_color = secondary
 
     def get_custom_scss_content(self):
-        return self.company_id.get_custom_scss_content()
+        return Markup(self.company_id.get_custom_scss_content())
 
     def get_layout_scss_content(self):
-        return self.company_id.get_layout_scss_content()
+        return Markup(self.company_id.get_layout_scss_content())
 
     def _get_render_information(self, styles):
         res = super()._get_render_information(styles)

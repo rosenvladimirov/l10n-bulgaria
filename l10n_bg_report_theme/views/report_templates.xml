@@ -447,10 +447,10 @@
             <t t-elif="layout == 'l10n_bg_report_theme.external_layout_sections' or (company and company.external_report_layout_id and (company.external_report_layout_id.key == 'l10n_bg_report_theme.external_layout_sections' or company.external_report_layout_id.xml_id == 'l10n_bg_report_theme.external_layout_sections'))">
                 <t t-set="primary_rgb" t-value="company.primary_color or 'rgb(0, 68, 122)'"/>
                 <t t-set="secondary_rgb" t-value="company.secondary_color or 'rgb(245, 245, 245)'"/>
-                $o-default-report-primary-color: <t t-esc="primary_rgb" />;
-                $o-default-report-secondary-color: <t t-esc="secondary_rgb" />;
-                $o-default-report-font: <t t-esc="font" />;
-                $o-default-report-font-heading: <t t-esc="font" />;
+                $o-default-report-primary-color: <t t-out="primary_rgb" />;
+                $o-default-report-secondary-color: <t t-out="secondary_rgb" />;
+                $o-default-report-font: "<t t-out="font" />";
+                $o-default-report-font-heading: "<t t-out="font" />";
                 $o-default-report-inverse-color: rgb(255, 255, 255);
                 $o-default-report-base-color: rgb(128, 128, 128);
                 $o-default-report-footer-background-color: rgb(248, 252, 255);

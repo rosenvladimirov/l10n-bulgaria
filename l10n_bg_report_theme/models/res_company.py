@@ -2,6 +2,7 @@
 
 import logging
 import os
+from markupsafe import Markup
 
 from odoo import fields, models
 from odoo.modules import get_module_resource
@@ -38,7 +39,7 @@ class Company(models.Model):
     def get_custom_scss_content(self):
         """Връща съдържанието на персонализирания SCSS файл с цветове"""
         path = self.custom_scss_path or get_scss_file_path(use_custom=True)
-        return self._read_scss_file(path)
+        return Markup(self._read_scss_file(path))
 
     def get_layout_scss_content(self):
         """Връща съдържанието на основните SCSS файлове за леяута"""
@@ -48,7 +49,7 @@ class Company(models.Model):
         content = self._read_scss_file(background_path)
         content += "\n"
         content += self._read_scss_file(sections_path)
-        return content
+        return Markup(content)
 
     def _read_scss_file(self, path):
         if not path or not os.path.exists(path):

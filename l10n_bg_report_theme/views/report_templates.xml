@@ -23,8 +23,8 @@
 
     <template id="minimal_layout_bg" inherit_id="web.minimal_layout">
         <xpath expr="//body" position="attributes">
-            <t t-set="company_id" t-value="(company or res_company or env.company).id"/>
-            <attribute name="t-attf-class" add="o_company_#{company_id}_layout" separator=" "/>
+            <t t-set="active_company" t-value="company or res_company or (o and (o._name == 'res.company' and o or getattr(o, 'company_id', env.company))) or env.company"/>
+            <attribute name="t-attf-class" add="o_company_#{active_company.id}_layout" separator=" "/>
         </xpath>
     </template>
 

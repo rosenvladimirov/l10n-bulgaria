@@ -55,6 +55,7 @@ class Company(models.Model):
 
     def get_layout_scss_content(self):
         """Прочита съдържанието на основните SCSS файлове на темата"""
+        _logger.info(f"Generating layout SCSS for company {self.id}")
         contents = []
         files = [
             ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/report_variable_colors.scss'),

@@ -1,7 +1,7 @@
 strong {
     font-weight: 600;
 }
-&.container {
+&.container, .container {
     font-family: $o-default-report-font;
     padding: 0;
     margin-left: auto;
@@ -9,7 +9,7 @@ strong {
     line-height: 1.3;
     background: white !important;
 }
-&.container[size="A4"] {
+&.container[size="A4"], .container[size="A4"] {
     padding: 0;
     margin-left: auto;
     margin-right: auto;
@@ -30,9 +30,9 @@ strong {
         height: 297mm;
     }
 }
-&.o_sections_footer,
-&.o_sections_header,
-&.o_sections_article {
+&.o_sections_footer, .o_sections_footer,
+&.o_sections_header, .o_sections_header,
+&.o_sections_article, .o_sections_article {
     font-family: $o-default-report-font;
     font-size: $o-default-report-font-size;
     padding-left: 15px;

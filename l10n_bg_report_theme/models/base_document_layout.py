@@ -121,6 +121,9 @@ class BaseDocumentLayout(models.TransientModel):
             wizard.logo_primary_color = primary
             wizard.logo_secondary_color = secondary
 
+    def get_custom_scss_content(self):
+        return self.company_id.get_custom_scss_content()
+
     def _get_render_information(self, styles):
         res = super()._get_render_information(styles)
         res.update(self._get_formatting_functions())

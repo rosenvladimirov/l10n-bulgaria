@@ -136,11 +136,10 @@ class BaseDocumentLayout(models.TransientModel):
         reports = {key: self.env.ref(ref, raise_if_not_found=False)
                    for key, ref in REPORT_REFS.items()}
 
-        layout_id = reports['layout']
         for key, report in reports.items():
             if report and key != 'layout':
                 report.with_context(**dict(self._context, active_test=False)).active = \
-                    self.report_layout_id.id == layout_id.id
+                    self.external_report_layout_id.key == 'l10n_bg_report_theme.external_layout_sections'
 
     @api.model_create_multi
     def create(self, vals_list):

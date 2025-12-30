@@ -307,7 +307,7 @@
             </div>
         </div>
     </template>
-    <template id="external_layout_sections">
+    <template id="external_layout_sections" key="sections">
         <t t-set="header_shape_height" t-value="'174'"/>
         <t t-set="layout_background_header_url"
             t-value="'data:image/png;base64,%s' % company.layout_background_header_image.decode('utf-8') if company.layout_background_header_image and company.layout_background == 'Custom' else ''" />
@@ -466,8 +466,7 @@
     <template id="report_assets_conditional" inherit_id="web.report_layout">
         <xpath expr="//t[@t-call-assets='web.report_assets_common']" position="after">
             <!-- Зарежда се само ако е избран 'sections' layout -->
-            <t t-set="sections_layout" t-value="env.ref('l10n_bg_report_theme.report_layout_sections', False)"/>
-            <t t-if="res_company and res_company.external_report_layout_id == sections_layout">
+            <t t-if="res_company and res_company.external_report_layout_id.key == 'sections'">
                 <t t-call-assets="l10n_bg_report_theme.optional_layout" t-css="true"/>
             </t>
         </xpath>

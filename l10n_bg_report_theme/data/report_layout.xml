@@ -2,7 +2,6 @@
 <odoo>
      <record id="report_layout_sections" model="report.layout">
         <field name="name">Sections</field>
-        <field name="key">sections</field>
         <field name="sequence">6</field>
         <field name="view_id" ref="l10n_bg_report_theme.external_layout_sections" />
     </record>

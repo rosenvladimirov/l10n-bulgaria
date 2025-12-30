@@ -372,6 +372,8 @@ maintaining compliance with Bulgarian business document standards.
         ],
         # Опционален bundle - зарежда се само когато е нужен
         "l10n_bg_report_theme.optional_layout": [
+            "l10n_bg_report_theme/static/src/webclient/actions/reports/report_variable_colors.scss",
+            "l10n_bg_report_theme/static/src/webclient/actions/reports/report_variable_fonts.scss",
             "l10n_bg_report_theme/static/src/webclient/actions/reports/layout_assets/layout_background.scss",
             "l10n_bg_report_theme/static/src/webclient/actions/reports/layout_assets/layout_sections.scss"
         ],

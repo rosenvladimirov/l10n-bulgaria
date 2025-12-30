@@ -329,7 +329,7 @@ All templates support easy customization:
 business documents in Odoo, ensuring professional appearance while
 maintaining compliance with Bulgarian business document standards.
   """,
-    "version": "18.0.3.0.8",
+    "version": "18.0.4.0.1",
     "development_status": "Production/Stable",
     "license": "AGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
@@ -367,7 +367,6 @@ maintaining compliance with Bulgarian business document standards.
     "assets": {
         "web.report_assets_common": [
             "l10n_bg_report_theme/static/src/webclient/actions/sffont.scss",
-            "l10n_bg_report_theme/static/src/webclient/actions/reports/report_variable_colors.scss",
             "l10n_bg_report_theme/static/src/webclient/actions/reports/report_variable_fonts.scss",
         ],
     },

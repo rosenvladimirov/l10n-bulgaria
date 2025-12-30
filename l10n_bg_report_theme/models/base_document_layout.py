@@ -83,12 +83,13 @@ class BaseDocumentLayout(models.TransientModel):
         colorset = color_manager.load_scss_colors()
         if colorset:
             res['selection_colors'] = colorset
-            # Инициализиране на пътя в компанията, ако липсва
+            # Инициализиране на пътя в компанията
             company = self.env.company
             if company:
-                if not company.custom_scss_path:
-                    from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_scss_file_path
-                    company.custom_scss_path = get_scss_file_path(use_custom=True)
+                from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_scss_file_path
+                new_path = get_scss_file_path(use_custom=True, company_id=company.id)
+                if company.custom_scss_path != new_path:
+                    company.custom_scss_path = new_path
                 self.env.registry.clear_cache('assets')
         return res
 
@@ -122,11 +123,6 @@ class BaseDocumentLayout(models.TransientModel):
             wizard.logo_primary_color = primary
             wizard.logo_secondary_color = secondary
 
-    def get_custom_scss_content(self):
-        return Markup(self.company_id.get_custom_scss_content())
-
-    def get_layout_scss_content(self):
-        return Markup(self.company_id.get_layout_scss_content())
 
     def _get_render_information(self, styles):
         res = super()._get_render_information(styles)
@@ -174,16 +170,18 @@ class BaseDocumentLayout(models.TransientModel):
     def action_reset_to_default(self):
         """Копира отново оригиналния SCSS файл от модула в home директорията"""
         try:
+            company = self.company_id or self.env.company
             # Вземи пътищата
             source_path = get_scss_file_path(use_custom=False)  # От модула
-            target_path = get_scss_file_path(use_custom=True)  # В home
+            target_path = get_scss_file_path(use_custom=True, company_id=company.id)  # В home
 
             # Копирай файла (презаписва съществуващия)
-            copy_scss_to_home()
+            copy_scss_to_home(company_id=company.id)
             _logger.info(f"Reset SCSS: copied {source_path} to {target_path}")
 
             # Презареди цветовете от файла
-            self.selection_colors = self.env['base.document.layout.colors'].load_scss_colors()
+            color_manager = self.env['base.document.layout.colors']
+            self.selection_colors = color_manager.load_scss_colors(company_id=company.id)
 
             # Инвалидиране на асетите
             self.env.registry.clear_cache('assets')
@@ -202,3 +200,9 @@ class BaseDocumentLayout(models.TransientModel):
             error_msg = f"Recovery error: {str(e)}"
             _logger.error(error_msg)
             raise UserError(error_msg)
+
+    def get_custom_scss_content(self):
+        return self.company_id.get_custom_scss_content()
+
+    def get_layout_scss_content(self):
+        return self.company_id.get_layout_scss_content()

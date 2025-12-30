@@ -445,24 +445,12 @@
             position="after"
         >
             <t t-elif="layout == 'l10n_bg_report_theme.external_layout_sections' or (company and company.external_report_layout_id and (company.external_report_layout_id.key == 'l10n_bg_report_theme.external_layout_sections' or company.external_report_layout_id.xml_id == 'l10n_bg_report_theme.external_layout_sections'))">
-                <t t-set="primary_rgb" t-value="company.primary_color or 'rgb(0, 68, 122)'"/>
-                <t t-set="secondary_rgb" t-value="company.secondary_color or 'rgb(245, 245, 245)'"/>
-                $o-default-report-primary-color: <t t-out="primary_rgb" />;
-                $o-default-report-secondary-color: <t t-out="secondary_rgb" />;
-                $o-default-report-font: "<t t-out="font" />";
-                $o-default-report-font-heading: "<t t-out="font" />";
-                $o-default-report-inverse-color: rgb(255, 255, 255);
-                $o-default-report-base-color: rgb(128, 128, 128);
-                $o-default-report-footer-background-color: rgb(248, 252, 255);
-                $o-default-report-background-color: rgb(133, 169, 245);
-                $o-default-report-border-color: rgb(5, 84, 147);
-                $o-default-report-font-size: 10px;
-
                 <t t-if="company" t-out="company.get_custom_scss_content()"/>
                 <t t-if="company" t-out="company.get_layout_scss_content()"/>
             </t>
         </xpath>
     </template>
+
     <template id="report_invoice_wizard_section_preview" inherit_id="web.report_invoice_wizard_preview">
         <xpath expr="//t[@t-set='layout_document_title']" position="before">
             <t t-set="name_label">

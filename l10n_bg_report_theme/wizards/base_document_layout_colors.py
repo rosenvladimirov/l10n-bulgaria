@@ -20,34 +20,37 @@ SCSS_VAR_FORMAT = "${}: {};\n"
 
 
 def get_odoo_home_scss_dir():
-    """Връща home директорията за SCSS файловете на Odoo потребителя"""
-    # Опитай се да вземеш от config, иначе използвай home
-    custom_path = config.get('custom_scss_path')
-    if custom_path:
-        base_path = Path(custom_path)
-    else:
-        base_path = Path.home() / 'odoo_custom_scss'
-
-    scss_dir = base_path / 'l10n_bg_report_theme'
-    scss_dir.mkdir(parents=True, exist_ok=True)
+    """Връща директорията за SCSS файловете в home директорията на потребителя"""
+    home_dir = Path.home()
+    scss_dir = home_dir / 'odoo_custom_scss'
+    if not scss_dir.exists():
+        scss_dir.mkdir(parents=True, exist_ok=True)
+        # Задай правилни permissions за папката
+        os.chmod(scss_dir, 0o755)
     return scss_dir
 
 
-def get_scss_file_path(use_custom=True):
+def get_scss_file_path(use_custom=True, company_id=None):
     """
     Връща пътя към SCSS файла.
     Args:
-        use_custom: Ако True, използва файла от home, иначе от модула
+        use_custom: Ако True, използва персонализирания файл, иначе оригиналния от модула
+        company_id: ИД на компанията за персонализирания файл
     """
     if use_custom:
-        # Файл от home директорията
+        # Файл със специфично име за компанията в home директорията
         custom_dir = get_odoo_home_scss_dir()
-        custom_file = custom_dir / SCSS_FILE_NAME
+        file_name = SCSS_FILE_NAME
+        if company_id:
+            file_name = f"report_variable_colors_{company_id}.scss"
 
-        # Ако не съществува в home, копирай го от модула
+        custom_file = custom_dir / file_name
+
+        # Ако не съществува, копирай оригиналния като основа
         if not custom_file.exists():
-            _logger.info(f"Custom SCSS not found, copying from module to {custom_file}")
-            copy_scss_to_home()
+            source_path = get_scss_file_path(use_custom=False)
+            shutil.copy2(source_path, custom_file)
+            os.chmod(custom_file, 0o644)
 
         return str(custom_file)
     else:
@@ -56,12 +59,11 @@ def get_scss_file_path(use_custom=True):
         return os.path.join(module_path, *SCSS_MODULE_PATH)
 
 
-def copy_scss_to_home():
+def copy_scss_to_home(company_id=None):
     """Копира оригиналния SCSS файл в home директорията"""
     try:
         source_path = get_scss_file_path(use_custom=False)
-        target_dir = get_odoo_home_scss_dir()
-        target_path = target_dir / SCSS_FILE_NAME
+        target_path = get_scss_file_path(use_custom=True, company_id=company_id)
 
         if not Path(source_path).exists():
             _logger.error(f"Source SCSS file not found: {source_path}")
@@ -114,16 +116,18 @@ class DocumentLayoutColorManager(models.TransientModel):
                 self.base_document_layout_id._compute_preview()
 
     @api.model
-    def load_scss_colors(self, force_dict=False):
-        """Loads color variables from the SCSS file (from the home directory)."""
+    def load_scss_colors(self, force_dict=False, company_id=None):
+        """Loads color variables from the SCSS file."""
         res = []
         res_dict = {}
-        scss_file_path = get_scss_file_path(use_custom=True)  # Винаги чете от home
+        # Ако няма подаден company_id, опитай се да вземеш от контекста или текущата компания
+        company_id = company_id or self.env.company.id
+        scss_file_path = get_scss_file_path(use_custom=True, company_id=company_id)
 
         try:
             with open(scss_file_path, 'r', encoding='utf-8') as file:
                 scss_content = file.read()
-                pattern = r'\$([a-zA-Z-]+):\s*rgb\((\d+),\s*(\d+),\s*(\d+)\);'
+                pattern = r'\$([a-zA-Z-]+):\s*rgb\((\d+),\s*(\d+),\s*(\d+)\)(?:\s*!default)?\s*;'
                 matches = re.findall(pattern, scss_content)
 
                 for var_name, r, g, b in matches:
@@ -138,10 +142,7 @@ class DocumentLayoutColorManager(models.TransientModel):
                     res_dict[var_name] = SCSS_VAR_FORMAT.format(var_name, rgb_value)
 
         except FileNotFoundError:
-            _logger.warning("SCSS file not found at: %s. Copying from module...", scss_file_path)
-            copy_scss_to_home()
-            # Опитай отново след копиране
-            return self.load_scss_colors(force_dict=force_dict)
+            _logger.warning("SCSS file not found at: %s", scss_file_path)
         except Exception as e:
             _logger.error("Failed to load SCSS file: %s", str(e))
 
@@ -149,7 +150,7 @@ class DocumentLayoutColorManager(models.TransientModel):
 
     @api.model
     def save_scss_colors(self, name=None, color=None, color_rgb=None):
-        """Saves color variables to SCSS file in the home directory."""
+        """Saves color variables to SCSS file."""
         try:
             name = name or self.name
             if not name:
@@ -159,8 +160,9 @@ class DocumentLayoutColorManager(models.TransientModel):
             if not color_rgb:
                 raise UserError("Color value is required")
 
-            scss_file_path = get_scss_file_path(use_custom=True)  # Винаги пише в home
-            color_records = self.load_scss_colors(force_dict=True)
+            company = self.base_document_layout_id.company_id or self.env.company
+            scss_file_path = get_scss_file_path(use_custom=True, company_id=company.id)
+            color_records = self.load_scss_colors(force_dict=True, company_id=company.id)
             color_records[name] = SCSS_VAR_FORMAT.format(name, color_rgb)
 
             scss_content = "/* colors */\n" + "".join(color_records.values())
@@ -169,7 +171,6 @@ class DocumentLayoutColorManager(models.TransientModel):
                 file.write(scss_content)
 
             # Запази пътя в компанията
-            company = self.base_document_layout_id.company_id or self.env.company
             if company:
                 company.custom_scss_path = scss_file_path
                 # Инвалидиране на кеша на асетите за прегенериране на CSS
@@ -182,6 +183,9 @@ class DocumentLayoutColorManager(models.TransientModel):
             _logger.error(error_msg)
             raise UserError(error_msg)
 
-    def _update_asset_content(self, content):
-        """Deprecated: Актуализира ir.asset записа с новото съдържание на SCSS"""
-        return
+    def _update_ir_asset(self, company):
+        """Този метод вече не се използва за файлове в home директорията,
+        тъй като асет системата на Odoo няма достъп до тях директно.
+        Разчитаме на инжектиране на съдържанието в QWeb шаблоните.
+        """
+        pass

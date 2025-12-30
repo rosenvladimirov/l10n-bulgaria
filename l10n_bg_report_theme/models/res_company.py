@@ -36,27 +36,40 @@ class Company(models.Model):
         ondelete={"SF_Text": "set default", "SF_Pro_Text": "set default"},
     )
 
+
     def get_custom_scss_content(self):
-        """Връща съдържанието на персонализирания SCSS файл с цветове"""
-        path = self.custom_scss_path or get_scss_file_path(use_custom=True)
-        return Markup(self._read_scss_file(path))
+        """Прочита съдържанието на персонализирания SCSS файл от home директорията"""
+        self.ensure_one()
+        if not self.custom_scss_path:
+            # Опитай се да намериш пътя, ако не е зададен
+            self.custom_scss_path = get_scss_file_path(use_custom=True, company_id=self.id)
+
+        if self.custom_scss_path and os.path.exists(self.custom_scss_path):
+            try:
+                with open(self.custom_scss_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                    return Markup(content)
+            except Exception as e:
+                _logger.error(f"Failed to read custom SCSS file: {e}")
+        return Markup("")
 
     def get_layout_scss_content(self):
-        """Връща съдържанието на основните SCSS файлове за леяута"""
-        background_path = get_module_resource('l10n_bg_report_theme', 'static', 'src', 'webclient', 'actions', 'reports', 'layout_assets', 'layout_background.scss')
-        sections_path = get_module_resource('l10n_bg_report_theme', 'static', 'src', 'webclient', 'actions', 'reports', 'layout_assets', 'layout_sections.scss')
+        """Прочита съдържанието на основните SCSS файлове на темата"""
+        contents = []
+        files = [
+            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/report_variable_colors.scss'),
+            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/report_variable_fonts.scss'),
+            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/default/report_variable_sizes.scss'),
+            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/layout_assets/layout_background.scss'),
+            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/layout_assets/layout_sections.scss'),
+        ]
+        for module, path in files:
+            full_path = get_module_resource(module, *path.split('/'))
+            if full_path and os.path.exists(full_path):
+                try:
+                    with open(full_path, 'r', encoding='utf-8') as f:
+                        contents.append(f"/* {path} */\n" + f.read())
+                except Exception as e:
+                    _logger.error(f"Failed to read theme SCSS file {path}: {e}")
 
-        content = self._read_scss_file(background_path)
-        content += "\n"
-        content += self._read_scss_file(sections_path)
-        return Markup(content)
-
-    def _read_scss_file(self, path):
-        if not path or not os.path.exists(path):
-            return ""
-        try:
-            with open(path, 'r', encoding='utf-8') as file:
-                return file.read()
-        except Exception as e:
-            _logger.warning(f"Could not read SCSS file at {path}: {e}")
-            return ""
+        return Markup("\n".join(contents))

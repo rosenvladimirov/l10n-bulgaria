@@ -444,13 +444,23 @@
             expr='//t[@t-elif="layout == &apos;web.external_layout_bubble&apos;"]'
             position="after"
         >
-            <t t-elif="layout == 'l10n_bg_report_theme.external_layout_sections' or (company.external_report_layout_id and (company.external_report_layout_id.key == 'l10n_bg_report_theme.external_layout_sections' or company.external_report_layout_id.xml_id == 'l10n_bg_report_theme.external_layout_sections'))">
-                :root {
-                    --font-family: <t t-esc="font" />;
-                    --primary-color:  <t t-esc='primary' />;
-                    --secondary-color: <t t-esc='secondary' />;
-                }
-                <t t-out="company.get_custom_scss_content()"/>
+            <t t-elif="layout == 'l10n_bg_report_theme.external_layout_sections' or (company and company.external_report_layout_id and (company.external_report_layout_id.key == 'l10n_bg_report_theme.external_layout_sections' or company.external_report_layout_id.xml_id == 'l10n_bg_report_theme.external_layout_sections'))">
+                <t t-set="primary_rgb" t-value="company.primary_color or 'rgb(0, 68, 122)'"/>
+                <t t-set="secondary_rgb" t-value="company.secondary_color or 'rgb(245, 245, 245)'"/>
+                $o-default-report-primary-color: <t t-esc="primary_rgb" />;
+                $o-default-report-secondary-color: <t t-esc="secondary_rgb" />;
+                $o-default-report-font: <t t-esc="font" />;
+                $o-default-report-font-heading: <t t-esc="font" />;
+                $o-default-report-inverse-color: rgb(255, 255, 255);
+                $o-default-report-base-color: rgb(128, 128, 128);
+                $o-default-report-footer-background-color: rgb(248, 252, 255);
+                $o-default-report-background-color: rgb(133, 169, 245);
+                $o-default-report-border-color: rgb(5, 84, 147);
+                $o-default-report-font-size: 10px;
+
+                <t t-if="company" t-out="company.get_custom_scss_content()"/>
+                @import "l10n_bg_report_theme/static/src/webclient/actions/reports/layout_assets/layout_background.scss";
+                @import "l10n_bg_report_theme/static/src/webclient/actions/reports/layout_assets/layout_sections.scss";
             </t>
         </xpath>
     </template>
@@ -462,15 +472,6 @@
            <t t-set="name">
                <span>INV/2023/00003</span>
            </t>
-        </xpath>
-    </template>
-    <template id="report_assets_conditional" inherit_id="web.report_layout">
-        <xpath expr="//t[@t-call-assets='web.report_assets_common']" position="after">
-            <!-- Зарежда се само ако е избран 'sections' layout -->
-            <t t-set="active_company" t-value="res_company or company or o and o._name == 'res.company' and o or env.company"/>
-            <t t-if="active_company and active_company.external_report_layout_id and (active_company.external_report_layout_id.key == 'l10n_bg_report_theme.external_layout_sections' or active_company.external_report_layout_id.xml_id == 'l10n_bg_report_theme.external_layout_sections')">
-                <t t-call-assets="l10n_bg_report_theme.optional_layout" t-js="false"/>
-            </t>
         </xpath>
     </template>
 </odoo>

@@ -17,7 +17,7 @@ strong {
     background: white !important;
     width: auto; // Премахнете фиксираната ширина
     max-width: 210mm; // Използвайте max-width вместо width
-    @media (min-width: 3508px) {
+    @media (min-width: 1122px) {
         width: 297mm !important;
     }
 }
@@ -25,7 +25,7 @@ strong {
     width: auto; // Премахнете фиксираната ширина
     max-width: 210mm;
     min-height: 297mm; // Добавете минимална височина
-    @media (min-width: 3508px) {
+    @media (min-width: 1122px) {
         width: 210mm;
         height: 297mm;
     }
@@ -43,7 +43,7 @@ strong {
     background-color: transparent !important;
     color: $o-default-report-base-color;
     width: 210mm !important;
-    @media (min-width: 3508px) {
+    @media (min-width: 1122px) {
         width: 297mm !important;
     }
 }
@@ -108,7 +108,7 @@ strong {
     border-bottom: 1px solid rgba($o-default-report-border-color, 0.5);
     color: $o-default-report-base-color;
     height: 30mm !important;
-    @media (min-width: 3508px) {
+    @media (min-width: 1122px) {
         height: 30mm !important;
     }
     /* logos */
@@ -130,7 +130,7 @@ strong {
     padding-bottom: 0;
     margin-bottom: 0;
     height: 20mm !important;
-    @media (min-width: 3508px) {
+    @media (min-width: 1122px) {
         height: 20mm !important;
     }
     ul {
@@ -140,7 +140,7 @@ strong {
 .o_sections_article {
     height: 247mm !important;
     //background-image: $o-default-report-background-article;
-    @media (min-width: 3508px) {
+    @media (min-width: 1122px) {
         height: 210mm !important;
         //background-image: $o-landscape-report-background-article;
     }

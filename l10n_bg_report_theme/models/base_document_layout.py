@@ -78,9 +78,17 @@ class BaseDocumentLayout(models.TransientModel):
 
     def default_get(self, fields_list):
         res = super().default_get(fields_list)
-        colorset = self.env['base.document.layout.colors'].load_scss_colors()
+        color_manager = self.env['base.document.layout.colors']
+        colorset = color_manager.load_scss_colors()
         if colorset:
             res['selection_colors'] = colorset
+            # Инициализиране на пътя в компанията, ако липсва
+            company = self.env.company
+            if company:
+                if not company.custom_scss_path:
+                    from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_scss_file_path
+                    company.custom_scss_path = get_scss_file_path(use_custom=True)
+                company.asset_modification_date = fields.Datetime.now()
         return res
 
     @api.onchange("logo_print")
@@ -169,6 +177,10 @@ class BaseDocumentLayout(models.TransientModel):
 
             # Презареди цветовете от файла
             self.selection_colors = self.env['base.document.layout.colors'].load_scss_colors()
+
+            # Инвалидиране на асетите
+            if self.company_id:
+                self.company_id.asset_modification_date = fields.Datetime.now()
 
             return {
                 'type': 'ir.actions.client',

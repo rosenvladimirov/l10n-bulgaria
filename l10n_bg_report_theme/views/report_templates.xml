@@ -450,6 +450,7 @@
                     --primary-color:  <t t-esc='primary' />;
                     --secondary-color: <t t-esc='secondary' />;
                 }
+                <t t-out="company.get_custom_scss_content()"/>
             </t>
         </xpath>
     </template>

@@ -168,9 +168,19 @@ class DocumentLayoutColorManager(models.TransientModel):
             with open(scss_file_path, 'w', encoding='utf-8') as file:
                 file.write(scss_content)
 
+            # Запази пътя в компанията
+            company = self.base_document_layout_id.company_id or self.env.company
+            if company:
+                company.custom_scss_path = scss_file_path
+                company.asset_modification_date = fields.Datetime.now()
+
             _logger.info(f"Saved SCSS colors to: {scss_file_path}")
 
         except Exception as e:
             error_msg = f"Failed to save SCSS colors: {str(e)}"
             _logger.error(error_msg)
             raise UserError(error_msg)
+
+    def _update_asset_content(self, content):
+        """Deprecated: Актуализира ir.asset записа с новото съдържание на SCSS"""
+        return

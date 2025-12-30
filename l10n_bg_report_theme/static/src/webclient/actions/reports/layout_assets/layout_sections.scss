@@ -30,9 +30,9 @@ strong {
         height: 297mm;
     }
 }
-.o_sections_footer,
-.o_sections_header,
-.o_sections_article {
+&.o_sections_footer,
+&.o_sections_header,
+&.o_sections_article {
     font-family: $o-default-report-font;
     font-size: $o-default-report-font-size;
     padding-left: 15px;

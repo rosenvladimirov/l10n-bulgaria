@@ -17,7 +17,14 @@
 
     <template id="report_preview_layout_bg" inherit_id="web.report_preview_layout">
         <xpath expr="//body" position="attributes">
-            <attribute name="class" add="o_company_#{res_company.id}_layout" separator=" "/>
+            <attribute name="t-attf-class" add="o_company_#{res_company.id}_layout" separator=" "/>
+        </xpath>
+    </template>
+
+    <template id="minimal_layout_bg" inherit_id="web.minimal_layout">
+        <xpath expr="//body" position="attributes">
+            <t t-set="company_id" t-value="(company or res_company or env.company).id"/>
+            <attribute name="t-attf-class" add="o_company_#{company_id}_layout" separator=" "/>
         </xpath>
     </template>
 

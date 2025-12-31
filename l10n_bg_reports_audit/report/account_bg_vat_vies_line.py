@@ -118,14 +118,6 @@ FROM {self._from()}
     @api.model
     def _where(self):
         if self._context.get("report_options"):
-            # report_options = self._context.get('report_options')
-            # date_from = report_options['date']['date_from']
-            # date_to = report_options['date']['date_to']
-            # company_id = self.env.company.id
-            # unposted_in_period = report_options['unposted_in_period']
-            # state = ['posted']
-            # if unposted_in_period:
-            #     state.append('draft')
             date_from, date_to, tax_period, tax_periods, company_id, state = l10n_bg_where(
                 self.env, self._context.get("report_options")
             )

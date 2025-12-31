@@ -5,7 +5,8 @@ from psycopg2 import sql
 
 from datetime import datetime, timedelta, date
 from odoo import api, fields, models, tools
-from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import l10n_bg_where
+from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import l10n_bg_where, \
+    l10n_bg_get_account_deprecated_sql
 
 _logger = logging.getLogger(__name__)
 
@@ -152,6 +153,7 @@ class AccountBGCalcProductLine(models.Model):
             date_from = "date_trunc('year', CURRENT_DATE)"
             date_to = "CURRENT_DATE"
             company = ""
+        deprecated = l10n_bg_get_account_deprecated_sql(table_alias='acc')
 
         return f"""
         /* Начално салдо */
@@ -171,7 +173,7 @@ class AccountBGCalcProductLine(models.Model):
             'initial' as balance_type
         FROM {self._from()}
         WHERE acc.reconcile = true
-          AND acc.deprecated = false
+          AND {deprecated}
           {'AND ' + company if company else ''} AND am.date <= {date_from_initial}
 
         UNION ALL
@@ -193,7 +195,7 @@ class AccountBGCalcProductLine(models.Model):
             'movement' as balance_type
         FROM {self._from()}
         WHERE acc.reconcile = true
-          AND acc.deprecated = false
+          AND {deprecated}
           {'AND ' + company if company else ''} AND am.date BETWEEN {date_from} AND {date_to}
 
         UNION ALL
@@ -215,7 +217,7 @@ class AccountBGCalcProductLine(models.Model):
             'final' as balance_type
         FROM {self._from()}
         WHERE aml.product_id IS NOT NULL
-          AND acc.deprecated = false
+          AND {deprecated}
           {'AND ' + company if company else ''} AND am.date <= {date_to}
         ORDER BY date  -- сортираме още в базовия SELECT
 """

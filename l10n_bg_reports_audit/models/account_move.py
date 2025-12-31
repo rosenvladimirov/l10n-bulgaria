@@ -1,4 +1,6 @@
-from odoo import api, fields, models
+#  Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+from odoo import fields, models, tools
 
 from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import (
     get_delivery_type,
@@ -10,7 +12,6 @@ from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import (
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    # Ново поле
     l10n_bg_type_vat = fields.Selection(
         selection=get_type_vat(),
         string="Type of numbering",

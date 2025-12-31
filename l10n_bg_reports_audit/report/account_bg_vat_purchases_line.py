@@ -114,13 +114,7 @@ UNION
 
     @api.model
     def _select(self):
-        # lang_partner = l10n_bg_lang(self.env, "partner", "partner.name")
-        # lang_narration = l10n_bg_lang(self.env, "narration")
-        # if self._context.get("report_options") and self._context["report_options"].get(
-        #     "lang"
-        # ):
-        #     lang_narration = lang_partner = self._context["report_options"]["lang"]
-        return f"""am.company_id AS company_id,
+         return f"""am.company_id AS company_id,
         am.id AS move_id,
         am.partner_id AS partner_id,
         accp.info_tag_1 AS info_tag_1,
@@ -144,11 +138,6 @@ UNION
 
     @api.model
     def _from(self, where_clause=""):
-        # LEFT JOIN (SELECT res_partner_id_number.id, res_partner_id_number.name, res_partner_id_number.partner_id FROM res_partner_id_number
-        #         LEFT JOIN res_partner_id_category AS id_category
-        #             ON res_partner_id_number.category_id = id_category.id
-        #         WHERE id_category.name#>>'{en_US}' = 'bg_uic' LIMIT 1) AS id_number
-        #     ON partner.id = id_number.partner_id
         return f"""account_move AS am
         JOIN (SELECT move_id, info_tag_1,
                      account_tag_30, account_tag_31, account_tag_41, account_tag_32, account_tag_42, account_tag_43, account_tag_44

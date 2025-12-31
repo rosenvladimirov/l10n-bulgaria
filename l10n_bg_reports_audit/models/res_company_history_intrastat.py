@@ -119,12 +119,6 @@ class L10nBgIntrastatThreshold(models.Model):
         tracking=True,
     )
 
-    display_name = fields.Char(
-        string="Display Name",
-        compute="_compute_display_name",
-        store=True,
-    )
-
     notes = fields.Text(
         string="Notes",
         help="Additional information about this threshold change",

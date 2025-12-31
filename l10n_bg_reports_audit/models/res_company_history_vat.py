@@ -196,12 +196,6 @@ class L10nBgVatRatioHistory(models.Model):
         precompute=True,
     )
 
-    display_name = fields.Char(
-        string="Display Name",
-        compute="_compute_display_name",
-        store=True,
-    )
-
     notes = fields.Text(
         string="Notes",
         help="Additional information about this ratio calculation",
@@ -562,5 +556,5 @@ class L10nBgVatRatioHistory(models.Model):
         return ratio_result
 
     def name_get(self):
-        """Custom name_get to show company in the name."""
+        """Custom name_get to show the company in the name."""
         return [(record.id, record.display_name) for record in self]

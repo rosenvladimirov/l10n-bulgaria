@@ -18,6 +18,15 @@ L10N_BG_MULTILANGUAGE = [
 ]
 
 
+def _get_odoo_version():
+    """
+    Връща мажорната версия на Odoo.
+
+    :return: Мажорна версия като integer (например 18, 19)
+    """
+    return int(release.version.split('.')[0])
+
+
 def l10n_bg_get_tag_negate_sql(table_alias='aat_base'):
     """
     Връща SQL за извличане на negate флага в зависимост от версията на Odoo.
@@ -28,14 +37,30 @@ def l10n_bg_get_tag_negate_sql(table_alias='aat_base'):
     :param table_alias: Алиас на таблицата account_account_tag (по подразбиране 'aat_base')
     :return: SQL израз за negate полето
     """
-    odoo_version = int(release.version.split('.')[0])
-
-    if odoo_version < 19:
+    if _get_odoo_version() < 19:
         # Odoo 18 и по-рано
         return f"{table_alias}.tax_negate AS negate"
     else:
         # Odoo 19+
         return f"STARTS_WITH({table_alias}.name#>>'{{en_US}}', '-') AS negate"
+
+
+def l10n_bg_get_account_deprecated_sql(table_alias='acc'):
+    """
+    Връща SQL условие за филтриране на deprecated сметки в зависимост от версията на Odoo.
+
+    В Odoo 18 и по-рано: използва полето deprecated
+    В Odoo 19+: полето deprecated е премахнато, използва active
+
+    :param table_alias: Алиас на таблицата account_account (по подразбиране 'acc')
+    :return: SQL условие за deprecated полето
+    """
+    if _get_odoo_version() < 19:
+        # Odoo 18 и по-рано
+        return f"{table_alias}.deprecated = false"
+    else:
+        # Odoo 19+ - полето deprecated е премахнато, използваме active
+        return f"{table_alias}.active = true"
 
 
 def account_tag_33_43(env, report_options):

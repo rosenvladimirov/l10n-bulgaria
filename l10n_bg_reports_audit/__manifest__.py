@@ -20,7 +20,6 @@
     ],
     "data": [
         "security/ir.model.access.csv",
-        "data/account_account_tag_function.xml",
     ],
     "installable": True,
     "auto_install": False,

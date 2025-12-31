@@ -1,7 +1,5 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
-import base64
 import logging
-import xml.etree.ElementTree as ET
 
 from odoo import api, fields, models
 from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import get_l10n_bg_applicability

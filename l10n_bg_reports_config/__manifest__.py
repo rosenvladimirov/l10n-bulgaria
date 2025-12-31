@@ -12,12 +12,15 @@
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "depends": [
+        "base",
+        "account",
         "l10n_bg_reports_audit",
         "l10n_bg_config",
         "l10n_bg_ledger",
     ],
     "data": [
-        'security/ir.model.access.csv',
+        "security/ir.model.access.csv",
+        "data/account_account_tag_function.xml",
         "wizards/account_account_tag_bulk_edit_wizard.xml",
         "views/account_bg_vat_line_sale_reports.xml",
         "views/account_bg_vat_line_purchase_reports.xml",

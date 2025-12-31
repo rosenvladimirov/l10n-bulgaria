@@ -13,6 +13,7 @@ _logger = logging.getLogger(__name__)
 # Константи за референции към отчети
 REPORT_REFS = {
     'layout': 'l10n_bg_report_theme.report_layout_sections',
+    'address_layout': 'l10n_bg_report_theme.address_layout',
     'invoice': 'l10n_bg_report_theme.report_invoice_document',
     'purchase_quotation': 'l10n_bg_report_theme.report_purchasequotation_document',
     'purchase_order': 'l10n_bg_report_theme.report_purchaseorder_document',

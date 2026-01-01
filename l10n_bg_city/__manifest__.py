@@ -204,6 +204,6 @@ It's a foundational module for any serious Bulgarian localization implementation
     "countries": ["BG"],
 
     # Version requirements
-    'odoo_version': '18.0',
+    'odoo_version': '19.0',
     'python_version': '>=3.11',
 }

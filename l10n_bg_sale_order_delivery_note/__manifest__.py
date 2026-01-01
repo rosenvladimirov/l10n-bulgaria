@@ -4,7 +4,7 @@
 
 {
     'name': 'Bulgarian Sale Order Delivery Note',
-    'version': '18.0.1.0.0',
+    'version': '19.0.1.0.0',
     'category': 'Sales/Bulgaria',
     'summary': 'Generate Accepted Delivery Report for Bulgarian Sale Orders',
     'description': """

@@ -179,7 +179,7 @@ class BaseDocumentLayout(models.TransientModel):
             color_manager = self.env['base.document.layout.colors']
             self.selection_colors = color_manager.load_scss_colors(company_id=company.id)
 
-            # Актуализирай динамичния асет на Odoo 18.0
+            # Актуализирай динамичния асет на Odoo 19.0
             if hasattr(company, '_update_asset_style'):
                 company._update_asset_style()
 

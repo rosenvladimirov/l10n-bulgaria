@@ -173,7 +173,7 @@ class DocumentLayoutColorManager(models.TransientModel):
             # Запази пътя в компанията
             if company:
                 company.custom_scss_path = scss_file_path
-                # Актуализирай динамичния асет на Odoo 18.0
+                # Актуализирай динамичния асет на Odoo 19.0
                 if hasattr(company, '_update_asset_style'):
                     company._update_asset_style()
                 # Инвалидиране на кеша на асетите за прегенериране на CSS

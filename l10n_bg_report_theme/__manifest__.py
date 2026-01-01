@@ -289,7 +289,7 @@ Seamlessly integrates with:
 **Technical Features**
 ~~~~~~~~~~~~~~~~~~~~~~
 * Python 3.11+ required
-* Odoo 18.0 compatible
+* Odoo 19.0 compatible
 * External dependency: `webcolors` library
 * SCSS compilation support
 * Image processing for logos
@@ -376,6 +376,6 @@ maintaining compliance with Bulgarian business document standards.
     'tags': ['localization', 'accounting', 'bulgaria', 'configuration'],
 
     # Version requirements
-    'odoo_version': '18.0',
+    'odoo_version': '19.0',
     'python_version': '>=3.11',
 }

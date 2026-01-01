@@ -34,7 +34,7 @@ Key Features:
 * No offline database needed - always fresh data
 * Works with l10n_bg_config module for EIK/UIC validation
 
-Recent Improvements (v18.0.2.0.1):
+Recent Improvements (v19.0.2.0.1):
 ----------------------------------
 * Fixed HTML address parsing to preserve structure
 * Fixed contact information extraction from addresses

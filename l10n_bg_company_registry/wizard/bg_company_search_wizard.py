@@ -212,7 +212,7 @@ class BgCompanySearchWizard(models.TransientModel):
                     'loadFieldsFromAllLegalForms': 'false'
                 },
                 headers={
-                    'User-Agent': 'Mozilla/5.0 (compatible; Odoo/18.0)',
+                    'User-Agent': 'Mozilla/5.0 (compatible; Odoo/19.0)',
                     'Accept': '*/*',
                     'Content-Type': 'application/json; charset=utf-8'
                 },

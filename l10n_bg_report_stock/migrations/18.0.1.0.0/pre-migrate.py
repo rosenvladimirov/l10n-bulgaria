@@ -18,7 +18,7 @@ NEW_MODULE_NAME = os.path.basename(
 
 def migrate(cr, version):
     """
-    Migrate from report_accepted_delivery to a new module name (Odoo 18)
+    Migrate from report_accepted_delivery to a new module name (Odoo 19)
     """
     _logger.info(f'Migration running from module directory: {NEW_MODULE_NAME}')
 

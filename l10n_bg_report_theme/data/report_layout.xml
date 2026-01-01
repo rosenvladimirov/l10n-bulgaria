@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo noupdate="1">
+<odoo>
      <record id="report_layout_sections" model="report.layout">
         <field name="name">Sections</field>
         <field name="sequence">6</field>

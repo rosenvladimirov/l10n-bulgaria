@@ -23,17 +23,22 @@
                             </list>
                         </field>
                         <separator string="Base Colors" colspan="2"/>
-                            <div class="o_document_layout_colors d-flex align-items-end mb-4">
-                                <field name="primary_color" widget="color" class="w-auto m-0 me-1"/>
-                                <field name="secondary_color" widget="color" class="w-auto m-0"/>
-                                <a class="o_custom_colors btn btn-secondary btn-sm position-relative ms-2" role="button" title="Reset to logo colors" invisible="not custom_colors">
-                                    <i class="fa fa-repeat"/> Reset
-                                    <field name="custom_colors" class="position-absolute top-0 start-0 w-100 h-100 opacity-0" nolabel="1"/>
-                                </a>
-                            </div>
+                        <div class="o_document_layout_colors d-flex align-items-end mb-4">
+                            <field name="primary_color" widget="color" class="w-auto m-0 me-1"/>
+                            <field name="secondary_color" widget="color" class="w-auto m-0"/>
+                            <button name="action_reset_to_default"
+                                    type="object"
+                                    string="Reset SCSS Colors"
+                                    class="btn btn-link pt-0"
+                                    icon="fa-refresh"/>
+                            <a class="o_custom_colors btn btn-secondary btn-sm position-relative ms-2" role="button" title="Reset to logo colors" invisible="not custom_colors">
+                                <i class="fa fa-repeat"/> Reset
+                                <field name="custom_colors" class="position-absolute top-0 start-0 w-100 h-100 opacity-0" nolabel="1"/>
+                            </a>
+                        </div>
                     </group>
-                    <group string="Background images" infisible="layout_background != 'Custom'">
-                        <separator string="Portrait" colspan="2" infisible="layout_background != 'Custom'"/>
+                    <group string="Background images" invisible="layout_background != 'Custom'">
+                        <separator string="Portrait" colspan="2" invisible="layout_background != 'Custom'"/>
                         <field
                             name="layout_background_image"
                             options="{'accepted_file_extensions': 'image/*'}"
@@ -52,7 +57,7 @@
                             invisible="layout_background != 'Custom'"
                             required="layout_background == 'Custom'"
                         >Upload your footer file 20x210mm</field>
-                        <separator string="Landscape"  colspan="2" infisible="layout_background != 'Custom'"/>
+                        <separator string="Landscape"  colspan="2" invisible="layout_background != 'Custom'"/>
                         <field
                             name="layout_background_l_image"
                             options="{'accepted_file_extensions': 'image/*'}"

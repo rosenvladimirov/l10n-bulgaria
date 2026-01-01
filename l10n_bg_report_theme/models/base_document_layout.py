@@ -1,14 +1,18 @@
-# Copyright 2023 Rosen Vladimirov
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+#  Part of Odoo. See LICENSE file for full copyright and licensing details.
+
 import logging
 from odoo import api, fields, models
+from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_odoo_home_scss_dir, \
+    get_scss_file_path, copy_scss_to_home
 from odoo import tools
+from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
 # Константи за референции към отчети
 REPORT_REFS = {
     'layout': 'l10n_bg_report_theme.report_layout_sections',
+    'address_layout': 'l10n_bg_report_theme.address_layout',
     'invoice': 'l10n_bg_report_theme.report_invoice_document',
     'purchase_quotation': 'l10n_bg_report_theme.report_purchasequotation_document',
     'purchase_order': 'l10n_bg_report_theme.report_purchaseorder_document',
@@ -71,9 +75,18 @@ class BaseDocumentLayout(models.TransientModel):
 
     def default_get(self, fields_list):
         res = super().default_get(fields_list)
-        colorset = self.env['base.document.layout.colors'].load_scss_colors()
+        color_manager = self.env['base.document.layout.colors']
+        colorset = color_manager.load_scss_colors()
         if colorset:
             res['selection_colors'] = colorset
+            # Инициализиране на пътя в компанията
+            company = self.env.company
+            if company:
+                from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_scss_file_path
+                new_path = get_scss_file_path(use_custom=True, company_id=company.id)
+                if company.custom_scss_path != new_path:
+                    company.custom_scss_path = new_path
+                self.env.registry.clear_cache('assets')
         return res
 
     @api.onchange("logo_print")
@@ -149,3 +162,47 @@ class BaseDocumentLayout(models.TransientModel):
             for template in self:
                 template._update_active_report_layout()
         return res
+
+    def action_reset_to_default(self):
+        """Копира отново оригиналния SCSS файл от модула в home директорията"""
+        try:
+            company = self.company_id or self.env.company
+            # Вземи пътищата
+            source_path = get_scss_file_path(use_custom=False)  # От модула
+            target_path = get_scss_file_path(use_custom=True, company_id=company.id)  # В home
+
+            # Копирай файла (презаписва съществуващия)
+            copy_scss_to_home(company_id=company.id)
+            _logger.info(f"Reset SCSS: copied {source_path} to {target_path}")
+
+            # Презареди цветовете от файла
+            color_manager = self.env['base.document.layout.colors']
+            self.selection_colors = color_manager.load_scss_colors(company_id=company.id)
+
+            # Актуализирай динамичния асет на Odoo 18.0
+            if hasattr(company, '_update_asset_style'):
+                company._update_asset_style()
+
+            # Инвалидиране на асетите
+            self.env.registry.clear_cache('assets')
+
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'message': 'SCSS the file is restored to the original and the colors are reloaded',
+                    'type': 'success',
+                    'sticky': False,
+                }
+            }
+
+        except Exception as e:
+            error_msg = f"Recovery error: {str(e)}"
+            _logger.error(error_msg)
+            raise UserError(error_msg)
+
+    def get_custom_scss_content(self):
+        return self.company_id.get_custom_scss_content()
+
+    def get_layout_scss_content(self):
+        return self.company_id.get_layout_scss_content()

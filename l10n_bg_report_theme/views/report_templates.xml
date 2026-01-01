@@ -8,6 +8,25 @@
             <attribute name="t-if" add="show_address" separator="and" />
         </xpath>
     </template>
+
+    <template id="report_layout_bg" inherit_id="web.report_layout">
+        <xpath expr="//body" position="attributes">
+            <attribute name="t-attf-class" add="o_company_#{(company or res_company or env.company).id}_layout" separator=" "/>
+        </xpath>
+    </template>
+
+    <template id="report_preview_layout_bg" inherit_id="web.report_preview_layout">
+        <xpath expr="//body" position="attributes">
+            <attribute name="t-attf-class" add="o_company_#{(company or res_company or env.company).id}_layout" separator=" "/>
+        </xpath>
+    </template>
+
+    <template id="minimal_layout_bg" inherit_id="web.minimal_layout">
+        <xpath expr="//body" position="attributes">
+            <attribute name="t-attf-class" add="o_company_#{(company or res_company or env.company).id}_layout" separator=" "/>
+        </xpath>
+    </template>
+
     <template id="deal_no_partner">
         <t t-if="not sender_vat_label">
             <t t-set="sender_vat_label" t-value="sender.country_id.vat_label" />
@@ -307,7 +326,7 @@
             </div>
         </div>
     </template>
-    <template id="external_layout_sections">
+    <template id="external_layout_sections" key="l10n_bg_report_theme.external_layout_sections">
         <t t-set="header_shape_height" t-value="'174'"/>
         <t t-set="layout_background_header_url"
             t-value="'data:image/png;base64,%s' % company.layout_background_header_image.decode('utf-8') if company.layout_background_header_image and company.layout_background == 'Custom' else ''" />
@@ -441,15 +460,13 @@
             expr='//t[@t-elif="layout == &apos;web.external_layout_bubble&apos;"]'
             position="after"
         >
-            <t t-elif="layout == 'l10n_bg_report_theme.external_layout_sections'">
-                :root {
-                    --font-family: <t t-esc="font" />;
-                    --primary-color:  <t t-esc='primary' />;
-                    --secondary-color: <t t-esc='secondary' />;
-                }
+            <t t-elif="layout == 'l10n_bg_report_theme.external_layout_sections' or (company and company.external_report_layout_id and (company.external_report_layout_id.key == 'l10n_bg_report_theme.external_layout_sections' or company.external_report_layout_id.xml_id == 'l10n_bg_report_theme.external_layout_sections'))">
+                <t t-if="company" t-out="company.get_custom_scss_content()"/>
+                <t t-if="company" t-out="company.get_layout_scss_content()"/>
             </t>
         </xpath>
     </template>
+
     <template id="report_invoice_wizard_section_preview" inherit_id="web.report_invoice_wizard_preview">
         <xpath expr="//t[@t-set='layout_document_title']" position="before">
             <t t-set="name_label">

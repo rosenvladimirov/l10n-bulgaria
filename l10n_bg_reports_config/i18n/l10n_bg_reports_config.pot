@@ -1,0 +1,805 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_reports_config
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e-20251015\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-15 16:04+0000\n"
+"PO-Revision-Date: 2025-10-15 16:04+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_reports_config
+#. odoo-python
+#: code:addons/l10n_bg_reports_config/models/res_company_history_vat.py:0
+msgid "(Provisional - will be adjusted at year end)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid ""
+"<span class=\"o_form_label\">Formula: (Numerator / Denominator) × "
+"100%</span>"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "<strong>Box 11:</strong> Tax base of taxable supplies"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "<strong>Box 13:</strong> Received payments before taxable event"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "<strong>Box 14:</strong> Supplies outside Bulgaria (Art. 69, Para. 2)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "<strong>Box 15:</strong> Payments for Box 14 supplies"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid ""
+"<strong>Box 16:</strong> Supplies without tax credit (Art. 70, Para. 1, "
+"Items 3-5)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid ""
+"<strong>Box 17:</strong> Supplies outside Bulgaria (not Art. 69, Para. 2)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid ""
+"<strong>Box 18:</strong> Exempt supplies (excluding Art. 50, Para. 1, Item "
+"2)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "<strong>Box 19:</strong> Non-economic activities"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid ""
+"<strong>Box 42:</strong> Received subsidies (partial tax credit adjustment)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid ""
+"<strong>Note:</strong> Monthly coefficients are provisional and will be "
+"adjusted at year end according to Art. 73, Para. 8."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "<strong>Numerator total</strong>"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid ""
+"<strong>Rounding:</strong> Coefficient is rounded UP to second decimal place"
+" (e.g., 0.125 → 0.13)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_intrastat_threshold_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_search
+msgid "Active"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "Additional information about this ratio calculation..."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_intrastat_threshold_form
+msgid "Additional information about this threshold..."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_search
+msgid "Annual"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#. odoo-python
+#: code:addons/l10n_bg_reports_config/models/res_company_history_vat.py:0
+msgid ""
+"Annual adjustment calculation requires tracking of partial VAT credits. This"
+" should be implemented in the VAT return module."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#. odoo-python
+#: code:addons/l10n_bg_reports_config/models/res_company_history_vat.py:0
+msgid ""
+"Annual adjustment can only be calculated for annual coefficients (without "
+"month)."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_account_tag_bulk_edit_wizard_form
+msgid "Apply by choice"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_intrastat_threshold_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_intrastat_threshold_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_search
+msgid "Archived"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_intrastat_threshold_form
+msgid "Arrivals (Acquisitions)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
+msgid "Assistant"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
+msgid "Assistant to help configure bulgarian accounting tags manual."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_vies_line_pivot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_vies_line_tree
+msgid "Base ICD of goods 0% 02-15"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_vies_line_pivot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_vies_line_tree
+msgid "Base under Art. 21 on the territory of the EU 02-17"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_account_l10n_bg_vat_report
+msgid "Bulgaria audit reports"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_l10n_bg_configuration
+msgid "Bulgarian Configuration"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.l10n_bg_view_partner_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.product_template_form
+msgid "Bulgarian NSI Classification"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.model,name:l10n_bg_reports_config.model_l10n_bg_vat_ratio_history
+msgid "Bulgarian VAT Ratio History (Art. 73, Para. 5)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
+msgid "Bulk Edit"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.actions.act_window,name:l10n_bg_reports_config.action_account_tags_bulk_edit
+#: model:ir.model,name:l10n_bg_reports_config.model_account_account_tag_bulk_edit_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_account_tag_bulk_edit_wizard_form
+msgid "Bulk Edit Account Tags"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "Calculate Annual Adjustment (Art. 73, Para. 8)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_account_tag_bulk_edit_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "Compute from VAT Declarations"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_search
+msgid "Computed"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.actions.act_window,help:l10n_bg_reports_config.action_l10n_bg_intrastat_threshold
+msgid "Create your first Intrastat threshold"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.actions.act_window,help:l10n_bg_reports_config.action_l10n_bg_vat_ratio_history
+msgid "Create your first VAT ratio record"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.model.fields,field_description:l10n_bg_reports_config.field_account_account_tag_bulk_edit_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.model.fields,field_description:l10n_bg_reports_config.field_account_account_tag_bulk_edit_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_intrastat_threshold_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_search
+msgid "Current Year"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_vies_line_search
+msgid "Customer"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_search
+msgid "Date"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.actions.act_window,help:l10n_bg_reports_config.action_l10n_bg_vat_ratio_history
+msgid ""
+"Define VAT ratios according to Art. 73, Para. 5 of the VAT Act.\n"
+"                You can enter ratios manually or compute them from VAT declaration data."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.actions.act_window,help:l10n_bg_reports_config.action_l10n_bg_intrastat_threshold
+msgid "Define thresholds for Intrastat reporting by year and month."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "Denominator (Art. 73, Para. 4)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "Denominator includes (Art. 73, Para. 4):"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_intrastat_threshold_form
+msgid "Dispatches (Supplies)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.model.fields,field_description:l10n_bg_reports_config.field_account_account_tag_bulk_edit_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
+msgid "EE modules for help."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
+msgid "EE settings"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#. odoo-python
+#: code:addons/l10n_bg_reports_config/models/res_company_history_vat.py:0
+msgid "Error"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#. odoo-python
+#: code:addons/l10n_bg_reports_config/models/res_company_history_vat.py:0
+msgid "Error computing VAT ratio: %s"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
+msgid "Force re-configure"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_intrastat_threshold_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_search
+msgid "Group By"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_vies_line_search
+msgid "Group By..."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.model.fields,field_description:l10n_bg_reports_config.field_account_account_tag_bulk_edit_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "Includes Numerator"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#. odoo-python
+#: code:addons/l10n_bg_reports_config/models/res_company_history_vat.py:0
+msgid "Information"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "Instructions (Art. 73)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_intrastat_threshold_form
+msgid "Intrastat Threshold"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.actions.act_window,name:l10n_bg_reports_config.action_l10n_bg_intrastat_threshold
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_l10n_bg_intrastat_threshold
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_intrastat_threshold_list
+msgid "Intrastat Thresholds"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_search
+msgid "Invoice/Move"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.model.fields,field_description:l10n_bg_reports_config.field_account_account_tag_bulk_edit_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.model.fields,field_description:l10n_bg_reports_config.field_account_account_tag_bulk_edit_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "Leave empty for annual coefficient"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
+msgid "Mandatory Declaration thresholds. Calculate VAT base on formula."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_search
+msgid "Manual"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_search
+msgid "Monthly"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.l10n_bg_view_res_partner_filter
+msgid "NSI Payable Tags"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.l10n_bg_view_res_partner_filter
+msgid "NSI Receivable Tags"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.l10n_bg_product_template_search_view
+msgid "NSI Tags"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#. odoo-python
+#: code:addons/l10n_bg_reports_config/models/res_company_history_vat.py:0
+msgid ""
+"No VAT declaration data found for this period.\n"
+"No previous coefficient found either.\n"
+"Please enter values manually."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#. odoo-python
+#: code:addons/l10n_bg_reports_config/models/res_company_history_vat.py:0
+msgid "No monthly ratios found for year %s. Cannot calculate adjustment."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_intrastat_threshold_form
+msgid "Notes"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "Notes & Instructions"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "Numerator (Art. 73, Para. 3)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "Numerator Total"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "Numerator includes (Art. 73, Para. 3):"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
+msgid "OCA modules for help."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
+msgid "OCA settings"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Open"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Open journal entry"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_vies_line_search
+msgid "Partner"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.actions.act_window,name:l10n_bg_reports_config.action_account_bg_partner_pivot
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_action_account_bg_partner_pivot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_partner_pivot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_partner_pivot_graph
+msgid "Partner Trail Balance"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_vies_line_search
+msgid "Period"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_search
+msgid "Period Type"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_search
+msgid "Period: Last month"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "Plus Additional Items"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_vies_line_search
+msgid "Posted"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_vies_line_search
+msgid "Posted Journal Items"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.actions.act_window,name:l10n_bg_reports_config.action_account_bg_product_pivot
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_action_account_bg_product_pivot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_product_pivot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_product_pivot_graph
+msgid "Product Trail Balance"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_search
+msgid "Provisional"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_list
+msgid "Ratio (%)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
+msgid "Re configure"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_intrastat_threshold_search
+msgid "Search Intrastat Thresholds"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_search
+msgid "Search VAT Ratio History"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.l10n_bg_view_partner_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.l10n_bg_view_partner_simple_form
+msgid "Select NSI tag for payable..."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.l10n_bg_view_partner_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.l10n_bg_view_partner_simple_form
+msgid "Select NSI tag for receivable..."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
+msgid "Settings"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "Supplies Outside Bulgaria & Other"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_vies_line_pivot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_vies_line_tree
+msgid "TO-trilateral operations 02-25"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.model.fields,field_description:l10n_bg_reports_config.field_account_account_tag_bulk_edit_wizard__tag_ids
+msgid "Tags"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "Taxable Supplies"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid ""
+"This will calculate the annual adjustment for partial VAT credit. Continue?"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid ""
+"This will recalculate the ratio based on VAT declaration data. Continue?"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Total 02-11"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Total 02-12"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Total 02-121"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Total 02-122"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Total 02-14"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Total 02-15"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Total 02-16"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Total 02-17"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Total 02-18"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Total 02-19"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Total 02-21"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Total 02-22"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Total 02-23"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Total 02-24"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Total 02-25"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_tree
+msgid "Total 02-26"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-30"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-31"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-32"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-41"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-42"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-43"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.model.fields,field_description:l10n_bg_reports_config.field_account_account_tag_bulk_edit_wizard__l10n_bg_applicability
+msgid "Use for"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
+msgid ""
+"Use the already loaded settings to reset everything to their original state."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.actions.act_window,name:l10n_bg_reports_config.action_account_bg_calc_purchases_line
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_current_account_vat_purchase_report
+msgid "VAT Purchases report"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#. odoo-python
+#: code:addons/l10n_bg_reports_config/models/res_company_history_vat.py:0
+msgid "VAT Ratio Calculation (Art. 73)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "VAT Ratio Calculation (Art. 73, Para. 2)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.actions.act_window,name:l10n_bg_reports_config.action_l10n_bg_vat_ratio_history
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_list
+msgid "VAT Ratio History"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_l10n_bg_vat_ratio_history
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
+msgid "VAT Ratio History (Art. 73)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.actions.act_window,name:l10n_bg_reports_config.action_account_bg_calc_sales_line_line
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_current_account_vat_report
+msgid "VAT Sales report"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.actions.act_window,name:l10n_bg_reports_config.action_account_bg_calc_vies_line_line
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_current_account_vat_vies_report
+msgid "VAT VIES report"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#. odoo-python
+#: code:addons/l10n_bg_reports_config/models/res_company_history_vat.py:0
+msgid ""
+"VAT ratio computed from declarations: %.2f%%\n"
+"Numerator: %.2f %s\n"
+"Denominator: %.2f %s"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
+msgid "Vat & Intrastat"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_intrastat_threshold_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_search
+msgid "Year"
+msgstr ""

@@ -459,6 +459,7 @@ FROM {self._from()}
             WHEN am.state = 'cancel' THEN 0.00
             WHEN aat.tag_name = 14 AND aat.negate THEN aml.balance*-1
             WHEN aat.tag_name = 14 AND NOT aat.negate THEN aml.balance
+            ELSE 0.00
             END) AS account_tag_14,
     SUM(CASE
             WHEN am.state = 'cancel' THEN 0.00

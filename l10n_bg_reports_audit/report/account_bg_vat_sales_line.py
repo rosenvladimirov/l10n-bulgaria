@@ -18,8 +18,8 @@ _logger = logging.getLogger(__name__)
 
 class AccountBGInfoSaleLine(models.Model):
     """Base model for new Bulgarian VAT reports. The idea is that these lines have all the necessary data and which any
-    changes in odoo, these will be taken for this cube and then no changes will be needed in the reports that use
-     these lines. A line is created for each accountring entry affected by VAT tax.
+    changes in odoo, these will be taken for this cube, and then no changes will be needed in the reports that use
+     these lines. A line is created for each accounting entry affected by VAT tax.
 
     Basically which it does is covert the accounting entries into columns depending on the information of the taxes and
     add some other fields"""
@@ -72,8 +72,13 @@ class AccountBGInfoSaleLine(models.Model):
         string="Delivery according to Art. 163a or import under Art. 167a of the VAT",
         readonly=True,
     )
+    account_tag_9 = fields.Monetary(
+        string="[02-9] Total amount of VAT charged",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
     account_tag_10 = fields.Monetary(
-        string="[02-10] Total amount of VAT charged",
+        string="[02-10] Total amount of VAT",
         currency_field="company_currency_id",
         readonly=True,
     )
@@ -183,7 +188,8 @@ class AccountBGInfoSaleLine(models.Model):
         {l10n_bg_lang(self.env, "partner", "partner.name")} AS info_tag_8,
         {l10n_bg_lang(self.env, "narration")} AS info_tag_9,
         am.l10n_bg_exemption_reason AS info_tag_27,
-        accs.account_tag_11 + accs.account_tag_121 + accs.account_tag_122 + accs.account_tag_13 + accs.account_tag_15 + accs.account_tag_16 + accs.account_tag_17 + accs.account_tag_18 + accs.account_tag_19 AS account_tag_10,
+        accs.account_tag_11 + accs.account_tag_13 + accs.account_tag_14 + accs.account_tag_17 + accs.account_tag_19 + accs.account_tag_20 + accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24 AS account_tag_9,
+        accs.account_tag_121 + accs.account_tag_122 + accs.account_tag_15 + accs.account_tag_16 + accs.account_tag_18 AS account_tag_10,
         accs.account_tag_11 AS account_tag_11,
         accs.account_tag_121 + accs.account_tag_122 AS account_tag_12,
         accs.account_tag_121 AS account_tag_121,

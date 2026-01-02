@@ -424,19 +424,19 @@ FROM {self._from()}
             WHEN aat.tag_name = 12 AND aat.negate THEN aml.balance*-1
             WHEN aat.tag_name = 12 AND NOT aat.negate THEN aml.balance
             ELSE 0.00
-            END)*-1 AS account_tag_12,
+            END) AS account_tag_12,
     SUM(CASE
             WHEN am.state = 'cancel' THEN 0.00
             WHEN aat.tag_name = 121 AND aat.negate THEN aml.balance*-1
             WHEN aat.tag_name = 121 AND NOT aat.negate THEN aml.balance
             ELSE 0.00
-            END)*-1 AS account_tag_121,
+            END) AS account_tag_121,
     SUM(CASE
             WHEN am.state = 'cancel' THEN 0.00
             WHEN aat.tag_name = 122 AND aat.negate THEN aml.balance*-1
             WHEN aat.tag_name = 122 AND NOT aat.negate THEN aml.balance
             ELSE 0.00
-            END)*-1 AS account_tag_122,
+            END) AS account_tag_122,
     SUM(CASE
             WHEN am.state = 'cancel' THEN 0.00
             WHEN aat.tag_name = 26 AND aat.negate THEN aml.balance*-1

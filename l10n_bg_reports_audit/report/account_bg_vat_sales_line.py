@@ -73,6 +73,11 @@ class AccountBGInfoSaleLine(models.Model):
         string="Delivery according to Art. 163a or import under Art. 167a of the VAT",
         readonly=True,
     )
+    account_tag_9 = fields.Monetary(
+        string="[02-9] Total amount of VAT charged",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
     account_tag_10 = fields.Monetary(
         string="[02-10] Total amount of VAT charged",
         currency_field="company_currency_id",
@@ -178,13 +183,14 @@ class AccountBGInfoSaleLine(models.Model):
         company.l10n_bg_departament_code AS info_tag_2,
         ROW_NUMBER() OVER(ORDER BY am.date) AS info_tag_3,
         am.l10n_bg_document_type AS info_tag_4,
-        COALESCE(am.l10n_bg_document_number, LPAD(NULLIF(REGEXP_REPLACE(am.name, '\\D','','g'), '')::varchar(255), 10, '0')) AS info_tag_5,
+        COALESCE(am.l10n_bg_name, LPAD(NULLIF(REGEXP_REPLACE(am.name, '\\D','','g'), '')::varchar(255), 10, '0')) AS info_tag_5,
         COALESCE(am.l10n_bg_date, am.invoice_date, am.date) AS info_tag_6,
         COALESCE(partner.vat, partner.l10n_bg_uic) AS info_tag_7,
         {l10n_bg_lang(self.env, "partner", "partner.name")} AS info_tag_8,
         {l10n_bg_lang(self.env, "narration")} AS info_tag_9,
         am.l10n_bg_exemption_reason AS info_tag_27,
-        accs.account_tag_11 + accs.account_tag_121 + accs.account_tag_122 + accs.account_tag_13 + accs.account_tag_15 + accs.account_tag_16 + accs.account_tag_17 + accs.account_tag_18 + accs.account_tag_19 AS account_tag_10,
+        accs.account_tag_11 + accs.account_tag_121 + accs.account_tag_122 + accs.account_tag_13 + accs.account_tag_14 + accs.account_tag_15 + accs.account_tag_16 + accs.account_tag_17 + accs.account_tag_18 + accs.account_tag_19 AS account_tag_9,
+        accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24 AS account_tag_10,
         accs.account_tag_11 AS account_tag_11,
         accs.account_tag_121 + accs.account_tag_122 AS account_tag_12,
         accs.account_tag_121 AS account_tag_121,
@@ -387,19 +393,33 @@ FROM {self._from()}
             WHEN aat.tag_name = 11 AND aat.negate THEN aml.balance*-1
             WHEN aat.tag_name = 11 AND NOT aat.negate THEN aml.balance
             ELSE 0.00
-            END) AS account_tag_11,
+            END)*-1 AS account_tag_11,
     SUM(CASE
             WHEN am.state = 'cancel' THEN 0.00
             WHEN aat.tag_name = ANY(ARRAY[21,22,23]) AND aat.negate THEN aml.balance*-1
             WHEN aat.tag_name = ANY(ARRAY[21,22,23]) AND NOT aat.negate THEN aml.balance
             ELSE 0.00
-            END) AS account_tag_20,
+            END)*-1 AS account_tag_20,
     SUM(CASE
             WHEN am.state = 'cancel' THEN 0.00
             WHEN aat.tag_name = 21 AND aat.negate THEN aml.balance*-1
             WHEN aat.tag_name = 21 AND NOT aat.negate THEN aml.balance
             ELSE 0.00
-            END) AS account_tag_21,
+            END)*-1 AS account_tag_21,
+    SUM(CASE
+            WHEN am.state = 'cancel' THEN 0.00
+            WHEN aml.balance < 0.0 AND aat.tag_name = 22 AND aat.negate THEN ABS(aml.balance){l10n_bg_odoo_compatible_line(self.env, 'tag_22')}
+            WHEN aml.balance < 0.0 AND aat.tag_name = 22 AND NOT aat.negate THEN ABS(aml.balance)
+            WHEN aml.balance > 0.0 AND aat.tag_name = 22 AND aat.negate THEN aml.balance
+            WHEN aml.balance > 0.0 AND aat.tag_name = 22 AND NOT aat.negate THEN aml.balance{l10n_bg_odoo_compatible_line(self.env, 'tag_22')}
+            ELSE 0.00
+            END) AS account_tag_22,
+    SUM(CASE
+            WHEN am.state = 'cancel' THEN 0.00
+            WHEN aat.tag_name = 23 AND aat.negate THEN aml.balance*-1
+            WHEN aat.tag_name = 23 AND NOT aat.negate THEN aml.balance
+            ELSE 0.00
+            END)*-1 AS account_tag_23,
     SUM(CASE
             WHEN am.state = 'cancel' THEN 0.00
             WHEN aat.tag_name = 12 AND aat.negate THEN aml.balance*-1
@@ -423,74 +443,61 @@ FROM {self._from()}
             WHEN aat.tag_name = 26 AND aat.negate THEN aml.balance*-1
             WHEN aat.tag_name = 26 AND NOT aat.negate THEN aml.balance
             ELSE 0.00
-            END) AS account_tag_26,
-    SUM(CASE
-            WHEN am.state = 'cancel' THEN 0.00
-            WHEN aml.balance < 0.0 AND aat.tag_name = 22 AND aat.negate THEN ABS(aml.balance){l10n_bg_odoo_compatible_line(self.env, 'tag_22')}
-            WHEN aml.balance < 0.0 AND aat.tag_name = 22 AND NOT aat.negate THEN ABS(aml.balance)
-            WHEN aml.balance > 0.0 AND aat.tag_name = 22 AND aat.negate THEN aml.balance
-            WHEN aml.balance > 0.0 AND aat.tag_name = 22 AND NOT aat.negate THEN aml.balance{l10n_bg_odoo_compatible_line(self.env, 'tag_22')}
-            ELSE 0.00
-            END) AS account_tag_22,
-    SUM(CASE
-            WHEN am.state = 'cancel' THEN 0.00
-            WHEN aat.tag_name = 23 AND aat.negate THEN aml.balance*-1
-            WHEN aat.tag_name = 23 AND NOT aat.negate THEN aml.balance
-            ELSE 0.00
-            END) AS account_tag_23,
+            END)*-1 AS account_tag_26,
     SUM(CASE
             WHEN am.state = 'cancel' THEN 0.00
             WHEN aat.tag_name = 13 AND aat.negate THEN aml.balance*-1
             WHEN aat.tag_name = 13 AND NOT aat.negate THEN aml.balance
             ELSE 0.00
-            END) AS account_tag_13,
+            END)*-1 AS account_tag_13,
     SUM(CASE
             WHEN am.state = 'cancel' THEN 0.00
             WHEN aat.tag_name = 24 AND aat.negate THEN aml.balance*-1
             WHEN aat.tag_name = 24 AND NOT aat.negate THEN aml.balance
             ELSE 0.00
-            END) AS account_tag_24,
+            END)*-1 AS account_tag_24,
     SUM(CASE
             WHEN am.state = 'cancel' THEN 0.00
             WHEN aat.tag_name = 14 AND aat.negate THEN aml.balance*-1
-            WHEN aml.balance > 0.0 AND NOT aat.negate THEN aml.balance
-            END) AS account_tag_14,
+            WHEN aat.tag_name = 14 AND NOT aat.negate THEN aml.balance
+            ELSE 0.00
+            END)*-1 AS account_tag_14,
     SUM(CASE
             WHEN am.state = 'cancel' THEN 0.00
             WHEN aat.tag_name = 15 AND aat.negate THEN aml.balance*-1
             WHEN aat.tag_name = 15 AND NOT aat.negate THEN aml.balance
             ELSE 0.00
-            END) AS account_tag_15,
+            END)*-1 AS account_tag_15,
     SUM(CASE
             WHEN am.state = 'cancel' THEN 0.00
             WHEN aat.tag_name = 16 AND aat.negate THEN aml.balance*-1
             WHEN aat.tag_name = 16 AND NOT aat.negate THEN aml.balance
             ELSE 0.00
-            END) AS account_tag_16,
+            END)*-1 AS account_tag_16,
     SUM(CASE
             WHEN am.state = 'cancel' THEN 0.00
             WHEN aat.tag_name = 17 AND aat.negate THEN aml.balance*-1
             WHEN aat.tag_name = 17 AND NOT aat.negate THEN aml.balance
             ELSE 0.00
-            END) AS account_tag_17,
+            END)*-1 AS account_tag_17,
     SUM(CASE
             WHEN am.state = 'cancel' THEN 0.00
             WHEN aat.tag_name = 18 AND aat.negate THEN aml.balance*-1
             WHEN aat.tag_name = 18 AND NOT aat.negate THEN aml.balance
             ELSE 0.00
-            END) AS account_tag_18,
+            END)*-1 AS account_tag_18,
     SUM(CASE
             WHEN am.state = 'cancel' THEN 0.00
             WHEN aat.tag_name = 19 AND aat.negate THEN aml.balance*-1
             WHEN aat.tag_name = 19 AND NOT aat.negate THEN aml.balance
             ELSE 0.00
-            END) AS account_tag_19,
+            END)*-1 AS account_tag_19,
     SUM(CASE
             WHEN am.state = 'cancel' THEN 0.00
             WHEN aat.tag_name = 25 AND aat.negate THEN aml.balance*-1
             WHEN aat.tag_name = 25 AND NOT aat.negate THEN aml.balance
             ELSE 0.00
-            END) AS account_tag_25"""
+            END)*-1 AS account_tag_25"""
 
     @api.model
     def _from(self):

@@ -91,6 +91,7 @@ def _convert_hex_to_rgb(hex_color):
     except ValueError as e:
         raise UserError(f"Invalid color format: {hex_color}") from e
 
+
 class DocumentLayoutColorManager(models.TransientModel):
     _name = 'base.document.layout.colors'
     _description = 'Document Layout Colors Configuration'

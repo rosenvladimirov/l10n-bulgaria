@@ -162,6 +162,8 @@ strong {
     h2 span {
         color: $o-default-report-primary-color;
     }
+
+    // Стил за последната колона САМО в таблиците на article
     table {
         border: none;
         background-color: transparent !important;
@@ -189,6 +191,7 @@ strong {
                     vertical-align: top;
                     border: none;
 
+                    // Стил за последната колона
                     &:last-child {
                         background-color: $o-default-report-total-column-color;
                         text-align: right;

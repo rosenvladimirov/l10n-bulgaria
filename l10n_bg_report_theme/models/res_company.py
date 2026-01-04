@@ -47,65 +47,111 @@ class Company(models.Model):
             try:
                 with open(self.custom_scss_path, 'r', encoding='utf-8') as f:
                     content = f.read()
-                    _logger.info(f"Loaded custom SCSS from: {self.custom_scss_path}")
+                    _logger.info(f"✓ get_custom_scss_content() loaded from: {self.custom_scss_path}")
                     return Markup(content)
             except Exception as e:
-                _logger.error(f"Failed to read custom SCSS file: {e}")
+                _logger.error(f"✗ get_custom_scss_content() failed: {e}")
         else:
-            _logger.warning(f"Custom SCSS file not found: {self.custom_scss_path}")
+            _logger.warning(f"✗ get_custom_scss_content() NOT FOUND: {self.custom_scss_path}")
         return Markup("")
 
     def get_layout_scss_content(self):
         """Прочита съдържанието на основните SCSS файлове на темата"""
         self.ensure_one()
-        _logger.info(f"Generating layout SCSS for company {self.id}")
+        _logger.info(f"=" * 80)
+        _logger.info(f"🎨 Generating layout SCSS for company ID: {self.id}")
+        _logger.info(f"🏢 Company name: {self.name}")
+        _logger.info(f"=" * 80)
 
         scss_parts = []
 
         # 1. ПЪРВО: Зареди CUSTOM цветовете от home директорията (БЕЗ !default)
         custom_colors_path = get_scss_file_path(use_custom=True, company_id=self.id)
+        _logger.info(f"📁 Looking for custom colors at: {custom_colors_path}")
+        _logger.info(f"   File exists: {os.path.exists(custom_colors_path)}")
+
         if os.path.exists(custom_colors_path):
             try:
                 with open(custom_colors_path, 'r', encoding='utf-8') as f:
                     custom_content = f.read()
+                    _logger.info(f"📄 Custom SCSS file size: {len(custom_content)} chars")
+                    _logger.info(f"📄 First 300 chars:\n{custom_content[:300]}")
+
                     # Премахни !default флаговете от custom файла
+                    original_content = custom_content
                     custom_content = custom_content.replace('!default', '').replace('  ;', ';')
+
+                    if original_content != custom_content:
+                        _logger.info(f"✂️  Removed !default flags from custom colors")
+
                     indented = '\n'.join('    ' + line if line.strip() else line
                                          for line in custom_content.split('\n'))
                     scss_parts.append(f"    /* Custom colors from: {custom_colors_path} */\n{indented}")
-                    _logger.info(f"Loaded custom colors from: {custom_colors_path}")
+                    _logger.info(f"✅ Successfully loaded custom colors")
             except Exception as e:
-                _logger.error(f"Failed to read custom colors file: {e}")
+                _logger.error(f"❌ Failed to read custom colors file: {e}", exc_info=True)
         else:
-            _logger.warning(f"Custom colors file not found: {custom_colors_path}")
+            _logger.warning(f"⚠️  Custom colors file NOT FOUND: {custom_colors_path}")
 
-        # 2. СЛЕД ТОВА: Зареди останалите модулни файлове (БЕЗ report_variable_colors.scss)
+        # 2. СЛЕД ТОВА: Зареди останалите модулни файлове
         module_path = get_module_path('l10n_bg_report_theme')
+        _logger.info(f"-" * 80)
+        _logger.info(f"📦 Module path: {module_path}")
+        _logger.info(f"-" * 80)
 
         files = [
-            # 'static/src/webclient/actions/reports/report_variable_colors.scss',  ← ПРЕМАХНАТО!
             'static/src/webclient/actions/reports/report_variable_fonts.scss',
-            'static/src/webclient/actions/reports/default/report_variable_sizes.scss',
+            'static/src/webclient/actions/reports/report_variable_sizes.scss',
             'static/src/webclient/actions/reports/layout_assets/layout_background.scss',
             'static/src/webclient/actions/reports/layout_assets/layout_sections.scss',
         ]
 
-        for file_path in files:
+        for idx, file_path in enumerate(files, start=2):
             full_path = os.path.join(module_path, file_path)
+            _logger.info(f"📂 [{idx}] Loading: {file_path}")
+            _logger.info(f"   Full path: {full_path}")
+            _logger.info(f"   Exists: {os.path.exists(full_path)}")
+
             if os.path.exists(full_path):
                 try:
                     with open(full_path, 'r', encoding='utf-8') as f:
                         content = f.read()
-                        # Индентираме съдържанието
+                        _logger.info(f"   Size: {len(content)} chars")
                         indented = '\n'.join('    ' + line if line.strip() else line
                                              for line in content.split('\n'))
                         scss_parts.append(f"    /* {file_path} */\n{indented}")
+                        _logger.info(f"   ✅ Successfully loaded")
                 except Exception as e:
-                    _logger.error(f"Failed to read theme SCSS file {file_path}: {e}")
+                    _logger.error(f"   ❌ Failed to read: {e}", exc_info=True)
             else:
-                _logger.warning(f"SCSS file not found: {full_path}")
+                _logger.warning(f"   ⚠️  File NOT FOUND")
 
         # Обвиваме в компанийския клас
-        wrapped = f".o_company_{self.id}_layout {{\n" + "\n\n".join(scss_parts) + "\n}"
+        wrapped = f".o_company_{self.id}_layout {{\n" + "\n\n".join(scss_parts) + "\n}}"
+
+        _logger.info(f"=" * 80)
+        _logger.info(f"📊 SCSS Generation Summary:")
+        _logger.info(f"   Total SCSS parts: {len(scss_parts)}")
+        _logger.info(f"   Total characters: {len(wrapped)}")
+        _logger.info(f"   Wrapper class: .o_company_{self.id}_layout")
+        _logger.info(f"=" * 80)
+
+        # DEBUG: Запиши генерирания SCSS в temp файл
+        try:
+            import tempfile
+            temp_file = tempfile.NamedTemporaryFile(mode='w', suffix='.scss', delete=False, encoding='utf-8')
+            temp_file.write(wrapped)
+            temp_file.close()
+            _logger.info(f"💾 Generated SCSS saved to: {temp_file.name}")
+            _logger.info(f"   You can inspect with: cat {temp_file.name}")
+        except Exception as e:
+            _logger.warning(f"⚠️  Could not save debug SCSS file: {e}")
+
+        # Покажи първите 1000 символа от генерирания SCSS
+        _logger.info(f"-" * 80)
+        _logger.info(f"📝 First 1000 chars of generated SCSS:")
+        _logger.info(f"-" * 80)
+        _logger.info(f"\n{wrapped[:1000]}\n")
+        _logger.info(f"-" * 80)
 
         return Markup(wrapped)

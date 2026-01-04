@@ -1,3 +1,4 @@
+
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import logging
@@ -5,7 +6,7 @@ import os
 from markupsafe import Markup
 
 from odoo import fields, models
-from odoo.modules import get_module_resource
+from odoo.modules.module import get_module_resource
 from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_scss_file_path
 
 _logger = logging.getLogger(__name__)

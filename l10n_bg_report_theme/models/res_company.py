@@ -78,14 +78,17 @@ class Company(models.Model):
                     _logger.info(f"📄 First 300 chars:\n{custom_content[:300]}")
 
                     # Премахни !default флаговете от custom файла
-                    original_content = custom_content
                     custom_content = custom_content.replace('!default', '').replace('  ;', ';')
 
-                    if original_content != custom_content:
-                        _logger.info(f"✂️  Removed !default flags from custom colors")
+                    # Индентираме само непразните редове
+                    lines = []
+                    for line in custom_content.split('\n'):
+                        if line.strip():  # Ако реда не е празен
+                            lines.append('    ' + line)
+                        else:  # Празен ред остава празен
+                            lines.append('')
 
-                    indented = '\n'.join('    ' + line if line.strip() else line
-                                         for line in custom_content.split('\n'))
+                    indented = '\n'.join(lines)
                     scss_parts.append(f"    /* Custom colors from: {custom_colors_path} */\n{indented}")
                     _logger.info(f"✅ Successfully loaded custom colors")
             except Exception as e:
@@ -117,8 +120,16 @@ class Company(models.Model):
                     with open(full_path, 'r', encoding='utf-8') as f:
                         content = f.read()
                         _logger.info(f"   Size: {len(content)} chars")
-                        indented = '\n'.join('    ' + line if line.strip() else line
-                                             for line in content.split('\n'))
+
+                        # Индентираме само непразните редове
+                        lines = []
+                        for line in content.split('\n'):
+                            if line.strip():  # Ако реда не е празен
+                                lines.append('    ' + line)
+                            else:  # Празен ред остава празен
+                                lines.append('')
+
+                        indented = '\n'.join(lines)
                         scss_parts.append(f"    /* {file_path} */\n{indented}")
                         _logger.info(f"   ✅ Successfully loaded")
                 except Exception as e:
@@ -144,6 +155,7 @@ class Company(models.Model):
             temp_file.close()
             _logger.info(f"💾 Generated SCSS saved to: {temp_file.name}")
             _logger.info(f"   You can inspect with: cat {temp_file.name}")
+            _logger.info(f"   Or check syntax with: sass {temp_file.name}")
         except Exception as e:
             _logger.warning(f"⚠️  Could not save debug SCSS file: {e}")
 
@@ -153,5 +165,11 @@ class Company(models.Model):
         _logger.info(f"-" * 80)
         _logger.info(f"\n{wrapped[:1000]}\n")
         _logger.info(f"-" * 80)
+
+        # Покажи и последните 500 символа (където е грешката)
+        _logger.info(f"📝 Last 500 chars of generated SCSS:")
+        _logger.info(f"-" * 80)
+        _logger.info(f"\n{wrapped[-500:]}\n")
+        _logger.info(f"=" * 80)
 
         return Markup(wrapped)

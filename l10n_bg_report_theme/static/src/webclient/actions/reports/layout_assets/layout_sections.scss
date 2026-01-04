@@ -194,7 +194,6 @@ strong {
                     // Стил за последната колона
                     &:last-child {
                         background-color: $o-default-report-total-column-color;
-                        text-align: right;
                     }
                 }
                 &.o_line_section td,

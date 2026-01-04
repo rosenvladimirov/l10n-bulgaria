@@ -47,9 +47,12 @@ class Company(models.Model):
             try:
                 with open(self.custom_scss_path, 'r', encoding='utf-8') as f:
                     content = f.read()
+                    _logger.info(f"Loaded custom SCSS from: {self.custom_scss_path}")
                     return Markup(content)
             except Exception as e:
                 _logger.error(f"Failed to read custom SCSS file: {e}")
+        else:
+            _logger.warning(f"Custom SCSS file not found: {self.custom_scss_path}")
         return Markup("")
 
     def get_layout_scss_content(self):
@@ -57,18 +60,36 @@ class Company(models.Model):
         self.ensure_one()
         _logger.info(f"Generating layout SCSS for company {self.id}")
 
+        scss_parts = []
+
+        # 1. ПЪРВО: Зареди CUSTOM цветовете от home директорията (БЕЗ !default)
+        custom_colors_path = get_scss_file_path(use_custom=True, company_id=self.id)
+        if os.path.exists(custom_colors_path):
+            try:
+                with open(custom_colors_path, 'r', encoding='utf-8') as f:
+                    custom_content = f.read()
+                    # Премахни !default флаговете от custom файла
+                    custom_content = custom_content.replace('!default', '').replace('  ;', ';')
+                    indented = '\n'.join('    ' + line if line.strip() else line
+                                         for line in custom_content.split('\n'))
+                    scss_parts.append(f"    /* Custom colors from: {custom_colors_path} */\n{indented}")
+                    _logger.info(f"Loaded custom colors from: {custom_colors_path}")
+            except Exception as e:
+                _logger.error(f"Failed to read custom colors file: {e}")
+        else:
+            _logger.warning(f"Custom colors file not found: {custom_colors_path}")
+
+        # 2. СЛЕД ТОВА: Зареди останалите модулни файлове (БЕЗ report_variable_colors.scss)
+        module_path = get_module_path('l10n_bg_report_theme')
+
         files = [
-            'static/src/webclient/actions/reports/report_variable_colors.scss',
+            # 'static/src/webclient/actions/reports/report_variable_colors.scss',  ← ПРЕМАХНАТО!
             'static/src/webclient/actions/reports/report_variable_fonts.scss',
             'static/src/webclient/actions/reports/default/report_variable_sizes.scss',
             'static/src/webclient/actions/reports/layout_assets/layout_background.scss',
             'static/src/webclient/actions/reports/layout_assets/layout_sections.scss',
         ]
 
-        module_path = get_module_path('l10n_bg_report_theme')
-
-        # Четем съдържанието на файловете
-        scss_parts = []
         for file_path in files:
             full_path = os.path.join(module_path, file_path)
             if os.path.exists(full_path):

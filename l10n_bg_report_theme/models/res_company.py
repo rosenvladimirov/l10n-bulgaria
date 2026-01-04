@@ -5,7 +5,7 @@ import os
 from markupsafe import Markup
 
 from odoo import fields, models
-from odoo.tools.misc import file_path
+from odoo.modules import get_module_resource
 from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_scss_file_path
 
 _logger = logging.getLogger(__name__)
@@ -36,7 +36,6 @@ class Company(models.Model):
         ondelete={"SF_Text": "set default", "SF_Pro_Text": "set default"},
     )
 
-
     def get_custom_scss_content(self):
         """Прочита съдържанието на персонализирания SCSS файл от home директорията"""
         self.ensure_one()
@@ -55,22 +54,31 @@ class Company(models.Model):
 
     def get_layout_scss_content(self):
         """Прочита съдържанието на основните SCSS файлове на темата"""
+        self.ensure_one()
         _logger.info(f"Generating layout SCSS for company {self.id}")
-        contents = []
-        files = [
-            'l10n_bg_report_theme/static/src/webclient/actions/reports/report_variable_colors.scss',
-            'l10n_bg_report_theme/static/src/webclient/actions/reports/report_variable_fonts.scss',
-            'l10n_bg_report_theme/static/src/webclient/actions/reports/default/report_variable_sizes.scss',
-            'l10n_bg_report_theme/static/src/webclient/actions/reports/layout_assets/layout_background.scss',
-            'l10n_bg_report_theme/static/src/webclient/actions/reports/layout_assets/layout_sections.scss',
-        ]
-        for file_path_str in files:
-            try:
-                full_path = file_path(file_path_str)
-                if full_path and os.path.exists(full_path):
-                    with open(full_path, 'r', encoding='utf-8') as f:
-                        contents.append(f"/* {file_path_str} */\n" + f.read())
-            except Exception as e:
-                _logger.error(f"Failed to read theme SCSS file {file_path_str}: {e}")
 
-        return Markup("\n".join(contents))
+        contents = []
+
+        # Обвиваме всичко в уникалния клас за компанията
+        wrapper_start = f".o_company_{self.id}_layout {{\n"
+
+        files = [
+            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/report_variable_colors.scss'),
+            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/report_variable_fonts.scss'),
+            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/default/report_variable_sizes.scss'),
+            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/layout_assets/layout_background.scss'),
+            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/layout_assets/layout_sections.scss'),
+        ]
+
+        for module, path in files:
+            full_path = get_module_resource(module, *path.split('/'))
+            if full_path and os.path.exists(full_path):
+                try:
+                    with open(full_path, 'r', encoding='utf-8') as f:
+                        contents.append(f"    /* {path} */\n    " + f.read().replace('\n', '\n    '))
+                except Exception as e:
+                    _logger.error(f"Failed to read theme SCSS file {path}: {e}")
+
+        wrapper_end = "\n}"
+
+        return Markup(wrapper_start + "\n".join(contents) + wrapper_end)

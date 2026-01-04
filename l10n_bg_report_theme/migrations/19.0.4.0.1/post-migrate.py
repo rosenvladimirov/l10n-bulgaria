@@ -1,5 +1,5 @@
 def migrate(cr, version):
-    """Add custom_scss_path column if it doesn't exist"""
+    """Add a custom_scss_path column if it doesn't exist"""
     cr.execute("""
         SELECT column_name
         FROM information_schema.columns

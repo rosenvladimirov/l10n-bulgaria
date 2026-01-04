@@ -185,6 +185,10 @@ strong {
                     // remove border from standard layout
                     vertical-align: top;
                     border: none;
+                    &:last-child {
+                        background-color: $o-default-report-total-column-color;
+                        text-align: right;
+                    }
                 }
                 &.o_line_section td,
                 &.o_line_note td,

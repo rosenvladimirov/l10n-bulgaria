@@ -1,4 +1,3 @@
-
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import logging
@@ -6,7 +5,7 @@ import os
 from markupsafe import Markup
 
 from odoo import fields, models
-from odoo.modules.module import get_module_resource
+from odoo.modules.module import get_module_path
 from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_scss_file_path
 
 _logger = logging.getLogger(__name__)
@@ -64,21 +63,25 @@ class Company(models.Model):
         wrapper_start = f".o_company_{self.id}_layout {{\n"
 
         files = [
-            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/report_variable_colors.scss'),
-            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/report_variable_fonts.scss'),
-            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/default/report_variable_sizes.scss'),
-            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/layout_assets/layout_background.scss'),
-            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/layout_assets/layout_sections.scss'),
+            'static/src/webclient/actions/reports/report_variable_colors.scss',
+            'static/src/webclient/actions/reports/report_variable_fonts.scss',
+            'static/src/webclient/actions/reports/default/report_variable_sizes.scss',
+            'static/src/webclient/actions/reports/layout_assets/layout_background.scss',
+            'static/src/webclient/actions/reports/layout_assets/layout_sections.scss',
         ]
 
-        for module, path in files:
-            full_path = get_module_resource(module, *path.split('/'))
-            if full_path and os.path.exists(full_path):
+        module_path = get_module_path('l10n_bg_report_theme')
+
+        for file_path in files:
+            full_path = os.path.join(module_path, file_path)
+            if os.path.exists(full_path):
                 try:
                     with open(full_path, 'r', encoding='utf-8') as f:
-                        contents.append(f"    /* {path} */\n    " + f.read().replace('\n', '\n    '))
+                        contents.append(f"    /* {file_path} */\n    " + f.read().replace('\n', '\n    '))
                 except Exception as e:
-                    _logger.error(f"Failed to read theme SCSS file {path}: {e}")
+                    _logger.error(f"Failed to read theme SCSS file {file_path}: {e}")
+            else:
+                _logger.warning(f"SCSS file not found: {full_path}")
 
         wrapper_end = "\n}"
 

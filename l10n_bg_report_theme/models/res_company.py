@@ -57,11 +57,6 @@ class Company(models.Model):
         self.ensure_one()
         _logger.info(f"Generating layout SCSS for company {self.id}")
 
-        contents = []
-
-        # Обвиваме всичко в уникалния клас за компанията
-        wrapper_start = f".o_company_{self.id}_layout {{\n"
-
         files = [
             'static/src/webclient/actions/reports/report_variable_colors.scss',
             'static/src/webclient/actions/reports/report_variable_fonts.scss',
@@ -72,17 +67,24 @@ class Company(models.Model):
 
         module_path = get_module_path('l10n_bg_report_theme')
 
+        # Четем съдържанието на файловете
+        scss_parts = []
         for file_path in files:
             full_path = os.path.join(module_path, file_path)
             if os.path.exists(full_path):
                 try:
                     with open(full_path, 'r', encoding='utf-8') as f:
-                        contents.append(f"    /* {file_path} */\n    " + f.read().replace('\n', '\n    '))
+                        content = f.read()
+                        # Индентираме съдържанието
+                        indented = '\n'.join('    ' + line if line.strip() else line
+                                             for line in content.split('\n'))
+                        scss_parts.append(f"    /* {file_path} */\n{indented}")
                 except Exception as e:
                     _logger.error(f"Failed to read theme SCSS file {file_path}: {e}")
             else:
                 _logger.warning(f"SCSS file not found: {full_path}")
 
-        wrapper_end = "\n}"
+        # Обвиваме в компанийския клас
+        wrapped = f".o_company_{self.id}_layout {{\n" + "\n\n".join(scss_parts) + "\n}"
 
-        return Markup(wrapper_start + "\n".join(contents) + wrapper_end)
+        return Markup(wrapped)

@@ -1,9 +1,8 @@
-
 strong {
     font-weight: 600;
 }
 
-&.container, .container {
+.container {
     font-family: $o-default-report-font;
     padding: 0;
     margin-left: auto;
@@ -35,9 +34,9 @@ strong {
     }
 }
 
-&.o_sections_footer, .o_sections_footer,
-&.o_sections_header, .o_sections_header,
-&.o_sections_article, .o_sections_article {
+.o_sections_footer,
+.o_sections_header,
+.o_sections_article {
     font-family: $o-default-report-font;
     font-size: $o-default-report-font-size;
     padding-left: 15px;
@@ -108,7 +107,7 @@ strong {
         }
     }
 }
-&.o_sections_header, .o_sections_header {
+.o_sections_header {
     padding-top: 15px;
     margin-top: 0;
     border-bottom: 1px solid rgba($o-default-report-border-color, 0.5);
@@ -128,7 +127,7 @@ strong {
         text-transform: uppercase;
     }
 }
-&.o_sections_footer, .o_sections_footer {
+.o_sections_footer {
     white-space: nowrap;
     border-top: 1px solid rgba($o-default-report-border-color, 0.5);
     font-size: 10px;
@@ -143,7 +142,7 @@ strong {
         margin: 4px 0;
     }
 }
-&.o_sections_article, .o_sections_article {
+.o_sections_article {
     height: 247mm !important;
     //background-image: $o-default-report-background-article;
     @media (min-width: 1122px) {
@@ -174,6 +173,10 @@ strong {
                 text-transform: uppercase;
                 color: $o-default-report-inverse-color !important;
                 background-color: rgba($o-default-report-primary-color, 0.9) !important;
+
+                &:last-child {
+                    background-color: rgba($o-default-report-primary-color, 1) !important;
+                }
             }
         }
         tbody {
@@ -185,6 +188,7 @@ strong {
                     // remove border from standard layout
                     vertical-align: top;
                     border: none;
+
                     &:last-child {
                         background-color: $o-default-report-total-column-color;
                         text-align: right;
@@ -200,10 +204,17 @@ strong {
                     font-weight: 600;
                     background-color: $o-default-report-secondary-color;
                     color: $o-default-report-inverse-color;
+
+                    &:last-child {
+                        background-color: darken($o-default-report-secondary-color, 5%);
+                    }
                 }
-                &.is-subtotal,
-                td.o_price_total {
+                &.is-subtotal td {
                     background-color: rgba($o-default-report-secondary-color, 0.1);
+
+                    &:last-child {
+                        background-color: $o-default-report-total-column-color;
+                    }
                 }
             }
         }

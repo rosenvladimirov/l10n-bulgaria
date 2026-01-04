@@ -60,47 +60,31 @@ class Company(models.Model):
         self.ensure_one()
         _logger.info(f"=" * 80)
         _logger.info(f"🎨 Generating layout SCSS for company ID: {self.id}")
-        _logger.info(f"🏢 Company name: {self.name}")
         _logger.info(f"=" * 80)
 
         scss_parts = []
 
         # 1. ПЪРВО: Зареди CUSTOM цветовете от home директорията (БЕЗ !default)
         custom_colors_path = get_scss_file_path(use_custom=True, company_id=self.id)
-        _logger.info(f"📁 Looking for custom colors at: {custom_colors_path}")
-        _logger.info(f"   File exists: {os.path.exists(custom_colors_path)}")
 
         if os.path.exists(custom_colors_path):
             try:
                 with open(custom_colors_path, 'r', encoding='utf-8') as f:
                     custom_content = f.read()
-                    _logger.info(f"📄 Custom SCSS file size: {len(custom_content)} chars")
-                    _logger.info(f"📄 First 300 chars:\n{custom_content[:300]}")
 
-                    # Премахни !default флаговете от custom файла
+                    # Премахни !default флаговете
                     custom_content = custom_content.replace('!default', '').replace('  ;', ';')
 
-                    # Индентираме само непразните редове
-                    lines = []
-                    for line in custom_content.split('\n'):
-                        if line.strip():  # Ако реда не е празен
-                            lines.append('    ' + line)
-                        else:  # Празен ред остава празен
-                            lines.append('')
-
-                    indented = '\n'.join(lines)
-                    scss_parts.append(f"    /* Custom colors from: {custom_colors_path} */\n{indented}")
-                    _logger.info(f"✅ Successfully loaded custom colors")
+                    # Добави коментар и съдържанието без допълнителна индентация
+                    scss_parts.append(f"/* Custom colors from: {custom_colors_path} */\n{custom_content}")
+                    _logger.info(f"✅ Loaded custom colors ({len(custom_content)} chars)")
             except Exception as e:
-                _logger.error(f"❌ Failed to read custom colors file: {e}", exc_info=True)
+                _logger.error(f"❌ Failed to read custom colors: {e}")
         else:
-            _logger.warning(f"⚠️  Custom colors file NOT FOUND: {custom_colors_path}")
+            _logger.warning(f"⚠️  Custom colors NOT FOUND: {custom_colors_path}")
 
         # 2. СЛЕД ТОВА: Зареди останалите модулни файлове
         module_path = get_module_path('l10n_bg_report_theme')
-        _logger.info(f"-" * 80)
-        _logger.info(f"📦 Module path: {module_path}")
-        _logger.info(f"-" * 80)
 
         files = [
             'static/src/webclient/actions/reports/report_variable_fonts.scss',
@@ -109,67 +93,51 @@ class Company(models.Model):
             'static/src/webclient/actions/reports/layout_assets/layout_sections.scss',
         ]
 
-        for idx, file_path in enumerate(files, start=2):
+        for file_path in files:
             full_path = os.path.join(module_path, file_path)
-            _logger.info(f"📂 [{idx}] Loading: {file_path}")
-            _logger.info(f"   Full path: {full_path}")
-            _logger.info(f"   Exists: {os.path.exists(full_path)}")
 
             if os.path.exists(full_path):
                 try:
                     with open(full_path, 'r', encoding='utf-8') as f:
                         content = f.read()
-                        _logger.info(f"   Size: {len(content)} chars")
 
-                        # Индентираме само непразните редове
-                        lines = []
-                        for line in content.split('\n'):
-                            if line.strip():  # Ако реда не е празен
-                                lines.append('    ' + line)
-                            else:  # Празен ред остава празен
-                                lines.append('')
+                        # Провери баланса на скобите
+                        open_braces = content.count('{')
+                        close_braces = content.count('}')
 
-                        indented = '\n'.join(lines)
-                        scss_parts.append(f"    /* {file_path} */\n{indented}")
-                        _logger.info(f"   ✅ Successfully loaded")
+                        if open_braces != close_braces:
+                            _logger.warning(
+                                f"⚠️  Unbalanced braces in {file_path}: {{={open_braces}, }}={close_braces}")
+
+                        # Добави коментар и съдържанието без допълнителна индентация
+                        scss_parts.append(f"/* {file_path} */\n{content}")
+                        _logger.info(
+                            f"✅ Loaded {file_path} ({len(content)} chars, braces: {open_braces}/{close_braces})")
                 except Exception as e:
-                    _logger.error(f"   ❌ Failed to read: {e}", exc_info=True)
+                    _logger.error(f"❌ Failed to read {file_path}: {e}")
             else:
-                _logger.warning(f"   ⚠️  File NOT FOUND")
+                _logger.warning(f"⚠️  NOT FOUND: {full_path}")
 
-        # Обвиваме в компанийския клас
-        wrapped = f".o_company_{self.id}_layout {{\n" + "\n\n".join(scss_parts) + "\n}}"
+        # ВАЖНО: НЕ обвиваме в .o_company_{id}_layout !
+        # Wrapper-ът се добавя от XML template-а!
+        wrapped = "\n\n".join(scss_parts)
 
-        _logger.info(f"=" * 80)
-        _logger.info(f"📊 SCSS Generation Summary:")
-        _logger.info(f"   Total SCSS parts: {len(scss_parts)}")
-        _logger.info(f"   Total characters: {len(wrapped)}")
-        _logger.info(f"   Wrapper class: .o_company_{self.id}_layout")
-        _logger.info(f"=" * 80)
+        # Провери общия баланс
+        total_open = wrapped.count('{')
+        total_close = wrapped.count('}')
+        _logger.info(f"📊 Total braces: {{={total_open}, }}={total_close}")
 
-        # DEBUG: Запиши генерирания SCSS в temp файл
+        if total_open != total_close:
+            _logger.error(f"❌ UNBALANCED BRACES! Difference: {total_open - total_close}")
+
+        # DEBUG: Запиши
         try:
             import tempfile
             temp_file = tempfile.NamedTemporaryFile(mode='w', suffix='.scss', delete=False, encoding='utf-8')
             temp_file.write(wrapped)
             temp_file.close()
-            _logger.info(f"💾 Generated SCSS saved to: {temp_file.name}")
-            _logger.info(f"   You can inspect with: cat {temp_file.name}")
-            _logger.info(f"   Or check syntax with: sass {temp_file.name}")
-        except Exception as e:
-            _logger.warning(f"⚠️  Could not save debug SCSS file: {e}")
-
-        # Покажи първите 1000 символа от генерирания SCSS
-        _logger.info(f"-" * 80)
-        _logger.info(f"📝 First 1000 chars of generated SCSS:")
-        _logger.info(f"-" * 80)
-        _logger.info(f"\n{wrapped[:1000]}\n")
-        _logger.info(f"-" * 80)
-
-        # Покажи и последните 500 символа (където е грешката)
-        _logger.info(f"📝 Last 500 chars of generated SCSS:")
-        _logger.info(f"-" * 80)
-        _logger.info(f"\n{wrapped[-500:]}\n")
-        _logger.info(f"=" * 80)
+            _logger.info(f"💾 Saved to: {temp_file.name}")
+        except:
+            pass
 
         return Markup(wrapped)

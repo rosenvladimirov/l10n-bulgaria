@@ -153,6 +153,10 @@ strong {
         height: 210mm !important;
         //background-image: $o-landscape-report-background-article;
     }
+    .deal-content-separator {
+        clear: both;
+        margin-top: 15px;
+    }
     #total strong {
         color: $o-default-report-primary-color;
     }

@@ -403,6 +403,7 @@
                 t-call="l10n_bg_report_theme.deal_no_partner"
                 t-if="(no_deal_partner and sender and recipient)"
             />
+            <div class="deal-content-separator"></div>
             <t t-out="0" />
             <t
                 name="signatures_section"
@@ -440,7 +441,7 @@
                 </div>
             </div>
             <div class="row" t-if="company.report_footer">
-                <div class="col-12 text-start" style="font-size: 8px">
+                <div class="col-12 text-start o_section_footer_left_box" style="font-size: 8px">
                     <div t-field="company.report_footer" />
                 </div>
             </div>

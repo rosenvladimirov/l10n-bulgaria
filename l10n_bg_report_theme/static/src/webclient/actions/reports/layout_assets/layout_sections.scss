@@ -189,6 +189,10 @@ strong {
                     vertical-align: top;
                     border: none;
                 }
+                // Редуващ се фон на редовете
+                &:nth-child(even) {
+                    background-color: rgba($o-default-report-border-color, 0.05);
+                }
                 &.o_line_section td,
                 &.o_line_note td,
                 &.is-subtotal td {

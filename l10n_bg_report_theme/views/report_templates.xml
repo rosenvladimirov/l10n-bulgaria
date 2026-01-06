@@ -353,29 +353,20 @@
                     />
                 </div>
                 <div class="col-1 text-start" />
-                <div class="col-3 text-start o_sections_name">
-                    <ul class="list-unstyled">
-                        <li t-if="company.is_company_details_empty">
-                            <li t-if="company.phone"><i class="fa fa-phone" /> <span
-                                    t-field="company.phone"
-                                /></li>
-                            <li t-if="company.mobile"><i
-                                    class="fa fa-mobile"
-                                /> <span t-field="company.mobile" /></li>
-                            <li t-if="company.email"><i class="fa fa-at" /> <span
-                                    t-field="company.email"
-                                /></li>
-                            <li t-if="company.website"><i
-                                    class="fa fa-globe"
-                                /> <span t-field="company.website" /></li>
-                        </li>
-                        <li t-else="">
-                            <span
-                                class="company_address"
-                                t-esc="company.company_details"
-                            />
-                        </li>
-                    </ul>
+                <div class="col-3 text-start o_section_header_right_box">
+                    <t t-if="company.is_company_details_empty">
+                        <ul class="list-unstyled">
+                            <li t-if="company.is_company_details_empty">
+                                <li t-if="company.phone"><i class="fa fa-phone"/> <span t-field="company.phone"/></li>
+                                <li t-if="company.mobile"><i class="fa fa-mobile"/> <span t-field="company.mobile"/></li>
+                                <li t-if="company.email"><i class="fa fa-at"/> <span t-field="company.email"/></li>
+                                <li t-if="company.website"><i class="fa fa-globe"/> <span t-field="company.website" /></li>
+                            </li>
+                        </ul>
+                    </t>
+                    <t t-else="">
+                        <span class="company_address" t-esc="company.company_details"/>
+                    </t>
                 </div>
             </div>
         </div>
@@ -441,7 +432,7 @@
                 style="max-height: 60px; vertical-align:middle;"
                 t-if="report_type == 'pdf'"
             >
-                <div class="col-3 text-start">
+                <div class="col-3 text-start o_section_footer_left_box">
                     Page: <span class="page" /> / <span class="topage" />
                 </div>
                 <div t-if="display_name_in_footer" class="text-muted col-9">

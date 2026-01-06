@@ -51,6 +51,12 @@
                 </t>
             </t>
         </xpath>
+
+        <!-- Добавяме условие към адресната секция -->
+        <xpath expr="//t[@t-set='address']" position="attributes">
+            <attribute name="t-if">not no_deal_partner and show_address</attribute>
+        </xpath>
+
         <xpath expr="//div[@name='informations_date']" position="attributes">
             <attribute name="groups">l10n_bg_report_theme.group_control_delivery_date</attribute>
         </xpath>

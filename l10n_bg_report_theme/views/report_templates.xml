@@ -390,7 +390,7 @@
             </t>
             <t name="document_name" t-call="l10n_bg_report_theme.document_name" />
             <div class="pt-5">
-                <!-- This div ensures that the address is not cropped by the header. -->
+                <!-- This div ensures that the header does not crop the address. -->
                 <t t-call="web.address_layout" />
             </div>
             <t

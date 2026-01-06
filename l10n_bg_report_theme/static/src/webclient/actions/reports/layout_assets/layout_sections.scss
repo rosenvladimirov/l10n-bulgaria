@@ -77,7 +77,7 @@ strong {
 .o_sections_deal {
     table {
         border: none;
-        background-color: transparent !important;
+        background-color: rgba(255, 255, 255, 0.9) !important;
         thead {
             border: 1px solid $o-default-report-border-color;
             tr th {
@@ -167,7 +167,7 @@ strong {
     }
     table {
         border: none;
-        background-color: transparent !important;
+        background-color: rgba(255, 255, 255, 0.9) !important;
         thead {
             border: 1px solid $o-default-report-border-color;
             tr th {
@@ -287,7 +287,7 @@ strong {
 
     table {
         border: 1px solid $o-default-report-border-color;
-        background-color: transparent !important;
+        background-color: rgba(255, 255, 255, 0.9) !important;
 
         // Apply the same table display fixes as other tables
         display: table !important;

@@ -65,6 +65,7 @@ strong {
     background-color: $o-default-report-footer-background-color;
     border: 1px solid rgba($o-default-report-border-color, 0.7);
     margin: -8px;
+    padding: 10px;
 }
 .o_sections_name {
     height: 14px;
@@ -82,7 +83,7 @@ strong {
 .o_sections_deal {
     table {
         border: none;
-        background-color: transparent !important;
+        background-color: rgba(255, 255, 255, 0.9) !important;
         thead {
             border: 1px solid $o-default-report-border-color;
             tr th {
@@ -127,6 +128,10 @@ strong {
         text-transform: uppercase;
     }
 }
+.o_section_header_right_box {
+    color: $o-default-report-primary-header-right-color !important;
+    font-size: 12px !important;
+}
 .o_sections_footer {
     white-space: nowrap;
     border-top: 1px solid rgba($o-default-report-border-color, 0.5);
@@ -142,12 +147,20 @@ strong {
         margin: 4px 0;
     }
 }
+.o_section_footer_left_box {
+    color: $o-default-report-primary-footer-left-color !important;
+    font-size: 12px !important;
+}
 .o_sections_article {
     height: 247mm !important;
     //background-image: $o-default-report-background-article;
     @media (min-width: 1122px) {
         height: 210mm !important;
         //background-image: $o-landscape-report-background-article;
+    }
+    .deal-content-separator {
+        clear: both;
+        margin-top: 15px;
     }
     #total strong {
         color: $o-default-report-primary-color;
@@ -166,7 +179,7 @@ strong {
     // Стил за последната колона САМО в таблиците на article
     table {
         border: none;
-        background-color: transparent !important;
+        background-color: rgba(255, 255, 255, 0.9) !important;
         thead {
             border: 1px solid $o-default-report-border-color;
             tr th {
@@ -175,10 +188,6 @@ strong {
                 text-transform: uppercase;
                 color: $o-default-report-inverse-color !important;
                 background-color: rgba($o-default-report-primary-color, 0.9) !important;
-
-                &:last-child {
-                    background-color: rgba($o-default-report-primary-color, 1) !important;
-                }
             }
         }
         tbody {
@@ -190,11 +199,10 @@ strong {
                     // remove border from standard layout
                     vertical-align: top;
                     border: none;
-
-                    // Стил за последната колона
-                    &:last-child {
-                        background-color: $o-default-report-total-column-color;
-                    }
+                }
+                // Редуващ се фон на редовете
+                &:nth-child(even) {
+                    background-color: rgba($o-default-report-border-color, 0.05);
                 }
                 &.o_line_section td,
                 &.o_line_note td,
@@ -206,10 +214,6 @@ strong {
                     font-weight: 600;
                     background-color: $o-default-report-secondary-color;
                     color: $o-default-report-inverse-color;
-
-                    &:last-child {
-                        background-color: darken($o-default-report-secondary-color, 5%);
-                    }
                 }
                 &.is-subtotal td {
                     background-color: rgba($o-default-report-secondary-color, 0.1);
@@ -302,7 +306,7 @@ strong {
 
     table {
         border: 1px solid $o-default-report-border-color;
-        background-color: transparent !important;
+        background-color: rgba(255, 255, 255, 0.9) !important;
 
         // Apply the same table display fixes as other tables
         display: table !important;

@@ -36,7 +36,6 @@ class Company(models.Model):
         ondelete={"SF_Text": "set default", "SF_Pro_Text": "set default"},
     )
 
-
     def get_custom_scss_content(self):
         """Прочита съдържанието на персонализирания SCSS файл от home директорията"""
         self.ensure_one()

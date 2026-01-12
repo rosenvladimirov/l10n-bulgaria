@@ -97,7 +97,7 @@ class L10nBGConfigMixin(models.AbstractModel):
                     continue
                 field.set("invisible", "True")
 
-            for field in doc.xpath('//group[contains(@id,"l10n_bg")]'):
+            for field in doc.xpath('//group[contains(@id,"l10n_bg") or contains(@name,"l10n_bg")]'):
                 field.set("invisible", "True")
 
             result["arch"] = etree.tostring(doc)

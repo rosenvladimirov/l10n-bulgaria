@@ -1,7 +1,7 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import logging
-from odoo import api, fields, models
+from odoo import api, fields, models, Command
 from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_odoo_home_scss_dir, \
     get_scss_file_path, copy_scss_to_home
 from odoo import tools
@@ -83,7 +83,10 @@ class BaseDocumentLayout(models.TransientModel):
         color_manager = self.env['base.document.layout.colors']
         colorset = color_manager.load_scss_colors(company_id=company.id)
         if colorset:
-            res['selection_colors'] = colorset
+            # Използваме Command.set(colorset), за да сме сигурни, че старите записи се изчистват и новите се сетват
+            # Тъй като colorset вече съдържа Command.create, трябва да ги извлечем
+            color_commands = [c[2] for c in colorset]
+            res['selection_colors'] = [Command.clear()] + [Command.create(vals) for vals in color_commands]
             # Инициализиране на пътя в компанията
             if company:
                 from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_scss_file_path
@@ -122,6 +125,10 @@ class BaseDocumentLayout(models.TransientModel):
             wizard.logo_print_secondary_color = secondary
             wizard.logo_primary_color = primary
             wizard.logo_secondary_color = secondary
+
+    @api.depends('report_layout_id', 'logo', 'font', 'primary_color', 'secondary_color', 'report_header', 'report_footer', 'layout_background', 'layout_background_image', 'company_details', 'selection_colors', 'selection_colors.color')
+    def _compute_preview(self):
+        super()._compute_preview()
 
     def _get_render_information(self, styles):
         res = super()._get_render_information(styles)
@@ -172,21 +179,24 @@ class BaseDocumentLayout(models.TransientModel):
             # vals['selection_colors'] е списък от команди (0, 0, {...}) или (1, id, {...})
             has_changes = False
             for command in vals['selection_colors']:
-                if command[0] in (0, 1) and 'color' in command[2]:
+                if command[0] in (0, 1, 4) and (command[0] == 4 or 'color' in command[2]):
                     # Взимаме името от записа, ако не е подадено в vals
-                    name = command[2].get('name')
-                    if not name and command[0] == 1:
+                    name = command[2].get('name') if command[0] in (0, 1) else None
+                    if not name and command[0] in (1, 4):
                         record = color_manager.browse(command[1])
                         name = record.name
+                        new_color_hex = command[2].get('color', record.color) if command[0] == 1 else record.color
+                    else:
+                        new_color_hex = command[2].get('color')
 
-                    if name:
-                        new_color_hex = command[2]['color']
+                    if name and new_color_hex:
                         new_color_rgb = color_manager._convert_hex_to_rgb(new_color_hex)
 
                         # Проверяваме дали стойността е различна от текущата в SCSS
                         # SCSS_VAR_FORMAT = "${}: {};\n"
                         expected_line = color_manager.SCSS_VAR_FORMAT.format(name, new_color_rgb)
                         if current_scss_colors.get(name) != expected_line:
+                            _logger.info(f"Saving color {name} = {new_color_hex} ({new_color_rgb}) for company {company.id}")
                             color_manager.save_scss_colors(name, new_color_hex, new_color_rgb, company_id=company.id)
                             has_changes = True
 

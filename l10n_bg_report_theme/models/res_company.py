@@ -120,6 +120,14 @@ class Company(models.Model):
 
         # ВАЖНО: НЕ обвиваме в .o_company_{id}_layout !
         # Wrapper-ът се добавя от XML template-а!
+        # Но добавяме селектор, за да сме сигурни, че важи за компанията,
+        # ако Odoo го инжектира глобално.
+        # Всъщност в styles_company_report_sections го инжектираме само за съответната компания.
+
+        # За да сме сигурни, че се преизчислява прегледа, добавяме timestamp или нещо уникално като коментар
+        import datetime
+        scss_parts.insert(0, f"/* Generated at: {datetime.datetime.now()} */")
+
         wrapped = "\n\n".join(scss_parts)
 
         # Провери общия баланс

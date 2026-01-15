@@ -95,6 +95,8 @@ class DocumentLayoutColorManager(models.TransientModel):
     _name = 'base.document.layout.colors'
     _description = 'Document Layout Colors Configuration'
 
+    SCSS_VAR_FORMAT = SCSS_VAR_FORMAT
+
     name = fields.Char(string="Name")
     color = fields.Char(string="Color")
     color_rgb = fields.Char(string="Color RGB", compute="_compute_color_rgb")
@@ -130,39 +132,58 @@ class DocumentLayoutColorManager(models.TransientModel):
         scss_file_path = get_scss_file_path(use_custom=True, company_id=company_id)
 
         try:
-            with open(scss_file_path, 'r', encoding='utf-8') as file:
-                scss_content = file.read()
-                # Регулярен израз за $var: rgb(r, g, b); или $var: #hex;
-                pattern = r'\$([a-zA-Z-]+):\s*(rgb\(\d+,\s*\d+,\s*\d+\)|#[0-9a-fA-F]{3,6})(?:\s*!default)?\s*;'
-                matches = re.findall(pattern, scss_content)
-
-                for var_name, color_val in matches:
-                    if color_val.startswith('rgb'):
-                        # Извличане на r, g, b
-                        rgb_match = re.search(r'rgb\((\d+),\s*(\d+),\s*(\d+)\)', color_val)
-                        if rgb_match:
-                            r, g, b = rgb_match.groups()
-                            hex_color = "#{:02x}{:02x}{:02x}".format(int(r), int(g), int(b))
-                            rgb_value = color_val
-                        else:
-                            continue
-                    else:
-                        hex_color = color_val
-                        rgb_value = _convert_hex_to_rgb(hex_color)
-
-                    res.append(Command.create({
+            # Първо зареждаме оригиналния файл, за да имаме всички дефинирани цветове като структура
+            original_path = get_scss_file_path(use_custom=False)
+            with open(original_path, 'r', encoding='utf-8') as file:
+                original_content = file.read()
+                # pattern = r'\$([a-zA-Z-]+):\s*(rgb\(\d+,\s*\d+,\s*\d+\)|#[0-9a-fA-F]{3,6})(?:\s*!default)?\s*;'
+                pattern = r'\$([a-zA-Z-]+):\s*([^;]+?)(?:\s*!default)?\s*;'
+                original_matches = re.findall(pattern, original_content)
+                for var_name, color_val in original_matches:
+                    res_dict[var_name] = {
                         'name': var_name,
-                        'color': hex_color,
-                        'color_rgb': rgb_value
-                    }))
-                    res_dict[var_name] = SCSS_VAR_FORMAT.format(var_name, rgb_value)
+                        'color_val': color_val.strip()
+                    }
 
-        except FileNotFoundError:
-            _logger.warning("SCSS file not found at: %s", scss_file_path)
+            # След това зареждаме персонализирания файл и презаписваме стойностите
+            if os.path.exists(scss_file_path):
+                with open(scss_file_path, 'r', encoding='utf-8') as file:
+                    custom_content = file.read()
+                    custom_matches = re.findall(pattern, custom_content)
+                    for var_name, color_val in custom_matches:
+                        if var_name in res_dict:
+                            res_dict[var_name]['color_val'] = color_val.strip()
+
+            # Превръщаме в желания формат
+            final_res_dict = {}
+            for var_name, data in res_dict.items():
+                color_val = data['color_val']
+                if color_val.startswith('rgb'):
+                    rgb_match = re.search(r'rgb\((\d+),\s*(\d+),\s*(\d+)\)', color_val)
+                    if rgb_match:
+                        r, g, b = rgb_match.groups()
+                        hex_color = "#{:02x}{:02x}{:02x}".format(int(r), int(g), int(b))
+                        rgb_value = f"rgb({r}, {g}, {b})"
+                    else:
+                        continue
+                elif color_val.startswith('#'):
+                    hex_color = color_val
+                    rgb_value = _convert_hex_to_rgb(hex_color)
+                else:
+                    # Може да е референция към друга променлива или нещо друго, прескачаме за сега
+                    continue
+
+                res.append(Command.create({
+                    'name': var_name,
+                    'color': hex_color,
+                    'color_rgb': rgb_value
+                }))
+                final_res_dict[var_name] = SCSS_VAR_FORMAT.format(var_name, rgb_value)
+
         except Exception as e:
-            _logger.error("Failed to load SCSS file: %s", str(e))
+            _logger.error("Failed to load SCSS colors: %s", str(e))
 
-        return res_dict if force_dict else res
+        return final_res_dict if force_dict else res
 
     @api.model
     def save_scss_colors(self, name=None, color=None, color_rgb=None, company_id=None):
@@ -182,9 +203,13 @@ class DocumentLayoutColorManager(models.TransientModel):
                 company = self.base_document_layout_id.company_id or self.env.company
 
             scss_file_path = get_scss_file_path(use_custom=True, company_id=company.id)
+
+            # Използваме load_scss_colors(force_dict=True), който вече зарежда и оригиналната структура
             color_records = self.load_scss_colors(force_dict=True, company_id=company.id)
             color_records[name] = SCSS_VAR_FORMAT.format(name, color_rgb)
 
+            # Подреждаме ги по име за консистентност, или запазваме оригиналната подредба?
+            # load_scss_colors зарежда от оригиналния файл, така че редът трябва да е горе-долу същият.
             scss_content = "/* colors */\n" + "".join(color_records.values())
 
             with open(scss_file_path, 'w', encoding='utf-8') as file:

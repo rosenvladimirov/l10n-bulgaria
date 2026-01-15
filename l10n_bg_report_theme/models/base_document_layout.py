@@ -75,9 +75,12 @@ class BaseDocumentLayout(models.TransientModel):
 
     def default_get(self, fields_list):
         res = super().default_get(fields_list)
+        # Опитваме се да вземем компанията от вече заредените данни или от контекста
+        company_id = res.get('company_id') or self._context.get('default_company_id') or self.env.company.id
+        company = self.env['res.company'].browse(company_id)
+
         # Винаги зареждаме цветовете от SCSS файла, за да сме сигурни, че са актуални
         color_manager = self.env['base.document.layout.colors']
-        company = self.env.company
         colorset = color_manager.load_scss_colors(company_id=company.id)
         if colorset:
             res['selection_colors'] = colorset
@@ -158,11 +161,16 @@ class BaseDocumentLayout(models.TransientModel):
         return templates
 
     def write(self, vals):
-        # Запазваме цветовете, ако има промяна в selection_colors
+        # Запазваме цветовете, само ако има РЕАЛНА промяна в selection_colors
         if 'selection_colors' in vals:
             color_manager = self.env['base.document.layout.colors']
             company = self.company_id or self.env.company
+
+            # Зареждаме текущите цветове от SCSS, за да сравним
+            current_scss_colors = color_manager.load_scss_colors(force_dict=True, company_id=company.id)
+
             # vals['selection_colors'] е списък от команди (0, 0, {...}) или (1, id, {...})
+            has_changes = False
             for command in vals['selection_colors']:
                 if command[0] in (0, 1) and 'color' in command[2]:
                     # Взимаме името от записа, ако не е подадено в vals
@@ -172,8 +180,18 @@ class BaseDocumentLayout(models.TransientModel):
                         name = record.name
 
                     if name:
-                        color_rgb = color_manager._convert_hex_to_rgb(command[2]['color'])
-                        color_manager.save_scss_colors(name, command[2]['color'], color_rgb, company_id=company.id)
+                        new_color_hex = command[2]['color']
+                        new_color_rgb = color_manager._convert_hex_to_rgb(new_color_hex)
+
+                        # Проверяваме дали стойността е различна от текущата в SCSS
+                        # SCSS_VAR_FORMAT = "${}: {};\n"
+                        expected_line = color_manager.SCSS_VAR_FORMAT.format(name, new_color_rgb)
+                        if current_scss_colors.get(name) != expected_line:
+                            color_manager.save_scss_colors(name, new_color_hex, new_color_rgb, company_id=company.id)
+                            has_changes = True
+
+            if has_changes:
+                self.env.registry.clear_cache('assets')
 
         res = super().write(vals)
         if vals.get('external_report_layout_id'):

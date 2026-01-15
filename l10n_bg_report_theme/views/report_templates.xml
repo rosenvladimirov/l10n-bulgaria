@@ -349,7 +349,7 @@
                         t-if="company.logo_print"
                         t-att-src="image_data_uri(company.logo_print)"
                         alt="Logo"
-                        style="max-height: 60px; vertical-align:middle;"
+                        style="max-height: 60px; vertical-align:middle; position: relative; z-index: 10;"
                     />
                 </div>
                 <div class="col-1 text-start" />

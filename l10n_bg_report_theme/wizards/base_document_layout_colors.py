@@ -112,8 +112,13 @@ class DocumentLayoutColorManager(models.TransientModel):
         for record in self:
             if record.color and record.name:
                 color_rgb = _convert_hex_to_rgb(record.color)
+                # Актуализираме полето, за да се отрази в UI
+                record.color_rgb = color_rgb
+                # Запазваме във файла веднага
                 self.save_scss_colors(record.name, record.color, color_rgb)
-                self.base_document_layout_id._compute_preview()
+                # Опитваме се да предизвикаме преизчисляване на прегледа
+                if record.base_document_layout_id:
+                    record.base_document_layout_id._compute_preview()
 
     @api.model
     def load_scss_colors(self, force_dict=False, company_id=None):
@@ -127,12 +132,23 @@ class DocumentLayoutColorManager(models.TransientModel):
         try:
             with open(scss_file_path, 'r', encoding='utf-8') as file:
                 scss_content = file.read()
-                pattern = r'\$([a-zA-Z-]+):\s*rgb\((\d+),\s*(\d+),\s*(\d+)\)(?:\s*!default)?\s*;'
+                # Регулярен израз за $var: rgb(r, g, b); или $var: #hex;
+                pattern = r'\$([a-zA-Z-]+):\s*(rgb\(\d+,\s*\d+,\s*\d+\)|#[0-9a-fA-F]{3,6})(?:\s*!default)?\s*;'
                 matches = re.findall(pattern, scss_content)
 
-                for var_name, r, g, b in matches:
-                    hex_color = "#{:02x}{:02x}{:02x}".format(int(r), int(g), int(b))
-                    rgb_value = RGB_FORMAT.format(r, g, b)
+                for var_name, color_val in matches:
+                    if color_val.startswith('rgb'):
+                        # Извличане на r, g, b
+                        rgb_match = re.search(r'rgb\((\d+),\s*(\d+),\s*(\d+)\)', color_val)
+                        if rgb_match:
+                            r, g, b = rgb_match.groups()
+                            hex_color = "#{:02x}{:02x}{:02x}".format(int(r), int(g), int(b))
+                            rgb_value = color_val
+                        else:
+                            continue
+                    else:
+                        hex_color = color_val
+                        rgb_value = _convert_hex_to_rgb(hex_color)
 
                     res.append(Command.create({
                         'name': var_name,
@@ -149,7 +165,7 @@ class DocumentLayoutColorManager(models.TransientModel):
         return res_dict if force_dict else res
 
     @api.model
-    def save_scss_colors(self, name=None, color=None, color_rgb=None):
+    def save_scss_colors(self, name=None, color=None, color_rgb=None, company_id=None):
         """Saves color variables to SCSS file."""
         try:
             name = name or self.name
@@ -160,7 +176,11 @@ class DocumentLayoutColorManager(models.TransientModel):
             if not color_rgb:
                 raise UserError("Color value is required")
 
-            company = self.base_document_layout_id.company_id or self.env.company
+            if company_id:
+                company = self.env['res.company'].browse(company_id)
+            else:
+                company = self.base_document_layout_id.company_id or self.env.company
+
             scss_file_path = get_scss_file_path(use_custom=True, company_id=company.id)
             color_records = self.load_scss_colors(force_dict=True, company_id=company.id)
             color_records[name] = SCSS_VAR_FORMAT.format(name, color_rgb)

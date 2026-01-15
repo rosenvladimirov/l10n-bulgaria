@@ -75,12 +75,13 @@ class BaseDocumentLayout(models.TransientModel):
 
     def default_get(self, fields_list):
         res = super().default_get(fields_list)
+        # Винаги зареждаме цветовете от SCSS файла, за да сме сигурни, че са актуални
         color_manager = self.env['base.document.layout.colors']
-        colorset = color_manager.load_scss_colors()
+        company = self.env.company
+        colorset = color_manager.load_scss_colors(company_id=company.id)
         if colorset:
             res['selection_colors'] = colorset
             # Инициализиране на пътя в компанията
-            company = self.env.company
             if company:
                 from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_scss_file_path
                 new_path = get_scss_file_path(use_custom=True, company_id=company.id)
@@ -157,6 +158,23 @@ class BaseDocumentLayout(models.TransientModel):
         return templates
 
     def write(self, vals):
+        # Запазваме цветовете, ако има промяна в selection_colors
+        if 'selection_colors' in vals:
+            color_manager = self.env['base.document.layout.colors']
+            company = self.company_id or self.env.company
+            # vals['selection_colors'] е списък от команди (0, 0, {...}) или (1, id, {...})
+            for command in vals['selection_colors']:
+                if command[0] in (0, 1) and 'color' in command[2]:
+                    # Взимаме името от записа, ако не е подадено в vals
+                    name = command[2].get('name')
+                    if not name and command[0] == 1:
+                        record = color_manager.browse(command[1])
+                        name = record.name
+
+                    if name:
+                        color_rgb = color_manager._convert_hex_to_rgb(command[2]['color'])
+                        color_manager.save_scss_colors(name, command[2]['color'], color_rgb, company_id=company.id)
+
         res = super().write(vals)
         if vals.get('external_report_layout_id'):
             for template in self:

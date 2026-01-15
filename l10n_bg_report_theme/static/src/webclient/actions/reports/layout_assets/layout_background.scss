@@ -1,6 +1,7 @@
 .o_report_layout_header_background {
     background-position: top center;
     min-height: 113px;
+    z-index: 0;
     //background-image: url($o-default-report-background-header);
     //@media (min-width: 3508px) {
     //    background-image: url($o-landscape-report-background-header);

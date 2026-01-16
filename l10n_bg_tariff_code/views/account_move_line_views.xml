@@ -60,7 +60,10 @@
                        optional="hide"
                        decoration-success="l10n_bg_tariff_rate == 0.0"
                        decoration-info="l10n_bg_tariff_rate &lt; 5.0"
-                       decoration-warning="l10n_bg_tariff_rate >= 10.0"/>
+                       decoration-warning="l10n_bg_tariff_rate >= 10.0"
+                       readonly="parent.state != 'draft'"
+                       force_save="1"
+                />
             </xpath>
 
             <xpath expr="//list" position="inside">
@@ -97,7 +100,9 @@
                        optional="hide"
                        decoration-success="l10n_bg_tariff_rate == 0.0"
                        decoration-info="l10n_bg_tariff_rate &lt; 5.0"
-                       decoration-warning="l10n_bg_tariff_rate >= 10.0"/>
+                       decoration-warning="l10n_bg_tariff_rate >= 10.0"
+                       readonly="parent.state != 'draft'"
+                />
             </xpath>
         </field>
      </record>

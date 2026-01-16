@@ -388,9 +388,7 @@
                         background-image: url(%s);
                     }' % layout_background_url_landscape }}"/>
             </t>
-            <xpath expr="//t[@name='document_name']" position="attributes">
-                <attribute name="t-if">is_l10n_bg_record</attribute>
-            </xpath>
+            <t name="document_name" t-call="l10n_bg_report_theme.document_name" t-if="is_l10n_bg_record"/>
             <div class="pt-5">
                 <!-- This div ensures that the header does not crop the address. -->
                 <t t-call="web.address_layout" />

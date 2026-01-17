@@ -18,6 +18,7 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@name='group_lots_and_weight']" position="after">
                 <group string="TARIC Rate" name="taric_rates">
+                    <field name="taric_code"/>
                     <label for="l10n_bg_tariff_rate" string="Default Tariff Rate"/>
                     <div class="o_row">
                         <field name="l10n_bg_tariff_rate_manual" invisible="1"/>

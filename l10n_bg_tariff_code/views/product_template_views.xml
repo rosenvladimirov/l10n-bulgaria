@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="product_template_form_view_tariff" model="ir.ui.view">
-        <field name="name">product.template.form.tariff</field>
-        <field name="model">product.template</field>
-        <field name="inherit_id" ref="stock_delivery.product_template_hs_code"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='hs_code']" position="after">
-                <field name="l10n_bg_tariff_description" readonly="1"/>
-            </xpath>
-
-        </field>
-    </record>
     <record id="product_template_form_view" model="ir.ui.view">
         <field name="name">product.template.form.tariff</field>
         <field name="model">product.template</field>
@@ -19,6 +8,7 @@
             <xpath expr="//group[@name='group_lots_and_weight']" position="after">
                 <group string="TARIC Rate" name="taric_rates">
                     <field name="taric_code"/>
+                    <field name="l10n_bg_tariff_description" readonly="1"/>
                     <label for="l10n_bg_tariff_rate" string="Default Tariff Rate"/>
                     <div class="o_row">
                         <field name="l10n_bg_tariff_rate_manual" invisible="1"/>

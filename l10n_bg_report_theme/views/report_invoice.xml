@@ -43,7 +43,7 @@
         </xpath>
 
         <xpath expr="//t[@t-set='layout_document_title']" position="attributes">
-            <attribute name="t-if">not is_l10n_bg_record</attribute>
+            <attribute name="t-if">layout != 'l10n_bg_report_theme.external_layout_sections'</attribute>
         </xpath>
         <xpath expr="//div[@id='informations']" position="inside">
             <div class="col" t-if="o.l10n_bg_deal_date" name="l10n_bg_deal_date" groups="l10n_bg_report_theme.l10n_bg_deal_date">

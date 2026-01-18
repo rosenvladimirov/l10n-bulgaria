@@ -18,8 +18,8 @@
                         <field name="selection_colors" nolabel="1" colspan="2">
                             <list create="false" delete="false" editable="top">
                                 <field name="name" readonly="1" force_save="1"/>
-                                <field name="color" widget="color"/>
-                                <field name="color_rgb" readonly="0" column_invisible="1"/>
+                                <field name="color" widget="color" force_save="1" on_change="1"/>
+                                <field name="color_rgb" column_invisible="1" force_save="1"/>
                             </list>
                         </field>
                         <separator string="Base Colors" colspan="2"/>

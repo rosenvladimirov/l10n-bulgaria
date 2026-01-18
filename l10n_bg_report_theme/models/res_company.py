@@ -41,29 +41,44 @@ class Company(models.Model):
         self.ensure_one()
         if not self.custom_scss_path:
             # Опитай се да намериш пътя, ако не е зададен
-            self.custom_scss_path = get_scss_file_path(use_custom=True, company_id=self.id)
+            scss_path = get_scss_file_path(use_custom=True, company_id=self.id)
+            if os.path.exists(scss_path):
+                self.custom_scss_path = scss_path
 
         if self.custom_scss_path and os.path.exists(self.custom_scss_path):
             try:
                 with open(self.custom_scss_path, 'r', encoding='utf-8') as f:
                     content = f.read()
+                    _logger.info(f"Loaded custom SCSS for company {self.id} from {self.custom_scss_path}")
                     return Markup(content)
             except Exception as e:
                 _logger.error(f"Failed to read custom SCSS file: {e}")
+
+        _logger.warning(f"No custom SCSS file found for company {self.id}, using default")
         return Markup("")
 
     def get_layout_scss_content(self):
         """Прочита съдържанието на основните SCSS файлове на темата"""
         _logger.info(f"Generating layout SCSS for company {self.id}")
         contents = []
+
+        # Ако има фирмен SCSS файл, НЕ добавяй оригиналния report_variable_colors.scss
+        has_custom_colors = self.custom_scss_path and os.path.exists(self.custom_scss_path)
+
         files = [
-            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/report_variable_colors.scss'),
-            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/report_variable_fonts.scss'),
-            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/default/report_variable_sizes.scss'),
-            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/layout_assets/layout_background.scss'),
-            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/layout_assets/layout_sections.scss'),
+            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/report_variable_colors.scss',
+             not has_custom_colors),
+            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/report_variable_fonts.scss', True),
+            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/default/report_variable_sizes.scss', True),
+            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/layout_assets/layout_background.scss', True),
+            ('l10n_bg_report_theme', 'static/src/webclient/actions/reports/layout_assets/layout_sections.scss', True),
         ]
-        for module, path in files:
+
+        for module, path, include in files:
+            if not include:
+                _logger.info(f"Skipping {path} - using custom colors file instead")
+                continue
+
             full_path = get_module_resource(module, *path.split('/'))
             if full_path and os.path.exists(full_path):
                 try:

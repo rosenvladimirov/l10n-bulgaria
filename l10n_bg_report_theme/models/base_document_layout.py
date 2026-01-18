@@ -210,3 +210,33 @@ class BaseDocumentLayout(models.TransientModel):
 
     def get_layout_scss_content(self):
         return self.company_id.get_layout_scss_content()
+
+    def _get_asset_style(self):
+        """
+        Override за да добави фирмените SCSS цветове в preview-то
+        """
+        # Вземи оригиналните стилове
+        company_styles = super()._get_asset_style()
+
+        # Проверка дали е избран Bulgarian layout
+        is_bg_layout = (
+            self.external_report_layout_id and
+            self.external_report_layout_id.key == 'l10n_bg_report_theme.external_layout_sections'
+        )
+
+        if not is_bg_layout:
+            return company_styles
+
+        # Добави САМО фирмените цветове (custom SCSS) за Bulgarian layout
+        # Layout стиловете вече са в company_styles от parent метода
+        company = self.company_id
+        if company:
+            custom_scss = self.get_custom_scss_content()
+
+            if custom_scss:
+                _logger.info(f"Adding custom colors SCSS to preview for company {company.id}")
+                # Фирмените цветове ПРЕДИ стандартните стилове, за да ги override-нат
+                all_styles = str(custom_scss) + "\n" + str(company_styles)
+                return Markup(all_styles)
+
+        return company_styles

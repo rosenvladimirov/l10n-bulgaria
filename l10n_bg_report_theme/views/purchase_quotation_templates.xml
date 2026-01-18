@@ -5,9 +5,9 @@
         inherit_id="purchase.report_purchasequotation_document"
         active="False"
     >
-        <xpath expr="//div[hasclass('page')]/t[@t-set='layout_document_title']" position="attributes">
-            <attribute name="t-if">not is_l10n_bg_record</attribute>
-        </xpath>
+<!--        <xpath expr="//div[hasclass('page')]/t[@t-set='layout_document_title']" position="attributes">-->
+<!--            <attribute name="t-if">not is_l10n_bg_record</attribute>-->
+<!--        </xpath>-->
         <xpath expr="//t[@t-set='address']" position="attributes">
             <attribute name="t-if">layout != 'l10n_bg_report_theme.external_layout_sections'</attribute>
         </xpath>

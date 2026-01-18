@@ -63,8 +63,8 @@
         <xpath expr="//div[@t-if='doc.user_id.name']" position="attributes">
             <attribute name="groups">l10n_bg_report_theme.group_control_sale_person</attribute>
         </xpath>
-        <xpath expr="//t[@t-set='layout_document_title']" position="attributes">
-            <attribute name="t-if">layout != 'l10n_bg_report_theme.external_layout_sections'</attribute>
-        </xpath>
+<!--        <xpath expr="//t[@t-set='layout_document_title']" position="attributes">-->
+<!--            <attribute name="t-if">layout != 'l10n_bg_report_theme.external_layout_sections'</attribute>-->
+<!--        </xpath>-->
     </template>
 </odoo>

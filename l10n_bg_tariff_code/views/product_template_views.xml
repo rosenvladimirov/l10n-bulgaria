@@ -11,8 +11,8 @@
                     <field name="l10n_bg_tariff_description" readonly="1"/>
                     <label for="l10n_bg_tariff_rate" string="Default Tariff Rate"/>
                     <div class="o_row">
-                        <field name="l10n_bg_tariff_rate_manual" invisible="1"/>
-                        <field name="l10n_bg_tariff_rate" widget="percentage" readonly="1"/>
+                        <field name="l10n_bg_tariff_rate_manual" invisible="1" force_save="1"/>
+                        <field name="l10n_bg_tariff_rate" widget="percentage"/>
                         <button name="action_update_tariff_rate"
                                 string="🔄"
                                 type="object"

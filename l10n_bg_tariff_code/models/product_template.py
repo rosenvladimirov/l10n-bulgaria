@@ -12,7 +12,7 @@ class ProductTemplate(models.Model):
 
     taric_code = fields.Char(
         string='TARIC Code',
-        help='TARIC код на продукта (синхронизиран с HS Code)'
+        help='TARIC code of the product (synchronized with HS Code)'
     )
 
     l10n_bg_tariff_rate = fields.Float(
@@ -25,7 +25,7 @@ class ProductTemplate(models.Model):
 
     l10n_bg_tariff_rate_manual = fields.Float(
         string='Manual Tariff Rate (%)',
-        help='Ръчно въведена тарифна ставка (приоритет над автоматичната)'
+        help='Manually entered tariff rate (priority over automatic)'
     )
 
     l10n_bg_tariff_last_update = fields.Datetime(

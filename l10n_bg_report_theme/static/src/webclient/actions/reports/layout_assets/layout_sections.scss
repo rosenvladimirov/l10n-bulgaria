@@ -1,6 +1,16 @@
 strong {
     font-weight: 600;
 }
+/* Z-index utility classes */
+.z-max {
+    z-index: 9999 !important;
+    position: relative !important;
+}
+
+.z-high {
+    z-index: 1000 !important;
+    position: relative !important;
+}
 &.container, .container {
     font-family: $o-default-report-font;
     padding: 0;

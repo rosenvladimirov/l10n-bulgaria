@@ -22,24 +22,18 @@
             <t t-set="recipient_invoice_id" t-value="o.partner_id" />
             <t t-set="recipient_shipping_id" t-value="o.dest_address_id" />
             <t t-if="o.state in ['draft','sent', 'to approve']">
-                <t t-set="name_label" t-value="'Request for Quotation #'" />
-                <t t-set="name" t-value="o.name" />
                 <t
                     t-set="name_date"
                     t-value="format_date(o.date_order, lang_code=o.partner_id.lang, date_format='medium')"
                 />
             </t>
             <t t-elif="o.state in ['purchase', 'done']">
-                <t t-set="name_label" t-value="'Purchase Order #'" />
-                <t t-set="name" t-value="o.name" />
                 <t
                     t-set="name_date"
                     t-value="format_date(o.date_order, lang_code=o.partner_id.lang, date_format='medium')"
                 />
             </t>
             <t t-elif="o.state in ['cancel']">
-                <t t-set="name_label" t-value="'Cancelled Purchase Order #'" />
-                <t t-set="name" t-value="o.name" />
                 <t
                     t-set="name_date"
                     t-value="format_date(o.date_order, lang_code=o.partner_id.lang, date_format='medium')"

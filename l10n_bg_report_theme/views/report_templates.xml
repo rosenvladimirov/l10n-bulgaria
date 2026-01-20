@@ -271,9 +271,6 @@
                 <h6 t-if="original_copies">
                     <span t-out="original_copies"/>
                 </h6>
-                <h6 t-elif="not original_copies and report_type == 'pdf'">
-                    <span>Original</span>
-                </h6>
             </div>
         </div>
     </template>

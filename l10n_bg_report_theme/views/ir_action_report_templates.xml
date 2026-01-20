@@ -13,6 +13,17 @@
         <xpath expr="//t[@t-call='sale.report_saleorder_document']" position="before">
             <t t-set="o" t-value="doc" />
         </xpath>
+    </template>
+    <template
+        id="report_saleorder_document"
+        inherit_id="sale.report_saleorder_document"
+        priority="99"
+        active="False"
+    >
+        <xpath expr="//t[@t-set='doc']" position="after">
+            <t t-set="o" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+        </xpath>
+        <!-- Добавяме данни за изпълнителя и получатела -->
         <xpath expr="//t[@t-set='is_proforma']" position="after">
             <t t-if="env.context.get('proforma', False) or is_pro_forma">
                 <t t-set="sender" t-value="o.company_id.partner_id" />
@@ -30,17 +41,6 @@
                     <t t-set="name_date" t-value="format_date(o.date_order, lang_code=o.partner_id.lang)"/>
                 </t>
             </t>
-        </xpath>
-
-    </template>
-    <template
-        id="report_saleorder_document"
-        inherit_id="sale.report_saleorder_document"
-        priority="99"
-        active="False"
-    >
-        <xpath expr="//t[@t-set='doc']" position="after">
-            <t t-set="o" t-value="doc.with_context(lang=doc.partner_id.lang)" />
         </xpath>
 
         <!-- Добавяме условие към адресната секция -->

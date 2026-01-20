@@ -3,7 +3,7 @@
 import logging
 
 from odoo import api, fields, models
-from odoo.osv import expression
+from odoo.fields import Domain
 
 _logger = logging.getLogger(__name__)
 
@@ -90,6 +90,6 @@ class Partner(models.Model):
 
         # Комбинираме всички домейни с OR или AND в зависимост от оператора
         if operator in negative_operators:
-            return expression.AND(domains)
+            return Domain.AND(domains)
         else:
-            return expression.OR(domains)
+            return Domain.OR(domains)

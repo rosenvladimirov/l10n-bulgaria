@@ -267,6 +267,9 @@ class ResTransliterate(models.AbstractModel):
                 vals (dict): Values being written to the record.
                 new_record (bool): Indicates if the method is processing a new record.
 
+            Context parameters:
+                force_multilanguage_update (bool): Ако е True, презаписва EN превода дори да съществува.
+
             Raises:
                 None
 
@@ -277,22 +280,34 @@ class ResTransliterate(models.AbstractModel):
                   a value for the specific field.
                 - Does nothing if the field name does not exist in the model.
         """
+        # Може да се извика ръчно за масово обновяване:
+        # partner.with_context(force_multilanguage_update=True).write({'name': 'Ново име'})
+
         for field_name in [x for x in TRANSLITERATE_FIELDS if x in self._fields.keys()]:
             if field_name not in self._fields.keys():
                 continue
-            force_multilanguage_update = self.env.context.get('force_multilanguage_update', False)
+
+            force_update = self.env.context.get('force_multilanguage_update', False)
+
+            # Проверка дали полето вече има стойност на en_US
+            existing_en_value = getattr(
+                self.with_context(**dict(self.env.context, lang="en_US")),
+                field_name
+            )
+
+            # Ако вече има стойност на английски и не е форсиран update, пропускаме
+            if existing_en_value and not force_update:
+                continue
+
             if not new_record:
                 # Проверка дали полето е празно на en_US
-                new_record = not getattr(
-                    self.with_context(**dict(self.env.context, lang="en_US")),
-                    field_name
-                ) or force_multilanguage_update
+                new_record = not existing_en_value or force_update
 
             if vals.get(field_name) and new_record:
                 current_lang, transliterate = self._check_lang(vals[field_name])
 
                 # Ако е нужна транслитерация и не е en_US
-                if transliterate and current_lang != "en_US" and not force_multilanguage_update:
+                if transliterate and current_lang != "en_US":
                     # Записваме транслитерирана версия на en_US
                     record = self.with_context(
                         **dict(self.env.context, lang="en_US", update_lang=True)

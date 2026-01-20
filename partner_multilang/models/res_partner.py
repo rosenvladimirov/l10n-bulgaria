@@ -2,8 +2,8 @@
 
 import logging
 
-# from lxml import etree
 from odoo import api, fields, models
+from odoo.osv.expression import Domain
 
 _logger = logging.getLogger(__name__)
 
@@ -26,55 +26,62 @@ class Partner(models.Model):
         return res + ['name', 'street', 'street2', 'city', 'function', 'company_name', 'commercial_company_name']
 
     @api.model
-    def _search_multi_lang(self, operator, value, field_list=None):
-        if not value or not field_list:
-            return []
+    def _search_display_name(self, operator, value):
+        """
+        Override за многоезично търсене.
+        Търси във ВСИЧКИ езици на translate=True полетата.
+        """
+        if not value and operator not in ('=', '!='):
+            return Domain.TRUE if operator in Domain.NEGATIVE_OPERATORS else Domain.FALSE
 
-        lang_codes = self.env['res.lang'].sudo().search_read([('active', '=', True)], ['code'])
-        final_domain = []
+        # Полета за търсене (от _rec_names_search или _rec_name)
+        search_fnames = self._rec_names_search or ([self._rec_name] if self._rec_name else [])
+        if not search_fnames:
+            return super()._search_display_name(operator, value)
 
-        for field_name in field_list:
-            if field_name not in self._fields or not self._fields[field_name].translate:
-                continue
-
-            # Създаваме група от условия за конкретното поле (OR между езиците)
-            field_domain = [(field_name, operator, value)]
-            for lang in lang_codes:
-                field_domain = ['|'] + field_domain + [(f"{field_name}.{lang['code']}", operator, value)]
-
-            # Добавяме към общия домейн с OR спрямо останалите полета
-            if not final_domain:
-                final_domain = field_domain
-            else:
-                final_domain = ['|'] + final_domain + field_domain
-
-        return final_domain
-
-    @api.model
-    def _name_search(self, name='', domain=None, operator='ilike', limit=100, order=None):
-        if not name:
-            return super()._name_search(name=name, domain=domain, operator=operator, limit=limit, order=order)
-
-        domain = domain or []
-        default_fields = {'name', 'company_name', 'commercial_company_name'}
-
-        # 1. Генерираме многоезичния домейн
-        multi_lang_domain = self._search_multi_lang(operator, name, list(default_fields))
-
-        # 2. Филтрираме оригиналния домейн, за да премахнем стандартните търсения по име,
-        # които Odoo добавя автоматично, за да не се дублират с нашето.
-        clean_domain = []
-        for item in domain:
-            if isinstance(item, (list, tuple)) and len(item) >= 3 and item[0] in default_fields:
-                continue
-            clean_domain.append(item)
-
-        # 3. Комбинираме: (всичко от clean_domain) AND (нашият multi_lang_domain)
-        # Odoo автоматично добавя '&' между елементите в списъка
-        final_domain = clean_domain + [multi_lang_domain] if multi_lang_domain else clean_domain
-
-        return super()._name_search(
-            name='', domain=final_domain, operator=operator, limit=limit, order=order
+        # Вземаме всички активни езици
+        active_langs = self.env['res.lang'].sudo().search_read(
+            [('active', '=', True)],
+            ['code']
         )
 
+        if not active_langs:
+            return super()._search_display_name(operator, value)
 
+        # Създаваме OR домейн за всички полета и езици
+        aggregator = Domain.AND if operator in Domain.NEGATIVE_OPERATORS else Domain.OR
+        domains = []
+
+        for field_name in search_fnames:
+            # поддръжка на вложени полета (partner_id.name)
+            model = self
+            field = None
+
+            for fname in field_name.split('.'):
+                field = model._fields.get(fname)
+                if not field:
+                    break
+                if field.relational:
+                    model = self.env.get(field.comodel_name)
+
+            if not field:
+                # Невалидно поле - пропускаме го
+                continue
+
+            if field.relational:
+                # Релационно поле - търси в display_name
+                domains.append(Domain(field_name + '.display_name', operator, value))
+            elif getattr(field, 'translate', False):
+                # Преводимо поле - търси във всички езици
+                lang_domains = []
+                for lang in active_langs:
+                    lang_code = lang['code']
+                    lang_domains.append(Domain(f"{field_name}.{lang_code}", operator, value))
+                # Обединяваме с OR за всички езици на едно поле
+                if lang_domains:
+                    domains.append(Domain.OR(lang_domains))
+            elif operator.endswith('like'):
+                # Обикновено поле
+                domains.append(Domain(field_name, operator, value))
+
+        return aggregator(domains) if domains else Domain.FALSE

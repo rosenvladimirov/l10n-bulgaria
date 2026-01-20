@@ -80,12 +80,19 @@ class BaseDocumentLayout(models.TransientModel):
 
     def default_get(self, fields_list):
         res = super().default_get(fields_list)
+        # Опитваме се да вземем компанията от вече заредените данни или от контекста
+        company_id = res.get('company_id') or self._context.get('default_company_id') or self.env.company.id
+        company = self.env['res.company'].browse(company_id)
+
+        # Винаги зареждаме цветовете от SCSS файла, за да сме сигурни, че са актуални
         color_manager = self.env['base.document.layout.colors']
-        colorset = color_manager.load_scss_colors()
+        colorset = color_manager.load_scss_colors(company_id=company.id)
         if colorset:
-            res['selection_colors'] = colorset
+            # Използваме Command.set(colorset), за да сме сигурни, че старите записи се изчистват и новите се сетват
+            # Тъй като colorset вече съдържа Command.create, трябва да ги извлечем
+            color_commands = [c[2] for c in colorset]
+            res['selection_colors'] = [Command.clear()] + [Command.create(vals) for vals in color_commands]
             # Инициализиране на пътя в компанията
-            company = self.env.company
             if company:
                 from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_scss_file_path
                 new_path = get_scss_file_path(use_custom=True, company_id=company.id)
@@ -124,6 +131,10 @@ class BaseDocumentLayout(models.TransientModel):
             wizard.logo_primary_color = primary
             wizard.logo_secondary_color = secondary
 
+    @api.depends('report_layout_id', 'logo', 'font', 'primary_color', 'secondary_color', 'report_header', 'report_footer', 'layout_background', 'layout_background_image', 'company_details', 'selection_colors', 'selection_colors.color')
+    def _compute_preview(self):
+        super()._compute_preview()
+
     def _get_render_information(self, styles):
         res = super()._get_render_information(styles)
         res.update(self._get_formatting_functions())
@@ -147,6 +158,7 @@ class BaseDocumentLayout(models.TransientModel):
         reports = {key: self.env.ref(ref, raise_if_not_found=False)
                    for key, ref in REPORT_REFS.items()}
 
+        layout_id = reports['layout']
         for key, report in reports.items():
             if report and key != 'layout':
                 report.with_context(**dict(self._context, active_test=False)).active = \
@@ -161,6 +173,41 @@ class BaseDocumentLayout(models.TransientModel):
         return templates
 
     def write(self, vals):
+        # Запазваме цветовете, само ако има РЕАЛНА промяна в selection_colors
+        if 'selection_colors' in vals:
+            color_manager = self.env['base.document.layout.colors']
+            company = self.company_id or self.env.company
+
+            # Зареждаме текущите цветове от SCSS, за да сравним
+            current_scss_colors = color_manager.load_scss_colors(force_dict=True, company_id=company.id)
+
+            # vals['selection_colors'] е списък от команди (0, 0, {...}) или (1, id, {...})
+            has_changes = False
+            for command in vals['selection_colors']:
+                if command[0] in (0, 1, 4) and (command[0] == 4 or 'color' in command[2]):
+                    # Взимаме името от записа, ако не е подадено в vals
+                    name = command[2].get('name') if command[0] in (0, 1) else None
+                    if not name and command[0] in (1, 4):
+                        record = color_manager.browse(command[1])
+                        name = record.name
+                        new_color_hex = command[2].get('color', record.color) if command[0] == 1 else record.color
+                    else:
+                        new_color_hex = command[2].get('color')
+
+                    if name and new_color_hex:
+                        new_color_rgb = color_manager._convert_hex_to_rgb(new_color_hex)
+
+                        # Проверяваме дали стойността е различна от текущата в SCSS
+                        # SCSS_VAR_FORMAT = "${}: {};\n"
+                        expected_line = color_manager.SCSS_VAR_FORMAT.format(name, new_color_rgb)
+                        if current_scss_colors.get(name) != expected_line:
+                            _logger.info(f"Saving color {name} = {new_color_hex} ({new_color_rgb}) for company {company.id}")
+                            color_manager.save_scss_colors(name, new_color_hex, new_color_rgb, company_id=company.id)
+                            has_changes = True
+
+            if has_changes:
+                self.env.registry.clear_cache('assets')
+
         res = super().write(vals)
         if vals.get('external_report_layout_id'):
             for template in self:

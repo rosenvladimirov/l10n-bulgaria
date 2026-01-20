@@ -3,7 +3,7 @@
 import logging
 
 from odoo import api, fields, models
-from odoo.osv.expression import Domain
+from odoo.osv import expression
 
 _logger = logging.getLogger(__name__)
 
@@ -31,8 +31,10 @@ class Partner(models.Model):
         Override за многоезично търсене.
         Търси във ВСИЧКИ езици на translate=True полетата.
         """
+        negative_operators = ('!=', 'not like', 'not ilike', 'not in')
+
         if not value and operator not in ('=', '!='):
-            return Domain.TRUE if operator in Domain.NEGATIVE_OPERATORS else Domain.FALSE
+            return [(0, '=', 1)] if operator in negative_operators else [(1, '=', 1)]
 
         # Полета за търсене (от _rec_names_search или _rec_name)
         search_fnames = self._rec_names_search or ([self._rec_name] if self._rec_name else [])
@@ -49,7 +51,6 @@ class Partner(models.Model):
             return super()._search_display_name(operator, value)
 
         # Създаваме OR домейн за всички полета и езици
-        aggregator = Domain.AND if operator in Domain.NEGATIVE_OPERATORS else Domain.OR
         domains = []
 
         for field_name in search_fnames:
@@ -70,18 +71,25 @@ class Partner(models.Model):
 
             if field.relational:
                 # Релационно поле - търси в display_name
-                domains.append(Domain(field_name + '.display_name', operator, value))
+                domains.append([(f'{field_name}.display_name', operator, value)])
             elif getattr(field, 'translate', False):
                 # Преводимо поле - търси във всички езици
                 lang_domains = []
                 for lang in active_langs:
                     lang_code = lang['code']
-                    lang_domains.append(Domain(f"{field_name}.{lang_code}", operator, value))
+                    lang_domains.append((f"{field_name}.{lang_code}", operator, value))
                 # Обединяваме с OR за всички езици на едно поле
                 if lang_domains:
-                    domains.append(Domain.OR(lang_domains))
+                    domains.append(lang_domains)
             elif operator.endswith('like'):
                 # Обикновено поле
-                domains.append(Domain(field_name, operator, value))
+                domains.append([(field_name, operator, value)])
 
-        return aggregator(domains) if domains else Domain.FALSE
+        if not domains:
+            return [(0, '=', 1)]
+
+        # Комбинираме всички домейни с OR или AND в зависимост от оператора
+        if operator in negative_operators:
+            return expression.AND(domains)
+        else:
+            return expression.OR(domains)

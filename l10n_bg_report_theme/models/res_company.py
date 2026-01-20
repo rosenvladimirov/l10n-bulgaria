@@ -41,7 +41,9 @@ class Company(models.Model):
         self.ensure_one()
         if not self.custom_scss_path:
             # Опитай се да намериш пътя, ако не е зададен
-            self.custom_scss_path = get_scss_file_path(use_custom=True, company_id=self.id)
+            scss_path = get_scss_file_path(use_custom=True, company_id=self.id)
+            if os.path.exists(scss_path):
+                self.custom_scss_path = scss_path
 
         if self.custom_scss_path and os.path.exists(self.custom_scss_path):
             try:

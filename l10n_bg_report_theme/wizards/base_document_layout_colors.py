@@ -98,7 +98,7 @@ class DocumentLayoutColorManager(models.TransientModel):
     SCSS_VAR_FORMAT = SCSS_VAR_FORMAT
 
     name = fields.Char(string="Name")
-    color = fields.Char(string="Color")
+    color = fields.Char(string="Color", inverse='_inverse_color')
     color_rgb = fields.Char(string="Color RGB", compute="_compute_color_rgb")
     base_document_layout_id = fields.Many2one('base.document.layout', string="Layout", ondelete='cascade')
 
@@ -109,16 +109,12 @@ class DocumentLayoutColorManager(models.TransientModel):
             else:
                 record.color_rgb = False
 
-    @api.onchange('color')
-    def _onchange_color(self):
+    def _inverse_color(self):
+        """Извиква се веднага при промяна на цвета и записва във файла"""
         for record in self:
             if record.color and record.name:
                 color_rgb = _convert_hex_to_rgb(record.color)
-                # Актуализираме полето, за да се отрази в UI
-                record.color_rgb = color_rgb
-                # Запазваме във файла веднага
-                self.save_scss_colors(record.name, record.color, color_rgb)
-                # Опитваме се да предизвикаме преизчисляване на прегледа
+                record.save_scss_colors(record.name, record.color, color_rgb)
                 if record.base_document_layout_id:
                     record.base_document_layout_id._compute_preview()
 

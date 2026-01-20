@@ -17,6 +17,7 @@
     <template
         id="report_saleorder_document"
         inherit_id="sale.report_saleorder_document"
+        priority="99"
         active="False"
     >
         <xpath expr="//t[@t-set='doc']" position="after">

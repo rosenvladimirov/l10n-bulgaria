@@ -1,9 +1,14 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import logging
+from markupsafe import Markup
 from odoo import api, fields, models, Command
-from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_odoo_home_scss_dir, \
-    get_scss_file_path, copy_scss_to_home
+from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import (
+    get_odoo_home_scss_dir,
+    get_scss_file_path,
+    copy_scss_to_home,
+    _convert_hex_to_rgb
+)
 from odoo import tools
 from odoo.exceptions import UserError
 
@@ -83,13 +88,10 @@ class BaseDocumentLayout(models.TransientModel):
         color_manager = self.env['base.document.layout.colors']
         colorset = color_manager.load_scss_colors(company_id=company.id)
         if colorset:
-            # Използваме Command.set(colorset), за да сме сигурни, че старите записи се изчистват и новите се сетват
-            # Тъй като colorset вече съдържа Command.create, трябва да ги извлечем
-            color_commands = [c[2] for c in colorset]
-            res['selection_colors'] = [Command.clear()] + [Command.create(vals) for vals in color_commands]
+            # colorset вече е списък от Command.create(), директно го използваме
+            res['selection_colors'] = [Command.clear()] + colorset
             # Инициализиране на пътя в компанията
             if company:
-                from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_scss_file_path
                 new_path = get_scss_file_path(use_custom=True, company_id=company.id)
                 if company.custom_scss_path != new_path:
                     company.custom_scss_path = new_path
@@ -126,7 +128,9 @@ class BaseDocumentLayout(models.TransientModel):
             wizard.logo_primary_color = primary
             wizard.logo_secondary_color = secondary
 
-    @api.depends('report_layout_id', 'logo', 'font', 'primary_color', 'secondary_color', 'report_header', 'report_footer', 'layout_background', 'layout_background_image', 'company_details', 'selection_colors', 'selection_colors.color')
+    @api.depends('report_layout_id', 'logo', 'font', 'primary_color', 'secondary_color', 'report_header',
+                 'report_footer', 'layout_background', 'layout_background_image', 'company_details', 'selection_colors',
+                 'selection_colors.color')
     def _compute_preview(self):
         super()._compute_preview()
 
@@ -156,6 +160,8 @@ class BaseDocumentLayout(models.TransientModel):
         layout_id = reports['layout']
         for key, report in reports.items():
             if report and key != 'layout':
+                # Odoo 19 използва report_layout_id вместо external_report_layout_id
+                # Проверяваме дали избраният layout е нашият Bulgarian layout
                 report.with_context(**dict(self.env.context, active_test=False)).active = \
                     self.report_layout_id.id == layout_id.id
 
@@ -179,26 +185,38 @@ class BaseDocumentLayout(models.TransientModel):
             # vals['selection_colors'] е списък от команди (0, 0, {...}) или (1, id, {...})
             has_changes = False
             for command in vals['selection_colors']:
-                if command[0] in (0, 1, 4) and (command[0] == 4 or 'color' in command[2]):
-                    # Взимаме името от записа, ако не е подадено в vals
-                    name = command[2].get('name') if command[0] in (0, 1) else None
-                    if not name and command[0] in (1, 4):
-                        record = color_manager.browse(command[1])
-                        name = record.name
-                        new_color_hex = command[2].get('color', record.color) if command[0] == 1 else record.color
-                    else:
+                if len(command) < 2:
+                    continue
+
+                name = None
+                new_color_hex = None
+
+                # Command(0) = create, Command(1) = update, Command(4) = link
+                if command[0] == 0:  # Create
+                    if len(command) > 2 and 'name' in command[2] and 'color' in command[2]:
+                        name = command[2].get('name')
                         new_color_hex = command[2].get('color')
+                elif command[0] == 1:  # Update
+                    if len(command) > 2:
+                        record = color_manager.browse(command[1])
+                        name = command[2].get('name', record.name)
+                        new_color_hex = command[2].get('color', record.color)
+                elif command[0] == 4:  # Link - skip
+                    continue
+                else:
+                    continue
 
-                    if name and new_color_hex:
-                        new_color_rgb = color_manager._convert_hex_to_rgb(new_color_hex)
+                if name and new_color_hex:
+                    new_color_rgb = _convert_hex_to_rgb(new_color_hex)
 
-                        # Проверяваме дали стойността е различна от текущата в SCSS
-                        # SCSS_VAR_FORMAT = "${}: {};\n"
-                        expected_line = color_manager.SCSS_VAR_FORMAT.format(name, new_color_rgb)
-                        if current_scss_colors.get(name) != expected_line:
-                            _logger.info(f"Saving color {name} = {new_color_hex} ({new_color_rgb}) for company {company.id}")
-                            color_manager.save_scss_colors(name, new_color_hex, new_color_rgb, company_id=company.id)
-                            has_changes = True
+                    # Проверяваме дали стойността е различна от текущата в SCSS
+                    # SCSS_VAR_FORMAT = "${}: {};\n"
+                    expected_line = color_manager.SCSS_VAR_FORMAT.format(name, new_color_rgb)
+                    if current_scss_colors.get(name) != expected_line:
+                        _logger.info(
+                            f"Saving color {name} = {new_color_hex} ({new_color_rgb}) for company {company.id}")
+                        color_manager.save_scss_colors(name, new_color_hex, new_color_rgb, company_id=company.id)
+                        has_changes = True
 
             if has_changes:
                 self.env.registry.clear_cache('assets')
@@ -252,3 +270,36 @@ class BaseDocumentLayout(models.TransientModel):
 
     def get_layout_scss_content(self):
         return self.company_id.get_layout_scss_content()
+
+    def _get_asset_style(self):
+        """
+        Override за да добави фирмените SCSS цветове в preview-то
+        """
+        # Вземи оригиналните стилове
+        company_styles = super()._get_asset_style()
+
+        # Проверка дали е избран Bulgarian layout
+        # В Odoo 19 използваме report_layout_id вместо external_report_layout_id
+        layout_ref = self.env.ref('l10n_bg_report_theme.report_layout_sections', raise_if_not_found=False)
+        is_bg_layout = (
+            self.report_layout_id and
+            layout_ref and
+            self.report_layout_id.id == layout_ref.id
+        )
+
+        if not is_bg_layout:
+            return company_styles
+
+        # Добави САМО фирмените цветове (custom SCSS) за Bulgarian layout
+        # Layout стиловете вече са в company_styles от parent метода
+        company = self.company_id
+        if company:
+            custom_scss = self.get_custom_scss_content()
+
+            if custom_scss:
+                _logger.info(f"Adding custom colors SCSS to preview for company {company.id}")
+                # Фирмените цветове ПРЕДИ стандартните стилове, за да ги override-нат
+                all_styles = str(custom_scss) + "\n" + str(company_styles)
+                return Markup(all_styles)
+
+        return company_styles

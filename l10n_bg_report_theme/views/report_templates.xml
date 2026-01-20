@@ -349,11 +349,12 @@
                         t-if="company.logo_print"
                         t-att-src="image_data_uri(company.logo_print)"
                         alt="Logo"
-                        style="max-height: 60px; vertical-align:middle; position: relative; z-index: 10;"
+                        class="z-max"
+                        style="max-height: 60px; vertical-align:middle;"
                     />
                 </div>
                 <div class="col-1 text-start" />
-                <div class="col-3 text-start o_section_header_right_box">
+                <div class="col-3 text-start o_section_header_right_box z-max">
                     <t t-if="company.is_company_details_empty">
                         <ul class="list-unstyled">
                             <li t-if="company.is_company_details_empty">
@@ -432,7 +433,7 @@
                 style="max-height: 60px; vertical-align:middle;"
                 t-if="report_type == 'pdf'"
             >
-                <div class="col-3 text-start o_section_footer_left_box">
+                <div class="col-3 text-start o_section_footer_left_box z-max">
                     Page: <span class="page" /> / <span class="topage" />
                 </div>
                 <div t-if="display_name_in_footer" class="text-muted col-9">
@@ -440,7 +441,7 @@
                 </div>
             </div>
             <div class="row" t-if="company.report_footer">
-                <div class="col-12 text-start o_section_footer_left_box" style="font-size: 8px">
+                <div class="col-12 text-start o_section_footer_left_box z-max" style="font-size: 8px">
                     <div t-field="company.report_footer" />
                 </div>
             </div>

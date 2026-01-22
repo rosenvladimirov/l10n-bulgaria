@@ -11,4 +11,4 @@ l10n_bg_purchase_vat_82_2_payable,"502","20% Payable Art. 82(2)","0% VAT Payable
 "","","","","","","","","",,"base","refund",,"","","",""
 "","","","","","","","","","100","tax","refund","-42","l10n_bg_4531","","",""
 "","","","","","","","","","-100","tax","refund",,"l10n_bg_430","","",""
-l10n_bg_purchase_vat_82_2_ptc,"503","0% PTC Art. 80(2)","0% Payable Tax Credit – Article 82, paragraph 2","0% Art. 69(2) PTC","0.0","group","purchase","","","","","","","l10n_bg_sale_vat_69_2_receivable,l10n_bg_purchase_vat_69_2_payable","0% ДДС - чл. 82 ал. 2 ЗДДС","1"
+l10n_bg_purchase_vat_82_2_ptc,"503","0% PTC Art. 80(2)","0% Payable Tax Credit – Article 82, paragraph 2","0% Art. 69(2) PTC","0.0","group","purchase","","","","","","","l10n_bg_sale_vat_82_2_receivable,l10n_bg_purchase_vat_82_2_payable","0% ДДС - чл. 82 ал. 2 ЗДДС","1"

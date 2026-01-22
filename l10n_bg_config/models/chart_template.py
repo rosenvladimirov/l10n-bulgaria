@@ -26,10 +26,13 @@ def apply_mask_zip(
       • допълва липсващи позиции с fill_char;
       • НЕ брои вече присъстващи разделители във value.
     """
-    # Валидация на входа
-    if not isinstance(value, str):
-        _logger.warning(f"apply_mask_zip received non-string value: {value} ({type(value).__name__})")
-        value = str(value) if value not in (None, False, True) else ''
+    # Валидация на входа - подобрена обработка
+    if value in (None, False, True, ''):
+        _logger.warning(f"apply_mask_zip received invalid value: {value} ({type(value).__name__}), using empty string")
+        value = ''
+    elif not isinstance(value, str):
+        _logger.warning(f"apply_mask_zip received non-string value: {value} ({type(value).__name__}), converting to string")
+        value = str(value)
 
     # ----------- Премахваме всички нецифрови символи от входа -----------
     raw_value = re.sub(r'\D', '', value)  # само цифри

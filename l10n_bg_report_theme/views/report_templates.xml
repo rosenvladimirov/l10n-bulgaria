@@ -48,7 +48,7 @@
                     <div
                         t-out="recipient_contact_id"
                         name="contact_name"
-                        t-options="{'widget': 'contact', 'fields': ['phone', 'mobile'], 'no_marker': True}"
+                        t-options="{'widget': 'contact', 'fields': ['phone', 'mobile'], 'no_marker': True,  'phone_icons': True}"
                     />
                 </t>
                 <div
@@ -67,7 +67,7 @@
                 <t t-if="recipient_invoice_id">
                     <div
                         t-out="recipient_invoice_id"
-                        t-options="{'widget': 'contact', 'fields': ['address', 'name'], 'no_marker': True, 'phone_icons': True}"
+                        t-options="{'widget': 'contact', 'fields': ['address', 'name', 'phone', 'mobile'], 'no_marker': True, 'phone_icons': True}"
                         name="invoice_address"
                     />
                     <p t-if="recipient.vat"><t t-esc="recipient_vat_label" />: <span
@@ -91,7 +91,7 @@
                 <div
                     t-if="sender"
                     t-out="sender"
-                    t-options="{'widget': 'contact', 'fields': ['address', 'name', 'phone'], 'no_marker': True, 'phone_icons': True}"
+                    t-options="{'widget': 'contact', 'fields': ['address', 'name', 'phone', 'mobile'], 'no_marker': True, 'phone_icons': True}"
                 />
                 <div name="company_vat_number" t-if="sender and sender.vat"><span
                         t-if="sender"
@@ -259,24 +259,17 @@
         </div>
     </template>
     <template id="document_name">
-        <div class="row o_sections_name">
-            <div class="col-8">
-                <h5>
-                    <span t-esc="name_label" />
-                    <span t-esc="name" />
-                </h5>
+        <!-- Document title section with date and original/copy -->
+        <div class="row o_sections_document_title mb-3" t-if="layout_document_title">
+            <div class="col-7">
+                <h2 t-out="layout_document_title"/>
             </div>
-            <div class="col-4">
-                <h6>
-                    <span t-esc="name_date" />
+            <div class="col-5 text-end">
+                <h6 t-if="name_date">
+                    <span t-out="name_date"/>
                 </h6>
-            </div>
-        </div>
-        <div class="row o_sections_name" t-if="original_copies">
-            <div class="col-8"></div>
-            <div class="col-4">
-                <h6>
-                    <span t-esc="original_copies" />
+                <h6 t-if="original_copies">
+                    <span t-out="original_copies"/>
                 </h6>
             </div>
         </div>
@@ -326,6 +319,7 @@
             </div>
         </div>
     </template>
+
     <template id="external_layout_sections" key="l10n_bg_report_theme.external_layout_sections">
         <t t-set="header_shape_height" t-value="'174'"/>
         <t t-set="layout_background_header_url"
@@ -357,12 +351,9 @@
                 <div class="col-3 text-start o_section_header_right_box z-max">
                     <t t-if="company.is_company_details_empty">
                         <ul class="list-unstyled">
-                            <li t-if="company.is_company_details_empty">
-                                <li t-if="company.phone"><i class="fa fa-phone"/> <span t-field="company.phone"/></li>
-                                <li t-if="company.mobile"><i class="fa fa-mobile"/> <span t-field="company.mobile"/></li>
-                                <li t-if="company.email"><i class="fa fa-at"/> <span t-field="company.email"/></li>
-                                <li t-if="company.website"><i class="fa fa-globe"/> <span t-field="company.website" /></li>
-                            </li>
+                            <li t-if="company.phone"><i class="fa fa-phone"/> <span t-field="company.phone"/></li>
+                            <li t-if="company.email"><i class="fa fa-at"/> <span t-field="company.email"/></li>
+                            <li t-if="company.website"><i class="fa fa-globe"/> <span t-field="company.website" /></li>
                         </ul>
                     </t>
                     <t t-else="">
@@ -372,9 +363,9 @@
             </div>
         </div>
         <t t-set="layout_background_url"
-            t-value="'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg'" />
+            t-value="'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else ''" />
         <t t-set="layout_background_url_landscape"
-            t-value="'data:image/png;base64,%s' % company.layout_background_l_image.decode('utf-8') if company.layout_background_l_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg'" />
+            t-value="'data:image/png;base64,%s' % company.layout_background_l_image.decode('utf-8') if company.layout_background_l_image and company.layout_background == 'Custom' else ''" />
 
         <div
             t-attf-class="o_company_#{company.id}_layout article o_sections_article {{  'o_report_layout_article_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
@@ -389,11 +380,34 @@
                         background-image: url(%s);
                     }' % layout_background_url_landscape }}"/>
             </t>
-            <t name="document_name" t-call="l10n_bg_report_theme.document_name"/>
+
+            <!-- Document name section -->
+            <t name="document_name" t-call="l10n_bg_report_theme.document_name" />
+
+            <!-- Address layout section with information block support -->
             <div class="pt-5">
                 <!-- This div ensures that the header does not crop the address. -->
-                <t t-call="web.address_layout" />
+                <t t-if="not custom_layout_address">
+                    <t t-call="web.address_layout" />
+                </t>
+                <t t-else="">
+                    <!-- Custom address layout handling -->
+                    <t t-set="colclass" t-value="('col-sm-5' if report_type == 'html' else 'col-5') + ' ms-auto'"/>
+                    <div t-if="address" t-attf-class="address row mb-4">
+                        <t t-if="information_block">
+                            <t t-set="colclass" t-value="'col-5 offset-1'"/>
+                            <div name="information_block" class="col-6">
+                                <t t-out="information_block"/>
+                            </div>
+                        </t>
+                        <div name="address" t-att-class="colclass">
+                            <t t-esc="address"/>
+                        </div>
+                    </div>
+                </t>
             </div>
+
+            <!-- Deal sections -->
             <t
                 name="deal_partner"
                 t-call="l10n_bg_report_theme.deal_partner"
@@ -404,8 +418,13 @@
                 t-call="l10n_bg_report_theme.deal_no_partner"
                 t-if="(no_deal_partner and sender and recipient)"
             />
+
             <div class="deal-content-separator"></div>
+
+            <!-- Main content -->
             <t t-out="0" />
+
+            <!-- Signatures section -->
             <t
                 name="signatures_section"
                 t-call="l10n_bg_report_theme.signatures_section"
@@ -448,6 +467,7 @@
             </div>
         </div>
     </template>
+
     <template
         id="styles_company_report_sections"
         inherit_id="web.styles_company_report"
@@ -463,14 +483,4 @@
         </xpath>
     </template>
 
-    <template id="report_invoice_wizard_section_preview" inherit_id="web.report_invoice_wizard_preview">
-        <xpath expr="//t[@t-set='layout_document_title']" position="before">
-            <t t-set="name_label">
-                <span>Invoice</span>
-            </t>
-           <t t-set="name">
-               <span>INV/2023/00003</span>
-           </t>
-        </xpath>
-    </template>
 </odoo>

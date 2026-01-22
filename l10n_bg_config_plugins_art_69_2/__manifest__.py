@@ -11,8 +11,6 @@
     'license': 'OPL-1',
     'author': 'Rosen Vladimirov',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria-enterprise',
-    'price': 20,
-    'currency': 'EUR',
     'depends': [
         'account',
         'l10n_bg_config',

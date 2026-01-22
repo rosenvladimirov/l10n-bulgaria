@@ -138,10 +138,43 @@ class AccountChartTemplate(models.AbstractModel):
 
     @template(model='account.account')
     def _get_bg_account_data(self, template_code, module=BASE_MODULE):
+        """
+        Fetches background account data based on a given template code.
+
+        This method retrieves account data for the specified template code by parsing
+        a CSV file associated with the provided module. It is useful for retrieving
+        account configuration data in scenarios where the template-driven approach
+        is used.
+
+        Args:
+            template_code: A string representing the code for the account template
+                           to pull data for.
+            module: Name of the module from which the account template data
+                    should be retrieved (default is BASE_MODULE).
+
+        Returns:
+            The parsed account data as determined by the template and module.
+
+        Raises:
+            Any exceptions or errors raised by the underlying _parse_csv method.
+        """
         return self._parse_csv(template_code, 'account.account', module)
 
     @template(model='account.account')
     def _get_account_account(self, template_code):
+        """
+        Gets account-specific template data and updates it according to the given template code.
+
+        This method overrides the base `_get_account_account` method to provide additional
+        processing of account template data using `_get_bg_account_data`. The data is modified
+        to conform to a specific type template.
+
+        Args:
+            template_code (str): The template code used to fetch the account account template data.
+
+        Returns:
+            dict: The updated template data for the specified account account.
+        """
         return self._update_template_data(
             super()._get_account_account(template_code),
             template_code,
@@ -151,10 +184,42 @@ class AccountChartTemplate(models.AbstractModel):
 
     @template(model='account.group')
     def _get_bg_account_group_data(self, template_code, module=BASE_MODULE):
+        """
+        Extracts and processes account group data from a CSV file using the given template.
+
+        This method reads a CSV file template corresponding to account groups and converts it
+        into data usable within the system. It is specifically tailored to work with account
+        group data and relies on predefined module contexts.
+
+        Arguments:
+            template_code (str): The reference code of the desired template to fetch account group data.
+            module (str): The module context within which the template resides. Defaults to BASE_MODULE.
+
+        Returns:
+            list[dict]: A list of dictionaries containing parsed account group data.
+
+        Raises:
+            None
+        """
         return self._parse_csv(template_code, 'account.group', module)
 
     @template(model='account.group')
     def _get_account_group(self, template_code):
+        """
+        _get_account_group(template_code)
+
+        Retrieves and updates data for an account group based on the provided template code. The method
+        leverages a parent method to obtain initial account group data, then augments it using additional
+        template-specific information.
+
+        Parameters:
+            template_code: str
+                The code of the template for which account group data needs to be retrieved.
+
+        Returns:
+            dict
+                Updated account group data mapped to the provided template code.
+        """
         return self._update_template_data(
             super()._get_account_group(template_code),
             template_code,
@@ -163,12 +228,41 @@ class AccountChartTemplate(models.AbstractModel):
 
     @template(model='account.tax')
     def _get_bg_tax_data(self, template_code, module=BASE_MODULE):
+        """
+        Extracts and processes tax data based on the provided template code and module.
+
+        The method retrieves tax data using the specified CSV template and module. It dereferences
+        account tags within the tax data after parsing it.
+
+        Args:
+            template_code: The code of the CSV template to use for retrieving tax data.
+            module: The name of the module where the template is located. Defaults to BASE_MODULE.
+
+        Returns:
+            A list containing processed tax data extracted from the template.
+        """
         tax_data = self._parse_csv(template_code, 'account.tax', module)
         self._deref_account_tags(template_code, tax_data)
         return tax_data
 
     @template(model='account.tax')
     def _get_account_tax(self, template_code):
+        """
+        Provides functionality for retrieving and updating account tax information
+        based on a given template code.
+
+        Template-specific tax data is fetched and updated using a combination of
+        parent class methods and business logic extensions.
+
+        Parameters:
+            template_code (str): A unique code identifying the tax template.
+
+        Returns:
+            dict: Updated tax data based on the provided template code.
+
+        Raises:
+            None: This function does not explicitly declare raised exceptions.
+        """
         return self._update_template_data(
             super()._get_account_tax(template_code),
             template_code,
@@ -177,26 +271,81 @@ class AccountChartTemplate(models.AbstractModel):
 
     @template(model='account.journal')
     def _get_account_journal(self, template_code):
+        """
+        Overrides the `_get_account_journal` method to allow dynamic update of the
+        result based on a template-specific update function.
+
+        Parameters:
+        template_code: str
+            The code of the template for which the account journal is retrieved.
+
+        Returns:
+        dict
+            Updated dictionary of account journal details. Dynamically modified by
+            any template-specific update function if present.
+        """
         res = super()._get_account_journal(template_code)
         update_func = getattr(self, f'_get_{template_code}_account_journal', None)
         if update_func:
             res.update(update_func(template_code))
         return res
 
-    # @template(model='account.fiscal.position')
-    # def _get_bg_fiscal_position_data(self, template_code, module=BASE_MODULE):
-    #     return self._parse_csv(template_code, 'account.fiscal.position', module)
-    #
-    # @template(model='account.fiscal.position')
-    # def _get_account_fiscal_position(self, template_code):
-    #     return self._update_template_data(
-    #         super()._get_account_tax(template_code),
-    #         template_code,
-    #         self._get_bg_fiscal_position_data
-    #     )
+    @template(model='account.fiscal.position')
+    def _get_bg_fiscal_position_data(self, template_code, module=BASE_MODULE):
+        """
+        Gets fiscal position data based on a given template code and module.
+
+        Parses fiscal position data from a CSV file that corresponds to the specified
+        template code and module. The data is returned in a format suitable for
+        further processing.
+
+        Arguments:
+            template_code (str): The unique code identifying the template for the
+                fiscal position data.
+            module (str): The name of the module from which the template CSV should
+                be sourced. Defaults to BASE_MODULE.
+
+        Returns:
+            dict: A structured representation of the fiscal position data parsed from
+            the corresponding template CSV.
+        """
+        return self._parse_csv(template_code, 'account.fiscal.position', module)
+
+    @template(model='account.fiscal.position')
+    def _get_account_fiscal_position(self, template_code):
+        """
+        _get_account_fiscal_position(template_code)
+
+        Determines the fiscal position for a given template code by updating the
+        base template data and injecting additional fiscal position information.
+
+        Args:
+            template_code (str): The code of the template for which the fiscal
+            position needs to be determined.
+
+        Returns:
+            The fiscal position data updated with any Bulgarian-specific fiscal
+            position details.
+        """
+        return self._update_template_data(
+            super()._get_account_fiscal_position(template_code),
+            template_code,
+            self._get_bg_fiscal_position_data
+        )
 
     @template('bg')
     def _get_bg_template_data_external(self):
+        """
+        Provides template data for external background-related operations.
+
+        This method generates a dictionary containing specific template details
+        that can be used for operations requiring account masking and code formatting.
+
+        Returns:
+            dict: A dictionary containing the following keys:
+                - 'account_mask': A string pattern defining how account numbers are masked.
+                - 'code_digits': The number of digits used for the code format.
+        """
         return {
             'account_mask': '###.###',
             'code_digits': '6',
@@ -204,6 +353,17 @@ class AccountChartTemplate(models.AbstractModel):
 
     @template('bg')
     def _get_bg_template_data(self):
+        """
+        _get_bg_template_data()
+
+        Fetches template data for the background by extending and updating the
+        data retrieved from the parent class with additional external data.
+
+        Returns:
+            dict: A dictionary containing the combined template data for the
+            background. This includes the base data from the parent class and
+            the additional external data.
+        """
         res = super()._get_bg_template_data()
         res.update(self._get_bg_template_data_external())
         return res

@@ -14,11 +14,11 @@ PLUGINS_SUFFIX = '_plugins'
 
 
 def apply_mask_zip(
-        value: str,
-        mask: str,
-        placeholder: str = '#',
-        target_len: int | None = None,
-        fill_char: str | None = None,
+    value: str,
+    mask: str,
+    placeholder: str = '#',
+    target_len: int | None = None,
+    fill_char: str | None = None,
 ) -> str:
     """
     Форматира 'value' по дадена 'mask', като:
@@ -26,8 +26,13 @@ def apply_mask_zip(
       • допълва липсващи позиции с fill_char;
       • НЕ брои вече присъстващи разделители във value.
     """
+    # Валидация на входа
+    if not isinstance(value, str):
+        _logger.warning(f"apply_mask_zip received non-string value: {value} ({type(value).__name__})")
+        value = str(value) if value not in (None, False, True) else ''
+
     # ----------- Премахваме всички нецифрови символи от входа -----------
-    raw_value = re.sub(r'\D', '', value)       # само цифри
+    raw_value = re.sub(r'\D', '', value)  # само цифри
     value = raw_value                          # занапред работим с прочистен низ
 
     # ----------- Изчисляване на минималната изисквана дължина -----------
@@ -128,12 +133,22 @@ class AccountChartTemplate(models.AbstractModel):
 
             if account_mask:
                 for key, account_data in result.items():
-                    result[key]['code'] = apply_mask_zip(
-                        account_data['code'],
-                        account_mask,
-                        target_len=target_len,
-                        fill_char='0'
-                    )
+                    # Валидация: уверете се, че 'code' е низ
+                    code = account_data.get('code', '')
+                    if not isinstance(code, str):
+                        _logger.warning(
+                            f"Invalid code type for account {key}: {type(code).__name__}. "
+                            f"Expected string, converting to string."
+                        )
+                        code = str(code) if code not in (None, False, True) else ''
+
+                    if code:  # Прилагай маска само ако има валиден код
+                        result[key]['code'] = apply_mask_zip(
+                            code,
+                            account_mask,
+                            target_len=target_len,
+                            fill_char='0'
+                        )
         return result
 
     @template(model='account.account')

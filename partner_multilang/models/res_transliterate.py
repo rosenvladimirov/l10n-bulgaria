@@ -104,13 +104,40 @@ class ResTransliterate(models.AbstractModel):
     _name = "res.transliterate.mixin"
     _description = "Names transliterate mixin"
 
+    transliterate_tracking = fields.Json(
+        string='Transliteration Tracking',
+        default=dict,
+        copy=False,
+        help='Technical field to track which fields have been transliterated. Format: {"field_name": True}'
+    )
+
+    def init(self):
+        super().init()
+        # Add the column to every model table that inherits this mixin.
+        for model in self.env.registry.models.values():
+            if not model or not getattr(model, "_auto", False):
+                continue
+            inherit = getattr(model, "_inherit", None)
+            if isinstance(inherit, str):
+                inherits_mixin = inherit == self._name
+            else:
+                inherits_mixin = self._name in (inherit or [])
+            if not inherits_mixin or model._name == self._name:
+                continue
+            table = getattr(model, "_table", None)
+            if not table:
+                continue
+            self._cr.execute(
+                f'ALTER TABLE "{table}" ADD COLUMN IF NOT EXISTS transliterate_tracking jsonb'
+            )
+
     @api.depends_context('lang')
     @api.depends('name')
     def _compute_display_name(self):
         """
         Override на _compute_display_name за многоезична поддръжка.
 
-        Одоо 19 използва display_name computed field вместо name_get().
+        Одоо 18 използва display_name computed field вместо name_get().
         Този метод автоматично извлича правилния език от многоезичното name поле.
         """
         current_lang = self.env.context.get('lang') or self.env.user.lang or 'en_US'
@@ -180,24 +207,12 @@ class ResTransliterate(models.AbstractModel):
 
     @api.model
     def _get_transliterate_fields(self):
-        """Override в конкретни модели за допълнителни полета"""
-        return []
+        return ['name']
 
     def _check_lang(self, text):
         """
         Checks and determines the language of the given text and whether transliteration
-        is supported for that language. If the current language is not recognized, attempts
-        to detect the language of the text automatically.
-
-        Parameters:
-        text: str
-            The text input whose language is to be checked or detected.
-
-        Returns:
-        tuple
-            A tuple containing:
-            - str: The determined current language code.
-            - list: A filtered list of installed languages supporting transliteration.
+        is supported for that language.
         """
         current_lang = lang = self.env.user.lang
         installed_langs = self._get_transliterate_languages()
@@ -258,28 +273,39 @@ class ResTransliterate(models.AbstractModel):
     @api.depends_context('lang')
     def _force_multilanguage(self, vals, new_record=False):
         """
-            Forces multilanguage support by checking and potentially transliterating specific fields
-            during record creation or update. This method ensures that certain fields have their values
-            recorded in the 'en_US' language context by transliterating the data if needed.
-
-            Parameters:
-                vals (dict): Values being written to the record.
-                new_record (bool): Indicates if the method is processing a new record.
-
-            Raises:
-                None
-
-            Notes:
-                - The method targets specific fields listed in the global TRANSLITERATE_FIELDS
-                  collection.
-                - Transliterates only when the record in 'en_US' language context is missing
-                  a value for the specific field.
-                - Does nothing if the field name does not exist in the model.
+        Forces multilanguage support by checking and potentially transliterating specific fields
+        during record creation or update.
         """
-        for field_name in [x for x in TRANSLITERATE_FIELDS if x in self._fields.keys()]:
-            if field_name not in self._fields.keys():
-                continue
-            force_multilanguage_update = self.env.context.get('force_multilanguage_update', False)
+        # Вземи списък с полета за транслитерация от модела
+        transliterate_fields = self._get_transliterate_fields()
+
+        # Ако няма дефинирани полета, не правим нищо
+        if not transliterate_fields:
+            return
+
+        # Филтрирай само полетата, които:
+        # 1. Са в vals (т.е. се променят сега)
+        # 2. Са в списъка за транслитерация
+        # 3. Съществуват в модела
+        fields_to_process = [
+            field_name for field_name in vals.keys()
+            if field_name in transliterate_fields and field_name in self._fields
+        ]
+
+        if not fields_to_process:
+            return
+
+        # Вземи текущия tracking dict
+        tracking = dict(self.transliterate_tracking or {})
+        force_multilanguage_update = self.env.context.get('force_multilanguage_update', False)
+
+        for field_name in fields_to_process:
+            # Проверка дали вече е транслитерирано
+            if not new_record and not force_multilanguage_update:
+                if tracking.get(field_name, False):
+                    # Полето вече е било транслитерирано - skip
+                    continue
+
             if not new_record:
                 # Проверка дали полето е празно на en_US
                 new_record = not getattr(
@@ -296,12 +322,18 @@ class ResTransliterate(models.AbstractModel):
                     record = self.with_context(
                         **dict(self.env.context, lang="en_US", update_lang=True)
                     )
+                    transliterated_value = partner_name_translate(
+                        vals[field_name],
+                        current_lang,
+                        transliterate
+                    )
+
+                    # Обнови tracking
+                    tracking[field_name] = True
+
                     record.write({
-                        field_name: partner_name_translate(
-                            vals[field_name],
-                            current_lang,
-                            transliterate
-                        )
+                        field_name: transliterated_value,
+                        'transliterate_tracking': tracking
                     })
 
     @api.model_create_multi

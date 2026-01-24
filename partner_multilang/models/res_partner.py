@@ -22,7 +22,7 @@ class Partner(models.Model):
     @api.model
     def _get_transliterate_fields(self):
         res = super()._get_transliterate_fields()
-        return res + ['name', 'street', 'street2', 'city', 'function', 'company_name', 'commercial_company_name']
+        return res + ['street', 'street2', 'city', 'function', 'company_name', 'commercial_company_name']
 
     @api.model
     def _search_multi_lang(self, operator, value, field_list=None):
@@ -54,25 +54,22 @@ class Partner(models.Model):
         return final_domain
 
     @api.model
-    def _name_search(self, name='', domain=None, operator='ilike', limit=100, order=None):
-        domain = domain or []
+    def name_search(self, name='', args=None, operator='ilike', limit=100):
+        """Override за многоезично търсене при избор на партньор"""
+        args = list(args) if args else []
+
         if name:
-            # Полетата, по които искаме да търсим многоезично
+            # Полетата за търсене
             search_fields = ['name', 'company_name', 'commercial_company_name']
 
-            # Генерираме домейна
+            # Генерираме многоезичен домейн
             multi_lang_domain = self._search_multi_lang(operator, name, search_fields)
 
             if multi_lang_domain:
-                # Внимаваме да не дублираме търсенето, ако Odoo вече е добавило името в домейна
-                # Филтрираме стандартните търсения по име
-                clean_domain = [
-                    item for item in domain
-                    if not (isinstance(item, (list, tuple)) and item[0] in search_fields)
-                ]
-                domain = clean_domain + multi_lang_domain
+                # Добавяме към съществуващите args
+                args = args + multi_lang_domain
 
-        return super()._name_search(name=name, domain=domain, operator=operator, limit=limit, order=order)
+        return super().name_search(name=name, args=args, operator=operator, limit=limit)
 
     def _get_complete_name(self):
         self.ensure_one()
@@ -96,7 +93,9 @@ class Partner(models.Model):
             if not self.is_company:
                 # Прилагаме защитата и тук за родителските полета
                 commercial = _get_lang_value(self.commercial_company_name)
-                parent_name = _get_lang_value(self.sudo().parent_id.name)
+                # Запазваме текущия език при sudo()
+                current_lang = self.env.lang or 'en_US'
+                parent_name = _get_lang_value(self.sudo().with_context(lang=current_lang).parent_id.name)
                 name = f"{commercial or parent_name}, {name}"
 
         return name.strip()

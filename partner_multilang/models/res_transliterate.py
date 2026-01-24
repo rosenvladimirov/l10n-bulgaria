@@ -111,23 +111,6 @@ class ResTransliterate(models.AbstractModel):
         help='Technical field to track which fields have been transliterated. Format: {"field_name": True}'
     )
 
-    @classmethod
-    def _auto_init(cls):
-        res = super()._auto_init()
-        # Add the column for each concrete model that inherits this mixin.
-        if cls._name != "res.transliterate.mixin" and getattr(cls, "_auto", False):
-            inherit = getattr(cls, "_inherit", None)
-            if isinstance(inherit, str):
-                inherits_mixin = inherit == "res.transliterate.mixin"
-            else:
-                inherits_mixin = "res.transliterate.mixin" in (inherit or [])
-            if inherits_mixin and getattr(cls, "_table", None):
-                cls._cr.execute(
-                    f'ALTER TABLE "{cls._table}" '
-                    "ADD COLUMN IF NOT EXISTS transliterate_tracking jsonb"
-                )
-        return res
-
     @api.depends_context('lang')
     @api.depends('name')
     def _compute_display_name(self):

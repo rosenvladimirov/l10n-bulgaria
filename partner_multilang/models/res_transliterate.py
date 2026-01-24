@@ -111,25 +111,22 @@ class ResTransliterate(models.AbstractModel):
         help='Technical field to track which fields have been transliterated. Format: {"field_name": True}'
     )
 
-    def init(self):
-        super().init()
-        # Add the column to every model table that inherits this mixin.
-        for model in self.env.registry.models.values():
-            if not model or not getattr(model, "_auto", False):
-                continue
-            inherit = getattr(model, "_inherit", None)
+    @classmethod
+    def _auto_init(cls):
+        res = super()._auto_init()
+        # Add the column for each concrete model that inherits this mixin.
+        if cls._name != "res.transliterate.mixin" and getattr(cls, "_auto", False):
+            inherit = getattr(cls, "_inherit", None)
             if isinstance(inherit, str):
-                inherits_mixin = inherit == self._name
+                inherits_mixin = inherit == "res.transliterate.mixin"
             else:
-                inherits_mixin = self._name in (inherit or [])
-            if not inherits_mixin or model._name == self._name:
-                continue
-            table = getattr(model, "_table", None)
-            if not table:
-                continue
-            self._cr.execute(
-                f'ALTER TABLE "{table}" ADD COLUMN IF NOT EXISTS transliterate_tracking jsonb'
-            )
+                inherits_mixin = "res.transliterate.mixin" in (inherit or [])
+            if inherits_mixin and getattr(cls, "_table", None):
+                cls._cr.execute(
+                    f'ALTER TABLE "{cls._table}" '
+                    "ADD COLUMN IF NOT EXISTS transliterate_tracking jsonb"
+                )
+        return res
 
     @api.depends_context('lang')
     @api.depends('name')

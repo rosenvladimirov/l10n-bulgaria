@@ -2,8 +2,6 @@
 import logging
 import re
 
-from psycopg2.extras import Json
-
 from odoo.addons.partner_multilang.models.res_transliterate import partner_name_translate
 from odoo.addons.partner_multilang.models.res_transliterate import LANGUAGE_MAPPING
 
@@ -110,12 +108,6 @@ def _ensure_complete_name_multilanguage_column(env):
 
 def _backfill_complete_name_multilanguage(env, batch_size=500):
     _ensure_complete_name_multilanguage_column(env)
-    lang_codes = [l.code for l in env["res.lang"].with_context(active_test=False).search([("active", "=", True)])]
-    if "en_US" not in lang_codes:
-        lang_codes.append("en_US")
-    if not lang_codes:
-        return
-
     Partner = env["res.partner"].with_context(active_test=False)
     last_id = 0
     while True:
@@ -124,17 +116,7 @@ def _backfill_complete_name_multilanguage(env, batch_size=500):
             break
         last_id = partners[-1].id
 
-        updates = []
-        for partner in partners:
-            translations = {}
-            for lang_code in lang_codes:
-                translations[lang_code] = partner.with_context(lang=lang_code)._get_complete_name()
-            updates.append((Json(translations), partner.id))
-
-        env.cr.executemany(
-            "UPDATE res_partner SET complete_name_multilanguage = %s WHERE id = %s",
-            updates,
-        )
+        partners._update_complete_name_multilanguage()
         env.cr.commit()
 
 

@@ -255,7 +255,8 @@ class Partner(models.Model):
                 name = type_description.get(self.type, "")
             if not self.is_company:
                 commercial = self._get_field_value_for_lang('commercial_company_name', lang=current_lang)
-                parent_name = self.sudo().with_context(lang=current_lang)._get_field_value_for_lang('name', lang=current_lang)
+                parent = self.sudo().with_context(lang=current_lang).parent_id
+                parent_name = parent._get_field_value_for_lang('name', lang=current_lang) if parent else ''
                 name = f"{commercial or parent_name}, {name}"
 
         return (name or '').strip()

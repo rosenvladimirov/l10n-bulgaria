@@ -3,7 +3,6 @@
 from lxml import etree
 
 from odoo import api, fields, models
-from odoo.models import NewId
 from odoo.osv import expression
 
 
@@ -44,8 +43,6 @@ class Partner(models.Model):
     @api.model
     def get_view(self, view_id=None, view_type='form', **options):
         res = super().get_view(view_id=view_id, view_type=view_type, **options)
-        if not self._has_complete_name_multilanguage_column():
-            return res
         try:
             node = etree.fromstring(res.get('arch', ''))
         except Exception:
@@ -72,16 +69,7 @@ class Partner(models.Model):
         res = super()._get_transliterate_fields()
         return res + ['street', 'street2', 'city', 'function', 'company_name', 'commercial_company_name']
 
-    def _get_complete_name(self):
-        if self.env.context.get('multilang_complete_name'):
-            return super()._get_complete_name()
-        if not self.id or isinstance(self.id, NewId):
-            return self.with_context(lang='en_US', multilang_complete_name=True)._get_complete_name()
-        if self._has_complete_name_multilanguage_column():
-            value = self.with_context(lang='en_US').complete_name_multilanguage
-            if value:
-                return value
-        return super()._get_complete_name()
+    # Use core _get_complete_name without override.
 
     @api.model
     def _get_partner_name_lang_codes(self):
@@ -94,45 +82,16 @@ class Partner(models.Model):
     def _compute_complete_name_multilanguage(self):
         self._update_complete_name_multilanguage()
 
-    @api.model
-    def _has_complete_name_multilanguage_column(self):
-        cache_key = "_complete_name_multilang_column_exists"
-        cached = getattr(self.env.registry, cache_key, None)
-        if cached is not None:
-            return cached
-        self._cr.execute(
-            """
-            SELECT 1
-            FROM information_schema.columns
-            WHERE table_schema = 'public'
-              AND table_name = 'res_partner'
-              AND column_name = 'complete_name_multilanguage'
-            LIMIT 1
-            """
-        )
-        exists = bool(self._cr.fetchone())
-        setattr(self.env.registry, cache_key, exists)
-        return exists
-
     def _update_complete_name_multilanguage(self):
         if self.env.context.get('skip_complete_name_multilang'):
             return
         lang_codes = self._get_partner_name_lang_codes()
-        current_lang = self.env.lang or 'en_US'
         for partner in self:
-            for lang_code in lang_codes:
-                value = partner.with_context(
-                    lang=lang_code,
-                    multilang_complete_name=True,
-                )._get_complete_name()
-                partner.with_context(
-                    lang=lang_code,
-                    update_lang=True,
-                    skip_complete_name_multilang=True,
-                ).write({'complete_name_multilanguage': value})
-            partner.complete_name_multilanguage = partner.with_context(
-                lang=current_lang
-            ).complete_name_multilanguage or partner.with_context(lang='en_US').complete_name_multilanguage
+            translations = {
+                lang_code: (partner.with_context(lang=lang_code).name or '')
+                for lang_code in lang_codes
+            }
+            partner.update_field_translations('complete_name_multilanguage', translations)
 
     @api.model
     def _get_translatable_search_fields(self):

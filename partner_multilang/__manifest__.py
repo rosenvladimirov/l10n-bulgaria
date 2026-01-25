@@ -1,6 +1,6 @@
 {
     "name": "Partner Multilang",
-    "version": '18.0.1.0.5',
+    "version": '18.0.2.0.1',
     "license": "AGPL-3",
     "category": "Localization",
     "author": "Rosen Vladimirov, Odoo Community Association (OCA)",

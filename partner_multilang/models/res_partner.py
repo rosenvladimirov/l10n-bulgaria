@@ -1,16 +1,21 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import logging
+from lxml import etree
 
 from odoo import api, fields, models
 from odoo.osv import expression
-
-_logger = logging.getLogger(__name__)
 
 
 class Partner(models.Model):
     _inherit = ['res.partner', 'res.transliterate.mixin']
     _name = "res.partner"
+    _rec_names_search = [
+        'complete_name_multilanguage',
+        'email',
+        'ref',
+        'vat',
+        'company_registry',
+    ]
 
     name = fields.Char(translate=True, index='trigram')
     street = fields.Char(translate=True)
@@ -19,11 +24,66 @@ class Partner(models.Model):
     function = fields.Char(translate=True)
     company_name = fields.Char(translate=True)
     commercial_company_name = fields.Char(translate=True)
+    complete_name_multilanguage = fields.Char(
+        compute='_compute_complete_name_multilanguage',
+        store=True,
+        index=True,
+        translate=True,
+    )
+
+    @api.private
+    def init(self):
+        super().init()
+        # Ensure the technical JSONB column exists without module upgrade.
+        self._cr.execute(
+            'ALTER TABLE "res_partner" '
+            'ADD COLUMN IF NOT EXISTS complete_name_multilanguage jsonb'
+        )
+
+    @api.model
+    def get_view(self, view_id=None, view_type='form', **options):
+        res = super().get_view(view_id=view_id, view_type=view_type, **options)
+        try:
+            node = etree.fromstring(res.get('arch', ''))
+        except Exception:
+            return res
+
+        changed = False
+        for field_node in node.xpath(".//field[@name='complete_name']"):
+            field_node.set('name', 'complete_name_multilanguage')
+            changed = True
+
+        if not changed:
+            return res
+
+        res['arch'] = etree.tostring(node, encoding="unicode").replace('\t', '')
+
+        models = {model: set(fields) for model, fields in res.get('models', {}).items()}
+        if self._name in models:
+            models[self._name].add('complete_name_multilanguage')
+            res['models'] = {model: tuple(fields) for model, fields in models.items()}
+        return res
 
     @api.model
     def _get_transliterate_fields(self):
         res = super()._get_transliterate_fields()
         return res + ['street', 'street2', 'city', 'function', 'company_name', 'commercial_company_name']
+
+    @api.model
+    def _get_partner_name_lang_codes(self):
+        lang_codes = self._get_active_lang_codes()
+        if 'en_US' not in lang_codes:
+            lang_codes.append('en_US')
+        return lang_codes
+
+    @api.depends('is_company', 'name', 'parent_id.name', 'type', 'company_name', 'commercial_company_name')
+    def _compute_complete_name_multilanguage(self):
+        lang_codes = self._get_partner_name_lang_codes()
+        for partner in self:
+            translations = {}
+            for lang_code in lang_codes:
+                translations[lang_code] = partner.with_context(lang=lang_code)._get_complete_name()
+            partner.complete_name_multilanguage = translations
 
     @api.model
     def _get_translatable_search_fields(self):
@@ -164,10 +224,3 @@ class Partner(models.Model):
                 name = f"{commercial or parent_name}, {name}"
 
         return name.strip()
-
-    @api.depends('is_company', 'name', 'parent_id.name', 'type', 'company_name', 'commercial_company_name')
-    def _compute_complete_name(self):
-        # Follow core logic but keep only the language context.
-        lang = self.env.lang or 'en_US'
-        for partner in self:
-            partner.complete_name = partner.with_context(lang=lang)._get_complete_name()

@@ -3,6 +3,7 @@
 from lxml import etree
 
 from odoo import api, fields, models
+from odoo.models import NewId
 from odoo.osv import expression
 
 
@@ -71,11 +72,16 @@ class Partner(models.Model):
         res = super()._get_transliterate_fields()
         return res + ['street', 'street2', 'city', 'function', 'company_name', 'commercial_company_name']
 
-    @api.depends('is_company', 'name', 'parent_id.name', 'type', 'company_name', 'commercial_company_name')
-    def _compute_complete_name(self):
-        # Force complete_name to be computed from en_US values only.
-        for partner in self:
-            partner.complete_name = partner.with_context(lang='en_US')._get_complete_name()
+    def _get_complete_name(self):
+        if self.env.context.get('multilang_complete_name'):
+            return super()._get_complete_name()
+        if not self.id or isinstance(self.id, NewId):
+            return self.with_context(lang='en_US', multilang_complete_name=True)._get_complete_name()
+        if self._has_complete_name_multilanguage_column():
+            value = self.with_context(lang='en_US').complete_name_multilanguage
+            if value:
+                return value
+        return super()._get_complete_name()
 
     @api.model
     def _get_partner_name_lang_codes(self):
@@ -115,7 +121,10 @@ class Partner(models.Model):
         current_lang = self.env.lang or 'en_US'
         for partner in self:
             for lang_code in lang_codes:
-                value = partner.with_context(lang=lang_code)._get_complete_name()
+                value = partner.with_context(
+                    lang=lang_code,
+                    multilang_complete_name=True,
+                )._get_complete_name()
                 partner.with_context(
                     lang=lang_code,
                     update_lang=True,
@@ -240,52 +249,6 @@ class Partner(models.Model):
             return domain
 
         return aggregator([domain] + extra_domains)
-
-    def _get_complete_name(self):
-        self.ensure_one()
-
-        displayed_types = self._complete_name_displayed_types
-        type_description = dict(self._fields['type']._description_selection(self.env))
-        current_lang = self.env.lang or 'en_US'
-
-        name = self._get_field_value_for_lang_strict('name', lang=current_lang)
-
-        if self.company_name or self.parent_id:
-            if not name and self.type in displayed_types:
-                name = type_description.get(self.type, "")
-            if not self.is_company:
-                commercial = self._get_field_value_for_lang_strict('commercial_company_name', lang=current_lang)
-                parent = self.sudo().with_context(lang=current_lang).parent_id
-                parent_name = parent._get_field_value_for_lang_strict('name', lang=current_lang) if parent else ''
-                name = f"{commercial or parent_name}, {name}"
-
-        return (name or '').strip()
-
-    def _get_field_value_for_lang_strict(self, field_name, lang=None):
-        """
-        Read a translated field strictly for the given language.
-        For non-en_US languages, fallback to en_US; for en_US, do not fallback.
-        """
-        if not lang:
-            lang = self.env.context.get('lang') or self.env.user.lang or 'en_US'
-
-        if field_name not in self._fields:
-            return ''
-
-        field = self._fields[field_name]
-        if field.translate is True:
-            stored = field._get_stored_translations(self)
-            if not isinstance(stored, dict):
-                return ''
-            value = stored.get(lang) or stored.get(f'_{lang}')
-            if value:
-                return value
-            if lang != 'en_US':
-                return stored.get('en_US') or stored.get('_en_US') or ''
-            return ''
-
-        field_value = getattr(self, field_name, None)
-        return str(field_value) if field_value else ''
 
     @api.model_create_multi
     def create(self, vals_list):

@@ -79,11 +79,14 @@ class Partner(models.Model):
     @api.depends('is_company', 'name', 'parent_id.name', 'type', 'company_name', 'commercial_company_name')
     def _compute_complete_name_multilanguage(self):
         lang_codes = self._get_partner_name_lang_codes()
+        current_lang = self.env.lang or 'en_US'
         for partner in self:
-            translations = {}
-            for lang_code in lang_codes:
-                translations[lang_code] = partner.with_context(lang=lang_code)._get_complete_name()
-            partner.complete_name_multilanguage = translations
+            translations = {
+                lang_code: partner.with_context(lang=lang_code)._get_complete_name()
+                for lang_code in lang_codes
+            }
+            partner.update_field_translations('complete_name_multilanguage', translations)
+            partner.complete_name_multilanguage = translations.get(current_lang) or translations.get('en_US')
 
     @api.model
     def _get_translatable_search_fields(self):

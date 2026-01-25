@@ -248,18 +248,43 @@ class Partner(models.Model):
         type_description = dict(self._fields['type']._description_selection(self.env))
         current_lang = self.env.lang or 'en_US'
 
-        name = self._get_field_value_for_lang('name', lang=current_lang)
+        name = self._get_field_value_for_lang_strict('name', lang=current_lang)
 
         if self.company_name or self.parent_id:
             if not name and self.type in displayed_types:
                 name = type_description.get(self.type, "")
             if not self.is_company:
-                commercial = self._get_field_value_for_lang('commercial_company_name', lang=current_lang)
+                commercial = self._get_field_value_for_lang_strict('commercial_company_name', lang=current_lang)
                 parent = self.sudo().with_context(lang=current_lang).parent_id
-                parent_name = parent._get_field_value_for_lang('name', lang=current_lang) if parent else ''
+                parent_name = parent._get_field_value_for_lang_strict('name', lang=current_lang) if parent else ''
                 name = f"{commercial or parent_name}, {name}"
 
         return (name or '').strip()
+
+    def _get_field_value_for_lang_strict(self, field_name, lang=None):
+        """
+        Read a translated field strictly for the given language.
+        For non-en_US languages, fallback to en_US; for en_US, do not fallback.
+        """
+        if not lang:
+            lang = self.env.context.get('lang') or self.env.user.lang or 'en_US'
+
+        if field_name not in self._fields:
+            return ''
+
+        field_value = getattr(self, field_name, None)
+        if not field_value:
+            return ''
+
+        if isinstance(field_value, dict):
+            value = field_value.get(lang)
+            if value:
+                return value
+            if lang != 'en_US':
+                return field_value.get('en_US') or ''
+            return ''
+
+        return str(field_value) if field_value else ''
 
     @api.model_create_multi
     def create(self, vals_list):

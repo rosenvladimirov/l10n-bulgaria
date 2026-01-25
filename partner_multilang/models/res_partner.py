@@ -9,13 +9,6 @@ from odoo.osv import expression
 class Partner(models.Model):
     _inherit = ['res.partner', 'res.transliterate.mixin']
     _name = "res.partner"
-    _rec_names_search = [
-        'complete_name_multilanguage',
-        'email',
-        'ref',
-        'vat',
-        'company_registry',
-    ]
 
     name = fields.Char(translate=True, index='trigram')
     street = fields.Char(translate=True)
@@ -30,6 +23,10 @@ class Partner(models.Model):
         index=True,
         translate=True,
     )
+
+    @property
+    def _rec_names_search(self):
+        return list(set(["complete_name_multilanguage"] + super()._rec_names_search))
 
     @api.private
     def init(self):
@@ -82,13 +79,31 @@ class Partner(models.Model):
     def _compute_complete_name_multilanguage(self):
         self._update_complete_name_multilanguage()
 
+    def _get_complete_name_multilang(self, lang):
+        self.ensure_one()
+        displayed_types = self._complete_name_displayed_types
+        type_description = dict(self._fields['type']._description_selection(self.env))
+
+        record = self.with_context(lang=lang)
+        name = record.name or ''
+
+        if record.company_name or record.parent_id:
+            if not name and record.type in displayed_types:
+                name = type_description.get(record.type, "")
+            if not record.is_company:
+                parent = record.sudo().parent_id
+                parent_name = parent.with_context(lang=lang).name if parent else ''
+                name = f"{parent_name}, {name}" if parent_name else name
+
+        return (name or '').strip()
+
     def _update_complete_name_multilanguage(self):
         if self.env.context.get('skip_complete_name_multilang'):
             return
         lang_codes = self._get_partner_name_lang_codes()
         for partner in self:
             translations = {
-                lang_code: (partner.with_context(lang=lang_code).name or '')
+                lang_code: partner._get_complete_name_multilang(lang_code)
                 for lang_code in lang_codes
             }
             partner.update_field_translations('complete_name_multilanguage', translations)

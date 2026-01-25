@@ -69,6 +69,12 @@ class Partner(models.Model):
         res = super()._get_transliterate_fields()
         return res + ['street', 'street2', 'city', 'function', 'company_name', 'commercial_company_name']
 
+    @api.depends('is_company', 'name', 'parent_id.name', 'type', 'company_name', 'commercial_company_name')
+    def _compute_complete_name(self):
+        # Force complete_name to be computed from en_US values only.
+        for partner in self:
+            partner.complete_name = partner.with_context(lang='en_US')._get_complete_name()
+
     @api.model
     def _get_partner_name_lang_codes(self):
         lang_codes = self._get_active_lang_codes()
@@ -78,6 +84,9 @@ class Partner(models.Model):
 
     @api.depends('is_company', 'name', 'parent_id.name', 'type', 'company_name', 'commercial_company_name')
     def _compute_complete_name_multilanguage(self):
+        self._update_complete_name_multilanguage()
+
+    def _update_complete_name_multilanguage(self):
         lang_codes = self._get_partner_name_lang_codes()
         current_lang = self.env.lang or 'en_US'
         for partner in self:
@@ -90,7 +99,12 @@ class Partner(models.Model):
 
     @api.model
     def _get_translatable_search_fields(self):
-        return ['name', 'company_name', 'commercial_company_name']
+        return [
+            'complete_name_multilanguage',
+            'name',
+            'company_name',
+            'commercial_company_name',
+        ]
 
     @api.model
     def _get_active_lang_codes(self):
@@ -227,3 +241,23 @@ class Partner(models.Model):
                 name = f"{commercial or parent_name}, {name}"
 
         return name.strip()
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        records._update_complete_name_multilanguage()
+        return records
+
+    def write(self, vals):
+        res = super().write(vals)
+        trigger_fields = {
+            'name',
+            'company_name',
+            'commercial_company_name',
+            'parent_id',
+            'is_company',
+            'type',
+        }
+        if trigger_fields.intersection(vals.keys()):
+            self._update_complete_name_multilanguage()
+        return res

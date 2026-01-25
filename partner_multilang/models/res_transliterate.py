@@ -1,5 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import logging
+import re
 
 # Библиотеки за транслитерация
 try:
@@ -35,6 +36,7 @@ except ImportError:
 from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
+_CYRILLIC_RE = re.compile(r"[\u0400-\u04FF]")
 
 TRANSLITERATE_FIELDS = [
     'name', 'company_name',
@@ -294,7 +296,26 @@ class ResTransliterate(models.AbstractModel):
                 ) or force_multilanguage_update
 
             if vals.get(field_name) and new_record:
-                current_lang, transliterate = self._check_lang(vals[field_name])
+                value = vals[field_name]
+                current_lang, transliterate = self._check_lang(value)
+
+                # Ако текущият език е en_US, но стойността е на кирилица,
+                # записваме оригинала в bg_BG и транслитерация в en_US.
+                if current_lang in ("en_US", "en") and _CYRILLIC_RE.search(str(value)):
+                    bg_lang = "bg_BG"
+                    if not getattr(self.with_context(lang=bg_lang), field_name):
+                        self.with_context(lang=bg_lang, update_lang=True).write({field_name: value})
+
+                    transliterated_value = partner_name_translate(value, "bg", True)
+                    record = self.with_context(
+                        **dict(self.env.context, lang="en_US", update_lang=True)
+                    )
+                    tracking[field_name] = True
+                    record.write({
+                        field_name: transliterated_value,
+                        'transliterate_tracking': tracking
+                    })
+                    continue
 
                 # Ако е нужна транслитерация и не е en_US
                 if transliterate and current_lang != "en_US" and not force_multilanguage_update:
@@ -303,7 +324,7 @@ class ResTransliterate(models.AbstractModel):
                         **dict(self.env.context, lang="en_US", update_lang=True)
                     )
                     transliterated_value = partner_name_translate(
-                        vals[field_name],
+                        value,
                         current_lang,
                         transliterate
                     )

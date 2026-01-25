@@ -164,3 +164,10 @@ class Partner(models.Model):
                 name = f"{commercial or parent_name}, {name}"
 
         return name.strip()
+
+    @api.depends('is_company', 'name', 'parent_id.name', 'type', 'company_name', 'commercial_company_name')
+    def _compute_complete_name(self):
+        # Follow core logic but keep only the language context.
+        lang = self.env.lang or 'en_US'
+        for partner in self:
+            partner.complete_name = partner.with_context(lang=lang)._get_complete_name()

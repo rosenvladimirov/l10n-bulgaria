@@ -244,31 +244,21 @@ class Partner(models.Model):
     def _get_complete_name(self):
         self.ensure_one()
 
-        def _get_lang_value(field_value):
-            # Ако полето е речник (JSONB превод), взимаме текущия език
-            if isinstance(field_value, dict):
-                lang = self.env.lang or 'en_US'
-                return field_value.get(lang) or field_value.get('en_US') or next(iter(field_value.values()), '')
-            return field_value or ''
-
         displayed_types = self._complete_name_displayed_types
         type_description = dict(self._fields['type']._description_selection(self.env))
+        current_lang = self.env.lang or 'en_US'
 
-        # Прилагаме защитата върху името
-        name = _get_lang_value(self.name)
+        name = self._get_field_value_for_lang('name', lang=current_lang)
 
         if self.company_name or self.parent_id:
             if not name and self.type in displayed_types:
                 name = type_description.get(self.type, "")
             if not self.is_company:
-                # Прилагаме защитата и тук за родителските полета
-                commercial = _get_lang_value(self.commercial_company_name)
-                # Запазваме текущия език при sudo()
-                current_lang = self.env.lang or 'en_US'
-                parent_name = _get_lang_value(self.sudo().with_context(lang=current_lang).parent_id.name)
+                commercial = self._get_field_value_for_lang('commercial_company_name', lang=current_lang)
+                parent_name = self.sudo().with_context(lang=current_lang)._get_field_value_for_lang('name', lang=current_lang)
                 name = f"{commercial or parent_name}, {name}"
 
-        return name.strip()
+        return (name or '').strip()
 
     @api.model_create_multi
     def create(self, vals_list):

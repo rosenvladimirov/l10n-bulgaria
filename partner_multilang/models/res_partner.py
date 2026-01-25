@@ -272,18 +272,19 @@ class Partner(models.Model):
         if field_name not in self._fields:
             return ''
 
-        field_value = getattr(self, field_name, None)
-        if not field_value:
-            return ''
-
-        if isinstance(field_value, dict):
-            value = field_value.get(lang)
+        field = self._fields[field_name]
+        if field.translate is True:
+            stored = field._get_stored_translations(self)
+            if not isinstance(stored, dict):
+                return ''
+            value = stored.get(lang) or stored.get(f'_{lang}')
             if value:
                 return value
             if lang != 'en_US':
-                return field_value.get('en_US') or ''
+                return stored.get('en_US') or stored.get('_en_US') or ''
             return ''
 
+        field_value = getattr(self, field_name, None)
         return str(field_value) if field_value else ''
 
     @api.model_create_multi

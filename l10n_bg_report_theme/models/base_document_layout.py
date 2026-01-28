@@ -2,7 +2,7 @@
 
 import logging
 from markupsafe import Markup
-from odoo import api, fields, models
+from odoo import Command, api, fields, models
 from odoo.addons.l10n_bg_report_theme.wizards.base_document_layout_colors import get_odoo_home_scss_dir, \
     get_scss_file_path, copy_scss_to_home
 from odoo import tools

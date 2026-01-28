@@ -1,4 +1,0 @@
-[submodule "l10n-bulgaria-ee"]
-	path = l10n-bulgaria-ee
-	url = git@github.com:rosenvladimirov/l10n-bulgaria-ee.git
-	branch = 18.0

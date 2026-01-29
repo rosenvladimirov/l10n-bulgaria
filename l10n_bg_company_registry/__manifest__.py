@@ -83,6 +83,7 @@ Version: 18.0.2.0.1 (December 2025)
     ],
     'data': [
         'security/ir.model.access.csv',
+        'data/ir_actions_server.xml',
         'views/res_partner_views.xml',
         'wizard/bg_company_search_wizard_views.xml',
     ],

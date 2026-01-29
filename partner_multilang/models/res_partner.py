@@ -143,23 +143,65 @@ class Partner(models.Model):
         return None
 
     @api.model
-    def _search_multi_lang(self, operator, value, field_list=None):
+    def _search_multi_lang(self, operator, value, field_list=None, limit=None):
         if not value or not field_list:
             return []
 
         lang_codes = self._get_active_lang_codes()
-        domains = []
+        if not lang_codes:
+            return []
 
+        positive_operator = self._positive_search_operator(operator)
+        ids = set()
+        for lang_code in lang_codes:
+            lang_domain = []
+            for field_name in field_list:
+                field = self._fields.get(field_name)
+                if not field or not field.translate:
+                    continue
+                lang_domain.append([(field_name, positive_operator, value)])
+            if not lang_domain:
+                continue
+            records = self.with_context(lang=lang_code).search(
+                expression.OR(lang_domain),
+                limit=limit,
+            )
+            ids.update(records.ids)
+
+        if not ids:
+            return []
+
+        if operator in expression.NEGATIVE_TERM_OPERATORS:
+            return [('id', 'not in', list(ids))]
+        return [('id', 'in', list(ids))]
+
+    @api.model
+    def _get_translatable_search_domains(self, operator, value, field_list, lang_codes, limit=None):
+        ids = set()
+        positive_operator = self._positive_search_operator(operator)
         for field_name in field_list:
             field = self._fields.get(field_name)
             if not field or not field.translate:
                 continue
 
-            domains.append([(field_name, operator, value)])
             for lang_code in lang_codes:
-                domains.append([(f"{field_name}.{lang_code}", operator, value)])
+                records = self.with_context(lang=lang_code).search(
+                    [(field_name, positive_operator, value)],
+                    limit=limit,
+                )
+                ids.update(records.ids)
 
-        return expression.OR(domains) if domains else []
+        return ids
+
+    @api.model
+    def _positive_search_operator(self, operator):
+        if operator in ('not ilike', 'not like'):
+            return operator[4:]
+        if operator in ('!=', '<>'):
+            return '='
+        if operator == 'not in':
+            return 'in'
+        return operator
 
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
@@ -174,7 +216,7 @@ class Partner(models.Model):
         search_fields = self._get_translatable_search_fields()
 
         # Генерираме многоезичен домейн
-        multi_lang_domain = self._search_multi_lang(operator, name, search_fields)
+        multi_lang_domain = self._search_multi_lang(operator, name, search_fields, limit=limit)
         if not multi_lang_domain:
             return base_results
 
@@ -210,19 +252,22 @@ class Partner(models.Model):
         if not lang_codes:
             return domain
 
-        aggregator = expression.AND if operator in expression.NEGATIVE_TERM_OPERATORS else expression.OR
-        extra_domains = []
-        for field_name in search_fnames:
-            field = self._resolve_translatable_field(field_name)
-            if not field:
-                continue
-            for lang_code in lang_codes:
-                extra_domains.append([(f"{field_name}.{lang_code}", operator, value)])
-
-        if not extra_domains:
+        search_fields = [fname for fname in search_fnames if self._resolve_translatable_field(fname)]
+        if not search_fields:
             return domain
 
-        return aggregator([domain] + extra_domains)
+        ids = self._get_translatable_search_domains(
+            operator,
+            value,
+            search_fields,
+            lang_codes,
+        )
+        if not ids:
+            return domain
+
+        if operator in expression.NEGATIVE_TERM_OPERATORS:
+            return expression.AND([domain, [('id', 'not in', list(ids))]])
+        return expression.OR([domain, [('id', 'in', list(ids))]])
 
     @api.model_create_multi
     def create(self, vals_list):

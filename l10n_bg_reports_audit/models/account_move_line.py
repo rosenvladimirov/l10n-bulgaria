@@ -31,7 +31,14 @@ class AccountMoveLine(models.Model):
                 and line.balance < 0
             )
             if is_receivable or is_payable:
-                line.tax_tag_ids = line.tax_tag_ids | tax_group.l10n_bg_tax_tag_ids
+                is_negative = line.balance < 0
+                matched_tags = tax_group.l10n_bg_tax_tag_ids.filtered(
+                    lambda tag: (
+                        (is_negative and (tag.tax_negate or (tag.name and tag.name.startswith("-"))))
+                        or (not is_negative and (not tag.tax_negate and tag.name and tag.name.startswith("+")))
+                    )
+                )
+                line.tax_tag_ids = line.tax_tag_ids | matched_tags
 
     def init(self):
         super().init()

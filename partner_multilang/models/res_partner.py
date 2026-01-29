@@ -143,6 +143,34 @@ class Partner(models.Model):
         return None
 
     @api.model
+    def _strip_lang_suffix_in_domain(self, domain):
+        if not domain:
+            return domain
+        lang_codes = set(self._get_active_lang_codes())
+        if not lang_codes:
+            return domain
+
+        def _strip(tokens):
+            cleaned = []
+            for token in tokens:
+                if isinstance(token, (list, tuple)) and len(token) >= 3:
+                    field_name = token[0]
+                    if isinstance(field_name, str) and '.' in field_name:
+                        base, suffix = field_name.split('.', 1)
+                        if suffix in lang_codes:
+                            field = self._fields.get(base)
+                            if field and field.translate and not field.relational:
+                                token = (base,) + tuple(token[1:])
+                    cleaned.append(token)
+                elif isinstance(token, list):
+                    cleaned.append(_strip(token))
+                else:
+                    cleaned.append(token)
+            return cleaned
+
+        return _strip(domain)
+
+    @api.model
     def _search_multi_lang(self, operator, value, field_list=None, limit=None):
         if not value or not field_list:
             return []
@@ -239,6 +267,7 @@ class Partner(models.Model):
     @api.model
     def _search_display_name(self, operator, value):
         domain = super()._search_display_name(operator, value)
+        domain = self._strip_lang_suffix_in_domain(domain)
         search_fnames = list(self._rec_names_search or ([self._rec_name] if self._rec_name else []))
         if not search_fnames:
             return domain

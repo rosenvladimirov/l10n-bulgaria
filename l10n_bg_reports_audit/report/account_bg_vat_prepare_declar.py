@@ -25,35 +25,37 @@ class AccountBGResultDeclar(models.Model):
     )
     move_id = fields.Many2one("account.move", string="Account Move", readonly=True)
     account_tag_50 = fields.Monetary(
-        string="[01-50] VAT to pay", currency_field="company_currency_id", readonly=True
+        string="[01-50] VAT to pay (cell 20 - cell 40) >= 0",
+        currency_field="company_currency_id",
+        readonly=True,
     )
     account_tag_60 = fields.Monetary(
-        string="[01-60] VAT recovery",
+        string="[01-60] VAT for refund (cell 20 - cell 40)",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_70 = fields.Monetary(
-        string="[01-70] Tax for pay from cell[50], deducted in accordance with art. 92, para. 1 VAT",
+        string="[01-70] Tax to pay from cell 50, deducted under Art. 92(1) VAT Act",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_71 = fields.Monetary(
-        string="[01-71] Tax for pay of cell[50], effectively imported",
+        string="[01-71] Tax to pay from cell 50, paid effectively",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_80 = fields.Monetary(
-        string="[01-80] Pursuant to Art. 92, Para. 1 VAT within 30 days from the submission of this declaration",
+        string="[01-80] VAT subject to refund under Art. 92(1) VAT Act within 30 days from submission",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_81 = fields.Monetary(
-        string="[01-81] Pursuant to Art. 92, Para. 3 VAT within 30 days from the submission of this declaration",
+        string="[01-81] VAT subject to refund under Art. 92(3) VAT Act within 30 days from submission",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_82 = fields.Monetary(
-        string="[01-82] Pursuant to Art. 92, para. 4 VAT within 30 days from the submission of this declaration",
+        string="[01-82] VAT subject to refund under Art. 92(4) VAT Act within 30 days from submission",
         currency_field="company_currency_id",
         readonly=True,
     )

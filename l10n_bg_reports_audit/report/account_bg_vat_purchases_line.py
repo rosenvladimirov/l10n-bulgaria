@@ -37,56 +37,89 @@ class AccountBGInfoPurchasesLine(models.Model):
     id = fields.Integer(string="ID", readonly=True, related="move_id.id")
     partner_id = fields.Many2one("res.partner", "Customer", readonly=True)
 
-    info_tag_1 = fields.Char(string="[02-01] Tax period", readonly=True)
-    info_tag_2 = fields.Char(string="[02-02] TIN", readonly=True)
-    info_tag_3 = fields.Integer(string="[02-03] Office", readonly=True)
-    info_tag_4 = fields.Integer(string="[02-04] Counter", readonly=True)
-    info_tag_5 = fields.Selection(
-        selection=get_doc_type(), string="[02-05] Vat type document", readonly=True
+    info_tag_1 = fields.Char(
+        string="[03-01] Tax period",
+        help="Controls and rules: yes",
+        readonly=True,
     )
-    info_tag_6 = fields.Char(string="[02-06] Document number", readonly=True)
-    info_tag_7 = fields.Date(string="[02-07] Document date", readonly=True)
-    info_tag_8 = fields.Char(string="[02-08] Partner VAT", readonly=True)
-    info_tag_9 = fields.Char(string="[02-09] Partner name", readonly=True)
+    info_tag_2 = fields.Char(
+        string="[03-02] VAT identification number of the person",
+        help="Controls and rules: yes",
+        readonly=True,
+    )
+    info_tag_3 = fields.Integer(
+        string="[03-03] Branch/separate unit",
+        readonly=True,
+    )
+    info_tag_4 = fields.Integer(
+        string="[03-04] Sequential document number in the journal",
+        readonly=True,
+    )
+    info_tag_5 = fields.Selection(
+        selection=get_doc_type(),
+        string="[03-05] Document type",
+        readonly=True,
+    )
+    info_tag_6 = fields.Char(string="[03-06] Document number", readonly=True)
+    info_tag_7 = fields.Date(string="[03-07] Document date", readonly=True)
+    info_tag_8 = fields.Char(
+        string="[03-08] Counterparty (supplier) VAT ID",
+        readonly=True,
+    )
+    info_tag_9 = fields.Char(
+        string="[03-09] Counterparty (supplier) name",
+        readonly=True,
+    )
     info_tag_10 = fields.Char(
-        string="[02-10] Narration for audit report", readonly=True
+        string="[03-10] Type of goods or scope and type of service - exact description according to the document",
+        readonly=True,
     )
     info_tag_45 = fields.Selection(
-        selection=get_delivery_type(), string="[02-45] Vat type delivery", readonly=True
+        selection=get_delivery_type(),
+        string="[03-45] Supply under Art. 163a or import under Art. 167a of the VAT Act",
+        help="Controls and rules: no",
+        readonly=True,
     )
 
     account_tag_30 = fields.Monetary(
-        string="[03-30] Base without tax credit",
+        string="[03-30] Tax base and tax of received supplies, ICAs, received supplies under Art. 82(2)-(5) VAT Act and imports without tax credit or without tax",
+        help="Controls and rules: yes",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_31 = fields.Monetary(
-        string="[03-31] Base full tax credit",
+        string="[03-31] Tax base of received supplies, ICAs, received supplies under Art. 82(2)-(5) VAT Act, imports, and tax base of received supplies used for supplies under Art. 69(2) VAT Act with full tax credit",
+        help="Controls and rules: yes",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_41 = fields.Monetary(
-        string="[03-41] VAT full tax credit",
+        string="[03-41] VAT with full tax credit",
+        help="Controls and rules: yes",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_32 = fields.Monetary(
-        string="[03-32] Base partly tax credit",
+        string="[03-32] Tax base of received supplies, ICAs, received supplies under Art. 82(2)-(5) VAT Act, imports, and tax base of received supplies used for supplies under Art. 69(2) VAT Act with partial tax credit",
+        help="Controls and rules: yes",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_42 = fields.Monetary(
-        string="[03-42] VAT partly tax credit",
+        string="[03-42] VAT with partial tax credit",
+        help="Controls and rules: yes",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_43 = fields.Monetary(
-        string="[03-43] Annual adjustment - art. 73, paragraph 8",
+        string="[03-43] Annual adjustment under Art. 73(8) VAT Act",
+        help="Controls and rules: yes",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_44 = fields.Monetary(
-        string="[03-44] Base when acquiring goods from an intermediary in a tripartite operation",
+        string="[03-44] Tax base on acquisition of goods from an intermediary in a triangular transaction",
+        help="Controls and rules: yes",
         currency_field="company_currency_id",
         readonly=True,
     )
@@ -195,39 +228,50 @@ class AccountBGCalcPurchasesLine(models.Model):
         string="Status",
         readonly=True,
     )
-    info_tag_1 = fields.Char(string="[03-01] Tax period", readonly=True)
+    info_tag_1 = fields.Char(
+        string="[03-01] Tax period",
+        help="Controls and rules: yes",
+        readonly=True,
+    )
     account_tag_30 = fields.Monetary(
-        string="[03-30] Base without tax credit",
+        string="[03-30] Tax base and tax of received supplies, ICAs, received supplies under Art. 82(2)-(5) VAT Act and imports without tax credit or without tax",
+        help="Controls and rules: yes",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_31 = fields.Monetary(
-        string="[03-31] Base full tax credit",
+        string="[03-31] Tax base of received supplies, ICAs, received supplies under Art. 82(2)-(5) VAT Act, imports, and tax base of received supplies used for supplies under Art. 69(2) VAT Act with full tax credit",
+        help="Controls and rules: yes",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_41 = fields.Monetary(
-        string="[03-41] VAT full tax credit",
+        string="[03-41] VAT with full tax credit",
+        help="Controls and rules: yes",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_32 = fields.Monetary(
-        string="[03-32] Base partly tax credit",
+        string="[03-32] Tax base of received supplies, ICAs, received supplies under Art. 82(2)-(5) VAT Act, imports, and tax base of received supplies used for supplies under Art. 69(2) VAT Act with partial tax credit",
+        help="Controls and rules: yes",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_42 = fields.Monetary(
-        string="[03-42] VAT partly tax credit",
+        string="[03-42] VAT with partial tax credit",
+        help="Controls and rules: yes",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_43 = fields.Monetary(
-        string="[03-43] Annual adjustment - art. 73, paragraph 8",
+        string="[03-43] Annual adjustment under Art. 73(8) VAT Act",
+        help="Controls and rules: yes",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_44 = fields.Monetary(
-        string="[03-44] Base when acquiring goods from an intermediary in a tripartite operation",
+        string="[03-44] Tax base on acquisition of goods from an intermediary in a triangular transaction",
+        help="Controls and rules: yes",
         currency_field="company_currency_id",
         readonly=True,
     )

@@ -57,110 +57,153 @@ class AccountBGInfoSaleLine(models.Model):
         string="Status",
         readonly=True,
     )
-    info_tag_0 = fields.Char(string="TIN", readonly=True)
-    info_tag_1 = fields.Char(string="[02-01] Tax period", readonly=True)
-    info_tag_2 = fields.Integer(string="Office", readonly=True)
-    info_tag_3 = fields.Integer(string="Counter", readonly=True)
-    info_tag_4 = fields.Selection(
-        selection=get_doc_type, string="Vat type document", readonly=True
+    info_tag_0 = fields.Char(
+        string="[02-00] VAT identification number of the person",
+        help="Controls and rules: yes",
+        readonly=True,
     )
-    info_tag_5 = fields.Char(string="Document number", readonly=True)
-    info_tag_6 = fields.Date(string="Document date", readonly=True)
-    info_tag_7 = fields.Char(string="Partner TIN", readonly=True)
-    info_tag_8 = fields.Char(string="Partner name", readonly=True)
-    info_tag_9 = fields.Char(string="Narration for audit report", readonly=True)
+    info_tag_1 = fields.Char(
+        string="[02-01] Tax period",
+        help="Controls and rules: yes",
+        readonly=True,
+    )
+    info_tag_2 = fields.Integer(
+        string="[02-02] Branch/separate unit",
+        readonly=True,
+    )
+    info_tag_3 = fields.Integer(
+        string="[02-03] Sequential document number in the journal",
+        readonly=True,
+    )
+    info_tag_4 = fields.Selection(
+        selection=get_doc_type,
+        string="[02-04] Document type",
+        help="Controls and rules: no",
+        readonly=True,
+    )
+    info_tag_5 = fields.Char(
+        string="[02-05] Document number",
+        help="Controls and rules: no",
+        readonly=True,
+    )
+    info_tag_6 = fields.Date(
+        string="[02-06] Document date",
+        help="Controls and rules: no",
+        readonly=True,
+    )
+    info_tag_7 = fields.Char(
+        string="[02-07] Counterparty (recipient) VAT ID",
+        help="Controls and rules: no",
+        readonly=True,
+    )
+    info_tag_8 = fields.Char(
+        string="[02-08] Counterparty (recipient) name",
+        help="Controls and rules: no",
+        readonly=True,
+    )
+    info_tag_9 = fields.Char(
+        string="[02-09] Type of goods or scope and type of service - exact description according to the document",
+        help="Controls and rules: no",
+        readonly=True,
+    )
     info_tag_27 = fields.Char(
-        string="Delivery according to Art. 163a or import under Art. 167a of the VAT",
+        string="[02-27] Supply under Art. 163a or import under Art. 167a of the VAT Act",
         readonly=True,
     )
     account_tag_9 = fields.Monetary(
-        string="[02-9] Total amount of VAT charged",
+        string="Sum of tax bases",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_10 = fields.Monetary(
-        string="[02-10] Total amount of VAT charged",
+        string="[02-10] Total amount of tax bases subject to VAT",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_20 = fields.Monetary(
-        string="[02-20] All VAT charged",
+        string="[02-20] Total VAT charged",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_11 = fields.Monetary(
-        string="[02-11] Base for taxation with 20%",
+        string="[02-11] Tax base of taxable supplies at 20%, including distance sales with place of supply in the country",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_21 = fields.Monetary(
-        string="[02-21] VAT 20%", currency_field="company_currency_id", readonly=True
+        string="[02-21] VAT charged 20%",
+        currency_field="company_currency_id",
+        readonly=True,
     )
     account_tag_12 = fields.Monetary(
-        string="[02-12] Base ICA", currency_field="company_currency_id", readonly=True
+        string="[02-12] Tax base of ICAs",
+        help="Controls and rules: yes",
+        currency_field="company_currency_id",
+        readonly=True,
     )
     account_tag_121 = fields.Monetary(
-        string="[02-12-1] Base ICA (1)",
+        string="[02-12-1] Tax base of ICAs",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_122 = fields.Monetary(
-        string="[02-12-2] Base ICA (2)",
+        string="[02-12-2] Tax base of ICAs",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_26 = fields.Monetary(
-        string="[02-26] Base art. 82, paragraphs 2-5",
+        string="[02-26] Tax base of received supplies under Art. 82(2)-(5) VAT Act",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_22 = fields.Monetary(
-        string="[02-22] VAT ICA and art. 82, par. 2-5",
+        string="[02-22] VAT charged for ICAs and received supplies under Art. 82(2)-(5) VAT Act",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_23 = fields.Monetary(
-        string="[02-23] VAT-personal needs",
+        string="[02-23] VAT charged for supplies of goods and services for personal needs",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_14 = fields.Monetary(
-        string="[02-14] Base export 0%",
+        string="[02-14] Tax base of supplies at 0% under Chapter Three of the VAT Act",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_15 = fields.Monetary(
-        string="[02-15] Base ICD of goods 0%",
+        string="[02-15] Tax base of supplies at 0% for intra-Community supply of goods",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_16 = fields.Monetary(
-        string="[02-16] Base 0% under Art. 140, par, 1 and Art. 173",
+        string="[02-16] Tax base of supplies at 0% under Art. 140, Art. 146(1), and Art. 173 VAT Act",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_17 = fields.Monetary(
         readonly=True,
-        string="[02-17] Base under Art. 21 on the territory of the EU",
+        string="[02-17] Tax base of supplies of services under Art. 21(2) VAT Act with place of supply in another Member State",
         currency_field="company_currency_id",
     )
     account_tag_18 = fields.Monetary(
-        string="[02-18] Base under Art. 69, paragraph 2 on the territory of the EU",
+        string="[02-18] Tax base of supplies under Art. 69(2) VAT Act, including distance sales with place of supply in another Member State",
+        help="Controls and rules: yes",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_19 = fields.Monetary(
-        string="[02-19] Base educated and ICA",
+        string="[02-19] Tax base of exempt supplies and exempt ICAs",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_24 = fields.Monetary(
-        string="[02-24] VAT-tourist services 9%",
+        string="[02-24] VAT charged 9%",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_25 = fields.Monetary(
-        string="[02-25] TO-trilateral operations",
+        string="[02-25] Tax base of supplies as an intermediary in triangular transactions",
         currency_field="company_currency_id",
         readonly=True,
     )
@@ -264,7 +307,11 @@ class AccountBGCalcSalesLine(models.Model):
     date = fields.Date(related="move_id.date", readonly=True)
     partner_id = fields.Many2one("res.partner", "Customer", readonly=True)
 
-    info_tag_1 = fields.Char(string="[02-01] Tax period", readonly=True)
+    info_tag_1 = fields.Char(
+        string="[02-01] Tax period",
+        help="Controls and rules: yes",
+        readonly=True,
+    )
     state = fields.Selection(
         [
             ("draft", "Draft"),
@@ -275,83 +322,89 @@ class AccountBGCalcSalesLine(models.Model):
         readonly=True,
     )
     account_tag_20 = fields.Monetary(
-        string="[02-20] All VAT charged",
+        string="[02-20] Total VAT charged",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_11 = fields.Monetary(
-        string="[02-11] Base for taxation with 20%",
+        string="[02-11] Tax base of taxable supplies at 20%, including distance sales with place of supply in the country",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_21 = fields.Monetary(
-        string="[02-21] VAT 20%", currency_field="company_currency_id", readonly=True
+        string="[02-21] VAT charged 20%",
+        currency_field="company_currency_id",
+        readonly=True,
     )
     account_tag_12 = fields.Monetary(
-        string="[02-12] Base ICA", currency_field="company_currency_id", readonly=True
+        string="[02-12] Tax base of ICAs",
+        help="Controls and rules: yes",
+        currency_field="company_currency_id",
+        readonly=True,
     )
     account_tag_121 = fields.Monetary(
-        string="[02-12-1] Base ICA (1)",
+        string="[02-12-1] Tax base of ICAs",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_122 = fields.Monetary(
-        string="[02-12-2] Base ICA (2)",
+        string="[02-12-2] Tax base of ICAs",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_26 = fields.Monetary(
-        string="[02-26] Base art. 82, paragraphs 2-5",
+        string="[02-26] Tax base of received supplies under Art. 82(2)-(5) VAT Act",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_22 = fields.Monetary(
-        string="[02-22] VAT ICA and art. 82, par. 2-5",
+        string="[02-22] VAT charged for ICAs and received supplies under Art. 82(2)-(5) VAT Act",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_23 = fields.Monetary(
-        string="[02-23] VAT-personal needs",
+        string="[02-23] VAT charged for supplies of goods and services for personal needs",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_14 = fields.Monetary(
-        string="[02-14] Base export 0%",
+        string="[02-14] Tax base of supplies at 0% under Chapter Three of the VAT Act",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_15 = fields.Monetary(
-        string="[02-15] Base ICD of goods 0%",
+        string="[02-15] Tax base of supplies at 0% for intra-Community supply of goods",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_16 = fields.Monetary(
-        string="[02-16] Base 0% under Art. 140, par, 1 and Art. 173",
+        string="[02-16] Tax base of supplies at 0% under Art. 140, Art. 146(1), and Art. 173 VAT Act",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_17 = fields.Monetary(
         readonly=True,
-        string="[02-17] Base under Art. 21 on the territory of the EU",
+        string="[02-17] Tax base of supplies of services under Art. 21(2) VAT Act with place of supply in another Member State",
         currency_field="company_currency_id",
     )
     account_tag_18 = fields.Monetary(
-        string="[02-18] Base under Art. 69, paragraph 2 on the territory of the EU",
+        string="[02-18] Tax base of supplies under Art. 69(2) VAT Act, including distance sales with place of supply in another Member State",
+        help="Controls and rules: yes",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_19 = fields.Monetary(
-        string="[02-19] Base educated and ICA",
+        string="[02-19] Tax base of exempt supplies and exempt ICAs",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_24 = fields.Monetary(
-        string="[02-24] VAT-tourist services 9%",
+        string="[02-24] VAT charged 9%",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_25 = fields.Monetary(
-        string="[02-25] TO-trilateral operations",
+        string="[02-25] Tax base of supplies as an intermediary in triangular transactions",
         currency_field="company_currency_id",
         readonly=True,
     )

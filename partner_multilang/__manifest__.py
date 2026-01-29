@@ -1,6 +1,6 @@
 {
     "name": "Partner Multilang",
-    "version": '18.0.2.0.3',
+    "version": '18.0.3.0.1',
     "license": "AGPL-3",
     "category": "Localization",
     "author": "Rosen Vladimirov, Odoo Community Association (OCA)",
@@ -345,6 +345,7 @@ international compatibility while preserving native language data.
     ],
     "data": [
         "views/res_lang_views.xml",
+        "views/res_config_settings_view.xml",
     ],
     'images': [
         'static/description/banner.png',

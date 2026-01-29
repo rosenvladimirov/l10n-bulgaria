@@ -191,6 +191,45 @@ class ResTransliterate(models.AbstractModel):
     def _get_transliterate_fields(self):
         return ['name']
 
+    def _get_active_lang_codes(self):
+        lang_codes = [
+            lang['code']
+            for lang in self.env['res.lang'].sudo().search_read([('active', '=', True)], ['code'])
+        ]
+        if 'en_US' not in lang_codes:
+            lang_codes.append('en_US')
+        return lang_codes
+
+    def _should_copy_all_languages(self):
+        if self._name != "res.partner":
+            return False
+        bg_country = self.env.ref("base.bg", raise_if_not_found=False)
+        if not bg_country:
+            return False
+        company = self.env.company
+        return bool(company.country_id and company.country_id.id == bg_country.id and not company.transliterate_names)
+
+    def _is_transliteration_allowed(self):
+        self.ensure_one()
+        if self._name == "res.company":
+            return bool(self.transliterate_names)
+
+        company = self.env.company
+        if not company.transliterate_names:
+            return False
+
+        if self._name == "res.partner":
+            bg_country = self.env.ref("base.bg", raise_if_not_found=False)
+            bg_country_id = bg_country.id if bg_country else False
+            company_country_id = company.country_id.id if company.country_id else False
+            partner_country_id = self.country_id.id if self.country_id else False
+            if bg_country_id and company_country_id == bg_country_id and partner_country_id == bg_country_id:
+                if company.partner_id and self.id == company.partner_id.id:
+                    return True
+                return False
+
+        return True
+
     def _check_lang(self, text):
         """
         Checks and determines the language of the given text and whether transliteration
@@ -275,6 +314,23 @@ class ResTransliterate(models.AbstractModel):
         ]
 
         if not fields_to_process:
+            return
+
+        if not self._is_transliteration_allowed():
+            if self._should_copy_all_languages():
+                tracking = dict(self.transliterate_tracking or {})
+                lang_codes = self._get_active_lang_codes()
+                for field_name in fields_to_process:
+                    if field_name != "name":
+                        continue
+                    value = vals.get(field_name)
+                    if not value:
+                        continue
+                    for lang_code in lang_codes:
+                        self.with_context(lang=lang_code, update_lang=True).write({field_name: value})
+                    tracking.pop(field_name, None)
+                if tracking != (self.transliterate_tracking or {}):
+                    self.with_context(update_lang=True).write({'transliterate_tracking': tracking})
             return
 
         # Вземи текущия tracking dict

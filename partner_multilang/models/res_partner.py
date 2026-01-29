@@ -147,6 +147,12 @@ class Partner(models.Model):
         if not domain:
             return domain
         lang_codes = set(self._get_active_lang_codes())
+        context_lang = self.env.context.get('lang')
+        if context_lang:
+            lang_codes.add(context_lang)
+        user_lang = self.env.user.lang
+        if user_lang:
+            lang_codes.add(user_lang)
         if not lang_codes:
             return domain
 

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_populate_bg_registry_data" model="ir.actions.server">
+        <field name="name">Populate BG Registry Data</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="binding_type">action</field>
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+Wizard = env["bg.company.search.wizard"]
+
+partners = records
+if not partners:
+    partners = env["res.partner"].search([
+        ("is_company", "=", True),
+        ("vat", "ilike", "BG%"),
+    ])
+
+partners = partners.filtered(lambda p: p.is_company and p.vat and "BG" in p.vat.upper())
+
+for partner in partners:
+    vat = (partner.vat or "").strip()
+    if not vat:
+        continue
+
+    partner.write({"vat": vat})
+
+    eik = Wizard._extract_eik_from_vat(vat)
+    if not eik:
+        log("Skip %s (%s): invalid VAT/EIK %s" % (partner.id, partner.display_name, vat), level="warning")
+        continue
+
+    wiz = Wizard.create({
+        "partner_id": partner.id,
+        "eik": vat,
+    })
+
+    try:
+        wiz.action_fetch_data()
+        wiz.action_populate_partner()
+        log("OK %s (%s)" % (partner.id, partner.display_name), level="info")
+    except Exception as exc:
+        log("ERR %s (%s): %s" % (partner.id, partner.display_name, exc), level="error")
+        ]]></field>
+    </record>
+</odoo>

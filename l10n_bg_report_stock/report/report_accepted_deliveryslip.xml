@@ -25,12 +25,12 @@
                 </t>
 
                 <t t-if="o.state == 'done'">
-                    <t t-set="name_label">
+                    <t t-set="layout_document_title">
                         Accepted delivery report #
                     </t>
                 </t>
                 <t t-else="">
-                    <t t-set="name_label">
+                    <t t-set="layout_document_title">
                         Delivery slip #
                     </t>
                 </t>

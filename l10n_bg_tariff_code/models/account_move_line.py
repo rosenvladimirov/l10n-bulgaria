@@ -197,7 +197,15 @@ class AccountMoveLine(models.Model):
 
         return False
 
-    @api.depends('l10n_bg_tariff_code', 'product_id', 'l10n_bg_tariff_rate_manual')
+    @api.depends(
+        'l10n_bg_tariff_code',
+        'product_id',
+        'product_id.product_tmpl_id.l10n_bg_tariff_rate',
+        'product_id.product_tmpl_id.l10n_bg_tariff_last_update',
+        'product_id.product_tmpl_id.l10n_bg_tariff_description',
+        'l10n_bg_tariff_rate_manual',
+        'l10n_bg_tariff_rate_is_manual',
+    )
     def _compute_l10n_bg_tariff_rate(self):
         """Автоматично търси тарифната ставка в ЕС ТАРИК използвайки REST API"""
         for line in self:
@@ -216,13 +224,25 @@ class AccountMoveLine(models.Model):
                 line.l10n_bg_tariff_rate = 0.0
                 continue
 
+            company = line.company_id or self.env.company
+            cache_duration = company.l10n_bg_taric_cache_duration * 3600
+
+            product_tmpl = line.product_id.product_tmpl_id if line.product_id else False
+            if product_tmpl and product_tmpl.l10n_bg_tariff_last_update:
+                product_age = (fields.Datetime.now() - product_tmpl.l10n_bg_tariff_last_update).total_seconds()
+                if (product_tmpl.l10n_bg_tariff_rate not in (False, 0.0) and
+                        product_age < cache_duration):
+                    line.l10n_bg_tariff_rate = product_tmpl.l10n_bg_tariff_rate
+                    line.l10n_bg_tariff_last_update = product_tmpl.l10n_bg_tariff_last_update
+                    if product_tmpl.l10n_bg_tariff_description:
+                        line.l10n_bg_tariff_description = product_tmpl.l10n_bg_tariff_description
+                    continue
+
             if not line.l10n_bg_tariff_code:
                 line.l10n_bg_tariff_rate = 0.0
                 continue
 
             # Проверяваме дали имаме кеширана стойност
-            company = line.company_id or self.env.company
-            cache_duration = company.l10n_bg_taric_cache_duration * 3600
 
             if (line.l10n_bg_tariff_last_update and
                 line.l10n_bg_tariff_rate is not False and

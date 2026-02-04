@@ -1,0 +1,2 @@
+- Odoo SA
+- Rosen Vladimirov \<<vladimirov.rosen@gmail.com>\>

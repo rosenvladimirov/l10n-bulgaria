@@ -45,8 +45,47 @@ class AccountMove(models.Model):
         store=True,
         readonly=False,
     )
+    l10n_bg_tax_tag_id = fields.Many2one(
+        comodel_name="account.account.tag",
+        string="BG tax tag",
+        help=(
+            "Additional tax tag to apply on tax lines when the tax group has "
+            "payable/receivable accounts set."
+        ),
+    )
+    l10n_bg_tax_partner_id = fields.Many2one(
+        comodel_name="res.partner",
+        string="BG tax partner",
+        help="Partner to set on tax lines when the BG tax tag is applied.",
+    )
 
     # Override на selection метода за l10n_bg_document_type
     def _l10n_bg_document_type_selection_values(self):
         """Override: Разширен списък с типове документи"""
         return get_doc_type()
+
+    def write(self, vals):
+        track_tag = 'l10n_bg_tax_tag_id' in vals
+        track_partner = 'l10n_bg_tax_partner_id' in vals
+        old_tags = {}
+        old_partners = {}
+        if track_tag or track_partner:
+            for move in self:
+                old_tags[move.id] = move.l10n_bg_tax_tag_id
+                old_partners[move.id] = move.l10n_bg_tax_partner_id
+        res = super().write(vals)
+        if track_tag or track_partner:
+            for move in self:
+                old_tag = old_tags.get(move.id)
+                new_tag = move.l10n_bg_tax_tag_id
+                old_partner = old_partners.get(move.id)
+                new_partner = move.l10n_bg_tax_partner_id
+                if track_tag and old_tag and old_tag != new_tag:
+                    move.line_ids._l10n_bg_remove_tax_tag(old_tag)
+                if track_tag and new_tag and old_tag != new_tag:
+                    move.line_ids._l10n_bg_apply_tax_tag(new_tag, update_partner=False)
+                if track_partner and old_partner != new_partner:
+                    if new_tag:
+                        target_partner = new_partner or move.partner_id
+                        move.line_ids._l10n_bg_reset_tax_partner(new_tag, target_partner)
+        return res

@@ -13,6 +13,8 @@
                 <field name="l10n_bg_date" />
                 <field name="l10n_bg_narration" />
                 <field name="l10n_bg_type_vat" />
+                <field name="l10n_bg_tax_tag_id" />
+                <field name="l10n_bg_tax_partner_id" />
                 <field name="l10n_bg_doc_type" invisible="1" force_save="1" />
                 <field name="l10n_bg_delivery_type" invisible="1" force_save="1" />
             </xpath>
@@ -32,6 +34,8 @@
                 <field name="l10n_bg_date" />
                 <field name="l10n_bg_narration" />
                 <field name="l10n_bg_type_vat" />
+                <field name="l10n_bg_tax_tag_id" />
+                <field name="l10n_bg_tax_partner_id" />
                 <field string="Document Type" name="l10n_bg_document_type"/>
                 <field string="Exemption reason" name="l10n_bg_exemption_reason"/>
                 <field name="l10n_bg_doc_type" invisible="1" force_save="1" />

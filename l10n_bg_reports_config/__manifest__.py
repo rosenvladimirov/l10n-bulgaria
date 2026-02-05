@@ -28,7 +28,6 @@
         "views/account_bg_partner.xml",
         "views/account_bg_products.xml",
         "views/account_account_tag_views.xml",
-        "views/account_tax_group_views.xml",
         "views/product_view.xml",
         "views/res_partner.xml",
         "views/account_move_views.xml",

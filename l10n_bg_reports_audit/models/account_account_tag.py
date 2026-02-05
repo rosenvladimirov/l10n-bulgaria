@@ -14,6 +14,11 @@ class AccountAccountTag(models.Model):
     l10n_bg_code = fields.Char(
         "Code", compute="_compute_l10n_bg_code", help="A technical field for tag code"
     )
+    l10n_bg_tax_partner_id = fields.Many2one(
+        comodel_name="res.partner",
+        string="BG tax partner",
+        help="Partner to set on tax lines when the BG tax tag is applied.",
+    )
     applicability = fields.Selection(
         selection_add=[
             ("l10n_bg_partner", "BG-NSI Usage for Partners"),

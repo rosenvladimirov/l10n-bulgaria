@@ -10,18 +10,47 @@ class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
     def _l10n_bg_apply_tax_tag(self, tag=False, partner=False, update_partner=True):
+        _logger.info(
+            "Start BG tax tag apply on %s lines (tag=%s, partner=%s, update_partner=%s)",
+            len(self),
+            tag.id if tag else False,
+            partner.id if partner else False,
+            update_partner,
+        )
         # Applies tax tag to line when conditions are met
         for line in self:
             tax_line = line.tax_line_id
-            if not tax_line:
+            tax_group = tax_line.tax_group_id if tax_line else False
+            if not tax_group:
+                tax_group = self.env["account.tax.group"].search(
+                    [
+                        "|",
+                        ("tax_receivable_account_id", "=", line.account_id.id),
+                        ("tax_payable_account_id", "=", line.account_id.id),
+                    ],
+                    limit=1,
+                )
+                if tax_group:
+                    _logger.info(
+                        "Fallback tax_group for line %s: matched by account_id=%s",
+                        line.id,
+                        line.account_id.id if line.account_id else False,
+                    )
+            if not tax_group:
+                _logger.info("Skip line %s: missing tax_group", line.id)
                 continue
-            tax_group = tax_line.tax_group_id
             tag = tag or line.move_id.l10n_bg_tax_tag_id
             if update_partner:
-                partner = partner or line.move_id.l10n_bg_tax_partner_id
+                partner = partner or (tag and tag.l10n_bg_tax_partner_id)
             if not tax_group or not tag:
                 _logger.debug(
                     "Skip BG tax tag apply for line %s (tax_group=%s, tag=%s)",
+                    line.id,
+                    tax_group.id if tax_group else False,
+                    tag.id if tag else False,
+                )
+                _logger.info(
+                    "Skip line %s: tax_group=%s tag=%s",
                     line.id,
                     tax_group.id if tax_group else False,
                     tag.id if tag else False,
@@ -37,29 +66,38 @@ class AccountMoveLine(models.Model):
                 and line.account_id == tax_group.tax_payable_account_id
                 and line.balance < 0
             )
-            if is_receivable or is_payable:
-                is_negative = line.balance < 0
-                is_match = (
-                    (is_negative and (tag.tax_negate or (tag.name and tag.name.startswith("-"))))
-                    or (not is_negative and (not tag.tax_negate and tag.name and tag.name.startswith("+")))
+            if not (is_receivable or is_payable):
+                _logger.info(
+                    "Skip line %s: not receivable/payable (account_id=%s, balance=%s)",
+                    line.id,
+                    line.account_id.id if line.account_id else False,
+                    line.balance,
                 )
-                if is_match:
-                    _logger.debug(
-                        "Apply BG tax tag %s to line %s (update_partner=%s, partner=%s)",
-                        tag.id,
-                        line.id,
-                        update_partner,
-                        partner.id if partner else False,
-                    )
-                    line_ctx = line.with_context(l10n_bg_skip_tax_tag_apply=True)
-                    line_ctx.tax_tag_ids = line_ctx.tax_tag_ids | tag
-                    if update_partner and partner:
-                        line_ctx.partner_id = partner
+                continue
+            _logger.info(
+                "Apply BG tax tag %s to line %s (update_partner=%s, partner=%s)",
+                tag.id,
+                line.id,
+                update_partner,
+                partner.id if partner else False,
+            )
+            line_ctx = line.with_context(
+                l10n_bg_skip_tax_tag_apply=True,
+                l10n_bg_skip_tax_closing_check=True,
+                check_move_validity=False,
+            )
+            line_ctx.tax_tag_ids = line_ctx.tax_tag_ids | tag
+            if update_partner and partner:
+                line_ctx.partner_id = partner
 
     def _l10n_bg_remove_tax_tag(self, tag, partner=False):
         for line in self:
             if tag in line.tax_tag_ids:
-                line_ctx = line.with_context(l10n_bg_skip_tax_tag_apply=True)
+                line_ctx = line.with_context(
+                    l10n_bg_skip_tax_tag_apply=True,
+                    l10n_bg_skip_tax_closing_check=True,
+                    check_move_validity=False,
+                )
                 line_ctx.tax_tag_ids = line_ctx.tax_tag_ids - tag
                 if partner and line_ctx.partner_id == partner:
                     line_ctx.partner_id = False

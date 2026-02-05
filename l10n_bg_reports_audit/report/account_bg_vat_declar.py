@@ -97,7 +97,50 @@ class AccountBgVatInfoDeclar(models.Model):
     @api.model
     def _from(self):
         calc_declaration = self.env['account.bg.vat.calc.declar']._table_query
-        return f"""({calc_declaration}) AS acc
+        return f"""(
+    SELECT
+        company_id,
+        info_tag_3,
+        SUM(info_tag_5) AS info_tag_5,
+        SUM(info_tag_6) AS info_tag_6,
+        SUM(account_tag_10) AS account_tag_10,
+        SUM(account_tag_11) AS account_tag_11,
+        SUM(account_tag_20) AS account_tag_20,
+        SUM(account_tag_21) AS account_tag_21,
+        SUM(account_tag_12) AS account_tag_12,
+        SUM(account_tag_121) AS account_tag_121,
+        SUM(account_tag_122) AS account_tag_122,
+        SUM(account_tag_26) AS account_tag_26,
+        SUM(account_tag_22) AS account_tag_22,
+        SUM(account_tag_23) AS account_tag_23,
+        SUM(account_tag_13) AS account_tag_13,
+        SUM(account_tag_24) AS account_tag_24,
+        SUM(account_tag_14) AS account_tag_14,
+        SUM(account_tag_15) AS account_tag_15,
+        SUM(account_tag_16) AS account_tag_16,
+        SUM(account_tag_17) AS account_tag_17,
+        SUM(account_tag_18) AS account_tag_18,
+        SUM(account_tag_19) AS account_tag_19,
+        SUM(account_tag_25) AS account_tag_25,
+        SUM(account_tag_30) AS account_tag_30,
+        SUM(account_tag_31) AS account_tag_31,
+        SUM(account_tag_40) AS account_tag_40,
+        SUM(account_tag_41) AS account_tag_41,
+        SUM(account_tag_32) AS account_tag_32,
+        SUM(account_tag_33) AS account_tag_33,
+        SUM(account_tag_42) AS account_tag_42,
+        SUM(account_tag_43) AS account_tag_43,
+        SUM(account_tag_44) AS account_tag_44,
+        SUM(account_tag_50) AS account_tag_50,
+        SUM(account_tag_60) AS account_tag_60,
+        SUM(account_tag_70) AS account_tag_70,
+        SUM(account_tag_71) AS account_tag_71,
+        SUM(account_tag_80) AS account_tag_80,
+        SUM(account_tag_81) AS account_tag_81,
+        SUM(account_tag_82) AS account_tag_82
+    FROM ({calc_declaration}) AS acc
+    GROUP BY company_id, info_tag_3
+) AS acc
 LEFT JOIN res_company AS company
     ON acc.company_id = company.id
 LEFT JOIN res_partner AS company_partner
@@ -112,9 +155,9 @@ LEFT JOIN res_partner AS represent_partner
                 self.env, self._context.get("report_options")
             )
             if len(tax_periods) == 0:
-                return f"""acc.company_id = {self.env.company.id} AND acc.state = ANY(ARRAY{state}) AND acc.info_tag_3 = '{tax_period}'"""
+                return f"""acc.company_id = {self.env.company.id} AND acc.info_tag_3 = '{tax_period}'"""
             else:
-                return f"""acc.company_id = {self.env.company.id} AND acc.state = ANY(ARRAY{state}) AND acc.info_tag_3 = ANY(ARRAY{tax_periods})"""
+                return f"""acc.company_id = {self.env.company.id} AND acc.info_tag_3 = ANY(ARRAY{tax_periods})"""
         return f"""acc.company_id = {self.env.company.id}"""
 
     @api.model

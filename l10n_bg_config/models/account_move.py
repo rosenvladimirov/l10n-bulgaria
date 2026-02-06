@@ -34,7 +34,7 @@ class AccountMove(models.Model):
     l10n_bg_deal_date = fields.Date("Date of deal", copy=False, compute='_compute_l10n_bg_deal_date', store=True)
 
     # === Override на compute за l10n_bg_document_number ===
-    @api.depends("name", "ref", "state")
+    @api.depends("name", "ref", "state", "l10n_bg_name_value")
     def _compute_l10n_bg_document_number(self):
         country_bg = self.env.ref('base.bg')
         for move in self:

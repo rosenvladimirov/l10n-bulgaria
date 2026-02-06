@@ -39,7 +39,7 @@ def l10n_bg_get_tag_negate_sql(table_alias='aat_base'):
     """
     if _get_odoo_version() < 19:
         # Odoo 18 и по-рано
-        return f"{table_alias}.tax_negate AS negate"
+        return f"COALESCE({table_alias}.tax_negate, false) AS negate"
     else:
         # Odoo 19+
         return f"STARTS_WITH({table_alias}.name#>>'{{en_US}}', '-') AS negate"

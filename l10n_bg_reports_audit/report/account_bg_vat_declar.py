@@ -385,7 +385,7 @@ FROM {self._from(where_clause=where_clause)}
         am.state AS state,
         to_char(am.date, 'YYYYMM') AS info_tag_3,
         COUNT(accs.move_id) AS info_tag_5,
-        COUNT(accp.move_id) AS info_tag_6,
+        COUNT(CASE WHEN accp.state != 'cancel' THEN accp.move_id END) AS info_tag_6,
         SUM(accs.account_tag_11 + accs.account_tag_121 + accs.account_tag_122 + accs.account_tag_13 + accs.account_tag_15 + accs.account_tag_16 + accs.account_tag_17 + accs.account_tag_18 + accs.account_tag_19) AS account_tag_10,
         SUM(accs.account_tag_11) AS account_tag_11,
         SUM(accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24) AS account_tag_20,
@@ -431,7 +431,7 @@ LEFT JOIN (SELECT move_id, date, account_tag_21, account_tag_11, account_tag_12,
             FROM ({self.env['account.bg.calc.sales.line']._table_query}) AS acc{' WHERE ' + where_clause.replace('am.', 'acc.') if where_clause else ''})AS accs
     ON am.id = accs.move_id
 LEFT JOIN (SELECT move_id, date, account_tag_30, account_tag_31, account_tag_41, account_tag_32, account_tag_42,
-                  account_tag_43, account_tag_44 FROM ({self.env['account.bg.calc.purchases.line']._table_query}) AS acc{' WHERE ' + where_clause.replace('am.', 'acc.') if where_clause else ''}) AS accp
+                  account_tag_43, account_tag_44, state FROM ({self.env['account.bg.calc.purchases.line']._table_query}) AS acc{' WHERE ' + where_clause.replace('am.', 'acc.') if where_clause else ''}) AS accp
     ON am.id = accp.move_id
 LEFT JOIN (SELECT move_id, date, account_tag_50, account_tag_60, account_tag_70, account_tag_71, account_tag_80,
                   account_tag_81, account_tag_82
@@ -440,7 +440,7 @@ LEFT JOIN (SELECT move_id, date, account_tag_50, account_tag_60, account_tag_70,
 
     @api.model
     def _group(self):
-        return """am.company_id, state, info_tag_3"""
+        return """am.company_id, am.state, info_tag_3"""
 
     @api.model
     def _where(self):

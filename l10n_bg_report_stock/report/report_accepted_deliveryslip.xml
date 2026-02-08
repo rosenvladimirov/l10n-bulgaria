@@ -2,40 +2,42 @@
 <odoo>
     <template id="report_accepted_delivery_document" inherit_id="stock.report_delivery_document">
         <xpath expr="//t[@t-set='partner']" position="after">
-            <t t-if="o.picking_type_id.code=='outgoing' and partner and partner != partner.commercial_partner_id">
-                <t t-set="recipient" t-value="o.partner_id.commercial_partner_id or (o.move_ids and o.move_ids[0].partner_id.commercial_partner_id) or False"/>
-            </t>
-            <t t-if="o.picking_type_id.code=='outgoing' and partner and partner == partner.commercial_partner_id">
-                <t t-set="recipient" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
-            </t>
-            <t t-if="o.picking_type_id.code=='internal' and o.location_dest_id.warehouse_id.partner_id">
-                <t t-set="recipient" t-value="o.location_dest_id.warehouse_id.partner_id"/>
-            </t>
-            <t t-if="o.picking_type_id.code=='incoming' and partner">
-                <t t-set="sender" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
-            </t>
-            <t t-if="o.picking_type_id.code=='incoming' and o.company_id.partner_id">
-                <t t-set="recipient" t-value="o.company_id.partner_id"/>
-            </t>
-            <t t-if="o.picking_type_id.code=='outgoing' and o.company_id.partner_id">
-                <t t-set="sender" t-value="o.company_id.partner_id"/>
-            </t>
-            <t t-if="o.picking_type_id.code=='internal' and o.picking_type_id.warehouse_id.partner_id">
-                <t t-set="sender" t-value="o.picking_type_id.warehouse_id.partner_id"/>
-            </t>
-            <t t-set="layout_is_sections" t-value="o.company_id.external_report_layout_id and (o.company_id.external_report_layout_id.key == 'l10n_bg_report_theme.external_layout_sections' or o.company_id.external_report_layout_id.xml_id == 'l10n_bg_report_theme.external_layout_sections')"/>
-            <t t-set="no_deal_partner" t-value="True"/>
-            <t t-if="o.picking_type_id.code in ('incoming', 'outgoing')">
-                <t t-set="no_deal_partner" t-value="False"/>
+            <t t-if="env.context.get('l10n_bg_report_stock_accepted')">
+                <t t-if="o.picking_type_id.code=='outgoing' and partner and partner != partner.commercial_partner_id">
+                    <t t-set="recipient" t-value="o.partner_id.commercial_partner_id or (o.move_ids and o.move_ids[0].partner_id.commercial_partner_id) or False"/>
+                </t>
+                <t t-if="o.picking_type_id.code=='outgoing' and partner and partner == partner.commercial_partner_id">
+                    <t t-set="recipient" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
+                </t>
+                <t t-if="o.picking_type_id.code=='internal' and o.location_dest_id.warehouse_id.partner_id">
+                    <t t-set="recipient" t-value="o.location_dest_id.warehouse_id.partner_id"/>
+                </t>
+                <t t-if="o.picking_type_id.code=='incoming' and partner">
+                    <t t-set="sender" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
+                </t>
+                <t t-if="o.picking_type_id.code=='incoming' and o.company_id.partner_id">
+                    <t t-set="recipient" t-value="o.company_id.partner_id"/>
+                </t>
+                <t t-if="o.picking_type_id.code=='outgoing' and o.company_id.partner_id">
+                    <t t-set="sender" t-value="o.company_id.partner_id"/>
+                </t>
+                <t t-if="o.picking_type_id.code=='internal' and o.picking_type_id.warehouse_id.partner_id">
+                    <t t-set="sender" t-value="o.picking_type_id.warehouse_id.partner_id"/>
+                </t>
+                <t t-set="layout_is_sections" t-value="o.company_id.external_report_layout_id and (o.company_id.external_report_layout_id.key == 'l10n_bg_report_theme.external_layout_sections' or o.company_id.external_report_layout_id.xml_id == 'l10n_bg_report_theme.external_layout_sections')"/>
+                <t t-set="no_deal_partner" t-value="True"/>
+                <t t-if="o.picking_type_id.code in ('incoming', 'outgoing')">
+                    <t t-set="no_deal_partner" t-value="False"/>
+                </t>
             </t>
         </xpath>
         <xpath expr="//div[@id='informations']" position="after">
-            <t t-if="not layout_is_sections and o.picking_type_id.code in ('incoming', 'outgoing')">
+            <t t-if="env.context.get('l10n_bg_report_stock_accepted') and not layout_is_sections and o.picking_type_id.code in ('incoming', 'outgoing')">
                 <t t-call="l10n_bg_report_theme.deal_partner"/>
             </t>
         </xpath>
         <xpath expr="//div[@name='signature']" position="after">
-            <t t-if="not layout_is_sections and o.picking_type_id.code in ('incoming', 'outgoing', 'internal')">
+            <t t-if="env.context.get('l10n_bg_report_stock_accepted') and not layout_is_sections and o.picking_type_id.code in ('incoming', 'outgoing', 'internal')">
                 <t t-call="l10n_bg_report_theme.signatures_section"/>
             </t>
         </xpath>

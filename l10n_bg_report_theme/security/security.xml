@@ -23,19 +23,6 @@
             <field name="comment">Users who can view and control delivery dates in invoices</field>
         </record>
 
-        <!-- Group for parties signatures control -->
-        <record id="group_control_signatures" model="res.groups">
-            <field name="name">Parties Signatures Control</field>
-            <field name="category_id" ref="category_l10n_bg_report_theme"/>
-            <field name="comment">Users who can view the signatures section for deal parties in documents</field>
-            <field name="implied_ids" eval="[
-                (4, ref('l10n_bg_report_theme.group_control_signatures_sale_order')),
-                (4, ref('l10n_bg_report_theme.group_control_signatures_stock_picking')),
-                (4, ref('l10n_bg_report_theme.group_control_signatures_invoice')),
-                (4, ref('l10n_bg_report_theme.group_control_signatures_purchase_order')),
-            ]"/>
-        </record>
-
         <!-- Group for sale order signatures control -->
         <record id="group_control_signatures_sale_order" model="res.groups">
             <field name="name">Sale Order Signatures Control</field>
@@ -62,6 +49,19 @@
             <field name="name">Purchase Order Signatures Control</field>
             <field name="category_id" ref="category_l10n_bg_report_theme"/>
             <field name="comment">Users who can view the signatures section in purchase orders</field>
+        </record>
+
+        <!-- Group for parties signatures control -->
+        <record id="group_control_signatures" model="res.groups">
+            <field name="name">Parties Signatures Control</field>
+            <field name="category_id" ref="category_l10n_bg_report_theme"/>
+            <field name="comment">Users who can view the signatures section for deal parties in documents</field>
+            <field name="implied_ids" eval="[
+                (4, ref('l10n_bg_report_theme.group_control_signatures_sale_order')),
+                (4, ref('l10n_bg_report_theme.group_control_signatures_stock_picking')),
+                (4, ref('l10n_bg_report_theme.group_control_signatures_invoice')),
+                (4, ref('l10n_bg_report_theme.group_control_signatures_purchase_order')),
+            ]"/>
         </record>
 
         <!-- Group for date format control -->

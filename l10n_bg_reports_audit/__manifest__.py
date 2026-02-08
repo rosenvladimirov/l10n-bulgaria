@@ -29,7 +29,6 @@
     ],
     "tags": ["localization", "accounting", "bulgaria", "technical"],
     "countries": ["BG"],
-    "post_load": "post_load",
     # Version requirements
     "python_version": ">=3.11",
 }

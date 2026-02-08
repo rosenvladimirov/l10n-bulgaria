@@ -277,9 +277,8 @@
         </div>
     </template>
     <template id="signatures_section">
-        <!-- Signatures control section - only for group_control_signatures -->
-        <div class="row mt8 o_sections_signatures" name="signatures_section"
-             groups="l10n_bg_report_theme.group_control_signatures">
+        <!-- Signatures control section -->
+        <div class="row mt8 o_sections_signatures" name="signatures_section">
             <!-- Set variables for labels -->
             <t t-if="o">
                 <t t-set="user_name" t-value="o.env.user.name"/>
@@ -388,40 +387,69 @@
             <!-- Document name section -->
             <t name="document_name" t-call="l10n_bg_report_theme.document_name" />
 
-            <!-- Address layout section with information block support -->
-            <div class="pt-5">
-                <!-- This div ensures that the header does not crop the address. -->
-                <t t-if="not custom_layout_address">
-                    <t t-call="web.address_layout" />
-                </t>
-                <t t-else="">
-                    <!-- Custom address layout handling -->
-                    <t t-set="colclass" t-value="('col-sm-5' if report_type == 'html' else 'col-5') + ' ms-auto'"/>
-                    <div t-if="address" t-attf-class="address row mb-4">
-                        <t t-if="information_block">
-                            <t t-set="colclass" t-value="'col-5 offset-1'"/>
-                            <div name="information_block" class="col-6">
-                                <t t-out="information_block"/>
+            <t t-if="not no_deal_partner">
+                <!-- Address layout section with information block support -->
+                <div class="pt-5">
+                    <!-- This div ensures that the header does not crop the address. -->
+                    <t t-if="not custom_layout_address">
+                        <t t-call="web.address_layout" />
+                    </t>
+                    <t t-else="">
+                        <!-- Custom address layout handling -->
+                        <t t-set="colclass" t-value="('col-sm-5' if report_type == 'html' else 'col-5') + ' ms-auto'"/>
+                        <div t-if="address" t-attf-class="address row mb-4">
+                            <t t-if="information_block">
+                                <t t-set="colclass" t-value="'col-5 offset-1'"/>
+                                <div name="information_block" class="col-6">
+                                    <t t-out="information_block"/>
+                                </div>
+                            </t>
+                            <div name="address" t-att-class="colclass">
+                                <t t-esc="address"/>
                             </div>
-                        </t>
-                        <div name="address" t-att-class="colclass">
-                            <t t-esc="address"/>
+                        </div>
+                    </t>
+                </div>
+
+                <!-- Deal section -->
+                <t
+                    name="deal_partner"
+                    t-call="l10n_bg_report_theme.deal_partner"
+                    t-if="sender and recipient"
+                />
+            </t>
+            <t t-else="">
+                <div class="pt-5">
+                    <div class="row">
+                        <div class="col-6">
+                            <t t-if="not custom_layout_address">
+                                <t t-call="web.address_layout" />
+                            </t>
+                            <t t-else="">
+                                <t t-set="colclass" t-value="('col-sm-5' if report_type == 'html' else 'col-5') + ' ms-auto'"/>
+                                <div t-if="address" t-attf-class="address row mb-4">
+                                    <t t-if="information_block">
+                                        <t t-set="colclass" t-value="'col-5 offset-1'"/>
+                                        <div name="information_block" class="col-6">
+                                            <t t-out="information_block"/>
+                                        </div>
+                                    </t>
+                                    <div name="address" t-att-class="colclass">
+                                        <t t-esc="address"/>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                        <div class="col-6">
+                            <t
+                                name="deal_no_partner"
+                                t-call="l10n_bg_report_theme.deal_no_partner"
+                                t-if="sender and recipient"
+                            />
                         </div>
                     </div>
-                </t>
-            </div>
-
-            <!-- Deal sections -->
-            <t
-                name="deal_partner"
-                t-call="l10n_bg_report_theme.deal_partner"
-                t-if="(not no_deal_partner and sender and recipient)"
-            />
-            <t
-                name="deal_no_partner"
-                t-call="l10n_bg_report_theme.deal_no_partner"
-                t-if="(no_deal_partner and sender and recipient)"
-            />
+                </div>
+            </t>
 
             <div class="deal-content-separator"></div>
 
@@ -429,12 +457,22 @@
             <t t-out="0" />
 
             <!-- Signatures section -->
-            <t
-                name="signatures_section"
-                t-call="l10n_bg_report_theme.signatures_section"
-                t-if="sender and recipient"
-                groups="l10n_bg_report_theme.group_control_signatures"
-            />
+            <t t-if="sender and recipient and o and o._name == 'sale.order'"
+               groups="l10n_bg_report_theme.group_control_signatures_sale_order">
+                <t name="signatures_section" t-call="l10n_bg_report_theme.signatures_section" />
+            </t>
+            <t t-if="sender and recipient and o and o._name == 'stock.picking'"
+               groups="l10n_bg_report_theme.group_control_signatures_stock_picking">
+                <t name="signatures_section" t-call="l10n_bg_report_theme.signatures_section" />
+            </t>
+            <t t-if="sender and recipient and o and o._name == 'account.move'"
+               groups="l10n_bg_report_theme.group_control_signatures_invoice">
+                <t name="signatures_section" t-call="l10n_bg_report_theme.signatures_section" />
+            </t>
+            <t t-if="sender and recipient and o and o._name == 'purchase.order'"
+               groups="l10n_bg_report_theme.group_control_signatures_purchase_order">
+                <t name="signatures_section" t-call="l10n_bg_report_theme.signatures_section" />
+            </t>
         </div>
 
         <t t-set="layout_background_footer_url"

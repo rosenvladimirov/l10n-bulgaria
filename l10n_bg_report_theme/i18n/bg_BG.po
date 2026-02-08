@@ -353,6 +353,26 @@ msgid "Parties Signatures Control"
 msgstr "Страни Подписи Контрол"
 
 #. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.group_control_signatures_sale_order
+msgid "Sale Order Signatures Control"
+msgstr "Контрол на подписите в поръчки за продажба"
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.group_control_signatures_stock_picking
+msgid "Stock Picking Signatures Control"
+msgstr "Контрол на подписите в складови операции"
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.group_control_signatures_invoice
+msgid "Invoice Signatures Control"
+msgstr "Контрол на подписите във фактури"
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.group_control_signatures_purchase_order
+msgid "Purchase Order Signatures Control"
+msgstr "Контрол на подписите в поръчки за покупка"
+
+#. module: l10n_bg_report_theme
 #: model:res.groups,name:l10n_bg_report_theme.group_control_due_date
 msgid "Payment Due Date Control"
 msgstr "Контрол на датата на плащане"
@@ -518,10 +538,34 @@ msgstr ""
 
 #. module: l10n_bg_report_theme
 #: model:res.groups,comment:l10n_bg_report_theme.group_control_signatures
-msgid "Users who can view the signatures section for deal parties in invoices"
+msgid "Users who can view the signatures section for deal parties in documents"
 msgstr ""
 "Потребители, които могат да преглеждат раздела с подписи за страните по "
-"сделката във фактурите"
+"сделката в документите"
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_signatures_sale_order
+msgid "Users who can view the signatures section in sale orders"
+msgstr ""
+"Потребители, които могат да преглеждат раздела с подписи в поръчки за продажба"
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_signatures_stock_picking
+msgid "Users who can view the signatures section in stock pickings"
+msgstr ""
+"Потребители, които могат да преглеждат раздела с подписи в складови операции"
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_signatures_invoice
+msgid "Users who can view the signatures section in invoices"
+msgstr ""
+"Потребители, които могат да преглеждат раздела с подписи във фактурите"
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_signatures_purchase_order
+msgid "Users who can view the signatures section in purchase orders"
+msgstr ""
+"Потребители, които могат да преглеждат раздела с подписи в поръчки за покупка"
 
 #. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document

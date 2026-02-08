@@ -190,6 +190,10 @@ Configurable visibility control via groups:
 * `l10n_bg_deal_date` - Show/hide Bulgarian deal date
 * `group_control_represent_person` - Show/hide representatives
 * `group_control_signatures` - Show/hide signature section
+* `group_control_signatures_sale_order` - Show/hide signature section in sale orders
+* `group_control_signatures_stock_picking` - Show/hide signature section in stock pickings
+* `group_control_signatures_invoice` - Show/hide signature section in invoices
+* `group_control_signatures_purchase_order` - Show/hide signature section in purchase orders
 
 **SCSS/CSS Assets**
 ~~~~~~~~~~~~~~~~~~~

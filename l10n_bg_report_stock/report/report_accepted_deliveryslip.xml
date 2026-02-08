@@ -50,7 +50,7 @@
         </xpath>
     </template>
     <template id="stock_report_delivery_aggregated_move_lines" inherit_id="stock.stock_report_delivery_aggregated_move_lines">
-        <xpath expr="//td[@name='td_aggregated_description']" position="after">
+        <xpath expr="//td[1]" position="after">
             <t t-set="sale_line" t-value="aggregated_lines[line]['move'].sale_line_id"/>
             <td
                 name="td_sale_description"

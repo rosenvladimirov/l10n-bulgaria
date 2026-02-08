@@ -2,7 +2,7 @@
 <odoo>
     <template id="report_accepted_delivery_document" inherit_id="stock.report_delivery_document">
         <xpath expr="//t[@t-set='partner']" position="after">
-            <t t-if="env.context.get('l10n_bg_report_stock_accepted')">
+            <t t-if="l10n_bg_report_stock_accepted">
                 <t t-if="o.picking_type_id.code=='outgoing' and partner and partner != partner.commercial_partner_id">
                     <t t-set="recipient" t-value="o.partner_id.commercial_partner_id or (o.move_ids and o.move_ids[0].partner_id.commercial_partner_id) or False"/>
                 </t>
@@ -32,12 +32,12 @@
             </t>
         </xpath>
         <xpath expr="//div[@id='informations']" position="after">
-            <t t-if="env.context.get('l10n_bg_report_stock_accepted') and not layout_is_sections and o.picking_type_id.code in ('incoming', 'outgoing')">
+            <t t-if="l10n_bg_report_stock_accepted and not layout_is_sections and o.picking_type_id.code in ('incoming', 'outgoing')">
                 <t t-call="l10n_bg_report_theme.deal_partner"/>
             </t>
         </xpath>
         <xpath expr="//div[@name='signature']" position="after">
-            <t t-if="env.context.get('l10n_bg_report_stock_accepted') and not layout_is_sections and o.picking_type_id.code in ('incoming', 'outgoing', 'internal')">
+            <t t-if="l10n_bg_report_stock_accepted and not layout_is_sections and o.picking_type_id.code in ('incoming', 'outgoing', 'internal')">
                 <t t-call="l10n_bg_report_theme.signatures_section"/>
             </t>
         </xpath>
@@ -77,6 +77,7 @@
 
     <template id="report_accepted_deliveryslip">
         <t t-foreach="docs" t-as="o">
+            <t t-set="l10n_bg_report_stock_accepted" t-value="True"/>
             <t t-call="stock.report_delivery_document" t-lang="o._get_report_lang()"/>
         </t>
     </template>

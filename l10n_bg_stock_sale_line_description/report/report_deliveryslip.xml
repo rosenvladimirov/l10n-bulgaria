@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_delivery_document_sale_line_description" inherit_id="stock.report_delivery_document">
+        <xpath expr="//table[@name='stock_move_table']//tr//td[span[@t-field='move.product_id']]/p[@t-if='move.description_picking and move.description_picking != move.product_id.name and move.description_picking != move.product_id.display_name']" position="after">
+            <p t-if="move.sale_line_description" groups="l10n_bg_stock_sale_line_description.group_control_sale_description">
+                <span t-esc="move.sale_line_description"/>
+            </p>
+        </xpath>
+    </template>
+
+    <template id="stock_report_delivery_has_serial_move_line_sale_line_description" inherit_id="stock.stock_report_delivery_has_serial_move_line">
+        <xpath expr="//p[@t-if='description != \"\" and description != move_line.product_id.display_name and description != move_line.product_id.name']" position="after">
+            <p t-if="move_line.move_id.sale_line_description" groups="l10n_bg_stock_sale_line_description.group_control_sale_description">
+                <span t-esc="move_line.move_id.sale_line_description"/>
+            </p>
+        </xpath>
+    </template>
+
+    <template id="stock_report_delivery_aggregated_move_lines_sale_line_description" inherit_id="stock.stock_report_delivery_aggregated_move_lines">
+        <xpath expr="//p[@t-if=\"aggregated_lines[line]['description']\"]" position="after">
+            <t t-set="sale_line" t-value="aggregated_lines[line]['move'].sale_line_id"/>
+            <p t-if="sale_line and sale_line.name" groups="l10n_bg_stock_sale_line_description.group_control_sale_description">
+                <span t-esc="sale_line.name"/>
+            </p>
+        </xpath>
+    </template>
+</odoo>

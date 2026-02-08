@@ -16,6 +16,7 @@
     ],
     "data": [
         "report/report_accepted_deliveryslip.xml",
+        "report/report_handover_protocol.xml",
         "report/stock_report_views.xml"
     ],
     "demo": [],

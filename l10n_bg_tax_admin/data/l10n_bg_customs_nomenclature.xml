@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Transport modes according to UNECE Rec.19 -->
+        <record id="transport_maritime" model="l10n.bg.customs.nomenclature">
+            <field name="name">Maritime transport</field>
+            <field name="code">1</field>
+            <field name="unece_code">1</field>
+            <field name="type">transport</field>
+            <field name="description">Transport by sea</field>
+        </record>
+
+        <record id="transport_rail" model="l10n.bg.customs.nomenclature">
+            <field name="name">Rail transport</field>
+            <field name="code">2</field>
+            <field name="unece_code">2</field>
+            <field name="type">transport</field>
+            <field name="description">Transport by railway</field>
+        </record>
+
+        <record id="transport_road" model="l10n.bg.customs.nomenclature">
+            <field name="name">Road transport</field>
+            <field name="code">3</field>
+            <field name="unece_code">3</field>
+            <field name="type">transport</field>
+            <field name="description">Transport by road</field>
+        </record>
+
+        <record id="transport_air" model="l10n.bg.customs.nomenclature">
+            <field name="name">Air transport</field>
+            <field name="code">4</field>
+            <field name="unece_code">4</field>
+            <field name="type">transport</field>
+            <field name="description">Transport by air</field>
+        </record>
+
+        <record id="transport_mail" model="l10n.bg.customs.nomenclature">
+            <field name="name">Postal consignments</field>
+            <field name="code">5</field>
+            <field name="unece_code">5</field>
+            <field name="type">transport</field>
+            <field name="description">Postal consignments and parcels</field>
+        </record>
+
+        <record id="transport_multimodal" model="l10n.bg.customs.nomenclature">
+            <field name="name">Multimodal transport</field>
+            <field name="code">6</field>
+            <field name="unece_code">6</field>
+            <field name="type">transport</field>
+            <field name="description">Combined transport</field>
+        </record>
+
+        <record id="transport_fixed" model="l10n.bg.customs.nomenclature">
+            <field name="name">Fixed transport installations</field>
+            <field name="code">7</field>
+            <field name="unece_code">7</field>
+            <field name="type">transport</field>
+            <field name="description">Pipelines, cables, etc.</field>
+        </record>
+
+        <record id="transport_inland_water" model="l10n.bg.customs.nomenclature">
+            <field name="name">Inland water transport</field>
+            <field name="code">8</field>
+            <field name="unece_code">8</field>
+            <field name="type">transport</field>
+            <field name="description">Transport by inland waterways</field>
+        </record>
+
+        <record id="transport_own_propulsion" model="l10n.bg.customs.nomenclature">
+            <field name="name">Own propulsion</field>
+            <field name="code">9</field>
+            <field name="unece_code">9</field>
+            <field name="type">transport</field>
+            <field name="description">Self-propelled movement</field>
+        </record>
+
+        <!-- Package types according to UN/ECE -->
+        <record id="package_ae" model="l10n.bg.customs.nomenclature">
+            <field name="name">Aerosol</field>
+            <field name="code">AE</field>
+            <field name="type">packaging</field>
+            <field name="description">Aerosol packaging</field>
+        </record>
+
+        <record id="package_ba" model="l10n.bg.customs.nomenclature">
+            <field name="name">Barrel</field>
+            <field name="code">BA</field>
+            <field name="type">packaging</field>
+            <field name="description">Barrel</field>
+        </record>
+
+        <record id="package_bx" model="l10n.bg.customs.nomenclature">
+            <field name="name">Box</field>
+            <field name="code">BX</field>
+            <field name="type">packaging</field>
+            <field name="description">Cardboard box</field>
+        </record>
+
+        <record id="package_cr" model="l10n.bg.customs.nomenclature">
+            <field name="name">Crate</field>
+            <field name="code">CR</field>
+            <field name="type">packaging</field>
+            <field name="description">Wooden crate</field>
+        </record>
+
+        <record id="package_ct" model="l10n.bg.customs.nomenclature">
+            <field name="name">Carton</field>
+            <field name="code">CT</field>
+            <field name="type">packaging</field>
+            <field name="description">Cardboard container</field>
+        </record>
+
+        <record id="package_cs" model="l10n.bg.customs.nomenclature">
+            <field name="name">Case</field>
+            <field name="code">CS</field>
+            <field name="type">packaging</field>
+            <field name="description">Transport case</field>
+        </record>
+
+        <record id="package_dr" model="l10n.bg.customs.nomenclature">
+            <field name="name">Drum</field>
+            <field name="code">DR</field>
+            <field name="type">packaging</field>
+            <field name="description">Metal drum for dangerous goods</field>
+        </record>
+
+        <record id="package_je" model="l10n.bg.customs.nomenclature">
+            <field name="name">Jerrican</field>
+            <field name="code">JE</field>
+            <field name="type">packaging</field>
+            <field name="description">Plastic jerrican</field>
+        </record>
+
+        <record id="package_pc" model="l10n.bg.customs.nomenclature">
+            <field name="name">Parcel</field>
+            <field name="code">PC</field>
+            <field name="type">packaging</field>
+            <field name="description">Postal or courier parcel</field>
+        </record>
+
+        <record id="package_pl" model="l10n.bg.customs.nomenclature">
+            <field name="name">Pallet</field>
+            <field name="code">PL</field>
+            <field name="type">packaging</field>
+            <field name="description">Standard pallet</field>
+        </record>
+
+        <!-- Customs procedures -->
+        <record id="procedure_01" model="l10n.bg.customs.nomenclature">
+            <field name="name">Import</field>
+            <field name="code">01</field>
+            <field name="type">procedure</field>
+            <field name="description">Definitive import with immediate payment</field>
+        </record>
+
+        <record id="procedure_07" model="l10n.bg.customs.nomenclature">
+            <field name="name">Import with deferred payment</field>
+            <field name="code">07</field>
+            <field name="type">procedure</field>
+            <field name="description">Import with deferred payment of customs duties</field>
+        </record>
+
+        <record id="procedure_40" model="l10n.bg.customs.nomenclature">
+            <field name="name">Import for free circulation</field>
+            <field name="code">40</field>
+            <field name="type">procedure</field>
+            <field name="description">Simultaneous release for free circulation and for consumption</field>
+        </record>
+
+        <record id="procedure_42" model="l10n.bg.customs.nomenclature">
+            <field name="name">Import with VAT in another EU country</field>
+            <field name="code">42</field>
+            <field name="type">procedure</field>
+            <field name="description">Release for free circulation with simultaneous placing under VAT warehousing</field>
+        </record>
+
+        <record id="procedure_71" model="l10n.bg.customs.nomenclature">
+            <field name="name">Customs warehousing</field>
+            <field name="code">71</field>
+            <field name="type">procedure</field>
+            <field name="description">Placing goods under customs warehousing procedure</field>
+        </record>
+
+        <!-- Customs documents -->
+        <record id="doc_c019" model="l10n.bg.customs.nomenclature">
+            <field name="name">CITES permit</field>
+            <field name="code">C019</field>
+            <field name="type">document</field>
+            <field name="description">Permit for import/export of protected species</field>
+        </record>
+
+        <record id="doc_c400" model="l10n.bg.customs.nomenclature">
+            <field name="name">Export declaration</field>
+            <field name="code">C400</field>
+            <field name="type">document</field>
+            <field name="description">Export/re-export declaration</field>
+        </record>
+
+        <record id="doc_c501" model="l10n.bg.customs.nomenclature">
+            <field name="name">EUR.1</field>
+            <field name="code">C501</field>
+            <field name="type">document</field>
+            <field name="description">EUR.1 movement certificate</field>
+        </record>
+
+        <record id="doc_d001" model="l10n.bg.customs.nomenclature">
+            <field name="name">ADR document</field>
+            <field name="code">D001</field>
+            <field name="type">document</field>
+            <field name="description">Document for transport of dangerous goods by road</field>
+        </record>
+
+        <record id="doc_d002" model="l10n.bg.customs.nomenclature">
+            <field name="name">IMDG declaration</field>
+            <field name="code">D002</field>
+            <field name="type">document</field>
+            <field name="description">Declaration for dangerous goods by sea</field>
+        </record>
+
+        <record id="doc_l001" model="l10n.bg.customs.nomenclature">
+            <field name="name">Import license</field>
+            <field name="code">L001</field>
+            <field name="type">document</field>
+            <field name="description">Automatic import license</field>
+        </record>
+
+        <record id="doc_n235" model="l10n.bg.customs.nomenclature">
+            <field name="name">CMR consignment note</field>
+            <field name="code">N235</field>
+            <field name="type">document</field>
+            <field name="description">Consignment note for international road transport</field>
+        </record>
+
+        <record id="doc_n270" model="l10n.bg.customs.nomenclature">
+            <field name="name">CIM consignment note</field>
+            <field name="code">N270</field>
+            <field name="type">document</field>
+            <field name="description">Consignment note for international rail transport</field>
+        </record>
+
+        <record id="doc_n325" model="l10n.bg.customs.nomenclature">
+            <field name="name">Proforma invoice</field>
+            <field name="code">N325</field>
+            <field name="type">document</field>
+            <field name="description">Proforma invoice</field>
+        </record>
+
+        <record id="doc_n355" model="l10n.bg.customs.nomenclature">
+            <field name="name">Insurance policy</field>
+            <field name="code">N355</field>
+            <field name="type">document</field>
+            <field name="description">Insurance policy</field>
+        </record>
+
+        <record id="doc_n380" model="l10n.bg.customs.nomenclature">
+            <field name="name">Commercial invoice</field>
+            <field name="code">N380</field>
+            <field name="type">document</field>
+            <field name="description">Commercial invoice (according to Article 1 of Regulation (EU) 2015/2447)</field>
+        </record>
+
+        <record id="doc_n705" model="l10n.bg.customs.nomenclature">
+            <field name="name">Bill of lading</field>
+            <field name="code">N705</field>
+            <field name="type">document</field>
+            <field name="description">Maritime transport document</field>
+        </record>
+
+        <record id="doc_n740" model="l10n.bg.customs.nomenclature">
+            <field name="name">Air waybill</field>
+            <field name="code">N740</field>
+            <field name="type">document</field>
+            <field name="description">Air waybill</field>
+        </record>
+
+        <record id="doc_n787" model="l10n.bg.customs.nomenclature">
+            <field name="name">Phytosanitary certificate</field>
+            <field name="code">N787</field>
+            <field name="type">document</field>
+            <field name="description">Phytosanitary certificate</field>
+        </record>
+
+        <record id="doc_n821" model="l10n.bg.customs.nomenclature">
+            <field name="name">Exit summary declaration</field>
+            <field name="code">N821</field>
+            <field name="type">document</field>
+            <field name="description">Exit summary declaration (according to Article 5, paragraph 10 of the Code)</field>
+        </record>
+
+        <record id="doc_n825" model="l10n.bg.customs.nomenclature">
+            <field name="name">Entry summary declaration</field>
+            <field name="code">N825</field>
+            <field name="type">document</field>
+            <field name="description">Entry summary declaration (according to Article 5, paragraph 9 of the Code)</field>
+        </record>
+
+        <record id="doc_n935" model="l10n.bg.customs.nomenclature">
+            <field name="name">Certificate of origin</field>
+            <field name="code">N935</field>
+            <field name="type">document</field>
+            <field name="description">Document proving the origin of goods</field>
+        </record>
+
+        <record id="doc_n952" model="l10n.bg.customs.nomenclature">
+            <field name="name">TIR carnet</field>
+            <field name="code">N952</field>
+            <field name="type">document</field>
+            <field name="description">TIR carnet</field>
+        </record>
+
+        <record id="doc_n954" model="l10n.bg.customs.nomenclature">
+            <field name="name">EUR-MED</field>
+            <field name="code">N954</field>
+            <field name="type">document</field>
+            <field name="description">EUR-MED certificate of origin</field>
+        </record>
+
+        <record id="doc_u045" model="l10n.bg.customs.nomenclature">
+            <field name="name">Origin declaration</field>
+            <field name="code">U045</field>
+            <field name="type">document</field>
+            <field name="description">Origin declaration on invoice</field>
+        </record>
+
+        <record id="doc_u048" model="l10n.bg.customs.nomenclature">
+            <field name="name">Approved exporter declaration</field>
+            <field name="code">U048</field>
+            <field name="type">document</field>
+            <field name="description">Origin declaration from approved exporter</field>
+        </record>
+
+        <record id="doc_y022" model="l10n.bg.customs.nomenclature">
+            <field name="name">Temporary storage declaration</field>
+            <field name="code">Y022</field>
+            <field name="type">document</field>
+            <field name="description">Temporary storage declaration</field>
+        </record>
+
+        <record id="doc_y028" model="l10n.bg.customs.nomenclature">
+            <field name="name">Re-export declaration</field>
+            <field name="code">Y028</field>
+            <field name="type">document</field>
+            <field name="description">Re-export notification</field>
+        </record>
+    </data>
+</odoo>

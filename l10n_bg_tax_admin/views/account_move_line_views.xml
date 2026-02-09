@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_line_form_customs_enhanced" model="ir.ui.view">
+        <field name="name">account.move.line.form.customs.enhanced</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="l10n_bg_tariff_code.view_move_line_form_tariff"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='l10n_bg_tariff_last_update']" position="after">
+                <group string="Customs Procedure" invisible="l10n_bg_move_type != 'customs'">
+                    <field name="l10n_bg_customs_procedure_id"
+                           domain="[('type', '=', 'procedure')]"
+                           options="{'no_create': True}"/>
+                    <field name="l10n_bg_is_customs_expense"/>
+                </group>
+                <group string="Weight and Dimensions" invisible="l10n_bg_move_type != 'customs'">
+                    <field name="l10n_bg_weight_gross" />
+                    <field name="l10n_bg_weight_net" />
+                </group>
+                <group invisible="l10n_bg_move_type != 'customs'">
+                    <field name="l10n_bg_customs_value"
+                           required="l10n_bg_move_type == 'customs' and not l10n_bg_is_customs_expense"
+                           help="Customs value" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_line_tree_customs_enhanced" model="ir.ui.view">
+        <field name="name">account.move.line.tree.customs.enhanced</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="l10n_bg_tariff_code.view_move_line_tree_tariff"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='l10n_bg_tariff_rate']" position="after">
+                <field name="l10n_bg_customs_value"
+                       string="Customs Value"
+                       optional="hide" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+         <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@id='invoice_tab']/field[@name='invoice_line_ids']/list/field[@name='price_subtotal']" position="after">
+                <field name="l10n_bg_move_type" column_invisible="1" />
+                <field name="l10n_bg_customs_value"
+                       string="Customs Value"
+                       optional="hide" />
+            </xpath>
+        </field>
+     </record>
+</odoo>

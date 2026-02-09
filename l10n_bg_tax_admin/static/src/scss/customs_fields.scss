@@ -1,0 +1,15 @@
+.o_field_char.o_uppercase_field input {
+    text-transform: uppercase;
+    font-family: monospace;
+    letter-spacing: 1px;
+}
+
+.o_field_char[name="mrn"] input {
+    width: 220px;
+    background-color: #f8f9fa;
+}
+
+.o_field_char[name="container_number"] input {
+    width: 150px;
+    background-color: #f8f9fa;
+}

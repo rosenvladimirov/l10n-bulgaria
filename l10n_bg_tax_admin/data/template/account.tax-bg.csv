@@ -1,0 +1,18 @@
+"id","sequence","name","description","invoice_label","amount","amount_type","type_tax_use","tax_group_id",repartition_line_ids/factor_percent,repartition_line_ids/repartition_type,"repartition_line_ids/document_type","repartition_line_ids/tag_ids","repartition_line_ids/account_id",children_tax_ids,description@bg,"active"
+l10n_bg_customs_tariff,"501","Customs Tariff","Customs Tariff Rate","Customs Tariff","0.0","customs_rate","purchase",,,"base",invoice,+11,,,Митническа тарифа,1
+"","","","","","","",,"",100,"tax",invoice,,l10n_bg.l10n_bg_457,,,
+"","","","","","","",,"",-100,"tax",invoice,,l10n_bg.l10n_bg_301,,,
+"","","","","","","",,"",,"base","refund",-11,"",,,
+"","","","","","","","","",100,"tax","refund",,l10n_bg.l10n_bg_301,,,
+"","","","","","","","","",-100,"tax","refund",,l10n_bg.l10n_bg_457,,,
+l10n_bg_customs_vat_20,"502","20% Customs VAT","20% VAT on Customs Value","20% Customs VAT","20.0","percent","purchase",tax_group_vat_20,,"base",invoice,+32,"",,"20% ДДС върху митническа стойност",1
+"","","","","","","",,"",100,"tax",invoice,+42,l10n_bg.l10n_bg_4531,,,
+"","","","","","","",,"",-100,"tax",invoice,,l10n_bg.l10n_bg_301,,,
+"","","","","","","",,"",,"base","refund",-32,"",,,
+"","","","","","","","","",100,"tax","refund",,ll10n_bg.10n_bg_301,,,
+"","","","","","","",,"",-100,"tax",refund,-42,l10n_bg.l10n_bg_4531,,,
+l10n_bg_customs_combined,"503","Customs Tariff + VAT","Combined Customs Tariff and VAT","Customs + VAT","0.0","group","purchase",,,"","",,,"l10n_bg_customs_tariff,l10n_bg_customs_vat_20","Митнически сборове с ДДС",1
+l10n_bg_private_vat_20,"504","20% VAT - Private Usage","VAT with Private Usage Coefficient","Private VAT","20.0","private_rate","purchase",tax_group_vat_20,,"base",invoice,+32,"",,"20% ДДС - Представителни разходи с коефициент",1
+"","","","","","","",,"",100,"tax",invoice,+42,l10n_bg.l10n_bg_4531,,,
+"","","","","","","",,"",,"base","refund",-32,"",,,
+"","","","","","","","","",100,"tax","refund",-42,l10n_bg.l10n_bg_4531,,,

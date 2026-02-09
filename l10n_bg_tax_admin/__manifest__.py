@@ -74,7 +74,7 @@ This module is essential for Bulgarian companies dealing with:
 - Private usage of company assets
 - Cross-border trade within and outside EU
     """,
-    'version': '18.0.9.0.7',
+    'version': '18.0.9.0.8',
     "category": "Accounting/Localizations/Reporting",
     "development_status": "Beta",
     "license": "OPL-1",

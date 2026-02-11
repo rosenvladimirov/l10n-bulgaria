@@ -22,7 +22,7 @@
 <!--                    help="Use record only for current company"-->
 <!--                />-->
                 <separator />
-                <group>
+                <group expand="0" string="Group By...">
                     <filter
                         name="groupby_info_tag_1"
                         string="Period"

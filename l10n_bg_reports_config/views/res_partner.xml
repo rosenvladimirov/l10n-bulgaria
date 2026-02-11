@@ -4,9 +4,9 @@
     <record id="l10n_bg_view_partner_form" model="ir.ui.view">
         <field name="name">l10n.bg.res.partner.form</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='accounting']//group[@name='credit_limits']" position="after">
+            <xpath expr="//page[@name='accounting']//group[@name='accounting_entries']" position="after">
                 <group string="Bulgarian NSI Classification" name="l10n_bg_accounting">
                     <field name="l10n_bg_tax_tag_receivable_ids"
                            widget="many2many_tags"

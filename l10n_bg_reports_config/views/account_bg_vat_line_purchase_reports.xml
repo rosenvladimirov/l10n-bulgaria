@@ -29,7 +29,7 @@
 <!--                    help="Use record only for current company"-->
 <!--                />-->
                 <separator />
-                <group>
+                <group expand="0" string="Group By...">
                     <filter
                         name="groupby_date"
                         string="Date"
@@ -61,7 +61,7 @@
          <field name="model">account.bg.calc.purchases.line</field>
          <field name="arch" type="xml">
             <list>
-                <field name="company_currency_id" column_invisible="1" /> <!-- Technical field: required for monetary widget -->
+                <field name="company_currency_id" column_invisible="1" />
                 <button
                     name="open_journal_entry"
                     string="Open"

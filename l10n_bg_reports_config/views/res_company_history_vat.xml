@@ -14,7 +14,7 @@
                 <field name="threshold_arrivals_extended" widget="monetary"/>
                 <field name="threshold_dispatches_standard" widget="monetary"/>
                 <field name="threshold_dispatches_extended" widget="monetary"/>
-                <field name="currency_id" column_invisible="1"/><!-- Technical field: required for monetary widget -->
+                <field name="currency_id" column_invisible="1"/>
                 <field name="active" widget="boolean_toggle"/>
             </list>
         </field>
@@ -36,7 +36,8 @@
                             <field name="date_to"/>
                         </group>
                         <group>
-                            <field name="currency_id" invisible="1"/><!-- Technical field: required for monetary widget -->
+                            <field name="currency_id" invisible="1"/>
+                            <field name="active" invisible="1"/>
                         </group>
                     </group>
                     <notebook>
@@ -75,7 +76,7 @@
                 <separator/>
                 <filter string="Current Year" name="current_year"
                         domain="[('year', '=', context_today().year)]"/>
-                <group>
+                <group expand="0" string="Group By">
                     <filter string="Year" name="group_year" context="{'group_by': 'year'}"/>
                 </group>
             </search>
@@ -114,7 +115,7 @@
                 <field name="is_manual" widget="boolean_toggle" optional="show"/>
                 <field name="is_computed" widget="boolean_toggle" optional="show"/>
                 <field name="is_provisional" widget="boolean_toggle" optional="show"/>
-                <field name="currency_id" column_invisible="1"/><!-- Technical field: required for monetary widget -->
+                <field name="currency_id" column_invisible="1"/>
                 <field name="active" widget="boolean_toggle"/>
             </list>
         </field>
@@ -150,15 +151,16 @@
                         <group>
                             <field name="year" widget="integer"/>
                             <field name="month" placeholder="Leave empty for annual coefficient"/>
-                            <field name="period_type" invisible="1"/><!-- Technical field: used in domain/compute -->
+                            <field name="period_type" invisible="1"/>
                             <field name="date_from"/>
                             <field name="date_to"/>
                         </group>
                         <group>
-                            <field name="currency_id" invisible="1"/><!-- Technical field: required for monetary widget -->
+                            <field name="currency_id" invisible="1"/>
+                            <field name="active" invisible="1"/>
                             <field name="is_manual"/>
                             <field name="is_computed"/>
-                            <field name="is_provisional" invisible="not month"/><!-- Technical field: used in domain/compute -->
+                            <field name="is_provisional" invisible="not month"/>
                         </group>
                     </group>
 
@@ -262,7 +264,7 @@
                         domain="[('year', '=', context_today().year)]"/>
                 <filter string="Monthly" name="monthly" domain="[('month', '!=', False)]"/>
                 <filter string="Annual" name="annual" domain="[('month', '=', False)]"/>
-                <group>
+                <group expand="0" string="Group By">
                     <filter string="Year" name="group_year" context="{'group_by': 'year'}"/>
                     <filter string="Period Type" name="group_period_type" context="{'group_by': 'period_type'}"/>
                 </group>

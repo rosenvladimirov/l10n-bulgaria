@@ -42,7 +42,10 @@ class AccountBGTotalViesDeclaration(models.Model):
     info_tag_vhr_3 = fields.Integer(
         string="[VHR-3] Number of documents in the vies journal", readonly=True
     )
-    info_tag_vir_7 = fields.Char(string="[02-01] Tax period", readonly=True)
+    info_tag_vir_7 = fields.Char(
+        string="[k6] Tax period when tax became due (MM/YYYY) - only if different from the declaration period",
+        readonly=True,
+    )
 
     def init(self):
         tools.drop_view_if_exists(self.env.cr, self._table)
@@ -85,8 +88,8 @@ class AccountBGTotalViesDeclaration(models.Model):
 
     @api.model
     def _where(self):
-        if self.env.context.get("report_options"):
-            report_options = self.env.context.get("report_options")
+        if self._context.get("report_options"):
+            report_options = self._context.get("report_options")
             date_from = report_options["date"]["date_from"]
             date_from_date = fields.Date.from_string(date_from)
             tax_period = date_from_date.strftime("%Y%m")

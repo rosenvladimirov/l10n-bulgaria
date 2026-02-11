@@ -39,7 +39,7 @@ def l10n_bg_get_tag_negate_sql(table_alias='aat_base'):
     """
     if _get_odoo_version() < 19:
         # Odoo 18 и по-рано
-        return f"{table_alias}.tax_negate AS negate"
+        return f"COALESCE({table_alias}.tax_negate, false) AS negate"
     else:
         # Odoo 19+
         return f"STARTS_WITH({table_alias}.name#>>'{{en_US}}', '-') AS negate"
@@ -105,13 +105,13 @@ def l10n_bg_lang(env, lang_modules="partner", field_name=""):
     is_l10n_bg_multilanguage = isinstance(env.company.is_l10n_bg_multilanguage, dict) and env.company.is_l10n_bg_multilanguage.get("l10n_bg_multilang", '') == 'installed'
 
     if l10n_bg_extend_address(env) and lang_modules == "partner" and field_name == "company_partner.city":
-        field_name = f"""(CASE
+        return f"""(CASE
         WHEN company_partner_city.name ? 'bg_BG' THEN company_partner_city.name#>>'{{{'bg_BG'}}}'
         WHEN company_partner_city.name ? 'en_US' THEN company_partner_city.name#>>'{{{'en_US'}}}'
         ELSE company_partner_city.name::text
         END)"""
     if l10n_bg_extend_address(env) and lang_modules == "partner" and field_name == "represent_partner.city":
-        field_name = f"""(CASE
+        return f"""(CASE
         WHEN represent_partner_city.name ? 'bg_BG' THEN represent_partner_city.name#>>'{{{'bg_BG'}}}'
         WHEN represent_partner_city.name ? 'en_US' THEN represent_partner_city.name#>>'{{{'en_US'}}}'
         ELSE represent_partner_city.name::text
@@ -454,7 +454,7 @@ L10N_BG_SALES_FIELDS = {
     "info_tag_7": lambda value: parce_str_15(value), # 02-07 Идентификационен номер на контрагента (получател): символен (15)
     "info_tag_8": lambda value: parce_str_50(value), # 02-08 Име на контрагента (получател): символен (50)
     "info_tag_9": lambda value: parce_str_30(value), # 02-09 Вид на стоката или обхват и вид на услугата - точно описание съгласно документа: символен (30)
-    "account_tag_10": lambda value: parce_fload_15_2(value), # 02-10* Общ размер на данъчните основи за облагане с ДДС: цифров (15)
+    "account_tag_9": lambda value: parce_fload_15_2(value), # 02-10* Общ размер на данъчните основи за облагане с ДДС: цифров (15)
     "account_tag_20": lambda value: parce_fload_15_2(value), # 02-20* Всичко начислен ДДС: цифров (15)
     "account_tag_11": lambda value: parce_fload_15_2(value), # 02-11 Данъчна основа на облагаемите доставки със ставка 20 %, вкл. доставките при условията на дистанционни продажби, с място на изпълнение на територията на страната: цифров (15)
     "account_tag_21": lambda value: parce_fload_15_2(value), # 02-21 Начислен ДДС 20 %: цифров (15)
@@ -742,8 +742,8 @@ class AuditExportFileHelper(models.AbstractModel):
 
     def _get_l10n_bg_results(self, tax_report, options=False):
         full_query = self._build_l10n_bg_query(tax_report, options=options)
-        self.env.cr.execute(full_query, [])
-        results = self.env.cr.dictfetchall()
+        self._cr.execute(full_query, [])
+        results = self._cr.dictfetchall()
         return results
 
     def _build_l10n_bg_query(self, tax_report, options=False):
@@ -754,7 +754,7 @@ class AuditExportFileHelper(models.AbstractModel):
             return ""
         full_query = (
             self.env[sql_query]
-            .with_context(**dict(self.env.context, report_options=options))
+            .with_context(**dict(self._context, report_options=options))
             ._table_query
         )
         _logger.debug(f"SQL QUERY {tax_report}: {full_query}")

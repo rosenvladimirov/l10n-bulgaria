@@ -32,28 +32,26 @@ class AccountBGCalcViesLine(models.Model):
     )
 
     info_tag_vir_1 = fields.Char("[VDR-1] Main Record Section Code", readonly=True)
-    info_tag_vir_2 = fields.Integer(string="[k1] Row number", readonly=True)
+    info_tag_vir_2 = fields.Integer(string="Counter", readonly=True)
     info_tag_vir_3 = fields.Char(
-        "[k2] VAT ID of recipient/acquirer (incl. country code)",
+        "[VDR-1] VIN ",
+        help="Number of the foreign counterparty incl. the sign of the Member State",
         readonly=True,
     )
-    info_tag_vir_7 = fields.Char(
-        string="[k6] Tax period when tax became due (MM/YYYY) - only if different from the declaration period",
-        readonly=True,
-    )
+    info_tag_vir_7 = fields.Char(string="[02-01] Tax period", readonly=True)
     account_tag_vir_4 = fields.Monetary(
-        string="[k3] Tax base of intra-Community supplies of goods (BGN)",
+        string="[02-15] Base ICD of goods 0%",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_vir_5 = fields.Monetary(
-        string="[k4] Tax base of supplies of goods as an intermediary in a triangular transaction (BGN)",
+        string="[02-25] TO-trilateral operations",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_vir_6 = fields.Monetary(
         readonly=True,
-        string="[k5] Tax base of supplies of services under Art. 21(2) VAT Act with place of supply in another Member State (BGN)",
+        string="[02-17] Base under Art. 21 on the territory of the EU",
         currency_field="company_currency_id",
     )
 
@@ -119,9 +117,9 @@ FROM {self._from()}
 
     @api.model
     def _where(self):
-        if self._context.get("report_options"):
+        if self.env.context.get("report_options"):
             date_from, date_to, tax_period, tax_periods, company_id, state = l10n_bg_where(
-                self.env, self._context.get("report_options")
+                self.env, self.env.context.get("report_options")
             )
             return f"""am.company_id = {company_id} AND am.state = ANY(ARRAY{state}) AND aat.l10n_bg_applicability = 'sale' AND aat.tag_name = ANY(ARRAY[15, 25, 17]) AND aml.balance != 0 AND am.date >= '{date_from}' AND am.date <= '{date_to}'"""
         return """aat.l10n_bg_applicability = 'sale' AND aat.tag_name = ANY(ARRAY[15,25,17]) AND aml.balance != 0"""

@@ -206,18 +206,15 @@ class L10nBgVatRatioHistory(models.Model):
         default=True,
     )
 
-    _sql_constraints = [
-        (
-            "unique_year_month_company",
-            "UNIQUE(year, month, company_id)",
-            "A VAT ratio for this period already exists for this company!",
-        ),
-        (
-            "check_ratio_range",
-            "CHECK(vat_ratio >= 0 AND vat_ratio <= 100)",
-            "VAT ratio must be between 0 and 100!",
-        ),
-    ]
+    _unique_year_month_company = models.Constraint(
+        "UNIQUE(year, month, company_id)",
+        "A VAT ratio for this period already exists for this company!",
+    )
+
+    _check_ratio_range = models.Constraint(
+        "CHECK(vat_ratio >= 0 AND vat_ratio <= 100)",
+        "VAT ratio must be between 0 and 100!",
+    )
 
     @api.depends("company_id")
     def _compute_currency_id(self):
@@ -554,7 +551,3 @@ class L10nBgVatRatioHistory(models.Model):
         })
 
         return ratio_result
-
-    def name_get(self):
-        """Custom name_get to show the company in the name."""
-        return [(record.id, record.display_name) for record in self]

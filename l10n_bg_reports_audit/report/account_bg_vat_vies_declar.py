@@ -91,7 +91,7 @@ class AccountBGInfoViesDeclaration(models.Model):
     def _from(self):
         sub_select = (
             self.env["account.bg.calc.vies.line"]
-            .with_context(**dict(self._context))
+            .with_context(**dict(self.env.context))
             ._table_query
         )
         return f"""({sub_select}) AS acc
@@ -105,9 +105,9 @@ LEFT JOIN res_partner AS represent_partner
 
     @api.model
     def _where(self):
-        if self._context.get("report_options"):
+        if self.env.context.get("report_options"):
             date_from, date_to, tax_period, tax_periods, company_id, state = l10n_bg_where(
-                self.env, self._context.get("report_options")
+                self.env, self.env.context.get("report_options")
             )
             if len(tax_periods) == 0:
                 return f"""acc.company_id = {company_id} AND acc.state = ANY(ARRAY{state}) AND acc.info_tag_vir_7 = '{tax_period}'"""

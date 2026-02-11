@@ -125,13 +125,11 @@ class L10nBgIntrastatThreshold(models.Model):
         tracking=True,
     )
 
-    _sql_constraints = [
-        (
-            "unique_year_month_company",
-            "UNIQUE(year, month, company_id, date_from)",
-            "A threshold for this period already exists for this company!",
-        ),
-    ]
+    _unique_year_month_company = models.Constraint(
+        "UNIQUE(year, month, company_id, date_from)",
+        "A threshold for this period already exists for this company!",
+    )
+
 
     @api.depends("company_id")
     def _compute_currency_id(self):
@@ -252,11 +250,3 @@ class L10nBgIntrastatThreshold(models.Model):
             )
 
         return threshold
-
-    def name_get(self):
-        """Custom name_get to show the company in the name."""
-        result = []
-        for record in self:
-            name = record.display_name
-            result.append((record.id, name))
-        return result

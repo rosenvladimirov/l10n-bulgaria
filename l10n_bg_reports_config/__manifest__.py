@@ -1,12 +1,12 @@
 {
     "name": "Bulgarian Accounting Reports Configuration",
-    "version": "18.0.9.0.2",
+    "version": "19.0.8.0.6",
     "development_status": "Production/Stable",
     "maintainers": ["rosenvladimirov", "deyanlyubenov"],
     "description": "Configuration and views for Bulgarian Accounting Reports (Odoo 18.0).",
     "category": "Accounting/Localizations/Reporting",
     "summary": """
-    Configuration module for Bulgarian Accounting Reports - Odoo 18.0 specific views and wizards
+    Configuration module for Bulgarian Accounting Reports - Odoo 19.0 specific views and wizards
     """,
     "license": "LGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
@@ -46,6 +46,6 @@
     "tags": ["localization", "accounting", "bulgaria", "reporting", "configuration"],
     "countries": ["BG"],
     # Version requirements
-    "odoo_version": "18.0",
+    "odoo_version": "19.0",
     "python_version": ">=3.11",
 }

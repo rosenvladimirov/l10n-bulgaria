@@ -18,44 +18,42 @@ class AccountBGResultDeclar(models.Model):
     _order = "move_id asc"
 
     company_id = fields.Many2one(
-        "res.company", "Company", readonly=True, auto_join=True
+        "res.company", "Company", readonly=True
     )
     company_currency_id = fields.Many2one(
         related="company_id.currency_id", readonly=True
     )
     move_id = fields.Many2one("account.move", string="Account Move", readonly=True)
     account_tag_50 = fields.Monetary(
-        string="[01-50] VAT to pay (cell 20 - cell 40) >= 0",
-        currency_field="company_currency_id",
-        readonly=True,
+        string="[01-50] VAT to pay", currency_field="company_currency_id", readonly=True
     )
     account_tag_60 = fields.Monetary(
-        string="[01-60] VAT for refund (cell 20 - cell 40)",
+        string="[01-60] VAT recovery",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_70 = fields.Monetary(
-        string="[01-70] Tax to pay from cell 50, deducted under Art. 92(1) VAT Act",
+        string="[01-70] Tax for pay from cell[50], deducted in accordance with art. 92, para. 1 VAT",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_71 = fields.Monetary(
-        string="[01-71] Tax to pay from cell 50, paid effectively",
+        string="[01-71] Tax for pay of cell[50], effectively imported",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_80 = fields.Monetary(
-        string="[01-80] VAT subject to refund under Art. 92(1) VAT Act within 30 days from submission",
+        string="[01-80] Pursuant to Art. 92, Para. 1 VAT within 30 days from the submission of this declaration",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_81 = fields.Monetary(
-        string="[01-81] VAT subject to refund under Art. 92(3) VAT Act within 30 days from submission",
+        string="[01-81] Pursuant to Art. 92, Para. 3 VAT within 30 days from the submission of this declaration",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_82 = fields.Monetary(
-        string="[01-82] VAT subject to refund under Art. 92(4) VAT Act within 30 days from submission",
+        string="[01-82] Pursuant to Art. 92, para. 4 VAT within 30 days from the submission of this declaration",
         currency_field="company_currency_id",
         readonly=True,
     )
@@ -117,15 +115,7 @@ class AccountBGResultDeclar(models.Model):
     LEFT JOIN account_account_tag_account_move_line_rel AS tag_line_rel
         ON tag_line_rel.account_move_line_id = aml.id
     LEFT JOIN (SELECT id,
-                    NULLIF(REGEXP_REPLACE(
-                        COALESCE(
-                            account_account_tag.name#>>'{{en_US}}',
-                            account_account_tag.name#>>'{{bg_BG}}',
-                            account_account_tag.name::text
-                        ),
-                        '\\D','',
-                        'g'
-                    ), '')::numeric AS tag_name,
+                    NULLIF(REGEXP_REPLACE(account_account_tag.name#>>'{{en_US}}', '\\D','','g'), '')::numeric AS tag_name,
                     {tax_negate},
                     l10n_bg_applicability
                     FROM account_account_tag

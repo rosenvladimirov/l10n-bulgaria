@@ -148,7 +148,7 @@ def l10n_bg_lang(env, lang_modules="partner", field_name=""):
         )
 
 def l10n_bg_odoo_compatible_line(env, mode):
-    l10n_bg_compatible_odoo = env.user.company_id.l10n_bg_odoo_compatible
+    l10n_bg_compatible_odoo = env.company.l10n_bg_odoo_compatible
     if l10n_bg_compatible_odoo and mode == "tag_22":
         return """"""
     elif not l10n_bg_compatible_odoo and mode == "tag_22":
@@ -157,8 +157,14 @@ def l10n_bg_odoo_compatible_line(env, mode):
 
 
 def l10n_bg_odoo_compatible(env, mode, report_options=None):
-    l10n_bg_compatible_odoo = env.user.company_id.l10n_bg_odoo_compatible
-    _logger.debug(f"l10n_bg_compatible_odoo: {l10n_bg_compatible_odoo} - {mode}")
+    l10n_bg_compatible_odoo = env.company.l10n_bg_odoo_compatible
+    _logger.info(
+        "l10n_bg_odoo_compatible mode=%s company_id=%s compatible=%s report_options_keys=%s",
+        mode,
+        env.company.id,
+        l10n_bg_compatible_odoo,
+        list((report_options or {}).keys()),
+    )
 
     account_tag_33, account_tag_43 = account_tag_33_43(env, report_options=report_options or {})
     if not account_tag_33:

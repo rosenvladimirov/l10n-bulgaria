@@ -16,4 +16,13 @@
         </function>
         <value eval="{'l10n_bg_applicability': 'purchase'}"/>
     </function>
+
+    <function name="write" model="account.account.tag">
+        <function name="search" model="account.account.tag">
+            <value
+                eval="[('name', 'in', ['50','60','70','71','80','81','82'])]"
+            />
+        </function>
+        <value eval="{'l10n_bg_applicability': 'declaration'}"/>
+    </function>
 </odoo>

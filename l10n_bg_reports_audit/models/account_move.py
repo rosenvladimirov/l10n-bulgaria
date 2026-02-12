@@ -14,7 +14,13 @@ class AccountMove(models.Model):
 
     l10n_bg_customs_base_amount = fields.Float(
         string="Customs base amount",
-        help="Customs base amount used in audit reports.",
+        help=(
+            "Customs base amount used in audit reports.\n"
+            "Warning: the use of this option as permitted is not known from the "
+            "perspective of Bulgarian legislation; it is based on practices used "
+            "and encouraged in tax administrations. Use only at your own "
+            "responsibility and risk."
+        ),
     )
     l10n_bg_audit_use_tax = fields.Boolean(
         related="company_id.l10n_bg_audit_use_tax",

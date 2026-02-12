@@ -345,6 +345,7 @@ international compatibility while preserving native language data.
     ],
     "data": [
         "views/res_lang_views.xml",
+        "views/res_config_settings_view.xml",
     ],
     'images': [
         'static/description/banner.png',

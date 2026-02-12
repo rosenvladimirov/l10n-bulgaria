@@ -22,3 +22,17 @@ class Company(models.Model):
     street = fields.Char(translate=True)
     street2 = fields.Char(translate=True)
     city = fields.Char(translate=True)
+    transliterate_names = fields.Boolean(
+        string="Transliterate names",
+        default=False,
+        help="Enable automatic transliteration of partner and company names."
+    )
+
+    def init(self):
+        _logger.info("Data res.transliterate.mixin: %s", self._table)
+        # Run for each concrete model that inherits this mixin.
+        self.env.cr.execute(
+            f'ALTER TABLE "{self._table}" '
+            "ADD COLUMN IF NOT EXISTS transliterate_tracking jsonb"
+        )
+        super().init()

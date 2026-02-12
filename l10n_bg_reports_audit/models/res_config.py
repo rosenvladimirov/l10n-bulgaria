@@ -6,6 +6,13 @@ from odoo import fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
+    l10n_bg_audit_tax_id = fields.Many2one(
+        related="company_id.l10n_bg_audit_tax_id", readonly=False
+    )
+    l10n_bg_audit_use_tax = fields.Boolean(
+        related="company_id.l10n_bg_audit_use_tax", readonly=False
+    )
+
     l10n_bg_odoo_compatible = fields.Boolean(
         related="company_id.l10n_bg_odoo_compatible", readonly=False
     )

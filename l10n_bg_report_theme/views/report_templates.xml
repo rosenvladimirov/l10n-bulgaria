@@ -261,10 +261,10 @@
     <template id="document_name">
         <!-- Document title section with date and original/copy -->
         <div class="row o_sections_document_title mb-3" t-if="layout_document_title">
-            <div class="col-7">
+            <div class="col-6">
                 <h4 t-out="layout_document_title"/>
             </div>
-            <div class="col-2 text-left">
+            <div class="col-3 text-left">
                 <h4 t-if="original_copies">
                     <span t-out="original_copies"/>
                 </h4>

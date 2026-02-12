@@ -12,6 +12,15 @@ from odoo.addons.l10n_bg_reports_audit.models.l10n_bg_file_helper import (
 class AccountMove(models.Model):
     _inherit = "account.move"
 
+    l10n_bg_customs_base_amount = fields.Float(
+        string="Customs base amount",
+        help="Customs base amount used in audit reports.",
+    )
+    l10n_bg_audit_use_tax = fields.Boolean(
+        related="company_id.l10n_bg_audit_use_tax",
+        readonly=True,
+    )
+
     l10n_bg_type_vat = fields.Selection(
         selection=get_type_vat(),
         string="Type of numbering",

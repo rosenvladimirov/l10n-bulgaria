@@ -13,14 +13,9 @@ L10N_BG_INTRASTAT = [
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    l10n_bg_audit_tax_id = fields.Many2one(
-        "account.tax",
-        string="Audit Tax",
-        help="Tax used for audit reports.",
-    )
     l10n_bg_audit_use_tax = fields.Boolean(
-        string="Use Audit Tax",
-        help="Enable audit tax handling in audit reports.",
+        string="Use Forced Customs Tax",
+        help="Enable audit tax handling force customs type calculation reports.",
     )
 
     l10n_bg_odoo_compatible = fields.Boolean("Odoo compatible")

@@ -220,6 +220,15 @@ def l10n_bg_odoo_compatible(env, mode, report_options=None):
     return sql_mapping.get((mode, l10n_bg_compatible_odoo), "")
 
 
+def l10n_bg_audit_tax_percentage(env, field_name):
+    company = env.company
+    if not field_name:
+        return ""
+    if not company.l10n_bg_audit_use_tax:
+        return field_name
+    return "am.l10n_bg_customs_base_amount"
+
+
 def _set_options(options, report_date_from, report_date_to):
     if not options:
         date_now = fields.Date.today().strftime("%Y-%m-%d")

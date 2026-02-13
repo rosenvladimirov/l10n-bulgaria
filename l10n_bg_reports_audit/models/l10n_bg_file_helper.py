@@ -116,6 +116,8 @@ def l10n_bg_lang(env, lang_modules="partner", field_name=""):
         WHEN represent_partner_city.name ? 'en_US' THEN represent_partner_city.name#>>'{{{'en_US'}}}'
         ELSE represent_partner_city.name::text
         END)"""
+    if field_name and field_name.strip().startswith("(CASE"):
+        return field_name
 
     if lang_modules == "partner":
         _logger.debug(f"l10n_bg_lang: lang_modules == partner: {field_name} - {lang_modules}")

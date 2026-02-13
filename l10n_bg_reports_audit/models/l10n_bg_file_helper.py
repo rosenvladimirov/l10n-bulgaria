@@ -721,6 +721,8 @@ class AuditExportFileHelper(models.AbstractModel):
 
         for report in l10n_bg_vat_report:
             fname, report_csv = self._get_csvs(report, options=options)
+            if report == "vies" and not report_csv:
+                continue
             if report == "vies":
                 fname, report_csv_lines = self._get_csvs("vies_lines", options=options)
                 report_csv = [
@@ -738,6 +740,8 @@ class AuditExportFileHelper(models.AbstractModel):
 
         for report in l10n_bg_vat_report:
             fname, report_csv = self.get_csvs(report, options=options)
+            if report == "vies" and (not report_csv or not report_csv[0]):
+                continue
             if report == "vies":
                 fname, report_csv_lines = self.get_csvs("vies_lines", options=options)
                 report_csv = [

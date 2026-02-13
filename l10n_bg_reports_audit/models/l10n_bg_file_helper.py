@@ -9,6 +9,25 @@ from dateutil.relativedelta import relativedelta
 
 _logger = logging.getLogger(__name__)
 
+ENCODING = "cp1251"
+
+
+def _extract_lang_value(val):
+    """Extract a value from a multilang dict, preferring bg_BG, then en_US, then last value."""
+    if val.get("bg_BG"):
+        return val["bg_BG"]
+    if val.get("en_US"):
+        return val["en_US"]
+    values = list(val.values())
+    return values[-1] if values else ""
+
+
+def _ensure_cp1251_safe(value):
+    """Replace characters that cannot be encoded in CP1251 with '?' to preserve fixed-width field lengths."""
+    if not isinstance(value, str):
+        return value
+    return value.encode(ENCODING, errors="replace").decode(ENCODING)
+
 L10N_BG_ADDRESS_EXTEND = [
     'l10n_bg_city'
 ]
@@ -671,7 +690,7 @@ class AuditExportFileHelper(models.AbstractModel):
                 val = line.get(field)
 
                 if isinstance(val, dict):
-                    val = list(val.values())[-1]
+                    val = _extract_lang_value(val)
 
                 elif isinstance(val, str) and val.find('{') != -1:
                     try:
@@ -691,10 +710,11 @@ class AuditExportFileHelper(models.AbstractModel):
                             val = json.loads(val)
 
                         if isinstance(val, dict):
-                            val = list(val.values())[-1]
+                            val = _extract_lang_value(val)
                     except json.JSONDecodeError:
                         pass
 
+                val = _ensure_cp1251_safe(val)
                 new_line[field] = helper(val)
             lines.append(new_line)
 

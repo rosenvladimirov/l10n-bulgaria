@@ -5,6 +5,7 @@ import logging
 from lxml import etree
 
 from odoo import api, fields, models
+from odoo.osv import expression
 
 _logger = logging.getLogger(__name__)
 
@@ -108,6 +109,129 @@ class Partner(models.Model):
                 for lang_code in lang_codes
             }
             partner.update_field_translations('complete_name_multilanguage', translations)
+
+    @api.model
+    def _search_display_name(self, operator, value):
+        domain = super()._search_display_name(operator, value)
+        domain = self._strip_lang_suffix_in_domain(domain)
+        search_fnames = list(self._rec_names_search or ([self._rec_name] if self._rec_name else []))
+        if not search_fnames:
+            return domain
+
+        if not any(self._resolve_translatable_field(fname) for fname in search_fnames):
+            for fname in self._get_translatable_search_fields():
+                if fname not in search_fnames:
+                    search_fnames.append(fname)
+
+        lang_codes = self._get_active_lang_codes()
+        if not lang_codes:
+            return domain
+
+        search_fields = [fname for fname in search_fnames if self._resolve_translatable_field(fname)]
+        if not search_fields:
+            return domain
+
+        ids = self._get_translatable_search_domains(
+            operator,
+            value,
+            search_fields,
+            lang_codes,
+        )
+        if not ids:
+            return domain
+
+        if operator in expression.NEGATIVE_TERM_OPERATORS:
+            return expression.AND([domain, [('id', 'not in', list(ids))]])
+        return expression.OR([domain, [('id', 'in', list(ids))]])
+
+    @api.model
+    def _get_translatable_search_fields(self):
+        return [
+            'complete_name_multilanguage',
+            'name',
+            'company_name',
+            'commercial_company_name',
+        ]
+
+    @api.model
+    def _resolve_translatable_field(self, field_path):
+        model = self
+        field = None
+        for fname in field_path.split('.'):
+            field = model._fields.get(fname)
+            if not field:
+                return None
+            if field.relational:
+                model = self.env.get(field.comodel_name)
+                if model is None:
+                    return None
+            else:
+                break
+        if field and field.translate and not field.relational:
+            return field
+        return None
+
+    @api.model
+    def _strip_lang_suffix_in_domain(self, domain):
+        if not domain:
+            return domain
+        lang_codes = set(self._get_active_lang_codes())
+        context_lang = self.env.context.get('lang')
+        if context_lang:
+            lang_codes.add(context_lang)
+        user_lang = self.env.user.lang
+        if user_lang:
+            lang_codes.add(user_lang)
+        if not lang_codes:
+            return domain
+
+        def _strip(tokens):
+            cleaned = []
+            for token in tokens:
+                if isinstance(token, (list, tuple)) and len(token) >= 3:
+                    field_name = token[0]
+                    if isinstance(field_name, str) and '.' in field_name:
+                        base, suffix = field_name.split('.', 1)
+                        if suffix in lang_codes:
+                            field = self._fields.get(base)
+                            if field and field.translate and not field.relational:
+                                token = (base,) + tuple(token[1:])
+                    cleaned.append(token)
+                elif isinstance(token, list):
+                    cleaned.append(_strip(token))
+                else:
+                    cleaned.append(token)
+            return cleaned
+
+        return _strip(domain)
+
+    @api.model
+    def _get_translatable_search_domains(self, operator, value, field_list, lang_codes, limit=None):
+        ids = set()
+        positive_operator = self._positive_search_operator(operator)
+        for field_name in field_list:
+            field = self._fields.get(field_name)
+            if not field or not field.translate:
+                continue
+
+            for lang_code in lang_codes:
+                records = self.with_context(lang=lang_code).search(
+                    [(field_name, positive_operator, value)],
+                    limit=limit,
+                )
+                ids.update(records.ids)
+
+        return ids
+
+    @api.model
+    def _positive_search_operator(self, operator):
+        if operator in ('not ilike', 'not like'):
+            return operator[4:]
+        if operator in ('!=', '<>'):
+            return '='
+        if operator == 'not in':
+            return 'in'
+        return operator
 
     @api.model_create_multi
     def create(self, vals_list):

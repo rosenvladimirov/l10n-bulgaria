@@ -224,9 +224,22 @@ def l10n_bg_audit_tax_percentage(env, field_name):
     company = env.company
     if not field_name:
         return ""
-    if not company.l10n_bg_audit_use_tax:
-        return field_name
-    return f"COALESCE(am.l10n_bg_customs_base_amount, {field_name})"
+    if company.l10n_bg_audit_use_tax:
+        return """COALESCE(
+NULLIF(MAX(am.l10n_bg_customs_base_amount), 0.00),
+SUM(CASE
+    WHEN am.state = 'cancel' THEN 0.00
+    WHEN aat.tag_name = 31 AND aat.negate THEN aml.balance*-1
+    WHEN aat.tag_name = 31 AND NOT aat.negate THEN aml.balance
+    ELSE 0.00
+    END)
+)"""
+    return """SUM(CASE
+WHEN am.state = 'cancel' THEN 0.00
+WHEN aat.tag_name = 31 AND aat.negate THEN aml.balance*-1
+WHEN aat.tag_name = 31 AND NOT aat.negate THEN aml.balance
+ELSE 0.00
+END)"""
 
 
 def _set_options(options, report_date_from, report_date_to):

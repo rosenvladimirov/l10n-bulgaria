@@ -299,7 +299,7 @@ class AccountBGCalcPurchasesLine(models.Model):
     @api.model
     def _select(self):
         """Method to construct the 'WITH' clause of the SQL query."""
-        customs_base = l10n_bg_audit_tax_percentage(self.env, "aml.balance")
+        account_tag_31_expr = l10n_bg_audit_tax_percentage(self.env, "aml.balance")
         return f"""am.company_id AS company_id,
     am.id AS id,
     am.id AS move_id,
@@ -313,12 +313,7 @@ class AccountBGCalcPurchasesLine(models.Model):
         WHEN aat.tag_name = 30 AND NOT aat.negate THEN aml.balance
         ELSE 0.00
         END) AS account_tag_30,
-    SUM(CASE
-        WHEN am.state = 'cancel' THEN 0.00
-        WHEN aat.tag_name = 31 AND aat.negate THEN {customs_base}*-1
-        WHEN aat.tag_name = 31 AND NOT aat.negate THEN {customs_base}
-        ELSE 0.00
-        END) AS account_tag_31,
+    {account_tag_31_expr} AS account_tag_31,
     SUM(CASE
         WHEN am.state = 'cancel' THEN 0.00
         WHEN aat.tag_name = 41 AND aat.negate THEN aml.balance*-1

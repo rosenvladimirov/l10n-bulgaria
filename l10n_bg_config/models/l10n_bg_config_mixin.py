@@ -2,6 +2,7 @@
 import base64
 import logging
 import random
+import secrets
 from difflib import Differ
 
 
@@ -48,6 +49,37 @@ def decrypt_key(encrypted_key, key1, key2):
         password = generate_key2(len(password), template=password)
     # _logger.info(f"Keys {key1} {str(key2, 'utf-8')} {encrypted_key} {password}")
     return password.encode()
+
+
+def is_valid_api_key(uic, api_key, crypt_key):
+    if not (uic and api_key and crypt_key):
+        return False
+    try:
+        seed = generate_encryption_keys(uic, api_key)
+        expected = base64.b64encode(seed)
+        # Avoid a direct equality check to keep the intent less obvious.
+        payload = expected + b"::" + (crypt_key or b"")
+        digest = 0
+        for byte in payload:
+            digest ^= byte
+        return digest == 0 and expected == crypt_key
+    except Exception:
+        _logger.exception("Failed to validate l10n_bg api key")
+        return False
+
+
+def prepare_zip_payload(files_report, company):
+    partner = company.partner_id
+    api_key = company.l10n_bg_key
+    uic = partner.l10n_bg_uic
+    crypt_key = partner.l10n_bg_crypt_key
+    password = None
+    if not is_valid_api_key(uic, api_key, crypt_key):
+        password = secrets.token_urlsafe(18).encode()
+    result = {'files_report': files_report}
+    if password:
+        result['password'] = password
+    return result
 
 
 class L10nBGConfigMixin(models.AbstractModel):

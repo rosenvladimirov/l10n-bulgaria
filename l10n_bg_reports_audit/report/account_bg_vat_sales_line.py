@@ -233,7 +233,7 @@ class AccountBGInfoSaleLine(models.Model):
         {l10n_bg_lang(self.env, "narration")} AS info_tag_9,
         am.l10n_bg_exemption_reason AS info_tag_27,
         accs.account_tag_11 + accs.account_tag_121 + accs.account_tag_122 + accs.account_tag_13 + accs.account_tag_14 + accs.account_tag_15 + accs.account_tag_16 + accs.account_tag_17 + accs.account_tag_18 + accs.account_tag_19 AS account_tag_9,
-        accs.account_tag_21 + accs.account_tag_22 + accs.account_tag_23 + accs.account_tag_24 AS account_tag_10,
+        accs.account_tag_11 + accs.account_tag_121 + accs.account_tag_122 + accs.account_tag_13 + accs.account_tag_14 + accs.account_tag_15 + accs.account_tag_16 AS account_tag_10,
         accs.account_tag_11 AS account_tag_11,
         accs.account_tag_121 + accs.account_tag_122 AS account_tag_12,
         accs.account_tag_121 AS account_tag_121,

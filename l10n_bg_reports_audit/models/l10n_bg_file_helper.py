@@ -226,7 +226,7 @@ def l10n_bg_audit_tax_percentage(env, field_name):
         return ""
     if not company.l10n_bg_audit_use_tax:
         return field_name
-    return "am.l10n_bg_customs_base_amount"
+    return f"COALESCE(am.l10n_bg_customs_base_amount, {field_name})"
 
 
 def _set_options(options, report_date_from, report_date_to):

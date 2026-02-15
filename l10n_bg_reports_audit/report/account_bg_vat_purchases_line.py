@@ -309,38 +309,38 @@ class AccountBGCalcPurchasesLine(models.Model):
     to_char(am.date, 'YYYYMM') AS info_tag_1,
     SUM(CASE
         WHEN am.state = 'cancel' THEN 0.00
-        WHEN aat.tag_name = 30 AND aat.negate THEN aml.balance*-1
+        WHEN aat.tag_name = 30 AND aat.negate THEN aml.balance
         WHEN aat.tag_name = 30 AND NOT aat.negate THEN aml.balance
         ELSE 0.00
         END) AS account_tag_30,
     {account_tag_31_expr} AS account_tag_31,
     SUM(CASE
         WHEN am.state = 'cancel' THEN 0.00
-        WHEN aat.tag_name = 41 AND aat.negate THEN aml.balance*-1
+        WHEN aat.tag_name = 41 AND aat.negate THEN aml.balance
         WHEN aat.tag_name = 41 AND NOT aat.negate THEN aml.balance
         ELSE 0.00
         END) AS account_tag_41,
     SUM(CASE
         WHEN am.state = 'cancel' THEN 0.00
-        WHEN aat.tag_name = 32 AND aat.negate THEN aml.balance*-1
+        WHEN aat.tag_name = 32 AND aat.negate THEN aml.balance
         WHEN aat.tag_name = 32 AND NOT aat.negate THEN aml.balance
         ELSE 0.00
         END) AS account_tag_32,
     SUM(CASE
         WHEN am.state = 'cancel' THEN 0.00
-        WHEN aat.tag_name = 42 AND aat.negate THEN aml.balance*-1
+        WHEN aat.tag_name = 42 AND aat.negate THEN aml.balance
         WHEN aat.tag_name = 42 AND NOT aat.negate THEN aml.balance
         ELSE 0.00
         END) AS account_tag_42,
     SUM(CASE
         WHEN am.state = 'cancel' THEN 0.00
-        WHEN aat.tag_name = 43 AND aat.negate THEN aml.balance*-1
+        WHEN aat.tag_name = 43 AND aat.negate THEN aml.balance
         WHEN aat.tag_name = 43 AND NOT aat.negate THEN aml.balance
         ELSE 0.00
         END) AS account_tag_43,
     SUM(CASE
         WHEN am.state = 'cancel' THEN 0.00
-        WHEN aat.tag_name = 44 AND aat.negate THEN aml.balance*-1
+        WHEN aat.tag_name = 44 AND aat.negate THEN aml.balance
         WHEN aat.tag_name = 44 AND NOT aat.negate THEN aml.balance
         ELSE 0.00
         END) AS account_tag_44"""

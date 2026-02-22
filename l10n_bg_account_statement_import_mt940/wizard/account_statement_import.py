@@ -85,7 +85,10 @@ class AccountStatementImport(models.TransientModel):
         for detail in transaction_details.split(separator):
             detail = detail.strip()
             _logger.info(f"Bank Detail ({bank_format}): {detail}")
-            if detail.startswith("20"):
+            if detail.startswith("00"):
+                # Field 00 contains description - use as fallback for payment_ref
+                res.update({"00": detail.replace("00", "", 1)})
+            elif detail.startswith("20"):
                 res.update({"20": detail.replace("20", "", 1)})
             elif detail.startswith("21"):
                 detail_21 = detail.replace("21", "", 1)
@@ -215,6 +218,17 @@ class AccountStatementImport(models.TransientModel):
                 account_number = bank_data.get('СМЕТКА:', account_number)
 
             payment_ref = detail_data.get("21", payment_ref)
+
+        # Ensure payment_ref is not empty (required field)
+        if not payment_ref:
+            # Try fallback options in order of preference
+            payment_ref = (
+                detail_data.get("20", "") or  # Field 20 (additional description)
+                detail_data.get("00", "") or  # Field 00 (main description)
+                transaction.get("id", "") or  # Transaction ID (NFIT, NFOB, etc.)
+                transaction.get("customer_reference", "") or  # Customer reference
+                "/"  # Last resort - empty reference marker
+            )
 
         vals = {
             "date": transaction["date"],

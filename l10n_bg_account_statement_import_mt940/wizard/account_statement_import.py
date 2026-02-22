@@ -230,12 +230,29 @@ class AccountStatementImport(models.TransientModel):
                 "/"  # Last resort - empty reference marker
             )
 
+        # Generate unique_import_id with multiple fallbacks to avoid duplicates
+        # Use date + amount + transaction_id + customer_ref + hash of details
+        import hashlib
+
+        date_str = str(transaction["date"]).replace("-", "")
+        amount_str = str(abs(float(transaction["amount"].amount))).replace(".", "")
+        customer_ref = transaction.get("customer_reference", "")
+        trans_id = transaction.get("id", "")
+
+        # Create a hash from transaction details to ensure uniqueness
+        transaction_details = transaction.get("transaction_details", "")
+        details_hash = hashlib.md5(transaction_details.encode('utf-8')).hexdigest()[:8]
+
+        # Build unique ID: date-amount-transid-hash-customerref
+        unique_import_id = f"{date_str}-{amount_str}-{trans_id}-{details_hash}"
+        if customer_ref:
+            unique_import_id += f"-{customer_ref}"
+
         vals = {
             "date": transaction["date"],
             "payment_ref": payment_ref,
             "amount": float(transaction["amount"].amount),
-            "unique_import_id": f"{transaction['id']}"
-            f"-{transaction.get('customer_reference', '')}",
+            "unique_import_id": unique_import_id,
             "account_number": account_number,
             "partner_name": partner_name,
         }

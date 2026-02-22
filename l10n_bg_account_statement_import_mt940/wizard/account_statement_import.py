@@ -187,7 +187,7 @@ class AccountStatementImport(models.TransientModel):
             return self._get_detail_data_procredit(transaction_details, bank_format)
 
     @api.model
-    def _prepare_mt940_transaction_line(self, transaction, bank_format="procredit"):
+    def _prepare_mt940_transaction_line(self, transaction, bank_format="procredit", transaction_index=0):
         detail_data = {}
         transaction_details = transaction["transaction_details"]
         detail_data = self._get_detail_data(transaction_details, bank_format)
@@ -231,7 +231,7 @@ class AccountStatementImport(models.TransientModel):
             )
 
         # Generate unique_import_id with multiple fallbacks to avoid duplicates
-        # Use date + amount + transaction_id + customer_ref + hash of details
+        # Use date + amount + transaction_id + index + customer_ref + hash of details
         import hashlib
 
         date_str = str(transaction["date"]).replace("-", "")
@@ -243,8 +243,9 @@ class AccountStatementImport(models.TransientModel):
         transaction_details = transaction.get("transaction_details", "")
         details_hash = hashlib.md5(transaction_details.encode('utf-8')).hexdigest()[:8]
 
-        # Build unique ID: date-amount-transid-hash-customerref
-        unique_import_id = f"{date_str}-{amount_str}-{trans_id}-{details_hash}"
+        # Build unique ID: date-amount-transid-index-hash-customerref
+        # Include transaction_index to handle identical transactions on same day
+        unique_import_id = f"{date_str}-{amount_str}-{trans_id}-{transaction_index}-{details_hash}"
         if customer_ref:
             unique_import_id += f"-{customer_ref}"
 
@@ -276,11 +277,11 @@ class AccountStatementImport(models.TransientModel):
             bank_format = self._detect_bank_format(account_identification)
             _logger.info(f"Detected bank format: {bank_format} for account: {account_identification}")
 
-            for account in mt940_transactions:
+            for transaction_index, account in enumerate(mt940_transactions):
                 if not account:
                     continue
 
-                vals = self._prepare_mt940_transaction_line(account.data, bank_format)
+                vals = self._prepare_mt940_transaction_line(account.data, bank_format, transaction_index)
                 if vals:
                     transactions.append(vals)
                     total_amt += vals["amount"]

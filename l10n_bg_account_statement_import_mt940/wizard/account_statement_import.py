@@ -67,7 +67,7 @@ class AccountStatementImport(models.TransientModel):
 
     @api.model
     def _get_bank_parser(self, bank_format, tag_data):
-        """Get appropriate bank transaction parser based on bank format."""
+        """Get the appropriate bank transaction parser based on bank format."""
         if bank_format == "ubb":
             return UBBCustomerReference(tag_data)
         elif "UNCR" in tag_data.upper():
@@ -77,7 +77,7 @@ class AccountStatementImport(models.TransientModel):
 
     @api.model
     def _get_detail_data_procredit(self, transaction_details, bank_format="procredit"):
-        """Parse ProCredit/UniCredit bank format (uses ^ or + as separator)."""
+        """Parse ProCredit/UniCredit bank format (uses ^ or + as a separator)."""
         res = {}
         # Detect separator: ^ or +
         separator = "^" if "^" in transaction_details else "+"
@@ -86,7 +86,7 @@ class AccountStatementImport(models.TransientModel):
             detail = detail.strip()
             _logger.info(f"Bank Detail ({bank_format}): {detail}")
             if detail.startswith("00"):
-                # Field 00 contains description - use as fallback for payment_ref
+                # Field 00 contains description - use as a fallback for payment_ref
                 res.update({"00": detail.replace("00", "", 1)})
             elif detail.startswith("20"):
                 res.update({"20": detail.replace("20", "", 1)})
@@ -95,7 +95,7 @@ class AccountStatementImport(models.TransientModel):
                 res.update({"21": detail_21})
             elif detail.startswith("22"):
                 detail_row_22 = detail.replace("22", "", 1)
-                # Parse the detail using appropriate bank parser
+                # Parse the detail using the appropriate bank parser
                 parser = self._get_bank_parser(bank_format, detail_row_22)
                 parsed_data = parser.get_data()
                 res.update(

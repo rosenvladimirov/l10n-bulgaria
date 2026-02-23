@@ -60,7 +60,6 @@ def _retrieve_partner_patch(self):
     unaccent = self.env.registry.unaccent
     sub_queries = []
     params = []
-    partner_name_expr = SQL("COALESCE(partner.name #>> '{}', partner.name::text)")
     for text_value in st_line_text_values:
         if not text_value:
             continue
@@ -74,7 +73,7 @@ def _retrieve_partner_patch(self):
                     {unaccent("%s")} ~* ('^' || (
                         SELECT STRING_AGG(CONCAT('(?=.*\m', chunk[1], '\\M)'), '')
                         FROM regexp_matches(
-                            {unaccent(partner_name_expr)},
+                            {unaccent("COALESCE(partner.name #>> '{}', partner.name::text)")},
                             '\\w{{3,}}', 'g'
                         ) AS chunk
                     ))

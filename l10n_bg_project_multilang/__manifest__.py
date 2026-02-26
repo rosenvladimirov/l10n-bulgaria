@@ -34,7 +34,7 @@ allowing Bulgarian companies to manage projects in both Bulgarian and other lang
 
     """,
     'version': '18.0.1.0.0',
-    'license': 'AGPL-3',
+    'license': 'LGPL-3',
     'author': 'Rosen Vladimirov',
     'maintainer': 'Rosen Vladimirov',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',

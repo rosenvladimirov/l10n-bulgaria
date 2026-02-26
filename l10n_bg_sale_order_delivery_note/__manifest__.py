@@ -34,7 +34,7 @@
         'report/ir_actions_report.xml',
     ],
     'demo': [],
-    'license': 'AGPL-3',
+    'license': 'LGPL-3',
     'installable': True,
     'application': False,
     'auto_install': False,

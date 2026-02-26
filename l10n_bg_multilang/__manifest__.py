@@ -5,7 +5,7 @@
     "version": "18.0.0.1.0",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
     "category": "Localization",
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "description": """
     Multi language support for Partner, Company, Employee.
     """,

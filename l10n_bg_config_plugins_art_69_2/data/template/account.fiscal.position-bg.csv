@@ -1,6 +1,0 @@
-id,"sequence","name","auto_apply","vat_required","country_id","country_group_id","tax_ids/tax_src_id","tax_ids/tax_dest_id","name@bg"
-"fiscal_position_template_69_2","60","0% Art. 69(2)","1","","","base.europe","l10n_bg_sale_vat_20","l10n_bg_sale_vat_62_2","Доставки по чл. 69, ал. 2 от ЗДДС"
-"","","","","","","","l10n_bg_sale_vat_20_personal","l10n_bg_sale_vat_62_2",""
-"","","","","","","","l10n_bg_sale_vat_9","l10n_bg_sale_vat_62_2",""
-"","","","","","","","l10n_bg_sale_vat_9_personal","l10n_bg_sale_vat_62_2",""
-"","","","","","","","l10n_bg_sale_vat_0_exempt","l10n_bg_sale_vat_62_2",""

@@ -166,7 +166,7 @@ class CryptoWallet(models.Model):
 
     # Virtual fields (not stored in DB)
     master_password = fields.Char('Master password', store=False)
-    decrypted_keys = fields.Text('Decrypted Keys', store=False, readonly=True)
+    decrypted_keys = fields.Text(store=False, readonly=True)
 
     _crypto_manager = None
     _filesystem_manager = None

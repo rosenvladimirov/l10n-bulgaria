@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template id="report_delivery_document_sale_line_description" inherit_id="stock.report_delivery_document">
-        <xpath expr="//table[@name='stock_move_table']//tr//td[span[@t-field='move.product_id']]/p[@t-if='move.description_picking and move.description_picking != move.product_id.name and move.description_picking != move.product_id.display_name']" position="after">
+        <xpath expr="//table[@name='stock_move_table']//tr//td[.//span[@t-field='move.product_id']]" position="inside">
             <p t-if="move.sale_line_description" groups="l10n_bg_stock_sale_line_description.group_control_sale_description">
                 <span t-esc="move.sale_line_description"/>
             </p>

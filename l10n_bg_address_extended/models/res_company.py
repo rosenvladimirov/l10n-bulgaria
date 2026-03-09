@@ -25,6 +25,8 @@ class Company(models.Model):
         translate=True,
     )
     city_id = fields.Many2one(comodel_name="res.city", string="City ID")
+    street_number = fields.Char(related='partner_id.street_number', string="Street Name", readonly=False)
+    street_number2 = fields.Char(related='partner_id.street_number2', string="Street Name", readonly=False)
 
     def _inverse_l10n_bg_street_data(self):
         """update self.street based on street_name, street_number and street_number2"""

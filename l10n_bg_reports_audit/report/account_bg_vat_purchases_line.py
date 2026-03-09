@@ -83,8 +83,8 @@ UNION
         company.l10n_bg_departament_code AS info_tag_3,
         ROW_NUMBER() OVER(ORDER BY am.date) AS info_tag_4,
         am.l10n_bg_doc_type AS info_tag_5,
-        COALESCE(am.l10n_bg_name, LPAD(NULLIF(REGEXP_REPLACE(am.name, '\\D','','g'), '')::varchar(255), 10, '0')) AS info_tag_6,
-        COALESCE(am.l10n_bg_date, am.invoice_date, am.date) AS info_tag_7,
+        COALESCE(am.ref, LPAD(NULLIF(REGEXP_REPLACE(am.name, '\\D','','g'), '')::varchar(255), 10, '0')) AS info_tag_6,
+        COALESCE(am.invoice_date, am.date) AS info_tag_7,
         COALESCE(partner.vat, partner.l10n_bg_uic) AS info_tag_8,
         partner.name{lang} AS info_tag_9,
         am.l10n_bg_narration{lang} AS info_tag_10,
@@ -220,7 +220,7 @@ class AccountBGCalcPurchasesLine(models.Model):
     am.id AS move_id,
     am.partner_id AS partner_id,
     am.state AS state,
-    COALESCE(am.l10n_bg_date, am.date) AS date,
+    COALESCE(am.invoice_date, am.date) AS date,
     to_char(am.date, 'YYYYMM') AS info_tag_1,
     SUM(CASE WHEN aat.tag_name = 30 AND aat.negate THEN ABS(aml.balance)*-1
         WHEN aat.tag_name = 30 AND NOT aat.negate THEN ABS(aml.balance)

@@ -82,7 +82,7 @@ class AccountBGInfoSaleLine(models.Model):
         ROW_NUMBER() OVER(ORDER BY am.date) AS info_tag_3,
         am.l10n_bg_doc_type AS info_tag_4,
         COALESCE(am.l10n_bg_name, LPAD(NULLIF(REGEXP_REPLACE(am.name, '\\D','','g'), '')::varchar(255), 10, '0')) AS info_tag_5,
-        COALESCE(am.l10n_bg_date, am.invoice_date, am.date) AS info_tag_6,
+        COALESCE(am.invoice_date, am.date) AS info_tag_6,
         COALESCE(partner.vat, partner.l10n_bg_uic) AS info_tag_7,
         partner.name{lang} AS info_tag_8,
         am.l10n_bg_narration{lang} AS info_tag_9,
@@ -284,7 +284,7 @@ FROM {self._from()}
     am.id AS move_id,
     am.partner_id AS partner_id,
     am.state AS state,
-    COALESCE(am.l10n_bg_date, am.date) AS date,
+    COALESCE(am.invoice_date, am.date) AS date,
     to_char(am.date, 'YYYYMM') AS info_tag_1,
     SUM(CASE WHEN aat.tag_name = 11 AND aat.negate THEN ABS(aml.balance)*-1
             WHEN aat.tag_name = 11 AND NOT aat.negate THEN ABS(aml.balance)

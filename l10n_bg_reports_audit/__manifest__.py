@@ -15,12 +15,12 @@
     ],
     "data": [
         "security/ir.model.access.csv",
-        "views/account_bg_vat_line_sale_reports.xml",
-        "views/account_bg_vat_line_purchase_reports.xml",
-        "views/account_bg_vat_line_vies_reports.xml",
+        # "views/account_bg_vat_line_sale_reports.xml",
+        # "views/account_bg_vat_line_purchase_reports.xml",
+        # "views/account_bg_vat_line_vies_reports.xml",
         "views/account_account_tag_views.xml",
         "views/res_config_view.xml",
-        "views/account_menuitem.xml",
+        # "views/account_menuitem.xml",
     ],
     "installable": True,
 }

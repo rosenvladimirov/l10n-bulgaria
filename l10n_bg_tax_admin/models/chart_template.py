@@ -45,7 +45,9 @@ class AccountChartTemplate(models.Model):
             chart_templates += chart_template.parent_id
             chart_template = chart_template.parent_id
         max_digits = digits - len(prefix)
-        for num in range(1, int("".ljust(max_digits, "9"))):
+        max_number = int("9" * max_digits) if max_digits > 0 else 0
+
+        for num in range(1, max_number + 1):
             new_code = prefix + str(num).ljust(max_digits, "0")
             # new_code = _grouping(new_code, digits, grouping)
             rec = self.env["account.account.template"].search(

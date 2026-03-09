@@ -5,7 +5,7 @@ from .l10n_bg_file_helper import get_l10n_bg_applicability
 
 
 class AccountAccountTag(models.Model):
-    _inherit = ["account.account.tag", "l10n.bg.config.mixin"]
+    _inherit = "account.account.tag"
     _name = "account.account.tag"
 
     l10n_bg_applicability = fields.Selection(

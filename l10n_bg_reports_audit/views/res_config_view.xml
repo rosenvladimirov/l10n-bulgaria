@@ -6,7 +6,7 @@
         <field name="priority" eval="45" />
         <field name="inherit_id" ref="l10n_bg_config.res_config_settings_view_form" />
         <field name="arch" type="xml">
-            <xpath expr="//app[@name='l10n_bg_config']" position="inside">
+            <xpath expr="//div[@data-key='l10n_bg_config']" position="inside">
                 <block title="Settings" name="l10n_bg_audit_report">
                     <setting
                         id="l10n_bg_audit_oca_setting"

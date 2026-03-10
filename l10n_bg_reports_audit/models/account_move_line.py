@@ -39,21 +39,22 @@ class AccountMoveLine(models.Model):
             if not tax_group:
                 _logger.info("Skip line %s: missing tax_group", line.id)
                 continue
-            tag = tag or line.move_id.l10n_bg_tax_tag_id
+            line_tag = tag or line.move_id.l10n_bg_tax_tag_id
+            line_partner = partner
             if update_partner:
-                partner = partner or (tag and tag.l10n_bg_tax_partner_id)
-            if not tax_group or not tag:
+                line_partner = partner or (line_tag and line_tag.l10n_bg_tax_partner_id)
+            if not tax_group or not line_tag:
                 _logger.debug(
                     "Skip BG tax tag apply for line %s (tax_group=%s, tag=%s)",
                     line.id,
                     tax_group.id if tax_group else False,
-                    tag.id if tag else False,
+                    line_tag.id if line_tag else False,
                 )
                 _logger.info(
                     "Skip line %s: tax_group=%s tag=%s",
                     line.id,
                     tax_group.id if tax_group else False,
-                    tag.id if tag else False,
+                    line_tag.id if line_tag else False,
                 )
                 continue
             is_receivable = (
@@ -76,19 +77,19 @@ class AccountMoveLine(models.Model):
                 continue
             _logger.info(
                 "Apply BG tax tag %s to line %s (update_partner=%s, partner=%s)",
-                tag.id,
+                line_tag.id,
                 line.id,
                 update_partner,
-                partner.id if partner else False,
+                line_partner.id if line_partner else False,
             )
             line_ctx = line.with_context(
                 l10n_bg_skip_tax_tag_apply=True,
                 l10n_bg_skip_tax_closing_check=True,
                 check_move_validity=False,
             )
-            line_ctx.tax_tag_ids = line_ctx.tax_tag_ids | tag
-            if update_partner and partner:
-                line_ctx.partner_id = partner
+            line_ctx.tax_tag_ids = line_ctx.tax_tag_ids | line_tag
+            if update_partner and line_partner:
+                line_ctx.partner_id = line_partner
 
     def _l10n_bg_remove_tax_tag(self, tag, partner=False):
         for line in self:

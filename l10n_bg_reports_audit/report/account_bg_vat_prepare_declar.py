@@ -131,10 +131,7 @@ class AccountBGResultDeclar(models.Model):
                     FROM account_account_tag
                     WHERE applicability = 'taxes') AS aat
         ON aat.id = tag_line_rel.account_account_tag_id
-    LEFT JOIN (SELECT imd.id, imd.res_id, imd.model, imd.module, imd.name
-                    FROM ir_model_data AS imd
-                    WHERE imd.module = 'l10n_bg' AND imd.model = 'account.account.tag') AS imd_tag_tax
-        ON imd_tag_tax.res_id = aat.id"""
+"""
 
     @api.model
     def _where(self):

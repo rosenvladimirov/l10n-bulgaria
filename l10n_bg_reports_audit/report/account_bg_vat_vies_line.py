@@ -85,13 +85,16 @@ FROM {self._from()}
     am.state AS state,
     ROW_NUMBER() OVER(ORDER BY am.partner_shipping_id) AS info_tag_vir_2,
     COALESCE(partner.vat, partner.l10n_bg_uic) AS info_tag_vir_3,
-    SUM(CASE WHEN aat.tag_name = 15 AND aat.negate THEN ABS(aml.balance)*-1
+    SUM(CASE WHEN am.state = 'cancel' THEN 0.00
+            WHEN aat.tag_name = 15 AND aat.negate THEN ABS(aml.balance)*-1
             WHEN aat.tag_name = 15 AND NOT aat.negate THEN ABS(aml.balance)
             ELSE 0.00 END) AS account_tag_vir_4,
-    SUM(CASE WHEN aat.tag_name = 25 AND aat.negate THEN ABS(aml.balance)*-1
+    SUM(CASE WHEN am.state = 'cancel' THEN 0.00
+            WHEN aat.tag_name = 25 AND aat.negate THEN ABS(aml.balance)*-1
             WHEN aat.tag_name = 25 AND NOT aat.negate THEN ABS(aml.balance)
             ELSE 0.00 END) AS account_tag_vir_5,
-    SUM(CASE WHEN aat.tag_name = 17 AND aat.negate THEN ABS(aml.balance)*-1
+    SUM(CASE WHEN am.state = 'cancel' THEN 0.00
+            WHEN aat.tag_name = 17 AND aat.negate THEN ABS(aml.balance)*-1
             WHEN aat.tag_name = 17 AND NOT aat.negate THEN ABS(aml.balance)
             ELSE 0.00 END) AS account_tag_vir_6"""
 

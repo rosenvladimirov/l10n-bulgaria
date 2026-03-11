@@ -86,25 +86,32 @@ class AccountBGResultDeclar(models.Model):
     am.id AS move_id,
     am.date,
     am.state,
-    SUM(CASE WHEN aat.tag_name = 50 AND aat.negate THEN ABS(aml.balance)*-1
+    SUM(CASE WHEN am.state = 'cancel' THEN 0.00
+        WHEN aat.tag_name = 50 AND aat.negate THEN ABS(aml.balance)*-1
         WHEN aat.tag_name = 50 AND NOT aat.negate THEN ABS(aml.balance)
         ELSE 0.00 END) AS account_tag_50,
-    SUM(CASE WHEN aat.tag_name = 60 AND aat.negate THEN ABS(aml.balance)*-1
+    SUM(CASE WHEN am.state = 'cancel' THEN 0.00
+        WHEN aat.tag_name = 60 AND aat.negate THEN ABS(aml.balance)*-1
         WHEN aat.tag_name = 60 AND NOT aat.negate THEN ABS(aml.balance)
         ELSE 0.00 END) AS account_tag_60,
-    SUM(CASE WHEN aat.tag_name = 70 AND aat.negate THEN ABS(aml.balance)*-1
+    SUM(CASE WHEN am.state = 'cancel' THEN 0.00
+        WHEN aat.tag_name = 70 AND aat.negate THEN ABS(aml.balance)*-1
         WHEN aat.tag_name = 70 AND NOT aat.negate THEN ABS(aml.balance)
         ELSE 0.00 END) AS account_tag_70,
-    SUM(CASE WHEN aat.tag_name = 71 AND aat.negate THEN ABS(aml.balance)*-1
+    SUM(CASE WHEN am.state = 'cancel' THEN 0.00
+        WHEN aat.tag_name = 71 AND aat.negate THEN ABS(aml.balance)*-1
         WHEN aat.tag_name = 71 AND NOT aat.negate THEN ABS(aml.balance)
         ELSE 0.00 END) AS account_tag_71,
-    SUM(CASE WHEN aat.tag_name = 80 AND aat.negate THEN ABS(aml.balance)*-1
+    SUM(CASE WHEN am.state = 'cancel' THEN 0.00
+        WHEN aat.tag_name = 80 AND aat.negate THEN ABS(aml.balance)*-1
         WHEN aat.tag_name = 80 AND NOT aat.negate THEN ABS(aml.balance)
         ELSE 0.00 END) AS account_tag_80,
-    SUM(CASE WHEN aat.tag_name = 81 AND aat.negate THEN ABS(aml.balance)*-1
+    SUM(CASE WHEN am.state = 'cancel' THEN 0.00
+        WHEN aat.tag_name = 81 AND aat.negate THEN ABS(aml.balance)*-1
         WHEN aat.tag_name = 81 AND NOT aat.negate THEN ABS(aml.balance)
         ELSE 0.00 END) AS account_tag_81,
-    SUM(CASE WHEN aat.tag_name = 82 AND aat.negate THEN ABS(aml.balance)*-1
+    SUM(CASE WHEN am.state = 'cancel' THEN 0.00
+        WHEN aat.tag_name = 82 AND aat.negate THEN ABS(aml.balance)*-1
         WHEN aat.tag_name = 82 AND NOT aat.negate THEN ABS(aml.balance)
         ELSE 0.00 END) AS account_tag_82"""
 

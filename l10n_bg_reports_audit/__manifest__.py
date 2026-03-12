@@ -27,7 +27,7 @@ Extended Modules
 This module is the base for the following advanced reporting solutions:
 
 **l10n_bg_vat_reports**
-  VAT Purchase/Sales ledgers and VIES declaration in NRA XML format.
+  VAT Purchase/Sales ledgers and VIES declaration in NRA CSV format.
   Automated generation and submission workflow.
 
 **l10n_bg_tax_admin**

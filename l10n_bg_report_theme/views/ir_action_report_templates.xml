@@ -38,14 +38,10 @@
                     <t t-set="recipient" t-value="o.partner_id" />
                     <t t-set="recipient_invoice_id" t-value="o.partner_invoice_id" />
                     <t t-set="recipient_shipping_id" t-value="o.partner_shipping_id" />
-                    <t t-set="name_date" t-value="format_date(o.date_order, lang_code=o.partner_id.lang)"/>
+                    <t t-set="name_date" t-value="format_date(o.date_order, lang_code=o.partner_id.lang, widget='date')" groups="!l10n_bg_report_theme.group_control_date_format"/>
+                    <t t-set="name_date" t-value="format_date(o.date_order, lang_code=o.partner_id.lang)" groups="l10n_bg_report_theme.group_control_date_format"/>
                 </t>
             </t>
-        </xpath>
-
-        <!-- Добавяме условие към адресната секция -->
-        <xpath expr="//t[@t-set='address']" position="attributes">
-            <attribute name="t-if">not no_deal_partner and show_address</attribute>
         </xpath>
 
         <xpath expr="//div[@name='informations_date']" position="attributes">

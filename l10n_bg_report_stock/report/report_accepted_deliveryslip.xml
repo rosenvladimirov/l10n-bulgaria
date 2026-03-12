@@ -3,6 +3,13 @@
     <template id="report_accepted_delivery_document" inherit_id="stock.report_delivery_document">
         <xpath expr="//t[@t-set='partner']" position="after">
             <t t-if="l10n_bg_report_stock_accepted">
+                <t t-set="hide_h2_name" t-value="True"/>
+                <t t-set="layout_document_title">
+                    <span>Accepted Delivery Report # </span>
+                    <span t-field="o.name"/>
+                </t>
+                <t t-set="name_date" t-value="format_date(o.date_done or o.scheduled_date, lang_code=o.partner_id.lang, widget='date')" groups="!l10n_bg_report_theme.group_control_date_format"/>
+                <t t-set="name_date" t-value="format_date(o.date_done or o.scheduled_date, lang_code=o.partner_id.lang)" groups="l10n_bg_report_theme.group_control_date_format"/>
                 <t t-if="o.picking_type_id.code=='outgoing' and partner and partner != partner.commercial_partner_id">
                     <t t-set="recipient" t-value="o.partner_id.commercial_partner_id or (o.move_ids and o.move_ids[0].partner_id.commercial_partner_id) or False"/>
                 </t>
@@ -35,6 +42,18 @@
             <t t-if="l10n_bg_report_stock_accepted and not layout_is_sections and o.picking_type_id.code in ('incoming', 'outgoing')">
                 <t t-call="l10n_bg_report_theme.deal_partner"/>
             </t>
+        </xpath>
+        <xpath expr="//div[@name='signature']" position="before">
+            <t t-if="l10n_bg_report_stock_accepted and o.note">
+                <div class="mt-3 mb-3">
+                    <strong>Забележки:</strong>
+                    <div t-field="o.note"/>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[@name='signature']" position="attributes">
+            <attribute name="t-else"/>
+            <attribute name="t-if">o.signature and o.signature is not True</attribute>
         </xpath>
         <xpath expr="//div[@name='signature']" position="after">
             <t t-if="l10n_bg_report_stock_accepted and not layout_is_sections and o.picking_type_id.code in ('incoming', 'outgoing', 'internal')">

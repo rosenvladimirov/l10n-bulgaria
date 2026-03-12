@@ -3,7 +3,44 @@
     "version": "18.0.12.0.2",
     "development_status": "Production/Stable",
     "maintainers": ["rosenvladimirov", "deyanlyubenov"],
-    "description": "Technical base module for Bulgarian accounting reports with SQL queries and tag configurations.",
+    "description": """
+Bulgarian Accounting Reports — Base Module
+==========================================
+
+Technical foundation for Bulgarian accounting and tax reporting in Odoo 18.
+
+Provides the SQL query layer, account tag configurations, and report
+infrastructure required by all Bulgarian localization reporting modules.
+
+Compliant with current NRA (НАП) requirements and Bulgarian accounting
+standards (НСС / МСФО).
+
+Coverage
+--------
+- Account tag definitions for Bulgarian chart of accounts
+- SQL-based report queries optimized for large databases
+- Base security model for report access control
+- Foundation for VAT, audit, and tax administration reports
+
+Extended Modules
+----------------
+This module is the base for the following advanced reporting solutions:
+
+**l10n_bg_vat_reports**
+  VAT Purchase/Sales ledgers and VIES declaration in NRA XML format.
+  Automated generation and submission workflow.
+
+**l10n_bg_tax_admin**
+  Tax administration protocols — Art. 117, Art. 82, Art. 163a.
+  Self-assessment VAT document automation.
+
+For information and demo: rosenvladimirov@gmail.com
+
+Maintainers
+-----------
+Rosen Vladimirov — https://github.com/rosenvladimirov
+OCA Bulgaria — https://github.com/OCA/l10n-bulgaria
+""",
     "category": "Accounting/Localizations/Reporting",
     "summary": """
     Technical base module for Bulgarian accounting reports - SQL queries and tag configurations

@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="address_layout" inherit_id="web.address_layout">
-        <xpath expr="//t[@t-set='colclass']" position="after">
-            <t t-set="show_address" t-value="false" t-if="not show_address" />
-        </xpath>
-        <xpath expr="//div[@name='address']" position="attributes">
-            <attribute name="t-if" add="show_address" separator="and" />
-        </xpath>
-    </template>
-
     <template id="report_layout_bg" inherit_id="web.report_layout">
         <xpath expr="//body" position="attributes">
             <attribute name="t-attf-class" add="o_company_#{(company or res_company or env.company).id}_layout" separator=" "/>
@@ -27,79 +18,6 @@
         </xpath>
     </template>
 
-    <template id="deal_no_partner">
-        <t t-if="not sender_vat_label">
-            <t t-set="sender_vat_label" t-value="sender.country_id.vat_label" />
-        </t>
-        <t t-if="not sender_vat_label">
-            <t t-set="sender_vat_label">TIN</t>
-        </t>
-        <t t-if="not recipient_vat_label">
-            <t t-set="recipient_vat_label" t-value="recipient.country_id.vat_label" />
-        </t>
-        <t t-if="not recipient_vat_label">
-            <t t-set="recipient_vat_label">TIN</t>
-        </t>
-        <div class="row mt8" name="deal">
-            <div class="col-6" name="offer_recipient">
-                <t t-if="recipient_contact_id">
-                    <strong class="o_section_labels">The Attention of:</strong>
-                    <div t-field="recipient_contact_id.name" />
-                    <div
-                        t-out="recipient_contact_id"
-                        name="contact_name"
-                        t-options="{'widget': 'contact', 'fields': ['phone', 'mobile'], 'no_marker': True,  'phone_icons': True}"
-                    />
-                </t>
-                <div
-                    name="invoice_shipping_address"
-                    t-if="recipient_shipping_id and recipient_invoice_id"
-                >
-                    <strong
-                        class="o_section_labels"
-                        t-if="recipient_shipping_id == recipient_invoice_id"
-                    >Invoicing and shipping address:</strong>
-                    <strong
-                        class="o_section_labels"
-                        t-if="recipient_shipping_id != recipient_invoice_id"
-                    >Invoicing address:</strong>
-                </div>
-                <t t-if="recipient_invoice_id">
-                    <div
-                        t-out="recipient_invoice_id"
-                        t-options="{'widget': 'contact', 'fields': ['address', 'name', 'phone', 'mobile'], 'no_marker': True, 'phone_icons': True}"
-                        name="invoice_address"
-                    />
-                    <p t-if="recipient.vat"><t t-esc="recipient_vat_label" />: <span
-                            t-field="recipient.vat"
-                        /></p>
-                </t>
-                <t
-                    t-if="recipient_shipping_id and recipient_invoice_id and recipient_shipping_id != recipient_invoice_id"
-                >
-                    <div name="shipping_address">
-                        <strong class="o_section_labels">Shipping address:</strong>
-                        <div
-                            t-out="recipient_shipping_id"
-                            t-options="{'widget': 'contact', 'fields': ['address', 'name', 'phone', 'mobile'], 'no_marker': True, 'phone_icons': True}"
-                        />
-                    </div>
-                </t>
-            </div>
-            <div class="col-6 o_sections_information">
-                <strong class="o_section_labels" t-if="sender">From:</strong>
-                <div
-                    t-if="sender"
-                    t-out="sender"
-                    t-options="{'widget': 'contact', 'fields': ['address', 'name', 'phone', 'mobile'], 'no_marker': True, 'phone_icons': True}"
-                />
-                <div name="company_vat_number" t-if="sender and sender.vat"><span
-                        t-if="sender"
-                        t-esc="sender_vat_label"
-                    />: <span t-if="sender" t-field="sender.vat" /></div>
-            </div>
-        </div>
-    </template>
     <template id="deal_partner">
         <!-- t-value="'SUPPLIER'"-->
         <t t-set="sender_name">SUPPLIER</t>
@@ -387,58 +305,13 @@
             <!-- Document name section -->
             <t name="document_name" t-call="l10n_bg_report_theme.document_name" />
 
-            <t t-if="not no_deal_partner">
-                <!-- Address layout section with information block support -->
-                <div class="pt-5">
-                    <!-- This div ensures that the header does not crop the address. -->
-                    <t t-if="not custom_layout_address">
-                        <t t-call="web.address_layout" />
-                    </t>
-                    <t t-else="">
-                        <!-- Custom address layout handling -->
-                        <t t-set="colclass" t-value="('col-sm-5' if report_type == 'html' else 'col-5') + ' ms-auto'"/>
-                        <div t-if="address" t-attf-class="address row mb-4">
-                            <t t-if="information_block">
-                                <t t-set="colclass" t-value="'col-5 offset-1'"/>
-                                <div name="information_block" class="col-6">
-                                    <t t-out="information_block"/>
-                                </div>
-                            </t>
-                            <div name="address" t-att-class="colclass">
-                                <t t-esc="address"/>
-                            </div>
-                        </div>
-                    </t>
-                </div>
-
-                <!-- Deal section -->
-                <t
-                    name="deal_partner"
-                    t-call="l10n_bg_report_theme.deal_partner"
-                    t-if="sender and recipient"
-                />
-            </t>
-            <t t-else="">
-                <div class="pt-5">
-                    <t t-if="not custom_layout_address">
-                        <t t-call="web.address_layout" />
-                    </t>
-                    <t t-else="">
-                        <t t-set="colclass" t-value="('col-sm-5' if report_type == 'html' else 'col-5') + ' ms-auto'"/>
-                        <div t-if="address" t-attf-class="address row mb-4">
-                            <t t-if="information_block">
-                                <t t-set="colclass" t-value="'col-5 offset-1'"/>
-                                <div name="information_block" class="col-6">
-                                    <t t-out="information_block"/>
-                                </div>
-                            </t>
-                            <div name="address" t-att-class="colclass">
-                                <t t-esc="address"/>
-                            </div>
-                        </div>
-                    </t>
-                </div>
-            </t>
+            <t t-call="web.address_layout"/>
+            <!-- Deal section -->
+            <t
+                name="deal_partner"
+                t-call="l10n_bg_report_theme.deal_partner"
+                t-if="sender and recipient"
+            />
 
             <div class="deal-content-separator"></div>
 

@@ -96,5 +96,12 @@
             <field name="category_id" ref="category_l10n_bg_report_theme"/>
             <field name="comment">Users who can view and control sale order line descriptions in stock reports</field>
         </record>
+
+        <!-- Group for address block swap control -->
+        <record id="group_control_address_swap" model="res.groups">
+            <field name="name">Address Swap Control</field>
+            <field name="category_id" ref="category_l10n_bg_report_theme"/>
+            <field name="comment">When enabled, swaps address and information block positions in reports (address moves to left, information block to right)</field>
+        </record>
     </data>
 </odoo>

@@ -13,7 +13,6 @@
             <attribute name="t-if">layout == 'l10n_bg_report_theme.external_layout_sections'</attribute>
         </xpath>
         <xpath expr="//t[@t-set='o']" position="after">
-            <t t-set="no_deal_partner" t-value="False" />
             <t t-set="sender" t-value="o.partner_id" />
             <t t-set="recipient" t-value="o.company_id.partner_id" />
             <t t-set="recipient_invoice_id" t-value="o.partner_id" />

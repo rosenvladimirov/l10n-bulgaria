@@ -32,15 +32,41 @@
                     <t t-set="sender" t-value="o.picking_type_id.warehouse_id.partner_id"/>
                 </t>
                 <t t-set="layout_is_sections" t-value="o.company_id.external_report_layout_id and (o.company_id.external_report_layout_id.key == 'l10n_bg_report_theme.external_layout_sections' or o.company_id.external_report_layout_id.xml_id == 'l10n_bg_report_theme.external_layout_sections')"/>
-                <t t-set="no_deal_partner" t-value="True"/>
-                <t t-if="o.picking_type_id.code in ('incoming', 'outgoing')">
-                    <t t-set="no_deal_partner" t-value="False"/>
+                <t groups="l10n_bg_report_theme.group_control_address_swap" t-if="sender and recipient">
+                    <t t-if="not sender_vat_label">
+                        <t t-set="sender_vat_label" t-value="sender.country_id.vat_label" />
+                    </t>
+                    <t t-if="not sender_vat_label">
+                        <t t-set="sender_vat_label">TIN</t>
+                    </t>
+                    <t t-if="not recipient_vat_label">
+                        <t t-set="recipient_vat_label" t-value="recipient.country_id.vat_label" />
+                    </t>
+                    <t t-if="not recipient_vat_label">
+                        <t t-set="recipient_vat_label">TIN</t>
+                    </t>
+                    <t t-set="information_block">
+                        <div
+                            t-out="recipient"
+                            t-options="{'widget': 'contact', 'fields': ['address', 'name', 'phone', 'mobile'], 'no_marker': True, 'phone_icons': True}"
+                        />
+                        <p t-if="recipient.vat"><t t-esc="recipient_vat_label" />: <span
+                                t-field="recipient.vat"
+                            /></p>
+                    </t>
+                    <t t-set="address">
+                        <strong class="o_section_labels mt-2 d-block" t-if="sender">From:</strong>
+                        <div
+                            t-if="sender"
+                            t-out="sender"
+                            t-options="{'widget': 'contact', 'fields': ['address', 'name', 'phone', 'mobile'], 'no_marker': True, 'phone_icons': True}"
+                        />
+                        <div name="company_vat_number" t-if="sender and sender.vat"><span
+                                t-if="sender"
+                                t-esc="sender_vat_label"
+                            />: <span t-if="sender" t-field="sender.vat" /></div>
+                    </t>
                 </t>
-            </t>
-        </xpath>
-        <xpath expr="//div[@id='informations']" position="after">
-            <t t-if="l10n_bg_report_stock_accepted and not layout_is_sections and o.picking_type_id.code in ('incoming', 'outgoing')">
-                <t t-call="l10n_bg_report_theme.deal_partner"/>
             </t>
         </xpath>
         <xpath expr="//div[@name='signature']" position="before">

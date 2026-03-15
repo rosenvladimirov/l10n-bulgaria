@@ -4,6 +4,11 @@ All notable changes to the l10n_bg_reports_audit module will be documented in th
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [18.0.12.0.3] - 2026-03-14
+
+### Fixed
+- Fix advance payment deduction in VIES report (`account_bg_vat_vies_line`) - replaced `ABS(aml.balance)` with `aml.balance` and applied `*-1` multiplier, matching the sales report logic. Using `ABS()` was losing the balance sign, causing advance deductions to be added instead of subtracted
+
 ## [18.0.12.0.2] - 2026-03-10
 
 ### Fixed

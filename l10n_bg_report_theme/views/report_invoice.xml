@@ -6,6 +6,9 @@
             <t t-set="recipient" t-value="o.partner_id.parent_id and o.partner_id.parent_id or o.partner_id"/>
             <t t-set="original_copies">ORIGINAL</t>
             <t t-set="name_date" t-value="format_date(o.invoice_date, lang_code=o.partner_id.lang, date_format='medium')"/>
+            <t groups="l10n_bg_report_theme.group_control_address_swap">
+                <t t-set="address" t-value="None"/>
+            </t>
         </xpath>
 
         <xpath expr="//div[@id='informations']" position="inside">

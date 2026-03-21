@@ -11,6 +11,6 @@
     "data": [
         "wizard/account_statement_import.xml",
     ],
-    "external_dependencies": {"python": ["mt-940"]},
+    "external_dependencies": {"python": ["mt940"]},
     "demo": [],
 }

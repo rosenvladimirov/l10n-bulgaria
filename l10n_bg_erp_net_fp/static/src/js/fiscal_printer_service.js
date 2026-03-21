@@ -265,7 +265,7 @@ export const fiscalPrinterService = {
             console.log("[FiscalPrinter] Status:", data.status);
 
             notificationService.add(
-                `Принтер ${data.name}: ${data.status}`,
+                `Printer ${data.name}: ${data.status}`,
                 {
                     type: data.is_ready ? "success" : "warning",
                 }
@@ -407,27 +407,132 @@ export const fiscalPrinterService = {
 
         console.log("%c[FiscalPrinter] ✅ BUS INITIALIZATION COMPLETE", "color: #4CAF50; font-weight: bold");
 
-        // Уведомяваме сървъра че браузърът е готов
-        rpc('/fiscal_printer/browser_ready', {}).then(() => {
-            console.log("[FiscalPrinter] ✅ Server notified that browser is ready");
+        /**
+         * Проверява дали принтерът е достъпен от браузъра
+         */
+        /**
+         * Проверява дали принтерът е достъпен от браузъра.
+         * Опитва с CORS, ако не стане — fallback на no-cors
+         * (opaque response = хостът отговаря, но няма CORS headers).
+         */
+        const checkPrinterReachable = async (printer) => {
+            const baseUrl = printer.host.replace(/\/$/, '');
+            const url = `${baseUrl}/printers/${printer.printer_id}/status`;
+
+            // Опит 1: CORS — можем да прочетем отговора
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                const resp = await fetch(url, {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' },
+                    mode: 'cors',
+                    signal: controller.signal,
+                });
+                clearTimeout(timeoutId);
+                console.log(`[FiscalPrinter] Health check CORS OK: ${url} → ${resp.status}`);
+                return resp.ok;
+            } catch (corsErr) {
+                console.log(`[FiscalPrinter] Health check CORS failed for ${url}: ${corsErr.message}, trying no-cors...`);
+            }
+
+            // Опит 2: no-cors — opaque response означава, че хостът отговаря
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                await fetch(url, {
+                    method: 'GET',
+                    mode: 'no-cors',
+                    signal: controller.signal,
+                });
+                clearTimeout(timeoutId);
+                console.log(`[FiscalPrinter] Health check no-cors OK: ${url} (opaque response — host is up)`);
+                return true;
+            } catch (noCorsErr) {
+                console.log(`[FiscalPrinter] Health check no-cors failed for ${url}: ${noCorsErr.message}`);
+                return false;
+            }
+        };
+
+        /**
+         * Изпраща heartbeat със статус за всеки proxy принтер
+         */
+        const sendHeartbeat = async (printers) => {
+            if (!printers || printers.length === 0) return;
+
+            const results = [];
+            for (const p of printers) {
+                const reachable = await checkPrinterReachable(p);
+                results.push({ id: p.id, reachable });
+                console.log(`[FiscalPrinter] Printer "${p.name}" (${p.host}): ${reachable ? 'reachable' : 'NOT reachable'}`);
+            }
+
+            try {
+                await rpc('/fiscal_printer/heartbeat', { printer_results: results });
+            } catch (err) {
+                console.warn("[FiscalPrinter] Heartbeat failed:", err.message);
+            }
+
+            // Показваме notification за недостъпните принтери (само при първи heartbeat)
+            return results;
+        };
+
+        // Уведомяваме сървъра и вземаме списък с proxy принтери
+        let heartbeatInterval = null;
+        let proxyPrinters = [];
+
+        rpc('/fiscal_printer/browser_ready', {}).then(async (result) => {
+            console.log("[FiscalPrinter] Server notified, proxy printers:", result.proxy_printers);
+            proxyPrinters = result.proxy_printers || [];
+
+            if (proxyPrinters.length > 0) {
+                // Начален health check
+                const results = await sendHeartbeat(proxyPrinters);
+                const unreachable = results.filter(r => !r.reachable);
+                if (unreachable.length > 0) {
+                    const details = unreachable.map(r => {
+                        const p = proxyPrinters.find(pp => pp.id === r.id);
+                        return p ? `${p.name} (${p.host})` : `#${r.id}`;
+                    }).join(', ');
+                    // SSL подсказка — ако хостът е https
+                    const hasHttps = unreachable.some(r => {
+                        const p = proxyPrinters.find(pp => pp.id === r.id);
+                        return p && p.host.startsWith('https');
+                    });
+                    let msg = `Unreachable printers: ${details}`;
+                    if (hasHttps) {
+                        msg += `\n\nIf using self-signed SSL, open the printer URL in a new tab first to accept the certificate.`;
+                    }
+                    notification.add(msg, { type: "warning", sticky: true });
+                } else {
+                    notification.add(
+                        `All ${proxyPrinters.length} proxy printer(s) are reachable`,
+                        { type: "success" }
+                    );
+                }
+
+                // Периодичен heartbeat на 30 секунди
+                heartbeatInterval = setInterval(() => sendHeartbeat(proxyPrinters), 30000);
+            }
         }).catch(err => {
-            console.warn("[FiscalPrinter] ⚠️ Could not notify server:", err.message);
+            console.warn("[FiscalPrinter] Could not notify server:", err.message);
         });
 
-        console.log("%c[FiscalPrinter] ✅ SERVICE STARTED SUCCESSFULLY", "color: #4CAF50; font-weight: bold; font-size: 14px");
+        console.log("%c[FiscalPrinter] SERVICE STARTED", "color: #4CAF50; font-weight: bold");
 
         // Публичен API с destroy метод
         return {
             name: "fiscal_printer",
 
-            // Cleanup при унищожаване
             destroy() {
-                console.log("[FiscalPrinter] 🧹 Cleaning up service");
+                if (heartbeatInterval) {
+                    clearInterval(heartbeatInterval);
+                    heartbeatInterval = null;
+                }
 
                 if (bus_service.removeEventListener) {
                     bus_service.removeEventListener("notification", onBusNotification);
                 }
-
                 if (bus_service.off) {
                     bus_service.off("notification", onBusNotification);
                 }

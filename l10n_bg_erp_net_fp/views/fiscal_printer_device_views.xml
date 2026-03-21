@@ -73,6 +73,22 @@
                             <field name="retry_count"/>
                         </group>
                     </group>
+                    <group invisible="connection_mode != 'proxy'" string="Browser Proxy Status">
+                        <group>
+                            <field name="proxy_connected" readonly="1"
+                                   widget="boolean"
+                                   decoration-success="proxy_connected"
+                                   decoration-danger="not proxy_connected"/>
+                            <field name="proxy_printer_ok" readonly="1"
+                                   widget="boolean"
+                                   decoration-success="proxy_printer_ok"
+                                   decoration-danger="not proxy_printer_ok"/>
+                        </group>
+                        <group>
+                            <field name="proxy_last_seen" readonly="1"/>
+                            <field name="proxy_user_id" readonly="1"/>
+                        </group>
+                    </group>
                     <group string="Automation">
                         <group>
                             <field name="auto_z_report"/>
@@ -109,11 +125,17 @@
         <field name="name">fiscal.printer.device.tree</field>
         <field name="model">fiscal.printer.device</field>
         <field name="arch" type="xml">
-            <list js_class="fiscal_printer_status_list">
+            <list js_class="fiscal_printer_status_list"
+                  decoration-danger="connection_mode == 'proxy' and not proxy_connected"
+                  decoration-success="connection_mode == 'proxy' and proxy_connected and proxy_printer_ok">
                 <field name="name"/>
                 <field name="host"/>
                 <field name="printer_id"/>
                 <field name="connection_mode" optional="show"/>
+                <field name="proxy_connected" string="Browser"
+                       optional="show"/>
+                <field name="proxy_printer_ok" string="Printer OK"
+                       optional="show"/>
                 <field name="current_status"/>
                 <field name="is_ready"/>
                 <field name="active"/>

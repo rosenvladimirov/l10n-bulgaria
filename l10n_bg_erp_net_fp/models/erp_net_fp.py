@@ -274,17 +274,61 @@ class FiscalPrinterDevice(models.Model):
         import uuid
         import time
 
+        # Проверка дали браузърът е свързан
+        base_url = self.host.rstrip('/')
+        full_url = f"{base_url}/printers/{self.printer_id}"
+
+        # Няма свързан браузър
+        if not self.proxy_connected:
+            last_seen = ''
+            if self.proxy_last_seen:
+                last_seen = fields.Datetime.to_string(self.proxy_last_seen)
+            raise FiscalPrinterConnectionError(_(
+                'No browser connected for proxy printer.\n'
+                '\n'
+                'Printer:        %(name)s\n'
+                'Host:           %(host)s\n'
+                'Printer ID:     %(printer_id)s\n'
+                'URL:            %(url)s\n'
+                'Mode:           %(mode)s\n'
+                'Last heartbeat: %(last_seen)s\n'
+                '\n'
+                'Open Odoo in a browser on a machine that has network access to the printer.',
+                name=self.name,
+                host=self.host,
+                printer_id=self.printer_id,
+                url=full_url,
+                mode=self.connection_mode,
+                last_seen=last_seen or 'never',
+            ))
+
+        # Браузърът е свързан, но принтерът не е достъпен
+        if not self.proxy_printer_ok:
+            user_name = self.proxy_user_id.name or '?'
+            raise FiscalPrinterConnectionError(_(
+                'Browser is connected but the printer is not reachable.\n'
+                '\n'
+                'Printer:      %(name)s\n'
+                'Host:         %(host)s\n'
+                'Printer ID:   %(printer_id)s\n'
+                'URL:          %(url)s\n'
+                'Connected by: %(user)s\n'
+                '\n'
+                'Please check:\n'
+                '  - Is ErpNet.FP running on %(host)s?\n'
+                '  - Is the printer powered on and connected?\n'
+                '  - Does the browser have network access to %(host)s?',
+                name=self.name,
+                host=self.host,
+                printer_id=self.printer_id,
+                url=full_url,
+                user=user_name,
+            ))
+
         request_id = str(uuid.uuid4())
 
-        _logger.info("=" * 80)
-        _logger.info(f"[PROXY] 🚀 STARTING PROXY REQUEST")
-        _logger.info(f"[PROXY] Request ID: {request_id}")
-        _logger.info(f"[PROXY] Printer: {self.name} (ID: {self.id})")
-        _logger.info(f"[PROXY] Method: {method}")
-        _logger.info(f"[PROXY] Endpoint: {endpoint}")
-        _logger.info(f"[PROXY] Data: {data}")
-        _logger.info(f"[PROXY] Params: {params}")
-        _logger.info("=" * 80)
+        _logger.info(f"[PROXY] STARTING PROXY REQUEST: {method} {endpoint} "
+                      f"printer={self.name} request_id={request_id}")
 
         # Изпращаме заявка към браузъра
         bus_message = {
@@ -298,76 +342,68 @@ class FiscalPrinterDevice(models.Model):
             'params': params,
         }
 
-        _logger.info(f"[PROXY] 📡 Sending bus notification...")
-        _logger.info(f"[PROXY]    Channel: fiscal.printer.request")
-        _logger.info(f"[PROXY]    User: {self.env.user.name} (ID: {self.env.user.id})")
-        _logger.info(f"[PROXY]    Message: {bus_message}")
-
-        # Изпращаме bus notification
         self.env['bus.bus']._sendone(
             'fiscal.printer.request',
             'fiscal.printer.request',
             bus_message
         )
-
-        # Commit за да се изпрати bus notification-а
         self.env.cr.commit()
 
-        _logger.info(f"[PROXY] ✅ Bus notification sent and committed!")
+        _logger.info(f"[PROXY] Waiting for response (timeout: {self.timeout}s)...")
 
         # Чакаме отговор от браузъра
         start_time = time.time()
         timeout = self.timeout
         check_count = 0
 
-        _logger.info(f"[PROXY] ⏳ Waiting for response (timeout: {timeout}s)...")
-
         while time.time() - start_time < timeout:
             check_count += 1
             elapsed = time.time() - start_time
 
-            if check_count % 10 == 1:  # Лог на всеки 5 секунди (10 * 0.5s)
-                _logger.info(f"[PROXY] ⏱️ Still waiting... ({elapsed:.1f}s / {timeout}s)")
+            if check_count % 10 == 1:
+                _logger.info(f"[PROXY] Waiting... ({elapsed:.1f}s / {timeout}s)")
 
-            # Проверяваме за отговор
             response = self.env['fiscal.printer.response'].search([
                 ('request_id', '=', request_id),
                 ('printer_id', '=', self.id)
             ], limit=1)
 
             if response:
-                _logger.info(f"[PROXY] 📬 Response found! (after {elapsed:.2f}s)")
-                _logger.info(f"[PROXY]    Response ID: {response.id}")
-                _logger.info(f"[PROXY]    Success: {response.success}")
-                _logger.info(f"[PROXY]    Error: {response.error_message}")
+                _logger.info(f"[PROXY] Response received after {elapsed:.1f}s "
+                              f"success={response.success}")
 
                 if response.success:
-                    # Изтриваме отговора след прочитане
                     response_data = response.get_data()
-                    _logger.info(f"[PROXY] ✅ Request successful!")
-                    _logger.info(f"[PROXY]    Data: {response_data}")
                     response.unlink()
-                    _logger.info("=" * 80)
                     return response_data
                 else:
                     error_msg = response.error_message
-                    _logger.error(f"[PROXY] ❌ Request failed: {error_msg}")
                     response.unlink()
-                    _logger.info("=" * 80)
                     raise FiscalPrinterError(error_msg)
 
-            # Commit за да видим новите записи
             self.env.cr.commit()
             time.sleep(0.5)
 
-        _logger.error(f"[PROXY] ⏰ TIMEOUT after {timeout}s!")
-        _logger.error(f"[PROXY]    No response received from browser")
-        _logger.error(f"[PROXY]    Checks performed: {check_count}")
-        _logger.info("=" * 80)
+        _logger.error(f"[PROXY] TIMEOUT after {timeout}s, checks={check_count}")
 
-        raise FiscalPrinterConnectionError(
-            _('Timeout waiting for browser response. Make sure browser is open and has access to printer.')
-        )
+        raise FiscalPrinterConnectionError(_(
+            'Timeout: no response from browser within %(timeout)ds.\n'
+            '\n'
+            'Printer:     %(name)s\n'
+            'Host:        %(host)s\n'
+            'Printer ID:  %(printer_id)s\n'
+            'URL:         %(url)s\n'
+            'Endpoint:    %(endpoint)s\n'
+            '\n'
+            'The browser is connected but did not respond in time.\n'
+            'Check if the printer is responding and no operation is blocking it.',
+            timeout=timeout,
+            name=self.name,
+            host=self.host,
+            printer_id=self.printer_id,
+            url=full_url,
+            endpoint=endpoint,
+        ))
 
     def check_printer_available(self):
         """
@@ -411,13 +447,13 @@ class FiscalPrinterDevice(models.Model):
         result = self.check_printer_available()
 
         if result['available']:
-            message = _('Принтерът е достъпен и готов за работа')
+            message = _('Printer is available and ready')
             if result.get('status'):
                 status = result['status']
                 if isinstance(status, dict):
                     details = []
                     if status.get('deviceSerialNumber'):
-                        details.append(f"Сериен №: {status['deviceSerialNumber']}")
+                        details.append(f"Serial: {status['deviceSerialNumber']}")
                     if status.get('firmwareVersion'):
                         details.append(f"Firmware: {status['firmwareVersion']}")
                     if details:
@@ -427,37 +463,37 @@ class FiscalPrinterDevice(models.Model):
                 'type': 'ir.actions.client',
                 'tag': 'display_notification',
                 'params': {
-                    'title': _('✅ Връзка успешна'),
+                    'title': _('Connection successful'),
                     'message': message,
                     'type': 'success',
                     'sticky': False,
                 }
             }
         else:
-            error_msg = result.get('error', _('Непозната грешка'))
+            error_msg = result.get('error', _('Unknown error'))
             mode = result.get('mode', 'unknown')
 
             help_text = ''
             if mode == 'proxy':
                 help_text = _(
-                    '\n\nЗа режим "Browser Proxy":\n'
-                    '• Отворете браузър на машината с достъп до принтера\n'
-                    '• Стартирайте ErpNet.FP прокси приложението\n'
-                    '• Уверете се, че принтерът е включен и свързан'
+                    '\n\nFor "Browser Proxy" mode:\n'
+                    '- Open a browser on the machine with access to the printer\n'
+                    '- Make sure ErpNet.FP is running\n'
+                    '- Make sure the printer is powered on and connected'
                 )
             elif mode == 'direct':
                 help_text = _(
-                    '\n\nЗа режим "Direct":\n'
-                    '• Проверете дали ErpNet.FP сървърът е стартиран\n'
-                    '• Проверете host адреса: %s\n'
-                    '• Уверете се, че принтерът е достъпен от сървъра'
+                    '\n\nFor "Direct" mode:\n'
+                    '- Check if the ErpNet.FP server is running\n'
+                    '- Verify host address: %s\n'
+                    '- Make sure the printer is reachable from the server'
                 ) % self.host
 
             return {
                 'type': 'ir.actions.client',
                 'tag': 'display_notification',
                 'params': {
-                    'title': _('❌ Няма връзка'),
+                    'title': _('Connection failed'),
                     'message': error_msg + help_text,
                     'type': 'danger',
                     'sticky': True,

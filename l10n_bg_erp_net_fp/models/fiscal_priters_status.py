@@ -14,12 +14,35 @@ class FiscalPrinterDevice(models.Model):
     current_status = fields.Char('Текущ статус', compute='_compute_current_status', store=False)
     is_ready = fields.Boolean('Готов', compute='_compute_current_status', store=False)
 
+    # Proxy connection tracking
+    proxy_last_seen = fields.Datetime('Последен heartbeat', readonly=True)
+    proxy_user_id = fields.Many2one('res.users', 'Свързан потребител', readonly=True)
+    proxy_connected = fields.Boolean(
+        'Browser свързан',
+        compute='_compute_proxy_connected',
+        store=False,
+    )
+    proxy_printer_ok = fields.Boolean(
+        'Принтер достъпен от браузъра',
+        readonly=True,
+        help='Дали браузърът може да достъпи хоста на принтера',
+    )
+
     # Настройки за история
     status_history_days = fields.Integer(
         string='History storage days',
         default=30,
         help='Number of days to keep status history. Older records are automatically deleted.'
     )
+
+    def _compute_proxy_connected(self):
+        """Browser се счита за свързан ако е пратил heartbeat в последните 90 секунди"""
+        now = fields.Datetime.now()
+        for printer in self:
+            if printer.connection_mode != 'proxy' or not printer.proxy_last_seen:
+                printer.proxy_connected = False
+            else:
+                printer.proxy_connected = (now - printer.proxy_last_seen) < timedelta(seconds=90)
 
     @api.depends('status_ids')
     def _compute_status_count(self):
@@ -110,7 +133,7 @@ class FiscalPrinterDevice(models.Model):
         count = len(old_statuses)
         if count > 0:
             old_statuses.unlink()
-            message = f'Изтрити {count} стари статуса (по-стари от {self.status_history_days} дни)'
+            message = f'Deleted {count} old statuses (older than {self.status_history_days} days)'
         else:
             message = 'There are no old statuses to delete'
 

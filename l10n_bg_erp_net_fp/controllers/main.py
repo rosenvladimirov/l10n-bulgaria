@@ -97,10 +97,80 @@ class FiscalPrinterController(http.Controller):
 
     @http.route('/fiscal_printer/browser_ready', type='json', auth='user')
     def browser_ready(self, **kw):
-        """Сигнал от браузъра че е готов"""
-        _logger.info(f"[ProxyController] 🌐 Browser ready signal received from user: {request.env.user.name}")
-        _logger.info(f"[ProxyController]    Session ID: {request.session.sid}")
-        _logger.info(f"[ProxyController]    DB: {request.env.cr.dbname}")
+        """Сигнал от браузъра че е готов — връща proxy принтерите за health check"""
+        _logger.info(f"[ProxyController] Browser ready from user: {request.env.user.name}")
+
+        printers = request.env['fiscal.printer.device'].sudo().search([
+            ('active', '=', True),
+            ('connection_mode', '=', 'proxy'),
+        ])
+
+        # Записваме начален статус — браузър свързан
+        Status = request.env['fiscal.printer.status'].sudo()
+        now = datetime.now()
+        for p in printers:
+            p.write({
+                'proxy_last_seen': now,
+                'proxy_user_id': request.env.user.id,
+            })
+            Status.create({
+                'printer_id': p.id,
+                'status': 'browser_connected',
+                'is_ready': False,
+                'error_message': False,
+            })
+
+        printer_list = [{
+            'id': p.id,
+            'name': p.name,
+            'host': p.host,
+            'printer_id': p.printer_id,
+        } for p in printers]
+
+        return {'status': 'ok', 'proxy_printers': printer_list}
+
+    @http.route('/fiscal_printer/heartbeat', type='json', auth='user')
+    def heartbeat(self, printer_results=None, **kw):
+        """Периодичен heartbeat от браузъра с резултати от health check"""
+        now = datetime.now()
+        user = request.env.user
+
+        if not printer_results:
+            return {'status': 'ok'}
+
+        Printer = request.env['fiscal.printer.device'].sudo()
+        Status = request.env['fiscal.printer.status'].sudo()
+
+        for result in printer_results:
+            printer = Printer.browse(result['id'])
+            if not printer.exists() or printer.connection_mode != 'proxy':
+                continue
+
+            reachable = result.get('reachable', False)
+            prev_ok = printer.proxy_printer_ok
+
+            printer.write({
+                'proxy_last_seen': now,
+                'proxy_user_id': user.id,
+                'proxy_printer_ok': reachable,
+            })
+
+            # Записваме в историята при промяна на статуса
+            if reachable != prev_ok:
+                if reachable:
+                    status_text = 'online'
+                    error_msg = False
+                else:
+                    status_text = 'unreachable'
+                    error_msg = f'Browser proxy: printer not reachable at {printer.host}'
+
+                Status.create({
+                    'printer_id': printer.id,
+                    'status': status_text,
+                    'is_ready': reachable,
+                    'error_message': error_msg,
+                })
+
         return {'status': 'ok'}
 
     @http.route('/fiscal_printer/test_notification', type='json', auth='user')

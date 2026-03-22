@@ -24,7 +24,6 @@ class Users(models.Model):
         old_password_hash = None
 
         if user_login:
-            # Намираме потребителя и запазваме стария хеш
             if isinstance(user_login, int):
                 old_user = env['res.users'].browse(user_login)
             else:
@@ -33,20 +32,16 @@ class Users(models.Model):
             if old_user:
                 old_password_hash = old_user.password
 
-        # Извиква оригиналния метод с правилните параметри
         result = super(Users, cls)._check_credentials(env, credential, user_agent_env)
 
-        # Ако авторизацията е успешна и има промяна в хеша
         if result and old_user:
             new_user = env['res.users'].browse(result)
             new_password_hash = new_user.password
 
-            # Проверява дали хешът се е променил
             if old_password_hash != new_password_hash:
-                _logger.info(f"Password hash changed for user {result}")
+                _logger.info("Password hash changed for user %s", result)
                 cls._handle_wallet_reencryption(env, result, old_password_hash, new_password_hash)
             else:
-                # Хешът е същия - само проверява синхронизацията
                 cls._verify_wallet_sync(env, result, new_password_hash)
 
         return result
@@ -59,18 +54,16 @@ class Users(models.Model):
             system_wallet = user.crypto_wallet_ids.filtered(lambda w: w.name == 'System Keys')
 
             if system_wallet and old_hash:
-                # Прекриптира портфела
                 success = system_wallet.auto_reencrypt_on_password_change(old_hash, new_hash)
                 if success:
-                    _logger.info(f"Successfully reencrypted wallet for user {user_id}")
+                    _logger.info("Successfully reencrypted wallet for user %s", user_id)
                 else:
-                    _logger.error(f"Failed to reencrypt wallet for user {user_id}")
+                    _logger.error("Failed to reencrypt wallet for user %s", user_id)
             elif not system_wallet:
-                # Създава нов портфел
                 cls._create_initial_wallet(env, user_id, new_hash)
 
-        except Exception as e:
-            _logger.error(f"Error handling wallet reencryption for user {user_id}: {str(e)}")
+        except Exception:
+            _logger.exception("Error handling wallet reencryption for user %s", user_id)
 
     @classmethod
     def _verify_wallet_sync(cls, env, user_id, current_hash):
@@ -81,16 +74,27 @@ class Users(models.Model):
 
             if system_wallet:
                 try:
-                    # Опитва се да отключи портфела
-                    system_wallet.unlock_wallet(current_hash)
-                    _logger.debug(f"Wallet sync verified for user {user_id}")
-                except:
-                    # Портфелът не може да се отключи - нещо не е наред
-                    _logger.warning(f"Wallet out of sync for user {user_id}, attempting recovery")
+                    system_wallet.unlock_wallet_with_password(current_hash)
+                    _logger.debug("Wallet sync verified for user %s", user_id)
+                except Exception:
+                    _logger.warning("Wallet out of sync for user %s, attempting recovery", user_id)
                     cls._create_initial_wallet(env, user_id, current_hash)
             else:
-                # Няма портфел - създава нов
                 cls._create_initial_wallet(env, user_id, current_hash)
 
-        except Exception as e:
-            _logger.error(f"Error verifying wallet sync for user {user_id}: {str(e)}")
+        except Exception:
+            _logger.exception("Error verifying wallet sync for user %s", user_id)
+
+    @classmethod
+    def _create_initial_wallet(cls, env, user_id, master_password):
+        """Създава начален портфел за потребител"""
+        try:
+            wallet_model = env['crypto.wallet'].sudo()
+            wallet_model.create({
+                'name': 'System Keys',
+                'user_id': user_id,
+                'master_password': master_password,
+            })
+            _logger.info("Created initial wallet for user %s", user_id)
+        except Exception:
+            _logger.exception("Failed to create initial wallet for user %s", user_id)

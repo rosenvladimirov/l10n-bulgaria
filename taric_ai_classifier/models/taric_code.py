@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
-from odoo.exceptions import UserError, ValidationError
-import requests
 import json
 import logging
+import os
+import re
+
+from odoo import models, fields, api
+from odoo.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -79,27 +81,25 @@ class TaricCode(models.Model):
     @api.model
     def search_by_ai(self, product_description, product_category=None):
         """
-        Use Claude AI to suggest HS codes based on product description
+        Ползва ai_agent_core за AI класификация на продукти.
+        Изпраща заявка към Claude Code CLI чрез ядрото.
 
         Args:
-            product_description: Product name and description
-            product_category: Optional product category
+            product_description: Име и описание на продукта
+            product_category: Категория (опционално)
 
         Returns:
-            List of suggested HS codes with confidence scores
+            Списък с предложени HS кодове с confidence scores
         """
-        api_key = self.env['ir.config_parameter'].sudo().get_param('taric_ai.anthropic_api_key')
-        if not api_key:
-            raise UserError('Anthropic API key not configured in Settings!')
-
-        prompt = f"""Analyze this product and suggest appropriate HS commodity codes.
+        # Изграждаме въпрос за Claude
+        question = f"""Analyze this product and suggest appropriate HS commodity codes.
 
 Product: {product_description}
 """
         if product_category:
-            prompt += f"Category: {product_category}\n"
+            question += f"Category: {product_category}\n"
 
-        prompt += """
+        question += """
 Suggest the 3-5 most appropriate HS commodity codes (8 digits for EU/CN8 codes).
 
 Respond ONLY with valid JSON:
@@ -115,42 +115,44 @@ Respond ONLY with valid JSON:
 }
 """
 
+        # Намираме пътя на модула за контекст
+        module_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+        # Създаваме заявка към ai_agent_core
+        agent_request = self.env['ai.agent.request'].create({
+            'module_path': module_path,
+            'question': question,
+            'permission_mode': 'plan',  # read-only — няма нужда от write
+            'allowed_tools': 'Read,Grep,Glob',
+        })
+
         try:
-            response = requests.post(
-                'https://api.anthropic.com/v1/messages',
-                headers={
-                    'Content-Type': 'application/json',
-                    'x-api-key': api_key,
-                    'anthropic-version': '2023-06-01'
-                },
-                json={
-                    'model': 'claude-sonnet-4-20250514',
-                    'max_tokens': 2000,
-                    'messages': [{'role': 'user', 'content': prompt}]
-                },
-                timeout=30
-            )
+            # Синхронно изпълнение — чакаме резултат
+            agent_request._validate_request()
+            agent_request._generate_context()
+            agent_request.env.cr.commit()
+            agent_request._run_claude()
 
-            if response.status_code == 200:
-                result = response.json()
-                content = result['content'][0]['text']
+            if agent_request.state == 'error':
+                raise UserError(
+                    'AI classification failed: %s' % agent_request.error_message
+                )
 
-                # Extract JSON
-                import re
-                json_match = re.search(r'\{.*\}', content, re.DOTALL)
-                if json_match:
-                    suggestions = json.loads(json_match.group())
-                    return suggestions.get('suggestions', [])
-                else:
-                    _logger.warning('No JSON in Claude response')
-                    return []
+            # Парсваме резултата
+            result_text = agent_request.result_text or ''
+            json_match = re.search(r'\{.*\}', result_text, re.DOTALL)
+            if json_match:
+                data = json.loads(json_match.group())
+                return data.get('suggestions', [])
             else:
-                _logger.error(f'Claude API error: {response.status_code}')
-                raise UserError(f'AI service error: {response.status_code}')
+                _logger.warning('No JSON in AI agent response')
+                return []
 
+        except UserError:
+            raise
         except Exception as e:
-            _logger.error(f'AI classification error: {str(e)}')
-            raise UserError(f'AI classification failed: {str(e)}')
+            _logger.error('AI classification error: %s', e)
+            raise UserError('AI classification failed: %s' % str(e))
 
     def action_verify_code(self):
         """Verify code and mark as verified"""

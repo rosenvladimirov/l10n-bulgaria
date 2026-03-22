@@ -5,14 +5,7 @@ from odoo import fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    # Anthropic API configuration
-    anthropic_api_key = fields.Char(
-        string='Anthropic API Key',
-        config_parameter='taric_ai.anthropic_api_key',
-        help='API key for Claude AI service from Anthropic'
-    )
-
-    # Auto-classification settings
+    # Автоматична класификация
     auto_classify_enabled = fields.Boolean(
         string='Enable Auto-Classification',
         config_parameter='taric_ai.auto_classify_enabled',

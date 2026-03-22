@@ -5,20 +5,15 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="account.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <!-- Добавяне след Customer Invoices блок -->
             <xpath expr="//block[@id='invoicing_settings']" position="after">
                 <block title="TARIC &amp; INTRASTAT AI" id="taric_ai_settings">
                     <setting id="taric_ai_classification" string="AI HS Code Classification"
-                             help="Use AI to automatically suggest HS/TARIC codes for products"
-                             documentation="/applications/finance/accounting/reporting/declarations/intrastat.html">
+                             help="Use AI Agent Core (Claude Code CLI) to suggest HS/TARIC codes for products">
                         <field name="auto_classify_enabled"/>
                         <div class="content-group" invisible="not auto_classify_enabled">
-                            <div class="row mt16">
-                                <label for="anthropic_api_key" class="col-lg-4 o_light_label" string="Anthropic API Key"/>
-                                <field name="anthropic_api_key" password="True" placeholder="sk-ant-..."/>
-                            </div>
                             <div class="text-muted mt8">
-                                Get your API key from: <a href="https://console.anthropic.com/" target="_blank">https://console.anthropic.com/</a>
+                                AI classification uses the AI Agent Core module (Claude Code CLI).
+                                Configure it in Settings &gt; Technical &gt; AI Agent.
                             </div>
                             <div class="row mt16">
                                 <label for="min_confidence_threshold" class="col-lg-4 o_light_label" string="Min Confidence %"/>
@@ -27,9 +22,6 @@
                             <div class="row mt16">
                                 <label for="auto_apply_high_confidence" class="col-lg-4 o_light_label" string="Auto-apply High Confidence"/>
                                 <field name="auto_apply_high_confidence"/>
-                            </div>
-                            <div class="text-muted mt8">
-                                Automatically apply AI suggestions with confidence &gt; 95%
                             </div>
                         </div>
                     </setting>

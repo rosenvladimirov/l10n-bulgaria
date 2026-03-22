@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'AI TARIC & INTRASTAT Classifier',
-    'version': '18.0.1.0.2',
+    'version': '18.0.2.0.0',
     'category': 'Accounting/Localizations',
     'summary': 'AI-powered automatic TARIC and INTRASTAT code classification for products',
     'description': """
@@ -50,10 +50,8 @@ Usage
         'stock',
         'stock_delivery',
         'account',
+        'ai_agent_core',
     ],
-    'external_dependencies': {
-        'python': ['requests'],
-    },
     'data': [
         'security/ir.model.access.csv',
         'views/product_views.xml',

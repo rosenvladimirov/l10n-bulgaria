@@ -1,5 +1,5 @@
 # Copyright 2025 Rosen Vladimirov
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
 {
     'name': 'Bulgarian Banking Integration - Crypto Wallet',
@@ -46,7 +46,7 @@ Supported Key Types:
     """,
     'author': 'Rosen Vladimirov',
     'website': 'https://github.com/OCA/l10n-bulgaria',
-    'license': 'AGPL-3',
+    'license': 'LGPL-3',
     'depends': [
         'base',
         'web',

@@ -1,0 +1,93 @@
+# Copyright 2025 Rosen Vladimirov
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+
+import logging
+
+from odoo import models
+
+_logger = logging.getLogger(__name__)
+
+INFOPAY_WALLET_KEY = "infopay_access_token"
+
+
+class Users(models.Model):
+    _inherit = "res.users"
+
+    @classmethod
+    def _check_credentials(cls, env, credential, user_agent_env=None):
+        """After successful authentication, copy the InfoPay token into
+        the logged-in user's wallet so they can use 'Fetch Data'."""
+        result = super()._check_credentials(env, credential, user_agent_env)
+        if result:
+            try:
+                cls._infopay_distribute_token(env, result)
+            except Exception:
+                _logger.debug(
+                    "InfoPay token distribution skipped for user %s", result,
+                    exc_info=True,
+                )
+        return result
+
+    @classmethod
+    def _infopay_distribute_token(cls, env, user_id):
+        """Copy the InfoPay access token from the owner's wallet into the
+        authenticated user's wallet (re-encrypted with their password hash).
+        """
+        user = env["res.users"].browse(user_id)
+        company = user.company_id
+
+        # Skip if InfoPay is not configured on this company
+        if not company.infopay_unique_id or not company.infopay_token_user_id:
+            return
+
+        owner_id = company.infopay_token_user_id.id
+
+        # Owner already has the token — nothing to do
+        if owner_id == user_id:
+            return
+
+        Wallet = env["crypto.wallet"].sudo()
+
+        # Check if user already has the token
+        user_wallet = Wallet.search(
+            [("user_id", "=", user_id), ("name", "=", "System Keys")],
+            limit=1,
+        )
+        if user_wallet:
+            try:
+                user_wallet.get_key_with_user_password(INFOPAY_WALLET_KEY)
+                return  # Already present
+            except Exception:
+                pass  # Not found — will copy below
+
+        # Read token from owner's wallet
+        owner_wallet = Wallet.search(
+            [("user_id", "=", owner_id), ("name", "=", "System Keys")],
+            limit=1,
+        )
+        if not owner_wallet:
+            return
+
+        try:
+            token_data = owner_wallet.get_key_with_user_password(
+                INFOPAY_WALLET_KEY
+            )
+        except Exception:
+            _logger.warning(
+                "Could not read InfoPay token from owner wallet (user %s)",
+                owner_id,
+            )
+            return
+
+        # Ensure the user has a wallet
+        if not user_wallet:
+            user_wallet = Wallet.get_user_wallet_or_create(user_id)
+
+        # Store the token encrypted with the user's own password hash
+        user_wallet.add_key_with_user_password(
+            INFOPAY_WALLET_KEY, "api_key", token_data["data"]
+        )
+        _logger.info(
+            "InfoPay token distributed to user %s from owner %s",
+            user_id, owner_id,
+        )

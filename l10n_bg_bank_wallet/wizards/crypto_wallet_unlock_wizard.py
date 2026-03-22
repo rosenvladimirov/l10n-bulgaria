@@ -24,7 +24,7 @@ class CryptoWalletUnlockWizard(models.TransientModel):
         if self.use_user_password:
             try:
                 self.master_password = self.env.user.password
-            except:
+            except Exception:
                 pass  # Ако не може да достъпи паролата, остава празно
 
     def unlock_wallet(self):

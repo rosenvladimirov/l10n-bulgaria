@@ -1,0 +1,276 @@
+# Copyright 2025 Rosen Vladimirov
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+
+import logging
+from contextlib import contextmanager
+from datetime import timedelta
+
+from odoo import api, fields, models
+from odoo.exceptions import UserError
+
+_logger = logging.getLogger(__name__)
+
+
+class AccountJournal(models.Model):
+    _inherit = "account.journal"
+
+    infopay_account_id = fields.Char(
+        string="InfoPay Account ID",
+        help="UUID of this bank account in InfoPay.  "
+             "Set automatically by _infopay_discover_accounts().",
+    )
+    infopay_last_sync = fields.Datetime(
+        string="InfoPay Last Sync",
+        help="Timestamp of the last successful transaction sync.",
+    )
+
+    # ── session helper ────────────────────────────────────────────────
+
+    @contextmanager
+    def _infopay_session(self):
+        """Context manager that yields ``(provider, session)``."""
+        provider = self.env["infopay.provider"]
+        session = provider._create_session(self.company_id)
+        try:
+            yield provider, session
+        finally:
+            provider._close_session(session)
+
+    # ── account discovery ─────────────────────────────────────────────
+
+    def _infopay_discover_accounts(self):
+        """Fetch InfoPay accounts and auto-match to journals by IBAN.
+
+        Call once (or periodically) to populate ``infopay_account_id``.
+        Returns a list of dicts with the discovered accounts.
+        """
+        self.ensure_one()
+        with self._infopay_session() as (provider, session):
+            accounts = provider._get_accounts(session, with_balance=True)
+
+        from odoo.addons.base.models.res_bank import sanitize_account_number
+
+        for acct in accounts:
+            iban = acct.get("IBAN", "")
+            sanitized = sanitize_account_number(iban)
+            if not sanitized:
+                continue
+            journal = self.search(
+                [
+                    ("type", "=", "bank"),
+                    ("bank_account_id.sanitized_acc_number", "ilike", sanitized),
+                ],
+                limit=1,
+            )
+            if journal and not journal.infopay_account_id:
+                journal.infopay_account_id = acct["AccountId"]
+                _logger.info(
+                    "InfoPay account %s (%s) → journal %s",
+                    acct["AccountId"],
+                    iban,
+                    journal.name,
+                )
+        return accounts
+
+    # ── statement sync ────────────────────────────────────────────────
+
+    def _infopay_sync_statements(self, date_from=None, date_to=None):
+        """Fetch transactions from InfoPay and create bank statement lines.
+
+        Returns list of created ``account.bank.statement`` IDs.
+        """
+        self.ensure_one()
+        if not self.infopay_account_id:
+            raise UserError(
+                self.env._(
+                    "Journal '%s' has no InfoPay Account ID configured.",
+                    self.name,
+                )
+            )
+
+        today = fields.Date.context_today(self)
+        if date_to is None:
+            date_to = today
+        if date_from is None:
+            if self.infopay_last_sync:
+                date_from = self.infopay_last_sync.date()
+            else:
+                date_from = date_to - timedelta(days=30)
+
+        with self._infopay_session() as (provider, session):
+            transactions, balances = provider._get_transactions(
+                session, self.infopay_account_id, date_from, date_to
+            )
+
+        if not transactions:
+            _logger.info("InfoPay: no transactions for %s (%s → %s)",
+                         self.name, date_from, date_to)
+            self.infopay_last_sync = fields.Datetime.now()
+            return []
+
+        stmts_vals = self._infopay_prepare_stmts_vals(
+            transactions, balances, date_from, date_to
+        )
+        account_number = (
+            self.bank_account_id.acc_number if self.bank_account_id else None
+        )
+        stmts_vals = self._infopay_complete_stmts_vals(stmts_vals, account_number)
+        statement_ids = self._infopay_create_bank_statements(stmts_vals)
+
+        self.infopay_last_sync = fields.Datetime.now()
+        _logger.info(
+            "InfoPay: synced %d transactions → %d statements for %s",
+            len(transactions),
+            len(statement_ids),
+            self.name,
+        )
+        return statement_ids
+
+    # ── transaction → statement conversion ────────────────────────────
+
+    def _infopay_prepare_transaction_line(self, tx):
+        """Convert a single InfoPay transaction dict to a statement line dict."""
+        amount = float(tx["TransactionAmount"]["amount"])
+        tx_type = tx.get("TransactionType")
+
+        # Ensure correct sign: Credit → positive, Debit → negative
+        if tx_type == "Debit" and amount > 0:
+            amount = -amount
+        elif tx_type == "Credit" and amount < 0:
+            amount = -amount
+
+        # Counterparty: for incoming → debtor, for outgoing → creditor
+        if tx_type == "Credit":
+            account_number = tx.get("DebtorAccount") or ""
+            partner_name = tx.get("DebtorName") or ""
+        else:
+            account_number = tx.get("CreditorAccount") or ""
+            partner_name = tx.get("CreditorName") or ""
+
+        # Build payment reference from available fields
+        payment_ref = (
+            tx.get("RemittanceInformationUnstructured")
+            or tx.get("EntryReference")
+            or partner_name
+            or "/"
+        )
+
+        # Unique ID: prefer TransactionExternalId, fallback to TransactionId
+        unique_id = tx.get("TransactionExternalId") or tx.get("TransactionId") or ""
+
+        booking_date = tx.get("BookingDate")
+        if booking_date:
+            # "2024-01-15T00:00:00" → "2024-01-15"
+            booking_date = booking_date[:10]
+
+        vals = {
+            "date": booking_date,
+            "payment_ref": payment_ref,
+            "amount": amount,
+            "account_number": account_number,
+            "partner_name": partner_name,
+        }
+        if unique_id:
+            vals["unique_import_id"] = unique_id
+        return vals
+
+    def _infopay_prepare_stmts_vals(self, transactions, balances, date_from, date_to):
+        """Group transactions into a single statement dict."""
+        self.ensure_one()
+        iban = self.bank_account_id.acc_number if self.bank_account_id else "?"
+
+        lines = [self._infopay_prepare_transaction_line(tx) for tx in transactions]
+
+        stmt = {
+            "name": f"InfoPay {iban} {date_from} / {date_to}",
+            "date": date_to,
+            "transactions": lines,
+        }
+
+        # Try to extract balance info
+        for bal in balances:
+            bal_type = bal.get("BalanceType")
+            bal_amount = bal.get("BalanceAmount", {})
+            try:
+                val = float(bal_amount.get("amount", 0))
+            except (ValueError, TypeError):
+                continue
+            if bal_type == "BeginDay":
+                stmt["balance_start"] = val
+            elif bal_type in ("ActualBalance", "AvailableBalance"):
+                stmt["balance_end_real"] = val
+
+        return [stmt]
+
+    def _infopay_complete_stmts_vals(self, stmts_vals, account_number):
+        """Fill journal_id and call import hooks (mirrors the file-import flow)."""
+        self.ensure_one()
+        speeddict = self._statement_line_import_speeddict()
+        for st_vals in stmts_vals:
+            st_vals["journal_id"] = self.id
+            for lvals in st_vals["transactions"]:
+                lvals["journal_id"] = self.id
+                self._statement_line_import_update_unique_import_id(
+                    lvals, account_number
+                )
+                self._statement_line_import_update_hook(lvals, speeddict)
+                if not lvals.get("payment_ref"):
+                    lvals["payment_ref"] = "/"
+        return stmts_vals
+
+    def _infopay_create_bank_statements(self, stmts_vals):
+        """Create bank statements, skipping duplicate lines.
+
+        Mirrors ``account.statement.import._create_bank_statements``.
+        """
+        self.ensure_one()
+        BankStatement = self.env["account.bank.statement"]
+        BankStatementLine = self.env["account.bank.statement.line"]
+        statement_ids = []
+
+        for st_vals in stmts_vals:
+            lines_to_create = []
+            for lvals in st_vals["transactions"]:
+                if lvals.get("unique_import_id"):
+                    existing = BankStatementLine.sudo().search(
+                        [("unique_import_id", "=", lvals["unique_import_id"])],
+                        limit=1,
+                    )
+                    if existing:
+                        if "balance_start" in st_vals:
+                            st_vals["balance_start"] += float(lvals["amount"])
+                        continue
+                lines_to_create.append(lvals)
+
+            if not lines_to_create:
+                continue
+
+            for seq, vals in enumerate(lines_to_create, start=1):
+                vals["sequence"] = seq
+            st_vals.pop("transactions", None)
+            st_vals["line_ids"] = [(0, 0, line) for line in lines_to_create]
+            statement = BankStatement.create(st_vals)
+            statement_ids.append(statement.id)
+
+        return statement_ids
+
+    # ── batch sync (called from UI module) ───────────────────────────
+
+    @api.model
+    def _infopay_sync_all_statements(self):
+        """Sync every journal that has an InfoPay account configured.
+
+        Called from UI buttons / menu actions in a separate module.
+        Returns list of all created statement IDs.
+        """
+        all_ids = []
+        journals = self.search([("infopay_account_id", "!=", False)])
+        for journal in journals:
+            try:
+                all_ids.extend(journal._infopay_sync_statements())
+            except Exception:
+                _logger.exception(
+                    "InfoPay sync failed for journal %s (id=%s)",
+                    journal.name, journal.id,
+                )
+        return all_ids

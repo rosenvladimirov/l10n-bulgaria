@@ -216,17 +216,18 @@ class CryptoWallet(models.Model):
     # === CORE WALLET OPERATIONS ===
     def _initialize_empty_wallet(self, master_password):
         """Initialize an empty encrypted wallet-extracted method"""
-        salt = self._crypto_manager.generate_salt()
+        salt = self.crypto_manager.generate_salt()
         self.salt = base64.b64encode(salt).decode()
 
-        key = self._crypto_manager.derive_key(master_password, salt)
-        empty_wallet = self._crypto_manager.create_wallet_envelope({})
+        key = self.crypto_manager.derive_key(master_password, salt)
+        empty_wallet = self.crypto_manager.create_wallet_envelope({})
 
-        encrypted_data = self._crypto_manager.encrypt_data(json.dumps(empty_wallet), key)
+        encrypted_data = self.crypto_manager.encrypt_data(json.dumps(empty_wallet), key)
         self.encrypted_data = base64.b64encode(encrypted_data).decode()
 
         self._persist_wallet_to_disk()
-        _logger.info(f"Initialized crypto wallet '{self.name}' for user {self.user_id.name}")
+        _logger.info("Initialized crypto wallet '%s' for user %s",
+                     self.name, self.user_id.name)
 
     def _persist_wallet_to_disk(self):
         """Save wallet data to disk - extracted method"""
@@ -566,9 +567,7 @@ class CryptoWallet(models.Model):
     # === USER WALLET MANAGEMENT ===
     @api.model
     def get_user_wallet_or_create(self, user_id=None):
-        """Get user wallet, create if doesn't exist - renamed for clarity"""
-        self._check_permission_level('read')
-
+        """Get user wallet, create if doesn't exist."""
         if not user_id:
             user_id = self.env.user.id
 
@@ -586,44 +585,42 @@ class CryptoWallet(models.Model):
                 'user_id': user_id,
                 'master_password': current_hash
             })
-            _logger.info(f"Created new crypto wallet for user {user_id}")
+            _logger.info("Created new crypto wallet for user %s", user_id)
         else:
             # Verify wallet sync
             try:
                 wallet.unlock_wallet_with_password(current_hash)
-                _logger.debug(f"Wallet sync verified for user {user_id}")
-            except:
-                _logger.warning(f"Wallet desync for user {user_id}, reinitializing")
+                _logger.debug("Wallet sync verified for user %s", user_id)
+            except Exception:
+                _logger.warning("Wallet desync for user %s, reinitializing", user_id)
                 wallet._initialize_empty_wallet(current_hash)
 
         return wallet
 
     @api.model
     def get_user_wallet(self, user_id=None):
-        """Get a user wallet without creating if it doesn't exist"""
-        self._check_permission_level('read')
-
+        """Get a user wallet without creating if it doesn't exist."""
         if not user_id:
             user_id = self.env.user.id
 
         wallet = self.search([('user_id', '=', user_id), ('name', '=', 'System Keys')], limit=1)
 
         if not wallet:
-            raise UserError(f'Няма създаден портфейл за потребител с ID {user_id}')
+            raise UserError('Няма създаден портфейл за потребител с ID %s' % user_id)
 
         return wallet
 
     def quick_access(self, key_name, user_id=None):
         """Quick access to the key"""
-        self._check_permission_level('read')
         wallet = self.get_user_wallet_or_create(user_id)
+        wallet._check_permission_level('read')
         user = self.env['res.users'].browse(user_id or self.env.user.id)
         return wallet._get_key_from_wallet(key_name, user.password)
 
     def quick_store(self, key_name, key_type, key_data, user_id=None):
         """Quick key storage"""
-        self._check_permission_level('write')
         wallet = self.get_user_wallet_or_create(user_id)
+        wallet._check_permission_level('write')
         user = self.env['res.users'].browse(user_id or self.env.user.id)
         return wallet._add_key_to_wallet(key_name, key_type, key_data, user.password)
 
@@ -631,7 +628,6 @@ class CryptoWallet(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         """Create new crypto wallet records"""
-        self._check_permission_level('write')
 
         processed_vals_list = []
         master_passwords = []
@@ -734,6 +730,18 @@ class CryptoWallet(models.Model):
         self.is_locked = False
 
         _logger.debug(f"Wallet '{self.name}' reencrypted successfully")
+
+    def auto_reencrypt_on_password_change(self, old_password, new_password):
+        """Re-encrypt wallet when user password changes (called from login)."""
+        self.ensure_one()
+        try:
+            wallet_data = self.unlock_wallet_with_password(old_password)
+            self._reencrypt_wallet_with_new_key(wallet_data, new_password)
+            _logger.info("Auto-reencrypted wallet '%s' on password change", self.name)
+            return True
+        except Exception:
+            _logger.exception("Auto-reencrypt failed for wallet '%s'", self.name)
+            return False
 
     # === EXPORT FUNCTIONALITY ===
     def export_wallet(self, master_password=None, export_password=None):

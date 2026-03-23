@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Sequences for declaration references -->
+    <record id="seq_nra_declaration" model="ir.sequence">
+        <field name="name">NRA Declaration</field>
+        <field name="code">nra.declaration</field>
+        <field name="prefix">NRA/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False" />
+    </record>
+
+    <record id="seq_nra_declaration_d1" model="ir.sequence">
+        <field name="name">NRA Declaration Form 1</field>
+        <field name="code">nra.declaration.d1</field>
+        <field name="prefix">D1/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False" />
+    </record>
+
+    <record id="seq_nra_declaration_d6" model="ir.sequence">
+        <field name="name">NRA Declaration Form 6</field>
+        <field name="code">nra.declaration.d6</field>
+        <field name="prefix">D6/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False" />
+    </record>
+
+    <record id="seq_nra_declaration_etz" model="ir.sequence">
+        <field name="name">NRA Electronic Labor Records</field>
+        <field name="code">nra.declaration.etz</field>
+        <field name="prefix">ETZ/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False" />
+    </record>
+
+    <record id="seq_nra_declaration_vat" model="ir.sequence">
+        <field name="name">NRA VAT Declaration</field>
+        <field name="code">nra.declaration.vat</field>
+        <field name="prefix">VAT/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False" />
+    </record>
+
+    <record id="seq_nra_declaration_vies" model="ir.sequence">
+        <field name="name">NRA VIES Declaration</field>
+        <field name="code">nra.declaration.vies</field>
+        <field name="prefix">VIES/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False" />
+    </record>
+
+    <!-- System parameters for API configuration -->
+    <record id="config_nra_base_url" model="ir.config_parameter">
+        <field name="key">l10n_bg_api_nra.base_url</field>
+        <field name="value">https://public-api.nra.bg</field>
+    </record>
+
+    <record id="config_nra_token_endpoint" model="ir.config_parameter">
+        <field name="key">l10n_bg_api_nra.token_endpoint</field>
+        <field name="value">https://public-api.nra.bg/oauth/token</field>
+    </record>
+
+    <record id="config_nra_timeout" model="ir.config_parameter">
+        <field name="key">l10n_bg_api_nra.timeout</field>
+        <field name="value">30</field>
+    </record>
+</odoo>

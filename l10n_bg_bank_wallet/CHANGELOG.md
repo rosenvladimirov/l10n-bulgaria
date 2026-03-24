@@ -4,6 +4,12 @@ All notable changes to the l10n_bg_bank_wallet module will be documented in this
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [18.0.1.0.3] - 2026-03-24
+
+### Fixed
+- Fixed `_check_credentials` TypeError: was `@classmethod` with `(cls, env, credential)` signature, but Odoo 18.0 expects instance method `(self, credential, user_agent_env)` — caused login failure after module installation
+- Converted all helper methods (`_handle_wallet_reencryption`, `_verify_wallet_sync`, `_create_initial_wallet`) from `@classmethod` to instance methods using `self.env`
+
 ## [18.0.1.0.2] - 2026-03-22
 
 ### Fixed

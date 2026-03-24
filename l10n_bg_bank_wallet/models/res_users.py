@@ -15,42 +15,27 @@ class Users(models.Model):
         help='Криптирани портфейли на потребителя'
     )
 
-    @classmethod
-    def _check_credentials(cls, env, credential, user_agent_env=None):
+    def _check_credentials(self, credential, user_agent_env):
         """Прихваща успешната авторизация и синхронизира портфела"""
-        # Запазва стария хеш ПРЕДИ авторизацията
-        user_login = credential.get('login') or credential.get('uid')
-        old_user = None
-        old_password_hash = None
+        old_password_hash = self.env.user.password
 
-        if user_login:
-            if isinstance(user_login, int):
-                old_user = env['res.users'].browse(user_login)
-            else:
-                old_user = env['res.users'].search([('login', '=', user_login)], limit=1)
+        result = super()._check_credentials(credential, user_agent_env)
 
-            if old_user:
-                old_password_hash = old_user.password
+        new_password_hash = self.env.user.password
+        user_id = self.env.uid
 
-        result = super(Users, cls)._check_credentials(env, credential, user_agent_env)
-
-        if result and old_user:
-            new_user = env['res.users'].browse(result)
-            new_password_hash = new_user.password
-
-            if old_password_hash != new_password_hash:
-                _logger.info("Password hash changed for user %s", result)
-                cls._handle_wallet_reencryption(env, result, old_password_hash, new_password_hash)
-            else:
-                cls._verify_wallet_sync(env, result, new_password_hash)
+        if old_password_hash != new_password_hash:
+            _logger.info("Password hash changed for user %s", user_id)
+            self._handle_wallet_reencryption(user_id, old_password_hash, new_password_hash)
+        else:
+            self._verify_wallet_sync(user_id, new_password_hash)
 
         return result
 
-    @classmethod
-    def _handle_wallet_reencryption(cls, env, user_id, old_hash, new_hash):
+    def _handle_wallet_reencryption(self, user_id, old_hash, new_hash):
         """Обработва прекриптирането при промяна на хеша"""
         try:
-            user = env['res.users'].browse(user_id)
+            user = self.env['res.users'].browse(user_id)
             system_wallet = user.crypto_wallet_ids.filtered(lambda w: w.name == 'System Keys')
 
             if system_wallet and old_hash:
@@ -60,16 +45,15 @@ class Users(models.Model):
                 else:
                     _logger.error("Failed to reencrypt wallet for user %s", user_id)
             elif not system_wallet:
-                cls._create_initial_wallet(env, user_id, new_hash)
+                self._create_initial_wallet(user_id, new_hash)
 
         except Exception:
             _logger.exception("Error handling wallet reencryption for user %s", user_id)
 
-    @classmethod
-    def _verify_wallet_sync(cls, env, user_id, current_hash):
+    def _verify_wallet_sync(self, user_id, current_hash):
         """Проверява синхронизацията на портфела при същия хеш"""
         try:
-            user = env['res.users'].browse(user_id)
+            user = self.env['res.users'].browse(user_id)
             system_wallet = user.crypto_wallet_ids.filtered(lambda w: w.name == 'System Keys')
 
             if system_wallet:
@@ -78,18 +62,17 @@ class Users(models.Model):
                     _logger.debug("Wallet sync verified for user %s", user_id)
                 except Exception:
                     _logger.warning("Wallet out of sync for user %s, attempting recovery", user_id)
-                    cls._create_initial_wallet(env, user_id, current_hash)
+                    self._create_initial_wallet(user_id, current_hash)
             else:
-                cls._create_initial_wallet(env, user_id, current_hash)
+                self._create_initial_wallet(user_id, current_hash)
 
         except Exception:
             _logger.exception("Error verifying wallet sync for user %s", user_id)
 
-    @classmethod
-    def _create_initial_wallet(cls, env, user_id, master_password):
+    def _create_initial_wallet(self, user_id, master_password):
         """Създава начален портфел за потребител"""
         try:
-            wallet_model = env['crypto.wallet'].sudo()
+            wallet_model = self.env['crypto.wallet'].sudo()
             wallet_model.create({
                 'name': 'System Keys',
                 'user_id': user_id,

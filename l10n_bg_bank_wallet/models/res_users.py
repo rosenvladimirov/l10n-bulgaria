@@ -70,9 +70,16 @@ class Users(models.Model):
             _logger.exception("Error verifying wallet sync for user %s", user_id)
 
     def _create_initial_wallet(self, user_id, master_password):
-        """Създава начален портфел за потребител"""
+        """Създава начален портфел за потребител, ако вече няма такъв"""
         try:
             wallet_model = self.env['crypto.wallet'].sudo()
+            existing = wallet_model.search([
+                ('user_id', '=', user_id),
+                ('name', '=', 'System Keys'),
+            ], limit=1)
+            if existing:
+                _logger.debug("Wallet already exists for user %s, skipping creation", user_id)
+                return
             wallet_model.create({
                 'name': 'System Keys',
                 'user_id': user_id,

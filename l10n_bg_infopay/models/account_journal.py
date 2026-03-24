@@ -203,17 +203,16 @@ class AccountJournal(models.Model):
         return [stmt]
 
     def _infopay_complete_stmts_vals(self, stmts_vals, account_number):
-        """Fill journal_id and call import hooks (mirrors the file-import flow)."""
+        """Fill journal_id and ensure unique_import_id prefix."""
         self.ensure_one()
-        speeddict = self._statement_line_import_speeddict()
         for st_vals in stmts_vals:
             st_vals["journal_id"] = self.id
             for lvals in st_vals["transactions"]:
                 lvals["journal_id"] = self.id
-                self._statement_line_import_update_unique_import_id(
-                    lvals, account_number
-                )
-                self._statement_line_import_update_hook(lvals, speeddict)
+                # Prefix unique_import_id with account number to avoid cross-journal collisions
+                uid = lvals.get("unique_import_id")
+                if uid and account_number:
+                    lvals["unique_import_id"] = f"{account_number}-{uid}"
                 if not lvals.get("payment_ref"):
                     lvals["payment_ref"] = "/"
         return stmts_vals

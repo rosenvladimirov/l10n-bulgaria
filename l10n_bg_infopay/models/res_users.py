@@ -13,28 +13,26 @@ INFOPAY_WALLET_KEY = "infopay_access_token"
 class Users(models.Model):
     _inherit = "res.users"
 
-    @classmethod
-    def _check_credentials(cls, env, credential, user_agent_env=None):
+    def _check_credentials(self, credential, user_agent_env):
         """After successful authentication, copy the InfoPay token into
         the logged-in user's wallet so they can use 'Fetch Data'."""
-        result = super()._check_credentials(env, credential, user_agent_env)
-        if result:
-            try:
-                cls._infopay_distribute_token(env, result)
-            except Exception:
-                _logger.debug(
-                    "InfoPay token distribution skipped for user %s", result,
-                    exc_info=True,
-                )
+        result = super()._check_credentials(credential, user_agent_env)
+        try:
+            self._infopay_distribute_token()
+        except Exception:
+            _logger.debug(
+                "InfoPay token distribution skipped for user %s", self.env.uid,
+                exc_info=True,
+            )
         return result
 
-    @classmethod
-    def _infopay_distribute_token(cls, env, user_id):
+    def _infopay_distribute_token(self):
         """Copy the InfoPay access token from the owner's wallet into the
         authenticated user's wallet (re-encrypted with their password hash).
         """
-        user = env["res.users"].browse(user_id)
+        user = self.env.user
         company = user.company_id
+        user_id = user.id
 
         # Skip if InfoPay is not configured on this company
         if not company.infopay_unique_id or not company.infopay_token_user_id:
@@ -46,7 +44,7 @@ class Users(models.Model):
         if owner_id == user_id:
             return
 
-        Wallet = env["crypto.wallet"].sudo()
+        Wallet = self.env["crypto.wallet"].sudo()
 
         # Check if user already has the token
         user_wallet = Wallet.search(

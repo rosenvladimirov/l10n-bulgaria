@@ -4,12 +4,12 @@
 {
     "name": "InfoPay Integration",
     "summary": "Bank statement sync and payment orders via InfoPay API",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.1.0",
     "category": "Accounting/Localizations",
     "license": "LGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-bulgaria",
-    "depends": ["account_statement_import_base", "l10n_bg_bank_wallet"],
+    "depends": ["account", "l10n_bg_bank_wallet"],
     "external_dependencies": {"python": ["requests"]},
     "data": [
         "data/ir_cron.xml",

@@ -1,5 +1,13 @@
 # Changelog
 
+## 18.0.1.1.0 (2026-03-24)
+
+### Fixed
+- Replaced OCA dependency `account_statement_import_base` with Odoo core `account` module
+- Removed OCA-specific methods (`_statement_line_import_speeddict`, `_statement_line_import_update_hook`, `_statement_line_import_update_unique_import_id`) from `account_journal.py`
+- Fixed `_check_credentials` in `res_users.py` — converted from `@classmethod` to instance method for Odoo 18.0 API compatibility
+- Fixed `_infopay_distribute_token` — converted from `@classmethod` to instance method
+
 ## 18.0.1.0.0 (2025-03-22)
 
 ### Added

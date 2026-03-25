@@ -78,6 +78,15 @@
                                         class="o_light_label"
                                     />
                                 </div>
+                                <div class="mt16">
+                                    <div class="d-flex">
+                                        <field name="enable_partner_api_key_view" class="ml16" />
+                                        <label
+                                            for="enable_partner_api_key_view"
+                                            class="o_light_label"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </setting>
                         <setting

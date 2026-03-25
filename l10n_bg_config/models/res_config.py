@@ -81,6 +81,18 @@ class ResConfigSettings(models.TransientModel):
     )
     l10n_bg_config_template =fields.Binary(related="company_id.l10n_bg_config_template", readonly=False)
     l10n_bg_key = fields.Char(related="company_id.partner_id.l10n_bg_key", readonly=False)
+    enable_partner_api_key_view = fields.Boolean(
+        string="Enable Partner API Key Shortcut",
+        help="Enable the API Key shortcut (Shift+Alt+K) in partner form view",
+        config_parameter="l10n_bg_config.enable_partner_api_key_view",
+    )
+
+    def set_values(self):
+        super().set_values()
+        # Activate/deactivate the view based on the setting
+        view = self.env.ref('l10n_bg_config.view_res_partner_form_api_key', raise_if_not_found=False)
+        if view:
+            view.active = self.enable_partner_api_key_view
 
     @api.depends('company_id.is_l10n_bg_multilanguage')
     def _compute_multilanguage_text(self):

@@ -20,7 +20,7 @@
                 <field name="period_month" />
                 <field name="period_year" />
                 <field name="submission_date" />
-                <field name="nra_incoming_number" />
+                <field name="nra_entry_number" />
                 <field name="state" widget="badge"
                        decoration-info="state == 'draft'"
                        decoration-warning="state == 'submitted'"
@@ -216,17 +216,23 @@
                                     <field name="xml_filename" invisible="1" />
                                 </group>
                                 <group string="NRA Response">
-                                    <field name="nra_doc_number" />
-                                    <field name="nra_incoming_number" />
+                                    <field name="nra_document_id" />
+                                    <field name="nra_entry_number" />
+                                    <field name="nra_entry_date" />
                                     <field name="submission_date" />
                                     <field name="accepted_count"
-                                           invisible="state != 'partially_accepted'" />
+                                           invisible="state not in ('partially_accepted', 'accepted', 'rejected')" />
                                     <field name="total_count"
-                                           invisible="state != 'partially_accepted'" />
+                                           invisible="state not in ('partially_accepted', 'accepted', 'rejected')" />
                                 </group>
                             </group>
+                            <group string="Response (HTML)"
+                                   invisible="not nra_response_html">
+                                <field name="nra_response_html" nolabel="1"
+                                       colspan="2" />
+                            </group>
                             <group string="Response Message"
-                                   invisible="not nra_response_message">
+                                   invisible="not nra_response_message or nra_response_html">
                                 <field name="nra_response_message" nolabel="1"
                                        colspan="2" />
                             </group>
@@ -248,7 +254,7 @@
             <search>
                 <field name="name" />
                 <field name="l10n_bg_uic" />
-                <field name="nra_incoming_number" />
+                <field name="nra_entry_number" />
                 <separator />
                 <filter string="Draft" name="filter_draft"
                         domain="[('state', '=', 'draft')]" />

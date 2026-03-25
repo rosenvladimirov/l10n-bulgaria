@@ -1,5 +1,6 @@
 import base64
 import logging
+import re
 
 from lxml import etree
 
@@ -100,34 +101,53 @@ class NraDeclaration(models.Model):
     )
 
     # ------------------------------------------------------------------
-    # XML payload
+    # File payload
     # ------------------------------------------------------------------
 
     xml_content = fields.Binary(
-        string="XML Content",
+        string="File Content",
         attachment=True,
         copy=False,
     )
     xml_filename = fields.Char(
-        string="XML Filename",
+        string="Filename",
         copy=False,
     )
 
     # ------------------------------------------------------------------
-    # NRA response
+    # NRA response fields (per ApiDeclarationsSubmitOutputDto)
     # ------------------------------------------------------------------
 
-    nra_doc_number = fields.Char(
-        string="NRA Document Number",
+    nra_document_id = fields.Integer(
+        string="NRA Document ID",
         readonly=True,
         copy=False,
         tracking=True,
+        help="documentId returned by NRA API on successful submission.",
+    )
+    nra_entry_number = fields.Char(
+        string="NRA Entry Number (Входящ номер)",
+        readonly=True,
+        copy=False,
+        tracking=True,
+        help="entryNumber returned by NRA API.",
+    )
+    nra_entry_date = fields.Char(
+        string="NRA Entry Date (Дата на входиране)",
+        readonly=True,
+        copy=False,
+        help="entryDate returned by NRA API.",
+    )
+    # Keep legacy field names as aliases for compatibility
+    nra_doc_number = fields.Char(
+        related="nra_entry_number",
+        string="NRA Document Number",
+        store=False,
     )
     nra_incoming_number = fields.Char(
+        related="nra_entry_number",
         string="NRA Incoming Number",
-        readonly=True,
-        copy=False,
-        tracking=True,
+        store=False,
     )
     submission_date = fields.Datetime(
         string="Submission Date",
@@ -138,6 +158,13 @@ class NraDeclaration(models.Model):
         string="NRA Response",
         readonly=True,
         copy=False,
+    )
+    nra_response_html = fields.Html(
+        string="NRA Response (HTML)",
+        readonly=True,
+        copy=False,
+        sanitize=False,
+        help="Base64-decoded HTML result from NRA status check.",
     )
     accepted_count = fields.Integer(
         string="Accepted Records",
@@ -174,11 +201,11 @@ class NraDeclaration(models.Model):
         return super().create(vals_list)
 
     # ------------------------------------------------------------------
-    # XML generation — to be overridden by specific declaration modules
+    # File generation — to be overridden by specific declaration modules
     # ------------------------------------------------------------------
 
     def _prepare_xml_data(self):
-        """Prepare data dict for XML generation. Override in subclasses."""
+        """Prepare data dict for file generation. Override in subclasses."""
         self.ensure_one()
         return {}
 
@@ -194,19 +221,36 @@ class NraDeclaration(models.Model):
         data = self._prepare_xml_data()
         if not data:
             raise UserError(
-                _("No data to generate XML for declaration '%s'.", self.name)
+                _("No data to generate file for declaration '%s'.", self.name)
             )
         root = self._build_xml_tree(data)
         return etree.tostring(
             root, xml_declaration=True, encoding="UTF-8", pretty_print=True
         )
 
+    def _generate_file_content(self):
+        """Generate the file content for NRA submission.
+
+        Returns bytes in the format expected by NRA:
+        - TXT for D1/D6
+        - XML for ETZ
+        Override in subclasses for type-specific formats.
+        """
+        self.ensure_one()
+        # Default: generate XML (correct for ETZ, VAT, VIES)
+        return self._generate_xml()
+
+    def _get_file_record_count(self):
+        """Return the number of records in the file (for D1/D6 numRecords)."""
+        self.ensure_one()
+        return 0
+
     def _build_xml_tree(self, data):
         """Build an lxml Element tree from data dict. Override per type."""
         self.ensure_one()
         raise UserError(
             _(
-                "XML generation is not implemented for declaration type '%s'.",
+                "File generation is not implemented for declaration type '%s'.",
                 self.declaration_type,
             )
         )
@@ -237,49 +281,47 @@ class NraDeclaration(models.Model):
         return True
 
     # ------------------------------------------------------------------
-    # API endpoint mapping — override per declaration type
+    # File extension helpers
     # ------------------------------------------------------------------
 
-    def _get_submit_endpoint(self):
-        """Return the API endpoint path for submitting this declaration."""
+    def _get_file_extension(self):
+        """Return file extension for this declaration type."""
         self.ensure_one()
-        endpoints = {
-            "d1": "/api/declarations/d1",
-            "d6": "/api/declarations/d6",
-            "etz": "/api/declarations/etz",
-            "vat": "/api/declarations/vat",
-            "vies": "/api/declarations/vies",
-        }
-        return endpoints.get(self.declaration_type, "/api/declarations")
+        from .nra_api_provider import NRA_FILE_TYPES
+        return NRA_FILE_TYPES.get(self.declaration_type, "xml")
 
-    def _get_status_endpoint(self):
-        """Return the API endpoint for checking declaration status."""
+    def _get_file_name(self):
+        """Generate a file name for the declaration."""
         self.ensure_one()
-        return f"{self._get_submit_endpoint()}/status"
+        ext = self._get_file_extension()
+        return (
+            f"{self.declaration_type}_{self.l10n_bg_uic}"
+            f"_{self.period_year}_{self.period_month}.{ext}"
+        )
 
     # ------------------------------------------------------------------
     # Workflow actions
     # ------------------------------------------------------------------
 
     def action_generate_xml(self):
-        """Generate XML and move to 'ready' state."""
+        """Generate file content and move to 'ready' state."""
         for rec in self:
             if rec.state != "draft":
                 raise UserError(
-                    _("Can only generate XML for declarations in 'Draft' state.")
+                    _("Can only generate files for declarations in 'Draft' state.")
                 )
-            xml_bytes = rec._generate_xml()
+            file_bytes = rec._generate_file_content()
             rec.write(
                 {
-                    "xml_content": base64.b64encode(xml_bytes),
-                    "xml_filename": f"{rec.declaration_type}_{rec.l10n_bg_uic}_{rec.period_year}_{rec.period_month}.xml",
+                    "xml_content": base64.b64encode(file_bytes),
+                    "xml_filename": rec._get_file_name(),
                     "state": "ready",
                 }
             )
         return True
 
     def action_submit(self):
-        """Submit the declaration XML to the NRA API."""
+        """Submit the declaration to the NRA API."""
         provider = self.env["nra.api.provider"]
         for rec in self:
             if rec.state not in ("ready", "error"):
@@ -290,14 +332,28 @@ class NraDeclaration(models.Model):
                 )
             if not rec.xml_content:
                 raise UserError(
-                    _("No XML content. Please generate XML first.")
+                    _("No file content. Please generate the file first.")
                 )
-            xml_bytes = base64.b64decode(rec.xml_content)
-            endpoint = rec._get_submit_endpoint()
+            if rec.declaration_type in ("vat", "vies"):
+                raise UserError(
+                    _(
+                        "%(type)s declarations cannot be submitted via this "
+                        "NRA API endpoint. Use the NRA portal directly.",
+                        type=rec.get_declaration_type_label(),
+                    )
+                )
+
+            file_bytes = base64.b64decode(rec.xml_content)
 
             try:
                 result = provider.submit_declaration(
-                    rec.company_id, endpoint, xml_bytes
+                    company=rec.company_id,
+                    declaration_type=rec.declaration_type,
+                    file_content=file_bytes,
+                    file_name=rec.xml_filename or rec._get_file_name(),
+                    num_records=rec._get_file_record_count() or None,
+                    period_month=rec.period_month,
+                    period_year=rec.period_year,
                 )
                 rec._process_submit_response(result)
             except UserError:
@@ -305,12 +361,23 @@ class NraDeclaration(models.Model):
                 raise
         return True
 
+    def get_declaration_type_label(self):
+        """Return the human-readable label for the declaration type."""
+        self.ensure_one()
+        for key, label in self._fields["declaration_type"].selection:
+            if key == self.declaration_type:
+                return label
+        return self.declaration_type
+
     def _process_submit_response(self, result):
         """Process the NRA API response after submission.
 
-        Override to handle declaration-type-specific response fields.
+        Per ApiDeclarationsSubmitOutputDto, the response contains:
+        - entryNumber: входящ номер
+        - entryDate: дата на входиране
+        - documentId: ID на документ
 
-        :param result: dict or Response from the API
+        :param result: dict from the API
         """
         self.ensure_one()
         vals = {
@@ -318,36 +385,17 @@ class NraDeclaration(models.Model):
             "state": "submitted",
         }
         if isinstance(result, dict):
-            vals["nra_doc_number"] = result.get("doc_number", result.get("documentNumber", ""))
-            vals["nra_incoming_number"] = result.get(
-                "incoming_number", result.get("incomingNumber", "")
+            vals["nra_document_id"] = result.get("documentId", 0)
+            vals["nra_entry_number"] = result.get("entryNumber", "")
+            vals["nra_entry_date"] = result.get("entryDate", "")
+            _logger.info(
+                "Declaration %s submitted: documentId=%s, entryNumber=%s",
+                self.name,
+                result.get("documentId"),
+                result.get("entryNumber"),
             )
-            vals["nra_response_message"] = result.get(
-                "message", result.get("status", "")
-            )
-
-            # Detect accepted/rejected from immediate response
-            status = result.get("status", "").lower()
-            if status in ("accepted", "приет"):
-                vals["state"] = "accepted"
-            elif status in ("rejected", "отхвърлен"):
-                vals["state"] = "rejected"
-            elif "приет" in str(result.get("status", "")):
-                # Partial acceptance: "Приет (X/Y)"
-                vals["state"] = "partially_accepted"
-                self._parse_partial_acceptance(result, vals)
 
         self.write(vals)
-
-    def _parse_partial_acceptance(self, result, vals):
-        """Parse 'Приет (X/Y)' format for partial acceptance."""
-        import re
-
-        status_str = str(result.get("status", ""))
-        match = re.search(r"\((\d+)/(\d+)\)", status_str)
-        if match:
-            vals["accepted_count"] = int(match.group(1))
-            vals["total_count"] = int(match.group(2))
 
     def action_check_status(self):
         """Check the processing status of a submitted declaration."""
@@ -357,17 +405,19 @@ class NraDeclaration(models.Model):
                 raise UserError(
                     _("Can only check status for submitted declarations.")
                 )
-            if not rec.nra_doc_number:
+            if not rec.nra_document_id and not rec.nra_entry_number:
                 raise UserError(
                     _(
-                        "No NRA document number. "
+                        "No NRA document ID or entry number. "
                         "The declaration may not have been submitted correctly."
                     )
                 )
-            endpoint = rec._get_status_endpoint()
             try:
                 result = provider.check_declaration_status(
-                    rec.company_id, endpoint, rec.nra_doc_number
+                    company=rec.company_id,
+                    document_id=rec.nra_document_id or None,
+                    entry_number=rec.nra_entry_number or None,
+                    entry_date=rec.nra_entry_date or None,
                 )
                 rec._process_status_response(result)
             except UserError:
@@ -375,23 +425,137 @@ class NraDeclaration(models.Model):
         return True
 
     def _process_status_response(self, result):
-        """Process the status check response from NRA."""
+        """Process the status check response from NRA.
+
+        Per ApiDeclarationsResultOutputDto, the response contains:
+        - entryNumber, entryDate
+        - base64HtmlResult: Base64-encoded HTML fragment
+        - base64FullHtmlResultInfo: Base64-encoded full HTML page
+        - base64Result: Base64-encoded non-HTML result
+        """
         self.ensure_one()
         if not isinstance(result, dict):
             return
-        vals = {}
-        status = result.get("status", "").lower()
-        if status in ("accepted", "приет"):
-            vals["state"] = "accepted"
-        elif status in ("rejected", "отхвърлен"):
-            vals["state"] = "rejected"
 
-        message = result.get("message", result.get("details", ""))
-        if message:
-            vals["nra_response_message"] = message
+        vals = {}
+
+        # Decode the HTML result
+        html_content = ""
+        if result.get("base64FullHtmlResultInfo"):
+            try:
+                html_content = base64.b64decode(
+                    result["base64FullHtmlResultInfo"]
+                ).decode("utf-8")
+            except Exception:
+                pass
+        elif result.get("base64HtmlResult"):
+            try:
+                html_content = base64.b64decode(
+                    result["base64HtmlResult"]
+                ).decode("utf-8")
+            except Exception:
+                pass
+
+        # Decode non-HTML result
+        text_result = ""
+        if result.get("base64Result"):
+            try:
+                text_result = base64.b64decode(
+                    result["base64Result"]
+                ).decode("utf-8")
+            except Exception:
+                pass
+
+        if html_content:
+            vals["nra_response_html"] = html_content
+            vals["nra_response_message"] = html_content
+            # Try to detect acceptance status from HTML content
+            self._parse_html_status(html_content, vals)
+        elif text_result:
+            vals["nra_response_message"] = text_result
+            self._parse_text_status(text_result, vals)
 
         if vals:
             self.write(vals)
+
+    def _parse_html_status(self, html_content, vals):
+        """Parse the NRA HTML response to determine acceptance status.
+
+        Detects patterns like:
+        - "е приета" → accepted
+        - "Брой приети ... Брой отхвърлени" → count-based
+        - "отхвърлен" → rejected
+        - "Общ брой вписани" → for ETZ
+        """
+        content_lower = html_content.lower()
+
+        # Simple acceptance (e.g. "Декларация образец ХХХ е приета")
+        if "е приета" in content_lower and "отхвърлен" not in content_lower:
+            vals["state"] = "accepted"
+            return
+
+        # D1/D6: Parse "Брой подадени ... Брой приети ... Брой отхвърлени"
+        submitted_match = re.findall(
+            r"Брой подадени[^:]*:\s*(\d+)", html_content
+        )
+        accepted_match = re.findall(
+            r"Брой приети[^:]*:\s*(\d+)", html_content
+        )
+        rejected_match = re.findall(
+            r"Брой отхвърлени[^:]*:\s*(\d+)", html_content
+        )
+
+        if submitted_match and accepted_match:
+            total_submitted = sum(int(x) for x in submitted_match)
+            total_accepted = sum(int(x) for x in accepted_match)
+            total_rejected = sum(int(x) for x in rejected_match) if rejected_match else 0
+
+            vals["total_count"] = total_submitted
+            vals["accepted_count"] = total_accepted
+
+            if total_rejected == 0 and total_accepted > 0:
+                vals["state"] = "accepted"
+            elif total_accepted == 0 and total_rejected > 0:
+                vals["state"] = "rejected"
+            elif total_accepted > 0 and total_rejected > 0:
+                vals["state"] = "partially_accepted"
+            return
+
+        # ETZ: Parse "Общ брой вписани ... Общ брой невписани"
+        etz_accepted = re.search(
+            r"Общ брой вписани[^:]*:\s*(\d+)", html_content
+        )
+        etz_rejected = re.search(
+            r"Общ брой невписани[^:]*:\s*(\d+)", html_content
+        )
+        if etz_accepted or etz_rejected:
+            accepted_n = int(etz_accepted.group(1)) if etz_accepted else 0
+            rejected_n = int(etz_rejected.group(1)) if etz_rejected else 0
+            vals["accepted_count"] = accepted_n
+            vals["total_count"] = accepted_n + rejected_n
+
+            if rejected_n == 0 and accepted_n > 0:
+                vals["state"] = "accepted"
+            elif accepted_n == 0 and rejected_n > 0:
+                vals["state"] = "rejected"
+            elif accepted_n > 0 and rejected_n > 0:
+                vals["state"] = "partially_accepted"
+            return
+
+        # General rejection keywords
+        if "отхвърлен" in content_lower:
+            vals["state"] = "rejected"
+
+    def _parse_text_status(self, text_content, vals):
+        """Parse non-HTML text result (used for DEC_HIGH_FISC_RISK etc.)."""
+        try:
+            data = __import__("json").loads(text_content)
+            if "success" in data:
+                vals["state"] = "accepted"
+            elif "errors" in data:
+                vals["state"] = "rejected"
+        except (ValueError, TypeError):
+            pass
 
     def action_reset_to_draft(self):
         """Reset declaration back to draft state."""
@@ -407,6 +571,7 @@ class NraDeclaration(models.Model):
                 {
                     "state": "draft",
                     "nra_response_message": False,
+                    "nra_response_html": False,
                 }
             )
         return True

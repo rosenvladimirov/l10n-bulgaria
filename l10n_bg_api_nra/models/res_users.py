@@ -7,11 +7,15 @@ _logger = logging.getLogger(__name__)
 NRA_WALLET_KEY_API_KEY = "nra_api_key"
 NRA_WALLET_KEY_API_SECRET = "nra_api_secret"
 NRA_WALLET_KEY_ACCESS_TOKEN = "nra_access_token"
+NRA_WALLET_KEY_USER_PIN = "nra_user_pin"
+NRA_WALLET_KEY_USER_SIGNATURE = "nra_user_signature"
 
 NRA_WALLET_KEYS = (
     NRA_WALLET_KEY_API_KEY,
     NRA_WALLET_KEY_API_SECRET,
     NRA_WALLET_KEY_ACCESS_TOKEN,
+    NRA_WALLET_KEY_USER_PIN,
+    NRA_WALLET_KEY_USER_SIGNATURE,
 )
 
 

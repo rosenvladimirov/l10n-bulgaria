@@ -22,7 +22,8 @@
     <record id="view_res_partner_form_api_key" model="ir.ui.view">
         <field name="name">res.partner.form.api_key</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/> <!-- Наследяване на основния изглед -->
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="active" eval="False"/>
         <field name="arch" type="xml">
             <xpath expr="//form" position="attributes">
                 <attribute name="js_class">api_key_res_partner_form</attribute>

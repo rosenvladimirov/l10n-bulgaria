@@ -64,4 +64,12 @@
         <field name="key">l10n_bg_api_nra.timeout</field>
         <field name="value">30</field>
     </record>
+
+    <!--
+    NRA API Endpoints (determined by test/prod mode on company):
+      Test submit:  https://public-api.nra.bg/declaration/api-declarations-test/
+      Test result:  https://public-api.nra.bg/declaration/api-declarations-test/result
+      Prod submit:  https://public-api.nra.bg/declaration/api-declarations/
+      Prod result:  https://public-api.nra.bg/declaration/api-declarations/result
+    -->
 </odoo>

@@ -139,6 +139,12 @@ class NraDeclarationD1(models.Model):
         for rec in self:
             rec.d1_line_count = len(rec.d1_line_ids)
 
+    def _get_file_record_count(self):
+        self.ensure_one()
+        if self.declaration_type != "d1":
+            return super()._get_file_record_count()
+        return len(self.d1_line_ids)
+
     def _prepare_xml_data(self):
         self.ensure_one()
         if self.declaration_type != "d1":

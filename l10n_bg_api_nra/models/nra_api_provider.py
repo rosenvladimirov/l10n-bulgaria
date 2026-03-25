@@ -1,3 +1,5 @@
+import base64
+import json
 import logging
 import time
 from contextlib import contextmanager
@@ -13,6 +15,32 @@ NRA_API_BASE_URL = "https://public-api.nra.bg"
 NRA_API_TIMEOUT = 30
 NRA_MAX_RETRIES = 3
 NRA_RETRY_BACKOFF = 1.0
+
+# NRA API endpoint paths (appended to base URL)
+NRA_SUBMIT_ENDPOINT_PROD = "/declaration/api-declarations/"
+NRA_SUBMIT_ENDPOINT_TEST = "/declaration/api-declarations-test/"
+NRA_RESULT_SUFFIX = "result"
+
+# NRA service document types
+NRA_SERVICE_DOC_TYPES = {
+    "d1": "DEC_1_6",
+    "d6": "DEC_1_6",
+    "etz": "DEC_ETZ62",
+}
+
+# NRA file document types
+NRA_FILE_DOC_TYPES = {
+    "d1": "DEC_1",
+    "d6": "DEC_6",
+    "etz": "DEC_ETZ62",
+}
+
+# NRA file types per declaration type
+NRA_FILE_TYPES = {
+    "d1": "txt",
+    "d6": "txt",
+    "etz": "xml",
+}
 
 
 class NraApiProvider(models.AbstractModel):
@@ -38,6 +66,23 @@ class NraApiProvider(models.AbstractModel):
             .sudo()
             .get_param("l10n_bg_api_nra.timeout", NRA_API_TIMEOUT)
         )
+
+    @api.model
+    def _get_submit_endpoint(self, company):
+        """Return the full submit endpoint URL based on test/prod mode."""
+        base = self._get_base_url()
+        if company.l10n_bg_nra_test_mode:
+            return f"{base}{NRA_SUBMIT_ENDPOINT_TEST}"
+        return f"{base}{NRA_SUBMIT_ENDPOINT_PROD}"
+
+    @api.model
+    def _get_result_endpoint(self, company):
+        """Return the full result endpoint URL based on test/prod mode."""
+        submit_url = self._get_submit_endpoint(company)
+        # Ensure trailing slash is handled correctly
+        if submit_url.endswith("/"):
+            return f"{submit_url}{NRA_RESULT_SUFFIX}"
+        return f"{submit_url}/{NRA_RESULT_SUFFIX}"
 
     # ------------------------------------------------------------------
     # OAuth 2.0 — client credentials grant
@@ -134,24 +179,19 @@ class NraApiProvider(models.AbstractModel):
     # ------------------------------------------------------------------
 
     @api.model
-    def _request(self, method, endpoint, company, **kwargs):
+    def _request(self, method, url, company, **kwargs):
         """Execute an HTTP request against the NRA API.
 
         Handles OAuth 2.0 bearer auth, rate limiting (HTTP 429) with
         exponential backoff, and structured error responses.
 
         :param method: HTTP method (GET, POST, PUT, DELETE)
-        :param endpoint: API path (appended to base URL) or full URL
+        :param url: Full API URL
         :param company: res.company record
         :param kwargs: additional arguments passed to requests.request
         :returns: parsed JSON response (dict) or raw Response for non-JSON
         :raises UserError: on unrecoverable API errors
         """
-        if endpoint.startswith("http"):
-            url = endpoint
-        else:
-            url = f"{self._get_base_url()}{endpoint}"
-
         token = self._get_access_token(company)
 
         headers = kwargs.pop("headers", {})
@@ -187,7 +227,14 @@ class NraApiProvider(models.AbstractModel):
                             NRA_MAX_RETRIES,
                         )
                     )
-                wait = NRA_RETRY_BACKOFF * (2 ** (retries - 1))
+                retry_after = resp.headers.get("Retry-After")
+                if retry_after:
+                    try:
+                        wait = float(retry_after)
+                    except (ValueError, TypeError):
+                        wait = NRA_RETRY_BACKOFF * (2 ** (retries - 1))
+                else:
+                    wait = NRA_RETRY_BACKOFF * (2 ** (retries - 1))
                 _logger.warning(
                     "NRA API rate limited (429), retry %s/%s in %.1fs",
                     retries,
@@ -218,6 +265,19 @@ class NraApiProvider(models.AbstractModel):
                 )
             )
         if resp.status_code not in (200, 201, 202, 204):
+            # Try to parse NRA ApiError structure
+            error_msg = resp.text[:200]
+            try:
+                error_data = resp.json()
+                if error_data.get("errorCode"):
+                    error_msg = "%s: %s" % (
+                        error_data["errorCode"],
+                        error_data.get("i18nMessage", ""),
+                    )
+                    if error_data.get("errors"):
+                        error_msg += " " + "; ".join(error_data["errors"])
+            except (ValueError, KeyError):
+                pass
             _logger.error(
                 "NRA API %s %s → %s: %s",
                 method,
@@ -229,7 +289,7 @@ class NraApiProvider(models.AbstractModel):
                 _(
                     "NRA API error (HTTP %(code)s): %(body)s",
                     code=resp.status_code,
-                    body=resp.text[:200],
+                    body=error_msg,
                 )
             )
 
@@ -246,49 +306,156 @@ class NraApiProvider(models.AbstractModel):
     # ------------------------------------------------------------------
 
     @api.model
-    def _post(self, endpoint, company, **kwargs):
-        return self._request("POST", endpoint, company, **kwargs)
+    def _post(self, url, company, **kwargs):
+        return self._request("POST", url, company, **kwargs)
 
     @api.model
-    def _get(self, endpoint, company, **kwargs):
-        return self._request("GET", endpoint, company, **kwargs)
+    def _get(self, url, company, **kwargs):
+        return self._request("GET", url, company, **kwargs)
 
     # ------------------------------------------------------------------
-    # Declaration submission
+    # Declaration submission (NRA JSON API)
     # ------------------------------------------------------------------
 
     @api.model
-    def submit_declaration(self, company, endpoint, xml_content, content_type="application/xml"):
-        """Submit an XML declaration to the NRA API.
+    def submit_declaration(self, company, declaration_type, file_content,
+                           file_name, num_records=None, period_month=None,
+                           period_year=None):
+        """Submit a declaration to the NRA API.
+
+        Builds the ApiDeclarationsSubmitInputDto JSON payload per the
+        NRA Swagger specification and POSTs it to the declarations endpoint.
 
         :param company: res.company record
-        :param endpoint: API endpoint path for the declaration type
-        :param xml_content: XML payload as bytes
-        :param content_type: MIME type of the payload
-        :returns: dict with NRA response data
+        :param declaration_type: 'd1', 'd6', or 'etz'
+        :param file_content: file payload as bytes
+        :param file_name: original file name
+        :param num_records: number of records (required for D1/D6)
+        :param period_month: tax period month (required for D1/D6)
+        :param period_year: tax period year (required for D1/D6)
+        :returns: dict with NRA response (entryNumber, entryDate, documentId)
+        :raises UserError: on submission failure
         """
+        service_doc_type = NRA_SERVICE_DOC_TYPES.get(declaration_type)
+        if not service_doc_type:
+            raise UserError(
+                _(
+                    "Declaration type '%(type)s' is not supported by the NRA API.",
+                    type=declaration_type,
+                )
+            )
+
+        file_doc_type = NRA_FILE_DOC_TYPES.get(declaration_type)
+        file_type = NRA_FILE_TYPES.get(declaration_type)
+
+        # Get user credentials from wallet
+        user_pin, user_signature = company._nra_get_user_credentials()
+
+        # Build file entry
+        file_content_b64 = base64.b64encode(file_content).decode("ascii")
+        file_entry = {
+            "fileName": file_name,
+            "fileType": file_type,
+            "fileSize": len(file_content),
+            "fileContentBase64": file_content_b64,
+            "base64EncodedPkcs7": "",  # TODO: PKCS7 signature with КЕП
+            "fileDocumentType": file_doc_type,
+        }
+        if num_records is not None and declaration_type in ("d1", "d6"):
+            file_entry["numRecords"] = num_records
+
+        # Build main payload
+        payload = {
+            "taxpayerPin": company.l10n_bg_uic,
+            "taxpayerPinType": company.l10n_bg_nra_taxpayer_pin_type or "BUS_BULSTAT",
+            "userPin": user_pin,
+            "userPinType": company.l10n_bg_nra_user_pin_type or "IND_EGN",
+            "userSignatureBase64": user_signature,
+            "serviceDocumentType": service_doc_type,
+            "files": [file_entry],
+        }
+
+        # Add D1/D6-specific fields
+        if declaration_type in ("d1", "d6"):
+            if period_month:
+                month_str = str(period_month).zfill(2)
+                payload["taxPeriodFrom"] = month_str
+                payload["taxPeriodTo"] = month_str
+            if period_year:
+                payload["year"] = str(period_year)
+            payload["insuranceFund"] = int(
+                company.l10n_bg_nra_insurance_fund or "0"
+            )
+
+        url = self._get_submit_endpoint(company)
+        _logger.info(
+            "Submitting %s declaration for company %s to %s",
+            declaration_type,
+            company.name,
+            url,
+        )
+
         return self._post(
-            endpoint,
+            url,
             company,
-            data=xml_content,
-            headers={
-                "Content-Type": content_type,
-            },
+            json=payload,
+            headers={"Content-Type": "application/json"},
         )
 
     @api.model
-    def check_declaration_status(self, company, endpoint, doc_number):
+    def check_declaration_status(self, company, document_id=None,
+                                 entry_number=None, entry_date=None):
         """Check the processing status of a submitted declaration.
 
+        Per the NRA API, search by documentId OR by entryNumber + entryDate.
+
         :param company: res.company record
-        :param endpoint: API endpoint for status checking
-        :param doc_number: NRA document number from submission response
+        :param document_id: NRA document ID (integer)
+        :param entry_number: NRA entry number (string)
+        :param entry_date: NRA entry date (string, YYYY-MM-DD)
         :returns: dict with status information
+        :raises UserError: if neither search criterion is provided
         """
-        return self._get(
-            endpoint,
+        if not document_id and not (entry_number and entry_date):
+            raise UserError(
+                _(
+                    "Either document ID or entry number + entry date "
+                    "are required to check declaration status."
+                )
+            )
+
+        # Get user credentials from wallet
+        user_pin, user_signature = company._nra_get_user_credentials()
+
+        payload = {
+            "taxpayerPin": company.l10n_bg_uic,
+            "taxpayerPinType": company.l10n_bg_nra_taxpayer_pin_type or "BUS_BULSTAT",
+            "userPin": user_pin,
+            "userPinType": company.l10n_bg_nra_user_pin_type or "IND_EGN",
+            "userSignatureBase64": user_signature,
+        }
+
+        if document_id:
+            payload["documentId"] = int(document_id)
+        else:
+            payload["entryNumber"] = entry_number
+            payload["entryDate"] = entry_date
+
+        url = self._get_result_endpoint(company)
+        _logger.info(
+            "Checking declaration status for company %s (documentId=%s, "
+            "entryNumber=%s) at %s",
+            company.name,
+            document_id,
+            entry_number,
+            url,
+        )
+
+        return self._post(
+            url,
             company,
-            params={"doc_number": doc_number},
+            json=payload,
+            headers={"Content-Type": "application/json"},
         )
 
     # ------------------------------------------------------------------
@@ -303,7 +470,7 @@ class NraApiProvider(models.AbstractModel):
 
             provider = self.env["nra.api.provider"]
             with provider._nra_session(company) as api:
-                result = api.submit_declaration(company, endpoint, xml)
+                result = api.submit_declaration(company, ...)
         """
         self._get_access_token(company)
         yield self

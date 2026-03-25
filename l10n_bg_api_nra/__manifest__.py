@@ -48,6 +48,7 @@ Technical Infrastructure
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "depends": [
         "base",
+        "mail",
         "l10n_bg_config",
         "l10n_bg_bank_wallet",
     ],

@@ -4,6 +4,13 @@ All notable changes to the l10n_bg_reports_audit module will be documented in th
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [18.0.12.1.0] - 2026-03-26
+
+### Added
+- **products.py:** Added `ProductTemplate` model inheriting from `product.template` and `l10n.bg.config.mixin` to extend product templates with Bulgarian configuration capabilities.
+
+*Assisted by Claude Code*
+
 ## [18.0.12.0.3] - 2026-03-14
 
 ### Fixed

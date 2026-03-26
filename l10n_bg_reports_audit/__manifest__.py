@@ -1,6 +1,6 @@
 {
     "name": "Bulgarian Accounting Reports Base",
-    "version": "18.0.12.0.3",
+    "version": "18.0.12.1.0",
     "development_status": "Production/Stable",
     "maintainers": ["rosenvladimirov", "deyanlyubenov"],
     "description": """

@@ -12,16 +12,18 @@
         </button>
     </xpath>
 
-    <!-- 2. Panel BELOW topbar, above messages -->
-    <xpath expr="//div[hasclass('o-mail-Chatter-top')]" position="after">
-        <ClaudeTerminalPanel t-if="claudeTerminal.open and claudeTerminal.url"
-            url="claudeTerminal.url"
-            model="props.threadModel"
-            resId="props.threadId"/>
-        <div t-if="claudeTerminal.open and !claudeTerminal.url" class="ct-panel">
-            <div class="ct-error">
-                <i class="fa fa-cog"/>
-                <p>Configure terminal URL in Settings → Preferences → Claude Terminal</p>
+    <!-- 2. Panel INSIDE chatter-top, after the topbar buttons row -->
+    <xpath expr="//div[hasclass('o-mail-Chatter-topbar')]" position="after">
+        <div t-if="claudeTerminal.open" class="w-100">
+            <ClaudeTerminalPanel t-if="claudeTerminal.url"
+                url="claudeTerminal.url"
+                model="props.threadModel"
+                resId="props.threadId"/>
+            <div t-else="" class="ct-panel">
+                <div class="ct-error">
+                    <i class="fa fa-cog"/>
+                    <p>Configure terminal URL in Settings → Preferences → Claude Terminal</p>
+                </div>
             </div>
         </div>
     </xpath>

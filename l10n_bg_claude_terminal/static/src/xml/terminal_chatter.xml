@@ -4,7 +4,7 @@
 <!-- Inject button into Chatter after Send message -->
 <t t-inherit="mail.Chatter" t-inherit-mode="extension">
     <xpath expr="//button[hasclass('o-mail-Chatter-sendMessage')]" position="after">
-        <ClaudeTerminalButton thread="props.thread"/>
+        <ClaudeTerminalButton threadModel="props.threadModel" threadId="props.threadId"/>
     </xpath>
 </t>
 
@@ -20,8 +20,8 @@
         </button>
         <ClaudeTerminalPanel t-if="state.open"
             url="state.url"
-            model="props.thread.model"
-            resId="props.thread.id"/>
+            model="props.threadModel"
+            resId="props.threadId"/>
     </div>
 </t>
 

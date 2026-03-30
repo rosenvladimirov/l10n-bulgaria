@@ -4,7 +4,7 @@
 
 import { Component, useState, useRef, onMounted, onWillUnmount } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
-import { Chatter } from "@mail/core/web/chatter";
+import { Chatter } from "@mail/chatter/web_portal/chatter";
 
 // ── Terminal iframe panel ──────────────────────────────────────────
 
@@ -61,7 +61,10 @@ class ClaudeTerminalPanel extends Component {
 class ClaudeTerminalButton extends Component {
     static template = "l10n_bg_claude_terminal.TerminalButton";
     static components = { ClaudeTerminalPanel };
-    static props = { thread: { type: Object } };
+    static props = {
+        threadModel: { type: String },
+        threadId: { type: [Number, Boolean], optional: true },
+    };
 
     setup() {
         this.user = useService("user");

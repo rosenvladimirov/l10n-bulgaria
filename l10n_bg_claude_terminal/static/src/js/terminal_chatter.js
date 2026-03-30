@@ -92,14 +92,10 @@ class ClaudeTerminalButton extends Component {
         });
     }
 
-    get hasUrl() {
-        return !!this.state.url;
-    }
-
     toggle() {
         this.state.open = !this.state.open;
     }
 }
 
-// Register on Chatter so the inherited template can resolve it
-Chatter.components = { ...Chatter.components, ClaudeTerminalButton };
+// Register on Chatter (use Object.assign — same pattern as chatter_patch.js)
+Object.assign(Chatter.components, { ClaudeTerminalButton });

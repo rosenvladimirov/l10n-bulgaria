@@ -10,18 +10,26 @@
 
 <!-- Toggle button -->
 <t t-name="l10n_bg_claude_terminal.TerminalButton">
-    <div class="ct-wrapper" t-if="hasUrl">
-        <button class="btn btn-light ct-btn"
+    <div class="ct-wrapper">
+        <button class="btn btn-light ct-btn text-nowrap me-1"
                 t-att-class="{ active: state.open }"
                 t-on-click="toggle"
                 title="Claude Terminal">
             <i class="fa fa-terminal ct-btn-icon"/>
             <span>Claude</span>
         </button>
-        <ClaudeTerminalPanel t-if="state.open"
-            url="state.url"
-            model="props.threadModel"
-            resId="props.threadId"/>
+        <t t-if="state.open">
+            <ClaudeTerminalPanel t-if="state.url"
+                url="state.url"
+                model="props.threadModel"
+                resId="props.threadId"/>
+            <div t-else="" class="ct-panel">
+                <div class="ct-error">
+                    <i class="fa fa-cog"/>
+                    <p>Configure terminal URL in Settings → Preferences → Claude Terminal</p>
+                </div>
+            </div>
+        </t>
     </div>
 </t>
 

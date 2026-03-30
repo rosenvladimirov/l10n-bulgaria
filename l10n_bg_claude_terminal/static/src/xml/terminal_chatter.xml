@@ -12,9 +12,9 @@
         </button>
     </xpath>
 
-    <!-- 2. Panel INSIDE chatter-top, after the topbar buttons row -->
-    <xpath expr="//div[hasclass('o-mail-Chatter-topbar')]" position="after">
-        <div t-if="claudeTerminal.open" class="w-100">
+    <!-- 2. Panel between topbar and messages (before o-mail-Chatter-content) -->
+    <xpath expr="//div[hasclass('o-mail-Chatter-content')]" position="before">
+        <div t-if="claudeTerminal.open" class="w-100 d-print-none">
             <ClaudeTerminalPanel t-if="claudeTerminal.url"
                 url="claudeTerminal.url"
                 model="props.threadModel"

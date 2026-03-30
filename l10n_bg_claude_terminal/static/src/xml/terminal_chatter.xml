@@ -12,14 +12,14 @@
         </button>
     </xpath>
 
-    <!-- 2. Panel between topbar and messages (before o-mail-Chatter-content) -->
+    <!-- 2. Panel before Chatter-content — flex-grow-1 fills chatter column -->
     <xpath expr="//div[hasclass('o-mail-Chatter-content')]" position="before">
-        <div t-if="claudeTerminal.open" class="w-100 d-print-none">
+        <div t-if="claudeTerminal.open" class="d-flex flex-column flex-grow-1 position-relative d-print-none">
             <ClaudeTerminalPanel t-if="claudeTerminal.url"
                 url="claudeTerminal.url"
                 model="props.threadModel"
                 resId="props.threadId"/>
-            <div t-else="" class="ct-panel">
+            <div t-else="" class="ct-panel flex-grow-1">
                 <div class="ct-error">
                     <i class="fa fa-cog"/>
                     <p>Configure terminal URL in Settings → Preferences → Claude Terminal</p>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+<!-- Inject button into Chatter after Send message -->
+<t t-inherit="mail.Chatter" t-inherit-mode="extension">
+    <xpath expr="//button[hasclass('o-mail-Chatter-sendMessage')]" position="after">
+        <ClaudeTerminalButton thread="props.thread"/>
+    </xpath>
+</t>
+
+<!-- Toggle button -->
+<t t-name="l10n_bg_claude_terminal.TerminalButton">
+    <div class="ct-wrapper" t-if="hasUrl">
+        <button class="btn btn-light ct-btn"
+                t-att-class="{ active: state.open }"
+                t-on-click="toggle"
+                title="Claude Terminal">
+            <i class="fa fa-terminal ct-btn-icon"/>
+            <span>Claude</span>
+        </button>
+        <ClaudeTerminalPanel t-if="state.open"
+            url="state.url"
+            model="props.thread.model"
+            resId="props.thread.id"/>
+    </div>
+</t>
+
+<!-- Terminal iframe panel -->
+<t t-name="l10n_bg_claude_terminal.TerminalPanel">
+    <div t-att-class="'ct-panel' + (state.expanded ? ' ct-panel-expanded' : '')">
+        <!-- Header bar -->
+        <div class="ct-header">
+            <i class="fa fa-terminal ct-header-icon"/>
+            <span class="ct-header-title">Claude Terminal</span>
+            <span class="ct-header-ctx">
+                <span class="ct-ctx-model"><t t-esc="props.model"/></span>
+                <span class="ct-ctx-sep">/</span>
+                <span class="ct-ctx-id"><t t-esc="props.resId"/></span>
+            </span>
+            <span t-att-class="'ct-status ct-status-' + state.status"/>
+            <div class="ct-toolbar">
+                <button class="ct-icon-btn" t-on-click="reload" title="Reload">
+                    <i class="fa fa-refresh"/>
+                </button>
+                <button class="ct-icon-btn" t-on-click="toggleExpand"
+                        t-att-title="state.expanded ? 'Collapse' : 'Expand'">
+                    <i t-att-class="state.expanded ? 'fa fa-compress' : 'fa fa-expand'"/>
+                </button>
+                <button class="ct-icon-btn" t-on-click="openNewTab" title="Open in new tab">
+                    <i class="fa fa-external-link"/>
+                </button>
+            </div>
+        </div>
+
+        <!-- Status bar -->
+        <div class="ct-statusbar">
+            <span t-if="state.status === 'loading'" class="ct-status-text connecting">
+                Connecting...
+            </span>
+            <span t-elif="state.status === 'ready'" class="ct-status-text connected">
+                Connected
+            </span>
+            <span t-elif="state.status === 'error'" class="ct-status-text error">
+                Connection failed
+            </span>
+            <span class="ct-url"><t t-esc="props.url"/></span>
+        </div>
+
+        <!-- iframe -->
+        <div class="ct-iframe-container">
+            <iframe t-ref="iframe"
+                    t-att-src="iframeSrc"
+                    class="ct-iframe"
+                    sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                    allow="clipboard-read; clipboard-write"/>
+            <div t-if="state.status === 'loading'" class="ct-loader">
+                <i class="fa fa-spinner fa-spin fa-2x"/>
+            </div>
+            <div t-if="state.status === 'error'" class="ct-error">
+                <i class="fa fa-exclamation-triangle"/>
+                <p>Cannot connect to terminal server.</p>
+                <p class="ct-error-hint">
+                    Check that Docker is running:<br/>
+                    <code>docker compose up -d</code>
+                </p>
+            </div>
+        </div>
+    </div>
+</t>
+
+</templates>

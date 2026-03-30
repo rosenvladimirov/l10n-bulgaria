@@ -3,7 +3,6 @@
 // License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 import { Component, useState, useRef, onMounted, onWillUnmount } from "@odoo/owl";
-import { useService } from "@web/core/utils/hooks";
 import { Chatter } from "@mail/chatter/web_portal/chatter";
 
 // ── Terminal iframe panel ──────────────────────────────────────────
@@ -67,16 +66,29 @@ class ClaudeTerminalButton extends Component {
     };
 
     setup() {
-        this.user = useService("user");
-        this.orm = useService("orm");
         this.state = useState({ open: false, url: "" });
 
-        onMounted(async () => {
-            // Load user's terminal URL from preferences
-            const [userData] = await this.orm.read(
-                "res.users", [this.user.userId], ["claude_terminal_url"]
-            );
-            this.state.url = userData?.claude_terminal_url || "";
+        onMounted(() => {
+            // Fetch user's terminal URL via JSON-RPC (no service dependency)
+            fetch("/web/dataset/call_kw", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    jsonrpc: "2.0", method: "call", id: 1,
+                    params: {
+                        model: "res.users",
+                        method: "read",
+                        args: [odoo.session_info?.uid ? [odoo.session_info.uid] : [], ["claude_terminal_url"]],
+                        kwargs: {},
+                    },
+                }),
+            })
+                .then(r => r.json())
+                .then(d => {
+                    const url = d.result?.[0]?.claude_terminal_url;
+                    if (url) this.state.url = url;
+                })
+                .catch(() => {});
         });
     }
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates xml:space="preserve">
 
-<!-- Inject button into Chatter after Send message -->
+<!-- Inject button into Chatter topbar -->
 <t t-inherit="mail.Chatter" t-inherit-mode="extension">
-    <xpath expr="//button[hasclass('o-mail-Chatter-sendMessage')]" position="after">
+    <xpath expr="//button[hasclass('o-mail-Chatter-logNote')]" position="after">
         <ClaudeTerminalButton threadModel="props.threadModel" threadId="props.threadId"/>
     </xpath>
 </t>

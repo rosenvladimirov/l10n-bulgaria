@@ -53,7 +53,7 @@ patch(Chatter.prototype, {
         super.setup(...arguments);
         this.claudeTerminal = useState({ open: false, url: "" });
 
-        // Load user's terminal URL (no service dependency — use fetch)
+        // Load current user's terminal URL via RPC (no uid needed)
         fetch("/web/dataset/call_kw", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -61,16 +61,15 @@ patch(Chatter.prototype, {
                 jsonrpc: "2.0", method: "call", id: 1,
                 params: {
                     model: "res.users",
-                    method: "read",
-                    args: [odoo.session_info?.uid ? [odoo.session_info.uid] : [], ["claude_terminal_url"]],
+                    method: "get_claude_terminal_url",
+                    args: [],
                     kwargs: {},
                 },
             }),
         })
             .then(r => r.json())
             .then(d => {
-                const url = d.result?.[0]?.claude_terminal_url;
-                if (url) this.claudeTerminal.url = url;
+                if (d.result) this.claudeTerminal.url = d.result;
             })
             .catch(() => {});
     },

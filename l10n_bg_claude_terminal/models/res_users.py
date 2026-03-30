@@ -1,7 +1,7 @@
 # Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class ResUsers(models.Model):
@@ -20,3 +20,8 @@ class ResUsers(models.Model):
     @property
     def SELF_WRITEABLE_FIELDS(self):
         return super().SELF_WRITEABLE_FIELDS + ["claude_terminal_url"]
+
+    @api.model
+    def get_claude_terminal_url(self):
+        """RPC: return current user's terminal URL (no uid needed)."""
+        return self.env.user.claude_terminal_url or ""

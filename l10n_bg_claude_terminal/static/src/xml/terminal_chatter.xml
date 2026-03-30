@@ -12,7 +12,7 @@
         </button>
     </xpath>
 
-    <!-- 2. Panel before Chatter-content — flex-grow-1 fills chatter column -->
+    <!-- 2. Panel replaces Chatter-content when open -->
     <xpath expr="//div[hasclass('o-mail-Chatter-content')]" position="before">
         <div t-if="claudeTerminal.open" class="d-flex flex-column flex-grow-1 position-relative d-print-none">
             <ClaudeTerminalPanel t-if="claudeTerminal.url"
@@ -26,6 +26,11 @@
                 </div>
             </div>
         </div>
+    </xpath>
+
+    <!-- 3. Hide messages when terminal is open -->
+    <xpath expr="//div[hasclass('o-mail-Chatter-content')]" position="attributes">
+        <attribute name="t-att-class">{ 'd-none': claudeTerminal.open }</attribute>
     </xpath>
 
 </t>

@@ -1,6 +1,9 @@
 // Claude Terminal — Chatter panel styles
 // Dark theme (inspired by Claude Code IDE extension)
 
+// Claude Terminal — Chatter panel styles
+// Dark theme (Catppuccin Mocha)
+
 // ── Variables ────────────────────────────────────────────────
 $ct-bg: #1e1e2e;
 $ct-bg-header: #181825;
@@ -13,40 +16,6 @@ $ct-accent: #89b4fa;
 $ct-green: #a6e3a1;
 $ct-yellow: #f9e2af;
 $ct-red: #f38ba8;
-
-// ── Chatter button ───────────────────────────────────────────
-.ct-wrapper {
-    display: inline-block;
-}
-
-.ct-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 12px;
-    font-weight: 500;
-    color: $ct-text-dim;
-    border-color: transparent;
-    transition: all 0.15s;
-
-    .ct-btn-icon {
-        font-size: 13px;
-        color: $ct-accent;
-        opacity: 0.7;
-        transition: opacity 0.15s;
-    }
-
-    &:hover, &.active {
-        color: $ct-accent;
-        background: rgba($ct-accent, 0.08);
-        border-color: rgba($ct-accent, 0.25);
-        .ct-btn-icon { opacity: 1; }
-    }
-
-    &.active {
-        background: rgba($ct-accent, 0.12);
-    }
-}
 
 // ── Panel ────────────────────────────────────────────────────
 .ct-panel {

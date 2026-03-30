@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates xml:space="preserve">
 
-<!-- Inject button into Chatter topbar -->
+<!-- Inject button + panel into Chatter topbar area -->
 <t t-inherit="mail.Chatter" t-inherit-mode="extension">
+    <!-- Button next to Log note -->
     <xpath expr="//button[hasclass('o-mail-Chatter-logNote')]" position="after">
         <ClaudeTerminalButton threadModel="props.threadModel" threadId="props.threadId"/>
     </xpath>
 </t>
 
-<!-- Toggle button -->
+<!-- Toggle button (same style as Send message / Log note) -->
 <t t-name="l10n_bg_claude_terminal.TerminalButton">
-    <div class="ct-wrapper">
-        <button class="btn btn-light ct-btn text-nowrap me-1"
-                t-att-class="{ active: state.open }"
-                t-on-click="toggle"
-                title="Claude Terminal">
-            <i class="fa fa-terminal ct-btn-icon"/>
-            <span>Claude</span>
-        </button>
-        <t t-if="state.open">
-            <ClaudeTerminalPanel t-if="state.url"
-                url="state.url"
-                model="props.threadModel"
-                resId="props.threadId"/>
-            <div t-else="" class="ct-panel">
-                <div class="ct-error">
-                    <i class="fa fa-cog"/>
-                    <p>Configure terminal URL in Settings → Preferences → Claude Terminal</p>
-                </div>
+    <button class="btn btn-secondary text-nowrap me-1"
+            t-att-class="{ 'btn-primary active': state.open, 'btn-secondary': !state.open }"
+            t-on-click="toggle"
+            title="Claude Terminal">
+        Claude
+    </button>
+    <!-- Panel renders right here — inside the topbar area, above messages -->
+    <t t-if="state.open">
+        <ClaudeTerminalPanel t-if="state.url"
+            url="state.url"
+            model="props.threadModel"
+            resId="props.threadId"/>
+        <div t-else="" class="ct-panel">
+            <div class="ct-error">
+                <i class="fa fa-cog"/>
+                <p>Configure terminal URL in Settings → Preferences → Claude Terminal</p>
             </div>
-        </t>
-    </div>
+        </div>
+    </t>
 </t>
 
 <!-- Terminal iframe panel -->

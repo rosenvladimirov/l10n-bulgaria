@@ -1,35 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates xml:space="preserve">
 
-<!-- Inject button + panel into Chatter topbar area -->
 <t t-inherit="mail.Chatter" t-inherit-mode="extension">
-    <!-- Button next to Log note -->
-    <xpath expr="//button[hasclass('o-mail-Chatter-logNote')]" position="after">
-        <ClaudeTerminalButton threadModel="props.threadModel" threadId="props.threadId"/>
-    </xpath>
-</t>
 
-<!-- Toggle button (same style as Send message / Log note) -->
-<t t-name="l10n_bg_claude_terminal.TerminalButton">
-    <button class="btn btn-secondary text-nowrap me-1"
-            t-att-class="{ 'btn-primary active': state.open, 'btn-secondary': !state.open }"
-            t-on-click="toggle"
-            title="Claude Terminal">
-        Claude
-    </button>
-    <!-- Panel renders right here — inside the topbar area, above messages -->
-    <t t-if="state.open">
-        <ClaudeTerminalPanel t-if="state.url"
-            url="state.url"
+    <!-- 1. Button in topbar (same row as Send message / Log note) -->
+    <xpath expr="//button[hasclass('o-mail-Chatter-logNote')]" position="after">
+        <button class="btn btn-secondary text-nowrap me-1"
+                t-att-class="{ 'active': claudeTerminal.open, 'my-2': !props.compactHeight }"
+                t-on-click="toggleClaudeTerminal">
+            Claude
+        </button>
+    </xpath>
+
+    <!-- 2. Panel BELOW topbar, above messages -->
+    <xpath expr="//div[hasclass('o-mail-Chatter-top')]" position="after">
+        <ClaudeTerminalPanel t-if="claudeTerminal.open and claudeTerminal.url"
+            url="claudeTerminal.url"
             model="props.threadModel"
             resId="props.threadId"/>
-        <div t-else="" class="ct-panel">
+        <div t-if="claudeTerminal.open and !claudeTerminal.url" class="ct-panel">
             <div class="ct-error">
                 <i class="fa fa-cog"/>
                 <p>Configure terminal URL in Settings → Preferences → Claude Terminal</p>
             </div>
         </div>
-    </t>
+    </xpath>
+
 </t>
 
 <!-- Terminal iframe panel -->
@@ -57,20 +53,6 @@
                     <i class="fa fa-external-link"/>
                 </button>
             </div>
-        </div>
-
-        <!-- Status bar -->
-        <div class="ct-statusbar">
-            <span t-if="state.status === 'loading'" class="ct-status-text connecting">
-                Connecting...
-            </span>
-            <span t-elif="state.status === 'ready'" class="ct-status-text connected">
-                Connected
-            </span>
-            <span t-elif="state.status === 'error'" class="ct-status-text error">
-                Connection failed
-            </span>
-            <span class="ct-url"><t t-esc="props.url"/></span>
         </div>
 
         <!-- iframe -->

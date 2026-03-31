@@ -48,9 +48,17 @@ class HrVersion(models.Model):
         help='Professional qualification according to NKPD nomenclature'
     )
 
+    l10n_bg_economic_activity_id = fields.Many2one(
+        'bg.hr.payroll.economic.activity',
+        string='Economic Activity (KID)',
+        help='Economic activity according to KID 2008'
+    )
+
     l10n_bg_economic_activity_code = fields.Char(
         string='Economic Activity Code',
-        size=4,
+        related='l10n_bg_economic_activity_id.code',
+        store=True,
+        readonly=True,
         help='Economic activity code according to KID 2008'
     )
 

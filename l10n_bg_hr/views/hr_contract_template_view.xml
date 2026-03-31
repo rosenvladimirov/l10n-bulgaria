@@ -19,7 +19,8 @@
                 <group name="bg_position_info">
                     <group string="НКПД / НКИД">
                         <field name="l10n_bg_qualification_group" options="{'no_create_edit': True}"/>
-                        <field name="l10n_bg_economic_activity_code"/>
+                        <field name="l10n_bg_economic_activity_id" options="{'no_create_edit': True}"/>
+                        <field name="l10n_bg_economic_activity_code" invisible="1"/>
                         <field name="l10n_bg_workplace_code"/>
                     </group>
                 </group>

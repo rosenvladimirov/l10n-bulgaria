@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form_bg_hr" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.l10n_bg_hr</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="l10n_bg_config.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='l10n_bg_registers']" position="inside">
+                <field name="l10n_bg_economic_activity_id" options="{'no_create_edit': True}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

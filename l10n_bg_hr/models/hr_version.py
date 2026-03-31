@@ -51,6 +51,7 @@ class HrVersion(models.Model):
     l10n_bg_economic_activity_id = fields.Many2one(
         'bg.hr.payroll.economic.activity',
         string='Economic Activity (KID)',
+        default=lambda self: self.env.company.l10n_bg_economic_activity_id,
         help='Economic activity according to KID 2008'
     )
 

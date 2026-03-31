@@ -172,7 +172,9 @@ class HrContractAmendment(models.Model):
             self.wage_before = self.version_id.wage
             self.working_hours_before = self.version_id.resource_calendar_id.hours_per_day if self.version_id.resource_calendar_id else 8.0
             self.leave_days_before = self.version_id.l10n_bg_total_leave_days
-            self.class_period_before = self.version_id.l10n_bg_current_class_period
+            # l10n_bg_current_class_period is defined in l10n_bg_hr_payroll
+            if 'l10n_bg_current_class_period' in self.version_id._fields:
+                self.class_period_before = self.version_id.l10n_bg_current_class_period
             self.position_before = self.version_id.job_id.name if self.version_id.job_id else ''
 
     @api.onchange('amendment_type')
@@ -225,7 +227,9 @@ class HrContractAmendment(models.Model):
             vals['l10n_bg_basic_leave_days'] = self.leave_days_after
 
         elif self.amendment_type == 'class_period' and self.class_period_after:
-            vals['l10n_bg_initial_class_period'] = self.class_period_after
+            # l10n_bg_initial_class_period is defined in l10n_bg_hr_payroll
+            if 'l10n_bg_initial_class_period' in self.version_id._fields:
+                vals['l10n_bg_initial_class_period'] = self.class_period_after
 
         elif self.amendment_type == 'position' and self.position_after:
             # Find job by name or handle differently
@@ -259,21 +263,25 @@ class HrContractAmendment(models.Model):
         return True
 
     def action_export_to_nap(self):
-        """Export amendment to NAP"""
+        """Export amendment to NAP (requires l10n_bg_hr_payroll)"""
         self.ensure_one()
 
         if self.state != 'applied':
             raise ValidationError(_('Only applied amendments can be exported to NAP'))
 
-        # Create export history record
-        export_history = self.env['l10n_bg.nap.export.history'].create({
+        NapExportHistory = self.env.get('l10n_bg.nap.export.history')
+        if NapExportHistory is None:
+            raise ValidationError(
+                _('NAP export requires the Bulgarian HR Payroll module (l10n_bg_hr_payroll) to be installed.')
+            )
+
+        export_history = NapExportHistory.create({
             'version_id': self.version_id.id,
             'contract_amendment_id': self.id,
             'export_type': 'contract_amendment',
             'status': 'pending',
         })
 
-        # Generate XML
         try:
             export_history.generate_nap_xml()
             self.write({
@@ -296,13 +304,15 @@ class HrContractAmendment(models.Model):
         }
 
     def generate_nap_export_data(self):
-        """Generate data for NAP export"""
+        """Generate data for NAP export (requires l10n_bg_hr_payroll)"""
         self.ensure_one()
 
-        # Start with contract data
-        data = self.version_id.generate_nap_export_data()
+        if not hasattr(self.version_id, 'generate_nap_export_data'):
+            raise ValidationError(
+                _('NAP export requires the Bulgarian HR Payroll module (l10n_bg_hr_payroll) to be installed.')
+            )
 
-        # Update with amendment-specific data
+        data = self.version_id.generate_nap_export_data()
         data.update({
             'employ_type': '2',  # Amendment
             'amendment_date': self.amendment_date.strftime('%d.%m.%Y') if self.amendment_date else '',

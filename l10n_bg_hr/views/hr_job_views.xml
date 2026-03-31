@@ -10,7 +10,11 @@
                 <field name="l10n_bg_economic_activity_id" options="{'no_create_edit': True}"/>
             </field>
 
-            <!-- Add KID info inside NCOP Information tab -->
+            <!-- Rename NCOP Information tab to Обобщение and add KID info -->
+            <xpath expr="//page[@name='ncop_info_page']" position="attributes">
+                <attribute name="string">Обобщение</attribute>
+            </xpath>
+
             <xpath expr="//page[@name='ncop_info_page']" position="inside">
                 <group string="Икономическа дейност (КИД)">
                     <group>

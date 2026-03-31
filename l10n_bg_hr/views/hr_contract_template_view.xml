@@ -13,6 +13,17 @@
                 <field name="work_location_id" readonly="0" groups="hr.group_hr_manager"/>
                 <field name="work_location" readonly="1"/>
             </xpath>
+
+            <!-- Add NKPD/NKID fields after salary info -->
+            <xpath expr="//group[@name='salary_info']" position="after">
+                <group name="bg_position_info">
+                    <group string="НКПД / НКИД">
+                        <field name="l10n_bg_qualification_group" options="{'no_create_edit': True}"/>
+                        <field name="l10n_bg_economic_activity_code"/>
+                        <field name="l10n_bg_workplace_code"/>
+                    </group>
+                </group>
+            </xpath>
         </field>
     </record>
 </odoo>

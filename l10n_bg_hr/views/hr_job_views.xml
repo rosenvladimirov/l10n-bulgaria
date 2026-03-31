@@ -11,23 +11,21 @@
                 <field name="l10n_bg_economic_activity_id" options="{'no_create_edit': True}"/>
             </field>
 
-            <!-- Add summary in Обобщение tab -->
-            <page name="job_description_page" position="after">
-                <page string="Обобщение" name="bg_summary_page">
+            <!-- Add BG info inside the standard Summary tab -->
+            <xpath expr="//page[@name='job_description_page']" position="inside">
+                <group string="НКПД / КИД">
                     <group>
-                        <group string="НКПД / КИД">
-                            <field name="l10n_bg_ncop_position_id" readonly="1" string="НКПД позиция"/>
-                            <field name="l10n_bg_ncop_code" string="НКПД код"/>
-                            <field name="l10n_bg_qualification_group"/>
-                            <field name="l10n_bg_education_level"/>
-                        </group>
-                        <group string="Икономическа дейност">
-                            <field name="l10n_bg_economic_activity_id" readonly="1" string="КИД"/>
-                            <field name="company_id" readonly="1" string="Фирма"/>
-                        </group>
+                        <field name="l10n_bg_ncop_position_id" readonly="1" string="НКПД позиция"/>
+                        <field name="l10n_bg_ncop_code" string="НКПД код"/>
+                        <field name="l10n_bg_qualification_group"/>
+                        <field name="l10n_bg_education_level"/>
                     </group>
-                </page>
-            </page>
+                    <group>
+                        <field name="l10n_bg_economic_activity_id" readonly="1" string="КИД"/>
+                        <field name="company_id" readonly="1" string="Фирма"/>
+                    </group>
+                </group>
+            </xpath>
         </field>
     </record>
 </odoo>

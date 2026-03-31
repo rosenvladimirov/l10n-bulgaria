@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Add KID field to job form -->
+    <record id="view_hr_job_form_bg_kid" model="ir.ui.view">
+        <field name="name">hr.job.form.inherit.l10n_bg_hr</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr.view_hr_job_form"/>
+        <field name="arch" type="xml">
+            <!-- Add KID after NCOP position -->
+            <field name="l10n_bg_ncop_position_id" position="after">
+                <field name="l10n_bg_economic_activity_id" options="{'no_create_edit': True}"/>
+            </field>
+
+            <!-- Add summary in Обобщение tab -->
+            <page name="job_description_page" position="after">
+                <page string="Обобщение" name="bg_summary_page">
+                    <group>
+                        <group string="НКПД / КИД">
+                            <field name="l10n_bg_ncop_position_id" readonly="1" string="НКПД позиция"/>
+                            <field name="l10n_bg_ncop_code" string="НКПД код"/>
+                            <field name="l10n_bg_qualification_group"/>
+                            <field name="l10n_bg_education_level"/>
+                        </group>
+                        <group string="Икономическа дейност">
+                            <field name="l10n_bg_economic_activity_id" readonly="1" string="КИД"/>
+                            <field name="company_id" readonly="1" string="Фирма"/>
+                        </group>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

@@ -33,6 +33,7 @@ This module extends the HR Version functionality with:
         'views/hr_contract_template_view.xml',
         'views/hr_contract_type_views.xml',
         'views/res_company_views.xml',
+        'views/hr_job_views.xml',
     ],
     'installable': True,
     'application': False,

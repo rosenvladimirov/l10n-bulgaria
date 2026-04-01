@@ -18,12 +18,17 @@ export class ClaudeTerminalDialog extends Component {
         close: Function,
         url: { type: String, optional: true },
         model: { type: String, optional: true },
+        odooConfig: { type: Object, optional: true },
     };
 
     get iframeSrc() {
         const base = (this.props.url || "").replace(/\/+$/, "");
+        const odoo = this.props.odooConfig || {};
         const params = new URLSearchParams();
-        params.append("arg", `ODOO_ORIGIN=${window.location.origin}`);
+        params.append("arg", `ODOO_ORIGIN=${odoo.url || window.location.origin}`);
+        params.append("arg", `ODOO_DB=${odoo.db || ""}`);
+        params.append("arg", `ODOO_USER=${odoo.username || ""}`);
+        params.append("arg", `ODOO_PROTOCOL=${odoo.protocol || "xmlrpc"}`);
         params.append("arg", `ODOO_MODEL=${this.props.model || ""}`);
         params.append("arg", "ODOO_RES_ID=0");
         return `${base}/?${params.toString()}`;
@@ -37,20 +42,22 @@ patch(ListController.prototype, {
         super.setup(...arguments);
         this.dialogService = useService("dialog");
         this.claudeTerminalUrl = "";
+        this.claudeOdooConfig = null;
 
         onWillStart(async () => {
             try {
                 const result = await rpc("/web/dataset/call_kw", {
                     model: "res.users",
-                    method: "get_claude_terminal_url",
+                    method: "get_claude_mcp_config",
                     args: [],
                     kwargs: {},
                 });
                 if (result) {
-                    this.claudeTerminalUrl = result;
+                    this.claudeTerminalUrl = result.terminal_url || "";
+                    this.claudeOdooConfig = result.odoo || null;
                 }
             } catch {
-                // Terminal URL not configured — button will show config hint
+                // MCP config not available
             }
         });
     },
@@ -59,6 +66,7 @@ patch(ListController.prototype, {
         this.dialogService.add(ClaudeTerminalDialog, {
             url: this.claudeTerminalUrl,
             model: this.props.resModel,
+            odooConfig: this.claudeOdooConfig,
         });
     },
 });

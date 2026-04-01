@@ -14,6 +14,7 @@ export class ClaudeTerminalPanel extends Component {
         url: { type: String },
         model: { type: String },
         resId: { type: [Number, Boolean], optional: true },
+        odooConfig: { type: Object, optional: true },
     };
 
     setup() {
@@ -31,8 +32,12 @@ export class ClaudeTerminalPanel extends Component {
 
     get iframeSrc() {
         const base = this.props.url.replace(/\/+$/, "");
+        const odoo = this.props.odooConfig || {};
         const params = new URLSearchParams();
-        params.append("arg", `ODOO_ORIGIN=${window.location.origin}`);
+        params.append("arg", `ODOO_ORIGIN=${odoo.url || window.location.origin}`);
+        params.append("arg", `ODOO_DB=${odoo.db || ""}`);
+        params.append("arg", `ODOO_USER=${odoo.username || ""}`);
+        params.append("arg", `ODOO_PROTOCOL=${odoo.protocol || "xmlrpc"}`);
         params.append("arg", `ODOO_MODEL=${this.props.model}`);
         params.append("arg", `ODOO_RES_ID=${this.props.resId || 0}`);
         return `${base}/?${params.toString()}`;
@@ -55,9 +60,9 @@ Object.assign(Chatter.components, { ClaudeTerminalPanel });
 patch(Chatter.prototype, {
     setup() {
         super.setup(...arguments);
-        this.claudeTerminal = useState({ open: false, url: "" });
+        this.claudeTerminal = useState({ open: false, url: "", odooConfig: null });
 
-        // Load current user's terminal URL via RPC (no uid needed)
+        // Load current user's MCP config via RPC
         fetch("/web/dataset/call_kw", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -65,7 +70,7 @@ patch(Chatter.prototype, {
                 jsonrpc: "2.0", method: "call", id: 1,
                 params: {
                     model: "res.users",
-                    method: "get_claude_terminal_url",
+                    method: "get_claude_mcp_config",
                     args: [],
                     kwargs: {},
                 },
@@ -73,7 +78,10 @@ patch(Chatter.prototype, {
         })
             .then(r => r.json())
             .then(d => {
-                if (d.result) this.claudeTerminal.url = d.result;
+                if (d.result) {
+                    this.claudeTerminal.url = d.result.terminal_url || "";
+                    this.claudeTerminal.odooConfig = d.result.odoo || null;
+                }
             })
             .catch(() => {});
     },

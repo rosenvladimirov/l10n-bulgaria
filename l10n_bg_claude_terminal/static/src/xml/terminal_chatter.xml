@@ -18,7 +18,8 @@
             <ClaudeTerminalPanel t-if="claudeTerminal.url"
                 url="claudeTerminal.url"
                 model="props.threadModel"
-                resId="props.threadId"/>
+                resId="props.threadId"
+                odooConfig="claudeTerminal.odooConfig"/>
             <div t-else="" class="ct-panel flex-grow-1">
                 <div class="ct-error">
                     <i class="fa fa-cog"/>

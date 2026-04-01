@@ -29,19 +29,19 @@
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='payroll_information']" position="after">
-                <page string="Допълнителни споразумения" name="amendments"
+                <page string="Contract Amendments" name="amendments"
                       groups="hr.group_hr_manager">
                     <group>
                         <group>
                             <field name="l10n_bg_last_amendment_date"
-                                   string="Последно споразумение"/>
+                                   string="Last Amendment"/>
                             <field name="l10n_bg_last_amendment_summary"
-                                   string="Промени"/>
+                                   string="Changes"/>
                         </group>
                         <group>
                             <button name="%(action_hr_version_amendment_wizard)d"
                                     type="action"
-                                    string="Ново споразумение"
+                                    string="New Amendment"
                                     class="btn btn-primary"
                                     icon="fa-plus"
                                     invisible="not version_id"/>

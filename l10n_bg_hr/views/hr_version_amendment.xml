@@ -95,7 +95,7 @@
                                 <field name="description" nolabel="1"
                                        placeholder="Enter amendment details"/>
                                 <field name="legal_basis"
-                                       placeholder="Legal basis (e.g. чл. 118 от КТ)"/>
+                                       placeholder="Legal basis (e.g. Art. 118 of Labor Code)"/>
                             </group>
                         </page>
 

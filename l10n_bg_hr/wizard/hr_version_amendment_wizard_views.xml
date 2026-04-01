@@ -12,7 +12,7 @@
                         <field name="employee_id" readonly="1"/>
                         <field name="version_id"/>
                         <field name="amendment_type"/>
-                        <field name="subject" placeholder="e.g. Промяна на заплата"/>
+                        <field name="subject" placeholder="e.g. Wage Change"/>
                         <field name="date_effective"/>
                     </group>
                 </group>

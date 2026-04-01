@@ -5,11 +5,9 @@ from odoo.exceptions import ValidationError
 
 
 class L10nBGHrVersionAmendment(models.Model):
-    """
-    Допълнително споразумение към трудовия договор (чл. 118 КТ)
-    """
+    """Допълнително споразумение към трудовия договор (чл. 118 КТ)"""
     _name = 'l10n_bg.hr.version.amendment'
-    _description = 'Contract Amendment (Допълнително споразумение)'
+    _description = 'Contract Amendment'
     _order = 'date_signed desc, id desc'
     _rec_name = 'amendment_number'
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -219,11 +217,11 @@ class L10nBGHrVersionAmendment(models.Model):
     is_temporary_assignment = fields.Boolean(string='Temporary Assignment')
 
     temporary_assignment_reason = fields.Selection([
-        ('production_necessity', 'Production Necessity (Производствена необходимост)'),
-        ('employee_replacement', 'Employee Replacement (Заместване на работник)'),
-        ('urgent_work', 'Urgent Work (Спешна работа)'),
-        ('natural_disaster', 'Natural Disaster (Природно бедствие)'),
-        ('other_emergency', 'Other Emergency (Друга спешност)'),
+        ('production_necessity', 'Production Necessity'),
+        ('employee_replacement', 'Employee Replacement'),
+        ('urgent_work', 'Urgent Work'),
+        ('natural_disaster', 'Natural Disaster'),
+        ('other_emergency', 'Other Emergency'),
     ], string='Assignment Reason')
 
     assignment_duration_months = fields.Integer(string='Assignment Duration (months)')

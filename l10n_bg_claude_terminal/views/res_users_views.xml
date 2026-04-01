@@ -18,7 +18,7 @@
                     <field name="claude_odoo_db"/>
                     <field name="claude_odoo_api_key"
                            password="True"
-                           placeholder="Paste API key from Settings → API Keys"/>
+                           readonly="1"/>
                     <field name="claude_odoo_protocol"/>
                 </group>
                 <group string="Telegram MCP">

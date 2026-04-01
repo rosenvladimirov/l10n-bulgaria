@@ -32,7 +32,8 @@ class ResUsers(models.Model):
     )
     claude_odoo_api_key = fields.Char(
         "API Key",
-        help="Odoo API key for the MCP terminal connection (paste from Settings → API Keys)",
+        help="Auto-generated API key for the Claude terminal MCP connection",
+        readonly=True,
     )
     claude_odoo_protocol = fields.Selection(
         [("xmlrpc", "XML-RPC"), ("jsonrpc", "JSON-RPC")],
@@ -111,17 +112,33 @@ class ResUsers(models.Model):
         """RPC: return current user's terminal URL."""
         return self.env.user.claude_terminal_url or ""
 
+    def _ensure_claude_api_key(self):
+        """Generate an API key for Claude terminal if one doesn't exist."""
+        self.ensure_one()
+        if self.claude_odoo_api_key:
+            return self.claude_odoo_api_key
+        # Generate a new API key with scope 'rpc' (full RPC access)
+        key = self.env['res.users.apikeys'].sudo()._generate(
+            scope=None,
+            name="Claude Terminal",
+            expiration_date=None,
+        )
+        # Store plain text key for reuse
+        self.sudo().write({"claude_odoo_api_key": key})
+        return key
+
     @api.model
     def get_claude_mcp_config(self):
         """RPC: return current user's full MCP configuration for the terminal."""
         user = self.env.user
+        api_key = user._ensure_claude_api_key()
         return {
             "terminal_url": user.claude_terminal_url or "",
             "odoo": {
                 "url": user.claude_odoo_url or "",
                 "db": user.claude_odoo_db or self.env.cr.dbname,
                 "username": user.login,
-                "api_key": user.claude_odoo_api_key or "",
+                "api_key": api_key,
                 "protocol": user.claude_odoo_protocol or "xmlrpc",
             },
             "telegram": {

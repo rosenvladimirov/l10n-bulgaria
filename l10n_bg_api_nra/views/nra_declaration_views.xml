@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- ============================================================ -->
+    <!-- LIST VIEW -->
+    <!-- ============================================================ -->
+    <record id="nra_declaration_view_list" model="ir.ui.view">
+        <field name="name">nra.declaration.list</field>
+        <field name="model">nra.declaration</field>
+        <field name="arch" type="xml">
+            <list decoration-info="state == 'draft'"
+                  decoration-warning="state == 'submitted'"
+                  decoration-success="state == 'accepted'"
+                  decoration-danger="state in ('rejected', 'error')"
+                  decoration-muted="state == 'partially_accepted'">
+                <field name="name" />
+                <field name="declaration_type" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="l10n_bg_uic" />
+                <field name="period_month" />
+                <field name="period_year" />
+                <field name="submission_date" />
+                <field name="nra_entry_number" />
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-warning="state == 'submitted'"
+                       decoration-success="state == 'accepted'"
+                       decoration-danger="state in ('rejected', 'error')" />
+            </list>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- FORM VIEW -->
+    <!-- ============================================================ -->
+    <record id="nra_declaration_view_form" model="ir.ui.view">
+        <field name="name">nra.declaration.form</field>
+        <field name="model">nra.declaration</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_generate_xml"
+                            string="Generate XML"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'" />
+                    <button name="action_submit"
+                            string="Submit to NRA"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state not in ('ready', 'error')"
+                            groups="l10n_bg_api_nra.group_nra_manager"
+                            confirm="Are you sure you want to submit this declaration to NRA?" />
+                    <button name="action_check_status"
+                            string="Check Status"
+                            type="object"
+                            invisible="state not in ('submitted', 'partially_accepted')" />
+                    <button name="action_reset_to_draft"
+                            string="Reset to Draft"
+                            type="object"
+                            invisible="state not in ('ready', 'rejected', 'error')" />
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,ready,submitted,accepted" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="declaration_type" readonly="state != 'draft'" />
+                            <field name="company_id" groups="base.group_multi_company"
+                                   readonly="state != 'draft'" />
+                            <field name="l10n_bg_uic" />
+                        </group>
+                        <group>
+                            <field name="period_month" readonly="state != 'draft'" />
+                            <field name="period_year" readonly="state != 'draft'" />
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <!-- D1 tab -->
+                        <page string="Обр. 1 — Осигурени лица"
+                              invisible="declaration_type != 'd1'">
+                            <field name="d1_correction_type" readonly="state != 'draft'" />
+                            <field name="d1_line_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle" />
+                                    <field name="id_type" />
+                                    <field name="egn_lnch" />
+                                    <field name="person_names" />
+                                    <field name="insurance_type" />
+                                    <field name="start_date" />
+                                    <field name="end_date" />
+                                    <field name="days_in_insurance" />
+                                    <field name="insurance_income" />
+                                    <field name="doo_employee" />
+                                    <field name="doo_employer" />
+                                    <field name="health_employee" />
+                                    <field name="health_employer" />
+                                    <field name="dzpo_employee" />
+                                    <field name="dzpo_employer" />
+                                    <field name="tax_income" />
+                                    <field name="tax_amount" />
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- D6 tab -->
+                        <page string="Обр. 6 — Дължими вноски"
+                              invisible="declaration_type != 'd6'">
+                            <group>
+                                <field name="d6_correction_type" readonly="state != 'draft'" />
+                                <field name="d6_payment_date" readonly="state != 'draft'" />
+                            </group>
+                            <field name="d6_line_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle" />
+                                    <field name="contribution_type" />
+                                    <field name="payment_month" />
+                                    <field name="payment_year" />
+                                    <field name="doo_amount" />
+                                    <field name="teachers_fund" />
+                                    <field name="dzpo_upf" />
+                                    <field name="dzpo_ppf" />
+                                    <field name="health_insurance" />
+                                    <field name="income_tax" />
+                                    <field name="total_amount" />
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- ETZ tab -->
+                        <page string="ЕТЗ — Трудови записи"
+                              invisible="declaration_type != 'etz'">
+                            <field name="etz_line_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle" />
+                                    <field name="record_type" />
+                                    <field name="id_type" />
+                                    <field name="egn_lnch" />
+                                    <field name="person_names" />
+                                    <field name="contract_type" />
+                                    <field name="contract_number" />
+                                    <field name="contract_date" />
+                                    <field name="start_date" />
+                                    <field name="end_date" optional="hide" />
+                                    <field name="position_code" />
+                                    <field name="position_name" />
+                                    <field name="termination_date" optional="hide" />
+                                    <field name="termination_ground" optional="hide" />
+                                    <field name="working_hours" />
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- VAT tab -->
+                        <page string="ДДС — Декларация"
+                              invisible="declaration_type != 'vat'">
+                            <group>
+                                <group>
+                                    <field name="vat_correction_type" readonly="state != 'draft'" />
+                                    <field name="vat_total_sales" readonly="state != 'draft'" />
+                                    <field name="vat_total_purchases" readonly="state != 'draft'" />
+                                </group>
+                                <group>
+                                    <field name="vat_charged" readonly="state != 'draft'" />
+                                    <field name="vat_credit" readonly="state != 'draft'" />
+                                    <field name="vat_due" />
+                                    <field name="vat_refund" />
+                                </group>
+                            </group>
+                            <field name="vat_line_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle" />
+                                    <field name="cell_number" />
+                                    <field name="description" />
+                                    <field name="amount" sum="Total" />
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- VIES tab -->
+                        <page string="VIES — Декларация"
+                              invisible="declaration_type != 'vies'">
+                            <group>
+                                <group>
+                                    <field name="vies_correction_type" readonly="state != 'draft'" />
+                                </group>
+                                <group>
+                                    <field name="vies_total_supplies" />
+                                    <field name="vies_total_services" />
+                                    <field name="vies_total_triangular" />
+                                </group>
+                            </group>
+                            <field name="vies_line_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle" />
+                                    <field name="partner_id" />
+                                    <field name="partner_country_code" />
+                                    <field name="partner_vat" />
+                                    <field name="partner_name" optional="hide" />
+                                    <field name="operation_type" />
+                                    <field name="tax_base" sum="Total" />
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- XML &amp; Response tab -->
+                        <page string="XML &amp; Response">
+                            <group>
+                                <group string="XML Content">
+                                    <field name="xml_content" filename="xml_filename" />
+                                    <field name="xml_filename" invisible="1" />
+                                </group>
+                                <group string="NRA Response">
+                                    <field name="nra_document_id" />
+                                    <field name="nra_entry_number" />
+                                    <field name="nra_entry_date" />
+                                    <field name="submission_date" />
+                                    <field name="accepted_count"
+                                           invisible="state not in ('partially_accepted', 'accepted', 'rejected')" />
+                                    <field name="total_count"
+                                           invisible="state not in ('partially_accepted', 'accepted', 'rejected')" />
+                                </group>
+                            </group>
+                            <group string="Response (HTML)"
+                                   invisible="not nra_response_html">
+                                <field name="nra_response_html" nolabel="1"
+                                       colspan="2" />
+                            </group>
+                            <group string="Response Message"
+                                   invisible="not nra_response_message or nra_response_html">
+                                <field name="nra_response_message" nolabel="1"
+                                       colspan="2" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- SEARCH VIEW -->
+    <!-- ============================================================ -->
+    <record id="nra_declaration_view_search" model="ir.ui.view">
+        <field name="name">nra.declaration.search</field>
+        <field name="model">nra.declaration</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="l10n_bg_uic" />
+                <field name="nra_entry_number" />
+                <separator />
+                <filter string="Draft" name="filter_draft"
+                        domain="[('state', '=', 'draft')]" />
+                <filter string="Ready" name="filter_ready"
+                        domain="[('state', '=', 'ready')]" />
+                <filter string="Submitted" name="filter_submitted"
+                        domain="[('state', '=', 'submitted')]" />
+                <filter string="Accepted" name="filter_accepted"
+                        domain="[('state', '=', 'accepted')]" />
+                <filter string="Rejected" name="filter_rejected"
+                        domain="[('state', '=', 'rejected')]" />
+                <separator />
+                <filter string="Обр. 1" name="filter_d1"
+                        domain="[('declaration_type', '=', 'd1')]" />
+                <filter string="Обр. 6" name="filter_d6"
+                        domain="[('declaration_type', '=', 'd6')]" />
+                <filter string="ЕТЗ" name="filter_etz"
+                        domain="[('declaration_type', '=', 'etz')]" />
+                <filter string="ДДС" name="filter_vat"
+                        domain="[('declaration_type', '=', 'vat')]" />
+                <filter string="VIES" name="filter_vies"
+                        domain="[('declaration_type', '=', 'vies')]" />
+                <separator />
+                <group>
+                    <filter string="Type" name="group_type"
+                            context="{'group_by': 'declaration_type'}" />
+                    <filter string="Status" name="group_state"
+                            context="{'group_by': 'state'}" />
+                    <filter string="Period" name="group_period"
+                            context="{'group_by': 'period_year'}" />
+                    <filter string="Company" name="group_company"
+                            context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- ACTIONS -->
+    <!-- ============================================================ -->
+    <record id="action_nra_declaration" model="ir.actions.act_window">
+        <field name="name">NRA Declarations</field>
+        <field name="res_model">nra.declaration</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="nra_declaration_view_search" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first NRA declaration
+            </p>
+            <p>
+                Submit insurance declarations (обр. 1, обр. 6), electronic labor records (ЕТЗ),
+                VAT and VIES declarations to the National Revenue Agency (НАП).
+            </p>
+        </field>
+    </record>
+
+    <record id="action_nra_declaration_d1" model="ir.actions.act_window">
+        <field name="name">Декларация обр. 1</field>
+        <field name="res_model">nra.declaration</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('declaration_type', '=', 'd1')]</field>
+        <field name="context">{'default_declaration_type': 'd1'}</field>
+    </record>
+
+    <record id="action_nra_declaration_d6" model="ir.actions.act_window">
+        <field name="name">Декларация обр. 6</field>
+        <field name="res_model">nra.declaration</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('declaration_type', '=', 'd6')]</field>
+        <field name="context">{'default_declaration_type': 'd6'}</field>
+    </record>
+
+    <record id="action_nra_declaration_etz" model="ir.actions.act_window">
+        <field name="name">Електронни трудови записи</field>
+        <field name="res_model">nra.declaration</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('declaration_type', '=', 'etz')]</field>
+        <field name="context">{'default_declaration_type': 'etz'}</field>
+    </record>
+
+    <record id="action_nra_declaration_vat" model="ir.actions.act_window">
+        <field name="name">ДДС Декларация</field>
+        <field name="res_model">nra.declaration</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('declaration_type', '=', 'vat')]</field>
+        <field name="context">{'default_declaration_type': 'vat'}</field>
+    </record>
+
+    <record id="action_nra_declaration_vies" model="ir.actions.act_window">
+        <field name="name">VIES Декларация</field>
+        <field name="res_model">nra.declaration</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('declaration_type', '=', 'vies')]</field>
+        <field name="context">{'default_declaration_type': 'vies'}</field>
+    </record>
+
+</odoo>

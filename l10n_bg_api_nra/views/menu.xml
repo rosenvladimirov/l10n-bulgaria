@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Root menu under Accounting -->
+    <menuitem id="menu_nra_root"
+              name="NRA Declarations (НАП)"
+              parent="account.menu_finance"
+              sequence="40"
+              groups="l10n_bg_api_nra.group_nra_user" />
+
+    <!-- Insurance declarations submenu -->
+    <menuitem id="menu_nra_insurance"
+              name="Insurance (Осигуряване)"
+              parent="menu_nra_root"
+              sequence="10" />
+
+    <menuitem id="menu_nra_declaration_d1"
+              name="Декларация обр. 1"
+              parent="menu_nra_insurance"
+              action="action_nra_declaration_d1"
+              sequence="10" />
+
+    <menuitem id="menu_nra_declaration_d6"
+              name="Декларация обр. 6"
+              parent="menu_nra_insurance"
+              action="action_nra_declaration_d6"
+              sequence="20" />
+
+    <!-- Labor records submenu -->
+    <menuitem id="menu_nra_labor"
+              name="Labor Records (Трудови записи)"
+              parent="menu_nra_root"
+              sequence="20" />
+
+    <menuitem id="menu_nra_declaration_etz"
+              name="Електронни трудови записи"
+              parent="menu_nra_labor"
+              action="action_nra_declaration_etz"
+              sequence="10" />
+
+    <!-- Tax declarations submenu -->
+    <menuitem id="menu_nra_tax"
+              name="Tax (Данъци)"
+              parent="menu_nra_root"
+              sequence="30" />
+
+    <menuitem id="menu_nra_declaration_vat"
+              name="ДДС Декларация"
+              parent="menu_nra_tax"
+              action="action_nra_declaration_vat"
+              sequence="10" />
+
+    <menuitem id="menu_nra_declaration_vies"
+              name="VIES Декларация"
+              parent="menu_nra_tax"
+              action="action_nra_declaration_vies"
+              sequence="20" />
+
+    <!-- All declarations -->
+    <menuitem id="menu_nra_all"
+              name="All Declarations"
+              parent="menu_nra_root"
+              action="action_nra_declaration"
+              sequence="90" />
+
+</odoo>

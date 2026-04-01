@@ -84,10 +84,3 @@ class HRLeave(models.Model):
                 }
             }
 
-    @api.model
-    def name_search(self, name='', args=None, operator='ilike', limit=100):
-        args = args or []
-        domain = []
-        if name:
-            domain = ['|', ('code', operator, name), ('name', operator, name)]
-        return super().name_search(name=name, args=domain+args, operator=operator, limit=limit)

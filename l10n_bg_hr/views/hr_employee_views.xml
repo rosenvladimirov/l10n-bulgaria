@@ -13,7 +13,7 @@
         <field name="arch" type="xml">
             <div name="button_box" position="inside">
                 <button class="oe_stat_button" type="action"
-                        name="%(action_l10n_bg_hr_version_amendment_from_employee)d"
+                        name="%(action_l10n_bg_hr_contract_amendment_from_employee)d"
                         icon="fa-file-text-o">
                     <field string="Amendments" name="l10n_bg_amendment_count"
                            widget="statinfo"/>

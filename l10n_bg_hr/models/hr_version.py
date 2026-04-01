@@ -120,8 +120,18 @@ class HrVersion(models.Model):
     l10n_bg_amendment_ids = fields.One2many(
         'l10n_bg.hr.version.amendment',
         'version_id',
-        string='Contract Amendments'
+        string='Contract Amendments',
     )
+
+    l10n_bg_amendment_count = fields.Integer(
+        string='Amendment Count',
+        compute='_compute_amendment_count',
+    )
+
+    @api.depends('l10n_bg_amendment_ids')
+    def _compute_amendment_count(self):
+        for version in self:
+            version.l10n_bg_amendment_count = len(version.l10n_bg_amendment_ids)
 
     # =========================================================================
     # COMPUTED METHODS

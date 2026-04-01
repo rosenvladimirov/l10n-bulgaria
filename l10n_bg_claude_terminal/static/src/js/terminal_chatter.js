@@ -8,7 +8,7 @@ import { patch } from "@web/core/utils/patch";
 
 // ── Terminal iframe panel ──────────────────────────────────────────
 
-class ClaudeTerminalPanel extends Component {
+export class ClaudeTerminalPanel extends Component {
     static template = "l10n_bg_claude_terminal.TerminalPanel";
     static props = {
         url: { type: String },
@@ -31,7 +31,11 @@ class ClaudeTerminalPanel extends Component {
 
     get iframeSrc() {
         const base = this.props.url.replace(/\/+$/, "");
-        return `${base}/?model=${encodeURIComponent(this.props.model)}&res_id=${this.props.resId || 0}`;
+        const params = new URLSearchParams();
+        params.append("arg", `ODOO_ORIGIN=${window.location.origin}`);
+        params.append("arg", `ODOO_MODEL=${this.props.model}`);
+        params.append("arg", `ODOO_RES_ID=${this.props.resId || 0}`);
+        return `${base}/?${params.toString()}`;
     }
 
     toggleExpand() { this.state.expanded = !this.state.expanded; }

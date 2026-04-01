@@ -12,6 +12,30 @@
                     <field name="claude_terminal_url"
                            placeholder="http://localhost:8080"/>
                 </group>
+                <group string="Odoo RPC Connector">
+                    <field name="claude_odoo_url"
+                           placeholder="http://localhost:8069"/>
+                    <field name="claude_odoo_db"/>
+                    <field name="claude_odoo_protocol"/>
+                </group>
+                <group string="Telegram MCP">
+                    <field name="claude_telegram_api_id"
+                           placeholder="12345678"/>
+                    <field name="claude_telegram_api_hash"
+                           password="True"/>
+                    <field name="claude_telegram_phone"
+                           placeholder="+359..."/>
+                    <field name="claude_telegram_session"
+                           placeholder="claude_session"/>
+                </group>
+                <group string="Viber MCP">
+                    <field name="claude_viber_bot_token"
+                           password="True"/>
+                    <field name="claude_viber_bot_name"
+                           placeholder="My Bot"/>
+                    <field name="claude_viber_webhook_url"
+                           placeholder="https://yourdomain.com/viber/webhook"/>
+                </group>
             </xpath>
         </field>
     </record>

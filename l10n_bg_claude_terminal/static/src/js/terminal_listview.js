@@ -28,7 +28,6 @@ export class ClaudeTerminalDialog extends Component {
         params.append("arg", `ODOO_ORIGIN=${odoo.url || window.location.origin}`);
         params.append("arg", `ODOO_DB=${odoo.db || ""}`);
         params.append("arg", `ODOO_USER=${odoo.username || ""}`);
-        params.append("arg", `ODOO_API_KEY=${odoo.api_key || ""}`);
         params.append("arg", `ODOO_PROTOCOL=${odoo.protocol || "xmlrpc"}`);
         params.append("arg", `ODOO_MODEL=${this.props.model || ""}`);
         params.append("arg", "ODOO_RES_ID=0");

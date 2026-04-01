@@ -31,6 +31,7 @@ This module extends the HR Version functionality with:
         'data/hr.contract.type.csv',
         'data/ir_sequence_data.xml',
         'data/ir_cron_data.xml',
+        'wizard/hr_version_amendment_wizard_views.xml',
         'views/hr_version_amendment.xml',
         'views/hr_employee_views.xml',
         'views/hr_contract_template_view.xml',

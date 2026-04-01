@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Wizard Form -->
+    <record id="view_hr_version_amendment_wizard_form" model="ir.ui.view">
+        <field name="name">l10n_bg.hr.version.amendment.wizard.form</field>
+        <field name="model">l10n_bg.hr.version.amendment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="New Contract Amendment">
+                <group>
+                    <group>
+                        <field name="employee_id" readonly="1"/>
+                        <field name="version_id"/>
+                        <field name="amendment_type"/>
+                        <field name="subject" placeholder="e.g. Промяна на заплата"/>
+                        <field name="date_effective"/>
+                    </group>
+                </group>
+
+                <notebook>
+                    <!-- Wage -->
+                    <page string="Wage Change" name="wage"
+                          invisible="amendment_type not in ('wage_change', 'other')">
+                        <group>
+                            <group>
+                                <field name="old_wage" readonly="1"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="new_wage"/>
+                            </group>
+                        </group>
+                    </page>
+
+                    <!-- Position -->
+                    <page string="Position Change" name="position"
+                          invisible="amendment_type not in ('position_change', 'other')">
+                        <group>
+                            <group>
+                                <field name="old_position_id" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="new_position_id"/>
+                            </group>
+                        </group>
+                    </page>
+
+                    <!-- Working Time -->
+                    <page string="Working Time" name="working_time"
+                          invisible="amendment_type not in ('working_time_change', 'other')">
+                        <group>
+                            <group>
+                                <field name="old_working_time_type" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="new_working_time_type"/>
+                            </group>
+                        </group>
+                    </page>
+
+                    <!-- Leave Days -->
+                    <page string="Leave Days" name="leave"
+                          invisible="amendment_type not in ('leave_change', 'other')">
+                        <group>
+                            <group>
+                                <field name="old_leave_days" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="new_leave_days"/>
+                            </group>
+                        </group>
+                    </page>
+
+                    <!-- Workplace -->
+                    <page string="Workplace" name="workplace"
+                          invisible="amendment_type not in ('workplace_change', 'temporary_assignment', 'other')">
+                        <group>
+                            <group>
+                                <field name="old_work_location" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="new_work_location"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+
+                <footer>
+                    <button name="action_create_amendment" string="Create Amendment"
+                            type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Wizard Action -->
+    <record id="action_hr_version_amendment_wizard" model="ir.actions.act_window">
+        <field name="name">New Contract Amendment</field>
+        <field name="res_model">l10n_bg.hr.version.amendment.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_hr_version_amendment_wizard_form"/>
+        <field name="target">new</field>
+        <field name="context">{'default_employee_id': active_id}</field>
+    </record>
+
+    <!-- Add link button to employee form, below New Contract widget -->
+    <record id="view_employee_form_new_amendment_link" model="ir.ui.view">
+        <field name="name">hr.employee.form.new.amendment.link</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//widget[@name='button_new_contract']" position="after">
+                <button name="%(action_hr_version_amendment_wizard)d"
+                        type="action"
+                        string="New Amendment"
+                        class="btn btn-link ms-2 p-0"
+                        invisible="not version_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

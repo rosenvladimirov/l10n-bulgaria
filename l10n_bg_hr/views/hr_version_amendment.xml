@@ -400,20 +400,15 @@
     <!-- INHERIT hr.version — smart button + amendments tab                 -->
     <!-- ================================================================== -->
 
+    <!-- Smart button on hr.version deactivated — validation issue with parent view -->
     <record id="view_hr_contract_form_amendment_button" model="ir.ui.view">
         <field name="name">hr.version.form.amendment.button</field>
         <field name="model">hr.version</field>
         <field name="inherit_id" ref="hr.hr_contract_template_form_view"/>
+        <field name="active" eval="False"/>
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="inside">
-                <div name="button_box" class="oe_button_box">
-                    <button class="oe_stat_button" type="action"
-                            name="%(action_l10n_bg_hr_contract_amendment_from_contract)d"
-                            icon="fa-file-text-o">
-                        <field string="Amendments" name="l10n_bg_amendment_count"
-                               widget="statinfo"/>
-                    </button>
-                </div>
+                <div name="button_box" class="oe_button_box"/>
             </xpath>
         </field>
     </record>

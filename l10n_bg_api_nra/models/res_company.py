@@ -231,7 +231,8 @@ class ResCompany(models.Model):
     def _nra_set_direct_token(self, client_id, access_token):
         """Store a pre-generated JWT access token directly.
 
-        Parses the JWT exp claim to determine expiry.
+        Parses the JWT exp claim to determine expiry. Stores in wallet
+        if available, otherwise falls back to ir.config_parameter.
 
         :param client_id: NRA client_id
         :param access_token: Pre-generated JWT bearer token
@@ -240,34 +241,39 @@ class ResCompany(models.Model):
         import json
 
         self.ensure_one()
-        Wallet = self.env["crypto.wallet"]
-        wallet = Wallet.get_user_wallet_or_create()
 
-        # Store client_id as api_key
-        for key_name in (NRA_WALLET_KEY_API_KEY, NRA_WALLET_KEY_ACCESS_TOKEN):
-            try:
-                wallet.remove_key_with_user_password(key_name)
-            except Exception:
-                pass
+        # Try wallet storage first
+        try:
+            Wallet = self.env["crypto.wallet"]
+            wallet = Wallet.get_user_wallet_or_create()
+            for key_name in (NRA_WALLET_KEY_API_KEY, NRA_WALLET_KEY_ACCESS_TOKEN):
+                try:
+                    wallet.remove_key_with_user_password(key_name)
+                except Exception:
+                    pass
+            wallet.add_key_with_user_password(
+                NRA_WALLET_KEY_API_KEY, "api_key", client_id
+            )
+            wallet.add_key_with_user_password(
+                NRA_WALLET_KEY_ACCESS_TOKEN, "token", access_token
+            )
+        except Exception:
+            _logger.info("Wallet unavailable, storing token in system parameters")
 
-        wallet.add_key_with_user_password(
-            NRA_WALLET_KEY_API_KEY, "api_key", client_id
-        )
-        wallet.add_key_with_user_password(
-            NRA_WALLET_KEY_ACCESS_TOKEN, "token", access_token
-        )
+        # Always store in ir.config_parameter as fallback
+        ICP = self.env["ir.config_parameter"].sudo()
+        ICP.set_param("l10n_bg_nra.direct_token", access_token)
+        ICP.set_param("l10n_bg_nra.client_id", client_id)
 
         # Parse JWT exp claim for expiry
         try:
             payload = access_token.split(".")[1]
-            # Add padding
             payload += "=" * (4 - len(payload) % 4)
             claims = json.loads(base64.urlsafe_b64decode(payload))
             exp_timestamp = claims.get("exp", 0)
             from datetime import datetime
             token_expiry = datetime.utcfromtimestamp(exp_timestamp)
         except Exception:
-            # Fallback: 1 year from now
             token_expiry = fields.Datetime.add(fields.Datetime.now(), days=365)
 
         self.sudo().write({
@@ -359,6 +365,16 @@ class ResCompany(models.Model):
                     return token_data["data"]
                 except Exception:
                     pass
+
+        # Fallback to ir.config_parameter for direct_token mode
+        if self.l10n_bg_nra_auth_mode == "direct_token":
+            token = (
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("l10n_bg_nra.direct_token", False)
+            )
+            if token:
+                return token
 
         return False
 

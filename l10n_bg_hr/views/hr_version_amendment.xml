@@ -396,48 +396,7 @@
               action="action_l10n_bg_hr_contract_amendment"
               sequence="20"/>
 
-    <!-- ================================================================== -->
-    <!-- INHERIT hr.version — smart button + amendments tab                 -->
-    <!-- ================================================================== -->
-
-    <!-- Smart button on hr.version deactivated — validation issue with parent view -->
-    <record id="view_hr_contract_form_amendment_button" model="ir.ui.view">
-        <field name="name">hr.version.form.amendment.button</field>
-        <field name="model">hr.version</field>
-        <field name="inherit_id" ref="hr.hr_contract_template_form_view"/>
-        <field name="active" eval="False"/>
-        <field name="arch" type="xml">
-            <xpath expr="//sheet" position="inside">
-                <div name="button_box" class="oe_button_box"/>
-            </xpath>
-        </field>
-    </record>
-
-    <record id="view_hr_contract_form_amendment_tab" model="ir.ui.view">
-        <field name="name">hr.version.form.amendment.tab</field>
-        <field name="model">hr.version</field>
-        <field name="inherit_id" ref="hr.hr_contract_template_form_view"/>
-        <field name="arch" type="xml">
-            <notebook position="inside">
-                <page string="Amendments" name="amendments">
-                    <field name="l10n_bg_amendment_ids"
-                           context="{'default_version_id': id}">
-                        <list editable="bottom">
-                            <field name="amendment_number"/>
-                            <field name="subject"/>
-                            <field name="amendment_type"/>
-                            <field name="date_signed"/>
-                            <field name="date_effective"/>
-                            <field name="state"
-                                   decoration-info="state == 'draft'"
-                                   decoration-warning="state == 'to_approve'"
-                                   decoration-success="state in ('approved', 'active')"
-                                   widget="badge"/>
-                        </list>
-                    </field>
-                </page>
-            </notebook>
-        </field>
-    </record>
+    <!-- hr.version inherited views removed — parent form has validation issues.
+         Amendments are shown on hr.employee form instead. -->
 
 </odoo>

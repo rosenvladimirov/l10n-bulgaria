@@ -16,9 +16,6 @@
                     <field name="claude_odoo_url"
                            placeholder="http://localhost:8069"/>
                     <field name="claude_odoo_db"/>
-                    <field name="claude_odoo_api_key"
-                           password="True"
-                           readonly="1"/>
                     <field name="claude_odoo_protocol"/>
                 </group>
                 <group string="Telegram MCP">

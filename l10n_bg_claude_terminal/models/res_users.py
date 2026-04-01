@@ -31,9 +31,8 @@ class ResUsers(models.Model):
         help="Odoo database name for RPC connector",
     )
     claude_odoo_api_key = fields.Char(
-        "API Key",
-        help="Auto-generated API key for the Claude terminal MCP connection",
-        readonly=True,
+        "Claude Terminal API Key",
+        copy=False,
     )
     claude_odoo_protocol = fields.Selection(
         [("xmlrpc", "XML-RPC"), ("jsonrpc", "JSON-RPC")],
@@ -87,7 +86,6 @@ class ResUsers(models.Model):
     _CLAUDE_FIELDS = [
         "claude_terminal_url",
         "claude_odoo_url",
-        "claude_odoo_api_key",
         "claude_odoo_db",
         "claude_odoo_protocol",
         "claude_telegram_api_id",

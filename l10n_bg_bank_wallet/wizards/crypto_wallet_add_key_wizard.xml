@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Add Key Wizard Form -->
+    <record id="view_crypto_wallet_add_key_wizard_form" model="ir.ui.view">
+        <field name="name">crypto.wallet.add.key.wizard.form</field>
+        <field name="model">crypto.wallet.add.key.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Добави ключ в портфела">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="key_name" placeholder="Въведете име на ключа..."/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="key_type" widget="radio" options="{'horizontal': true}"/>
+                        </group>
+                        <group>
+                            <field name="description" placeholder="Описание на ключа (по избор)"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Данни на ключа" name="key_data">
+                            <field name="key_data"
+                                   widget="text"
+                                   placeholder="Поставете тук съдържанието на ключа...&#10;&#10;Примери:&#10;- RSA ключ: -----BEGIN PRIVATE KEY-----&#10;- API ключ: sk_live_abc123...&#10;- Парола: MySecurePassword123"/>
+                        </page>
+
+                        <page string="Информация" name="info">
+                            <div class="alert alert-info" role="alert">
+                                <h4>Как работи криптирането:</h4>
+                                <ul>
+                                    <li><strong>Master парола:</strong> Автоматично се използва хешът на вашата потребителска парола</li>
+                                    <li><strong>Криптиране:</strong> PBKDF2 с 100,000 итерации + Fernet симетрично криптиране</li>
+                                    <li><strong>Сигурност:</strong> Само вие можете да достъпите вашите ключове</li>
+                                    <li><strong>Съхранение:</strong> Данните се съхраняват криптирани в базата данни</li>
+                                </ul>
+                            </div>
+
+                            <div class="alert alert-warning" role="alert">
+                                <h4>Важни предупреждения:</h4>
+                                <ul>
+                                    <li>Ако промените потребителската си парола, ще трябва да актуализирате портфела</li>
+                                    <li>Максимален размер на ключ: 64KB</li>
+                                    <li>Името на ключа трябва да е уникално</li>
+                                </ul>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <footer>
+                    <button string="Добави ключа"
+                            name="add_key_to_wallet"
+                            type="object"
+                            class="btn-primary"
+                            data-hotkey="q"/>
+                    <button string="Добави и създай нов"
+                            name="add_key_and_add_another"
+                            type="object"
+                            class="btn-secondary"
+                            data-hotkey="w"/>
+                    <button string="Преглед"
+                            name="preview_key_info"
+                            type="object"
+                            class="btn-secondary"/>
+                    <button string="Отказ"
+                            class="btn-secondary"
+                            special="cancel"
+                            data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action за wizard-a -->
+    <record id="action_crypto_wallet_add_key_wizard" model="ir.actions.act_window">
+        <field name="name">Добави ключ в портфела</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">crypto.wallet.add.key.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menu item -->
+    <menuitem id="menu_crypto_wallet_add_key"
+              name="Добави ключ"
+              parent="crypto_wallet_menu_root"
+              action="action_crypto_wallet_add_key_wizard"
+              sequence="20"/>
+
+</odoo>

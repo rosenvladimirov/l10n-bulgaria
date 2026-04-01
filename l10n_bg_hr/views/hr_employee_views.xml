@@ -22,38 +22,31 @@
         </field>
     </record>
 
-    <!-- Amendments group in Payroll tab, after Contract section -->
+    <!-- Amendments page right after Payroll page -->
     <record id="view_employee_form_amendment_group" model="ir.ui.view">
-        <field name="name">hr.employee.form.amendment.group</field>
+        <field name="name">hr.employee.form.amendment.page</field>
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='contract']" position="after">
-                <group name="amendments" groups="hr.group_hr_user">
-                    <div colspan="2"
-                         class="col-lg-6 w-100 mt-4 mb-3 o_horizontal_separator text-uppercase fw-bolder small d-flex">
-                        <span>Допълнителни споразумения</span>
-                        <button name="%(action_hr_version_amendment_wizard)d"
-                                type="action"
-                                string="Ново споразумение"
-                                class="btn btn-link ms-auto text-end lh-1 h-100 p-0"
-                                invisible="not version_id"/>
-                    </div>
-                    <field name="l10n_bg_last_amendment_date" string="Последно споразумение"/>
-                    <field name="l10n_bg_last_amendment_summary" string="Промени"/>
-                </group>
-            </xpath>
-        </field>
-    </record>
-
-    <!-- Amendments Tab -->
-    <record id="view_employee_form_amendment_tab" model="ir.ui.view">
-        <field name="name">hr.employee.form.amendment.tab</field>
-        <field name="model">hr.employee</field>
-        <field name="inherit_id" ref="hr.view_employee_form"/>
-        <field name="arch" type="xml">
-            <notebook position="inside">
-                <page string="Amendments" name="amendments">
+            <xpath expr="//page[@name='payroll_information']" position="after">
+                <page string="Допълнителни споразумения" name="amendments"
+                      groups="hr.group_hr_manager">
+                    <group>
+                        <group>
+                            <field name="l10n_bg_last_amendment_date"
+                                   string="Последно споразумение"/>
+                            <field name="l10n_bg_last_amendment_summary"
+                                   string="Промени"/>
+                        </group>
+                        <group>
+                            <button name="%(action_hr_version_amendment_wizard)d"
+                                    type="action"
+                                    string="Ново споразумение"
+                                    class="btn btn-primary"
+                                    icon="fa-plus"
+                                    invisible="not version_id"/>
+                        </group>
+                    </group>
                     <field name="l10n_bg_amendment_ids" readonly="1">
                         <list>
                             <field name="amendment_number"/>
@@ -73,7 +66,20 @@
                         </list>
                     </field>
                 </page>
-            </notebook>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Remove old separate tab (reuse ID, deactivate) -->
+    <record id="view_employee_form_amendment_tab" model="ir.ui.view">
+        <field name="name">hr.employee.form.amendment.tab</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="active" eval="False"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <div invisible="1"/>
+            </xpath>
         </field>
     </record>
 

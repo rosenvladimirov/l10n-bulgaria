@@ -51,6 +51,7 @@
         <field name="name">hr.employee.form.amendment.tab</field>
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="active" eval="True"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='payroll_information']" position="after">
                 <page string="Contract Amendments" name="amendments"

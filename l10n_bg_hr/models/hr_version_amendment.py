@@ -4,348 +4,462 @@ from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
 
-class HrContractAmendment(models.Model):
+class L10nBGHrVersionAmendment(models.Model):
+    """
+    Допълнително споразумение към трудовия договор (чл. 118 КТ)
+    """
     _name = 'l10n_bg.hr.version.amendment'
-    _description = 'Contract Amendment (BG)'
+    _description = 'Contract Amendment (Допълнително споразумение)'
+    _order = 'date_signed desc, id desc'
+    _rec_name = 'amendment_number'
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _order = 'amendment_date desc, id desc'
+    _check_company_domain = models.check_company_domain_parent_of
 
-    # Basic fields
-    name = fields.Char(
-        string='Amendment Reference',
-        required=True,
+    # =========================================================================
+    # ОСНОВНИ ПОЛЕТА
+    # =========================================================================
+
+    amendment_number = fields.Char(
+        string='Amendment Number',
         copy=False,
+        default=lambda self: _('New'),
         readonly=True,
-        default=lambda self: _('New')
+        index=True,
     )
 
     version_id = fields.Many2one(
         'hr.version',
-        string='Contract',
+        string='Contract Version',
         required=True,
         ondelete='cascade',
+        index=True,
+        tracking=True,
         domain="[('employee_id', '!=', False)]",
-        tracking=True
     )
 
     employee_id = fields.Many2one(
         related='version_id.employee_id',
         string='Employee',
+        store=True,
         readonly=True,
-        store=True
     )
 
     company_id = fields.Many2one(
         related='version_id.company_id',
         string='Company',
+        store=True,
         readonly=True,
-        store=True
-    )
-
-    # Amendment details
-    amendment_date = fields.Date(
-        string='Amendment Date',
-        required=True,
-        default=fields.Date.today,
-        tracking=True,
-        help='Date when the amendment takes effect'
     )
 
     amendment_type = fields.Selection([
-        ('wage', 'Wage Change'),
-        ('position', 'Position Change'),
-        ('working_time', 'Working Time Change'),
-        ('leave_days', 'Leave Days Change'),
-        ('class_period', 'Class Period Change'),
-        ('workplace', 'Workplace Change'),
+        ('wage_change', 'Wage Change'),
+        ('position_change', 'Position Change'),
+        ('workplace_change', 'Workplace Change'),
+        ('working_time_change', 'Working Time Change'),
+        ('leave_change', 'Leave Days Change'),
+        ('temporary_assignment', 'Temporary Assignment'),
+        ('contract_extension', 'Contract Extension'),
+        ('additional_duties', 'Additional Duties'),
         ('other', 'Other Amendment'),
     ], string='Amendment Type',
         required=True,
         tracking=True,
-        help='Type of contract amendment'
     )
 
-    description = fields.Text(
-        string='Description',
+    # =========================================================================
+    # ДАТИ И ВАЛИДНОСТ
+    # =========================================================================
+
+    date_signed = fields.Date(
+        string='Date Signed',
+        required=True,
+        default=fields.Date.today,
+        tracking=True,
+    )
+
+    date_effective = fields.Date(
+        string='Effective Date',
         required=True,
         tracking=True,
-        help='Detailed description of the amendment'
     )
+
+    date_end = fields.Date(
+        string='End Date',
+    )
+
+    is_temporary = fields.Boolean(
+        string='Temporary Amendment',
+        default=False,
+    )
+
+    # =========================================================================
+    # СЪДЪРЖАНИЕ
+    # =========================================================================
+
+    subject = fields.Char(
+        string='Subject',
+        required=True,
+        translate=True,
+    )
+
+    description = fields.Html(
+        string='Amendment Details',
+        translate=True,
+    )
+
+    legal_basis = fields.Text(
+        string='Legal Basis',
+        translate=True,
+    )
+
+    # =========================================================================
+    # ПРОМЕНИ — ЗАПЛАТА
+    # =========================================================================
+
+    old_wage = fields.Monetary(
+        string='Previous Wage',
+        currency_field='currency_id',
+        readonly=True,
+    )
+
+    new_wage = fields.Monetary(
+        string='New Wage',
+        currency_field='currency_id',
+    )
+
+    wage_change_reason = fields.Text(string='Wage Change Reason')
+
+    wage_difference = fields.Monetary(
+        string='Wage Difference',
+        compute='_compute_wage_difference',
+        currency_field='currency_id',
+    )
+
+    is_wage_increase = fields.Boolean(
+        string='Wage Increase',
+        compute='_compute_wage_difference',
+    )
+
+    # =========================================================================
+    # ПРОМЕНИ — ПОЗИЦИЯ (НКПД)
+    # =========================================================================
+
+    old_position_id = fields.Many2one(
+        'bg.hr.payroll.ncop.classification',
+        string='Previous NKPD Position',
+        readonly=True,
+    )
+
+    new_position_id = fields.Many2one(
+        'bg.hr.payroll.ncop.classification',
+        string='New NKPD Position',
+    )
+
+    # =========================================================================
+    # ПРОМЕНИ — ИКОНОМИЧЕСКА ДЕЙНОСТ (КИД)
+    # =========================================================================
+
+    old_economic_activity_id = fields.Many2one(
+        'bg.hr.payroll.economic.activity',
+        string='Previous Economic Activity',
+        readonly=True,
+    )
+
+    new_economic_activity_id = fields.Many2one(
+        'bg.hr.payroll.economic.activity',
+        string='New Economic Activity',
+    )
+
+    # =========================================================================
+    # ПРОМЕНИ — РАБОТНО ВРЕМЕ
+    # =========================================================================
+
+    old_working_time_type = fields.Selection([
+        ('1', 'Normal Working Time'),
+        ('2', 'Reduced Working Time'),
+        ('3', 'Part-Time'),
+        ('4', 'Flexible Working Time'),
+        ('5', 'Shift Work'),
+        ('6', 'Summarized Working Time'),
+    ], string='Previous Working Time Type', readonly=True)
+
+    new_working_time_type = fields.Selection([
+        ('1', 'Normal Working Time'),
+        ('2', 'Reduced Working Time'),
+        ('3', 'Part-Time'),
+        ('4', 'Flexible Working Time'),
+        ('5', 'Shift Work'),
+        ('6', 'Summarized Working Time'),
+    ], string='New Working Time Type')
+
+    old_daily_hours = fields.Float(string='Previous Daily Hours', readonly=True)
+    new_daily_hours = fields.Float(string='New Daily Hours')
+
+    old_weekly_hours = fields.Float(string='Previous Weekly Hours', readonly=True)
+    new_weekly_hours = fields.Float(string='New Weekly Hours')
+
+    # =========================================================================
+    # ПРОМЕНИ — РАБОТНО МЯСТО
+    # =========================================================================
+
+    old_work_location = fields.Char(string='Previous Work Location', readonly=True)
+    new_work_location = fields.Char(string='New Work Location')
+
+    # =========================================================================
+    # ПРОМЕНИ — ОТПУСКИ
+    # =========================================================================
+
+    old_leave_days = fields.Integer(string='Previous Leave Days', readonly=True)
+    new_leave_days = fields.Integer(string='New Leave Days')
+
+    # =========================================================================
+    # ВРЕМЕННО ПРЕМЕСТВАНЕ (ЧЛ. 106-114 КТ)
+    # =========================================================================
+
+    is_temporary_assignment = fields.Boolean(string='Temporary Assignment')
+
+    temporary_assignment_reason = fields.Selection([
+        ('production_necessity', 'Production Necessity (Производствена необходимост)'),
+        ('employee_replacement', 'Employee Replacement (Заместване на работник)'),
+        ('urgent_work', 'Urgent Work (Спешна работа)'),
+        ('natural_disaster', 'Natural Disaster (Природно бедствие)'),
+        ('other_emergency', 'Other Emergency (Друга спешност)'),
+    ], string='Assignment Reason')
+
+    assignment_duration_months = fields.Integer(string='Assignment Duration (months)')
+    assignment_location = fields.Char(string='Assignment Location')
+    assignment_compensation = fields.Monetary(
+        string='Assignment Compensation',
+        currency_field='currency_id',
+    )
+
+    # =========================================================================
+    # СТАТУС И ОДОБРЕНИЯ
+    # =========================================================================
 
     state = fields.Selection([
         ('draft', 'Draft'),
-        ('confirmed', 'Confirmed'),
-        ('applied', 'Applied'),
-        ('cancelled', 'Cancelled'),
+        ('to_approve', 'To Approve'),
+        ('approved', 'Approved'),
+        ('active', 'Active'),
+        ('expired', 'Expired'),
+        ('cancel', 'Cancelled'),
     ], string='Status',
         default='draft',
         required=True,
-        tracking=True
+        tracking=True,
     )
 
-    # Changed fields tracking
-    wage_before = fields.Monetary(
-        string='Wage Before',
-        currency_field='currency_id',
-        readonly=True
-    )
+    approved_by_id = fields.Many2one('res.users', string='Approved by', readonly=True)
+    approved_date = fields.Datetime(string='Approval Date', readonly=True)
 
-    wage_after = fields.Monetary(
-        string='Wage After',
-        currency_field='currency_id'
-    )
+    signed_by_employee = fields.Boolean(string='Signed by Employee')
+    signed_by_employer = fields.Boolean(string='Signed by Employer')
 
-    position_before = fields.Char(
-        string='Position Before',
-        readonly=True
-    )
+    # =========================================================================
+    # ТЕХНИЧЕСКИ ПОЛЕТА
+    # =========================================================================
 
-    position_after = fields.Char(
-        string='Position After'
-    )
-
-    working_hours_before = fields.Float(
-        string='Working Hours Before',
-        readonly=True
-    )
-
-    working_hours_after = fields.Float(
-        string='Working Hours After'
-    )
-
-    leave_days_before = fields.Integer(
-        string='Leave Days Before',
-        readonly=True
-    )
-
-    leave_days_after = fields.Integer(
-        string='Leave Days After'
-    )
-
-    class_period_before = fields.Char(
-        string='Class Period Before',
-        readonly=True
-    )
-
-    class_period_after = fields.Char(
-        string='Class Period After'
-    )
-
-    # Technical fields
     currency_id = fields.Many2one(
         related='version_id.currency_id',
-        readonly=True
+        string='Currency',
+        readonly=True,
     )
 
-    # NAP export
-    l10n_bg_nap_export_status = fields.Selection([
-        ('not_exported', 'Not Exported'),
-        ('pending', 'Pending Export'),
-        ('exported', 'Exported'),
-        ('error', 'Export Error'),
-    ], string='NAP Export Status',
-        default='not_exported',
-        help='Status of export to National Employment Agency'
-    )
-
-    l10n_bg_nap_export_date = fields.Datetime(
-        string='NAP Export Date',
-        readonly=True
-    )
+    notes = fields.Text(string='Internal Notes')
 
     # =========================================================================
-    # ORM METHODS
+    # COMPUTED
     # =========================================================================
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        """Override create to generate sequence"""
-        for vals in vals_list:
-            if vals.get('name', _('New')) == _('New'):
-                vals['name'] = self.env['ir.sequence'].next_by_code('l10n_bg.hr.version.amendment') or _('New')
-        return super().create(vals_list)
+    @api.depends('amendment_number', 'subject')
+    def _compute_display_name(self):
+        for rec in self:
+            if rec.amendment_number and rec.amendment_number != _('New') and rec.subject:
+                rec.display_name = f"{rec.amendment_number} - {rec.subject}"
+            else:
+                rec.display_name = rec.amendment_number or _('New Amendment')
 
-    @api.onchange('version_id')
-    def _onchange_version_id(self):
-        """Load current contract values"""
-        if self.version_id:
-            self.wage_before = self.version_id.wage
-            self.working_hours_before = self.version_id.resource_calendar_id.hours_per_day if self.version_id.resource_calendar_id else 8.0
-            self.leave_days_before = self.version_id.l10n_bg_total_leave_days
-            # l10n_bg_current_class_period is defined in l10n_bg_hr_payroll
-            if 'l10n_bg_current_class_period' in self.version_id._fields:
-                self.class_period_before = self.version_id.l10n_bg_current_class_period
-            self.position_before = self.version_id.job_id.name if self.version_id.job_id else ''
-
-    @api.onchange('amendment_type')
-    def _onchange_amendment_type(self):
-        """Set default values based on amendment type"""
-        if self.amendment_type and self.version_id:
-            if self.amendment_type == 'wage':
-                self.wage_after = self.wage_before
-            elif self.amendment_type == 'working_time':
-                self.working_hours_after = self.working_hours_before
-            elif self.amendment_type == 'leave_days':
-                self.leave_days_after = self.leave_days_before
-            elif self.amendment_type == 'class_period':
-                self.class_period_after = self.class_period_before
-            elif self.amendment_type == 'position':
-                self.position_after = self.position_before
-
-    # =========================================================================
-    # BUSINESS METHODS
-    # =========================================================================
-
-    def action_confirm(self):
-        """Confirm the amendment"""
-        self.ensure_one()
-        if self.state != 'draft':
-            raise ValidationError(_('Only draft amendments can be confirmed'))
-
-        self.write({'state': 'confirmed'})
-        return True
-
-    def action_apply(self):
-        """Apply the amendment to the contract"""
-        self.ensure_one()
-
-        if self.state not in ['confirmed', 'draft']:
-            raise ValidationError(_('Only confirmed or draft amendments can be applied'))
-
-        # Prepare update values
-        vals = {}
-
-        if self.amendment_type == 'wage' and self.wage_after:
-            vals['wage'] = self.wage_after
-
-        elif self.amendment_type == 'working_time' and self.working_hours_after:
-            # Note: This might need adjustment based on how working hours are stored
-            # in the resource.calendar
-            pass
-
-        elif self.amendment_type == 'leave_days' and self.leave_days_after:
-            vals['l10n_bg_basic_leave_days'] = self.leave_days_after
-
-        elif self.amendment_type == 'class_period' and self.class_period_after:
-            # l10n_bg_initial_class_period is defined in l10n_bg_hr_payroll
-            if 'l10n_bg_initial_class_period' in self.version_id._fields:
-                vals['l10n_bg_initial_class_period'] = self.class_period_after
-
-        elif self.amendment_type == 'position' and self.position_after:
-            # Find job by name or handle differently
-            job = self.env['hr.job'].search([('name', '=', self.position_after)], limit=1)
-            if job:
-                vals['job_id'] = job.id
-
-        # Apply changes to contract
-        if vals:
-            self.version_id.write(vals)
-
-        self.write({
-            'state': 'applied',
-        })
-
-        # Create message on contract
-        self.version_id.message_post(
-            body=_('Amendment applied: %s - %s') % (self.name, self.description)
-        )
-
-        return True
-
-    def action_cancel(self):
-        """Cancel the amendment"""
-        self.ensure_one()
-
-        if self.state == 'applied':
-            raise ValidationError(_('Applied amendments cannot be cancelled'))
-
-        self.write({'state': 'cancelled'})
-        return True
-
-    def action_export_to_nap(self):
-        """Export amendment to NAP (requires l10n_bg_hr_payroll)"""
-        self.ensure_one()
-
-        if self.state != 'applied':
-            raise ValidationError(_('Only applied amendments can be exported to NAP'))
-
-        NapExportHistory = self.env.get('l10n_bg.nap.export.history')
-        if NapExportHistory is None:
-            raise ValidationError(
-                _('NAP export requires the Bulgarian HR Payroll module (l10n_bg_hr_payroll) to be installed.')
-            )
-
-        export_history = NapExportHistory.create({
-            'version_id': self.version_id.id,
-            'contract_amendment_id': self.id,
-            'export_type': 'contract_amendment',
-            'status': 'pending',
-        })
-
-        try:
-            export_history.generate_nap_xml()
-            self.write({
-                'l10n_bg_nap_export_status': 'exported',
-                'l10n_bg_nap_export_date': fields.Datetime.now(),
-            })
-        except Exception as e:
-            export_history.write({
-                'status': 'error',
-                'error_message': str(e),
-            })
-            raise
-
-        return {
-            'type': 'ir.actions.act_window',
-            'res_model': 'l10n_bg.nap.export.history',
-            'res_id': export_history.id,
-            'view_mode': 'form',
-            'target': 'new',
-        }
-
-    def generate_nap_export_data(self):
-        """Generate data for NAP export (requires l10n_bg_hr_payroll)"""
-        self.ensure_one()
-
-        if not hasattr(self.version_id, 'generate_nap_export_data'):
-            raise ValidationError(
-                _('NAP export requires the Bulgarian HR Payroll module (l10n_bg_hr_payroll) to be installed.')
-            )
-
-        data = self.version_id.generate_nap_export_data()
-        data.update({
-            'employ_type': '2',  # Amendment
-            'amendment_date': self.amendment_date.strftime('%d.%m.%Y') if self.amendment_date else '',
-        })
-
-        return data
+    @api.depends('new_wage', 'old_wage')
+    def _compute_wage_difference(self):
+        for rec in self:
+            if rec.new_wage and rec.old_wage:
+                rec.wage_difference = rec.new_wage - rec.old_wage
+                rec.is_wage_increase = rec.wage_difference > 0
+            else:
+                rec.wage_difference = 0.0
+                rec.is_wage_increase = False
 
     # =========================================================================
     # CONSTRAINTS
     # =========================================================================
 
-    @api.constrains('amendment_date', 'version_id')
-    def _check_amendment_date(self):
-        """Validate amendment date"""
-        for amendment in self:
-            if amendment.version_id.contract_date_start and amendment.amendment_date < amendment.version_id.contract_date_start:
+    @api.constrains('date_signed', 'date_effective')
+    def _check_dates(self):
+        for rec in self:
+            if rec.date_signed and rec.date_effective and rec.date_signed > rec.date_effective:
                 raise ValidationError(
-                    _('Amendment date cannot be before contract start date')
-                )
+                    _("Signature date cannot be after effective date."))
 
-    @api.constrains('class_period_after')
-    def _check_class_period_format(self):
-        """Validate class period format"""
-        for amendment in self:
-            if amendment.class_period_after:
-                try:
-                    parts = amendment.class_period_after.split(':')
-                    if len(parts) != 3:
-                        raise ValidationError(_('Class period must be in format YY:MM:DD'))
+    @api.constrains('date_effective', 'date_end')
+    def _check_effective_dates(self):
+        for rec in self:
+            if rec.date_end and rec.date_effective and rec.date_effective >= rec.date_end:
+                raise ValidationError(
+                    _("Effective date must be before end date."))
 
-                    int(parts[0])  # years
-                    int(parts[1])  # months
-                    int(parts[2])  # days
+    @api.constrains('assignment_duration_months')
+    def _check_assignment_duration(self):
+        for rec in self:
+            if rec.is_temporary_assignment and rec.assignment_duration_months and rec.assignment_duration_months > 12:
+                raise ValidationError(
+                    _("Temporary assignment cannot exceed 12 months per Labor Code."))
 
-                except (ValueError, IndexError):
-                    raise ValidationError(_('Class period must contain only numbers in format YY:MM:DD'))
+    # =========================================================================
+    # ORM
+    # =========================================================================
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('amendment_number', _('New')) == _('New'):
+                vals['amendment_number'] = self.env['ir.sequence'].next_by_code(
+                    'l10n_bg.hr.version.amendment') or _('New')
+        return super().create(vals_list)
+
+    # =========================================================================
+    # ACTIONS
+    # =========================================================================
+
+    def action_submit_for_approval(self):
+        self.ensure_one()
+        if self.state != 'draft':
+            raise ValidationError(_("Only draft amendments can be submitted."))
+        self.state = 'to_approve'
+
+    def action_approve(self):
+        self.ensure_one()
+        if self.state != 'to_approve':
+            raise ValidationError(_("Only amendments pending approval can be approved."))
+        self.write({
+            'state': 'approved',
+            'approved_by_id': self.env.user.id,
+            'approved_date': fields.Datetime.now(),
+        })
+
+    def action_activate(self):
+        self.ensure_one()
+        if self.state != 'approved':
+            raise ValidationError(_("Only approved amendments can be activated."))
+        self._apply_version_changes()
+        self.state = 'active'
+
+    def action_cancel(self):
+        self.ensure_one()
+        if self.state in ('active', 'expired'):
+            raise ValidationError(_("Cannot cancel active or expired amendments."))
+        self.state = 'cancel'
+
+    # =========================================================================
+    # BUSINESS LOGIC
+    # =========================================================================
+
+    def _apply_version_changes(self):
+        """Apply amendment changes to the linked version."""
+        self.ensure_one()
+        vals = {}
+
+        if self.new_wage:
+            vals['wage'] = self.new_wage
+        if self.new_position_id:
+            vals['l10n_bg_qualification_group'] = self.new_position_id.id
+        if self.new_economic_activity_id:
+            vals['l10n_bg_economic_activity_id'] = self.new_economic_activity_id.id
+        if self.new_working_time_type:
+            vals['l10n_bg_working_time_type'] = self.new_working_time_type
+        if self.new_work_location:
+            vals['work_location'] = self.new_work_location
+        if self.new_leave_days:
+            vals['l10n_bg_basic_leave_days'] = self.new_leave_days
+        if self.new_weekly_hours and 'l10n_bg_weekly_hours' in self.version_id._fields:
+            vals['l10n_bg_weekly_hours'] = self.new_weekly_hours
+
+        if vals:
+            self.version_id.write(vals)
+            self.version_id.message_post(
+                body=_('Updated by amendment %s') % self.amendment_number,
+                subject=_('Contract Amendment Applied'),
+            )
+
+    @api.model
+    def cron_expire_temporary_amendments(self):
+        """Expire temporary amendments past their end date."""
+        today = fields.Date.today()
+        expired = self.search([
+            ('state', '=', 'active'),
+            ('is_temporary', '=', True),
+            ('date_end', '<=', today),
+        ])
+        for rec in expired:
+            rec.state = 'expired'
+            if rec.is_temporary_assignment:
+                revert = {}
+                if rec.old_position_id:
+                    revert['l10n_bg_qualification_group'] = rec.old_position_id.id
+                if rec.old_work_location:
+                    revert['work_location'] = rec.old_work_location
+                if rec.old_economic_activity_id:
+                    revert['l10n_bg_economic_activity_id'] = rec.old_economic_activity_id.id
+                if revert:
+                    rec.version_id.write(revert)
+
+    def get_amendment_summary(self):
+        """Human-readable summary of changes."""
+        self.ensure_one()
+        changes = []
+        if self.old_wage and self.new_wage:
+            changes.append(_('Wage: %.2f → %.2f') % (self.old_wage, self.new_wage))
+        if self.old_position_id and self.new_position_id:
+            changes.append(_('Position: %s → %s') % (
+                self.old_position_id.name, self.new_position_id.name))
+        if self.old_work_location and self.new_work_location:
+            changes.append(_('Location: %s → %s') % (
+                self.old_work_location, self.new_work_location))
+        if self.old_working_time_type and self.new_working_time_type:
+            changes.append(_('Working Time: %s → %s') % (
+                self.old_working_time_type, self.new_working_time_type))
+        if self.old_leave_days and self.new_leave_days:
+            changes.append(_('Leave Days: %d → %d') % (
+                self.old_leave_days, self.new_leave_days))
+        return '\n'.join(changes)
+
+    # =========================================================================
+    # ONCHANGE
+    # =========================================================================
+
+    @api.onchange('version_id')
+    def _onchange_version_id(self):
+        """Load current values from the linked version."""
+        if self.version_id:
+            v = self.version_id
+            self.old_wage = v.wage
+            self.old_position_id = v.l10n_bg_qualification_group
+            self.old_economic_activity_id = v.l10n_bg_economic_activity_id
+            self.old_working_time_type = v.l10n_bg_working_time_type
+            self.old_daily_hours = v.l10n_bg_daily_hours
+            self.old_weekly_hours = v.l10n_bg_weekly_hours if 'l10n_bg_weekly_hours' in v._fields else 40.0
+            self.old_work_location = v.work_location or ''
+            self.old_leave_days = v.l10n_bg_total_leave_days
+
+    @api.onchange('amendment_type')
+    def _onchange_amendment_type(self):
+        if self.amendment_type == 'temporary_assignment':
+            self.is_temporary = True
+            self.is_temporary_assignment = True
+        else:
+            self.is_temporary_assignment = False
+
+    @api.onchange('is_temporary')
+    def _onchange_is_temporary(self):
+        if not self.is_temporary:
+            self.date_end = False

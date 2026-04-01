@@ -29,7 +29,10 @@ This module extends the HR Version functionality with:
     'data': [
         'security/ir.model.access.csv',
         'data/hr.contract.type.csv',
+        'data/ir_sequence_data.xml',
+        'data/ir_cron_data.xml',
         'views/hr_version_amendment.xml',
+        'views/hr_employee_views.xml',
         'views/hr_contract_template_view.xml',
         'views/hr_contract_type_views.xml',
         'views/res_company_views.xml',

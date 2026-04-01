@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================== -->
+    <!-- hr.employee form — smart button + amendments tab                   -->
+    <!-- ================================================================== -->
+
+    <!-- Smart Button -->
+    <record id="view_employee_form_amendment_button" model="ir.ui.view">
+        <field name="name">hr.employee.form.amendment.button</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="action"
+                        name="%(action_l10n_bg_hr_version_amendment_from_employee)d"
+                        icon="fa-file-text-o">
+                    <field string="Amendments" name="l10n_bg_amendment_count"
+                           widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <!-- Amendments Tab -->
+    <record id="view_employee_form_amendment_tab" model="ir.ui.view">
+        <field name="name">hr.employee.form.amendment.tab</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Amendments" name="amendments">
+                    <field name="l10n_bg_amendment_ids" readonly="1">
+                        <list>
+                            <field name="amendment_number"/>
+                            <field name="version_id"/>
+                            <field name="amendment_type"/>
+                            <field name="subject"/>
+                            <field name="date_signed"/>
+                            <field name="date_effective"/>
+                            <field name="old_wage" optional="hide"/>
+                            <field name="new_wage" optional="hide"/>
+                            <field name="state"
+                                   decoration-info="state == 'draft'"
+                                   decoration-warning="state == 'to_approve'"
+                                   decoration-success="state in ('approved', 'active')"
+                                   decoration-muted="state in ('expired', 'cancel')"
+                                   widget="badge"/>
+                        </list>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>

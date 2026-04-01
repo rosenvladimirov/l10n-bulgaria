@@ -31,6 +31,16 @@ class ResCompany(models.Model):
         string="NRA API Enabled",
         default=False,
     )
+    l10n_bg_nra_auth_mode = fields.Selection(
+        selection=[
+            ("oauth", "OAuth 2.0 (Client ID + Secret)"),
+            ("direct_token", "Direct Token (Client ID + JWT)"),
+        ],
+        string="NRA Auth Mode",
+        default="oauth",
+        help="OAuth requires client_id + client_secret. "
+             "Direct Token uses a pre-generated JWT access token.",
+    )
     l10n_bg_nra_test_mode = fields.Boolean(
         string="NRA API Test Mode",
         default=True,
@@ -216,6 +226,59 @@ class ResCompany(models.Model):
                 "for company '%s'. Please configure them in Settings → NRA API.",
                 self.name,
             )
+        )
+
+    def _nra_set_direct_token(self, client_id, access_token):
+        """Store a pre-generated JWT access token directly.
+
+        Parses the JWT exp claim to determine expiry.
+
+        :param client_id: NRA client_id
+        :param access_token: Pre-generated JWT bearer token
+        """
+        import base64
+        import json
+
+        self.ensure_one()
+        Wallet = self.env["crypto.wallet"]
+        wallet = Wallet.get_user_wallet_or_create()
+
+        # Store client_id as api_key
+        for key_name in (NRA_WALLET_KEY_API_KEY, NRA_WALLET_KEY_ACCESS_TOKEN):
+            try:
+                wallet.remove_key_with_user_password(key_name)
+            except Exception:
+                pass
+
+        wallet.add_key_with_user_password(
+            NRA_WALLET_KEY_API_KEY, "api_key", client_id
+        )
+        wallet.add_key_with_user_password(
+            NRA_WALLET_KEY_ACCESS_TOKEN, "token", access_token
+        )
+
+        # Parse JWT exp claim for expiry
+        try:
+            payload = access_token.split(".")[1]
+            # Add padding
+            payload += "=" * (4 - len(payload) % 4)
+            claims = json.loads(base64.urlsafe_b64decode(payload))
+            exp_timestamp = claims.get("exp", 0)
+            from datetime import datetime
+            token_expiry = datetime.utcfromtimestamp(exp_timestamp)
+        except Exception:
+            # Fallback: 1 year from now
+            token_expiry = fields.Datetime.add(fields.Datetime.now(), days=365)
+
+        self.sudo().write({
+            "l10n_bg_nra_auth_mode": "direct_token",
+            "l10n_bg_nra_token_expiry": token_expiry,
+            "l10n_bg_nra_token_user_id": self.env.user.id,
+        })
+        _logger.info(
+            "NRA direct token stored for company %s (expires %s)",
+            self.name,
+            token_expiry,
         )
 
     def _nra_store_access_token(self, access_token, expires_in=3600):

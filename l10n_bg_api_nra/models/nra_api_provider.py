@@ -172,6 +172,14 @@ class NraApiProvider(models.AbstractModel):
         token = company._nra_get_access_token()
         if token:
             return token
+        if company.l10n_bg_nra_auth_mode == "direct_token":
+            raise UserError(
+                _(
+                    "NRA direct token for company '%s' is missing or expired. "
+                    "Please provide a new JWT token via Settings → NRA API.",
+                    company.name,
+                )
+            )
         return self._obtain_access_token(company)
 
     # ------------------------------------------------------------------
@@ -244,9 +252,11 @@ class NraApiProvider(models.AbstractModel):
                 time.sleep(wait)
                 continue
 
-            # Token expired — refresh once and retry
+            # Token expired — refresh once and retry (only for OAuth mode)
             if resp.status_code == 401 and retries == 0:
                 retries += 1
+                if company.l10n_bg_nra_auth_mode == "direct_token":
+                    break
                 token = self._obtain_access_token(company)
                 headers["Authorization"] = f"Bearer {token}"
                 continue

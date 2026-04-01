@@ -10,6 +10,8 @@
                        groups="l10n_bg_api_nra.group_nra_manager">
                     <group>
                         <field name="l10n_bg_nra_api_enabled" />
+                        <field name="l10n_bg_nra_auth_mode"
+                               invisible="not l10n_bg_nra_api_enabled" />
                         <field name="l10n_bg_nra_test_mode"
                                invisible="not l10n_bg_nra_api_enabled" />
                         <field name="l10n_bg_nra_taxpayer_pin_type"

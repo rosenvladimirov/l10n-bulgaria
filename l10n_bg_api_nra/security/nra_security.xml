@@ -6,17 +6,25 @@
         <field name="sequence">50</field>
     </record>
 
+    <record id="privilege_nra_api" model="res.groups.privilege">
+        <field name="name">NRA Declarations</field>
+        <field name="category_id" ref="module_category_nra_api" />
+        <field name="sequence">50</field>
+    </record>
+
     <!-- User group: can view and create declarations -->
     <record id="group_nra_user" model="res.groups">
-        <field name="name">NRA Declarations User</field>
-        <field name="category_id" ref="module_category_nra_api" />
+        <field name="name">User</field>
+        <field name="privilege_id" ref="privilege_nra_api" />
+        <field name="sequence">10</field>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
     </record>
 
     <!-- Manager group: can configure API, submit declarations -->
     <record id="group_nra_manager" model="res.groups">
-        <field name="name">NRA Declarations Manager</field>
-        <field name="category_id" ref="module_category_nra_api" />
+        <field name="name">Manager</field>
+        <field name="privilege_id" ref="privilege_nra_api" />
+        <field name="sequence">20</field>
         <field name="implied_ids" eval="[(4, ref('group_nra_user'))]" />
         <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]" />
     </record>

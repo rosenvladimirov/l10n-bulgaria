@@ -2,33 +2,45 @@
 <odoo>
     <data noupdate="1">
 
+        <!-- Privilege for Crypto Wallet groups -->
+        <record id="privilege_crypto_wallet" model="res.groups.privilege">
+            <field name="name">Crypto Wallet</field>
+            <field name="category_id" ref="base.module_category_administration"/>
+            <field name="sequence">100</field>
+        </record>
+
         <!-- Security Groups -->
         <record id="group_crypto_wallet_read" model="res.groups">
-            <field name="name">Crypto Wallet: Read Access</field>
-            <field name="category_id" ref="base.module_category_administration"/>
+            <field name="name">Read Access</field>
+            <field name="privilege_id" ref="privilege_crypto_wallet"/>
+            <field name="sequence">10</field>
         </record>
 
         <record id="group_crypto_wallet_write" model="res.groups">
-            <field name="name">Crypto Wallet: Write Access</field>
-            <field name="category_id" ref="base.module_category_administration"/>
+            <field name="name">Write Access</field>
+            <field name="privilege_id" ref="privilege_crypto_wallet"/>
+            <field name="sequence">20</field>
             <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_read'))]"/>
         </record>
 
         <record id="group_crypto_wallet_generate" model="res.groups">
-            <field name="name">Crypto Wallet: Generate Keys</field>
-            <field name="category_id" ref="base.module_category_administration"/>
+            <field name="name">Generate Keys</field>
+            <field name="privilege_id" ref="privilege_crypto_wallet"/>
+            <field name="sequence">30</field>
             <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_write'))]"/>
         </record>
 
         <record id="group_crypto_wallet_export" model="res.groups">
-            <field name="name">Crypto Wallet: Export Access</field>
-            <field name="category_id" ref="base.module_category_administration"/>
+            <field name="name">Export Access</field>
+            <field name="privilege_id" ref="privilege_crypto_wallet"/>
+            <field name="sequence">30</field>
             <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_read'))]"/>
         </record>
 
         <record id="group_crypto_wallet_admin" model="res.groups">
-            <field name="name">Crypto Wallet: Administrator</field>
-            <field name="category_id" ref="base.module_category_administration"/>
+            <field name="name">Administrator</field>
+            <field name="privilege_id" ref="privilege_crypto_wallet"/>
+            <field name="sequence">40</field>
             <field name="implied_ids" eval="[(4, ref('group_crypto_wallet_generate')), (4, ref('group_crypto_wallet_export'))]"/>
         </record>
 

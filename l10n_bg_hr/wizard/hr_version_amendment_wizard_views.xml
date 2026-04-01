@@ -104,18 +104,15 @@
         <field name="context">{'default_employee_id': active_id}</field>
     </record>
 
-    <!-- Add link button to employee form, below New Contract widget -->
+    <!-- Old link button deactivated — replaced by amendments group -->
     <record id="view_employee_form_new_amendment_link" model="ir.ui.view">
         <field name="name">hr.employee.form.new.amendment.link</field>
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="active" eval="False"/>
         <field name="arch" type="xml">
-            <xpath expr="//widget[@name='button_new_contract']" position="after">
-                <button name="%(action_hr_version_amendment_wizard)d"
-                        type="action"
-                        string="New Amendment"
-                        class="btn btn-link ms-2 p-0"
-                        invisible="not version_id"/>
+            <xpath expr="//form" position="inside">
+                <div invisible="1"/>
             </xpath>
         </field>
     </record>

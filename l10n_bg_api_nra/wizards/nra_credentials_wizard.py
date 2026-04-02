@@ -99,9 +99,20 @@ class NraCredentialsWizard(models.TransientModel):
             "params": {
                 "title": _("NRA API Credentials"),
                 "message": _(
-                    "Credentials saved securely in your crypto wallet."
+                    "Credentials saved in your crypto wallet "
+                    "and system parameters."
                 ),
                 "type": "success",
                 "sticky": False,
             },
         }
+
+    def action_test_connection(self):
+        """Delegate to company's test connection action."""
+        self.ensure_one()
+        return self.company_id.action_nra_test_connection()
+
+    def action_clear_token(self):
+        """Delegate to company's clear token action."""
+        self.ensure_one()
+        return self.company_id.action_nra_clear_token()

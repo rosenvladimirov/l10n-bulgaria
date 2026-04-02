@@ -6,8 +6,17 @@
         <field name="inherit_id" ref="base.view_company_form" />
         <field name="arch" type="xml">
             <xpath expr="//group[@name='social_media']" position="before">
-                <group name="l10n_bg_nra_api" string="NRA API Configuration (НАП API)"
+                <group name="l10n_bg_nra_api"
                        groups="l10n_bg_api_nra.group_nra_manager">
+                    <div colspan="2"
+                         class="col-lg-6 w-100 mt-4 mb-3 o_horizontal_separator text-uppercase fw-bolder small d-flex">
+                        <span>NRA API Configuration (НАП API)</span>
+                        <button name="%(l10n_bg_api_nra.action_nra_credentials_wizard)d"
+                                type="action"
+                                string="Set API Credentials"
+                                class="btn btn-link ms-auto text-end lh-1 h-100 p-0"
+                                invisible="not l10n_bg_nra_api_enabled" />
+                    </div>
                     <group>
                         <field name="l10n_bg_nra_api_enabled" />
                         <field name="l10n_bg_nra_auth_mode"
@@ -24,23 +33,6 @@
                                invisible="not l10n_bg_nra_api_enabled" />
                         <field name="l10n_bg_nra_token_expiry" readonly="1"
                                invisible="not l10n_bg_nra_api_enabled" />
-                    </group>
-                    <group colspan="2" invisible="not l10n_bg_nra_api_enabled">
-                        <button name="%(l10n_bg_api_nra.action_nra_credentials_wizard)d"
-                                string="Set API Credentials"
-                                type="action"
-                                class="btn-primary"
-                                icon="fa-key" />
-                        <button name="action_nra_test_connection"
-                                string="Test Connection"
-                                type="object"
-                                class="btn-secondary"
-                                icon="fa-plug" />
-                        <button name="action_nra_clear_token"
-                                string="Clear Token"
-                                type="object"
-                                class="btn-secondary"
-                                icon="fa-eraser" />
                     </group>
                 </group>
             </xpath>

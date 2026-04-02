@@ -107,6 +107,20 @@ class ResUsers(models.Model):
         return self.env.user.claude_terminal_url or ""
 
     @api.model
+    def notify_claude_refresh(self, payload=None):
+        """Send a bus notification to refresh the user's browser view.
+
+        Called by the MCP server (odoo_refresh tool) after creating/updating
+        records so the Odoo tab auto-reloads.
+        """
+        self.env["bus.bus"]._sendone(
+            self.env.user.partner_id,
+            "claude_terminal/refresh",
+            payload or {},
+        )
+        return True
+
+    @api.model
     def get_claude_mcp_config(self):
         """RPC: return current user's full MCP configuration for the terminal."""
         user = self.env.user

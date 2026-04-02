@@ -2,7 +2,7 @@
 // Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
 // License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-import { Component, onWillStart } from "@odoo/owl";
+import { Component, onWillStart, onMounted, onWillUnmount } from "@odoo/owl";
 import { Dialog } from "@web/core/dialog/dialog";
 import { ListController } from "@web/views/list/list_controller";
 import { patch } from "@web/core/utils/patch";
@@ -43,6 +43,19 @@ patch(ListController.prototype, {
         this.dialogService = useService("dialog");
         this.claudeTerminalUrl = "";
         this.claudeOdooConfig = null;
+
+        // ── Bus listener: reload list when Claude sends refresh ──
+        this._onClaudeRefresh = ({ detail }) => {
+            if (!detail.model || detail.model === this.props.resModel) {
+                this.model.root.load();
+            }
+        };
+        onMounted(() => {
+            this.env.bus.addEventListener("CLAUDE_REFRESH", this._onClaudeRefresh);
+        });
+        onWillUnmount(() => {
+            this.env.bus.removeEventListener("CLAUDE_REFRESH", this._onClaudeRefresh);
+        });
 
         onWillStart(async () => {
             try {

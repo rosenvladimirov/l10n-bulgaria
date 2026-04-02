@@ -2,7 +2,7 @@
 // Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
 // License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-import { Component, useState, useRef, onMounted } from "@odoo/owl";
+import { Component, useState, useRef, onMounted, onWillUnmount } from "@odoo/owl";
 import { Chatter } from "@mail/chatter/web_portal/chatter";
 import { patch } from "@web/core/utils/patch";
 
@@ -61,6 +61,22 @@ patch(Chatter.prototype, {
     setup() {
         super.setup(...arguments);
         this.claudeTerminal = useState({ open: false, url: "", odooConfig: null });
+
+        // ── Bus listener: reload form record when Claude sends refresh ──
+        this._onClaudeRefresh = ({ detail }) => {
+            const model = this.props.threadModel;
+            if (!detail.model || detail.model === model) {
+                if (this.props.webRecord) {
+                    this.props.webRecord.load();
+                }
+            }
+        };
+        onMounted(() => {
+            this.env.bus.addEventListener("CLAUDE_REFRESH", this._onClaudeRefresh);
+        });
+        onWillUnmount(() => {
+            this.env.bus.removeEventListener("CLAUDE_REFRESH", this._onClaudeRefresh);
+        });
 
         // Load current user's MCP config via RPC
         fetch("/web/dataset/call_kw", {

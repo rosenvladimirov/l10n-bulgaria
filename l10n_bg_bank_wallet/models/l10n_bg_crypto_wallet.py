@@ -168,22 +168,15 @@ class CryptoWallet(models.Model):
     master_password = fields.Char('Master password', store=False)
     decrypted_keys = fields.Text(store=False, readonly=True)
 
-    _crypto_manager = None
-    _filesystem_manager = None
-
     @property
     def crypto_manager(self):
-        """Lazy initialization of crypto manager"""
-        if not hasattr(self, '_crypto_manager') or not self._crypto_manager:
-            self._crypto_manager = CryptographyManager()
-        return self._crypto_manager
+        """Return a CryptographyManager instance"""
+        return CryptographyManager()
 
     @property
     def filesystem_manager(self):
-        """Lazy initialization of filesystem manager"""
-        if not self._filesystem_manager:
-            self._filesystem_manager = FileSystemManager(self.env)
-        return self._filesystem_manager
+        """Return a FileSystemManager instance"""
+        return FileSystemManager(self.env)
 
     # === PERMISSION AND ACCESS CONTROL ===
     def _check_permission_level(self, permission_level):

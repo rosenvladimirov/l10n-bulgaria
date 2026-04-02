@@ -410,13 +410,28 @@ class ResCompany(models.Model):
         self.ensure_one()
         provider = self.env["nra.api.provider"]
         try:
-            provider._obtain_access_token(self)
+            if self.l10n_bg_nra_auth_mode == "direct_token":
+                token = provider._get_access_token(self)
+                if not token:
+                    raise UserError(
+                        _("Direct token not found or expired. "
+                          "Please provide a new JWT token via "
+                          "Settings → NRA API → Set API Credentials.")
+                    )
+                expiry = self.l10n_bg_nra_token_expiry
+                msg = _(
+                    "Token is valid. Expires: %s",
+                    fields.Datetime.to_string(expiry) if expiry else "N/A",
+                )
+            else:
+                provider._obtain_access_token(self)
+                msg = _("Connection successful! Token obtained.")
             return {
                 "type": "ir.actions.client",
                 "tag": "display_notification",
                 "params": {
                     "title": _("NRA API Connection"),
-                    "message": _("Connection successful! Token obtained."),
+                    "message": msg,
                     "type": "success",
                     "sticky": False,
                 },

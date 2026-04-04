@@ -5,14 +5,22 @@
 import { registry } from "@web/core/registry";
 
 /**
- * Listens for "claude_terminal/refresh" bus notifications and reloads
- * the current view. Works with list, form, kanban — any view backed
- * by RelationalModel.
+ * Listens for Claude terminal bus notifications and forwards them as
+ * env.bus events so patched controllers can react.
  *
- * Flow:
- *   Claude (MCP) → odoo_refresh tool → bus.bus._sendone() →
- *   WebSocket → this service → env.bus "CLAUDE_REFRESH" →
- *   patched controllers call model.root.load()
+ * Supported channels:
+ *   - claude_terminal/refresh         → CLAUDE_REFRESH
+ *       Full record/list reload (fired by odoo_refresh MCP tool).
+ *
+ *   - claude_terminal/refresh_field   → CLAUDE_REFRESH_FIELD
+ *       Field-level live update (fired after MCP odoo_write).
+ *       Patched FormController reloads the record and flashes the
+ *       changed fields when model + res_id match.
+ *
+ *   - claude_terminal/refresh_list    → CLAUDE_REFRESH_LIST
+ *       New row live notification (fired after MCP odoo_create).
+ *       Patched ListController reloads the list and highlights the
+ *       new row when model matches.
  */
 const claudeRefreshService = {
     dependencies: ["bus_service"],
@@ -20,6 +28,12 @@ const claudeRefreshService = {
     start(env, { bus_service }) {
         bus_service.subscribe("claude_terminal/refresh", (payload) => {
             env.bus.trigger("CLAUDE_REFRESH", payload);
+        });
+        bus_service.subscribe("claude_terminal/refresh_field", (payload) => {
+            env.bus.trigger("CLAUDE_REFRESH_FIELD", payload);
+        });
+        bus_service.subscribe("claude_terminal/refresh_list", (payload) => {
+            env.bus.trigger("CLAUDE_REFRESH_LIST", payload);
         });
     },
 };

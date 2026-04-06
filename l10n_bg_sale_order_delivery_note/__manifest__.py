@@ -4,7 +4,7 @@
 
 {
     'name': 'Bulgarian Sale Order Delivery Note',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.1.0',
     'category': 'Sales/Bulgaria',
     'summary': 'Generate Accepted Delivery Report for Bulgarian Sale Orders',
     'description': """
@@ -28,6 +28,7 @@
     'depends': [
         'sale',
         'l10n_bg_report_theme',
+        'base_comment_template',
     ],
     'data': [
         'report/ir_action_report_templates.xml',

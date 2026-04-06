@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+<t t-inherit="mail.Chatter" t-inherit-mode="extension">
+
+    <!-- 1. Button in topbar (same row as Send message / Log note) -->
+    <xpath expr="//button[hasclass('o-mail-Chatter-logNote')]" position="after">
+        <button class="btn btn-secondary text-nowrap me-1"
+                t-att-class="{ 'active': claudeTerminal.open, 'my-2': !props.compactHeight }"
+                t-on-click="toggleClaudeTerminal">
+            Claude
+        </button>
+    </xpath>
+
+    <!-- 2. Panel replaces Chatter-content when open -->
+    <xpath expr="//div[hasclass('o-mail-Chatter-content')]" position="before">
+        <div t-if="claudeTerminal.open" class="d-flex flex-column flex-grow-1 position-relative d-print-none">
+            <ClaudeTerminalPanel t-if="claudeTerminal.url"
+                url="claudeTerminal.url"
+                model="props.threadModel"
+                resId="props.threadId"
+                odooConfig="claudeTerminal.odooConfig"/>
+            <div t-else="" class="ct-panel flex-grow-1">
+                <div class="ct-error">
+                    <i class="fa fa-cog"/>
+                    <p>Configure terminal URL in Settings → Preferences → Claude Terminal</p>
+                </div>
+            </div>
+        </div>
+    </xpath>
+
+    <!-- 3. Hide messages when terminal is open -->
+    <xpath expr="//div[hasclass('o-mail-Chatter-content')]" position="attributes">
+        <attribute name="t-att-class">{ 'd-none': claudeTerminal.open }</attribute>
+    </xpath>
+
+</t>
+
+<!-- Terminal iframe panel -->
+<t t-name="l10n_bg_claude_terminal.TerminalPanel">
+    <div t-att-class="'ct-panel' + (state.expanded ? ' ct-panel-expanded' : '')">
+        <!-- Header bar -->
+        <div class="ct-header">
+            <i class="fa fa-terminal ct-header-icon"/>
+            <span class="ct-header-title">Claude Terminal</span>
+            <span class="ct-header-ctx">
+                <span class="ct-ctx-model"><t t-esc="props.model"/></span>
+                <span class="ct-ctx-sep">/</span>
+                <span class="ct-ctx-id"><t t-esc="props.resId"/></span>
+            </span>
+            <span t-att-class="'ct-status ct-status-' + state.status"/>
+            <div class="ct-toolbar">
+                <button class="ct-icon-btn" t-on-click="reload" title="Reload">
+                    <i class="fa fa-refresh"/>
+                </button>
+                <button class="ct-icon-btn" t-on-click="toggleExpand"
+                        t-att-title="state.expanded ? 'Collapse' : 'Expand'">
+                    <i t-att-class="state.expanded ? 'fa fa-compress' : 'fa fa-expand'"/>
+                </button>
+                <button class="ct-icon-btn" t-on-click="openNewTab" title="Open in new tab">
+                    <i class="fa fa-external-link"/>
+                </button>
+            </div>
+        </div>
+
+        <!-- iframe -->
+        <div class="ct-iframe-container">
+            <iframe t-ref="iframe"
+                    t-att-src="iframeSrc"
+                    class="ct-iframe"
+                    sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                    allow="clipboard-read; clipboard-write"/>
+            <div t-if="state.status === 'loading'" class="ct-loader">
+                <i class="fa fa-spinner fa-spin fa-2x"/>
+            </div>
+            <div t-if="state.status === 'error'" class="ct-error">
+                <i class="fa fa-exclamation-triangle"/>
+                <p>Cannot connect to terminal server.</p>
+                <p class="ct-error-hint">
+                    Check that Docker is running:<br/>
+                    <code>docker compose up -d</code>
+                </p>
+            </div>
+        </div>
+    </div>
+</t>
+
+</templates>

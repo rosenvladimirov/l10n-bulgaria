@@ -10,6 +10,25 @@
                 <t t-set="name_label">Accepted delivery report  #</t>
             </t>
         </xpath>
+        <!-- Top comments (before lines) -->
+        <xpath expr="//table[@id='main_table']" position="before">
+            <t t-if="is_delivery">
+                <t t-foreach="doc.comment_template_ids.filtered(lambda x: x.position == 'before_lines')"
+                   t-as="comment_template_top">
+                    <div class="mt-3" t-out="doc.render_comment(comment_template_top)"/>
+                </t>
+            </t>
+        </xpath>
+
+        <!-- Bottom comments (after lines) -->
+        <xpath expr="//div[@name='so_total_summary']" position="after">
+            <t t-if="is_delivery">
+                <t t-foreach="doc.comment_template_ids.filtered(lambda x: x.position == 'after_lines')"
+                   t-as="comment_template_bottom">
+                    <div class="mt-3" t-out="doc.render_comment(comment_template_bottom)"/>
+                </t>
+            </t>
+        </xpath>
     </template>
     <template id="report_saleorder_delivery_note">
         <t t-call="web.html_container">

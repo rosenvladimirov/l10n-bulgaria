@@ -10,12 +10,8 @@
                 <field name="l10n_bg_economic_activity_id" options="{'no_create_edit': True}"/>
             </field>
 
-            <!-- Rename NCOP Information tab to Обобщение and add KID info -->
-            <xpath expr="//page[@name='ncop_info_page']" position="attributes">
-                <attribute name="string">Обобщение</attribute>
-            </xpath>
-
-            <xpath expr="//page[@name='ncop_info_page']" position="inside">
+            <!-- Добавяне на КИД информация в job_description_page -->
+            <page name="job_description_page" position="inside">
                 <group string="Икономическа дейност (КИД)">
                     <group>
                         <field name="l10n_bg_economic_activity_id" readonly="1" string="КИД"/>
@@ -26,7 +22,7 @@
                         <field name="l10n_bg_education_level" string="Образователно ниво"/>
                     </group>
                 </group>
-            </xpath>
+            </page>
         </field>
     </record>
 </odoo>

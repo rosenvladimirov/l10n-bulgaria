@@ -45,15 +45,75 @@ class HrVersion(models.Model):
     l10n_bg_qualification_group = fields.Many2one(
         'bg.hr.payroll.ncop.classification',
         string='Qualification Group (NKPD)',
-        help='Professional qualification according to NKPD nomenclature'
+        compute='_compute_l10n_bg_qualification_group',
+        store=True,
+        readonly=False,
+        help='Professional qualification according to NKPD nomenclature. '
+             'Auto-populated from the selected job position '
+             '(hr.job.l10n_bg_ncop_position_id) but can be manually '
+             'overridden.'
     )
 
     l10n_bg_economic_activity_id = fields.Many2one(
         'bg.hr.payroll.economic.activity',
         string='Economic Activity (KID)',
+        compute='_compute_l10n_bg_economic_activity_id',
+        store=True,
+        readonly=False,
         default=lambda self: self.env.company.l10n_bg_economic_activity_id,
-        help='Economic activity according to KID 2008'
+        help='Economic activity according to KID 2008. Auto-populated '
+             'from the selected job or company but can be overridden.'
     )
+
+    @api.depends('job_id', 'job_id.l10n_bg_ncop_position_id')
+    def _compute_l10n_bg_qualification_group(self):
+        """Always mirrors the job's NKPD when job changes."""
+        for version in self:
+            if version.job_id and version.job_id.l10n_bg_ncop_position_id:
+                version.l10n_bg_qualification_group = (
+                    version.job_id.l10n_bg_ncop_position_id
+                )
+
+    @api.depends('job_id', 'job_id.l10n_bg_economic_activity_id', 'company_id')
+    def _compute_l10n_bg_economic_activity_id(self):
+        """Mirrors the job's КИД, falls back to company default."""
+        for version in self:
+            job_kid = (version.job_id.l10n_bg_economic_activity_id
+                       if version.job_id else False)
+            if job_kid:
+                version.l10n_bg_economic_activity_id = job_kid
+            elif (not version.l10n_bg_economic_activity_id
+                  and version.company_id
+                  and version.company_id.l10n_bg_economic_activity_id):
+                version.l10n_bg_economic_activity_id = (
+                    version.company_id.l10n_bg_economic_activity_id
+                )
+
+    def action_refresh_nkpd_kid(self):
+        """Refresh НКПД and КИД from current job position."""
+        for version in self:
+            job = version.job_id
+            if not job:
+                continue
+            vals = {}
+            if job.l10n_bg_ncop_position_id:
+                vals['l10n_bg_qualification_group'] = job.l10n_bg_ncop_position_id.id
+            if job.l10n_bg_economic_activity_id:
+                vals['l10n_bg_economic_activity_id'] = job.l10n_bg_economic_activity_id.id
+            if vals:
+                version.write(vals)
+
+    @api.onchange('job_id')
+    def _onchange_job_id_propagate_nkpd(self):
+        """Instant UI feedback when user changes job in the form."""
+        if self.job_id and self.job_id.l10n_bg_ncop_position_id:
+            self.l10n_bg_qualification_group = (
+                self.job_id.l10n_bg_ncop_position_id
+            )
+        if self.job_id and self.job_id.l10n_bg_economic_activity_id:
+            self.l10n_bg_economic_activity_id = (
+                self.job_id.l10n_bg_economic_activity_id
+            )
 
     l10n_bg_economic_activity_code = fields.Char(
         string='Economic Activity Code',

@@ -14,20 +14,22 @@
                            placeholder="Изберете НКПД позиция..."/>
                 </field>
 
-                <!-- Добавяне на нов таб за НКПД информация -->
-                <page name="job_description_page" position="after">
-                    <page string="NCOP Information" name="ncop_info_page">
-                        <group>
-                            <group name="ncop_basic_info">
-                                <field name="l10n_bg_ncop_position_id" readonly="1"/>
-                            </group>
+                <!-- Направи job_description_page видим и добави НКПД информация -->
+                <page name="job_description_page" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="string">Обобщение</attribute>
+                </page>
+
+                <page name="job_description_page" position="inside">
+                    <group>
+                        <group name="ncop_basic_info">
+                            <field name="l10n_bg_ncop_position_id" readonly="1"/>
                         </group>
-                        <separator string="Hierarchy and requirements"/>
-                        <field name="description"
-                               widget="html"
-                               readonly="1"
-                               placeholder="Select an NCOP position to view the hierarchy and requirements..."/>
-                    </page>
+                    </group>
+                    <separator string="Hierarchy and requirements"/>
+                    <field name="l10n_bg_ncop_description_html"
+                           nolabel="1"
+                           readonly="1"/>
                 </page>
             </field>
         </record>

@@ -10,16 +10,21 @@
                 <field name="l10n_bg_economic_activity_id" options="{'no_create_edit': True}"/>
             </field>
 
-            <!-- Добавяне на КИД информация в job_description_page -->
+            <!-- Линкове към КИД, НКПД и фирмата в Summary таба -->
             <page name="job_description_page" position="inside">
-                <group string="Economic Activity (KID)">
+                <separator string="Related Records"/>
+                <group>
                     <group>
-                        <field name="l10n_bg_economic_activity_id" readonly="1" string="KID"/>
-                        <field name="company_id" readonly="1" string="Company"/>
+                        <field name="l10n_bg_ncop_position_id" string="NCOP Position"
+                               readonly="1" options="{'no_open': False}"/>
+                        <field name="l10n_bg_economic_activity_id" string="Economic Activity (KID)"
+                               readonly="1" options="{'no_open': False}"/>
                     </group>
                     <group>
                         <field name="l10n_bg_qualification_group" string="Qualification Group"/>
                         <field name="l10n_bg_education_level" string="Education Level"/>
+                        <field name="company_id" string="Company"
+                               readonly="1" options="{'no_open': False}"/>
                     </group>
                 </group>
             </page>

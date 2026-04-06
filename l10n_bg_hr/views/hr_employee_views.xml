@@ -22,32 +22,6 @@
         </field>
     </record>
 
-    <!-- НКПД / НКИД група в Payroll таба -->
-    <record id="view_employee_form_nkpd_kid" model="ir.ui.view">
-        <field name="name">hr.employee.form.nkpd.kid</field>
-        <field name="model">hr.employee</field>
-        <field name="inherit_id" ref="hr.view_employee_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//group[@name='contract']" position="after">
-                <group name="bg_position_info" groups="hr.group_hr_user">
-                    <div colspan="2"
-                         class="col-lg-6 w-100 mt-4 mb-3 o_horizontal_separator text-uppercase fw-bolder small d-flex">
-                        <span>НКПД / НКИД</span>
-                        <button name="action_refresh_nkpd_kid"
-                                type="object"
-                                string="Обнови от длъжност"
-                                class="btn btn-link ms-auto text-end lh-1 h-100 p-0"
-                                invisible="not version_id"/>
-                    </div>
-                    <field name="l10n_bg_qualification_group" options="{'no_create_edit': True}"/>
-                    <field name="l10n_bg_economic_activity_id" options="{'no_create_edit': True}"/>
-                    <field name="l10n_bg_economic_activity_code" invisible="1"/>
-                    <field name="l10n_bg_workplace_code"/>
-                </group>
-            </xpath>
-        </field>
-    </record>
-
     <!-- Група в Payroll таба, след Contract Overview — дата, описание, бутон -->
     <record id="view_employee_form_amendment_group" model="ir.ui.view">
         <field name="name">hr.employee.form.amendment.group</field>

@@ -12,14 +12,14 @@
 
             <!-- Добавяне на КИД информация в job_description_page -->
             <page name="job_description_page" position="inside">
-                <group string="Икономическа дейност (КИД)">
+                <group string="Economic Activity (KID)">
                     <group>
-                        <field name="l10n_bg_economic_activity_id" readonly="1" string="КИД"/>
-                        <field name="company_id" readonly="1" string="Фирма"/>
+                        <field name="l10n_bg_economic_activity_id" readonly="1" string="KID"/>
+                        <field name="company_id" readonly="1" string="Company"/>
                     </group>
                     <group>
-                        <field name="l10n_bg_qualification_group" string="Квалификационна група"/>
-                        <field name="l10n_bg_education_level" string="Образователно ниво"/>
+                        <field name="l10n_bg_qualification_group" string="Qualification Group"/>
+                        <field name="l10n_bg_education_level" string="Education Level"/>
                     </group>
                 </group>
             </page>

@@ -25,10 +25,10 @@
                     <group>
                         <div colspan="2"
                              class="col-lg-6 w-100 mt-4 mb-3 o_horizontal_separator text-uppercase fw-bolder small d-flex">
-                            <span>НКПД / НКИД</span>
+                            <span>NKPD / KID</span>
                             <button name="action_refresh_nkpd_kid"
                                     type="object"
-                                    string="Обнови от длъжност"
+                                    string="Refresh from Job Position"
                                     class="btn btn-link ms-auto text-end lh-1 h-100 p-0"
                                     invisible="not job_id"/>
                         </div>

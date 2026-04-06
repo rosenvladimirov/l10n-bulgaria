@@ -11,13 +11,13 @@
                 <field name="department_id" position="after">
                     <field name="l10n_bg_ncop_position_id"
                            options="{'no_create': True, 'no_create_edit': True}"
-                           placeholder="Изберете НКПД позиция..."/>
+                           placeholder="Select NCOP position..."/>
                 </field>
 
                 <!-- Направи job_description_page видим и добави НКПД информация -->
                 <page name="job_description_page" position="attributes">
                     <attribute name="invisible">0</attribute>
-                    <attribute name="string">Обобщение</attribute>
+                    <attribute name="string">Summary</attribute>
                 </page>
 
                 <page name="job_description_page" position="inside">
@@ -53,7 +53,7 @@
             <field name="inherit_id" ref="hr.view_job_filter"/>
             <field name="arch" type="xml">
                 <field name="department_id" position="after">
-                    <field name="l10n_bg_ncop_position_id" string="НКПД Позиция"/>
+                    <field name="l10n_bg_ncop_position_id" string="NCOP Position"/>
                 </field>
 
                 <filter name="employment_type" position="after">

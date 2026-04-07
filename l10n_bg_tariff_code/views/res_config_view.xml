@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="account.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//block[@name='default_taxes_setting_container']" position="after">
-                <block title="TARIC Integration" name="taric_integration_container">
+                <block title="TARIC Integration" name="l10n_bg_taric_integration_container">
                     <setting help="Configure access to download from EU TARIC system" name="l10n_bg_taric_setting">
                         <field name="l10n_bg_taric_api_enabled"/>
                         <field name="l10n_bg_auto_download"/>

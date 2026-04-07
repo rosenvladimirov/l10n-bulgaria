@@ -4,6 +4,7 @@ from . import ir_module
 from . import chart_template
 from . import l10n_bg_config_mixin
 from . import account_move
+from . import account_move_line
 from . import res_config
 from . import res_partner
 from . import res_company

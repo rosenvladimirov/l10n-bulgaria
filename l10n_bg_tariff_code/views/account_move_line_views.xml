@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="account.view_move_line_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='information']" position="inside">
-                <group string="Tariff Code (CN/HS/Intrastat)" name="tariff_rate">
+                <group string="Tariff Code (CN/HS/Intrastat)" name="l10n_bg_tariff_rate">
                     <group>
                         <field name="l10n_bg_tariff_code"
                                widget="char"

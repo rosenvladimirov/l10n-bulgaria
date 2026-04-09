@@ -1,5 +1,14 @@
 # Changelog
 
+## 18.0.1.12.0
+
+### Refactor Connection Tests — Bus Notifications
+- Remove `claude.terminal.test.wizard` transient model (no longer needed)
+- `action_test_connections` now sends each result as a separate bus
+  notification via `claude_terminal/notification` channel and returns `False`
+- `terminal_refresh_service.js` subscribes to `claude_terminal/notification`
+  and shows sticky toasts via the Odoo notification service — form stays open
+
 ## 18.0.1.11.1
 
 ### Fix Sticky Notifications Chain

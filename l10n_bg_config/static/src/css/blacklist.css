@@ -1,0 +1,58 @@
+/* BLC Blacklist — sticky warning styling */
+
+.o_notification.l10n_bg_blacklist_warning,
+.o_notification_bar.l10n_bg_blacklist_warning {
+    background-color: #fff3cd !important;
+    border-left: 4px solid #ffc107 !important;
+    color: #664d03 !important;
+    font-weight: 500;
+}
+
+.o_notification.l10n_bg_blacklist_warning .o_notification_close,
+.o_notification_bar.l10n_bg_blacklist_warning .o_notification_close {
+    color: #664d03 !important;
+}
+
+/* Blocking overlay — non-dismissable */
+#l10n-bg-blacklist-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 165, 0, 0.97);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+}
+
+.l10n-bg-blocked-box {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 48px 56px;
+    max-width: 520px;
+    text-align: center;
+    box-shadow: 0 8px 48px rgba(0, 0, 0, 0.25);
+}
+
+.l10n-bg-blocked-icon {
+    font-size: 56px;
+    margin-bottom: 16px;
+}
+
+.l10n-bg-blocked-box h2 {
+    color: #dc3545;
+    font-size: 22px;
+    margin-bottom: 16px;
+}
+
+.l10n-bg-blocked-box p {
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.l10n-bg-blocked-contact {
+    margin-top: 24px;
+    font-size: 14px;
+    color: #555;
+}

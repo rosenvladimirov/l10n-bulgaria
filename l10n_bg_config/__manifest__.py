@@ -159,7 +159,7 @@ This module is essential for:
 automatically installs it if not present. It serves as the configuration
 backbone for the entire Bulgarian localization ecosystem.
     """,
-    "version": "18.0.8.0.5",
+    "version": "18.0.8.1.0",
     # OCA Metadata
     "development_status": 'Production/Stable',
     "category": 'Localization',
@@ -175,7 +175,7 @@ backbone for the entire Bulgarian localization ecosystem.
         "l10n_bg_tariff_code",
     ],
     'external_dependencies': {
-        'python': ['xmltodict'],
+        'python': ['xmltodict', 'cryptography'],
     },
     "data": [
         "data/res_lang_data.xml",
@@ -200,6 +200,7 @@ backbone for the entire Bulgarian localization ecosystem.
     },
     "pre_init_hook": "pre_init_hook",
     'post_init_hook': 'post_init_hook',
+    'post_migrate_hook': 'post_migrate_hook',
     "auto_install": ["l10n_bg"],
 
     'tags': ['localization', 'accounting', 'bulgaria', 'configuration'],

@@ -291,17 +291,19 @@ class ResUsers(models.Model):
             {"title": _("MCP Server"),          "message": mcp_msg,  "status": mcp_status},
             {"title": _("Web Session"),          "message": web_msg,  "status": web_status},
         ]
-        action = {"type": "ir.actions.do_nothing"}
+        action = False
         for n in reversed(notifs):
+            next_action = action
             action = {
                 "type": "ir.actions.client",
                 "tag": "display_notification",
+                "next": next_action,  # root level — Odoo 17+
                 "params": {
                     "title": n["title"],
                     "message": n["message"],
                     "type": notif_type(n["status"]),
                     "sticky": True,
-                    "next": action,
+                    "next": next_action,  # also in params — Odoo 16 compat
                 },
             }
         return action

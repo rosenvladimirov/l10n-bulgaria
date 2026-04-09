@@ -1,7 +1,11 @@
 # Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+import json
+import ssl
+import urllib.request
+
+from odoo import _, api, fields, models
 from odoo.service.db import list_dbs
 
 import logging
@@ -118,6 +122,86 @@ class ResUsers(models.Model):
     @property
     def SELF_WRITEABLE_FIELDS(self):
         return super().SELF_WRITEABLE_FIELDS + self._CLAUDE_FIELDS
+
+    def action_test_connections(self):
+        """Open the connection test wizard for the current user."""
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Test Connections"),
+            "res_model": "claude.terminal.test.wizard",
+            "view_mode": "form",
+            "target": "new",
+        }
+
+    def action_save_to_mcp(self):
+        """Save this Odoo instance connection to the MCP server."""
+        user = self.env.user
+        mcp_url = (getattr(user, "claude_mcp_url", "") or "").rstrip("/")
+        mcp_token = getattr(user, "claude_mcp_token", "") or ""
+        if not mcp_url:
+            return {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "message": _("MCP Server URL is not configured."),
+                    "type": "warning",
+                    "sticky": False,
+                },
+            }
+
+        alias = self.env.cr.dbname
+        payload = json.dumps({
+            "name": user.name,
+            "connections": {
+                alias: {
+                    "url": user.claude_odoo_url or "",
+                    "db": user.claude_odoo_db or alias,
+                    "user": user.login,
+                    "api_key": user.claude_odoo_api_key or "",
+                    "protocol": user.claude_odoo_protocol or "xmlrpc",
+                }
+            },
+        }).encode()
+
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        headers = {
+            "Content-Type": "application/json",
+            "User-Agent": "OdooClaudeTerminal/1.0",
+        }
+        if mcp_token:
+            headers["X-Api-Token"] = mcp_token
+
+        try:
+            req = urllib.request.Request(
+                f"{mcp_url}/api/user/connections",
+                data=payload,
+                headers=headers,
+                method="POST",
+            )
+            with urllib.request.urlopen(req, timeout=15, context=ctx) as resp:
+                result = json.loads(resp.read())
+            count = result.get("count", 0)
+            return {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "message": _("Saved %s connection(s) to MCP server.") % count,
+                    "type": "success",
+                    "sticky": False,
+                },
+            }
+        except Exception as e:
+            return {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "message": _("MCP save failed: %s") % str(e)[:200],
+                    "type": "danger",
+                    "sticky": True,
+                },
+            }
 
     @api.model
     def get_claude_terminal_url(self):

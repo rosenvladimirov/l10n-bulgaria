@@ -5,6 +5,7 @@
 import { Component, useState, useRef, onMounted, onWillUnmount } from "@odoo/owl";
 import { Chatter } from "@mail/chatter/web_portal/chatter";
 import { patch } from "@web/core/utils/patch";
+import { buildExternalTerminalUrl } from "./terminal_utils";
 
 // ── Terminal iframe panel ──────────────────────────────────────────
 
@@ -15,6 +16,8 @@ export class ClaudeTerminalPanel extends Component {
         model: { type: String },
         resId: { type: [Number, Boolean], optional: true },
         odooConfig: { type: Object, optional: true },
+        useExternal: { type: Boolean, optional: true },
+        apiKey: { type: String, optional: true },
     };
 
     setup() {
@@ -31,6 +34,14 @@ export class ClaudeTerminalPanel extends Component {
     }
 
     get iframeSrc() {
+        if (this.props.useExternal) {
+            // External Docker terminal — with API_KEY auth
+            return buildExternalTerminalUrl(
+                this.props.url, this.props.odooConfig,
+                this.props.apiKey || "", this.props.model, this.props.resId,
+            );
+        }
+        // Local host terminal — old format, no API_KEY
         const base = this.props.url.replace(/\/+$/, "");
         const odoo = this.props.odooConfig || {};
         const params = new URLSearchParams();
@@ -60,7 +71,10 @@ Object.assign(Chatter.components, { ClaudeTerminalPanel });
 patch(Chatter.prototype, {
     setup() {
         super.setup(...arguments);
-        this.claudeTerminal = useState({ open: false, url: "", odooConfig: null });
+        this.claudeTerminal = useState({
+            open: false, url: "", odooConfig: null,
+            useExternal: false, apiKey: "",
+        });
 
         // ── Bus listener: reload form record when Claude sends refresh ──
         this._onClaudeRefresh = ({ detail }) => {
@@ -97,6 +111,8 @@ patch(Chatter.prototype, {
                 if (d.result) {
                     this.claudeTerminal.url = d.result.terminal_url || "";
                     this.claudeTerminal.odooConfig = d.result.odoo || null;
+                    this.claudeTerminal.useExternal = d.result.use_external || false;
+                    this.claudeTerminal.apiKey = d.result.api_key || "";
                 }
             })
             .catch(() => {});

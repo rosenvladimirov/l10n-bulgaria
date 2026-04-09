@@ -1,5 +1,19 @@
 # Changelog
 
+## 19.0.1.10.0
+
+### Test Connections Wizard
+- New `claude.terminal.test.wizard` TransientModel — tests all three connection
+  types (Odoo RPC, MCP Server, Web Session) and shows color-coded badge results:
+  green (OK), yellow (Warning), red (Error)
+- New button **Test Connections** in user preferences (opens the wizard dialog)
+
+### Save to MCP Button
+- New button **Save to MCP** in user preferences — POSTs the current Odoo
+  instance connection config (`url`, `db`, `user`, `api_key`, `protocol`) to
+  `{mcp_url}/api/user/connections` with `X-Api-Token` authentication
+- Displays a success or error notification after the operation
+
 ## 19.0.1.9.0
 
 ### Odoo RPC API Key

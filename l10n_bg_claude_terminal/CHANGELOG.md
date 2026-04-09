@@ -1,5 +1,18 @@
 # Changelog
 
+## 19.0.1.13.0
+
+### Port claude_theme, Web Session and MCP Server from v18
+- New field `claude_theme` (Selection) — terminal color theme, default `github`
+- New fields `claude_web_url`, `claude_web_db`, `claude_web_login`,
+  `claude_web_password` — Web Session connector configuration
+- New fields `claude_mcp_url`, `claude_mcp_token`, `claude_mcp_client_id`,
+  `claude_mcp_api_key` — MCP Server configuration
+- `_CLAUDE_FIELDS` updated to include all new fields (SELF_READABLE/WRITEABLE)
+- `get_claude_mcp_config()` now returns `theme`, `web_session`, `mcp_server`
+- View: added `claude_theme` to "Claude Terminal" group; added "Web Session"
+  and "MCP Server" groups between "Odoo RPC Connector" and the button row
+
 ## 19.0.1.12.3
 
 ### Inline type mapping in action_test_connections

@@ -35,6 +35,32 @@ class ResUsers(models.Model):
         help="Your Odoo API key for external terminal authentication. "
              "Generate one in Settings → Users → API Keys.",
     )
+    claude_theme = fields.Selection(
+        [
+            ("github", "GitHub (Light)"),
+            ("solarized-light", "Solarized Light"),
+            ("one-half-light", "One Half Light"),
+            ("material-light", "Material Light"),
+            ("pencil-light", "Pencil Light"),
+            ("tomorrow", "Tomorrow"),
+            ("piatto-light", "Piatto Light"),
+            ("violet-light", "Violet Light"),
+            ("novel", "Novel"),
+            ("dracula", "Dracula"),
+            ("solarized-dark", "Solarized Dark"),
+            ("one-half-dark", "One Half Dark"),
+            ("material-dark", "Material Dark"),
+            ("gruvbox-dark", "Gruvbox Dark"),
+            ("pencil-dark", "Pencil Dark"),
+            ("tomorrow-night", "Tomorrow Night"),
+            ("atom", "Atom"),
+            ("monokai", "Monokai"),
+            ("violet-dark", "Violet Dark"),
+        ],
+        string="Terminal Theme",
+        default="github",
+        help="Color theme for the Claude Terminal.",
+    )
 
     # ── Odoo RPC Connector ──
     claude_odoo_url = fields.Char(
@@ -100,10 +126,48 @@ class ResUsers(models.Model):
         help="Public HTTPS URL for Viber webhook (e.g. https://yourdomain.com/viber/webhook)",
     )
 
+    # ── Web Session ──
+    claude_web_url = fields.Char(
+        "Web Session URL",
+        help="URL for web session authentication (e.g. https://www.odoo.com)",
+    )
+    claude_web_db = fields.Char(
+        "Web Session DB",
+        help="Database name for web session (e.g. openerp). Leave empty to auto-detect.",
+    )
+    claude_web_login = fields.Char(
+        "Web Session Login",
+        help="Login (email) for web session authentication.",
+    )
+    claude_web_password = fields.Char(
+        "Web Session Password",
+        help="Password for web session authentication.",
+    )
+
+    # ── MCP Server ──
+    claude_mcp_url = fields.Char(
+        "MCP Server URL",
+        help="URL of the MCP server (e.g. https://mcp.odoo-shell.space)",
+        default="https://mcp.odoo-shell.space",
+    )
+    claude_mcp_token = fields.Char(
+        "MCP API Token",
+        help="API token for MCP server authentication (X-Api-Token header).",
+    )
+    claude_mcp_client_id = fields.Char(
+        "MCP OAuth Client ID",
+        help="OAuth 2.0 client ID for MCP server (optional).",
+    )
+    claude_mcp_api_key = fields.Char(
+        "MCP API Key",
+        help="Alternative API key for MCP server (optional).",
+    )
+
     _CLAUDE_FIELDS = [
         "claude_terminal_url",
         "claude_use_external_terminal",
         "claude_api_key",
+        "claude_theme",
         "claude_odoo_url",
         "claude_odoo_db",
         "claude_odoo_protocol",
@@ -112,6 +176,14 @@ class ResUsers(models.Model):
         "claude_telegram_api_hash",
         "claude_telegram_phone",
         "claude_telegram_session",
+        "claude_web_url",
+        "claude_web_db",
+        "claude_web_login",
+        "claude_web_password",
+        "claude_mcp_url",
+        "claude_mcp_token",
+        "claude_mcp_client_id",
+        "claude_mcp_api_key",
         "claude_viber_bot_token",
         "claude_viber_bot_name",
         "claude_viber_webhook_url",
@@ -372,6 +444,7 @@ class ResUsers(models.Model):
             "terminal_url": user.claude_terminal_url or "",
             "use_external": user.claude_use_external_terminal,
             "api_key": user.claude_api_key or "",
+            "theme": user.claude_theme or "github",
             "odoo": {
                 "url": user.claude_odoo_url or "",
                 "db": user.claude_odoo_db or self.env.cr.dbname,
@@ -384,6 +457,18 @@ class ResUsers(models.Model):
                 "api_hash": user.claude_telegram_api_hash or "",
                 "phone": user.claude_telegram_phone or "",
                 "session_name": user.claude_telegram_session or "",
+            },
+            "web_session": {
+                "url": user.claude_web_url or "",
+                "db": user.claude_web_db or "",
+                "login": user.claude_web_login or "",
+                "password": user.claude_web_password or "",
+            },
+            "mcp_server": {
+                "url": user.claude_mcp_url or "",
+                "token": user.claude_mcp_token or "",
+                "client_id": user.claude_mcp_client_id or "",
+                "api_key": user.claude_mcp_api_key or "",
             },
             "viber": {
                 "bot_token": user.claude_viber_bot_token or "",

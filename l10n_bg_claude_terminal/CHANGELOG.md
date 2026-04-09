@@ -1,5 +1,11 @@
 # Changelog
 
+## 19.0.1.12.3
+
+### Inline type mapping in action_test_connections
+- Remove local `def notif_type(status)` helper — inline the dict lookup
+  directly in the `_sendone` payload: `{"ok": "success", ...}.get(n["status"], "info")`
+
 ## 19.0.1.12.2
 
 ### Use bus simple_notification for connection test toasts

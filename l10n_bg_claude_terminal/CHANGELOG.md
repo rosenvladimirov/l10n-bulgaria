@@ -1,5 +1,12 @@
 # Changelog
 
+## 19.0.1.11.1
+
+### Fix Sticky Notifications Chain
+- Move `next` to root level of the action dict (Odoo 17+ style) + keep in
+  `params` for backward compat — fixes chained toasts not appearing
+- Use `False` as terminal instead of `{"type": "ir.actions.do_nothing"}`
+
 ## 19.0.1.11.0
 
 ### Test Connections — Sticky Notifications

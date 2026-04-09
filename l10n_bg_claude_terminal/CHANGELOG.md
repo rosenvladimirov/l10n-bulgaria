@@ -1,5 +1,14 @@
 # Changelog
 
+## 18.0.1.12.1
+
+### Fix Sticky Notifications — Revert to display_notification
+- Replace bus approach with direct `display_notification` chain
+- `next` is inside `params` (confirmed from Odoo JS source: `client_actions.js`
+  reads `params.next` and returns it for dispatch)
+- `False` as terminal — JS treats it as falsy, stops the chain cleanly
+- Remove `claude_terminal/notification` bus subscription from refresh service
+
 ## 18.0.1.12.0
 
 ### Refactor Connection Tests — Bus Notifications

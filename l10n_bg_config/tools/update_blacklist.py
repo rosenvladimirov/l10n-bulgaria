@@ -19,7 +19,7 @@ BLC Blacklist Manager — инструмент за Росен/BLC
     python3 update_blacklist.py --key <KEY> --remove BG123456789
 
     # Задава съобщение
-    python3 update_blacklist.py --key <KEY> --message "Contact support@blc.bg"
+    python3 update_blacklist.py --key <KEY> --message "Contact support@bl-consulting.net"
 
     # Пълен rebuild
     python3 update_blacklist.py --key <KEY> --set BG123 --message "Not licensed"

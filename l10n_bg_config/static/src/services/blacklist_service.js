@@ -37,7 +37,7 @@ const blacklistService = {
                         The application cannot continue until this is resolved.
                     </p>
                     <p class="l10n-bg-blocked-contact">
-                        Contact your system administrator or <strong>support@blc.bg</strong>
+                        Contact your system administrator or <strong>support@bl-consulting.net</strong>
                     </p>
                 </div>`;
             document.body.appendChild(overlay);

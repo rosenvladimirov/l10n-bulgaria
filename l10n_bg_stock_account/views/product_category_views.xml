@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Наследява product.category form view от stock_account.
+         Добавя:
+           - l10n_bg_stock_auto_post флаг
+           - Група с BG auto-post специфични сметки (видима само при auto_post=True)
+    -->
+    <record id="view_category_property_form_l10n_bg" model="ir.ui.view">
+        <field name="name">product.category.form.inherit.l10n_bg_stock_account</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="stock_account.view_category_property_form"/>
+        <field name="arch" type="xml">
+            <!-- Добавяме флага след account_stock_variation_id -->
+            <field name="account_stock_variation_id" position="after">
+                <field name="l10n_bg_stock_auto_post"/>
+                <group string="BG Auto-post Accounts" invisible="not l10n_bg_stock_auto_post" col="2">
+                    <!-- Stock journal: не е в стандартния v19 UI, добавяме го -->
+                    <field name="property_stock_journal"
+                           string="Stock Journal"
+                           options="{'no_create': True}"
+                           required="l10n_bg_stock_auto_post"/>
+                    <!-- Сметка за ценова разлика (+): clearing при invoice > PO -->
+                    <field name="l10n_bg_price_diff_account_id"
+                           string="Price Difference Account (+)"
+                           options="{'no_create': True}"/>
+                    <!-- Сметка за приход от ценова разлика (−): при invoice &lt; PO -->
+                    <field name="l10n_bg_price_diff_income_account_id"
+                           string="Price Difference Income (−)"
+                           options="{'no_create': True}"/>
+                </group>
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,66 @@
+/** @odoo-module **/
+// Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
+// License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
+import { onWillStart, onMounted, onWillUnmount } from "@odoo/owl";
+import { KanbanController } from "@web/views/kanban/kanban_controller";
+import { patch } from "@web/core/utils/patch";
+import { useService } from "@web/core/utils/hooks";
+import { ClaudeTerminalDialog } from "./terminal_listview";
+
+// ── Patch KanbanController: add AI button logic ─────────────────
+// NOTE (v16): KanbanController does not set this.rpc, so we call useService here.
+
+patch(KanbanController.prototype, "l10n_bg_claude_terminal.kanban", {
+    setup() {
+        super.setup(...arguments);
+        this.rpc = useService("rpc");
+        this.dialogService = useService("dialog");
+        this.claudeTerminalUrl = "";
+        this.claudeOdooConfig = null;
+        this.claudeUseExternal = false;
+        this.claudeApiKey = "";
+
+        // ── Bus listener: reload kanban when Claude sends refresh ──
+        this._onClaudeRefresh = ({ detail }) => {
+            if (!detail.model || detail.model === this.props.resModel) {
+                this.model.root.load();
+            }
+        };
+        onMounted(() => {
+            this.env.bus.addEventListener("CLAUDE_REFRESH", this._onClaudeRefresh);
+        });
+        onWillUnmount(() => {
+            this.env.bus.removeEventListener("CLAUDE_REFRESH", this._onClaudeRefresh);
+        });
+
+        onWillStart(async () => {
+            try {
+                const result = await this.rpc("/web/dataset/call_kw", {
+                    model: "res.users",
+                    method: "get_claude_mcp_config",
+                    args: [],
+                    kwargs: {},
+                });
+                if (result) {
+                    this.claudeTerminalUrl = result.terminal_url || "";
+                    this.claudeOdooConfig = result.odoo || null;
+                    this.claudeUseExternal = result.use_external || false;
+                    this.claudeApiKey = result.api_key || "";
+                }
+            } catch {
+                // MCP config not available
+            }
+        });
+    },
+
+    openClaudeTerminal() {
+        this.dialogService.add(ClaudeTerminalDialog, {
+            url: this.claudeTerminalUrl,
+            model: this.props.resModel,
+            odooConfig: this.claudeOdooConfig,
+            useExternal: this.claudeUseExternal,
+            apiKey: this.claudeApiKey,
+        });
+    },
+});

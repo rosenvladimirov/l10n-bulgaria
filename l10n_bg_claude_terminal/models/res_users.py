@@ -1,0 +1,382 @@
+# Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
+import json
+import ssl
+import urllib.request
+
+from odoo import _, api, fields, models
+from odoo.service.db import list_dbs
+
+import logging
+
+_logger = logging.getLogger(__name__)
+
+
+class ResUsers(models.Model):
+    _inherit = "res.users"
+
+    # ── Terminal ──
+    claude_terminal_url = fields.Char(
+        "Claude Terminal URL",
+        help="URL of the terminal-control-mcp web UI (e.g. http://localhost:8080)",
+        default="http://localhost:8080",
+    )
+    claude_use_external_terminal = fields.Boolean(
+        "Use External Terminal",
+        default=False,
+        help="When enabled, opens the terminal in a new browser tab with API key "
+             "authentication instead of the embedded iframe.",
+    )
+    claude_api_key = fields.Char(
+        "API Key",
+        help="Your Odoo API key for external terminal authentication. "
+             "Generate one in Settings → Users → API Keys.",
+    )
+    claude_theme = fields.Selection(
+        [
+            ("github", "GitHub (Light)"),
+            ("solarized-light", "Solarized Light"),
+            ("one-half-light", "One Half Light"),
+            ("material-light", "Material Light"),
+            ("pencil-light", "Pencil Light"),
+            ("tomorrow", "Tomorrow"),
+            ("piatto-light", "Piatto Light"),
+            ("violet-light", "Violet Light"),
+            ("novel", "Novel"),
+            ("dracula", "Dracula"),
+            ("solarized-dark", "Solarized Dark"),
+            ("one-half-dark", "One Half Dark"),
+            ("material-dark", "Material Dark"),
+            ("gruvbox-dark", "Gruvbox Dark"),
+            ("pencil-dark", "Pencil Dark"),
+            ("tomorrow-night", "Tomorrow Night"),
+            ("atom", "Atom"),
+            ("monokai", "Monokai"),
+            ("violet-dark", "Violet Dark"),
+        ],
+        string="Terminal Theme",
+        default="github",
+        help="Color theme for the Claude Terminal.",
+    )
+
+    # ── Odoo RPC Connector ──
+    claude_odoo_url = fields.Char(
+        "Odoo URL",
+        help="Odoo instance URL for RPC connector (e.g. http://localhost:8069)",
+        default="http://localhost:8069",
+    )
+    claude_odoo_db = fields.Selection(
+        selection="_selection_claude_odoo_db",
+        string="Database",
+        help="Odoo database name for RPC connector",
+    )
+    claude_odoo_protocol = fields.Selection(
+        [("xmlrpc", "XML-RPC"), ("jsonrpc", "JSON-RPC")],
+        string="Protocol",
+        default="xmlrpc",
+        help="XML-RPC (Odoo 8+) or JSON-RPC (Odoo 14+)",
+    )
+    claude_odoo_api_key = fields.Char(
+        "Odoo API Key",
+        help="API key for Odoo RPC authentication (Settings → Users → API Keys).",
+    )
+
+    @api.model
+    def _selection_claude_odoo_db(self):
+        try:
+            dbs = list_dbs(force=True)
+            return [(db, db) for db in sorted(dbs)]
+        except Exception:
+            db = self.env.cr.dbname
+            return [(db, db)]
+
+    # ── Telegram MCP ──
+    claude_telegram_api_id = fields.Char(
+        "API ID",
+        help="Telegram API ID from my.telegram.org",
+    )
+    claude_telegram_api_hash = fields.Char(
+        "API Hash",
+        help="Telegram API Hash from my.telegram.org",
+    )
+    claude_telegram_phone = fields.Char(
+        "Phone",
+        help="Phone number with country code (e.g. +359...)",
+    )
+    claude_telegram_session = fields.Char(
+        "Session Name",
+        help="Telegram session name (default: claude_session)",
+        default="claude_session",
+    )
+
+    # ── Web Session ──
+    claude_web_url = fields.Char(
+        "Web Session URL",
+        help="URL for web session authentication (e.g. https://www.odoo.com)",
+    )
+    claude_web_db = fields.Char(
+        "Web Session DB",
+        help="Database name for web session (e.g. openerp). Leave empty to auto-detect.",
+    )
+    claude_web_login = fields.Char(
+        "Web Session Login",
+        help="Login (email) for web session authentication.",
+    )
+    claude_web_password = fields.Char(
+        "Web Session Password",
+        help="Password for web session authentication.",
+    )
+
+    # ── MCP Server ──
+    claude_mcp_url = fields.Char(
+        "MCP Server URL",
+        help="URL of the MCP server (e.g. https://mcp.odoo-shell.space)",
+        default="https://mcp.odoo-shell.space",
+    )
+    claude_mcp_token = fields.Char(
+        "MCP API Token",
+        help="API token for MCP server authentication (X-Api-Token header).",
+    )
+    claude_mcp_client_id = fields.Char(
+        "MCP OAuth Client ID",
+        help="OAuth 2.0 client ID for MCP server (optional).",
+    )
+    claude_mcp_api_key = fields.Char(
+        "MCP API Key",
+        help="Alternative API key for MCP server (optional).",
+    )
+
+    # ── Viber MCP ──
+    claude_viber_bot_token = fields.Char(
+        "Bot Token",
+        help="Viber Bot API token from partners.viber.com",
+    )
+    claude_viber_bot_name = fields.Char(
+        "Bot Name",
+        help="Viber bot display name",
+    )
+    claude_viber_webhook_url = fields.Char(
+        "Webhook URL",
+        help="Public HTTPS URL for Viber webhook (e.g. https://yourdomain.com/viber/webhook)",
+    )
+
+    _CLAUDE_FIELDS = [
+        "claude_terminal_url",
+        "claude_use_external_terminal",
+        "claude_api_key",
+        "claude_theme",
+        "claude_odoo_url",
+        "claude_odoo_db",
+        "claude_odoo_protocol",
+        "claude_odoo_api_key",
+        "claude_telegram_api_id",
+        "claude_telegram_api_hash",
+        "claude_telegram_phone",
+        "claude_telegram_session",
+        "claude_web_url",
+        "claude_web_db",
+        "claude_web_login",
+        "claude_web_password",
+        "claude_mcp_url",
+        "claude_mcp_token",
+        "claude_mcp_client_id",
+        "claude_mcp_api_key",
+        "claude_viber_bot_token",
+        "claude_viber_bot_name",
+        "claude_viber_webhook_url",
+    ]
+
+    @property
+    def SELF_READABLE_FIELDS(self):
+        return super().SELF_READABLE_FIELDS + self._CLAUDE_FIELDS
+
+    @property
+    def SELF_WRITEABLE_FIELDS(self):
+        return super().SELF_WRITEABLE_FIELDS + self._CLAUDE_FIELDS
+
+    def action_test_connections(self):
+        """Open the connection test wizard for the current user."""
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Test Connections"),
+            "res_model": "claude.terminal.test.wizard",
+            "view_mode": "form",
+            "target": "new",
+        }
+
+    def action_save_to_mcp(self):
+        """Save this Odoo instance connection to the MCP server."""
+        user = self.env.user
+        mcp_url = (getattr(user, "claude_mcp_url", "") or "").rstrip("/")
+        mcp_token = getattr(user, "claude_mcp_token", "") or ""
+        if not mcp_url:
+            return {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "message": _("MCP Server URL is not configured."),
+                    "type": "warning",
+                    "sticky": False,
+                },
+            }
+
+        alias = self.env.cr.dbname
+        payload = json.dumps({
+            "name": user.name,
+            "connections": {
+                alias: {
+                    "url": user.claude_odoo_url or "",
+                    "db": user.claude_odoo_db or alias,
+                    "user": user.login,
+                    "api_key": user.claude_odoo_api_key or "",
+                    "protocol": user.claude_odoo_protocol or "xmlrpc",
+                }
+            },
+        }).encode()
+
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        headers = {
+            "Content-Type": "application/json",
+            "User-Agent": "OdooClaudeTerminal/1.0",
+        }
+        if mcp_token:
+            headers["X-Api-Token"] = mcp_token
+
+        try:
+            req = urllib.request.Request(
+                f"{mcp_url}/api/user/connections",
+                data=payload,
+                headers=headers,
+                method="POST",
+            )
+            with urllib.request.urlopen(req, timeout=15, context=ctx) as resp:
+                result = json.loads(resp.read())
+            count = result.get("count", 0)
+            return {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "message": _("Saved %s connection(s) to MCP server.") % count,
+                    "type": "success",
+                    "sticky": False,
+                },
+            }
+        except Exception as e:
+            return {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "message": _("MCP save failed: %s") % str(e)[:200],
+                    "type": "danger",
+                    "sticky": True,
+                },
+            }
+
+    @api.model
+    def get_claude_terminal_url(self):
+        """RPC: return current user's terminal URL."""
+        return self.env.user.claude_terminal_url or ""
+
+    @api.model
+    def notify_claude_refresh(self, payload=None):
+        """Send a bus notification to refresh the user's browser view.
+
+        Called by the MCP server (odoo_refresh tool) after creating/updating
+        records so the Odoo tab auto-reloads.
+        """
+        self.env["bus.bus"]._sendone(
+            self.env.user.partner_id,
+            "claude_terminal/refresh",
+            payload or {},
+        )
+        return True
+
+    @api.model
+    def notify_claude_refresh_field(self, payload=None):
+        """Live field-level refresh: Claude wrote specific fields on a record.
+
+        The MCP server calls this after odoo_write() so the user's open form
+        view can flash and update the specific fields that Claude changed.
+
+        Payload format:
+            {
+                "kind": "field",
+                "model": "sale.order",
+                "res_ids": [123],
+                "values": {"partner_id": 5, "note": "..."},
+                "sessions": [{session_id, model, res_id, view_type}, ...]
+            }
+        """
+        self.env["bus.bus"]._sendone(
+            self.env.user.partner_id,
+            "claude_terminal/refresh_field",
+            payload or {},
+        )
+        return True
+
+    @api.model
+    def notify_claude_refresh_list(self, payload=None):
+        """Live list refresh: Claude created a new record.
+
+        Called after odoo_create() so open list views can highlight the new
+        row without a full reload.
+
+        Payload format:
+            {
+                "kind": "list",
+                "model": "sale.order",
+                "res_ids": [456],
+                "values": {...},
+                "sessions": [...]
+            }
+        """
+        self.env["bus.bus"]._sendone(
+            self.env.user.partner_id,
+            "claude_terminal/refresh_list",
+            payload or {},
+        )
+        return True
+
+    @api.model
+    def get_claude_mcp_config(self):
+        """RPC: return current user's full MCP configuration for the terminal."""
+        user = self.env.user
+        return {
+            "terminal_url": user.claude_terminal_url or "",
+            "use_external": user.claude_use_external_terminal,
+            "api_key": user.claude_api_key or "",
+            "theme": getattr(user, 'claude_theme', False) or "github",
+            "odoo": {
+                "url": user.claude_odoo_url or "",
+                "db": user.claude_odoo_db or self.env.cr.dbname,
+                "username": user.login,
+                "api_key": user.claude_odoo_api_key or "",
+                "protocol": user.claude_odoo_protocol or "xmlrpc",
+            },
+            "telegram": {
+                "api_id": user.claude_telegram_api_id or "",
+                "api_hash": user.claude_telegram_api_hash or "",
+                "phone": user.claude_telegram_phone or "",
+                "session_name": user.claude_telegram_session or "",
+            },
+            "web_session": {
+                "url": getattr(user, 'claude_web_url', False) or "",
+                "db": getattr(user, 'claude_web_db', False) or "",
+                "login": getattr(user, 'claude_web_login', False) or "",
+                "password": getattr(user, 'claude_web_password', False) or "",
+            },
+            "mcp_server": {
+                "url": getattr(user, 'claude_mcp_url', False) or "",
+                "token": getattr(user, 'claude_mcp_token', False) or "",
+                "client_id": getattr(user, 'claude_mcp_client_id', False) or "",
+                "api_key": getattr(user, 'claude_mcp_api_key', False) or "",
+            },
+            "viber": {
+                "bot_token": user.claude_viber_bot_token or "",
+                "bot_name": user.claude_viber_bot_name or "",
+                "webhook_url": user.claude_viber_webhook_url or "",
+            },
+        }

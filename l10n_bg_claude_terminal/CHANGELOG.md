@@ -1,0 +1,30 @@
+# Changelog
+
+## 16.0.1.10.0
+
+### Initial port from v18/v19
+- Full port of `l10n_bg_claude_terminal` to Odoo 16.0
+- Claude Terminal iframe panel in chatter (via ChatterTopbar patch — v16 uses
+  LegacyComponent for Chatter, so we patch ChatterTopbar instead)
+- AI button in list view and kanban view (modal dialog with terminal iframe)
+- Live refresh: bus events `claude_terminal/refresh`, `claude_terminal/refresh_field`,
+  `claude_terminal/refresh_list` forward to `env.bus` via `claude_refresh` service
+- v16 compatibility notes:
+  - `patch()` uses 3-argument form: `patch(obj, "name", { ... })`
+  - Bus service uses `addEventListener('notification', ...)` (no `subscribe()`)
+  - RPC uses `useService("rpc")` (no module-level `rpc` import)
+  - ChatterTopbar is patched instead of Chatter; model/resId accessed via
+    `this.props.record.chatter.thread`; reload via `reloadParentView()`
+
+### Test Connections Wizard
+- `claude.terminal.test.wizard` TransientModel — tests Odoo RPC, MCP Server,
+  Web Session connections with color-coded badge results
+
+### Save to MCP Button
+- **Save to MCP** button in user preferences — POSTs connection config to MCP server
+
+### Per-user configuration fields
+- Claude Terminal URL, External Terminal toggle, API Key
+- Odoo RPC Connector: URL, Database, Protocol, API Key
+- Telegram MCP: API ID, API Hash, Phone, Session Name
+- Viber MCP: Bot Token, Bot Name, Webhook URL

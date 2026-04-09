@@ -1,0 +1,333 @@
+// Claude Terminal — Chatter panel styles
+// Dual theme: adapts to Odoo's light UI with a refined panel look
+
+// ── Variables ────────────────────────────────────────────────
+$ct-bg: #ffffff;
+$ct-bg-header: #f6f6f7;
+$ct-bg-statusbar: #f6f6f7;
+$ct-border: #e4e5e7;
+$ct-text: #1a1a1a;
+$ct-text-dim: #6b7280;
+$ct-text-muted: #9ca3af;
+$ct-accent: #714ba0;
+$ct-accent-light: rgba(113, 75, 160, 0.08);
+$ct-green: #16a34a;
+$ct-yellow: #ca8a04;
+$ct-red: #dc2626;
+$ct-blue: #2563eb;
+$ct-radius: 10px;
+
+// ── Panel ────────────────────────────────────────────────────
+.ct-panel {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background: $ct-bg;
+    border: 1px solid $ct-border;
+    border-radius: $ct-radius;
+    margin: 4px 0;
+    overflow: hidden;
+    animation: ct-slide-in 0.25s ease-out;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+
+    @keyframes ct-slide-in {
+        from { opacity: 0; transform: translateY(-8px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+}
+
+.ct-panel-expanded {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1050;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+}
+
+// ── Header ───────────────────────────────────────────────────
+.ct-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px;
+    background: $ct-bg-header;
+    border-bottom: 1px solid $ct-border;
+    min-height: 42px;
+}
+
+.ct-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.ct-logo {
+    width: 22px;
+    height: 22px;
+    background: $ct-accent;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ct-logo-svg {
+    width: 14px;
+    height: 14px;
+    color: #fff;
+}
+
+.ct-header-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: $ct-text;
+    letter-spacing: -0.2px;
+}
+
+.ct-badge {
+    font-size: 10px;
+    font-weight: 600;
+    color: $ct-accent;
+    background: $ct-accent-light;
+    border: 1px solid rgba(113, 75, 160, 0.15);
+    padding: 1px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+// ── Breadcrumb (model/resId) ────────────────────────────────
+.ct-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    color: $ct-text-dim;
+    margin-left: auto;
+    margin-right: 8px;
+    background: rgba(0, 0, 0, 0.03);
+    padding: 2px 10px;
+    border-radius: 6px;
+}
+
+.ct-breadcrumb-model {
+    color: $ct-accent;
+    font-weight: 500;
+}
+
+.ct-breadcrumb-sep {
+    color: $ct-text-muted;
+}
+
+.ct-breadcrumb-id {
+    color: $ct-text-dim;
+}
+
+// ── Header right (status + buttons) ─────────────────────────
+.ct-header-right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+// ── Status dot ──────────────────────────────────────────────
+.ct-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-right: 4px;
+}
+
+.ct-status-dot-sm {
+    width: 6px;
+    height: 6px;
+}
+
+.ct-status-loading {
+    background: $ct-yellow;
+    box-shadow: 0 0 0 2px rgba($ct-yellow, 0.2);
+    animation: ct-pulse 1.2s ease-in-out infinite;
+    @keyframes ct-pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.4; }
+    }
+}
+
+.ct-status-ready {
+    background: $ct-green;
+    box-shadow: 0 0 0 2px rgba($ct-green, 0.2);
+}
+
+.ct-status-error {
+    background: $ct-red;
+    box-shadow: 0 0 0 2px rgba($ct-red, 0.2);
+}
+
+// ── Icon buttons ────────────────────────────────────────────
+.ct-icon-btn {
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    color: $ct-text-muted;
+    padding: 4px 7px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.15s;
+    line-height: 1;
+
+    &:hover {
+        color: $ct-accent;
+        background: $ct-accent-light;
+        border-color: rgba(113, 75, 160, 0.12);
+    }
+}
+
+// ── iframe container ─────────────────────────────────────────
+.ct-iframe-container {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+}
+
+.ct-iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: $ct-bg;
+}
+
+// ── Loader ──────────────────────────────────────────────────
+.ct-loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $ct-bg;
+    color: $ct-accent;
+}
+
+// ── Error state ─────────────────────────────────────────────
+.ct-error {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: $ct-bg;
+    color: $ct-text-dim;
+    text-align: center;
+    gap: 10px;
+
+    i { font-size: 28px; color: $ct-yellow; }
+    p { margin: 0; font-size: 13px; }
+
+    .ct-error-hint {
+        font-size: 11px;
+        color: $ct-text-muted;
+        code {
+            background: $ct-bg-header;
+            border: 1px solid $ct-border;
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 11px;
+            color: $ct-accent;
+        }
+    }
+}
+
+// ── Status bar (bottom) ─────────────────────────────────────
+.ct-statusbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 14px;
+    background: $ct-bg-statusbar;
+    border-top: 1px solid $ct-border;
+    font-size: 11px;
+    color: $ct-text-muted;
+    min-height: 26px;
+}
+
+.ct-statusbar-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ct-statusbar-sep {
+    width: 1px;
+    height: 12px;
+    background: $ct-border;
+}
+
+.ct-statusbar-model {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 10px;
+    color: $ct-text-dim;
+}
+
+// ── Dialog (list/kanban modal) ──────────────────────────────
+.ct-dialog-content {
+    background: $ct-bg;
+}
+
+.o_dialog .modal-body {
+    position: relative;
+    padding: 0 !important;
+}
+
+.ct-dialog-iframe {
+    display: block;
+    width: 100%;
+    height: 60vh;
+    border: none;
+    background: $ct-bg;
+}
+
+.ct-dialog-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    background: $ct-bg-header;
+    border: 1px solid $ct-border;
+    border-radius: 6px;
+    color: $ct-text-dim;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    transition: all 0.15s;
+
+    &:hover {
+        color: $ct-red;
+        border-color: rgba($ct-red, 0.3);
+        background: rgba($ct-red, 0.05);
+    }
+}
+
+.ct-dialog-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: $ct-text-dim;
+    gap: 10px;
+
+    i { font-size: 24px; }
+    p { margin: 0; font-size: 13px; }
+}

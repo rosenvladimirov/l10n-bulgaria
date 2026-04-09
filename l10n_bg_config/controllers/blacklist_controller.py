@@ -58,7 +58,7 @@ class BlacklistController(http.Controller):
             msg = data.get(
                 'message',
                 f'Company "{company.name}" is not licensed to use BLC modules. '
-                f'Please contact support@blc.bg for licensing information.',
+                f'Please contact support@bl-consulting.net for licensing information.',
             )
             return {
                 'status': 'ok',

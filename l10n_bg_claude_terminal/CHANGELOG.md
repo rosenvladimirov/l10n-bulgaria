@@ -1,5 +1,16 @@
 # Changelog
 
+## 16.0.1.13.1
+
+### Fix Test Connections — switch from bus to display_notification chain
+- Root cause: returning `False` from a button triggers `ir.actions.act_window_close`
+  in `action_service.js` (line 1242: falsy → `{type: "ir.actions.act_window_close"}`)
+  which closes the preferences dialog
+- Fix: return a `display_notification` action chain; chain terminates when the last
+  item has no `next` → `client_actions.js` returns `undefined` → `if (next)` is false
+  → dialog stays open
+- Remove `bus.bus._sendone` loop and `notifs` list; no bus channel needed for this
+
 ## 16.0.1.13.0
 
 ### Port Web Session and MCP Server view groups from v18

@@ -282,24 +282,42 @@ class ResUsers(models.Model):
         else:
             web_status, web_msg = "warn", _("URL, login or password not configured")
 
-        # ── Send each result via bus simple_notification (built-in Odoo handler) ─
-        notifs = [
-            {"title": _("Odoo RPC Connector"), "message": odoo_msg, "status": odoo_status},
-            {"title": _("MCP Server"),          "message": mcp_msg,  "status": mcp_status},
-            {"title": _("Web Session"),          "message": web_msg,  "status": web_status},
-        ]
-        for n in notifs:
-            self.env["bus.bus"]._sendone(
-                self.env.user.partner_id,
-                "simple_notification",
-                {
-                    "title": n["title"],
-                    "message": n["message"],
-                    "type": {"ok": "success", "warn": "warning", "error": "danger"}.get(n["status"], "info"),
-                    "sticky": True,
+        # ── Return display_notification chain ────────────────────────────────────
+        # Returning False would trigger ir.actions.act_window_close (action_service.js:1242)
+        # and close the preferences dialog. Returning a display_notification action
+        # object keeps the dialog open; the chain terminates when the last item has
+        # no "next" key (client_actions.js returns undefined → doAction skips it).
+        T = {"ok": "success", "warn": "warning", "error": "danger"}
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("Odoo RPC Connector"),
+                "message": odoo_msg,
+                "type": T.get(odoo_status, "info"),
+                "sticky": True,
+                "next": {
+                    "type": "ir.actions.client",
+                    "tag": "display_notification",
+                    "params": {
+                        "title": _("MCP Server"),
+                        "message": mcp_msg,
+                        "type": T.get(mcp_status, "info"),
+                        "sticky": True,
+                        "next": {
+                            "type": "ir.actions.client",
+                            "tag": "display_notification",
+                            "params": {
+                                "title": _("Web Session"),
+                                "message": web_msg,
+                                "type": T.get(web_status, "info"),
+                                "sticky": True,
+                            },
+                        },
+                    },
                 },
-            )
-        return False
+            },
+        }
 
     def action_save_to_mcp(self):
         """Save this Odoo instance connection to the MCP server."""

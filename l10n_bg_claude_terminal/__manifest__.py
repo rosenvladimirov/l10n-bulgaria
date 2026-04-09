@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Claude Terminal (Chatter & List View)",
-    "version": "16.0.1.12.2",
+    "version": "16.0.1.12.3",
     "category": "Technical",
     "summary": "Claude Code terminal in chatter, list & kanban view — connects to MCP Docker stack",
     "author": "Rosen Vladimirov, BL Consulting, Odoo Community Association (OCA)",

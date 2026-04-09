@@ -1,5 +1,12 @@
 # Changelog
 
+## 16.0.1.11.0
+
+### Test Connections — Sticky Notifications
+- Replaced modal wizard with 3 chained sticky toast notifications
+- `action_test_connections` runs tests inline; preferences form stays open
+- `urllib.error` and `xmlrpc.client` imports added to `res_users.py`
+
 ## 16.0.1.10.0
 
 ### Initial port from v18/v19

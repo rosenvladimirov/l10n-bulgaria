@@ -1,5 +1,14 @@
 # Changelog
 
+## 18.0.1.11.0
+
+### Test Connections — Sticky Notifications
+- Replaced modal wizard with 3 chained sticky toast notifications (one per
+  connection type: Odoo RPC, MCP Server, Web Session)
+- Preferences form stays open during/after testing
+- `action_test_connections` now runs tests inline (no wizard dialog)
+- Import `urllib.error` and `xmlrpc.client` added to `res_users.py`
+
 ## 18.0.1.10.0
 
 ### Test Connections Wizard

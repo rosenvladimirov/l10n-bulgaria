@@ -4,6 +4,8 @@
 import json
 import ssl
 import urllib.request
+import urllib.error
+import xmlrpc.client
 
 from odoo import _, api, fields, models
 from odoo.service.db import list_dbs
@@ -196,14 +198,113 @@ class ResUsers(models.Model):
         return super().SELF_WRITEABLE_FIELDS + self._CLAUDE_FIELDS
 
     def action_test_connections(self):
-        """Open the connection test wizard for the current user."""
-        return {
-            "type": "ir.actions.act_window",
-            "name": _("Test Connections"),
-            "res_model": "claude.terminal.test.wizard",
-            "view_mode": "form",
-            "target": "new",
-        }
+        """Test all connections and show chained sticky notifications (no dialog)."""
+        user = self.env.user
+
+        def mk_ctx():
+            ctx = ssl.create_default_context()
+            ctx.check_hostname = False
+            ctx.verify_mode = ssl.CERT_NONE
+            return ctx
+
+        def notif_type(status):
+            return {"ok": "success", "warn": "warning", "error": "danger"}.get(status, "info")
+
+        # ── Test Odoo RPC ─────────────────────────────────────────────
+        odoo_url = (user.claude_odoo_url or "").rstrip("/")
+        odoo_db = user.claude_odoo_db or self.env.cr.dbname
+        odoo_api_key = user.claude_odoo_api_key or ""
+        if odoo_url and odoo_api_key:
+            try:
+                common = xmlrpc.client.ServerProxy(
+                    f"{odoo_url}/xmlrpc/2/common", allow_none=True
+                )
+                uid = common.authenticate(odoo_db, user.login, odoo_api_key, {})
+                if uid:
+                    version = common.version().get("server_version", "")
+                    odoo_status, odoo_msg = "ok", _("Connected — UID %s, Odoo %s") % (uid, version)
+                else:
+                    odoo_status, odoo_msg = "error", _("Authentication failed — check DB, login or API key")
+            except Exception as e:
+                odoo_status, odoo_msg = "error", str(e)[:200]
+        else:
+            odoo_status, odoo_msg = "warn", _("URL or API key not configured")
+
+        # ── Test MCP Server ───────────────────────────────────────────
+        mcp_url = (user.claude_mcp_url or "").rstrip("/")
+        mcp_token = user.claude_mcp_token or ""
+        if mcp_url:
+            try:
+                headers = {"User-Agent": "OdooClaudeTerminal/1.0"}
+                if mcp_token:
+                    headers["X-Api-Token"] = mcp_token
+                req = urllib.request.Request(f"{mcp_url}/health", headers=headers)
+                with urllib.request.urlopen(req, timeout=8, context=mk_ctx()) as resp:
+                    body = resp.read(256).decode(errors="replace")
+                    mcp_status, mcp_msg = "ok", _("HTTP %s — %s") % (resp.status, body[:80])
+            except urllib.error.HTTPError as e:
+                if e.code in (401, 403):
+                    mcp_status, mcp_msg = "warn", _("HTTP %s — check MCP token") % e.code
+                else:
+                    mcp_status, mcp_msg = "error", _("HTTP %s") % e.code
+            except Exception as e:
+                mcp_status, mcp_msg = "error", str(e)[:200]
+        else:
+            mcp_status, mcp_msg = "warn", _("MCP Server URL not configured")
+
+        # ── Test Web Session ──────────────────────────────────────────
+        web_url = (user.claude_web_url or "").rstrip("/")
+        web_login = user.claude_web_login or ""
+        web_password = user.claude_web_password or ""
+        web_db = user.claude_web_db or ""
+        if web_url and web_login and web_password:
+            try:
+                payload = json.dumps({
+                    "jsonrpc": "2.0", "method": "call", "id": 1,
+                    "params": {
+                        "login": web_login,
+                        "password": web_password,
+                        **({"db": web_db} if web_db else {}),
+                    },
+                }).encode()
+                req = urllib.request.Request(
+                    f"{web_url}/web/session/authenticate",
+                    data=payload,
+                    headers={"Content-Type": "application/json", "User-Agent": "OdooClaudeTerminal/1.0"},
+                )
+                with urllib.request.urlopen(req, timeout=10, context=mk_ctx()) as resp:
+                    result = json.loads(resp.read())
+                uid = (result.get("result") or {}).get("uid")
+                if uid:
+                    web_status, web_msg = "ok", _("Authenticated — UID %s") % uid
+                else:
+                    err_msg = (result.get("error") or {}).get("data", {}).get("message", "Authentication failed")
+                    web_status, web_msg = "error", err_msg[:200]
+            except Exception as e:
+                web_status, web_msg = "error", str(e)[:200]
+        else:
+            web_status, web_msg = "warn", _("URL, login or password not configured")
+
+        # ── Build chained sticky notifications (3 separate toasts) ────
+        notifs = [
+            {"title": _("Odoo RPC Connector"), "message": odoo_msg, "status": odoo_status},
+            {"title": _("MCP Server"),          "message": mcp_msg,  "status": mcp_status},
+            {"title": _("Web Session"),          "message": web_msg,  "status": web_status},
+        ]
+        action = {"type": "ir.actions.do_nothing"}
+        for n in reversed(notifs):
+            action = {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "title": n["title"],
+                    "message": n["message"],
+                    "type": notif_type(n["status"]),
+                    "sticky": True,
+                    "next": action,
+                },
+            }
+        return action
 
     def action_save_to_mcp(self):
         """Save this Odoo instance connection to the MCP server."""

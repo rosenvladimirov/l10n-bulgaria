@@ -16,6 +16,7 @@
                            password="True"
                            placeholder="Odoo API Key"
                            attrs="{'invisible': [('claude_use_external_terminal', '=', False)]}"/>
+                    <field name="claude_theme"/>
                 </group>
                 <group string="Odoo RPC Connector">
                     <field name="claude_odoo_url"
@@ -25,6 +26,28 @@
                            password="True"
                            placeholder="Odoo API Key"/>
                     <field name="claude_odoo_protocol"/>
+                </group>
+                <group string="Web Session">
+                    <field name="claude_web_url"
+                           placeholder="https://www.odoo.com"/>
+                    <field name="claude_web_db"
+                           placeholder="openerp (auto-detect if empty)"/>
+                    <field name="claude_web_login"
+                           placeholder="user@example.com"/>
+                    <field name="claude_web_password"
+                           password="True"/>
+                </group>
+                <group string="MCP Server">
+                    <field name="claude_mcp_url"
+                           placeholder="https://mcp.odoo-shell.space"/>
+                    <field name="claude_mcp_token"
+                           password="True"
+                           placeholder="MCP API Token"/>
+                    <field name="claude_mcp_client_id"
+                           placeholder="OAuth Client ID (optional)"/>
+                    <field name="claude_mcp_api_key"
+                           password="True"
+                           placeholder="MCP API Key (optional)"/>
                 </group>
                 <div class="o_row mb-2">
                     <button name="action_test_connections"

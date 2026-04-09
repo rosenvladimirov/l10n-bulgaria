@@ -1,5 +1,16 @@
 # Changelog
 
+## 16.0.1.13.0
+
+### Port Web Session and MCP Server view groups from v18
+- View: added `claude_theme` to "Claude Terminal" group
+- View: added "Web Session" group (`claude_web_url`, `claude_web_db`,
+  `claude_web_login`, `claude_web_password`)
+- View: added "MCP Server" group (`claude_mcp_url`, `claude_mcp_token`,
+  `claude_mcp_client_id`, `claude_mcp_api_key`)
+- Groups appear between "Odoo RPC Connector" and the action buttons
+  (model fields were already present since 16.0.1.10.0)
+
 ## 16.0.1.12.3
 
 ### Inline type mapping in action_test_connections

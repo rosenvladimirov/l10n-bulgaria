@@ -174,7 +174,7 @@ backbone for the entire Bulgarian localization ecosystem.
         "l10n_bg",
     ],
     'external_dependencies': {
-        'python': ['xmltodict'],
+        'python': ['xmltodict', 'cryptography'],
     },
     "data": [
         "data/res_lang_data.xml",
@@ -198,7 +198,8 @@ backbone for the entire Bulgarian localization ecosystem.
         ],
     },
     "pre_init_hook": "pre_init_hook",
-    'post_init_hook': 'post_init_hook',
+    "post_init_hook": "post_init_hook",
+    "post_migrate_hook": "post_migrate_hook",
     "auto_install": ["l10n_bg"],
 
     'tags': ['localization', 'accounting', 'bulgaria', 'configuration'],

@@ -49,6 +49,16 @@
                            password="True"
                            placeholder="MCP API Key (optional)"/>
                 </group>
+                <div class="o_row mb-2">
+                    <button name="action_test_connections"
+                            string="Test Connections"
+                            type="object"
+                            class="btn btn-secondary"/>
+                    <button name="action_save_to_mcp"
+                            string="Save to MCP"
+                            type="object"
+                            class="btn btn-primary"/>
+                </div>
                 <group string="Telegram MCP">
                     <field name="claude_telegram_api_id"
                            placeholder="12345678"/>

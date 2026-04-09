@@ -19,7 +19,10 @@
                 url="claudeTerminal.url"
                 model="props.threadModel"
                 resId="props.threadId"
-                odooConfig="claudeTerminal.odooConfig"/>
+                odooConfig="claudeTerminal.odooConfig"
+                useExternal="claudeTerminal.useExternal"
+                apiKey="claudeTerminal.apiKey"
+                theme="claudeTerminal.theme"/>
             <div t-else="" class="ct-panel flex-grow-1">
                 <div class="ct-error">
                     <i class="fa fa-cog"/>
@@ -39,22 +42,31 @@
 <!-- Terminal iframe panel -->
 <t t-name="l10n_bg_claude_terminal.TerminalPanel">
     <div t-att-class="'ct-panel' + (state.expanded ? ' ct-panel-expanded' : '')">
-        <!-- Header bar -->
+
+        <!-- ── Header ── -->
         <div class="ct-header">
-            <i class="fa fa-terminal ct-header-icon"/>
-            <span class="ct-header-title">Claude Terminal</span>
-            <span class="ct-header-ctx">
-                <span class="ct-ctx-model"><t t-esc="props.model"/></span>
-                <span class="ct-ctx-sep">/</span>
-                <span class="ct-ctx-id"><t t-esc="props.resId"/></span>
-            </span>
-            <span t-att-class="'ct-status ct-status-' + state.status"/>
-            <div class="ct-toolbar">
+            <div class="ct-header-left">
+                <div class="ct-logo">
+                    <svg viewBox="0 0 24 24" class="ct-logo-svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm4 0h-2v-6h2v6zm-2-8c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <span class="ct-header-title">Claude</span>
+                <span class="ct-badge">Terminal</span>
+            </div>
+            <div class="ct-breadcrumb">
+                <span class="ct-breadcrumb-model"><t t-esc="props.model"/></span>
+                <span class="ct-breadcrumb-sep">/</span>
+                <span class="ct-breadcrumb-id">#<t t-esc="props.resId"/></span>
+            </div>
+            <div class="ct-header-right">
+                <span t-att-class="'ct-status-dot ct-status-' + state.status"
+                      t-att-title="state.status === 'ready' ? 'Connected' : state.status === 'loading' ? 'Connecting...' : 'Error'"/>
                 <button class="ct-icon-btn" t-on-click="reload" title="Reload">
                     <i class="fa fa-refresh"/>
                 </button>
                 <button class="ct-icon-btn" t-on-click="toggleExpand"
-                        t-att-title="state.expanded ? 'Collapse' : 'Expand'">
+                        t-att-title="state.expanded ? 'Exit fullscreen' : 'Fullscreen'">
                     <i t-att-class="state.expanded ? 'fa fa-compress' : 'fa fa-expand'"/>
                 </button>
                 <button class="ct-icon-btn" t-on-click="openNewTab" title="Open in new tab">
@@ -63,7 +75,7 @@
             </div>
         </div>
 
-        <!-- iframe -->
+        <!-- ── iframe ── -->
         <div class="ct-iframe-container">
             <iframe t-ref="iframe"
                     t-att-src="iframeSrc"
@@ -81,6 +93,20 @@
                     <code>docker compose up -d</code>
                 </p>
             </div>
+        </div>
+
+        <!-- ── Status bar ── -->
+        <div class="ct-statusbar">
+            <span class="ct-statusbar-item">
+                <span t-att-class="'ct-status-dot ct-status-dot-sm ct-status-' + state.status"/>
+                <t t-if="state.status === 'ready'">Connected</t>
+                <t t-elif="state.status === 'loading'">Connecting...</t>
+                <t t-else="">Disconnected</t>
+            </span>
+            <span class="ct-statusbar-sep"/>
+            <span class="ct-statusbar-item ct-statusbar-model">
+                <t t-esc="props.model"/>
+            </span>
         </div>
     </div>
 </t>

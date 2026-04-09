@@ -1,0 +1,78 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Claude Terminal</h2>
+        <h3 class="oe_slogan">AI-powered terminal embedded in Odoo chatter, list &amp; kanban views</h3>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h3>Overview</h3>
+            <p>
+                Integrates <strong>Claude Code CLI</strong> directly into Odoo via an embedded
+                terminal panel. Works with a local Docker ttyd instance or an external
+                multi-user terminal server with API key authentication.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span6">
+            <h3>Features</h3>
+            <ul>
+                <li><strong>Chatter panel</strong> &mdash; Claude button next to Send message / Log note</li>
+                <li><strong>List &amp; Kanban</strong> &mdash; AI button next to New</li>
+                <li><strong>Live refresh</strong> &mdash; field flash (blue) and row highlight (green) when Claude modifies records</li>
+                <li><strong>External terminal</strong> &mdash; switch to multi-user Docker terminal with API key auth</li>
+                <li><strong>Session context</strong> &mdash; auto-passes model, record ID, database to the terminal</li>
+            </ul>
+        </div>
+        <div class="oe_span6">
+            <h3>Terminal Modes</h3>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Mode</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Local (default)</td>
+                    <td>Connects to ttyd on localhost &mdash; no API key needed</td>
+                </tr>
+                <tr>
+                    <td>External</td>
+                    <td>Connects to Docker terminal with Odoo API key auth, per-user workspace</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h3>Configuration</h3>
+            <ol>
+                <li>Go to <strong>Settings &rarr; Users &rarr; Preferences</strong></li>
+                <li>Set <strong>Claude Terminal URL</strong> (e.g. <code>http://localhost:8080</code>)</li>
+                <li>Optional: enable <strong>Use External Terminal</strong> and enter your Odoo API Key</li>
+                <li>Configure Odoo RPC connector (URL, database, protocol)</li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h3>MCP Server Integration</h3>
+            <p>
+                Works with <a href="https://github.com/rosenvladimirov/odoo-claude-mcp">odoo-claude-mcp</a>
+                Docker stack providing 60+ Odoo tools, memory storage, Gmail, Calendar, Telegram,
+                SSH, Git, and Portainer management &mdash; all accessible from Claude Code CLI.
+            </p>
+        </div>
+    </div>
+</section>

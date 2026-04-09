@@ -285,24 +285,27 @@ class ResUsers(models.Model):
         else:
             web_status, web_msg = "warn", _("URL, login or password not configured")
 
-        # ── Send each result as a separate bus notification (toast) ────
+        # ── Build chained display_notification actions (3 separate toasts) ────
+        # next is read from params by the JS action handler (client_actions.js)
         notifs = [
             {"title": _("Odoo RPC Connector"), "message": odoo_msg, "status": odoo_status},
             {"title": _("MCP Server"),          "message": mcp_msg,  "status": mcp_status},
             {"title": _("Web Session"),          "message": web_msg,  "status": web_status},
         ]
-        for n in notifs:
-            self.env["bus.bus"]._sendone(
-                self.env.user.partner_id,
-                "claude_terminal/notification",
-                {
+        action = False
+        for n in reversed(notifs):
+            action = {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
                     "title": n["title"],
                     "message": n["message"],
                     "type": notif_type(n["status"]),
                     "sticky": True,
+                    "next": action,
                 },
-            )
-        return False
+            }
+        return action
 
     def action_save_to_mcp(self):
         """Save this Odoo instance connection to the MCP server."""

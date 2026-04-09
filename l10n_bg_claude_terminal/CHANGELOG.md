@@ -1,5 +1,12 @@
 # Changelog
 
+## 16.0.1.12.1
+
+### Fix Sticky Notifications — Revert to display_notification
+- Replace bus approach with direct `display_notification` chain
+- `next` is inside `params` (confirmed from Odoo JS source: `client_actions.js`)
+- `False` as terminal stops the chain cleanly
+
 ## 16.0.1.12.0
 
 ### Refactor Connection Tests — Bus Notifications

@@ -12,13 +12,14 @@
 
 import { registry } from "@web/core/registry";
 import { browser } from "@web/core/browser/browser";
+import { rpc } from "@web/core/network/rpc";
 
 const CHECK_INTERVAL_MS = 60 * 60 * 1000; // 1 час
 
 const blacklistService = {
-    dependencies: ["notification", "rpc", "bus_service"],
+    dependencies: ["notification", "bus_service"],
 
-    start(env, { notification, rpc, bus_service }) {
+    start(env, { notification, bus_service }) {
         let warningActive = false;
 
         // ── Overlay (блокиращ екран) ──────────────────────────────────────────

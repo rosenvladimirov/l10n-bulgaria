@@ -1,5 +1,24 @@
 # Changelog
 
+## 19.0.1.1.0
+
+- Added `l10n_bg_stock_input_account_id` (Stock Input Account) on `product.category`:
+  transit account credited at goods receipt (e.g. 301), debited when vendor bill is posted.
+  Falls back to `account_stock_variation_id` if not configured.
+- Added `l10n_bg_stock_output_account_id` (Stock Output Account) on `product.category`:
+  COGS/expense account debited when goods are issued (e.g. 702.100).
+- Updated `stock.move._get_account_move_line_vals()`:
+  - Incoming: Dr. stock_valuation (302) / Cr. input_account (301) — replaces old 409 clearing
+  - Outgoing: Dr. output_account (702.100) / Cr. stock_valuation (302) — new outgoing JE
+- Updated `stock.move._should_create_account_move()`: extended to allow JE creation for
+  outgoing moves (`is_out`) in addition to incoming moves
+- Updated `account.move.line._compute_account_id()`: vendor bill lines now use
+  `l10n_bg_stock_input_account_id` (301) with fallback to stock_variation (409)
+- Added smart button on `stock.picking` form showing linked journal entries count;
+  opens form view directly when only one entry exists
+- View: new `stock_picking_views.xml` — smart button in button_box
+- View: `product_category_views.xml` updated — new accounts visible in "BG Auto-post Accounts" group
+
 ## 19.0.1.0.0
 
 - Initial release

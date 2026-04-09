@@ -35,6 +35,8 @@ class AccountMoveLine(models.Model):
             accounts = line.with_company(line.company_id).product_id.product_tmpl_id.get_product_accounts(
                 fiscal_pos=line.move_id.fiscal_position_id
             )
-            stock_variation = accounts.get('stock_variation')
-            if stock_variation:
-                line.account_id = stock_variation
+            categ = line.product_id.categ_id.sudo()
+            # Ползваме input account (301) ако е зададен, иначе fallback към stock_variation (409)
+            transit_acc = categ.l10n_bg_stock_input_account_id or accounts.get('stock_variation')
+            if transit_acc:
+                line.account_id = transit_acc

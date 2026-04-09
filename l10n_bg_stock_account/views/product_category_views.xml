@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Наследява product.category form view от stock_account.
-         Добавя:
-           - l10n_bg_stock_auto_post флаг
-           - Група с BG auto-post специфични сметки (видима само при auto_post=True)
+    <!-- 1/2: Чекбокс вътре в групата "Inventory Valuation" след property_valuation.
+         Inherit от view_category_property_form_stock, защото той съдържа тази група.
+    -->
+    <record id="view_category_property_form_l10n_bg_flag" model="ir.ui.view">
+        <field name="name">product.category.form.inherit.l10n_bg_stock_account.flag</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="stock_account.view_category_property_form_stock"/>
+        <field name="arch" type="xml">
+            <field name="property_valuation" position="after">
+                <field name="l10n_bg_stock_auto_post" string="BG Auto-post Accounting"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- 2/2: BG сметки (видими само при auto_post=True) — СЛЕД групата "Account Properties".
+         Inherit от account.view_account_property_form, защото той съдържа group[@name='account_property'].
     -->
     <record id="view_category_property_form_l10n_bg" model="ir.ui.view">
         <field name="name">product.category.form.inherit.l10n_bg_stock_account</field>
         <field name="model">product.category</field>
-        <field name="inherit_id" ref="stock_account.view_category_property_form"/>
+        <field name="inherit_id" ref="account.view_category_property_form"/>
         <field name="arch" type="xml">
-            <!-- Добавяме флага след account_stock_variation_id -->
-            <field name="account_stock_variation_id" position="after">
-                <field name="l10n_bg_stock_auto_post"/>
-                <group string="BG Auto-post Accounts" invisible="not l10n_bg_stock_auto_post" col="2">
-                    <!-- Stock journal: не е в стандартния v19 UI, добавяме го -->
+            <xpath expr="//group[@name='account_property']" position="inside">
+                <group name="l10n_bg_auto_post_accounts" string="BG Auto-post Accounts" invisible="not l10n_bg_stock_auto_post" col="2">
+                    <!-- Stock journal за auto-post осчетоводяване -->
                     <field name="property_stock_journal"
                            string="Stock Journal"
+                           options="{'no_create': True}"
+                           required="l10n_bg_stock_auto_post"/>
+                    <field name="l10n_bg_stock_input_account_id"
+                           string="Stock Input Account"
+                           options="{'no_create': True}"
+                           required="l10n_bg_stock_auto_post"/>
+                    <field name="l10n_bg_stock_output_account_id"
+                           string="Stock Output Account"
                            options="{'no_create': True}"
                            required="l10n_bg_stock_auto_post"/>
                     <!-- Сметка за ценова разлика (+): clearing при invoice > PO -->
@@ -29,7 +47,7 @@
                            string="Price Difference Income (−)"
                            options="{'no_create': True}"/>
                 </group>
-            </field>
+            </xpath>
         </field>
     </record>
 

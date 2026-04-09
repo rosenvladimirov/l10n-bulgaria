@@ -4,6 +4,29 @@ from odoo import fields, models
 class ProductCategory(models.Model):
     _inherit = 'product.category'
 
+    # Транзитна сметка (напр. 301) — кредитира се при приход на стоката.
+    # Dr. stock_valuation (302) / Cr. l10n_bg_stock_input_account_id (301)
+    # При отсъствие се ползва account_stock_variation_id.
+    l10n_bg_stock_input_account_id = fields.Many2one(
+        'account.account',
+        string='Stock Input Account',
+        company_dependent=True,
+        check_company=True,
+        help='Transit account credited when goods are received (e.g. 301). '
+             'Debited when vendor bill is posted. '
+             'Falls back to Stock Variation Account if not set.',
+    )
+
+    # Сметка за изписване/COGS (напр. 702.100) — дебитира се при изходящ move.
+    # Dr. l10n_bg_stock_output_account_id (702.100) / Cr. stock_valuation (302)
+    l10n_bg_stock_output_account_id = fields.Many2one(
+        'account.account',
+        string='Stock Output Account',
+        company_dependent=True,
+        check_company=True,
+        help='COGS/expense account debited when goods are issued (e.g. 702.100).',
+    )
+
     # Флаг за автоматично счетоводство при валидация на пикинг.
     # Позволява manual_periodic продукти да генерират счетоводни записи при PO цена,
     # без да се сменя property_valuation на 'real_time'.

@@ -1,5 +1,14 @@
 # Changelog
 
+## 16.0.1.12.0
+
+### Refactor Connection Tests — Bus Notifications
+- Remove `claude.terminal.test.wizard` transient model (no longer needed)
+- `action_test_connections` now sends each result as a separate bus
+  notification via `claude_terminal/notification` channel and returns `False`
+- `terminal_refresh_service.js` handles `claude_terminal/notification` via
+  addEventListener and shows sticky toasts — form stays open
+
 ## 16.0.1.11.1
 
 ### Fix Sticky Notifications Chain

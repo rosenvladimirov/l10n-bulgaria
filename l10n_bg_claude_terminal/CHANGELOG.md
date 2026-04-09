@@ -1,6 +1,46 @@
 # Changelog
 
-## 18.0.1.6.0
+## 19.0.1.9.0
+
+### Odoo RPC API Key
+- New field `claude_odoo_api_key` (Char, password) in the "Odoo RPC Connector"
+  group — stores the Odoo API key used by the MCP server to authenticate against
+  the configured Odoo instance
+- `get_claude_mcp_config()` now returns `odoo.api_key`
+
+## 19.0.1.8.0
+
+### External Terminal Support
+- New field `claude_use_external_terminal` (Boolean) — switch between local and
+  external Docker terminal
+- New field `claude_api_key` (Char) — Odoo API key for external auth
+  (visible only when external mode is enabled)
+- Both modes always use iframe (embedded in chatter/list/kanban):
+  - **OFF**: iframe → local host ttyd (ODOO_ORIGIN params, no API key)
+  - **ON**: iframe → external Docker terminal (API_KEY + ODOO_URL params)
+- `get_claude_mcp_config()` now returns `use_external` and `api_key`
+
+### Shared URL Builder
+- New `terminal_utils.js` with `buildExternalTerminalUrl()` helper
+- All external URL construction goes through one function
+
+### Redesigned Terminal Panel UI
+- New header: logo icon + "Claude" title + "Terminal" badge + model breadcrumb
+- Status dot with glow effect (green=connected, yellow=loading, red=error)
+- Status bar at bottom showing connection state + active model
+- Refined SCSS: softer shadows, 10px radius, accent hover states
+- Monospace breadcrumb for `model / #resId` context
+
+### Theme
+- Switched from dark Catppuccin Mocha to clean light theme matching Odoo UI
+- White background, Odoo purple accent (#714ba0), light borders
+
+## 19.0.1.7.0
+
+- Add AI button in kanban view (next to New, reuses list view dialog)
+- `KanbanController` patch: bus refresh listener for CLAUDE_REFRESH events
+
+## 19.0.1.6.0
 
 - Live refresh: MCP `odoo_write` / `odoo_create` now sends bus events with
   model, res_ids and changed field values.
@@ -13,13 +53,13 @@
 - Companion MCP server changes: SQLite `SessionManager`, session registration
   endpoint, automatic notify hooks in `odoo_write`/`odoo_create`.
 
-## 18.0.1.3.0
+## 19.0.1.3.0
 
 - Add AI button in list view (next to New, same CSS)
 - Add modal dialog with Claude Terminal panel for list views
 - Export ClaudeTerminalPanel for reuse across components
 
-## 18.0.1.2.0
+## 19.0.1.2.0
 
 - Initial chatter integration with toggle button and terminal panel
 - Per-user configuration (terminal URL, Odoo RPC, Telegram, Viber MCP)

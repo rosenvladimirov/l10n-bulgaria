@@ -11,11 +11,19 @@
                 <group string="Claude Terminal">
                     <field name="claude_terminal_url"
                            placeholder="http://localhost:8080"/>
+                    <field name="claude_use_external_terminal"/>
+                    <field name="claude_api_key"
+                           password="True"
+                           placeholder="Odoo API Key"
+                           invisible="not claude_use_external_terminal"/>
                 </group>
                 <group string="Odoo RPC Connector">
                     <field name="claude_odoo_url"
                            placeholder="http://localhost:8069"/>
                     <field name="claude_odoo_db"/>
+                    <field name="claude_odoo_api_key"
+                           password="True"
+                           placeholder="Odoo API Key"/>
                     <field name="claude_odoo_protocol"/>
                 </group>
                 <group string="Telegram MCP">

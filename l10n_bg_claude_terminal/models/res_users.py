@@ -18,6 +18,43 @@ class ResUsers(models.Model):
         help="URL of the terminal-control-mcp web UI (e.g. http://localhost:8080)",
         default="http://localhost:8080",
     )
+    claude_use_external_terminal = fields.Boolean(
+        "Use External Terminal",
+        default=False,
+        help="When enabled, opens the terminal in a new browser tab with API key "
+             "authentication instead of the embedded iframe.",
+    )
+    claude_api_key = fields.Char(
+        "API Key",
+        help="Your Odoo API key for external terminal authentication. "
+             "Generate one in Settings → Users → API Keys.",
+    )
+    claude_theme = fields.Selection(
+        [
+            ("github", "GitHub (Light)"),
+            ("solarized-light", "Solarized Light"),
+            ("one-half-light", "One Half Light"),
+            ("material-light", "Material Light"),
+            ("pencil-light", "Pencil Light"),
+            ("tomorrow", "Tomorrow"),
+            ("piatto-light", "Piatto Light"),
+            ("violet-light", "Violet Light"),
+            ("novel", "Novel"),
+            ("dracula", "Dracula"),
+            ("solarized-dark", "Solarized Dark"),
+            ("one-half-dark", "One Half Dark"),
+            ("material-dark", "Material Dark"),
+            ("gruvbox-dark", "Gruvbox Dark"),
+            ("pencil-dark", "Pencil Dark"),
+            ("tomorrow-night", "Tomorrow Night"),
+            ("atom", "Atom"),
+            ("monokai", "Monokai"),
+            ("violet-dark", "Violet Dark"),
+        ],
+        string="Terminal Theme",
+        default="github",
+        help="Color theme for the Claude Terminal.",
+    )
 
     # ── Odoo RPC Connector ──
     claude_odoo_url = fields.Char(
@@ -35,6 +72,10 @@ class ResUsers(models.Model):
         string="Protocol",
         default="xmlrpc",
         help="XML-RPC (Odoo 8+) or JSON-RPC (Odoo 14+)",
+    )
+    claude_odoo_api_key = fields.Char(
+        "Odoo API Key",
+        help="API key for Odoo RPC authentication (Settings → Users → API Keys).",
     )
 
     @api.model
@@ -65,6 +106,43 @@ class ResUsers(models.Model):
         default="claude_session",
     )
 
+    # ── Web Session ──
+    claude_web_url = fields.Char(
+        "Web Session URL",
+        help="URL for web session authentication (e.g. https://www.odoo.com)",
+    )
+    claude_web_db = fields.Char(
+        "Web Session DB",
+        help="Database name for web session (e.g. openerp). Leave empty to auto-detect.",
+    )
+    claude_web_login = fields.Char(
+        "Web Session Login",
+        help="Login (email) for web session authentication.",
+    )
+    claude_web_password = fields.Char(
+        "Web Session Password",
+        help="Password for web session authentication.",
+    )
+
+    # ── MCP Server ──
+    claude_mcp_url = fields.Char(
+        "MCP Server URL",
+        help="URL of the MCP server (e.g. https://mcp.odoo-shell.space)",
+        default="https://mcp.odoo-shell.space",
+    )
+    claude_mcp_token = fields.Char(
+        "MCP API Token",
+        help="API token for MCP server authentication (X-Api-Token header).",
+    )
+    claude_mcp_client_id = fields.Char(
+        "MCP OAuth Client ID",
+        help="OAuth 2.0 client ID for MCP server (optional).",
+    )
+    claude_mcp_api_key = fields.Char(
+        "MCP API Key",
+        help="Alternative API key for MCP server (optional).",
+    )
+
     # ── Viber MCP ──
     claude_viber_bot_token = fields.Char(
         "Bot Token",
@@ -81,13 +159,25 @@ class ResUsers(models.Model):
 
     _CLAUDE_FIELDS = [
         "claude_terminal_url",
+        "claude_use_external_terminal",
+        "claude_api_key",
+        "claude_theme",
         "claude_odoo_url",
         "claude_odoo_db",
         "claude_odoo_protocol",
+        "claude_odoo_api_key",
         "claude_telegram_api_id",
         "claude_telegram_api_hash",
         "claude_telegram_phone",
         "claude_telegram_session",
+        "claude_web_url",
+        "claude_web_db",
+        "claude_web_login",
+        "claude_web_password",
+        "claude_mcp_url",
+        "claude_mcp_token",
+        "claude_mcp_client_id",
+        "claude_mcp_api_key",
         "claude_viber_bot_token",
         "claude_viber_bot_name",
         "claude_viber_webhook_url",
@@ -172,10 +262,14 @@ class ResUsers(models.Model):
         user = self.env.user
         return {
             "terminal_url": user.claude_terminal_url or "",
+            "use_external": user.claude_use_external_terminal,
+            "api_key": user.claude_api_key or "",
+            "theme": getattr(user, 'claude_theme', False) or "github",
             "odoo": {
                 "url": user.claude_odoo_url or "",
                 "db": user.claude_odoo_db or self.env.cr.dbname,
                 "username": user.login,
+                "api_key": user.claude_odoo_api_key or "",
                 "protocol": user.claude_odoo_protocol or "xmlrpc",
             },
             "telegram": {
@@ -183,6 +277,18 @@ class ResUsers(models.Model):
                 "api_hash": user.claude_telegram_api_hash or "",
                 "phone": user.claude_telegram_phone or "",
                 "session_name": user.claude_telegram_session or "",
+            },
+            "web_session": {
+                "url": getattr(user, 'claude_web_url', False) or "",
+                "db": getattr(user, 'claude_web_db', False) or "",
+                "login": getattr(user, 'claude_web_login', False) or "",
+                "password": getattr(user, 'claude_web_password', False) or "",
+            },
+            "mcp_server": {
+                "url": getattr(user, 'claude_mcp_url', False) or "",
+                "token": getattr(user, 'claude_mcp_token', False) or "",
+                "client_id": getattr(user, 'claude_mcp_client_id', False) or "",
+                "api_key": getattr(user, 'claude_mcp_api_key', False) or "",
             },
             "viber": {
                 "bot_token": user.claude_viber_bot_token or "",

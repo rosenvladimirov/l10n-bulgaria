@@ -11,12 +11,43 @@
                 <group string="Claude Terminal">
                     <field name="claude_terminal_url"
                            placeholder="http://localhost:8080"/>
+                    <field name="claude_use_external_terminal"/>
+                    <field name="claude_api_key"
+                           password="True"
+                           placeholder="Odoo API Key"
+                           invisible="not claude_use_external_terminal"/>
+                    <field name="claude_theme"/>
                 </group>
                 <group string="Odoo RPC Connector">
                     <field name="claude_odoo_url"
                            placeholder="http://localhost:8069"/>
                     <field name="claude_odoo_db"/>
+                    <field name="claude_odoo_api_key"
+                           password="True"
+                           placeholder="Odoo API Key"/>
                     <field name="claude_odoo_protocol"/>
+                </group>
+                <group string="Web Session">
+                    <field name="claude_web_url"
+                           placeholder="https://www.odoo.com"/>
+                    <field name="claude_web_db"
+                           placeholder="openerp (auto-detect if empty)"/>
+                    <field name="claude_web_login"
+                           placeholder="user@example.com"/>
+                    <field name="claude_web_password"
+                           password="True"/>
+                </group>
+                <group string="MCP Server">
+                    <field name="claude_mcp_url"
+                           placeholder="https://mcp.odoo-shell.space"/>
+                    <field name="claude_mcp_token"
+                           password="True"
+                           placeholder="MCP API Token"/>
+                    <field name="claude_mcp_client_id"
+                           placeholder="OAuth Client ID (optional)"/>
+                    <field name="claude_mcp_api_key"
+                           password="True"
+                           placeholder="MCP API Key (optional)"/>
                 </group>
                 <group string="Telegram MCP">
                     <field name="claude_telegram_api_id"

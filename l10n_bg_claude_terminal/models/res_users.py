@@ -213,28 +213,24 @@ class ResUsers(models.Model):
         else:
             web_status, web_msg = "warn", _("URL, login or password not configured")
 
-        # ── Build chained sticky notifications (3 separate toasts) ────
+        # ── Send each result as a separate bus notification (toast) ────
         notifs = [
             {"title": _("Odoo RPC Connector"), "message": odoo_msg, "status": odoo_status},
             {"title": _("MCP Server"),          "message": mcp_msg,  "status": mcp_status},
             {"title": _("Web Session"),          "message": web_msg,  "status": web_status},
         ]
-        action = False
-        for n in reversed(notifs):
-            next_action = action
-            action = {
-                "type": "ir.actions.client",
-                "tag": "display_notification",
-                "next": next_action,  # root level — Odoo 17+
-                "params": {
+        for n in notifs:
+            self.env["bus.bus"]._sendone(
+                self.env.user.partner_id,
+                "claude_terminal/notification",
+                {
                     "title": n["title"],
                     "message": n["message"],
                     "type": notif_type(n["status"]),
                     "sticky": True,
-                    "next": next_action,  # also in params — Odoo 16 compat
                 },
-            }
-        return action
+            )
+        return False
 
     def action_save_to_mcp(self):
         """Save this Odoo instance connection to the MCP server."""

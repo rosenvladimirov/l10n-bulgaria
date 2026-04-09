@@ -21,11 +21,15 @@ import { registry } from "@web/core/registry";
  *       New row live notification (fired after MCP odoo_create).
  *       Patched ListController reloads the list and highlights the
  *       new row when model matches.
+ *
+ *   - claude_terminal/notification    → toast notification
+ *       Fired by action_test_connections after running connection tests.
+ *       Payload: { title, message, type, sticky }
  */
 const claudeRefreshService = {
-    dependencies: ["bus_service"],
+    dependencies: ["bus_service", "notification"],
 
-    start(env, { bus_service }) {
+    start(env, { bus_service, notification }) {
         bus_service.subscribe("claude_terminal/refresh", (payload) => {
             env.bus.trigger("CLAUDE_REFRESH", payload);
         });
@@ -34,6 +38,13 @@ const claudeRefreshService = {
         });
         bus_service.subscribe("claude_terminal/refresh_list", (payload) => {
             env.bus.trigger("CLAUDE_REFRESH_LIST", payload);
+        });
+        bus_service.subscribe("claude_terminal/notification", (payload) => {
+            notification.add(payload.message || "", {
+                title: payload.title || "",
+                type: payload.type || "info",
+                sticky: payload.sticky !== false,
+            });
         });
     },
 };

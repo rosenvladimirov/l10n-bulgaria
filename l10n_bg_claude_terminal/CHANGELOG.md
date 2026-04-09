@@ -1,5 +1,12 @@
 # Changelog
 
+## 19.0.1.12.2
+
+### Use bus simple_notification for connection test toasts
+- `action_test_connections` uses `bus.bus._sendone(..., "simple_notification", ...)`
+  — the standard Odoo built-in handler in `bus/simple_notification_service.js`
+- No custom JS needed; 3 separate sticky toasts, form stays open
+
 ## 19.0.1.12.1
 
 ### Fix Sticky Notifications — Revert to display_notification

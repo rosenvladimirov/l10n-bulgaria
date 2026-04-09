@@ -207,9 +207,6 @@ class ResUsers(models.Model):
             ctx.verify_mode = ssl.CERT_NONE
             return ctx
 
-        def notif_type(status):
-            return {"ok": "success", "warn": "warning", "error": "danger"}.get(status, "info")
-
         # ── Test Odoo RPC ─────────────────────────────────────────────
         odoo_url = (user.claude_odoo_url or "").rstrip("/")
         odoo_db = user.claude_odoo_db or self.env.cr.dbname
@@ -298,7 +295,7 @@ class ResUsers(models.Model):
                 {
                     "title": n["title"],
                     "message": n["message"],
-                    "type": notif_type(n["status"]),
+                    "type": {"ok": "success", "warn": "warning", "error": "danger"}.get(n["status"], "info"),
                     "sticky": True,
                 },
             )

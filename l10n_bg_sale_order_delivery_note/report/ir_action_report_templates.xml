@@ -147,7 +147,7 @@
         </xpath>
 
         <!-- Top comments (before lines) -->
-        <xpath expr="//table[@id='main_table']" position="before">
+        <xpath expr="//table[hasclass('o_main_table')]" position="before">
             <t t-if="is_delivery">
                 <t t-foreach="doc.comment_template_ids.filtered(lambda x: x.position == 'before_lines')"
                    t-as="comment_template_top">

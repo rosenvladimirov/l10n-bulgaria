@@ -252,10 +252,10 @@ class CryptoWallet(models.Model):
 
             # Decrypt wallet data
             salt = base64.b64decode(self.salt)
-            key = self._crypto_manager.derive_key(master_password, salt)
+            key = self.crypto_manager.derive_key(master_password, salt)
 
             encrypted_data = base64.b64decode(self.encrypted_data)
-            decrypted_json = self._crypto_manager.decrypt_data(encrypted_data, key)
+            decrypted_json = self.crypto_manager.decrypt_data(encrypted_data, key)
             wallet_data = json.loads(decrypted_json)
 
             # Update session state
@@ -273,7 +273,11 @@ class CryptoWallet(models.Model):
         self.is_locked = False
         self.last_accessed = fields.Datetime.now()
         self.decrypted_keys = json.dumps(wallet_data, indent=2)
-        self.env.context = dict(self.env.context, wallet_key=encryption_key.decode())
+        # Odoo 19: env.context is read-only, switch to a new env() with the
+        # wallet_key in context. Re-bind self into the new env so callers
+        # using self.env.context immediately see the freshly stored key.
+        new_env = self.env(context=dict(self.env.context, wallet_key=encryption_key.decode()))
+        self.env = new_env
 
     def lock_wallet(self):
         """Lock the wallet"""
@@ -282,7 +286,8 @@ class CryptoWallet(models.Model):
         self.decrypted_keys = False
         # Clear key from context
         if 'wallet_key' in self.env.context:
-            self.env.context = {k: v for k, v in self.env.context.items() if k != 'wallet_key'}
+            new_ctx = {k: v for k, v in self.env.context.items() if k != 'wallet_key'}
+            self.env = self.env(context=new_ctx)
         _logger.debug(f"Wallet '{self.name}' locked")
 
     # === SIMPLIFIED USER INTERFACE METHODS ===
@@ -404,7 +409,7 @@ class CryptoWallet(models.Model):
             return self.unlock_wallet_with_password(master_password)
 
         encrypted_data = base64.b64decode(self.encrypted_data)
-        decrypted_json = self._crypto_manager.decrypt_data(encrypted_data, wallet_key.encode())
+        decrypted_json = self.crypto_manager.decrypt_data(encrypted_data, wallet_key.encode())
         return json.loads(decrypted_json)
 
     def _update_wallet_metadata(self, wallet_data):
@@ -420,7 +425,7 @@ class CryptoWallet(models.Model):
             self.unlock_wallet_with_password(master_password)
             wallet_key = self.env.context.get('wallet_key')
 
-        encrypted_data = self._crypto_manager.encrypt_data(json.dumps(wallet_data), wallet_key.encode())
+        encrypted_data = self.crypto_manager.encrypt_data(json.dumps(wallet_data), wallet_key.encode())
         self.encrypted_data = base64.b64encode(encrypted_data).decode()
 
         self._persist_wallet_to_disk()
@@ -440,12 +445,12 @@ class CryptoWallet(models.Model):
         }
 
         master_password = self.get_user_master_password()
-        salt = self._crypto_manager.generate_salt()
-        key = self._crypto_manager.derive_key(master_password, salt)
+        salt = self.crypto_manager.generate_salt()
+        key = self.crypto_manager.derive_key(master_password, salt)
 
         encrypted_envelope = {
             'salt': base64.b64encode(salt).decode(),
-            'data': base64.b64encode(self._crypto_manager.encrypt_data(json.dumps(key_envelope), key)).decode()
+            'data': base64.b64encode(self.crypto_manager.encrypt_data(json.dumps(key_envelope), key)).decode()
         }
 
         # Save as JSON file
@@ -470,9 +475,9 @@ class CryptoWallet(models.Model):
             # Decrypt data
             master_password = self.get_user_master_password()
             salt = base64.b64decode(encrypted_envelope['salt'])
-            key = self._crypto_manager.derive_key(master_password, salt)
+            key = self.crypto_manager.derive_key(master_password, salt)
 
-            decrypted_data = self._crypto_manager.decrypt_data(
+            decrypted_data = self.crypto_manager.decrypt_data(
                 base64.b64decode(encrypted_envelope['data']), key
             )
             key_envelope = json.loads(decrypted_data)
@@ -701,25 +706,25 @@ class CryptoWallet(models.Model):
     def _reencrypt_wallet_with_new_key(self, wallet_data, new_master_password):
         """Re-encrypt wallet with new master key"""
         # Generate new salt
-        salt = self._crypto_manager.generate_salt()
+        salt = self.crypto_manager.generate_salt()
         self.salt = base64.b64encode(salt).decode()
 
         # Create new encryption key
-        new_key = self._crypto_manager.derive_key(new_master_password, salt)
+        new_key = self.crypto_manager.derive_key(new_master_password, salt)
 
         # Update metadata
         wallet_data['metadata']['reencrypted'] = fields.Datetime.now().isoformat()
         wallet_data['metadata']['reencryption_reason'] = 'password_change'
 
         # Encrypt with a new key
-        encrypted_data = self._crypto_manager.encrypt_data(json.dumps(wallet_data), new_key)
+        encrypted_data = self.crypto_manager.encrypt_data(json.dumps(wallet_data), new_key)
         self.encrypted_data = base64.b64encode(encrypted_data).decode()
 
         # Save to disk
         self._persist_wallet_to_disk()
 
-        # Update context
-        self.env.context = dict(self.env.context, wallet_key=new_key.decode())
+        # Update context (Odoo 19: env.context is read-only)
+        self.env = self.env(context=dict(self.env.context, wallet_key=new_key.decode()))
         self.is_locked = False
 
         _logger.debug(f"Wallet '{self.name}' reencrypted successfully")
@@ -754,10 +759,10 @@ class CryptoWallet(models.Model):
 
         if export_password:
             # Encrypt export with different password
-            salt = self._crypto_manager.generate_salt()
-            key = self._crypto_manager.derive_key(export_password, salt)
+            salt = self.crypto_manager.generate_salt()
+            key = self.crypto_manager.derive_key(export_password, salt)
 
-            encrypted_export = self._crypto_manager.encrypt_data(json.dumps(export_data), key)
+            encrypted_export = self.crypto_manager.encrypt_data(json.dumps(export_data), key)
 
             return {
                 'encrypted': True,

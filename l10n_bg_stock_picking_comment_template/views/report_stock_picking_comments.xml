@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--
+        OCA stock_picking_comment_template inserts top/bottom comment blocks at
+        positions that don't suit the Bulgarian handover protocol / accepted
+        delivery slip:
+
+            - top:    before //table[@name='stock_move_table']
+            - bottom: after  //t[@t-call='web.external_layout']  (after the page)
+
+        Deactivate that inherit and re-add the comment blocks at positions that
+        match the Bulgarian reports, gated by the existing Bulgarian render
+        guards (`is_handover_protocol`, `l10n_bg_report_stock_accepted`).
+    -->
+    <record id="stock_picking_comment_template.report_delivery_document_comments" model="ir.ui.view">
+        <field name="active" eval="False"/>
+    </record>
+
+    <template id="report_delivery_document_comments_bg" inherit_id="stock.report_delivery_document">
+        <!-- Top comments — render after the header information block -->
+        <xpath expr="//div[@id='informations']" position="after">
+            <t t-if="(is_handover_protocol or l10n_bg_report_stock_accepted) and o.comment_template_ids">
+                <t t-foreach="o.comment_template_ids.filtered(lambda x: x.position == 'before_lines')"
+                   t-as="comment_template_top">
+                    <div class="mt-3" t-out="o.render_comment(comment_template_top)"/>
+                </t>
+            </t>
+        </xpath>
+
+        <!-- Bottom comments — render before the signature block -->
+        <xpath expr="//div[@name='signature']" position="before">
+            <t t-if="(is_handover_protocol or l10n_bg_report_stock_accepted) and o.comment_template_ids">
+                <t t-foreach="o.comment_template_ids.filtered(lambda x: x.position == 'after_lines')"
+                   t-as="comment_template_bottom">
+                    <div class="mt-3" t-out="o.render_comment(comment_template_bottom)"/>
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>

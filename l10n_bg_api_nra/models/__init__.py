@@ -7,3 +7,4 @@ from . import nra_declaration_vat
 from . import nra_declaration_vies
 from . import res_company
 from . import res_users
+from . import hr_employee

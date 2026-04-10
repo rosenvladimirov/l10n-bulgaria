@@ -320,11 +320,19 @@ class NraApiProvider(models.AbstractModel):
     @api.model
     def submit_declaration(self, company, declaration_type, file_content,
                            file_name, num_records=None, period_month=None,
-                           period_year=None):
+                           period_year=None, signer_cert_b64=None,
+                           signer_pin=None, pkcs7_signature_b64=None):
         """Submit a declaration to the NRA API.
 
         Builds the ApiDeclarationsSubmitInputDto JSON payload per the
         NRA Swagger specification and POSTs it to the declarations endpoint.
+
+        Signature sources (in order of precedence):
+          1. Explicit args (signer_cert_b64, signer_pin, pkcs7_signature_b64)
+             — used when the browser signs with StampIT LSManager and passes
+             the PKCS7 back to the backend.
+          2. Crypto wallet (company._nra_get_user_credentials) — when the
+             КЕП is stored server-side.
 
         :param company: res.company record
         :param declaration_type: 'd1', 'd6', or 'etz'
@@ -333,6 +341,10 @@ class NraApiProvider(models.AbstractModel):
         :param num_records: number of records (required for D1/D6)
         :param period_month: tax period month (required for D1/D6)
         :param period_year: tax period year (required for D1/D6)
+        :param signer_cert_b64: Base64 DER cert from the signer's КЕП
+        :param signer_pin: ЕГН/ЛНЧ of the signer (from cert subject)
+        :param pkcs7_signature_b64: Base64 PKCS#7 detached signature of
+                                     file_content, produced by StampIT
         :returns: dict with NRA response (entryNumber, entryDate, documentId)
         :raises UserError: on submission failure
         """
@@ -348,8 +360,12 @@ class NraApiProvider(models.AbstractModel):
         file_doc_type = NRA_FILE_DOC_TYPES.get(declaration_type)
         file_type = NRA_FILE_TYPES.get(declaration_type)
 
-        # Get user credentials from wallet
-        user_pin, user_signature = company._nra_get_user_credentials()
+        # Resolve user credentials
+        if signer_cert_b64 and signer_pin:
+            user_signature = signer_cert_b64
+            user_pin = signer_pin
+        else:
+            user_pin, user_signature = company._nra_get_user_credentials()
 
         # Build file entry
         file_content_b64 = base64.b64encode(file_content).decode("ascii")
@@ -358,7 +374,7 @@ class NraApiProvider(models.AbstractModel):
             "fileType": file_type,
             "fileSize": len(file_content),
             "fileContentBase64": file_content_b64,
-            "base64EncodedPkcs7": "",  # TODO: PKCS7 signature with КЕП
+            "base64EncodedPkcs7": pkcs7_signature_b64 or "",
             "fileDocumentType": file_doc_type,
         }
         if num_records is not None and declaration_type in ("d1", "d6"):

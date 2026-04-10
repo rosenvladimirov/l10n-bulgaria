@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="l10n_bg_api_nra.SignSubmitDialog">
+        <Dialog
+            title.translate="Sign &amp; Submit with КЕП"
+            size="'md'"
+            footer="false">
+            <div class="o_kep_sign_dialog">
+                <!-- Progress steps -->
+                <div class="o_kep_steps mb-3">
+                    <div t-foreach="steps" t-as="step" t-key="step.id"
+                         t-att-class="'o_kep_step d-flex align-items-center mb-2 ' + stepClass(step)">
+                        <div class="o_kep_step_icon me-3">
+                            <i t-if="step.status === 'done'" class="fa fa-check-circle text-success fs-4"/>
+                            <i t-elif="step.status === 'active'" class="fa fa-spinner fa-spin text-primary fs-4"/>
+                            <i t-elif="step.status === 'error'" class="fa fa-times-circle text-danger fs-4"/>
+                            <i t-else="" class="fa fa-circle-o text-muted fs-4"/>
+                        </div>
+                        <div class="o_kep_step_label flex-grow-1">
+                            <strong><t t-esc="step.label"/></strong>
+                            <div t-if="step.hint" class="small text-muted">
+                                <t t-esc="step.hint"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error message -->
+                <div t-if="state.error"
+                     class="alert alert-danger mb-3"
+                     role="alert">
+                    <strong>Грешка:</strong>
+                    <div class="small mt-1" t-esc="state.error"/>
+                </div>
+
+                <!-- Success result -->
+                <div t-if="state.result"
+                     class="alert alert-success mb-3"
+                     role="alert">
+                    <div>
+                        <i class="fa fa-check-circle me-1"/>
+                        <strong>Успешно подадено!</strong>
+                    </div>
+                    <div class="small mt-1">
+                        Вх. №: <strong t-esc="state.result.entry_number"/>
+                        от <t t-esc="state.result.entry_date"/>
+                    </div>
+                </div>
+
+                <!-- Close button -->
+                <div class="text-end">
+                    <button class="btn btn-secondary"
+                            t-on-click="onClose"
+                            t-att-disabled="state.running">
+                        <t t-if="state.running">Моля изчакайте…</t>
+                        <t t-elif="state.result">Затвори</t>
+                        <t t-else="">Отказ</t>
+                    </button>
+                </div>
+            </div>
+        </Dialog>
+    </t>
+
+</templates>

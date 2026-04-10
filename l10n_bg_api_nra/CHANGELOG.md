@@ -4,6 +4,26 @@ All notable changes to the l10n_bg_api_nra module will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [18.0.1.1.0] - 2026-04-11
+
+### Added
+- KEP signer JS suite (ported from 19.0): browser-side signing of NRA declarations through StampIT LSManager (`http://127.0.0.1:8090/signer/*`). Submits the resulting PKCS#7 + signer cert to a new `/l10n_bg_api_nra/sign_submit` JSON-RPC endpoint.
+  - `static/src/js/kep_signer.js` — KepSigner wrapper around StampIT LSManager
+  - `static/src/js/sign_submit_dialog.js` — modal dialog handling cert pick + PIN entry
+  - `static/src/js/sign_submit_widget.js` — registers the `l10n_bg_api_nra.kep_sign_submit` client action
+  - `static/src/xml/sign_submit_dialog.xml` — dialog template
+  - Registered in `web.assets_backend` bundle.
+- `controllers/main.py` — `NraSignController` with `/l10n_bg_api_nra/declaration_content` (returns XML payload to sign) and `/l10n_bg_api_nra/sign_submit` (submits with PKCS7).
+- `models/hr_employee.py` — `hr.employee` extension with `l10n_bg_nra_declaration_ids` (Many2many) computed via the new `_l10n_bg_nra_declaration_lookups()` extensibility hook (declaration plug-ins register their line model + ЕГН field). Adds `action_view_l10n_bg_nra_declarations` for the smart button on the employee form.
+- `views/hr_employee_views.xml` — smart button "НАП Декларации" on the employee form.
+- `nra.declaration.action_kep_sign_submit()` — opens the KEP signer client action.
+- `nra.declaration.action_submit_signed(signer_cert_b64, signer_pin, pkcs7_signature_b64)` — submission entry point used by `/l10n_bg_api_nra/sign_submit` after the browser produces the PKCS#7.
+- `nra.declaration._check_submittable()` — single-record submission preconditions extracted from `action_submit`.
+- `nra.api.provider.submit_declaration` extended with optional `signer_cert_b64`, `signer_pin`, `pkcs7_signature_b64` parameters; if provided, they override the wallet-stored credentials and embed the supplied PKCS#7 in `base64EncodedPkcs7`.
+
+### Changed
+- `__manifest__.py`: depends now includes `hr` (needed by the new hr_employee extension); `data` includes `views/hr_employee_views.xml`; new `assets` section registers the KEP signer JS bundle; version bumped to `18.0.1.1.0`.
+
 ## [18.0.1.0.0] - 2026-03-23
 
 ### Added

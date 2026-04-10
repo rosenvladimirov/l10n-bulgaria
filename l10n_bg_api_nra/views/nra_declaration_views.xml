@@ -134,6 +134,7 @@
 
                         <!-- ETZ tab -->
                         <page string="ЕТЗ — Трудови записи"
+                              name="etz_tab"
                               invisible="declaration_type != 'etz'">
                             <field name="etz_line_ids">
                                 <list editable="bottom">

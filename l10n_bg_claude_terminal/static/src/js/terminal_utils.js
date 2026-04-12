@@ -11,9 +11,11 @@
  * @param {string} apiKey - User's Odoo API key
  * @param {string} model - Current Odoo model
  * @param {number|boolean} resId - Current record ID
+ * @param {string} [theme] - Terminal color theme name
+ * @param {string} [anthropicApiKey] - Anthropic API key for pre-auth
  * @returns {string} Full URL with authentication parameters
  */
-export function buildExternalTerminalUrl(terminalUrl, odooConfig, apiKey, model, resId) {
+export function buildExternalTerminalUrl(terminalUrl, odooConfig, apiKey, model, resId, theme, anthropicApiKey) {
     const base = (terminalUrl || "").replace(/\/+$/, "");
     const odoo = odooConfig || {};
     const params = new URLSearchParams();
@@ -24,5 +26,11 @@ export function buildExternalTerminalUrl(terminalUrl, odooConfig, apiKey, model,
     params.append("arg", `ODOO_PROTOCOL=${odoo.protocol || "xmlrpc"}`);
     params.append("arg", `ODOO_MODEL=${model || ""}`);
     params.append("arg", `ODOO_RES_ID=${resId || 0}`);
+    if (theme) {
+        params.append("arg", `CLAUDE_THEME=${theme}`);
+    }
+    if (anthropicApiKey) {
+        params.append("arg", `ANTHROPIC_API_KEY=${anthropicApiKey}`);
+    }
     return `${base}/?${params.toString()}`;
 }

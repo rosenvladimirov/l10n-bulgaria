@@ -21,7 +21,9 @@
                 resId="props.threadId"
                 odooConfig="claudeTerminal.odooConfig"
                 useExternal="claudeTerminal.useExternal"
-                apiKey="claudeTerminal.apiKey"/>
+                apiKey="claudeTerminal.apiKey"
+                anthropicApiKey="claudeTerminal.anthropicApiKey"
+                theme="claudeTerminal.theme"/>
             <div t-else="" class="ct-panel flex-grow-1">
                 <div class="ct-error">
                     <i class="fa fa-cog"/>

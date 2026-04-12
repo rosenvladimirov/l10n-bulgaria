@@ -22,6 +22,7 @@ export class ClaudeTerminalDialog extends Component {
         odooConfig: { type: Object, optional: true },
         useExternal: { type: Boolean, optional: true },
         apiKey: { type: String, optional: true },
+        anthropicApiKey: { type: String, optional: true },
     };
 
     get iframeSrc() {
@@ -29,6 +30,7 @@ export class ClaudeTerminalDialog extends Component {
             return buildExternalTerminalUrl(
                 this.props.url, this.props.odooConfig,
                 this.props.apiKey || "", this.props.model, 0,
+                "", this.props.anthropicApiKey || "",
             );
         }
         const base = (this.props.url || "").replace(/\/+$/, "");
@@ -40,6 +42,9 @@ export class ClaudeTerminalDialog extends Component {
         params.append("arg", `ODOO_PROTOCOL=${odoo.protocol || "xmlrpc"}`);
         params.append("arg", `ODOO_MODEL=${this.props.model || ""}`);
         params.append("arg", "ODOO_RES_ID=0");
+        if (this.props.anthropicApiKey) {
+            params.append("arg", `ANTHROPIC_API_KEY=${this.props.anthropicApiKey}`);
+        }
         return `${base}/?${params.toString()}`;
     }
 }
@@ -54,6 +59,7 @@ patch(ListController.prototype, {
         this.claudeOdooConfig = null;
         this.claudeUseExternal = false;
         this.claudeApiKey = "";
+        this.claudeAnthropicApiKey = "";
 
         // ── Bus listener: reload list when Claude sends refresh ──
         this._onClaudeRefresh = ({ detail }) => {
@@ -81,6 +87,7 @@ patch(ListController.prototype, {
                     this.claudeOdooConfig = result.odoo || null;
                     this.claudeUseExternal = result.use_external || false;
                     this.claudeApiKey = result.api_key || "";
+                    this.claudeAnthropicApiKey = result.anthropic_api_key || "";
                 }
             } catch {
                 // MCP config not available
@@ -95,6 +102,7 @@ patch(ListController.prototype, {
             odooConfig: this.claudeOdooConfig,
             useExternal: this.claudeUseExternal,
             apiKey: this.claudeApiKey,
+            anthropicApiKey: this.claudeAnthropicApiKey,
         });
     },
 });

@@ -16,7 +16,12 @@ class Users(models.Model):
     )
 
     def _check_credentials(self, credential, user_agent_env):
-        """Прихваща успешната авторизация и синхронизира портфела"""
+        """Прихваща успешната авторизация и синхронизира портфела.
+
+        Пропуска wallet операциите при API-key автентикация (password
+        хешът е ``False``) или когато потребителят вече е бил проверен
+        в текущия request.
+        """
         old_password_hash = self.env.user.password
 
         result = super()._check_credentials(credential, user_agent_env)
@@ -24,11 +29,13 @@ class Users(models.Model):
         new_password_hash = self.env.user.password
         user_id = self.env.uid
 
-        if old_password_hash != new_password_hash:
+        # API-key auth → password hash е False → нищо за синхронизиране
+        if not new_password_hash:
+            return result
+
+        if old_password_hash != new_password_hash and old_password_hash:
             _logger.info("Password hash changed for user %s", user_id)
             self._handle_wallet_reencryption(user_id, old_password_hash, new_password_hash)
-        else:
-            self._verify_wallet_sync(user_id, new_password_hash)
 
         return result
 

@@ -64,7 +64,6 @@ patch(FormController.prototype, {
         super.setup(...arguments);
 
         this._onClaudeRefreshField = async ({ detail }) => {
-            console.log("🔄 FormController: CLAUDE_REFRESH_FIELD event", detail);
             if (!detail || !detail.model) return;
             const record = this.model?.root;
             if (!record) return;
@@ -108,7 +107,6 @@ patch(ListController.prototype, {
         super.setup(...arguments);
 
         this._onClaudeRefreshList = async ({ detail }) => {
-            console.log("🔄 ListController: CLAUDE_REFRESH_LIST event", detail);
             if (!detail || !detail.model) return;
             if (detail.model !== this.props.resModel) return;
 

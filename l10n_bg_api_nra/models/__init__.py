@@ -2,7 +2,6 @@ from . import nra_api_provider
 from . import nra_declaration
 from . import nra_declaration_d1
 from . import nra_declaration_d6
-from . import nra_declaration_etz
 from . import nra_declaration_vat
 from . import nra_declaration_vies
 from . import res_company

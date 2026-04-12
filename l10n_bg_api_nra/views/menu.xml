@@ -25,18 +25,6 @@
               action="action_nra_declaration_d6"
               sequence="20" />
 
-    <!-- Labor records submenu -->
-    <menuitem id="menu_nra_labor"
-              name="Labor Records (Трудови записи)"
-              parent="menu_nra_root"
-              sequence="20" />
-
-    <menuitem id="menu_nra_declaration_etz"
-              name="Електронни трудови записи"
-              parent="menu_nra_labor"
-              action="action_nra_declaration_etz"
-              sequence="10" />
-
     <!-- Tax declarations submenu -->
     <menuitem id="menu_nra_tax"
               name="Tax (Данъци)"

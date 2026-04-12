@@ -132,31 +132,6 @@
                             </field>
                         </page>
 
-                        <!-- ETZ tab -->
-                        <page string="ЕТЗ — Трудови записи"
-                              name="etz_tab"
-                              invisible="declaration_type != 'etz'">
-                            <field name="etz_line_ids">
-                                <list editable="bottom">
-                                    <field name="sequence" widget="handle" />
-                                    <field name="record_type" />
-                                    <field name="id_type" />
-                                    <field name="egn_lnch" />
-                                    <field name="person_names" />
-                                    <field name="contract_type" />
-                                    <field name="contract_number" />
-                                    <field name="contract_date" />
-                                    <field name="start_date" />
-                                    <field name="end_date" optional="hide" />
-                                    <field name="position_code" />
-                                    <field name="position_name" />
-                                    <field name="termination_date" optional="hide" />
-                                    <field name="termination_ground" optional="hide" />
-                                    <field name="working_hours" />
-                                </list>
-                            </field>
-                        </page>
-
                         <!-- VAT tab -->
                         <page string="ДДС — Декларация"
                               invisible="declaration_type != 'vat'">
@@ -272,8 +247,6 @@
                         domain="[('declaration_type', '=', 'd1')]" />
                 <filter string="Обр. 6" name="filter_d6"
                         domain="[('declaration_type', '=', 'd6')]" />
-                <filter string="ЕТЗ" name="filter_etz"
-                        domain="[('declaration_type', '=', 'etz')]" />
                 <filter string="ДДС" name="filter_vat"
                         domain="[('declaration_type', '=', 'vat')]" />
                 <filter string="VIES" name="filter_vies"
@@ -327,14 +300,6 @@
         <field name="view_mode">list,form</field>
         <field name="domain">[('declaration_type', '=', 'd6')]</field>
         <field name="context">{'default_declaration_type': 'd6'}</field>
-    </record>
-
-    <record id="action_nra_declaration_etz" model="ir.actions.act_window">
-        <field name="name">Електронни трудови записи</field>
-        <field name="res_model">nra.declaration</field>
-        <field name="view_mode">list,form</field>
-        <field name="domain">[('declaration_type', '=', 'etz')]</field>
-        <field name="context">{'default_declaration_type': 'etz'}</field>
     </record>
 
     <record id="action_nra_declaration_vat" model="ir.actions.act_window">

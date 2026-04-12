@@ -21,9 +21,11 @@ Supported Declaration Types
 ----------------------------
 * **Декларация обр. 1** — Data for insured persons (Данни за осигурените лица)
 * **Декларация обр. 6** — Due contributions and income tax (Дължими вноски и данък по ЗДДФЛ)
-* **ЕТЗ** — Electronic labor records (Електронни трудови записи)
 * **ДДС** — VAT declarations
 * **VIES** — Intra-community supply declarations
+
+ETZ (Electronic labor records) is provided by the separate
+``l10n_bg_api_nra_etz`` EE module.
 
 API Key Acquisition
 -------------------
@@ -40,7 +42,7 @@ Technical Infrastructure
 * Automatic retry with exponential backoff on HTTP 429 (rate limit)
 * Structured error handling and logging
     """,
-    "version": "18.0.1.1.0",
+    "version": "18.0.1.2.0",
     "development_status": "Beta",
     "category": "Localization",
     "license": "LGPL-3",

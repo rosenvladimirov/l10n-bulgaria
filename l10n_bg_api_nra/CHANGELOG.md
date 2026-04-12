@@ -4,6 +4,11 @@ All notable changes to the l10n_bg_api_nra module will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [18.0.1.2.0] - 2026-04-12
+
+### Changed
+- **ETZ refactor**: removed ETZ model (`nra.declaration.etz.line`), views (tab, action, filter, menu), and security from base module. ETZ is now provided entirely by the separate `l10n_bg_api_nra_etz` EE module via `selection_add`. The ETZ sequence (`seq_nra_declaration_etz`), `NRA_FILE_TYPES["etz"]`, and ETZ HTML status parsing remain in base.
+
 ## [18.0.1.1.0] - 2026-04-11
 
 ### Added

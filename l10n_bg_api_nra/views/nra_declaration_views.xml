@@ -134,6 +134,7 @@
 
                         <!-- VAT tab -->
                         <page string="ДДС — Декларация"
+                              name="vat_tab"
                               invisible="declaration_type != 'vat'">
                             <group>
                                 <group>

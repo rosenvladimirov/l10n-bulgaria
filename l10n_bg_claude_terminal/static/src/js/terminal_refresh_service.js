@@ -27,13 +27,17 @@ const claudeRefreshService = {
     dependencies: ["bus_service"],
 
     start(env, { bus_service }) {
+        console.log("🔄 Claude refresh service started — subscribing to bus channels");
         bus_service.subscribe("claude_terminal/refresh", (payload) => {
+            console.log("🔄 CLAUDE_REFRESH received:", payload);
             env.bus.trigger("CLAUDE_REFRESH", payload);
         });
         bus_service.subscribe("claude_terminal/refresh_field", (payload) => {
+            console.log("🔄 CLAUDE_REFRESH_FIELD received:", payload);
             env.bus.trigger("CLAUDE_REFRESH_FIELD", payload);
         });
         bus_service.subscribe("claude_terminal/refresh_list", (payload) => {
+            console.log("🔄 CLAUDE_REFRESH_LIST received:", payload);
             env.bus.trigger("CLAUDE_REFRESH_LIST", payload);
         });
     },

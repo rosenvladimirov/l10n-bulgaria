@@ -20,6 +20,7 @@ patch(KanbanController.prototype, {
         this.claudeOdooConfig = null;
         this.claudeUseExternal = false;
         this.claudeApiKey = "";
+        this.claudeAnthropicApiKey = "";
 
         // ── Bus listener: reload kanban when Claude sends refresh ──
         this._onClaudeRefresh = ({ detail }) => {
@@ -47,6 +48,7 @@ patch(KanbanController.prototype, {
                     this.claudeOdooConfig = result.odoo || null;
                     this.claudeUseExternal = result.use_external || false;
                     this.claudeApiKey = result.api_key || "";
+                    this.claudeAnthropicApiKey = result.anthropic_api_key || "";
                 }
             } catch {
                 // MCP config not available
@@ -61,6 +63,7 @@ patch(KanbanController.prototype, {
             odooConfig: this.claudeOdooConfig,
             useExternal: this.claudeUseExternal,
             apiKey: this.claudeApiKey,
+            anthropicApiKey: this.claudeAnthropicApiKey,
         });
     },
 });

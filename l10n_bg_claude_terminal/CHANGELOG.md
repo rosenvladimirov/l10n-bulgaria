@@ -1,5 +1,15 @@
 # Changelog
 
+## 18.0.1.14.0
+
+### Added — Anthropic API Key pre-authentication
+- New `claude_anthropic_api_key` field on res.users (Settings → Preferences → Claude Terminal)
+- When set, passes `ANTHROPIC_API_KEY` as environment variable to the terminal session
+- Claude Code CLI starts pre-authenticated — no login prompt on every terminal open
+- User can still re-authenticate manually with `/login` inside the terminal
+- Supported in all terminal modes: chatter, list view dialog, kanban view dialog
+- Works in both local and external terminal modes
+
 ## 18.0.1.13.0
 
 ### Fix Test Connections — switch from bus to display_notification chain

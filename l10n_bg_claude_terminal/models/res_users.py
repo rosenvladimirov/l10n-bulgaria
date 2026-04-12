@@ -35,6 +35,12 @@ class ResUsers(models.Model):
         help="Your Odoo API key for external terminal authentication. "
              "Generate one in Settings → Users → API Keys.",
     )
+    claude_anthropic_api_key = fields.Char(
+        "Anthropic API Key",
+        help="Your Anthropic API key (sk-ant-...). When set, the terminal "
+             "starts pre-authenticated — Claude won't ask for login. "
+             "Use /login inside the terminal to re-authenticate manually.",
+    )
     claude_theme = fields.Selection(
         [
             ("github", "GitHub (Light)"),
@@ -167,6 +173,7 @@ class ResUsers(models.Model):
         "claude_terminal_url",
         "claude_use_external_terminal",
         "claude_api_key",
+        "claude_anthropic_api_key",
         "claude_theme",
         "claude_odoo_url",
         "claude_odoo_db",
@@ -462,6 +469,7 @@ class ResUsers(models.Model):
             "terminal_url": user.claude_terminal_url or "",
             "use_external": user.claude_use_external_terminal,
             "api_key": user.claude_api_key or "",
+            "anthropic_api_key": user.claude_anthropic_api_key or "",
             "theme": getattr(user, 'claude_theme', False) or "github",
             "odoo": {
                 "url": user.claude_odoo_url or "",

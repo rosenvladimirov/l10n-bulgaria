@@ -18,6 +18,7 @@ export class ClaudeTerminalPanel extends Component {
         odooConfig: { type: Object, optional: true },
         useExternal: { type: Boolean, optional: true },
         apiKey: { type: String, optional: true },
+        anthropicApiKey: { type: String, optional: true },
         theme: { type: String, optional: true },
     };
 
@@ -40,7 +41,7 @@ export class ClaudeTerminalPanel extends Component {
             return buildExternalTerminalUrl(
                 this.props.url, this.props.odooConfig,
                 this.props.apiKey || "", this.props.model, this.props.resId,
-                this.props.theme || "",
+                this.props.theme || "", this.props.anthropicApiKey || "",
             );
         }
         // Local host terminal — old format, no API_KEY
@@ -53,6 +54,9 @@ export class ClaudeTerminalPanel extends Component {
         params.append("arg", `ODOO_PROTOCOL=${odoo.protocol || "xmlrpc"}`);
         params.append("arg", `ODOO_MODEL=${this.props.model}`);
         params.append("arg", `ODOO_RES_ID=${this.props.resId || 0}`);
+        if (this.props.anthropicApiKey) {
+            params.append("arg", `ANTHROPIC_API_KEY=${this.props.anthropicApiKey}`);
+        }
         return `${base}/?${params.toString()}`;
     }
 
@@ -75,7 +79,7 @@ patch(Chatter.prototype, {
         super.setup(...arguments);
         this.claudeTerminal = useState({
             open: false, url: "", odooConfig: null,
-            useExternal: false, apiKey: "", theme: "",
+            useExternal: false, apiKey: "", anthropicApiKey: "", theme: "",
         });
 
         // ── Bus listener: reload form record when Claude sends refresh ──
@@ -115,6 +119,7 @@ patch(Chatter.prototype, {
                     this.claudeTerminal.odooConfig = d.result.odoo || null;
                     this.claudeTerminal.useExternal = d.result.use_external || false;
                     this.claudeTerminal.apiKey = d.result.api_key || "";
+                    this.claudeTerminal.anthropicApiKey = d.result.anthropic_api_key || "";
                     this.claudeTerminal.theme = d.result.theme || "";
                 }
             })

@@ -63,22 +63,30 @@ patch(FormController.prototype, {
     setup() {
         super.setup(...arguments);
 
+        // Generic full-record refresh (fired by odoo_refresh MCP tool)
+        this._onClaudeRefresh = async ({ detail }) => {
+            if (!detail) return;
+            if (detail.model && detail.model !== this.props.resModel) return;
+            const record = this.model?.root;
+            if (!record) return;
+            await record.load();
+            this.model.notify?.();
+        };
+
+        // Field-level refresh (fired by odoo_write MCP tool)
         this._onClaudeRefreshField = async ({ detail }) => {
             if (!detail || !detail.model) return;
             const record = this.model?.root;
             if (!record) return;
             if (detail.model !== this.props.resModel) return;
-            // Match if any of the changed res_ids is the currently open record
             const currentId = record.resId;
             if (!currentId) return;
             const resIds = detail.res_ids || [];
             if (!resIds.includes(currentId)) return;
 
-            // Reload the record so new field values are fetched from DB
             await record.load();
             this.model.notify?.();
 
-            // Flash the updated fields on next animation frame
             requestAnimationFrame(() => {
                 const rootEl = this.rootRef?.el || document;
                 flashFields(rootEl, Object.keys(detail.values || {}));
@@ -86,16 +94,12 @@ patch(FormController.prototype, {
         };
 
         onMounted(() => {
-            this.env.bus.addEventListener(
-                "CLAUDE_REFRESH_FIELD",
-                this._onClaudeRefreshField,
-            );
+            this.env.bus.addEventListener("CLAUDE_REFRESH", this._onClaudeRefresh);
+            this.env.bus.addEventListener("CLAUDE_REFRESH_FIELD", this._onClaudeRefreshField);
         });
         onWillUnmount(() => {
-            this.env.bus.removeEventListener(
-                "CLAUDE_REFRESH_FIELD",
-                this._onClaudeRefreshField,
-            );
+            this.env.bus.removeEventListener("CLAUDE_REFRESH", this._onClaudeRefresh);
+            this.env.bus.removeEventListener("CLAUDE_REFRESH_FIELD", this._onClaudeRefreshField);
         });
     },
 });
@@ -106,6 +110,15 @@ patch(ListController.prototype, {
     setup() {
         super.setup(...arguments);
 
+        // Generic refresh
+        this._onClaudeRefresh = async ({ detail }) => {
+            if (!detail) return;
+            if (detail.model && detail.model !== this.props.resModel) return;
+            await this.model.root.load();
+            this.model.notify?.();
+        };
+
+        // New row highlight refresh
         this._onClaudeRefreshList = async ({ detail }) => {
             if (!detail || !detail.model) return;
             if (detail.model !== this.props.resModel) return;
@@ -122,16 +135,12 @@ patch(ListController.prototype, {
         };
 
         onMounted(() => {
-            this.env.bus.addEventListener(
-                "CLAUDE_REFRESH_LIST",
-                this._onClaudeRefreshList,
-            );
+            this.env.bus.addEventListener("CLAUDE_REFRESH", this._onClaudeRefresh);
+            this.env.bus.addEventListener("CLAUDE_REFRESH_LIST", this._onClaudeRefreshList);
         });
         onWillUnmount(() => {
-            this.env.bus.removeEventListener(
-                "CLAUDE_REFRESH_LIST",
-                this._onClaudeRefreshList,
-            );
+            this.env.bus.removeEventListener("CLAUDE_REFRESH", this._onClaudeRefresh);
+            this.env.bus.removeEventListener("CLAUDE_REFRESH_LIST", this._onClaudeRefreshList);
         });
     },
 });

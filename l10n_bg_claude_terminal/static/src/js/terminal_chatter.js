@@ -69,9 +69,13 @@ export class ClaudeTerminalPanel extends Component {
 }
 
 // Register panel on ChatterTopbar.components
-ChatterTopbar.components = Object.assign(ChatterTopbar.components || {}, {
-    ClaudeTerminalPanel,
-});
+// In Odoo 16 (OWL 1) template lookup reads from the static `components` dict
+// of the component class AT RENDER TIME. We need an OWN property on the
+// class (inherited dict is shared across siblings), mutated in place.
+if (!Object.prototype.hasOwnProperty.call(ChatterTopbar, "components")) {
+    ChatterTopbar.components = { ...(ChatterTopbar.components || {}) };
+}
+ChatterTopbar.components.ClaudeTerminalPanel = ClaudeTerminalPanel;
 
 // ── Patch ChatterTopbar: add terminal state + toggle method ────────
 // NOTE (v16):

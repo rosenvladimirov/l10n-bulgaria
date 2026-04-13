@@ -401,6 +401,18 @@ class ResUsers(models.Model):
         """RPC: return current user's terminal URL."""
         return self.env.user.claude_terminal_url or ""
 
+    def action_open_anthropic_console(self):
+        """Open the Anthropic Console API Keys page in a new browser tab.
+
+        User creates or copies a key there, then pastes it into the
+        ``claude_anthropic_api_key`` field.
+        """
+        return {
+            "type": "ir.actions.act_url",
+            "url": "https://console.anthropic.com/settings/keys",
+            "target": "new",
+        }
+
     @api.model
     def notify_claude_refresh(self, payload=None):
         """Send a bus notification to refresh the user's browser view.

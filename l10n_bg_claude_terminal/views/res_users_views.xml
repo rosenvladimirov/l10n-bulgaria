@@ -16,9 +16,18 @@
                            password="True"
                            placeholder="Odoo API Key"
                            invisible="not claude_use_external_terminal"/>
-                    <field name="claude_anthropic_api_key"
-                           password="True"
-                           placeholder="sk-ant-..."/>
+                    <label for="claude_anthropic_api_key" />
+                    <div class="o_row">
+                        <field name="claude_anthropic_api_key"
+                               password="True"
+                               placeholder="sk-ant-..." />
+                        <button name="action_open_anthropic_console"
+                                type="object"
+                                string="Get Key"
+                                icon="fa-external-link"
+                                class="btn btn-sm btn-secondary ms-2"
+                                help="Open the Anthropic Console in a new tab to create / copy your API key, then paste it here." />
+                    </div>
                     <field name="claude_theme"/>
                 </group>
                 <group string="Odoo RPC Connector">

@@ -49,7 +49,7 @@ function flashRow(rootEl, resId) {
 
 patch(FormController.prototype, "l10n_bg_claude_terminal.form_live_refresh", {
     setup() {
-        super.setup(...arguments);
+        this._super(...arguments);
 
         this._onClaudeRefreshField = async ({ detail }) => {
             if (!detail || !detail.model) return;
@@ -90,7 +90,7 @@ patch(FormController.prototype, "l10n_bg_claude_terminal.form_live_refresh", {
 
 patch(ListController.prototype, "l10n_bg_claude_terminal.list_live_refresh", {
     setup() {
-        super.setup(...arguments);
+        this._super(...arguments);
 
         this._onClaudeRefreshList = async ({ detail }) => {
             if (!detail || !detail.model) return;

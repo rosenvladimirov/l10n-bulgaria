@@ -29,6 +29,7 @@
                 odooConfig="claudeTerminal.odooConfig"
                 useExternal="claudeTerminal.useExternal"
                 apiKey="claudeTerminal.apiKey"
+                anthropicApiKey="claudeTerminal.anthropicApiKey"
                 theme="claudeTerminal.theme"/>
             <div t-else="" class="ct-panel flex-grow-1">
                 <div class="ct-error">
@@ -42,7 +43,7 @@
 </t>
 
 <!-- Terminal iframe panel (shared with v18) -->
-<t t-name="l10n_bg_claude_terminal.TerminalPanel">
+<t t-name="l10n_bg_claude_terminal.TerminalPanel" owl="1">
     <div t-att-class="'ct-panel' + (state.expanded ? ' ct-panel-expanded' : '')">
 
         <!-- ── Header ── -->

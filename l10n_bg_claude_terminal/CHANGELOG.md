@@ -1,5 +1,16 @@
 # Changelog
 
+## 16.0.1.15.0
+
+### Added — Anthropic API Key + OAuth pre-authentication (port from 18.0/19.0)
+- New `claude_anthropic_api_key` field on res.users (Settings → Preferences → Claude Terminal)
+- Passes `ANTHROPIC_API_KEY` env var to ttyd; Claude Code starts pre-authenticated
+- Accepts both API keys (`sk-ant-api03-…`) and OAuth tokens (`sk-ant-oat01-…` from Pro/Teams/Max via `claude /login`)
+- New actions `action_open_anthropic_console` and `action_open_claude_oauth` open Anthropic Console / Claude.ai login pages
+- View redesigned with info panel + two helper buttons next to the field
+- Supported in chatter, list view dialog, kanban view dialog
+- Use `/login` inside the terminal to re-authenticate manually
+
 ## 16.0.1.13.1
 
 ### Fix Test Connections — switch from bus to display_notification chain

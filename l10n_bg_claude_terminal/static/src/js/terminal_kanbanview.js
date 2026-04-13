@@ -13,13 +13,14 @@ import { ClaudeTerminalDialog } from "./terminal_listview";
 
 patch(KanbanController.prototype, "l10n_bg_claude_terminal.kanban", {
     setup() {
-        super.setup(...arguments);
+        this._super(...arguments);
         this.rpc = useService("rpc");
         this.dialogService = useService("dialog");
         this.claudeTerminalUrl = "";
         this.claudeOdooConfig = null;
         this.claudeUseExternal = false;
         this.claudeApiKey = "";
+        this.claudeAnthropicApiKey = "";
 
         // ── Bus listener: reload kanban when Claude sends refresh ──
         this._onClaudeRefresh = ({ detail }) => {
@@ -47,6 +48,7 @@ patch(KanbanController.prototype, "l10n_bg_claude_terminal.kanban", {
                     this.claudeOdooConfig = result.odoo || null;
                     this.claudeUseExternal = result.use_external || false;
                     this.claudeApiKey = result.api_key || "";
+                    this.claudeAnthropicApiKey = result.anthropic_api_key || "";
                 }
             } catch {
                 // MCP config not available
@@ -61,6 +63,7 @@ patch(KanbanController.prototype, "l10n_bg_claude_terminal.kanban", {
             odooConfig: this.claudeOdooConfig,
             useExternal: this.claudeUseExternal,
             apiKey: this.claudeApiKey,
+            anthropicApiKey: this.claudeAnthropicApiKey,
         });
     },
 });

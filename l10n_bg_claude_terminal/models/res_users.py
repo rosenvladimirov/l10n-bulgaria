@@ -37,9 +37,12 @@ class ResUsers(models.Model):
     )
     claude_anthropic_api_key = fields.Char(
         "Anthropic API Key",
-        help="Your Anthropic API key (sk-ant-...). When set, the terminal "
-             "starts pre-authenticated — Claude won't ask for login. "
-             "Use /login inside the terminal to re-authenticate manually.",
+        help="Pre-authenticates the Claude terminal so Claude won't ask "
+             "for login on start. Accepts both:\n"
+             "  * sk-ant-api03-… (API billing, from the Anthropic Console)\n"
+             "  * sk-ant-oat01-… (Pro / Teams / Max OAuth tokens, via "
+             "claude /login → ~/.claude/credentials.json).\n"
+             "Use /login inside the terminal to re-auth manually.",
     )
     claude_theme = fields.Selection(
         [
@@ -402,14 +405,27 @@ class ResUsers(models.Model):
         return self.env.user.claude_terminal_url or ""
 
     def action_open_anthropic_console(self):
-        """Open the Anthropic Console API Keys page in a new browser tab.
+        """Open the Anthropic Console API Keys page (for API billing).
 
-        User creates or copies a key there, then pastes it into the
-        ``claude_anthropic_api_key`` field.
+        User creates or copies a key (``sk-ant-api03-…``) and pastes it
+        into ``claude_anthropic_api_key``.
         """
         return {
             "type": "ir.actions.act_url",
             "url": "https://console.anthropic.com/settings/keys",
+            "target": "new",
+        }
+
+    def action_open_claude_oauth(self):
+        """Open the Claude.ai login page (for Pro / Teams / Max plans).
+
+        After login, the OAuth token can be retrieved from the local
+        ``~/.claude/credentials.json`` (as created by ``claude /login``)
+        and pasted into ``claude_anthropic_api_key``.
+        """
+        return {
+            "type": "ir.actions.act_url",
+            "url": "https://claude.ai/login",
             "target": "new",
         }
 

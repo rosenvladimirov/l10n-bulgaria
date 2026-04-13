@@ -17,16 +17,30 @@
                            placeholder="Odoo API Key"
                            invisible="not claude_use_external_terminal"/>
                     <label for="claude_anthropic_api_key" />
-                    <div class="o_row">
+                    <div>
                         <field name="claude_anthropic_api_key"
                                password="True"
-                               placeholder="sk-ant-..." />
-                        <button name="action_open_anthropic_console"
-                                type="object"
-                                string="Get Key"
-                                icon="fa-external-link"
-                                class="btn btn-sm btn-secondary ms-2"
-                                help="Open the Anthropic Console in a new tab to create / copy your API key, then paste it here." />
+                               placeholder="sk-ant-api03-... or sk-ant-oat01-..." />
+                        <div class="text-muted small mt-1">
+                            <i class="fa fa-info-circle me-1" />
+                            <b>API billing</b> (<code>sk-ant-api03-…</code>):
+                            <button name="action_open_anthropic_console"
+                                    type="object"
+                                    string="Console → API Keys"
+                                    icon="fa-external-link"
+                                    class="btn btn-link btn-sm p-0 ms-1" />
+                            <br/>
+                            <b>Pro / Teams / Max</b> (<code>sk-ant-oat01-…</code>):
+                            use
+                            <button name="action_open_claude_oauth"
+                                    type="object"
+                                    string="Claude OAuth Login"
+                                    icon="fa-sign-in"
+                                    class="btn btn-link btn-sm p-0 ms-1" />
+                            — after login, copy the OAuth token from
+                            <code>~/.claude/credentials.json</code> or
+                            run <code>/login</code> inside the terminal.
+                        </div>
                     </div>
                     <field name="claude_theme"/>
                 </group>

@@ -1,5 +1,14 @@
 # Changelog
 
+## 18.0.1.15.0
+
+### Added — OAuth token support + helper buttons (port from 19.0)
+- `claude_anthropic_api_key` accepts both API keys (`sk-ant-api03-…`) and OAuth tokens (`sk-ant-oat01-…` from Pro/Teams/Max via `claude /login`)
+- New action `action_open_anthropic_console` — opens Anthropic Console API Keys page
+- New action `action_open_claude_oauth` — opens Claude.ai login page
+- View redesigned with info panel + two helper buttons next to the field
+- Updated help text to describe both auth modes
+
 ## 18.0.1.14.0
 
 ### Added — Anthropic API Key pre-authentication

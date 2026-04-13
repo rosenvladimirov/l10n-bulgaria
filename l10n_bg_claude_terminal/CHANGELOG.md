@@ -1,5 +1,12 @@
 # Changelog
 
+## 18.0.1.16.0
+
+### Added — Claude Terminal page in main user form
+- New view inheriting `base.view_users_form` adds a "Claude Terminal" notebook page in the full user form (Settings → Users → Administrator)
+- Existing `base.view_users_form_simple_modif` inheritance is kept for the simplified preferences modal
+- Useful when "My Profile" opens the full user form (e.g. when hr is installed)
+
 ## 18.0.1.15.0
 
 ### Added — OAuth token support + helper buttons (port from 19.0)

@@ -1,5 +1,12 @@
 # Changelog
 
+## 16.0.1.16.0
+
+### Added — Claude Terminal page in "My Profile" (port from 18.0)
+- New view inheriting `hr.res_users_view_form_profile` adds a "Claude Terminal" notebook page in the "My Profile" form (avatar dropdown → My Account)
+- Each user sees only their own Claude Terminal config
+- Added `hr` to manifest depends
+
 ## 16.0.1.15.0
 
 ### Added — Anthropic API Key + OAuth pre-authentication (port from 18.0/19.0)

@@ -2,14 +2,14 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Claude Terminal (Chatter & List View)",
-    "version": "18.0.1.16.0",
+    "version": "18.0.1.17.0",
     "category": "Technical",
     "summary": "Claude Code terminal in chatter, list & kanban view — connects to MCP Docker stack",
     "author": "Rosen Vladimirov, BL Consulting, Odoo Community Association (OCA)",
     "maintainers": ["rosen-vladimirov"],
     "website": "https://github.com/nicePrintBulgaria/l10n-bulgaria",
     "license": "AGPL-3",
-    "depends": ["mail", "web", "bus"],
+    "depends": ["mail", "web", "bus", "hr"],
     "data": [
         "security/ir.model.access.csv",
         "views/res_users_views.xml",

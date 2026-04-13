@@ -1,11 +1,16 @@
 # Changelog
 
+## 18.0.1.17.0
+
+### Changed — Claude Terminal page in "My Profile" (hr.res_users_view_form_profile)
+- Reverted previous attempt to inherit `base.view_users_form` (admin-only Settings → Users)
+- Now inherits `hr.res_users_view_form_profile` — the "My Profile" form opened from the avatar dropdown when `hr` is installed
+- Each user sees only their own Claude Terminal config (not other users')
+- Added `hr` to manifest depends
+
 ## 18.0.1.16.0
 
-### Added — Claude Terminal page in main user form
-- New view inheriting `base.view_users_form` adds a "Claude Terminal" notebook page in the full user form (Settings → Users → Administrator)
-- Existing `base.view_users_form_simple_modif` inheritance is kept for the simplified preferences modal
-- Useful when "My Profile" opens the full user form (e.g. when hr is installed)
+### Added — Claude Terminal page in main user form (REVERTED in 17.0)
 
 ## 18.0.1.15.0
 

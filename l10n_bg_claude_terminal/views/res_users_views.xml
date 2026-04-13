@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Add Claude Terminal section to main user form (Settings → Users → ...) -->
-    <record id="res_users_form_claude_terminal" model="ir.ui.view">
-        <field name="name">res.users.form.claude.terminal</field>
+    <!-- Add Claude Terminal page to "My Profile" form (hr extended res.users) -->
+    <record id="res_users_view_form_profile_claude_terminal" model="ir.ui.view">
+        <field name="name">res.users.view.form.profile.claude.terminal</field>
         <field name="model">res.users</field>
-        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="inherit_id" ref="hr.res_users_view_form_profile"/>
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page string="Claude Terminal" name="claude_terminal">
@@ -109,7 +109,7 @@
         </field>
     </record>
 
-    <!-- Add Claude Terminal URL to user preferences -->
+    <!-- Add Claude Terminal URL to user preferences (simplified modal) -->
     <record id="res_users_preferences_claude_terminal" model="ir.ui.view">
         <field name="name">res.users.preferences.claude.terminal</field>
         <field name="model">res.users</field>

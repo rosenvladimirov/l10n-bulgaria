@@ -1,1 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ai_view_registry_user,ai.view.registry.user,model_ai_view_registry,base.group_user,1,0,0,0
+access_ai_view_registry_manager,ai.view.registry.manager,model_ai_view_registry,base.group_system,1,1,1,1
+access_ai_composite_document_user,ai.composite.document.user,model_ai_composite_document,base.group_user,1,0,0,0
+access_ai_composite_document_manager,ai.composite.document.manager,model_ai_composite_document,base.group_system,1,1,1,1

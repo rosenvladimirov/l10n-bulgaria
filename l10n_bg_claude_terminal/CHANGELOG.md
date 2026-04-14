@@ -1,5 +1,42 @@
 # Changelog
 
+## 18.0.1.20.0
+
+### Added — Qdrant + Ollama checks in Test Connection chain
+- `action_test_connections` extended with two new stages: Qdrant (`GET /collections`) and Ollama (`GET /api/tags` — verifies the configured embedding model is actually pulled).
+- When `claude_embedding_provider != 'ollama'`, the Ollama stage reports `warn` with the active provider name (no spurious errors for OpenAI/Voyage/Anthropic setups).
+- Qdrant stage distinguishes missing api-key (HTTP 401/403 → `warn`) from real connectivity errors.
+
+### Added — `ai_tokenizer` block in `get_config()` payload
+- MCP server now receives Qdrant/Ollama/provider configuration from the Odoo user profile, no separate MCP-side config needed.
+- Fields exposed: `enabled`, `qdrant_url`, `qdrant_api_key`, `collection_prefix`, `ollama_url`, `ollama_model`, `provider`, `embedding_api_key`.
+
+### Added — Frontend AI Tokenizer status widget
+- New OWL component (`ai_tokenizer_status.js/xml/scss`) registered in `web.assets_backend` — shows per-collection parse/tokenize progress.
+
+## 18.0.1.19.0
+
+### Added — AI Tokenizer foundation (Qdrant + Ollama)
+- Six new models wire up vector tokenization of Odoo records:
+  - `ai.view.registry` — per-model+view entries with `Re-parse Arch` / `Tokenize All` / `Documents` actions.
+  - `ai.composite.document` — generated documents (token count + embedding vector reference).
+  - `ai.view.parser` — extracts tokenizable fields from view arch, filtering system/chatter fields via `EXCLUDED_FIELDS`.
+  - `ai.embedding.provider` (AbstractModel) — dispatcher for Ollama / OpenAI / Voyage / Anthropic.
+  - `ai.qdrant.client` (AbstractModel) — minimal REST client covering collection and point lifecycle.
+  - `ai.document.builder` (AbstractModel) — flattens a record into structured text (`MAX_O2M_ROWS=100`, `MAX_M2M_NAMES=20`).
+- New user fields (Claude Terminal tab): `claude_qdrant_url/api_key/collection_prefix`, `claude_ollama_url/model`, `claude_embedding_provider` (ollama/openai/voyage/anthropic), `claude_embedding_api_key`.
+- New menu `Administration → AI Tokenizer` with *View Registry* and *Composite Documents* entries (restricted to `base.group_system`).
+- ACL entries for user read / system full access on both registry and document models.
+
+## 18.0.1.18.0
+
+### Fixed — Test Connection now honors `claude_odoo_protocol` selector
+- Previously `action_test_connections` always used XML-RPC regardless of the protocol field — JSON-RPC selection was ignored.
+- Now branches on `claude_odoo_protocol`: tries the chosen protocol first, then the other, then `/web/session/authenticate` as fallback.
+- The notification message includes the protocol that actually succeeded: e.g. `[XML-RPC] Connected — UID 2, Odoo 18.0`.
+- Web Session fallback works through reverse proxies (Cloudflare Access, Traefik, Nginx) that block `/xmlrpc/*` and `/jsonrpc` but allow `/web/*`.
+- On total failure, message lists each attempt's error so misconfigurations are easier to diagnose.
+
 ## 18.0.1.17.0
 
 ### Changed — Claude Terminal page in "My Profile" (hr.res_users_view_form_profile)

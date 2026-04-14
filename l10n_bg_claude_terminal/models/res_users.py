@@ -158,6 +158,49 @@ class ResUsers(models.Model):
         help="Alternative API key for MCP server (optional).",
     )
 
+    # ── AI Tokenizer (Qdrant + Ollama) ──
+    claude_qdrant_url = fields.Char(
+        "Qdrant URL",
+        help="Qdrant vector DB endpoint (e.g. http://localhost:6333). "
+             "Leave empty to disable AI tokenization.",
+    )
+    claude_qdrant_api_key = fields.Char(
+        "Qdrant API Key",
+        help="Optional API key for Qdrant (if running with QDRANT__SERVICE__API_KEY).",
+    )
+    claude_qdrant_collection_prefix = fields.Char(
+        "Qdrant Collection Prefix",
+        default="odoo_",
+        help="Prefix for per-database collections. Final name: <prefix><db_name>.",
+    )
+    claude_ollama_url = fields.Char(
+        "Ollama URL",
+        help="Ollama endpoint for local embeddings (e.g. http://localhost:11434).",
+        default="http://localhost:11434",
+    )
+    claude_ollama_model = fields.Char(
+        "Embedding Model",
+        default="nomic-embed-text",
+        help="Ollama model for embeddings. Common: nomic-embed-text (768d), "
+             "mxbai-embed-large (1024d).",
+    )
+    claude_embedding_provider = fields.Selection(
+        [
+            ("ollama", "Ollama (local)"),
+            ("openai", "OpenAI"),
+            ("voyage", "Voyage AI"),
+            ("anthropic", "Anthropic"),
+        ],
+        string="Embedding Provider",
+        default="ollama",
+        help="Backend used to generate vector embeddings.",
+    )
+    claude_embedding_api_key = fields.Char(
+        "Embedding API Key",
+        help="API key for paid embedding providers (OpenAI/Voyage/Anthropic). "
+             "Unused when provider=ollama.",
+    )
+
     # ── Viber MCP ──
     claude_viber_bot_token = fields.Char(
         "Bot Token",
@@ -197,6 +240,13 @@ class ResUsers(models.Model):
         "claude_viber_bot_token",
         "claude_viber_bot_name",
         "claude_viber_webhook_url",
+        "claude_qdrant_url",
+        "claude_qdrant_api_key",
+        "claude_qdrant_collection_prefix",
+        "claude_ollama_url",
+        "claude_ollama_model",
+        "claude_embedding_provider",
+        "claude_embedding_api_key",
     ]
 
     @property
@@ -221,19 +271,83 @@ class ResUsers(models.Model):
         odoo_url = (user.claude_odoo_url or "").rstrip("/")
         odoo_db = user.claude_odoo_db or self.env.cr.dbname
         odoo_api_key = user.claude_odoo_api_key or ""
-        if odoo_url and odoo_api_key:
-            try:
-                common = xmlrpc.client.ServerProxy(
-                    f"{odoo_url}/xmlrpc/2/common", allow_none=True
+        odoo_protocol = user.claude_odoo_protocol or "xmlrpc"
+
+        def _try_xmlrpc():
+            common = xmlrpc.client.ServerProxy(
+                f"{odoo_url}/xmlrpc/2/common", allow_none=True
+            )
+            uid = common.authenticate(odoo_db, user.login, odoo_api_key, {})
+            version = common.version().get("server_version", "") if uid else ""
+            return uid, version
+
+        def _try_jsonrpc():
+            payload = json.dumps({
+                "jsonrpc": "2.0", "method": "call", "id": 1,
+                "params": {
+                    "service": "common", "method": "authenticate",
+                    "args": [odoo_db, user.login, odoo_api_key, {}],
+                },
+            }).encode()
+            req = urllib.request.Request(
+                f"{odoo_url}/jsonrpc",
+                data=payload,
+                headers={"Content-Type": "application/json", "User-Agent": "OdooClaudeTerminal/1.0"},
+            )
+            with urllib.request.urlopen(req, timeout=10, context=mk_ctx()) as resp:
+                result = json.loads(resp.read())
+            uid = result.get("result")
+            version = ""
+            if uid:
+                vpayload = json.dumps({
+                    "jsonrpc": "2.0", "method": "call", "id": 2,
+                    "params": {"service": "common", "method": "version", "args": []},
+                }).encode()
+                vreq = urllib.request.Request(
+                    f"{odoo_url}/jsonrpc",
+                    data=vpayload,
+                    headers={"Content-Type": "application/json", "User-Agent": "OdooClaudeTerminal/1.0"},
                 )
-                uid = common.authenticate(odoo_db, user.login, odoo_api_key, {})
-                if uid:
-                    version = common.version().get("server_version", "")
-                    odoo_status, odoo_msg = "ok", _("Connected — UID %s, Odoo %s") % (uid, version)
-                else:
-                    odoo_status, odoo_msg = "error", _("Authentication failed — check DB, login or API key")
-            except Exception as e:
-                odoo_status, odoo_msg = "error", str(e)[:200]
+                with urllib.request.urlopen(vreq, timeout=10, context=mk_ctx()) as vresp:
+                    version = (json.loads(vresp.read()).get("result") or {}).get("server_version", "")
+            return uid, version
+
+        def _try_web_session():
+            # Fallback: works when /xmlrpc and /jsonrpc are blocked by reverse proxy
+            payload = json.dumps({
+                "jsonrpc": "2.0", "method": "call", "id": 1,
+                "params": {"db": odoo_db, "login": user.login, "password": odoo_api_key},
+            }).encode()
+            req = urllib.request.Request(
+                f"{odoo_url}/web/session/authenticate",
+                data=payload,
+                headers={"Content-Type": "application/json", "User-Agent": "OdooClaudeTerminal/1.0"},
+            )
+            with urllib.request.urlopen(req, timeout=10, context=mk_ctx()) as resp:
+                result = json.loads(resp.read())
+            data = result.get("result") or {}
+            return data.get("uid"), data.get("server_version", "")
+
+        if odoo_url and odoo_api_key:
+            attempts = (
+                [("XML-RPC", _try_xmlrpc), ("JSON-RPC", _try_jsonrpc), ("Web Session", _try_web_session)]
+                if odoo_protocol == "xmlrpc"
+                else [("JSON-RPC", _try_jsonrpc), ("XML-RPC", _try_xmlrpc), ("Web Session", _try_web_session)]
+            )
+            odoo_status, odoo_msg = "error", ""
+            errors = []
+            for label, fn in attempts:
+                try:
+                    uid, version = fn()
+                    if uid:
+                        odoo_status = "ok"
+                        odoo_msg = _("[%s] Connected — UID %s, Odoo %s") % (label, uid, version or "?")
+                        break
+                    errors.append("%s: %s" % (label, _("auth failed")))
+                except Exception as e:
+                    errors.append("%s: %s" % (label, str(e)[:80]))
+            if odoo_status != "ok":
+                odoo_msg = " | ".join(errors)[:300]
         else:
             odoo_status, odoo_msg = "warn", _("URL or API key not configured")
 
@@ -292,6 +406,56 @@ class ResUsers(models.Model):
         else:
             web_status, web_msg = "warn", _("URL, login or password not configured")
 
+        # ── Test Qdrant ───────────────────────────────────────────────
+        qdrant_url = (user.claude_qdrant_url or "").rstrip("/")
+        qdrant_key = user.claude_qdrant_api_key or ""
+        if qdrant_url:
+            try:
+                headers = {"User-Agent": "OdooClaudeTerminal/1.0"}
+                if qdrant_key:
+                    headers["api-key"] = qdrant_key
+                req = urllib.request.Request(f"{qdrant_url}/collections", headers=headers)
+                with urllib.request.urlopen(req, timeout=8, context=mk_ctx()) as resp:
+                    data = json.loads(resp.read())
+                count = len((data.get("result") or {}).get("collections") or [])
+                qdrant_status, qdrant_msg = "ok", _("Connected — %s collection(s)") % count
+            except urllib.error.HTTPError as e:
+                if e.code in (401, 403):
+                    qdrant_status, qdrant_msg = "warn", _("HTTP %s — check Qdrant api-key") % e.code
+                else:
+                    qdrant_status, qdrant_msg = "error", _("HTTP %s") % e.code
+            except Exception as e:
+                qdrant_status, qdrant_msg = "error", str(e)[:200]
+        else:
+            qdrant_status, qdrant_msg = "warn", _("Qdrant URL not configured — AI tokenization disabled")
+
+        # ── Test Ollama ───────────────────────────────────────────────
+        ollama_url = (user.claude_ollama_url or "").rstrip("/")
+        provider = user.claude_embedding_provider or "ollama"
+        if provider == "ollama" and ollama_url:
+            try:
+                req = urllib.request.Request(
+                    f"{ollama_url}/api/tags",
+                    headers={"User-Agent": "OdooClaudeTerminal/1.0"},
+                )
+                with urllib.request.urlopen(req, timeout=8, context=mk_ctx()) as resp:
+                    data = json.loads(resp.read())
+                models_ = [m.get("name", "") for m in (data.get("models") or [])]
+                target = user.claude_ollama_model or ""
+                has_model = any(m.startswith(target) for m in models_)
+                if has_model:
+                    ollama_status, ollama_msg = "ok", _("Connected — %s available") % target
+                else:
+                    ollama_status, ollama_msg = "warn", _(
+                        "Connected but model '%s' not pulled. Run: ollama pull %s"
+                    ) % (target, target)
+            except Exception as e:
+                ollama_status, ollama_msg = "error", str(e)[:200]
+        elif provider != "ollama":
+            ollama_status, ollama_msg = "warn", _("Provider=%s — Ollama not used") % provider
+        else:
+            ollama_status, ollama_msg = "warn", _("Ollama URL not configured")
+
         # ── Return display_notification chain ────────────────────────────────────
         # Returning False would trigger ir.actions.act_window_close (action_service.js:1242)
         # and close the preferences dialog. Returning a display_notification action
@@ -322,6 +486,26 @@ class ResUsers(models.Model):
                                 "message": web_msg,
                                 "type": T.get(web_status, "info"),
                                 "sticky": True,
+                                "next": {
+                                    "type": "ir.actions.client",
+                                    "tag": "display_notification",
+                                    "params": {
+                                        "title": _("Qdrant (AI Tokenizer)"),
+                                        "message": qdrant_msg,
+                                        "type": T.get(qdrant_status, "info"),
+                                        "sticky": True,
+                                        "next": {
+                                            "type": "ir.actions.client",
+                                            "tag": "display_notification",
+                                            "params": {
+                                                "title": _("Ollama / Embeddings"),
+                                                "message": ollama_msg,
+                                                "type": T.get(ollama_status, "info"),
+                                                "sticky": True,
+                                            },
+                                        },
+                                    },
+                                },
                             },
                         },
                     },
@@ -528,5 +712,15 @@ class ResUsers(models.Model):
                 "bot_token": user.claude_viber_bot_token or "",
                 "bot_name": user.claude_viber_bot_name or "",
                 "webhook_url": user.claude_viber_webhook_url or "",
+            },
+            "ai_tokenizer": {
+                "enabled": bool(user.claude_qdrant_url),
+                "qdrant_url": user.claude_qdrant_url or "",
+                "qdrant_api_key": user.claude_qdrant_api_key or "",
+                "collection_prefix": user.claude_qdrant_collection_prefix or "odoo_",
+                "ollama_url": user.claude_ollama_url or "",
+                "ollama_model": user.claude_ollama_model or "nomic-embed-text",
+                "provider": user.claude_embedding_provider or "ollama",
+                "embedding_api_key": user.claude_embedding_api_key or "",
             },
         }

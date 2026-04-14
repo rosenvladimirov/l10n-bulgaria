@@ -49,6 +49,7 @@ Technical Infrastructure
     "depends": [
         "base",
         "mail",
+        "hr",
         "l10n_bg_config",
         "l10n_bg_bank_wallet",
     ],
@@ -65,8 +66,17 @@ Technical Infrastructure
         "wizards/nra_credentials_wizard_views.xml",
         "views/res_company_views.xml",
         "views/nra_declaration_views.xml",
+        "views/hr_employee_views.xml",
         "views/menu.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "l10n_bg_api_nra/static/src/js/kep_signer.js",
+            "l10n_bg_api_nra/static/src/js/sign_submit_dialog.js",
+            "l10n_bg_api_nra/static/src/js/sign_submit_widget.js",
+            "l10n_bg_api_nra/static/src/xml/sign_submit_dialog.xml",
+        ],
+    },
     "demo": [],
     "installable": True,
     "auto_install": False,

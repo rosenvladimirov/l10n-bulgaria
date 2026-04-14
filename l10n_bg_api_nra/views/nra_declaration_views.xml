@@ -39,18 +39,29 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button name="%(action_nra_credentials_wizard)d"
+                            string="Регистрации в НАП"
+                            type="action"
+                            icon="fa-key"
+                            groups="l10n_bg_api_nra.group_nra_manager"
+                            help="Добавяне/редактиране на регистрирани API ключове и КЕП credentials за подаване в НАП" />
                     <button name="action_generate_xml"
                             string="Generate XML"
                             type="object"
                             class="btn-primary"
                             invisible="state != 'draft'" />
-                    <button name="action_submit"
-                            string="Submit to NRA"
+                    <button name="action_kep_sign_submit"
+                            string="Sign &amp; Submit with КЕП"
                             type="object"
                             class="btn-primary"
+                            icon="fa-pencil-square-o"
+                            invisible="state not in ('ready', 'error')" />
+                    <button name="action_submit"
+                            string="Submit (server-side)"
+                            type="object"
                             invisible="state not in ('ready', 'error')"
                             groups="l10n_bg_api_nra.group_nra_manager"
-                            confirm="Are you sure you want to submit this declaration to NRA?" />
+                            confirm="Submit without browser-side КЕП signing? (server-side fallback for test mode)" />
                     <button name="action_check_status"
                             string="Check Status"
                             type="object"
@@ -82,132 +93,8 @@
                     </group>
 
                     <notebook>
-                        <!-- D1 tab -->
-                        <page string="Обр. 1 — Осигурени лица"
-                              invisible="declaration_type != 'd1'">
-                            <field name="d1_correction_type" readonly="state != 'draft'" />
-                            <field name="d1_line_ids" readonly="state != 'draft'">
-                                <list editable="bottom">
-                                    <field name="sequence" widget="handle" />
-                                    <field name="id_type" />
-                                    <field name="egn_lnch" />
-                                    <field name="person_names" />
-                                    <field name="insurance_type" />
-                                    <field name="start_date" />
-                                    <field name="end_date" />
-                                    <field name="days_in_insurance" />
-                                    <field name="insurance_income" />
-                                    <field name="doo_employee" />
-                                    <field name="doo_employer" />
-                                    <field name="health_employee" />
-                                    <field name="health_employer" />
-                                    <field name="dzpo_employee" />
-                                    <field name="dzpo_employer" />
-                                    <field name="tax_income" />
-                                    <field name="tax_amount" />
-                                </list>
-                            </field>
-                        </page>
-
-                        <!-- D6 tab -->
-                        <page string="Обр. 6 — Дължими вноски"
-                              invisible="declaration_type != 'd6'">
-                            <group>
-                                <field name="d6_correction_type" readonly="state != 'draft'" />
-                                <field name="d6_payment_date" readonly="state != 'draft'" />
-                            </group>
-                            <field name="d6_line_ids" readonly="state != 'draft'">
-                                <list editable="bottom">
-                                    <field name="sequence" widget="handle" />
-                                    <field name="contribution_type" />
-                                    <field name="payment_month" />
-                                    <field name="payment_year" />
-                                    <field name="doo_amount" />
-                                    <field name="teachers_fund" />
-                                    <field name="dzpo_upf" />
-                                    <field name="dzpo_ppf" />
-                                    <field name="health_insurance" />
-                                    <field name="income_tax" />
-                                    <field name="total_amount" />
-                                </list>
-                            </field>
-                        </page>
-
-                        <!-- ETZ tab -->
-                        <page string="ЕТЗ — Трудови записи"
-                              invisible="declaration_type != 'etz'">
-                            <field name="etz_line_ids" readonly="state != 'draft'">
-                                <list editable="bottom">
-                                    <field name="sequence" widget="handle" />
-                                    <field name="record_type" />
-                                    <field name="id_type" />
-                                    <field name="egn_lnch" />
-                                    <field name="person_names" />
-                                    <field name="contract_type" />
-                                    <field name="contract_number" />
-                                    <field name="contract_date" />
-                                    <field name="start_date" />
-                                    <field name="end_date" optional="hide" />
-                                    <field name="position_code" />
-                                    <field name="position_name" />
-                                    <field name="termination_date" optional="hide" />
-                                    <field name="termination_ground" optional="hide" />
-                                    <field name="working_hours" />
-                                </list>
-                            </field>
-                        </page>
-
-                        <!-- VAT tab -->
-                        <page string="ДДС — Декларация"
-                              invisible="declaration_type != 'vat'">
-                            <group>
-                                <group>
-                                    <field name="vat_correction_type" readonly="state != 'draft'" />
-                                    <field name="vat_total_sales" readonly="state != 'draft'" />
-                                    <field name="vat_total_purchases" readonly="state != 'draft'" />
-                                </group>
-                                <group>
-                                    <field name="vat_charged" readonly="state != 'draft'" />
-                                    <field name="vat_credit" readonly="state != 'draft'" />
-                                    <field name="vat_due" />
-                                    <field name="vat_refund" />
-                                </group>
-                            </group>
-                            <field name="vat_line_ids" readonly="state != 'draft'">
-                                <list editable="bottom">
-                                    <field name="sequence" widget="handle" />
-                                    <field name="cell_number" />
-                                    <field name="description" />
-                                    <field name="amount" sum="Total" />
-                                </list>
-                            </field>
-                        </page>
-
-                        <!-- VIES tab -->
-                        <page string="VIES — Декларация"
-                              invisible="declaration_type != 'vies'">
-                            <group>
-                                <group>
-                                    <field name="vies_correction_type" readonly="state != 'draft'" />
-                                </group>
-                                <group>
-                                    <field name="vies_total_supplies" />
-                                    <field name="vies_total_services" />
-                                    <field name="vies_total_triangular" />
-                                </group>
-                            </group>
-                            <field name="vies_line_ids" readonly="state != 'draft'">
-                                <list editable="bottom">
-                                    <field name="sequence" widget="handle" />
-                                    <field name="partner_id" />
-                                    <field name="partner_country_code" />
-                                    <field name="partner_vat" />
-                                    <field name="partner_name" optional="hide" />
-                                    <field name="operation_type" />
-                                    <field name="tax_base" sum="Total" />
-                                </list>
-                            </field>
-                        </page>
+                        <!-- Type-specific pages added by plug-in modules
+                             (l10n_bg_api_nra_etz, l10n_bg_api_nra_noi, …) -->
 
                         <!-- XML &amp; Response tab -->
                         <page string="XML &amp; Response">
@@ -307,50 +194,11 @@
                 Create your first NRA declaration
             </p>
             <p>
-                Submit insurance declarations (обр. 1, обр. 6), electronic labor records (ЕТЗ),
-                VAT and VIES declarations to the National Revenue Agency (НАП).
+                Submit declarations to the National Revenue Agency (НАП).
+                Type-specific actions (Обр. 1, Обр. 6, ЕТЗ, ДДС, ...) are
+                contributed by plug-in modules.
             </p>
         </field>
-    </record>
-
-    <record id="action_nra_declaration_d1" model="ir.actions.act_window">
-        <field name="name">Декларация обр. 1</field>
-        <field name="res_model">nra.declaration</field>
-        <field name="view_mode">list,form</field>
-        <field name="domain">[('declaration_type', '=', 'd1')]</field>
-        <field name="context">{'default_declaration_type': 'd1'}</field>
-    </record>
-
-    <record id="action_nra_declaration_d6" model="ir.actions.act_window">
-        <field name="name">Декларация обр. 6</field>
-        <field name="res_model">nra.declaration</field>
-        <field name="view_mode">list,form</field>
-        <field name="domain">[('declaration_type', '=', 'd6')]</field>
-        <field name="context">{'default_declaration_type': 'd6'}</field>
-    </record>
-
-    <record id="action_nra_declaration_etz" model="ir.actions.act_window">
-        <field name="name">Електронни трудови записи</field>
-        <field name="res_model">nra.declaration</field>
-        <field name="view_mode">list,form</field>
-        <field name="domain">[('declaration_type', '=', 'etz')]</field>
-        <field name="context">{'default_declaration_type': 'etz'}</field>
-    </record>
-
-    <record id="action_nra_declaration_vat" model="ir.actions.act_window">
-        <field name="name">ДДС Декларация</field>
-        <field name="res_model">nra.declaration</field>
-        <field name="view_mode">list,form</field>
-        <field name="domain">[('declaration_type', '=', 'vat')]</field>
-        <field name="context">{'default_declaration_type': 'vat'}</field>
-    </record>
-
-    <record id="action_nra_declaration_vies" model="ir.actions.act_window">
-        <field name="name">VIES Декларация</field>
-        <field name="res_model">nra.declaration</field>
-        <field name="view_mode">list,form</field>
-        <field name="domain">[('declaration_type', '=', 'vies')]</field>
-        <field name="context">{'default_declaration_type': 'vies'}</field>
     </record>
 
 </odoo>

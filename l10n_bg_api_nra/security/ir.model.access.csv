@@ -1,14 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_nra_declaration_user,nra.declaration.user,model_nra_declaration,group_nra_user,1,1,1,0
 access_nra_declaration_manager,nra.declaration.manager,model_nra_declaration,group_nra_manager,1,1,1,1
-access_nra_declaration_d1_line_user,nra.declaration.d1.line.user,model_nra_declaration_d1_line,group_nra_user,1,1,1,0
-access_nra_declaration_d1_line_manager,nra.declaration.d1.line.manager,model_nra_declaration_d1_line,group_nra_manager,1,1,1,1
-access_nra_declaration_d6_line_user,nra.declaration.d6.line.user,model_nra_declaration_d6_line,group_nra_user,1,1,1,0
-access_nra_declaration_d6_line_manager,nra.declaration.d6.line.manager,model_nra_declaration_d6_line,group_nra_manager,1,1,1,1
-access_nra_declaration_etz_line_user,nra.declaration.etz.line.user,model_nra_declaration_etz_line,group_nra_user,1,1,1,0
-access_nra_declaration_etz_line_manager,nra.declaration.etz.line.manager,model_nra_declaration_etz_line,group_nra_manager,1,1,1,1
-access_nra_declaration_vat_line_user,nra.declaration.vat.line.user,model_nra_declaration_vat_line,group_nra_user,1,1,1,0
-access_nra_declaration_vat_line_manager,nra.declaration.vat.line.manager,model_nra_declaration_vat_line,group_nra_manager,1,1,1,1
-access_nra_declaration_vies_line_user,nra.declaration.vies.line.user,model_nra_declaration_vies_line,group_nra_user,1,1,1,0
-access_nra_declaration_vies_line_manager,nra.declaration.vies.line.manager,model_nra_declaration_vies_line,group_nra_manager,1,1,1,1
 access_nra_credentials_wizard,nra.credentials.wizard,model_nra_credentials_wizard,group_nra_manager,1,1,1,1

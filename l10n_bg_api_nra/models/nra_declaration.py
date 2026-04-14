@@ -45,14 +45,11 @@ class NraDeclaration(models.Model):
         default=lambda self: self.env.company,
         readonly=True,
     )
+    # Base declaration type — plug-in modules extend this via selection_add.
+    # The "xml" fallback lets the base be usable on its own; real declaration
+    # types are contributed by l10n_bg_api_nra_etz, l10n_bg_api_nra_noi, etc.
     declaration_type = fields.Selection(
-        selection=[
-            ("d1", "Декларация обр. 1"),
-            ("d6", "Декларация обр. 6"),
-            ("etz", "Електронни трудови записи"),
-            ("vat", "ДДС декларация"),
-            ("vies", "VIES декларация"),
-        ],
+        selection=[("xml", "Custom XML")],
         string="Declaration Type",
         required=True,
         readonly=True,
@@ -314,31 +311,52 @@ class NraDeclaration(models.Model):
             )
         return True
 
+    def _check_submittable(self):
+        """Raise UserError if the declaration cannot be submitted.
+
+        Plug-in modules override this to add type-specific restrictions
+        (e.g. VAT/VIES declarations cannot go through the ETZ endpoint).
+        """
+        self.ensure_one()
+        if self.state not in ("ready", "error"):
+            raise UserError(
+                _("Can only submit declarations in 'Ready' or 'Error' state.")
+            )
+        if not self.xml_content:
+            raise UserError(
+                _("No file content. Please generate the file first.")
+            )
+
+    def action_kep_sign_submit(self):
+        """Trigger browser-side signing via StampIT LSManager.
+
+        Returns a client action that is handled by the kep_sign_submit
+        JS handler registered in the actions registry. The handler talks
+        to http://127.0.0.1:8090/signer/* on the user's machine, collects
+        the PKCS#7 signature, and posts it back to action_submit_signed
+        through the /l10n_bg_api_nra/sign_submit controller.
+        """
+        self.ensure_one()
+        self._check_submittable()
+        return {
+            "type": "ir.actions.client",
+            "tag": "l10n_bg_api_nra.kep_sign_submit",
+            "params": {
+                "declaration_id": self.id,
+                "declaration_name": self.name,
+            },
+        }
+
     def action_submit(self):
-        """Submit the declaration to the NRA API."""
+        """Submit using server-side signing (wallet-stored КЕП or test fallback).
+
+        For browser-side КЕП signing (StampIT LSManager), the frontend
+        calls action_submit_signed with the PKCS7 produced locally.
+        """
         provider = self.env["nra.api.provider"]
         for rec in self:
-            if rec.state not in ("ready", "error"):
-                raise UserError(
-                    _(
-                        "Can only submit declarations in 'Ready' or 'Error' state."
-                    )
-                )
-            if not rec.xml_content:
-                raise UserError(
-                    _("No file content. Please generate the file first.")
-                )
-            if rec.declaration_type in ("vat", "vies"):
-                raise UserError(
-                    _(
-                        "%(type)s declarations cannot be submitted via this "
-                        "NRA API endpoint. Use the NRA portal directly.",
-                        type=rec.get_declaration_type_label(),
-                    )
-                )
-
+            rec._check_submittable()
             file_bytes = base64.b64decode(rec.xml_content)
-
             try:
                 result = provider.submit_declaration(
                     company=rec.company_id,
@@ -353,6 +371,49 @@ class NraDeclaration(models.Model):
             except UserError:
                 rec.write({"state": "error"})
                 raise
+        return True
+
+    def action_submit_signed(self, signer_cert_b64, signer_pin,
+                             pkcs7_signature_b64):
+        """Submit the declaration using an externally-produced PKCS#7 signature.
+
+        Called by the browser-side StampIT integration: the user clicks
+        "Sign and Submit" in the Odoo UI, the JavaScript component talks
+        to http://127.0.0.1:8090/signer/sign, the user enters their PIN,
+        and the resulting PKCS#7 + certificate are passed here.
+
+        :param signer_cert_b64: Base64 DER certificate from the signer's КЕП
+        :param signer_pin: ЕГН/ЛНЧ from the cert subject (serialNumber OID)
+        :param pkcs7_signature_b64: Base64 PKCS#7 signature of xml_content
+        :returns: True on success (declaration moved to 'submitted' state)
+        :raises UserError: on validation or API failure
+        """
+        self.ensure_one()
+        self._check_submittable()
+        if not (signer_cert_b64 and signer_pin and pkcs7_signature_b64):
+            raise UserError(
+                _("Signer certificate, PIN and PKCS#7 signature are all required.")
+            )
+
+        provider = self.env["nra.api.provider"]
+        file_bytes = base64.b64decode(self.xml_content)
+        try:
+            result = provider.submit_declaration(
+                company=self.company_id,
+                declaration_type=self.declaration_type,
+                file_content=file_bytes,
+                file_name=self.xml_filename or self._get_file_name(),
+                num_records=self._get_file_record_count() or None,
+                period_month=self.period_month,
+                period_year=self.period_year,
+                signer_cert_b64=signer_cert_b64,
+                signer_pin=signer_pin,
+                pkcs7_signature_b64=pkcs7_signature_b64,
+            )
+            self._process_submit_response(result)
+        except UserError:
+            self.write({"state": "error"})
+            raise
         return True
 
     def get_declaration_type_label(self):

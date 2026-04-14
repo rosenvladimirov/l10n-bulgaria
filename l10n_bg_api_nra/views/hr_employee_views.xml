@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="hr_employee_view_form_inherit_nra" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.l10n_bg_api_nra</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_l10n_bg_nra_declarations"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-file-text-o"
+                        invisible="l10n_bg_nra_declaration_count == 0">
+                    <field name="l10n_bg_nra_declaration_count"
+                           widget="statinfo"
+                           string="НАП Декларации" />
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,56 @@
+.o_markdown_content pre {
+    background: #2d2d2d;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+.o_markdown_search {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.o_md_icon_container {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 1000;
+}
+.o_md_icon_container .fa-book {
+    font-size: 24px;
+    color: #4caf50;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.o_md_icon_container .fa-book:hover {
+    color: #45a049;
+}
+/* Индекс стилове */
+.markdown-index {
+    padding: 10px;
+}
+
+.markdown-index .category-section {
+    margin-bottom: 2rem;
+}
+
+.markdown-index .list-group-item {
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.markdown-index .list-group-item:hover {
+    background-color: #f8f9fa;
+    transform: translateX(5px);
+}
+
+.markdown-index .list-group-item h6 {
+    color: #007bff;
+    margin-bottom: 0.25rem;
+}
+
+.markdown-index .list-group-item small {
+    display: block;
+    color: #6c757d;
+}

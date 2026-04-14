@@ -60,7 +60,7 @@ class HrVersion(models.Model):
         compute='_compute_l10n_bg_economic_activity_id',
         store=True,
         readonly=False,
-        default=lambda self: self.env.company.l10n_bg_economic_activity_id,
+        default=False,
         help='Economic activity according to KID 2008. Auto-populated '
              'from the selected job or company but can be overridden.'
     )

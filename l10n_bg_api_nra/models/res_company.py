@@ -181,6 +181,13 @@ class ResCompany(models.Model):
                 except Exception:
                     pass
 
+        # Fallback to ir.config_parameter
+        ICP = self.env["ir.config_parameter"].sudo()
+        api_key = ICP.get_param("l10n_bg_nra.client_id", False)
+        api_secret = ICP.get_param("l10n_bg_nra.client_secret", False)
+        if api_key and api_secret:
+            return api_key, api_secret
+
         raise UserError(
             _(
                 "NRA API credentials not found for company '%s'. "
@@ -294,18 +301,23 @@ class ResCompany(models.Model):
         :param expires_in: Token lifetime in seconds
         """
         self.ensure_one()
-        Wallet = self.env["crypto.wallet"]
-        wallet = Wallet.get_user_wallet_or_create()
 
-        # Remove old token if exists
+        # Try wallet first, fall back to ir.config_parameter
         try:
-            wallet.remove_key_with_user_password(NRA_WALLET_KEY_ACCESS_TOKEN)
+            Wallet = self.env["crypto.wallet"]
+            wallet = Wallet.get_user_wallet_or_create()
+            try:
+                wallet.remove_key_with_user_password(NRA_WALLET_KEY_ACCESS_TOKEN)
+            except Exception:
+                pass
+            wallet.add_key_with_user_password(
+                NRA_WALLET_KEY_ACCESS_TOKEN, "token", access_token
+            )
         except Exception:
-            pass
-
-        wallet.add_key_with_user_password(
-            NRA_WALLET_KEY_ACCESS_TOKEN, "token", access_token
-        )
+            _logger.info("Wallet unavailable, storing OAuth token in system parameters")
+            self.env["ir.config_parameter"].sudo().set_param(
+                "l10n_bg_nra.oauth_token", access_token
+            )
         self.sudo().write(
             {
                 "l10n_bg_nra_token_expiry": fields.Datetime.add(
@@ -366,7 +378,14 @@ class ResCompany(models.Model):
                 except Exception:
                     pass
 
-        # Fallback to ir.config_parameter for direct_token mode
+        # Fallback to ir.config_parameter
+        ICP = self.env["ir.config_parameter"].sudo()
+
+        if self.l10n_bg_nra_auth_mode == "oauth":
+            token = ICP.get_param("l10n_bg_nra.oauth_token", False)
+            if token:
+                return token
+
         if self.l10n_bg_nra_auth_mode == "direct_token":
             token = (
                 self.env["ir.config_parameter"]

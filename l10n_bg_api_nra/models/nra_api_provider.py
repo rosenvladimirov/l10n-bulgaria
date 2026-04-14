@@ -1,4 +1,5 @@
 import base64
+import datetime
 import json
 import logging
 import time
@@ -327,14 +328,110 @@ class NraApiProvider(models.AbstractModel):
     # Declaration submission (NRA JSON API)
     # ------------------------------------------------------------------
 
+    # Valid test EGN (passes Bulgarian checksum) — NOT a real person.
+    NRA_TEST_EGN = "7523169263"
+
+    @api.model
+    def _get_test_cert_and_key(self, company):
+        """Generate an ephemeral self-signed cert for test submissions.
+
+        Returns a tuple (cert, private_key, cert_der_bytes). Cached on
+        the environment's transaction so repeated calls reuse the same
+        certificate within a single request.
+        """
+        from cryptography import x509
+        from cryptography.hazmat.primitives import hashes
+        from cryptography.hazmat.primitives.asymmetric import rsa
+        from cryptography.hazmat.primitives.serialization import Encoding
+        from cryptography.x509.oid import NameOID
+
+        cache_key = "_nra_test_cert"
+        cached = self.env.context.get(cache_key)
+        if cached:
+            return cached
+
+        private_key = rsa.generate_private_key(
+            public_exponent=65537, key_size=2048
+        )
+        subject = issuer = x509.Name([
+            x509.NameAttribute(NameOID.COUNTRY_NAME, "BG"),
+            x509.NameAttribute(
+                NameOID.ORGANIZATION_NAME,
+                (company.name or "Test")[:60],
+            ),
+            x509.NameAttribute(
+                NameOID.COMMON_NAME,
+                "NRA API Test Certificate",
+            ),
+            x509.NameAttribute(
+                NameOID.SERIAL_NUMBER,
+                "PNOBG-" + self.NRA_TEST_EGN,
+            ),
+        ])
+        cert = (
+            x509.CertificateBuilder()
+            .subject_name(subject)
+            .issuer_name(issuer)
+            .public_key(private_key.public_key())
+            .serial_number(x509.random_serial_number())
+            .not_valid_before(datetime.datetime.utcnow())
+            .not_valid_after(
+                datetime.datetime.utcnow() + datetime.timedelta(days=1)
+            )
+            .sign(private_key, hashes.SHA256())
+        )
+        cert_der = cert.public_bytes(Encoding.DER)
+        return cert, private_key, cert_der
+
+    @api.model
+    def _sign_pkcs7(self, file_content, company):
+        """Create a PKCS#7 detached signature of file_content.
+
+        In test mode, uses an ephemeral self-signed certificate.
+        In production, loads the КЕП from company settings (TODO).
+
+        :param file_content: bytes to sign
+        :param company: res.company record
+        :returns: Base64-encoded PKCS#7 signature (DER format)
+        """
+        from cryptography.hazmat.primitives import hashes, serialization
+        from cryptography.hazmat.primitives.serialization import pkcs7
+
+        if company.l10n_bg_nra_test_mode:
+            cert, private_key, _cert_der = self._get_test_cert_and_key(company)
+            signature_der = (
+                pkcs7.PKCS7SignatureBuilder()
+                .set_data(file_content)
+                .add_signer(cert, private_key, hashes.SHA256())
+                .sign(serialization.Encoding.DER, [])
+            )
+            return base64.b64encode(signature_der).decode("ascii")
+
+        raise UserError(
+            _(
+                "PKCS#7 signing with a real КЕП is not yet implemented "
+                "for production mode."
+            )
+        )
+
     @api.model
     def submit_declaration(self, company, declaration_type, file_content,
                            file_name, num_records=None, period_month=None,
-                           period_year=None):
+                           period_year=None, signer_cert_b64=None,
+                           signer_pin=None, pkcs7_signature_b64=None):
         """Submit a declaration to the NRA API.
 
         Builds the ApiDeclarationsSubmitInputDto JSON payload per the
         NRA Swagger specification and POSTs it to the declarations endpoint.
+
+        Signature sources (in order of precedence):
+          1. Explicit args (signer_cert_b64, signer_pin, pkcs7_signature_b64)
+             — used when the browser signs with StampIT LSManager and passes
+             the PKCS7 back to the backend.
+          2. Crypto wallet (company._nra_get_user_credentials) — when the
+             КЕП is stored server-side.
+          3. Test-mode ephemeral self-signed cert — only for smoke tests;
+             NRA rejects these as API_UNRECOGNIZED_CERTIFICATE_OR_USER.
 
         :param company: res.company record
         :param declaration_type: 'd1', 'd6', or 'etz'
@@ -343,6 +440,10 @@ class NraApiProvider(models.AbstractModel):
         :param num_records: number of records (required for D1/D6)
         :param period_month: tax period month (required for D1/D6)
         :param period_year: tax period year (required for D1/D6)
+        :param signer_cert_b64: Base64 DER certificate from the signer's КЕП
+        :param signer_pin: ЕГН/ЛНЧ of the signer (from cert subject)
+        :param pkcs7_signature_b64: Base64 PKCS#7 detached signature of
+                                     file_content, produced by StampIT
         :returns: dict with NRA response (entryNumber, entryDate, documentId)
         :raises UserError: on submission failure
         """
@@ -358,17 +459,38 @@ class NraApiProvider(models.AbstractModel):
         file_doc_type = NRA_FILE_DOC_TYPES.get(declaration_type)
         file_type = NRA_FILE_TYPES.get(declaration_type)
 
-        # Get user credentials from wallet
-        user_pin, user_signature = company._nra_get_user_credentials()
+        # Resolve user credentials
+        if signer_cert_b64 and signer_pin:
+            user_signature = signer_cert_b64
+            user_pin = signer_pin
+        else:
+            try:
+                user_pin, user_signature = company._nra_get_user_credentials()
+            except UserError:
+                if not company.l10n_bg_nra_test_mode:
+                    raise
+                # Ephemeral self-signed fallback — NRA will likely reject it,
+                # but this keeps smoke tests from hard-erroring before reaching
+                # the API.
+                _cert, _pk, cert_der = self._get_test_cert_and_key(company)
+                user_pin = self.NRA_TEST_EGN
+                user_signature = base64.b64encode(cert_der).decode("ascii")
+                _logger.info(
+                    "Test mode fallback: ephemeral self-signed cert + test ЕГН"
+                )
 
         # Build file entry
         file_content_b64 = base64.b64encode(file_content).decode("ascii")
+        if pkcs7_signature_b64:
+            pkcs7_b64 = pkcs7_signature_b64
+        else:
+            pkcs7_b64 = self._sign_pkcs7(file_content, company)
         file_entry = {
             "fileName": file_name,
             "fileType": file_type,
             "fileSize": len(file_content),
             "fileContentBase64": file_content_b64,
-            "base64EncodedPkcs7": "",  # TODO: PKCS7 signature with КЕП
+            "base64EncodedPkcs7": pkcs7_b64,
             "fileDocumentType": file_doc_type,
         }
         if num_records is not None and declaration_type in ("d1", "d6"):
@@ -434,8 +556,14 @@ class NraApiProvider(models.AbstractModel):
                 )
             )
 
-        # Get user credentials from wallet
-        user_pin, user_signature = company._nra_get_user_credentials()
+        # Get user credentials — optional in test mode
+        try:
+            user_pin, user_signature = company._nra_get_user_credentials()
+        except UserError:
+            if not company.l10n_bg_nra_test_mode:
+                raise
+            user_pin = ""
+            user_signature = ""
 
         payload = {
             "taxpayerPin": company.l10n_bg_uic,

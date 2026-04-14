@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--
+        In 19.0, l10n_bg_report_stock.report_accepted_delivery_document is a
+        STANDALONE QWeb template (not an inherit of stock.report_delivery_document),
+        so OCA stock_picking_comment_template's inherit on the standard delivery
+        slip has no effect on the Bulgarian report. We add the comment blocks
+        directly to the Bulgarian template, with no guards.
+    -->
+    <template id="report_accepted_delivery_document_comments_bg" inherit_id="l10n_bg_report_stock.report_accepted_delivery_document">
+        <!-- Top comments — render after the header information block -->
+        <xpath expr="//div[@id='informations']" position="after">
+            <t t-if="o.comment_template_ids">
+                <t t-foreach="o.comment_template_ids.filtered(lambda x: x.position == 'before_lines')"
+                   t-as="comment_template_top">
+                    <div class="mt-3" t-out="o.render_comment(comment_template_top)"/>
+                </t>
+            </t>
+        </xpath>
+
+        <!-- Bottom comments — render before the signature block -->
+        <xpath expr="//div[@name='signature']" position="before">
+            <t t-if="o.comment_template_ids">
+                <t t-foreach="o.comment_template_ids.filtered(lambda x: x.position == 'after_lines')"
+                   t-as="comment_template_bottom">
+                    <div class="mt-3" t-out="o.render_comment(comment_template_bottom)"/>
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ==================== ai.view.registry ==================== -->
+
+    <record id="view_ai_view_registry_list" model="ir.ui.view">
+        <field name="name">ai.view.registry.list</field>
+        <field name="model">ai.view.registry</field>
+        <field name="arch" type="xml">
+            <list string="AI View Registry" decoration-muted="not active">
+                <field name="priority" optional="hide"/>
+                <field name="model_id"/>
+                <field name="view_type"/>
+                <field name="view_id" optional="hide"/>
+                <field name="embedding_provider"/>
+                <field name="last_parsed"/>
+                <field name="document_count"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_view_registry_form" model="ir.ui.view">
+        <field name="name">ai.view.registry.form</field>
+        <field name="model">ai.view.registry</field>
+        <field name="arch" type="xml">
+            <form string="AI View Registry">
+                <header>
+                    <button name="action_parse_arch"
+                            string="Re-parse Arch"
+                            type="object"
+                            class="btn-primary"/>
+                    <button name="action_tokenize_all"
+                            string="Tokenize All"
+                            type="object"
+                            class="btn-warning"
+                            confirm="Tokenize every record of this model? This can take a long time."/>
+                    <button name="action_view_documents"
+                            string="Documents"
+                            type="object"
+                            class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="model_id"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="model_name" invisible="1"/>
+                            <field name="view_type"/>
+                            <field name="view_id"
+                                   options="{'no_create': True}"/>
+                            <field name="embedding_provider"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                            <field name="priority"/>
+                            <field name="last_parsed" readonly="1"/>
+                            <field name="document_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Field Spec (JSON)" name="field_spec">
+                            <field name="field_spec" widget="ace" options="{'mode': 'javascript'}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ai_view_registry_search" model="ir.ui.view">
+        <field name="name">ai.view.registry.search</field>
+        <field name="model">ai.view.registry</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="model_id"/>
+                <field name="model_name"/>
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="by_model" string="Model"
+                            context="{'group_by': 'model_name'}"/>
+                    <filter name="by_view_type" string="View Type"
+                            context="{'group_by': 'view_type'}"/>
+                    <filter name="by_provider" string="Provider"
+                            context="{'group_by': 'embedding_provider'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ai_view_registry" model="ir.actions.act_window">
+        <field name="name">AI View Registry</field>
+        <field name="res_model">ai.view.registry</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register a model/view pair for AI tokenization.
+            </p>
+            <p>
+                Each registry entry defines which model and view should be
+                captured as a composite document and indexed to Qdrant.
+            </p>
+        </field>
+    </record>
+
+    <!-- ==================== ai.composite.document ==================== -->
+
+    <record id="view_ai_composite_document_list" model="ir.ui.view">
+        <field name="name">ai.composite.document.list</field>
+        <field name="model">ai.composite.document</field>
+        <field name="arch" type="xml">
+            <list string="Composite Documents"
+                  decoration-success="state == 'indexed'"
+                  decoration-warning="state == 'stale'"
+                  decoration-danger="state == 'error'"
+                  decoration-muted="state == 'draft'">
+                <field name="display_name"/>
+                <field name="model_name"/>
+                <field name="view_type"/>
+                <field name="res_id"/>
+                <field name="company_id"/>
+                <field name="token_count"/>
+                <field name="state" widget="badge"/>
+                <field name="write_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_composite_document_form" model="ir.ui.view">
+        <field name="name">ai.composite.document.form</field>
+        <field name="model">ai.composite.document</field>
+        <field name="arch" type="xml">
+            <form string="Composite Document">
+                <header>
+                    <button name="action_tokenize_and_index"
+                            string="Tokenize &amp; Index"
+                            type="object"
+                            class="btn-primary"/>
+                    <button name="action_open_source"
+                            string="Open Source Record"
+                            type="object"
+                            class="btn-secondary"/>
+                    <button name="action_mark_stale"
+                            string="Mark Stale"
+                            type="object"
+                            invisible="state != 'indexed'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,tokenized,indexed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="display_name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="registry_id"/>
+                            <field name="model_name"/>
+                            <field name="view_type"/>
+                            <field name="res_id"/>
+                        </group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="db_name"/>
+                            <field name="token_count"/>
+                            <field name="source_write_date"/>
+                            <field name="qdrant_point_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Document Text" name="document_text">
+                            <field name="document_text" widget="text" nolabel="1"/>
+                        </page>
+                        <page string="Error"
+                              name="error"
+                              invisible="state != 'error'">
+                            <field name="error_message" widget="text" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ai_composite_document_search" model="ir.ui.view">
+        <field name="name">ai.composite.document.search</field>
+        <field name="model">ai.composite.document</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="model_name"/>
+                <field name="res_id"/>
+                <field name="db_name"/>
+                <filter name="indexed" string="Indexed"
+                        domain="[('state', '=', 'indexed')]"/>
+                <filter name="stale" string="Stale"
+                        domain="[('state', '=', 'stale')]"/>
+                <filter name="draft" string="Pending"
+                        domain="[('state', 'in', ('draft', 'tokenized'))]"/>
+                <filter name="errors" string="Errors"
+                        domain="[('state', '=', 'error')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="by_model" string="Model"
+                            context="{'group_by': 'model_name'}"/>
+                    <filter name="by_state" string="State"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="by_company" string="Company"
+                            context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ai_composite_document" model="ir.actions.act_window">
+        <field name="name">Composite Documents</field>
+        <field name="res_model">ai.composite.document</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ==================== Menu ==================== -->
+
+    <menuitem id="menu_ai_tokenizer_root"
+              name="AI Tokenizer"
+              parent="base.menu_administration"
+              groups="base.group_system"
+              sequence="95"/>
+
+    <menuitem id="menu_ai_view_registry"
+              name="View Registry"
+              parent="menu_ai_tokenizer_root"
+              action="action_ai_view_registry"
+              sequence="10"/>
+
+    <menuitem id="menu_ai_composite_document"
+              name="Composite Documents"
+              parent="menu_ai_tokenizer_root"
+              action="action_ai_composite_document"
+              sequence="20"/>
+
+</odoo>

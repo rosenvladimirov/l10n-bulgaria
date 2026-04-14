@@ -2,9 +2,9 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Claude Terminal (Chatter & List View)",
-    "version": "19.0.1.14.0",
+    "version": "19.0.1.15.0",
     "category": "Technical",
-    "summary": "Claude Code terminal in chatter, list & kanban view — connects to MCP Docker stack",
+    "summary": "Claude Code terminal + AI Tokenizer (Qdrant/Ollama) — MCP Docker stack",
     "author": "Rosen Vladimirov, BL Consulting, Odoo Community Association (OCA)",
     "maintainers": ["rosen-vladimirov"],
     "website": "https://github.com/nicePrintBulgaria/l10n-bulgaria",
@@ -13,6 +13,7 @@
     "data": [
         "security/ir.model.access.csv",
         "views/res_users_views.xml",
+        "views/ai_tokenizer_views.xml",
     ],
     "assets": {
         "web.assets_backend": [
@@ -27,6 +28,9 @@
             "l10n_bg_claude_terminal/static/src/xml/terminal_listview.xml",
             "l10n_bg_claude_terminal/static/src/js/terminal_kanbanview.js",
             "l10n_bg_claude_terminal/static/src/xml/terminal_kanbanview.xml",
+            "l10n_bg_claude_terminal/static/src/scss/ai_tokenizer_status.scss",
+            "l10n_bg_claude_terminal/static/src/js/ai_tokenizer_status.js",
+            "l10n_bg_claude_terminal/static/src/xml/ai_tokenizer_status.xml",
         ],
     },
     "installable": True,

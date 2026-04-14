@@ -1,5 +1,22 @@
 # Changelog
 
+## 19.0.1.15.0
+
+### Added — AI Tokenizer foundation (Qdrant + Ollama) — ported from 18.0.1.20.x
+- Six new models for vector tokenization of Odoo records:
+  - `ai.view.registry` — per-model+view entries with `Re-parse Arch` / `Tokenize All` / `Documents` actions.
+  - `ai.composite.document` — generated documents (token count + embedding reference).
+  - `ai.view.parser` — extracts tokenizable fields from view arch, filtering system/chatter fields via `EXCLUDED_FIELDS`.
+  - `ai.embedding.provider` (AbstractModel) — dispatcher for Ollama / OpenAI / Voyage / Anthropic.
+  - `ai.qdrant.client` (AbstractModel) — minimal Qdrant REST client.
+  - `ai.document.builder` (AbstractModel) — flattens a record into structured text (`MAX_O2M_ROWS=100`, `MAX_M2M_NAMES=20`).
+- New user fields (Claude Terminal tab): `claude_qdrant_url/api_key/collection_prefix`, `claude_ollama_url/model`, `claude_embedding_provider` (ollama/openai/voyage/anthropic), `claude_embedding_api_key`.
+- `get_config()` payload now includes `ai_tokenizer` block exposing Qdrant/Ollama/provider configuration to MCP server.
+- `action_test_connections` extended with Qdrant (`GET /collections`) and Ollama (`GET /api/tags` + model-pulled check) stages. Non-ollama providers skip Ollama check cleanly.
+- New menu `Administration → AI Tokenizer` (View Registry, Composite Documents) — restricted to `base.group_system`. ACLs: user read / system full access on both models.
+- Frontend OWL status widget (`ai_tokenizer_status.js/xml/scss`) registered in `web.assets_backend`.
+- CodeEditor `mode` option on `field_spec` uses `javascript` (Odoo validates against `["javascript","xml","qweb","scss","python"]` — `json` would throw `OwlError: 'mode' is not valid`).
+
 ## 19.0.1.14.0
 
 ### Added — Anthropic API Key pre-authentication

@@ -1,5 +1,12 @@
 # Changelog
 
+## 18.0.1.20.1
+
+### Fixed — CodeEditor `mode` prop validation error on AI View Registry form
+- `field_spec` used `widget="ace" options="{'mode': 'json'}"` but Odoo 18 CodeEditor only accepts `javascript|xml|qweb|scss|python` (validated via `CodeEditor.MODES`).
+- Changed to `'mode': 'javascript'` — JSON content is still highlighted correctly (JSON is a valid JavaScript subset).
+- Symptom: `OwlError: Invalid props for component 'CodeEditor': 'mode' is not valid` when opening the AI View Registry form view.
+
 ## 18.0.1.20.0
 
 ### Added — Qdrant + Ollama checks in Test Connection chain

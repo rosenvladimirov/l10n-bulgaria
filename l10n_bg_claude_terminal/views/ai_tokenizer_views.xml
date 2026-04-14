@@ -63,7 +63,7 @@
                     </group>
                     <notebook>
                         <page string="Field Spec (JSON)" name="field_spec">
-                            <field name="field_spec" widget="ace" options="{'mode': 'json'}"/>
+                            <field name="field_spec" widget="ace" options="{'mode': 'javascript'}"/>
                         </page>
                     </notebook>
                 </sheet>

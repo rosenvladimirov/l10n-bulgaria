@@ -80,14 +80,13 @@
                 <field name="model_name"/>
                 <filter name="active" string="Active" domain="[('active', '=', True)]"/>
                 <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
-                <group expand="0" string="Group By">
-                    <filter name="by_model" string="Model"
-                            context="{'group_by': 'model_name'}"/>
-                    <filter name="by_view_type" string="View Type"
-                            context="{'group_by': 'view_type'}"/>
-                    <filter name="by_provider" string="Provider"
-                            context="{'group_by': 'embedding_provider'}"/>
-                </group>
+                <separator/>
+                <filter name="by_model" string="Model"
+                        context="{'group_by': 'model_name'}"/>
+                <filter name="by_view_type" string="View Type"
+                        context="{'group_by': 'view_type'}"/>
+                <filter name="by_provider" string="Provider"
+                        context="{'group_by': 'embedding_provider'}"/>
             </search>
         </field>
     </record>
@@ -201,14 +200,13 @@
                         domain="[('state', 'in', ('draft', 'tokenized'))]"/>
                 <filter name="errors" string="Errors"
                         domain="[('state', '=', 'error')]"/>
-                <group expand="0" string="Group By">
-                    <filter name="by_model" string="Model"
-                            context="{'group_by': 'model_name'}"/>
-                    <filter name="by_state" string="State"
-                            context="{'group_by': 'state'}"/>
-                    <filter name="by_company" string="Company"
-                            context="{'group_by': 'company_id'}"/>
-                </group>
+                <separator/>
+                <filter name="by_model" string="Model"
+                        context="{'group_by': 'model_name'}"/>
+                <filter name="by_state" string="State"
+                        context="{'group_by': 'state'}"/>
+                <filter name="by_company" string="Company"
+                        context="{'group_by': 'company_id'}"/>
             </search>
         </field>
     </record>

@@ -1,5 +1,11 @@
 # Changelog
 
+## 19.0.1.15.1
+
+### Fixed — Search view compliance with Odoo 19 RelaxNG schema
+- `<group expand="0" string="Group By">` wrapping group-by filters caused `RELAXNG_ERR_INVALIDATTR: Invalid attribute expand for element group` (v19 search `<group>` allows only `colspan/rowspan/fill/height/width/name/color/invisible`).
+- Replaced with top-level `<separator/>` + `<filter context="{'group_by': ...}">` — v19 client auto-collects them into the Group By submenu.
+
 ## 19.0.1.15.0
 
 ### Added — AI Tokenizer foundation (Qdrant + Ollama) — ported from 18.0.1.20.x

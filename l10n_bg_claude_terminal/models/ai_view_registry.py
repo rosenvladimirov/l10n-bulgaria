@@ -99,8 +99,132 @@ class AiViewRegistry(models.Model):
     @api.model
     def _is_enabled(self):
         """Feature gate — tokenization is disabled unless Qdrant is configured."""
-        user = self.env.user
-        return bool(user.claude_qdrant_url)
+        return bool(self.env.company.claude_qdrant_url)
+
+    # ──────────────────────────────────────────────────────────
+    # Form View Grabber
+    # ──────────────────────────────────────────────────────────
+
+    # Префикси на технически модели — никога не се сканират.
+    _GRABBER_BLACKLIST_PREFIXES = (
+        "ir.",
+        "base.",
+        "bus.",
+        "mail.",
+        "web.",
+        "web_editor.",
+        "res.config.",
+        "res.users.",
+        "res.groups",
+        "res.lang",
+        "res.currency.rate",
+        "ai.",
+        "claude.",
+        "format.",
+        "report.",
+    )
+
+    # Точни имена на модели за пропускане (които не могат да се хванат с префикс).
+    _GRABBER_BLACKLIST_EXACT = frozenset({
+        "res.config.settings",
+        "res.users.apikeys.description",
+        "res.users.identitycheck",
+        "change.password.wizard",
+        "change.password.user",
+        "wizard.ir.model.menu.create",
+        "base.module.uninstall",
+        "base.module.upgrade",
+        "base.module.update",
+        "base.language.install",
+        "base.language.export",
+        "base.language.import",
+        "base.update.translations",
+    })
+
+    @api.model
+    def _grabber_is_skipped(self, model_name, model_obj):
+        """Decide whether a model should be skipped by the form-view grabber.
+
+        Skips: technical/system models, transient/abstract models, models
+        without DB table, exact blacklist matches.
+        """
+        if not model_name or model_name in self._GRABBER_BLACKLIST_EXACT:
+            return True
+        for prefix in self._GRABBER_BLACKLIST_PREFIXES:
+            if model_name.startswith(prefix):
+                return True
+        # TransientModel / AbstractModel — нямат смисъл за tokenization
+        if model_obj._transient or model_obj._abstract:
+            return True
+        if not model_obj._auto:  # няма SQL таблица
+            return True
+        return False
+
+    def action_scan_form_views(self):
+        """Discover form views in the database and create *inactive* registry
+        entries for each new (model, type='form') combination.
+
+        Created as ``active=False`` so the admin opts-in deliberately —
+        avoids flooding the registry / Qdrant with technical models.
+        """
+        IrUiView = self.env["ir.ui.view"]
+        IrModel = self.env["ir.model"]
+
+        # Уникални model имена които имат поне една form view.
+        form_models = IrUiView.search([
+            ("type", "=", "form"),
+            ("model", "!=", False),
+        ]).mapped("model")
+        unique_models = sorted(set(form_models))
+
+        existing_keys = set(
+            self.with_context(active_test=False).search([
+                ("view_type", "=", "form"),
+                ("view_id", "=", False),
+            ]).mapped(lambda r: (r.model_name, "form"))
+        )
+
+        created, skipped_existing, skipped_blacklist = 0, 0, 0
+        for model_name in unique_models:
+            if model_name not in self.env:
+                skipped_blacklist += 1
+                continue
+            model_obj = self.env[model_name]
+            if self._grabber_is_skipped(model_name, model_obj):
+                skipped_blacklist += 1
+                continue
+            if (model_name, "form") in existing_keys:
+                skipped_existing += 1
+                continue
+            ir_model = IrModel._get(model_name)
+            if not ir_model:
+                skipped_blacklist += 1
+                continue
+            self.create({
+                "model_id": ir_model.id,
+                "view_type": "form",
+                "active": False,
+                "priority": 50,  # по-нисък prio от ръчно добавените (default 10)
+            })
+            created += 1
+
+        msg = _(
+            "Form view grabber finished:\n"
+            "  • Created %(c)s new entries (inactive)\n"
+            "  • Skipped %(e)s already registered\n"
+            "  • Skipped %(b)s blacklisted/technical/transient"
+        ) % {"c": created, "e": skipped_existing, "b": skipped_blacklist}
+        _logger.info(msg)
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("Form View Grabber"),
+                "message": msg,
+                "type": "success" if created else "info",
+                "sticky": False,
+            },
+        }
 
     def action_parse_arch(self):
         """Re-parse the view arch and refresh field_spec."""

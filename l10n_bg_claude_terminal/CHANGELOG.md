@@ -1,5 +1,14 @@
 # Changelog
 
+## 19.0.1.17.0
+
+### Added — Form View Grabber on `ai.view.registry`
+- Port from 18.0.1.22.0. Виж changelog на v18 за пълно описание: `action_scan_form_views()` сканира `ir.ui.view` form-ове, създава inactive registry entries за нови (model, form) комбинации; prefix + exact blacklist на технически модели; пропуска transient/abstract/неавтоматични модели.
+- Header button "Scan Form Views" (`btn-primary`, с confirm) и server action в Actions gear menu.
+
+### Fixed — `_is_enabled` reads from company, not user
+- Stale след res.users → res.company move (v1.16.0).
+
 ## 19.0.1.16.1
 
 ### Security — Restrict access to Claude MCP secrets

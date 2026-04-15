@@ -1,5 +1,13 @@
 # Changelog
 
+## 19.0.1.19.0
+
+### Same as 18.0.1.24.0 — port from v18
+- AI Tokenizer секция върната в `base.view_users_form_simple_modif` (preferences modal).
+- Седем related полета на `res.users` сочещи към `company_id.claude_*` — `readonly=False`, редакцията делегира към `res.company` (API ключовете остават `groups="base.group_system"`).
+- Петте безопасни полета добавени в `SELF_WRITEABLE_FIELDS`.
+- Данните остават company-level (архитектурата от 1.16.0 е запазена) — това е само UI surface.
+
 ## 19.0.1.18.0
 
 ### Same as 18.0.1.23.0 — port from v18

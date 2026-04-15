@@ -1,5 +1,10 @@
 # Changelog
 
+## 18.0.1.21.1
+
+### Fixed — Manifest `website` URL
+- Was pointing to `nicePrintBulgaria/l10n-bulgaria` (wrong account). Now points to the actual repo and module subpath: `rosenvladimirov/l10n-bulgaria/tree/18.0/l10n_bg_claude_terminal`.
+
 ## 18.0.1.21.0
 
 ### Changed — AI Tokenizer config moved from `res.users` to `res.company`

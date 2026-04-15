@@ -1,5 +1,27 @@
 # Changelog
 
+## 19.0.1.20.0
+
+### Added — `_explanation` backport (20.0 forward-compat)
+- Monkey patch в `__init__.py`: `models.Model._explanation = None` (guard-нат с
+  `hasattr`, така че на 20.0 става no-op). Един ред → всички Odoo модели на
+  16/17/18/19 получават Python class attribute като на 20.0.
+- Нов модел `ir.model` extension → `get_ai_explanations(model_names=None, lang=None)`:
+  MRO walk по `_reflect_model_params` pattern от Odoo 20 core, с
+  lang-filtering parser за markers `[xx_YY]...[/xx_YY]`.
+- Unmarked legacy текст се третира като `en_US` — видим само за english
+  сесии, skip за останалите.
+- Whitelist: само активни `ai.view.registry` модели се exposing-ват (consistency
+  с tokenizer access rules; sensitive/transient/abstract модели отпадат
+  автоматично).
+- Tests в `tests/test_ai_explanations.py` — parser unit tests + registry
+  whitelist integration tests.
+
+### Why
+Skills ecosystem (v3) ще декларира `_explanation` върху core модели (sale.order,
+account.move, etc.) за да подава AI context към LLM без hardcoded dependency
+на версия. Този base е 100% forward-compat с Odoo 20 native behavior.
+
 ## 19.0.1.19.0
 
 ### Same as 18.0.1.24.0 — port from v18

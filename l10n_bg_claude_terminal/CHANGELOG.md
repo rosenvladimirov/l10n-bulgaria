@@ -1,5 +1,11 @@
 # Changelog
 
+## 19.0.1.16.1
+
+### Security — Restrict access to Claude MCP secrets
+- `get_claude_mcp_config()` now requires `base.group_system`. Previously any logged-in user (including portal/internal with minimal rights) could RPC-call this method and receive plaintext: Anthropic API key, MCP token, Telegram api_hash, Viber bot token, web-session password, **company-level Qdrant + embedding API keys**.
+- `res.company.claude_qdrant_api_key` and `res.company.claude_embedding_api_key` now declare `groups="base.group_system"` — read access enforced at ORM level, not just UI password masking. Same on the related fields in `res.config.settings`.
+
 ## 19.0.1.16.0
 
 ### Changed — AI Tokenizer config moved from `res.users` to `res.company`

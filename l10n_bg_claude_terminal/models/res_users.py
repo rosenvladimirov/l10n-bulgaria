@@ -8,6 +8,7 @@ import urllib.error
 import xmlrpc.client
 
 from odoo import _, api, fields, models
+from odoo.exceptions import AccessError
 from odoo.service.db import list_dbs
 
 import logging
@@ -562,7 +563,19 @@ class ResUsers(models.Model):
 
     @api.model
     def get_claude_mcp_config(self):
-        """RPC: return current user's full MCP configuration for the terminal."""
+        """RPC: return current user's full MCP configuration for the terminal.
+
+        Restricted to administrators (`base.group_system`) — payload contains
+        secrets (Anthropic key, MCP token, embedding/Qdrant API keys, Viber
+        bot token, web-session password). Allowing non-admins here would
+        leak company-level credentials (Qdrant/embedding api keys live on
+        res.company and any logged-in user — including portal users — sees
+        their own res.users record otherwise).
+        """
+        if not self.env.user.has_group("base.group_system"):
+            raise AccessError(_(
+                "Only administrators can read Claude MCP configuration."
+            ))
         user = self.env.user
         return {
             "terminal_url": user.claude_terminal_url or "",

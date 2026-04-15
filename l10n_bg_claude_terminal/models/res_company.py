@@ -16,7 +16,9 @@ class ResCompany(models.Model):
     )
     claude_qdrant_api_key = fields.Char(
         "Qdrant API Key",
-        help="Optional API key for Qdrant (if running with QDRANT__SERVICE__API_KEY).",
+        groups="base.group_system",
+        help="Optional API key for Qdrant (if running with QDRANT__SERVICE__API_KEY). "
+             "Visible only to administrators.",
     )
     claude_qdrant_collection_prefix = fields.Char(
         "Qdrant Collection Prefix",
@@ -47,6 +49,7 @@ class ResCompany(models.Model):
     )
     claude_embedding_api_key = fields.Char(
         "Embedding API Key",
+        groups="base.group_system",
         help="API key for paid embedding providers (OpenAI/Voyage/Anthropic). "
-             "Unused when provider=ollama.",
+             "Unused when provider=ollama. Visible only to administrators.",
     )

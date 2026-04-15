@@ -173,6 +173,30 @@ class ResUsers(models.Model):
         help="Public HTTPS URL for Viber webhook (e.g. https://yourdomain.com/viber/webhook)",
     )
 
+    # ── AI Tokenizer (mirror of res.company, surfaced in user profile) ──
+    # Редакцията минава през company — изисква write права върху res.company.
+    claude_qdrant_url = fields.Char(
+        related="company_id.claude_qdrant_url", readonly=False,
+    )
+    claude_qdrant_api_key = fields.Char(
+        related="company_id.claude_qdrant_api_key", readonly=False,
+    )
+    claude_qdrant_collection_prefix = fields.Char(
+        related="company_id.claude_qdrant_collection_prefix", readonly=False,
+    )
+    claude_ollama_url = fields.Char(
+        related="company_id.claude_ollama_url", readonly=False,
+    )
+    claude_ollama_model = fields.Char(
+        related="company_id.claude_ollama_model", readonly=False,
+    )
+    claude_embedding_provider = fields.Selection(
+        related="company_id.claude_embedding_provider", readonly=False,
+    )
+    claude_embedding_api_key = fields.Char(
+        related="company_id.claude_embedding_api_key", readonly=False,
+    )
+
     _CLAUDE_FIELDS = [
         "claude_terminal_url",
         "claude_use_external_terminal",
@@ -198,6 +222,11 @@ class ResUsers(models.Model):
         "claude_viber_bot_token",
         "claude_viber_bot_name",
         "claude_viber_webhook_url",
+        "claude_qdrant_url",
+        "claude_qdrant_collection_prefix",
+        "claude_ollama_url",
+        "claude_ollama_model",
+        "claude_embedding_provider",
     ]
 
     @property

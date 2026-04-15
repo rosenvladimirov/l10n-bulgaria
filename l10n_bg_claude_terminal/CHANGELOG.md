@@ -1,5 +1,13 @@
 # Changelog
 
+## 18.0.1.24.0
+
+### Added — AI Tokenizer секция обратно в user form (profile + preferences modal)
+- Седем related полета на `res.users` сочещи към `company_id.claude_*` (qdrant url/api_key/collection_prefix, ollama url/model, embedding provider/api_key) — `readonly=False`, значи редакцията делегира към текущата `res.company` (изисква write права върху фирмата; API ключовете остават `groups="base.group_system"`).
+- View секция "AI Tokenizer (Qdrant + Ollama)" в `hr.res_users_view_form_profile` и в `base.view_users_form_simple_modif` (preferences modal).
+- Петте безопасни полета (без api_key-та) добавени в `SELF_WRITEABLE_FIELDS` — потребителят може да ги редактира в профила си, ако има write върху company.
+- Данните остават company-level (v1.21.0 архитектурата е запазена) — това е само UI surface в user form-а.
+
 ## 18.0.1.23.0
 
 ### Fixed — AI Tokenizer моделите четат от `res.company`, не от `res.users`

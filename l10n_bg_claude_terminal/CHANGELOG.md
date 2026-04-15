@@ -1,5 +1,22 @@
 # Changelog
 
+## 18.0.1.22.0
+
+### Added — Form View Grabber on `ai.view.registry`
+- New method `action_scan_form_views()` discovers every distinct model that has at least one `ir.ui.view` of `type='form'` and creates a registry entry per (model, form) pair that's not already registered.
+- Created entries are **inactive by default** (`active=False`, `priority=50`) — admin opts in deliberately to avoid flooding Qdrant with technical models.
+- **Filtering** (in `_grabber_is_skipped`):
+  - Prefix blacklist: `ir.`, `base.`, `bus.`, `mail.`, `web.`, `web_editor.`, `res.config.`, `res.users.`, `res.groups`, `res.lang`, `res.currency.rate`, `ai.`, `claude.`, `format.`, `report.`.
+  - Exact blacklist: `res.config.settings`, identitycheck/apikey wizards, base.module/language wizards.
+  - Skips `_transient`, `_abstract`, `not _auto` (no DB table).
+- Two entry points to call it:
+  - **Header button "Scan Form Views"** on the registry list view (`btn-primary`, with confirm).
+  - **Server action "Scan Form Views (AI Tokenizer)"** in the list's "Actions" gear menu — callable without record selection.
+- Reports created/skipped counts via `display_notification`.
+
+### Fixed — `_is_enabled` reads from company, not user
+- Leftover from the res.users → res.company move (v1.21.0). `_is_enabled` was still checking `user.claude_qdrant_url` which no longer exists; now reads `self.env.company.claude_qdrant_url`.
+
 ## 18.0.1.21.2
 
 ### Security — Restrict access to Claude MCP secrets

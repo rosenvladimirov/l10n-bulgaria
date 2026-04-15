@@ -50,6 +50,9 @@ class ResCompany(models.Model):
     claude_embedding_api_key = fields.Char(
         "Embedding API Key",
         groups="base.group_system",
-        help="API key for paid embedding providers (OpenAI/Voyage/Anthropic). "
-             "Unused when provider=ollama. Visible only to administrators.",
+        help="Auth token sent as 'Authorization: Bearer ...' to the embedding endpoint. "
+             "Required for paid providers (OpenAI/Voyage/Anthropic). "
+             "Also used for proxied Ollama (e.g. MCP server at https://mcp.odoo-shell.space/ollama — "
+             "set this to the MCP_SECRET_TOKEN). Leave empty for direct Ollama without auth. "
+             "Visible only to administrators.",
     )

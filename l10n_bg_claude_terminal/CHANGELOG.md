@@ -1,5 +1,15 @@
 # Changelog
 
+## 19.0.1.21.0
+
+### Added — Optional `Authorization: Bearer` header за Ollama embeddings
+- `_embed_ollama` вече чете `company.claude_embedding_api_key` и ако има стойност
+  го изпраща като `Authorization: Bearer <token>` header.
+- Позволява ползване на proxied Ollama endpoint (напр. `https://mcp.odoo-shell.space/ollama`
+  с MCP server passthrough, който валидира `OLLAMA_API_KEY`).
+- Backward compatible: празен ключ → няма header (директен локален Ollama работи както преди).
+- Help text на `claude_embedding_api_key` обновен — вече обхваща и proxied Ollama.
+
 ## 19.0.1.20.0
 
 ### Added — `_explanation` backport (20.0 forward-compat)

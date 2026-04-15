@@ -1,5 +1,20 @@
 # Changelog
 
+## 19.0.1.16.0
+
+### Changed — AI Tokenizer config moved from `res.users` to `res.company`
+- Port from 18.0.1.21.0. Same structure: seven fields moved to `res.company`, `res.config.settings` exposes them as related fields with a new block "AI Tokenizer (Qdrant + Ollama)" in General Settings (inherits `base_setup.res_config_settings_view_form`).
+- Removed the fields from `res.users` and the AI Tokenizer group in My Profile → Claude Terminal tab.
+- `action_test_connections` and `get_config()` now read from `user.company_id.claude_*`.
+- Added dependency `base_setup`.
+
+### Fixed — Manifest `website` URL
+- Was pointing to `nicePrintBulgaria/l10n-bulgaria`. Corrected to `rosenvladimirov/l10n-bulgaria/tree/19.0/l10n_bg_claude_terminal`.
+
+### Migration — `migrations/19.0.1.16.0/post-migration.py`
+- Copies legacy `res_users.claude_qdrant_*/ollama_*/embedding_*` values from the first admin user into `res_company` id=1 (only for empty company fields), then drops the legacy columns.
+- Idempotent: no-op if legacy columns are absent or no values were set.
+
 ## 19.0.1.15.1
 
 ### Fixed — Search view compliance with Odoo 19 RelaxNG schema

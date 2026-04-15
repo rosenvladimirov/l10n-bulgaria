@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.claude.terminal</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='general_settings']" position="inside">
+                <block title="AI Tokenizer (Qdrant + Ollama)"
+                       name="claude_ai_tokenizer_container">
+                    <setting id="claude_ai_tokenizer_setting"
+                             string="Vector Database"
+                             help="Configure Qdrant vector DB and Ollama embeddings for AI tokenization of Odoo records.">
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label for="claude_qdrant_url"
+                                       string="Qdrant URL"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_qdrant_url"
+                                       placeholder="http://localhost:6333"/>
+                            </div>
+                            <div class="row mt16" invisible="not claude_qdrant_url">
+                                <label for="claude_qdrant_api_key"
+                                       string="Qdrant API Key"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_qdrant_api_key"
+                                       password="True"
+                                       placeholder="Optional"/>
+                            </div>
+                            <div class="row mt16" invisible="not claude_qdrant_url">
+                                <label for="claude_qdrant_collection_prefix"
+                                       string="Collection Prefix"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_qdrant_collection_prefix"/>
+                            </div>
+                            <div class="row mt16" invisible="not claude_qdrant_url">
+                                <label for="claude_embedding_provider"
+                                       string="Embedding Provider"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_embedding_provider"/>
+                            </div>
+                            <div class="row mt16"
+                                 invisible="not claude_qdrant_url or claude_embedding_provider != 'ollama'">
+                                <label for="claude_ollama_url"
+                                       string="Ollama URL"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_ollama_url"
+                                       placeholder="http://localhost:11434"/>
+                            </div>
+                            <div class="row mt16"
+                                 invisible="not claude_qdrant_url or claude_embedding_provider != 'ollama'">
+                                <label for="claude_ollama_model"
+                                       string="Embedding Model"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_ollama_model"/>
+                            </div>
+                            <div class="row mt16"
+                                 invisible="not claude_qdrant_url or claude_embedding_provider == 'ollama'">
+                                <label for="claude_embedding_api_key"
+                                       string="API Key"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_embedding_api_key"
+                                       password="True"
+                                       placeholder="API key for paid provider"/>
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

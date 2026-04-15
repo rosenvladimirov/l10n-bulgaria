@@ -1,5 +1,15 @@
 # Changelog
 
+## 18.0.1.25.0
+
+### Added — `_explanation` backport (20.0 forward-compat)
+Port from 19.0.1.20.0:
+- Monkey patch `models.Model._explanation = None` (guard-нат с `hasattr`).
+- `ir.model.get_ai_explanations(model_names=None, lang=None)` с MRO walk,
+  lang markers `[xx_YY]...[/xx_YY]`, unmarked-as-en_US fallback.
+- Whitelist от `ai.view.registry` (active=True).
+- 6 parser unit tests + 4 integration tests.
+
 ## 18.0.1.24.0
 
 ### Added — AI Tokenizer секция обратно в user form (profile + preferences modal)

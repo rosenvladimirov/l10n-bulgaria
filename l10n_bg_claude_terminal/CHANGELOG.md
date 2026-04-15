@@ -1,5 +1,20 @@
 # Changelog
 
+## 18.0.1.21.0
+
+### Changed — AI Tokenizer config moved from `res.users` to `res.company`
+- **Rationale**: Qdrant endpoint, Ollama endpoint, embedding provider and API keys are infrastructure settings that belong to the company, not to each user. Per-user storage caused duplicate config and meant each user had to set them independently.
+- New model: `res.company` with seven fields (`claude_qdrant_url`, `claude_qdrant_api_key`, `claude_qdrant_collection_prefix`, `claude_ollama_url`, `claude_ollama_model`, `claude_embedding_provider`, `claude_embedding_api_key`).
+- New model: `res.config.settings` exposes those as related fields; new UI block "AI Tokenizer (Qdrant + Ollama)" in Settings → General Settings (inherits `base_setup.res_config_settings_view_form`).
+- Removed the same seven fields from `res.users` and from the "AI Tokenizer" group in My Profile → Claude Terminal tab.
+- `action_test_connections` and `get_config()` now read from `user.company_id.claude_*`.
+- Added dependency `base_setup` (for the General Settings form inheritance anchor).
+
+### Migration — `migrations/18.0.1.21.0/post-migration.py`
+- Copies existing `res_users.claude_qdrant_*/ollama_*/embedding_*` values from the first admin user (`base.group_system`) into `res_company` row id=1, but only for fields that are still empty on the company — prevents overwriting values already set directly on the company.
+- Drops the legacy user columns afterwards (Odoo doesn't auto-drop removed fields).
+- Idempotent: if columns are already gone or no legacy values exist, migration is a no-op.
+
 ## 18.0.1.20.1
 
 ### Fixed — CodeEditor `mode` prop validation error on AI View Registry form

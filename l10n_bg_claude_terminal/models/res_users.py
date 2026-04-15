@@ -158,49 +158,6 @@ class ResUsers(models.Model):
         help="Alternative API key for MCP server (optional).",
     )
 
-    # ── AI Tokenizer (Qdrant + Ollama) ──
-    claude_qdrant_url = fields.Char(
-        "Qdrant URL",
-        help="Qdrant vector DB endpoint (e.g. http://localhost:6333). "
-             "Leave empty to disable AI tokenization.",
-    )
-    claude_qdrant_api_key = fields.Char(
-        "Qdrant API Key",
-        help="Optional API key for Qdrant (if running with QDRANT__SERVICE__API_KEY).",
-    )
-    claude_qdrant_collection_prefix = fields.Char(
-        "Qdrant Collection Prefix",
-        default="odoo_",
-        help="Prefix for per-database collections. Final name: <prefix><db_name>.",
-    )
-    claude_ollama_url = fields.Char(
-        "Ollama URL",
-        help="Ollama endpoint for local embeddings (e.g. http://localhost:11434).",
-        default="http://localhost:11434",
-    )
-    claude_ollama_model = fields.Char(
-        "Embedding Model",
-        default="nomic-embed-text",
-        help="Ollama model for embeddings. Common: nomic-embed-text (768d), "
-             "mxbai-embed-large (1024d).",
-    )
-    claude_embedding_provider = fields.Selection(
-        [
-            ("ollama", "Ollama (local)"),
-            ("openai", "OpenAI"),
-            ("voyage", "Voyage AI"),
-            ("anthropic", "Anthropic"),
-        ],
-        string="Embedding Provider",
-        default="ollama",
-        help="Backend used to generate vector embeddings.",
-    )
-    claude_embedding_api_key = fields.Char(
-        "Embedding API Key",
-        help="API key for paid embedding providers (OpenAI/Voyage/Anthropic). "
-             "Unused when provider=ollama.",
-    )
-
     # ── Viber MCP ──
     claude_viber_bot_token = fields.Char(
         "Bot Token",
@@ -240,13 +197,6 @@ class ResUsers(models.Model):
         "claude_viber_bot_token",
         "claude_viber_bot_name",
         "claude_viber_webhook_url",
-        "claude_qdrant_url",
-        "claude_qdrant_api_key",
-        "claude_qdrant_collection_prefix",
-        "claude_ollama_url",
-        "claude_ollama_model",
-        "claude_embedding_provider",
-        "claude_embedding_api_key",
     ]
 
     @property
@@ -407,8 +357,9 @@ class ResUsers(models.Model):
             web_status, web_msg = "warn", _("URL, login or password not configured")
 
         # ── Test Qdrant ───────────────────────────────────────────────
-        qdrant_url = (user.claude_qdrant_url or "").rstrip("/")
-        qdrant_key = user.claude_qdrant_api_key or ""
+        company = user.company_id
+        qdrant_url = (company.claude_qdrant_url or "").rstrip("/")
+        qdrant_key = company.claude_qdrant_api_key or ""
         if qdrant_url:
             try:
                 headers = {"User-Agent": "OdooClaudeTerminal/1.0"}
@@ -430,8 +381,8 @@ class ResUsers(models.Model):
             qdrant_status, qdrant_msg = "warn", _("Qdrant URL not configured — AI tokenization disabled")
 
         # ── Test Ollama ───────────────────────────────────────────────
-        ollama_url = (user.claude_ollama_url or "").rstrip("/")
-        provider = user.claude_embedding_provider or "ollama"
+        ollama_url = (company.claude_ollama_url or "").rstrip("/")
+        provider = company.claude_embedding_provider or "ollama"
         if provider == "ollama" and ollama_url:
             try:
                 req = urllib.request.Request(
@@ -441,7 +392,7 @@ class ResUsers(models.Model):
                 with urllib.request.urlopen(req, timeout=8, context=mk_ctx()) as resp:
                     data = json.loads(resp.read())
                 models_ = [m.get("name", "") for m in (data.get("models") or [])]
-                target = user.claude_ollama_model or ""
+                target = company.claude_ollama_model or ""
                 has_model = any(m.startswith(target) for m in models_)
                 if has_model:
                     ollama_status, ollama_msg = "ok", _("Connected — %s available") % target
@@ -714,13 +665,13 @@ class ResUsers(models.Model):
                 "webhook_url": user.claude_viber_webhook_url or "",
             },
             "ai_tokenizer": {
-                "enabled": bool(user.claude_qdrant_url),
-                "qdrant_url": user.claude_qdrant_url or "",
-                "qdrant_api_key": user.claude_qdrant_api_key or "",
-                "collection_prefix": user.claude_qdrant_collection_prefix or "odoo_",
-                "ollama_url": user.claude_ollama_url or "",
-                "ollama_model": user.claude_ollama_model or "nomic-embed-text",
-                "provider": user.claude_embedding_provider or "ollama",
-                "embedding_api_key": user.claude_embedding_api_key or "",
+                "enabled": bool(user.company_id.claude_qdrant_url),
+                "qdrant_url": user.company_id.claude_qdrant_url or "",
+                "qdrant_api_key": user.company_id.claude_qdrant_api_key or "",
+                "collection_prefix": user.company_id.claude_qdrant_collection_prefix or "odoo_",
+                "ollama_url": user.company_id.claude_ollama_url or "",
+                "ollama_model": user.company_id.claude_ollama_model or "nomic-embed-text",
+                "provider": user.company_id.claude_embedding_provider or "ollama",
+                "embedding_api_key": user.company_id.claude_embedding_api_key or "",
             },
         }

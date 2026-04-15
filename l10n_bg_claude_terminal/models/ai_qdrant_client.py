@@ -24,7 +24,7 @@ def _ssl_ctx():
 class AiQdrantClient(models.AbstractModel):
     """Minimal Qdrant REST client — covers collection/point lifecycle.
 
-    Config from env.user: claude_qdrant_url, claude_qdrant_api_key,
+    Config from env.company: claude_qdrant_url, claude_qdrant_api_key,
     claude_qdrant_collection_prefix.
     """
 
@@ -35,28 +35,29 @@ class AiQdrantClient(models.AbstractModel):
     # Low-level helpers
     # ──────────────────────────────────────────────────────────
 
-    def _base_url(self, user=None):
-        user = user or self.env.user
-        url = (user.claude_qdrant_url or "").rstrip("/")
+    def _base_url(self, company=None):
+        company = company or self.env.company
+        url = (company.sudo().claude_qdrant_url or "").rstrip("/")
         if not url:
-            raise UserError("Qdrant URL is not configured.")
+            raise UserError("Qdrant URL is not configured (Settings → AI Tokenizer).")
         return url
 
-    def _headers(self, user=None):
-        user = user or self.env.user
+    def _headers(self, company=None):
+        company = company or self.env.company
         headers = {
             "Content-Type": "application/json",
             "User-Agent": "OdooAiTokenizer/1.0",
         }
-        key = user.claude_qdrant_api_key or ""
+        # sudo() because claude_qdrant_api_key has groups="base.group_system"
+        key = company.sudo().claude_qdrant_api_key or ""
         if key:
             headers["api-key"] = key
         return headers
 
-    def _request(self, method, path, body=None, user=None, timeout=30):
-        url = self._base_url(user) + path
+    def _request(self, method, path, body=None, company=None, timeout=30):
+        url = self._base_url(company) + path
         data = json.dumps(body).encode() if body is not None else None
-        req = urllib.request.Request(url, data=data, method=method, headers=self._headers(user))
+        req = urllib.request.Request(url, data=data, method=method, headers=self._headers(company))
         try:
             with urllib.request.urlopen(req, timeout=timeout, context=_ssl_ctx()) as resp:
                 raw = resp.read()
@@ -77,26 +78,26 @@ class AiQdrantClient(models.AbstractModel):
     # ──────────────────────────────────────────────────────────
 
     @api.model
-    def collection_name(self, user=None):
-        user = user or self.env.user
-        prefix = user.claude_qdrant_collection_prefix or "odoo_"
+    def collection_name(self, company=None):
+        company = company or self.env.company
+        prefix = company.sudo().claude_qdrant_collection_prefix or "odoo_"
         return f"{prefix}{self.env.cr.dbname}"
 
     @api.model
-    def ensure_collection(self, vector_size, user=None):
+    def ensure_collection(self, vector_size, company=None):
         """Create the per-DB collection if it does not exist.
 
         Configures payload indexes on model/res_id/company_id/view_type
         so semantic search with filters remains fast.
         """
-        name = self.collection_name(user)
-        existing = self._request("GET", f"/collections/{name}/exists", user=user)
+        name = self.collection_name(company)
+        existing = self._request("GET", f"/collections/{name}/exists", company=company)
         if (existing.get("result") or {}).get("exists"):
             return name
 
         self._request("PUT", f"/collections/{name}", body={
             "vectors": {"size": int(vector_size), "distance": "Cosine"},
-        }, user=user)
+        }, company=company)
 
         for field, schema in (
             ("model", "keyword"),
@@ -107,37 +108,37 @@ class AiQdrantClient(models.AbstractModel):
         ):
             self._request("PUT", f"/collections/{name}/index", body={
                 "field_name": field, "field_schema": schema,
-            }, user=user)
+            }, company=company)
         _logger.info("ai.qdrant.client: created collection %s (dim=%s)", name, vector_size)
         return name
 
     @api.model
-    def upsert_point(self, point_id, vector, payload, user=None):
+    def upsert_point(self, point_id, vector, payload, company=None):
         """Insert or update a single point.
 
         point_id must be a UUID string or an integer — Qdrant rejects other shapes.
         Generates a UUID automatically if point_id is falsy.
         """
-        name = self.collection_name(user)
+        name = self.collection_name(company)
         pid = point_id or str(uuid.uuid4())
         body = {"points": [{"id": pid, "vector": vector, "payload": payload or {}}]}
-        self._request("PUT", f"/collections/{name}/points?wait=true", body=body, user=user)
+        self._request("PUT", f"/collections/{name}/points?wait=true", body=body, company=company)
         return pid
 
     @api.model
-    def delete_point(self, point_id, user=None):
+    def delete_point(self, point_id, company=None):
         if not point_id:
             return False
-        name = self.collection_name(user)
+        name = self.collection_name(company)
         self._request("POST", f"/collections/{name}/points/delete?wait=true", body={
             "points": [point_id],
-        }, user=user)
+        }, company=company)
         return True
 
     @api.model
-    def search(self, vector, limit=5, score_threshold=0.0, filters=None, user=None):
+    def search(self, vector, limit=5, score_threshold=0.0, filters=None, company=None):
         """Return the Qdrant search result list (as shipped by Qdrant)."""
-        name = self.collection_name(user)
+        name = self.collection_name(company)
         body = {
             "vector": vector,
             "limit": int(limit),
@@ -146,5 +147,5 @@ class AiQdrantClient(models.AbstractModel):
         }
         if filters:
             body["filter"] = filters
-        data = self._request("POST", f"/collections/{name}/points/search", body=body, user=user)
+        data = self._request("POST", f"/collections/{name}/points/search", body=body, company=company)
         return data.get("result") or []

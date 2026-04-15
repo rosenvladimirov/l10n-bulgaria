@@ -1,5 +1,13 @@
 # Changelog
 
+## 19.0.1.18.0
+
+### Same as 18.0.1.23.0 — port from v18
+- Fix stale `user.claude_*` refs in `ai.qdrant.client` and `ai.embedding.provider` (broken since 1.16.0 res.company move).
+- New: `ai.composite.document.search_similar()` semantic search API.
+- New: `ai.composite.document.collection_stats()`.
+- New: `ir.cron` "AI Tokenizer — re-index stale documents" (`cron_reindex_stale`, batch_size=50, disabled by default).
+
 ## 19.0.1.17.0
 
 ### Added — Form View Grabber on `ai.view.registry`

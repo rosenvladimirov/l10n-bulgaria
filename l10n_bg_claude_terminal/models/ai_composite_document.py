@@ -194,3 +194,155 @@ class AiCompositeDocument(models.Model):
             "views": [(False, "form")],
             "target": "current",
         }
+
+    # ──────────────────────────────────────────────────────────
+    # Semantic search (Qdrant)
+    # ──────────────────────────────────────────────────────────
+
+    @api.model
+    def search_similar(self, query, model_name=None, view_type=None,
+                       limit=10, score_threshold=0.0, company_id=None):
+        """High-level semantic search.
+
+        Embed `query` with the configured provider, search Qdrant filtered
+        by model/view_type/company/db, return a clean list of hits.
+
+        Parameters
+        ----------
+        query : str          — natural-language query string
+        model_name : str     — restrict to records of one model (optional)
+        view_type : str      — restrict to a view type (default: any)
+        limit : int          — max hits (default 10)
+        score_threshold : float — minimum cosine similarity (default 0)
+        company_id : int     — restrict to one company (optional)
+
+        Returns
+        -------
+        list[dict] — each hit:
+            {
+                "model": "res.partner",
+                "res_id": 42,
+                "display_name": "Tesla SA",
+                "score": 0.87,
+                "snippet": "first 240 chars of document_text",
+                "view_type": "form",
+                "document_id": 1234,
+            }
+        """
+        if not self.env["ai.view.registry"]._is_enabled():
+            return []
+        if not query or not query.strip():
+            return []
+
+        Embed = self.env["ai.embedding.provider"]
+        Qdrant = self.env["ai.qdrant.client"]
+
+        vectors = Embed.embed([query])
+        if not vectors:
+            return []
+        vector = vectors[0]
+
+        # Build Qdrant payload filter (must clauses).
+        must = [{"key": "db_name", "match": {"value": self.env.cr.dbname}}]
+        if model_name:
+            must.append({"key": "model", "match": {"value": model_name}})
+        if view_type:
+            must.append({"key": "view_type", "match": {"value": view_type}})
+        if company_id:
+            must.append({"key": "company_id", "match": {"value": int(company_id)}})
+        filters = {"must": must}
+
+        raw_hits = Qdrant.search(
+            vector,
+            limit=int(limit),
+            score_threshold=float(score_threshold),
+            filters=filters,
+        )
+
+        results = []
+        for hit in raw_hits:
+            payload = hit.get("payload") or {}
+            text = payload.get("document_text") or ""
+            results.append({
+                "model": payload.get("model"),
+                "res_id": payload.get("res_id"),
+                "view_type": payload.get("view_type"),
+                "display_name": payload.get("display_name"),
+                "company_id": payload.get("company_id") or None,
+                "score": hit.get("score"),
+                "snippet": (text[:240] + "…") if len(text) > 240 else text,
+                "qdrant_point_id": hit.get("id"),
+            })
+        return results
+
+    # ──────────────────────────────────────────────────────────
+    # Cron entry point — re-index stale/draft/error documents
+    # ──────────────────────────────────────────────────────────
+
+    @api.model
+    def cron_reindex_stale(self, batch_size=50):
+        """Process up to `batch_size` documents needing (re-)indexing.
+
+        Picks documents in state stale|draft|error belonging to *active*
+        registry entries; calls action_tokenize_and_index() one by one.
+
+        Designed for the nightly `ir.cron`. Counts are logged but no
+        exception escapes — single-document failures stay isolated to
+        their state='error' row.
+        """
+        if not self.env["ai.view.registry"]._is_enabled():
+            _logger.info("ai.composite.document.cron: AI tokenization disabled, skipping")
+            return 0
+        domain = [
+            ("state", "in", ("stale", "draft", "error")),
+            ("registry_id.active", "=", True),
+        ]
+        docs = self.search(domain, limit=int(batch_size or 50), order="write_date asc")
+        ok, failed = 0, 0
+        for doc in docs:
+            try:
+                if doc.action_tokenize_and_index():
+                    ok += 1
+                else:
+                    failed += 1
+            except Exception:  # belt-and-braces; method already swallows
+                _logger.exception("cron_reindex_stale unexpected error on %s", doc.id)
+                failed += 1
+            # Commit per document so partial progress survives a crash.
+            self.env.cr.commit()
+        _logger.info(
+            "ai.composite.document.cron_reindex_stale: %s ok, %s failed (batch=%s)",
+            ok, failed, batch_size,
+        )
+        return ok
+
+    @api.model
+    def collection_stats(self):
+        """Return basic stats about the per-DB Qdrant collection.
+
+        Useful for both the OWL status widget and the MCP `qdrant_collection_info`
+        tool. Returns {} when AI tokenization is disabled.
+        """
+        if not self.env["ai.view.registry"]._is_enabled():
+            return {"enabled": False}
+        Qdrant = self.env["ai.qdrant.client"]
+        name = Qdrant.collection_name()
+        try:
+            info = Qdrant._request("GET", f"/collections/{name}")
+        except Exception as exc:
+            return {"enabled": True, "error": str(exc)[:200]}
+        result = (info.get("result") or {})
+        config = (result.get("config") or {}).get("params", {}) or {}
+        vectors = config.get("vectors") or {}
+        # Local count from Odoo for cross-check.
+        odoo_count = self.search_count([("state", "=", "indexed")])
+        return {
+            "enabled": True,
+            "collection": name,
+            "vector_size": vectors.get("size"),
+            "distance": vectors.get("distance"),
+            "qdrant_points": result.get("points_count"),
+            "qdrant_indexed_vectors": result.get("indexed_vectors_count"),
+            "odoo_indexed_documents": odoo_count,
+            "status": result.get("status"),
+        }

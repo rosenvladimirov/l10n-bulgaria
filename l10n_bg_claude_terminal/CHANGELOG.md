@@ -1,5 +1,25 @@
 # Changelog
 
+## 18.0.1.23.0
+
+### Fixed — AI Tokenizer моделите четат от `res.company`, не от `res.users`
+- Stale references след move-а от res.users → res.company в 1.21.0:
+  - `ai.qdrant.client._base_url/_headers/collection_name/...` ползваха `user.claude_qdrant_*` (вече несъществуващи) — преписани да четат от `company.sudo()` (sudo защото api_key полетата имат `groups="base.group_system"`).
+  - `ai.embedding.provider.embed/vector_size/_embed_ollama/_embed_openai/_embed_voyage` същият проблем — fix-нати към company.
+- Параметърът на public методите се преименува `user=` → `company=` (вътрешен API, не RPC).
+
+### Added — Semantic search API (`ai.composite.document.search_similar`)
+- High-level метод: embed query → Qdrant search с филтри (model/view_type/company_id/db_name) → връща list of hits с `model`, `res_id`, `display_name`, `score`, `snippet`, `view_type`, `qdrant_point_id`.
+- Filter `db_name` се прилага автоматично — изолация между бази при споделен Qdrant.
+
+### Added — `ai.composite.document.collection_stats()`
+- Връща info за per-DB Qdrant collection: `vector_size`, `distance`, `qdrant_points`, `qdrant_indexed_vectors`, `odoo_indexed_documents`, `status`. За UI status widget и MCP `qdrant_collection_info` tool.
+
+### Added — Nightly re-indexing cron
+- `ir.cron` "AI Tokenizer — re-index stale documents" — `cron_reindex_stale(batch_size=50)` обработва документи в state `stale|draft|error` от активни registry entries.
+- **Disabled by default** (`active=eval('False')`) — admin-ът активира когато е готов да тоkenize-ва на background.
+- Commit per document — частичен прогрес оцелява при срив.
+
 ## 18.0.1.22.0
 
 ### Added — Form View Grabber on `ai.view.registry`

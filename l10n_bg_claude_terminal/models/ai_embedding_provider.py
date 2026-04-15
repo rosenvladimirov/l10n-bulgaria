@@ -109,13 +109,18 @@ class AiEmbeddingProvider(models.AbstractModel):
             raise UserError("Ollama URL is not configured.")
         # Ollama's /api/embed (plural) accepts input: str | list[str]
         payload = json.dumps({"model": model, "input": texts}).encode()
+        headers = {
+            "Content-Type": "application/json",
+            "User-Agent": "OdooAiTokenizer/1.0",
+        }
+        # Optional auth (for proxied Ollama — e.g. mcp.../ollama with MCP token)
+        api_key = (company.sudo().claude_embedding_api_key or "").strip()
+        if api_key:
+            headers["Authorization"] = f"Bearer {api_key}"
         req = urllib.request.Request(
             f"{url}/api/embed",
             data=payload,
-            headers={
-                "Content-Type": "application/json",
-                "User-Agent": "OdooAiTokenizer/1.0",
-            },
+            headers=headers,
         )
         try:
             with urllib.request.urlopen(req, timeout=60, context=_ssl_ctx()) as resp:

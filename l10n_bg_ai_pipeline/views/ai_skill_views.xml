@@ -101,15 +101,14 @@
                 <field name="name"/>
                 <field name="description"/>
                 <field name="module"/>
-                <filter name="active" string="Active" domain="[('active','=',True)]"/>
-                <filter name="indexed" string="Indexed" domain="[('state','=','indexed')]"/>
-                <filter name="stale" string="Stale" domain="[('state','=','stale')]"/>
-                <filter name="error" string="Error" domain="[('state','=','error')]"/>
-                <group string="Group By">
-                    <filter name="group_language" string="Language" context="{'group_by':'language'}"/>
-                    <filter name="group_module" string="Module" context="{'group_by':'module'}"/>
-                    <filter name="group_state" string="State" context="{'group_by':'state'}"/>
-                </group>
+                <filter name="filter_active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="filter_indexed" string="Indexed" domain="[('state', '=', 'indexed')]"/>
+                <filter name="filter_stale" string="Stale" domain="[('state', '=', 'stale')]"/>
+                <filter name="filter_error" string="Error" domain="[('state', '=', 'error')]"/>
+                <separator/>
+                <filter name="group_language" string="Language" context="{'group_by': 'language'}"/>
+                <filter name="group_module" string="Module" context="{'group_by': 'module'}"/>
+                <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
             </search>
         </field>
     </record>

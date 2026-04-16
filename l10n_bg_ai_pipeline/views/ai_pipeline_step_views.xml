@@ -68,16 +68,15 @@
                 <field name="model"/>
                 <field name="method"/>
                 <field name="skill_id"/>
-                <filter name="active" string="Active" domain="[('active','=',True)]"/>
-                <filter name="tokenize" string="Tokenize" domain="[('pipeline','=','tokenize')]"/>
-                <filter name="post" string="Post" domain="[('pipeline','=','post')]"/>
-                <filter name="injected" string="Skill-injected" domain="[('skill_id','!=',False)]"/>
-                <filter name="base" string="Base" domain="[('skill_id','=',False)]"/>
-                <group string="Group By">
-                    <filter name="group_pipeline" string="Pipeline" context="{'group_by':'pipeline'}"/>
-                    <filter name="group_skill" string="Skill" context="{'group_by':'skill_id'}"/>
-                    <filter name="group_module" string="Module" context="{'group_by':'module'}"/>
-                </group>
+                <filter name="filter_active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="filter_tokenize" string="Tokenize" domain="[('pipeline', '=', 'tokenize')]"/>
+                <filter name="filter_post" string="Post" domain="[('pipeline', '=', 'post')]"/>
+                <filter name="filter_injected" string="Skill-injected" domain="[('skill_id', '!=', False)]"/>
+                <filter name="filter_base" string="Base" domain="[('skill_id', '=', False)]"/>
+                <separator/>
+                <filter name="group_pipeline" string="Pipeline" context="{'group_by': 'pipeline'}"/>
+                <filter name="group_skill" string="Skill" context="{'group_by': 'skill_id'}"/>
+                <filter name="group_module" string="Module" context="{'group_by': 'module'}"/>
             </search>
         </field>
     </record>

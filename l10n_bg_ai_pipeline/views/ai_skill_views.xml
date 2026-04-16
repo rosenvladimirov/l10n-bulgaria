@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_ai_skill_list" model="ir.ui.view">
+        <field name="name">ai.skill.list</field>
+        <field name="model">ai.skill</field>
+        <field name="arch" type="xml">
+            <list string="Skills" decoration-muted="not active" decoration-danger="state == 'error'" decoration-warning="state == 'stale'" decoration-success="state == 'indexed'">
+                <field name="name"/>
+                <field name="language"/>
+                <field name="priority"/>
+                <field name="module"/>
+                <field name="pipeline_step_count" string="Steps"/>
+                <field name="state" widget="badge"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_skill_form" model="ir.ui.view">
+        <field name="name">ai.skill.form</field>
+        <field name="model">ai.skill</field>
+        <field name="arch" type="xml">
+            <form string="Skill">
+                <header>
+                    <button name="action_tokenize_description" type="object" string="Index (L1)" class="oe_highlight"/>
+                    <button name="action_purge_from_qdrant" type="object" string="Purge from Qdrant"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,indexed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_steps" type="object" class="oe_stat_button" icon="fa-sitemap">
+                            <field name="pipeline_step_count" widget="statinfo" string="Steps"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. vendor-bill-posting-bg"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="language"/>
+                            <field name="priority"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="module" readonly="1"/>
+                            <field name="qdrant_point_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description (Level 1)" name="description">
+                            <div class="text-muted mb-2">
+                                Trigger hint — always indexed in Qdrant. Keep it concrete:
+                                describe <em>what</em> the skill does and <em>when</em> it
+                                should activate.
+                            </div>
+                            <field name="description" nolabel="1" placeholder="Use when..."/>
+                        </page>
+                        <page string="Content (Level 2)" name="content">
+                            <div class="text-muted mb-2">
+                                Procedural instructions loaded into the LLM context when
+                                the skill matches the current document.
+                            </div>
+                            <field name="content" nolabel="1"/>
+                        </page>
+                        <page string="Executable (Level 3)" name="executable">
+                            <group>
+                                <field name="resources_model" placeholder="e.g. account.move"/>
+                                <field name="resources_method" placeholder="e.g. _skill_post_vendor_bill"/>
+                            </group>
+                        </page>
+                        <page string="Injected Steps" name="steps">
+                            <field name="pipeline_step_ids">
+                                <list>
+                                    <field name="pipeline"/>
+                                    <field name="sequence"/>
+                                    <field name="name"/>
+                                    <field name="model"/>
+                                    <field name="method"/>
+                                    <field name="on_error"/>
+                                    <field name="active" widget="boolean_toggle"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Errors" name="errors" invisible="not error_message">
+                            <field name="error_message" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ai_skill_search" model="ir.ui.view">
+        <field name="name">ai.skill.search</field>
+        <field name="model">ai.skill</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="module"/>
+                <filter name="active" string="Active" domain="[('active','=',True)]"/>
+                <filter name="indexed" string="Indexed" domain="[('state','=','indexed')]"/>
+                <filter name="stale" string="Stale" domain="[('state','=','stale')]"/>
+                <filter name="error" string="Error" domain="[('state','=','error')]"/>
+                <group string="Group By">
+                    <filter name="group_language" string="Language" context="{'group_by':'language'}"/>
+                    <filter name="group_module" string="Module" context="{'group_by':'module'}"/>
+                    <filter name="group_state" string="State" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ai_skill" model="ir.actions.act_window">
+        <field name="name">Skills</field>
+        <field name="res_model">ai.skill</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_ai_skill_search"/>
+    </record>
+
+</odoo>

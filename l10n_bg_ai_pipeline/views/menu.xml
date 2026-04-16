@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem
+        id="menu_ai_pipeline_root"
+        name="AI Pipeline"
+        parent="base.menu_administration"
+        sequence="95"
+        groups="base.group_system"/>
+
+    <menuitem
+        id="menu_ai_skill"
+        name="Skills"
+        parent="menu_ai_pipeline_root"
+        action="action_ai_skill"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_ai_pipeline_step"
+        name="Pipeline Steps"
+        parent="menu_ai_pipeline_root"
+        action="action_ai_pipeline_step"
+        sequence="20"/>
+
+    <menuitem
+        id="menu_ai_pipeline_run"
+        name="Pipeline Runs"
+        parent="menu_ai_pipeline_root"
+        action="action_ai_pipeline_run"
+        sequence="30"/>
+
+</odoo>

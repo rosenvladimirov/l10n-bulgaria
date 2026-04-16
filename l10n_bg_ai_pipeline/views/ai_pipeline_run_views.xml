@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_ai_pipeline_run_list" model="ir.ui.view">
+        <field name="name">ai.pipeline.run.list</field>
+        <field name="model">ai.pipeline.run</field>
+        <field name="arch" type="xml">
+            <list string="Pipeline Runs" decoration-danger="state == 'error'" decoration-warning="state == 'aborted'" decoration-success="state == 'done'" decoration-muted="state == 'running'">
+                <field name="create_date"/>
+                <field name="pipeline"/>
+                <field name="source_model"/>
+                <field name="source_res_id"/>
+                <field name="executed_step_count" string="Steps"/>
+                <field name="duration_ms" string="ms"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_pipeline_run_form" model="ir.ui.view">
+        <field name="name">ai.pipeline.run.form</field>
+        <field name="model">ai.pipeline.run</field>
+        <field name="arch" type="xml">
+            <form string="Pipeline Run">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="pipeline"/>
+                            <field name="composite_document_id"/>
+                            <field name="source_model"/>
+                            <field name="source_res_id"/>
+                        </group>
+                        <group>
+                            <field name="state"/>
+                            <field name="started"/>
+                            <field name="finished"/>
+                            <field name="duration_ms"/>
+                            <field name="executed_step_count"/>
+                        </group>
+                    </group>
+                    <group string="Matched skills">
+                        <field name="matched_skill_ids" widget="many2many_tags" nolabel="1"/>
+                    </group>
+                    <group string="Error" invisible="not error_message">
+                        <field name="error_step_id" readonly="1"/>
+                        <field name="error_message" readonly="1"/>
+                    </group>
+                    <group string="Log">
+                        <field name="log" widget="text" nolabel="1" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ai_pipeline_run" model="ir.actions.act_window">
+        <field name="name">Pipeline Runs</field>
+        <field name="res_model">ai.pipeline.run</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

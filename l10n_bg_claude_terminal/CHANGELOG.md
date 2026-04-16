@@ -1,5 +1,33 @@
 # Changelog
 
+## 16.0.1.18.0
+
+### Changed — Unified MCP auth (task 6 от MCP unified auth plan)
+- `terminal_utils.js` `buildExternalTerminalUrl()` docstring разширен:
+  описва как предадените URL параметри (API_KEY, ODOO_URL, ODOO_DB,
+  ODOO_USER) стават `Authorization: Bearer` + `X-Odoo-*` заглавки в
+  `start-session.sh` на terminal контейнера. MCP middleware ги
+  валидира през XMLRPC и resolve-ва profile — identify() не се вика
+  експлицитно от JS вече.
+- `res_users.claude_api_key` help text обновен да опише новата двойна
+  роля: удостоверяване за външния terminal + MCP unified-auth. Cache
+  TTL за key rotation е ~5 мин (AUTH_CACHE_TTL env).
+- Няма code changes по rendering страна — всички нужни полета вече се
+  предават от `get_claude_mcp_config` и `buildExternalTerminalUrl`.
+- Port на 18.0.1.27.0.
+
+## 16.0.1.17.0
+
+### Added — `_explanation` backport (20.0 forward-compat, minimal)
+Port from 19.0.1.20.0 / 18.0.1.25.0 — **minimal subset** за 16.0 (AI Tokenizer
+стак не съществува на тази версия).
+
+- Monkey patch `models.Model._explanation = None` (guard-нат с `hasattr`).
+- `ir.model.get_ai_explanations(model_names, lang=None)` с MRO walk, lang markers
+  `[xx_YY]...[/xx_YY]`, unmarked-as-en_US fallback.
+- **Разлика спрямо 18+:** `model_names` е **required** (няма `ai.view.registry`
+  за whitelist auto-discovery) — callers трябва да подават explicit списък.
+
 ## 16.0.1.16.0
 
 ### Added — Claude Terminal page in "My Profile" (port from 18.0)

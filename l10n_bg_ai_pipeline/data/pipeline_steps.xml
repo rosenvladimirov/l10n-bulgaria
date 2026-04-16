@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="0">
+
+    <!-- Base 'tokenize' pipeline — replaces the monolithic
+         action_tokenize_and_index. Sequence leaves gaps for glue
+         modules to inject their own steps. -->
+
+    <record id="step_tokenize_build_text" model="ai.pipeline.step">
+        <field name="name">build_text</field>
+        <field name="pipeline">tokenize</field>
+        <field name="sequence">10</field>
+        <field name="model">ai.pipeline.runner</field>
+        <field name="method">step_build_text</field>
+        <field name="on_error">abort</field>
+    </record>
+
+    <record id="step_tokenize_embed" model="ai.pipeline.step">
+        <field name="name">embed</field>
+        <field name="pipeline">tokenize</field>
+        <field name="sequence">20</field>
+        <field name="model">ai.pipeline.runner</field>
+        <field name="method">step_embed</field>
+        <field name="on_error">abort</field>
+    </record>
+
+    <record id="step_tokenize_upsert_qdrant" model="ai.pipeline.step">
+        <field name="name">upsert_qdrant</field>
+        <field name="pipeline">tokenize</field>
+        <field name="sequence">30</field>
+        <field name="model">ai.pipeline.runner</field>
+        <field name="method">step_upsert_qdrant</field>
+        <field name="on_error">abort</field>
+    </record>
+
+    <!-- Skill resolution runs AFTER the document is embedded so the
+         search vector is available. Skill-gated steps declared by
+         glue modules should sit at sequence >= 100. -->
+    <record id="step_tokenize_skill_resolution" model="ai.pipeline.step">
+        <field name="name">skill_resolution</field>
+        <field name="pipeline">tokenize</field>
+        <field name="sequence">90</field>
+        <field name="model">ai.pipeline.runner</field>
+        <field name="method">step_skill_resolution</field>
+        <field name="on_error">skip</field>
+    </record>
+
+</odoo>

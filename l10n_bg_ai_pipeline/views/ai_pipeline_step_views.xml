@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_ai_pipeline_step_list" model="ir.ui.view">
+        <field name="name">ai.pipeline.step.list</field>
+        <field name="model">ai.pipeline.step</field>
+        <field name="arch" type="xml">
+            <list string="Pipeline Steps" decoration-muted="not active" decoration-danger="last_run_state == 'error'" decoration-info="skill_id">
+                <field name="pipeline"/>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="model"/>
+                <field name="method"/>
+                <field name="skill_id" optional="show"/>
+                <field name="on_error"/>
+                <field name="module" optional="hide"/>
+                <field name="last_run_state" widget="badge"/>
+                <field name="last_run_date" optional="hide"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_pipeline_step_form" model="ir.ui.view">
+        <field name="name">ai.pipeline.step.form</field>
+        <field name="model">ai.pipeline.step</field>
+        <field name="arch" type="xml">
+            <form string="Pipeline Step">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="pipeline"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                            <field name="on_error"/>
+                        </group>
+                        <group>
+                            <field name="model"/>
+                            <field name="method"/>
+                            <field name="module" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Activation">
+                        <field name="skill_id" options="{'no_create': True}"/>
+                        <field name="trigger_domain" placeholder="[('source_model','=','account.move')]"/>
+                    </group>
+                    <group string="Last Run" invisible="not last_run_date">
+                        <field name="last_run_state" readonly="1"/>
+                        <field name="last_run_date" readonly="1"/>
+                        <field name="last_run_message" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ai_pipeline_step_search" model="ir.ui.view">
+        <field name="name">ai.pipeline.step.search</field>
+        <field name="model">ai.pipeline.step</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="model"/>
+                <field name="method"/>
+                <field name="skill_id"/>
+                <filter name="active" string="Active" domain="[('active','=',True)]"/>
+                <filter name="tokenize" string="Tokenize" domain="[('pipeline','=','tokenize')]"/>
+                <filter name="post" string="Post" domain="[('pipeline','=','post')]"/>
+                <filter name="injected" string="Skill-injected" domain="[('skill_id','!=',False)]"/>
+                <filter name="base" string="Base" domain="[('skill_id','=',False)]"/>
+                <group string="Group By">
+                    <filter name="group_pipeline" string="Pipeline" context="{'group_by':'pipeline'}"/>
+                    <filter name="group_skill" string="Skill" context="{'group_by':'skill_id'}"/>
+                    <filter name="group_module" string="Module" context="{'group_by':'module'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ai_pipeline_step" model="ir.actions.act_window">
+        <field name="name">Pipeline Steps</field>
+        <field name="res_model">ai.pipeline.step</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_ai_pipeline_step_search"/>
+    </record>
+
+</odoo>

@@ -1,5 +1,19 @@
 # Changelog
 
+## 19.0.1.23.0
+
+### Fixed — AI Tokenizer: skip fields that raise AttributeError
+- `ai.document.builder._render_spec_item` и `_render_one2many` сега
+  улавят всяко изключение при четене на field (compute/related в
+  3rd-party модул може да е счупен на Odoo 19). Вместо цял документ
+  да влезе в state `error`, проблемното поле/клетка се пропуска и се
+  логва warning. Документите се индексират с наличните полета.
+- Конкретен trigger: `stock_move_forced_lot_multi_dimension` (OCA)
+  на Odoo 19 още извиква `uom.uom.category_id`, което Odoo 19 премахна
+  (`uom.uom` вече не е под `uom.category`, а е self-hierarchical през
+  `relative_uom_id` + `parent_path`). Всички 16 документа в
+  `purchase.order` на dev-19 бяха в error → сега ще се индексират.
+
 ## 19.0.1.22.0
 
 ### Changed — Unified MCP auth (task 6 от MCP unified auth plan)

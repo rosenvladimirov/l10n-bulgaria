@@ -72,7 +72,18 @@ class AiDocumentBuilder(models.AbstractModel):
             return
         if path not in record._fields:
             return
-        value = record[path]
+        # A broken compute/related in some 3rd-party module can raise at
+        # attribute access (e.g. stock_move_forced_lot_multi_dimension on
+        # Odoo 19 still calls uom.uom.category_id which no longer exists).
+        # Skip the single field instead of failing the whole document.
+        try:
+            value = record[path]
+        except Exception as exc:
+            _logger.warning(
+                "ai.document.builder: skip %s.%s — %s: %s",
+                record._name, path, type(exc).__name__, exc,
+            )
+            return
 
         if ftype in ("char", "text", "html", "integer", "float", "monetary",
                      "boolean", "date", "datetime", "selection"):
@@ -83,13 +94,26 @@ class AiDocumentBuilder(models.AbstractModel):
 
         if ftype == "many2one":
             if value:
-                lines.append(f"{label}: {value.display_name}")
+                try:
+                    lines.append(f"{label}: {value.display_name}")
+                except Exception as exc:
+                    _logger.warning(
+                        "ai.document.builder: skip %s.%s display_name — %s: %s",
+                        record._name, path, type(exc).__name__, exc,
+                    )
             return
 
         if ftype == "many2many":
             if not value:
                 return
-            names = value[:MAX_M2M_NAMES].mapped("display_name")
+            try:
+                names = value[:MAX_M2M_NAMES].mapped("display_name")
+            except Exception as exc:
+                _logger.warning(
+                    "ai.document.builder: skip %s.%s mapped display_name — %s: %s",
+                    record._name, path, type(exc).__name__, exc,
+                )
+                return
             suffix = "" if len(value) <= MAX_M2M_NAMES else f" (+{len(value) - MAX_M2M_NAMES} more)"
             lines.append(f"{label}: {', '.join(names)}{suffix}")
             return
@@ -100,7 +124,13 @@ class AiDocumentBuilder(models.AbstractModel):
 
         if ftype == "reference":
             if value:
-                lines.append(f"{label}: {value.display_name}")
+                try:
+                    lines.append(f"{label}: {value.display_name}")
+                except Exception as exc:
+                    _logger.warning(
+                        "ai.document.builder: skip %s.%s reference — %s: %s",
+                        record._name, path, type(exc).__name__, exc,
+                    )
             return
 
         # Binary/json/etc — skip silently.
@@ -151,28 +181,37 @@ class AiDocumentBuilder(models.AbstractModel):
                 if not sp or sp not in line_rec._fields:
                     cells.append("")
                     continue
-                v = line_rec[sp]
-                if st == "many2one":
-                    cells.append(v.display_name if v else "")
-                elif st == "many2many":
-                    if not v:
-                        cells.append("")
+                # Defensive: any compute/related on the line field can raise
+                # (broken 3rd-party module) — skip the cell, keep the row.
+                try:
+                    v = line_rec[sp]
+                    if st == "many2one":
+                        cells.append(v.display_name if v else "")
+                    elif st == "many2many":
+                        if not v:
+                            cells.append("")
+                        else:
+                            names = v[:5].mapped("display_name")
+                            cells.append(", ".join(names) + ("…" if len(v) > 5 else ""))
+                    elif st in ("char", "text"):
+                        cells.append((v or "").strip().replace("\n", " ").replace("|", "/")[:120])
+                    elif st == "selection":
+                        field = line_rec._fields[sp]
+                        try:
+                            sel = dict(field._description_selection(line_rec.env) or [])
+                            cells.append(sel.get(v, v or ""))
+                        except Exception:
+                            cells.append(str(v or ""))
+                    elif st == "boolean":
+                        cells.append("yes" if v else "no")
                     else:
-                        names = v[:5].mapped("display_name")
-                        cells.append(", ".join(names) + ("…" if len(v) > 5 else ""))
-                elif st in ("char", "text"):
-                    cells.append((v or "").strip().replace("\n", " ").replace("|", "/")[:120])
-                elif st == "selection":
-                    field = line_rec._fields[sp]
-                    try:
-                        sel = dict(field._description_selection(line_rec.env) or [])
-                        cells.append(sel.get(v, v or ""))
-                    except Exception:
-                        cells.append(str(v or ""))
-                elif st == "boolean":
-                    cells.append("yes" if v else "no")
-                else:
-                    cells.append(str(v) if v not in (None, False) else "")
+                        cells.append(str(v) if v not in (None, False) else "")
+                except Exception as exc:
+                    _logger.warning(
+                        "ai.document.builder: skip %s.%s on row — %s: %s",
+                        line_rec._name, sp, type(exc).__name__, exc,
+                    )
+                    cells.append("")
             lines.append("| " + " | ".join(cells) + " |")
         if total > MAX_O2M_ROWS:
             lines.append(f"… (+{total - MAX_O2M_ROWS} more rows)")

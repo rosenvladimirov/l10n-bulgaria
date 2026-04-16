@@ -4,6 +4,14 @@ All notable changes to the l10n_bg_config module will be documented in this file
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [18.0.8.2.1] - 2026-04-16
+
+### Changed
+- Blacklist JS service (`l10n_bg_blacklist`) temporarily disabled via early return
+  in `start()` — blocking overlay and sticky warning notifications are no longer
+  shown. Controller, encrypted file and bus channel remain in place; to re-enable
+  remove the early return in `static/src/services/blacklist_service.js`.
+
 ## [18.0.8.2.0] - 2026-04-09
 
 ### Added

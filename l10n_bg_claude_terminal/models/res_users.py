@@ -33,8 +33,12 @@ class ResUsers(models.Model):
     )
     claude_api_key = fields.Char(
         "API Key",
-        help="Your Odoo API key for external terminal authentication. "
-             "Generate one in Settings → Users → API Keys.",
+        help="Your Odoo API key for external terminal authentication and "
+             "for MCP server unified-auth (Authorization: Bearer <key>). "
+             "The MCP middleware validates this key via XMLRPC against the "
+             "current Odoo instance on each tool call, so rotating the key "
+             "in Settings → Users → API Keys takes effect within the cache "
+             "TTL (default 5 min) without reconfiguring the terminal.",
     )
     claude_anthropic_api_key = fields.Char(
         "Anthropic API Key",

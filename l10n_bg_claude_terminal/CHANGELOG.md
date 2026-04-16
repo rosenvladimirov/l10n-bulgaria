@@ -1,5 +1,21 @@
 # Changelog
 
+## 19.0.1.22.0
+
+### Changed — Unified MCP auth (task 6 от MCP unified auth plan)
+- `terminal_utils.js` `buildExternalTerminalUrl()` docstring разширен:
+  описва как предадените URL параметри (API_KEY, ODOO_URL, ODOO_DB,
+  ODOO_USER) стават `Authorization: Bearer` + `X-Odoo-*` заглавки в
+  `start-session.sh` на terminal контейнера. MCP middleware ги
+  валидира през XMLRPC и resolve-ва profile — identify() не се вика
+  експлицитно от JS вече.
+- `res_users.claude_api_key` help text обновен да опише новата двойна
+  роля: удостоверяване за външния terminal + MCP unified-auth. Cache
+  TTL за key rotation е ~5 мин (AUTH_CACHE_TTL env).
+- Няма code changes по rendering страна — всички нужни полета вече се
+  предават от `get_claude_mcp_config` и `buildExternalTerminalUrl`.
+- Port на 18.0.1.27.0.
+
 ## 19.0.1.21.0
 
 ### Added — Optional `Authorization: Bearer` header за Ollama embeddings

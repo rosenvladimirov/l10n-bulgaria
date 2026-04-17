@@ -184,6 +184,7 @@ class ResUsers(models.Model):
     )
     claude_qdrant_api_key = fields.Char(
         related="company_id.claude_qdrant_api_key", readonly=False,
+        groups="base.group_system",
     )
     claude_qdrant_collection_prefix = fields.Char(
         related="company_id.claude_qdrant_collection_prefix", readonly=False,
@@ -199,6 +200,7 @@ class ResUsers(models.Model):
     )
     claude_embedding_api_key = fields.Char(
         related="company_id.claude_embedding_api_key", readonly=False,
+        groups="base.group_system",
     )
 
     _CLAUDE_FIELDS = [

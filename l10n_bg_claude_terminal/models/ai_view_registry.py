@@ -327,5 +327,5 @@ class AiViewRegistry(models.Model):
             "document_id": doc.id,
             "state": doc.state,
             "token_count": doc.token_count,
-            "error": doc.error_message or None,
+            "error": doc.error_message or False,
         }

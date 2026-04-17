@@ -179,8 +179,8 @@ class AiCompositeDocument(models.Model):
             "document_id": doc.id,
             "state": state,
             "token_count": doc.token_count,
-            "updated": doc.write_date.isoformat() if doc.write_date else None,
-            "error": doc.error_message or None,
+            "updated": doc.write_date.isoformat() if doc.write_date else False,
+            "error": doc.error_message or False,
         }
 
     def action_open_source(self):

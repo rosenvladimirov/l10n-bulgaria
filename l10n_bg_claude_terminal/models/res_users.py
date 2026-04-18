@@ -97,6 +97,18 @@ class ResUsers(models.Model):
         "Odoo API Key",
         help="API key for Odoo RPC authentication (Settings → Users → API Keys).",
     )
+    claude_odoo_verify_ssl = fields.Boolean(
+        "Verify SSL Certificate",
+        default=True,
+        help=(
+            "When enabled (default), the MCP server verifies the Odoo "
+            "HTTPS certificate against system CA roots. Disable this to "
+            "allow self-signed certificates — MCP will fetch the peer "
+            "cert on first connect, pin it under /data/ssl_certs/<alias>.pem, "
+            "and verify against that pinned cert on subsequent calls "
+            "(trust-on-first-use)."
+        ),
+    )
 
     @api.model
     def _selection_claude_odoo_db(self):
@@ -195,6 +207,7 @@ class ResUsers(models.Model):
         "claude_odoo_db",
         "claude_odoo_protocol",
         "claude_odoo_api_key",
+        "claude_odoo_verify_ssl",
         "claude_telegram_api_id",
         "claude_telegram_api_hash",
         "claude_telegram_phone",
@@ -439,6 +452,7 @@ class ResUsers(models.Model):
                     "user": user.login,
                     "api_key": user.claude_odoo_api_key or "",
                     "protocol": user.claude_odoo_protocol or "xmlrpc",
+                    "verify_ssl": bool(user.claude_odoo_verify_ssl),
                 }
             },
         }).encode()
@@ -601,6 +615,7 @@ class ResUsers(models.Model):
                 "username": user.login,
                 "api_key": user.claude_odoo_api_key or "",
                 "protocol": user.claude_odoo_protocol or "xmlrpc",
+                "verify_ssl": bool(user.claude_odoo_verify_ssl),
             },
             "telegram": {
                 "api_id": user.claude_telegram_api_id or "",

@@ -104,27 +104,8 @@
                         <field name="claude_viber_webhook_url"
                                placeholder="https://yourdomain.com/viber/webhook"/>
                     </group>
-                    <group string="AI Tokenizer (Qdrant + Ollama)"
-                           help="Company-level configuration. Editing requires write access on res.company.">
-                        <field name="claude_qdrant_url"
-                               placeholder="http://localhost:6333"/>
-                        <field name="claude_qdrant_api_key"
-                               password="True"
-                               groups="base.group_system"/>
-                        <field name="claude_qdrant_collection_prefix"
-                               placeholder="odoo_"/>
-                        <field name="claude_embedding_provider"/>
-                        <field name="claude_ollama_url"
-                               placeholder="http://localhost:11434"
-                               invisible="claude_embedding_provider != 'ollama'"/>
-                        <field name="claude_ollama_model"
-                               placeholder="nomic-embed-text"
-                               invisible="claude_embedding_provider != 'ollama'"/>
-                        <field name="claude_embedding_api_key"
-                               password="True"
-                               groups="base.group_system"
-                               invisible="claude_embedding_provider == 'ollama'"/>
-                    </group>
+                    <!-- AI Tokenizer infrastructure (Qdrant/Ollama/embedding)
+                         lives on res.company. Edit via Settings → AI Tokenizer. -->
                 </page>
             </xpath>
         </field>
@@ -232,27 +213,8 @@
                     <field name="claude_viber_webhook_url"
                            placeholder="https://yourdomain.com/viber/webhook"/>
                 </group>
-                <group string="AI Tokenizer (Qdrant + Ollama)"
-                       help="Company-level configuration. Editing requires write access on res.company.">
-                    <field name="claude_qdrant_url"
-                           placeholder="http://localhost:6333"/>
-                    <field name="claude_qdrant_api_key"
-                           password="True"
-                           groups="base.group_system"/>
-                    <field name="claude_qdrant_collection_prefix"
-                           placeholder="odoo_"/>
-                    <field name="claude_embedding_provider"/>
-                    <field name="claude_ollama_url"
-                           placeholder="http://localhost:11434"
-                           invisible="claude_embedding_provider != 'ollama'"/>
-                    <field name="claude_ollama_model"
-                           placeholder="nomic-embed-text"
-                           invisible="claude_embedding_provider != 'ollama'"/>
-                    <field name="claude_embedding_api_key"
-                           password="True"
-                           groups="base.group_system"
-                           invisible="claude_embedding_provider == 'ollama'"/>
-                </group>
+                <!-- AI Tokenizer infrastructure lives on res.company.
+                     Edit via Settings → AI Tokenizer. -->
             </xpath>
         </field>
     </record>

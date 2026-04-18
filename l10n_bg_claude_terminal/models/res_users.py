@@ -177,31 +177,13 @@ class ResUsers(models.Model):
         help="Public HTTPS URL for Viber webhook (e.g. https://yourdomain.com/viber/webhook)",
     )
 
-    # ── AI Tokenizer (mirror of res.company, surfaced in user profile) ──
-    # Редакцията минава през company — изисква write права върху res.company.
-    claude_qdrant_url = fields.Char(
-        related="company_id.claude_qdrant_url", readonly=False,
-    )
-    claude_qdrant_api_key = fields.Char(
-        related="company_id.claude_qdrant_api_key", readonly=False,
-        groups="base.group_system",
-    )
-    claude_qdrant_collection_prefix = fields.Char(
-        related="company_id.claude_qdrant_collection_prefix", readonly=False,
-    )
-    claude_ollama_url = fields.Char(
-        related="company_id.claude_ollama_url", readonly=False,
-    )
-    claude_ollama_model = fields.Char(
-        related="company_id.claude_ollama_model", readonly=False,
-    )
-    claude_embedding_provider = fields.Selection(
-        related="company_id.claude_embedding_provider", readonly=False,
-    )
-    claude_embedding_api_key = fields.Char(
-        related="company_id.claude_embedding_api_key", readonly=False,
-        groups="base.group_system",
-    )
+    # AI Tokenizer infrastructure (Qdrant URL/key, Ollama URL/model, embedding
+    # provider + key) lives exclusively on ``res.company`` and is edited via
+    # ``res.config.settings``. Do NOT mirror those fields onto ``res.users`` —
+    # they are company-level infrastructure, not per-user preferences, and
+    # surfacing them here caused both an OWL crash for non-admin users and
+    # a misleading mental model (users editing their "personal" Qdrant URL
+    # actually mutated the whole company).
 
     _CLAUDE_FIELDS = [
         "claude_terminal_url",
@@ -228,11 +210,6 @@ class ResUsers(models.Model):
         "claude_viber_bot_token",
         "claude_viber_bot_name",
         "claude_viber_webhook_url",
-        "claude_qdrant_url",
-        "claude_qdrant_collection_prefix",
-        "claude_ollama_url",
-        "claude_ollama_model",
-        "claude_embedding_provider",
     ]
 
     @property

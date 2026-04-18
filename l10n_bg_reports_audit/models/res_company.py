@@ -14,6 +14,10 @@ class ResCompany(models.Model):
     _inherit = "res.company"
 
     l10n_bg_odoo_compatible = fields.Boolean("Odoo compatible")
+    l10n_bg_audit_use_tax = fields.Boolean(
+        string="Use Forced Customs Tax",
+        help="Enable audit tax handling force customs type calculation reports.",
+    )
     l10n_bg_tax_contact_id = fields.Many2one(
         "res.partner",
         string="TAX Report creator",

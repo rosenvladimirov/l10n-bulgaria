@@ -26,3 +26,8 @@ class ResCompany(models.Model):
         string='Default Tariff Rate (%)',
         help="Default tariff rate when it cannot be found in TARIC"
     )
+
+    l10n_bg_auto_download = fields.Boolean(
+        string='Auto Download',
+        help="Download TARIC data automatically"
+    )

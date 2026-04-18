@@ -75,10 +75,11 @@ class L10nBgTaricCache(models.Model):
         required=True
     )
 
-    _unique_taric_entry = models.Constraint(
-        'unique (cn_code, country_code, valid_from, valid_to)',
-        "TARIC entry must be unique per code, country and validity period!",
-    )
+    _sql_constraints = [
+        ('unique_taric_entry',
+         'UNIQUE(cn_code, country_code, valid_from, valid_to)',
+         'TARIC entry must be unique per code, country and validity period!')
+    ]
 
     @api.model
     def import_from_circabc_url(self, file_url):

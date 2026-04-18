@@ -45,7 +45,7 @@ Technical Features
 * EU country zero-rate support
 * Automatic product HS code updates
     """,
-    "version": "19.0.3.0.7",
+    "version": "19.0.3.0.11",
     "category": "Accounting/Localizations",
     "license": "LGPL-3",
     "author": "Rosen Vladimirov",
@@ -66,6 +66,7 @@ Technical Features
         "wizards/l10n_bg_taric_import_wizard.xml",
         "views/menu.xml",
     ],
+    'pre_init_hook': 'pre_init_hook',
     "installable": True,
     "application": False,
     "auto_install": False,

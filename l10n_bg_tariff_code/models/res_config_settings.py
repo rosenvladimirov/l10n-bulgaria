@@ -31,3 +31,10 @@ class ResConfigSettings(models.TransientModel):
         readonly=False,
         help="Default tariff rate when it cannot be found in TARIC"
     )
+
+    l10n_bg_auto_download = fields.Boolean(
+        related='company_id.l10n_bg_auto_download',
+        string='Auto Download',
+        readonly=False,
+        help="Download TARIC data automatically"
+    )

@@ -10,6 +10,11 @@ class ProductTemplate(models.Model):
     # Полето hs_code вече съществува в stock_delivery модула
     # Добавяме само помощна информация
 
+    taric_code = fields.Char(
+        string='TARIC Code',
+        help='TARIC code of the product (synchronized with HS Code)'
+    )
+
     l10n_bg_tariff_rate = fields.Float(
         string='Default Tariff Rate (%)',
         help='Cached tariff rate for this product',
@@ -20,7 +25,7 @@ class ProductTemplate(models.Model):
 
     l10n_bg_tariff_rate_manual = fields.Float(
         string='Manual Tariff Rate (%)',
-        help='Ръчно въведена тарифна ставка (приоритет над автоматичната)'
+        help='Manually entered tariff rate (priority over automatic)'
     )
 
     l10n_bg_tariff_last_update = fields.Datetime(
@@ -33,7 +38,19 @@ class ProductTemplate(models.Model):
         help='Description of the tariff rate for this product'
     )
 
-    @api.depends('hs_code', 'country_of_origin', 'l10n_bg_tariff_rate_manual')
+    @api.onchange('hs_code')
+    def _onchange_hs_code(self):
+        """Синхронизира hs_code към taric_code"""
+        if self.hs_code and self.hs_code != self.taric_code:
+            self.taric_code = self.hs_code
+
+    @api.onchange('taric_code')
+    def _onchange_taric_code(self):
+        """Синхронизира taric_code към hs_code"""
+        if self.taric_code and self.taric_code != self.hs_code:
+            self.hs_code = self.taric_code
+
+    @api.depends('hs_code', 'taric_code', 'country_of_origin', 'l10n_bg_tariff_rate_manual')
     def _compute_l10n_bg_tariff_rate(self):
         """Изчислява тарифната ставка за продукта"""
         MoveLine = self.env['account.move.line']
@@ -46,14 +63,16 @@ class ProductTemplate(models.Model):
                 product.l10n_bg_tariff_rate = product.l10n_bg_tariff_rate_manual
                 continue
 
-            if not product.hs_code:
-                _logger.info(f"No HS code for product {product.id}")
+            # Използваме taric_code или hs_code (приоритет на taric_code)
+            code = product.taric_code or product.hs_code
+            if not code:
+                _logger.info(f"No TARIC/HS code for product {product.id}")
                 product.l10n_bg_tariff_rate = 0.0
                 continue
 
             # Използваме логиката от account.move.line
             country_code = product.country_of_origin.code if product.country_of_origin else 'CN'
-            _logger.info(f"Fetching tariff for HS {product.hs_code}, country {country_code}")
+            _logger.info(f"Fetching tariff for code {code}, country {country_code}")
 
             # Кеширане - проверяваме дали има актуална стойност
             # САМО ако не е принудително обновяване
@@ -68,7 +87,7 @@ class ProductTemplate(models.Model):
             # Fetch rate (вече връща decimal формат 0.50 = 50%)
             try:
                 dummy_line = MoveLine.new({'product_id': product.id})
-                rate = dummy_line._fetch_tariff_rate(product.hs_code[:8], country_code)
+                rate = dummy_line._fetch_tariff_rate(code[:8], country_code)
                 l10n_bg_tariff_description = dummy_line.l10n_bg_tariff_description
 
                 if l10n_bg_tariff_description:

@@ -4,7 +4,8 @@ from odoo import fields, models
 
 
 class ProductTemplate(models.Model):
-    _inherit = "product.template"
+    _inherit = ["product.template", "l10n.bg.config.mixin"]
+    _name = "product.template"
 
     l10n_bg_account_tag_ids = fields.Many2many(
         string="NSI Account Tags",

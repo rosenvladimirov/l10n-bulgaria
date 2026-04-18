@@ -32,26 +32,28 @@ class AccountBGCalcViesLine(models.Model):
     )
 
     info_tag_vir_1 = fields.Char("[VDR-1] Main Record Section Code", readonly=True)
-    info_tag_vir_2 = fields.Integer(string="Counter", readonly=True)
+    info_tag_vir_2 = fields.Integer(string="[k1] Row number", readonly=True)
     info_tag_vir_3 = fields.Char(
-        "[VDR-1] VIN ",
-        help="Number of the foreign counterparty incl. the sign of the Member State",
+        "[k2] VAT ID of recipient/acquirer (incl. country code)",
         readonly=True,
     )
-    info_tag_vir_7 = fields.Char(string="[02-01] Tax period", readonly=True)
+    info_tag_vir_7 = fields.Char(
+        string="[k6] Tax period when tax became due (MM/YYYY) - only if different from the declaration period",
+        readonly=True,
+    )
     account_tag_vir_4 = fields.Monetary(
-        string="[02-15] Base ICD of goods 0%",
+        string="[k3] Tax base of intra-Community supplies of goods (BGN)",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_vir_5 = fields.Monetary(
-        string="[02-25] TO-trilateral operations",
+        string="[k4] Tax base of supplies of goods as an intermediary in a triangular transaction (BGN)",
         currency_field="company_currency_id",
         readonly=True,
     )
     account_tag_vir_6 = fields.Monetary(
         readonly=True,
-        string="[02-17] Base under Art. 21 on the territory of the EU",
+        string="[k5] Tax base of supplies of services under Art. 21(2) VAT Act with place of supply in another Member State (BGN)",
         currency_field="company_currency_id",
     )
 
@@ -83,15 +85,18 @@ FROM {self._from()}
     am.state AS state,
     ROW_NUMBER() OVER(ORDER BY am.partner_shipping_id) AS info_tag_vir_2,
     COALESCE(partner.vat, partner.l10n_bg_uic) AS info_tag_vir_3,
-    SUM(CASE WHEN aat.tag_name = 15 AND aat.negate THEN ABS(aml.balance)*-1
-            WHEN aat.tag_name = 15 AND NOT aat.negate THEN ABS(aml.balance)
-            ELSE 0.00 END) AS account_tag_vir_4,
-    SUM(CASE WHEN aat.tag_name = 25 AND aat.negate THEN ABS(aml.balance)*-1
-            WHEN aat.tag_name = 25 AND NOT aat.negate THEN ABS(aml.balance)
-            ELSE 0.00 END) AS account_tag_vir_5,
-    SUM(CASE WHEN aat.tag_name = 17 AND aat.negate THEN ABS(aml.balance)*-1
-            WHEN aat.tag_name = 17 AND NOT aat.negate THEN ABS(aml.balance)
-            ELSE 0.00 END) AS account_tag_vir_6"""
+    SUM(CASE WHEN am.state = 'cancel' THEN 0.00
+            WHEN aat.tag_name = 15 AND aat.negate THEN aml.balance
+            WHEN aat.tag_name = 15 AND NOT aat.negate THEN aml.balance
+            ELSE 0.00 END)*-1 AS account_tag_vir_4,
+    SUM(CASE WHEN am.state = 'cancel' THEN 0.00
+            WHEN aat.tag_name = 25 AND aat.negate THEN aml.balance
+            WHEN aat.tag_name = 25 AND NOT aat.negate THEN aml.balance
+            ELSE 0.00 END)*-1 AS account_tag_vir_5,
+    SUM(CASE WHEN am.state = 'cancel' THEN 0.00
+            WHEN aat.tag_name = 17 AND aat.negate THEN aml.balance
+            WHEN aat.tag_name = 17 AND NOT aat.negate THEN aml.balance
+            ELSE 0.00 END)*-1 AS account_tag_vir_6"""
 
     @api.model
     def _from(self):
@@ -108,18 +113,14 @@ FROM {self._from()}
                     FROM account_account_tag
                     WHERE applicability = 'taxes') AS aat
         ON aat.id = tag_line_rel.account_account_tag_id
-    LEFT JOIN (SELECT imd.id, imd.res_id, imd.model, imd.module, imd.name
-                    FROM ir_model_data AS imd
-                    WHERE imd.module = 'l10n_bg' AND imd.model = 'account.account.tag') AS imd_tag_tax
-        ON imd_tag_tax.res_id = aat.id
     LEFT JOIN res_partner AS partner
         ON am.partner_shipping_id = partner.id"""
 
     @api.model
     def _where(self):
-        if self.env.context.get("report_options"):
+        if self._context.get("report_options"):
             date_from, date_to, tax_period, tax_periods, company_id, state = l10n_bg_where(
-                self.env, self.env.context.get("report_options")
+                self.env, self._context.get("report_options")
             )
             return f"""am.company_id = {company_id} AND am.state = ANY(ARRAY{state}) AND aat.l10n_bg_applicability = 'sale' AND aat.tag_name = ANY(ARRAY[15, 25, 17]) AND aml.balance != 0 AND am.date >= '{date_from}' AND am.date <= '{date_to}'"""
         return """aat.l10n_bg_applicability = 'sale' AND aat.tag_name = ANY(ARRAY[15,25,17]) AND aml.balance != 0"""

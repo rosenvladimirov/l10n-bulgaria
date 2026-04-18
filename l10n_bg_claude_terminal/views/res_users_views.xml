@@ -53,6 +53,8 @@
                                password="True"
                                placeholder="Odoo API Key"/>
                         <field name="claude_odoo_protocol"/>
+                        <field name="claude_odoo_verify_ssl"
+                               widget="boolean_toggle"/>
                     </group>
                     <group string="Web Session">
                         <field name="claude_web_url"
@@ -162,6 +164,8 @@
                            password="True"
                            placeholder="Odoo API Key"/>
                     <field name="claude_odoo_protocol"/>
+                    <field name="claude_odoo_verify_ssl"
+                           widget="boolean_toggle"/>
                 </group>
                 <group string="Web Session">
                     <field name="claude_web_url"

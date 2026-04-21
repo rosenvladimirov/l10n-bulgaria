@@ -937,9 +937,24 @@ class BgCompanySearchWizard(models.TransientModel):
         if company_data.get('legal_form_bg'):
             vals['l10n_bg_legal_form'] = company_data['legal_form_bg']
 
-        # Address fields
-        if company_data.get('city_id'):
-            vals['city_id'] = company_data['city_id']
+        # Address fields — feature-detect optional address extensions
+        partner_fields = self.env['res.partner']._fields
+
+        # l10n_bg_city (HARD dep) — resolve city_id from API or search by name
+        city_id = company_data.get('city_id')
+        if not city_id and company_data.get('city_name') and 'l10n.bg.city' in self.env:
+            l10n_bg_city = self.env['l10n.bg.city'].search([
+                ('name', '=ilike', company_data['city_name'])
+            ], limit=1)
+            if l10n_bg_city:
+                city_id = l10n_bg_city.id
+
+        if city_id and 'city_id' in partner_fields:
+            vals['city_id'] = city_id
+
+        # Always set 'city' text — overrides legacy values & works without l10n_bg_city
+        if company_data.get('city_name'):
+            vals['city'] = company_data['city_name']
 
         if company_data.get('state_id'):
             vals['state_id'] = company_data['state_id']
@@ -947,18 +962,17 @@ class BgCompanySearchWizard(models.TransientModel):
         if company_data.get('zip'):
             vals['zip'] = company_data['zip']
 
-        if company_data.get('street_name'):
+        # base_address_extended (OCA) — only if installed
+        if 'street_name' in partner_fields and company_data.get('street_name'):
             vals['street_name'] = company_data['street_name']
 
-        if company_data.get('street_number'):
+        if 'street_number' in partner_fields and company_data.get('street_number'):
             vals['street_number'] = company_data['street_number']
 
-        if company_data.get('street_number2'):
+        if 'street_number2' in partner_fields and company_data.get('street_number2'):
             vals['street_number2'] = company_data['street_number2']
 
-        # Проверка дали полетата от extend модула са инсталирани
-        partner_fields = self.env['res.partner']._fields
-
+        # l10n_bg_address_extended — only if installed
         if 'street_building_number' in partner_fields and company_data.get('street_building_number'):
             vals['street_building_number'] = company_data['street_building_number']
 
@@ -968,6 +982,7 @@ class BgCompanySearchWizard(models.TransientModel):
         if 'street_sector_number' in partner_fields and company_data.get('street_sector_number'):
             vals['street_sector_number'] = company_data['street_sector_number']
 
+        # Standard 'street' field — always available, used as fallback or display value
         if company_data.get('street'):
             vals['street'] = company_data['street']
 

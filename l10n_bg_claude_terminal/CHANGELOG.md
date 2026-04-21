@@ -1,5 +1,56 @@
 # Changelog
 
+## 19.0.1.27.0 — API key rotation tracking (Gap 4.7)
+
+### Added
+- `res.company.claude_keys_rotated_at` (Datetime) — кога е
+  извършвано последното ротиране на AI секретите.
+- Computed `claude_keys_age_days` и `claude_keys_needs_rotation`
+  (True когато age ≥ 90 дни). Всички `groups="base.group_system"`.
+- `action_mark_keys_rotated()` на `res.company` — маркира
+  сегашния момент като "keys rotated now". Викан през бутон в
+  Settings → General → AI Tokenizer → API Key Rotation.
+- UI блок в General Settings: текуща възраст, warning banner при
+  изтекъл срок, "I rotated the keys" бутон.
+- Advisory-only: никой flow не се блокира; цел е admins да не
+  забравят да ротират, не enforcement.
+
+## 19.0.1.26.0 — Qdrant cross-company isolation guard (Gap 4.6)
+
+### Changed
+- `ai.qdrant.client.search()` автоматично добавя
+  `must: [{key: "company_id", match: {value: <env.company.id>}}]` към
+  filter-а, освен ако caller не подаде `filters={"_skip_company_guard":
+  True, ...}`. Намалява риска за cross-company leak в multi-company
+  instance, когато consumer забрави да филтрира ръчно.
+- Collection name scoping (prefix × db_name) остава непокътнат —
+  database-level isolation беше здрав, company-level беше best-effort.
+- Transparent за single-company installs (auto-filter е no-op когато
+  цялата колекция е от една компания).
+
+## 19.0.1.25.0
+
+### Removed — `claude_anthropic_api_key` field and per-user Anthropic pre-auth
+- `res.users.claude_anthropic_api_key` field премахнат. Не се попълва вече
+  от UI (Settings → Preferences → Claude Terminal) и не се връща от
+  `get_claude_mcp_config`. Client-а (chatter/list/kanban) не подава
+  `ANTHROPIC_API_KEY` към terminal URL.
+- `action_open_anthropic_console` и `action_open_claude_oauth` премахнати —
+  бяха button-и за водене до platform.claude.com и claude.ai/login, но
+  вече няма поле, в което да се пасне резултата.
+- `buildExternalTerminalUrl()` signature — седмият параметър
+  `anthropicApiKey` премахнат. OWL props (`ClaudeTerminalPanel`,
+  `ClaudeTerminalDialog`) също загубват `anthropicApiKey`.
+- **Новата архитектура:** ако terminal container-а има `ANTHROPIC_API_KEY`
+  env var (docker-compose / Portainer), `start-session.sh` export-ва го
+  и Claude CLI го чете — т.е. **server-side fallback**. Ако няма —
+  Claude CLI стартира без preset и потребителят прави `/login` в
+  терминала (OAuth flow → `~/.claude/credentials.json`).
+- Migration note: съществуващите стойности в `claude_anthropic_api_key`
+  остават в базата до следващата миграция (полето е `fields.Char`,
+  Odoo не drop-ва колоната автоматично). При нужда — `ALTER TABLE
+  res_users DROP COLUMN claude_anthropic_api_key`.
+
 ## 19.0.1.23.0
 
 ### Fixed — AI Tokenizer: skip fields that raise AttributeError

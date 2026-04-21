@@ -40,15 +40,6 @@ class ResUsers(models.Model):
              "in Settings → Users → API Keys takes effect within the cache "
              "TTL (default 5 min) without reconfiguring the terminal.",
     )
-    claude_anthropic_api_key = fields.Char(
-        "Anthropic API Key",
-        help="Pre-authenticates the Claude terminal so Claude won't ask "
-             "for login on start. Accepts both:\n"
-             "  * sk-ant-api03-… (API billing, from the Anthropic Console)\n"
-             "  * sk-ant-oat01-… (Pro / Teams / Max OAuth tokens, via "
-             "claude /login → ~/.claude/credentials.json).\n"
-             "Use /login inside the terminal to re-auth manually.",
-    )
     claude_theme = fields.Selection(
         [
             ("github", "GitHub (Light)"),
@@ -201,7 +192,6 @@ class ResUsers(models.Model):
         "claude_terminal_url",
         "claude_use_external_terminal",
         "claude_api_key",
-        "claude_anthropic_api_key",
         "claude_theme",
         "claude_odoo_url",
         "claude_odoo_db",
@@ -502,31 +492,6 @@ class ResUsers(models.Model):
         """RPC: return current user's terminal URL."""
         return self.env.user.claude_terminal_url or ""
 
-    def action_open_anthropic_console(self):
-        """Open the Anthropic Console API Keys page (for API billing).
-
-        User creates or copies a key (``sk-ant-api03-…``) and pastes it
-        into ``claude_anthropic_api_key``.
-        """
-        return {
-            "type": "ir.actions.act_url",
-            "url": "https://console.anthropic.com/settings/keys",
-            "target": "new",
-        }
-
-    def action_open_claude_oauth(self):
-        """Open the Claude.ai login page (for Pro / Teams / Max plans).
-
-        After login, the OAuth token can be retrieved from the local
-        ``~/.claude/credentials.json`` (as created by ``claude /login``)
-        and pasted into ``claude_anthropic_api_key``.
-        """
-        return {
-            "type": "ir.actions.act_url",
-            "url": "https://claude.ai/login",
-            "target": "new",
-        }
-
     @api.model
     def notify_claude_refresh(self, payload=None):
         """Send a bus notification to refresh the user's browser view.
@@ -592,8 +557,8 @@ class ResUsers(models.Model):
         """RPC: return current user's full MCP configuration for the terminal.
 
         Restricted to administrators (`base.group_system`) — payload contains
-        secrets (Anthropic key, MCP token, embedding/Qdrant API keys, Viber
-        bot token, web-session password). Allowing non-admins here would
+        secrets (MCP token, embedding/Qdrant API keys, Viber bot token,
+        web-session password). Allowing non-admins here would
         leak company-level credentials (Qdrant/embedding api keys live on
         res.company and any logged-in user — including portal users — sees
         their own res.users record otherwise).
@@ -607,7 +572,6 @@ class ResUsers(models.Model):
             "terminal_url": user.claude_terminal_url or "",
             "use_external": user.claude_use_external_terminal,
             "api_key": user.claude_api_key or "",
-            "anthropic_api_key": user.claude_anthropic_api_key or "",
             "theme": user.claude_theme or "github",
             "odoo": {
                 "url": user.claude_odoo_url or "",

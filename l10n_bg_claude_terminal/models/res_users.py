@@ -40,15 +40,6 @@ class ResUsers(models.Model):
              "in Settings → Users → API Keys takes effect within the cache "
              "TTL (default 5 min) without reconfiguring the terminal.",
     )
-    claude_anthropic_api_key = fields.Char(
-        "Anthropic API Key",
-        help="Pre-authenticates the Claude terminal so Claude won't ask "
-             "for login on start. Accepts both:\n"
-             "  * sk-ant-api03-… (API billing, from the Anthropic Console)\n"
-             "  * sk-ant-oat01-… (Pro / Teams / Max OAuth tokens, via "
-             "claude /login → ~/.claude/credentials.json).\n"
-             "Use /login inside the terminal to re-auth manually.",
-    )
     claude_theme = fields.Selection(
         [
             ("github", "GitHub (Light)"),
@@ -138,6 +129,20 @@ class ResUsers(models.Model):
         default="claude_session",
     )
 
+    # ── Viber MCP ──
+    claude_viber_bot_token = fields.Char(
+        "Bot Token",
+        help="Viber Bot API token from partners.viber.com",
+    )
+    claude_viber_bot_name = fields.Char(
+        "Bot Name",
+        help="Viber bot display name",
+    )
+    claude_viber_webhook_url = fields.Char(
+        "Webhook URL",
+        help="Public HTTPS URL for Viber webhook (e.g. https://yourdomain.com/viber/webhook)",
+    )
+
     # ── Web Session ──
     claude_web_url = fields.Char(
         "Web Session URL",
@@ -175,33 +180,18 @@ class ResUsers(models.Model):
         help="Alternative API key for MCP server (optional).",
     )
 
-    # ── Viber MCP ──
-    claude_viber_bot_token = fields.Char(
-        "Bot Token",
-        help="Viber Bot API token from partners.viber.com",
-    )
-    claude_viber_bot_name = fields.Char(
-        "Bot Name",
-        help="Viber bot display name",
-    )
-    claude_viber_webhook_url = fields.Char(
-        "Webhook URL",
-        help="Public HTTPS URL for Viber webhook (e.g. https://yourdomain.com/viber/webhook)",
-    )
-
     # AI Tokenizer infrastructure (Qdrant URL/key, Ollama URL/model, embedding
     # provider + key) lives exclusively on ``res.company`` and is edited via
     # ``res.config.settings``. Do NOT mirror those fields onto ``res.users`` —
     # they are company-level infrastructure, not per-user preferences, and
     # surfacing them here caused both an OWL crash for non-admin users and
     # a misleading mental model (users editing their "personal" Qdrant URL
-    # actually mutated the whole company).
+    # actually mutated the whole company). Access site-wide settings only.
 
     _CLAUDE_FIELDS = [
         "claude_terminal_url",
         "claude_use_external_terminal",
         "claude_api_key",
-        "claude_anthropic_api_key",
         "claude_theme",
         "claude_odoo_url",
         "claude_odoo_db",
@@ -247,89 +237,25 @@ class ResUsers(models.Model):
         odoo_url = (user.claude_odoo_url or "").rstrip("/")
         odoo_db = user.claude_odoo_db or self.env.cr.dbname
         odoo_api_key = user.claude_odoo_api_key or ""
-        odoo_protocol = user.claude_odoo_protocol or "xmlrpc"
-
-        def _try_xmlrpc():
-            common = xmlrpc.client.ServerProxy(
-                f"{odoo_url}/xmlrpc/2/common", allow_none=True
-            )
-            uid = common.authenticate(odoo_db, user.login, odoo_api_key, {})
-            version = common.version().get("server_version", "") if uid else ""
-            return uid, version
-
-        def _try_jsonrpc():
-            payload = json.dumps({
-                "jsonrpc": "2.0", "method": "call", "id": 1,
-                "params": {
-                    "service": "common", "method": "authenticate",
-                    "args": [odoo_db, user.login, odoo_api_key, {}],
-                },
-            }).encode()
-            req = urllib.request.Request(
-                f"{odoo_url}/jsonrpc",
-                data=payload,
-                headers={"Content-Type": "application/json", "User-Agent": "OdooClaudeTerminal/1.0"},
-            )
-            with urllib.request.urlopen(req, timeout=10, context=mk_ctx()) as resp:
-                result = json.loads(resp.read())
-            uid = result.get("result")
-            version = ""
-            if uid:
-                vpayload = json.dumps({
-                    "jsonrpc": "2.0", "method": "call", "id": 2,
-                    "params": {"service": "common", "method": "version", "args": []},
-                }).encode()
-                vreq = urllib.request.Request(
-                    f"{odoo_url}/jsonrpc",
-                    data=vpayload,
-                    headers={"Content-Type": "application/json", "User-Agent": "OdooClaudeTerminal/1.0"},
-                )
-                with urllib.request.urlopen(vreq, timeout=10, context=mk_ctx()) as vresp:
-                    version = (json.loads(vresp.read()).get("result") or {}).get("server_version", "")
-            return uid, version
-
-        def _try_web_session():
-            # Fallback: works when /xmlrpc and /jsonrpc are blocked by reverse proxy
-            payload = json.dumps({
-                "jsonrpc": "2.0", "method": "call", "id": 1,
-                "params": {"db": odoo_db, "login": user.login, "password": odoo_api_key},
-            }).encode()
-            req = urllib.request.Request(
-                f"{odoo_url}/web/session/authenticate",
-                data=payload,
-                headers={"Content-Type": "application/json", "User-Agent": "OdooClaudeTerminal/1.0"},
-            )
-            with urllib.request.urlopen(req, timeout=10, context=mk_ctx()) as resp:
-                result = json.loads(resp.read())
-            data = result.get("result") or {}
-            return data.get("uid"), data.get("server_version", "")
-
         if odoo_url and odoo_api_key:
-            attempts = (
-                [("XML-RPC", _try_xmlrpc), ("JSON-RPC", _try_jsonrpc), ("Web Session", _try_web_session)]
-                if odoo_protocol == "xmlrpc"
-                else [("JSON-RPC", _try_jsonrpc), ("XML-RPC", _try_xmlrpc), ("Web Session", _try_web_session)]
-            )
-            odoo_status, odoo_msg = "error", ""
-            errors = []
-            for label, fn in attempts:
-                try:
-                    uid, version = fn()
-                    if uid:
-                        odoo_status = "ok"
-                        odoo_msg = _("[%s] Connected — UID %s, Odoo %s") % (label, uid, version or "?")
-                        break
-                    errors.append("%s: %s" % (label, _("auth failed")))
-                except Exception as e:
-                    errors.append("%s: %s" % (label, str(e)[:80]))
-            if odoo_status != "ok":
-                odoo_msg = " | ".join(errors)[:300]
+            try:
+                common = xmlrpc.client.ServerProxy(
+                    f"{odoo_url}/xmlrpc/2/common", allow_none=True
+                )
+                uid = common.authenticate(odoo_db, user.login, odoo_api_key, {})
+                if uid:
+                    version = common.version().get("server_version", "")
+                    odoo_status, odoo_msg = "ok", _("Connected — UID %s, Odoo %s") % (uid, version)
+                else:
+                    odoo_status, odoo_msg = "error", _("Authentication failed — check DB, login or API key")
+            except Exception as e:
+                odoo_status, odoo_msg = "error", str(e)[:200]
         else:
             odoo_status, odoo_msg = "warn", _("URL or API key not configured")
 
         # ── Test MCP Server ───────────────────────────────────────────
-        mcp_url = (user.claude_mcp_url or "").rstrip("/")
-        mcp_token = user.claude_mcp_token or ""
+        mcp_url = (getattr(user, "claude_mcp_url", "") or "").rstrip("/")
+        mcp_token = getattr(user, "claude_mcp_token", "") or ""
         if mcp_url:
             try:
                 headers = {"User-Agent": "OdooClaudeTerminal/1.0"}
@@ -350,10 +276,10 @@ class ResUsers(models.Model):
             mcp_status, mcp_msg = "warn", _("MCP Server URL not configured")
 
         # ── Test Web Session ──────────────────────────────────────────
-        web_url = (user.claude_web_url or "").rstrip("/")
-        web_login = user.claude_web_login or ""
-        web_password = user.claude_web_password or ""
-        web_db = user.claude_web_db or ""
+        web_url = (getattr(user, "claude_web_url", "") or "").rstrip("/")
+        web_login = getattr(user, "claude_web_login", "") or ""
+        web_password = getattr(user, "claude_web_password", "") or ""
+        web_db = getattr(user, "claude_web_db", "") or ""
         if web_url and web_login and web_password:
             try:
                 payload = json.dumps({
@@ -566,31 +492,6 @@ class ResUsers(models.Model):
         """RPC: return current user's terminal URL."""
         return self.env.user.claude_terminal_url or ""
 
-    def action_open_anthropic_console(self):
-        """Open the Anthropic Console API Keys page (for API billing).
-
-        User creates or copies a key (``sk-ant-api03-…``) and pastes it
-        into ``claude_anthropic_api_key``.
-        """
-        return {
-            "type": "ir.actions.act_url",
-            "url": "https://console.anthropic.com/settings/keys",
-            "target": "new",
-        }
-
-    def action_open_claude_oauth(self):
-        """Open the Claude.ai login page (for Pro / Teams / Max plans).
-
-        After login, the OAuth token can be retrieved from the local
-        ``~/.claude/credentials.json`` (as created by ``claude /login``)
-        and pasted into ``claude_anthropic_api_key``.
-        """
-        return {
-            "type": "ir.actions.act_url",
-            "url": "https://claude.ai/login",
-            "target": "new",
-        }
-
     @api.model
     def notify_claude_refresh(self, payload=None):
         """Send a bus notification to refresh the user's browser view.
@@ -656,8 +557,8 @@ class ResUsers(models.Model):
         """RPC: return current user's full MCP configuration for the terminal.
 
         Restricted to administrators (`base.group_system`) — payload contains
-        secrets (Anthropic key, MCP token, embedding/Qdrant API keys, Viber
-        bot token, web-session password). Allowing non-admins here would
+        secrets (MCP token, embedding/Qdrant API keys, Viber bot token,
+        web-session password). Allowing non-admins here would
         leak company-level credentials (Qdrant/embedding api keys live on
         res.company and any logged-in user — including portal users — sees
         their own res.users record otherwise).
@@ -671,8 +572,7 @@ class ResUsers(models.Model):
             "terminal_url": user.claude_terminal_url or "",
             "use_external": user.claude_use_external_terminal,
             "api_key": user.claude_api_key or "",
-            "anthropic_api_key": user.claude_anthropic_api_key or "",
-            "theme": getattr(user, 'claude_theme', False) or "github",
+            "theme": user.claude_theme or "github",
             "odoo": {
                 "url": user.claude_odoo_url or "",
                 "db": user.claude_odoo_db or self.env.cr.dbname,
@@ -688,16 +588,16 @@ class ResUsers(models.Model):
                 "session_name": user.claude_telegram_session or "",
             },
             "web_session": {
-                "url": getattr(user, 'claude_web_url', False) or "",
-                "db": getattr(user, 'claude_web_db', False) or "",
-                "login": getattr(user, 'claude_web_login', False) or "",
-                "password": getattr(user, 'claude_web_password', False) or "",
+                "url": user.claude_web_url or "",
+                "db": user.claude_web_db or "",
+                "login": user.claude_web_login or "",
+                "password": user.claude_web_password or "",
             },
             "mcp_server": {
-                "url": getattr(user, 'claude_mcp_url', False) or "",
-                "token": getattr(user, 'claude_mcp_token', False) or "",
-                "client_id": getattr(user, 'claude_mcp_client_id', False) or "",
-                "api_key": getattr(user, 'claude_mcp_api_key', False) or "",
+                "url": user.claude_mcp_url or "",
+                "token": user.claude_mcp_token or "",
+                "client_id": user.claude_mcp_client_id or "",
+                "api_key": user.claude_mcp_api_key or "",
             },
             "viber": {
                 "bot_token": user.claude_viber_bot_token or "",

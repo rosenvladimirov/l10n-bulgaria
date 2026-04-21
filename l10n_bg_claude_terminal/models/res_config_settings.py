@@ -39,3 +39,25 @@ class ResConfigSettings(models.TransientModel):
         readonly=False,
         groups="base.group_system",
     )
+
+    # ── API key rotation tracking (Gap 4.7) ──
+    claude_keys_rotated_at = fields.Datetime(
+        related="company_id.claude_keys_rotated_at",
+        readonly=True,
+        groups="base.group_system",
+    )
+    claude_keys_age_days = fields.Integer(
+        related="company_id.claude_keys_age_days",
+        readonly=True,
+        groups="base.group_system",
+    )
+    claude_keys_needs_rotation = fields.Boolean(
+        related="company_id.claude_keys_needs_rotation",
+        readonly=True,
+        groups="base.group_system",
+    )
+
+    def action_mark_keys_rotated(self):
+        """Proxy to res.company.action_mark_keys_rotated for the form button."""
+        self.ensure_one()
+        return self.company_id.action_mark_keys_rotated()

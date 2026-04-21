@@ -1,119 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Add Claude Terminal page to "My Profile" form (hr extended res.users) -->
-    <record id="res_users_view_form_profile_claude_terminal" model="ir.ui.view">
-        <field name="name">res.users.view.form.profile.claude.terminal</field>
-        <field name="model">res.users</field>
-        <field name="inherit_id" ref="hr.res_users_view_form_profile"/>
-        <field name="arch" type="xml">
-            <xpath expr="//notebook" position="inside">
-                <page string="Claude Terminal" name="claude_terminal">
-                    <group string="Claude Terminal">
-                        <field name="claude_terminal_url"
-                               placeholder="http://localhost:8080"/>
-                        <field name="claude_use_external_terminal"/>
-                        <field name="claude_api_key"
-                               password="True"
-                               placeholder="Odoo API Key"
-                               invisible="not claude_use_external_terminal"/>
-                        <label for="claude_anthropic_api_key" />
-                        <div>
-                            <field name="claude_anthropic_api_key"
-                                   password="True"
-                                   placeholder="sk-ant-api03-... or sk-ant-oat01-..." />
-                            <div class="text-muted small mt-1">
-                                <i class="fa fa-info-circle me-1" />
-                                <b>API billing</b> (<code>sk-ant-api03-…</code>):
-                                <button name="action_open_anthropic_console"
-                                        type="object"
-                                        string="Console → API Keys"
-                                        icon="fa-external-link"
-                                        class="btn btn-link btn-sm p-0 ms-1" />
-                                <br/>
-                                <b>Pro / Teams / Max</b> (<code>sk-ant-oat01-…</code>):
-                                use
-                                <button name="action_open_claude_oauth"
-                                        type="object"
-                                        string="Claude OAuth Login"
-                                        icon="fa-sign-in"
-                                        class="btn btn-link btn-sm p-0 ms-1" />
-                                — after login, copy the OAuth token from
-                                <code>~/.claude/credentials.json</code> or
-                                run <code>/login</code> inside the terminal.
-                            </div>
-                        </div>
-                        <field name="claude_theme"/>
-                    </group>
-                    <group string="Odoo RPC Connector">
-                        <field name="claude_odoo_url"
-                               placeholder="http://localhost:8069"/>
-                        <field name="claude_odoo_db"/>
-                        <field name="claude_odoo_api_key"
-                               password="True"
-                               placeholder="Odoo API Key"/>
-                        <field name="claude_odoo_protocol"/>
-                        <field name="claude_odoo_verify_ssl"
-                               widget="boolean_toggle"/>
-                    </group>
-                    <group string="Web Session">
-                        <field name="claude_web_url"
-                               placeholder="https://www.odoo.com"/>
-                        <field name="claude_web_db"
-                               placeholder="openerp (auto-detect if empty)"/>
-                        <field name="claude_web_login"
-                               placeholder="user@example.com"/>
-                        <field name="claude_web_password"
-                               password="True"/>
-                    </group>
-                    <group string="MCP Server">
-                        <field name="claude_mcp_url"
-                               placeholder="https://mcp.odoo-shell.space"/>
-                        <field name="claude_mcp_token"
-                               password="True"
-                               placeholder="MCP API Token"/>
-                        <field name="claude_mcp_client_id"
-                               placeholder="OAuth Client ID (optional)"/>
-                        <field name="claude_mcp_api_key"
-                               password="True"
-                               placeholder="MCP API Key (optional)"/>
-                    </group>
-                    <div class="o_row mb-2">
-                        <button name="action_test_connections"
-                                string="Test Connections"
-                                type="object"
-                                class="btn btn-secondary"/>
-                        <button name="action_save_to_mcp"
-                                string="Save to MCP"
-                                type="object"
-                                class="btn btn-primary"/>
-                    </div>
-                    <group string="Telegram MCP">
-                        <field name="claude_telegram_api_id"
-                               placeholder="12345678"/>
-                        <field name="claude_telegram_api_hash"
-                               password="True"/>
-                        <field name="claude_telegram_phone"
-                               placeholder="+359..."/>
-                        <field name="claude_telegram_session"
-                               placeholder="claude_session"/>
-                    </group>
-                    <group string="Viber MCP">
-                        <field name="claude_viber_bot_token"
-                               password="True"/>
-                        <field name="claude_viber_bot_name"
-                               placeholder="My Bot"/>
-                        <field name="claude_viber_webhook_url"
-                               placeholder="https://yourdomain.com/viber/webhook"/>
-                    </group>
-                    <!-- AI Tokenizer infrastructure (Qdrant/Ollama/embedding)
-                         lives on res.company. Edit via Settings → AI Tokenizer. -->
-                </page>
-            </xpath>
-        </field>
-    </record>
-
-    <!-- Add Claude Terminal URL to user preferences (simplified modal) -->
+    <!-- Add Claude Terminal URL to user preferences -->
     <record id="res_users_preferences_claude_terminal" model="ir.ui.view">
         <field name="name">res.users.preferences.claude.terminal</field>
         <field name="model">res.users</field>
@@ -128,32 +16,6 @@
                            password="True"
                            placeholder="Odoo API Key"
                            invisible="not claude_use_external_terminal"/>
-                    <label for="claude_anthropic_api_key" />
-                    <div>
-                        <field name="claude_anthropic_api_key"
-                               password="True"
-                               placeholder="sk-ant-api03-... or sk-ant-oat01-..." />
-                        <div class="text-muted small mt-1">
-                            <i class="fa fa-info-circle me-1" />
-                            <b>API billing</b> (<code>sk-ant-api03-…</code>):
-                            <button name="action_open_anthropic_console"
-                                    type="object"
-                                    string="Console → API Keys"
-                                    icon="fa-external-link"
-                                    class="btn btn-link btn-sm p-0 ms-1" />
-                            <br/>
-                            <b>Pro / Teams / Max</b> (<code>sk-ant-oat01-…</code>):
-                            use
-                            <button name="action_open_claude_oauth"
-                                    type="object"
-                                    string="Claude OAuth Login"
-                                    icon="fa-sign-in"
-                                    class="btn btn-link btn-sm p-0 ms-1" />
-                            — after login, copy the OAuth token from
-                            <code>~/.claude/credentials.json</code> or
-                            run <code>/login</code> inside the terminal.
-                        </div>
-                    </div>
                     <field name="claude_theme"/>
                 </group>
                 <group string="Odoo RPC Connector">
@@ -217,8 +79,10 @@
                     <field name="claude_viber_webhook_url"
                            placeholder="https://yourdomain.com/viber/webhook"/>
                 </group>
-                <!-- AI Tokenizer infrastructure lives on res.company.
-                     Edit via Settings → AI Tokenizer. -->
+                <!-- AI Tokenizer (Qdrant + Ollama) lives on res.company +
+                     res.config.settings. It is deliberately NOT exposed on
+                     the per-user preferences form — infrastructure settings
+                     are company-wide, not per-account. -->
             </xpath>
         </field>
     </record>

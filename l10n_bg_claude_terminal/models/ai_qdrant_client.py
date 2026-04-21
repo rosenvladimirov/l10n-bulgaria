@@ -137,8 +137,39 @@ class AiQdrantClient(models.AbstractModel):
 
     @api.model
     def search(self, vector, limit=5, score_threshold=0.0, filters=None, company=None):
-        """Return the Qdrant search result list (as shipped by Qdrant)."""
+        """Return the Qdrant search result list (as shipped by Qdrant).
+
+        Multi-tenant guardrail (Gap 4.6): the collection already scopes
+        to (prefix × db_name), so cross-database leakage is impossible
+        by construction. Within a single database every point carries a
+        ``company_id`` payload; we auto-inject a ``must`` clause pinning
+        it to the effective company unless the caller explicitly opted
+        out via ``filters={"_skip_company_guard": True, ...}``. Prevents
+        accidental cross-company retrieval if the caller forgets the
+        filter (which is how information leaks happen in practice).
+        """
         name = self.collection_name(company)
+        filters = filters or {}
+        skip_guard = filters.pop("_skip_company_guard", False)
+        eff_company = company or self.env.company
+        if not skip_guard and eff_company:
+            must = list(filters.get("must") or [])
+            has_company_filter = any(
+                isinstance(c, dict)
+                and (c.get("key") == "company_id"
+                     or "company_id" in str(c.get("key") or ""))
+                for c in must
+            )
+            if not has_company_filter:
+                must.append({
+                    "key": "company_id",
+                    "match": {"value": int(eff_company.id)},
+                })
+                filters["must"] = must
+                _logger.debug(
+                    "ai.qdrant.client: auto-injected company_id=%s guard "
+                    "on search (collection=%s)", eff_company.id, name,
+                )
         body = {
             "vector": vector,
             "limit": int(limit),

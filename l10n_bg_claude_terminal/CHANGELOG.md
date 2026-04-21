@@ -1,5 +1,33 @@
 # Changelog
 
+## 18.0.1.29.0 — Anthropic key removal + Qdrant guard + rotation tracking
+
+Port of three coordinated changes from the 19.0 branch (AI OCR session
+2026-04-21). Code is identical to `l10n_bg_claude_terminal` 19.0.1.27.0;
+only manifest version + CHANGELOG header differ.
+
+### Removed — `claude_anthropic_api_key` field and per-user Anthropic pre-auth
+- `res.users.claude_anthropic_api_key` field + action methods removed
+- `get_claude_mcp_config` no longer returns `anthropic_api_key`
+- Client OWL components (chatter/list/kanban) stop passing
+  `ANTHROPIC_API_KEY` to the ttyd URL; terminal container env var is the
+  server-side fallback, `/login` inside the terminal is the manual path.
+
+### Changed — Qdrant cross-company isolation guard (Gap 4.6)
+- `ai.qdrant.client.search()` auto-injects `company_id` filter into the
+  must-clause (opt-out: `filters={"_skip_company_guard": True, ...}`).
+
+### Added — API key rotation tracking (Gap 4.7)
+- `res.company.claude_keys_rotated_at` + computed
+  `claude_keys_age_days` / `claude_keys_needs_rotation` (90-day
+  threshold, all `groups="base.group_system"`).
+- `action_mark_keys_rotated()` + Settings alert banner.
+- Advisory-only nag — no enforcement on any flow.
+
+## 18.0.1.28.0
+
+See `d73725e` — `claude_odoo_verify_ssl` for self-signed certificates.
+
 ## 18.0.1.27.0
 
 ### Changed — Unified MCP auth (task 6 от MCP unified auth plan)

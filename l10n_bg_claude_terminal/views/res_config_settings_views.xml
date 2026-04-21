@@ -66,6 +66,40 @@
                             </div>
                         </div>
                     </setting>
+                    <setting id="claude_ai_key_rotation_setting"
+                             string="API Key Rotation"
+                             help="Advisory nag — keys older than 90 days flag the banner. Click after you rotate secrets upstream.">
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label for="claude_keys_rotated_at"
+                                       string="Last rotated"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_keys_rotated_at" readonly="1"/>
+                            </div>
+                            <div class="row mt16">
+                                <label for="claude_keys_age_days"
+                                       string="Age (days)"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_keys_age_days" readonly="1"/>
+                            </div>
+                            <div class="alert alert-warning mt16"
+                                 role="alert"
+                                 invisible="not claude_keys_needs_rotation">
+                                <i class="fa fa-exclamation-triangle me-2"/>
+                                <b>Keys need rotation.</b>
+                                Rotate API keys in their upstream consoles
+                                (Anthropic / Qdrant / Voyage / OpenAI / MCP),
+                                paste the new values above, then click the
+                                button below.
+                            </div>
+                            <div class="mt16">
+                                <button name="action_mark_keys_rotated"
+                                        type="object"
+                                        string="I rotated the keys"
+                                        class="btn btn-secondary"/>
+                            </div>
+                        </div>
+                    </setting>
                 </block>
             </xpath>
         </field>

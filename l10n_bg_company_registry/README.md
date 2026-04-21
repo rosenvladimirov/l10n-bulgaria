@@ -243,6 +243,11 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for:
 
 ## 📝 Changelog
 
+### [18.0.2.0.2] - 2026-04-21
+- 🐛 **Fix:** `_prepare_partner_vals_from_company_data` now feature-detects optional address-extension modules (`base_address_extended`, `l10n_bg_address_extended`) instead of unconditionally writing their fields — prevents `Invalid field` errors when the modules are not installed.
+- 🐛 **Fix:** `vals['city']` (text) is now always set from `city_name` so that `action_populate_partner` overwrites legacy/incorrect city values instead of leaving them stale.
+- ✨ **Improve:** if the registry API returns a `city_name` without `city_id`, the wizard now searches the `l10n.bg.city` database (`=ilike`) and resolves the link automatically.
+
 ### [18.0.1.1.0] - 2025-12-07
 - ✅ Fixed 4 critical bugs in address parsing
 - ✅ 100% success rate achieved

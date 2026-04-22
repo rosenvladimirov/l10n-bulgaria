@@ -7,7 +7,7 @@
         <button type="button"
                 class="btn btn-secondary"
                 t-on-click="openClaudeTerminal">
-            AI
+            AI MCP
         </button>
     </xpath>
 </t>

@@ -5,7 +5,9 @@ import logging
 from lxml import etree
 
 from odoo import api, fields, models
-from odoo.osv import expression
+from odoo.fields import Domain
+
+_NEGATIVE_TERM_OPERATORS = ('!=', '<>', 'not in', 'not like', 'not ilike')
 
 _logger = logging.getLogger(__name__)
 
@@ -140,9 +142,9 @@ class Partner(models.Model):
         if not ids:
             return domain
 
-        if operator in expression.NEGATIVE_TERM_OPERATORS:
-            return expression.AND([domain, [('id', 'not in', list(ids))]])
-        return expression.OR([domain, [('id', 'in', list(ids))]])
+        if operator in _NEGATIVE_TERM_OPERATORS:
+            return Domain.AND([domain, [('id', 'not in', list(ids))]])
+        return Domain.OR([domain, [('id', 'in', list(ids))]])
 
     @api.model
     def _get_translatable_search_fields(self):

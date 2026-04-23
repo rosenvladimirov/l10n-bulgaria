@@ -17,7 +17,7 @@ _BLACKLIST_FILE = os.path.join(
 
 class BlacklistController(http.Controller):
 
-    @http.route('/l10n_bg/blacklist/check', type='json', auth='user')
+    @http.route('/l10n_bg/blacklist/check', type='jsonrpc', auth='user')
     def check_blacklist(self):
         """Проверява дали текущата фирма е в блекълиста.
 

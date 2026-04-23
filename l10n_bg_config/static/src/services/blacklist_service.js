@@ -20,6 +20,11 @@ const blacklistService = {
     dependencies: ["notification", "bus_service"],
 
     start(env, { notification, bus_service }) {
+        // Временно изключено: overlay + sticky warning нотификациите не се показват.
+        // За да се върне механизмът — махни този ранен return.
+        return;
+
+        // eslint-disable-next-line no-unreachable
         let warningActive = false;
 
         // ── Overlay (блокиращ екран) ──────────────────────────────────────────

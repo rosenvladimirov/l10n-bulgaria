@@ -162,23 +162,30 @@ class ResUsers(models.Model):
     )
 
     # ── MCP Server ──
+    # Leave blank to inherit from company (Settings → General Settings → MCP Server).
     claude_mcp_url = fields.Char(
         "MCP Server URL",
-        help="URL of the MCP server (e.g. https://mcp.odoo-shell.space)",
-        default="https://mcp.odoo-shell.space",
+        help="Override company MCP URL for this user. Leave empty to use company default.",
+        default=lambda self: self.env.company.claude_mcp_url or "https://mcp.odoo-shell.space",
     )
     claude_mcp_token = fields.Char(
         "MCP API Token",
-        help="API token for MCP server authentication (X-Api-Token header).",
+        help="Override company MCP token for this user. Leave empty to use company default.",
     )
     claude_mcp_client_id = fields.Char(
         "MCP OAuth Client ID",
-        help="OAuth 2.0 client ID for MCP server (optional).",
+        help="Override company OAuth Client ID. Leave empty to use company default.",
     )
     claude_mcp_api_key = fields.Char(
         "MCP API Key",
-        help="Alternative API key for MCP server (optional).",
+        help="Override company MCP API key. Leave empty to use company default.",
     )
+
+    def _effective_mcp_url(self):
+        return (self.claude_mcp_url or self.company_id.claude_mcp_url or "").rstrip("/")
+
+    def _effective_mcp_token(self):
+        return self.claude_mcp_token or self.company_id.claude_mcp_token or ""
 
     # AI Tokenizer infrastructure (Qdrant URL/key, Ollama URL/model, embedding
     # provider + key) lives exclusively on ``res.company`` and is edited via
@@ -254,8 +261,8 @@ class ResUsers(models.Model):
             odoo_status, odoo_msg = "warn", _("URL or API key not configured")
 
         # ── Test MCP Server ───────────────────────────────────────────
-        mcp_url = (getattr(user, "claude_mcp_url", "") or "").rstrip("/")
-        mcp_token = getattr(user, "claude_mcp_token", "") or ""
+        mcp_url = user._effective_mcp_url()
+        mcp_token = user._effective_mcp_token()
         if mcp_url:
             try:
                 headers = {"User-Agent": "OdooClaudeTerminal/1.0"}
@@ -265,6 +272,21 @@ class ResUsers(models.Model):
                 with urllib.request.urlopen(req, timeout=8, context=mk_ctx()) as resp:
                     body = resp.read(256).decode(errors="replace")
                     mcp_status, mcp_msg = "ok", _("HTTP %s — %s") % (resp.status, body[:80])
+                # Fetch ANTHROPIC_API_KEY from MCP and save to company
+                if mcp_token:
+                    try:
+                        ak_req = urllib.request.Request(
+                            f"{mcp_url}/api/config/ai_keys", headers=headers)
+                        with urllib.request.urlopen(ak_req, timeout=8, context=mk_ctx()) as ak_resp:
+                            ak_data = json.loads(ak_resp.read())
+                        ak = ak_data.get("anthropic_api_key", "")
+                        if ak:
+                            user.company_id.sudo().write({
+                                "claude_embedding_api_key": ak,
+                                "claude_anthropic_key_synced_at": fields.Datetime.now(),
+                            })
+                    except Exception:
+                        pass
             except urllib.error.HTTPError as e:
                 if e.code in (401, 403):
                     mcp_status, mcp_msg = "warn", _("HTTP %s — check MCP token") % e.code

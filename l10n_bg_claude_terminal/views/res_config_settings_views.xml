@@ -7,6 +7,79 @@
         <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//app[@name='general_settings']" position="inside">
+                <block title="MCP Server"
+                       name="claude_mcp_server_container">
+                    <setting id="claude_mcp_server_setting"
+                             string="MCP Server Connection"
+                             help="Company-wide MCP server. Users without individual overrides will use these settings.">
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label for="claude_mcp_url"
+                                       string="Server URL"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_mcp_url"
+                                       placeholder="https://mcp.odoo-shell.space"/>
+                            </div>
+                            <div class="row mt16" invisible="not claude_mcp_url">
+                                <label for="claude_mcp_token"
+                                       string="API Token"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_mcp_token"
+                                       password="True"
+                                       placeholder="MCP secret token"/>
+                            </div>
+                            <div class="row mt16" invisible="not claude_mcp_url">
+                                <label for="claude_mcp_client_id"
+                                       string="OAuth Client ID"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_mcp_client_id"
+                                       placeholder="Optional"/>
+                            </div>
+                            <div class="row mt16" invisible="not claude_mcp_url">
+                                <label for="claude_mcp_api_key"
+                                       string="API Key"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_mcp_api_key"
+                                       password="True"
+                                       placeholder="Optional"/>
+                            </div>
+                        </div>
+                    </setting>
+                    <setting id="claude_mcp_anthropic_setting"
+                             string="Anthropic API Key"
+                             help="Sync the ANTHROPIC_API_KEY from the MCP server. Use 'Reload' after changing the key on the MCP server.">
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label for="claude_anthropic_key_synced_at"
+                                       string="Last synced"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_anthropic_key_synced_at" readonly="1"/>
+                            </div>
+                            <div class="row mt16" invisible="not claude_anthropic_key_synced_at">
+                                <label for="claude_embedding_api_key_display"
+                                       string="Stored key"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_embedding_api_key_display"
+                                       password="True"
+                                       readonly="1"/>
+                            </div>
+                            <div class="alert alert-info mt16"
+                                 role="alert"
+                                 invisible="claude_anthropic_key_synced_at">
+                                <i class="fa fa-info-circle me-2"/>
+                                No Anthropic key synced yet. Configure the MCP Server URL and Token above,
+                                then click <b>Reload from MCP</b>.
+                            </div>
+                            <div class="mt16">
+                                <button name="action_reload_anthropic_key"
+                                        type="object"
+                                        string="Reload from MCP"
+                                        class="btn btn-primary"
+                                        invisible="not claude_mcp_url or not claude_mcp_token"/>
+                            </div>
+                        </div>
+                    </setting>
+                </block>
                 <block title="AI Tokenizer (Qdrant + Ollama)"
                        name="claude_ai_tokenizer_container">
                     <setting id="claude_ai_tokenizer_setting"

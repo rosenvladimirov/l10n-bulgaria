@@ -7,6 +7,42 @@ from odoo import fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
+    # ── MCP Server (company-wide defaults) ──
+    claude_mcp_url = fields.Char(
+        related="company_id.claude_mcp_url",
+        readonly=False,
+    )
+    claude_mcp_token = fields.Char(
+        related="company_id.claude_mcp_token",
+        readonly=False,
+        groups="base.group_system",
+    )
+    claude_mcp_client_id = fields.Char(
+        related="company_id.claude_mcp_client_id",
+        readonly=False,
+    )
+    claude_mcp_api_key = fields.Char(
+        related="company_id.claude_mcp_api_key",
+        readonly=False,
+        groups="base.group_system",
+    )
+    claude_anthropic_key_synced_at = fields.Datetime(
+        related="company_id.claude_anthropic_key_synced_at",
+        readonly=True,
+        groups="base.group_system",
+    )
+    claude_embedding_api_key_display = fields.Char(
+        "Anthropic API Key (stored)",
+        related="company_id.claude_embedding_api_key",
+        readonly=True,
+        groups="base.group_system",
+    )
+
+    def action_reload_anthropic_key(self):
+        """Proxy to res.company.action_reload_anthropic_key."""
+        self.ensure_one()
+        return self.company_id.action_reload_anthropic_key()
+
     # ── AI Tokenizer (Qdrant + Ollama) ──
     # Related към current company — стандартен pattern за res.config.settings.
     claude_qdrant_url = fields.Char(

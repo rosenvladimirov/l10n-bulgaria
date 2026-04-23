@@ -1,7 +1,12 @@
 # Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+import json
+import ssl
+import urllib.request
+
 from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 # Number of days after which API keys on this company should be rotated.
@@ -13,6 +18,92 @@ _KEY_MAX_AGE_DAYS = 90
 
 class ResCompany(models.Model):
     _inherit = "res.company"
+
+    # ── MCP Server (global / company-wide) ──
+    claude_mcp_url = fields.Char(
+        "MCP Server URL",
+        default="https://mcp.odoo-shell.space",
+        help="Default MCP server for all users of this company. "
+             "Individual users can override in their preferences.",
+    )
+    claude_mcp_token = fields.Char(
+        "MCP API Token",
+        groups="base.group_system",
+        help="API token for MCP server (X-Api-Token header). "
+             "Visible only to administrators.",
+    )
+    claude_mcp_client_id = fields.Char(
+        "MCP OAuth Client ID",
+        help="OAuth 2.0 client ID for MCP server (optional).",
+    )
+    claude_mcp_api_key = fields.Char(
+        "MCP API Key",
+        groups="base.group_system",
+        help="Alternative API key for MCP server (optional). "
+             "Visible only to administrators.",
+    )
+    claude_anthropic_key_synced_at = fields.Datetime(
+        "Anthropic Key Last Synced",
+        readonly=True,
+        groups="base.group_system",
+        help="When the ANTHROPIC_API_KEY was last pulled from the MCP server.",
+    )
+
+    def action_reload_anthropic_key(self):
+        """Pull ANTHROPIC_API_KEY from the MCP server and store it as the
+        embedding API key on this company.  Called from Settings and from
+        the per-user 'Test Connections' flow."""
+        def _mk_ctx():
+            ctx = ssl.create_default_context()
+            ctx.check_hostname = False
+            ctx.verify_mode = ssl.CERT_NONE
+            return ctx
+
+        results = []
+        for rec in self:
+            mcp_url = (rec.claude_mcp_url or "").rstrip("/")
+            mcp_token = rec.claude_mcp_token or ""
+            if not mcp_url:
+                raise UserError(_("MCP Server URL is not configured for this company."))
+            if not mcp_token:
+                raise UserError(_("MCP API Token is not configured for this company."))
+            try:
+                req = urllib.request.Request(
+                    f"{mcp_url}/api/config/ai_keys",
+                    headers={
+                        "X-Api-Token": mcp_token,
+                        "User-Agent": "OdooClaudeTerminal/1.0",
+                    },
+                )
+                with urllib.request.urlopen(req, timeout=10, context=_mk_ctx()) as resp:
+                    data = json.loads(resp.read())
+            except Exception as e:
+                raise UserError(
+                    _("Cannot reach MCP server at %s: %s") % (mcp_url, str(e))
+                ) from e
+            ak = data.get("anthropic_api_key", "")
+            if not ak:
+                raise UserError(
+                    _("MCP server returned an empty Anthropic API key. "
+                      "Set ANTHROPIC_API_KEY in the MCP server environment first.")
+                )
+            rec.sudo().write({
+                "claude_embedding_api_key": ak,
+                "claude_anthropic_key_synced_at": fields.Datetime.now(),
+            })
+            results.append(rec.name)
+
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("Anthropic key synced"),
+                "message": _("ANTHROPIC_API_KEY saved from MCP server for: %s")
+                           % ", ".join(results),
+                "type": "success",
+                "sticky": False,
+            },
+        }
 
     # ── AI Tokenizer (Qdrant + Ollama) ──
     # Преместено от res.users (v1.21.0) — инфраструктурен конфиг на ниво фирма.

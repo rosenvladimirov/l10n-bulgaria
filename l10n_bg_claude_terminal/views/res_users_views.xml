@@ -41,16 +41,20 @@
                 </group>
                 <group string="MCP Server">
                     <field name="claude_mcp_url"
-                           placeholder="https://mcp.odoo-shell.space"/>
+                           placeholder="(uses company default)"/>
                     <field name="claude_mcp_token"
                            password="True"
-                           placeholder="MCP API Token"/>
+                           placeholder="(uses company default)"/>
                     <field name="claude_mcp_client_id"
-                           placeholder="OAuth Client ID (optional)"/>
+                           placeholder="(uses company default)"/>
                     <field name="claude_mcp_api_key"
                            password="True"
-                           placeholder="MCP API Key (optional)"/>
+                           placeholder="(uses company default)"/>
                 </group>
+                <div class="text-muted small mb-2 ms-1">
+                    Leave blank to inherit MCP settings from
+                    <a type="action" name="%(base_setup.action_general_configuration)d">General Settings</a>.
+                </div>
                 <div class="o_row mb-2">
                     <button name="action_test_connections"
                             string="Test Connections"

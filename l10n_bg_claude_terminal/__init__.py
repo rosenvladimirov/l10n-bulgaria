@@ -8,4 +8,5 @@ if not hasattr(_odoo_models.Model, "_explanation"):
     _odoo_models.Model._explanation = None
 
 from . import models
+from . import wizards
 from . import tests

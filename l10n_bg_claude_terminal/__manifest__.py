@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Claude Terminal (Chatter & List View)",
-    "version": "18.0.1.30.0",
+    "version": "18.0.1.31.0",
     "category": "Technical",
     "summary": "Claude Code terminal + AI Tokenizer (Qdrant/Ollama) — MCP Docker stack",
     "author": "Rosen Vladimirov, BL Consulting, Odoo Community Association (OCA)",
@@ -10,12 +10,14 @@
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria/tree/18.0/l10n_bg_claude_terminal",
     "license": "AGPL-3",
     "depends": ["mail", "web", "bus", "hr", "base_setup"],
+    "excludes": ["mcp_terminal"],
     "data": [
         "security/ir.model.access.csv",
         "data/ai_tokenizer_cron.xml",
         "views/res_users_views.xml",
         "views/res_config_settings_views.xml",
         "views/ai_tokenizer_views.xml",
+        "wizards/claude_terminal_setup_wizard_views.xml",
     ],
     "assets": {
         "web.assets_backend": [

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_claude_terminal_setup_wizard_form" model="ir.ui.view">
+        <field name="name">claude.terminal.setup.wizard.form</field>
+        <field name="model">claude.terminal.setup.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Claude Terminal — настройка">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="upload,review,users,apply,test"/>
+                </header>
+                <sheet>
+
+                    <!-- ═══════════════════ STEP 1: UPLOAD ═══════════════════ -->
+                    <group invisible="state != 'upload'">
+                        <div class="alert alert-info" role="alert" colspan="2">
+                            <h4>Стъпка 1 от 5: Качете конфигурационен файл</h4>
+                            <p>
+                                Изтеглете ZIP файла от MCP сървъра (<code>mcp_terminal_get_config</code> tool)
+                                с временна парола. Качете го тук и въведете показаната парола.
+                            </p>
+                        </div>
+                        <field name="config_file" filename="config_filename" required="state == 'upload'"/>
+                        <field name="config_filename" invisible="1"/>
+                        <field name="zip_password" password="True" required="state == 'upload'"
+                               placeholder="Временна парола от MCP сървъра"/>
+                    </group>
+
+                    <!-- ═══════════════════ STEP 2: REVIEW ═══════════════════ -->
+                    <group invisible="state != 'review'">
+                        <div class="alert alert-info" role="alert" colspan="2">
+                            <h4>Стъпка 2 от 5: Прегледайте ключовете</h4>
+                            <p>
+                                Извлечените стойности от конфигурацията. Можете да ги
+                                редактирате преди прилагане. Празните полета НЕ заместват съществуващи стойности.
+                            </p>
+                        </div>
+                        <group string="MCP сървър" col="2">
+                            <field name="cfg_mcp_url"/>
+                            <field name="cfg_mcp_token" password="True"/>
+                            <field name="cfg_mcp_client_id"/>
+                            <field name="cfg_mcp_api_key" password="True"/>
+                        </group>
+                        <group string="Anthropic (за потребители)" col="2">
+                            <field name="cfg_anthropic_api_key" password="True"/>
+                        </group>
+                        <group string="Qdrant (vector DB за токенизация)" col="2">
+                            <field name="cfg_qdrant_url"/>
+                            <field name="cfg_qdrant_api_key" password="True"/>
+                            <field name="cfg_qdrant_collection_prefix"/>
+                        </group>
+                        <group string="Embeddings" col="2">
+                            <field name="cfg_embedding_provider"/>
+                            <field name="cfg_embedding_api_key" password="True"/>
+                            <field name="cfg_ollama_url"/>
+                            <field name="cfg_ollama_model"/>
+                        </group>
+                        <group string="Суров JSON (read-only)">
+                            <field name="parsed_payload" widget="text" nolabel="1" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <!-- ═══════════════════ STEP 3: USERS ═══════════════════ -->
+                    <group invisible="state != 'users'">
+                        <div class="alert alert-info" role="alert" colspan="2">
+                            <h4>Стъпка 3 от 5: Изберете потребители</h4>
+                            <p>
+                                <strong>Company-level ключове</strong> (MCP, Qdrant, Embeddings) се записват веднъж
+                                на фирмата и се ползват от всички потребители по подразбиране.<br/>
+                                <strong>Anthropic ключът</strong> се записва per-user — изберете кои да го получат.
+                            </p>
+                        </div>
+                        <field name="company_id"/>
+                        <field name="apply_to_company"/>
+                        <field name="user_ids" widget="many2many_tags"
+                               options="{'no_create': True}"
+                               placeholder="Изберете потребители за активиране на Anthropic ключ"/>
+                    </group>
+
+                    <!-- ═══════════════════ STEP 4: APPLY ═══════════════════ -->
+                    <group invisible="state != 'apply'">
+                        <div class="alert alert-success" role="alert" colspan="2"
+                             invisible="not applied_company and applied_user_count == 0">
+                            <h4>Стъпка 4 от 5: Прилагане завършено</h4>
+                        </div>
+                        <div class="alert alert-warning" role="alert" colspan="2"
+                             invisible="applied_company or applied_user_count != 0">
+                            <h4>Стъпка 4 от 5: Нищо не е приложено</h4>
+                        </div>
+                        <group col="2">
+                            <field name="applied_company"/>
+                            <field name="applied_user_count"/>
+                        </group>
+                        <field name="apply_log" widget="text" nolabel="1" readonly="1"/>
+                    </group>
+
+                    <!-- ═══════════════════ STEP 5: TEST ═══════════════════ -->
+                    <group invisible="state != 'test'">
+                        <div class="alert alert-info" role="alert" colspan="2">
+                            <h4>Стъпка 5 от 5: Тестване на връзките</h4>
+                            <p>Извършва се ping към MCP, Anthropic API и Qdrant.</p>
+                        </div>
+                        <group col="3">
+                            <field name="test_mcp_ok" widget="boolean_toggle" readonly="1"/>
+                            <field name="test_anthropic_ok" widget="boolean_toggle" readonly="1"/>
+                            <field name="test_qdrant_ok" widget="boolean_toggle" readonly="1"/>
+                        </group>
+                        <field name="test_log" widget="text" nolabel="1" readonly="1"/>
+                    </group>
+
+                </sheet>
+                <footer>
+                    <!-- Step 1 (upload): only Next + Cancel -->
+                    <button name="action_next" type="object" string="Напред →"
+                            class="btn-primary" invisible="state != 'upload'"/>
+
+                    <!-- Steps 2-4: Back + Next -->
+                    <button name="action_back" type="object" string="← Назад"
+                            invisible="state in ('upload', 'test')"/>
+                    <button name="action_next" type="object" string="Напред →"
+                            class="btn-primary"
+                            invisible="state in ('upload', 'test')"/>
+
+                    <!-- Step 5 (test): Re-test + Close -->
+                    <button name="_do_test" type="object" string="Тествай отново"
+                            invisible="state != 'test'"/>
+                    <button special="cancel" string="Затвори" class="btn-secondary"
+                            invisible="state != 'test'"/>
+
+                    <!-- Cancel everywhere except final -->
+                    <button special="cancel" string="Отказ"
+                            invisible="state == 'test'"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_claude_terminal_setup_wizard" model="ir.actions.act_window">
+        <field name="name">Настройка на Claude Terminal</field>
+        <field name="res_model">claude.terminal.setup.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_claude_terminal_setup_wizard"
+              name="Настройка с ZIP конфигурация"
+              parent="base.menu_administration"
+              action="action_claude_terminal_setup_wizard"
+              sequence="60"/>
+
+</odoo>

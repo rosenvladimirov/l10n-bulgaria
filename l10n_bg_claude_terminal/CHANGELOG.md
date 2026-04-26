@@ -1,5 +1,37 @@
 # Changelog
 
+## 18.0.1.31.0 — Setup wizard (5-step) for ZIP-based key configuration
+
+New `claude.terminal.setup.wizard` (TransientModel) — standard Odoo 5-step
+wizard for onboarding clients without manual ir.config_parameter editing.
+
+### Flow
+1. **Качете конфигурация** — upload password-protected ZIP downloaded from
+   the MCP server (`mcp_terminal_get_config` tool generates a temp password
+   shown to the user); enter the password.
+2. **Прегледайте ключовете** — extracted JSON keys are displayed grouped
+   by category (MCP, Anthropic, Qdrant, Embeddings) and editable inline.
+3. **Изберете потребители** — pick the company + the `res.users` records
+   that should receive the per-user Anthropic key.
+4. **Прилагане** — writes company-level keys to `res.company`
+   (`claude_mcp_*`, `claude_qdrant_*`, `claude_ollama_*`,
+   `claude_embedding_*`); writes Anthropic key per-user to
+   `res.users.claude_api_key`. Marks `claude_keys_rotated_at` via the
+   existing `action_mark_keys_rotated` helper.
+5. **Тестване** — pings MCP `/api/health` (X-Api-Token), Anthropic Messages
+   API (4-token ping with claude-haiku-4-5), Qdrant `/collections`. Each
+   test reports OK/FAIL independently with a per-line log.
+
+### Accepted JSON shapes
+- Preferred: `{"company": {...}, "users": {...}}`
+- Flat fallback: bare object — all keys read as company-level + Anthropic.
+
+### Files
+- `wizards/__init__.py`, `wizards/claude_terminal_setup_wizard.py`,
+  `wizards/claude_terminal_setup_wizard_views.xml`
+- `security/ir.model.access.csv` — added `access_claude_terminal_setup_wizard`
+- Menu: `Settings → Technical → Настройка с ZIP конфигурация`
+
 ## 18.0.1.29.0 — Anthropic key removal + Qdrant guard + rotation tracking
 
 Port of three coordinated changes from the 19.0 branch (AI OCR session

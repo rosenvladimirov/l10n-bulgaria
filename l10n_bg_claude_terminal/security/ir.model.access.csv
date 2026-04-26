@@ -3,3 +3,4 @@ access_ai_view_registry_user,ai.view.registry.user,model_ai_view_registry,base.g
 access_ai_view_registry_manager,ai.view.registry.manager,model_ai_view_registry,base.group_system,1,1,1,1
 access_ai_composite_document_user,ai.composite.document.user,model_ai_composite_document,base.group_user,1,0,0,0
 access_ai_composite_document_manager,ai.composite.document.manager,model_ai_composite_document,base.group_system,1,1,1,1
+access_claude_terminal_setup_wizard,claude.terminal.setup.wizard,model_claude_terminal_setup_wizard,base.group_system,1,1,1,1

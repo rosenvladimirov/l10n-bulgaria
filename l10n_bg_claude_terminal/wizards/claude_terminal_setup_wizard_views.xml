@@ -122,7 +122,7 @@
                             invisible="state in ('upload', 'test')"/>
 
                     <!-- Step 5 (test): Re-test + Close -->
-                    <button name="_do_test" type="object" string="Тествай отново"
+                    <button name="action_run_tests" type="object" string="Тествай отново"
                             invisible="state != 'test'"/>
                     <button special="cancel" string="Затвори" class="btn-secondary"
                             invisible="state != 'test'"/>

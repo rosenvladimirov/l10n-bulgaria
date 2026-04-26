@@ -183,6 +183,13 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
             self.state = "test"
         return self._reopen()
 
+    def action_run_tests(self):
+        """Public wrapper for the re-test button on step 5 (Odoo 18+ disallows
+        XML buttons calling private methods)."""
+        self.ensure_one()
+        self._do_test()
+        return self._reopen()
+
     def _reopen(self):
         return {
             "type": "ir.actions.act_window",

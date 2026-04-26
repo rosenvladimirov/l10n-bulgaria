@@ -32,6 +32,12 @@ wizard for onboarding clients without manual ir.config_parameter editing.
 - `security/ir.model.access.csv` — added `access_claude_terminal_setup_wizard`
 - Menu: `Settings → Technical → Настройка с ZIP конфигурация`
 
+### External dependency
+- `pyzipper>=0.3.6` (declared in manifest `external_dependencies.python`)
+  — AES-encrypted ZIP read. Stdlib `zipfile` reads only legacy ZipCrypto;
+  the MCP server emits AES via the same library for cross-side parity.
+  Install with: `pip install pyzipper` in the Odoo Python environment.
+
 ## 18.0.1.29.0 — Anthropic key removal + Qdrant guard + rotation tracking
 
 Port of three coordinated changes from the 19.0 branch (AI OCR session

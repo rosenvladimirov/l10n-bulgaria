@@ -11,6 +11,7 @@
     "license": "AGPL-3",
     "depends": ["mail", "web", "bus", "hr", "base_setup"],
     "excludes": ["mcp_terminal"],
+    "external_dependencies": {"python": ["pyzipper"]},
     "data": [
         "security/ir.model.access.csv",
         "data/ai_tokenizer_cron.xml",

@@ -12,9 +12,13 @@ import base64
 import io
 import json
 import logging
-import zipfile
 
 import requests
+
+try:
+    import pyzipper
+except ImportError:
+    pyzipper = None
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
@@ -193,6 +197,11 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
     # ════════════════════════════════════════════════════════════════════
     def _do_unzip_and_parse(self):
         self.ensure_one()
+        if pyzipper is None:
+            raise UserError(_(
+                "Липсва Python библиотеката `pyzipper` — нужна е за разкриптиране "
+                "на AES-encrypted ZIP файлове. Инсталирайте: pip install pyzipper"
+            ))
         if not self.config_file:
             raise UserError(_("Качете ZIP файл преди да продължите."))
         if not self.zip_password:
@@ -205,22 +214,21 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
 
         try:
             buf = io.BytesIO(raw)
-            with zipfile.ZipFile(buf, "r") as zf:
+            with pyzipper.AESZipFile(buf, "r") as zf:
                 names = zf.namelist()
                 if not names:
                     raise UserError(_("ZIP файлът е празен."))
-                # Prefer config.json if present, else first .json file
                 target = "config.json" if "config.json" in names else next(
                     (n for n in names if n.endswith(".json")), names[0]
                 )
-                pwd_bytes = self.zip_password.encode("utf-8")
-                payload_bytes = zf.read(target, pwd=pwd_bytes)
+                zf.setpassword(self.zip_password.encode("utf-8"))
+                payload_bytes = zf.read(target)
         except RuntimeError as e:
-            # zipfile raises RuntimeError("Bad password ...") for wrong password
+            # pyzipper raises RuntimeError("Bad password for file ...") on wrong pwd
             raise UserError(
                 _("Невалидна парола или повреден ZIP файл: %s") % e
             )
-        except zipfile.BadZipFile:
+        except pyzipper.BadZipFile:
             raise UserError(_("Файлът не е валиден ZIP архив."))
 
         try:

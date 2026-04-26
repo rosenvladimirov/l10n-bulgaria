@@ -142,10 +142,6 @@
         <field name="target">new</field>
     </record>
 
-    <menuitem id="menu_claude_terminal_setup_wizard"
-              name="Настройка с ZIP конфигурация"
-              parent="base.menu_administration"
-              action="action_claude_terminal_setup_wizard"
-              sequence="60"/>
+    <!-- Wizard launched from Settings → MCP Server section button (no menu item) -->
 
 </odoo>

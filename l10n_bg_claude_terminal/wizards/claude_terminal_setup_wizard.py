@@ -352,7 +352,7 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
         if mcp_url and mcp_token:
             try:
                 r = requests.get(
-                    f"{mcp_url}/api/health",
+                    f"{mcp_url}/health",
                     headers={"X-Api-Token": mcp_token},
                     timeout=10,
                 )

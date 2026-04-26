@@ -134,6 +134,42 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
     # Anthropic key — convenience: applied to selected users' claude_api_key
     cfg_anthropic_api_key = fields.Char(string="Anthropic API Key (за потребители)")
 
+    # ── Per-user Claude Terminal stack (applied to each selected user) ───
+    cfg_terminal_url = fields.Char(
+        string="Claude Terminal URL",
+        help="URL на terminal-control-mcp web UI (напр. https://terminal.mcp.odoo-shell.space).",
+    )
+    cfg_terminal_theme = fields.Selection(
+        [
+            ("github", "GitHub (Light)"),
+            ("solarized-light", "Solarized Light"),
+            ("dracula", "Dracula"),
+            ("monokai", "Monokai"),
+            ("tomorrow-night", "Tomorrow Night"),
+            ("gruvbox-dark", "Gruvbox Dark"),
+        ],
+        string="Terminal тема",
+        default="github",
+    )
+
+    # ── Per-user Odoo RPC Connector (applied to each selected user) ──────
+    external_odoo_url = fields.Char(
+        string="Външно Odoo URL",
+        default=lambda self: self.env["ir.config_parameter"].sudo().get_param("web.base.url"),
+        help="Външният URL на тази Odoo инстанция, който MCP сървърът ще ползва "
+             "за RPC връзка обратно към нас. По подразбиране от web.base.url.",
+    )
+    cfg_odoo_protocol = fields.Selection(
+        [("xmlrpc", "XML-RPC (порт 8069/443)"), ("jsonrpc", "JSON-RPC")],
+        string="Odoo RPC протокол",
+        default="xmlrpc",
+    )
+    cfg_odoo_verify_ssl = fields.Boolean(
+        string="Verify SSL (Odoo)",
+        default=True,
+        help="Изключете само за self-signed сертификати в dev средата.",
+    )
+
     # ── Step 3: Users ────────────────────────────────────────────────────
     apply_to_company = fields.Boolean(
         string="Запиши настройки на фирмата",
@@ -143,7 +179,10 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
     user_ids = fields.Many2many(
         "res.users",
         string="Потребители за активиране",
-        help="Тези потребители ще получат Anthropic ключа и потребителските настройки.",
+        help="Всеки избран потребител получава: Claude Terminal URL/тема, "
+             "Anthropic ключ, Odoo URL/db/протокол. ОСТАВА им да генерират "
+             "сами Odoo API Key (Account Security → New API Key) и да го "
+             "поставят в Odoo RPC Connector → API Key.",
     )
 
     # ── Step 4: Apply (results) ──────────────────────────────────────────
@@ -280,6 +319,15 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
             or user_block.get("anthropic_api_key")
             or company_block.get("anthropic_api_key")
         )
+        # Claude Terminal URL — terminal-control-mcp web UI; per-user field but
+        # configured once via the zip/wizard. Falls back to MCP URL host.
+        terminal_url = (
+            user_block.get("claude_terminal_url")
+            or company_block.get("claude_terminal_url")
+            or company_block.get("terminal_url")
+        )
+        if terminal_url:
+            self.cfg_terminal_url = terminal_url
 
     # ════════════════════════════════════════════════════════════════════
     # Step 3/4 → apply
@@ -317,16 +365,39 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
                     _("✓ Записани %d полета на фирма %s") % (len(company_vals), company.name)
                 )
 
-        if self.user_ids and self.cfg_anthropic_api_key:
-            self.user_ids.sudo().write({"claude_api_key": self.cfg_anthropic_api_key})
+        if self.user_ids:
+            # Write the full per-user Claude Terminal + Odoo RPC Connector stack.
+            # claude_odoo_api_key is INTENTIONALLY left blank — each user must
+            # generate their own Odoo API Key (Account Security → New API Key)
+            # and paste it themselves. Pre-filling would be a credential-leak risk.
+            user_vals = {
+                "claude_use_external_terminal": True,
+                "claude_odoo_db": self.env.cr.dbname,
+                "claude_odoo_protocol": self.cfg_odoo_protocol or "xmlrpc",
+                "claude_odoo_verify_ssl": self.cfg_odoo_verify_ssl,
+            }
+            if self.cfg_anthropic_api_key:
+                user_vals["claude_api_key"] = self.cfg_anthropic_api_key
+            if self.cfg_terminal_url:
+                user_vals["claude_terminal_url"] = self.cfg_terminal_url
+            if self.cfg_terminal_theme:
+                user_vals["claude_theme"] = self.cfg_terminal_theme
+            if self.external_odoo_url:
+                user_vals["claude_odoo_url"] = self.external_odoo_url
+
+            self.user_ids.sudo().write(user_vals)
             applied_users = len(self.user_ids)
+            logins = ", ".join(self.user_ids.mapped("login"))
             log_lines.append(
-                _("✓ Anthropic ключът записан на %d потребител(и): %s")
-                % (applied_users, ", ".join(self.user_ids.mapped("login")))
+                _("✓ Конфигурирани %d потребител(и): %s") % (applied_users, logins)
             )
-        elif self.user_ids and not self.cfg_anthropic_api_key:
+            log_lines.append(_("   Полета: %s") % ", ".join(sorted(user_vals.keys())))
+            if not self.cfg_anthropic_api_key:
+                log_lines.append(_("   ⚠ Anthropic ключ липсва — НЕ е презаписан."))
             log_lines.append(
-                _("⚠ Anthropic ключ липсва в конфигурацията — потребителите не са обновени.")
+                _("   ℹ Всеки потребител трябва сам да генерира Odoo API Key от "
+                  "своя профил (Account Security → New API Key) и да го пейства "
+                  "в Odoo RPC Connector → API Key.")
             )
 
         if not log_lines:

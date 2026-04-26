@@ -55,6 +55,16 @@
                             <field name="cfg_ollama_url"/>
                             <field name="cfg_ollama_model"/>
                         </group>
+                        <group string="Claude Terminal (per-user)" col="2">
+                            <field name="cfg_terminal_url"
+                                   placeholder="https://terminal.mcp.odoo-shell.space"/>
+                            <field name="cfg_terminal_theme"/>
+                        </group>
+                        <group string="Odoo RPC Connector (per-user)" col="2">
+                            <field name="external_odoo_url"/>
+                            <field name="cfg_odoo_protocol"/>
+                            <field name="cfg_odoo_verify_ssl"/>
+                        </group>
                         <group string="Суров JSON (read-only)">
                             <field name="parsed_payload" widget="text" nolabel="1" readonly="1"/>
                         </group>
@@ -65,16 +75,23 @@
                         <div class="alert alert-info" role="alert" colspan="2">
                             <h4>Стъпка 3 от 5: Изберете потребители</h4>
                             <p>
-                                <strong>Company-level ключове</strong> (MCP, Qdrant, Embeddings) се записват веднъж
-                                на фирмата и се ползват от всички потребители по подразбиране.<br/>
-                                <strong>Anthropic ключът</strong> се записва per-user — изберете кои да го получат.
+                                <strong>Company-level ключове</strong> (MCP, Qdrant, Ollama, Embeddings)
+                                се записват веднъж на фирмата.<br/>
+                                <strong>Per-user полетата</strong> (Claude Terminal URL/тема, Anthropic ключ,
+                                Odoo URL/db/протокол) се записват на всеки избран потребител.
+                            </p>
+                            <p class="mb-0 mt-2">
+                                ⚠ <strong>Odoo API Key остава празен</strong> — всеки потребител трябва
+                                сам да го генерира (в собствения си профил → <em>Account Security → New
+                                API Key</em>) и да го пейства в полето <em>Odoo RPC Connector → API Key</em>.
+                                Това е защита срещу credential leak.
                             </p>
                         </div>
                         <field name="company_id"/>
                         <field name="apply_to_company"/>
                         <field name="user_ids" widget="many2many_tags"
                                options="{'no_create': True}"
-                               placeholder="Изберете потребители за активиране на Anthropic ключ"/>
+                               placeholder="Изберете потребители за активиране"/>
                     </group>
 
                     <!-- ═══════════════════ STEP 4: APPLY ═══════════════════ -->

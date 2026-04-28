@@ -7,9 +7,55 @@
         <field name="arch" type="xml">
             <form string="Claude Terminal — настройка">
                 <header>
-                    <field name="state" widget="statusbar" statusbar_visible="upload,review,users,apply,test"/>
+                    <field name="state" widget="statusbar" statusbar_visible="provision,upload,review,users,apply,test"/>
                 </header>
                 <sheet>
+
+                    <!-- ═══════════════════ STEP 0: PROVISION (optional) ═══════════ -->
+                    <group invisible="state != 'provision'">
+                        <div class="alert alert-info" role="alert" colspan="2">
+                            <h4>Стъпка 0 от 5: Нова MCP инстанция (опционално)</h4>
+                            <p>
+                                Ако вече имате конфигурационен ZIP от съществуваща MCP
+                                инстанция — оставете чекбокса празен и натиснете
+                                <strong>Напред</strong> за да преминете към качване.
+                            </p>
+                            <p class="mb-0">
+                                Ако нямате инстанция — маркирайте <strong>"Създай нова MCP инстанция"</strong>,
+                                въведете парола (мин. 8 символа) и wizard-ът автоматично ще:
+                            </p>
+                            <ol class="mb-0 mt-2">
+                                <li>се свърже с v3 provisioning сървъра (<field name="provision_v3_url" readonly="1" nolabel="1" class="oe_inline"/>)</li>
+                                <li>създаде ваша MCP инстанция (Docker stack + DNS)</li>
+                                <li>генерира AES-encrypted ZIP с вашата парола</li>
+                                <li>премине автоматично към стъпка 2 (преглед)</li>
+                            </ol>
+                        </div>
+                        <field name="create_new_instance"/>
+                        <group invisible="not create_new_instance" col="2">
+                            <field name="provision_password" password="True"
+                                   required="create_new_instance"
+                                   placeholder="Минимум 8 символа — запазете я"/>
+                            <field name="provision_email"
+                                   placeholder="admin@company.bg"/>
+                            <field name="provision_v3_url" readonly="1"/>
+                            <field name="provision_api_key_set" widget="boolean_toggle" readonly="1"/>
+                        </group>
+                        <div class="alert alert-warning" role="alert" colspan="2"
+                             invisible="not create_new_instance or (provision_v3_url and provision_api_key_set)">
+                            <strong>⚠ Конфигурация липсва.</strong>
+                            Settings → Technical → Parameters → System Parameters:
+                            <ul class="mb-0">
+                                <li><code>claude_terminal.provisioning_v3_url</code> — URL на v3 server (напр. <code>https://v3.mcpworks.net</code>)</li>
+                                <li><code>claude_terminal.provisioning_api_key</code> — API ключ от админа на v3</li>
+                            </ul>
+                        </div>
+                        <group invisible="not provisioned_client_id" col="2">
+                            <field name="provisioned_client_id" readonly="1"/>
+                            <field name="provisioned_mcp_url" readonly="1"/>
+                            <field name="provision_log" widget="text" nolabel="1" readonly="1" colspan="2"/>
+                        </group>
+                    </group>
 
                     <!-- ═══════════════════ STEP 1: UPLOAD ═══════════════════ -->
                     <group invisible="state != 'upload'">
@@ -127,16 +173,22 @@
 
                 </sheet>
                 <footer>
-                    <!-- Step 1 (upload): only Next + Cancel -->
+                    <!-- Step 0 (provision): only Next + Cancel -->
+                    <button name="action_next" type="object" string="Напред →"
+                            class="btn-primary" invisible="state != 'provision'"/>
+
+                    <!-- Step 1 (upload): Back + Next -->
+                    <button name="action_back" type="object" string="← Назад"
+                            invisible="state != 'upload'"/>
                     <button name="action_next" type="object" string="Напред →"
                             class="btn-primary" invisible="state != 'upload'"/>
 
                     <!-- Steps 2-4: Back + Next -->
                     <button name="action_back" type="object" string="← Назад"
-                            invisible="state in ('upload', 'test')"/>
+                            invisible="state in ('provision', 'upload', 'test')"/>
                     <button name="action_next" type="object" string="Напред →"
                             class="btn-primary"
-                            invisible="state in ('upload', 'test')"/>
+                            invisible="state in ('provision', 'upload', 'test')"/>
 
                     <!-- Step 5 (test): Re-test + Close -->
                     <button name="action_run_tests" type="object" string="Тествай отново"

@@ -1,5 +1,39 @@
 # Changelog
 
+## 18.0.1.35.0 — Setup wizard step 0: self-service v3 provisioning
+
+New optional first step in the setup wizard. Customers without an existing
+MCP instance can now create one without leaving Odoo:
+
+1. **Стъпка 0 — Нова MCP инстанция (опционално):**
+   - Checkbox "Създай нова MCP инстанция"
+   - Password field (≥8 chars) — used as AES key for the returned ZIP and
+     for idempotent re-provisioning of the same tenant slug
+   - Email (audit, default current user)
+   - Reads two new System Parameters:
+     * `claude_terminal.provisioning_v3_url` — v3 server endpoint
+     * `claude_terminal.provisioning_api_key` — issued by v3 admin via
+       `provision_issue_api_key` MCP tool
+2. On "Напред" with checkbox checked: HTTP POST to v3 `/provision` with
+   `{api_key, password, email, slug=db_name}`. v3 creates the Docker
+   stack on poligroup, generates AES-encrypted ZIP, returns it.
+3. The wizard auto-fills `config_file` + `zip_password` from the response
+   and skips directly to step 2 (review) — user never sees the upload
+   form when self-provisioning.
+
+If checkbox is left unchecked, "Напред" goes to existing step 1 (manual
+ZIP upload) — fully backward compatible with existing customers.
+
+### Audit / observability
+- `provisioned_client_id` and `provisioned_mcp_url` stored on the wizard
+  for the customer's record
+- Provisioning errors surface as `UserError` with the v3 error message
+
+### Requirements
+- v3 server must be running and reachable from the customer's Odoo
+- Admin must issue an API key via v3 `provision_issue_api_key` and
+  paste it in the system parameter
+
 ## 18.0.1.31.0 — Setup wizard (5-step) for ZIP-based key configuration
 
 New `claude.terminal.setup.wizard` (TransientModel) — standard Odoo 5-step

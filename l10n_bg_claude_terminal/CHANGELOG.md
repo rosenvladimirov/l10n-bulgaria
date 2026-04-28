@@ -1,5 +1,15 @@
 # Changelog
 
+## 19.0.1.34.0 — Provisioning tenant id derives from company ДДС номер (port от 18.0.1.36.0)
+
+Setup wizard step 0 now passes `vat=res.company.vat` to the v3
+`/provision` endpoint. v3 normalizes it (`BG123456789` → `bg123456789`)
+and uses it as tenant slug + client_id + hostname source.
+
+Wizard validation: refuses without `res.company.vat`. New computed
+read-only field `provision_company_vat` shows the operator which
+VAT will be used.
+
 ## 19.0.1.33.0 — Setup wizard step 0: self-service v3 provisioning (port от 18.0.1.35.0)
 
 New optional first step in the setup wizard. Customers without an existing

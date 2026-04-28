@@ -33,6 +33,8 @@
                         </div>
                         <field name="create_new_instance"/>
                         <group invisible="not create_new_instance" col="2">
+                            <field name="provision_company_vat" readonly="1"
+                                   help="Tenant id ще бъде нормализиран от ДДС номера, напр. BG123456789 → bg123456789"/>
                             <field name="provision_password" password="True"
                                    required="create_new_instance"
                                    placeholder="Минимум 8 символа — запазете я"/>
@@ -41,6 +43,13 @@
                             <field name="provision_v3_url" readonly="1"/>
                             <field name="provision_api_key_set" widget="boolean_toggle" readonly="1"/>
                         </group>
+                        <div class="alert alert-warning" role="alert" colspan="2"
+                             invisible="not create_new_instance or provision_company_vat">
+                            <strong>⚠ Фирмата няма ДДС номер.</strong>
+                            Tenant id-то се извлича от ДДС номера. Попълнете го в
+                            Settings → Companies → <em>{вашата фирма}</em> → ДДС номер,
+                            след това отворете wizard-а наново.
+                        </div>
                         <div class="alert alert-warning" role="alert" colspan="2"
                              invisible="not create_new_instance or (provision_v3_url and provision_api_key_set)">
                             <strong>⚠ Конфигурация липсва.</strong>

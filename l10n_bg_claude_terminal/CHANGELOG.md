@@ -1,5 +1,21 @@
 # Changelog
 
+## 18.0.1.36.0 — Provisioning tenant id derives from company ДДС номер
+
+Setup wizard step 0 now passes `vat=res.company.vat` to the v3
+`/provision` endpoint. v3 normalizes it (`BG123456789` → `bg123456789`)
+and uses it as:
+- tenant slug (idempotency key — same VAT = same stack on retry)
+- client_id (Docker container/stack/volume names)
+- hostname (`mcp-bg123456789.mcpworks.net`)
+
+Wizard validation: refuses to proceed if `res.company.vat` is empty,
+with a UserError pointing to Settings → Companies. New computed read-only
+field `provision_company_vat` shows the operator which VAT will be used.
+
+Falls back to random 9-digit id only if the v3 server receives no `vat`
+field (legacy callers).
+
 ## 18.0.1.35.0 — Setup wizard step 0: self-service v3 provisioning
 
 New optional first step in the setup wizard. Customers without an existing

@@ -120,6 +120,15 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
         help="True ако System Parameter `claude_terminal.provisioning_api_key` "
              "е попълнен.",
     )
+    provision_company_vat = fields.Char(
+        string="ДДС номер на фирмата",
+        compute="_compute_provision_settings",
+        store=False,
+        help="Извлича се от res.company.vat. Ползва се като tenant id — "
+             "името на client стака, контейнерите и hostname-а ще бъдат "
+             "нормализирани от него (напр. BG123456789 → bg123456789, "
+             "hostname mcp-bg123456789.mcpworks.net).",
+    )
     provision_log = fields.Text(string="Provisioning лог", readonly=True)
     provisioned_client_id = fields.Char(string="Получен Client ID", readonly=True)
     provisioned_mcp_url = fields.Char(string="Получен MCP URL", readonly=True)
@@ -132,6 +141,9 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
         for rec in self:
             rec.provision_v3_url = v3_url
             rec.provision_api_key_set = bool(api_key)
+            rec.provision_company_vat = (
+                self.env.user.company_id.vat or ""
+            ).strip()
 
     # ── Step 1: Upload ───────────────────────────────────────────────────
     config_file = fields.Binary(
@@ -316,11 +328,20 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
         if not self.provision_password or len(self.provision_password) < 8:
             raise UserError(_("Паролата трябва да е поне 8 символа."))
 
+        company_vat = (self.env.user.company_id.vat or "").strip()
+        if not company_vat:
+            raise UserError(_(
+                "Фирмата '%s' няма попълнен ДДС номер. Tenant id-то на "
+                "новата MCP инстанция се извлича от ДДС номера. Settings → "
+                "Companies → %s → ДДС номер."
+            ) % (self.env.user.company_id.name, self.env.user.company_id.name))
+
         body = {
             "api_key": api_key,
             "password": self.provision_password,
             "email": self.provision_email or self.env.user.email or "",
-            "slug": self.env.cr.dbname,  # use db_name as tenant slug
+            "vat": company_vat,                        # primary tenant id
+            "slug": self.env.cr.dbname,                # legacy fallback
         }
 
         try:

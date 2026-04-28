@@ -72,20 +72,66 @@ _USER_KEYS = (
 
 class ClaudeTerminalSetupWizard(models.TransientModel):
     _name = "claude.terminal.setup.wizard"
-    _description = "Claude Terminal Setup Wizard (5 steps)"
+    _description = "Claude Terminal Setup Wizard (6 steps)"
 
     state = fields.Selection(
         [
+            ("provision", "0. Нова инстанция (опционално)"),
             ("upload", "1. Качете конфигурация"),
             ("review", "2. Прегледайте ключовете"),
             ("users", "3. Изберете потребители"),
             ("apply", "4. Прилагане"),
             ("test", "5. Тестване"),
         ],
-        default="upload",
+        default="provision",
         required=True,
         readonly=True,
     )
+
+    # ── Step 0: Provision new MCP instance (optional) ───────────────────
+    create_new_instance = fields.Boolean(
+        string="Създай нова MCP инстанция",
+        help="Маркирайте ако нямате съществуваща MCP инстанция. Wizard-ът "
+             "ще се свърже с v3 provisioning сървъра, ще създаде нова "
+             "инстанция за вашата фирма и ще получи готов конфигурационен ZIP.",
+    )
+    provision_password = fields.Char(
+        string="Парола за новата инстанция",
+        help="Тази парола ще се ползва за encrypt-ване на ZIP файла. "
+             "Запазете я — ще ви трябва ако решите да re-provision-нете "
+             "същата инстанция (idempotent retry).",
+    )
+    provision_email = fields.Char(
+        string="Email (за audit)",
+        default=lambda self: self.env.user.email or "",
+        help="Email на администратора (за audit на v3 server-а).",
+    )
+    provision_v3_url = fields.Char(
+        string="v3 Provisioning URL",
+        compute="_compute_provision_settings",
+        store=False,
+        help="Адресът на v3 provisioning сървъра. Конфигурира се чрез "
+             "System Parameter `claude_terminal.provisioning_v3_url`.",
+    )
+    provision_api_key_set = fields.Boolean(
+        string="API key конфигуриран",
+        compute="_compute_provision_settings",
+        store=False,
+        help="True ако System Parameter `claude_terminal.provisioning_api_key` "
+             "е попълнен.",
+    )
+    provision_log = fields.Text(string="Provisioning лог", readonly=True)
+    provisioned_client_id = fields.Char(string="Получен Client ID", readonly=True)
+    provisioned_mcp_url = fields.Char(string="Получен MCP URL", readonly=True)
+
+    @api.depends("create_new_instance")
+    def _compute_provision_settings(self):
+        ICP = self.env["ir.config_parameter"].sudo()
+        v3_url = ICP.get_param("claude_terminal.provisioning_v3_url", "")
+        api_key = ICP.get_param("claude_terminal.provisioning_api_key", "")
+        for rec in self:
+            rec.provision_v3_url = v3_url
+            rec.provision_api_key_set = bool(api_key)
 
     # ── Step 1: Upload ───────────────────────────────────────────────────
     config_file = fields.Binary(
@@ -201,7 +247,7 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
     # ════════════════════════════════════════════════════════════════════
     def action_back(self):
         self.ensure_one()
-        order = ["upload", "review", "users", "apply", "test"]
+        order = ["provision", "upload", "review", "users", "apply", "test"]
         idx = order.index(self.state)
         if idx > 0:
             self.state = order[idx - 1]
@@ -209,7 +255,16 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
 
     def action_next(self):
         self.ensure_one()
-        if self.state == "upload":
+        if self.state == "provision":
+            if self.create_new_instance:
+                # Call v3 → get ZIP + temp_password → fill upload step fields
+                self._do_provision()
+                # ZIP ready, jump straight to review (parsing already done)
+                self.state = "review"
+            else:
+                # Skip provisioning, continue to standard upload step
+                self.state = "upload"
+        elif self.state == "upload":
             self._do_unzip_and_parse()
             self.state = "review"
         elif self.state == "review":
@@ -237,6 +292,77 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
             "view_mode": "form",
             "target": "new",
         }
+
+    # ════════════════════════════════════════════════════════════════════
+    # Step 0 → provision new instance via v3 server
+    # ════════════════════════════════════════════════════════════════════
+    def _do_provision(self):
+        """POST към v3 /provision, store returned ZIP + parse it inline."""
+        self.ensure_one()
+        ICP = self.env["ir.config_parameter"].sudo()
+        v3_url = (ICP.get_param("claude_terminal.provisioning_v3_url", "") or "").rstrip("/")
+        api_key = ICP.get_param("claude_terminal.provisioning_api_key", "") or ""
+
+        if not v3_url:
+            raise UserError(_(
+                "System Parameter `claude_terminal.provisioning_v3_url` "
+                "не е конфигуриран. Settings → Technical → Parameters → System Parameters."
+            ))
+        if not api_key:
+            raise UserError(_(
+                "System Parameter `claude_terminal.provisioning_api_key` "
+                "не е конфигуриран. Получете ключ от администратора на v3 сървъра."
+            ))
+        if not self.provision_password or len(self.provision_password) < 8:
+            raise UserError(_("Паролата трябва да е поне 8 символа."))
+
+        body = {
+            "api_key": api_key,
+            "password": self.provision_password,
+            "email": self.provision_email or self.env.user.email or "",
+            "slug": self.env.cr.dbname,  # use db_name as tenant slug
+        }
+
+        try:
+            resp = requests.post(
+                f"{v3_url}/provision",
+                json=body,
+                timeout=90,  # provisioning may take 30-60s
+            )
+        except requests.RequestException as e:
+            raise UserError(_("v3 server не отговаря: %s") % e)
+
+        if resp.status_code != 200:
+            try:
+                err = resp.json()
+            except Exception:
+                err = {"error": resp.text[:300]}
+            raise UserError(
+                _("v3 provisioning неуспешно (HTTP %d): %s") % (resp.status_code, err.get("error", "?"))
+            )
+
+        result = resp.json()
+        # Store the ZIP + use the same provision_password as zip_password.
+        self.config_file = result["zip_base64"]
+        self.config_filename = result.get("zip_filename", "config.zip")
+        self.zip_password = self.provision_password
+        self.provisioned_client_id = result.get("client_id")
+        self.provisioned_mcp_url = result.get("mcp_url")
+        self.provision_log = (
+            "Status: %s\n"
+            "Client ID: %s\n"
+            "MCP URL: %s\n"
+            "Elapsed: %ss\n"
+            "Dry run: %s"
+        ) % (
+            result.get("status"),
+            result.get("client_id"),
+            result.get("mcp_url"),
+            result.get("elapsed_s"),
+            result.get("dry_run"),
+        )
+        # Parse the ZIP inline so step 2 can show the values immediately.
+        self._do_unzip_and_parse()
 
     # ════════════════════════════════════════════════════════════════════
     # Step 1 → unzip & parse

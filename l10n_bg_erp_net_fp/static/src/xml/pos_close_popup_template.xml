@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!--
+        ClosePosPopup Extension за Фискални Отчети (X/Z)
+
+        ВАЖНО: Този темплейт добавя бутони за X и Z отчети в popup-а за затваряне на POS сесия.
+        Работи САМО ако fiscal printer е конфигуриран в сесията!
+    -->
+    <t t-name="point_of_sale.ClosePosPopup" t-inherit="point_of_sale.ClosePosPopup" t-inherit-mode="extension">
+
+        <!--
+            Добавяме бутоните в края на popup-а (в footer slot)
+
+            КЛЮЧОВО: Проверяваме pos.session (не pos.config!) за fiscal printer настройките,
+            защото в close_pos_popup_patch.js методите използват:
+            - this.pos.session?.l10n_bg_erp_net_fp_host
+            - this.pos.session?.l10n_bg_erp_net_fp_ip
+        -->
+        <xpath expr="//t[@t-set-slot='footer']" position="inside">
+
+            <!-- Контейнер за fiscal printer бутони -->
+            <div t-if="pos.session?.l10n_bg_erp_net_fp_host and pos.session?.l10n_bg_erp_net_fp_ip"
+                 class="d-flex gap-2">
+
+                <!-- X Отчет (междинен, без нулиране) -->
+                <button class="btn btn-info"
+                        t-on-click.stop="() => this.printXReport()"
+                        title="Междинен отчет без нулиране на дневните данни">
+                    <i class="fa fa-file-text-o me-1"/>
+                    X Отчет
+                </button>
+
+                <!-- Z Отчет (дневен фискален, с нулиране) -->
+                <button class="btn btn-warning"
+                        t-on-click.stop="() => this.printZReport()"
+                        title="Дневен фискален отчет с нулиране на дневните данни">
+                    <i class="fa fa-file-archive-o me-1"/>
+                    Z Отчет
+                </button>
+
+            </div>
+
+        </xpath>
+
+    </t>
+
+</templates>

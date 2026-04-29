@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fiscal_printer_device_user,fiscal.printer.device.user,l10n_bg_erp_net_fp.model_fiscal_printer_device,point_of_sale.group_pos_user,1,0,0,0
+access_fiscal_printer_device_manager,fiscal.printer.device.manager,l10n_bg_erp_net_fp.model_fiscal_printer_device,point_of_sale.group_pos_manager,1,1,1,1
+access_fiscal_printer_status_user,fiscal.printer.status.user,l10n_bg_erp_net_fp.model_fiscal_printer_status,point_of_sale.group_pos_user,1,0,0,0
+access_fiscal_printer_status_manager,fiscal.printer.status.manager,l10n_bg_erp_net_fp.model_fiscal_printer_status,point_of_sale.group_pos_manager,1,1,1,1
+access_fiscal_cash_operation_wizard_user,fiscal.cash.operation.wizard.user,l10n_bg_erp_net_fp.model_fiscal_cash_operation_wizard,point_of_sale.group_pos_user,1,1,1,1
+access_fiscal_cash_operation_wizard_manager,fiscal.cash.operation.wizard.manager,l10n_bg_erp_net_fp.model_fiscal_cash_operation_wizard,point_of_sale.group_pos_manager,1,1,1,1
+access_fiscal_printer_response_user,fiscal.printer.response.user,model_fiscal_printer_response,base.group_user,1,1,1,0
+access_fiscal_printer_response_manager,fiscal.printer.response.manager,model_fiscal_printer_response,base.group_system,1,1,1,1

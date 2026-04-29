@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="view_fiscal_printer_device_form" model="ir.ui.view">
+        <field name="name">fiscal.printer.device.form</field>
+        <field name="model">fiscal.printer.device</field>
+        <field name="arch" type="xml">
+            <form string="Fiscal Printer Device">
+                <header>
+                    <button name="action_test_z_report"
+                            string="Test Z Report"
+                            type="object"
+                            class="btn-primary"
+                            confirm="Are you sure you want to generate a Z report?"/>
+                    <button name="action_test_x_report"
+                            string="Test X Report"
+                            type="object"
+                            class="btn-secondary"/>
+                    <button name="print_z_report"
+                            string="Z Report"
+                            type="object"
+                            class="btn-primary"
+                            confirm="Are you sure you want to generate a Z report?"/>
+                    <button name="print_x_report"
+                            string="X Report"
+                            type="object"
+                            class="btn-primary"/>
+                    <button name="action_request_status"
+                            string="Check Status"
+                            type="object"
+                            class="btn-secondary"
+                            icon="fa-refresh"/>
+                    <button name="open_cash_drawer"
+                            string="Open Drawer"
+                            type="object"/>
+                    <button name="action_cleanup_old_status"
+                            string="Cleanup Old History"
+                            type="object"
+                            class="btn-warning"
+                            confirm="Are you sure you want to delete old history?"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object"
+                                name="action_view_status_history"
+                                class="oe_stat_button"
+                                icon="fa-list">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="status_count"/>
+                                </span>
+                                <span class="o_stat_text">History</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Device Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Basic Settings">
+                            <field name="host"/>
+                            <field name="printer_id"/>
+                            <field name="connection_mode" widget="radio" options="{'horizontal': true}"/>
+                            <field name="active"/>
+                            <field name="ssl_verify"/>
+                        </group>
+                        <group string="Status Info">
+                            <field name="current_status" readonly="1"/>
+                            <field name="is_ready" readonly="1"/>
+                            <field name="timeout"/>
+                            <field name="retry_count"/>
+                        </group>
+                    </group>
+                    <group invisible="connection_mode != 'proxy'" string="Browser Proxy Status">
+                        <group>
+                            <field name="proxy_connected" readonly="1"
+                                   widget="boolean"
+                                   decoration-success="proxy_connected"
+                                   decoration-danger="not proxy_connected"/>
+                            <field name="proxy_printer_ok" readonly="1"
+                                   widget="boolean"
+                                   decoration-success="proxy_printer_ok"
+                                   decoration-danger="not proxy_printer_ok"/>
+                        </group>
+                        <group>
+                            <field name="proxy_last_seen" readonly="1"/>
+                            <field name="proxy_user_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Automation">
+                        <group>
+                            <field name="auto_z_report"/>
+                            <field name="z_report_hour" invisible="not auto_z_report"/>
+                            <field name="z_report_minute" invisible="not auto_z_report"/>
+                            <field name="last_z_report" readonly="1" invisible="not auto_z_report"/>
+                        </group>
+                        <group>
+                            <field name="status_history_days"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Status History" name="status_history">
+                            <field name="status_ids" readonly="1">
+                                <list limit="20">
+                                    <field name="create_date"/>
+                                    <field name="status"/>
+                                    <field name="is_ready"/>
+                                    <field name="paper_available"/>
+                                    <field name="fiscal_memory_available"/>
+                                    <field name="error_message"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    <chatter/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View (Odoo 18) -->
+    <record id="view_fiscal_printer_device_tree" model="ir.ui.view">
+        <field name="name">fiscal.printer.device.tree</field>
+        <field name="model">fiscal.printer.device</field>
+        <field name="arch" type="xml">
+            <list js_class="fiscal_printer_status_list"
+                  decoration-danger="connection_mode == 'proxy' and not proxy_connected"
+                  decoration-success="connection_mode == 'proxy' and proxy_connected and proxy_printer_ok">
+                <field name="name"/>
+                <field name="host"/>
+                <field name="printer_id"/>
+                <field name="connection_mode" optional="show"/>
+                <field name="proxy_connected" string="Browser"
+                       optional="show"/>
+                <field name="proxy_printer_ok" string="Printer OK"
+                       optional="show"/>
+                <field name="current_status"/>
+                <field name="is_ready"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_fiscal_printer_device_search" model="ir.ui.view">
+        <field name="name">fiscal.printer.device.search</field>
+        <field name="model">fiscal.printer.device</field>
+        <field name="arch" type="xml">
+            <search string="Fiscal Printer Devices">
+                <field name="name"/>
+                <field name="host"/>
+                <field name="printer_id"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Auto Z Report" name="auto_z" domain="[('auto_z_report', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Connection Mode" name="group_connection_mode" context="{'group_by': 'connection_mode'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_fiscal_printer_device" model="ir.actions.act_window">
+        <field name="name">Fiscal Printers</field>
+        <field name="res_model">fiscal.printer.device</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_fiscal_printer_device_tree"/>
+        <field name="search_view_id" ref="view_fiscal_printer_device_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first fiscal printer!
+            </p>
+            <p>
+                Configure fiscal printers for your POS systems.
+            </p>
+        </field>
+    </record>
+
+</odoo>

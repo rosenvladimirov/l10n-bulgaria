@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="group_control_sale_description" model="res.groups">
+            <field name="name">Sale Description Control</field>
+            <field name="comment">Users who can view and control sale order line descriptions in stock reports</field>
+        </record>
+    </data>
+</odoo>

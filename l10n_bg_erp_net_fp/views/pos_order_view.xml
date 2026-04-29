@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Разширение на POS Order Form View -->
+        <record id="view_pos_pos_form_inherit_fiscal_printer" model="ir.ui.view">
+            <field name="name">pos.order.form.inherit.fiscal.printer</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+
+                <!-- Добавяне на фискални полета след amount_total -->
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="l10n_bg_fiscal_receipt_number" readonly="1"/>
+                    <field name="l10n_bg_fiscal_receipt_datetime" readonly="1"/>
+                    <field name="l10n_bg_fiscal_memory_number" readonly="1"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Разширение на POS Order Tree View -->
+        <record id="view_pos_order_tree_inherit_fiscal" model="ir.ui.view">
+            <field name="name">pos.order.tree.inherit.fiscal</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="l10n_bg_fiscal_receipt_number" optional="show"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Разширение на POS Order Search View -->
+        <record id="view_pos_order_search_inherit_fiscal" model="ir.ui.view">
+            <field name="name">pos.order.search.inherit.fiscal</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_search"/>
+            <field name="arch" type="xml">
+
+                <!-- Добавяне на филтър за фискални бонове -->
+                <xpath expr="//search" position="inside">
+                    <separator/>
+                    <filter string="With Fiscal Receipt"
+                            name="with_fiscal_receipt"
+                            domain="[('l10n_bg_fiscal_receipt_number', '!=', False)]"/>
+                    <filter string="Without Fiscal Receipt"
+                            name="without_fiscal_receipt"
+                            domain="[('l10n_bg_fiscal_receipt_number', '=', False)]"/>
+                </xpath>
+
+                <!-- Добавяне на търсене по фискален номер -->
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="l10n_bg_fiscal_receipt_number"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

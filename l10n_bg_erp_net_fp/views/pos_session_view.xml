@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Разширение на POS Session Form -->
+        <record id="view_pos_session_form_inherit_fiscal" model="ir.ui.view">
+            <field name="name">pos.session.form.fiscal</field>
+            <field name="model">pos.session</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+            <field name="arch" type="xml">
+
+                <!-- Добавяне на бутони в header -->
+                <xpath expr="//header" position="inside">
+                    <button name="action_print_x_report"
+                            string="X Отчет"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="state != 'opened' or not l10n_bg_fiscal_printer_id"/>
+                    <button name="action_print_z_report"
+                            string="Z Отчет"
+                            type="object"
+                            class="btn-warning"
+                            invisible="state not in ['opened', 'closing_control'] or l10n_bg_z_report_printed or not l10n_bg_fiscal_printer_id"
+                            confirm="Z отчетът нулира дневните отчети. Продължи?"/>
+                    <button name="action_fiscal_withdraw"
+                            string="Officially removed"
+                            type="object"
+                            class="btn-info"
+                            invisible="state != 'opened' or not l10n_bg_fiscal_printer_id"/>
+                    <button name="action_fiscal_deposit"
+                            string="Officially introduced"
+                            type="object"
+                            class="btn-info"
+                            invisible="state != 'opened' or not l10n_bg_fiscal_printer_id"/>
+                </xpath>
+
+                <!-- Добавяне на фискални полета -->
+                <xpath expr="//sheet/group[1]" position="after">
+                    <group string="Fiscal printer"
+                           invisible="not l10n_bg_fiscal_printer_id"
+                           name="fiscal_printer_info">
+                        <field name="l10n_bg_fiscal_printer_id"/>
+                        <field name="l10n_bg_last_x_report" readonly="1"/>
+                        <field name="l10n_bg_z_report_printed" readonly="1"/>
+                        <field name="l10n_bg_z_report_datetime" readonly="1"
+                               invisible="not l10n_bg_z_report_printed"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,1 @@
+- Rosen Vladimirov <vladimirov.rosen@gmail.com> (https://github.com/rosenvladimirov)- Firstname Lastname <email.address@example.org> (optional company website url)

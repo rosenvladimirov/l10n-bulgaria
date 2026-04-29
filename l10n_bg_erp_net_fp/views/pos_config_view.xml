@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Разширение на POS Config Form View -->
+        <record id="pos_config_view_form_inherit_fiscal_printer" model="ir.ui.view">
+            <field name="name">pos.config.form.inherit.fiscal.printer</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+            <field name="arch" type="xml">
+
+                <!-- Добавяме ErpNet.FP секция след other_devices полето -->
+                <xpath expr="//setting[@id='other_devices']" position="after">
+                    <setting id="erp_net_fp_setting" string="Fiscal Printer (ErpNet.FP)" help="Bulgarian fiscal printer integration via ErpNet.FP">
+                        <field name="l10n_bg_fiscal_printer_id"
+                               options="{'no_create': True, 'no_open': True}"
+                               placeholder="Select fiscal printer device..."/>
+                        <div class="content-group mt16" invisible="not l10n_bg_fiscal_printer_id">
+                            <div class="row">
+                                <div class="col-lg-5 o_light_label">
+                                    <label string="Automatic Z Report on Session Close" for="l10n_bg_auto_z_on_close"/>
+                                </div>
+                                <div class="col-lg-7">
+                                    <field name="l10n_bg_auto_z_on_close"/>
+                                </div>
+                            </div>
+                            <div class="row mt8">
+                                <div class="col-12">
+                                    <div class="alert alert-info" role="alert">
+                                        <i class="fa fa-info-circle"/>
+                                        Fiscal printer will be used for receipt printing.
+                                        Configure the printer device in: <strong>Point of Sale → Configuration → Fiscal Printers</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </setting>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

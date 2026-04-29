@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Cron за автоматични Z отчети -->
+        <record id="ir_cron_generate_z_reports" model="ir.cron">
+            <field name="name">Generate automatic Z reports</field>
+            <field name="model_id" ref="model_fiscal_printer_device"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_generate_z_reports()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <!-- Cron за изчистване на статусна история (седмично) -->
+        <record id="ir_cron_cleanup_printer_status_history" model="ir.cron">
+            <field name="name">Clearing old printer status history</field>
+            <field name="model_id" ref="model_fiscal_printer_device"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_cleanup_status_history()</field>
+            <field name="interval_number">7</field>
+            <field name="interval_type">days</field>
+            <field name="active" eval="True"/>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=7)).strftime('%Y-%m-%d 03:00:00')"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,65 @@
+byte,bit,ref,mark,description
+0,7,0.7,,Always 1
+0,6,0.6,#,Cover is open
+0,5,0.5,,General error - this is OR of all errors marked with #
+0,4,0.4,,Failure in printing mechanism.
+0,3,0.3,,Always 0
+0,2,0.2,,The real time clock is not synchronized
+0,1,0.1,#,Command code is invalid
+0,0,0.0,#,Syntax error
+1,7,1.7,,Always 1
+1,6,1.6,,Always 0
+1,5,1.5,,Always 0
+1,4,1.4,,Always 0
+1,3,1.3,,Always 0
+1,2,1.2,,Always 0
+1,1,1.1,#,Command is not permitted
+1,0,1.0,#,Overflow during command execution
+2,7,2.7,,Always 1
+2,6,2.6,,Always 0
+2,5,2.5,,Non-fiscal receipt is open
+2,4,2.4,,EJ nearly full
+2,3,2.3,,Fiscal receipt is open
+2,2,2.2,,EJ is full
+2,1,2.1,,Near paper end
+2,0,2.0,#,End of paper
+3,7,3.7,,Always 1
+3,6,3.6,,Always 0
+3,5,3.5,,Always 0
+3,4,3.4,,Always 0
+3,3,3.3,,Always 0
+3,2,3.2,,Always 0
+3,1,3.1,,Always 0
+3,0,3.0,,Always 0
+4,7,4.7,,Always 1
+4,6,4.6,,Fiscal memory is not found or damaged
+4,5,4.5,,OR of all errors marked with ‘*’ from Bytes 4 и 5
+4,4,4.4,*,Fiscal memory is full
+4,3,4.3,,There is space for less then 60 reports in Fiscal memory
+4,2,4.2,,Serial number and number of FM are set
+4,1,4.1,,Tax number is set
+4,0,4.0,*,Error when trying to access data stored in the FM
+5,7,5.7,,Always 1
+5,6,5.6,,Always 0
+5,5,5.5,,Always 0
+5,4,5.4,,VAT are set at least once
+5,3,5.3,,Device is fiscalized
+5,2,5.2,,Always 0
+5,1,5.1,,FM is formatted
+5,0,5.0,,Always 0
+6,7,6.7,,Always 1
+6,6,6.6,,Always 0
+6,5,6.5,,Always 0
+6,4,6.4,,Always 0
+6,3,6.3,,Always 0
+6,2,6.2,,Always 0
+6,1,6.1,,Always 0
+6,0,6.0,,Always 0
+7,7,7.7,,Always 1
+7,6,7.6,,Always 0
+7,5,7.5,,Always 0
+7,4,7.4,,Always 0
+7,3,7.3,,Always 0
+7,2,7.2,,Always 0
+7,1,7.1,,Always 0
+7,0,7.0,,Always 0

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_pos_config_form_inherit_l10n_bg_fp_datecs" model="ir.ui.view">
+        <field name="name">pos.config.form.inherit.l10n_bg_fp_datecs</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Datecs PM" name="l10n_bg_fp_datecs">
+                    <group>
+                        <group>
+                            <field name="l10n_bg_fp_datecs_device_id"/>
+                            <field name="l10n_bg_fp_datecs_external_mode"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="alert" invisible="not l10n_bg_fp_datecs_external_mode">
+                        В режим <b>Касов апарат като POS</b>: продажбите се правят
+                        на устройството, не през Odoo POS UI. При отваряне на POS
+                        сесия Odoo sync-ва PLU + лого + stamp + параметрите.
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

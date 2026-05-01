@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!--
+        Adds X / Z report buttons to the POS close popup, visible only
+        when a Datecs PM device is configured on the session.
+
+        Wired to JS handlers in close_pos_popup_patch.js.
+    -->
+    <t t-name="point_of_sale.ClosePosPopup_l10n_bg_fp_datecs"
+       t-inherit="point_of_sale.ClosePosPopup"
+       t-inherit-mode="extension">
+
+        <xpath expr="//t[@t-set-slot='footer']" position="inside">
+
+            <div t-if="pos.session?.l10n_bg_fp_datecs_device_id"
+                 class="d-flex gap-2">
+
+                <button class="btn btn-info"
+                        t-on-click.stop="() => this.printDatecsXReport()"
+                        title="Datecs PM X report (interim, no zeroing)">
+                    <i class="fa fa-file-text-o me-1"/>
+                    Datecs X
+                </button>
+
+                <button class="btn btn-warning"
+                        t-on-click.stop="() => this.printDatecsZReport()"
+                        title="Datecs PM Z report (daily, with zeroing)">
+                    <i class="fa fa-file-archive-o me-1"/>
+                    Datecs Z
+                </button>
+
+            </div>
+
+        </xpath>
+
+    </t>
+
+</templates>

@@ -1,0 +1,73 @@
+section,cmd_dec,cmd_hex,title
+4.1,33,0x21,Clears the external display
+4.2,35,0x23,Displaying text on second line of the external display
+4.3,38,0x26,Opening a non-fiscal receipt
+4.4,39,0x27,Closing a non-fiscal receipt
+4.5,42,0x2A,Printing of a free non-fiscal text
+4.6,43,0x2B,Opening of storno documents
+4.7,44,0x2C,Paper feed
+4.8,45,0x2D,Check for mode connection with PC
+4.9,46,0x2E,Paper cutting
+4.10,47,0x2F,Displaying text on upper line of the external display
+4.11,48,0x30,Open fiscal receipt
+4.12,49,0x31,Registration of sale
+4.13,50,0x32,Return the active VAT rates
+4.14,51,0x33,Subtotal
+4.15,53,0x35,Payments and calculation of the total sum (TOTAL)
+4.16,54,0x36,Printing of a free fiscal text
+4.17,55,0x37,Pinpad commands
+4.18,56,0x38,Close fiscal receipt
+4.19,57,0x39,Enter and print invoice data
+4.20,58,0x3A,Registering the sale of a programmed item
+4.21,60,0x3C,Cancel fiscal receipt
+4.22,61,0x3D,Set date and time
+4.23,62,0x3E,Read date and time
+4.24,63,0x3F,Show current date and time on the external display
+4.25,64,0x40,Information on the last fiscal entry
+4.26,65,0x41,Information on daily taxation
+4.27,66,0x42,Set invoice interval
+4.28,68,0x44,Number of remaining entries for Z-reports in FM
+4.29,69,0x45,Reports
+4.30,70,0x46,Cash in and Cash out operations
+4.31,71,0x47,"General information, modem test"
+4.32,72,0x48,Fiscalization
+4.33,74,0x4A,Reading the Status
+4.34,76,0x4C,Status of the fiscal transaction
+4.35,80,0x50,Play sound
+4.36,83,0x53,Programming of VAT rates
+4.37,84,0x54,Printing of barcode
+4.38,86,0x56,The date of the last record in the fiscal memory
+4.39,87,0x57,Get item groups information
+4.40,88,0x58,Get department information
+4.41,89,0x59,Test of the fiscal memory
+4.42,90,0x5A,Diagnostic information
+4.43,91,0x5B,Programming of Serial number and FM number
+4.44,92,0x5C,Printing of separating line
+4.46,95,0x5F,Fiscal memory report by number of Z-report
+4.47,96,0x60,Set software password
+4.48,98,0x62,Programming of TAX number
+4.49,99,0x63,Reading the programmed TAX number
+4.50,100,0x64,Reading an error
+4.51,101,0x65,Set operator password
+4.52,103,0x67,Information for the current receipt
+4.53,105,0x69,Print of operator’s report
+4.54,106,0x6A,Drawer opening
+4.55,107,0x6B,Defining and reading items
+4.56,109,0x6D,Print duplicate copy of last fiscal receipt
+4.57,110,0x6E,Additional daily information
+4.58,111,0x65,Print PLU report
+4.59,112,0x70,Information for operator
+4.60,115,0x73,Преобразуване на сума в алтернативна/основна валута
+4.61,116,0x74,Reading fiscal memory binary data
+4.62,122,0x7A,Printing of a free vertical fiscal text
+4.63,123,0x7B,Device information
+4.64,124,0x7C,Search receipt number by period
+4.65,125,0x7D,Information from EJ
+4.66,126,0x7E,Fiscal memory-structured information
+4.67,127,0x7F,Stamp operations [*32]
+4.68,135,0x87,Modem information
+4.69,140,0x8C,Defining and reading clients[*10]
+4.70,202,0xCA,Customer graphic logo loading. [*32]
+4.71,203,0xCB,"Stamp image loading [*32]  [PDF typo: lists 0xCA, correct is 0xCB]"
+4.72,253,0xFD,Service operations
+4.73,255,0xFF,Programming

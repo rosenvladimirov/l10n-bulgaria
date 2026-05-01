@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_l10n_bg_fp_device_user,fp.device.user,model_l10n_bg_fp_device,group_l10n_bg_fp_datecs_user,1,0,0,0
+access_l10n_bg_fp_device_mgr,fp.device.mgr,model_l10n_bg_fp_device,group_l10n_bg_fp_datecs_manager,1,1,1,1
+access_l10n_bg_fp_session_user,fp.session.user,model_l10n_bg_fp_session,group_l10n_bg_fp_datecs_user,1,1,1,0
+access_l10n_bg_fp_session_mgr,fp.session.mgr,model_l10n_bg_fp_session,group_l10n_bg_fp_datecs_manager,1,1,1,1
+access_l10n_bg_fp_receipt_user,fp.receipt.user,model_l10n_bg_fp_receipt,group_l10n_bg_fp_datecs_user,1,1,1,0
+access_l10n_bg_fp_receipt_mgr,fp.receipt.mgr,model_l10n_bg_fp_receipt,group_l10n_bg_fp_datecs_manager,1,1,1,1
+access_l10n_bg_fp_frame_log_user,fp.frame.log.user,model_l10n_bg_fp_frame_log,group_l10n_bg_fp_datecs_user,1,0,1,0
+access_l10n_bg_fp_frame_log_mgr,fp.frame.log.mgr,model_l10n_bg_fp_frame_log,group_l10n_bg_fp_datecs_manager,1,0,1,0
+access_l10n_bg_fp_datecs_cash_op_wizard_user,fp.datecs.cash.op.wizard.user,model_l10n_bg_fp_datecs_cash_operation_wizard,group_l10n_bg_fp_datecs_user,1,1,1,1
+access_l10n_bg_fp_datecs_cash_op_wizard_mgr,fp.datecs.cash.op.wizard.mgr,model_l10n_bg_fp_datecs_cash_operation_wizard,group_l10n_bg_fp_datecs_manager,1,1,1,1

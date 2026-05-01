@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="module_category_l10n_bg_fp_datecs" model="ir.module.category">
+        <field name="name">Datecs PM Fiscal Printer</field>
+        <field name="description">Manage direct Datecs PM fiscal printers.</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <record id="group_l10n_bg_fp_datecs_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="module_category_l10n_bg_fp_datecs"/>
+        <field name="comment">Operate fiscal devices: print receipts, view receipts and logs.</field>
+    </record>
+
+    <record id="group_l10n_bg_fp_datecs_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_category_l10n_bg_fp_datecs"/>
+        <field name="implied_ids" eval="[(4, ref('group_l10n_bg_fp_datecs_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        <field name="comment">Configure devices, run reports, view fiscalization log.</field>
+    </record>
+
+    <record id="rule_l10n_bg_fp_device_company" model="ir.rule">
+        <field name="name">Fiscal device: company-scoped</field>
+        <field name="model_id" ref="model_l10n_bg_fp_device"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_l10n_bg_fp_session_company" model="ir.rule">
+        <field name="name">Fiscal session: company-scoped</field>
+        <field name="model_id" ref="model_l10n_bg_fp_session"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_l10n_bg_fp_receipt_company" model="ir.rule">
+        <field name="name">Fiscal receipt: company-scoped</field>
+        <field name="model_id" ref="model_l10n_bg_fp_receipt"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_l10n_bg_fp_frame_log_company" model="ir.rule">
+        <field name="name">Frame log: company-scoped</field>
+        <field name="model_id" ref="model_l10n_bg_fp_frame_log"/>
+        <field name="domain_force">[('device_id.company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>

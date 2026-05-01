@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_l10n_bg_fp_device_tree" model="ir.ui.view">
+        <field name="name">l10n.bg.fp.device.tree</field>
+        <field name="model">l10n.bg.fp.device</field>
+        <field name="arch" type="xml">
+            <list string="Datecs PM Devices">
+                <field name="name"/>
+                <field name="proxy_url"/>
+                <field name="printer_id"/>
+                <field name="last_status_check"/>
+                <field name="last_status_ok" widget="boolean_toggle"/>
+                <field name="fiscalized" widget="boolean_toggle"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_l10n_bg_fp_device_form" model="ir.ui.view">
+        <field name="name">l10n.bg.fp.device.form</field>
+        <field name="model">l10n.bg.fp.device</field>
+        <field name="arch" type="xml">
+            <form string="Datecs PM Device">
+                <header>
+                    <button name="action_check_status" type="object" string="Check status" class="oe_highlight"/>
+                    <button name="action_print_x_report" type="object" string="X report"/>
+                    <button name="action_print_z_report" type="object" string="Z report"/>
+                    <button name="action_print_duplicate" type="object" string="Duplicate"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. FP-700 MX — Магазин 1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Proxy connection">
+                            <field name="proxy_url" placeholder="http://localhost:8001"/>
+                            <field name="printer_id" placeholder="fp1"/>
+                            <field name="proxy_timeout"/>
+                            <field name="proxy_verify_ssl"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Operator">
+                            <group>
+                                <field name="operator_code"/>
+                                <field name="operator_password" password="True"/>
+                                <field name="till_number"/>
+                                <field name="nsale_prefix"/>
+                            </group>
+                        </page>
+                        <page string="Sync policy">
+                            <group>
+                                <field name="on_sync_fail"/>
+                            </group>
+                            <group string="Auto Z-report">
+                                <field name="auto_z_report"/>
+                                <field name="z_report_hour" invisible="not auto_z_report"/>
+                                <field name="z_report_minute" invisible="not auto_z_report"/>
+                                <field name="last_z_report" readonly="1"/>
+                                <field name="last_x_report" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Status">
+                            <group>
+                                <field name="last_status_check" readonly="1"/>
+                                <field name="last_status_ok" readonly="1"/>
+                                <field name="last_status_message" readonly="1"/>
+                                <field name="fiscalized" readonly="1"/>
+                                <field name="serial_number" readonly="1"/>
+                                <field name="fm_number" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_l10n_bg_fp_device" model="ir.actions.act_window">
+        <field name="name">Datecs PM Devices</field>
+        <field name="res_model">l10n.bg.fp.device</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="l10n_bg_claude_terminal.AiTokenizerStatus">
+        <div class="o_ai_tokenizer_status d-inline-flex align-items-center gap-2"
+             t-if="state.loaded and state.enabled">
+            <span class="badge" t-att-class="badge.cls"
+                  t-att-title="state.error || ''">
+                <i class="fa fa-database me-1"/>
+                <t t-esc="badge.label"/>
+                <t t-if="state.tokenCount">
+                    <span class="ms-1 opacity-75">· <t t-esc="state.tokenCount"/>t</span>
+                </t>
+            </span>
+            <button type="button"
+                    class="btn btn-sm btn-outline-primary"
+                    t-on-click.stop="onTokenizeNow"
+                    t-att-disabled="state.busy">
+                <i class="fa fa-refresh me-1" t-att-class="state.busy ? 'fa-spin' : ''"/>
+                <t t-if="state.busy">Tokenizing…</t>
+                <t t-else="">Tokenize Now</t>
+            </button>
+        </div>
+    </t>
+
+</templates>

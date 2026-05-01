@@ -76,6 +76,8 @@ if (!Object.prototype.hasOwnProperty.call(ChatterTopbar, "components")) {
     ChatterTopbar.components = { ...(ChatterTopbar.components || {}) };
 }
 ChatterTopbar.components.ClaudeTerminalPanel = ClaudeTerminalPanel;
+console.log("🟢 ClaudeTerminalPanel registered on ChatterTopbar:",
+    Object.keys(ChatterTopbar.components));
 
 // ── Patch ChatterTopbar: add terminal state + toggle method ────────
 // NOTE (v16):

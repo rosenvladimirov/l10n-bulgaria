@@ -2,17 +2,25 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Claude Terminal (Chatter & List View)",
-    "version": "16.0.1.18.0",
+    "version": "16.0.1.34.1",
     "category": "Technical",
-    "summary": "Claude Code terminal in chatter, list & kanban view — connects to MCP Docker stack",
+    "summary": "Claude Code terminal + AI Tokenizer (Qdrant/Ollama) — MCP Docker stack",
     "author": "Rosen Vladimirov, BL Consulting, Odoo Community Association (OCA)",
     "maintainers": ["rosen-vladimirov"],
-    "website": "https://github.com/nicePrintBulgaria/l10n-bulgaria",
+    "website": "https://github.com/rosenvladimirov/l10n-bulgaria/tree/16.0/l10n_bg_claude_terminal",
     "license": "AGPL-3",
-    "depends": ["mail", "web", "bus", "hr"],
+    "depends": ["mail", "web", "bus", "hr", "base_setup"],
+    "excludes": ["mcp_terminal"],
+    "external_dependencies": {"python": ["pyzipper"]},
     "data": [
         "security/ir.model.access.csv",
+        "data/ai_tokenizer_cron.xml",
+        # wizards must load before views — settings view button references
+        # action_claude_terminal_setup_wizard defined in the wizard XML
+        "wizards/claude_terminal_setup_wizard_views.xml",
         "views/res_users_views.xml",
+        "views/res_config_settings_views.xml",
+        "views/ai_tokenizer_views.xml",
     ],
     "assets": {
         "web.assets_backend": [
@@ -27,6 +35,9 @@
             "l10n_bg_claude_terminal/static/src/xml/terminal_listview.xml",
             "l10n_bg_claude_terminal/static/src/js/terminal_kanbanview.js",
             "l10n_bg_claude_terminal/static/src/xml/terminal_kanbanview.xml",
+            "l10n_bg_claude_terminal/static/src/scss/ai_tokenizer_status.scss",
+            "l10n_bg_claude_terminal/static/src/js/ai_tokenizer_status.js",
+            "l10n_bg_claude_terminal/static/src/xml/ai_tokenizer_status.xml",
         ],
     },
     "installable": True,

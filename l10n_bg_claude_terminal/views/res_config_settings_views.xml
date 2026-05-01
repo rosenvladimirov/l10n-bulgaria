@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.claude.terminal</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='general_settings']" position="inside">
+                <block title="MCP Server"
+                       name="claude_mcp_server_container">
+                    <setting id="claude_mcp_server_setting"
+                             string="MCP Server Connection"
+                             help="Company-wide MCP server. Users without individual overrides will use these settings.">
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label for="claude_mcp_url"
+                                       string="Server URL"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_mcp_url"
+                                       placeholder="https://mcp.odoo-shell.space"/>
+                            </div>
+                            <div class="row mt16" attrs="{'invisible': [('claude_mcp_url', '=', False)]}">
+                                <label for="claude_mcp_token"
+                                       string="API Token"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_mcp_token"
+                                       password="True"
+                                       placeholder="MCP secret token"/>
+                            </div>
+                            <div class="row mt16" attrs="{'invisible': [('claude_mcp_url', '=', False)]}">
+                                <label for="claude_mcp_client_id"
+                                       string="OAuth Client ID"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_mcp_client_id"
+                                       placeholder="Optional"/>
+                            </div>
+                            <div class="row mt16" attrs="{'invisible': [('claude_mcp_url', '=', False)]}">
+                                <label for="claude_mcp_api_key"
+                                       string="API Key"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_mcp_api_key"
+                                       password="True"
+                                       placeholder="Optional"/>
+                            </div>
+                        </div>
+                    </setting>
+                    <setting id="claude_mcp_anthropic_setting"
+                             string="Anthropic API Key"
+                             help="Sync the ANTHROPIC_API_KEY from the MCP server. Use 'Reload' after changing the key on the MCP server.">
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label for="claude_anthropic_key_synced_at"
+                                       string="Last synced"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_anthropic_key_synced_at" readonly="1"/>
+                            </div>
+                            <div class="row mt16" attrs="{'invisible': [('claude_anthropic_key_synced_at', '=', False)]}">
+                                <label for="claude_embedding_api_key_display"
+                                       string="Stored key"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_embedding_api_key_display"
+                                       password="True"
+                                       readonly="1"/>
+                            </div>
+                            <div class="alert alert-info mt16"
+                                 role="alert"
+                                 attrs="{'invisible': [('claude_anthropic_key_synced_at', '!=', False)]}">
+                                <i class="fa fa-info-circle me-2"/>
+                                No Anthropic key synced yet. Configure the MCP Server URL and Token above,
+                                then click <b>Reload from MCP</b>.
+                            </div>
+                            <div class="mt16">
+                                <button name="action_reload_anthropic_key"
+                                        type="object"
+                                        string="Reload from MCP"
+                                        class="btn btn-primary"
+                                        attrs="{'invisible': ['|', ('claude_mcp_url', '=', False), ('claude_mcp_token', '=', False)]}"/>
+                            </div>
+                        </div>
+                    </setting>
+                    <setting id="claude_mcp_setup_wizard_setting"
+                             string="ZIP конфигурация"
+                             help="Качете password-protected ZIP конфигурационен файл свален от MCP сървъра (mcp_terminal_get_config tool) и приложете ключовете на компанията + потребителите в 5 стъпки.">
+                        <div class="content-group">
+                            <div class="alert alert-info mt16" role="alert">
+                                <i class="fa fa-info-circle me-2"/>
+                                Алтернатива на ръчното попълване — wizard в 5 стъпки:
+                                качи ZIP, прегледай ключове, избери потребители, приложи, тествай.
+                            </div>
+                            <div class="mt16">
+                                <button name="%(l10n_bg_claude_terminal.action_claude_terminal_setup_wizard)d"
+                                        type="action"
+                                        string="Стартирай setup wizard →"
+                                        class="btn btn-primary"/>
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+                <block title="AI Tokenizer (Qdrant + Ollama)"
+                       name="claude_ai_tokenizer_container">
+                    <setting id="claude_ai_tokenizer_setting"
+                             string="Vector Database"
+                             help="Configure Qdrant vector DB and Ollama embeddings for AI tokenization of Odoo records.">
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label for="claude_qdrant_url"
+                                       string="Qdrant URL"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_qdrant_url"
+                                       placeholder="http://localhost:6333"/>
+                            </div>
+                            <div class="row mt16" attrs="{'invisible': [('claude_qdrant_url', '=', False)]}">
+                                <label for="claude_qdrant_api_key"
+                                       string="Qdrant API Key"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_qdrant_api_key"
+                                       password="True"
+                                       placeholder="Optional"/>
+                            </div>
+                            <div class="row mt16" attrs="{'invisible': [('claude_qdrant_url', '=', False)]}">
+                                <label for="claude_qdrant_collection_prefix"
+                                       string="Collection Prefix"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_qdrant_collection_prefix"/>
+                            </div>
+                            <div class="row mt16" attrs="{'invisible': [('claude_qdrant_url', '=', False)]}">
+                                <label for="claude_embedding_provider"
+                                       string="Embedding Provider"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_embedding_provider"/>
+                            </div>
+                            <div class="row mt16"
+                                 attrs="{'invisible': ['|', ('claude_qdrant_url', '=', False), ('claude_embedding_provider', '!=', 'ollama')]}">
+                                <label for="claude_ollama_url"
+                                       string="Ollama URL"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_ollama_url"
+                                       placeholder="http://localhost:11434"/>
+                            </div>
+                            <div class="row mt16"
+                                 attrs="{'invisible': ['|', ('claude_qdrant_url', '=', False), ('claude_embedding_provider', '!=', 'ollama')]}">
+                                <label for="claude_ollama_model"
+                                       string="Embedding Model"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_ollama_model"/>
+                            </div>
+                            <div class="row mt16"
+                                 attrs="{'invisible': ['|', ('claude_qdrant_url', '=', False), ('claude_embedding_provider', '=', 'ollama')]}">
+                                <label for="claude_embedding_api_key"
+                                       string="API Key"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_embedding_api_key"
+                                       password="True"
+                                       placeholder="API key for paid provider"/>
+                            </div>
+                        </div>
+                    </setting>
+                    <setting id="claude_ai_key_rotation_setting"
+                             string="API Key Rotation"
+                             help="Advisory nag — keys older than 90 days flag the banner. Click after you rotate secrets upstream.">
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label for="claude_keys_rotated_at"
+                                       string="Last rotated"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_keys_rotated_at" readonly="1"/>
+                            </div>
+                            <div class="row mt16">
+                                <label for="claude_keys_age_days"
+                                       string="Age (days)"
+                                       class="col-lg-3 o_light_label"/>
+                                <field name="claude_keys_age_days" readonly="1"/>
+                            </div>
+                            <div class="alert alert-warning mt16"
+                                 role="alert"
+                                 attrs="{'invisible': [('claude_keys_needs_rotation', '=', False)]}">
+                                <i class="fa fa-exclamation-triangle me-2"/>
+                                <b>Keys need rotation.</b>
+                                Rotate API keys in their upstream consoles
+                                (Anthropic / Qdrant / Voyage / OpenAI / MCP),
+                                paste the new values above, then click the
+                                button below.
+                            </div>
+                            <div class="mt16">
+                                <button name="action_mark_keys_rotated"
+                                        type="object"
+                                        string="I rotated the keys"
+                                        class="btn btn-secondary"/>
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

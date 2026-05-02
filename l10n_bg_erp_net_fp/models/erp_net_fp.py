@@ -523,12 +523,32 @@ class FiscalPrinterDevice(models.Model):
     # ========== X И Z ОТЧЕТИ ==========
 
     def print_x_report(self):
-        """Печат на X отчет"""
-        return self._make_request('POST', f'printers/{self.printer_id}/xreport')
+        """Печат на X отчет — в proxy mode връща client action; в
+        direct mode прави HTTP заявка от сървъра."""
+        self.ensure_one()
+        if self.connection_mode == "proxy":
+            return self._proxy_or_direct_action(
+                endpoint=f"printers/{self.printer_id}/xreport",
+                success_title=_("Success"),
+                success_msg=_("X report generated successfully"),
+            )
+        return self._make_request("POST", f"printers/{self.printer_id}/xreport")
 
     def print_z_report(self):
-        """Печат на Z отчет"""
-        return self._make_request('POST', f'printers/{self.printer_id}/zreport')
+        """Печат на Z отчет — в proxy mode връща client action; в
+        direct mode прави HTTP заявка от сървъра + update-ва
+        last_z_report."""
+        self.ensure_one()
+        if self.connection_mode == "proxy":
+            return self._proxy_or_direct_action(
+                endpoint=f"printers/{self.printer_id}/zreport",
+                success_title=_("Success"),
+                success_msg=_("The Z report has been generated successfully"),
+                on_success="_mark_last_z_report",
+            )
+        result = self._make_request("POST", f"printers/{self.printer_id}/zreport")
+        self._mark_last_z_report()
+        return result
 
     # ========== СЛУЖЕБНИ ОПЕРАЦИИ ==========
 

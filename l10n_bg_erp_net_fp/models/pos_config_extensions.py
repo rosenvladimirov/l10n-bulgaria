@@ -42,10 +42,24 @@ class PosConfig(models.Model):
 
     @api.model
     def _load_pos_data_fields(self, config_id):
-        # Add the new flags to the fields the POS UI receives.
+        # IMPORTANT: pos.config core mixin default returns [] but
+        # point_of_sale/models/pos_config.py:273 reads
+        # `data[0]['use_pricelist']` unconditionally, so any non-empty
+        # override MUST include use_pricelist (and the related fields
+        # the JS frontend reads). Without these the POS fails to load
+        # with `KeyError: 'use_pricelist'`.
         res = super()._load_pos_data_fields(config_id)
-        res += [
+        for f in (
+            "id",
+            "name",
+            "use_pricelist",
+            "pricelist_id",
+            "available_pricelist_ids",
+            "currency_id",
+            "company_id",
             "l10n_bg_external_pos_mode",
             "l10n_bg_auto_z_on_close",
-        ]
+        ):
+            if f not in res:
+                res.append(f)
         return res

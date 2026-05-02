@@ -40,35 +40,39 @@
                         invisible="driver_type == 'auto'"
                         groups="point_of_sale.group_pos_manager"/>
             </xpath>
-            <xpath expr="//sheet" position="inside">
-                <notebook>
-                    <page string="Proxy / Multi-driver" name="proxy_driver">
-                        <group>
-                            <group string="Driver">
-                                <field name="driver_type"/>
-                                <field name="nsale_prefix"/>
-                                <field name="on_sync_fail"/>
-                            </group>
-                            <group string="PLU bookkeeping" invisible="driver_type == 'auto'">
-                                <field name="last_plu_sync" readonly="1"/>
-                                <field name="plu_capacity" readonly="1"/>
-                                <field name="plu_programmed" readonly="1"/>
-                            </group>
+            <!--
+                Append into the EXISTING <notebook> (already holds
+                "Status History" page). DO NOT add a second notebook —
+                that pushes <chatter/> between two notebooks and breaks
+                the standard form layout.
+            -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Proxy / Multi-driver" name="proxy_driver">
+                    <group>
+                        <group string="Driver">
+                            <field name="driver_type"/>
+                            <field name="nsale_prefix"/>
+                            <field name="on_sync_fail"/>
                         </group>
-                    </page>
-                    <page string="Receipt template" name="receipt_template" invisible="driver_type == 'auto'">
-                        <group>
-                            <group string="Images">
-                                <field name="logo_image" widget="image" class="oe_avatar"/>
-                                <field name="stamp_image" widget="image" class="oe_avatar"/>
-                            </group>
+                        <group string="PLU bookkeeping" invisible="driver_type == 'auto'">
+                            <field name="last_plu_sync" readonly="1"/>
+                            <field name="plu_capacity" readonly="1"/>
+                            <field name="plu_programmed" readonly="1"/>
                         </group>
-                        <group>
-                            <field name="header_lines" placeholder="One header line per row (max 10)"/>
-                            <field name="footer_lines" placeholder="One footer line per row (max 10)"/>
+                    </group>
+                </page>
+                <page string="Receipt template" name="receipt_template" invisible="driver_type == 'auto'">
+                    <group>
+                        <group string="Images">
+                            <field name="logo_image" widget="image" class="oe_avatar"/>
+                            <field name="stamp_image" widget="image" class="oe_avatar"/>
                         </group>
-                    </page>
-                </notebook>
+                    </group>
+                    <group>
+                        <field name="header_lines" placeholder="One header line per row (max 10)"/>
+                        <field name="footer_lines" placeholder="One footer line per row (max 10)"/>
+                    </group>
+                </page>
             </xpath>
         </field>
     </record>

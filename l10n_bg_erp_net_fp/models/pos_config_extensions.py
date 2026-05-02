@@ -40,26 +40,13 @@ class PosConfig(models.Model):
                     }
                 )
 
-    @api.model
-    def _load_pos_data_fields(self, config_id):
-        # IMPORTANT: pos.config core mixin default returns [] but
-        # point_of_sale/models/pos_config.py:273 reads
-        # `data[0]['use_pricelist']` unconditionally, so any non-empty
-        # override MUST include use_pricelist (and the related fields
-        # the JS frontend reads). Without these the POS fails to load
-        # with `KeyError: 'use_pricelist'`.
-        res = super()._load_pos_data_fields(config_id)
-        for f in (
-            "id",
-            "name",
-            "use_pricelist",
-            "pricelist_id",
-            "available_pricelist_ids",
-            "currency_id",
-            "company_id",
-            "l10n_bg_external_pos_mode",
-            "l10n_bg_auto_z_on_close",
-        ):
-            if f not in res:
-                res.append(f)
-        return res
+    # NOTE: do NOT override `_load_pos_data_fields` on pos.config.
+    # See `feedback_pos_config_load_pos_data_fields.md` — Odoo 18
+    # core has many models reading `data['pos.config']['data'][0][X]`
+    # in their _load_pos_data_domain (use_pricelist, printer_ids,
+    # picking_type_id, fiscal_position_ids, group_pos_manager_id,
+    # note_ids, etc.). Returning a non-empty list that misses any of
+    # them breaks POS load with KeyError. The two l10n_bg_* flags
+    # added on this model are server-side toggles only — they don't
+    # need to live in the POS browser; backend cron / button handlers
+    # read them via the standard ORM.

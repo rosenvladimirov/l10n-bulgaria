@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<audit>
+	<eik>000000000</eik>
+	<e_shop_n>RF0000000</e_shop_n>
+	<domain_name>domain</domain_name>
+	<e_shop_type>1</e_shop_type>
+	<creation_date>2022-05-31</creation_date>
+	<mon>04</mon>
+	<god>2022</god>
+	<order>
+		<orderenum>
+			<ord_n>22222222222</ord_n>
+			<ord_d>2022-05-01</ord_d>
+			<doc_n>3333333333</doc_n>
+			<doc_date>2022-05-01</doc_date>
+			<art>
+				<artenum>
+					<art_name>KIDS/ БАНСКИ КОСТЮМ ОТ ДВЕ ЧАСТИ НА КАРЕ ВИШИ</art_name>
+					<art_quant>1</art_quant>
+					<art_price>24.96</art_price>
+					<art_vat_rate>20</art_vat_rate>
+					<art_vat>4.99</art_vat>
+					<art_sum>29.95</art_sum>
+				</artenum>
+				<artenum>
+					<art_name>Изпращане И Доставка</art_name>
+					<art_quant>1</art_quant>
+					<art_price>0</art_price>
+					<art_vat_rate>20</art_vat_rate>
+					<art_vat>0</art_vat>
+					<art_sum>0</art_sum>
+				</artenum>
+			</art>
+			<ord_total1>24.96</ord_total1>
+			<ord_disc>0</ord_disc>
+			<ord_vat>4.99</ord_vat>
+			<ord_total2>29.95</ord_total2>
+			<paym>6</paym>
+			<pos_n/>
+			<trans_n/>
+			<proc_id/>
+		</orderenum>
+	</order>
+	<r_ord>1</r_ord>
+	<rorder>
+		<rorderenum>
+			<r_ord_n>22222222222</r_ord_n>
+			<r_amount>29.95</r_amount>
+			<r_date>2022-04-02</r_date>
+			<r_paym>2</r_paym>
+		</rorderenum>
+	</rorder>
+	<r_total>29.95</r_total>
+</audit>

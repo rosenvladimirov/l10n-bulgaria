@@ -66,6 +66,35 @@ class ResCompany(models.Model):
     )
 
     # ------------------------------------------------------------------
+    # H-18 Audit File (Приложение №38) — e-shop registration
+    # ------------------------------------------------------------------
+    # Уникален номер на електронния магазин, регистриран в НАП по
+    # Приложение №33 (декларация за е-магазин). Задължителен реквизит
+    # за стандартизирания одиторски XML по Приложение №38.
+    l10n_bg_eshop_uid = fields.Char(
+        string="E-shop UID (NRA)",
+        size=10,
+        help="Unique e-shop number assigned by NRA during registration "
+        "under Appendix 33 (Art. 52r of Ordinance H-18).",
+    )
+    l10n_bg_eshop_type = fields.Selection(
+        selection=[
+            ("1", "Own online shop"),
+            ("2", "Online sales platform"),
+        ],
+        string="E-shop type",
+        default="1",
+        help="E-shop type: 1 = own (own domain), 2 = online platform "
+        "(marketplace).",
+    )
+    l10n_bg_eshop_domain = fields.Char(
+        string="E-shop domain",
+        size=200,
+        help="Web address or domain of the e-shop — written into the "
+        "<domain_name> element of the audit XML.",
+    )
+
+    # ------------------------------------------------------------------
     # Wallet-based credential management
     # ------------------------------------------------------------------
 

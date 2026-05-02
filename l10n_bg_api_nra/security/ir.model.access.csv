@@ -10,3 +10,9 @@ access_nra_declaration_vat_line_manager,nra.declaration.vat.line.manager,model_n
 access_nra_declaration_vies_line_user,nra.declaration.vies.line.user,model_nra_declaration_vies_line,group_nra_user,1,1,1,0
 access_nra_declaration_vies_line_manager,nra.declaration.vies.line.manager,model_nra_declaration_vies_line,group_nra_manager,1,1,1,1
 access_nra_credentials_wizard,nra.credentials.wizard,model_nra_credentials_wizard,group_nra_manager,1,1,1,1
+access_nra_declaration_h18_line_user,nra.declaration.h18.line.user,model_nra_declaration_h18_line,group_nra_user,1,1,1,1
+access_nra_declaration_h18_line_manager,nra.declaration.h18.line.manager,model_nra_declaration_h18_line,group_nra_manager,1,1,1,1
+access_nra_declaration_h18_line_art_user,nra.declaration.h18.line.art.user,model_nra_declaration_h18_line_art,group_nra_user,1,1,1,1
+access_nra_declaration_h18_line_art_manager,nra.declaration.h18.line.art.manager,model_nra_declaration_h18_line_art,group_nra_manager,1,1,1,1
+access_nra_declaration_h18_refund_user,nra.declaration.h18.refund.user,model_nra_declaration_h18_refund,group_nra_user,1,1,1,1
+access_nra_declaration_h18_refund_manager,nra.declaration.h18.refund.manager,model_nra_declaration_h18_refund,group_nra_manager,1,1,1,1

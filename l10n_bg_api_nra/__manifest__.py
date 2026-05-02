@@ -42,7 +42,7 @@ Technical Infrastructure
 * Automatic retry with exponential backoff on HTTP 429 (rate limit)
 * Structured error handling and logging
     """,
-    "version": "18.0.1.2.0",
+    "version": "18.0.1.3.0",
     "development_status": "Beta",
     "category": "Localization",
     "license": "LGPL-3",
@@ -68,6 +68,7 @@ Technical Infrastructure
         "wizards/nra_credentials_wizard_views.xml",
         "views/res_company_views.xml",
         "views/nra_declaration_views.xml",
+        "views/nra_declaration_h18_views.xml",
         "views/hr_employee_views.xml",
         "views/menu.xml",
     ],

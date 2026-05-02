@@ -4,6 +4,8 @@ from . import nra_declaration_d1
 from . import nra_declaration_d6
 from . import nra_declaration_vat
 from . import nra_declaration_vies
+from . import nra_declaration_h18_eshop
+from . import nra_declaration_h18_line
 from . import res_company
 from . import res_users
 from . import hr_employee

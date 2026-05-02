@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Inherit-only — adds a sub-group under the existing fiscal-printer
+        section. Original layout is preserved.
+    -->
+    <record id="view_pos_config_form_proxy" model="ir.ui.view">
+        <field name="name">pos.config.form.proxy</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Proxy mode" name="proxy_pos_mode" groups="point_of_sale.group_pos_manager">
+                    <group>
+                        <group>
+                            <field name="l10n_bg_external_pos_mode"/>
+                            <field name="l10n_bg_auto_z_on_close"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="alert" invisible="not l10n_bg_external_pos_mode">
+                        <strong>External POS mode:</strong> sales are entered on the
+                        fiscal device itself; Odoo POS UI manages the shift /
+                        fiscal session lifecycle. Sync (PLU + logo + parameters)
+                        is pushed when POS opens.
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

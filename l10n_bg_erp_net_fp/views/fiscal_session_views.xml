@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_fiscal_session_tree" model="ir.ui.view">
+        <field name="name">fiscal.session.tree</field>
+        <field name="model">fiscal.session</field>
+        <field name="arch" type="xml">
+            <list string="Fiscal Sessions" decoration-success="state == 'open'" decoration-muted="state == 'closed'">
+                <field name="name"/>
+                <field name="device_id"/>
+                <field name="source"/>
+                <field name="pos_session_id" optional="hide"/>
+                <field name="is_pos_driven" optional="hide"/>
+                <field name="opened_at"/>
+                <field name="closed_at"/>
+                <field name="receipt_count"/>
+                <field name="z_report_number"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_fiscal_session_form" model="ir.ui.view">
+        <field name="name">fiscal.session.form</field>
+        <field name="model">fiscal.session</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_close" type="object" string="Close session" invisible="state != 'open'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="device_id"/>
+                            <field name="source"/>
+                            <field name="pos_session_id" readonly="source not in ('pos_external', 'pos_printer')"/>
+                            <field name="is_pos_driven" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="opened_at"/>
+                            <field name="closed_at"/>
+                            <field name="z_report_number"/>
+                            <field name="receipt_count"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_fiscal_session" model="ir.actions.act_window">
+        <field name="name">Fiscal Sessions</field>
+        <field name="res_model">fiscal.session</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

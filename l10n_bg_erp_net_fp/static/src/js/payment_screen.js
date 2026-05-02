@@ -198,7 +198,24 @@ patch(PaymentScreen.prototype, {
         // АКО ВСИЧКО Е ОК (или няма fiscal printer) - ПРОДЪЛЖАВАМЕ С НОРМАЛЕН FLOW
         // ════════════════════════════════════════════════════════════
         console.log("[FiscalPayment] ✅ Proceeding to normal order finalization...");
-        return await super._finalizeValidation();
+        const ret = await super._finalizeValidation();
+
+        // SKIP ReceiptScreen — the Datecs device already produced the
+        // physical receipt; we don't need Odoo's preview/print/email
+        // dialog after that. Equivalent to enabling
+        // iface_print_skip_screen, which in core requires
+        // iface_print_auto + a POSBox we don't have.
+        if (order?.l10n_bg_is_fiscalized) {
+            try {
+                console.log("[FiscalPayment] ⏭ Skipping ReceiptScreen → ProductScreen");
+                order.set_screen_data?.({ name: "" });
+                this.pos.selectNextOrder?.();
+                this.pos.showScreen("ProductScreen");
+            } catch (e) {
+                console.warn("[FiscalPayment] ReceiptScreen skip failed:", e);
+            }
+        }
+        return ret;
     },
 
     /**

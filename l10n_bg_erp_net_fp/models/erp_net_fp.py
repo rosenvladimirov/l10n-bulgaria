@@ -603,8 +603,15 @@ class FiscalPrinterDevice(models.Model):
         return self._make_request('GET', f'printers/{self.printer_id}/journal', params=params)
 
     def open_cash_drawer(self):
-        """Отваряне на чекмедже"""
-        return self._make_request('POST', f'printers/{self.printer_id}/drawer')
+        """Отваряне на чекмедже — proxy mode → client action; direct → server HTTP."""
+        self.ensure_one()
+        if self.connection_mode == "proxy":
+            return self._proxy_or_direct_action(
+                endpoint=f"printers/{self.printer_id}/drawer",
+                success_title=_("Drawer"),
+                success_msg=_("Cash drawer opened"),
+            )
+        return self._make_request("POST", f"printers/{self.printer_id}/drawer")
 
     def get_diagnostic_info(self):
         """Диагностична информация"""

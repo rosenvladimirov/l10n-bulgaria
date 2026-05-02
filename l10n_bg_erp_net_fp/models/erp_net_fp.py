@@ -96,56 +96,62 @@ class FiscalPrinterDevice(models.Model):
                     subtype_id=self.env.ref('mail.mt_note').id
                 )
 
-    def action_test_z_report(self):
-        """Тестово действие за Z отчет"""
+    def _proxy_or_direct_action(self, endpoint, success_title, success_msg,
+                                  method="POST", on_success=None):
+        # Proxy mode → връщаме client action; browser-а сам fetch-ва
+        # printer URL директно (без bus channels, без server-side
+        # timeout). Direct mode → server-side request както досега.
         self.ensure_one()
-        try:
-            self.print_z_report()
-            self.last_z_report = fields.Datetime.now()
+        if self.connection_mode == "proxy":
             return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'title': _('Success'),
-                    'message': _('The Z report has been generated successfully'),
-                    'type': 'success',
-                }
+                "type": "ir.actions.client",
+                "tag": "l10n_bg_fiscal_browser_proxy",
+                "params": {
+                    "device_id": self.id,
+                    "host": self.host,
+                    "printer_id": self.printer_id,
+                    "method": method,
+                    "endpoint": endpoint,
+                    "ssl_verify": self.ssl_verify,
+                    "success_title": success_title,
+                    "success_message": success_msg,
+                    "on_success": on_success,  # ORM call name on device, optional
+                },
+            }
+        # Direct mode — keep the existing server-side path
+        try:
+            self._make_request(method, endpoint)
+            if on_success:
+                getattr(self, on_success, lambda: None)()
+            return {
+                "type": "ir.actions.client", "tag": "display_notification",
+                "params": {"title": success_title, "message": success_msg,
+                           "type": "success"},
             }
         except Exception as e:
             return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'title': _('Error'),
-                    'message': str(e),
-                    'type': 'danger',
-                }
+                "type": "ir.actions.client", "tag": "display_notification",
+                "params": {"title": _("Error"), "message": str(e),
+                           "type": "danger"},
             }
 
+    def action_test_z_report(self):
+        return self._proxy_or_direct_action(
+            endpoint=f"printers/{self.printer_id}/zreport",
+            success_title=_("Success"),
+            success_msg=_("The Z report has been generated successfully"),
+            on_success="_mark_last_z_report",
+        )
+
+    def _mark_last_z_report(self):
+        self.last_z_report = fields.Datetime.now()
+
     def action_test_x_report(self):
-        """Тестово действие за X отчет"""
-        self.ensure_one()
-        try:
-            self.print_x_report()
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'title': _('Success'),
-                    'message': _('X report generated successfully'),
-                    'type': 'success',
-                }
-            }
-        except Exception as e:
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'title': _('Error'),
-                    'message': str(e),
-                    'type': 'danger',
-                }
-            }
+        return self._proxy_or_direct_action(
+            endpoint=f"printers/{self.printer_id}/xreport",
+            success_title=_("Success"),
+            success_msg=_("X report generated successfully"),
+        )
 
     def _get_session(self):
         """Създава нова сесия за HTTP заявки"""

@@ -18,3 +18,4 @@ from . import fiscal_session
 from . import pos_config_extensions
 from . import product_template_extensions
 from . import pos_payment_method_extensions
+from . import pos_order_extensions

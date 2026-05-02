@@ -205,7 +205,31 @@ patch(PaymentScreen.prototype, {
         // dialog after that. Equivalent to enabling
         // iface_print_skip_screen, which in core requires
         // iface_print_auto + a POSBox we don't have.
+        //
+        // BEFORE switching screens, fire-and-forget a text e-mail to
+        // the customer if their partner record has an e-mail address.
+        // The backend extension (pos_order_extensions._add_mail_attachment)
+        // accepts an empty ticket image and skips the JPG attachment —
+        // the customer just gets the standard "Receipt N is ready"
+        // notification. Image rendering in the absent ReceiptScreen
+        // would require us to mount the receipt component off-screen,
+        // which is heavy; the text-only path is enough for the audit
+        // trail (the physical fiscal bon is the legal copy anyway).
         if (order?.l10n_bg_is_fiscalized) {
+            try {
+                const partner = order.get_partner?.() || order.partner_id;
+                const email = partner?.email;
+                if (email && typeof order.id === "number") {
+                    console.log("[FiscalPayment] 📧 Auto-sending receipt e-mail to", email);
+                    this.pos.data
+                        .call("pos.order", "action_send_receipt",
+                              [[order.id], email, "", null])
+                        .then(() => console.log("[FiscalPayment] ✉ e-mail dispatched"))
+                        .catch(err => console.warn("[FiscalPayment] e-mail send failed:", err));
+                }
+            } catch (e) {
+                console.warn("[FiscalPayment] e-mail trigger error:", e);
+            }
             try {
                 console.log("[FiscalPayment] ⏭ Skipping ReceiptScreen → ProductScreen");
                 order.set_screen_data?.({ name: "" });

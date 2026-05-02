@@ -95,14 +95,35 @@ export class ErpNetFPPrinter {
         // Подготвяме данните за фискален бон
         const receiptData = this._prepareFiscalReceiptData(order, posConfig);
 
+        // Detect invoice mode — Odoo POS sets `to_invoice` flag from
+        // the standard "Фактура" checkbox in the payment screen. When
+        // active, we hit the proxy's /invoice endpoint with extra
+        // partner data (EIK, address, МОЛ, ИН по ЗДДС) so the device
+        // prints a true fiscal invoice on supporting firmware (or a
+        // free-text-headed regular receipt as a fallback — proxy
+        // chooses automatically based on detected capability).
+        const isInvoice = !!(order.to_invoice || (order.is_to_invoice && order.is_to_invoice()));
+        let endpoint = "receipt";
+        let payload = receiptData;
+        if (isInvoice) {
+            const partner = order.get_partner ? order.get_partner() : order.partner_id;
+            if (!partner) {
+                console.warn("[ErpNetFPPrinter] Invoice flag set but no partner — falling back to receipt");
+            } else {
+                endpoint = "invoice";
+                payload = this._prepareFiscalInvoiceData(receiptData, partner);
+            }
+        }
+
         console.log("[ErpNetFPPrinter] 📋 Receipt data prepared:");
-        console.log("[ErpNetFPPrinter]    Unique sale number:", receiptData.uniqueSaleNumber);
-        console.log("[ErpNetFPPrinter]    Items count:", receiptData.items.length);
-        console.log("[ErpNetFPPrinter]    Payments count:", receiptData.payments.length);
+        console.log("[ErpNetFPPrinter]    Endpoint:", endpoint);
+        console.log("[ErpNetFPPrinter]    Unique sale number:", payload.uniqueSaleNumber);
+        console.log("[ErpNetFPPrinter]    Items count:", payload.items.length);
+        console.log("[ErpNetFPPrinter]    Payments count:", payload.payments.length);
 
         try {
             // Изпращаме към fiscal printer
-            const result = await this._sendToFiscalPrinter(receiptData);
+            const result = await this._sendToFiscalPrinter(payload, endpoint);
 
             if (result && result.ok) {
                 console.log("[ErpNetFPPrinter] ✅ Fiscal print SUCCESS!");
@@ -447,8 +468,39 @@ export class ErpNetFPPrinter {
     /**
      * Изпраща заявка към fiscal printer
      */
-    async _sendToFiscalPrinter(data) {
-        const url = `${this.baseUrl}/printers/${encodeURIComponent(this.printerId)}/receipt`;
+    /**
+     * Builds the /invoice payload — same shape as receipt + customer
+     * fields read from `partner` (Odoo res.partner record exposed in
+     * the POS frontend).
+     *
+     * EIK type heuristic: BG VAT ID `BG<9-or-10>` → BULSTAT (0);
+     * 10-digit `EGN` → 1; non-BG → 2.
+     */
+    _prepareFiscalInvoiceData(receiptData, partner) {
+        const vat = (partner.vat || "").trim();
+        const eik = vat.replace(/^BG/i, "").replace(/\s/g, "");
+        let eikType = "0";  // BULSTAT
+        if (eik && eik.length === 10 && /^\d+$/.test(eik)) {
+            eikType = "1";  // EGN
+        } else if (vat && !/^BG/i.test(vat)) {
+            eikType = "2";  // foreign
+        }
+        const addressParts = [
+            partner.street, partner.street2, partner.city,
+        ].filter(Boolean).join(", ");
+        return {
+            ...receiptData,
+            customerName: (partner.name || "").substring(0, 26),
+            customerEik: eik || (partner.company_registry || ""),
+            customerEikType: eikType,
+            customerAddress: addressParts.substring(0, 30),
+            customerBuyer: (partner.contact_name || partner.name || "").substring(0, 16),
+            customerVat: /^BG/i.test(vat) ? vat.substring(0, 13) : "",
+        };
+    }
+
+    async _sendToFiscalPrinter(data, endpoint = "receipt") {
+        const url = `${this.baseUrl}/printers/${encodeURIComponent(this.printerId)}/${endpoint}`;
 
         console.log("[ErpNetFPPrinter] 🌐 POST to:", url);
         console.log("[ErpNetFPPrinter] 📤 Data:", data);

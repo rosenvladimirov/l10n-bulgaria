@@ -41,6 +41,18 @@
                         groups="point_of_sale.group_pos_manager"/>
             </xpath>
             <!--
+                The original form has <chatter/> placed INSIDE <sheet>
+                (non-standard for Odoo 18 — chatter belongs after the
+                sheet, not inside it, otherwise it renders constrained
+                to the sheet's max-width column instead of the full
+                form viewport). Remove the inner one + add it after.
+            -->
+            <xpath expr="//sheet/chatter" position="replace"/>
+            <xpath expr="//sheet" position="after">
+                <chatter/>
+            </xpath>
+
+            <!--
                 Append into the EXISTING <notebook> (already holds
                 "Status History" page). DO NOT add a second notebook —
                 that pushes <chatter/> between two notebooks and breaks

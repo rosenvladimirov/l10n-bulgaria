@@ -23,7 +23,7 @@ supported by ErpNet.FP server. Features include:
 * Bulgarian tax group mapping (А, Б, В, Г)
 * Dual connection mode: Direct (server) and Proxy (browser)
 """,
-    'version': '18.0.8.0.0',
+    'version': '18.0.8.1.0',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
@@ -66,6 +66,8 @@ supported by ErpNet.FP server. Features include:
         'web.assets_backend': [
             'l10n_bg_erp_net_fp/static/src/js/fiscal_printer_service.js',
             'l10n_bg_erp_net_fp/static/src/js/printer_status_updates.js',
+            'l10n_bg_erp_net_fp/static/src/js/printer_id_field.js',
+            'l10n_bg_erp_net_fp/static/src/xml/printer_id_field.xml',
         ],
         # POS assets (само за POS)
         'point_of_sale._assets_pos': [

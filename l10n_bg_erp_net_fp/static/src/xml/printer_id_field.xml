@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="l10n_bg_erp_net_fp.PrinterIdSelectField">
+        <div class="o_field_printer_id_select d-flex align-items-center gap-1 w-100">
+            <t t-if="hasChoices">
+                <select class="o_input form-select form-select-sm w-auto flex-grow-1"
+                        t-att-value="currentValue"
+                        t-on-change="onChangeSelect"
+                        t-att-disabled="props.readonly">
+                    <option value="">— select —</option>
+                    <t t-foreach="state.choices" t-as="c" t-key="c.id">
+                        <option t-att-value="c.id"
+                                t-att-selected="c.id === currentValue">
+                            <t t-esc="c.label"/>
+                        </option>
+                    </t>
+                </select>
+            </t>
+            <t t-else="">
+                <input type="text"
+                       class="o_input form-control form-control-sm flex-grow-1"
+                       t-att-value="currentValue"
+                       t-att-readonly="props.readonly"
+                       t-on-input="(ev) => props.record.update({ [props.name]: ev.target.value })"/>
+            </t>
+            <button type="button"
+                    class="btn btn-sm btn-light"
+                    t-att-disabled="state.loading"
+                    title="Refresh from proxy"
+                    t-on-click.stop.prevent="onClickRefresh">
+                <i class="fa fa-refresh" t-att-class="state.loading ? 'fa-spin' : ''"/>
+            </button>
+            <small t-if="state.errored" class="text-warning ms-1" t-att-title="state.errorMessage">
+                <i class="fa fa-exclamation-triangle"/>
+            </small>
+        </div>
+    </t>
+
+</templates>

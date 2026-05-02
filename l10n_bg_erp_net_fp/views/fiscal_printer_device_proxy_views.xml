@@ -11,6 +11,16 @@
         <field name="model">fiscal.printer.device</field>
         <field name="inherit_id" ref="view_fiscal_printer_device_form"/>
         <field name="arch" type="xml">
+            <!--
+                Wrap the original printer_id Char field with the
+                proxy-aware select widget. JS reads sibling host +
+                ssl_verify, calls fiscal.printer.device.list_proxy_printers,
+                renders <select> if proxy answers, falls back to <input>
+                otherwise. Compatible with legacy ErpNet.FP setups.
+            -->
+            <xpath expr="//field[@name='printer_id']" position="attributes">
+                <attribute name="widget">printer_id_select</attribute>
+            </xpath>
             <xpath expr="//header" position="inside">
                 <button name="action_sync_plu" type="object"
                         string="Sync PLU"

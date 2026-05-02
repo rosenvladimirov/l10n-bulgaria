@@ -249,6 +249,38 @@ class FiscalPrinterDevice(models.Model):
         }, log_endpoint="printers/.../template")
         return True
 
+    # ─── Discovery: list printers from the proxy ───────────────────
+    # Called by the printer_id_select JS widget at form-open time.
+    # Returns {ok, printers: [{id, label, uri, model}], message?}.
+    # Never raises — the widget falls back to a plain input on failure.
+    @api.model
+    def list_proxy_printers(self, host=None, ssl_verify=False, timeout=8):
+        import requests
+        if not host:
+            return {"ok": False, "message": _("No host configured."),
+                    "printers": []}
+        url = "%s/printers" % host.rstrip("/")
+        try:
+            r = requests.get(url, timeout=timeout, verify=bool(ssl_verify))
+            r.raise_for_status()
+            data = r.json() or {}
+        except Exception as exc:
+            return {"ok": False, "message": str(exc)[:200], "printers": []}
+        printers = []
+        for pid, info in (data.items() if isinstance(data, dict) else []):
+            info = info or {}
+            label = "%s — %s" % (
+                pid,
+                info.get("model") or info.get("manufacturer") or "?",
+            )
+            printers.append({
+                "id": pid,
+                "label": label,
+                "uri": info.get("uri", ""),
+                "model": info.get("model", ""),
+            })
+        return {"ok": True, "printers": printers}
+
     # ─── Phase 3: pinpad charge (called by POS frontend via RPC) ───
     @api.model
     def charge_pinpad(self, device_id, amount, currency="BGN", pinpad_id=None,

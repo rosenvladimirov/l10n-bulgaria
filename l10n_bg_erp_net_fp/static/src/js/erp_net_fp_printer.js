@@ -486,9 +486,15 @@ export class ErpNetFPPrinter {
     }
 
     /**
-     * Fetch с timeout
+     * Fetch с timeout.
+     *
+     * Default 60s — a single receipt produces 4+ ISL commands
+     * (open + N sales + payment + close), each ~5s round-trip on
+     * RS-232; the previous 15s budget aborted half-way through
+     * legitimate operations and surfaced as 'Timeout при връзка с
+     * принтера' in the POS UI.
      */
-    async _fetchWithTimeout(url, options = {}, timeout = 15000) {
+    async _fetchWithTimeout(url, options = {}, timeout = 60000) {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), timeout);
 

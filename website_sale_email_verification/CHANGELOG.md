@@ -1,5 +1,9 @@
 # Changelog
 
+## 18.0.1.0.2 (2026-05-02)
+
+- Drop the non-standard `#. UI / settings labels` separator comments from `i18n/bg.po`. Odoo's translation loader (`tools/translate.py`) treats `#.` lines as reference comments and runs them through a regex that requires a `module:` prefix; arbitrary text raised `AttributeError: 'NoneType' object has no attribute 'groups'` and aborted the install.
+
 ## 18.0.1.0.1 (2026-05-02)
 
 - `disposable_email_domains` Python package downgraded from `external_dependencies` to a soft import inside `_refresh_from_package`. The module installs and runs without the package; the offline blocklist fallback simply does not work until the admin runs `pip install disposable_email_domains` on the server.

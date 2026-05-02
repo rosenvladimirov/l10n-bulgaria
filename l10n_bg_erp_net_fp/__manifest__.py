@@ -1,4 +1,3 @@
-
 # Copyright 2025 Rosen Vladimirov
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
@@ -23,7 +22,7 @@ supported by ErpNet.FP server. Features include:
 * Bulgarian tax group mapping (А, Б, В, Г)
 * Dual connection mode: Direct (server) and Proxy (browser)
 """,
-    'version': '19.0.7.1.3',
+    'version': '19.0.8.3.0',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
@@ -40,15 +39,23 @@ supported by ErpNet.FP server. Features include:
     'data': [
         'security/ir.model.access.csv',
         'data/fiscal_printer_device_cron.xml',
+        'data/proxy_sequences.xml',
         'views/fiscal_printer_device_views.xml',
+        'views/fiscal_printer_device_proxy_views.xml',
+        'views/fiscal_session_views.xml',
+        'views/fiscal_frame_log_views.xml',
         'views/pos_config_view.xml',
+        'views/pos_config_proxy_views.xml',
         'views/pos_printer_views.xml',
         'views/pos_session_view.xml',
         'views/pos_order_view.xml',
         'views/account_tax_views.xml',
         'views/fiscal_printer_response_views.xml',
+        'views/product_template_proxy_views.xml',
+        'views/pos_payment_method_proxy_views.xml',
         'views/res_config_settings_views.xml',
         'views/menu_items.xml',
+        'views/menu_items_proxy.xml',
         'wizard/fiscal_cash_operation_wizard_view.xml',
     ],
     'demo': [
@@ -58,12 +65,15 @@ supported by ErpNet.FP server. Features include:
         'web.assets_backend': [
             'l10n_bg_erp_net_fp/static/src/js/fiscal_printer_service.js',
             'l10n_bg_erp_net_fp/static/src/js/printer_status_updates.js',
+            'l10n_bg_erp_net_fp/static/src/js/printer_id_field.js',
+            'l10n_bg_erp_net_fp/static/src/xml/printer_id_field.xml',
         ],
         # POS assets (само за POS)
         'point_of_sale._assets_pos': [
             'l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js',
             'l10n_bg_erp_net_fp/static/src/js/pos_printer_service.js',
             'l10n_bg_erp_net_fp/static/src/js/payment_screen.js',
+            'l10n_bg_erp_net_fp/static/src/js/payment_screen_pinpad.js',
             'l10n_bg_erp_net_fp/static/src/js/close_pos_popup_patch.js',
             'l10n_bg_erp_net_fp/static/src/xml/pos_close_popup_template.xml',
             'l10n_bg_erp_net_fp/static/src/js/cash_move_popup.js',

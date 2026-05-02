@@ -418,11 +418,15 @@ export const fiscalPrinterService = {
         const checkPrinterReachable = async (printer) => {
             const baseUrl = printer.host.replace(/\/$/, '');
             const url = `${baseUrl}/printers/${printer.printer_id}/status`;
+            let lastErr = "";
 
             // Опит 1: CORS — можем да прочетем отговора
             try {
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                // 12s — proxy ISL serial round-trip can take up to
+                // ~5s; the previous 5s budget caused frequent
+                // 'operation aborted' false positives.
+                const timeoutId = setTimeout(() => controller.abort(), 12000);
                 const resp = await fetch(url, {
                     method: 'GET',
                     headers: { 'Accept': 'application/json' },
@@ -431,15 +435,19 @@ export const fiscalPrinterService = {
                 });
                 clearTimeout(timeoutId);
                 console.log(`[FiscalPrinter] Health check CORS OK: ${url} → ${resp.status}`);
-                return resp.ok;
+                return { ok: resp.ok, reason: resp.ok ? "" : `HTTP ${resp.status}` };
             } catch (corsErr) {
-                console.log(`[FiscalPrinter] Health check CORS failed for ${url}: ${corsErr.message}, trying no-cors...`);
+                lastErr = corsErr.message || String(corsErr);
+                console.log(`[FiscalPrinter] Health check CORS failed for ${url}: ${lastErr}, trying no-cors...`);
             }
 
             // Опит 2: no-cors — opaque response означава, че хостът отговаря
             try {
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                // 12s — proxy ISL serial round-trip can take up to
+                // ~5s; the previous 5s budget caused frequent
+                // 'operation aborted' false positives.
+                const timeoutId = setTimeout(() => controller.abort(), 12000);
                 await fetch(url, {
                     method: 'GET',
                     mode: 'no-cors',
@@ -447,10 +455,11 @@ export const fiscalPrinterService = {
                 });
                 clearTimeout(timeoutId);
                 console.log(`[FiscalPrinter] Health check no-cors OK: ${url} (opaque response — host is up)`);
-                return true;
+                return { ok: true, reason: "" };
             } catch (noCorsErr) {
-                console.log(`[FiscalPrinter] Health check no-cors failed for ${url}: ${noCorsErr.message}`);
-                return false;
+                const msg = noCorsErr.message || String(noCorsErr);
+                console.log(`[FiscalPrinter] Health check no-cors failed for ${url}: ${msg}`);
+                return { ok: false, reason: lastErr || msg };
             }
         };
 
@@ -462,9 +471,12 @@ export const fiscalPrinterService = {
 
             const results = [];
             for (const p of printers) {
-                const reachable = await checkPrinterReachable(p);
-                results.push({ id: p.id, reachable });
-                console.log(`[FiscalPrinter] Printer "${p.name}" (${p.host}): ${reachable ? 'reachable' : 'NOT reachable'}`);
+                const r = await checkPrinterReachable(p);
+                // Keep wire format compatible with the server endpoint
+                // (it expects {id, reachable} only) but carry `reason`
+                // through for the toast/dismiss logic below.
+                results.push({ id: p.id, reachable: r.ok, reason: r.reason });
+                console.log(`[FiscalPrinter] Printer "${p.name}" (${p.host}): ${r.ok ? 'reachable' : 'NOT reachable — ' + r.reason}`);
             }
 
             try {
@@ -490,28 +502,36 @@ export const fiscalPrinterService = {
                 const results = await sendHeartbeat(proxyPrinters);
                 const unreachable = results.filter(r => !r.reachable);
                 if (unreachable.length > 0) {
-                    const details = unreachable.map(r => {
+                    // Build per-printer line with the actual browser
+                    // error so the user (or me) can tell apart cert
+                    // mismatch vs CORS vs DNS vs network down.
+                    const lines = unreachable.map(r => {
                         const p = proxyPrinters.find(pp => pp.id === r.id);
-                        return p ? `${p.name} (${p.host})` : `#${r.id}`;
-                    }).join(', ');
-                    // SSL подсказка — ако хостът е https
-                    const hasHttps = unreachable.some(r => {
-                        const p = proxyPrinters.find(pp => pp.id === r.id);
-                        return p && p.host.startsWith('https');
+                        const where = p ? `${p.name} (${p.host})` : `#${r.id}`;
+                        return r.reason ? `• ${where} — ${r.reason}` : `• ${where}`;
                     });
-                    let msg = `Unreachable printers: ${details}`;
-                    if (hasHttps) {
-                        msg += `\n\nIf using self-signed SSL, open the printer URL in a new tab first to accept the certificate.`;
+                    let msg = `Unreachable printer(s):\n${lines.join("\n")}`;
+
+                    // Only show the cert-trust hint when the failure
+                    // actually mentions TLS / cert / SSL. With a
+                    // browser-trusted cert (Let's Encrypt, etc.) this
+                    // hint is misleading and just adds noise.
+                    const certHint = unreachable.some(r =>
+                        /SSL|TLS|certificate|cert|secure/i.test(r.reason || ""));
+                    if (certHint) {
+                        msg += `\n\nIf the host uses a self-signed cert, open it in a new tab and accept the warning once.`;
                     }
-                    notification.add(msg, { type: "warning", sticky: true });
+                    // Auto-dismiss after a few seconds — heartbeat
+                    // re-fires every 30 s, no need to keep it sticky.
+                    notification.add(msg, { type: "warning", sticky: false });
                 } else {
-                    notification.add(
-                        `All ${proxyPrinters.length} proxy printer(s) are reachable`,
-                        { type: "success" }
-                    );
+                    console.log(`[FiscalPrinter] All ${proxyPrinters.length} proxy printer(s) reachable.`);
+                    // Don't pop a toast for the success case — it's the
+                    // normal state, and a toast on every page load is
+                    // just noise.
                 }
 
-                // Периодичен heartbeat на 30 секунди
+                // Периодичен heartbeat на 30 секунди (silent — no toasts)
                 heartbeatInterval = setInterval(() => sendHeartbeat(proxyPrinters), 30000);
             }
         }).catch(err => {

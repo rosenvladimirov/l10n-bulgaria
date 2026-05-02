@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_fiscal_frame_log_tree" model="ir.ui.view">
+        <field name="name">fiscal.frame.log.tree</field>
+        <field name="model">fiscal.frame.log</field>
+        <field name="arch" type="xml">
+            <list string="Fiscal Frame Log (append-only)" create="false" delete="false" edit="false">
+                <field name="timestamp"/>
+                <field name="device_id"/>
+                <field name="pos_order_id" optional="show"/>
+                <field name="direction"/>
+                <field name="endpoint"/>
+                <field name="cmd_name" optional="hide"/>
+                <field name="payload" optional="hide"/>
+                <field name="error_code"/>
+                <field name="raw_hex" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_fiscal_frame_log" model="ir.actions.act_window">
+        <field name="name">Fiscal Frame Log</field>
+        <field name="res_model">fiscal.frame.log</field>
+        <field name="view_mode">list</field>
+        <field name="context">{'search_default_today': 1}</field>
+    </record>
+
+</odoo>

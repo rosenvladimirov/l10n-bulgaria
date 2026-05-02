@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Inherit-only extension of the existing fiscal.printer.device
+        form. Adds a "Proxy / Multi-driver" tab + a "Receipt template"
+        tab. The original form is untouched.
+    -->
+    <record id="view_fiscal_printer_device_form_proxy" model="ir.ui.view">
+        <field name="name">fiscal.printer.device.form.proxy</field>
+        <field name="model">fiscal.printer.device</field>
+        <field name="inherit_id" ref="view_fiscal_printer_device_form"/>
+        <field name="arch" type="xml">
+            <!--
+                Wrap the original printer_id Char field with the
+                proxy-aware select widget. JS reads sibling host +
+                ssl_verify, calls fiscal.printer.device.list_proxy_printers,
+                renders <select> if proxy answers, falls back to <input>
+                otherwise. Compatible with legacy ErpNet.FP setups.
+            -->
+            <xpath expr="//field[@name='printer_id']" position="attributes">
+                <attribute name="widget">printer_id_select</attribute>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="action_sync_plu" type="object"
+                        string="Sync PLU"
+                        invisible="driver_type == 'auto'"
+                        groups="point_of_sale.group_pos_manager"
+                        class="oe_highlight"/>
+                <button name="action_upload_logo" type="object"
+                        string="Upload logo"
+                        invisible="driver_type == 'auto' or not logo_image"
+                        groups="point_of_sale.group_pos_manager"/>
+                <button name="action_upload_stamp" type="object"
+                        string="Upload stamp"
+                        invisible="driver_type == 'auto' or not stamp_image"
+                        groups="point_of_sale.group_pos_manager"/>
+                <button name="action_sync_header_footer" type="object"
+                        string="Sync header/footer"
+                        invisible="driver_type == 'auto'"
+                        groups="point_of_sale.group_pos_manager"/>
+            </xpath>
+            <!--
+                The original form has <chatter/> placed INSIDE <sheet>
+                (non-standard for Odoo 18 — chatter belongs after the
+                sheet, not inside it, otherwise it renders constrained
+                to the sheet's max-width column instead of the full
+                form viewport). Remove the inner one + add it after.
+            -->
+            <xpath expr="//sheet/chatter" position="replace"/>
+            <xpath expr="//sheet" position="after">
+                <chatter/>
+            </xpath>
+
+            <!--
+                Append into the EXISTING <notebook> (already holds
+                "Status History" page). DO NOT add a second notebook —
+                that pushes <chatter/> between two notebooks and breaks
+                the standard form layout.
+            -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Proxy / Multi-driver" name="proxy_driver">
+                    <group>
+                        <group string="Driver">
+                            <field name="driver_type"/>
+                            <field name="nsale_prefix"/>
+                            <field name="on_sync_fail"/>
+                        </group>
+                        <group string="PLU bookkeeping" invisible="driver_type == 'auto'">
+                            <field name="last_plu_sync" readonly="1"/>
+                            <field name="plu_capacity" readonly="1"/>
+                            <field name="plu_programmed" readonly="1"/>
+                        </group>
+                    </group>
+                </page>
+                <page string="Receipt template" name="receipt_template" invisible="driver_type == 'auto'">
+                    <group>
+                        <group string="Images">
+                            <field name="logo_image" widget="image" class="oe_avatar"/>
+                            <field name="stamp_image" widget="image" class="oe_avatar"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="header_lines" placeholder="One header line per row (max 10)"/>
+                        <field name="footer_lines" placeholder="One footer line per row (max 10)"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_fiscal_printer_device_tree_proxy" model="ir.ui.view">
+        <field name="name">fiscal.printer.device.tree.proxy</field>
+        <field name="model">fiscal.printer.device</field>
+        <field name="inherit_id" ref="view_fiscal_printer_device_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="driver_type" optional="show"/>
+                <field name="nsale_prefix" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -154,7 +154,7 @@
                 <field name="printer_id"/>
                 <filter string="Active" name="active" domain="[('active', '=', True)]"/>
                 <filter string="Auto Z Report" name="auto_z" domain="[('auto_z_report', '=', True)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Connection Mode" name="group_connection_mode" context="{'group_by': 'connection_mode'}"/>
                 </group>
             </search>

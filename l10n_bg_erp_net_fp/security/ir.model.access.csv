@@ -7,3 +7,7 @@ access_fiscal_cash_operation_wizard_user,fiscal.cash.operation.wizard.user,l10n_
 access_fiscal_cash_operation_wizard_manager,fiscal.cash.operation.wizard.manager,l10n_bg_erp_net_fp.model_fiscal_cash_operation_wizard,point_of_sale.group_pos_manager,1,1,1,1
 access_fiscal_printer_response_user,fiscal.printer.response.user,model_fiscal_printer_response,base.group_user,1,1,1,0
 access_fiscal_printer_response_manager,fiscal.printer.response.manager,model_fiscal_printer_response,base.group_system,1,1,1,1
+access_fiscal_frame_log_user,fiscal.frame.log.user,model_fiscal_frame_log,point_of_sale.group_pos_user,1,0,1,0
+access_fiscal_frame_log_manager,fiscal.frame.log.manager,model_fiscal_frame_log,point_of_sale.group_pos_manager,1,0,1,0
+access_fiscal_session_user,fiscal.session.user,model_fiscal_session,point_of_sale.group_pos_user,1,1,1,0
+access_fiscal_session_manager,fiscal.session.manager,model_fiscal_session,point_of_sale.group_pos_manager,1,1,1,1

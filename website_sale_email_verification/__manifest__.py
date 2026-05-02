@@ -5,7 +5,7 @@
     "name": "Website Sale Email Verification",
     "summary": "Mandatory email verification (link/OTP) for shop registration "
                "with disposable email blocklist.",
-    "version": "18.0.1.0.2",
+    "version": "18.0.1.0.3",
     "category": "Website/Website",
     "license": "AGPL-3",
     "author": "Rosen Vladimirov",

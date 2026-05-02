@@ -1,5 +1,9 @@
 # Changelog
 
+## 18.0.1.0.3 (2026-05-02)
+
+- Add the mandatory `#. module: website_sale_email_verification` reference comment before every `msgid` in `i18n/bg.po`. Odoo's PO reader (`tools/translate.py:828`) extracts the module name from each entry's comment via `re.match(r"(module[s]?): (\w+)", entry.comment)` and crashes with `AttributeError` when the match is None — so a per-entry reference is required, not optional.
+
 ## 18.0.1.0.2 (2026-05-02)
 
 - Drop the non-standard `#. UI / settings labels` separator comments from `i18n/bg.po`. Odoo's translation loader (`tools/translate.py`) treats `#.` lines as reference comments and runs them through a regex that requires a `module:` prefix; arbitrary text raised `AttributeError: 'NoneType' object has no attribute 'groups'` and aborted the install.

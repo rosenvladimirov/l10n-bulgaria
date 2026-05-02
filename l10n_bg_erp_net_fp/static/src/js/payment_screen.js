@@ -15,16 +15,36 @@ console.log("[FiscalPayment] 🔧 Loading Fiscal Payment Extension...");
 patch(PaymentScreen.prototype, {
 
     /**
-     * Hook точно преди order validation
+     * Hook AFTER all Odoo-side validation has passed (no-customer,
+     * payment-rounding, missing-line-quantities, etc.). Runs BEFORE
+     * the order is closed/synced — perfect place to talk to the
+     * fiscal printer.
+     *
+     * Why not validateOrder(): that hook fires BEFORE Odoo's own
+     * `_isOrderValid` checks (customer required for invoice, etc.),
+     * so a fiscal receipt could go out the printer even when the
+     * order would later be rejected by Odoo. We want printer ONLY
+     * after Odoo has greenlit the order.
      *
      * @override
      */
-    async validateOrder(isForceValidate) {
+    async _finalizeValidation() {
         console.log("[FiscalPayment] ═══════════════════════════════════════");
-        console.log("[FiscalPayment] 🎯 validateOrder() called");
+        console.log("[FiscalPayment] 🎯 _finalizeValidation() called");
         console.log("[FiscalPayment] ═══════════════════════════════════════");
 
         const order = this.currentOrder;
+
+        // GUARD: if this order has already been fiscalised in a previous
+        // _finalizeValidation() attempt that crashed (e.g. backend
+        // 'Missing required account on accountable line'), DO NOT
+        // re-print — the device has already produced one. Just delegate
+        // straight to super so the user can fix the Odoo problem and
+        // retry without spamming receipts.
+        if (order?.l10n_bg_is_fiscalized) {
+            console.log("[FiscalPayment] ⏭ Order already fiscalised — skipping reprint, delegating to super");
+            return await super._finalizeValidation();
+        }
 
         console.log("[FiscalPayment] Current order:", order);
         console.log("[FiscalPayment] Order name:", order?.name);
@@ -177,8 +197,8 @@ patch(PaymentScreen.prototype, {
         // ════════════════════════════════════════════════════════════
         // АКО ВСИЧКО Е ОК (или няма fiscal printer) - ПРОДЪЛЖАВАМЕ С НОРМАЛЕН FLOW
         // ════════════════════════════════════════════════════════════
-        console.log("[FiscalPayment] ✅ Proceeding to normal order validation...");
-        return await super.validateOrder(isForceValidate);
+        console.log("[FiscalPayment] ✅ Proceeding to normal order finalization...");
+        return await super._finalizeValidation();
     },
 
     /**

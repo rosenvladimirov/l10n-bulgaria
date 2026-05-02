@@ -423,7 +423,10 @@ export const fiscalPrinterService = {
             // Опит 1: CORS — можем да прочетем отговора
             try {
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                // 12s — proxy ISL serial round-trip can take up to
+                // ~5s; the previous 5s budget caused frequent
+                // 'operation aborted' false positives.
+                const timeoutId = setTimeout(() => controller.abort(), 12000);
                 const resp = await fetch(url, {
                     method: 'GET',
                     headers: { 'Accept': 'application/json' },
@@ -441,7 +444,10 @@ export const fiscalPrinterService = {
             // Опит 2: no-cors — opaque response означава, че хостът отговаря
             try {
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                // 12s — proxy ISL serial round-trip can take up to
+                // ~5s; the previous 5s budget caused frequent
+                // 'operation aborted' false positives.
+                const timeoutId = setTimeout(() => controller.abort(), 12000);
                 await fetch(url, {
                     method: 'GET',
                     mode: 'no-cors',

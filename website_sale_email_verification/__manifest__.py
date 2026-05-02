@@ -5,7 +5,7 @@
     "name": "Website Sale Email Verification",
     "summary": "Mandatory email verification (link/OTP) for shop registration "
                "with disposable email blocklist.",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "category": "Website/Website",
     "license": "AGPL-3",
     "author": "Rosen Vladimirov",
@@ -14,9 +14,12 @@
         "website_sale_no_public_order",
         "mail",
     ],
-    "external_dependencies": {
-        "python": ["disposable_email_domains"],
-    },
+    # disposable_email_domains is a soft dependency used only by the
+    # _refresh_from_package fallback when the Kickbox HTTP endpoint is
+    # unreachable. Importing it is wrapped in try/except inside the model,
+    # so the module installs and runs without it. Install it manually
+    # (`pip install disposable_email_domains`) on the server if you want
+    # the offline fallback to work.
     "data": [
         "security/ir.model.access.csv",
         "data/res_company_data.xml",

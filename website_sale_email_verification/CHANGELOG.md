@@ -1,5 +1,9 @@
 # Changelog
 
+## 18.0.1.0.1 (2026-05-02)
+
+- `disposable_email_domains` Python package downgraded from `external_dependencies` to a soft import inside `_refresh_from_package`. The module installs and runs without the package; the offline blocklist fallback simply does not work until the admin runs `pip install disposable_email_domains` on the server.
+
 ## 18.0.1.0.0 (2026-05-02)
 
 - Initial release.

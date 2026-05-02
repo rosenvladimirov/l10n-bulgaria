@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Initial blocklist of ~50 well-known disposable / temporary email
+        providers. noupdate=1 — once installed, the cron managed by
+        _cron_refresh_blocklist owns the list. Admins can disable individual
+        seed entries from the UI without losing the audit trail.
+    -->
+    <data noupdate="1">
+        <record id="disposable_mailinator_com" model="disposable.email.domain">
+            <field name="name">mailinator.com</field>
+            <field name="source">seed</field>
+            <field name="active" eval="True"/>
+        </record>
+        <record id="disposable_10minutemail_com" model="disposable.email.domain">
+            <field name="name">10minutemail.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_10minutemail_net" model="disposable.email.domain">
+            <field name="name">10minutemail.net</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_guerrillamail_com" model="disposable.email.domain">
+            <field name="name">guerrillamail.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_guerrillamail_net" model="disposable.email.domain">
+            <field name="name">guerrillamail.net</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_guerrillamail_org" model="disposable.email.domain">
+            <field name="name">guerrillamail.org</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_sharklasers_com" model="disposable.email.domain">
+            <field name="name">sharklasers.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_yopmail_com" model="disposable.email.domain">
+            <field name="name">yopmail.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_yopmail_fr" model="disposable.email.domain">
+            <field name="name">yopmail.fr</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_throwawaymail_com" model="disposable.email.domain">
+            <field name="name">throwawaymail.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_tempmail_com" model="disposable.email.domain">
+            <field name="name">tempmail.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_temp_mail_org" model="disposable.email.domain">
+            <field name="name">temp-mail.org</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_temp_mail_io" model="disposable.email.domain">
+            <field name="name">temp-mail.io</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_getnada_com" model="disposable.email.domain">
+            <field name="name">getnada.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_fakeinbox_com" model="disposable.email.domain">
+            <field name="name">fakeinbox.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_fakemail_net" model="disposable.email.domain">
+            <field name="name">fakemail.net</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_mailnesia_com" model="disposable.email.domain">
+            <field name="name">mailnesia.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_emailondeck_com" model="disposable.email.domain">
+            <field name="name">emailondeck.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_dispostable_com" model="disposable.email.domain">
+            <field name="name">dispostable.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_mintemail_com" model="disposable.email.domain">
+            <field name="name">mintemail.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_trashmail_com" model="disposable.email.domain">
+            <field name="name">trashmail.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_trashmail_de" model="disposable.email.domain">
+            <field name="name">trashmail.de</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_trashmail_net" model="disposable.email.domain">
+            <field name="name">trashmail.net</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_mohmal_com" model="disposable.email.domain">
+            <field name="name">mohmal.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_mailcatch_com" model="disposable.email.domain">
+            <field name="name">mailcatch.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_maildrop_cc" model="disposable.email.domain">
+            <field name="name">maildrop.cc</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_mailtemp_info" model="disposable.email.domain">
+            <field name="name">mailtemp.info</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_tempinbox_com" model="disposable.email.domain">
+            <field name="name">tempinbox.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_tempr_email" model="disposable.email.domain">
+            <field name="name">tempr.email</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_mvrht_com" model="disposable.email.domain">
+            <field name="name">mvrht.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_mytemp_email" model="disposable.email.domain">
+            <field name="name">mytemp.email</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_notmailinator_com" model="disposable.email.domain">
+            <field name="name">notmailinator.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_sogetthis_com" model="disposable.email.domain">
+            <field name="name">sogetthis.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_spam4_me" model="disposable.email.domain">
+            <field name="name">spam4.me</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_spamgourmet_com" model="disposable.email.domain">
+            <field name="name">spamgourmet.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_anonbox_net" model="disposable.email.domain">
+            <field name="name">anonbox.net</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_inboxalias_com" model="disposable.email.domain">
+            <field name="name">inboxalias.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_mt2014_com" model="disposable.email.domain">
+            <field name="name">mt2014.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_getairmail_com" model="disposable.email.domain">
+            <field name="name">getairmail.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_harakirimail_com" model="disposable.email.domain">
+            <field name="name">harakirimail.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_incognitomail_com" model="disposable.email.domain">
+            <field name="name">incognitomail.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_jetable_org" model="disposable.email.domain">
+            <field name="name">jetable.org</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_mail_temporaire_fr" model="disposable.email.domain">
+            <field name="name">mail-temporaire.fr</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_dropmail_me" model="disposable.email.domain">
+            <field name="name">dropmail.me</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_dropmail_email" model="disposable.email.domain">
+            <field name="name">dropmail.email</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_byom_de" model="disposable.email.domain">
+            <field name="name">byom.de</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_my10minutemail_com" model="disposable.email.domain">
+            <field name="name">my10minutemail.com</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_fakeemail_net" model="disposable.email.domain">
+            <field name="name">fakeemail.net</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_discard_email" model="disposable.email.domain">
+            <field name="name">discard.email</field>
+            <field name="source">seed</field>
+        </record>
+        <record id="disposable_smashmail_de" model="disposable.email.domain">
+            <field name="name">smashmail.de</field>
+            <field name="source">seed</field>
+        </record>
+    </data>
+</odoo>

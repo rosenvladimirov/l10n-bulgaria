@@ -1,0 +1,18 @@
+# Changelog
+
+## 18.0.1.0.0 (2026-05-02)
+
+- Initial release.
+- Mandatory email verification between Step 1 and Step 2 of `/shop/register`.
+- Per-company configurable method: `disabled` / `link` / `otp` / `both`.
+- OTP: SHA-256 hashed at rest, `secrets.randbelow` generation, configurable length (4–8), expiry, max attempts, resend cooldown. Constant-time compare via `hmac.compare_digest`.
+- Verification link: `secrets.token_urlsafe(32)`, single-use, same expiry as OTP.
+- Disposable email blocklist with weekly refresh from Kickbox upstream and `disposable_email_domains` Python package fallback.
+- Seed list of ~50 most common temp providers shipped with the module (`source="seed"`).
+- `disposable.email.domain` model uses `tools.ormcache` on the active set; cache invalidated on create/write/unlink.
+- Subdomain-attack protection: every dotted suffix of the registrant's domain is checked against the blocklist (e.g. `foo.mailinator.com` is rejected).
+- Punycode IDN handling: domains are converted to ASCII before lookup.
+- Post-init hook marks all pre-existing `res.users` records as `email_verified=True` so an upgrade does not lock anyone out.
+- Admin UI: Settings page section under **Website**, **Email Verification** page on the user form (Force Verify / Reset Verification buttons), Disposable Email Domains list view under Users menu.
+- Bulgarian translation in `i18n/bg.po`.
+- Tests: `test_disposable_check.py`, `test_otp_flow.py`, `test_link_flow.py` covering hashing-only persistence, attempts/lockout, expiry, cooldown, cache invalidation, subdomain attacks, IDN.

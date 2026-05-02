@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Step 1.5 — verify page -->
+    <template id="verify_step" name="Shop Register Verify Step">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container my-5">
+
+                    <!-- Wizard breadcrumb: 1 → 1.5 (current) → 2 -->
+                    <div class="row justify-content-center mb-4">
+                        <div class="col-auto">
+                            <ol class="list-unstyled d-flex align-items-center gap-3 mb-0">
+                                <li class="d-flex align-items-center text-success">
+                                    <span class="badge bg-success rounded-circle p-2 me-2"
+                                          style="width:2rem;height:2rem;line-height:1.1">
+                                        <i class="fa fa-check"/>
+                                    </span>
+                                    Create account
+                                </li>
+                                <li class="text-muted px-1">──</li>
+                                <li class="d-flex align-items-center fw-bold text-primary">
+                                    <span class="badge bg-primary rounded-circle p-2 me-2"
+                                          style="width:2rem;height:2rem;line-height:1.1">
+                                        <i class="fa fa-envelope"/>
+                                    </span>
+                                    Verify email
+                                </li>
+                                <li class="text-muted px-1">──</li>
+                                <li class="d-flex align-items-center text-muted">
+                                    <span class="badge bg-secondary rounded-circle p-2 me-2"
+                                          style="width:2rem;height:2rem;line-height:1.1">2</span>
+                                    Your details
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-7 col-lg-6">
+                            <div class="card shadow-sm border-0">
+                                <div class="card-body p-4 p-md-5">
+
+                                    <!-- Errors -->
+                                    <t t-if="error == 'invalid_otp'">
+                                        <div class="alert alert-danger py-2">The code is incorrect. Please try again.</div>
+                                    </t>
+                                    <t t-elif="error == 'expired'">
+                                        <div class="alert alert-danger py-2">
+                                            Your verification window has expired. Click <em>Resend</em> below to get a new code.
+                                        </div>
+                                    </t>
+                                    <t t-elif="error == 'locked'">
+                                        <div class="alert alert-danger py-2">
+                                            Too many wrong attempts. Click <em>Resend</em> to receive a new code, or contact support.
+                                        </div>
+                                    </t>
+                                    <t t-elif="error == 'cooldown'">
+                                        <div class="alert alert-warning py-2">
+                                            Please wait a few seconds before requesting another email.
+                                        </div>
+                                    </t>
+                                    <t t-elif="error == 'invalid_token'">
+                                        <div class="alert alert-danger py-2">This verification link is not valid.</div>
+                                    </t>
+                                    <t t-elif="error == 'send_failed'">
+                                        <div class="alert alert-danger py-2">We couldn't send the email. Please try again in a moment.</div>
+                                    </t>
+
+                                    <!-- Info -->
+                                    <t t-if="info == 'sent'">
+                                        <div class="alert alert-success py-2">A fresh verification email has been sent.</div>
+                                    </t>
+                                    <t t-elif="info == 'already_verified'">
+                                        <div class="alert alert-info py-2">Your email is already verified.</div>
+                                    </t>
+
+                                    <h4 class="card-title mb-3">Verify your email</h4>
+
+                                    <!-- OTP form -->
+                                    <t t-if="method in ('otp', 'both')">
+                                        <p>
+                                            We sent a verification code to <strong t-out="email"/>.
+                                            Enter it below.
+                                        </p>
+                                        <form method="post" action="/shop/register/verify">
+                                            <input type="hidden" name="csrf_token"
+                                                   t-att-value="request.csrf_token()"/>
+                                            <div class="mb-4">
+                                                <label for="otp_input" class="form-label">Verification code</label>
+                                                <input type="text"
+                                                       id="otp_input"
+                                                       name="otp"
+                                                       class="form-control form-control-lg text-center"
+                                                       autocomplete="one-time-code"
+                                                       inputmode="numeric"
+                                                       pattern="[0-9]*"
+                                                       maxlength="8"
+                                                       required="required"
+                                                       autofocus="autofocus"/>
+                                            </div>
+                                            <div class="d-grid">
+                                                <button type="submit" class="btn btn-primary btn-lg">
+                                                    Verify <i class="fa fa-check ms-2"/>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </t>
+
+                                    <t t-if="method == 'link'">
+                                        <p>
+                                            We sent a verification link to <strong t-out="email"/>.
+                                            Click it from your inbox to continue.
+                                        </p>
+                                    </t>
+
+                                    <t t-if="method == 'both'">
+                                        <p class="mt-3 text-muted small">
+                                            You can also click the link in the email we just sent.
+                                        </p>
+                                    </t>
+
+                                    <hr class="my-4"/>
+
+                                    <!-- Resend -->
+                                    <form method="post" action="/shop/register/verify/resend"
+                                          class="d-flex justify-content-between align-items-center">
+                                        <input type="hidden" name="csrf_token"
+                                               t-att-value="request.csrf_token()"/>
+                                        <span class="text-muted small">Didn't get the email?</span>
+                                        <button type="submit"
+                                                class="btn btn-outline-secondary btn-sm"
+                                                t-att-disabled="(not can_resend) or None">
+                                            <t t-if="can_resend">Resend</t>
+                                            <t t-else="">Resend (<t t-out="cooldown_left"/>s)</t>
+                                        </button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!--
+        Inherit register_step1 to render a friendly error when a disposable
+        email is rejected at Step 1.
+    -->
+    <template id="register_step1_disposable_error"
+              inherit_id="website_sale_no_public_order.register_step1"
+              name="Shop Register Step 1 — Disposable email error">
+        <xpath expr="//t[@t-elif=&quot;error == 'create_failed'&quot;]"
+               position="after">
+            <t t-elif="error == 'disposable_email'">
+                <div class="alert alert-danger py-2">
+                    Disposable / temporary email addresses are not allowed.
+                    Please use a permanent email address.
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

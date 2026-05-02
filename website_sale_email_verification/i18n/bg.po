@@ -1,0 +1,112 @@
+# Bulgarian translation for website_sale_email_verification.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-02 00:00+0000\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. UI / settings labels
+msgid "Email Verification"
+msgstr "Проверка на имейл"
+
+msgid "Email Verification Method"
+msgstr "Метод за проверка на имейл"
+
+msgid "Disabled"
+msgstr "Изключено"
+
+msgid "Link"
+msgstr "Връзка"
+
+msgid "One-Time Code (OTP)"
+msgstr "Еднократен код (OTP)"
+
+msgid "Link and OTP"
+msgstr "Връзка и OTP"
+
+msgid "OTP Length"
+msgstr "Дължина на OTP"
+
+msgid "Verification Expiry (minutes)"
+msgstr "Срок на валидност (минути)"
+
+msgid "Max OTP Attempts"
+msgstr "Макс. опити с OTP"
+
+msgid "Resend Cooldown (seconds)"
+msgstr "Изчакване между изпращания (сек.)"
+
+msgid "Block Disposable Email Providers"
+msgstr "Блокирай еднократни имейл доставчици"
+
+msgid "Disposable Blocklist Source URL"
+msgstr "URL на източник за блокираните"
+
+msgid "Refresh now"
+msgstr "Обнови сега"
+
+msgid "Disposable Email Domains"
+msgstr "Еднократни имейл домейни"
+
+#. Verify step page
+msgid "Verify your email"
+msgstr "Потвърди имейла си"
+
+msgid "Verification code"
+msgstr "Код за потвърждение"
+
+msgid "Verify"
+msgstr "Потвърди"
+
+msgid "Resend"
+msgstr "Изпрати отново"
+
+msgid "Didn't get the email?"
+msgstr "Не получи ли имейла?"
+
+#. Errors
+msgid "The code is incorrect. Please try again."
+msgstr "Кодът е грешен. Моля, опитай отново."
+
+msgid "Your verification window has expired. Click Resend below to get a new code."
+msgstr "Срокът за потвърждение изтече. Натисни „Изпрати отново“, за да получиш нов код."
+
+msgid "Too many wrong attempts. Click Resend to receive a new code, or contact support."
+msgstr "Твърде много грешни опити. Натисни „Изпрати отново“ за нов код или се свържи с поддръжката."
+
+msgid "Please wait a few seconds before requesting another email."
+msgstr "Моля, изчакай няколко секунди преди да поискаш нов имейл."
+
+msgid "This verification link is not valid."
+msgstr "Тази връзка за потвърждение не е валидна."
+
+msgid "We couldn't send the email. Please try again in a moment."
+msgstr "Имейлът не можа да бъде изпратен. Опитай след малко."
+
+msgid "Disposable / temporary email addresses are not allowed. Please use a permanent email address."
+msgstr "Еднократни/временни имейл адреси не са разрешени. Моля, използвай постоянен адрес."
+
+msgid "A fresh verification email has been sent."
+msgstr "Изпратен е нов имейл за потвърждение."
+
+msgid "Your email is already verified."
+msgstr "Имейлът ти вече е потвърден."
+
+#. Email template
+msgid "Confirm your email address"
+msgstr "Потвърди имейл адреса си"
+
+msgid "Verify Email"
+msgstr "Потвърди имейл"
+
+msgid "Force Verify"
+msgstr "Принудително потвърждение"
+
+msgid "Reset Verification"
+msgstr "Нулирай потвърждението"

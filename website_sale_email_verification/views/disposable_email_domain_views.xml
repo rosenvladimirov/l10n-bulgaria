@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="disposable_email_domain_view_list" model="ir.ui.view">
+        <field name="name">disposable.email.domain.list</field>
+        <field name="model">disposable.email.domain</field>
+        <field name="arch" type="xml">
+            <list string="Disposable Email Domains" editable="bottom">
+                <field name="name"/>
+                <field name="source"/>
+                <field name="last_seen_upstream"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="disposable_email_domain_view_form" model="ir.ui.view">
+        <field name="name">disposable.email.domain.form</field>
+        <field name="model">disposable.email.domain</field>
+        <field name="arch" type="xml">
+            <form string="Disposable Email Domain">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="source"/>
+                        <field name="active"/>
+                        <field name="last_seen_upstream" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="disposable_email_domain_view_search" model="ir.ui.view">
+        <field name="name">disposable.email.domain.search</field>
+        <field name="model">disposable.email.domain</field>
+        <field name="arch" type="xml">
+            <search string="Disposable Email Domains">
+                <field name="name"/>
+                <separator/>
+                <filter name="active_only" string="Active"
+                        domain="[('active', '=', True)]"/>
+                <filter name="from_kickbox" string="From Kickbox"
+                        domain="[('source', '=', 'kickbox')]"/>
+                <filter name="from_seed" string="Seed (shipped)"
+                        domain="[('source', '=', 'seed')]"/>
+                <filter name="manual" string="Manual"
+                        domain="[('source', '=', 'manual')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_source" string="Source"
+                            context="{'group_by': 'source'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_disposable_email_domain" model="ir.actions.act_window">
+        <field name="name">Disposable Email Domains</field>
+        <field name="res_model">disposable.email.domain</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{"search_default_active_only": 1}</field>
+    </record>
+
+    <menuitem id="menu_disposable_email_domain"
+              name="Disposable Email Domains"
+              parent="base.menu_users"
+              action="action_disposable_email_domain"
+              groups="base.group_system"
+              sequence="100"/>
+
+</odoo>

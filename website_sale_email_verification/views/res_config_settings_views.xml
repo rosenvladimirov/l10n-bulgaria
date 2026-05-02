@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.website.sale.email.verification</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='website']" position="inside">
+                <block title="Email Verification"
+                       id="email_verification_block"
+                       help="Force shop visitors to verify their email between Step 1 and Step 2 of the registration wizard.">
+                    <setting id="email_verification_method_setting"
+                             string="Verification Method"
+                             help="Disabled keeps the existing two-step flow. Link sends a single-use URL. OTP sends a numeric code. Both ships both — either path verifies.">
+                        <field name="email_verification_method"/>
+                    </setting>
+                    <setting id="email_verification_otp_length_setting"
+                             string="OTP Length"
+                             help="Number of digits in the one-time code (4–8)."
+                             invisible="email_verification_method not in ('otp', 'both')">
+                        <field name="email_verification_otp_length"/>
+                    </setting>
+                    <setting id="email_verification_expiry_minutes_setting"
+                             string="Expiry (minutes)"
+                             help="How long a code or link stays valid."
+                             invisible="email_verification_method == 'disabled'">
+                        <field name="email_verification_expiry_minutes"/>
+                    </setting>
+                    <setting id="email_verification_max_attempts_setting"
+                             string="Max OTP Attempts"
+                             help="Account locks after this many wrong codes."
+                             invisible="email_verification_method not in ('otp', 'both')">
+                        <field name="email_verification_max_attempts"/>
+                    </setting>
+                    <setting id="email_verification_resend_cooldown_setting"
+                             string="Resend Cooldown (seconds)"
+                             help="Minimum delay between two consecutive resend requests."
+                             invisible="email_verification_method == 'disabled'">
+                        <field name="email_verification_resend_cooldown"/>
+                    </setting>
+                </block>
+
+                <block title="Disposable Email Blocklist"
+                       id="disposable_email_block"
+                       help="Reject Mailinator, GuerrillaMail and other temp providers at registration time.">
+                    <setting id="email_verification_block_disposable_setting"
+                             string="Block Disposable Email Providers"
+                             help="When enabled, registrations from blocklisted domains are refused with a clear error.">
+                        <field name="email_verification_block_disposable"/>
+                    </setting>
+                    <setting id="email_verification_disposable_url_setting"
+                             string="Upstream Source URL"
+                             help="Source list refreshed weekly by the cron job."
+                             invisible="not email_verification_block_disposable">
+                        <field name="email_verification_disposable_url"/>
+                        <button name="action_refresh_disposable_blocklist"
+                                type="object"
+                                string="Refresh now"
+                                class="btn-link"
+                                icon="fa-refresh"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

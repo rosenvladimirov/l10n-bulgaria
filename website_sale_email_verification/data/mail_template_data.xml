@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="mail_template_email_verification" model="mail.template">
+            <field name="name">Shop Registration: Email Verification</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="subject">Confirm your email address</field>
+            <field name="email_from">{{ object.company_id.email_formatted or '' }}</field>
+            <field name="email_to">{{ object.email or object.login }}</field>
+            <field name="lang">{{ object.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;color:#222">
+    <p>Hi <t t-out="object.name or object.login"/>,</p>
+    <p>To finish creating your account, please verify your email address.</p>
+
+    <t t-if="ctx.get('show_otp')">
+        <p>Your verification code:</p>
+        <h2 style="letter-spacing:0.4em;background:#f4f4f4;padding:12px 16px;border-radius:6px;text-align:center;margin:16px 0;">
+            <t t-out="ctx.get('otp')"/>
+        </h2>
+        <p>
+            Enter it on the verification page. The code expires in
+            <t t-out="ctx.get('expiry_minutes')"/> minutes.
+        </p>
+    </t>
+
+    <t t-if="ctx.get('show_link')">
+        <p>Or click the button below to verify automatically:</p>
+        <p style="text-align:center;margin:24px 0;">
+            <a t-att-href="ctx.get('verify_url')"
+               style="display:inline-block;padding:12px 24px;background:#875A7B;color:#fff;text-decoration:none;border-radius:4px;font-weight:bold;">
+                Verify Email
+            </a>
+        </p>
+    </t>
+
+    <p style="font-size:0.85em;color:#888;margin-top:32px;">
+        If you didn't request this, you can safely ignore this email.
+    </p>
+</div>
+            </field>
+        </record>
+    </data>
+</odoo>

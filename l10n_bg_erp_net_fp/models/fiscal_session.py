@@ -36,9 +36,8 @@ class FiscalSession(models.Model):
     )
     company_id = fields.Many2one(
         "res.company",
-        related="device_id.company_id",
-        store=True,
-        readonly=True,
+        default=lambda self: self.env.company,
+        required=True,
     )
 
     state = fields.Selection(

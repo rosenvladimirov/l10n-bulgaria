@@ -78,7 +78,23 @@ class FiscalPrinterDevice(models.Model):
         _logger.info(f"Request sent to check status of {self.name}")
 
     def action_request_status(self):
-        """Публичен метод за заявка на статус (извиква се от UI)"""
+        """Публичен метод за заявка на статус (извиква се от UI).
+        В proxy mode връща client action за директен browser fetch
+        (с timeout); в direct mode минава през стария bus-based
+        update_status."""
+        self.ensure_one()
+        if self.connection_mode == "proxy":
+            action = self._proxy_or_direct_action(
+                endpoint=f"printers/{self.printer_id}/status",
+                method="GET",
+                success_title=_("Printer status"),
+                success_msg=_("Printer is ready"),
+            )
+            # Status check сам по себе си — не правим pre-check (би
+            # било safety).
+            if isinstance(action, dict) and action.get("type") == "ir.actions.client":
+                action.setdefault("params", {})["skip_status_check"] = True
+            return action
         self.update_status()
         return True
 

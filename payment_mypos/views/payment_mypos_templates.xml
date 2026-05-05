@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="redirect_form">
+        <form t-att-action="api_url" method="post">
+            <t t-foreach="fields" t-as="kv">
+                <input type="hidden" t-att-name="kv[0]" t-att-value="kv[1]"/>
+            </t>
+            <input type="hidden" name="Signature" t-att-value="signature"/>
+        </form>
+    </template>
+
+</odoo>

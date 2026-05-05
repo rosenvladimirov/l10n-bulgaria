@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_provider_form" model="ir.ui.view">
+        <field name="name">payment.provider.form.inherit.mypos</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form"/>
+        <field name="arch" type="xml">
+            <group name="provider_credentials" position="inside">
+                <group invisible="code != 'mypos'">
+                    <field name="mypos_sid" required="code == 'mypos' and state != 'disabled'"/>
+                    <field name="mypos_wallet" required="code == 'mypos' and state != 'disabled'"/>
+                    <field name="mypos_key_index"/>
+                    <field name="mypos_private_key" widget="text" password="True"/>
+                    <field name="mypos_public_cert" widget="text"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+</odoo>

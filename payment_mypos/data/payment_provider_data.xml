@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="payment_provider_mypos" model="payment.provider">
+        <field name="name">myPOS</field>
+        <field name="code">mypos</field>
+        <field name="state">disabled</field>
+        <field name="payment_method_ids"
+               eval="[Command.set([
+                         ref('payment.payment_method_card'),
+                         ref('payment.payment_method_bancontact'),
+                     ])]"/>
+    </record>
+
+</odoo>

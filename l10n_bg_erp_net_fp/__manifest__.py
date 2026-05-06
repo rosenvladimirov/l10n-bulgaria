@@ -22,7 +22,7 @@ supported by ErpNet.FP server. Features include:
 * Bulgarian tax group mapping (А, Б, В, Г)
 * Dual connection mode: Direct (server) and Proxy (browser)
 """,
-    'version': '19.0.10.0.4',
+    'version': '19.0.10.1.0',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
@@ -63,6 +63,7 @@ supported by ErpNet.FP server. Features include:
         'views/iot_box_views.xml',
         'views/packaging_qc_views.xml',
         'views/menu_items.xml',
+        'views/grafana_views.xml',
         'views/menu_items_proxy.xml',
         'wizard/fiscal_cash_operation_wizard_view.xml',
         'wizard/iot_discover_wizard_view.xml',
@@ -80,6 +81,8 @@ supported by ErpNet.FP server. Features include:
             # 19.0.9.0.0 — native iot.box / iot.device proxy bridge.
             'l10n_bg_erp_net_fp/static/src/js/iot_longpolling_proxy_patch.js',
             'l10n_bg_erp_net_fp/static/src/js/iot_browser_proxy_handler.js',
+            'l10n_bg_erp_net_fp/static/src/js/grafana_dashboard.js',
+            'l10n_bg_erp_net_fp/static/src/xml/grafana_dashboard.xml',
         ],
         # POS assets (само за POS)
         'point_of_sale._assets_pos': [

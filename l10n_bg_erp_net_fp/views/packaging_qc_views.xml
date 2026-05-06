@@ -139,6 +139,29 @@
                             </div>
                         </setting>
                     </block>
+
+                    <block title="Embedded Grafana monitoring (optional)">
+                        <setting>
+                            <field name="erpnet_fp_grafana_url"
+                                   placeholder="https://grafana.lan.mcpworks.net"/>
+                            <div class="text-muted">
+                                Public URL of your Grafana instance. When
+                                set, the "Monitoring" menu under Fiscal
+                                Printers opens the dashboard inside an
+                                iframe — no separate browser tab needed
+                                for ops staff.
+                            </div>
+                        </setting>
+                        <setting>
+                            <field name="erpnet_fp_grafana_dashboard_uid"
+                                   placeholder="erpnet-fp-overview"/>
+                            <div class="text-muted">
+                                The UID of the Grafana dashboard to
+                                embed. The bundled dashboard ships as
+                                <code>erpnet-fp-overview</code>.
+                            </div>
+                        </setting>
+                    </block>
                 </app>
             </xpath>
         </field>

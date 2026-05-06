@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+  <t t-name="l10n_bg_erp_net_fp.GrafanaDashboard" owl="1">
+    <div class="o_action_manager o_grafana_dashboard"
+         style="height: 100%; min-height: calc(100vh - 96px);
+                display: flex; flex-direction: column;">
+      <div t-if="state.error" class="alert alert-warning m-3"
+           role="alert">
+        <span t-esc="state.error"/>
+      </div>
+      <iframe t-if="state.url" t-att-src="state.url"
+              style="flex: 1 1 auto; width: 100%; border: 0;
+                     min-height: 600px;"
+              allow="fullscreen"/>
+    </div>
+  </t>
+
+</templates>

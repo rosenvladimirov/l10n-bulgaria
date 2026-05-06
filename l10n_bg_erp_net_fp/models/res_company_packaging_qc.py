@@ -56,3 +56,22 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.default_packaging_empty_weight",
         readonly=False,
     )
+
+    # ─── Grafana embed (monitoring tab) ─────────────────────────
+    # Optional. When set, the "ErpNet.FP Monitoring" menu under
+    # Settings opens the configured Grafana dashboard inside an
+    # iframe — no separate browser tab needed for ops.
+    erpnet_fp_grafana_url = fields.Char(
+        string="Grafana base URL",
+        config_parameter="l10n_bg_erp_net_fp.grafana_url",
+        help="Public URL of your Grafana instance, e.g. "
+             "https://grafana.lan.mcpworks.net. Leave empty to hide "
+             "the monitoring menu.",
+    )
+    erpnet_fp_grafana_dashboard_uid = fields.Char(
+        string="Default dashboard UID",
+        config_parameter="l10n_bg_erp_net_fp.grafana_dashboard_uid",
+        default="erpnet-fp-overview",
+        help="The UID of the Grafana dashboard to embed. The bundled "
+             "dashboard ships as `erpnet-fp-overview`.",
+    )

@@ -19,3 +19,20 @@ from . import pos_config_extensions
 from . import product_template_extensions
 from . import pos_payment_method_extensions
 from . import pos_order_extensions
+
+# Native Odoo IoT Box integration (18.0.9.0.0+).
+# Adds connection_mode to iot.box, action_via_proxy to iot.device,
+# and a generic iot.device.response table for browser-proxied flows.
+# Backward-compatible: existing fiscal.printer.device flow untouched.
+from . import iot_device_response
+from . import iot_box_extensions
+from . import iot_device_extensions
+
+# Packaging weight QC (18.0.10.0.0+).
+# Abstract weighable mixin + MO/picking integration. Reads scale via
+# iot.device.read_weight() (Phase 2), compares to BoM expected weight
+# ± tolerance %, marks records as pass/fail.
+from . import packaging_weighable_mixin
+from . import res_company_packaging_qc
+from . import mrp_packaging_qc
+from . import stock_picking_packaging_qc

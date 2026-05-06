@@ -40,7 +40,6 @@
                             type="action"
                             string="Discover ErpNet.FP devices"
                             class="oe_highlight"
-                            context="{'default_iot_box_id': active_id}"
                             invisible="not erp_net_fp_url"/>
                 </header>
             </xpath>

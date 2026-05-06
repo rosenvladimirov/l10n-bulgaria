@@ -39,9 +39,6 @@ class MarkdownRegistry {
             description: description,
             models: modelsList  // null = показва се за всички модели
         });
-
-        const modelsInfo = modelsList ? modelsList.join(', ') : 'all models';
-        console.log(`📝 Регистриран Markdown: ${key} -> ${moduleName}/${fileName} (${modelsInfo})`);
     }
 
     /**
@@ -118,14 +115,15 @@ export const markdownRegistry = new MarkdownRegistry();
 // ========================================
 
 // ОБЩИ ДОКУМЕНТАЦИИ (за всички модели)
-markdownRegistry.register(
-    'welcome',
-    'markdown_viewer_locale',
-    'readme.md',
-    'Welcome Guide',
-    'General',
-    'Getting started with the system',
-    null  // null = показва се навсякъде
-);
-
-console.log("✅ Markdown Registry инициализиран с", markdownRegistry.getAll().length, "документации");
+// Временно изключено за изолация на Knowledge Share VList breakage (2026-04-30).
+// Хипотеза: registration с models=null + 11-те LogiKal docs триггерира Owl грешка.
+// Ако Share работи без този блок → потвърден root cause; иначе се връща обратно.
+// markdownRegistry.register(
+//     'welcome',
+//     'markdown_viewer_locale',
+//     'readme.md',
+//     'Welcome Guide',
+//     'General',
+//     'Getting started with the system',
+//     null  // null = показва се навсякъде
+// );

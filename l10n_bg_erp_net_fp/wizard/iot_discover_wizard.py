@@ -45,7 +45,14 @@ class IotDiscoverWizard(models.TransientModel):
         string="IoT Box",
         required=True,
         ondelete="cascade",
-        help="The iot.box record whose ErpNet.FP URL we'll query.",
+        default=lambda self: (
+            self.env.context.get("active_id")
+            if self.env.context.get("active_model") == "iot.box"
+            else False
+        ),
+        help="The iot.box record whose ErpNet.FP URL we'll query. "
+             "Auto-populated when the wizard is opened via the "
+             "'Discover ErpNet.FP devices' button on an iot.box form.",
     )
     line_ids = fields.One2many(
         "iot.discover.wizard.line",

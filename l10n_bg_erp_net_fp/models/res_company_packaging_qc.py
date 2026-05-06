@@ -38,15 +38,21 @@ class ResCompany(models.Model):
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    default_packaging_tolerance_percent = fields.Float(
+    # Field names MUST NOT start with `default_` — Odoo's res.config
+    # interprets `default_<name>` as a value to write to ir.default and
+    # demands a `default_model` attribute. We keep the underlying
+    # company fields named `default_packaging_*` for clarity (they are
+    # company-wide defaults), and just expose them on the settings
+    # screen under shorter names.
+    packaging_tolerance_percent = fields.Float(
         related="company_id.default_packaging_tolerance_percent",
         readonly=False,
     )
-    default_packaging_scale_id = fields.Many2one(
+    packaging_scale_id = fields.Many2one(
         related="company_id.default_packaging_scale_id",
         readonly=False,
     )
-    default_packaging_empty_weight = fields.Float(
+    packaging_empty_weight = fields.Float(
         related="company_id.default_packaging_empty_weight",
         readonly=False,
     )

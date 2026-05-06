@@ -13,10 +13,10 @@ class CryptoWalletUnlockWizard(models.TransientModel):
 
     wallet_id = fields.Many2one('crypto.wallet', 'Портфел')
     master_password = fields.Char('Главна парола',
-                                  help='Въведете главната парола за отключване на портфела')
+                                  help='Enter the master password to unlock the wallet')
 
     use_user_password = fields.Boolean('Използвай паролата на потребителя', default=True,
-                                       help='Използва паролата на текущия потребител като главна парола')
+                                       help='Use current user password as the master password')
 
     @api.onchange('use_user_password')
     def _onchange_use_user_password(self):

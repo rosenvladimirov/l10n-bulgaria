@@ -79,7 +79,7 @@
 
     <!-- Action за wizard-a -->
     <record id="action_crypto_wallet_add_key_wizard" model="ir.actions.act_window">
-        <field name="name">Добави ключ в портфела</field>
+        <field name="name">Add Key to Wallet</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">crypto.wallet.add.key.wizard</field>
         <field name="view_mode">form</field>
@@ -88,7 +88,7 @@
 
     <!-- Menu item -->
     <menuitem id="menu_crypto_wallet_add_key"
-              name="Добави ключ"
+              name="Add Key"
               parent="crypto_wallet_menu_root"
               action="action_crypto_wallet_add_key_wizard"
               sequence="20"/>

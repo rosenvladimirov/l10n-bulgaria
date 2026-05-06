@@ -9,7 +9,7 @@ _logger = logging.getLogger(__name__)
 class FiscalPrinterDevice(models.Model):
     _inherit = 'fiscal.printer.device'
 
-    status_ids = fields.One2many('fiscal.printer.status', 'printer_id', string='Статусна история')
+    status_ids = fields.One2many('fiscal.printer.status', 'printer_id', string='Status History')
     status_count = fields.Integer('Брой статуси', compute='_compute_status_count')
     current_status = fields.Char('Текущ статус', compute='_compute_current_status', store=False)
     is_ready = fields.Boolean('Готов', compute='_compute_current_status', store=False)
@@ -25,7 +25,7 @@ class FiscalPrinterDevice(models.Model):
     proxy_printer_ok = fields.Boolean(
         'Принтер достъпен от браузъра',
         readonly=True,
-        help='Дали браузърът може да достъпи хоста на принтера',
+        help='Whether the browser can access the printer host',
     )
 
     # Настройки за история

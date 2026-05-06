@@ -2,7 +2,7 @@
 <odoo>
     <!-- Root menu under Accounting -->
     <menuitem id="menu_nra_root"
-              name="NRA Declarations (НАП)"
+              name="NRA Declarations"
               parent="account.menu_finance"
               sequence="40"
               groups="l10n_bg_api_nra.group_nra_user" />
@@ -10,17 +10,17 @@
     <!-- Shared sub-categories — plug-in modules add their items here.
          Empty categories are auto-hidden by Odoo when no children exist. -->
     <menuitem id="menu_nra_insurance"
-              name="Insurance (Осигуряване)"
+              name="Insurance"
               parent="menu_nra_root"
               sequence="10" />
 
     <menuitem id="menu_nra_labor"
-              name="Labor Records (Трудови записи)"
+              name="Labor Records"
               parent="menu_nra_root"
               sequence="20" />
 
     <menuitem id="menu_nra_tax"
-              name="Tax (Данъци)"
+              name="Tax"
               parent="menu_nra_root"
               sequence="30" />
 
@@ -31,9 +31,9 @@
               action="action_nra_declaration"
               sequence="90" />
 
-    <!-- Регистрации в НАП — credentials wizard -->
+    <!-- Credentials wizard -->
     <menuitem id="menu_nra_credentials"
-              name="Регистрации в НАП"
+              name="NRA Registrations"
               parent="menu_nra_root"
               action="action_nra_credentials_wizard"
               sequence="95"

@@ -12,7 +12,7 @@ class CryptoWalletAddKeyWizard(models.TransientModel):
     _description = 'Wizard за добавяне на ключ в криптиран портфел'
 
     key_name = fields.Char('Име на ключа', required=True,
-                          help='Уникално име за идентификация на ключа')
+                          help='Unique name to identify the key')
     key_type = fields.Selection([
         ('rsa_private', 'RSA Частен ключ'),
         ('rsa_public', 'RSA Публичен ключ'),
@@ -26,10 +26,10 @@ class CryptoWalletAddKeyWizard(models.TransientModel):
     ], 'Тип на ключа', required=True, default='api_key')
 
     key_data = fields.Text('Данни на ключа', required=True,
-                          help='Съдържанието на ключа (ще бъде криптирано)')
+                          help='Key content (will be encrypted)')
 
     description = fields.Text('Описание',
-                             help='Допълнителна информация за ключа')
+                             help='Additional information about the key')
 
     @api.model
     def default_get(self, fields_list):

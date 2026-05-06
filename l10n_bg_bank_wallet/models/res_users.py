@@ -12,7 +12,7 @@ class Users(models.Model):
         'crypto.wallet',
         'user_id',
         string='Crypto Wallets',
-        help='Криптирани портфейли на потребителя'
+        help='Encrypted user wallets'
     )
 
     def _check_credentials(self, credential, user_agent_env):

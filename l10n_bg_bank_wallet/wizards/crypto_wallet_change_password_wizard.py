@@ -14,17 +14,17 @@ class CryptoWalletChangePasswordWizard(models.TransientModel):
     wallet_id = fields.Many2one('crypto.wallet', 'Портфел')
 
     old_password = fields.Char('Стара парола',
-                               help='Въведете текущата главна парола')
+                               help='Enter the current master password')
     new_password = fields.Char('Нова парола',
-                               help='Въведете новата главна парола')
+                               help='Enter the new master password')
     confirm_password = fields.Char('Потвърди новата парола',
-                                   help='Въведете отново новата парола за потвърждение')
+                                   help='Re-enter the new password to confirm')
 
     use_current_user_password = fields.Boolean('Използвай паролата на потребителя като стара',
                                                default=True,
-                                               help='Използва паролата на текущия потребител като стара парола')
+                                               help='Use current user password as the old password')
     update_user_password = fields.Boolean('Обнови паролата на потребителя', default=False,
-                                          help='Обновява и паролата на потребителя в системата')
+                                          help='Also update the user password in the system')
 
     @api.onchange('use_current_user_password')
     def _onchange_use_current_user_password(self):

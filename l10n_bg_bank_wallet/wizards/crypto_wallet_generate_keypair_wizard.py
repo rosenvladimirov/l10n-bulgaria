@@ -14,7 +14,7 @@ class CryptoWalletGenerateKeypairWizard(models.TransientModel):
     wallet_id = fields.Many2one('crypto.wallet', 'Портфел', required=True)
 
     key_name = fields.Char('Име на ключовете', required=True,
-                           help='Базово име за двойката ключове (ще се добавят _private и _public)')
+                           help='Base name for the key pair (_private and _public suffixes will be added)')
 
     key_type = fields.Selection([
         ('rsa', 'RSA (2048 бита)'),
@@ -22,7 +22,7 @@ class CryptoWalletGenerateKeypairWizard(models.TransientModel):
     ], 'Тип на ключовете', default='rsa', required=True)
 
     description = fields.Text('Описание',
-                              help='Описание на предназначението на ключовете')
+                              help='Description of the keys purpose')
 
     # Резултати
     generation_result = fields.Text('Резултат от генерирането', readonly=True)

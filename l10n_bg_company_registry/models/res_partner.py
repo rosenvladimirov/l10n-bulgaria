@@ -15,7 +15,7 @@ class ResPartner(models.Model):
     # Bulgarian company fields (all prefixed with l10n_bg for consistency)
     l10n_bg_legal_form = fields.Char(
         string='Legal Form (Bulgarian)',
-        help='Bulgarian legal form (ООД, ЕООД, АД, etc.)'
+        help='Bulgarian legal form (OOD, EOOD, AD, etc.)'
     )
     l10n_bg_registration_date = fields.Date(
         string='Registration Date',

@@ -7,11 +7,11 @@ class FiscalCashOperationWizard(models.TransientModel):
     _name = 'fiscal.cash.operation.wizard'
     _description = 'Служебни касови операции'
 
-    session_id = fields.Many2one('pos.session', string='POS Сесия', required=True)
+    session_id = fields.Many2one('pos.session', string='POS Session', required=True)
     operation_type = fields.Selection([
         ('withdraw', 'Служебно изведени'),
         ('deposit', 'Служебно въведени')
-    ], string='Тип операция', required=True)
+    ], string='Operation Type', required=True)
     amount = fields.Float('Сума', required=True)
     reason = fields.Char('Причина')
 

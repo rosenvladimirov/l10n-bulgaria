@@ -14,8 +14,8 @@
                         <field name="reason"/>
                     </group>
                     <footer>
-                        <button string="Изпълни" name="action_execute" type="object" class="btn-primary"/>
-                        <button string="Отказ" class="btn-secondary" special="cancel"/>
+                        <button string="Execute" name="action_execute" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
                     </footer>
                 </form>
             </field>

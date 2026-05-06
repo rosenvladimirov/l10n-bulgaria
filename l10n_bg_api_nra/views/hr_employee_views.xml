@@ -14,7 +14,7 @@
                         invisible="l10n_bg_nra_declaration_count == 0">
                     <field name="l10n_bg_nra_declaration_count"
                            widget="statinfo"
-                           string="НАП Декларации" />
+                           string="NRA Declarations" />
                 </button>
             </xpath>
         </field>

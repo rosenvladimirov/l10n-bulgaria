@@ -6,7 +6,7 @@
         <field name="name">crypto.wallet.unlock.wizard.form</field>
         <field name="model">crypto.wallet.unlock.wizard</field>
         <field name="arch" type="xml">
-            <form string="Отключи портфела">
+            <form string="Unlock Wallet">
                 <div class="alert alert-info" role="alert">
                     <strong>Отключване на портфел</strong><br/>
                     Въведете главната парола за отключване на криптирания портфел.
@@ -18,15 +18,15 @@
                         <field name="use_user_password"/>
                         <field name="master_password" password="True"
                                invisible="use_user_password"
-                               placeholder="Въведете главната парола..."/>
+                               placeholder="Enter master password..."/>
                     </group>
                 </sheet>
                 <footer>
-                    <button string="Отключи" name="unlock_wallet" type="object"
+                    <button string="Unlock" name="unlock_wallet" type="object"
                             class="btn-primary" data-hotkey="q"/>
-                    <button string="Отключи и покажи ключове" name="unlock_and_show_keys"
+                    <button string="Unlock and Show Keys" name="unlock_and_show_keys"
                             type="object" class="btn-secondary"/>
-                    <button string="Отказ" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
                 </footer>
             </form>
         </field>

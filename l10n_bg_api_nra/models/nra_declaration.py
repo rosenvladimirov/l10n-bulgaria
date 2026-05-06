@@ -117,14 +117,14 @@ class NraDeclaration(models.Model):
         help="documentId returned by NRA API on successful submission.",
     )
     nra_entry_number = fields.Char(
-        string="NRA Entry Number (Входящ номер)",
+        string="NRA Entry Number",
         readonly=True,
         copy=False,
         tracking=True,
         help="entryNumber returned by NRA API.",
     )
     nra_entry_date = fields.Char(
-        string="NRA Entry Date (Дата на входиране)",
+        string="NRA Entry Date",
         readonly=True,
         copy=False,
         help="entryDate returned by NRA API.",
@@ -174,7 +174,7 @@ class NraDeclaration(models.Model):
 
     l10n_bg_uic = fields.Char(
         related="company_id.l10n_bg_uic",
-        string="UIC (ЕИК)",
+        string="UIC",
     )
 
     # ------------------------------------------------------------------

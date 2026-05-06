@@ -6,7 +6,7 @@
         <field name="name">crypto.wallet.generate.keypair.wizard.form</field>
         <field name="model">crypto.wallet.generate.keypair.wizard</field>
         <field name="arch" type="xml">
-            <form string="Генериране на двойка ключове">
+            <form string="Generate Key Pair">
                 <!-- Информация -->
                 <div class="alert alert-info" role="alert" invisible="context.get('show_generation_result')">
                     <strong>Генериране на криптографски ключове</strong><br/>
@@ -22,24 +22,24 @@
 
                 <sheet>
                     <!-- Настройки за генериране -->
-                    <group string="Настройки на ключовете" invisible="context.get('show_generation_result')">
+                    <group string="Key Settings" invisible="context.get('show_generation_result')">
                         <group>
                             <field name="wallet_id" readonly="1"/>
-                            <field name="key_name" placeholder="напр. my_ssl_cert"/>
+                            <field name="key_name" placeholder="e.g. my_ssl_cert"/>
                             <field name="key_type"/>
                         </group>
                         <group>
-                            <field name="description" placeholder="Описание на предназначението..."/>
+                            <field name="description" placeholder="Purpose description..."/>
                         </group>
                     </group>
 
                     <!-- Резултат от генерирането -->
-                    <group string="Резултат" invisible="not context.get('show_generation_result')">
+                    <group string="Result" invisible="not context.get('show_generation_result')">
                         <field name="generation_result" widget="text" readonly="1"
                                options="{'max_height': 200}" nolabel="1"/>
                     </group>
 
-                    <group string="Генерирани ключове" invisible="not context.get('show_generation_result')">
+                    <group string="Generated Keys" invisible="not context.get('show_generation_result')">
                         <group>
                             <field name="private_key_name" readonly="1"/>
                             <field name="public_key_name" readonly="1"/>
@@ -50,20 +50,20 @@
                 <footer>
                     <!-- Бутони за генериране -->
                     <div invisible="context.get('show_generation_result')">
-                        <button string="Генерирай ключове" name="generate_keypair" type="object"
+                        <button string="Generate Keys" name="generate_keypair" type="object"
                                 class="btn-primary" data-hotkey="q"/>
-                        <button string="Генерирай и добави още" name="generate_and_add_another"
+                        <button string="Generate and Add Another" name="generate_and_add_another"
                                 type="object" class="btn-secondary"/>
-                        <button string="Отказ" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
                     </div>
 
                     <!-- Бутони за резултата -->
                     <div invisible="not context.get('show_generation_result')">
-                        <button string="Покажи частен ключ" name="view_private_key" type="object"
+                        <button string="Show Private Key" name="view_private_key" type="object"
                                 class="btn-info"/>
-                        <button string="Покажи публичен ключ" name="view_public_key" type="object"
+                        <button string="Show Public Key" name="view_public_key" type="object"
                                 class="btn-info"/>
-                        <button string="Готово" class="btn-primary" special="cancel" data-hotkey="q"/>
+                        <button string="Done" class="btn-primary" special="cancel" data-hotkey="q"/>
                     </div>
                 </footer>
             </form>

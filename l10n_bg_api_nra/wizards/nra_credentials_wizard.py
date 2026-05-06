@@ -42,8 +42,8 @@ class NraCredentialsWizard(models.TransientModel):
     # --- Certificate upload (.p12/.pfx) ---
     certificate_file = fields.Binary(
         string="Certificate File (.p12/.pfx)",
-        help="Upload your Qualified Electronic Signature (КЕП) file. "
-             "The ЕГН and public certificate will be extracted automatically.",
+        help="Upload your Qualified Electronic Signature (QES) file. "
+             "The PIN and public certificate will be extracted automatically.",
     )
     certificate_filename = fields.Char(
         string="Certificate Filename",
@@ -55,12 +55,12 @@ class NraCredentialsWizard(models.TransientModel):
 
     # --- Extracted / manual fields ---
     user_pin = fields.Char(
-        string="User PIN (ЕГН/ЛНЧ на подаващия)",
-        help="Personal identifier (ЕГН or ЛНЧ) of the person authorized "
+        string="User PIN",
+        help="Personal identifier (PIN/FN) of the person authorized "
              "to submit declarations. Auto-filled from certificate if uploaded.",
     )
     user_signature = fields.Text(
-        string="User Certificate (КЕП Base64)",
+        string="User Certificate (QES Base64)",
         help="Base64-encoded DER public certificate. "
              "Auto-filled from .p12 upload.",
     )

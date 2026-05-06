@@ -6,7 +6,7 @@
         <field name="name">crypto.wallet.key.manager.form</field>
         <field name="model">crypto.wallet.key.manager</field>
         <field name="arch" type="xml">
-            <form string="Мениджър на ключове">
+            <form string="Key Manager">
                 <!-- Основна информация -->
                 <div class="alert alert-info" role="alert" invisible="context.get('show_key_data')">
                     <strong>Мениджър на ключове</strong><br/>
@@ -21,7 +21,7 @@
 
                 <sheet>
                     <!-- Състояние на портфела -->
-                    <group string="Информация за портфела" invisible="context.get('show_key_data')">
+                    <group string="Wallet Information" invisible="context.get('show_key_data')">
                         <group>
                             <field name="wallet_id" readonly="1"/>
                             <field name="is_wallet_locked" readonly="1" widget="boolean_button"
@@ -33,20 +33,20 @@
                     </group>
 
                     <!-- Списък с ключове -->
-                    <group string="Ключове в портфела" invisible="context.get('show_key_data')">
+                    <group string="Keys in Wallet" invisible="context.get('show_key_data')">
                         <field name="key_list" widget="text" readonly="1"
                                options="{'max_height': 200}" nolabel="1"/>
                     </group>
 
                     <!-- Операции с ключове -->
-                    <group string="Операции с ключ" invisible="context.get('show_key_data')">
+                    <group string="Key Operations" invisible="context.get('show_key_data')">
                         <group>
-                            <field name="selected_key_name" placeholder="Въведете името на ключа..."/>
+                            <field name="selected_key_name" placeholder="Enter key name..."/>
                         </group>
                     </group>
 
                     <!-- Показване на данни на ключ -->
-                    <group string="Данни на ключа" invisible="not context.get('show_key_data')">
+                    <group string="Key Data" invisible="not context.get('show_key_data')">
                         <group>
                             <field name="selected_key_name" readonly="1"/>
                             <field name="selected_key_type" readonly="1"/>
@@ -63,33 +63,33 @@
                     <!-- Бутони за мениджъра -->
                     <div invisible="context.get('show_key_data')">
                         <!-- Управление на портфела -->
-                        <button string="Отключи портфела" name="unlock_wallet" type="object"
+                        <button string="Unlock Wallet" name="unlock_wallet" type="object"
                                 class="btn-warning" invisible="not is_wallet_locked"/>
 
                         <!-- Операции с ключове -->
-                        <button string="Добави ключ" name="add_key" type="object"
+                        <button string="Add Key" name="add_key" type="object"
                                 class="btn-primary"/>
-                        <button string="Генерирай двойка" name="generate_keypair" type="object"
+                        <button string="Generate Pair" name="generate_keypair" type="object"
                                 class="btn-secondary"/>
 
                         <!-- Операции с избран ключ -->
-                        <button string="Покажи ключ" name="view_key" type="object"
+                        <button string="Show Key" name="view_key" type="object"
                                 class="btn-info"/>
-                        <button string="Премахни ключ" name="remove_key" type="object"
+                        <button string="Remove Key" name="remove_key" type="object"
                                 class="btn-danger"
                                 confirm="Сигурни ли сте, че искате да премахнете този ключ?"/>
-                        <button string="Експортирай ключ" name="export_key" type="object"
+                        <button string="Export Key" name="export_key" type="object"
                                 class="btn-secondary"/>
 
                         <!-- Други -->
-                        <button string="Обнови" name="refresh_keys" type="object"
+                        <button string="Refresh" name="refresh_keys" type="object"
                                 class="btn-light"/>
-                        <button string="Затвори" class="btn-secondary" special="cancel"/>
+                        <button string="Close" class="btn-secondary" special="cancel"/>
                     </div>
 
                     <!-- Бутони за показване на ключ -->
                     <div invisible="not context.get('show_key_data')">
-                        <button string="Назад" class="btn-primary" special="cancel"/>
+                        <button string="Back" class="btn-primary" special="cancel"/>
                     </div>
                 </footer>
             </form>

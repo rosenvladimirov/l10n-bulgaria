@@ -6,7 +6,7 @@
         <field name="name">crypto.wallet.export.wizard.form</field>
         <field name="model">crypto.wallet.export.wizard</field>
         <field name="arch" type="xml">
-            <form string="Експортиране на портфел">
+            <form string="Export Wallet">
                 <div class="alert alert-info" role="alert" invisible="context.get('show_export_result')">
                     <strong>Експортиране на портфел</strong><br/>
                     Експортирайте данните от портфела за backup или пренасяне.
@@ -20,7 +20,7 @@
 
                 <sheet>
                     <!-- Настройки на експорта -->
-                    <group string="Настройки на експорта" invisible="context.get('show_export_result')">
+                    <group string="Export Settings" invisible="context.get('show_export_result')">
                         <group>
                             <field name="wallet_id" readonly="1"/>
                             <field name="export_format"/>
@@ -30,24 +30,24 @@
                             <field name="use_user_password"/>
                             <field name="master_password" password="True"
                                    invisible="use_user_password"
-                                   placeholder="Въведете главната парола..."/>
+                                   placeholder="Enter master password..."/>
                         </group>
                     </group>
 
-                    <group string="Парола за експорта"
+                    <group string="Export Password"
                            invisible="export_format != 'encrypted' or context.get('show_export_result')">
                         <group>
                             <field name="export_password" password="True"
-                                   placeholder="Въведете парола за експорта..."/>
+                                   placeholder="Enter export password..."/>
                         </group>
                         <group>
                             <field name="confirm_export_password" password="True"
-                                   placeholder="Потвърдете паролата..."/>
+                                   placeholder="Confirm password..."/>
                         </group>
                     </group>
 
                     <!-- Резултат от експорта -->
-                    <group string="Експортирани данни" invisible="not context.get('show_export_result')">
+                    <group string="Exported Data" invisible="not context.get('show_export_result')">
                         <field name="export_filename" readonly="1"/>
                         <field name="export_data" widget="text" readonly="1"
                                options="{'max_height': 400}"/>
@@ -57,18 +57,18 @@
                 <footer>
                     <!-- Бутони за експорт -->
                     <div invisible="context.get('show_export_result')">
-                        <button string="Експортиране" name="export_wallet" type="object"
+                        <button string="Export" name="export_wallet" type="object"
                                 class="btn-primary" data-hotkey="q"/>
-                        <button string="Отказ" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
                     </div>
 
                     <!-- Бутони за резултата -->
                     <div invisible="not context.get('show_export_result')">
-                        <button string="Изтегли файл" name="download_export" type="object"
+                        <button string="Download File" name="download_export" type="object"
                                 class="btn-primary" data-hotkey="q"/>
-                        <button string="Копирай в клипборда" name="copy_to_clipboard" type="object"
+                        <button string="Copy to Clipboard" name="copy_to_clipboard" type="object"
                                 class="btn-secondary"/>
-                        <button string="Готово" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                        <button string="Done" class="btn-secondary" special="cancel" data-hotkey="z"/>
                     </div>
                 </footer>
             </form>

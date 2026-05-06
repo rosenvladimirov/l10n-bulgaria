@@ -5,7 +5,7 @@
         <field name="name">claude.terminal.setup.wizard.form</field>
         <field name="model">claude.terminal.setup.wizard</field>
         <field name="arch" type="xml">
-            <form string="Claude Terminal — настройка">
+            <form string="Claude Terminal — Setup">
                 <header>
                     <field name="state" widget="statusbar" statusbar_visible="provision,upload,review,users,apply,test"/>
                 </header>
@@ -34,10 +34,10 @@
                         <field name="create_new_instance"/>
                         <group invisible="not create_new_instance" col="2">
                             <field name="provision_company_vat" readonly="1"
-                                   help="Tenant id ще бъде нормализиран от ДДС номера, напр. BG123456789 → bg123456789"/>
+                                   help="Tenant id will be normalised from the VAT number, e.g. BG123456789 → bg123456789"/>
                             <field name="provision_password" password="True"
                                    required="create_new_instance"
-                                   placeholder="Минимум 8 символа — запазете я"/>
+                                   placeholder="At least 8 characters — keep it safe"/>
                             <field name="provision_email"
                                    placeholder="admin@company.bg"/>
                             <field name="provision_v3_url" readonly="1"/>
@@ -78,7 +78,7 @@
                         <field name="config_file" filename="config_filename" required="state == 'upload'"/>
                         <field name="config_filename" invisible="1"/>
                         <field name="zip_password" password="True" required="state == 'upload'"
-                               placeholder="Временна парола от MCP сървъра"/>
+                               placeholder="Temporary password from MCP server"/>
                     </group>
 
                     <!-- ═══════════════════ STEP 2: REVIEW ═══════════════════ -->
@@ -90,16 +90,16 @@
                                 редактирате преди прилагане. Празните полета НЕ заместват съществуващи стойности.
                             </p>
                         </div>
-                        <group string="MCP сървър" col="2">
+                        <group string="MCP server" col="2">
                             <field name="cfg_mcp_url"/>
                             <field name="cfg_mcp_token" password="True"/>
                             <field name="cfg_mcp_client_id"/>
                             <field name="cfg_mcp_api_key" password="True"/>
                         </group>
-                        <group string="Anthropic (за потребители)" col="2">
+                        <group string="Anthropic (for users)" col="2">
                             <field name="cfg_anthropic_api_key" password="True"/>
                         </group>
-                        <group string="Qdrant (vector DB за токенизация)" col="2">
+                        <group string="Qdrant (vector DB for tokenisation)" col="2">
                             <field name="cfg_qdrant_url"/>
                             <field name="cfg_qdrant_api_key" password="True"/>
                             <field name="cfg_qdrant_collection_prefix"/>
@@ -120,7 +120,7 @@
                             <field name="cfg_odoo_protocol"/>
                             <field name="cfg_odoo_verify_ssl"/>
                         </group>
-                        <group string="Суров JSON (read-only)">
+                        <group string="Raw JSON (read-only)">
                             <field name="parsed_payload" widget="text" nolabel="1" readonly="1"/>
                         </group>
                     </group>
@@ -146,7 +146,7 @@
                         <field name="apply_to_company"/>
                         <field name="user_ids" widget="many2many_tags"
                                options="{'no_create': True}"
-                               placeholder="Изберете потребители за активиране"/>
+                               placeholder="Select users to activate"/>
                     </group>
 
                     <!-- ═══════════════════ STEP 4: APPLY ═══════════════════ -->
@@ -183,30 +183,30 @@
                 </sheet>
                 <footer>
                     <!-- Step 0 (provision): only Next + Cancel -->
-                    <button name="action_next" type="object" string="Напред →"
+                    <button name="action_next" type="object" string="Next →"
                             class="btn-primary" invisible="state != 'provision'"/>
 
                     <!-- Step 1 (upload): Back + Next -->
-                    <button name="action_back" type="object" string="← Назад"
+                    <button name="action_back" type="object" string="← Back"
                             invisible="state != 'upload'"/>
-                    <button name="action_next" type="object" string="Напред →"
+                    <button name="action_next" type="object" string="Next →"
                             class="btn-primary" invisible="state != 'upload'"/>
 
                     <!-- Steps 2-4: Back + Next -->
-                    <button name="action_back" type="object" string="← Назад"
+                    <button name="action_back" type="object" string="← Back"
                             invisible="state in ('provision', 'upload', 'test')"/>
-                    <button name="action_next" type="object" string="Напред →"
+                    <button name="action_next" type="object" string="Next →"
                             class="btn-primary"
                             invisible="state in ('provision', 'upload', 'test')"/>
 
                     <!-- Step 5 (test): Re-test + Close -->
-                    <button name="action_run_tests" type="object" string="Тествай отново"
+                    <button name="action_run_tests" type="object" string="Test Again"
                             invisible="state != 'test'"/>
-                    <button special="cancel" string="Затвори" class="btn-secondary"
+                    <button special="cancel" string="Close" class="btn-secondary"
                             invisible="state != 'test'"/>
 
                     <!-- Cancel everywhere except final -->
-                    <button special="cancel" string="Отказ"
+                    <button special="cancel" string="Cancel"
                             invisible="state == 'test'"/>
                 </footer>
             </form>

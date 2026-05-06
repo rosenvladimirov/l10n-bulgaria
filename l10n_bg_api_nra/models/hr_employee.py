@@ -7,14 +7,14 @@ class HrEmployee(models.Model):
     l10n_bg_nra_declaration_ids = fields.Many2many(
         "nra.declaration",
         compute="_compute_l10n_bg_nra_declarations",
-        string="НАП Декларации",
-        help="All NRA declarations that reference this employee by ЕГН. "
-             "Declaration type plug-ins (ETZ, НОИ, etc.) register their "
+        string="NRA Declarations",
+        help="All NRA declarations that reference this employee by PIN. "
+             "Declaration type plug-ins (ETZ, NSSI, etc.) register their "
              "line models via _l10n_bg_nra_declaration_lookups.",
     )
     l10n_bg_nra_declaration_count = fields.Integer(
         compute="_compute_l10n_bg_nra_declarations",
-        string="НАП Декларации (брой)",
+        string="NRA Declarations (count)",
     )
 
     # ------------------------------------------------------------------
@@ -85,7 +85,7 @@ class HrEmployee(models.Model):
 
         action = {
             "type": "ir.actions.act_window",
-            "name": _("НАП Декларации — %s", self.name),
+            "name": _("NRA Declarations — %s", self.name),
             "res_model": "nra.declaration",
             "view_mode": "list,form",
             "target": "current",

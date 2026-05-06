@@ -6,11 +6,11 @@
         <field name="name">crypto.wallet.add.key.wizard.form</field>
         <field name="model">crypto.wallet.add.key.wizard</field>
         <field name="arch" type="xml">
-            <form string="Добави ключ в портфела">
+            <form string="Add Key to Wallet">
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="key_name" placeholder="Въведете име на ключа..."/>
+                            <field name="key_name" placeholder="Enter key name..."/>
                         </h1>
                     </div>
 
@@ -19,18 +19,18 @@
                             <field name="key_type" widget="radio" options="{'horizontal': true}"/>
                         </group>
                         <group>
-                            <field name="description" placeholder="Описание на ключа (по избор)"/>
+                            <field name="description" placeholder="Key description (optional)"/>
                         </group>
                     </group>
 
                     <notebook>
-                        <page string="Данни на ключа" name="key_data">
+                        <page string="Key Data" name="key_data">
                             <field name="key_data"
                                    widget="text"
-                                   placeholder="Поставете тук съдържанието на ключа...&#10;&#10;Примери:&#10;- RSA ключ: -----BEGIN PRIVATE KEY-----&#10;- API ключ: sk_live_abc123...&#10;- Парола: MySecurePassword123"/>
+                                   placeholder="Paste the key content here...&#10;&#10;Examples:&#10;- RSA key: -----BEGIN PRIVATE KEY-----&#10;- API key: sk_live_abc123...&#10;- Password: MySecurePassword123"/>
                         </page>
 
-                        <page string="Информация" name="info">
+                        <page string="Information" name="info">
                             <div class="alert alert-info" role="alert">
                                 <h4>Как работи криптирането:</h4>
                                 <ul>
@@ -54,21 +54,21 @@
                 </sheet>
 
                 <footer>
-                    <button string="Добави ключа"
+                    <button string="Add Key"
                             name="add_key_to_wallet"
                             type="object"
                             class="btn-primary"
                             data-hotkey="q"/>
-                    <button string="Добави и създай нов"
+                    <button string="Add and Create New"
                             name="add_key_and_add_another"
                             type="object"
                             class="btn-secondary"
                             data-hotkey="w"/>
-                    <button string="Преглед"
+                    <button string="Preview"
                             name="preview_key_info"
                             type="object"
                             class="btn-secondary"/>
-                    <button string="Отказ"
+                    <button string="Cancel"
                             class="btn-secondary"
                             special="cancel"
                             data-hotkey="z"/>

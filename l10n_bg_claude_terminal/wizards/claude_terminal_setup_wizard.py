@@ -90,48 +90,48 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
 
     # ── Step 0: Provision new MCP instance (optional) ───────────────────
     create_new_instance = fields.Boolean(
-        string="Създай нова MCP инстанция",
-        help="Маркирайте ако нямате съществуваща MCP инстанция. Wizard-ът "
+        string="Create New MCP Instance",
+        help="Mark if you do not have an existing MCP instance. The wizard "
              "ще се свърже с v3 provisioning сървъра, ще създаде нова "
              "инстанция за вашата фирма и ще получи готов конфигурационен ZIP.",
     )
     provision_password = fields.Char(
-        string="Парола за новата инстанция",
-        help="Тази парола ще се ползва за encrypt-ване на ZIP файла. "
+        string="Password for New Instance",
+        help="This password will be used to encrypt the ZIP file. "
              "Запазете я — ще ви трябва ако решите да re-provision-нете "
              "същата инстанция (idempotent retry).",
     )
     provision_email = fields.Char(
-        string="Email (за audit)",
+        string="Email (for audit)",
         default=lambda self: self.env.user.email or "",
-        help="Email на администратора (за audit на v3 server-а).",
+        help="Administrator email (for audit on the v3 server).",
     )
     provision_v3_url = fields.Char(
         string="v3 Provisioning URL",
         compute="_compute_provision_settings",
         store=False,
-        help="Адресът на v3 provisioning сървъра. Конфигурира се чрез "
+        help="Address of the v3 provisioning server. Configured via "
              "System Parameter `claude_terminal.provisioning_v3_url`.",
     )
     provision_api_key_set = fields.Boolean(
-        string="API key конфигуриран",
+        string="API Key Configured",
         compute="_compute_provision_settings",
         store=False,
-        help="True ако System Parameter `claude_terminal.provisioning_api_key` "
+        help="True if System Parameter `claude_terminal.provisioning_api_key` "
              "е попълнен.",
     )
     provision_company_vat = fields.Char(
-        string="ДДС номер на фирмата",
+        string="Company VAT Number",
         compute="_compute_provision_settings",
         store=False,
-        help="Извлича се от res.company.vat. Ползва се като tenant id — "
+        help="Extracted from res.company.vat. Used as tenant id — "
              "името на client стака, контейнерите и hostname-а ще бъдат "
              "нормализирани от него (напр. BG123456789 → bg123456789, "
              "hostname mcp-bg123456789.mcpworks.net).",
     )
-    provision_log = fields.Text(string="Provisioning лог", readonly=True)
-    provisioned_client_id = fields.Char(string="Получен Client ID", readonly=True)
-    provisioned_mcp_url = fields.Char(string="Получен MCP URL", readonly=True)
+    provision_log = fields.Text(string="Provisioning Log", readonly=True)
+    provisioned_client_id = fields.Char(string="Received Client ID", readonly=True)
+    provisioned_mcp_url = fields.Char(string="Received MCP URL", readonly=True)
 
     @api.depends("create_new_instance")
     def _compute_provision_settings(self):
@@ -147,24 +147,24 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
 
     # ── Step 1: Upload ───────────────────────────────────────────────────
     config_file = fields.Binary(
-        string="Конфигурационен ZIP файл",
-        help="Изтеглен от MCP сървъра с временна парола.",
+        string="Configuration ZIP File",
+        help="Downloaded from MCP server with temporary password.",
     )
-    config_filename = fields.Char(string="Име на файла")
+    config_filename = fields.Char(string="Filename")
     zip_password = fields.Char(
-        string="Парола на ZIP",
-        help="Временната парола, показана от MCP сървъра при изтегляне.",
+        string="ZIP Password",
+        help="Temporary password shown by MCP server at download.",
     )
 
     # ── Step 2: Review (parsed keys, editable) ───────────────────────────
     parsed_payload = fields.Text(
-        string="Извлечен JSON",
-        help="Сурова JSON структура от ZIP-а (read-only).",
+        string="Extracted JSON",
+        help="Raw JSON structure from the ZIP (read-only).",
         readonly=True,
     )
     company_id = fields.Many2one(
         "res.company",
-        string="Фирма",
+        string="Company",
         default=lambda self: self.env.company,
         required=True,
     )
@@ -190,12 +190,12 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
     )
     cfg_embedding_api_key = fields.Char(string="Embedding API Key")
     # Anthropic key — convenience: applied to selected users' claude_api_key
-    cfg_anthropic_api_key = fields.Char(string="Anthropic API Key (за потребители)")
+    cfg_anthropic_api_key = fields.Char(string="Anthropic API Key (for users)")
 
     # ── Per-user Claude Terminal stack (applied to each selected user) ───
     cfg_terminal_url = fields.Char(
         string="Claude Terminal URL",
-        help="URL на terminal-control-mcp web UI (напр. https://terminal.mcp.odoo-shell.space).",
+        help="URL of the terminal-control-mcp web UI (e.g. https://terminal.mcp.odoo-shell.space).",
     )
     cfg_terminal_theme = fields.Selection(
         [
@@ -206,50 +206,50 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
             ("tomorrow-night", "Tomorrow Night"),
             ("gruvbox-dark", "Gruvbox Dark"),
         ],
-        string="Terminal тема",
+        string="Terminal Theme",
         default="github",
     )
 
     # ── Per-user Odoo RPC Connector (applied to each selected user) ──────
     external_odoo_url = fields.Char(
-        string="Външно Odoo URL",
+        string="External Odoo URL",
         default=lambda self: self.env["ir.config_parameter"].sudo().get_param("web.base.url"),
-        help="Външният URL на тази Odoo инстанция, който MCP сървърът ще ползва "
+        help="External URL of this Odoo instance, used by the MCP server "
              "за RPC връзка обратно към нас. По подразбиране от web.base.url.",
     )
     cfg_odoo_protocol = fields.Selection(
         [("xmlrpc", "XML-RPC (порт 8069/443)"), ("jsonrpc", "JSON-RPC")],
-        string="Odoo RPC протокол",
+        string="Odoo RPC Protocol",
         default="xmlrpc",
     )
     cfg_odoo_verify_ssl = fields.Boolean(
         string="Verify SSL (Odoo)",
         default=True,
-        help="Изключете само за self-signed сертификати в dev средата.",
+        help="Disable only for self-signed certificates in the dev environment.",
     )
 
     # ── Step 3: Users ────────────────────────────────────────────────────
     apply_to_company = fields.Boolean(
-        string="Запиши настройки на фирмата",
+        string="Save Company Settings",
         default=True,
-        help="Записва ключовете в res.company (споделени за всички потребители).",
+        help="Stores keys in res.company (shared across all users).",
     )
     user_ids = fields.Many2many(
         "res.users",
-        string="Потребители за активиране",
-        help="Всеки избран потребител получава: Claude Terminal URL/тема, "
+        string="Users to Activate",
+        help="Each selected user receives: Claude Terminal URL/theme, "
              "Anthropic ключ, Odoo URL/db/протокол. ОСТАВА им да генерират "
              "сами Odoo API Key (Account Security → New API Key) и да го "
              "поставят в Odoo RPC Connector → API Key.",
     )
 
     # ── Step 4: Apply (results) ──────────────────────────────────────────
-    apply_log = fields.Text(string="Лог на прилагането", readonly=True)
+    apply_log = fields.Text(string="Apply Log", readonly=True)
     applied_company = fields.Boolean(readonly=True)
     applied_user_count = fields.Integer(readonly=True)
 
     # ── Step 5: Test ─────────────────────────────────────────────────────
-    test_log = fields.Text(string="Резултати от теста", readonly=True)
+    test_log = fields.Text(string="Test Results", readonly=True)
     test_mcp_ok = fields.Boolean(readonly=True)
     test_anthropic_ok = fields.Boolean(readonly=True)
     test_qdrant_ok = fields.Boolean(readonly=True)

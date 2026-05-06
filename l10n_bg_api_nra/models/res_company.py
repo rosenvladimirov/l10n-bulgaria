@@ -58,21 +58,21 @@ class ResCompany(models.Model):
     )
     l10n_bg_nra_taxpayer_pin_type = fields.Selection(
         selection=NRA_PIN_TYPE_SELECTION,
-        string="Taxpayer PIN Type (Тип идентификатор на ЗЛ)",
+        string="Taxpayer PIN Type",
         default="BUS_BULSTAT",
         help="Type of taxpayer identifier sent to NRA API.",
     )
     l10n_bg_nra_user_pin_type = fields.Selection(
         selection=NRA_PIN_TYPE_SELECTION,
-        string="User PIN Type (Тип идентификатор на потребител)",
+        string="User PIN Type",
         default="IND_EGN",
         help="Type of user identifier for the person submitting declarations.",
     )
     l10n_bg_nra_insurance_fund = fields.Selection(
-        selection=[("0", "Не"), ("1", "Да")],
-        string="Insurance Fund (Осигурителна каса)",
+        selection=[("0", "No"), ("1", "Yes")],
+        string="Insurance Fund",
         default="0",
-        help="Whether declarations are submitted from an insurance fund (осигурителна каса).",
+        help="Whether declarations are submitted from an insurance fund.",
     )
 
     # ------------------------------------------------------------------

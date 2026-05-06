@@ -56,22 +56,22 @@
                         <page string="MOD by Qualification Groups">
                             <group string="Management and Specialist Positions">
                                 <group>
-                                    <field name="mod_manager" string="Managers (лв.)"/>
-                                    <field name="mod_specialist" string="Specialists (лв.)"/>
+                                    <field name="mod_manager" string="Managers (BGN)"/>
+                                    <field name="mod_specialist" string="Specialists (BGN)"/>
                                 </group>
                                 <group>
-                                    <field name="mod_technician" string="Technicians (лв.)"/>
-                                    <field name="mod_clerk" string="Clerks (лв.)"/>
+                                    <field name="mod_technician" string="Technicians (BGN)"/>
+                                    <field name="mod_clerk" string="Clerks (BGN)"/>
                                 </group>
                             </group>
                             <group string="Worker Positions">
                                 <group>
-                                    <field name="mod_service" string="Service Workers (лв.)"/>
-                                    <field name="mod_skilled" string="Skilled Workers (лв.)"/>
+                                    <field name="mod_service" string="Service Workers (BGN)"/>
+                                    <field name="mod_skilled" string="Skilled Workers (BGN)"/>
                                 </group>
                                 <group>
-                                    <field name="mod_operator" string="Machine Operators (лв.)"/>
-                                    <field name="mod_elementary" string="Elementary Occupations (лв.)"/>
+                                    <field name="mod_operator" string="Machine Operators (BGN)"/>
+                                    <field name="mod_elementary" string="Elementary Occupations (BGN)"/>
                                 </group>
                             </group>
                         </page>

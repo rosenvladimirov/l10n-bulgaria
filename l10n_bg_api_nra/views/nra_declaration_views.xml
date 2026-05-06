@@ -40,18 +40,18 @@
             <form>
                 <header>
                     <button name="%(action_nra_credentials_wizard)d"
-                            string="Регистрации в НАП"
+                            string="NRA Registrations"
                             type="action"
                             icon="fa-key"
                             groups="l10n_bg_api_nra.group_nra_manager"
-                            help="Добавяне/редактиране на регистрирани API ключове и КЕП credentials за подаване в НАП" />
+                            help="Add/edit registered API keys and QES credentials for submission to NRA" />
                     <button name="action_generate_xml"
                             string="Generate XML"
                             type="object"
                             class="btn-primary"
                             invisible="state != 'draft'" />
                     <button name="action_kep_sign_submit"
-                            string="Sign &amp; Submit with КЕП"
+                            string="Sign &amp; Submit with QES"
                             type="object"
                             class="btn-primary"
                             icon="fa-pencil-square-o"
@@ -61,7 +61,7 @@
                             type="object"
                             invisible="state not in ('ready', 'error')"
                             groups="l10n_bg_api_nra.group_nra_manager"
-                            confirm="Submit without browser-side КЕП signing? (server-side fallback for test mode)" />
+                            confirm="Submit without browser-side QES signing? (server-side fallback for test mode)" />
                     <button name="action_check_status"
                             string="Check Status"
                             type="object"
@@ -155,13 +155,13 @@
                 <filter string="Rejected" name="filter_rejected"
                         domain="[('state', '=', 'rejected')]" />
                 <separator />
-                <filter string="Обр. 1" name="filter_d1"
+                <filter string="D1" name="filter_d1"
                         domain="[('declaration_type', '=', 'd1')]" />
-                <filter string="Обр. 6" name="filter_d6"
+                <filter string="D6" name="filter_d6"
                         domain="[('declaration_type', '=', 'd6')]" />
-                <filter string="ЕТЗ" name="filter_etz"
+                <filter string="ETZ" name="filter_etz"
                         domain="[('declaration_type', '=', 'etz')]" />
-                <filter string="ДДС" name="filter_vat"
+                <filter string="VAT" name="filter_vat"
                         domain="[('declaration_type', '=', 'vat')]" />
                 <filter string="VIES" name="filter_vies"
                         domain="[('declaration_type', '=', 'vies')]" />

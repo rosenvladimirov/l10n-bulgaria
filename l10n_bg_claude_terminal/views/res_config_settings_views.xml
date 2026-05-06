@@ -80,8 +80,8 @@
                         </div>
                     </setting>
                     <setting id="claude_mcp_setup_wizard_setting"
-                             string="ZIP конфигурация"
-                             help="Качете password-protected ZIP конфигурационен файл свален от MCP сървъра (mcp_terminal_get_config tool) и приложете ключовете на компанията + потребителите в 5 стъпки.">
+                             string="ZIP configuration"
+                             help="Upload a password-protected ZIP config file downloaded from the MCP server (mcp_terminal_get_config tool) and apply the company + user keys in 5 steps.">
                         <div class="content-group">
                             <div class="alert alert-info mt16" role="alert">
                                 <i class="fa fa-info-circle me-2"/>
@@ -91,7 +91,7 @@
                             <div class="mt16">
                                 <button name="%(l10n_bg_claude_terminal.action_claude_terminal_setup_wizard)d"
                                         type="action"
-                                        string="Стартирай setup wizard →"
+                                        string="Launch setup wizard →"
                                         class="btn btn-primary"/>
                             </div>
                         </div>

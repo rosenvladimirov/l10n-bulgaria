@@ -51,7 +51,7 @@
                         </group>
                     </group>
 
-                    <separator string="Адрес"
+                    <separator string="Address"
                                invisible="not data_fetched"/>
 
                     <group invisible="not data_fetched">

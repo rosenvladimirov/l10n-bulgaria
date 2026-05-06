@@ -12,12 +12,12 @@
                 <!-- Добавяне на бутони в header -->
                 <xpath expr="//header" position="inside">
                     <button name="action_print_x_report"
-                            string="X Отчет"
+                            string="X Report"
                             type="object"
                             class="btn-secondary"
                             invisible="state != 'opened' or not l10n_bg_fiscal_printer_id"/>
                     <button name="action_print_z_report"
-                            string="Z Отчет"
+                            string="Z Report"
                             type="object"
                             class="btn-warning"
                             invisible="state not in ['opened', 'closing_control'] or l10n_bg_z_report_printed or not l10n_bg_fiscal_printer_id"

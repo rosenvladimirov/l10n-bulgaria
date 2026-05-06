@@ -116,7 +116,7 @@
                      name="l10n_bg_packaging_qc">
                     <block title="Default packaging weight verification">
                         <setting>
-                            <field name="default_packaging_tolerance_percent"/>
+                            <field name="packaging_tolerance_percent"/>
                             <div class="text-muted">
                                 Default ± tolerance for MO + picking weight
                                 verification. BoMs and individual records
@@ -124,7 +124,7 @@
                             </div>
                         </setting>
                         <setting>
-                            <field name="default_packaging_scale_id"
+                            <field name="packaging_scale_id"
                                    options="{'no_create': True}"/>
                             <div class="text-muted">
                                 Default scale device used when an MO or
@@ -132,7 +132,7 @@
                             </div>
                         </setting>
                         <setting>
-                            <field name="default_packaging_empty_weight"/>
+                            <field name="packaging_empty_weight"/>
                             <div class="text-muted">
                                 Default empty packaging weight applied to
                                 pickings (boxes, crates).

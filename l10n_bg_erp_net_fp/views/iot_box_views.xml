@@ -3,14 +3,22 @@
 
     <!--
         Extend native iot.box form with the connection_mode + ErpNet.FP
-        URL fields. Visible only when the box is connected to an
-        ErpNet.FP instance — i.e. the user has opted into our overlay.
+        URL fields, plus a "Discover ErpNet.FP devices" header button.
+        Visible only when the box is connected to an ErpNet.FP instance
+        — i.e. the user has opted into our overlay.
 
-        The native iot.box form is in `iot/views/iot_views.xml` view
-        `iot_box_form`. We inject a new section under the existing
-        sheet so admins can configure ErpNet.FP-specific options
-        without leaving the IoT Box configuration screen.
+        The action record must come BEFORE the view record so that the
+        `%(action_open_iot_discover_wizard)d` button reference resolves
+        at parse time. Odoo's XML loader evaluates `%(name)d` lookups
+        when it builds each record; forward references aren't resolved.
     -->
+
+    <record id="action_open_iot_discover_wizard" model="ir.actions.act_window">
+        <field name="name">Discover ErpNet.FP devices</field>
+        <field name="res_model">iot.discover.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
 
     <record id="iot_box_form_inherit_erp_net_fp" model="ir.ui.view">
         <field name="name">iot.box.form.inherit.erp.net.fp</field>
@@ -37,13 +45,6 @@
                 </header>
             </xpath>
         </field>
-    </record>
-
-    <record id="action_open_iot_discover_wizard" model="ir.actions.act_window">
-        <field name="name">Discover ErpNet.FP devices</field>
-        <field name="res_model">iot.discover.wizard</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
     </record>
 
 </odoo>

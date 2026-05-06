@@ -22,19 +22,25 @@ supported by ErpNet.FP server. Features include:
 * Bulgarian tax group mapping (А, Б, В, Г)
 * Dual connection mode: Direct (server) and Proxy (browser)
 """,
-    'version': '19.0.8.4.3',
+    'version': '19.0.10.0.0',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
     'category': 'Point Of Sale',
     "development_status": "Production/Stable",
     'maintainers': ['rosenvladimirov'],
+    # Version-bump notes:
+    #   19.0.9.0.0  → added `iot` (EE) hard dep for native IoT Box flow
+    #   19.0.10.0.0 → added `mrp` + `stock` deps for packaging weight QC
     'depends': [
         'base',
         'bus',
         'mail',
         'point_of_sale',
         'account',
+        'iot',
+        'mrp',
+        'stock',
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -54,9 +60,12 @@ supported by ErpNet.FP server. Features include:
         'views/product_template_proxy_views.xml',
         'views/pos_payment_method_proxy_views.xml',
         'views/res_config_settings_views.xml',
+        'views/iot_box_views.xml',
+        'views/packaging_qc_views.xml',
         'views/menu_items.xml',
         'views/menu_items_proxy.xml',
         'wizard/fiscal_cash_operation_wizard_view.xml',
+        'wizard/iot_discover_wizard_view.xml',
     ],
     'demo': [
     ],
@@ -68,6 +77,9 @@ supported by ErpNet.FP server. Features include:
             'l10n_bg_erp_net_fp/static/src/js/printer_id_field.js',
             'l10n_bg_erp_net_fp/static/src/xml/printer_id_field.xml',
             'l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js',
+            # 19.0.9.0.0 — native iot.box / iot.device proxy bridge.
+            'l10n_bg_erp_net_fp/static/src/js/iot_longpolling_proxy_patch.js',
+            'l10n_bg_erp_net_fp/static/src/js/iot_browser_proxy_handler.js',
         ],
         # POS assets (само за POS)
         'point_of_sale._assets_pos': [

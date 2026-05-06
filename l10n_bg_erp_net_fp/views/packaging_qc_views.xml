@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- BoM form: tolerance + empty weight -->
+    <record id="mrp_bom_form_inherit_packaging_qc" model="ir.ui.view">
+        <field name="name">mrp.bom.form.inherit.packaging.qc</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Packaging QC" name="packaging_qc">
+                    <group>
+                        <field name="weight_tolerance_percent"
+                               help="0 = use company default"/>
+                        <field name="package_empty_weight"
+                               widget="float"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- mrp.production form: verify button + status fields -->
+    <record id="mrp_production_form_inherit_packaging_qc" model="ir.ui.view">
+        <field name="name">mrp.production.form.inherit.packaging.qc</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_verify_packaging_weight"
+                        type="object"
+                        string="Verify package weight"
+                        icon="fa-balance-scale"
+                        class="btn-secondary"
+                        invisible="state in ('draft', 'cancel')"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Packaging QC" name="packaging_qc">
+                    <group>
+                        <group string="Configuration">
+                            <field name="packaging_scale_device_id"
+                                   options="{'no_create': True}"/>
+                        </group>
+                        <group string="Last verification">
+                            <field name="packaging_weight_state"
+                                   widget="badge"
+                                   decoration-success="packaging_weight_state == 'pass'"
+                                   decoration-danger="packaging_weight_state == 'fail'"
+                                   decoration-muted="packaging_weight_state == 'pending'"/>
+                            <field name="packaging_actual_weight"
+                                   readonly="1"/>
+                            <field name="packaging_expected_weight"
+                                   readonly="1"/>
+                            <field name="packaging_weight_verified_at"
+                                   readonly="1"/>
+                            <field name="packaging_weight_message"
+                                   readonly="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- stock.picking form: verify button + status fields -->
+    <record id="stock_picking_form_inherit_packaging_qc" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit.packaging.qc</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_verify_packaging_weight"
+                        type="object"
+                        string="Verify package weight"
+                        icon="fa-balance-scale"
+                        class="btn-secondary"
+                        invisible="state in ('draft', 'cancel', 'done')"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Packaging QC" name="packaging_qc">
+                    <group>
+                        <group string="Configuration">
+                            <field name="packaging_scale_device_id"
+                                   options="{'no_create': True}"/>
+                        </group>
+                        <group string="Last verification">
+                            <field name="packaging_weight_state"
+                                   widget="badge"
+                                   decoration-success="packaging_weight_state == 'pass'"
+                                   decoration-danger="packaging_weight_state == 'fail'"
+                                   decoration-muted="packaging_weight_state == 'pending'"/>
+                            <field name="packaging_actual_weight"
+                                   readonly="1"/>
+                            <field name="packaging_expected_weight"
+                                   readonly="1"/>
+                            <field name="packaging_weight_verified_at"
+                                   readonly="1"/>
+                            <field name="packaging_weight_message"
+                                   readonly="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- res.config.settings: company-default tolerance / scale / empty weight -->
+    <record id="res_config_settings_inherit_packaging_qc" model="ir.ui.view">
+        <field name="name">res.config.settings.inherit.packaging.qc</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Packaging Weight QC"
+                     string="Packaging Weight QC"
+                     name="l10n_bg_packaging_qc">
+                    <block title="Default packaging weight verification">
+                        <setting>
+                            <field name="default_packaging_tolerance_percent"/>
+                            <div class="text-muted">
+                                Default ± tolerance for MO + picking weight
+                                verification. BoMs and individual records
+                                can override this.
+                            </div>
+                        </setting>
+                        <setting>
+                            <field name="default_packaging_scale_id"
+                                   options="{'no_create': True}"/>
+                            <div class="text-muted">
+                                Default scale device used when an MO or
+                                picking doesn't specify one.
+                            </div>
+                        </setting>
+                        <setting>
+                            <field name="default_packaging_empty_weight"/>
+                            <div class="text-muted">
+                                Default empty packaging weight applied to
+                                pickings (boxes, crates).
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

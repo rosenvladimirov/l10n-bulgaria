@@ -4,6 +4,38 @@ All notable changes to the l10n_bg_erp_net_fp module will be documented in this 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [19.0.10.0.0] - 2026-05-06
+
+### Added — Packaging weight QC (Phase 3, mirrors 18.0.10.0.0)
+
+See 18.0.10.0.0 for the full feature list. Added: `mrp` and `stock` dependencies, `l10n.bg.packaging.weighable.mixin`, MO + picking + BoM extensions, company-level defaults, "Verify package weight" buttons + Packaging QC notebook pages.
+
+*Assisted by Claude Code*
+
+## [19.0.9.0.0] - 2026-05-06
+
+### Added — Native Odoo IoT Box integration (mirrors 18.0.9.0.0)
+
+- New hard dependency: `iot` (EE module). Clients on Community Edition without the EE `iot` module must stay on the 19.0.8.4.x branch.
+- `iot.box.connection_mode` field (`direct` / `proxy`) with auto-detection from host
+- `iot.box.erp_net_fp_url` + `iot.box.erp_net_fp_ssl_verify` fields
+- `iot.box._rpc_proxy_to_iot()` — browser-via-server fallback
+- `iot.device.action_via_proxy(payload, timeout)` — universal server-side dispatch
+- `iot.device.read_weight()` — convenience wrapper for scale devices
+- New table `iot.device.response` — generic response store, separate from `fiscal.printer.response`
+- "Discover ErpNet.FP devices" wizard — auto-creates `iot.device` records from `/scales`, `/displays`, `/readers`, `/printers`, `/pinpads`
+- Bridge `fiscal.printer.device` → `iot.box` — "Create matching IoT Box" button + bidirectional URL sync via `write()` override
+- JS: `IoTLongpolling._rpcIoT` patched. **v19 imports from `@iot/network_utils/iot_longpolling`** (different from v18 `@iot/iot_longpolling`).
+- JS: bus subscriber on channel `iot.device.request`
+
+### Backward compatibility
+
+- `fiscal.printer.device` flow unchanged
+- New IoT integration is opt-in
+- All new code is ADD-only
+
+*Assisted by Claude Code*
+
 ## [18.0.7.1.3] - 2026-03-21
 
 ### Added

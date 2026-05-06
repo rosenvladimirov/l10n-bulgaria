@@ -19,3 +19,14 @@ from . import pos_config_extensions
 from . import product_template_extensions
 from . import pos_payment_method_extensions
 from . import pos_order_extensions
+
+# Native Odoo IoT Box integration (19.0.9.0.0+).
+from . import iot_device_response
+from . import iot_box_extensions
+from . import iot_device_extensions
+
+# Packaging weight QC (19.0.10.0.0+).
+from . import packaging_weighable_mixin
+from . import res_company_packaging_qc
+from . import mrp_packaging_qc
+from . import stock_picking_packaging_qc

@@ -557,7 +557,9 @@ L10N_BG_VIES_LINES_FIELDS = {
     "info_tag_vir_3": lambda value: parce_str_15(value),
     "account_tag_vir_4": lambda value: f"{value:.2f}".rjust(12),
     "account_tag_vir_5": lambda value: f"{value:.2f}".rjust(12),
-    "account_tag_vir_6": lambda value: f"{value:.2f}".rjust(12) + "       ",
+    "account_tag_vir_6": lambda value: f"{value:.2f}".rjust(12),
+    # MM/YYYY tax-period suffix (НАП спец) — конвертира SQL `YYYYMM` → `MM/YYYY`
+    "info_tag_vir_7": lambda value: convert_date_vies(value) if value else "",
 }
 
 L10N_BG_REPORTS = {

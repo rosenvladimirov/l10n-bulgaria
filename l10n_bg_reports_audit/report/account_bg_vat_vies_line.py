@@ -79,7 +79,7 @@ FROM {self._from()}
     @api.model
     def _select(self):
         return """am.company_id AS company_id,
-    'VDR' AS info_tag_vir_1,
+    'VIR' AS info_tag_vir_1,
     to_char(am.date, 'YYYYMM') AS info_tag_vir_7,
     am.partner_shipping_id AS partner_id,
     am.state AS state,

@@ -15,7 +15,7 @@
     <record id="iot_box_form_inherit_erp_net_fp" model="ir.ui.view">
         <field name="name">iot.box.form.inherit.erp.net.fp</field>
         <field name="model">iot.box</field>
-        <field name="inherit_id" ref="iot.iot_box_form_view"/>
+        <field name="inherit_id" ref="iot.iot_box_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="inside">
                 <group string="ErpNet.FP Integration"
@@ -32,7 +32,7 @@
                             type="action"
                             string="Discover ErpNet.FP devices"
                             class="oe_highlight"
-                            context="{'default_iot_box_id': id}"
+                            context="{'default_iot_box_id': active_id}"
                             invisible="not erp_net_fp_url"/>
                 </header>
             </xpath>

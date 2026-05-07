@@ -180,7 +180,7 @@
                 <filter string="Pairing"  name="pairing" domain="[('state', '=', 'pairing')]"/>
                 <filter string="Archived" name="archived" domain="[('state', '=', 'archived')]"/>
                 <separator/>
-                <group string="Group by">
+                <group>
                     <filter string="State"   name="g_state"   context="{'group_by': 'state'}"/>
                     <filter string="Version" name="g_version" context="{'group_by': 'version'}"/>
                 </group>

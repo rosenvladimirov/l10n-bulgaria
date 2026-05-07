@@ -103,7 +103,7 @@ class ErpNetFpProxy(models.Model):
         help="Timestamp of the last accepted heartbeat.",
     )
     alive = fields.Boolean(
-        compute="_compute_alive", store=False,
+        compute="_compute_alive", search="_search_alive", store=False,
         help="True if last_seen is within "
              f"{_ALIVE_WINDOW_SECONDS} s.",
     )
@@ -144,6 +144,22 @@ class ErpNetFpProxy(models.Model):
                 continue
             delta = (now - rec.last_seen).total_seconds()
             rec.alive = delta < _ALIVE_WINDOW_SECONDS
+
+    def _search_alive(self, operator, value):
+        """Translate `alive == True/False` search into a `last_seen` window."""
+        from datetime import timedelta as _td
+        threshold = fields.Datetime.now() - _td(seconds=_ALIVE_WINDOW_SECONDS)
+        # Normalise (operator, value) → "want_alive" boolean
+        if operator in ("=", "==", "in"):
+            want = bool(value if not isinstance(value, (list, tuple)) else value[0])
+        elif operator in ("!=", "<>", "not in"):
+            want = not bool(value if not isinstance(value, (list, tuple)) else value[0])
+        else:
+            return [("id", "in", [])]
+        if want:
+            return [("last_seen", ">=", threshold)]
+        return ["|", ("last_seen", "=", False),
+                    ("last_seen", "<", threshold)]
 
     @api.depends("devices_json")
     def _compute_devices_summary(self):

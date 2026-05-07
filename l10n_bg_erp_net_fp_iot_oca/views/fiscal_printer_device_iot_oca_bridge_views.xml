@@ -23,7 +23,7 @@
                         groups="base.group_system"
                         class="btn-secondary"/>
             </xpath>
-            <xpath expr="//page[@name='proxy_driver']/group/group[@string='PLU bookkeeping']"
+            <xpath expr="//page[@name='proxy_driver']/group/group[@name='plu_bookkeeping']"
                    position="after">
                 <group string="OCA IoT Bridge" name="iot_oca_bridge">
                     <field name="iot_communication_system_id"

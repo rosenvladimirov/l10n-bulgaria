@@ -66,7 +66,9 @@
                             <field name="nsale_prefix"/>
                             <field name="on_sync_fail"/>
                         </group>
-                        <group string="PLU bookkeeping" invisible="driver_type == 'auto'">
+                        <group string="PLU bookkeeping"
+                               name="plu_bookkeeping"
+                               invisible="driver_type == 'auto'">
                             <field name="last_plu_sync" readonly="1"/>
                             <field name="plu_capacity" readonly="1"/>
                             <field name="plu_programmed" readonly="1"/>

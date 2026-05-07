@@ -115,6 +115,13 @@ async function fiscalBrowserProxyAction(env, action) {
         on_success,  // optional ORM method on fiscal.printer.device to call after
     } = params;
 
+    // NOTE on returns: Odoo's ActionManager treats a client action's
+    // return value as a chained follow-up action when it's a non-null
+    // object. Returning ad-hoc status dicts like `{ok: false, ...}`
+    // here crashes the manager with "actions of type undefined" — fix:
+    // never return a plain object, only `undefined` (no follow-up) or
+    // a real `{type: "ir.actions.<...>", ...}` descriptor.
+
     if (!host || !endpoint) {
         env.services.notification.add(
             _t("Missing host or endpoint in fiscal proxy action."),
@@ -134,7 +141,7 @@ async function fiscalBrowserProxyAction(env, action) {
                 { type: "danger", sticky: true,
                   title: _t("Operation aborted") },
             );
-            return { ok: false, blocked: true, reason: pre.reason };
+            return;
         }
     }
 
@@ -164,7 +171,7 @@ async function fiscalBrowserProxyAction(env, action) {
             type: "danger", sticky: true,
             title: _t("Browser fetch failed (%s)", url),
         });
-        return { ok: false, error: msg };
+        return;
     }
 
     if (result && result.ok === false) {
@@ -172,7 +179,7 @@ async function fiscalBrowserProxyAction(env, action) {
             _humanizeMessages(result.messages || []),
             { type: "danger", sticky: true, title: _t("Printer error") },
         );
-        return result;
+        return;
     }
 
     // success path
@@ -191,8 +198,8 @@ async function fiscalBrowserProxyAction(env, action) {
                 "[FiscalBrowserProxy] on_success call failed:", err);
         }
     }
-
-    return result;
+    // No return — ActionManager would try to chain a non-action object
+    // and crash with "actions of type undefined".
 }
 
 registry.category("actions").add(

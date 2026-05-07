@@ -260,8 +260,20 @@ class FiscalPrinterDevice(models.Model):
             return {"ok": False, "message": _("No host configured."),
                     "printers": []}
         url = "%s/printers" % host.rstrip("/")
+        # Browser-like UA bypasses Cloudflare bot rules that 403 the
+        # default `python-requests/...` UA before the request reaches
+        # the proxy.
+        headers = {
+            "User-Agent": (
+                "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+                "(KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 "
+                "OdooErpNetFP-Odoo/18.0"
+            ),
+            "Accept": "application/json",
+        }
         try:
-            r = requests.get(url, timeout=timeout, verify=bool(ssl_verify))
+            r = requests.get(url, timeout=timeout, verify=bool(ssl_verify),
+                             headers=headers)
             r.raise_for_status()
             data = r.json() or {}
         except Exception as exc:

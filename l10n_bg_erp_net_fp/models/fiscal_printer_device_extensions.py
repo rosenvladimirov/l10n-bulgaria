@@ -15,10 +15,6 @@ import logging
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
-# Bus channel for IoT proxy requests — must match the JS handler in
-# l10n_bg_erp_net_fp/static/src/js/iot_browser_proxy_handler.js
-IOT_BUS_CHANNEL = "iot.device.request"
-
 _logger = logging.getLogger(__name__)
 
 
@@ -335,108 +331,8 @@ class FiscalPrinterDevice(models.Model):
             "raw": result,
         }
 
-    # ─── Bridge to native iot.box (Phase 2.c, 18.0.9.0.0+) ─────────
-    # Optional one-way link — `fiscal.printer.device` stays the source
-    # of truth for host / printer_id; iot.box mirrors them on save.
-    # Existing clients keep working without ever creating an iot.box.
-
-    iot_box_id = fields.Many2one(
-        "iot.box",
-        string="Native IoT Box",
-        help="Optional link to a native iot.box record. When set, "
-             "iot.box.erp_net_fp_url + erp_net_fp_ssl_verify track "
-             "this device's host + ssl_verify on every write. "
-             "Created on demand by the 'Create matching IoT Box' "
-             "button; safe to delete the link without affecting the "
-             "legacy fiscal.printer.device flow.",
-    )
-
-    def action_create_matching_iot_box(self):
-        """Spawn an iot.box that mirrors this fiscal.printer.device,
-        plus a printer-type iot.device under it. Idempotent — re-runs
-        update the existing records instead of creating duplicates."""
-        self.ensure_one()
-        Box = self.env["iot.box"].sudo()
-        Device = self.env["iot.device"].sudo()
-
-        identifier = f"printer.{self.printer_id}"
-        box = self.iot_box_id
-        if not box:
-            box = Box.create({
-                "name": self.name,
-                "identifier": f"erp-net-fp-{self.id}",
-                "ip": _hostname_only(self.host),
-                "erp_net_fp_url": self.host,
-                "erp_net_fp_ssl_verify": self.ssl_verify,
-                "connection_mode": self.connection_mode or "direct",
-                "fiscal_printer_device_id": self.id,
-                "company_id": self.env.company.id,
-            })
-            self.iot_box_id = box
-
-        # Re-sync URL fields in case they drifted.
-        box.write({
-            "erp_net_fp_url": self.host,
-            "erp_net_fp_ssl_verify": self.ssl_verify,
-            "connection_mode": self.connection_mode or "direct",
-        })
-
-        existing = Device.search([
-            ("iot_id", "=", box.id),
-            ("identifier", "=", identifier),
-        ], limit=1)
-        if not existing:
-            Device.create({
-                "iot_id": box.id,
-                "name": f"{self.name} (printer)",
-                "identifier": identifier,
-                "type": "printer",
-                "connection": "network",
-                "connected": True,
-                "manufacturer": "ErpNet.FP",
-            })
-
-        return {
-            "type": "ir.actions.act_window",
-            "res_model": "iot.box",
-            "res_id": box.id,
-            "view_mode": "form",
-            "target": "current",
-        }
-
-    def write(self, vals):
-        """Mirror host / ssl_verify / connection_mode changes to the
-        linked iot.box so the two views stay consistent.
-
-        Only fires when an iot.box link already exists — this method
-        never creates an iot.box implicitly, keeping the old flow
-        unchanged for clients who don't opt in.
-        """
-        result = super().write(vals)
-        sync_keys = {"host", "ssl_verify", "connection_mode"}
-        if sync_keys.intersection(vals.keys()):
-            for rec in self:
-                box = rec.iot_box_id
-                if not box:
-                    continue
-                box.sudo().write({
-                    "erp_net_fp_url": rec.host,
-                    "erp_net_fp_ssl_verify": rec.ssl_verify,
-                    "connection_mode": rec.connection_mode or "direct",
-                })
-        return result
-
-
-def _hostname_only(url):
-    """Strip scheme + path → keep just hostname[:port] for iot.box.ip."""
-    if not url:
-        return ""
-    from urllib.parse import urlparse
-    try:
-        parsed = urlparse(url)
-        host = parsed.hostname or url
-        if parsed.port and parsed.port not in (80, 443):
-            return f"{host}:{parsed.port}"
-        return host
-    except Exception:
-        return url
+    # ─── Bridge to native iot.box ─────────────────────────────────
+    # Moved to `l10n_bg_erp_net_fp_iot` bridge module (in
+    # l10n-bulgaria-ee, auto_install=True) in 18.0.10.1.0 so this
+    # core file no longer references the EE-only `iot.box` /
+    # `iot.device` models — keeping the core CE-installable.

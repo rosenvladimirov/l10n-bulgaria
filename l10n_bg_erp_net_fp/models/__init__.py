@@ -9,6 +9,7 @@ from . import pos_printer
 from . import pos_session
 from . import erp_net_fp_exceptions
 from . import res_config_settings
+from . import res_users
 
 # Proxy-aware extensions (Odoo.ErpNet.FP Python proxy support).
 # All ADD-only — none of these change existing behaviour.

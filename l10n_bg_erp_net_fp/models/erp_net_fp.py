@@ -154,11 +154,21 @@ class FiscalPrinterDevice(models.Model):
         )
 
     def _get_session(self):
-        """Създава нова сесия за HTTP заявки"""
+        """Създава нова сесия за HTTP заявки.
+
+        User-Agent: задава browser-like UA защото Cloudflare bot
+        protection отхвърля `python-requests/X.Y` UA с 403 преди
+        заявката да стигне до ErpNet.FP proxy-то.
+        """
         session = requests.Session()
         session.headers.update({
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'User-Agent': (
+                'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
+                '(KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 '
+                'OdooErpNetFP-Odoo/19.0'
+            ),
         })
         session.verify = self.ssl_verify
         return session

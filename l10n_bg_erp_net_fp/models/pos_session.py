@@ -36,6 +36,24 @@ class PosSession(models.Model):
         store=True
     )
 
+    # ─── Per-cashier fiscal-printer credentials ──────────────────
+    # Mirrored from the session's `user_id` so the POS frontend can
+    # read them without a separate RPC. When empty, the ErpNet.FP
+    # server falls back to its config.yaml `operator` / `operator_password`
+    # for the targeted printer.
+    l10n_bg_fp_operator = fields.Char(
+        related='user_id.l10n_bg_fp_operator',
+        string='Cashier operator code',
+        readonly=True,
+        store=False,
+    )
+    l10n_bg_fp_operator_password = fields.Char(
+        related='user_id.l10n_bg_fp_operator_password',
+        string='Cashier operator password',
+        readonly=True,
+        store=False,
+    )
+
     @api.depends('l10n_bg_fiscal_printer_id', 'l10n_bg_fiscal_printer_id.printer_id')
     def _compute_l10n_bg_erp_net_fp_ip(self):
         for config in self:
@@ -58,6 +76,8 @@ class PosSession(models.Model):
             'l10n_bg_last_x_report',
             'l10n_bg_z_report_printed',
             'l10n_bg_z_report_datetime',
+            'l10n_bg_fp_operator',
+            'l10n_bg_fp_operator_password',
         ]
 
         res.extend(fiscal_fields)

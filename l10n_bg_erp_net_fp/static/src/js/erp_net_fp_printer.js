@@ -92,8 +92,21 @@ export class ErpNetFPPrinter {
         // Взимаме pos config от order ако е налично
         const posConfig = order.pos?.config || order.config || { name: "POS" };
 
+        // Per-cashier fiscal-printer credentials — set on res.users
+        // and exposed through pos.session._load_pos_data_fields.
+        // When empty, the ErpNet.FP server falls back to its own
+        // config.yaml defaults (operator=1, password=0000).
+        const session = order.pos?.session || order.session;
+        const operatorOpts = {};
+        if (session?.l10n_bg_fp_operator) {
+            operatorOpts.operator = session.l10n_bg_fp_operator;
+        }
+        if (session?.l10n_bg_fp_operator_password) {
+            operatorOpts.operatorPassword = session.l10n_bg_fp_operator_password;
+        }
+
         // Подготвяме данните за фискален бон
-        const receiptData = this._prepareFiscalReceiptData(order, posConfig);
+        const receiptData = this._prepareFiscalReceiptData(order, posConfig, operatorOpts);
 
         // Detect invoice mode — Odoo POS sets `to_invoice` flag from
         // the standard "Фактура" checkbox in the payment screen. When
@@ -658,8 +671,19 @@ export class ErpNetFPPrinter {
         // ════════════════════════════════════════════════════════════
         const posConfig = refundOrder.pos?.config || refundOrder.config || { name: "POS" };
 
+        // Per-cashier operator credentials (mirrors the receipt path
+        // above — see comments at line ~96)
+        const session = refundOrder.pos?.session || refundOrder.session;
+        const operatorOpts = { isReversal: true };
+        if (session?.l10n_bg_fp_operator) {
+            operatorOpts.operator = session.l10n_bg_fp_operator;
+        }
+        if (session?.l10n_bg_fp_operator_password) {
+            operatorOpts.operatorPassword = session.l10n_bg_fp_operator_password;
+        }
+
         // ВАЖНО: Подаваме isReversal: true за да конвертира към положителни стойности
-        const receiptData = this._prepareFiscalReceiptData(refundOrder, posConfig, { isReversal: true });
+        const receiptData = this._prepareFiscalReceiptData(refundOrder, posConfig, operatorOpts);
 
         // Добавяме данните от оригиналния бон
         receiptData.receiptNumber = originalFiscalData.receiptNumber;

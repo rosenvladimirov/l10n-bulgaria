@@ -44,6 +44,106 @@ def _verify_hmac(body: bytes, secret: str, provided_sig: str) -> bool:
 
 class ErpNetFpRegistryController(http.Controller):
 
+    # ─── POST /erp_net_fp/registry/auto-enrol ────────────────────
+
+    @http.route(
+        "/erp_net_fp/registry/auto-enrol",
+        type="http", auth="public", methods=["POST"], csrf=False,
+    )
+    def registry_auto_enrol(self, **kw):
+        """Zero-touch enrolment using the proxy's admin_token as
+        proof-of-possession.
+
+        A fresh proxy starts with:
+          * URL hardcoded in config.yaml (default iot.mcpworks.net)
+          * admin_token auto-bootstrapped on first run
+            (`/admin/bootstrap-info` flow, RFC1918-restricted, single-claim)
+
+        On startup it POSTs here with `{name, host, version, admin_token}`
+        and gets back `{secret, name}`. From that moment the proxy
+        heartbeats with HMAC-signed bodies as in the manual flow.
+
+        Idempotency: if a record with matching `name` already exists,
+        we either:
+          * accept (admin_token matches the stored one, or no stored
+            token yet) — refresh secret + return
+          * reject 409 (admin_token mismatches) — operator must reset
+            via the UI
+        If no record exists, create one with state=active.
+
+        This is opt-in via `server.registry.enabled: true` on the
+        proxy. There is intentionally no shared enrolment secret —
+        the per-proxy admin_token is the unit of authentication.
+        """
+        try:
+            raw = request.httprequest.get_data() or b""
+            data = json.loads(raw or b"{}")
+        except ValueError:
+            return _json_response({"error": "Invalid JSON body"}, 400)
+
+        name = (data.get("name") or "").strip()
+        host = (data.get("host") or "").strip()
+        version = (data.get("version") or "").strip()
+        admin_token = (data.get("admin_token") or "").strip()
+        public_url = (data.get("public_url") or "").rstrip("/")
+        if not (name and admin_token):
+            return _json_response(
+                {"error": "name + admin_token required"}, 400)
+
+        Proxy = request.env["erpnet.fp.proxy"].sudo()
+        existing = Proxy.search([("name", "=", name)], limit=1)
+        new_secret = secrets.token_urlsafe(32)
+
+        if existing:
+            stored = existing.get_admin_token()
+            if stored and stored != admin_token:
+                _logger.warning(
+                    "Auto-enrol rejected: name=%r admin_token mismatch "
+                    "(host=%r). Operator must Reset Secret in UI to "
+                    "allow re-enrolment.", name, host)
+                return _json_response(
+                    {"error": "Name taken — admin token mismatch. "
+                              "Reset Secret in the Fleet UI to re-enrol."},
+                    409)
+            existing_vals = {
+                "registry_secret": new_secret,
+                "host": host or existing.host,
+                "version": version or existing.version,
+                "state": "active",
+                "last_seen": fields.Datetime.now(),
+            }
+            if public_url:
+                existing_vals["url"] = public_url
+            existing.write(existing_vals)
+            existing.set_admin_token(admin_token)
+            existing.message_post(body=(
+                f"Proxy auto-enrolled (host={host!r}, version={version!r})."
+            ))
+            _logger.info("Proxy %s auto-enrolled (host=%s, version=%s)",
+                         name, host, version)
+            return _json_response({"secret": new_secret, "name": name})
+
+        # New record — accept open enrolment.
+        new_vals = {
+            "name": name,
+            "host": host,
+            "version": version,
+            "registry_secret": new_secret,
+            "state": "active",
+            "last_seen": fields.Datetime.now(),
+        }
+        if public_url:
+            new_vals["url"] = public_url
+        rec = Proxy.create(new_vals)
+        rec.set_admin_token(admin_token)
+        rec.message_post(body=(
+            f"Proxy auto-enrolled — first-time registration "
+            f"(host={host!r}, version={version!r})."
+        ))
+        _logger.info("New proxy %s auto-enrolled (host=%s, version=%s)",
+                     name, host, version)
+        return _json_response({"secret": new_secret, "name": name})
+
     # ─── POST /erp_net_fp/registry/pair ──────────────────────────
 
     @http.route(
@@ -153,6 +253,7 @@ class ErpNetFpRegistryController(http.Controller):
         version = (data.get("version") or "").strip()
         new_host = (data.get("host") or host or "").strip()
         admin_token = (data.get("admin_token") or "").strip()
+        public_url = (data.get("public_url") or "").rstrip("/")
         devices = data.get("devices") or {}
         try:
             devices_json = json.dumps(devices, sort_keys=True)
@@ -165,6 +266,11 @@ class ErpNetFpRegistryController(http.Controller):
             "devices_json": devices_json,
             "state": "active",
         }
+        # Only overwrite URL if proxy reported one — keep manual edits
+        # done by admin in the form view if proxy doesn't know its
+        # public URL (e.g. local-only dev proxies).
+        if public_url:
+            vals["url"] = public_url
         proxy.write(vals)
         if admin_token:
             try:

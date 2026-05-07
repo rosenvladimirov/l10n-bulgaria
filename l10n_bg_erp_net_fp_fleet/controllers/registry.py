@@ -25,6 +25,28 @@ from odoo.http import Response, request
 
 _logger = logging.getLogger(__name__)
 
+# Bus channel that the kanban auto-refresh JS listens on. Anyone with
+# read access to the proxy fleet subscribes; the message payload
+# carries minimal record info so the client can decide whether to
+# reload the view.
+_FLEET_BUS_CHANNEL = "erpnet_fp_fleet"
+
+
+def _notify_fleet(env, kind: str, proxy) -> None:
+    """Push a `fleet_update` event onto the bus so any open Fleet view
+    auto-refreshes. `kind` is one of: enrol_new, enrol_refresh, heartbeat,
+    banned."""
+    try:
+        env["bus.bus"]._sendone(_FLEET_BUS_CHANNEL, "fleet_update", {
+            "kind": kind,
+            "id": proxy.id if proxy else None,
+            "name": proxy.name if proxy else "",
+            "state": proxy.state if proxy else "",
+        })
+    except Exception:  # noqa: BLE001
+        # Never let bus failure block the heartbeat handler.
+        _logger.exception("Bus notify failed")
+
 
 def _json_response(payload: dict, status: int = 200) -> Response:
     return Response(
@@ -95,6 +117,20 @@ class ErpNetFpRegistryController(http.Controller):
         new_secret = secrets.token_urlsafe(32)
 
         if existing:
+            # Archived = banned. Operator must Unarchive the record
+            # before this proxy can re-enrol. The proxy's admin_token
+            # remains valid to call /admin/* but it can no longer
+            # heartbeat or appear in the active fleet.
+            if existing.state == "archived":
+                _logger.warning(
+                    "Auto-enrol BANNED: proxy %r is archived "
+                    "(host=%r).", name, host)
+                _notify_fleet(request.env, "banned", existing)
+                return _json_response(
+                    {"error": "Proxy archived — banned. Unarchive in the "
+                              "Fleet UI to allow re-enrolment.",
+                     "banned": True},
+                    403)
             stored = existing.get_admin_token()
             if stored and stored != admin_token:
                 _logger.warning(
@@ -121,6 +157,7 @@ class ErpNetFpRegistryController(http.Controller):
             ))
             _logger.info("Proxy %s auto-enrolled (host=%s, version=%s)",
                          name, host, version)
+            _notify_fleet(request.env, "enrol_refresh", existing)
             return _json_response({"secret": new_secret, "name": name})
 
         # New record — accept open enrolment.
@@ -142,6 +179,7 @@ class ErpNetFpRegistryController(http.Controller):
         ))
         _logger.info("New proxy %s auto-enrolled (host=%s, version=%s)",
                      name, host, version)
+        _notify_fleet(request.env, "enrol_new", rec)
         return _json_response({"secret": new_secret, "name": name})
 
     # ─── POST /erp_net_fp/registry/pair ──────────────────────────
@@ -245,9 +283,34 @@ class ErpNetFpRegistryController(http.Controller):
                 proxy = cand
                 break
         if proxy is None:
+            # Two distinct cases:
+            #   * Operator deleted the record → proxy should re-enrol
+            #     immediately (returns 410 Gone, proxy clears its
+            #     local secret and falls back to auto-enrol).
+            #   * Operator archived the record → ban; proxy must NOT
+            #     re-enrol (returns 403 Forbidden).
+            # Disambiguate by checking for any record (incl. archived)
+            # whose secret would have validated the HMAC.
+            archived = Proxy.search([
+                ("registry_secret", "!=", False),
+                ("state", "=", "archived"),
+            ])
+            for cand in archived:
+                if _verify_hmac(body, cand.registry_secret, sig):
+                    _logger.warning(
+                        "Heartbeat rejected — proxy %r is archived",
+                        cand.name)
+                    _notify_fleet(request.env, "banned", cand)
+                    return _json_response(
+                        {"error": "Proxy archived — banned",
+                         "banned": True},
+                        403)
             _logger.warning("Heartbeat rejected — no proxy matched HMAC "
-                            "(host=%r)", host)
-            return _json_response({"error": "Invalid signature"}, 401)
+                            "(host=%r). Proxy will re-enrol.", host)
+            return _json_response(
+                {"error": "Unknown proxy — please re-enrol",
+                 "reenrol": True},
+                410)
 
         # Apply the heartbeat
         version = (data.get("version") or "").strip()
@@ -279,4 +342,5 @@ class ErpNetFpRegistryController(http.Controller):
                 _logger.exception(
                     "Failed to encrypt+store admin token for proxy %s",
                     proxy.name)
+        _notify_fleet(request.env, "heartbeat", proxy)
         return _json_response({"ok": True, "name": proxy.name})

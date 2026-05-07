@@ -25,7 +25,7 @@ This module has NO dependency on `point_of_sale`, `iot`, `mrp`, or
 (default `iot.mcpworks.net`) — the central registry need not also
 host the POS that actually uses the printers.
 """,
-    'version': '19.0.1.1.0',
+    'version': '19.0.1.2.0',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
@@ -47,6 +47,11 @@ host the POS that actually uses the printers.
         'views/menu_items.xml',
         'wizard/erpnet_fp_program_vat_wizard_views.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'l10n_bg_erp_net_fp_fleet/static/src/js/fleet_autorefresh.js',
+        ],
+    },
     'installable': True,
     'auto_install': False,
     'application': True,

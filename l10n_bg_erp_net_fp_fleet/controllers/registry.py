@@ -344,9 +344,10 @@ class ErpNetFpRegistryController(http.Controller):
                     proxy.name)
 
         # Sync devices into the per-device model so admins can pivot
-        # / chart by kind across the fleet.
+        # / chart by kind across the fleet. The handler runs as the
+        # public user (no ACL on fleet models) — sudo() is mandatory.
         try:
-            request.env["erpnet.fp.proxy.device"]._sync_from_heartbeat(
+            request.env["erpnet.fp.proxy.device"].sudo()._sync_from_heartbeat(
                 proxy, devices)
         except Exception:  # noqa: BLE001
             _logger.exception(

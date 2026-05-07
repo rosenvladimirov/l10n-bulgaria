@@ -43,7 +43,6 @@ host the POS that actually uses the printers.
         'security/erpnet_fp_fleet_security.xml',
         'security/ir.model.access.csv',
         'data/ir_cron.xml',
-        'data/ir_config_parameter.xml',
         'views/erpnet_fp_proxy_views.xml',
         'views/menu_items.xml',
         'wizard/erpnet_fp_program_vat_wizard_views.xml',

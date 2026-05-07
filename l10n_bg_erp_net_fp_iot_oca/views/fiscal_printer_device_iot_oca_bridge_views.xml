@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Bridge-only view inherit. Adds:
+          * "Create matching IoT system" button in the form header
+          * "OCA IoT Bridge" group on the Proxy / Multi-driver tab
+        Inherits the core proxy view from l10n_bg_erp_net_fp.
+    -->
+    <record id="view_fiscal_printer_device_form_iot_oca_bridge"
+            model="ir.ui.view">
+        <field name="name">fiscal.printer.device.form.iot.oca.bridge</field>
+        <field name="model">fiscal.printer.device</field>
+        <field name="inherit_id"
+               ref="l10n_bg_erp_net_fp.view_fiscal_printer_device_form_proxy"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_sync_plu']"
+                   position="before">
+                <button name="action_create_matching_iot_oca_system"
+                        type="object"
+                        string="Create matching IoT system"
+                        invisible="iot_communication_system_id"
+                        groups="base.group_system"
+                        class="btn-secondary"/>
+            </xpath>
+            <xpath expr="//page[@name='proxy_driver']/group/group[@string='PLU bookkeeping']"
+                   position="after">
+                <group string="OCA IoT Bridge" name="iot_oca_bridge">
+                    <field name="iot_communication_system_id"
+                           options="{'no_create': True}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

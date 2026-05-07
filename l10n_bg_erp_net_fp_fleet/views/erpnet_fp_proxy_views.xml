@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- ─── List ────────────────────────────────────────────────── -->
+    <record id="view_erpnet_fp_proxy_list" model="ir.ui.view">
+        <field name="name">erpnet.fp.proxy.list</field>
+        <field name="model">erpnet.fp.proxy</field>
+        <field name="arch" type="xml">
+            <list string="Fleet"
+                  decoration-success="alive"
+                  decoration-muted="state == 'archived'"
+                  decoration-warning="state == 'pairing' and not alive"
+                  decoration-danger="not alive and state == 'active'">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="version"/>
+                <field name="host"/>
+                <field name="url" optional="show"/>
+                <field name="devices_summary" string="Devices"/>
+                <field name="last_seen"/>
+                <field name="alive" widget="boolean_toggle" readonly="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ─── Kanban ──────────────────────────────────────────────── -->
+    <record id="view_erpnet_fp_proxy_kanban" model="ir.ui.view">
+        <field name="name">erpnet.fp.proxy.kanban</field>
+        <field name="model">erpnet.fp.proxy</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" default_group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="version"/>
+                <field name="alive"/>
+                <field name="host"/>
+                <field name="last_seen"/>
+                <field name="devices_summary"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click #{record.alive.raw_value ? 'border-success' : 'border-danger'}">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title"><field name="name"/></strong>
+                                    <span class="o_kanban_record_subtitle"><field name="version"/></span>
+                                </div>
+                                <span t-if="record.alive.raw_value" class="badge text-bg-success">alive</span>
+                                <span t-if="!record.alive.raw_value" class="badge text-bg-danger">offline</span>
+                            </div>
+                            <ul>
+                                <li>Host: <field name="host"/></li>
+                                <li>Devices: <field name="devices_summary"/></li>
+                                <li>Last seen: <field name="last_seen"/></li>
+                            </ul>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- ─── Form ────────────────────────────────────────────────── -->
+    <record id="view_erpnet_fp_proxy_form" model="ir.ui.view">
+        <field name="name">erpnet.fp.proxy.form</field>
+        <field name="model">erpnet.fp.proxy</field>
+        <field name="arch" type="xml">
+            <form string="ErpNet.FP Proxy">
+                <header>
+                    <button name="action_generate_pairing_token"
+                            type="object"
+                            string="Generate Pairing Token"
+                            class="btn-primary"
+                            invisible="state == 'archived'"
+                            groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
+                    <button name="action_self_update"
+                            type="object"
+                            string="Self-update Proxy"
+                            class="btn-secondary"
+                            invisible="state != 'active' or not has_admin_token"
+                            groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
+                    <button name="action_view_logs"
+                            type="object"
+                            string="View Logs"
+                            invisible="state != 'active' or not has_admin_token"
+                            groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
+                    <button name="action_open_program_vat_wizard"
+                            type="object"
+                            string="Program VAT"
+                            invisible="state != 'active' or not has_admin_token"
+                            groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
+                    <button name="action_reset_secret"
+                            type="object"
+                            string="Reset Secret"
+                            confirm="Forget the registry secret + admin token? The proxy will need to re-pair."
+                            invisible="state == 'draft'"
+                            groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,pairing,active"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_archive_proxy" type="object"
+                                class="oe_stat_button" icon="fa-archive"
+                                invisible="state == 'archived'"
+                                groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager">
+                            <span>Archive</span>
+                        </button>
+                        <button name="action_unarchive_proxy" type="object"
+                                class="oe_stat_button" icon="fa-undo"
+                                invisible="state != 'archived'"
+                                groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager">
+                            <span>Reactivate</span>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived"
+                            bg_color="bg-danger"
+                            invisible="state != 'archived'"/>
+                    <widget name="web_ribbon" title="Alive"
+                            bg_color="bg-success"
+                            invisible="not alive or state != 'active'"/>
+                    <widget name="web_ribbon" title="Offline"
+                            bg_color="bg-warning"
+                            invisible="alive or state != 'active'"/>
+                    <div class="oe_title">
+                        <label for="name" string="Proxy"/>
+                        <h1><field name="name" placeholder="sofia-shop-1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Identity">
+                            <field name="url" placeholder="https://erpnet.shop1.lan.mcpworks.net"/>
+                            <field name="host" readonly="1"/>
+                            <field name="version" readonly="1"/>
+                        </group>
+                        <group string="Health">
+                            <field name="last_seen" readonly="1"/>
+                            <field name="alive" readonly="1"/>
+                            <field name="devices_summary" readonly="1"/>
+                            <field name="has_admin_token" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Pairing"
+                              groups="base.group_system">
+                            <group>
+                                <field name="pairing_token" readonly="1"/>
+                                <field name="pairing_expires" readonly="1"/>
+                                <field name="registry_secret" readonly="1" password="True"/>
+                            </group>
+                            <p class="text-muted">
+                                Generate a pairing token, then paste it into the proxy's
+                                <code>config.yaml</code> under <code>server.registry.pairing_token</code>.
+                                Set <code>server.registry.enabled: true</code> and restart the proxy.
+                            </p>
+                        </page>
+                        <page string="Devices">
+                            <field name="devices_json" widget="ace"
+                                   options="{'mode': 'json'}" readonly="1"/>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ─── Search ──────────────────────────────────────────────── -->
+    <record id="view_erpnet_fp_proxy_search" model="ir.ui.view">
+        <field name="name">erpnet.fp.proxy.search</field>
+        <field name="model">erpnet.fp.proxy</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="host"/>
+                <field name="version"/>
+                <filter string="Alive" name="alive" domain="[('alive', '=', True)]"/>
+                <filter string="Offline"  name="offline" domain="[('alive', '=', False), ('state', '=', 'active')]"/>
+                <filter string="Pairing"  name="pairing" domain="[('state', '=', 'pairing')]"/>
+                <filter string="Archived" name="archived" domain="[('state', '=', 'archived')]"/>
+                <separator/>
+                <group expand="0" string="Group by">
+                    <filter string="State"   name="g_state"   context="{'group_by': 'state'}"/>
+                    <filter string="Version" name="g_version" context="{'group_by': 'version'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ─── Action ──────────────────────────────────────────────── -->
+    <record id="action_erpnet_fp_proxy" model="ir.actions.act_window">
+        <field name="name">Fleet</field>
+        <field name="res_model">erpnet.fp.proxy</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="view_erpnet_fp_proxy_search"/>
+        <field name="context">{'search_default_alive': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register your first ErpNet.FP proxy.
+            </p>
+            <p>
+                Each shop running an ErpNet.FP proxy can heartbeat here. Click
+                <b>New</b>, then <b>Generate Pairing Token</b> on the form to enrol it.
+            </p>
+        </field>
+    </record>
+
+</odoo>

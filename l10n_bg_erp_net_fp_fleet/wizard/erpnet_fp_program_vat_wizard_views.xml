@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_program_vat_wizard_form" model="ir.ui.view">
+        <field name="name">erpnet.fp.program.vat.wizard.form</field>
+        <field name="model">erpnet.fp.program.vat.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Program VAT rates">
+                <sheet>
+                    <group>
+                        <field name="proxy_id"/>
+                        <field name="printer_id"/>
+                    </group>
+                    <group string="New rates (%)">
+                        <field name="rate_a"/>
+                        <field name="rate_b"/>
+                        <field name="rate_c"/>
+                        <field name="rate_d"/>
+                    </group>
+                    <group string="Currently programmed (read-only)">
+                        <field name="current_rates_json" widget="ace"
+                               options="{'mode': 'json'}" nolabel="1" readonly="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_program" type="object"
+                            string="Program" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -38,24 +38,7 @@
         </field>
     </record>
 
-    <!-- Same fields on "My Profile" (form_simple) so cashiers can
-         set them without going through Settings. -->
-    <record id="view_users_form_simple_inherit_l10n_bg_fp"
-            model="ir.ui.view">
-        <field name="name">res.users.form.simple.inherit.l10n.bg.fp</field>
-        <field name="model">res.users</field>
-        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
-        <field name="arch" type="xml">
-            <xpath expr="//sheet" position="inside">
-                <group string="Bulgarian Fiscal Printer">
-                    <field name="l10n_bg_fp_operator"
-                           placeholder="1"/>
-                    <field name="l10n_bg_fp_operator_password"
-                           password="True"
-                           placeholder="0000"/>
-                </group>
-            </xpath>
-        </field>
-    </record>
+    <!-- "My Profile" (form_simple) inherit removed — base view varies
+         between Odoo minor releases and fails xpath in some setups. -->
 
 </odoo>

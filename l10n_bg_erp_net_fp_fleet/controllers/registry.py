@@ -342,5 +342,73 @@ class ErpNetFpRegistryController(http.Controller):
                 _logger.exception(
                     "Failed to encrypt+store admin token for proxy %s",
                     proxy.name)
+
+        # Sync devices into the per-device model so admins can pivot
+        # / chart by kind across the fleet.
+        try:
+            request.env["erpnet.fp.proxy.device"]._sync_from_heartbeat(
+                proxy, devices)
+        except Exception:  # noqa: BLE001
+            _logger.exception(
+                "Device sync failed for proxy %s", proxy.name)
+
+        # Pick up pending commands (state='pending') and flip them to
+        # 'sent' so they aren't replayed on subsequent heartbeats. The
+        # proxy reports back via /command-result.
+        Command = request.env["erpnet.fp.proxy.command"].sudo()
+        pending = Command.search([
+            ("proxy_id", "=", proxy.id),
+            ("state", "=", "pending"),
+        ])
+        commands_payload = [Command._serialize_for_proxy(c) for c in pending]
+        if pending:
+            pending.mark_sent()
+
         _notify_fleet(request.env, "heartbeat", proxy)
-        return _json_response({"ok": True, "name": proxy.name})
+        return _json_response({
+            "ok": True,
+            "name": proxy.name,
+            "commands": commands_payload,
+        })
+
+    # ─── POST /erp_net_fp/registry/command-result ────────────────
+
+    @http.route(
+        "/erp_net_fp/registry/command-result",
+        type="http", auth="public", methods=["POST"], csrf=False,
+    )
+    def registry_command_result(self, **kw):
+        """Receive a command execution result from a proxy.
+
+        Body (JSON, HMAC-signed by registry_secret like heartbeat):
+            {command_id, ok: bool, result: dict|null, error: str|null}
+        """
+        body = request.httprequest.get_data() or b""
+        try:
+            data = json.loads(body or b"{}")
+        except ValueError:
+            return _json_response({"error": "Invalid JSON body"}, 400)
+
+        sig = (request.httprequest.headers.get("X-Registry-Signature")
+               or "").strip()
+        if not sig:
+            return _json_response(
+                {"error": "X-Registry-Signature header missing"}, 401)
+
+        command_id = data.get("command_id")
+        if not isinstance(command_id, int):
+            return _json_response({"error": "command_id required"}, 400)
+
+        Command = request.env["erpnet.fp.proxy.command"].sudo()
+        cmd = Command.browse(command_id)
+        if not cmd.exists() or not cmd.proxy_id.registry_secret:
+            return _json_response({"error": "Unknown command"}, 404)
+        if not _verify_hmac(body, cmd.proxy_id.registry_secret, sig):
+            return _json_response({"error": "Invalid signature"}, 401)
+
+        cmd.record_result(
+            ok=bool(data.get("ok")),
+            result=data.get("result"),
+            error=(data.get("error") or "")[:8000],
+        )
+        return _json_response({"ok": True})

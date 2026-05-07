@@ -128,6 +128,21 @@ class ErpNetFpProxy(models.Model):
         compute="_compute_has_admin_token", store=False,
     )
 
+    # ─── Reverse links ──────────────────────────────────────────
+
+    command_ids = fields.One2many(
+        "erpnet.fp.proxy.command", "proxy_id", string="Commands",
+    )
+    device_ids = fields.One2many(
+        "erpnet.fp.proxy.device", "proxy_id", string="Devices",
+    )
+    pending_command_count = fields.Integer(
+        compute="_compute_pending_command_count", store=False,
+    )
+    device_count = fields.Integer(
+        compute="_compute_device_count", store=False,
+    )
+
     _sql_constraints = [
         ("name_uniq", "UNIQUE(name)",
          "Another proxy already uses this name."),
@@ -183,6 +198,18 @@ class ErpNetFpProxy(models.Model):
     def _compute_has_admin_token(self):
         for rec in self.sudo():
             rec.has_admin_token = bool(rec.admin_token_encrypted)
+
+    @api.depends("command_ids.state")
+    def _compute_pending_command_count(self):
+        for rec in self:
+            rec.pending_command_count = len(rec.command_ids.filtered(
+                lambda c: c.state in ("pending", "sent")
+            ))
+
+    @api.depends("device_ids", "device_ids.active")
+    def _compute_device_count(self):
+        for rec in self:
+            rec.device_count = len(rec.device_ids.filtered("active"))
 
     # ─── Admin token helpers ────────────────────────────────────
 
@@ -276,84 +303,46 @@ class ErpNetFpProxy(models.Model):
             },
         }
 
-    # ─── Back-channel /admin/* buttons ──────────────────────────
+    # ─── Queue commands (pull-model — proxies are NAT-fronted) ──
 
-    def _admin_call(self, method: str, path: str,
-                    params: dict | None = None,
-                    json_body: dict | None = None,
-                    timeout: int = 30):
-        """Wrapper for back-channel calls to the proxy's /admin/*."""
-        import requests
+    def _enqueue_command(self, kind: str, payload: dict | None = None):
+        """Drop a command on the proxy's queue. Picked up at the next
+        heartbeat (≤ interval_seconds latency)."""
         self.ensure_one()
-        if not self.url:
-            raise UserError(_(
-                "Proxy URL is empty. Set it on the form before calling "
-                "/admin/* endpoints."))
-        token = self.get_admin_token()
-        if not token:
-            raise UserError(_(
-                "No admin token recorded for this proxy. Wait for the "
-                "next heartbeat or check that the proxy has bootstrapped "
-                "its admin token (logs: ADMIN_TOKEN_BOOTSTRAP banner)."))
-        url = self.url.rstrip("/") + path
-        try:
-            r = requests.request(
-                method, url,
-                params=params,
-                json=json_body,
-                headers={"X-Admin-Token": token},
-                timeout=timeout,
-            )
-        except requests.RequestException as exc:
-            raise UserError(_(
-                "Cannot reach proxy at %(url)s: %(err)s",
-                url=url, err=exc,
-            )) from exc
-        if r.status_code >= 400:
-            raise UserError(_(
-                "Proxy %(url)s returned %(code)s: %(body)s",
-                url=url, code=r.status_code, body=r.text[:500],
-            ))
-        try:
-            return r.json()
-        except ValueError:
-            return {"raw": r.text}
+        import json as _json
+        return self.env["erpnet.fp.proxy.command"].create({
+            "proxy_id": self.id,
+            "kind": kind,
+            "payload_json": _json.dumps(payload or {}),
+        })
 
-    def action_self_update(self):
-        self.ensure_one()
-        result = self._admin_call("POST", "/admin/self-update")
-        msg = result.get("message") or _("Update scheduled.")
-        self.message_post(body=_("Self-update triggered: %(m)s", m=msg))
+    def _command_queued_notification(self, kind_label: str):
+        """Standard 'Queued' toast — shown after enqueueing a command."""
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": _("Self-update scheduled"),
-                "message": msg,
+                "title": _("Queued"),
+                "message": _(
+                    "%(label)s will run on the proxy's next heartbeat "
+                    "(within %(s)s s).",
+                    label=kind_label,
+                    s=self.env.context.get("heartbeat_interval", 60),
+                ),
                 "type": "success",
                 "sticky": False,
             },
         }
 
+    def action_self_update(self):
+        self.ensure_one()
+        self._enqueue_command("self_update")
+        return self._command_queued_notification(_("Self-update"))
+
     def action_view_logs(self):
         self.ensure_one()
-        result = self._admin_call("GET", "/admin/logs",
-                                  params={"tail": 200})
-        lines = result.get("lines") or []
-        text = "\n".join(
-            f"{l.get('level','')[:4]:4s} {l.get('name','')}: {l.get('msg','')}"
-            for l in lines[-200:]
-        )
-        return {
-            "type": "ir.actions.client",
-            "tag": "display_notification",
-            "params": {
-                "title": _("Last 200 log lines"),
-                "message": text or _("(empty)"),
-                "type": "info",
-                "sticky": True,
-            },
-        }
+        self._enqueue_command("get_logs", {"tail": 200})
+        return self._command_queued_notification(_("Log fetch"))
 
     def action_open_program_vat_wizard(self):
         self.ensure_one()

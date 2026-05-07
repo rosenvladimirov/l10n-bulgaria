@@ -17,6 +17,8 @@
                 <field name="host"/>
                 <field name="url" optional="show"/>
                 <field name="devices_summary" string="Devices"/>
+                <field name="device_count" string="#" optional="show"/>
+                <field name="pending_command_count" string="Pending" optional="show"/>
                 <field name="last_seen"/>
                 <field name="alive" widget="boolean_toggle" readonly="1"/>
             </list>
@@ -62,19 +64,19 @@
                             groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
                     <button name="action_self_update"
                             type="object"
-                            string="Self-update Proxy"
+                            string="Queue Self-update"
                             class="btn-secondary"
-                            invisible="state != 'active' or not has_admin_token"
+                            invisible="state != 'active'"
                             groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
                     <button name="action_view_logs"
                             type="object"
-                            string="View Logs"
-                            invisible="state != 'active' or not has_admin_token"
+                            string="Queue: Fetch Logs"
+                            invisible="state != 'active'"
                             groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
                     <button name="action_open_program_vat_wizard"
                             type="object"
-                            string="Program VAT"
-                            invisible="state != 'active' or not has_admin_token"
+                            string="Queue: Program VAT"
+                            invisible="state != 'active'"
                             groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
                     <button name="action_reset_secret"
                             type="object"
@@ -127,6 +129,55 @@
                         </group>
                     </group>
                     <notebook>
+                        <page string="Devices" name="devices">
+                            <field name="device_ids">
+                                <list decoration-muted="not active">
+                                    <field name="kind"/>
+                                    <field name="identifier"/>
+                                    <field name="last_seen"/>
+                                    <field name="first_seen" optional="hide"/>
+                                    <field name="active" widget="boolean_toggle"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Commands" name="commands">
+                            <field name="command_ids">
+                                <list decoration-success="state == 'completed'"
+                                      decoration-danger="state == 'failed'"
+                                      decoration-warning="state in ('pending','sent')">
+                                    <field name="create_date"/>
+                                    <field name="kind"/>
+                                    <field name="state"/>
+                                    <field name="sent_at" optional="hide"/>
+                                    <field name="completed_at" optional="show"/>
+                                    <field name="summary"/>
+                                </list>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="kind" readonly="1"/>
+                                            <field name="state" readonly="1"/>
+                                            <field name="create_date" readonly="1"/>
+                                            <field name="sent_at" readonly="1"/>
+                                            <field name="completed_at" readonly="1"/>
+                                        </group>
+                                        <group string="Payload">
+                                            <field name="payload_json" widget="ace"
+                                                   options="{'mode': 'json'}"
+                                                   nolabel="1" readonly="1"/>
+                                        </group>
+                                        <group string="Result">
+                                            <field name="result_json" widget="ace"
+                                                   options="{'mode': 'json'}"
+                                                   nolabel="1" readonly="1"
+                                                   invisible="state != 'completed'"/>
+                                            <field name="error" readonly="1"
+                                                   invisible="state != 'failed'"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
                         <page string="Pairing"
                               groups="base.group_system">
                             <group>
@@ -135,16 +186,20 @@
                                 <field name="registry_secret" readonly="1" password="True"/>
                             </group>
                             <p class="text-muted">
-                                Generate a pairing token, then paste it into the proxy's
-                                <code>config.yaml</code> under <code>server.registry.pairing_token</code>.
-                                Set <code>server.registry.enabled: true</code> and restart the proxy.
+                                Default flow is zero-touch: set
+                                <code>server.registry.enabled: true</code> and a stable
+                                <code>name</code> in the proxy's
+                                <code>config.yaml</code>, then restart. The proxy will
+                                auto-enrol using its admin_token. Pairing tokens are
+                                only needed for stricter setups.
                             </p>
                         </page>
-                        <page string="Devices">
+                        <page string="Raw heartbeat" name="raw"
+                              groups="base.group_system">
                             <field name="devices_json" widget="ace"
                                    options="{'mode': 'json'}" readonly="1"/>
                         </page>
-                        <page string="Notes">
+                        <page string="Notes" name="notes">
                             <field name="notes"/>
                         </page>
                     </notebook>

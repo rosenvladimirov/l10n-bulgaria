@@ -1,4 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_erpnet_fp_proxy_user,erpnet.fp.proxy user,model_erpnet_fp_proxy,group_fleet_user,1,0,0,0
 access_erpnet_fp_proxy_manager,erpnet.fp.proxy manager,model_erpnet_fp_proxy,group_fleet_manager,1,1,1,1
+access_erpnet_fp_proxy_device_user,erpnet.fp.proxy.device user,model_erpnet_fp_proxy_device,group_fleet_user,1,0,0,0
+access_erpnet_fp_proxy_device_manager,erpnet.fp.proxy.device manager,model_erpnet_fp_proxy_device,group_fleet_manager,1,1,1,1
+access_erpnet_fp_proxy_command_user,erpnet.fp.proxy.command user,model_erpnet_fp_proxy_command,group_fleet_user,1,0,0,0
+access_erpnet_fp_proxy_command_manager,erpnet.fp.proxy.command manager,model_erpnet_fp_proxy_command,group_fleet_manager,1,1,1,1
 access_erpnet_fp_program_vat_wizard,erpnet.fp.program.vat.wizard,model_erpnet_fp_program_vat_wizard,group_fleet_manager,1,1,1,1

@@ -32,15 +32,16 @@ supported by ErpNet.FP server. Features include:
     # Version-bump notes:
     #   19.0.9.0.0  → added `iot` (EE) hard dep for native IoT Box flow
     #   19.0.10.0.0 → added `mrp` + `stock` deps for packaging weight QC
+    #   19.0.10.1.0 → REMOVED `iot`, `mrp`, `stock` hard deps — IoT bridge
+    #                 + packaging QC moved to `l10n_bg_erp_net_fp_iot`
+    #                 (l10n-bulgaria-ee repo, auto_install=True). Core
+    #                 stays Community-installable with no IoT/MRP needs.
     'depends': [
         'base',
         'bus',
         'mail',
         'point_of_sale',
         'account',
-        'iot',
-        'mrp',
-        'stock',
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -60,13 +61,11 @@ supported by ErpNet.FP server. Features include:
         'views/product_template_proxy_views.xml',
         'views/pos_payment_method_proxy_views.xml',
         'views/res_config_settings_views.xml',
-        'views/iot_box_views.xml',
-        'views/packaging_qc_views.xml',
         'views/menu_items.xml',
         'views/grafana_views.xml',
+        'views/grafana_settings_views.xml',
         'views/menu_items_proxy.xml',
         'wizard/fiscal_cash_operation_wizard_view.xml',
-        'wizard/iot_discover_wizard_view.xml',
     ],
     'demo': [
     ],
@@ -78,9 +77,6 @@ supported by ErpNet.FP server. Features include:
             'l10n_bg_erp_net_fp/static/src/js/printer_id_field.js',
             'l10n_bg_erp_net_fp/static/src/xml/printer_id_field.xml',
             'l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js',
-            # 19.0.9.0.0 — native iot.box / iot.device proxy bridge.
-            'l10n_bg_erp_net_fp/static/src/js/iot_longpolling_proxy_patch.js',
-            'l10n_bg_erp_net_fp/static/src/js/iot_browser_proxy_handler.js',
             'l10n_bg_erp_net_fp/static/src/js/grafana_dashboard.js',
             'l10n_bg_erp_net_fp/static/src/xml/grafana_dashboard.xml',
         ],

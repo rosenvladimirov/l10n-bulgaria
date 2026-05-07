@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Grafana embed settings — appended to the standard Settings page.
+        Lives in core (Community-installable) so admins can configure
+        the embedded monitoring dashboard URL even on instances where
+        the EE bridge module `l10n_bg_erp_net_fp_iot` is not installed.
+        Originally bundled inside `packaging_qc_views.xml`; extracted
+        in 18.0.10.1.0 when packaging QC moved to the bridge module.
+    -->
+    <record id="res_config_settings_inherit_grafana" model="ir.ui.view">
+        <field name="name">res.config.settings.inherit.erp.net.fp.grafana</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="ErpNet.FP Monitoring"
+                     string="ErpNet.FP Monitoring"
+                     name="l10n_bg_erp_net_fp_grafana">
+                    <block title="Embedded Grafana monitoring (optional)">
+                        <setting>
+                            <field name="erpnet_fp_grafana_url"
+                                   placeholder="https://grafana.lan.mcpworks.net"/>
+                            <div class="text-muted">
+                                Public URL of your Grafana instance. When
+                                set, the "Monitoring" menu under Fiscal
+                                Printers opens the dashboard inside an
+                                iframe — no separate browser tab needed
+                                for ops staff.
+                            </div>
+                        </setting>
+                        <setting>
+                            <field name="erpnet_fp_grafana_dashboard_uid"
+                                   placeholder="erpnet-fp-overview"/>
+                            <div class="text-muted">
+                                The UID of the Grafana dashboard to
+                                embed. The bundled dashboard ships as
+                                <code>erpnet-fp-overview</code>.
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -38,13 +38,8 @@
         <field name="res_model">l10n.bg.fiscal.plu.topn.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
+        <field name="binding_model_id" ref="model_l10n_bg_fiscal_plu"/>
+        <field name="binding_view_types">list,form</field>
     </record>
-
-    <menuitem id="menu_fiscal_plu_topn"
-              name="Top-N best-sellers"
-              parent="menu_fiscal_plu"
-              action="action_l10n_bg_fiscal_plu_topn"
-              sequence="10"
-              groups="point_of_sale.group_pos_manager"/>
 
 </odoo>

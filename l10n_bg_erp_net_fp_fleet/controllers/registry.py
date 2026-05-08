@@ -370,6 +370,7 @@ class ErpNetFpRegistryController(http.Controller):
             "ok": True,
             "name": proxy.name,
             "commands": commands_payload,
+            "cors_origins": proxy._get_cors_origins_list(),
         })
 
     # ─── POST /erp_net_fp/registry/command-result ────────────────

@@ -178,6 +178,23 @@
                                 </form>
                             </field>
                         </page>
+                        <page string="CORS Origins" name="cors_origins">
+                            <p class="text-muted">
+                                Browser origins that may call this proxy via AJAX.
+                                One origin per line — scheme + host
+                                (+ optional <code>:port</code>), no path,
+                                no trailing slash. Lines starting with
+                                <code>#</code> are comments.
+                            </p>
+                            <p class="text-muted">
+                                Pushed to the proxy on the next heartbeat
+                                (≤ 60 s); proxy regenerates Traefik
+                                <code>dynamic.yml</code> and the file watcher
+                                hot-reloads CORS rules without restart.
+                            </p>
+                            <field name="cors_origins" nolabel="1"
+                                   placeholder="https://my-odoo.example.com&#10;https://www.example.com&#10;# Comments allowed"/>
+                        </page>
                         <page string="Pairing"
                               groups="base.group_system">
                             <group>

@@ -128,6 +128,17 @@ class ErpNetFpProxy(models.Model):
         compute="_compute_has_admin_token", store=False,
     )
 
+    # ─── CORS allowed origins ───────────────────────────────────
+
+    cors_origins = fields.Text(
+        string="CORS Allowed Origins",
+        help="One origin per line — e.g. https://dev-18.odoo-shell.space.\n"
+             "Pushed to the proxy on every heartbeat; proxy regenerates "
+             "Traefik dynamic config and the file watcher hot-reloads. "
+             "Lines starting with `#` are comments; blank lines ignored. "
+             "Origins MUST be scheme+host[+port], no path, no trailing slash.",
+    )
+
     # ─── Reverse links ──────────────────────────────────────────
 
     command_ids = fields.One2many(
@@ -354,6 +365,26 @@ class ErpNetFpProxy(models.Model):
             "target": "new",
             "context": {"default_proxy_id": self.id},
         }
+
+    # ─── CORS list parsing ──────────────────────────────────────
+
+    def _get_cors_origins_list(self):
+        """Return validated origins from `cors_origins`, ready to push to
+        the proxy in the heartbeat response. Strips comments / blanks /
+        trailing slashes and only accepts http(s)://host[:port] shape.
+        """
+        self.ensure_one()
+        if not self.cors_origins:
+            return []
+        out = []
+        for raw in self.cors_origins.splitlines():
+            s = raw.strip().rstrip("/")
+            if not s or s.startswith("#"):
+                continue
+            if not (s.startswith("http://") or s.startswith("https://")):
+                continue
+            out.append(s)
+        return out
 
     # ─── Cron: pairing-token expiry sweep ───────────────────────
 

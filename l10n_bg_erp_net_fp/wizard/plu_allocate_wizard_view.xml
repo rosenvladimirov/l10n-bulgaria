@@ -56,4 +56,11 @@
         <field name="binding_view_types">list,form</field>
     </record>
 
+    <menuitem id="menu_fiscal_plu_allocate"
+              name="Import PLUs from Products"
+              parent="point_of_sale.menu_point_config_product"
+              action="action_l10n_bg_fiscal_plu_allocate"
+              sequence="16"
+              groups="point_of_sale.group_pos_manager"/>
+
 </odoo>

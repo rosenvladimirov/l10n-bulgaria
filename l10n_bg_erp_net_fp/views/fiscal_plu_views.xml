@@ -163,9 +163,9 @@
 
     <menuitem id="menu_fiscal_plu"
               name="Fiscal PLU"
-              parent="menu_fiscal_printer_root"
+              parent="point_of_sale.menu_point_config_product"
               action="action_l10n_bg_fiscal_plu"
-              sequence="35"
+              sequence="15"
               groups="point_of_sale.group_pos_manager"/>
 
 </odoo>

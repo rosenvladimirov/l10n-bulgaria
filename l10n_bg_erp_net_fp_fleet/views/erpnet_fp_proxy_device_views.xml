@@ -28,7 +28,7 @@
             <graph string="Devices by kind" type="bar" sample="0">
                 <field name="kind"/>
                 <field name="proxy_id" type="col"/>
-                <field name="id" type="measure" string="Count"/>
+                <field name="id" type="measure" string="Count" aggregator="count_distinct"/>
             </graph>
         </field>
     </record>
@@ -41,7 +41,7 @@
             <pivot string="Devices: proxy × kind" sample="0">
                 <field name="proxy_id" type="row"/>
                 <field name="kind" type="col"/>
-                <field name="id" type="measure" string="Count"/>
+                <field name="id" type="measure" string="Count" aggregator="count_distinct"/>
             </pivot>
         </field>
     </record>

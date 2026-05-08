@@ -25,7 +25,7 @@ This module has NO dependency on `point_of_sale`, `iot`, `mrp`, or
 (default `iot.mcpworks.net`) — the central registry need not also
 host the POS that actually uses the printers.
 """,
-    'version': '19.0.2.0.0',
+    'version': '19.0.2.0.1',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',

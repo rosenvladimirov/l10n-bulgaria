@@ -13,6 +13,15 @@ from odoo.addons.l10n_bg_erp_net_fp.models.erp_net_fp_exceptions import (
 
 _logger = logging.getLogger(__name__)
 
+# Per-operation browser-fetch timeouts (in milliseconds).
+# Datecs ISL devices (DP-150 / DP-150X / FP-700X) drive the floor here:
+# X/Z-reports run 60-90s end-to-end, regular receipts 10-30s, drawer
+# opens are sub-second. The JS default of 60s is the fallback for
+# operations that don't override these values.
+OP_TIMEOUT_REPORT_MS = 90000   # X-report, Z-report
+OP_TIMEOUT_DRAWER_MS = 10000   # cash drawer
+OP_TIMEOUT_PRINT_MS = 30000    # regular receipt-style operations
+
 
 class FiscalPrinterDevice(models.Model):
     _name = 'fiscal.printer.device'
@@ -97,26 +106,32 @@ class FiscalPrinterDevice(models.Model):
                 )
 
     def _proxy_or_direct_action(self, endpoint, success_title, success_msg,
-                                  method="POST", on_success=None):
+                                  method="POST", on_success=None,
+                                  timeout_ms=None):
         # Proxy mode → връщаме client action; browser-а сам fetch-ва
         # printer URL директно (без bus channels, без server-side
         # timeout). Direct mode → server-side request както досега.
+        # `timeout_ms` се подава към client action за per-operation
+        # budget (Datecs ISL X/Z-reports изискват ~90s).
         self.ensure_one()
         if self.connection_mode == "proxy":
+            params = {
+                "device_id": self.id,
+                "host": self.host,
+                "printer_id": self.printer_id,
+                "method": method,
+                "endpoint": endpoint,
+                "ssl_verify": self.ssl_verify,
+                "success_title": success_title,
+                "success_message": success_msg,
+                "on_success": on_success,  # ORM call name on device, optional
+            }
+            if timeout_ms is not None:
+                params["timeout_ms"] = timeout_ms
             return {
                 "type": "ir.actions.client",
                 "tag": "l10n_bg_fiscal_browser_proxy",
-                "params": {
-                    "device_id": self.id,
-                    "host": self.host,
-                    "printer_id": self.printer_id,
-                    "method": method,
-                    "endpoint": endpoint,
-                    "ssl_verify": self.ssl_verify,
-                    "success_title": success_title,
-                    "success_message": success_msg,
-                    "on_success": on_success,  # ORM call name on device, optional
-                },
+                "params": params,
             }
         # Direct mode — keep the existing server-side path
         try:
@@ -141,6 +156,7 @@ class FiscalPrinterDevice(models.Model):
             success_title=_("Success"),
             success_msg=_("The Z report has been generated successfully"),
             on_success="_mark_last_z_report",
+            timeout_ms=OP_TIMEOUT_REPORT_MS,
         )
 
     def _mark_last_z_report(self):
@@ -151,14 +167,18 @@ class FiscalPrinterDevice(models.Model):
             endpoint=f"printers/{self.printer_id}/xreport",
             success_title=_("Success"),
             success_msg=_("X report generated successfully"),
+            timeout_ms=OP_TIMEOUT_REPORT_MS,
         )
 
     def _get_session(self):
         """Създава нова сесия за HTTP заявки.
 
         User-Agent: задава browser-like UA защото Cloudflare bot
-        protection отхвърля `python-requests/X.Y` UA с 403 преди
-        заявката да стигне до ErpNet.FP proxy-то.
+        protection (включена по default на повечето CF zones)
+        отхвърля `python-requests/X.Y` UA с 403 Forbidden преди
+        заявката да стигне до ErpNet.FP сървъра. Идентифицираме
+        се вътре в UA-string-а с `OdooErpNetFP/<version>` за да
+        е читаемо в server log-овете.
         """
         session = requests.Session()
         session.headers.update({
@@ -167,7 +187,7 @@ class FiscalPrinterDevice(models.Model):
             'User-Agent': (
                 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
                 '(KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 '
-                'OdooErpNetFP-Odoo/19.0'
+                'OdooErpNetFP-Odoo/18.0'
             ),
         })
         session.verify = self.ssl_verify
@@ -541,6 +561,7 @@ class FiscalPrinterDevice(models.Model):
                 endpoint=f"printers/{self.printer_id}/xreport",
                 success_title=_("Success"),
                 success_msg=_("X report generated successfully"),
+                timeout_ms=OP_TIMEOUT_REPORT_MS,
             )
         return self._make_request("POST", f"printers/{self.printer_id}/xreport")
 
@@ -555,6 +576,7 @@ class FiscalPrinterDevice(models.Model):
                 success_title=_("Success"),
                 success_msg=_("The Z report has been generated successfully"),
                 on_success="_mark_last_z_report",
+                timeout_ms=OP_TIMEOUT_REPORT_MS,
             )
         result = self._make_request("POST", f"printers/{self.printer_id}/zreport")
         self._mark_last_z_report()
@@ -620,6 +642,7 @@ class FiscalPrinterDevice(models.Model):
                 endpoint=f"printers/{self.printer_id}/drawer",
                 success_title=_("Drawer"),
                 success_msg=_("Cash drawer opened"),
+                timeout_ms=OP_TIMEOUT_DRAWER_MS,
             )
         return self._make_request("POST", f"printers/{self.printer_id}/drawer")
 

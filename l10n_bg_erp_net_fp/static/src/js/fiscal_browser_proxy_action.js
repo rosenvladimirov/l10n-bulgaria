@@ -19,11 +19,12 @@
 import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
 
-// Default per-action timeout. Cmds like Z-report can take a few s of
-// serial round-trips, but if it exceeds 30s the device is most likely
-// blocked (paper end, cover open, fiscal-mode lock) — better to abort
-// the fetch and surface a clear error than freeze the form.
-const DEFAULT_TIMEOUT_MS = 30000;
+// Default per-action timeout. Used only when the backend client-action
+// dispatcher does NOT pass `timeout_ms` (e.g. legacy callers). Real
+// per-operation budgets are set on the Python side — Datecs ISL X/Z
+// reports need ~90s end-to-end, drawer opens are sub-second, regular
+// receipts are 10-30s. See `OP_TIMEOUT_*` constants in erp_net_fp.py.
+const DEFAULT_TIMEOUT_MS = 60000;
 
 // Error-status codes that classically indicate operator-actionable
 // faults. Used for friendlier notification text.

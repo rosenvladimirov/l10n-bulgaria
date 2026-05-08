@@ -78,6 +78,10 @@ class PosSession(models.Model):
             'l10n_bg_z_report_datetime',
             'l10n_bg_fp_operator',
             'l10n_bg_fp_operator_password',
+            # Phase 5 — external mode badge needs these in the POS UI
+            'l10n_bg_external_pos_mode',
+            'l10n_bg_external_push_status',
+            'l10n_bg_external_push_summary',
         ]
 
         res.extend(fiscal_fields)

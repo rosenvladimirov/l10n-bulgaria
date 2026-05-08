@@ -32,6 +32,17 @@
                             type="object"
                             class="btn-info"
                             invisible="state != 'opened' or not l10n_bg_fiscal_printer_id"/>
+                    <button name="action_l10n_bg_external_push_retry"
+                            string="Retry external-mode push"
+                            type="object"
+                            class="btn-warning"
+                            invisible="state != 'opened' or l10n_bg_external_push_status == 'ok'"/>
+                    <button name="action_l10n_bg_external_force_close"
+                            string="Force-close (no device)"
+                            type="object"
+                            class="btn-danger"
+                            invisible="state != 'closing_control' or not l10n_bg_fiscal_session_ids"
+                            confirm="Force-close marks the fiscal sessions as 'closed_partial' without contacting the devices. Use only if the device(s) are offline and reconcile manually later. Proceed?"/>
                 </xpath>
 
                 <!-- Добавяне на фискални полета -->
@@ -44,6 +55,32 @@
                         <field name="l10n_bg_z_report_printed" readonly="1"/>
                         <field name="l10n_bg_z_report_datetime" readonly="1"
                                invisible="not l10n_bg_z_report_printed"/>
+                        <field name="l10n_bg_fiscal_session_ids" readonly="1"
+                               invisible="not l10n_bg_fiscal_session_ids">
+                            <list>
+                                <field name="name"/>
+                                <field name="device_id"/>
+                                <field name="opened_at"/>
+                                <field name="closed_at"/>
+                                <field name="z_report_number"/>
+                                <field name="z_total_amount"/>
+                                <field name="discrepancy"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="state" widget="badge"/>
+                            </list>
+                        </field>
+                        <field name="l10n_bg_external_push_status"
+                               widget="badge"
+                               readonly="1"
+                               decoration-success="l10n_bg_external_push_status == 'ok'"
+                               decoration-warning="l10n_bg_external_push_status == 'partial'"
+                               decoration-danger="l10n_bg_external_push_status == 'error'"
+                               decoration-muted="l10n_bg_external_push_status == 'none'"/>
+                        <field name="l10n_bg_external_push_at" readonly="1"
+                               invisible="l10n_bg_external_push_status == 'none'"/>
+                        <field name="l10n_bg_external_push_summary" readonly="1"
+                               invisible="l10n_bg_external_push_status == 'none'"
+                               widget="text"/>
                     </group>
                 </xpath>
 

@@ -26,6 +26,7 @@ SESSION_SOURCE = [
 class FiscalSession(models.Model):
     _name = "fiscal.session"
     _description = "Fiscal Session (Z-cycle marker)"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
     _order = "id desc"
 
     name = fields.Char(default="/", required=True)
@@ -41,7 +42,11 @@ class FiscalSession(models.Model):
     )
 
     state = fields.Selection(
-        [("open", "Open"), ("closed", "Closed (Z reported)")],
+        [
+            ("open", "Open"),
+            ("closed", "Closed (Z reported)"),
+            ("closed_partial", "Closed (force / no Z)"),
+        ],
         default="open",
         required=True,
     )
@@ -50,6 +55,30 @@ class FiscalSession(models.Model):
     z_report_number = fields.Integer(
         string="Z report #",
         readonly=True,
+    )
+    z_total_amount = fields.Monetary(
+        string="Z total",
+        readonly=True,
+        currency_field="currency_id",
+        help="Total turnover reported on the Z-report.",
+    )
+    currency_id = fields.Many2one(
+        "res.currency",
+        related="company_id.currency_id",
+        readonly=True,
+        store=True,
+    )
+    imported_receipt_count = fields.Integer(
+        readonly=True,
+        help="Number of fiscal receipts imported from the device on close.",
+    )
+    discrepancy = fields.Monetary(
+        string="Discrepancy (Odoo vs Z)",
+        readonly=True,
+        currency_field="currency_id",
+        help="Difference between sum of imported pos.order amounts and "
+        "the Z-report total. Non-zero = receipts may be missing or "
+        "duplicated; investigate.",
     )
 
     source = fields.Selection(
@@ -110,3 +139,105 @@ class FiscalSession(models.Model):
             "state": "closed",
             "closed_at": fields.Datetime.now(),
         })
+
+    # ------------------------------------------------------------------
+    # Cron auto-close — Наредба Н-18 caps fiscal sessions at 24h
+    # ------------------------------------------------------------------
+
+    @api.model
+    def _cron_auto_close_stuck_sessions(self):
+        """Find fiscal.session records that have been open longer than
+        the configured threshold (default 23h to leave headroom before
+        the 24h Н-18 limit) and try to close them.
+
+        Strategy:
+          - If the fiscal.session has a linked pos.session that's still
+            open in external mode, run the close orchestrator (which
+            pulls sales, imports, runs Z, closes both).
+          - If the fiscal.session is orphan (no pos.session), just
+            trigger Z directly and mark closed_partial — manual
+            reconcile required.
+
+        Failures are logged + a mail.activity is created on the
+        device's manager so someone investigates next morning.
+        """
+        from datetime import timedelta
+        threshold = fields.Datetime.now() - timedelta(hours=23)
+        stuck = self.search([
+            ("state", "=", "open"),
+            ("opened_at", "<", threshold),
+        ])
+        if not stuck:
+            return True
+
+        from odoo.tools import logging as _logging  # noqa: F401
+        import logging
+        _logger = logging.getLogger(__name__)
+
+        for fsess in stuck:
+            try:
+                # Path A — linked pos.session, run close orchestrator
+                pos_sess = fsess.pos_session_id
+                if pos_sess and pos_sess.state == "opened":
+                    _logger.info(
+                        "Auto-closing stuck fiscal.session %s via pos.session %s",
+                        fsess.name, pos_sess.name,
+                    )
+                    pos_sess._l10n_bg_external_close_orchestrate()
+                    continue
+
+                # Path B — orphan (or pos.session already closed):
+                # trigger Z directly + mark closed_partial
+                _logger.info(
+                    "Auto-closing orphan fiscal.session %s via direct Z",
+                    fsess.name,
+                )
+                z = fsess.device_id._l10n_bg_print_z()
+                if z["ok"]:
+                    fsess.write({
+                        "state": "closed",
+                        "closed_at": fields.Datetime.now(),
+                        "z_report_number": z["z_number"],
+                        "z_total_amount": z["total"],
+                    })
+                else:
+                    fsess.write({
+                        "state": "closed_partial",
+                        "closed_at": fields.Datetime.now(),
+                    })
+                    fsess._l10n_bg_post_alert(
+                        "Auto-Z failed: %s" % z["message"]
+                    )
+            except Exception as exc:  # noqa: BLE001
+                _logger.exception(
+                    "Auto-close failed for fiscal.session %s", fsess.name
+                )
+                fsess._l10n_bg_post_alert(
+                    "Auto-close exception: %s" % str(exc)[:300]
+                )
+
+        return True
+
+    def _l10n_bg_post_alert(self, message):
+        """Post a mail.activity on the device record so the responsible
+        manager sees the issue at start-of-day. Uses the standard
+        ``mail.activity`` mechanism (already a dep of l10n_bg_erp_net_fp).
+        """
+        self.ensure_one()
+        try:
+            self.device_id.activity_schedule(
+                act_type_xmlid="mail.mail_activity_data_warning",
+                summary="Fiscal session auto-close issue",
+                note=message,
+                user_id=(
+                    self.device_id.responsible_user_id.id
+                    if "responsible_user_id" in self.device_id._fields
+                    and self.device_id.responsible_user_id
+                    else self.env.uid
+                ),
+            )
+        except Exception:  # noqa: BLE001
+            # mail.activity_data_warning may not exist on all installs.
+            # Fall back to a chatter message on the fiscal.session itself.
+            if hasattr(self, "message_post"):
+                self.message_post(body=message)

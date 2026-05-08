@@ -14,12 +14,17 @@ from . import res_users
 # Proxy-aware extensions (Odoo.ErpNet.FP Python proxy support).
 # All ADD-only — none of these change existing behaviour.
 from . import fiscal_printer_device_extensions
+from . import fiscal_printer_device_external
 from . import fiscal_frame_log
 from . import fiscal_session
+from . import fiscal_plu
 from . import pos_config_extensions
 from . import product_template_extensions
+from . import product_product_extensions
+from . import product_pricelist_extensions
 from . import pos_payment_method_extensions
 from . import pos_order_extensions
+from . import pos_session_external
 
 # Native iot.box / iot.device bridge AND packaging weight QC (Phase 3)
 # both moved to bridge module `l10n_bg_erp_net_fp_iot` (in l10n-bulgaria-ee,

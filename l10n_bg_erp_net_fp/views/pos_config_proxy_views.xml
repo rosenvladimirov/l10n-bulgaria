@@ -21,6 +21,12 @@
                              help="Automatically print a Z-report on the fiscal device when the POS session is closed.">
                         <field name="l10n_bg_auto_z_on_close"/>
                     </setting>
+                    <setting string="Additional fiscal printers (BG)"
+                             help="Multi-device shops — primary device above + extras here. Each device gets its own fiscal.session and Z-cycle."
+                             invisible="not l10n_bg_external_pos_mode">
+                        <field name="l10n_bg_extra_fiscal_printer_ids"
+                               widget="many2many_tags"/>
+                    </setting>
                 </div>
             </xpath>
         </field>

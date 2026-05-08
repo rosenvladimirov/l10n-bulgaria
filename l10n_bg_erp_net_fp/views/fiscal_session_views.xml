@@ -5,7 +5,11 @@
         <field name="name">fiscal.session.tree</field>
         <field name="model">fiscal.session</field>
         <field name="arch" type="xml">
-            <list string="Fiscal Sessions" decoration-success="state == 'open'" decoration-muted="state == 'closed'">
+            <list string="Fiscal Sessions"
+                  decoration-success="state == 'open'"
+                  decoration-warning="state == 'closed_partial'"
+                  decoration-muted="state == 'closed'"
+                  decoration-danger="discrepancy and abs(discrepancy) > 0.01">
                 <field name="name"/>
                 <field name="device_id"/>
                 <field name="source"/>
@@ -14,8 +18,15 @@
                 <field name="opened_at"/>
                 <field name="closed_at"/>
                 <field name="receipt_count"/>
+                <field name="imported_receipt_count" optional="show"/>
                 <field name="z_report_number"/>
-                <field name="state" widget="badge"/>
+                <field name="z_total_amount" optional="show"/>
+                <field name="discrepancy" optional="show"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'open'"
+                       decoration-warning="state == 'closed_partial'"
+                       decoration-muted="state == 'closed'"/>
             </list>
         </field>
     </record>
@@ -45,7 +56,13 @@
                             <field name="opened_at"/>
                             <field name="closed_at"/>
                             <field name="z_report_number"/>
+                            <field name="z_total_amount"/>
                             <field name="receipt_count"/>
+                            <field name="imported_receipt_count"
+                                   invisible="not imported_receipt_count"/>
+                            <field name="discrepancy"
+                                   invisible="state == 'open'"/>
+                            <field name="currency_id" invisible="1"/>
                         </group>
                     </group>
                 </sheet>

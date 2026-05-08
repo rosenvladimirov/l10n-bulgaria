@@ -25,5 +25,23 @@
             <field name="nextcall" eval="(DateTime.now() + timedelta(days=7)).strftime('%Y-%m-%d 03:00:00')"/>
         </record>
 
+        <!--
+            Auto-close stuck fiscal sessions — Наредба Н-18 ограничава
+            фискалната сесия на ≤24h. Cron-ът тече всеки ден в 23:55
+            и затваря всички fiscal.session с opened_at < now-23h
+            (1h headroom). Pull sales + Z + close при възможност, или
+            mark closed_partial + alert до отговорния потребител.
+        -->
+        <record id="ir_cron_auto_close_stuck_fiscal_sessions" model="ir.cron">
+            <field name="name">Auto-close stuck fiscal sessions (Н-18 ≤24h)</field>
+            <field name="model_id" ref="model_fiscal_session"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_auto_close_stuck_sessions()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active" eval="True"/>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 23:55:00')"/>
+        </record>
+
     </data>
 </odoo>

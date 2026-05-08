@@ -65,9 +65,9 @@ class PosSession(models.Model):
             config.l10n_bg_erp_net_fp_host = config.l10n_bg_fiscal_printer_id.host
 
     @api.model
-    def _load_pos_data_fields(self, config):
+    def _load_pos_data_fields(self, config_id):
         """Зареждане на необходимите полета за фискален принтер"""
-        res = super()._load_pos_data_fields(config)
+        res = super()._load_pos_data_fields(config_id)
 
         # Добавяме полета за сесията
         fiscal_fields = [
@@ -78,6 +78,10 @@ class PosSession(models.Model):
             'l10n_bg_z_report_datetime',
             'l10n_bg_fp_operator',
             'l10n_bg_fp_operator_password',
+            # Phase 5 — external mode badge needs these in the POS UI
+            'l10n_bg_external_pos_mode',
+            'l10n_bg_external_push_status',
+            'l10n_bg_external_push_summary',
         ]
 
         res.extend(fiscal_fields)

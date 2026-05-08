@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_l10n_bg_fiscal_plu_tree" model="ir.ui.view">
+        <field name="name">l10n.bg.fiscal.plu.tree</field>
+        <field name="model">l10n.bg.fiscal.plu</field>
+        <field name="arch" type="xml">
+            <list string="Fiscal PLU Slots"
+                  decoration-success="push_state == 'pushed'"
+                  decoration-info="push_state == 'pending'"
+                  decoration-warning="push_state in ('stale', 'name_drift')"
+                  decoration-danger="push_state in ('conflict', 'error')"
+                  decoration-muted="not active">
+                <field name="plu_number"/>
+                <field name="name"/>
+                <field name="price"/>
+                <field name="currency_id" optional="hide"/>
+                <field name="vat_group_id" optional="show"/>
+                <field name="department_id" optional="hide"/>
+                <field name="source_pricelist_id" optional="hide"/>
+                <field name="product_ids" widget="many2many_tags" optional="show"/>
+                <field name="push_state" widget="badge"
+                       decoration-success="push_state == 'pushed'"
+                       decoration-info="push_state == 'pending'"
+                       decoration-warning="push_state in ('stale', 'name_drift')"
+                       decoration-danger="push_state in ('conflict', 'error')"/>
+                <field name="last_pushed_at" optional="show"/>
+                <field name="last_validated_at" optional="hide"/>
+                <field name="active" optional="hide"/>
+                <field name="company_id" optional="hide" groups="base.group_multi_company"/>
+                <button name="action_check_consistency" type="object" icon="fa-check-circle"
+                        title="Check consistency"/>
+                <button name="action_sync_from_pricelist" type="object" icon="fa-refresh"
+                        title="Sync from pricelist"/>
+                <button name="action_push_to_device" type="object" icon="fa-upload"
+                        title="Push to device"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_l10n_bg_fiscal_plu_form" model="ir.ui.view">
+        <field name="name">l10n.bg.fiscal.plu.form</field>
+        <field name="model">l10n.bg.fiscal.plu</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_check_consistency" type="object"
+                            string="Check consistency" class="btn-secondary"/>
+                    <button name="action_sync_from_pricelist" type="object"
+                            string="Sync from pricelist" class="btn-primary"/>
+                    <button name="action_push_to_device" type="object"
+                            string="Push to device" class="btn-success"
+                            invisible="push_state in ('conflict', 'error') or not active"/>
+                    <field name="push_state" widget="statusbar"
+                           statusbar_visible="pending,pushed"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived"
+                            bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="plu_number"/>
+                        <h1>
+                            <field name="plu_number" readonly="push_state == 'pushed'"/>
+                        </h1>
+                        <h2><field name="name" placeholder="Article name on receipt"/></h2>
+                    </div>
+                    <group>
+                        <group string="Pricing">
+                            <field name="source_pricelist_id"/>
+                            <field name="price"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="vat_group_id"/>
+                            <field name="department_id"/>
+                        </group>
+                        <group string="State">
+                            <field name="active"/>
+                            <field name="push_message" readonly="1"/>
+                            <field name="last_validated_at" readonly="1"/>
+                            <field name="last_pushed_at" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="products" string="Linked products">
+                            <field name="product_ids">
+                                <list>
+                                    <field name="default_code"/>
+                                    <field name="display_name"/>
+                                    <field name="barcode"/>
+                                    <field name="lst_price"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page name="note" string="Notes">
+                            <field name="note" placeholder="Internal notes for cashiers / admins…"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_l10n_bg_fiscal_plu_search" model="ir.ui.view">
+        <field name="name">l10n.bg.fiscal.plu.search</field>
+        <field name="model">l10n.bg.fiscal.plu</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="plu_number"/>
+                <field name="name"/>
+                <field name="product_ids"/>
+                <field name="source_pricelist_id"/>
+                <separator/>
+                <filter name="filter_active" string="Active"
+                        domain="[('active', '=', True)]"/>
+                <filter name="filter_inactive" string="Inactive"
+                        domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter name="filter_pending" string="Pending push"
+                        domain="[('push_state', 'in', ('pending', 'stale'))]"/>
+                <filter name="filter_pushed" string="Pushed"
+                        domain="[('push_state', '=', 'pushed')]"/>
+                <filter name="filter_stale" string="Stale"
+                        domain="[('push_state', '=', 'stale')]"/>
+                <filter name="filter_conflict" string="Conflicts"
+                        domain="[('push_state', '=', 'conflict')]"/>
+                <filter name="filter_drift" string="Name drift"
+                        domain="[('push_state', '=', 'name_drift')]"/>
+                <filter name="filter_errors" string="Errors"
+                        domain="[('push_state', '=', 'error')]"/>
+                <group string="Group by">
+                    <filter name="group_state" string="Push state"
+                            context="{'group_by': 'push_state'}"/>
+                    <filter name="group_pricelist" string="Source pricelist"
+                            context="{'group_by': 'source_pricelist_id'}"/>
+                    <filter name="group_vat" string="VAT group"
+                            context="{'group_by': 'vat_group_id'}"/>
+                    <filter name="group_company" string="Company"
+                            context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_l10n_bg_fiscal_plu" model="ir.actions.act_window">
+        <field name="name">Fiscal PLU Slots</field>
+        <field name="res_model">l10n.bg.fiscal.plu</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_l10n_bg_fiscal_plu_search"/>
+        <field name="context">{'search_default_filter_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first PLU slot
+            </p>
+            <p>
+                A PLU (Price Look-Up) is an article slot programmed
+                on the fiscal device. Each slot maps to one or more
+                Odoo products via M2M and gets pushed to the device
+                on POS session open.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_fiscal_plu"
+              name="Fiscal PLU"
+              parent="menu_fiscal_printer_root"
+              action="action_l10n_bg_fiscal_plu"
+              sequence="35"
+              groups="point_of_sale.group_pos_manager"/>
+
+</odoo>

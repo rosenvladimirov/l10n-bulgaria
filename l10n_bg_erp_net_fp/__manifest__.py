@@ -22,7 +22,7 @@ supported by ErpNet.FP server. Features include:
 * Bulgarian tax group mapping (А, Б, В, Г)
 * Dual connection mode: Direct (server) and Proxy (browser)
 """,
-    'version': '19.0.10.2.4',
+    'version': '19.0.11.4.0',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
@@ -36,6 +36,54 @@ supported by ErpNet.FP server. Features include:
     #                 + packaging QC moved to `l10n_bg_erp_net_fp_iot`
     #                 (l10n-bulgaria-ee repo, auto_install=True). Core
     #                 stays Community-installable with no IoT/MRP needs.
+    #   19.0.10.3.0 → External POS mode Phase 1 — `l10n.bg.fiscal.plu`
+    #                 model + consistency check + sync from pricelist +
+    #                 stale triggers (product/pricelist write) + two
+    #                 wizards (allocate from products, top-N best-sellers).
+    #                 Skeleton for Phase 2 (POS open push) and Phase 3
+    #                 (POS close Z-import) — toggle on pos.config still
+    #                 has no behaviour wired beyond the constraint.
+    #   19.0.11.0.0 → External POS mode Phase 2 — POS session open hook
+    #                 orchestrates push to device (fiscal.session open +
+    #                 VAT groups + operators + PLU table from registry +
+    #                 logo + header/footer + X-report sanity). Push
+    #                 status surfaced on session form with retry button.
+    #                 Manual "Push to device" button on PLU list/form.
+    #                 Phase 3 (close-time Z + sales import) still TODO.
+    #   19.0.11.1.0 → External POS mode Phase 3 — POS session close hook
+    #                 pulls journal from device, imports receipts as
+    #                 pos.order records (PLU→product reverse lookup,
+    #                 dedupe by FP/<n>), triggers Z (auto_z_on_close),
+    #                 closes fiscal.session with z_number + total +
+    #                 discrepancy. Adds force-close button (closed_partial
+    #                 state) for offline-device scenarios. New field
+    #                 pos.payment.method.l10n_bg_external_kind for
+    #                 cash/card/voucher mapping.
+    #   19.0.11.2.0 → External POS mode Phase 4 — resilience: daily cron
+    #                 23:55 auto-close stuck fiscal sessions (Н-18 ≤24h);
+    #                 Z-report retry x3 on transient errors (paper-out,
+    #                 timeout); pre-push capacity guard (plu_capacity vs
+    #                 active PLUs); mid-shift stale warning at close.
+    #                 fiscal.session inherits mail.thread/activity for
+    #                 alert posting; mail.activity_data_warning fallback
+    #                 for managers when auto-Z fails.
+    #   19.0.11.3.0 → External POS mode Phase 4.5 — multi-device support:
+    #                 new pos.config.l10n_bg_extra_fiscal_printer_ids M2m
+    #                 + computed l10n_bg_all_fiscal_devices union; push
+    #                 and close orchestrators iterate all devices, one
+    #                 fiscal.session per device per pos.session;
+    #                 pos.session.l10n_bg_fiscal_session_ids (O2m) with
+    #                 backward-compat computed primary alias; receipts
+    #                 dedupe key now includes device id (FP/D<id>/<n>);
+    #                 force-close handles all open fiscal sessions.
+    #   19.0.11.4.0 → External POS mode Phase 5 — UX polish:
+    #                 POS UI Navbar badge "External mode" (JS+OWL patch)
+    #                 with click-to-show push status notification;
+    #                 mid-shift X-report wizard with inline JSON preview
+    #                 (multi-device dropdown, running total parsing);
+    #                 Grafana dashboard JSON (receipts/h, Z duration,
+    #                 discrepancy histogram, top PLUs); README operator
+    #                 guide in Bulgarian (setup + daily ops + troubleshoot).
     'depends': [
         'base',
         'bus',
@@ -66,7 +114,11 @@ supported by ErpNet.FP server. Features include:
         'views/grafana_views.xml',
         'views/grafana_settings_views.xml',
         'views/menu_items_proxy.xml',
+        'views/fiscal_plu_views.xml',
         'wizard/fiscal_cash_operation_wizard_view.xml',
+        'wizard/plu_allocate_wizard_view.xml',
+        'wizard/plu_topn_wizard_view.xml',
+        'wizard/x_report_wizard_view.xml',
     ],
     'demo': [
     ],
@@ -91,6 +143,9 @@ supported by ErpNet.FP server. Features include:
             'l10n_bg_erp_net_fp/static/src/xml/pos_close_popup_template.xml',
             'l10n_bg_erp_net_fp/static/src/js/cash_move_popup.js',
             'l10n_bg_erp_net_fp/static/src/js/opening_control_popup_fiscal.js',
+            # Phase 5 — external POS mode badge in Navbar
+            'l10n_bg_erp_net_fp/static/src/js/external_pos_badge.js',
+            'l10n_bg_erp_net_fp/static/src/xml/external_pos_badge.xml',
         ],
     },
     'images': [

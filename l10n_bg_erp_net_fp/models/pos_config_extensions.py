@@ -26,18 +26,54 @@ class PosConfig(models.Model):
         "closes (in addition to the device's own scheduled auto-Z).",
     )
 
+    # Multi-device support — primary M2o stays for backward compat;
+    # additional devices live on this M2m. The orchestrators iterate
+    # `_l10n_bg_all_fiscal_devices` (computed union).
+    l10n_bg_extra_fiscal_printer_ids = fields.Many2many(
+        "fiscal.printer.device",
+        "pos_config_extra_fiscal_printer_rel",
+        "pos_config_id",
+        "device_id",
+        string="Additional fiscal printers",
+        help="Extra fiscal devices (besides the primary). Used when a "
+        "single POS configuration drives multiple cash registers in "
+        "the same shop. Each device gets its own fiscal.session and "
+        "Z-report cycle.",
+    )
+    l10n_bg_all_fiscal_devices = fields.Many2many(
+        "fiscal.printer.device",
+        compute="_compute_l10n_bg_all_fiscal_devices",
+        string="All fiscal devices",
+        help="Union of primary + extra fiscal printers — iterated by "
+        "the open/close orchestrators.",
+    )
+
+    @api.depends(
+        "l10n_bg_fiscal_printer_id",
+        "l10n_bg_extra_fiscal_printer_ids",
+    )
+    def _compute_l10n_bg_all_fiscal_devices(self):
+        for cfg in self:
+            cfg.l10n_bg_all_fiscal_devices = (
+                cfg.l10n_bg_fiscal_printer_id
+                | cfg.l10n_bg_extra_fiscal_printer_ids
+            )
+
     @api.constrains(
         "l10n_bg_fiscal_printer_id",
+        "l10n_bg_extra_fiscal_printer_ids",
         "l10n_bg_external_pos_mode",
     )
     def _check_external_pos_needs_device(self):
         for cfg in self:
-            if cfg.l10n_bg_external_pos_mode and not cfg.l10n_bg_fiscal_printer_id:
+            if not cfg.l10n_bg_external_pos_mode:
+                continue
+            if not cfg.l10n_bg_all_fiscal_devices:
                 raise UserError(
-                    _("External-POS mode on '%(name)s' requires a "
-                      "fiscal printer device assigned first.") % {
-                        "name": cfg.name,
-                    }
+                    _("External-POS mode on '%(name)s' requires at "
+                      "least one fiscal printer device assigned "
+                      "(primary or in 'Additional fiscal printers').")
+                    % {"name": cfg.name}
                 )
 
     # NOTE: do NOT override `_load_pos_data_fields` on pos.config.

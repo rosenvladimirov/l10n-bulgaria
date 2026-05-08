@@ -29,11 +29,30 @@ class PosPaymentMethod(models.Model):
         "blank the proxy chooses its default pinpad.",
     )
 
+    # ─── External POS mode payment routing ──────────────────────────
+    # When the fiscal device is the primary POS (external mode) and
+    # the Z-report is imported back into Odoo, each receipt's payment
+    # block has a 'kind' (cash / card / voucher / other). To create
+    # the matching pos.payment record we need to know which Odoo
+    # payment method handles each kind.
+    l10n_bg_external_kind = fields.Selection(
+        [
+            ("cash", "Cash"),
+            ("card", "Card"),
+            ("voucher", "Voucher / coupon"),
+            ("other", "Other"),
+        ],
+        string="External-mode payment kind",
+        help="Maps device payment types onto Odoo payment methods when "
+        "importing receipts from a fiscal device acting as primary POS. "
+        "Leave blank to exclude this method from external-mode imports.",
+    )
+
     @api.model
-    def _load_pos_data_fields(self, config):
+    def _load_pos_data_fields(self, config_id):
         # Add the two new fields to the data the POS browser receives,
         # so PaymentScreen can read them without an extra RPC.
-        fields_list = super()._load_pos_data_fields(config)
+        fields_list = super()._load_pos_data_fields(config_id)
         for f in ("l10n_bg_use_pinpad", "l10n_bg_pinpad_id"):
             if f not in fields_list:
                 fields_list.append(f)

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_l10n_bg_fiscal_plu_topn_wizard_form" model="ir.ui.view">
+        <field name="name">l10n.bg.fiscal.plu.topn.wizard.form</field>
+        <field name="model">l10n.bg.fiscal.plu.topn.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Top-N best-sellers">
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        Ranks PLUs by sales velocity over the configured
+                        window. The top-N stay active; the rest are
+                        archived so they're skipped on PLU push to the
+                        device. Use this when your active SKU count
+                        exceeds the device's PLU capacity.
+                    </div>
+                    <group>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="keep_top_n"/>
+                        <field name="window_days"/>
+                        <field name="archive_zero_velocity"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_compute" type="object"
+                            string="Preview ranking" class="btn-secondary"/>
+                    <button name="action_apply" type="object"
+                            string="Apply (archive losers)" class="btn-primary"
+                            confirm="This will archive PLUs that fall outside the top-N. Proceed?"/>
+                    <button special="cancel" string="Cancel" class="btn-link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_l10n_bg_fiscal_plu_topn" model="ir.actions.act_window">
+        <field name="name">Top-N best-sellers</field>
+        <field name="res_model">l10n.bg.fiscal.plu.topn.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_fiscal_plu_topn"
+              name="Top-N best-sellers"
+              parent="menu_fiscal_plu"
+              action="action_l10n_bg_fiscal_plu_topn"
+              sequence="10"
+              groups="point_of_sale.group_pos_manager"/>
+
+</odoo>

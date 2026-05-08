@@ -63,6 +63,7 @@ registry.category("services").add("erpnet_fp_fleet_autorefresh",
 
 import { KanbanController } from "@web/views/kanban/kanban_controller";
 import { ListController } from "@web/views/list/list_controller";
+import { FormController } from "@web/views/form/form_controller";
 import { onMounted, onWillUnmount } from "@odoo/owl";
 import { patch } from "@web/core/utils/patch";
 
@@ -99,3 +100,4 @@ function _patchController(C) {
 
 _patchController(KanbanController);
 _patchController(ListController);
+_patchController(FormController);

@@ -22,7 +22,6 @@ class L10nBgFiscalPlu(models.Model):
     _name = "l10n.bg.fiscal.plu"
     _description = "Fiscal PLU Slot"
     _order = "plu_number"
-    _rec_name = "display_name"
 
     plu_number = fields.Integer(
         string="PLU #",
@@ -112,11 +111,6 @@ class L10nBgFiscalPlu(models.Model):
     last_validated_at = fields.Datetime(readonly=True, copy=False)
     note = fields.Text()
 
-    display_name = fields.Char(
-        compute="_compute_display_name_full",
-        store=False,
-    )
-
     _sql_constraints = [
         (
             "uniq_company_plu_number",
@@ -147,7 +141,8 @@ class L10nBgFiscalPlu(models.Model):
             limit=1,
         ).id or False
 
-    def _compute_display_name_full(self):
+    @api.depends("plu_number", "name")
+    def _compute_display_name(self):
         for rec in self:
             rec.display_name = (
                 f"#{rec.plu_number} {rec.name}"

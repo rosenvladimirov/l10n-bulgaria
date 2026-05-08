@@ -242,23 +242,34 @@ class FiscalPrinterDevice(models.Model):
                     }
                 }
 
-    def _make_request(self, method, endpoint, data=None, params=None):
+    def _make_request(self, method, endpoint, data=None, params=None,
+                      timeout=None):
         """
-        Унифициран метод за HTTP заявки
-        Автоматично избира между direct и proxy режим
+        Унифициран метод за HTTP заявки.
+        Автоматично избира между direct и proxy режим.
+
+        `timeout` (optional, seconds) — per-call override за бавни
+        операции (X/Z report, PLU sync). Default — `self.timeout`
+        от device record (обикновено 30s).
         """
         if self.connection_mode == 'direct':
-            return self._make_direct_request(method, endpoint, data, params)
+            return self._make_direct_request(
+                method, endpoint, data, params, timeout=timeout)
         else:
-            return self._make_proxy_request(method, endpoint, data, params)
+            return self._make_proxy_request(
+                method, endpoint, data, params, timeout=timeout)
 
-    def _make_direct_request(self, method, endpoint, data=None, params=None):
+    def _make_direct_request(self, method, endpoint, data=None, params=None,
+                             timeout=None):
         """
-        Директна HTTP заявка от сървъра към принтера
-        Използва се когато сървърът има достъп до принтера
+        Директна HTTP заявка от сървъра към принтера.
+        Използва се когато сървърът има достъп до принтера.
+
+        `timeout` (optional, seconds) — per-call override.
         """
         url = urljoin(self.host, endpoint)
         session = self._get_session()
+        effective_timeout = timeout if timeout is not None else self.timeout
 
         for attempt in range(self.retry_count):
             try:
@@ -268,14 +279,14 @@ class FiscalPrinterDevice(models.Model):
                     response = session.get(
                         url,
                         params=params,
-                        timeout=self.timeout,
+                        timeout=effective_timeout,
                         verify=self.ssl_verify
                     )
                 elif method == 'POST':
                     response = session.post(
                         url,
                         json=data,
-                        timeout=self.timeout,
+                        timeout=effective_timeout,
                         verify=self.ssl_verify
                     )
                 else:
@@ -302,10 +313,14 @@ class FiscalPrinterDevice(models.Model):
             finally:
                 session.close()
 
-    def _make_proxy_request(self, method, endpoint, data=None, params=None):
+    def _make_proxy_request(self, method, endpoint, data=None, params=None,
+                             timeout=None):
         """
-        Proxy HTTP заявка през браузъра
-        Използва се когато принтерът е в локална мрежа и сървърът няма достъп
+        Proxy HTTP заявка през браузъра.
+        Използва се когато принтерът е в локална мрежа и сървърът няма достъп.
+
+        `timeout` (optional, seconds) — per-call override (PLU sync,
+        X/Z report → 90s; status check → 5s; etc.).
         """
         import uuid
         import time
@@ -385,11 +400,13 @@ class FiscalPrinterDevice(models.Model):
         )
         self.env.cr.commit()
 
-        _logger.info(f"[PROXY] Waiting for response (timeout: {self.timeout}s)...")
+        effective_timeout = timeout if timeout is not None else self.timeout
+        _logger.info(
+            f"[PROXY] Waiting for response (timeout: {effective_timeout}s)...")
 
         # Чакаме отговор от браузъра
         start_time = time.time()
-        timeout = self.timeout
+        timeout = effective_timeout
         check_count = 0
 
         while time.time() - start_time < timeout:

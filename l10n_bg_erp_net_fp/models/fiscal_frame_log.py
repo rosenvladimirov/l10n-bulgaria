@@ -59,7 +59,20 @@ class FiscalFrameLog(models.Model):
         "response body.",
     )
     error_code = fields.Integer(
-        help="Non-zero if the device returned a fiscal error.",
+        help="Non-zero if the device returned a numeric fiscal error code "
+        "(e.g. Datecs ISL E-codes). Free-text errors go in error_message.",
+    )
+    error_message = fields.Text(
+        help="Free-text error from the device, the HTTP layer, or the "
+        "Python exception path. Populated when error_code alone is "
+        "not descriptive enough (transport timeouts, browser proxy "
+        "failures, JSON parse errors).",
+    )
+    state = fields.Selection(
+        [("ok", "OK"), ("failed", "FAILED")],
+        default="ok",
+        index=True,
+        help="Outcome of the call. 'failed' → see error_message / error_code.",
     )
     summary = fields.Char(
         compute="_compute_summary",
@@ -69,7 +82,11 @@ class FiscalFrameLog(models.Model):
     def _compute_summary(self):
         for rec in self:
             arrow = "→" if rec.direction == "out" else "←"
-            rec.summary = f"{rec.timestamp} {arrow} {rec.endpoint or rec.cmd_name or '?'}"
+            tag = " FAILED" if rec.state == "failed" else ""
+            rec.summary = (
+                f"{rec.timestamp} {arrow} "
+                f"{rec.endpoint or rec.cmd_name or '?'}{tag}"
+            )
 
     def write(self, vals):
         # Append-only safety: only superuser-driven writes (e.g.

@@ -28,6 +28,14 @@ PLU_NAME_MAX = 34
 # typical БГ retail (1500-2000 active PLUs).
 PLU_BATCH_SIZE = 200
 
+# Per-call timeouts (seconds) for PLU/logo/VAT/operator pushes —
+# Datecs ISL devices reach 60-90s on bulk operations; the device
+# field default of 30s is too short for these flows.
+PUSH_TIMEOUT_PLU_SYNC = 90      # bulk PLU upload
+PUSH_TIMEOUT_LOGO = 60          # logo programming
+PUSH_TIMEOUT_VAT = 30           # VAT rate programming
+PUSH_TIMEOUT_OPERATORS = 30     # operator credentials
+
 
 class FiscalPrinterDevice(models.Model):
     _inherit = "fiscal.printer.device"
@@ -69,6 +77,7 @@ class FiscalPrinterDevice(models.Model):
                 "plu/sync",
                 {"items": payload_items},
                 log_endpoint="printers/.../plu/sync",
+                timeout=PUSH_TIMEOUT_PLU_SYNC,
             )
             if result is None:
                 # _proxy_post already logged and applied sync failure
@@ -152,6 +161,7 @@ class FiscalPrinterDevice(models.Model):
         result = self._proxy_post(
             "vat-rates", payload,
             log_endpoint="printers/.../vat-rates",
+            timeout=PUSH_TIMEOUT_VAT,
         )
         return result is not None
 
@@ -185,6 +195,7 @@ class FiscalPrinterDevice(models.Model):
         result = self._proxy_post(
             "operators", payload,
             log_endpoint="printers/.../operators",
+            timeout=PUSH_TIMEOUT_OPERATORS,
         )
         return result is not None
 

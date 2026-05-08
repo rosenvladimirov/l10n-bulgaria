@@ -18,6 +18,17 @@ from odoo.exceptions import UserError
 _logger = logging.getLogger(__name__)
 
 
+# Per-call timeouts (seconds) for legacy push action_buttons. Datecs
+# ISL drives the ceiling — bulk PLU sync and logo programming reach
+# 60-90s end-to-end. The device default of 30s is too short for these
+# flows. Constants are duplicated from fiscal_printer_device_external.py
+# to avoid circular imports between the two extension modules.
+PUSH_TIMEOUT_PLU_SYNC = 90
+PUSH_TIMEOUT_LOGO = 60
+PUSH_TIMEOUT_STAMP = 60
+PUSH_TIMEOUT_TEMPLATE = 30
+
+
 # Driver names mirror Odoo.ErpNet.FP server registry — adding a new
 # vendor here means the proxy must understand the same key.
 DRIVER_TYPES = [
@@ -160,22 +171,30 @@ class FiscalPrinterDevice(models.Model):
     # original C# ErpNet.FP server (returns 404 → caught and
     # routed through `on_sync_fail`).
 
-    def _proxy_post(self, suffix, payload=None, log_endpoint=None):
+    def _proxy_post(self, suffix, payload=None, log_endpoint=None,
+                    timeout=None):
         """Wrapper around _make_request that records the call to the
         append-only frame log and applies on_sync_fail on errors.
+
+        `timeout` (optional, seconds) — per-call override; PLU sync /
+        VAT push / logo push need 60-90s on Datecs ISL devices.
         """
         self.ensure_one()
         endpoint = "printers/%s/%s" % (self.printer_id, suffix)
         log_ep = log_endpoint or endpoint
         try:
-            result = self._make_request("POST", endpoint, data=payload or {})
+            result = self._make_request(
+                "POST", endpoint, data=payload or {}, timeout=timeout)
         except Exception as exc:
+            # `summary` is computed (store=True) — Odoo recomputes on
+            # create. `error_code` is Integer (numeric device codes only);
+            # free-text exceptions belong in error_message.
             self.env["fiscal.frame.log"].sudo().create({
                 "device_id": self.id,
                 "direction": "out",
                 "endpoint": log_ep,
-                "summary": "FAILED",
-                "error_code": str(exc)[:64],
+                "state": "failed",
+                "error_message": str(exc),
                 "payload": str(payload)[:2000] if payload else False,
             })
             self.action_apply_sync_failure(exc)
@@ -184,7 +203,7 @@ class FiscalPrinterDevice(models.Model):
             "device_id": self.id,
             "direction": "out",
             "endpoint": log_ep,
-            "summary": "OK",
+            "state": "ok",
             "payload": str(payload)[:2000] if payload else False,
         })
         return result
@@ -209,7 +228,10 @@ class FiscalPrinterDevice(models.Model):
                 "unit": p.l10n_bg_fiscal_measurement_unit or "pcs",
                 "barcode": p.barcode or "",
             })
-        result = self._proxy_post("plu/sync", {"items": plus})
+        result = self._proxy_post(
+            "plu/sync", {"items": plus},
+            timeout=PUSH_TIMEOUT_PLU_SYNC,
+        )
         if result is not None:
             self.write({
                 "last_plu_sync": fields.Datetime.now(),
@@ -225,7 +247,8 @@ class FiscalPrinterDevice(models.Model):
             "image_b64": (self.logo_image or b"").decode("ascii")
             if isinstance(self.logo_image, bytes)
             else self.logo_image,
-        }, log_endpoint="printers/.../logo")
+        }, log_endpoint="printers/.../logo",
+           timeout=PUSH_TIMEOUT_LOGO)
         return True
 
     def action_upload_stamp(self):
@@ -236,7 +259,8 @@ class FiscalPrinterDevice(models.Model):
             "image_b64": (self.stamp_image or b"").decode("ascii")
             if isinstance(self.stamp_image, bytes)
             else self.stamp_image,
-        }, log_endpoint="printers/.../stamp")
+        }, log_endpoint="printers/.../stamp",
+           timeout=PUSH_TIMEOUT_STAMP)
         return True
 
     def action_sync_header_footer(self):
@@ -246,7 +270,8 @@ class FiscalPrinterDevice(models.Model):
         self._proxy_post("template", {
             "header": header,
             "footer": footer,
-        }, log_endpoint="printers/.../template")
+        }, log_endpoint="printers/.../template",
+           timeout=PUSH_TIMEOUT_TEMPLATE)
         return True
 
     # ─── Discovery: list printers from the proxy ───────────────────
@@ -260,12 +285,14 @@ class FiscalPrinterDevice(models.Model):
             return {"ok": False, "message": _("No host configured."),
                     "printers": []}
         url = "%s/printers" % host.rstrip("/")
-        # Browser-like UA bypasses Cloudflare bot rules.
+        # Browser-like UA bypasses Cloudflare bot rules that 403 the
+        # default `python-requests/...` UA before the request reaches
+        # the proxy.
         headers = {
             "User-Agent": (
                 "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
                 "(KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 "
-                "OdooErpNetFP-Odoo/19.0"
+                "OdooErpNetFP-Odoo/18.0"
             ),
             "Accept": "application/json",
         }
@@ -343,6 +370,6 @@ class FiscalPrinterDevice(models.Model):
 
     # ─── Bridge to native iot.box ─────────────────────────────────
     # Moved to `l10n_bg_erp_net_fp_iot` bridge module (in
-    # l10n-bulgaria-ee, auto_install=True) in 19.0.10.1.0 so this
+    # l10n-bulgaria-ee, auto_install=True) in 18.0.10.1.0 so this
     # core file no longer references the EE-only `iot.box` /
     # `iot.device` models — keeping the core CE-installable.

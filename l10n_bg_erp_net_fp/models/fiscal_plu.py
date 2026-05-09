@@ -288,60 +288,24 @@ class L10nBgFiscalPlu(models.Model):
     # ------------------------------------------------------------------
 
     def action_push_to_device(self):
-        """Push the selected PLUs to all fiscal devices configured on
-        the company's POS configurations. Skips PLUs in 'conflict' or
-        'error' state (they need manual fix first).
-
-        Useful for retry after a failed open-time push, or for ad-hoc
-        re-program of a single PLU without reopening the session.
+        """Open the PLU push wizard pre-populated with the current
+        selection. Replaces the previous implicit fan-out which silently
+        sent PLUs to every fiscal device on the company — that path
+        caused unrelated proxies to receive PLU traffic and surface as
+        "Timeout: no response from browser within 90s" against a printer
+        the operator never meant to touch.
         """
-        self.ensure_one() if len(self) == 1 else None
-        if not self:
-            return False
-        # Group by company; same company → same device set
-        by_company = {}
-        for rec in self:
-            by_company.setdefault(rec.company_id.id, self.env[self._name])
-            by_company[rec.company_id.id] |= rec
-
-        results = []
-        for company_id, plus in by_company.items():
-            # Run consistency first — exclude conflict/error
-            for p in plus:
-                p._check_consistency()
-            pushable = plus.filtered(
-                lambda r: r.push_state in ("pending", "stale", "name_drift", "pushed")
-            )
-            if not pushable:
-                results.append(
-                    f"Company #{company_id}: nothing to push "
-                    f"(all in conflict/error state)."
-                )
-                continue
-            devices = self.env["pos.config"].search([
-                ("company_id", "=", company_id),
-                ("l10n_bg_fiscal_printer_id", "!=", False),
-            ]).mapped("l10n_bg_fiscal_printer_id")
-            if not devices:
-                results.append(
-                    f"Company #{company_id}: no fiscal devices configured "
-                    f"on any POS config."
-                )
-                continue
-            for device in devices:
-                ok = device._l10n_bg_push_plu_registry(pushable)
-                results.append(
-                    f"{device.name}: {'OK' if ok else 'FAILED'} "
-                    f"({len(pushable)} PLUs)"
-                )
-
+        active_ids = self.ids
         return {
-            "type": "ir.actions.client",
-            "tag": "display_notification",
-            "params": {
-                "title": _("Manual PLU push"),
-                "message": "\n".join(results),
-                "type": "info",
-                "sticky": True,
+            "type": "ir.actions.act_window",
+            "name": _("Push PLUs to device"),
+            "res_model": "l10n.bg.fiscal.plu.push.wizard",
+            "view_mode": "form",
+            "target": "new",
+            "context": {
+                "active_model": self._name,
+                "active_ids": active_ids,
+                "default_company_id": (self.company_id[:1].id
+                                        or self.env.company.id),
             },
         }

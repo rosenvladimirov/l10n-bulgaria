@@ -22,7 +22,7 @@ supported by ErpNet.FP server. Features include:
 * Bulgarian tax group mapping (А, Б, В, Г)
 * Dual connection mode: Direct (server) and Proxy (browser)
 """,
-    'version': '19.0.13.1.0',
+    'version': '19.0.14.0.0',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
@@ -115,6 +115,7 @@ supported by ErpNet.FP server. Features include:
         'views/grafana_settings_views.xml',
         'views/menu_items_proxy.xml',
         'views/fiscal_plu_views.xml',
+        'views/fiscal_z_report_views.xml',
         'wizard/fiscal_cash_operation_wizard_view.xml',
         'wizard/plu_allocate_wizard_view.xml',
         'wizard/plu_push_wizard_view.xml',

@@ -1,3 +1,4 @@
+import json
 import logging
 
 from odoo import models, fields, api, _
@@ -165,6 +166,121 @@ class PosSession(models.Model):
                     "device form.",
                     device.name, self.name,
                 )
+
+    # ========== Close-shift Z-report + reconcile ==========
+
+    def action_pos_session_closing_control(self, *args, **kwargs):
+        """Auto-print Z + create reconcile records on close.
+
+        Skipped when:
+          * Z is already printed (manual `action_print_z_report` ran)
+          * config is in `l10n_bg_external_pos_mode` — that path orchestrates
+            its own broader close in pos_session_external.py
+
+        Per-device errors never block the standard close flow — operators
+        must always be able to finish closing the session even when a fiscal
+        device is unreachable. The error is captured in a Z-report record
+        with status='error' for the audit trail.
+        """
+        res = super().action_pos_session_closing_control(*args, **kwargs)
+        for sess in self:
+            if sess.l10n_bg_z_report_printed:
+                continue
+            if sess.config_id.l10n_bg_external_pos_mode:
+                continue
+            sess._l10n_bg_close_zreport_per_device()
+        return res
+
+    def _l10n_bg_close_zreport_per_device(self):
+        """For each fiscal device on this POS, run Z and persist a
+        l10n.bg.fiscal.z.report record with both device-reported and
+        Odoo-aggregate totals."""
+        self.ensure_one()
+        devices = self.config_id.l10n_bg_all_fiscal_devices
+        if not devices:
+            return
+        odoo_totals = self._l10n_bg_compute_odoo_totals_by_group()
+        ZReport = self.env["l10n.bg.fiscal.z.report"]
+        any_success = False
+        for device in devices:
+            try:
+                resp = device._l10n_bg_call_zreport_totals() or {}
+            except Exception as exc:  # noqa: BLE001
+                _logger.exception(
+                    "Z-report call to '%s' failed; saving error record",
+                    device.name,
+                )
+                ZReport.create({
+                    "session_id": self.id,
+                    "device_id": device.id,
+                    "reconcile_status": "error",
+                    "raw_messages": str(exc),
+                    "odoo_totals_json": json.dumps(odoo_totals),
+                })
+                continue
+            device_totals = resp.get("totals_by_group") or {}
+            device_returned = bool(resp.get("device_returned_totals"))
+            ok = bool(resp.get("ok"))
+            status, diff = self._l10n_bg_reconcile_z(
+                odoo_totals, device_totals, device_returned, ok)
+            ZReport.create({
+                "session_id": self.id,
+                "device_id": device.id,
+                "report_number": int(resp.get("report_number") or 0),
+                "device_returned_totals": device_returned,
+                "device_totals_json": json.dumps(device_totals),
+                "odoo_totals_json": json.dumps(odoo_totals),
+                "reconcile_status": status,
+                "reconcile_diff_json": json.dumps(diff),
+                "raw_messages": "\n".join(resp.get("messages") or []),
+            })
+            if ok:
+                any_success = True
+        if any_success:
+            self.write({
+                "l10n_bg_z_report_printed": True,
+                "l10n_bg_z_report_datetime": fields.Datetime.now(),
+            })
+
+    def _l10n_bg_compute_odoo_totals_by_group(self):
+        """Aggregate session pos.order.line amounts per BG VAT group letter.
+
+        Mapping path:  pos.order.line.tax_ids[0] → l10n_bg_letter (custom field
+        added by l10n_bg core). Lines without a mapped letter fall into the
+        'А' (default) bucket so totals are never silently lost.
+        """
+        self.ensure_one()
+        out: dict[str, float] = {}
+        for order in self.order_ids:
+            for line in order.lines:
+                tax = line.tax_ids[:1]
+                letter = (
+                    getattr(tax, "l10n_bg_letter", None)
+                    or "А"
+                )
+                out.setdefault(letter, 0.0)
+                out[letter] += line.price_subtotal_incl
+        return {k: round(v, 2) for k, v in out.items()}
+
+    @staticmethod
+    def _l10n_bg_reconcile_z(odoo, device, device_returned, ok):
+        """Compute reconcile status + per-group diff. Tolerance ±0.01 BGN.
+
+        Returns: (status, diff_dict)
+        """
+        if not ok:
+            return "error", {}
+        if not device_returned:
+            return "no_device_totals", {}
+        diff: dict[str, float] = {}
+        all_keys = set(odoo) | set(device)
+        for k in all_keys:
+            d = float(device.get(k, 0))
+            o = float(odoo.get(k, 0))
+            delta = round(d - o, 2)
+            if abs(delta) > 0.01:
+                diff[k] = delta
+        return ("matched" if not diff else "mismatch"), diff
 
     # ========== X ОТЧЕТ ==========
 

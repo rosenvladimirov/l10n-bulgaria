@@ -408,19 +408,24 @@ export const fiscalPrinterService = {
         console.log("%c[FiscalPrinter] ✅ BUS INITIALIZATION COMPLETE", "color: #4CAF50; font-weight: bold");
 
         /**
-         * Проверява дали принтерът е достъпен от браузъра
-         */
-        /**
          * Проверява дали принтерът е достъпен от браузъра.
-         * Опитва с CORS, ако не стане — fallback на no-cors
-         * (opaque response = хостът отговаря, но няма CORS headers).
+         *
+         * Преди имаше fallback на no-cors заявка ако CORS failне —
+         * opaque response се smiташе за "хостът е жив". Този path
+         * имаше два проблема:
+         *   1. Firefox 150+ с Local Network Access блокира no-cors
+         *      fetch към 127.0.0.1 без preflight, тригерва console
+         *      notice "Local Network Access detected: ..."
+         *   2. opaque response връща ok=true дори при HTTP 5xx, което
+         *      даваше false positives.
+         * Махнато. CORS преферuf минава (PNA chain в traefik отваря
+         * заявката); CORS грешка → reachable=false, истинско
+         * health-check решение.
          */
         const checkPrinterReachable = async (printer) => {
             const baseUrl = printer.host.replace(/\/$/, '');
             const url = `${baseUrl}/printers/${printer.printer_id}/status`;
-            let lastErr = "";
 
-            // Опит 1: CORS — можем да прочетем отговора
             try {
                 const controller = new AbortController();
                 // 12s — proxy ISL serial round-trip can take up to
@@ -436,30 +441,10 @@ export const fiscalPrinterService = {
                 clearTimeout(timeoutId);
                 console.log(`[FiscalPrinter] Health check CORS OK: ${url} → ${resp.status}`);
                 return { ok: resp.ok, reason: resp.ok ? "" : `HTTP ${resp.status}` };
-            } catch (corsErr) {
-                lastErr = corsErr.message || String(corsErr);
-                console.log(`[FiscalPrinter] Health check CORS failed for ${url}: ${lastErr}, trying no-cors...`);
-            }
-
-            // Опит 2: no-cors — opaque response означава, че хостът отговаря
-            try {
-                const controller = new AbortController();
-                // 12s — proxy ISL serial round-trip can take up to
-                // ~5s; the previous 5s budget caused frequent
-                // 'operation aborted' false positives.
-                const timeoutId = setTimeout(() => controller.abort(), 12000);
-                await fetch(url, {
-                    method: 'GET',
-                    mode: 'no-cors',
-                    signal: controller.signal,
-                });
-                clearTimeout(timeoutId);
-                console.log(`[FiscalPrinter] Health check no-cors OK: ${url} (opaque response — host is up)`);
-                return { ok: true, reason: "" };
-            } catch (noCorsErr) {
-                const msg = noCorsErr.message || String(noCorsErr);
-                console.log(`[FiscalPrinter] Health check no-cors failed for ${url}: ${msg}`);
-                return { ok: false, reason: lastErr || msg };
+            } catch (err) {
+                const msg = err.message || String(err);
+                console.log(`[FiscalPrinter] Health check failed for ${url}: ${msg}`);
+                return { ok: false, reason: msg };
             }
         };
 

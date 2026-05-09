@@ -125,9 +125,13 @@ class FiscalPrinterDevice(models.Model):
     last_plu_sync = fields.Datetime(string="Last PLU sync", readonly=True)
     plu_capacity = fields.Integer(
         string="PLU capacity",
-        readonly=True,
-        help="Maximum number of PLUs the device can hold "
-        "(100000 on capable Datecs models, 3000 on basic).",
+        default=4000,
+        help="Maximum number of PLUs the device can hold. "
+        "Defaults: Datecs ISL (DP-150X / FP-700X) = 10000, "
+        "Datecs PM compact = 4000, others = 4000. "
+        "Override here if your device firmware exposes a different "
+        "limit. The pre-push guard refuses to send more PLUs than "
+        "this number.",
     )
     plu_programmed = fields.Integer(
         string="PLU programmed",

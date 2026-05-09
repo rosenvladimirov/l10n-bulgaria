@@ -188,6 +188,8 @@ class PosSession(models.Model):
                 continue
             if sess.config_id.l10n_bg_external_pos_mode:
                 continue
+            if not sess.config_id.l10n_bg_auto_z_on_close:
+                continue
             sess._l10n_bg_close_zreport_per_device()
         return res
 

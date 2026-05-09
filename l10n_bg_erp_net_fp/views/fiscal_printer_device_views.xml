@@ -33,6 +33,11 @@
                     <button name="open_cash_drawer"
                             string="Open Drawer"
                             type="object"/>
+                    <button name="action_open_plu_push_wizard"
+                            string="Push PLUs..."
+                            type="object"
+                            class="btn-secondary"
+                            icon="fa-download"/>
                     <button name="action_cleanup_old_status"
                             string="Cleanup Old History"
                             type="object"

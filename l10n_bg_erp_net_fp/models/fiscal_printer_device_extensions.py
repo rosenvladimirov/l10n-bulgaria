@@ -208,6 +208,25 @@ class FiscalPrinterDevice(models.Model):
         })
         return result
 
+    def action_open_plu_push_wizard(self):
+        """Open the PLU push wizard pre-targeted to this device.
+        Replaces the older `action_sync_plu` legacy fan-out — wizard
+        offers preview, scope selection, and explicit per-device opt-in.
+        """
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Push PLUs to %s") % self.name,
+            "res_model": "l10n.bg.fiscal.plu.push.wizard",
+            "view_mode": "form",
+            "target": "new",
+            "context": {
+                "default_company_id": self.company_id.id,
+                "default_device_ids": [(6, 0, [self.id])],
+                "default_scope": "pending",
+            },
+        }
+
     def action_sync_plu(self):
         """Push all POS-enabled products with l10n_bg_fiscal_plu_number
         to the device. Updates last_plu_sync + plu_programmed.

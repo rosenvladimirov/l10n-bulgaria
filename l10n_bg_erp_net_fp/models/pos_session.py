@@ -1,5 +1,9 @@
+import logging
+
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
+
+_logger = logging.getLogger(__name__)
 
 
 class PosSession(models.Model):
@@ -86,6 +90,81 @@ class PosSession(models.Model):
 
         res.extend(fiscal_fields)
         return res
+
+    # ========== Open-shift auto PLU push ==========
+
+    def action_pos_session_open(self):
+        """Push pending/stale PLUs to fiscal devices when the operator
+        opens a session.
+
+        Skipped when `l10n_bg_external_pos_mode` is on — the external
+        flow in `pos_session_external.py` handles PLU + VAT + operators
+        + logo + headers + X-report sanity in one orchestrated step,
+        and we don't want to double-fire the PLU push.
+
+        Best-effort per device: a network or device error on push is
+        logged but does NOT block the session open. Operators can
+        retry from the "Push PLUs..." wizard on the printer form. The
+        only hard block is `conflict`/`error` push_state — those need
+        manual fix and should surface before the operator opens.
+        """
+        res = super().action_pos_session_open()
+        for sess in self:
+            cfg = sess.config_id
+            if cfg.l10n_bg_external_pos_mode:
+                continue
+            sess._l10n_bg_open_push_plus()
+        return res
+
+    def _l10n_bg_open_push_plus(self):
+        """Lightweight open-shift PLU push for standard POS mode."""
+        self.ensure_one()
+        devices = self.config_id.l10n_bg_all_fiscal_devices
+        if not devices:
+            return
+        Plu = self.env["l10n.bg.fiscal.plu"]
+        plus = Plu.search([
+            ("company_id", "=", self.company_id.id),
+            ("active", "=", True),
+            ("push_state", "in", ("pending", "stale", "name_drift", "pushed")),
+        ])
+        if not plus:
+            return
+        # Refresh push_state via consistency check before deciding
+        # whether to block or push. Without this a price change since
+        # the last validation could let a stale-but-unflagged PLU
+        # through.
+        for plu in plus:
+            plu._check_consistency()
+        conflicts = plus.filtered(
+            lambda p: p.push_state in ("conflict", "error")
+        )
+        if conflicts:
+            names = ", ".join(p.display_name for p in conflicts[:5])
+            more = ""
+            if len(conflicts) > 5:
+                more = _(" (+%d more)") % (len(conflicts) - 5)
+            raise UserError(_(
+                "Cannot open POS session — %(n)d PLU(s) are in "
+                "conflict/error state: %(names)s%(more)s. Fix them "
+                "from Settings → Bulgarian Fiscal → PLU Slots before "
+                "opening the session."
+            ) % {"n": len(conflicts), "names": names, "more": more})
+        pushable = plus.filtered(
+            lambda p: p.push_state in ("pending", "stale", "name_drift")
+        )
+        if not pushable:
+            return
+        for device in devices:
+            try:
+                device._l10n_bg_push_plu_registry(pushable)
+            except Exception:  # noqa: BLE001
+                _logger.exception(
+                    "Open-shift PLU push to '%s' failed for session %s; "
+                    "session continues — operator can retry from the "
+                    "device form.",
+                    device.name, self.name,
+                )
 
     # ========== X ОТЧЕТ ==========
 

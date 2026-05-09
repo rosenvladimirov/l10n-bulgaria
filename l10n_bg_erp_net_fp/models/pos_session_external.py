@@ -15,6 +15,7 @@ but do NOT block the session from opening — the cashier can still
 operate, with a manual retry button as fallback.
 """
 
+import json
 import logging
 
 from odoo import _, api, fields, models
@@ -412,6 +413,12 @@ class PosSession(models.Model):
                 f"Z#{z_result['z_number']} total={z_result['total']:.2f}"
                 if z_result["ok"] else z_result["message"],
             ))
+            # 3b. Persist a l10n.bg.fiscal.z.report audit record so
+            # external-mode sessions land in the same Z log as standard
+            # mode. Granularity is total-only here (legacy _l10n_bg_print_z
+            # doesn't break out per-group); refine when ISL daily-totals
+            # extension lands.
+            self._l10n_bg_save_z_record_from_legacy(device, z_result)
         else:
             steps.append(("z_report", True, "Skipped (auto_z disabled)"))
 
@@ -447,6 +454,50 @@ class PosSession(models.Model):
             ))
 
         return steps
+
+    def _l10n_bg_save_z_record_from_legacy(self, device, z_result):
+        """Persist an l10n.bg.fiscal.z.report from the legacy
+        _l10n_bg_print_z() return shape.
+
+        Legacy returns total-only (no per-group breakdown). We treat
+        the device total as a single bucket keyed '_total'; when the
+        ISL daily-totals extension lands (v0.7+), per-group buckets
+        will replace the single-bucket fallback transparently.
+        """
+        self.ensure_one()
+        ZReport = self.env["l10n.bg.fiscal.z.report"]
+        odoo_totals = self._l10n_bg_compute_odoo_totals_by_group()
+        device_total = float(z_result.get("total") or 0.0)
+        ok = bool(z_result.get("ok"))
+        odoo_total = round(sum(odoo_totals.values()), 2)
+        diff = round(device_total - odoo_total, 2)
+        if not ok:
+            status = "error"
+            diff_dict: dict = {}
+            device_returned = False
+        elif device_total <= 0:
+            status = "no_device_totals"
+            diff_dict = {}
+            device_returned = False
+        elif abs(diff) <= 0.01:
+            status = "matched"
+            diff_dict = {}
+            device_returned = True
+        else:
+            status = "mismatch"
+            diff_dict = {"_total": diff}
+            device_returned = True
+        ZReport.create({
+            "session_id": self.id,
+            "device_id": device.id,
+            "report_number": int(z_result.get("z_number") or 0),
+            "device_returned_totals": device_returned,
+            "device_totals_json": json.dumps({"_total": device_total}),
+            "odoo_totals_json": json.dumps(odoo_totals),
+            "reconcile_status": status,
+            "reconcile_diff_json": json.dumps(diff_dict),
+            "raw_messages": z_result.get("message") or "",
+        })
 
     def _l10n_bg_import_receipts(self, receipts, device=None):
         """Create pos.order records from a normalised receipts list.

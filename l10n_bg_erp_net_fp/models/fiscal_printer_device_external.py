@@ -144,16 +144,27 @@ class FiscalPrinterDevice(models.Model):
         """
         self.ensure_one()
         Group = self.env["account.tax.group"]
+        Tax = self.env["account.tax"]
         groups = Group.search([("l10n_bg_fiscal_tax_group", "!=", False)])
         if not groups:
             return True
+        # account.tax.group has no tax_ids reverse relation in v18+v19;
+        # look the rate up via the forward relation on account.tax.
+        # fiscal.printer.device has no company_id field — fall back to
+        # the active company on the env.
+        taxes_by_group = {}
+        for tax in Tax.search([
+            ("tax_group_id", "in", groups.ids),
+            ("company_id", "in", (False, self.env.company.id)),
+        ]):
+            taxes_by_group.setdefault(tax.tax_group_id.id, tax)
         payload = {
             "groups": [
                 {
                     "letter": g.l10n_bg_fiscal_tax_group,
                     "name": g.name,
-                    # Each group typically owns one tax with the rate
-                    "rate": (g.tax_ids[:1].amount or 0.0),
+                    "rate": (taxes_by_group.get(g.id).amount
+                             if taxes_by_group.get(g.id) else 0.0),
                 }
                 for g in groups
             ]

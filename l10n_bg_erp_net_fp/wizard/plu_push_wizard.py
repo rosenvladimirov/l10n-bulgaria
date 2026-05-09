@@ -58,7 +58,6 @@ class L10nBgFiscalPluPushWizard(models.TransientModel):
     device_ids = fields.Many2many(
         "fiscal.printer.device",
         string="Target devices",
-        domain="[('company_id', '=', company_id)]",
         required=True,
         default=lambda self: self._default_devices(),
     )

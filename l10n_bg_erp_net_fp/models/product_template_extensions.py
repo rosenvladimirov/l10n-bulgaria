@@ -8,7 +8,11 @@ on first sync; admins can set/override manually.
 ADD-only — does NOT change existing product behaviour.
 """
 
+import logging
+
 from odoo import api, fields, models
+
+_logger = logging.getLogger(__name__)
 
 
 # Datecs PM v2.11.4 measurement unit slots (PDF §4.55.1 syntax #2).
@@ -77,6 +81,40 @@ class ProductTemplate(models.Model):
                     except (ValueError, TypeError):
                         pass
         return super().create(vals_list)
+
+    # ─── Mid-shift stale tracking ──────────────────────────────────
+    # Watch the fields that flip a PLU's push_state to stale or
+    # name_drift on the next consistency check. We don't auto-push to
+    # the device mid-shift — mixing old + new prices in the same Z
+    # cycle would scramble the fiscal log. The flag is for the next
+    # session-open hook to pick up.
+    _L10N_BG_PLU_WATCHED_FIELDS = ("name", "list_price")
+
+    def write(self, vals):
+        res = super().write(vals)
+        if any(k in vals for k in self._L10N_BG_PLU_WATCHED_FIELDS):
+            self._l10n_bg_revalidate_linked_plus()
+        return res
+
+    def _l10n_bg_revalidate_linked_plus(self):
+        """Re-run consistency check on every PLU whose linked products
+        belong to one of these templates. Quietly no-ops if no PLUs
+        link to the changed templates — most product writes will hit
+        this path. Errors are logged, not raised — a stale PLU is
+        better than a failed product.write."""
+        try:
+            Plu = self.env["l10n.bg.fiscal.plu"]
+            product_ids = self.product_variant_ids.ids
+            if not product_ids:
+                return
+            plus = Plu.search([("product_ids", "in", product_ids)])
+            for plu in plus:
+                plu._check_consistency()
+        except Exception:  # noqa: BLE001
+            _logger.exception(
+                "Mid-shift PLU revalidation failed for templates %s — "
+                "continuing without flipping push_state.", self.ids,
+            )
 
     def _l10n_bg_fiscal_assign_plu(self):
         """Bulk-assign PLU# to records that don't have one. Called by

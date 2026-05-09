@@ -15,6 +15,7 @@ access_l10n_bg_fiscal_plu_user,l10n.bg.fiscal.plu.user,model_l10n_bg_fiscal_plu,
 access_l10n_bg_fiscal_plu_manager,l10n.bg.fiscal.plu.manager,model_l10n_bg_fiscal_plu,point_of_sale.group_pos_manager,1,1,1,1
 access_l10n_bg_fiscal_plu_allocate_wizard,l10n.bg.fiscal.plu.allocate.wizard,model_l10n_bg_fiscal_plu_allocate_wizard,point_of_sale.group_pos_manager,1,1,1,1
 access_l10n_bg_fiscal_plu_topn_wizard,l10n.bg.fiscal.plu.topn.wizard,model_l10n_bg_fiscal_plu_topn_wizard,point_of_sale.group_pos_manager,1,1,1,1
+access_l10n_bg_fiscal_plu_push_wizard,l10n.bg.fiscal.plu.push.wizard,model_l10n_bg_fiscal_plu_push_wizard,point_of_sale.group_pos_manager,1,1,1,1
 access_l10n_bg_fiscal_x_report_wizard,l10n.bg.fiscal.x_report.wizard,model_l10n_bg_fiscal_x_report_wizard,point_of_sale.group_pos_user,1,1,1,1
 access_fiscal_z_report_user,fiscal.z.report.user,l10n_bg_erp_net_fp.model_l10n_bg_fiscal_z_report,point_of_sale.group_pos_user,1,0,0,0
 access_fiscal_z_report_manager,fiscal.z.report.manager,l10n_bg_erp_net_fp.model_l10n_bg_fiscal_z_report,point_of_sale.group_pos_manager,1,1,1,0

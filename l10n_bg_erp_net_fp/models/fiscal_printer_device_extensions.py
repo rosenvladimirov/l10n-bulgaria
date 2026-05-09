@@ -208,6 +208,28 @@ class FiscalPrinterDevice(models.Model):
         })
         return result
 
+    def _l10n_bg_call_zreport_totals(self):
+        """Invoke the proxy's `/printers/<id>/zreport-totals` endpoint
+        which prints Z and parses out per-group totals when the driver
+        cooperates. Returns the raw response dict on success, or a
+        synthesized error dict on transport failure.
+
+        Shape (success):
+            {ok, report_number, totals_by_group: {group: turnover},
+             device_returned_totals: bool, messages: []}
+        """
+        self.ensure_one()
+        return self._proxy_post(
+            "zreport-totals",
+            timeout=PUSH_TIMEOUT_PLU_SYNC,
+        ) or {
+            "ok": False,
+            "report_number": None,
+            "totals_by_group": {},
+            "device_returned_totals": False,
+            "messages": ["proxy did not return a response"],
+        }
+
     def action_open_plu_push_wizard(self):
         """Open the PLU push wizard pre-targeted to this device.
         Replaces the older `action_sync_plu` legacy fan-out — wizard

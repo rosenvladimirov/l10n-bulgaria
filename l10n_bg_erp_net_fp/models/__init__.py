@@ -18,6 +18,7 @@ from . import fiscal_printer_device_external
 from . import fiscal_frame_log
 from . import fiscal_session
 from . import fiscal_plu
+from . import fiscal_z_report
 from . import pos_config_extensions
 from . import product_template_extensions
 from . import product_product_extensions

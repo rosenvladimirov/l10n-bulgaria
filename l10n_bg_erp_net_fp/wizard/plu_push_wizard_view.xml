@@ -21,10 +21,10 @@
                            invisible="scope != 'selected'">
                         <field name="plu_ids" nolabel="1">
                             <list>
-                                <field name="slot"/>
+                                <field name="plu_number"/>
                                 <field name="name"/>
                                 <field name="price"/>
-                                <field name="vat_group"/>
+                                <field name="vat_group_id"/>
                                 <field name="push_state"
                                        decoration-success="push_state == 'pending'"
                                        decoration-info="push_state == 'pushed'"

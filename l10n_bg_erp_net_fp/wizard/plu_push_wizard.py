@@ -241,7 +241,7 @@ class L10nBgFiscalPluPushWizard(models.TransientModel):
                 action = "UPDATE"
             plan.append(
                 {
-                    "slot": plu.slot,
+                    "slot": plu.plu_number,
                     "name": plu.name,
                     "price": plu.price,
                     "state": plu.push_state,

@@ -8,6 +8,22 @@ from dateutil.relativedelta import relativedelta
 class HrVersion(models.Model):
     _inherit = 'hr.version'
 
+    # =========================================================================
+    # CONTRACT IDENTIFICATION (BG convention — separate from base `name`)
+    # =========================================================================
+    # Base `name` stays free text (Odoo standard). BG-specific labor contract
+    # number is stored separately so it can be used in ETZ XML <contractno>
+    # (cell 11) and legacy ERP integrations.
+
+    l10n_bg_contract_number = fields.Char(
+        string="Labor Contract Number",
+        copy=False,
+        index=True,
+        help="Unique labor contract number. Auto-filled from ir.sequence "
+             "'l10n_bg.contract.number' on create if empty. Used in the "
+             "ETZ XML <contractno> element (cell 11).",
+    )
+
     work_location = fields.Char(
         string='Work Location Address',
         related='work_location_id.address_id.contact_address',
@@ -213,3 +229,14 @@ class HrVersion(models.Model):
             version.l10n_bg_total_leave_days = (
                     version.l10n_bg_basic_leave_days + version.l10n_bg_additional_leave_days
             )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """Auto-fill l10n_bg_contract_number from sequence if missing."""
+        seq = self.env['ir.sequence']
+        for vals in vals_list:
+            if not vals.get('l10n_bg_contract_number'):
+                next_no = seq.next_by_code('l10n_bg.contract.number')
+                if next_no:
+                    vals['l10n_bg_contract_number'] = next_no
+        return super().create(vals_list)

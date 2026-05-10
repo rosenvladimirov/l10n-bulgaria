@@ -8,5 +8,16 @@
             <field name="padding">4</field>
             <field name="company_id" eval="False"/>
         </record>
+
+        <record id="seq_l10n_bg_contract_number" model="ir.sequence">
+            <field name="name">BG Labor Contract Number</field>
+            <field name="code">l10n_bg.contract.number</field>
+            <field name="prefix">ТД-</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+            <field name="company_id" eval="False"/>
+            <field name="implementation">no_gap</field>
+        </record>
     </data>
 </odoo>

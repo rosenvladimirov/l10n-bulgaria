@@ -1,5 +1,40 @@
 # Changelog
 
+## 19.0.5.0.0 (2026-05-10) — BREAKING
+
+### Changed
+- **Security: `uniqueId` moved from plain field to wallet / Fernet.**
+  The InfoPay uniqueId is paired with the accessToken — neither alone
+  authenticates with the API, so they must sit on the same security
+  boundary.  Previous releases stored uniqueId as a plain `Char` on
+  `res.company`, while the access token was already encrypted.  This
+  release closes that asymmetry.
+
+  * **User-side**: `l10n_bg_infopay_unique_id` field is removed from
+    `res.company`; uniqueId now lives in the user crypto wallet under
+    key `infopay_unique_id` (alongside `infopay_access_token`).
+  * **Admin-side**: `l10n_bg_infopay_admin_unique_id` field replaced
+    with `l10n_bg_infopay_admin_unique_id_encrypted` — Fernet-encrypted
+    with the same key as the admin token.
+
+### Migration
+- Pre-migration `19.0.5.0.0/pre-migration.py` drops the two old
+  columns and warns when non-empty values are discarded.
+- **Operators must re-set credentials after upgrade** — call
+  `company._infopay_set_credentials(uid, tok)` for user-side and
+  `company._l10n_bg_infopay_set_admin_credentials(uid, tok)` for
+  admin (cron).
+- `res.users._infopay_distribute_token` now copies BOTH wallet keys
+  (uniqueId + token) at login, so the distribution still works for
+  users who weren't the original setup user.
+
+### Internal
+- New helpers `_infopay_get_unique_id`, `_infopay_has_credentials`,
+  `_l10n_bg_infopay_get_admin_unique_id`,
+  `_l10n_bg_infopay_has_admin_credentials`.
+- `infopay.provider._create_session` now reads from these helpers
+  instead of touching company columns directly.
+
 ## 19.0.4.1.0 (2026-05-10)
 
 ### Added

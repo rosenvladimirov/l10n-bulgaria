@@ -84,33 +84,31 @@ class InfopayProvider(models.AbstractModel):
 
         Two key paths:
 
-        * ``admin=False`` (default, interactive) — uses
-          ``company.l10n_bg_infopay_unique_id`` + the access token from the
-          current user's (or owner's) crypto wallet.  Requires the
-          user's session password to decrypt the wallet.
+        * ``admin=False`` (default, interactive) — both ``uniqueId``
+          and ``accessToken`` come from the current user's (or owner's)
+          crypto wallet.  Requires the user's session password.
 
-        * ``admin=True`` (cron / scheduled) — uses
-          ``company.l10n_bg_infopay_admin_unique_id`` + the Fernet-
-          decrypted admin access token.  No user password required;
-          should be a SEPARATE ERP registration in the InfoPay portal
-          with read-only scope, so a leaked admin token cannot
-          initiate payments.
+        * ``admin=True`` (cron / scheduled) — both ``uniqueId`` and
+          ``accessToken`` are Fernet-decrypted from the company record.
+          No user password required.  Use a SEPARATE InfoPay ERP
+          registration with read-only scope — a leaked admin pair must
+          not be able to initiate payments.
         """
         if admin:
-            unique_id = company.l10n_bg_infopay_admin_unique_id
-            if not unique_id:
+            if not company._l10n_bg_infopay_has_admin_credentials():
                 raise UserError(self.env._(
-                    "No InfoPay admin uniqueId configured on company "
+                    "No InfoPay admin credentials configured on company "
                     "'%s'.", company.name,
                 ))
+            unique_id = company._l10n_bg_infopay_get_admin_unique_id()
             access_token = company._l10n_bg_infopay_get_admin_token()
         else:
-            if not company.l10n_bg_infopay_unique_id:
+            if not company._infopay_has_credentials():
                 raise UserError(self.env._(
                     "InfoPay credentials are not configured on company "
                     "'%s'.", company.name,
                 ))
-            unique_id = company.l10n_bg_infopay_unique_id
+            unique_id = company._infopay_get_unique_id()
             access_token = company._infopay_get_access_token()
 
         result = self._request("POST", "/api/session", json={

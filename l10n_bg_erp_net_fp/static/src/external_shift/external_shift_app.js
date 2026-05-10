@@ -1,23 +1,21 @@
 /** @odoo-module **/
 
-import { Component, useState, onMounted, whenReady } from "@odoo/owl";
+import { Component, useState, onMounted, mount, whenReady } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
 import { useService } from "@web/core/utils/hooks";
+import { getTemplate } from "@web/core/templates";
+import { makeEnv, startServices } from "@web/env";
 import { TopBar } from
     "@l10n_bg_erp_net_fp/external_shift/components/top_bar/top_bar";
 import { ProductsGrid } from
     "@l10n_bg_erp_net_fp/external_shift/components/products_grid/products_grid";
 import { LiveFeed } from
     "@l10n_bg_erp_net_fp/external_shift/components/live_feed/live_feed";
-import { MainComponentsContainer } from
-    "@web/core/main_components_container";
-import { mountComponent } from "@web/env";
 
 
 export class ExternalShiftApp extends Component {
     static template = "l10n_bg_erp_net_fp.ExternalShift.App";
-    static components = { TopBar, ProductsGrid, LiveFeed,
-                          MainComponentsContainer };
+    static components = { TopBar, ProductsGrid, LiveFeed };
     static props = {};
 
     setup() {
@@ -187,22 +185,25 @@ export class ExternalShiftApp extends Component {
 }
 
 
-// Boot the app once the page is ready. `mountComponent` from @web/env
-// auto-creates the env, starts services, and wires getTemplate from
-// @web/core/templates — pattern matches `point_of_sale/static/src/app/main.js`.
+// Boot — manual env + services + mount pattern (matches POS's
+// `Loader` boot in point_of_sale/static/src/app/main.js).
 (async function _start() {
     try {
         await whenReady();
+        const env = makeEnv();
+        await startServices(env);
         const root = document.getElementById("external_shift_root");
         if (root) {
-            // Clear the loading splash injected by the QWeb shell.
-            root.innerHTML = "";
+            root.innerHTML = "";  // clear loading splash
         }
-        await mountComponent(
-            ExternalShiftApp,
-            root || document.body,
-            { name: "External Shift Dashboard" },
-        );
+        await mount(ExternalShiftApp, root || document.body, {
+            env,
+            getTemplate,
+            translateFn: _t,
+            dev: env.debug,
+            warnIfNoStaticProps: false,
+            name: "External Shift Dashboard",
+        });
     } catch (err) {
         console.error("[ExternalShift] boot failed", err);
         const root = document.getElementById("external_shift_root");

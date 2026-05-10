@@ -175,49 +175,59 @@ class AccountMove(models.Model):
     def _l10n_bg_infopay_extract_invoice_number(self):
         """Build the 10-digit InfoPay invoice number for this move.
 
-        InfoPay regex is ``^[0-9]{10}$`` — strict, leading zeros
-        required.  Two distinct moves MUST never collide here: e.g.
-        ``INV/2026/0001`` and ``OUT/2026/0001`` both leave only
-        ``0000000001`` after digit extraction.
+        InfoPay regex is ``^[0-9]{10}$`` — strict, leading zeros.
 
-        Strategy:
-        * Use ``move.id`` (database PK, guaranteed unique within a
-          company database) as the basis — zero-padded to 10 digits.
-        * Falls back gracefully for ids ≥ 10**10 (>10 billion moves)
-          — extremely unlikely; raises a clean error rather than
-          silently truncating.
+        Primary source: ``move.l10n_bg_document_number`` (computed
+        field provided by ``l10n_bg_config.account_move``).  That
+        field already strips the journal/year prefix (``INV/2026/00001
+        → 0000000001``) and matches Bulgarian VAT regulation Art. 78
+        on sequential invoice numbering.  Using it keeps the
+        InfoPay-side number identical to the printed receipt and to
+        the Odoo move.name — auditable round-trip.
 
-        Trade-off: the InfoPay number is no longer human-readable
-        (not the operator's invoice sequence), but it is a unique
-        immutable identifier per move.  For Bulgarian VAT compliance
-        the human-readable sequential number stays on ``move.name``
-        and on the printed invoice; the InfoPay number is the
-        InfoPay-side handle only.
+        Fallback: ``str(move.id).zfill(10)``.  Only triggered when
+        ``l10n_bg_document_number`` is absent (state=draft, or the
+        l10n_bg_config field empty for some legacy reason).  Move id
+        is a database PK and so is unique within the company — but
+        not human-readable.  Logged at WARNING when the fallback
+        fires so an operator can check why the canonical БГ number
+        wasn't populated.
 
-        Future enhancement: a per-company ``ir.sequence`` dedicated
-        to InfoPay numbering, stored on the move at ``action_post``
-        time.  Keeps both the local invoice number AND the InfoPay
-        number deterministic and sequential.
+        Two-different-journals-with-overlapping-sequences edge case:
+        breaks Bulgarian VAT regardless of InfoPay (Art. 78 forbids
+        two invoices with the same number per company).  We trust
+        the upstream l10n_bg_config check + per-company sequence
+        configuration — InfoPay is not the right place to police it.
         """
         self.ensure_one()
-        if not self.id:
-            raise ValidationError(_(
-                "Invoice %s has not been saved yet; cannot derive an "
-                "InfoPay number.", self.display_name,
-            ))
-        if self.id >= 10 ** 10:
-            raise ValidationError(_(
-                "Invoice id %s exceeds 10 digits — InfoPay number "
-                "cannot be derived without overflow.  Switch to a "
-                "dedicated InfoPay sequence.", self.id,
-            ))
-        number = str(self.id).zfill(10)
-        if not INFOPAY_NUMBER_REGEX.match(number):
+        candidate = self.l10n_bg_document_number or ""
+        if not candidate or not INFOPAY_NUMBER_REGEX.match(candidate):
+            if not self.id:
+                raise ValidationError(_(
+                    "Invoice %s has not been saved yet; cannot derive "
+                    "an InfoPay number.", self.display_name,
+                ))
+            if self.id >= 10 ** 10:
+                raise ValidationError(_(
+                    "Invoice id %s exceeds 10 digits — InfoPay number "
+                    "cannot be derived without overflow.  Configure "
+                    "l10n_bg_document_number on the move or switch to a "
+                    "dedicated InfoPay sequence.", self.id,
+                ))
+            fallback = str(self.id).zfill(10)
+            _logger.warning(
+                "InfoPay number for move %s (id=%s) falling back to "
+                "move.id (%s) — l10n_bg_document_number was %r.  Check "
+                "the journal sequence + l10n_bg_config setup.",
+                self.display_name, self.id, fallback, candidate,
+            )
+            candidate = fallback
+        if not INFOPAY_NUMBER_REGEX.match(candidate):
             raise ValidationError(_(
                 "Derived InfoPay number %s for move %s does not match "
-                "the required regex.", number, self.display_name,
+                "the required regex.", candidate, self.display_name,
             ))
-        return number
+        return candidate
 
     # ── customer block ────────────────────────────────────────────────
 

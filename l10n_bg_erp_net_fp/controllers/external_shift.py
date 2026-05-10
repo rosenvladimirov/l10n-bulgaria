@@ -9,6 +9,8 @@ HTML page including `<t t-call-assets>` for the dedicated bundle.
 import json
 import logging
 
+from markupsafe import Markup
+
 from odoo import http
 from odoo.http import request
 
@@ -102,9 +104,14 @@ class ExternalShiftController(http.Controller):
                 "user_id": user.id,
                 "company_id": company.id,
                 "company_name": company.name,
-                "odoo_globals_json": json.dumps(
-                    odoo_globals, ensure_ascii=False),
-                "config_json_safe": json.dumps(
-                    config, ensure_ascii=False),
+                # Use Markup to prevent QWeb's t-out from HTML-escaping
+                # the `&`, `<`, `>`, `"` characters in the JSON. Without
+                # Markup, &amp;quot; etc. show up in the rendered HTML
+                # and the inline <script> dies with SyntaxError on the
+                # entity references.
+                "odoo_globals_json": Markup(json.dumps(
+                    odoo_globals, ensure_ascii=True)),
+                "config_json_safe": Markup(json.dumps(
+                    config, ensure_ascii=True)),
             },
         )

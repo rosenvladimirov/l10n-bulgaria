@@ -9,7 +9,7 @@
     <record id="nra_declaration_form_h18" model="ir.ui.view">
         <field name="name">nra.declaration.form.h18</field>
         <field name="model">nra.declaration</field>
-        <field name="inherit_id" ref="nra_declaration_form"/>
+        <field name="inherit_id" ref="nra_declaration_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
                 <button name="action_collect_h18_orders" type="object"
@@ -118,7 +118,7 @@
 
     <menuitem id="menu_nra_declaration_h18"
               name="H-18 Audit (e-shop)"
-              parent="menu_nra_declarations"
+              parent="menu_nra_all"
               action="action_nra_declaration_h18"
               sequence="50"/>
 

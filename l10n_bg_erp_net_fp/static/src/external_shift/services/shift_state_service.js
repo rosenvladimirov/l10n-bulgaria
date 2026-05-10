@@ -64,31 +64,48 @@ export const shiftStateService = {
             },
 
             async loadProductsAndPlu() {
-                const products = await orm.searchRead(
-                    "product.product",
-                    [["available_in_pos", "=", true]],
-                    ["id", "display_name", "default_code",
-                     "lst_price", "barcode"],
-                    { limit: 200, order: "display_name" },
-                );
+                // PLU registry is THE source of truth — only show
+                // products that have a PLU (otherwise the cashier
+                // can't ring them up on the device anyway).
                 const plus = await orm.searchRead(
                     "l10n.bg.fiscal.plu",
                     [["active", "=", true]],
                     ["id", "plu_number", "name", "price",
                      "push_state", "product_ids"],
+                    { order: "plu_number" },
                 );
+
+                const allProductIds = new Set();
+                for (const p of plus) {
+                    for (const pid of (p.product_ids || [])) {
+                        allProductIds.add(pid);
+                    }
+                }
+
+                let products = [];
+                if (allProductIds.size) {
+                    products = await orm.searchRead(
+                        "product.product",
+                        [["id", "in", [...allProductIds]]],
+                        ["id", "display_name", "default_code",
+                         "lst_price", "barcode"],
+                        { order: "display_name" },
+                    );
+                }
+
                 const byProduct = {};
                 for (const p of plus) {
                     for (const pid of (p.product_ids || [])) {
                         byProduct[pid] = p;
                     }
                 }
+
                 for (const prod of products) {
                     const plu = byProduct[prod.id];
-                    if (!plu) {
-                        prod.plu_status = "missing";
-                        prod.plu_label = "";
-                    } else if (plu.push_state === "pushed") {
+                    // Every product here has a plu (we filtered by ids
+                    // collected from plus). The status reflects the
+                    // device-side push state of that plu.
+                    if (plu.push_state === "pushed") {
                         prod.plu_status = "ok";
                         prod.plu_label = `PLU#${plu.plu_number}`;
                     } else if (

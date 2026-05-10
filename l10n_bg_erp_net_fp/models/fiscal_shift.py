@@ -201,3 +201,37 @@ class L10nBgFiscalShift(models.Model):
             ("device_id", "=", device_id),
             ("state", "in", ("opening", "open", "closing")),
         ], limit=1)
+
+    # ------------------------------------------------------------------
+    # Frontend launcher — opens the standalone OWL app at /external-shift.
+    # The frontend has its OWN asset bundle (`l10n_bg_erp_net_fp.external_
+    # _shift_assets`) and is rendered without the backend chrome — exactly
+    # the same architectural pattern as `point_of_sale._assets_pos` +
+    # `/pos/ui` route.
+    # ------------------------------------------------------------------
+
+    def action_open_dashboard(self):
+        """Open the standalone External Shift dashboard for this record.
+
+        Returns an `ir.actions.act_url` so the browser navigates to the
+        full-screen frontend (NOT a backend window). Pattern mirrors how
+        Odoo POS opens `/pos/ui` from the backend pos.session form.
+        """
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_url",
+            "target": "self",
+            "url": "/external-shift?shift_id=%d" % self.id,
+        }
+
+    @api.model
+    def action_open_dashboard_new(self):
+        """Open the dashboard with NO pre-selected shift (operator picks
+        a device on the frontend and clicks Open Shift). Used by kanban
+        empty-state + 'Start a new shift' button.
+        """
+        return {
+            "type": "ir.actions.act_url",
+            "target": "self",
+            "url": "/external-shift",
+        }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="l10n_bg_erp_net_fp.ExternalShift.ShiftStatusBadge">
+        <span class="badge fs-6" t-att-class="badgeClass">
+            <t t-esc="label"/>
+        </span>
+    </t>
+
+</templates>

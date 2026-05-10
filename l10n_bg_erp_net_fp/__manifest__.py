@@ -22,7 +22,7 @@ supported by ErpNet.FP server. Features include:
 * Bulgarian tax group mapping (А, Б, В, Г)
 * Dual connection mode: Direct (server) and Proxy (browser)
 """,
-    'version': '19.0.15.0.0',
+    'version': '19.0.15.1.0',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
@@ -138,9 +138,38 @@ supported by ErpNet.FP server. Features include:
             'l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js',
             'l10n_bg_erp_net_fp/static/src/js/grafana_dashboard.js',
             'l10n_bg_erp_net_fp/static/src/xml/grafana_dashboard.xml',
-            # 19.0.15.0.0 — External Shift Dashboard (POS-mimic OWL view)
-            'l10n_bg_erp_net_fp/static/src/js/external_shift_dashboard.js',
-            'l10n_bg_erp_net_fp/static/src/xml/external_shift_dashboard.xml',
+        ],
+        # 19.0.15.1.0 — External Shift dedicated frontend bundle.
+        # Standalone OWL app served at /external-shift route — same
+        # architectural pattern as `point_of_sale._assets_pos` for /pos/ui.
+        'l10n_bg_erp_net_fp.external_shift_assets': [
+            ('include', 'web.assets_backend'),
+            'l10n_bg_erp_net_fp/static/src/external_shift/styles/'
+            'external_shift.scss',
+            'l10n_bg_erp_net_fp/static/src/external_shift/services/'
+            'device_proxy_service.js',
+            'l10n_bg_erp_net_fp/static/src/external_shift/services/'
+            'shift_state_service.js',
+            'l10n_bg_erp_net_fp/static/src/external_shift/components/'
+            'shift_status_badge/shift_status_badge.js',
+            'l10n_bg_erp_net_fp/static/src/external_shift/components/'
+            'shift_status_badge/shift_status_badge.xml',
+            'l10n_bg_erp_net_fp/static/src/external_shift/components/'
+            'top_bar/top_bar.js',
+            'l10n_bg_erp_net_fp/static/src/external_shift/components/'
+            'top_bar/top_bar.xml',
+            'l10n_bg_erp_net_fp/static/src/external_shift/components/'
+            'products_grid/products_grid.js',
+            'l10n_bg_erp_net_fp/static/src/external_shift/components/'
+            'products_grid/products_grid.xml',
+            'l10n_bg_erp_net_fp/static/src/external_shift/components/'
+            'live_feed/live_feed.js',
+            'l10n_bg_erp_net_fp/static/src/external_shift/components/'
+            'live_feed/live_feed.xml',
+            'l10n_bg_erp_net_fp/static/src/external_shift/'
+            'external_shift_app.js',
+            'l10n_bg_erp_net_fp/static/src/external_shift/'
+            'external_shift_app.xml',
         ],
         # POS assets (само за POS)
         'point_of_sale._assets_pos': [

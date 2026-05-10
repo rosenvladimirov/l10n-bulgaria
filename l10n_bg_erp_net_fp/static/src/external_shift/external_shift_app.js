@@ -14,7 +14,7 @@ import { makeEnv, startServices } from "@web/env";
 // import { LiveFeed } from "@l10n_bg_erp_net_fp/external_shift/components/live_feed/live_feed";
 
 
-export class ExternalShiftApp extends Component {
+class ExternalShiftApp extends Component {
     static template = xml`
         <div class="o_external_shift_dashboard d-flex flex-column h-100">
             <div class="bg-info p-3">

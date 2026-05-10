@@ -52,10 +52,16 @@ class AccountJournal(models.Model):
     # ── session helper ────────────────────────────────────────────────
 
     @contextmanager
-    def _infopay_session(self):
-        """Context manager that yields ``(provider, session)``."""
+    def _infopay_session(self, admin=False):
+        """Context manager that yields ``(provider, session)``.
+
+        ``admin=False`` (default) uses interactive user credentials
+        (wallet, password); ``admin=True`` uses the Fernet-decrypted
+        admin token (cron, no password) — see
+        ``res.company._l10n_bg_infopay_set_admin_credentials``.
+        """
         provider = self.env["infopay.provider"]
-        session = provider._create_session(self.company_id)
+        session = provider._create_session(self.company_id, admin=admin)
         try:
             yield provider, session
         finally:
@@ -99,8 +105,17 @@ class AccountJournal(models.Model):
 
     # ── statement sync ────────────────────────────────────────────────
 
-    def _infopay_sync_statements(self, date_from=None, date_to=None):
+    def _infopay_sync_statements(
+        self, date_from=None, date_to=None, admin=False,
+    ):
         """Fetch transactions from InfoPay and create bank statement lines.
+
+        ``admin=False`` (default) — uses interactive user credentials;
+        suitable for the "Import" UI button after the operator unlocks
+        their wallet.
+
+        ``admin=True`` — uses the Fernet-decrypted admin token; the
+        cron path takes this so it can run without a user session.
 
         Returns list of created ``account.bank.statement`` IDs.
         """
@@ -122,7 +137,7 @@ class AccountJournal(models.Model):
             else:
                 date_from = date_to - timedelta(days=30)
 
-        with self._infopay_session() as (provider, session):
+        with self._infopay_session(admin=admin) as (provider, session):
             transactions, balances = provider._get_transactions(
                 session, self.infopay_account_id, date_from, date_to
             )
@@ -281,17 +296,18 @@ class AccountJournal(models.Model):
     # ── batch sync (called from UI module) ───────────────────────────
 
     @api.model
-    def _infopay_sync_all_statements(self):
+    def _infopay_sync_all_statements(self, admin=True):
         """Sync every journal that has an InfoPay account configured.
 
-        Called from UI buttons / menu actions in a separate module.
-        Returns list of all created statement IDs.
+        Called from cron + UI buttons.  Defaults to ``admin=True``
+        because the cron path has no user session — pass ``admin=False``
+        from interactive UI buttons that have just unlocked the wallet.
         """
         all_ids = []
         journals = self.search([("infopay_account_id", "!=", False)])
         for journal in journals:
             try:
-                all_ids.extend(journal._infopay_sync_statements())
+                all_ids.extend(journal._infopay_sync_statements(admin=admin))
             except Exception:
                 _logger.exception(
                     "InfoPay sync failed for journal %s (id=%s)",

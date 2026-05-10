@@ -6,15 +6,12 @@ import { getTemplate } from "@web/core/templates";
 import { useService } from "@web/core/utils/hooks";
 import { makeEnv, startServices } from "@web/env";
 
-import "@l10n_bg_erp_net_fp/external_shift/services/device_proxy_service";
-import "@l10n_bg_erp_net_fp/external_shift/services/shift_state_service";
-
-import { TopBar } from
-    "@l10n_bg_erp_net_fp/external_shift/components/top_bar/top_bar";
-import { ProductsGrid } from
-    "@l10n_bg_erp_net_fp/external_shift/components/products_grid/products_grid";
-import { LiveFeed } from
-    "@l10n_bg_erp_net_fp/external_shift/components/live_feed/live_feed";
+// STEP 4d DIAGNOSTIC: services + sub-components TEMPORARILY removed.
+// import "@l10n_bg_erp_net_fp/external_shift/services/device_proxy_service";
+// import "@l10n_bg_erp_net_fp/external_shift/services/shift_state_service";
+// import { TopBar } from "@l10n_bg_erp_net_fp/external_shift/components/top_bar/top_bar";
+// import { ProductsGrid } from "@l10n_bg_erp_net_fp/external_shift/components/products_grid/products_grid";
+// import { LiveFeed } from "@l10n_bg_erp_net_fp/external_shift/components/live_feed/live_feed";
 
 
 export class ExternalShiftApp extends Component {
@@ -32,32 +29,11 @@ export class ExternalShiftApp extends Component {
     setup() {
         this.orm = useService("orm");
         this.notification = useService("notification");
-        this.shiftSvc = useService("l10n_bg_external_shift.shift_state");
-
+        // shiftSvc skipped (service not imported in 4d).
         this.state = useState({
-            loading: false,
-            devices: [],
-            deviceId: false,
-            shift: null,
-            products: [],
-            plusByProduct: {},
-            busy: {
-                open: false, close: false,
-                x_report: false, z_report: false, refresh: false,
-            },
-            message: "",
+            loading: false, devices: [], deviceId: false,
         });
     }
-
-    // Step 4c: NO other methods for now — handler bindings in template
-    // will be undefined, but at least the module should LOAD.
-    onDeviceChange() {}
-    onOpenShift() {}
-    onCloseShift() {}
-    onXReport() {}
-    onZReport() {}
-    onRefresh() {}
-    onClose() {}
 }
 
 

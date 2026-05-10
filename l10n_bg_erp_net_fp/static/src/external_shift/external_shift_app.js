@@ -27,7 +27,7 @@ export class ExternalShiftApp extends Component {
         this.notification = useService("notification");
         this.shiftSvc = useService("l10n_bg_external_shift.shift_state");
 
-        this.config = (window.odoo && window.odoo.__externalShiftConfig__)
+        this.config = window.__externalShiftConfig__
             || { shift_id: 0, user_id: 0, company_id: 0 };
 
         this.state = useState({

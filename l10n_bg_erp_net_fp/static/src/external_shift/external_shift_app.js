@@ -23,7 +23,6 @@ export class ExternalShiftApp extends Component {
             </div>
         </div>
     `;
-    static components = { TopBar, ProductsGrid, LiveFeed };
     static props = {};
 
     setup() {

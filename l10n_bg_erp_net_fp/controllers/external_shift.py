@@ -46,6 +46,16 @@ class ExternalShiftController(http.Controller):
 
         company = request.env.company
         user = request.env.user
+        # Mirror POS pattern: the framework reads `odoo.__session_info__`
+        # at boot time (web/env.js → startServices). Without it, services
+        # like `user`, `company` and `orm` fail with:
+        #   can't access property "allowed_companies", session.user_companies is undefined
+        session_info = request.env["ir.http"].session_info()
+        odoo_globals = {
+            "csrf_token": request.csrf_token(None),
+            "__session_info__": session_info,
+            "debug": "",
+        }
         config = {
             "shift_id": shift_id or 0,
             "user_id": user.id,
@@ -60,6 +70,9 @@ class ExternalShiftController(http.Controller):
                 "user_id": user.id,
                 "company_id": company.id,
                 "company_name": company.name,
-                "config_json_safe": json.dumps(config, ensure_ascii=False),
+                "odoo_globals_json": json.dumps(
+                    odoo_globals, ensure_ascii=False),
+                "config_json_safe": json.dumps(
+                    config, ensure_ascii=False),
             },
         )

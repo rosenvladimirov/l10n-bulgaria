@@ -20,9 +20,15 @@ class Users(models.Model):
         try:
             self._infopay_distribute_token()
         except Exception:
-            _logger.debug(
-                "InfoPay token distribution skipped for user %s", self.env.uid,
-                exc_info=True,
+            # WARNING (not DEBUG) so an operator who suddenly cannot
+            # use 'Fetch Data' has an audit-trail entry to look at.
+            # Common causes: token-owner deactivated, wallet record
+            # deleted, master password rotated without the wallet
+            # being re-keyed.
+            _logger.warning(
+                "InfoPay token distribution skipped for user %s "
+                "(check wallet integrity and infopay_token_user_id "
+                "on the company)", self.env.uid, exc_info=True,
             )
         return result
 

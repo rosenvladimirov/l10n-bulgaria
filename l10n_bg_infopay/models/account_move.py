@@ -173,27 +173,49 @@ class AccountMove(models.Model):
     # ── number ────────────────────────────────────────────────────────
 
     def _l10n_bg_infopay_extract_invoice_number(self):
-        """Convert ``account.move.name`` to InfoPay's 10-digit format.
+        """Build the 10-digit InfoPay invoice number for this move.
 
-        InfoPay regex is ``^[0-9]{10}$`` — strict, leading zeros required.
-        Odoo move.name is typically ``BG/2026/00012345`` or similar.  We
-        keep the trailing digit run; if shorter than 10, left-pad with
-        zeros; if longer, take the rightmost 10.
+        InfoPay regex is ``^[0-9]{10}$`` — strict, leading zeros
+        required.  Two distinct moves MUST never collide here: e.g.
+        ``INV/2026/0001`` and ``OUT/2026/0001`` both leave only
+        ``0000000001`` after digit extraction.
+
+        Strategy:
+        * Use ``move.id`` (database PK, guaranteed unique within a
+          company database) as the basis — zero-padded to 10 digits.
+        * Falls back gracefully for ids ≥ 10**10 (>10 billion moves)
+          — extremely unlikely; raises a clean error rather than
+          silently truncating.
+
+        Trade-off: the InfoPay number is no longer human-readable
+        (not the operator's invoice sequence), but it is a unique
+        immutable identifier per move.  For Bulgarian VAT compliance
+        the human-readable sequential number stays on ``move.name``
+        and on the printed invoice; the InfoPay number is the
+        InfoPay-side handle only.
+
+        Future enhancement: a per-company ``ir.sequence`` dedicated
+        to InfoPay numbering, stored on the move at ``action_post``
+        time.  Keeps both the local invoice number AND the InfoPay
+        number deterministic and sequential.
         """
         self.ensure_one()
-        digits = "".join(filter(str.isdigit, self.name or ""))
-        if not digits:
+        if not self.id:
             raise ValidationError(_(
-                "Invoice %s has no numeric component in its name; cannot "
-                "send to InfoPay (required format: ^[0-9]{10}$).",
-                self.display_name,
+                "Invoice %s has not been saved yet; cannot derive an "
+                "InfoPay number.", self.display_name,
             ))
-        # Take the trailing run (sequence number, not year/period)
-        number = digits[-10:].zfill(10)
+        if self.id >= 10 ** 10:
+            raise ValidationError(_(
+                "Invoice id %s exceeds 10 digits — InfoPay number "
+                "cannot be derived without overflow.  Switch to a "
+                "dedicated InfoPay sequence.", self.id,
+            ))
+        number = str(self.id).zfill(10)
         if not INFOPAY_NUMBER_REGEX.match(number):
             raise ValidationError(_(
-                "Could not derive a 10-digit InfoPay number from move.name "
-                "%s (got %s).", self.name, number,
+                "Derived InfoPay number %s for move %s does not match "
+                "the required regex.", number, self.display_name,
             ))
         return number
 
@@ -371,7 +393,10 @@ class AccountMove(models.Model):
         block = {"paymentMethod": {"@paymentType": method}}
 
         if method == "bankTransfer":
-            # IBAN fallback chain — most-specific first.
+            # IBAN fallback chain — most-specific first.  Defensive
+            # null-check on bank_id is required: a res.partner.bank
+            # record can exist without a linked res.bank (rare but
+            # legal in Odoo), and `False.name` raises AttributeError.
             bank_acc = (
                 self.partner_bank_id
                 or self.journal_id.bank_account_id
@@ -379,9 +404,12 @@ class AccountMove(models.Model):
             )
             iban = bank_acc.acc_number if bank_acc else None
             if iban:
+                if bank_acc and bank_acc.bank_id:
+                    bank_name = bank_acc.bank_id.name or self.company_id.name
+                else:
+                    bank_name = self.company_id.name
                 block["paymentMethod"]["accounts"] = [{
-                    "bank": ((bank_acc.bank_id.name if bank_acc.bank_id
-                              else self.company_id.name) or "")[:100],
+                    "bank": (bank_name or "")[:100],
                     "iban": iban.replace(" ", ""),
                     "currency": (self.currency_id.name or "BGN").upper(),
                 }]

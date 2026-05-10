@@ -141,8 +141,26 @@ class ResCompany(models.Model):
         """Return a Fernet handle, generating + persisting a key on
         first use.  Key lives in ir.config_parameter under
         'l10n_bg_infopay.admin_fernet_key' (group_system).
+
+        Race-protected: takes a row-level pg_advisory_xact_lock keyed
+        on the param name's hash before checking + inserting, so two
+        concurrent workers cannot both generate keys.  Without the
+        lock, last-write-wins corrupts the keyspace (any token
+        encrypted with the loser key becomes undecryptable).
         """
         ICP = self.env["ir.config_parameter"].sudo()
+        # Fast path — key already exists, no need for the lock.
+        key_b64 = ICP.get_param(INFOPAY_ADMIN_FERNET_KEY_PARAM)
+        if key_b64:
+            return Fernet(key_b64.encode())
+        # Slow path — acquire advisory lock and re-check (DCL pattern).
+        # Hash the param name into the int4 lock key space.
+        lock_key = abs(hash(INFOPAY_ADMIN_FERNET_KEY_PARAM)) % (2**31 - 1)
+        self.env.cr.execute(
+            "SELECT pg_advisory_xact_lock(%s)", (lock_key,),
+        )
+        # Re-read inside the lock — another worker may have just won
+        # the race and persisted a key.
         key_b64 = ICP.get_param(INFOPAY_ADMIN_FERNET_KEY_PARAM)
         if not key_b64:
             key_b64 = Fernet.generate_key().decode()

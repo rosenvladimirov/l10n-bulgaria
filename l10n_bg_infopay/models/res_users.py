@@ -27,7 +27,7 @@ class Users(models.Model):
             # being re-keyed.
             _logger.warning(
                 "InfoPay token distribution skipped for user %s "
-                "(check wallet integrity and infopay_token_user_id "
+                "(check wallet integrity and l10n_bg_infopay_token_user_id "
                 "on the company)", self.env.uid, exc_info=True,
             )
         return result
@@ -41,10 +41,10 @@ class Users(models.Model):
         user_id = user.id
 
         # Skip if InfoPay is not configured on this company
-        if not company.infopay_unique_id or not company.infopay_token_user_id:
+        if not company.l10n_bg_infopay_unique_id or not company.l10n_bg_infopay_token_user_id:
             return
 
-        owner_id = company.infopay_token_user_id.id
+        owner_id = company.l10n_bg_infopay_token_user_id.id
 
         # Owner already has the token — nothing to do
         if owner_id == user_id:

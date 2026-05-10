@@ -22,12 +22,12 @@ class ResCompany(models.Model):
     # Used for manual import + payment-order initiation: the operator's
     # session password decrypts the wallet on demand.
 
-    infopay_unique_id = fields.Char(
+    l10n_bg_infopay_unique_id = fields.Char(
         string="InfoPay Unique ID",
         help="ERP registration Unique ID from InfoPay (read+write scope, "
              "interactive operator use).",
     )
-    infopay_token_user_id = fields.Many2one(
+    l10n_bg_infopay_token_user_id = fields.Many2one(
         "res.users",
         string="InfoPay Token Owner",
         help="User whose crypto wallet stores the InfoPay access token.",
@@ -64,8 +64,8 @@ class ResCompany(models.Model):
         ``access_token`` is encrypted in the current user's crypto wallet.
         """
         self.ensure_one()
-        self.infopay_unique_id = unique_id
-        self.infopay_token_user_id = self.env.user
+        self.l10n_bg_infopay_unique_id = unique_id
+        self.l10n_bg_infopay_token_user_id = self.env.user
 
         wallet = self.env["crypto.wallet"].get_user_wallet_or_create()
         wallet.add_key_with_user_password(
@@ -104,7 +104,7 @@ class ResCompany(models.Model):
                 pass  # Not in this wallet — try owner's
 
         # ── 2. Owner's wallet (sudo fallback for cron) ────────────────
-        token_user = self.infopay_token_user_id
+        token_user = self.l10n_bg_infopay_token_user_id
         if not token_user:
             raise UserError(
                 self.env._(

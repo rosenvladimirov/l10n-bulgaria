@@ -85,7 +85,7 @@ class InfopayProvider(models.AbstractModel):
         Two key paths:
 
         * ``admin=False`` (default, interactive) — uses
-          ``company.infopay_unique_id`` + the access token from the
+          ``company.l10n_bg_infopay_unique_id`` + the access token from the
           current user's (or owner's) crypto wallet.  Requires the
           user's session password to decrypt the wallet.
 
@@ -105,12 +105,12 @@ class InfopayProvider(models.AbstractModel):
                 ))
             access_token = company._l10n_bg_infopay_get_admin_token()
         else:
-            if not company.infopay_unique_id:
+            if not company.l10n_bg_infopay_unique_id:
                 raise UserError(self.env._(
                     "InfoPay credentials are not configured on company "
                     "'%s'.", company.name,
                 ))
-            unique_id = company.infopay_unique_id
+            unique_id = company.l10n_bg_infopay_unique_id
             access_token = company._infopay_get_access_token()
 
         result = self._request("POST", "/api/session", json={

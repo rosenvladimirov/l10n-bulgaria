@@ -12,7 +12,21 @@ _logger = logging.getLogger(__name__)
 
 
 class AccountJournal(models.Model):
-    _inherit = "account.journal"
+    """First consumer of the InfoPay statement + payment mixins —
+    journals act as both the host for InfoPay account ID + last-sync
+    state, and the natural callable for ad-hoc operator-driven
+    "Import statements" / "Issue payment" actions.  Bridge modules
+    (OCA online provider, EE online account, etc.) inherit the
+    mixins separately on their own host model and supply different
+    overrides — they do NOT call ``infopay.provider`` directly.
+    """
+
+    _name = "account.journal"
+    _inherit = [
+        "account.journal",
+        "l10n.bg.infopay.statement.mixin",
+        "l10n.bg.infopay.payment.mixin",
+    ]
 
     infopay_account_id = fields.Char(
         string="InfoPay Account ID",
@@ -49,7 +63,7 @@ class AccountJournal(models.Model):
     #     order.  Cash / card / other variants would need a per-move
     #     override (context flag) — not common enough to warrant fields.
 
-    # ── session helper ────────────────────────────────────────────────
+    # ── session helper (legacy, kept for direct callers) ──────────────
 
     @contextmanager
     def _infopay_session(self, admin=False):
@@ -59,6 +73,11 @@ class AccountJournal(models.Model):
         (wallet, password); ``admin=True`` uses the Fernet-decrypted
         admin token (cron, no password) — see
         ``res.company._l10n_bg_infopay_set_admin_credentials``.
+
+        Prefer the mixin methods (``_l10n_bg_infopay_pull_*``) for new
+        code so the bridge architecture stays uniform.  This helper
+        survives because callers in ``_infopay_discover_accounts``
+        and the cron path still use it for cross-cutting flows.
         """
         provider = self.env["infopay.provider"]
         session = provider._create_session(self.company_id, admin=admin)
@@ -66,6 +85,28 @@ class AccountJournal(models.Model):
             yield provider, session
         finally:
             provider._close_session(session)
+
+    # ── statement-mixin abstract overrides ────────────────────────────
+
+    def _l10n_bg_infopay_get_company(self):
+        self.ensure_one()
+        return self.company_id
+
+    def _l10n_bg_infopay_get_account_id(self):
+        self.ensure_one()
+        if not self.infopay_account_id:
+            raise UserError(self.env._(
+                "Journal '%s' has no InfoPay Account ID configured.",
+                self.name,
+            ))
+        return self.infopay_account_id
+
+    def _l10n_bg_infopay_use_admin_token(self):
+        """Journal default: respect the ``infopay_admin`` context flag —
+        cron sets it True, interactive UI sets it False.  No flag in
+        context → False (safer interactive default).
+        """
+        return bool(self.env.context.get("infopay_admin", False))
 
     # ── account discovery ─────────────────────────────────────────────
 

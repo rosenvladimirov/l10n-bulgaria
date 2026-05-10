@@ -20,23 +20,23 @@ INFOPAY_FINAL_FAIL = frozenset({
 class AccountPayment(models.Model):
     _inherit = "account.payment"
 
-    infopay_payment_id = fields.Char(
+    l10n_bg_infopay_payment_id = fields.Char(
         string="InfoPay Payment ID",
         readonly=True,
         copy=False,
     )
-    infopay_sca_url = fields.Char(
+    l10n_bg_infopay_sca_url = fields.Char(
         string="InfoPay SCA URL",
         readonly=True,
         copy=False,
         help="Redirect URL for Strong Customer Authentication at the bank.",
     )
-    infopay_status = fields.Char(
+    l10n_bg_infopay_status = fields.Char(
         string="InfoPay Status",
         readonly=True,
         copy=False,
     )
-    infopay_bulk = fields.Boolean(
+    l10n_bg_infopay_bulk = fields.Boolean(
         string="InfoPay Bulk",
         readonly=True,
         copy=False,
@@ -53,7 +53,7 @@ class AccountPayment(models.Model):
         """
         self.ensure_one()
         journal = self.journal_id
-        if not journal.infopay_account_id:
+        if not journal.l10n_bg_infopay_account_id:
             raise UserError(
                 self.env._(
                     "Journal '%s' is not configured for InfoPay.", journal.name
@@ -118,9 +118,9 @@ class AccountPayment(models.Model):
 
         sca_url = (result.get("Links") or {}).get("ScaRedirect")
         self.write({
-            "infopay_payment_id": result.get("PaymentId"),
-            "infopay_sca_url": sca_url,
-            "infopay_status": result.get("TransactionStatus"),
+            "l10n_bg_infopay_payment_id": result.get("PaymentId"),
+            "l10n_bg_infopay_sca_url": sca_url,
+            "l10n_bg_infopay_status": result.get("TransactionStatus"),
         })
         _logger.info(
             "InfoPay payment %s created for %s %s %s (SCA: %s)",
@@ -143,7 +143,7 @@ class AccountPayment(models.Model):
         """
         self.ensure_one()
         journal = self.journal_id
-        if not journal.infopay_account_id:
+        if not journal.l10n_bg_infopay_account_id:
             raise UserError(
                 self.env._(
                     "Journal '%s' is not configured for InfoPay.", journal.name
@@ -176,9 +176,9 @@ class AccountPayment(models.Model):
 
         sca_url = (result.get("Links") or {}).get("ScaRedirect")
         self.write({
-            "infopay_payment_id": result.get("PaymentId"),
-            "infopay_sca_url": sca_url,
-            "infopay_status": result.get("TransactionStatus"),
+            "l10n_bg_infopay_payment_id": result.get("PaymentId"),
+            "l10n_bg_infopay_sca_url": sca_url,
+            "l10n_bg_infopay_status": result.get("TransactionStatus"),
         })
         return result
 
@@ -190,23 +190,23 @@ class AccountPayment(models.Model):
         Returns the raw API response dict.
         """
         self.ensure_one()
-        if not self.infopay_payment_id:
+        if not self.l10n_bg_infopay_payment_id:
             return {}
 
         journal = self.journal_id
         with journal._infopay_session() as (provider, session):
             result = provider._get_payment_status(
-                session, self.infopay_payment_id, bulk=self.infopay_bulk
+                session, self.l10n_bg_infopay_payment_id, bulk=self.l10n_bg_infopay_bulk
             )
 
         tx_status = result.get("TransactionStatus", {})
         status_str = tx_status.get("Status", result.get("TransactionState", ""))
         is_final = tx_status.get("IsFinal", False)
 
-        self.infopay_status = status_str
+        self.l10n_bg_infopay_status = status_str
         _logger.info(
             "InfoPay payment %s status: %s (final: %s)",
-            self.infopay_payment_id, status_str, is_final,
+            self.l10n_bg_infopay_payment_id, status_str, is_final,
         )
         return result
 
@@ -217,9 +217,9 @@ class AccountPayment(models.Model):
         * Failed final statuses → cancel the Odoo payment if still draft.
         """
         for payment in self:
-            if not payment.infopay_payment_id:
+            if not payment.l10n_bg_infopay_payment_id:
                 continue
-            if payment.infopay_status in INFOPAY_FINAL_OK | INFOPAY_FINAL_FAIL:
+            if payment.l10n_bg_infopay_status in INFOPAY_FINAL_OK | INFOPAY_FINAL_FAIL:
                 continue  # already resolved
 
             try:
@@ -227,7 +227,7 @@ class AccountPayment(models.Model):
             except Exception:
                 _logger.exception(
                     "InfoPay status check failed for payment %s (id=%s)",
-                    payment.infopay_payment_id, payment.id,
+                    payment.l10n_bg_infopay_payment_id, payment.id,
                 )
                 continue
 
@@ -239,12 +239,12 @@ class AccountPayment(models.Model):
             if status_str in INFOPAY_FINAL_OK:
                 _logger.info(
                     "InfoPay payment %s completed (%s)",
-                    payment.infopay_payment_id, status_str,
+                    payment.l10n_bg_infopay_payment_id, status_str,
                 )
             elif status_str in INFOPAY_FINAL_FAIL:
                 _logger.warning(
                     "InfoPay payment %s failed (%s)",
-                    payment.infopay_payment_id, status_str,
+                    payment.l10n_bg_infopay_payment_id, status_str,
                 )
                 if payment.state == "draft":
                     payment.action_cancel()
@@ -257,8 +257,8 @@ class AccountPayment(models.Model):
         Groups by journal to reuse a single API session per bank account.
         """
         pending = self.search([
-            ("infopay_payment_id", "!=", False),
-            ("infopay_status", "not in",
+            ("l10n_bg_infopay_payment_id", "!=", False),
+            ("l10n_bg_infopay_status", "not in",
              list(INFOPAY_FINAL_OK | INFOPAY_FINAL_FAIL)),
         ])
         if not pending:
@@ -272,15 +272,15 @@ class AccountPayment(models.Model):
                         try:
                             result = provider._get_payment_status(
                                 session,
-                                payment.infopay_payment_id,
-                                bulk=payment.infopay_bulk,
+                                payment.l10n_bg_infopay_payment_id,
+                                bulk=payment.l10n_bg_infopay_bulk,
                             )
                             tx = result.get("TransactionStatus", {})
                             status = tx.get(
                                 "Status",
                                 result.get("TransactionState", ""),
                             )
-                            payment.infopay_status = status
+                            payment.l10n_bg_infopay_status = status
 
                             if status in INFOPAY_FINAL_FAIL \
                                     and payment.state == "draft":
@@ -288,7 +288,7 @@ class AccountPayment(models.Model):
                         except Exception:
                             _logger.exception(
                                 "InfoPay status poll failed for payment %s",
-                                payment.infopay_payment_id,
+                                payment.l10n_bg_infopay_payment_id,
                             )
             except Exception:
                 _logger.exception(
@@ -319,7 +319,7 @@ class AccountPayment(models.Model):
                 self.env._("All bulk payments must use the same journal.")
             )
         journal = journals[0]
-        if not journal.infopay_account_id:
+        if not journal.l10n_bg_infopay_account_id:
             raise UserError(
                 self.env._(
                     "Journal '%s' is not configured for InfoPay.", journal.name
@@ -376,9 +376,9 @@ class AccountPayment(models.Model):
 
         sca_url = (result.get("Links") or {}).get("ScaRedirect")
         self.write({
-            "infopay_payment_id": result.get("PaymentId"),
-            "infopay_sca_url": sca_url,
-            "infopay_status": result.get("TransactionStatus"),
-            "infopay_bulk": True,
+            "l10n_bg_infopay_payment_id": result.get("PaymentId"),
+            "l10n_bg_infopay_sca_url": sca_url,
+            "l10n_bg_infopay_status": result.get("TransactionStatus"),
+            "l10n_bg_infopay_bulk": True,
         })
         return result

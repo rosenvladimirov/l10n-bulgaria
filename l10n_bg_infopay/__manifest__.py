@@ -5,7 +5,7 @@
     "name": "InfoPay Integration",
     "summary": "Bank statement sync, payment orders and invoice issuance "
                "via the Borica InfoPay API",
-    "version": "18.0.3.0.2",
+    "version": "18.0.4.0.0",
     "category": "Accounting/Localizations",
     "license": "LGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",

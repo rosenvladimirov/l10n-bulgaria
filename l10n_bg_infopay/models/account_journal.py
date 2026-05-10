@@ -28,12 +28,12 @@ class AccountJournal(models.Model):
         "l10n.bg.infopay.payment.mixin",
     ]
 
-    infopay_account_id = fields.Char(
+    l10n_bg_infopay_account_id = fields.Char(
         string="InfoPay Account ID",
         help="UUID of this bank account in InfoPay.  "
              "Set automatically by _infopay_discover_accounts().",
     )
-    infopay_last_sync = fields.Datetime(
+    l10n_bg_infopay_last_sync = fields.Datetime(
         string="InfoPay Last Sync",
         help="Timestamp of the last successful transaction sync.",
     )
@@ -94,12 +94,12 @@ class AccountJournal(models.Model):
 
     def _l10n_bg_infopay_get_account_id(self):
         self.ensure_one()
-        if not self.infopay_account_id:
+        if not self.l10n_bg_infopay_account_id:
             raise UserError(self.env._(
                 "Journal '%s' has no InfoPay Account ID configured.",
                 self.name,
             ))
-        return self.infopay_account_id
+        return self.l10n_bg_infopay_account_id
 
     def _l10n_bg_infopay_use_admin_token(self):
         """Journal default: respect the ``infopay_admin`` context flag —
@@ -113,7 +113,7 @@ class AccountJournal(models.Model):
     def _infopay_discover_accounts(self):
         """Fetch InfoPay accounts and auto-match to journals by IBAN.
 
-        Call once (or periodically) to populate ``infopay_account_id``.
+        Call once (or periodically) to populate ``l10n_bg_infopay_account_id``.
         Returns a list of dicts with the discovered accounts.
         """
         self.ensure_one()
@@ -134,8 +134,8 @@ class AccountJournal(models.Model):
                 ],
                 limit=1,
             )
-            if journal and not journal.infopay_account_id:
-                journal.infopay_account_id = acct["AccountId"]
+            if journal and not journal.l10n_bg_infopay_account_id:
+                journal.l10n_bg_infopay_account_id = acct["AccountId"]
                 _logger.info(
                     "InfoPay account %s (%s) → journal %s",
                     acct["AccountId"],
@@ -161,7 +161,7 @@ class AccountJournal(models.Model):
         Returns list of created ``account.bank.statement`` IDs.
         """
         self.ensure_one()
-        if not self.infopay_account_id:
+        if not self.l10n_bg_infopay_account_id:
             raise UserError(
                 self.env._(
                     "Journal '%s' has no InfoPay Account ID configured.",
@@ -173,20 +173,20 @@ class AccountJournal(models.Model):
         if date_to is None:
             date_to = today
         if date_from is None:
-            if self.infopay_last_sync:
-                date_from = self.infopay_last_sync.date()
+            if self.l10n_bg_infopay_last_sync:
+                date_from = self.l10n_bg_infopay_last_sync.date()
             else:
                 date_from = date_to - timedelta(days=30)
 
         with self._infopay_session(admin=admin) as (provider, session):
             transactions, balances = provider._get_transactions(
-                session, self.infopay_account_id, date_from, date_to
+                session, self.l10n_bg_infopay_account_id, date_from, date_to
             )
 
         if not transactions:
             _logger.info("InfoPay: no transactions for %s (%s → %s)",
                          self.name, date_from, date_to)
-            self.infopay_last_sync = fields.Datetime.now()
+            self.l10n_bg_infopay_last_sync = fields.Datetime.now()
             return []
 
         stmts_vals = self._infopay_prepare_stmts_vals(
@@ -198,7 +198,7 @@ class AccountJournal(models.Model):
         stmts_vals = self._infopay_complete_stmts_vals(stmts_vals, account_number)
         statement_ids = self._infopay_create_bank_statements(stmts_vals)
 
-        self.infopay_last_sync = fields.Datetime.now()
+        self.l10n_bg_infopay_last_sync = fields.Datetime.now()
         _logger.info(
             "InfoPay: synced %d transactions → %d statements for %s",
             len(transactions),
@@ -345,7 +345,7 @@ class AccountJournal(models.Model):
         from interactive UI buttons that have just unlocked the wallet.
         """
         all_ids = []
-        journals = self.search([("infopay_account_id", "!=", False)])
+        journals = self.search([("l10n_bg_infopay_account_id", "!=", False)])
         for journal in journals:
             try:
                 all_ids.extend(journal._infopay_sync_statements(admin=admin))

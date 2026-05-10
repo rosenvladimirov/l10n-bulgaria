@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { Component, mount, useState, onMounted, whenReady } from "@odoo/owl";
+import { Component, mount, useState, onMounted, whenReady, xml } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
 import { getTemplate } from "@web/core/templates";
 import { useService } from "@web/core/utils/hooks";
@@ -18,7 +18,28 @@ import { LiveFeed } from
 
 
 export class ExternalShiftApp extends Component {
-    static template = "l10n_bg_erp_net_fp.ExternalShift.App";
+    static template = xml`
+        <div class="o_external_shift_dashboard d-flex flex-column h-100">
+            <TopBar devices="state.devices"
+                    deviceId="state.deviceId"
+                    shift="state.shift"
+                    busy="state.busy"
+                    onDeviceChange.bind="onDeviceChange"
+                    onOpenShift.bind="onOpenShift"
+                    onCloseShift.bind="onCloseShift"
+                    onXReport.bind="onXReport"
+                    onZReport.bind="onZReport"
+                    onRefresh.bind="onRefresh"
+                    onClose.bind="onClose"/>
+            <div class="o_es_body flex-grow-1 d-flex p-3 gap-3"
+                 style="overflow:hidden; background:#f4f4f4;">
+                <ProductsGrid products="state.products"
+                              loading="state.loading"/>
+                <LiveFeed shift="state.shift"
+                          message="state.message"/>
+            </div>
+        </div>
+    `;
     static components = { TopBar, ProductsGrid, LiveFeed };
     static props = {};
 

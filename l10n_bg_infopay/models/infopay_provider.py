@@ -367,3 +367,38 @@ class InfopayProvider(models.AbstractModel):
         return self._request(
             "GET", f"/api/{prefix}/{payment_id}/status", session=session
         )
+
+    # ── invoices ──────────────────────────────────────────────────────
+
+    @api.model
+    def _create_invoice(self, session, payload):
+        """Issue an invoice into the InfoPay dashboard.
+
+        *payload* must follow the OpenAPI ``InvoiceCreateRequest`` schema —
+        the caller (typically ``account.move._l10n_bg_infopay_build_payload``)
+        is responsible for shape compliance:
+
+        * ``number`` — exactly 10 digits, leading zeros required (regex
+          ``^[0-9]{10}$``).  The InfoPay server rejects non-conforming
+          numbers with HTTP 400; do not send a free-form Odoo move name.
+        * ``numberSeriesId`` — opaque GUID pre-created in the InfoPay
+          portal.  No ``GET`` endpoint exists to list series, so this is
+          configuration data on ``account.journal``.
+        * ``content`` — discriminator on ``contentType``
+          (``contentWithVAT`` | ``contentWithoutVAT``).  Server validates
+          arithmetic strictly (``amount = quantity * unitPrice``,
+          ``amountVATIncluded = amount + vatAmount``, group totals = sum
+          of line totals).  Round to 2 decimals consistently.
+        * ``customer.identificationNumber`` — required; covers EIK / ЕГН /
+          ЛНЧ.  ``vatId`` is the separate VAT registration number for
+          VAT-registered counterparties.
+
+        Response shape: ``{invoiceId, number}``.  There is no GET / status
+        / cancel endpoint for invoices in the public spec — caller must
+        treat the returned ``invoiceId`` as the only handle for the
+        document.  See ``reference_infopay_api_spec.md`` for full surface
+        and gotchas.
+        """
+        return self._request(
+            "POST", "/api/invoices", session=session, json=payload
+        )

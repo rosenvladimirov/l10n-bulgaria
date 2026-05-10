@@ -3,8 +3,9 @@
 
 {
     "name": "InfoPay Integration",
-    "summary": "Bank statement sync and payment orders via InfoPay API",
-    "version": "19.0.1.1.0",
+    "summary": "Bank statement sync, payment orders and invoice issuance "
+               "via the Borica InfoPay API",
+    "version": "19.0.2.0.0",
     "category": "Accounting/Localizations",
     "license": "LGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
@@ -13,6 +14,8 @@
     "external_dependencies": {"python": ["requests"]},
     "data": [
         "data/ir_cron.xml",
+        "views/account_journal_views.xml",
+        "views/account_move_views.xml",
     ],
     "installable": True,
 }

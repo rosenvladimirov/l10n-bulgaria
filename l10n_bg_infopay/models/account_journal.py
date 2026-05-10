@@ -24,6 +24,31 @@ class AccountJournal(models.Model):
         help="Timestamp of the last successful transaction sync.",
     )
 
+    # ── invoice issuance (POST /api/invoices) ─────────────────────────
+    # All fields prefixed l10n_bg_ per Rosen rule for additions to core
+    # Odoo models.
+
+    l10n_bg_infopay_invoice_enabled = fields.Boolean(
+        string="Issue invoices via InfoPay",
+        help="When enabled, posted customer invoices on this journal can be "
+             "submitted to the InfoPay /api/invoices endpoint.  Use only "
+             "with sale journals.",
+    )
+    l10n_bg_infopay_number_series_id = fields.Char(
+        string="InfoPay Number Series",
+        help="GUID of the invoice number series pre-created in the InfoPay "
+             "portal.  Borica does not expose a list endpoint, so this is "
+             "configuration data — copy it from the portal once.",
+    )
+    # Note: language and payment-method are NOT stored as journal fields —
+    # both are derived from the move at payload-build time:
+    #   * language: from move.partner_id.lang ("bg_BG" → "BG", else "EN")
+    #   * paymentMethod.paymentType: bankTransfer (default for B2B issued
+    #     via InfoPay); the IBAN comes from move.partner_bank_id /
+    #     journal.bank_account_id / company.bank_ids in that fallback
+    #     order.  Cash / card / other variants would need a per-move
+    #     override (context flag) — not common enough to warrant fields.
+
     # ── session helper ────────────────────────────────────────────────
 
     @contextmanager

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_account_journal_form_infopay_invoice" model="ir.ui.view">
+        <field name="name">account.journal.form.infopay.invoice</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="infopay_invoice" string="InfoPay (issuance)"
+                      invisible="type != 'sale'">
+                    <group>
+                        <field name="l10n_bg_infopay_invoice_enabled"/>
+                        <field name="l10n_bg_infopay_number_series_id"
+                               invisible="not l10n_bg_infopay_invoice_enabled"
+                               required="l10n_bg_infopay_invoice_enabled"/>
+                    </group>
+                    <p class="text-muted" invisible="not l10n_bg_infopay_invoice_enabled">
+                        InfoPay invoice issuance stores the invoice in the
+                        InfoPay dashboard for payment-bill correlation. It
+                        is <b>not</b> a real B2B e-invoice exchange — for
+                        that, use eFaktura.bg or CAIS EPP. The number
+                        series GUID must be pre-created in the InfoPay
+                        portal.
+                    </p>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

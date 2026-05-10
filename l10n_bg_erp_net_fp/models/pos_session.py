@@ -181,8 +181,16 @@ class PosSession(models.Model):
         must always be able to finish closing the session even when a fiscal
         device is unreachable. The error is captured in a Z-report record
         with status='error' for the audit trail.
+
+        ORDER MATTERS: fire Z BEFORE super(). The super() call transitions
+        `state` → `closing_control`, which navigates the POS UI away from
+        `/pos/ui` to the closing-control modal. In `proxy` connection mode
+        that tears down the browser-side bus listener for fiscal.printer
+        requests — the queued Z fetch never reaches the proxy and times out
+        at 90s, leaving the cashier stuck in the closing modal even though
+        the session is already DB-closed. By firing Z first we use the live
+        bus connection that the running POS UI still has.
         """
-        res = super().action_pos_session_closing_control(*args, **kwargs)
         for sess in self:
             if sess.l10n_bg_z_report_printed:
                 continue
@@ -191,7 +199,7 @@ class PosSession(models.Model):
             if not sess.config_id.l10n_bg_auto_z_on_close:
                 continue
             sess._l10n_bg_close_zreport_per_device()
-        return res
+        return super().action_pos_session_closing_control(*args, **kwargs)
 
     def _l10n_bg_close_zreport_per_device(self):
         """For each fiscal device on this POS, run Z and persist a

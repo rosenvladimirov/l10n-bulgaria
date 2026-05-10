@@ -3,12 +3,14 @@
 import { Component, mount, whenReady, xml } from "@odoo/owl";
 import { getTemplate } from "@web/core/templates";
 
+// Step 1 — pull in services for their side-effect (registry.add()).
+// If the page now fails to load with a class-constructor error,
+// the issue lives in one of these services. Otherwise it's the
+// sub-components.
+import "@l10n_bg_erp_net_fp/external_shift/services/device_proxy_service";
+import "@l10n_bg_erp_net_fp/external_shift/services/shift_state_service";
 
-// Minimal smoke-test app — no env, no services, no useService, no
-// imported sub-components. If this mounts, the bundle infrastructure
-// is OK and the previous "class constructors must be invoked with
-// 'new'" error came from our service/component imports. If it still
-// fails, something in the bundle includes itself is broken.
+
 class ExternalShiftApp extends Component {
     static template = xml`
         <div class="d-flex align-items-center justify-content-center vh-100"
@@ -16,7 +18,7 @@ class ExternalShiftApp extends Component {
             <div class="text-center p-4 bg-white rounded shadow-sm">
                 <h2>External Shift Dashboard</h2>
                 <p class="text-muted mb-0">
-                    Phase 0 boot smoke-test — if you see this, OWL mounted.
+                    Step 1 — services imported, no sub-components yet.
                 </p>
             </div>
         </div>

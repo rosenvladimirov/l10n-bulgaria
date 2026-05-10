@@ -110,15 +110,16 @@ supported by ErpNet.FP server. Features include:
         'views/pos_payment_method_proxy_views.xml',
         'views/res_config_settings_views.xml',
         'views/res_users_views.xml',
+        # 19.0.15.0.0 — External Shift Dashboard actions MUST be loaded
+        # before menu_items.xml so the menu can resolve the action xml-ids.
+        'views/fiscal_shift_views.xml',
+        'views/fiscal_shift_receipt_views.xml',
         'views/menu_items.xml',
         'views/grafana_views.xml',
         'views/grafana_settings_views.xml',
         'views/menu_items_proxy.xml',
         'views/fiscal_plu_views.xml',
         'views/fiscal_z_report_views.xml',
-        # 19.0.15.0.0 — External Shift Dashboard (independent of pos.session)
-        'views/fiscal_shift_views.xml',
-        'views/fiscal_shift_receipt_views.xml',
         'wizard/fiscal_cash_operation_wizard_view.xml',
         'wizard/plu_allocate_wizard_view.xml',
         'wizard/plu_push_wizard_view.xml',

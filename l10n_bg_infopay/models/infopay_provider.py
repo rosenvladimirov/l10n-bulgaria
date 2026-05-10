@@ -79,22 +79,42 @@ class InfopayProvider(models.AbstractModel):
     # ── session ───────────────────────────────────────────────────────
 
     @api.model
-    def _create_session(self, company):
+    def _create_session(self, company, admin=False):
         """Authenticate and return ``{session_id, session_key}``.
 
-        The access token is read from the crypto wallet of the user
-        referenced by ``company.infopay_token_user_id``.
+        Two key paths:
+
+        * ``admin=False`` (default, interactive) — uses
+          ``company.infopay_unique_id`` + the access token from the
+          current user's (or owner's) crypto wallet.  Requires the
+          user's session password to decrypt the wallet.
+
+        * ``admin=True`` (cron / scheduled) — uses
+          ``company.l10n_bg_infopay_admin_unique_id`` + the Fernet-
+          decrypted admin access token.  No user password required;
+          should be a SEPARATE ERP registration in the InfoPay portal
+          with read-only scope, so a leaked admin token cannot
+          initiate payments.
         """
-        if not company.infopay_unique_id:
-            raise UserError(
-                self.env._(
-                    "InfoPay credentials are not configured on company '%s'.",
-                    company.name,
-                )
-            )
-        access_token = company._infopay_get_access_token()
+        if admin:
+            unique_id = company.l10n_bg_infopay_admin_unique_id
+            if not unique_id:
+                raise UserError(self.env._(
+                    "No InfoPay admin uniqueId configured on company "
+                    "'%s'.", company.name,
+                ))
+            access_token = company._l10n_bg_infopay_get_admin_token()
+        else:
+            if not company.infopay_unique_id:
+                raise UserError(self.env._(
+                    "InfoPay credentials are not configured on company "
+                    "'%s'.", company.name,
+                ))
+            unique_id = company.infopay_unique_id
+            access_token = company._infopay_get_access_token()
+
         result = self._request("POST", "/api/session", json={
-            "uniqueId": company.infopay_unique_id,
+            "uniqueId": unique_id,
             "accessToken": access_token,
         })
         status = result.get("Status")

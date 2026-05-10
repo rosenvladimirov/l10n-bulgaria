@@ -3,12 +3,17 @@
 import { Component, mount, whenReady, xml } from "@odoo/owl";
 import { getTemplate } from "@web/core/templates";
 
-// Step 1 — pull in services for their side-effect (registry.add()).
-// If the page now fails to load with a class-constructor error,
-// the issue lives in one of these services. Otherwise it's the
-// sub-components.
+// Step 1 — services (worked).
 import "@l10n_bg_erp_net_fp/external_shift/services/device_proxy_service";
 import "@l10n_bg_erp_net_fp/external_shift/services/shift_state_service";
+
+// Step 2 — sub-component imports.
+import { TopBar } from
+    "@l10n_bg_erp_net_fp/external_shift/components/top_bar/top_bar";
+import { ProductsGrid } from
+    "@l10n_bg_erp_net_fp/external_shift/components/products_grid/products_grid";
+import { LiveFeed } from
+    "@l10n_bg_erp_net_fp/external_shift/components/live_feed/live_feed";
 
 
 class ExternalShiftApp extends Component {
@@ -18,11 +23,12 @@ class ExternalShiftApp extends Component {
             <div class="text-center p-4 bg-white rounded shadow-sm">
                 <h2>External Shift Dashboard</h2>
                 <p class="text-muted mb-0">
-                    Step 1 — services imported, no sub-components yet.
+                    Step 2 — sub-components imported (not used yet).
                 </p>
             </div>
         </div>
     `;
+    static components = { TopBar, ProductsGrid, LiveFeed };
     static props = {};
 }
 

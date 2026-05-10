@@ -15,6 +15,11 @@
           t-att-href="'/web/image/res.company/%d/favicon' % company_id"/>
 
     <script type="text/javascript">
+        // Define `odoo` global with session_info BEFORE the asset
+        // bundle loads. The web framework's startServices() reads
+        // odoo.__session_info__ to bootstrap the user/company/orm
+        // services. Pattern matches point_of_sale.index.
+        var odoo = <t t-out="odoo_globals_json"/>;
         window.__externalShiftConfig__ = <t t-out="config_json_safe"/>;
     </script>
 

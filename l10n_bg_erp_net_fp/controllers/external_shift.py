@@ -29,10 +29,13 @@ _HTML_TEMPLATE = """<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="icon" sizes="any" type="image/svg+xml"
           href="/web/image/res.company/{company_id}/favicon"/>
-    {assets}
     <script type="text/javascript">
-        odoo.__externalShiftConfig__ = {config_json};
+        // MUST be set BEFORE the asset bundle loads — the OWL app
+        // reads it inside its setup() hook. Using window.* (not odoo.*)
+        // because the `odoo` global is defined later by the bundle.
+        window.__externalShiftConfig__ = {config_json};
     </script>
+    {assets}
 </head>
 <body class="o_external_shift_body">
     <div id="external_shift_root" class="o_external_shift_root">

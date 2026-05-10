@@ -13,21 +13,21 @@
               action="action_fiscal_printer_device"
               sequence="10"/>
 
-    <!-- External Shift Dashboard (cashier-facing OWL view) -->
-    <menuitem id="menu_external_shift_dashboard"
-              name="External Shift Dashboard"
+    <!-- External Shifts kanban — primary cashier entry point -->
+    <menuitem id="menu_l10n_bg_fiscal_shift"
+              name="External Shifts"
               parent="menu_fiscal_printer_root"
-              action="action_external_shift_dashboard"
+              action="action_l10n_bg_fiscal_shift"
               sequence="20"
               groups="point_of_sale.group_pos_user"/>
 
-    <!-- Past shifts (manager review) -->
-    <menuitem id="menu_l10n_bg_fiscal_shift"
-              name="Fiscal Shifts"
+    <!-- Quick "New Shift" launcher → /external-shift -->
+    <menuitem id="menu_external_shift_new"
+              name="Open Shift Dashboard"
               parent="menu_fiscal_printer_root"
-              action="action_l10n_bg_fiscal_shift"
-              sequence="25"
-              groups="point_of_sale.group_pos_manager"/>
+              action="action_external_shift_dashboard_new"
+              sequence="22"
+              groups="point_of_sale.group_pos_user"/>
 
     <!-- Past receipts (manager review) -->
     <menuitem id="menu_l10n_bg_fiscal_shift_receipt"

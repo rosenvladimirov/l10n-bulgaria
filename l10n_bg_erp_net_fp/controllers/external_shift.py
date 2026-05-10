@@ -51,6 +51,38 @@ class ExternalShiftController(http.Controller):
         # like `user`, `company` and `orm` fail with:
         #   can't access property "allowed_companies", session.user_companies is undefined
         session_info = request.env["ir.http"].session_info()
+
+        # `user_companies` is added to session_info ONLY when the user is
+        # `_is_internal()` (web/models/ir_http.py:135). For non-internal
+        # but still-authenticated users (portal, public via auth=user — rare
+        # but possible in dev), the field is absent and the company_service.js
+        # crashes on read. Backfill a single-company default so the boot
+        # never crashes.
+        if "user_companies" not in session_info:
+            allowed_companies = {
+                c.id: {
+                    "id": c.id,
+                    "name": c.name,
+                    "sequence": c.sequence,
+                    "child_ids": c.child_ids.ids,
+                    "parent_id": c.parent_id.id,
+                }
+                for c in user.company_ids
+            } or {
+                company.id: {
+                    "id": company.id,
+                    "name": company.name,
+                    "sequence": getattr(company, "sequence", 0) or 0,
+                    "child_ids": [],
+                    "parent_id": False,
+                },
+            }
+            session_info["user_companies"] = {
+                "current_company": company.id,
+                "allowed_companies": allowed_companies,
+                "disallowed_ancestor_companies": {},
+            }
+
         odoo_globals = {
             "csrf_token": request.csrf_token(None),
             "__session_info__": session_info,

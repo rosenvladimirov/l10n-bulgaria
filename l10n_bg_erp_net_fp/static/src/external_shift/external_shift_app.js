@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { Component, useState, onMounted, mount, whenReady } from "@odoo/owl";
+import { Component, useState, onMounted, whenReady } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
 import { useService } from "@web/core/utils/hooks";
 import { TopBar } from
@@ -9,11 +9,9 @@ import { ProductsGrid } from
     "@l10n_bg_erp_net_fp/external_shift/components/products_grid/products_grid";
 import { LiveFeed } from
     "@l10n_bg_erp_net_fp/external_shift/components/live_feed/live_feed";
-
-import { templates } from "@web/core/assets";
 import { MainComponentsContainer } from
     "@web/core/main_components_container";
-import { makeEnv, startServices } from "@web/env";
+import { mountComponent } from "@web/env";
 
 
 export class ExternalShiftApp extends Component {
@@ -189,33 +187,30 @@ export class ExternalShiftApp extends Component {
 }
 
 
-// Boot the app once OWL templates are ready. Pattern matches POS
-// (`point_of_sale.app.js`) — replace the loading shell with the
-// MainComponentsContainer + ExternalShiftApp.
-async function _start() {
-    await whenReady();
-    const env = makeEnv();
-    await startServices(env);
-    const root = document.getElementById("external_shift_root");
-    if (root) {
-        // Clear the loading splash injected by the QWeb shell.
-        root.innerHTML = "";
+// Boot the app once the page is ready. `mountComponent` from @web/env
+// auto-creates the env, starts services, and wires getTemplate from
+// @web/core/templates — pattern matches `point_of_sale/static/src/app/main.js`.
+(async function _start() {
+    try {
+        await whenReady();
+        const root = document.getElementById("external_shift_root");
+        if (root) {
+            // Clear the loading splash injected by the QWeb shell.
+            root.innerHTML = "";
+        }
+        await mountComponent(
+            ExternalShiftApp,
+            root || document.body,
+            { name: "External Shift Dashboard" },
+        );
+    } catch (err) {
+        console.error("[ExternalShift] boot failed", err);
+        const root = document.getElementById("external_shift_root");
+        if (root) {
+            root.innerHTML =
+                `<div class="alert alert-danger m-4">`
+                + `External Shift Dashboard failed to start: `
+                + `${err.message || err}</div>`;
+        }
     }
-    await mount(ExternalShiftApp, root || document.body, {
-        env,
-        templates,
-        translateFn: env._t || ((s) => s),
-        dev: env.debug,
-    });
-}
-
-_start().catch((err) => {
-    console.error("[ExternalShift] boot failed", err);
-    const root = document.getElementById("external_shift_root");
-    if (root) {
-        root.innerHTML =
-            `<div class="alert alert-danger m-4">`
-            + `External Shift Dashboard failed to start: `
-            + `${err.message || err}</div>`;
-    }
-});
+})();

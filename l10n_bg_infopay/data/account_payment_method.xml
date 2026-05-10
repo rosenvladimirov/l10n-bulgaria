@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+
+    <!--
+        Three account.payment.method records that the InfoPay payment
+        bridges (l10n_bg_infopay_oca_payment + l10n_bg_infopay_ee_payment)
+        use to discriminate routing.  Lives here in core so both bridges
+        consume the same record IDs / codes — no XML duplication.
+
+        Code naming: `l10n_bg_infopay_<endpoint-shorthand>` per the
+        l10n_bg_ prefix rule for new identifiers in БГ localization
+        modules.
+
+        payment_type: 'outbound' on all three (we only initiate
+        outgoing transfers; InfoPay does not expose an inbound API).
+    -->
+
+    <record id="account_payment_method_infopay_domestic_bgn"
+            model="account.payment.method">
+        <field name="name">InfoPay BGN Domestic</field>
+        <field name="code">l10n_bg_infopay_domestic_bgn</field>
+        <field name="payment_type">outbound</field>
+    </record>
+
+    <record id="account_payment_method_infopay_sepa_eur"
+            model="account.payment.method">
+        <field name="name">InfoPay SEPA EUR</field>
+        <field name="code">l10n_bg_infopay_sepa_eur</field>
+        <field name="payment_type">outbound</field>
+    </record>
+
+    <record id="account_payment_method_infopay_budget_bgn"
+            model="account.payment.method">
+        <field name="name">InfoPay Budget (BGN)</field>
+        <field name="code">l10n_bg_infopay_budget_bgn</field>
+        <field name="payment_type">outbound</field>
+    </record>
+
+</odoo>

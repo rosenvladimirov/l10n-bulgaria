@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- =========================================================
+         l10n.bg.fiscal.shift — backend list/form (audit/manage)
+         The OWL dashboard is the primary cashier-facing UI; this
+         backend pair is for managers reviewing past shifts.
+         ========================================================= -->
+
+    <record id="view_l10n_bg_fiscal_shift_tree" model="ir.ui.view">
+        <field name="name">l10n.bg.fiscal.shift.tree</field>
+        <field name="model">l10n.bg.fiscal.shift</field>
+        <field name="arch" type="xml">
+            <list string="Fiscal Shifts"
+                  decoration-info="state == 'open'"
+                  decoration-success="state == 'closed'"
+                  decoration-warning="state in ('opening', 'closing')"
+                  decoration-danger="state == 'error'"
+                  decoration-muted="state == 'draft'">
+                <field name="name"/>
+                <field name="device_id"/>
+                <field name="operator_user_id" optional="show"/>
+                <field name="opened_at"/>
+                <field name="closed_at" optional="show"/>
+                <field name="receipt_count" sum="Total receipts"/>
+                <field name="sales_total" sum="Total sales" widget="monetary"/>
+                <field name="z_number" optional="hide"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'open'"
+                       decoration-success="state == 'closed'"
+                       decoration-warning="state in ('opening', 'closing')"
+                       decoration-danger="state == 'error'"
+                       decoration-muted="state == 'draft'"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_l10n_bg_fiscal_shift_form" model="ir.ui.view">
+        <field name="name">l10n.bg.fiscal.shift.form</field>
+        <field name="model">l10n.bg.fiscal.shift</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,opening,open,closing,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="device_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="operator_user_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="opened_at"/>
+                            <field name="closed_at"
+                                   invisible="state != 'closed'"/>
+                            <field name="receipt_count"/>
+                            <field name="sales_total" widget="monetary"/>
+                        </group>
+                    </group>
+                    <group string="Z-Report"
+                           invisible="state != 'closed'">
+                        <field name="z_number"/>
+                        <field name="z_total" widget="monetary"/>
+                    </group>
+                    <notebook>
+                        <page string="Receipts" name="receipts">
+                            <field name="receipt_ids" readonly="1">
+                                <list>
+                                    <field name="receipt_number"/>
+                                    <field name="issued_at"/>
+                                    <field name="payment_kind"/>
+                                    <field name="operator_code"/>
+                                    <field name="total_amount"
+                                           widget="monetary"
+                                           sum="Total"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Push Summary" name="push_summary">
+                            <field name="push_summary" readonly="1"/>
+                        </page>
+                        <page string="Z Payload" name="z_payload"
+                              invisible="state != 'closed'">
+                            <field name="z_payload_json" readonly="1"
+                                   widget="ace" options="{'mode': 'json'}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_l10n_bg_fiscal_shift_search" model="ir.ui.view">
+        <field name="name">l10n.bg.fiscal.shift.search</field>
+        <field name="model">l10n.bg.fiscal.shift</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="device_id"/>
+                <field name="operator_user_id"/>
+                <separator/>
+                <filter string="Active" name="filter_active"
+                        domain="[('state','in',('opening','open','closing'))]"/>
+                <filter string="Closed" name="filter_closed"
+                        domain="[('state','=','closed')]"/>
+                <filter string="Errored" name="filter_error"
+                        domain="[('state','=','error')]"/>
+                <separator/>
+                <filter string="Today" name="filter_today"
+                        domain="[('opened_at','&gt;=',
+                                  context_today().strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Device" name="group_device"
+                            context="{'group_by': 'device_id'}"/>
+                    <filter string="Operator" name="group_operator"
+                            context="{'group_by': 'operator_user_id'}"/>
+                    <filter string="State" name="group_state"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_l10n_bg_fiscal_shift" model="ir.actions.act_window">
+        <field name="name">External Fiscal Shifts</field>
+        <field name="res_model">l10n.bg.fiscal.shift</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_l10n_bg_fiscal_shift_search"/>
+        <field name="context">{'search_default_filter_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No fiscal shifts yet
+            </p>
+            <p>
+                External-mode fiscal shifts are managed from the
+                <em>External Shift Dashboard</em> (cashier-facing OWL view).
+                This list is for managers reviewing past shifts.
+            </p>
+        </field>
+    </record>
+
+    <!-- =========================================================
+         OWL dashboard client action — POS-like cashier UI
+         ========================================================= -->
+
+    <record id="action_external_shift_dashboard"
+            model="ir.actions.client">
+        <field name="name">External Shift Dashboard</field>
+        <field name="tag">l10n_bg_external_shift_dashboard</field>
+    </record>
+
+</odoo>

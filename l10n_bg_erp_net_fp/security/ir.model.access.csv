@@ -19,3 +19,9 @@ access_l10n_bg_fiscal_plu_push_wizard,l10n.bg.fiscal.plu.push.wizard,model_l10n_
 access_l10n_bg_fiscal_x_report_wizard,l10n.bg.fiscal.x_report.wizard,model_l10n_bg_fiscal_x_report_wizard,point_of_sale.group_pos_user,1,1,1,1
 access_fiscal_z_report_user,fiscal.z.report.user,l10n_bg_erp_net_fp.model_l10n_bg_fiscal_z_report,point_of_sale.group_pos_user,1,0,0,0
 access_fiscal_z_report_manager,fiscal.z.report.manager,l10n_bg_erp_net_fp.model_l10n_bg_fiscal_z_report,point_of_sale.group_pos_manager,1,1,1,0
+access_l10n_bg_fiscal_shift_user,l10n.bg.fiscal.shift.user,model_l10n_bg_fiscal_shift,point_of_sale.group_pos_user,1,1,1,0
+access_l10n_bg_fiscal_shift_manager,l10n.bg.fiscal.shift.manager,model_l10n_bg_fiscal_shift,point_of_sale.group_pos_manager,1,1,1,1
+access_l10n_bg_fiscal_shift_receipt_user,l10n.bg.fiscal.shift.receipt.user,model_l10n_bg_fiscal_shift_receipt,point_of_sale.group_pos_user,1,0,1,0
+access_l10n_bg_fiscal_shift_receipt_manager,l10n.bg.fiscal.shift.receipt.manager,model_l10n_bg_fiscal_shift_receipt,point_of_sale.group_pos_manager,1,0,1,0
+access_l10n_bg_fiscal_shift_receipt_line_user,l10n.bg.fiscal.shift.receipt.line.user,model_l10n_bg_fiscal_shift_receipt_line,point_of_sale.group_pos_user,1,0,1,0
+access_l10n_bg_fiscal_shift_receipt_line_manager,l10n.bg.fiscal.shift.receipt.line.manager,model_l10n_bg_fiscal_shift_receipt_line,point_of_sale.group_pos_manager,1,0,1,0

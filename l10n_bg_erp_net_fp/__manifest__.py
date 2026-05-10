@@ -22,7 +22,7 @@ supported by ErpNet.FP server. Features include:
 * Bulgarian tax group mapping (А, Б, В, Г)
 * Dual connection mode: Direct (server) and Proxy (browser)
 """,
-    'version': '19.0.14.2.4',
+    'version': '19.0.15.0.0',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
@@ -116,6 +116,9 @@ supported by ErpNet.FP server. Features include:
         'views/menu_items_proxy.xml',
         'views/fiscal_plu_views.xml',
         'views/fiscal_z_report_views.xml',
+        # 19.0.15.0.0 — External Shift Dashboard (independent of pos.session)
+        'views/fiscal_shift_views.xml',
+        'views/fiscal_shift_receipt_views.xml',
         'wizard/fiscal_cash_operation_wizard_view.xml',
         'wizard/plu_allocate_wizard_view.xml',
         'wizard/plu_push_wizard_view.xml',
@@ -134,6 +137,9 @@ supported by ErpNet.FP server. Features include:
             'l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js',
             'l10n_bg_erp_net_fp/static/src/js/grafana_dashboard.js',
             'l10n_bg_erp_net_fp/static/src/xml/grafana_dashboard.xml',
+            # 19.0.15.0.0 — External Shift Dashboard (POS-mimic OWL view)
+            'l10n_bg_erp_net_fp/static/src/js/external_shift_dashboard.js',
+            'l10n_bg_erp_net_fp/static/src/xml/external_shift_dashboard.xml',
         ],
         # POS assets (само за POS)
         'point_of_sale._assets_pos': [

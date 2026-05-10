@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="external_shift_layout" name="External Shift App">
+&lt;!DOCTYPE html&gt;
+<html t-att-data-shift-id="shift_id"
+      t-att-data-user-id="user_id"
+      t-att-data-company-id="company_id">
+<head>
+    <meta charset="utf-8"/>
+    <title>External Shift — <t t-esc="company_name"/></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" sizes="any" type="image/svg+xml"
+          t-att-href="'/web/image/res.company/%d/favicon' % company_id"/>
+
+    <script type="text/javascript">
+        window.__externalShiftConfig__ = <t t-out="config_json_safe"/>;
+    </script>
+
+    <t t-call-assets="l10n_bg_erp_net_fp.external_shift_assets"
+       t-css="true" t-js="false"/>
+    <t t-call-assets="l10n_bg_erp_net_fp.external_shift_assets"
+       t-css="false" t-js="true"/>
+</head>
+<body class="o_external_shift_body">
+    <div id="external_shift_root" class="o_external_shift_root">
+        <div class="o_external_shift_loading
+                    d-flex align-items-center justify-content-center
+                    vh-100">
+            <div class="text-center">
+                <div class="spinner-border text-primary mb-3"
+                     role="status">
+                    <span class="visually-hidden">Loading…</span>
+                </div>
+                <div>External Shift Dashboard loading…</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+</template>
+
+</odoo>

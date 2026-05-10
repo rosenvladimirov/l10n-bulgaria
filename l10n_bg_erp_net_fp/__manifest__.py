@@ -115,6 +115,7 @@ supported by ErpNet.FP server. Features include:
         # before menu_items.xml so the menu can resolve the action xml-ids.
         'views/fiscal_shift_views.xml',
         'views/fiscal_shift_receipt_views.xml',
+        'views/external_shift_layout.xml',
         'views/menu_items.xml',
         'views/grafana_views.xml',
         'views/grafana_settings_views.xml',

@@ -27,6 +27,10 @@ from . import pos_payment_method_extensions
 from . import pos_order_extensions
 from . import pos_session_external
 
+# External Shift dashboard (independent of pos.session) — 18.0.12.0.0
+from . import fiscal_shift
+from . import fiscal_shift_receipt
+
 # Native iot.box / iot.device bridge AND packaging weight QC (Phase 3)
 # both moved to bridge module `l10n_bg_erp_net_fp_iot` (in l10n-bulgaria-ee,
 # auto_install=True) in 18.0.10.1.0 so the core stays Community-installable.

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="l10n_bg_erp_net_fp.ExternalShiftDashboard">
+        <div class="o_external_shift_dashboard d-flex flex-column h-100"
+             style="background:#f4f4f4;">
+            <!-- Top bar — shift status + controls -->
+            <div class="o_esd_topbar d-flex align-items-center
+                        bg-white border-bottom p-3 gap-3 shadow-sm">
+                <div class="o_esd_branding d-flex flex-column">
+                    <strong>External Shift</strong>
+                    <small class="text-muted">cashier rings up sales on the device</small>
+                </div>
+
+                <div class="o_esd_device-picker d-flex align-items-center gap-2">
+                    <label class="form-label mb-0 small text-muted">Device</label>
+                    <select class="form-select form-select-sm"
+                            t-on-change="onDeviceChange"
+                            t-att-disabled="state.shiftId ? 'disabled' : null"
+                            style="min-width:18ch;">
+                        <option t-foreach="state.devices" t-as="d" t-key="d.id"
+                                t-att-value="d.id"
+                                t-att-selected="d.id === state.deviceId ? 'selected' : null">
+                            <t t-esc="d.name"/>
+                        </option>
+                    </select>
+                </div>
+
+                <div class="o_esd_state d-flex align-items-center gap-2">
+                    <span class="badge"
+                          t-att-class="{
+                            'text-bg-secondary': state.shiftState === 'draft',
+                            'text-bg-warning':   state.shiftState === 'opening' || state.shiftState === 'closing',
+                            'text-bg-info':      state.shiftState === 'open',
+                            'text-bg-success':   state.shiftState === 'closed',
+                            'text-bg-danger':    state.shiftState === 'error',
+                          }">
+                        <t t-esc="state.shiftState.toUpperCase()"/>
+                    </span>
+                </div>
+
+                <div class="ms-auto d-flex gap-2">
+                    <button class="btn btn-sm btn-success"
+                            t-on-click="onClickOpen"
+                            t-att-disabled="!canOpen || state.busy.open ? 'disabled' : null">
+                        <i class="fa fa-play me-1"/>
+                        <t t-if="state.busy.open">Opening…</t>
+                        <t t-else="">Open Shift</t>
+                    </button>
+                    <button class="btn btn-sm btn-warning"
+                            t-on-click="onClickXReport"
+                            t-att-disabled="!canFireReport || state.busy.x_report ? 'disabled' : null">
+                        <t t-if="state.busy.x_report">…</t>
+                        <t t-else="">X-Report</t>
+                    </button>
+                    <button class="btn btn-sm btn-warning"
+                            t-on-click="onClickZReportAdHoc"
+                            t-att-disabled="!canFireReport || state.busy.z_report ? 'disabled' : null">
+                        <t t-if="state.busy.z_report">…</t>
+                        <t t-else="">Z-Report</t>
+                    </button>
+                    <button class="btn btn-sm btn-danger"
+                            t-on-click="onClickClose"
+                            t-att-disabled="!canClose || state.busy.close ? 'disabled' : null">
+                        <i class="fa fa-stop me-1"/>
+                        <t t-if="state.busy.close">Closing…</t>
+                        <t t-else="">Close Shift</t>
+                    </button>
+                    <button class="btn btn-sm btn-light"
+                            t-on-click="onClickRefresh"
+                            t-att-disabled="state.busy.refresh ? 'disabled' : null">
+                        <i class="fa fa-refresh"/>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Body — products grid (left) + live feed placeholder (right) -->
+            <div class="o_esd_body flex-grow-1 d-flex p-3 gap-3"
+                 style="overflow:hidden;">
+
+                <div class="o_esd_products flex-grow-1 d-flex flex-column"
+                     style="overflow:hidden;">
+                    <div class="d-flex align-items-baseline mb-2">
+                        <h5 class="mb-0">Products &amp; PLU coverage</h5>
+                        <small class="ms-2 text-muted">
+                            ✓ programmed · ⚠ stale · ✗ missing
+                        </small>
+                    </div>
+                    <div class="o_esd_grid flex-grow-1"
+                         style="overflow-y:auto;">
+                        <t t-if="state.loading">
+                            <div class="text-center text-muted p-5">
+                                Loading…
+                            </div>
+                        </t>
+                        <t t-elif="!state.products.length">
+                            <div class="text-center text-muted p-5">
+                                No POS-enabled products to show.
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div class="d-flex flex-wrap gap-2">
+                                <div t-foreach="state.products" t-as="p"
+                                     t-key="p.id"
+                                     class="o_esd_card border rounded p-2 bg-white"
+                                     style="width:14rem;">
+                                    <div class="d-flex justify-content-between
+                                                align-items-start">
+                                        <strong class="text-truncate"
+                                                t-att-title="p.display_name"
+                                                style="max-width:10rem;">
+                                            <t t-esc="p.display_name"/>
+                                        </strong>
+                                        <span t-att-class="{
+                                            'badge text-bg-success': p.plu_status === 'ok',
+                                            'badge text-bg-warning': p.plu_status === 'stale',
+                                            'badge text-bg-danger':  p.plu_status === 'missing' || p.plu_status === 'error',
+                                          }">
+                                            <t t-if="p.plu_status === 'ok'">✓</t>
+                                            <t t-elif="p.plu_status === 'stale'">⚠</t>
+                                            <t t-else="">✗</t>
+                                        </span>
+                                    </div>
+                                    <div class="text-muted small mt-1">
+                                        <t t-if="p.default_code">
+                                            [<t t-esc="p.default_code"/>]
+                                        </t>
+                                        <span class="float-end">
+                                            <t t-esc="p.lst_price.toFixed(2)"/>
+                                        </span>
+                                    </div>
+                                    <div class="text-muted small mt-1"
+                                         t-if="p.plu_label">
+                                        <t t-esc="p.plu_label"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+
+                <div class="o_esd_feed border rounded bg-white p-3"
+                     style="width:24rem; overflow-y:auto;">
+                    <h5>Live device feed</h5>
+                    <p class="text-muted small mb-0">
+                        Phase 1 — real-time receipt poll every 5s.
+                        For now this panel is a placeholder.
+                    </p>
+                    <div t-if="state.lastMessage"
+                         class="alert alert-info mt-3 mb-0 small">
+                        <t t-esc="state.lastMessage"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

@@ -305,9 +305,11 @@ class L10nBgAutoMapGodTagsWizard(models.TransientModel):
         }
 
     def _search_accounts(self, prefixes):
+        prefix_leaves = [("code_store", "=like", f"{p}%") for p in prefixes]
+        # OR all prefix leaves: (n-1) leading "|" operators, then leaves
+        or_block = ["|"] * (len(prefixes) - 1) + prefix_leaves
         domain = [
             ("company_ids", "in", self.company_ids.ids),
             ("deprecated", "=", False),
-            "|" * (len(prefixes) - 1),
-        ] + [("code_store", "=like", f"{p}%") for p in prefixes]
+        ] + or_block
         return self.env["account.account"].search(domain)

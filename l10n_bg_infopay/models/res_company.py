@@ -3,104 +3,137 @@
 
 import logging
 
-from cryptography.fernet import Fernet, InvalidToken
-
-from odoo import api, fields, models
+from odoo import fields, models
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
 INFOPAY_WALLET_UNIQUE_ID_KEY = "infopay_unique_id"
 INFOPAY_WALLET_ACCESS_TOKEN_KEY = "infopay_access_token"
-INFOPAY_ADMIN_FERNET_KEY_PARAM = "l10n_bg_infopay.admin_fernet_key"
+INFOPAY_WALLET_ADMIN_UNIQUE_ID_KEY = "infopay_admin_unique_id"
+INFOPAY_WALLET_ADMIN_ACCESS_TOKEN_KEY = "infopay_admin_access_token"
 
 
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    # ── User-side credentials ────────────────────────────────────────
-    # Both ``uniqueId`` and ``accessToken`` are paired secrets — neither
-    # alone authenticates with InfoPay; they sit on the same security
-    # boundary, so they live in the same place: the user's crypto
-    # wallet (password-protected).  No part of these credentials lives
-    # on the public ``res.company`` record.
+    # Both user-side and admin-side InfoPay credentials live in the
+    # registered owner's crypto wallet (l10n_bg_bank_wallet).  The wallet
+    # is unlocked with the owner's bcrypt password hash via the wallet
+    # module's *_with_user_password helpers — no plaintext session
+    # password is needed, so cron can sudo to the owner and still read.
+    #
+    # The four wallet keys live under separate names so user-side and
+    # admin-side credentials cannot collide.  Operators are expected to
+    # register a SEPARATE InfoPay ERP for the admin pair (read-only
+    # scope) so a leaked admin token cannot initiate payments.
 
     l10n_bg_infopay_token_user_id = fields.Many2one(
         "res.users",
         string="InfoPay Token Owner",
         help="User whose crypto wallet stores the InfoPay credentials "
-             "(uniqueId + accessToken).  Pointing at the owner is "
-             "non-secret — the credential pair only decrypts with the "
-             "owner's session password.",
-    )
-
-    # ── Admin-side credentials (cron, no password) ───────────────────
-    # Both fields are Fernet ciphertexts.  Symmetric key lives in
-    # ir.config_parameter (group_system only).  Use a SEPARATE InfoPay
-    # ERP registration with read-only scope for these — never the same
-    # uniqueId/token as the user-side credentials.
-
-    l10n_bg_infopay_admin_unique_id_encrypted = fields.Char(
-        string="InfoPay Admin uniqueId (encrypted)",
-        groups="base.group_system",
-        help="Fernet ciphertext of the admin uniqueId.  Sits on the "
-             "same security boundary as the admin token; same Fernet "
-             "key.",
-    )
-    l10n_bg_infopay_admin_token_encrypted = fields.Char(
-        string="InfoPay Admin Token (encrypted)",
-        groups="base.group_system",
-        help="Fernet ciphertext of the admin access token.  The "
-             "symmetric key lives in ir.config_parameter "
-             "'l10n_bg_infopay.admin_fernet_key' (auto-generated on "
-             "first set, group_system only).",
+             "(both user-side and admin-side).  Pointing at the owner "
+             "is non-secret — the credential pairs only decrypt with "
+             "the owner's bcrypt password hash.",
     )
 
     # ── user-side credential management ──────────────────────────────
 
     def _infopay_set_credentials(self, unique_id, access_token):
-        """Store InfoPay user-side credentials.
-
-        Both ``unique_id`` and ``access_token`` are written into the
-        current user's crypto wallet under separate keys; the company
-        record only remembers *who* the wallet owner is so cron can
-        sudo-fall-back to that user's wallet.
-        """
+        """Store InfoPay user-side credentials in the owner's wallet."""
         self.ensure_one()
-        if not unique_id or not access_token:
-            raise UserError(self.env._(
-                "Both uniqueId and accessToken are required.",
-            ))
-        self.l10n_bg_infopay_token_user_id = self.env.user
-
-        wallet = self.env["crypto.wallet"].get_user_wallet_or_create()
-        wallet.add_key_with_user_password(
-            INFOPAY_WALLET_UNIQUE_ID_KEY, "api_key", unique_id,
-        )
-        wallet.add_key_with_user_password(
-            INFOPAY_WALLET_ACCESS_TOKEN_KEY, "api_key", access_token,
-        )
-        _logger.info(
-            "InfoPay user credentials stored for company %s in wallet "
-            "of user %s.", self.name, self.env.user.login,
+        self._infopay_store_wallet_pair(
+            INFOPAY_WALLET_UNIQUE_ID_KEY,
+            INFOPAY_WALLET_ACCESS_TOKEN_KEY,
+            unique_id, access_token,
+            label="user",
         )
 
     def _infopay_get_unique_id(self):
-        """Retrieve the InfoPay uniqueId from the wallet."""
         return self._infopay_read_wallet_key(
             INFOPAY_WALLET_UNIQUE_ID_KEY, label="uniqueId",
         )
 
     def _infopay_get_access_token(self):
-        """Retrieve the InfoPay access token from the wallet."""
         return self._infopay_read_wallet_key(
             INFOPAY_WALLET_ACCESS_TOKEN_KEY, label="accessToken",
         )
 
+    def _infopay_has_credentials(self):
+        """Cheap check that user-side credentials look populated.
+        Verifies the owner pointer plus both wallet keys exist; does
+        not decrypt.
+        """
+        self.ensure_one()
+        return self._infopay_wallet_pair_present(
+            INFOPAY_WALLET_UNIQUE_ID_KEY,
+            INFOPAY_WALLET_ACCESS_TOKEN_KEY,
+        )
+
+    # ── admin-side credential management ─────────────────────────────
+
+    def _l10n_bg_infopay_set_admin_credentials(self, unique_id, access_token):
+        """Store admin (cron/read-only) InfoPay credentials.
+
+        Stored in the same owner wallet as the user-side pair but under
+        separate keys, so cron jobs sudo'd to the owner can read them
+        without colliding with user-side credentials.  Use a SEPARATE
+        ERP registration in the InfoPay portal for the admin pair
+        (read-only scope) — never reuse user-side creds.
+        """
+        self.ensure_one()
+        self._infopay_store_wallet_pair(
+            INFOPAY_WALLET_ADMIN_UNIQUE_ID_KEY,
+            INFOPAY_WALLET_ADMIN_ACCESS_TOKEN_KEY,
+            unique_id, access_token,
+            label="admin",
+        )
+
+    def _l10n_bg_infopay_get_admin_unique_id(self):
+        return self._infopay_read_wallet_key(
+            INFOPAY_WALLET_ADMIN_UNIQUE_ID_KEY, label="admin uniqueId",
+        )
+
+    def _l10n_bg_infopay_get_admin_token(self):
+        return self._infopay_read_wallet_key(
+            INFOPAY_WALLET_ADMIN_ACCESS_TOKEN_KEY, label="admin accessToken",
+        )
+
+    def _l10n_bg_infopay_has_admin_credentials(self):
+        self.ensure_one()
+        return self._infopay_wallet_pair_present(
+            INFOPAY_WALLET_ADMIN_UNIQUE_ID_KEY,
+            INFOPAY_WALLET_ADMIN_ACCESS_TOKEN_KEY,
+        )
+
+    # ── shared wallet helpers ────────────────────────────────────────
+
+    def _infopay_store_wallet_pair(
+        self, uid_key, tok_key, unique_id, access_token, label,
+    ):
+        """Write a (uniqueId, accessToken) pair into the owner's wallet
+        under the two provided key names.  Records the current user as
+        owner if no owner is set yet.
+        """
+        if not unique_id or not access_token:
+            raise UserError(self.env._(
+                "Both uniqueId and accessToken are required.",
+            ))
+        if not self.l10n_bg_infopay_token_user_id:
+            self.l10n_bg_infopay_token_user_id = self.env.user
+        owner = self.l10n_bg_infopay_token_user_id
+        Wallet = self.env["crypto.wallet"].sudo()
+        wallet = Wallet.get_user_wallet_or_create(user_id=owner.id)
+        wallet.add_key_with_user_password(uid_key, "api_key", unique_id)
+        wallet.add_key_with_user_password(tok_key, "api_key", access_token)
+        _logger.info(
+            "Stored InfoPay %s credentials for company %s in wallet of %s.",
+            label, self.name, owner.login,
+        )
+
     def _infopay_read_wallet_key(self, key_name, label):
-        """Shared lookup: try current user's wallet first, fall back
-        to the registered token owner via sudo (cron / first use).
-        ``label`` only colours error messages.
+        """Try current user's wallet first; fall back to the registered
+        token owner via sudo.  ``label`` only colours error messages.
         """
         self.ensure_one()
         Wallet = self.env["crypto.wallet"]
@@ -119,7 +152,8 @@ class ResCompany(models.Model):
         if not token_user:
             raise UserError(self.env._(
                 "No InfoPay token owner configured on company '%s'.  "
-                "Run _infopay_set_credentials() to populate the wallet.",
+                "Run _infopay_set_credentials() or "
+                "_l10n_bg_infopay_set_admin_credentials() to populate.",
                 self.name,
             ))
         owner_wallet = Wallet.sudo().search([
@@ -134,101 +168,28 @@ class ResCompany(models.Model):
             return owner_wallet.get_key_with_user_password(key_name)["data"]
         except KeyError as exc:
             raise UserError(self.env._(
-                "InfoPay %s missing from owner's wallet — re-run "
-                "_infopay_set_credentials() to populate.", label,
+                "InfoPay %s missing from owner's wallet — re-run the "
+                "matching set-credentials helper to populate.", label,
             )) from exc
 
-    def _infopay_has_credentials(self):
-        """Cheap check that user-side credentials look populated.
-        Does not decrypt — just verifies the owner pointer exists.
+    def _infopay_wallet_pair_present(self, uid_key, tok_key):
+        """Cheap (no-decrypt) check that both keys live in the owner's
+        wallet.  Returns False if owner is unset, wallet is missing or
+        either key is absent.
         """
-        self.ensure_one()
-        return bool(self.l10n_bg_infopay_token_user_id)
-
-    # ── admin-token Fernet helpers ────────────────────────────────────
-
-    @api.model
-    def _l10n_bg_infopay_admin_fernet(self):
-        """Return a Fernet handle, generating + persisting a key on
-        first use.  Race-protected via pg_advisory_xact_lock so two
-        concurrent workers cannot both regenerate the key.
-        """
-        ICP = self.env["ir.config_parameter"].sudo()
-        key_b64 = ICP.get_param(INFOPAY_ADMIN_FERNET_KEY_PARAM)
-        if key_b64:
-            return Fernet(key_b64.encode())
-        lock_key = abs(hash(INFOPAY_ADMIN_FERNET_KEY_PARAM)) % (2**31 - 1)
-        self.env.cr.execute(
-            "SELECT pg_advisory_xact_lock(%s)", (lock_key,),
-        )
-        key_b64 = ICP.get_param(INFOPAY_ADMIN_FERNET_KEY_PARAM)
-        if not key_b64:
-            key_b64 = Fernet.generate_key().decode()
-            ICP.set_param(INFOPAY_ADMIN_FERNET_KEY_PARAM, key_b64)
-            _logger.info(
-                "Generated new InfoPay admin Fernet key (param '%s').",
-                INFOPAY_ADMIN_FERNET_KEY_PARAM,
-            )
-        return Fernet(key_b64.encode())
-
-    def _l10n_bg_infopay_set_admin_credentials(self, unique_id, access_token):
-        """Store admin (read-only / cron) InfoPay credentials.
-
-        Both fields are Fernet-encrypted with a server-wide key.  Use
-        a SEPARATE ERP registration in the InfoPay portal — do NOT
-        reuse the user-side credentials, so a leaked admin pair cannot
-        initiate payments.
-        """
-        self.ensure_one()
-        if not unique_id or not access_token:
-            raise UserError(self.env._(
-                "Both uniqueId and accessToken are required.",
-            ))
-        f = self._l10n_bg_infopay_admin_fernet()
-        self.sudo().write({
-            "l10n_bg_infopay_admin_unique_id_encrypted":
-                f.encrypt(unique_id.encode()).decode(),
-            "l10n_bg_infopay_admin_token_encrypted":
-                f.encrypt(access_token.encode()).decode(),
-        })
-        _logger.info(
-            "Stored InfoPay admin credentials for company %s.", self.name,
-        )
-
-    def _l10n_bg_infopay_get_admin_unique_id(self):
-        return self._l10n_bg_infopay_decrypt_admin(
-            "l10n_bg_infopay_admin_unique_id_encrypted", "uniqueId",
-        )
-
-    def _l10n_bg_infopay_get_admin_token(self):
-        return self._l10n_bg_infopay_decrypt_admin(
-            "l10n_bg_infopay_admin_token_encrypted", "accessToken",
-        )
-
-    def _l10n_bg_infopay_decrypt_admin(self, field_name, label):
-        self.ensure_one()
-        ciphertext = self.sudo()[field_name]
-        if not ciphertext:
-            raise UserError(self.env._(
-                "No InfoPay admin %s configured on company '%s'.  "
-                "Call _l10n_bg_infopay_set_admin_credentials() first.",
-                label, self.name,
-            ))
-        f = self._l10n_bg_infopay_admin_fernet()
+        if not self.l10n_bg_infopay_token_user_id:
+            return False
+        owner = self.l10n_bg_infopay_token_user_id
+        Wallet = self.env["crypto.wallet"].sudo()
+        wallet = Wallet.search([
+            ("user_id", "=", owner.id),
+            ("name", "=", "System Keys"),
+        ], limit=1)
+        if not wallet:
+            return False
         try:
-            return f.decrypt(ciphertext.encode()).decode()
-        except InvalidToken as exc:
-            raise UserError(self.env._(
-                "InfoPay admin %s cannot be decrypted — Fernet key may "
-                "have been rotated or the ciphertext corrupted.  "
-                "Re-set credentials.", label,
-            )) from exc
-
-    def _l10n_bg_infopay_has_admin_credentials(self):
-        """Cheap check (no decryption) that admin creds are set."""
-        self.ensure_one()
-        sudoed = self.sudo()
-        return bool(
-            sudoed.l10n_bg_infopay_admin_unique_id_encrypted
-            and sudoed.l10n_bg_infopay_admin_token_encrypted
-        )
+            keys = wallet.list_keys_with_user_password() or []
+        except Exception:
+            return False
+        names = {k.get("name") for k in keys if isinstance(k, dict)}
+        return uid_key in names and tok_key in names

@@ -87,7 +87,11 @@
                     <notebook>
                         <page string="Wallet Content" invisible="is_locked">
                             <group>
-                                <field name="decrypted_keys" widget="ace" options="{'mode': 'json'}" readonly="1"/>
+                                <!-- decrypted_keys съдържа JSON; CodeEditor в Odoo 18
+                                     приема само {javascript, xml, qweb, scss, python} —
+                                     'json' е невалиден mode (хвърля OwlError).
+                                     'javascript' рендерира JSON correctly (JSON ⊂ JS). -->
+                                <field name="decrypted_keys" widget="ace" options="{'mode': 'javascript'}" readonly="1"/>
                             </group>
                         </page>
                         <page string="Key Management" invisible="is_locked">

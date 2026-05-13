@@ -568,6 +568,11 @@ def get_l10n_bg_applicability(res):
         ("purchase", "Purchase report"),
         ("sale", "Sale report"),
         ("vies", "VIES Report"),
+        ("gfo_balance", "Annual Financial Statement — Balance Sheet"),
+        ("gfo_pl", "Annual Financial Statement — Profit and Loss"),
+        ("gfo_cf", "Annual Financial Statement — Cash Flow"),
+        ("gfo_equity", "Annual Financial Statement — Changes in Equity"),
+        ("god", "NSI Annual Activity Report (Appendices 1-15)"),
     ]
 
 

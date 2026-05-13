@@ -1,6 +1,6 @@
 {
     "name": "Bulgarian Accounting Reports Base",
-    "version": "18.0.12.1.0",
+    "version": "18.0.13.0.0",
     "development_status": "Production/Stable",
     "maintainers": ["rosenvladimirov", "deyanlyubenov"],
     "description": """
@@ -57,6 +57,10 @@ OCA Bulgaria — https://github.com/OCA/l10n-bulgaria
     ],
     "data": [
         "security/ir.model.access.csv",
+        "data/account_account_tag_god_balance.xml",
+        "data/account_account_tag_god_pl.xml",
+        "data/account_account_tag_god_equity.xml",
+        "data/account_account_tag_god_cf.xml",
     ],
     "installable": True,
     "auto_install": False,

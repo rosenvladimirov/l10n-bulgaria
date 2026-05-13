@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+NSI Annex 1 — Отчет за паричните потоци по прекия метод за 2025 година
+Order RD-05-796 / 27.11.2025.
+
+l10n_bg_applicability = 'gfo_cf'
+l10n_bg_extract_basis = 'turnover'
+
+Двойни tag-ове per ред:
+- <CODE>_in (inflow position) — tag се поставя на КОНТРА сметки (411, 703 и т.н.) за постъпления
+- <CODE>_out (outflow position) — tag се поставя на КОНТРА сметки (401, 421...) за плащания
+
+Subtotals 61530, 61540, 61550, 61560, 61570, 61580 — template-computed.
+-->
+<odoo noupdate="1">
+
+    <!-- А. Парични потоци от основна дейност -->
+    <record id="bg_god_cf_61531_in" model="account.account.tag">
+        <field name="name">61531 — Търговски контрагенти (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61531_out" model="account.account.tag">
+        <field name="name">61531 — Търговски контрагенти (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61532_in" model="account.account.tag">
+        <field name="name">61532 — Краткосрочни финансови активи, държани за търговски цели (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61532_out" model="account.account.tag">
+        <field name="name">61532 — Краткосрочни финансови активи (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61533_in" model="account.account.tag">
+        <field name="name">61533 — Трудови възнаграждения (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61533_out" model="account.account.tag">
+        <field name="name">61533 — Трудови възнаграждения (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61534_in" model="account.account.tag">
+        <field name="name">61534 — Лихви, комисионни, дивиденти (постъпления, осн. дейност)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61534_out" model="account.account.tag">
+        <field name="name">61534 — Лихви, комисионни, дивиденти (плащания, осн. дейност)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61535_in" model="account.account.tag">
+        <field name="name">61535 — Положителни/отрицателни валутни курсови разлики (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61535_out" model="account.account.tag">
+        <field name="name">61535 — Валутни курсови разлики (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61536_in" model="account.account.tag">
+        <field name="name">61536 — Разпределение на печалби (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61536_out" model="account.account.tag">
+        <field name="name">61536 — Разпределение на печалби (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61537_in" model="account.account.tag">
+        <field name="name">61537 — Възстановени данъци върху печалбата (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61537_out" model="account.account.tag">
+        <field name="name">61537 — Платени данъци върху печалбата (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61538_in" model="account.account.tag">
+        <field name="name">61538 — Други ПП от основна дейност (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61538_out" model="account.account.tag">
+        <field name="name">61538 — Други ПП от основна дейност (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+
+    <!-- Б. Парични потоци от инвестиционна дейност -->
+    <record id="bg_god_cf_61541_in" model="account.account.tag">
+        <field name="name">61541 — Дълготрайни активи (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61541_out" model="account.account.tag">
+        <field name="name">61541 — Дълготрайни активи (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61542_in" model="account.account.tag">
+        <field name="name">61542 — Краткосрочни финансови активи, инв. дейност (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61542_out" model="account.account.tag">
+        <field name="name">61542 — Краткосрочни финансови активи, инв. дейност (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61543_in" model="account.account.tag">
+        <field name="name">61543 — Лихви/комисионни/дивиденти, инв. (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61543_out" model="account.account.tag">
+        <field name="name">61543 — Лихви/комисионни/дивиденти, инв. (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61544_in" model="account.account.tag">
+        <field name="name">61544 — Бизнескомбинации — придобивания (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61544_out" model="account.account.tag">
+        <field name="name">61544 — Бизнескомбинации — придобивания (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61545_in" model="account.account.tag">
+        <field name="name">61545 — Валутни курсови разлики, инв. (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61545_out" model="account.account.tag">
+        <field name="name">61545 — Валутни курсови разлики, инв. (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61546_in" model="account.account.tag">
+        <field name="name">61546 — Други ПП от инвестиционна дейност (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61546_out" model="account.account.tag">
+        <field name="name">61546 — Други ПП от инвестиционна дейност (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+
+    <!-- В. Парични потоци от финансова дейност -->
+    <record id="bg_god_cf_61551_in" model="account.account.tag">
+        <field name="name">61551 — Емитиране/обратно изкупуване на ценни книжа (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61551_out" model="account.account.tag">
+        <field name="name">61551 — Емитиране/обратно изкупуване (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61552_in" model="account.account.tag">
+        <field name="name">61552 — Допълнителни вноски от собственици (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61552_out" model="account.account.tag">
+        <field name="name">61552 — Връщане на вноски на собствениците (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61553_in" model="account.account.tag">
+        <field name="name">61553 — Получени заеми (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61553_out" model="account.account.tag">
+        <field name="name">61553 — Предоставени заеми / погасяване (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61554_in" model="account.account.tag">
+        <field name="name">61554 — Лихви/комисионни/дивиденти, фин. (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61554_out" model="account.account.tag">
+        <field name="name">61554 — Лихви/комисионни/дивиденти, фин. (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61555_in" model="account.account.tag">
+        <field name="name">61555 — Лизингови договори (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61555_out" model="account.account.tag">
+        <field name="name">61555 — Лизингови договори (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61556_in" model="account.account.tag">
+        <field name="name">61556 — Валутни курсови разлики, фин. (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61556_out" model="account.account.tag">
+        <field name="name">61556 — Валутни курсови разлики, фин. (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+    <record id="bg_god_cf_61557_in" model="account.account.tag">
+        <field name="name">61557 — Други ПП от финансова дейност (постъпления)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">inflow</field>
+    </record>
+    <record id="bg_god_cf_61557_out" model="account.account.tag">
+        <field name="name">61557 — Други ПП от финансова дейност (плащания)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_cf</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">outflow</field>
+    </record>
+
+</odoo>

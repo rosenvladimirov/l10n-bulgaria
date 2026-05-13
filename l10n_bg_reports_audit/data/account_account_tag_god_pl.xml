@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+NSI Annex 1 — Отчет за приходите и разходите за 2025 година
+Order RD-05-796 / 27.11.2025.
+
+l10n_bg_applicability = 'gfo_pl'
+l10n_bg_extract_basis = 'turnover' (всички редове на ОПР са оборотни)
+l10n_bg_position: expense (10xxx, 11xxx, 14200, 14300) | revenue (15xxx, 16xxx)
+Note: subtotals (10000, 11000, 13000, 14000, 14100, 14400, 14500, 15000, 16000,
+18000, 19000, 19100, 19200, 19500) са template-computed, не са tags.
+-->
+<odoo noupdate="1">
+
+    <!-- ============================== РАЗХОДИ ============================ -->
+    <!-- I. Разходи за оперативна дейност -->
+    <record id="bg_god_pl_10100" model="account.account.tag">
+        <field name="name">10100 — Намаление на запасите от продукция и незавършено производство</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10200" model="account.account.tag">
+        <field name="name">10200 — Разходи за суровини, материали и външни услуги</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10210" model="account.account.tag">
+        <field name="name">10210 — Суровини и материали</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10220" model="account.account.tag">
+        <field name="name">10220 — Външни услуги</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10300" model="account.account.tag">
+        <field name="name">10300 — Разходи за персонала</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10310" model="account.account.tag">
+        <field name="name">10310 — Разходи за възнаграждения</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10311" model="account.account.tag">
+        <field name="name">10311 — Компенсируеми отпуски</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10320" model="account.account.tag">
+        <field name="name">10320 — Разходи за осигуровки (към осигурителни фондове)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10321" model="account.account.tag">
+        <field name="name">10321 — Осигуровки, свързани с пенсии</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10400" model="account.account.tag">
+        <field name="name">10400 — Разходи за амортизация и обезценка</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10410" model="account.account.tag">
+        <field name="name">10410 — Разходи за амортизация и обезценка на ДМА и НМА</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10411" model="account.account.tag">
+        <field name="name">10411 — Разходи за амортизация</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10412" model="account.account.tag">
+        <field name="name">10412 — Разходи от обезценка</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10413" model="account.account.tag">
+        <field name="name">10413 — Амортизация на активи с право на ползване по оперативен лизинг (МСС)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10420" model="account.account.tag">
+        <field name="name">10420 — Разходи от обезценка на текущи (краткотрайни) активи</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10500" model="account.account.tag">
+        <field name="name">10500 — Други разходи</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10510" model="account.account.tag">
+        <field name="name">10510 — Балансова стойност на продадените активи</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_10520" model="account.account.tag">
+        <field name="name">10520 — Провизии</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+
+    <!-- II. Финансови разходи -->
+    <record id="bg_god_pl_11100" model="account.account.tag">
+        <field name="name">11100 — Разходи от обезценка на финансови активи (вкл. текущи инвестиции)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_11110" model="account.account.tag">
+        <field name="name">11110 — Отрицателни разлики от промяна на валутни курсове</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_11200" model="account.account.tag">
+        <field name="name">11200 — Разходи за лихви и други финансови разходи</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_11201" model="account.account.tag">
+        <field name="name">11201 — Разходи за лихви по оперативен лизинг (МСС)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_11210" model="account.account.tag">
+        <field name="name">11210 — Разходи, свързани с предприятия от група</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_11220" model="account.account.tag">
+        <field name="name">11220 — Отрицателни разлики от операции с финансови активи</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+
+    <!-- III/IV. Данъци -->
+    <record id="bg_god_pl_14200" model="account.account.tag">
+        <field name="name">14200 — Разходи за данъци от печалбата</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+    <record id="bg_god_pl_14300" model="account.account.tag">
+        <field name="name">14300 — Други данъци, алтернативни на корпоративния данък</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">expense</field>
+    </record>
+
+    <!-- ============================== ПРИХОДИ ============================ -->
+    <!-- I. Приходи от оперативна дейност -->
+    <record id="bg_god_pl_15100" model="account.account.tag">
+        <field name="name">15100 — Нетни приходи от продажби</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_15110" model="account.account.tag">
+        <field name="name">15110 — Продукция</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_15120" model="account.account.tag">
+        <field name="name">15120 — Стоки</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_15130" model="account.account.tag">
+        <field name="name">15130 — Услуги</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_15131" model="account.account.tag">
+        <field name="name">15131 — Приходи от търговско-посредническа дейност</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_15132" model="account.account.tag">
+        <field name="name">15132 — Приходи от наеми</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_15133" model="account.account.tag">
+        <field name="name">15133 — Приходи от промишлени услуги (вкл. на ишлеме)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_15200" model="account.account.tag">
+        <field name="name">15200 — Увеличение на запасите от продукция и незавършено производство</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_15300" model="account.account.tag">
+        <field name="name">15300 — Разходи за придобиване на активи по стопански начин</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_15310" model="account.account.tag">
+        <field name="name">15310 — Със строителен характер</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_15400" model="account.account.tag">
+        <field name="name">15400 — Други приходи</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_15410" model="account.account.tag">
+        <field name="name">15410 — Приходи от финансирания</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_15411" model="account.account.tag">
+        <field name="name">15411 — Финансирания от правителството</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_15420" model="account.account.tag">
+        <field name="name">15420 — Приходи от продажби на суровини и материали</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_15430" model="account.account.tag">
+        <field name="name">15430 — Приходи от продажби на дълготрайни активи</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+
+    <!-- II. Финансови приходи -->
+    <record id="bg_god_pl_16100" model="account.account.tag">
+        <field name="name">16100 — Приходи от участия в дъщерни, асоциирани и смесени предприятия</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_16110" model="account.account.tag">
+        <field name="name">16110 — Приходи от участия в предприятия от група</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_16200" model="account.account.tag">
+        <field name="name">16200 — Приходи от други инвестиции и заеми (нетекущи)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_16210" model="account.account.tag">
+        <field name="name">16210 — Приходи от предприятия от група (нетекущи инвестиции/заеми)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_16300" model="account.account.tag">
+        <field name="name">16300 — Други лихви и финансови приходи</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_16310" model="account.account.tag">
+        <field name="name">16310 — Приходи от предприятия от група (лихви)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_16320" model="account.account.tag">
+        <field name="name">16320 — Положителни разлики от операции с финансови активи</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+    <record id="bg_god_pl_16330" model="account.account.tag">
+        <field name="name">16330 — Положителни разлики от промяна на валутни курсове</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_pl</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">revenue</field>
+    </record>
+
+</odoo>

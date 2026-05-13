@@ -326,7 +326,7 @@ class L10nBgAutoMapGodTagsWizard(models.TransientModel):
             total_tags += 1
             total_matches += len(accounts)
             lines.append(
-                f"{nsi_code} ({tag.l10n_bg_applicability}) → "
+                f"{key} ({tag.l10n_bg_applicability}) → "
                 f"{len(accounts)} accounts: "
                 + ", ".join(a.code_store for a in accounts[:5])
                 + ("…" if len(accounts) > 5 else "")
@@ -362,7 +362,7 @@ class L10nBgAutoMapGodTagsWizard(models.TransientModel):
                 total_writes += 1
             _logger.info(
                 "GOD auto-map: tag %s (%s) → %s accounts",
-                nsi_code, tag.l10n_bg_applicability, len(accounts),
+                key, tag.l10n_bg_applicability, len(accounts),
             )
         return {
             "type": "ir.actions.client",

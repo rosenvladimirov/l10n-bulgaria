@@ -1,6 +1,6 @@
 {
     "name": "Bulgarian Accounting Reports Configuration",
-    "version": "18.0.9.2.0",
+    "version": "18.0.9.3.0",
     "development_status": "Production/Stable",
     "maintainers": ["rosenvladimirov", "deyanlyubenov"],
     "description": "Configuration and views for Bulgarian Accounting Reports (Odoo 18.0).",
@@ -22,6 +22,7 @@
         "security/ir.model.access.csv",
         "data/account_account_tag_function.xml",
         "wizards/account_account_tag_bulk_edit_wizard.xml",
+        "wizards/auto_map_god_tags_views.xml",
         "views/account_bg_vat_line_sale_reports.xml",
         "views/account_bg_vat_line_purchase_reports.xml",
         "views/account_bg_vat_line_vies_reports.xml",

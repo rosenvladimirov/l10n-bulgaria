@@ -87,7 +87,7 @@ class L10nBgAnnualLineMixin(models.AbstractModel):
             row_number() OVER () AS id,
             aml.company_id,
             aml.account_id,
-            aa.code AS account_code,
+            aa.code_store AS account_code,
             aa.name AS account_name,
             aa.account_type::text AS account_type,
             aat.id AS tag_id,
@@ -145,7 +145,7 @@ class L10nBgAnnualLineMixin(models.AbstractModel):
     @api.model
     def _group_by(self):
         return """
-            aml.company_id, aml.account_id, aa.code, aa.name, aa.account_type,
+            aml.company_id, aml.account_id, aa.code_store, aa.name, aa.account_type,
             aat.id, aat.name, aat.l10n_bg_position, aat.l10n_bg_extract_basis
         """
 

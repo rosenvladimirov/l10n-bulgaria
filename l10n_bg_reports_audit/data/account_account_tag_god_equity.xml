@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+NSI Annex 1 — Отчет за собствения капитал за 2025 година
+Order RD-05-796 / 27.11.2025.
+
+l10n_bg_applicability = 'gfo_equity'
+l10n_bg_extract_basis = 'turnover' (всички редове са движения за периода)
+l10n_bg_position: increase | decrease
+Note: balance rows (61610 начален, 61640 след промени, 61720 края, 61730, 61740)
+са template-computed от Баланса (gfo_balance tags 05xxx).
+-->
+<odoo noupdate="1">
+
+    <record id="bg_god_equity_61620" model="account.account.tag">
+        <field name="name">61620 — Промени в счетоводната политика</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_equity</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">increase</field>
+    </record>
+    <record id="bg_god_equity_61630" model="account.account.tag">
+        <field name="name">61630 — Грешки (коригиране)</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_equity</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">increase</field>
+    </record>
+    <record id="bg_god_equity_61651" model="account.account.tag">
+        <field name="name">61651 — Изменение за сметка на собствениците — Увеличение</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_equity</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">increase</field>
+    </record>
+    <record id="bg_god_equity_61652" model="account.account.tag">
+        <field name="name">61652 — Изменение за сметка на собствениците — Намаление</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_equity</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">decrease</field>
+    </record>
+    <record id="bg_god_equity_61660" model="account.account.tag">
+        <field name="name">61660 — Финансов резултат за текущия период</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_equity</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">increase</field>
+    </record>
+    <record id="bg_god_equity_61670" model="account.account.tag">
+        <field name="name">61670 — Разпределение на печалбата</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_equity</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">decrease</field>
+    </record>
+    <record id="bg_god_equity_61671" model="account.account.tag">
+        <field name="name">61671 — Разпределение за дивиденти</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_equity</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">decrease</field>
+    </record>
+    <record id="bg_god_equity_61680" model="account.account.tag">
+        <field name="name">61680 — Покриване на загуба</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_equity</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">increase</field>
+    </record>
+    <record id="bg_god_equity_61691" model="account.account.tag">
+        <field name="name">61691 — Последващи оценки на активи и пасиви — Увеличение</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_equity</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">increase</field>
+    </record>
+    <record id="bg_god_equity_61692" model="account.account.tag">
+        <field name="name">61692 — Последващи оценки на активи и пасиви — Намаление</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_equity</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">decrease</field>
+    </record>
+    <record id="bg_god_equity_61710" model="account.account.tag">
+        <field name="name">61710 — Други изменения в собствения капитал</field>
+        <field name="applicability">accounts</field>
+        <field name="l10n_bg_applicability">gfo_equity</field>
+        <field name="l10n_bg_extract_basis">turnover</field>
+        <field name="l10n_bg_position">increase</field>
+    </record>
+
+</odoo>

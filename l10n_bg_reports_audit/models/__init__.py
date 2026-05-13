@@ -10,3 +10,4 @@ from . import account_account_tag
 from . import account_move
 from . import account_move_line
 from . import account_journal
+from . import l10n_bg_audit_extractor

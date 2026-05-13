@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_hr_leave_balance_list" model="ir.ui.view">
+        <field name="name">hr.leave.balance.list</field>
+        <field name="model">hr.leave.balance</field>
+        <field name="arch" type="xml">
+            <list string="Leave Balance" create="0" edit="0" delete="0">
+                <field name="employee_id"/>
+                <field name="leave_type_id"/>
+                <field name="allocated_days" sum="Total"/>
+                <field name="taken_days" sum="Total"/>
+                <field name="remaining_days" sum="Total"
+                       decoration-danger="remaining_days &lt; 0"
+                       decoration-warning="remaining_days == 0"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hr_leave_balance_search" model="ir.ui.view">
+        <field name="name">hr.leave.balance.search</field>
+        <field name="model">hr.leave.balance</field>
+        <field name="arch" type="xml">
+            <search string="Search Leave Balance">
+                <field name="employee_id"/>
+                <field name="leave_type_id"/>
+                <filter string="Overdrawn" name="overdrawn"
+                        domain="[('remaining_days', '&lt;', 0)]"/>
+                <filter string="Exhausted" name="exhausted"
+                        domain="[('remaining_days', '=', 0)]"/>
+                <group>
+                    <filter string="Employee" name="group_employee"
+                            context="{'group_by': 'employee_id'}"/>
+                    <filter string="Leave Type" name="group_leave_type"
+                            context="{'group_by': 'leave_type_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_leave_balance" model="ir.actions.act_window">
+        <field name="name">Leave Balance</field>
+        <field name="res_model">hr.leave.balance</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="view_hr_leave_balance_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No validated leave allocations found
+            </p>
+            <p>
+                This list shows aggregated leave balances (allocated, taken,
+                remaining) per employee and leave type, built from validated
+                allocations and validated leaves.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_hr_leave_balance"
+              name="Leave Balance"
+              parent="hr_holidays.menu_hr_holidays_management"
+              action="action_hr_leave_balance"
+              sequence="5"/>
+
+</odoo>

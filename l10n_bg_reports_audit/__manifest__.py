@@ -1,13 +1,13 @@
 {
     "name": "Bulgarian Accounting Reports Base",
-    "version": "19.0.13.0.0",
+    "version": "19.0.13.1.0",
     "development_status": "Production/Stable",
     "maintainers": ["rosenvladimirov", "deyanlyubenov"],
     "description": """
 Bulgarian Accounting Reports — Base Module
 ==========================================
 
-Technical foundation for Bulgarian accounting and tax reporting in Odoo 19.
+Technical foundation for Bulgarian accounting and tax reporting in Odoo 18.
 
 Provides the SQL query layer, account tag configurations, and report
 infrastructure required by all Bulgarian localization reporting modules.
@@ -61,6 +61,7 @@ OCA Bulgaria — https://github.com/OCA/l10n-bulgaria
         "data/account_account_tag_god_pl.xml",
         "data/account_account_tag_god_equity.xml",
         "data/account_account_tag_god_cf.xml",
+        "wizards/auto_map_god_tags_views.xml",
     ],
     "installable": True,
     "auto_install": False,

@@ -51,4 +51,10 @@
               parent="menu_l10n_bg_configuration"
               action="l10n_bg_reports_config.action_l10n_bg_vat_ratio_history"
               sequence="20"/>
+
+    <menuitem id="menu_l10n_bg_auto_map_god_tags"
+              name="Auto-map GOD/GFO Tags"
+              parent="menu_l10n_bg_configuration"
+              action="l10n_bg_reports_audit.action_l10n_bg_auto_map_god_tags_wizard"
+              sequence="30"/>
 </odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_bg_gfo_balance_line_pivot" model="ir.ui.view">
+        <field name="name">account.bg.gfo.balance.line.pivot</field>
+        <field name="model">account.bg.gfo.balance.line</field>
+        <field name="arch" type="xml">
+            <pivot string="GFO Balance Sheet (per Tag/Account)">
+                <field name="tag_id" type="row"/>
+                <field name="account_id" type="row"/>
+                <field name="value" type="measure"/>
+                <field name="debit_sum" type="measure"/>
+                <field name="credit_sum" type="measure"/>
+                <field name="balance_sum" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_account_bg_gfo_balance_line_tree" model="ir.ui.view">
+        <field name="name">account.bg.gfo.balance.line.tree</field>
+        <field name="model">account.bg.gfo.balance.line</field>
+        <field name="arch" type="xml">
+            <list string="GFO Balance Sheet" create="0" delete="0" edit="0">
+                <field name="tag_id"/>
+                <field name="account_code"/>
+                <field name="account_id"/>
+                <field name="l10n_bg_position"/>
+                <field name="debit_sum" sum="Debit"/>
+                <field name="credit_sum" sum="Credit"/>
+                <field name="balance_sum" sum="Balance"/>
+                <field name="value" sum="Signed Value"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_account_bg_gfo_balance_line_graph" model="ir.ui.view">
+        <field name="name">account.bg.gfo.balance.line.graph</field>
+        <field name="model">account.bg.gfo.balance.line</field>
+        <field name="arch" type="xml">
+            <graph string="GFO Balance Sheet" type="bar">
+                <field name="tag_id" type="row"/>
+                <field name="value" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_account_bg_gfo_balance_line" model="ir.actions.act_window">
+        <field name="name">ГФО Баланс</field>
+        <field name="res_model">account.bg.gfo.balance.line</field>
+        <field name="view_mode">list,pivot,graph</field>
+    </record>
+</odoo>

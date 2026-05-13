@@ -32,6 +32,31 @@
             sequence="5"
             action="l10n_bg_reports_config.action_account_bg_product_pivot"
         />
+        <menuitem
+            id="menu_account_bg_gfo_balance"
+            sequence="10"
+            action="l10n_bg_reports_config.action_account_bg_gfo_balance_line"
+        />
+        <menuitem
+            id="menu_account_bg_gfo_pl"
+            sequence="11"
+            action="l10n_bg_reports_config.action_account_bg_gfo_pl_line"
+        />
+        <menuitem
+            id="menu_account_bg_gfo_cf"
+            sequence="12"
+            action="l10n_bg_reports_config.action_account_bg_gfo_cf_line"
+        />
+        <menuitem
+            id="menu_account_bg_gfo_equity"
+            sequence="13"
+            action="l10n_bg_reports_config.action_account_bg_gfo_equity_line"
+        />
+        <menuitem
+            id="menu_account_bg_god"
+            sequence="14"
+            action="l10n_bg_reports_config.action_account_bg_god_line"
+        />
     </menuitem>
 
     <!-- Menu Items for Configuration -->

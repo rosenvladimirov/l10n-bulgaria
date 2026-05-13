@@ -88,10 +88,7 @@ class L10nBgAnnualLineMixin(models.AbstractModel):
             aml.company_id,
             aml.account_id,
             COALESCE(
-                (SELECT cm.code FROM account_code_mapping cm
-                 WHERE cm.account_id = aa.id
-                   AND cm.company_id = aml.company_id
-                 LIMIT 1),
+                aa.code_store::jsonb ->> aml.company_id::text,
                 aa.code_store::text
             ) AS account_code,
             aa.name AS account_name,

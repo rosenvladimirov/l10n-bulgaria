@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_l10n_bg_auto_map_god_tags_wizard_form" model="ir.ui.view">
+        <field name="name">l10n.bg.auto.map.god.tags.wizard.form</field>
+        <field name="model">l10n.bg.auto.map.god.tags.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Auto-map GOD/GFO Tags to Accounts">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="company_ids" widget="many2many_tags" />
+                            <field name="applicability_filter" />
+                            <field name="overwrite" />
+                        </group>
+                        <group>
+                            <field name="matched_tag_count" readonly="1"
+                                   invisible="matched_tag_count == 0" />
+                            <field name="matched_account_count" readonly="1"
+                                   invisible="matched_account_count == 0" />
+                        </group>
+                    </group>
+                    <group string="Preview" invisible="not preview_text">
+                        <field name="preview_text" nolabel="1" readonly="1"
+                               widget="text" />
+                    </group>
+                    <p class="text-muted">
+                        Maps each NSI annual-report tag to accounts whose
+                        <code>code_store</code> begins with the standard
+                        <code>l10n_bg</code> chart prefixes baked into the
+                        wizard. Idempotent unless <em>Overwrite</em> is checked.
+                        Click <strong>Preview</strong> to see which accounts
+                        would be tagged before applying.
+                    </p>
+                </sheet>
+                <footer>
+                    <button name="action_preview" type="object"
+                            string="Preview" class="btn-secondary" />
+                    <button name="action_apply" type="object"
+                            string="Apply" class="btn-primary"
+                            confirm="Apply the tag→account mapping now?" />
+                    <button special="cancel" string="Cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_l10n_bg_auto_map_god_tags_wizard"
+            model="ir.actions.act_window">
+        <field name="name">Auto-map GOD/GFO Tags</field>
+        <field name="res_model">l10n.bg.auto.map.god.tags.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

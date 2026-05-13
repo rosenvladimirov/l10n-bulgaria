@@ -197,6 +197,65 @@ NSI_TO_ACCOUNT_PREFIXES = {
     "16310": ["722."],
     "16320": ["725."],                                   # Положителни от фин активи
     "16330": ["724."],                                   # Положителни валутни
+
+    # ============================== ОСК (Equity) =============================
+    # Movement tags (turnover basis) → equity component accounts (1xx series)
+    "61620": ["121.", "122."],                          # Промени в счетов. политика
+    "61630": ["121.", "122."],                          # Грешки (коригиране)
+    "61651": ["101.", "102.", "103.", "104.", "105."],  # Увеличение от собственици
+    "61652": ["101.", "102.", "103.", "104."],          # Намаление от собственици
+    "61660": ["123."],                                   # Финансов резултат за периода
+    "61670": ["122."],                                   # Разпределение на печалбата
+    "61671": ["122."],                                   # Дивиденти
+    "61680": ["121."],                                   # Покриване на загуба
+    "61691": ["112.", "113."],                          # Последващи оценки (увеличение)
+    "61692": ["112.", "113."],                          # Последващи оценки (намаление)
+    "61710": ["119."],                                   # Други изменения
+
+    # ============================== ОПП Cash Flow (Direct) ===================
+    # Counter-account mapping: _in tags on receivable-side, _out on payable-side
+    "61531_in": ["411.", "412."],                       # Постъпления от клиенти/група
+    "61531_out": ["401.", "402.", "403."],              # Плащания към доставчици
+    "61532_in": ["221.", "222.", "226."],               # Постъпления от краткосрочни фин активи
+    "61532_out": ["221.", "222.", "226."],
+    "61533_in": ["421.", "422."],                       # Постъпления свързани с възнаграждения
+    "61533_out": ["421.", "422."],                      # Плащания на възнаграждения
+    "61534_in": ["722.", "724."],                       # Постъпления лихви/дивиденти осн.
+    "61534_out": ["621.", "624."],                      # Плащания лихви/комисионни
+    "61535_in": ["724."],                                # Положителни валутни осн.
+    "61535_out": ["624."],                               # Отрицателни валутни осн.
+    "61536_in": ["122."],                                # Постъпления от разпр. печалба
+    "61536_out": ["122."],
+    "61537_in": ["631."],                                # Възстановени данъци
+    "61537_out": ["631.", "632."],                      # Платени данъци
+    "61538_in": ["499."],
+    "61538_out": ["499."],
+    "61541_in": ["201.", "203.", "204.", "205.", "206.", "207.", "211.", "212.", "213.", "214."],  # Продажби на ДА
+    "61541_out": ["201.", "203.", "204.", "205.", "206.", "207.", "211.", "212.", "213.", "214."],  # Покупки на ДА
+    "61542_in": ["221.", "222."],
+    "61542_out": ["221.", "222."],
+    "61543_in": ["722.", "724."],
+    "61543_out": ["621.", "624."],
+    "61544_in": ["221.", "222.", "226."],
+    "61544_out": ["221.", "222.", "226."],
+    "61545_in": ["724."],
+    "61545_out": ["624."],
+    "61546_in": ["499."],
+    "61546_out": ["499."],
+    "61551_in": ["101.", "102.", "105."],               # Емисии (постъпления)
+    "61551_out": ["101.", "102.", "511."],              # Изкупуване
+    "61552_in": ["103.", "104."],                       # Допълнителни вноски
+    "61552_out": ["103.", "104."],
+    "61553_in": ["151.", "152."],                       # Получени заеми
+    "61553_out": ["151.", "152.", "228."],              # Погасяване
+    "61554_in": ["722.", "724."],
+    "61554_out": ["621.", "624."],
+    "61555_in": ["158.", "159."],                       # Лизинг постъпления
+    "61555_out": ["158.", "159."],                      # Лизинг плащания
+    "61556_in": ["724."],
+    "61556_out": ["624."],
+    "61557_in": ["499."],
+    "61557_out": ["499."],
 }
 
 
@@ -232,6 +291,18 @@ class L10nBgAutoMapGodTagsWizard(models.TransientModel):
     matched_account_count = fields.Integer(readonly=True)
     matched_tag_count = fields.Integer(readonly=True)
 
+    def _tag_dict_key(self, tag):
+        """Build the NSI_TO_ACCOUNT_PREFIXES lookup key for a tag.
+
+        For gfo_cf, append _in / _out based on position to match the dict.
+        Other applicabilities use the bare NSI code.
+        """
+        nsi_code = tag.name.split(" — ")[0].strip()
+        if tag.l10n_bg_applicability == "gfo_cf":
+            suffix = "_in" if tag.l10n_bg_position == "inflow" else "_out"
+            return nsi_code + suffix
+        return nsi_code
+
     def _eligible_tags(self):
         domain = [("l10n_bg_applicability", "in",
                    ("gfo_balance", "gfo_pl", "gfo_cf", "gfo_equity", "god"))]
@@ -245,8 +316,8 @@ class L10nBgAutoMapGodTagsWizard(models.TransientModel):
         total_matches = 0
         total_tags = 0
         for tag in self._eligible_tags():
-            nsi_code = tag.name.split(" — ")[0].strip()
-            prefixes = NSI_TO_ACCOUNT_PREFIXES.get(nsi_code)
+            key = self._tag_dict_key(tag)
+            prefixes = NSI_TO_ACCOUNT_PREFIXES.get(key)
             if not prefixes:
                 continue
             accounts = self._search_accounts(prefixes)
@@ -275,8 +346,8 @@ class L10nBgAutoMapGodTagsWizard(models.TransientModel):
         self.ensure_one()
         total_writes = 0
         for tag in self._eligible_tags():
-            nsi_code = tag.name.split(" — ")[0].strip()
-            prefixes = NSI_TO_ACCOUNT_PREFIXES.get(nsi_code)
+            key = self._tag_dict_key(tag)
+            prefixes = NSI_TO_ACCOUNT_PREFIXES.get(key)
             if not prefixes:
                 continue
             accounts = self._search_accounts(prefixes)

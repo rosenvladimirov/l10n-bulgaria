@@ -203,12 +203,74 @@ class L10nBgGfoPrintWizard(models.TransientModel):
                 "year_previous": self.date_to.year - 1,
             }
 
-        # CF/Equity/GOD — TODO Phase 4.3-4.5
+        if self.report_type == "gfo_cf":
+            from odoo.addons.l10n_bg_reports_audit.data.gfo_cf_layout import GFO_CF_LAYOUT
+            # CF has _in / _out per code — split into two dicts
+            inflows = {k.replace("_in", ""): v for k, v in values.items() if k.endswith("_in")}
+            outflows = {k.replace("_out", ""): v for k, v in values.items() if k.endswith("_out")}
+            # If tag names did NOT carry _in/_out (NSI codes only), fall back
+            # to raw values for both columns (legacy compatibility).
+            if not inflows and not outflows:
+                inflows = dict(values)
+                outflows = dict(values)
+            return {
+                "wizard": self,
+                "company": self.company_id,
+                "cf_rows": self._build_cf_rows(GFO_CF_LAYOUT, inflows, outflows),
+                "show_previous": self.show_previous_year,
+                "year_current": self.date_to.year,
+                "year_previous": self.date_to.year - 1,
+            }
+
+        if self.report_type == "gfo_equity":
+            from odoo.addons.l10n_bg_reports_audit.data.gfo_equity_layout import GFO_EQUITY_LAYOUT
+            return {
+                "wizard": self,
+                "company": self.company_id,
+                "equity_rows": self._build_rows(GFO_EQUITY_LAYOUT, values, values_prev),
+                "show_previous": self.show_previous_year,
+                "year_current": self.date_to.year,
+                "year_previous": self.date_to.year - 1,
+            }
+
+        # GOD — flat list of tag values (Phase 4.5 minimal)
+        rows = sorted(
+            [
+                {"code": k, "value": v, "value_prev": (values_prev or {}).get(k)}
+                for k, v in values.items()
+            ],
+            key=lambda r: r["code"],
+        )
         return {
             "wizard": self,
             "company": self.company_id,
-            "rows": [],
+            "god_rows": rows,
             "show_previous": self.show_previous_year,
             "year_current": self.date_to.year,
             "year_previous": self.date_to.year - 1,
         }
+
+    @api.model
+    def _build_cf_rows(self, layout, inflows, outflows):
+        """Cash flow renderer — each row has inflow + outflow + net columns."""
+        rows = []
+        for row_type, label, code, formula_codes in layout:
+            indent = {
+                "section": 0, "section_total": 0, "grand_total": 0,
+                "group": 1, "group_total": 1,
+                "leaf": 2, "leaf_sub": 3, "leaf_x": 2,
+            }.get(row_type, 2)
+            inflow = sum(inflows.get(c, 0.0) for c in (formula_codes or []))
+            outflow = sum(outflows.get(c, 0.0) for c in (formula_codes or []))
+            net = inflow - outflow
+            rows.append({
+                "row_type": row_type,
+                "label": label,
+                "code": code,
+                "inflow": inflow,
+                "outflow": outflow,
+                "net": net,
+                "indent": indent,
+                "is_bold": row_type in ("section", "section_total", "grand_total"),
+            })
+        return rows

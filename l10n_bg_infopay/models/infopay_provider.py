@@ -45,6 +45,10 @@ class InfopayProvider(models.AbstractModel):
             headers["SessionId"] = session["session_id"]
             headers["SessionKey"] = session["session_key"]
         headers.setdefault("Content-Type", "application/json")
+        # Azure Application Gateway пред InfoPay блокира default User-Agent
+        # на `requests` (python-requests/X.Y) с 403 Forbidden.  Всеки
+        # друг non-default UA минава — задаваме стабилен наш identifier.
+        headers.setdefault("User-Agent", "Odoo-InfoPay/1.0 (+l10n_bg_infopay)")
 
         try:
             resp = requests.request(

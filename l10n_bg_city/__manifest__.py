@@ -178,7 +178,7 @@ Meets requirements for:
 enables full compliance with Bulgarian administrative and statistical standards.
 It's a foundational module for any serious Bulgarian localization implementation.
   """,
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "development_status": "Production/Stable",
     "category": "Localization",
     "license": "AGPL-3",
@@ -193,9 +193,14 @@ It's a foundational module for any serious Bulgarian localization implementation
         "security/ir.model.access.csv",
         "data/res_city_types.xml",
         "data/res_country_data.xml",
+        "data/ir_cron_data.xml",
         "views/res_city_view.xml",
+        "views/l10n_bg_ekatte_sync_views.xml",
     ],
     "demo": [],
+    "external_dependencies": {
+        "python": ["dbfread", "requests"],
+    },
     "post_init_hook": "post_init_hook",
     'images': [
         'static/description/banner.png',

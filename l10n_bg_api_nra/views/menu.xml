@@ -5,7 +5,7 @@
          in 18.0.1.4.0 so the declarations have first-class app placement
          rather than being buried under Accounting > Reporting. -->
     <menuitem id="menu_nra_root"
-              name="NRA Declarations (НАП)"
+              name="NRA Declarations"
               sequence="40"
               web_icon="l10n_bg_api_nra,static/description/icon.png"
               groups="l10n_bg_api_nra.group_nra_user" />

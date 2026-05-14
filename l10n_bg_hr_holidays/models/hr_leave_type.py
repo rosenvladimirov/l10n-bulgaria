@@ -31,8 +31,8 @@ class HRLeaveType(models.Model):
     )
     l10n_bg_doo_treatment = fields.Selection([
         ('normal', 'Normal — employer DOO/ZO/UPF on wage'),
-        ('nssi_maternity', 'NSSI-funded maternity (чл. 163, 164, 163-10, 166 КТ)'),
-        ('nssi_sick', 'NSSI-funded sick leave (after 3 employer-paid days, чл. 162 КТ)'),
+        ('nssi_maternity', 'NSSI-funded maternity (BG Labor Code arts. 163, 164, 163-10, 166)'),
+        ('nssi_sick', 'NSSI-funded sick leave (after 3 employer-paid days, BG Labor Code art. 162)'),
         ('unpaid_no_doo', 'Unpaid > 30 days/year — excluded from DOO base'),
     ],
         string='DOO Treatment',
@@ -40,10 +40,11 @@ class HRLeaveType(models.Model):
         help='How this leave type interacts with social-security contributions. '
              '`normal` — employer pays DOO/ZO/UPF based on wage as usual. '
              '`nssi_maternity` — NSSI pays the benefit AND funds the social-security '
-             'contributions; employer DOO base excludes these days (чл. 50 КСО). '
+             'contributions; employer DOO base excludes these days '
+             '(BG Social Security Code art. 50). '
              '`nssi_sick` — first 3 days employer-paid (70%), remainder NSSI-funded. '
-             '`unpaid_no_doo` — unpaid leave above 30 days/year per чл. 160 ал. 1 КТ '
-             '— excluded from DOO base entirely.'
+             '`unpaid_no_doo` — unpaid leave above 30 days/year per BG Labor Code '
+             'art. 160 par. 1 — excluded from DOO base entirely.'
     )
 
     @api.depends('time_type')

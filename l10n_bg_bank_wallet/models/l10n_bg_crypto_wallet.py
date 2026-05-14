@@ -983,6 +983,51 @@ class CryptoWallet(models.Model):
 
     # === AES-256 PASSWORD-PROTECTED ZIP EXPORT / IMPORT ===
 
+    @staticmethod
+    def _classify_keys_into_sections(raw_keys):
+        # Групира flat keys dict в три именувани section-а за
+        # readability при manual editing на JSON-а.  Heuristic:
+        # `infopay_admin_*` → admin, други `infopay_*` → user, всичко
+        # друго → other.  Import-ът flatten-ва обратно — имената на
+        # ключовете остават меродавни, sections са само label.
+        sections = {
+            'user': {
+                'description':
+                    'User-side credentials — payment-initiation '
+                    'scope (e.g. InfoPay).  Decrypts with the wallet '
+                    'owner password; used in interactive flows.',
+                'keys': {},
+            },
+            'admin': {
+                'description':
+                    'Admin-side credentials — read-only scope (e.g. '
+                    'InfoPay).  Used by cron / server-side polling '
+                    'via sudo to the wallet owner.',
+                'keys': {},
+            },
+            'other': {
+                'description':
+                    'Other keys not matching a known naming '
+                    'convention (RSA / SSH / PGP / certificates / '
+                    'arbitrary).',
+                'keys': {},
+            },
+        }
+        if not isinstance(raw_keys, dict):
+            return sections
+        for name, info in raw_keys.items():
+            if not isinstance(info, dict):
+                continue
+            # Sections heuristic — string prefix-based
+            if name.startswith('infopay_admin_'):
+                sect = 'admin'
+            elif name.startswith('infopay_'):
+                sect = 'user'
+            else:
+                sect = 'other'
+            sections[sect]['keys'][name] = info
+        return sections
+
     def export_keys_to_zip_bytes(self, master_password=None,
                                   zip_password=None):
         """Връща bytes на AES-256 ZIP архив, който съдържа JSON със
@@ -1017,13 +1062,18 @@ class CryptoWallet(models.Model):
             master_password = self.get_user_master_password()
         wallet_data = self.unlock_wallet_with_password(master_password)
 
-        # JSON payload вътре в ZIP-а: keys + metadata
+        # JSON payload вътре в ZIP-а: groupiranи sections (admin/user/other)
+        # + metadata.  Sections са за човешка readability при ръчна
+        # подготовка на файла; import-ът ги flatten-ва обратно в
+        # wallet keys dict (имената остават unchanged).
+        raw_keys = wallet_data.get('keys', {})
+        sections = self._classify_keys_into_sections(raw_keys)
         payload = {
             'wallet_name': self.name,
             'wallet_user_login': self.user_id.login,
             'export_date': fields.Datetime.now().isoformat(),
             'wallet_version': CRYPTO_CONFIG['WALLET_VERSION'],
-            'keys': wallet_data.get('keys', {}),
+            'sections': sections,
         }
         json_bytes = json.dumps(payload, ensure_ascii=False,
                                 indent=2).encode('utf-8')
@@ -1103,9 +1153,26 @@ class CryptoWallet(models.Model):
                 "wallet_export.json is malformed.",
             ) from exc
 
-        keys = payload.get('keys') or {}
-        if not isinstance(keys, dict):
-            raise UserError("Export payload has no 'keys' dict.")
+        # Поддържаме два формата:
+        #   - новият (1.0.6+): payload['sections'] = {admin: {keys},
+        #     user: {keys}, other: {keys}} — flatten-ваме обратно
+        #   - legacy: payload['keys'] = flat dict (1.0.6 RC builds)
+        keys = {}
+        sections = payload.get('sections')
+        if isinstance(sections, dict):
+            for sect_data in sections.values():
+                if isinstance(sect_data, dict):
+                    sect_keys = sect_data.get('keys') or {}
+                    if isinstance(sect_keys, dict):
+                        keys.update(sect_keys)
+        elif isinstance(payload.get('keys'), dict):
+            keys = payload['keys']
+
+        if not keys:
+            raise UserError(
+                "Export payload has no keys (neither 'sections' nor "
+                "'keys' contain entries).",
+            )
 
         # Подсигурявам че wallet-ът съществува и е достъпен с master
         if not master_password:

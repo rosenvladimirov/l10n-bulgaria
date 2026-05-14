@@ -3,7 +3,7 @@
 
 {
     'name': 'Bulgarian Banking Integration - Crypto Wallet',
-    'version': '18.0.1.0.5',
+    'version': '18.0.1.0.6',
     'category': 'Localization',
     'summary': 'Secure storage of cryptographic keys and passwords for banking integrations',
     'description': """
@@ -59,6 +59,7 @@ Supported Key Types:
         'wizards/crypto_wallet_unlock_wizard.xml',
         'wizards/crypto_wallet_change_password_wizard.xml',
         'wizards/crypto_wallet_export_wizard.xml',
+        'wizards/crypto_wallet_import_wizard.xml',
         'wizards/crypto_wallet_key_manager_wizard.xml',
         'wizards/crypto_wallet_generate_keypair_wizard.xml',
     ],
@@ -70,7 +71,7 @@ Supported Key Types:
     'auto_install': False,
     'application': True,
     'external_dependencies': {
-        'python': ['cryptography'],
+        'python': ['cryptography', 'pyzipper'],
     },
     'maintainers': ['rosenvladimirov'],
     'development_status': 'Beta',

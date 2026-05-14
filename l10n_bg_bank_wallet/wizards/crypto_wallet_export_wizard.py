@@ -130,22 +130,46 @@ class CryptoWalletExportWizard(models.TransientModel):
             }
 
     def download_export(self):
-        """Създава файл за изтегляне"""
+        # Създава AES-256 ZIP attachment с export-нати keys и връща URL
+        # за директен download.  ZIP-ът се отваря с export_password.
         self.ensure_one()
 
-        if not self.export_data:
-            raise UserError(_('Няма данни за експорт!'))
+        if self.export_format != 'encrypted':
+            # Запазваме старото JSON поведение само за legacy "json" режим
+            if not self.export_data:
+                raise UserError(_('No data to export.'))
+            attachment = self.env['ir.attachment'].create({
+                'name': self.export_filename,
+                'type': 'binary',
+                'datas': base64.b64encode(
+                    self.export_data.encode('utf-8'),
+                ),
+                'res_model': self._name,
+                'res_id': self.id,
+                'mimetype': 'application/json',
+            })
+            return {
+                'type': 'ir.actions.act_url',
+                'url': f'/web/content/{attachment.id}?download=true',
+                'target': 'self',
+            }
 
-        # Създава attachment за изтегляне
+        # Encrypted режим: издърпваме AES-256 ZIP bytes от wallet API
+        if not self.export_password:
+            raise UserError(_('Export password is required.'))
+        zip_bytes = self.wallet_id.export_keys_to_zip_bytes(
+            master_password=self.master_password,
+            zip_password=self.export_password,
+        )
+        filename = f"{self.wallet_id.name or 'wallet'}_export.zip"
         attachment = self.env['ir.attachment'].create({
-            'name': self.export_filename,
+            'name': filename,
             'type': 'binary',
-            'datas': base64.b64encode(self.export_data.encode('utf-8')),
+            'datas': base64.b64encode(zip_bytes),
             'res_model': self._name,
             'res_id': self.id,
-            'mimetype': 'application/json',
+            'mimetype': 'application/zip',
         })
-
         return {
             'type': 'ir.actions.act_url',
             'url': f'/web/content/{attachment.id}?download=true',

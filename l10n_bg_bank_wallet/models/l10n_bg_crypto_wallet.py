@@ -980,3 +980,174 @@ class CryptoWallet(models.Model):
 
         _logger.info(f"Copied key '{key_name}' from user {self.user_id.id} to user {target_user_id}")
         return True
+
+    # === AES-256 PASSWORD-PROTECTED ZIP EXPORT / IMPORT ===
+
+    def export_keys_to_zip_bytes(self, master_password=None,
+                                  zip_password=None):
+        """Връща bytes на AES-256 ZIP архив, който съдържа JSON със
+        всички ключове на портфейла.
+
+        Параметри:
+            master_password: парола за отключване на портфейла.  Ако
+                е None — взима се bcrypt hash на текущия user.
+            zip_password: парола за защита на ZIP файла (AES-256).
+                Задължително.
+
+        Връща:
+            bytes (целия ZIP файл, готов за download).
+        """
+        # Проверка на права за експорт
+        self._check_permission_level('export')
+
+        if not zip_password:
+            raise UserError("ZIP password is required.")
+
+        # pyzipper е external dep — error при липса
+        try:
+            import pyzipper
+        except ImportError as exc:
+            raise UserError(
+                "pyzipper Python library is required for AES-256 ZIP "
+                "export.  Install it: pip install pyzipper",
+            ) from exc
+
+        # Отключваме wallet-а с master password
+        if not master_password:
+            master_password = self.get_user_master_password()
+        wallet_data = self.unlock_wallet_with_password(master_password)
+
+        # JSON payload вътре в ZIP-а: keys + metadata
+        payload = {
+            'wallet_name': self.name,
+            'wallet_user_login': self.user_id.login,
+            'export_date': fields.Datetime.now().isoformat(),
+            'wallet_version': CRYPTO_CONFIG['WALLET_VERSION'],
+            'keys': wallet_data.get('keys', {}),
+        }
+        json_bytes = json.dumps(payload, ensure_ascii=False,
+                                indent=2).encode('utf-8')
+
+        # AES-256 ZIP — pyzipper AESZipFile + WZ_AES = WinZip AES
+        import io
+        buf = io.BytesIO()
+        with pyzipper.AESZipFile(
+            buf, 'w',
+            compression=pyzipper.ZIP_DEFLATED,
+            encryption=pyzipper.WZ_AES,
+        ) as zf:
+            zf.setpassword(zip_password.encode('utf-8'))
+            zf.writestr('wallet_export.json', json_bytes)
+
+        _logger.info(
+            "Wallet '%s' exported to AES-256 ZIP (%d keys, %d bytes).",
+            self.name, len(payload['keys']), buf.tell(),
+        )
+        return buf.getvalue()
+
+    def import_keys_from_zip_bytes(self, zip_bytes, zip_password,
+                                    master_password=None,
+                                    overwrite=False):
+        """Импортира ключове от AES-256 ZIP в текущия портфейл.
+
+        Параметри:
+            zip_bytes: bytes на ZIP файла (binary upload).
+            zip_password: паролата за разкодиране на ZIP-а.
+            master_password: master password за wallet-а.  Ако е None
+                — взима bcrypt hash на текущия user.
+            overwrite: ако True — презаписва ключове със същото име.
+                По default skip-ва дубликатите.
+
+        Връща dict: ``{'imported': int, 'skipped': int, 'overwritten':
+        int, 'keys_imported': [names], 'keys_skipped': [names]}``.
+        """
+        # Проверка на права за писане
+        self._check_permission_level('write')
+
+        if not zip_password:
+            raise UserError("ZIP password is required.")
+        if not zip_bytes:
+            raise UserError("ZIP content is empty.")
+
+        try:
+            import pyzipper
+        except ImportError as exc:
+            raise UserError(
+                "pyzipper Python library is required for AES-256 ZIP "
+                "import.  Install it: pip install pyzipper",
+            ) from exc
+
+        # Разкодираме ZIP-а
+        import io
+        buf = io.BytesIO(zip_bytes)
+        try:
+            with pyzipper.AESZipFile(buf) as zf:
+                zf.setpassword(zip_password.encode('utf-8'))
+                names = zf.namelist()
+                if 'wallet_export.json' not in names:
+                    raise UserError(
+                        "ZIP does not contain 'wallet_export.json'. "
+                        "File: %s" % ", ".join(names),
+                    )
+                raw = zf.read('wallet_export.json')
+        except RuntimeError as exc:
+            # pyzipper хвърля RuntimeError при грешна парола
+            raise UserError(
+                "Cannot decrypt ZIP — wrong password or corrupted file.",
+            ) from exc
+
+        try:
+            payload = json.loads(raw.decode('utf-8'))
+        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise UserError(
+                "wallet_export.json is malformed.",
+            ) from exc
+
+        keys = payload.get('keys') or {}
+        if not isinstance(keys, dict):
+            raise UserError("Export payload has no 'keys' dict.")
+
+        # Подсигурявам че wallet-ът съществува и е достъпен с master
+        if not master_password:
+            master_password = self.get_user_master_password()
+        existing = self._list_wallet_keys(master_password) or []
+        existing_names = {k.get('name') for k in existing
+                          if isinstance(k, dict)}
+
+        imported = []
+        skipped = []
+        overwritten = []
+        for name, info in keys.items():
+            if not isinstance(info, dict) or 'data' not in info:
+                # Skip-ваме malformed entries
+                skipped.append(name)
+                continue
+            key_type = info.get('type', 'custom')
+            key_data = info['data']
+            if name in existing_names:
+                if not overwrite:
+                    skipped.append(name)
+                    continue
+                # Презаписваме — изтриваме старите и добавяме нови
+                self._remove_key_from_wallet(name, master_password)
+                self._add_key_to_wallet(name, key_type, key_data,
+                                         master_password)
+                overwritten.append(name)
+            else:
+                self._add_key_to_wallet(name, key_type, key_data,
+                                         master_password)
+                imported.append(name)
+
+        _logger.info(
+            "Wallet '%s' import done: +%d imported, %d skipped, "
+            "%d overwritten.",
+            self.name, len(imported), len(skipped), len(overwritten),
+        )
+        return {
+            'imported': len(imported),
+            'skipped': len(skipped),
+            'overwritten': len(overwritten),
+            'keys_imported': imported,
+            'keys_skipped': skipped,
+            'keys_overwritten': overwritten,
+        }

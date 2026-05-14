@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <!-- Root menu under Accounting -->
+    <!-- Standalone application root — appears in Apps launcher with NAP icon.
+         Previously parent="account.menu_finance"; switched to application
+         in 19.0.1.1.0 so the declarations have first-class app placement
+         rather than being buried under Accounting > Reporting. -->
     <menuitem id="menu_nra_root"
               name="NRA Declarations"
-              parent="account.menu_finance"
               sequence="40"
+              web_icon="l10n_bg_api_nra,static/description/icon.png"
               groups="l10n_bg_api_nra.group_nra_user" />
 
     <!-- Shared sub-categories — plug-in modules add their items here.

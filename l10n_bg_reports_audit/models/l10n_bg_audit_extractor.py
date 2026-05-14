@@ -50,7 +50,7 @@ class L10nBgAuditExtractor(models.AbstractModel):
             return 0.0
 
         domain = [
-            ("l10n_bg_account_tag_ids", "in", tag_id),
+            ("account_tag_ids", "in", tag_id),
             ("parent_state", "=", "posted"),
             ("company_id", "=", company_id),
         ]
@@ -100,7 +100,7 @@ class L10nBgAuditExtractor(models.AbstractModel):
             return self.env["account.move.line"]
 
         domain = [
-            ("l10n_bg_account_tag_ids", "in", tag_id),
+            ("account_tag_ids", "in", tag_id),
             ("parent_state", "=", "posted"),
             ("company_id", "=", company_id),
         ]

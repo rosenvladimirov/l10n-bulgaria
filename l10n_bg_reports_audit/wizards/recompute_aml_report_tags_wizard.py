@@ -1,5 +1,5 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
-"""Retroactive recompute of account.move.line.l10n_bg_account_tag_ids.
+"""Retroactive recompute of account.move.line.account_tag_ids.
 
 Used after:
   - changing product.l10n_bg_account_tag_ids
@@ -18,7 +18,7 @@ _BATCH_SIZE = 10000
 
 class L10nBgRecomputeAmlReportTagsWizard(models.TransientModel):
     _name = "l10n.bg.recompute.aml.report.tags.wizard"
-    _description = "Retroactively recompute aml.l10n_bg_account_tag_ids"
+    _description = "Retroactively recompute aml.account_tag_ids"
 
     date_from = fields.Date(
         required=True,

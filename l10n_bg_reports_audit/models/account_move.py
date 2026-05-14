@@ -94,7 +94,7 @@ class AccountMove(models.Model):
         return res
 
     def _post(self, soft=True):
-        """Materialize aml.l10n_bg_account_tag_ids after posting.
+        """Materialize aml.account_tag_ids after posting.
 
         Resolves the layered tag set per line (account + product + partner
         override). Skipped under context flag l10n_bg_skip_report_tag_apply
@@ -112,6 +112,6 @@ class AccountMove(models.Model):
         res = super().button_draft()
         if not self.env.context.get("l10n_bg_skip_report_tag_apply"):
             for move in self:
-                if move.line_ids.l10n_bg_account_tag_ids:
-                    move.line_ids.l10n_bg_account_tag_ids = [(5, 0, 0)]
+                if move.line_ids.account_tag_ids:
+                    move.line_ids.account_tag_ids = [(5, 0, 0)]
         return res

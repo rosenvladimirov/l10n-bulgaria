@@ -17,7 +17,7 @@ _PARTNER_OVERRIDE_APPLICABILITIES = ("gfo_balance", "god")
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    l10n_bg_account_tag_ids = fields.Many2many(
+    account_tag_ids = fields.Many2many(
         comodel_name="account.account.tag",
         relation="l10n_bg_aml_account_tag_rel",
         column1="aml_id",
@@ -26,7 +26,7 @@ class AccountMoveLine(models.Model):
         copy=True,
         help="Materialized at posting time:\n"
              "  base = account.tag_ids (standard Odoo)\n"
-             "  + product.l10n_bg_account_tag_ids (extends, statistical)\n"
+             "  + product.account_tag_ids (extends, statistical)\n"
              "  override partner.l10n_bg_tax_tag_(receivable|payable)_ids on "
              "receivable/payable accounts (institutional sector replaces "
              "default gfo_balance/god classification of the partner-account).",
@@ -37,7 +37,7 @@ class AccountMoveLine(models.Model):
 
         Order of resolution per line:
           1. base: account.tag_ids (default classification of the account)
-          2. extend: product.l10n_bg_account_tag_ids (product statistical tags)
+          2. extend: product.account_tag_ids (product statistical tags)
           3. override: on receivable/payable accounts, replace gfo_balance/god
              tags with partner.l10n_bg_tax_tag_(receivable|payable)_ids
              (institutional sector from the partner in the header).
@@ -45,7 +45,7 @@ class AccountMoveLine(models.Model):
         for line in self:
             tags = line.account_id.tag_ids
             if line.product_id:
-                tags = tags | line.product_id.l10n_bg_account_tag_ids
+                tags = tags | line.product_id.account_tag_ids
             if (
                 line.partner_id
                 and line.account_id.account_type in _PARTNER_OVERRIDE_ACCOUNT_TYPES
@@ -59,7 +59,7 @@ class AccountMoveLine(models.Model):
                         lambda t: t.l10n_bg_applicability
                         not in _PARTNER_OVERRIDE_APPLICABILITIES
                     ) | partner_tags
-            line.l10n_bg_account_tag_ids = tags
+            line.account_tag_ids = tags
 
     def _l10n_bg_apply_tax_tag(self, tag=False, partner=False, update_partner=True):
         _logger.info(

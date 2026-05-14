@@ -3,7 +3,7 @@
     <!-- Top menu item for Bulgaria reports -->
     <menuitem
         id="menu_account_l10n_bg_vat_report"
-        parent="account.account_reports_management_menu"
+        parent="account.menu_finance_reports"
         name="Bulgaria audit reports"
         sequence="99"
     >

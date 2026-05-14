@@ -12,7 +12,7 @@ Bancontact and other supported card schemes through 3D Secure flows.
 
 Designed for use in 30+ EU countries where myPOS operates.
 """,
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.1.0",
     "category": "Accounting/Payment Providers",
     "license": "LGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",

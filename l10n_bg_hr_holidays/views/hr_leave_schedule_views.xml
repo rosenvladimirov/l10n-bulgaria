@@ -50,14 +50,11 @@
                     <filter name="confirmed"
                             string="Pending"
                             domain="[('state','=','confirm')]"/>
+                    <separator/>
                     <filter name="bg_paid_annual"
                             string="Paid Annual Leave (KT art. 155-157)"
                             domain="[('holiday_status_id.l10n_bg_code','=like','155%')]"/>
-                    <filter name="current_year"
-                            string="Current Year"
-                            domain="[('date_from','&gt;=', (context_today() + relativedelta(month=1, day=1)).strftime('%Y-%m-%d')),
-                                     ('date_from','&lt;=', (context_today() + relativedelta(month=12, day=31)).strftime('%Y-%m-%d'))]"/>
-                    <group expand="0" string="Group By">
+                    <group>
                         <filter name="group_employee"
                                 string="Employee"
                                 context="{'group_by': 'employee_id'}"/>
@@ -83,7 +80,6 @@
             <field name="search_view_id" ref="hr_leave_view_search_schedule"/>
             <field name="context">{
                 'search_default_approved': 1,
-                'search_default_current_year': 1,
                 'search_default_group_employee': 1
             }</field>
             <field name="domain">[('state','in',['confirm','validate1','validate'])]</field>

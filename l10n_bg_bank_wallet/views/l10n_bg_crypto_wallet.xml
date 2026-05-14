@@ -50,6 +50,10 @@
                             type="object"
                             string="Export Wallet"
                             class="btn-info"/>
+                    <button name="action_import_wallet_from_zip"
+                            type="object"
+                            string="Import keys from ZIP"
+                            class="btn-info"/>
                     <field name="is_locked" widget="boolean_toggle" readonly="1"/>
                 </header>
                 <sheet>

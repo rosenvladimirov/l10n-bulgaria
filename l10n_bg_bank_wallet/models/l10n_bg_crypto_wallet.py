@@ -875,8 +875,21 @@ class CryptoWallet(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Експортирай портфела',
+            'name': 'Export wallet',
             'res_model': 'crypto.wallet.export.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_wallet_id': self.id},
+        }
+
+    def action_import_wallet_from_zip(self):
+        # Отваря import wizard-а за качване на AES-256 ZIP файл
+        # с keys и flatten в текущия портфейл.
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Import keys from ZIP',
+            'res_model': 'crypto.wallet.import.wizard',
             'view_mode': 'form',
             'target': 'new',
             'context': {'default_wallet_id': self.id},

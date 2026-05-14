@@ -1102,9 +1102,13 @@ class CryptoWallet(models.Model):
             zf.setpassword(zip_password.encode('utf-8'))
             zf.writestr('wallet_export.json', json_bytes)
 
+        total_keys = sum(
+            len(s.get('keys') or {})
+            for s in sections.values() if isinstance(s, dict)
+        )
         _logger.info(
             "Wallet '%s' exported to AES-256 ZIP (%d keys, %d bytes).",
-            self.name, len(payload['keys']), buf.tell(),
+            self.name, total_keys, buf.tell(),
         )
         return buf.getvalue()
 
@@ -1187,12 +1191,42 @@ class CryptoWallet(models.Model):
                 "'keys' contain entries).",
             )
 
-        # Подсигурявам че wallet-ът съществува и е достъпен с master
+        # Подсигурявам че wallet-ът съществува и е достъпен с master.
+        # Три случая:
+        #   1. Wallet е initialized с правилен master → list_keys успява
+        #   2. Wallet record exists но encrypted_data е празно (never
+        #      initialized) → list_keys fails с decrypt error → ние
+        #      initialize-ваме empty wallet със master_password
+        #   3. Wallet е initialized с друг master → не можем нищо;
+        #      пробрасваме informative error
         if not master_password:
             master_password = self.get_user_master_password()
-        existing = self._list_wallet_keys(master_password) or []
-        existing_names = {k.get('name') for k in existing
-                          if isinstance(k, dict)}
+        try:
+            existing = self._list_wallet_keys(master_password) or []
+            existing_names = {k.get('name') for k in existing
+                              if isinstance(k, dict)}
+        except UserError:
+            # Случай 2 или 3 — пробваме auto-initialize.  Ако wallet-ът
+            # реално е initialized със стара парола, _initialize_empty_wallet
+            # ще го пренапише — затова правим това САМО ако encrypted_data
+            # е празно.
+            if not (self.encrypted_data and self.salt):
+                self._initialize_empty_wallet(master_password)
+                _logger.info(
+                    "Auto-initialized empty wallet '%s' for import.",
+                    self.name,
+                )
+                existing = []
+                existing_names = set()
+            else:
+                # Случай 3 — wallet е initialized но master не пасва.
+                # Не можем silently to overwrite — operator-ът трябва
+                # първо да го отключи или да смени password обратно.
+                raise UserError(
+                    "Wallet '%s' is encrypted with a different master "
+                    "password than the one provided.  Unlock it first "
+                    "(or use the original master password)." % self.name,
+                )
 
         imported = []
         skipped = []

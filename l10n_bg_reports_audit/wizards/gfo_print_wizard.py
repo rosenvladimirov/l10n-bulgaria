@@ -114,10 +114,14 @@ class L10nBgGfoPrintWizard(models.TransientModel):
         """Render the PDF for `report_type` (or the wizard's own) as base64.
 
         Returns a plain string so callers can fetch the PDF over XML-RPC
-        without dragging recordsets through the marshaller.
+        without dragging recordsets through the marshaller. When `report_type`
+        is passed, the wizard's `report_type` field is updated first so the
+        `get_report_values()` builder picks the matching layout.
         """
         self.ensure_one()
-        report = self.env.ref(self._REPORT_XMLIDS[report_type or self.report_type])
+        if report_type and report_type != self.report_type:
+            self.report_type = report_type
+        report = self.env.ref(self._REPORT_XMLIDS[self.report_type])
         pdf, _content_type = report._render_qweb_pdf(report.report_name, self.ids)
         return base64.b64encode(pdf).decode("ascii")
 

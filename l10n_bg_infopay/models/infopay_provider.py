@@ -201,9 +201,13 @@ class InfopayProvider(models.AbstractModel):
         all_transactions = []
         balances = []
         endpoint = f"/api/accounts/{account_id}/transactions"
+        # withBalance=true е необходимо, за да върне Borica `Balances`
+        # масив (ActualBalance / AvailableBalance / BeginDay) — без
+        # него bank statement-а в Odoo остава без начално салдо.
         params = {
             "dateFrom": date_from.isoformat(),
             "dateTo": date_to.isoformat(),
+            "withBalance": "true",
         }
 
         while endpoint:

@@ -50,6 +50,10 @@
                             type="object"
                             string="Export Wallet"
                             class="btn-info"/>
+                    <button name="action_import_wallet_from_zip"
+                            type="object"
+                            string="Import keys from ZIP"
+                            class="btn-info"/>
                     <field name="is_locked" widget="boolean_toggle" readonly="1"/>
                 </header>
                 <sheet>
@@ -129,8 +133,8 @@
                 <separator/>
                 <filter string="Created This Month"
                         name="this_month"
-                        domain="[('created_date', '&gt;=', (context_today() - relativedelta(day=1)).strftime('%Y-%m-%d'))]"/>
-                <group>
+                        domain="[('created_date', '&gt;=', datetime.datetime.now().replace(day=1))]"/>
+                <group expand="0" string="Group By">
                     <filter string="By User" name="group_by_user" context="{'group_by': 'user_id'}"/>
                     <filter string="By Status" name="group_by_status" context="{'group_by': 'is_locked'}"/>
                     <filter string="By Creation Month" name="group_by_month" context="{'group_by': 'created_date:month'}"/>

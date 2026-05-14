@@ -42,9 +42,10 @@ Technical Infrastructure
 * Automatic retry with exponential backoff on HTTP 429 (rate limit)
 * Structured error handling and logging
     """,
-    "version": "18.0.1.3.0",
+    "version": "18.0.1.4.0",
     "development_status": "Beta",
-    "category": "Localization",
+    "category": "Accounting/Localizations/Bulgaria",
+    "application": True,
     "license": "LGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",

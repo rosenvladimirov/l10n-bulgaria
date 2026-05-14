@@ -471,9 +471,20 @@ class L10nBgAutoMapGodTagsWizard(models.TransientModel):
         }
 
     def _search_accounts(self, prefixes):
-        prefix_leaves = [("code_store", "=like", f"{p}%") for p in prefixes]
-        # OR all prefix leaves: (n-1) leading "|" operators, then leaves
-        or_block = ["|"] * (len(prefixes) - 1) + prefix_leaves
+        """Search accounts matching any of the prefixes.
+
+        Supports both BG chart variants — with dot (XXX.YYY) and without
+        (XXXYYY 6-digit). Per prefix we generate up to 2 SQL leaves:
+          - '101.%' matches XXX.YYY style
+          - '101___' matches 6-digit style (3 trailing chars wildcards)
+        """
+        prefix_leaves = []
+        for p in prefixes:
+            prefix_leaves.append(("code_store", "=like", f"{p}%"))
+            no_dot = p.replace(".", "")
+            if no_dot != p:
+                prefix_leaves.append(("code_store", "=like", f"{no_dot}___"))
+        or_block = ["|"] * (len(prefix_leaves) - 1) + prefix_leaves
         domain = [
             ("company_ids", "in", self.company_ids.ids),
             ("deprecated", "=", False),

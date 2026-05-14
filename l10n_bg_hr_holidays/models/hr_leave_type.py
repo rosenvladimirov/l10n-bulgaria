@@ -29,6 +29,22 @@ class HRLeaveType(models.Model):
         'nssi.leave.reason',
         string='Leave Reason'
     )
+    l10n_bg_doo_treatment = fields.Selection([
+        ('normal', 'Normal — employer DOO/ZO/UPF on wage'),
+        ('nssi_maternity', 'NSSI-funded maternity (чл. 163, 164, 163-10, 166 КТ)'),
+        ('nssi_sick', 'NSSI-funded sick leave (after 3 employer-paid days, чл. 162 КТ)'),
+        ('unpaid_no_doo', 'Unpaid > 30 days/year — excluded from DOO base'),
+    ],
+        string='DOO Treatment',
+        default='normal',
+        help='How this leave type interacts with social-security contributions. '
+             '`normal` — employer pays DOO/ZO/UPF based on wage as usual. '
+             '`nssi_maternity` — NSSI pays the benefit AND funds the social-security '
+             'contributions; employer DOO base excludes these days (чл. 50 КСО). '
+             '`nssi_sick` — first 3 days employer-paid (70%), remainder NSSI-funded. '
+             '`unpaid_no_doo` — unpaid leave above 30 days/year per чл. 160 ал. 1 КТ '
+             '— excluded from DOO base entirely.'
+    )
 
     @api.depends('time_type')
     def _compute_l10n_bg_allow_paid_days(self):

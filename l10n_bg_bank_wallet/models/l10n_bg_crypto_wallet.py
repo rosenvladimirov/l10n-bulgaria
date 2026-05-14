@@ -168,15 +168,22 @@ class CryptoWallet(models.Model):
     master_password = fields.Char('Master password', store=False)
     decrypted_keys = fields.Text(store=False, readonly=True)
 
+    _crypto_manager = None
+    _filesystem_manager = None
+
     @property
     def crypto_manager(self):
-        """Return a CryptographyManager instance"""
-        return CryptographyManager()
+        """Lazy initialization of crypto manager"""
+        if not hasattr(self, '_crypto_manager') or not self._crypto_manager:
+            self._crypto_manager = CryptographyManager()
+        return self._crypto_manager
 
     @property
     def filesystem_manager(self):
-        """Return a FileSystemManager instance"""
-        return FileSystemManager(self.env)
+        """Lazy initialization of filesystem manager"""
+        if not self._filesystem_manager:
+            self._filesystem_manager = FileSystemManager(self.env)
+        return self._filesystem_manager
 
     # === PERMISSION AND ACCESS CONTROL ===
     def _check_permission_level(self, permission_level):
@@ -198,7 +205,7 @@ class CryptoWallet(models.Model):
         return True
 
     def check_access(self, operation):
-        """Override for record access checks"""
+        """Override for record access checks - updated for Odoo 18.0"""
         super().check_access(operation)
 
         # Additional checks for existing records
@@ -252,10 +259,10 @@ class CryptoWallet(models.Model):
 
             # Decrypt wallet data
             salt = base64.b64decode(self.salt)
-            key = self.crypto_manager.derive_key(master_password, salt)
+            key = self._crypto_manager.derive_key(master_password, salt)
 
             encrypted_data = base64.b64decode(self.encrypted_data)
-            decrypted_json = self.crypto_manager.decrypt_data(encrypted_data, key)
+            decrypted_json = self._crypto_manager.decrypt_data(encrypted_data, key)
             wallet_data = json.loads(decrypted_json)
 
             # Update session state
@@ -273,11 +280,7 @@ class CryptoWallet(models.Model):
         self.is_locked = False
         self.last_accessed = fields.Datetime.now()
         self.decrypted_keys = json.dumps(wallet_data, indent=2)
-        # Odoo 19: env.context is read-only, switch to a new env() with the
-        # wallet_key in context. Re-bind self into the new env so callers
-        # using self.env.context immediately see the freshly stored key.
-        new_env = self.env(context=dict(self.env.context, wallet_key=encryption_key.decode()))
-        self.env = new_env
+        self.env.context = dict(self.env.context, wallet_key=encryption_key.decode())
 
     def lock_wallet(self):
         """Lock the wallet"""
@@ -286,8 +289,7 @@ class CryptoWallet(models.Model):
         self.decrypted_keys = False
         # Clear key from context
         if 'wallet_key' in self.env.context:
-            new_ctx = {k: v for k, v in self.env.context.items() if k != 'wallet_key'}
-            self.env = self.env(context=new_ctx)
+            self.env.context = {k: v for k, v in self.env.context.items() if k != 'wallet_key'}
         _logger.debug(f"Wallet '{self.name}' locked")
 
     # === SIMPLIFIED USER INTERFACE METHODS ===
@@ -409,7 +411,7 @@ class CryptoWallet(models.Model):
             return self.unlock_wallet_with_password(master_password)
 
         encrypted_data = base64.b64decode(self.encrypted_data)
-        decrypted_json = self.crypto_manager.decrypt_data(encrypted_data, wallet_key.encode())
+        decrypted_json = self._crypto_manager.decrypt_data(encrypted_data, wallet_key.encode())
         return json.loads(decrypted_json)
 
     def _update_wallet_metadata(self, wallet_data):
@@ -425,7 +427,7 @@ class CryptoWallet(models.Model):
             self.unlock_wallet_with_password(master_password)
             wallet_key = self.env.context.get('wallet_key')
 
-        encrypted_data = self.crypto_manager.encrypt_data(json.dumps(wallet_data), wallet_key.encode())
+        encrypted_data = self._crypto_manager.encrypt_data(json.dumps(wallet_data), wallet_key.encode())
         self.encrypted_data = base64.b64encode(encrypted_data).decode()
 
         self._persist_wallet_to_disk()
@@ -445,12 +447,12 @@ class CryptoWallet(models.Model):
         }
 
         master_password = self.get_user_master_password()
-        salt = self.crypto_manager.generate_salt()
-        key = self.crypto_manager.derive_key(master_password, salt)
+        salt = self._crypto_manager.generate_salt()
+        key = self._crypto_manager.derive_key(master_password, salt)
 
         encrypted_envelope = {
             'salt': base64.b64encode(salt).decode(),
-            'data': base64.b64encode(self.crypto_manager.encrypt_data(json.dumps(key_envelope), key)).decode()
+            'data': base64.b64encode(self._crypto_manager.encrypt_data(json.dumps(key_envelope), key)).decode()
         }
 
         # Save as JSON file
@@ -475,9 +477,9 @@ class CryptoWallet(models.Model):
             # Decrypt data
             master_password = self.get_user_master_password()
             salt = base64.b64decode(encrypted_envelope['salt'])
-            key = self.crypto_manager.derive_key(master_password, salt)
+            key = self._crypto_manager.derive_key(master_password, salt)
 
-            decrypted_data = self.crypto_manager.decrypt_data(
+            decrypted_data = self._crypto_manager.decrypt_data(
                 base64.b64decode(encrypted_envelope['data']), key
             )
             key_envelope = json.loads(decrypted_data)
@@ -706,25 +708,25 @@ class CryptoWallet(models.Model):
     def _reencrypt_wallet_with_new_key(self, wallet_data, new_master_password):
         """Re-encrypt wallet with new master key"""
         # Generate new salt
-        salt = self.crypto_manager.generate_salt()
+        salt = self._crypto_manager.generate_salt()
         self.salt = base64.b64encode(salt).decode()
 
         # Create new encryption key
-        new_key = self.crypto_manager.derive_key(new_master_password, salt)
+        new_key = self._crypto_manager.derive_key(new_master_password, salt)
 
         # Update metadata
         wallet_data['metadata']['reencrypted'] = fields.Datetime.now().isoformat()
         wallet_data['metadata']['reencryption_reason'] = 'password_change'
 
         # Encrypt with a new key
-        encrypted_data = self.crypto_manager.encrypt_data(json.dumps(wallet_data), new_key)
+        encrypted_data = self._crypto_manager.encrypt_data(json.dumps(wallet_data), new_key)
         self.encrypted_data = base64.b64encode(encrypted_data).decode()
 
         # Save to disk
         self._persist_wallet_to_disk()
 
-        # Update context (Odoo 19: env.context is read-only)
-        self.env = self.env(context=dict(self.env.context, wallet_key=new_key.decode()))
+        # Update context
+        self.env.context = dict(self.env.context, wallet_key=new_key.decode())
         self.is_locked = False
 
         _logger.debug(f"Wallet '{self.name}' reencrypted successfully")
@@ -759,10 +761,10 @@ class CryptoWallet(models.Model):
 
         if export_password:
             # Encrypt export with different password
-            salt = self.crypto_manager.generate_salt()
-            key = self.crypto_manager.derive_key(export_password, salt)
+            salt = self._crypto_manager.generate_salt()
+            key = self._crypto_manager.derive_key(export_password, salt)
 
-            encrypted_export = self.crypto_manager.encrypt_data(json.dumps(export_data), key)
+            encrypted_export = self._crypto_manager.encrypt_data(json.dumps(export_data), key)
 
             return {
                 'encrypted': True,
@@ -978,3 +980,174 @@ class CryptoWallet(models.Model):
 
         _logger.info(f"Copied key '{key_name}' from user {self.user_id.id} to user {target_user_id}")
         return True
+
+    # === AES-256 PASSWORD-PROTECTED ZIP EXPORT / IMPORT ===
+
+    def export_keys_to_zip_bytes(self, master_password=None,
+                                  zip_password=None):
+        """Връща bytes на AES-256 ZIP архив, който съдържа JSON със
+        всички ключове на портфейла.
+
+        Параметри:
+            master_password: парола за отключване на портфейла.  Ако
+                е None — взима се bcrypt hash на текущия user.
+            zip_password: парола за защита на ZIP файла (AES-256).
+                Задължително.
+
+        Връща:
+            bytes (целия ZIP файл, готов за download).
+        """
+        # Проверка на права за експорт
+        self._check_permission_level('export')
+
+        if not zip_password:
+            raise UserError("ZIP password is required.")
+
+        # pyzipper е external dep — error при липса
+        try:
+            import pyzipper
+        except ImportError as exc:
+            raise UserError(
+                "pyzipper Python library is required for AES-256 ZIP "
+                "export.  Install it: pip install pyzipper",
+            ) from exc
+
+        # Отключваме wallet-а с master password
+        if not master_password:
+            master_password = self.get_user_master_password()
+        wallet_data = self.unlock_wallet_with_password(master_password)
+
+        # JSON payload вътре в ZIP-а: keys + metadata
+        payload = {
+            'wallet_name': self.name,
+            'wallet_user_login': self.user_id.login,
+            'export_date': fields.Datetime.now().isoformat(),
+            'wallet_version': CRYPTO_CONFIG['WALLET_VERSION'],
+            'keys': wallet_data.get('keys', {}),
+        }
+        json_bytes = json.dumps(payload, ensure_ascii=False,
+                                indent=2).encode('utf-8')
+
+        # AES-256 ZIP — pyzipper AESZipFile + WZ_AES = WinZip AES
+        import io
+        buf = io.BytesIO()
+        with pyzipper.AESZipFile(
+            buf, 'w',
+            compression=pyzipper.ZIP_DEFLATED,
+            encryption=pyzipper.WZ_AES,
+        ) as zf:
+            zf.setpassword(zip_password.encode('utf-8'))
+            zf.writestr('wallet_export.json', json_bytes)
+
+        _logger.info(
+            "Wallet '%s' exported to AES-256 ZIP (%d keys, %d bytes).",
+            self.name, len(payload['keys']), buf.tell(),
+        )
+        return buf.getvalue()
+
+    def import_keys_from_zip_bytes(self, zip_bytes, zip_password,
+                                    master_password=None,
+                                    overwrite=False):
+        """Импортира ключове от AES-256 ZIP в текущия портфейл.
+
+        Параметри:
+            zip_bytes: bytes на ZIP файла (binary upload).
+            zip_password: паролата за разкодиране на ZIP-а.
+            master_password: master password за wallet-а.  Ако е None
+                — взима bcrypt hash на текущия user.
+            overwrite: ако True — презаписва ключове със същото име.
+                По default skip-ва дубликатите.
+
+        Връща dict: ``{'imported': int, 'skipped': int, 'overwritten':
+        int, 'keys_imported': [names], 'keys_skipped': [names]}``.
+        """
+        # Проверка на права за писане
+        self._check_permission_level('write')
+
+        if not zip_password:
+            raise UserError("ZIP password is required.")
+        if not zip_bytes:
+            raise UserError("ZIP content is empty.")
+
+        try:
+            import pyzipper
+        except ImportError as exc:
+            raise UserError(
+                "pyzipper Python library is required for AES-256 ZIP "
+                "import.  Install it: pip install pyzipper",
+            ) from exc
+
+        # Разкодираме ZIP-а
+        import io
+        buf = io.BytesIO(zip_bytes)
+        try:
+            with pyzipper.AESZipFile(buf) as zf:
+                zf.setpassword(zip_password.encode('utf-8'))
+                names = zf.namelist()
+                if 'wallet_export.json' not in names:
+                    raise UserError(
+                        "ZIP does not contain 'wallet_export.json'. "
+                        "File: %s" % ", ".join(names),
+                    )
+                raw = zf.read('wallet_export.json')
+        except RuntimeError as exc:
+            # pyzipper хвърля RuntimeError при грешна парола
+            raise UserError(
+                "Cannot decrypt ZIP — wrong password or corrupted file.",
+            ) from exc
+
+        try:
+            payload = json.loads(raw.decode('utf-8'))
+        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise UserError(
+                "wallet_export.json is malformed.",
+            ) from exc
+
+        keys = payload.get('keys') or {}
+        if not isinstance(keys, dict):
+            raise UserError("Export payload has no 'keys' dict.")
+
+        # Подсигурявам че wallet-ът съществува и е достъпен с master
+        if not master_password:
+            master_password = self.get_user_master_password()
+        existing = self._list_wallet_keys(master_password) or []
+        existing_names = {k.get('name') for k in existing
+                          if isinstance(k, dict)}
+
+        imported = []
+        skipped = []
+        overwritten = []
+        for name, info in keys.items():
+            if not isinstance(info, dict) or 'data' not in info:
+                # Skip-ваме malformed entries
+                skipped.append(name)
+                continue
+            key_type = info.get('type', 'custom')
+            key_data = info['data']
+            if name in existing_names:
+                if not overwrite:
+                    skipped.append(name)
+                    continue
+                # Презаписваме — изтриваме старите и добавяме нови
+                self._remove_key_from_wallet(name, master_password)
+                self._add_key_to_wallet(name, key_type, key_data,
+                                         master_password)
+                overwritten.append(name)
+            else:
+                self._add_key_to_wallet(name, key_type, key_data,
+                                         master_password)
+                imported.append(name)
+
+        _logger.info(
+            "Wallet '%s' import done: +%d imported, %d skipped, "
+            "%d overwritten.",
+            self.name, len(imported), len(skipped), len(overwritten),
+        )
+        return {
+            'imported': len(imported),
+            'skipped': len(skipped),
+            'overwritten': len(overwritten),
+            'keys_imported': imported,
+            'keys_skipped': skipped,
+            'keys_overwritten': overwritten,
+        }

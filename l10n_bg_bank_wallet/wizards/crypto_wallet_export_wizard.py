@@ -16,7 +16,7 @@ class CryptoWalletExportWizard(models.TransientModel):
     wallet_id = fields.Many2one('crypto.wallet', 'Портфел')
 
     master_password = fields.Char('Главна парола',
-                                  help='Enter the master password to unlock the wallet')
+                                  help='Въведете главната парола за отключване на портфела')
 
     export_format = fields.Selection([
         ('json', 'JSON (незащитен)'),
@@ -24,15 +24,15 @@ class CryptoWalletExportWizard(models.TransientModel):
     ], 'Формат на експорта', default='encrypted', required=True)
 
     export_password = fields.Char('Парола за експорта',
-                                  help='Password to encrypt the export (only for encrypted format)')
+                                  help='Парола за криптиране на експорта (само за криптиран формат)')
     confirm_export_password = fields.Char('Потвърди паролата',
-                                          help='Confirm the export password')
+                                          help='Потвърдете паролата за експорта')
 
     include_metadata = fields.Boolean('Включи метаданни', default=True,
-                                      help='Includes creation date, user, etc.')
+                                      help='Включва създаване дата, потребител и др.')
 
     use_user_password = fields.Boolean('Използвай паролата на потребителя', default=True,
-                                       help='Use current user password')
+                                       help='Използва паролата на текущия потребител')
 
     # Резултати от експорта
     export_data = fields.Text('Експортирани данни', readonly=True)
@@ -44,7 +44,7 @@ class CryptoWalletExportWizard(models.TransientModel):
         if self.use_user_password:
             try:
                 self.master_password = self.env.user.password
-            except Exception:
+            except:
                 pass
 
     @api.onchange('export_format')
@@ -130,22 +130,46 @@ class CryptoWalletExportWizard(models.TransientModel):
             }
 
     def download_export(self):
-        """Създава файл за изтегляне"""
+        # Създава AES-256 ZIP attachment с export-нати keys и връща URL
+        # за директен download.  ZIP-ът се отваря с export_password.
         self.ensure_one()
 
-        if not self.export_data:
-            raise UserError(_('Няма данни за експорт!'))
+        if self.export_format != 'encrypted':
+            # Запазваме старото JSON поведение само за legacy "json" режим
+            if not self.export_data:
+                raise UserError(_('No data to export.'))
+            attachment = self.env['ir.attachment'].create({
+                'name': self.export_filename,
+                'type': 'binary',
+                'datas': base64.b64encode(
+                    self.export_data.encode('utf-8'),
+                ),
+                'res_model': self._name,
+                'res_id': self.id,
+                'mimetype': 'application/json',
+            })
+            return {
+                'type': 'ir.actions.act_url',
+                'url': f'/web/content/{attachment.id}?download=true',
+                'target': 'self',
+            }
 
-        # Създава attachment за изтегляне
+        # Encrypted режим: издърпваме AES-256 ZIP bytes от wallet API
+        if not self.export_password:
+            raise UserError(_('Export password is required.'))
+        zip_bytes = self.wallet_id.export_keys_to_zip_bytes(
+            master_password=self.master_password,
+            zip_password=self.export_password,
+        )
+        filename = f"{self.wallet_id.name or 'wallet'}_export.zip"
         attachment = self.env['ir.attachment'].create({
-            'name': self.export_filename,
+            'name': filename,
             'type': 'binary',
-            'datas': base64.b64encode(self.export_data.encode('utf-8')),
+            'datas': base64.b64encode(zip_bytes),
             'res_model': self._name,
             'res_id': self.id,
-            'mimetype': 'application/json',
+            'mimetype': 'application/zip',
         })
-
         return {
             'type': 'ir.actions.act_url',
             'url': f'/web/content/{attachment.id}?download=true',

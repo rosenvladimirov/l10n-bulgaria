@@ -1,13 +1,65 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 import logging
 
-from odoo import api, models, tools
+from odoo import api, fields, models, tools
 
 _logger = logging.getLogger(__name__)
+
+# Account types receiving partner-tag override (header partner of the move
+# determines the institutional sector for receivable/payable accounts).
+_PARTNER_OVERRIDE_ACCOUNT_TYPES = ("asset_receivable", "liability_payable")
+
+# Tag applicabilities to be replaced (NOT just merged) when the partner has
+# its own NSI sector tags on the partner-level account.
+_PARTNER_OVERRIDE_APPLICABILITIES = ("gfo_balance", "god")
 
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
+
+    l10n_bg_account_tag_ids = fields.Many2many(
+        comodel_name="account.account.tag",
+        relation="l10n_bg_aml_account_tag_rel",
+        column1="aml_id",
+        column2="tag_id",
+        string="BG Report Tags",
+        copy=True,
+        help="Materialized at posting time:\n"
+             "  base = account.tag_ids (standard Odoo)\n"
+             "  + product.l10n_bg_account_tag_ids (extends, statistical)\n"
+             "  override partner.l10n_bg_tax_tag_(receivable|payable)_ids on "
+             "receivable/payable accounts (institutional sector replaces "
+             "default gfo_balance/god classification of the partner-account).",
+    )
+
+    def _l10n_bg_compute_account_tag_ids(self):
+        """Resolve the BG report tags for each line per the layered rules.
+
+        Order of resolution per line:
+          1. base: account.tag_ids (default classification of the account)
+          2. extend: product.l10n_bg_account_tag_ids (product statistical tags)
+          3. override: on receivable/payable accounts, replace gfo_balance/god
+             tags with partner.l10n_bg_tax_tag_(receivable|payable)_ids
+             (institutional sector from the partner in the header).
+        """
+        for line in self:
+            tags = line.account_id.tag_ids
+            if line.product_id:
+                tags = tags | line.product_id.l10n_bg_account_tag_ids
+            if (
+                line.partner_id
+                and line.account_id.account_type in _PARTNER_OVERRIDE_ACCOUNT_TYPES
+            ):
+                if line.account_id.account_type == "asset_receivable":
+                    partner_tags = line.partner_id.l10n_bg_tax_tag_receivable_ids
+                else:
+                    partner_tags = line.partner_id.l10n_bg_tax_tag_payable_ids
+                if partner_tags:
+                    tags = tags.filtered(
+                        lambda t: t.l10n_bg_applicability
+                        not in _PARTNER_OVERRIDE_APPLICABILITIES
+                    ) | partner_tags
+            line.l10n_bg_account_tag_ids = tags
 
     def _l10n_bg_apply_tax_tag(self, tag=False, partner=False, update_partner=True):
         _logger.info(

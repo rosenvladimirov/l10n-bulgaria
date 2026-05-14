@@ -1,6 +1,6 @@
 {
     "name": "Bulgarian Accounting Reports Configuration",
-    "version": "18.0.11.0.0",
+    "version": "18.0.11.1.0",
     "development_status": "Production/Stable",
     "maintainers": ["rosenvladimirov", "deyanlyubenov"],
     "description": "Configuration and views for Bulgarian Accounting Reports (Odoo 18.0).",
@@ -38,6 +38,7 @@
         "views/product_view.xml",
         "views/res_partner.xml",
         "views/account_move_views.xml",
+        "views/account_move_line_views.xml",
         "views/res_config_view.xml",
         "views/res_company_views.xml",
         "views/res_company_history_intrastat.xml",

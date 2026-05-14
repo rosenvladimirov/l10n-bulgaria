@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_line_form_bg_report_tags" model="ir.ui.view">
+        <field name="name">account.move.line.form.bg.report.tags</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='information']" position="inside">
+                <group string="BG Report Tags" name="l10n_bg_report_tags">
+                    <field name="l10n_bg_account_tag_ids"
+                           widget="many2many_tags"
+                           options="{'color_field': 'color'}"
+                           readonly="parent_state == 'posted'"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_line_tree_bg_report_tags" model="ir.ui.view">
+        <field name="name">account.move.line.tree.bg.report.tags</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tax_tag_ids']" position="after">
+                <field name="l10n_bg_account_tag_ids"
+                       widget="many2many_tags"
+                       optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_form_bg_report_tags" model="ir.ui.view">
+        <field name="name">account.move.form.bg.report.tags</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <!-- Journal Items tab — show BG tags column -->
+            <xpath expr="//field[@name='line_ids']/list/field[@name='tax_tag_ids']" position="after">
+                <field name="l10n_bg_account_tag_ids"
+                       widget="many2many_tags"
+                       optional="hide"/>
+            </xpath>
+            <!-- Invoice lines tab -->
+            <xpath expr="//page[@id='invoice_tab']/field[@name='invoice_line_ids']/list/field[@name='price_subtotal']" position="after">
+                <field name="l10n_bg_account_tag_ids"
+                       widget="many2many_tags"
+                       optional="hide"
+                       string="BG Tags"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

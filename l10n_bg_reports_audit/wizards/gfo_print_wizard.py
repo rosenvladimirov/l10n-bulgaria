@@ -7,6 +7,7 @@ Builds the hierarchy by combining:
 
 The wizard prepares a context dict that the QWeb template iterates.
 """
+import base64
 from datetime import date
 
 from odoo import _, api, fields, models
@@ -97,16 +98,28 @@ class L10nBgGfoPrintWizard(models.TransientModel):
         prev_to = date(self.date_to.year - 1, self.date_to.month, self.date_to.day)
         return prev_from, prev_to
 
+    _REPORT_XMLIDS = {
+        "gfo_balance": "l10n_bg_reports_audit.action_report_gfo_balance",
+        "gfo_pl": "l10n_bg_reports_audit.action_report_gfo_pl",
+        "gfo_cf": "l10n_bg_reports_audit.action_report_gfo_cf",
+        "gfo_equity": "l10n_bg_reports_audit.action_report_gfo_equity",
+        "god": "l10n_bg_reports_audit.action_report_god",
+    }
+
     def action_print(self):
         self.ensure_one()
-        report_xmlid = {
-            "gfo_balance": "l10n_bg_reports_audit.action_report_gfo_balance",
-            "gfo_pl": "l10n_bg_reports_audit.action_report_gfo_pl",
-            "gfo_cf": "l10n_bg_reports_audit.action_report_gfo_cf",
-            "gfo_equity": "l10n_bg_reports_audit.action_report_gfo_equity",
-            "god": "l10n_bg_reports_audit.action_report_god",
-        }[self.report_type]
-        return self.env.ref(report_xmlid).report_action(self)
+        return self.env.ref(self._REPORT_XMLIDS[self.report_type]).report_action(self)
+
+    def render_pdf_b64(self, report_type=None):
+        """Render the PDF for `report_type` (or the wizard's own) as base64.
+
+        Returns a plain string so callers can fetch the PDF over XML-RPC
+        without dragging recordsets through the marshaller.
+        """
+        self.ensure_one()
+        report = self.env.ref(self._REPORT_XMLIDS[report_type or self.report_type])
+        pdf, _content_type = report._render_qweb_pdf(report.report_name, self.ids)
+        return base64.b64encode(pdf).decode("ascii")
 
     def _pl_compute_subtotals(self, values_expense, values_revenue):
         """Compute PL-specific subtotals not directly extractable from tags.

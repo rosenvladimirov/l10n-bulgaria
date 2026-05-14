@@ -168,22 +168,24 @@ class CryptoWallet(models.Model):
     master_password = fields.Char('Master password', store=False)
     decrypted_keys = fields.Text(store=False, readonly=True)
 
-    _crypto_manager = None
-    _filesystem_manager = None
+    # CryptographyManager е stateless wrapper (всички методи @static/
+    # @classmethod) — class-level reference се ползва навсякъде в
+    # този модул като `self._crypto_manager.<method>` (вижда се като
+    # обикновен class-level attribute).  Запазваме същия достъп; не
+    # се прави assignment на instance, защото Odoo ORM блокира
+    # __setattr__ за non-field атрибути.
+    _crypto_manager = CryptographyManager
 
     @property
     def crypto_manager(self):
-        """Lazy initialization of crypto manager"""
-        if not hasattr(self, '_crypto_manager') or not self._crypto_manager:
-            self._crypto_manager = CryptographyManager()
-        return self._crypto_manager
+        return CryptographyManager
 
+    # FileSystemManager е env-bound (всеки cursor може да е различен),
+    # затова връщаме нов lightweight instance при всяко обръщане —
+    # пак БЕЗ да го кешираме на recordset-а (ORM блокира).
     @property
     def filesystem_manager(self):
-        """Lazy initialization of filesystem manager"""
-        if not self._filesystem_manager:
-            self._filesystem_manager = FileSystemManager(self.env)
-        return self._filesystem_manager
+        return FileSystemManager(self.env)
 
     # === PERMISSION AND ACCESS CONTROL ===
     def _check_permission_level(self, permission_level):

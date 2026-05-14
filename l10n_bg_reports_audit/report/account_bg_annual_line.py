@@ -120,10 +120,10 @@ class L10nBgAnnualLineMixin(models.AbstractModel):
             account_move_line aml
             JOIN account_move am ON am.id = aml.move_id
             JOIN account_account aa ON aa.id = aml.account_id
-            JOIN account_account_account_tag aaat
-                ON aaat.account_account_id = aa.id
+            JOIN l10n_bg_aml_account_tag_rel rel
+                ON rel.aml_id = aml.id
             JOIN account_account_tag aat
-                ON aat.id = aaat.account_account_tag_id
+                ON aat.id = rel.tag_id
         """
 
     @api.model

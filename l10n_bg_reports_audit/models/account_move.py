@@ -92,3 +92,26 @@ class AccountMove(models.Model):
                 if track_tag and new_tag and old_tag != new_tag:
                     move.line_ids._l10n_bg_apply_tax_tag(new_tag)
         return res
+
+    def _post(self, soft=True):
+        """Materialize aml.l10n_bg_account_tag_ids after posting.
+
+        Resolves the layered tag set per line (account + product + partner
+        override). Skipped under context flag l10n_bg_skip_report_tag_apply
+        (used by bulk migration / recompute wizards).
+        """
+        posted = super()._post(soft=soft)
+        if self.env.context.get("l10n_bg_skip_report_tag_apply"):
+            return posted
+        for move in posted:
+            move.line_ids._l10n_bg_compute_account_tag_ids()
+        return posted
+
+    def button_draft(self):
+        """Clear materialized BG report tags when the move returns to draft."""
+        res = super().button_draft()
+        if not self.env.context.get("l10n_bg_skip_report_tag_apply"):
+            for move in self:
+                if move.line_ids.l10n_bg_account_tag_ids:
+                    move.line_ids.l10n_bg_account_tag_ids = [(5, 0, 0)]
+        return res

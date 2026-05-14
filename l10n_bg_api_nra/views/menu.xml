@@ -12,36 +12,36 @@
 
     <!-- Insurance declarations submenu -->
     <menuitem id="menu_nra_insurance"
-              name="Insurance (Осигуряване)"
+              name="Insurance"
               parent="menu_nra_root"
               sequence="10" />
 
     <menuitem id="menu_nra_declaration_d1"
-              name="Декларация обр. 1"
+              name="Declaration Form 1 (D1)"
               parent="menu_nra_insurance"
               action="action_nra_declaration_d1"
               sequence="10" />
 
     <menuitem id="menu_nra_declaration_d6"
-              name="Декларация обр. 6"
+              name="Declaration Form 6 (D6)"
               parent="menu_nra_insurance"
               action="action_nra_declaration_d6"
               sequence="20" />
 
     <!-- Tax declarations submenu -->
     <menuitem id="menu_nra_tax"
-              name="Tax (Данъци)"
+              name="Tax"
               parent="menu_nra_root"
               sequence="30" />
 
     <menuitem id="menu_nra_declaration_vat"
-              name="ДДС Декларация"
+              name="VAT Declaration"
               parent="menu_nra_tax"
               action="action_nra_declaration_vat"
               sequence="10" />
 
     <menuitem id="menu_nra_declaration_vies"
-              name="VIES Декларация"
+              name="VIES Declaration"
               parent="menu_nra_tax"
               action="action_nra_declaration_vies"
               sequence="20" />

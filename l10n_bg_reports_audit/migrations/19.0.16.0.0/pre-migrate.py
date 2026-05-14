@@ -1,4 +1,4 @@
-"""Pre-migration for 18.0.16.0.0.
+"""Pre-migration for 19.0.16.0.0.
 
 Rename of account.move.line.l10n_bg_account_tag_ids → account_tag_ids.
 

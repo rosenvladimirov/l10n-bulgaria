@@ -9,6 +9,34 @@ from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
+# Mirror of IPC/Defines.php::STATUS_* constants from the official PHP SDK.
+# Used for human-readable error reporting + idempotency on duplicate notify.
+_MYPOS_STATUS = {
+    "0": "success",
+    "1": "missing_required_params",
+    "2": "signature_failed",
+    "3": "ipc_error",
+    "4": "invalid_sid",
+    "5": "invalid_params",
+    "6": "invalid_referer",
+    "7": "payment_tries_exceeded",
+    "8": "transaction_auth_failed",
+    "9": "wrong_amount",
+    "10": "unsupported_call",
+    "11": "inactive_mandate_reference",
+    "12": "invalid_mandate_reference",
+    "13": "not_sufficient_funds",
+    "14": "transaction_not_permitted",
+    "15": "exceeded_limit",
+    "16": "mandate_already_registered",
+    "17": "inactive_account_identifier",
+    "18": "invalid_account_identifier",
+    "19": "exceeded_account_limits",
+    "20": "duplicate_transmission",  # retry — handled idempotently
+    "21": "transaction_declined",
+    "99": "undefined_error",
+}
+
 
 class PaymentTransaction(models.Model):
     _inherit = "payment.transaction"
@@ -102,12 +130,31 @@ class PaymentTransaction(models.Model):
             self._set_error(_("myPOS: invalid response signature"))
             return
 
+        # Capture gateway transaction reference for downstream Refund/Void calls
+        # — IPCRefund / IPCVoid both require IPC_Trnref from the original purchase.
+        trnref = notification_data.get("IPC_Trnref") or notification_data.get("Trnref")
+        if trnref and not self.provider_reference:
+            self.provider_reference = trnref
+
         status = notification_data.get("Status") or notification_data.get("status")
-        if status in ("0", 0, "success"):
+        status_key = str(status) if status is not None else ""
+
+        if status_key in ("0", "success"):
             self._set_done()
-        elif status in ("cancel", "cancelled"):
+        elif status_key == "20":
+            # DUPLICATE_TRANSMISSION — myPOS retried because it didn't get an OK
+            # back. Safe no-op: caller returns "OK" so the gateway stops retrying.
+            _logger.info(
+                "myPOS: duplicate-transmission notify for %s (state=%s) — idempotent no-op",
+                self.reference, self.state,
+            )
+        elif status_key in ("cancel", "cancelled"):
             self._set_canceled()
-        elif status == "pending":
+        elif status_key == "pending":
             self._set_pending()
         else:
-            self._set_error(_("myPOS: unknown status %s") % status)
+            label = _MYPOS_STATUS.get(status_key, "unknown")
+            self._set_error(
+                _("myPOS: payment failed — status %(code)s (%(label)s)")
+                % {"code": status_key or "?", "label": label}
+            )

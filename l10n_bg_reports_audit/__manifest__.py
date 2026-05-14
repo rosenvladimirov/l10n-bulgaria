@@ -1,6 +1,6 @@
 {
     "name": "Bulgarian Accounting Reports Base",
-    "version": "19.0.17.1.0",
+    "version": "19.0.18.0.0",
     "development_status": "Production/Stable",
     "maintainers": ["rosenvladimirov", "deyanlyubenov"],
     "description": """
@@ -64,6 +64,9 @@ OCA Bulgaria — https://github.com/OCA/l10n-bulgaria
         "data/account_account_tag_god_annexes.xml",
         "report/qweb/gfo_balance_report.xml",
         "report/qweb/gfo_pl_report.xml",
+        "report/qweb/gfo_cf_report.xml",
+        "report/qweb/gfo_equity_report.xml",
+        "report/qweb/god_report.xml",
     ],
     "installable": True,
     "auto_install": False,

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_god" model="ir.actions.report">
+        <field name="name">ГОД — Доп. справки (НСИ Прил.1)</field>
+        <field name="model">l10n.bg.gfo.print.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_bg_reports_audit.god_pdf</field>
+        <field name="report_file">l10n_bg_reports_audit.god_pdf</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+
+    <template id="god_pdf">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page" style="font-size: 9pt;">
+                    <div style="margin-bottom: 12px; display: flex; justify-content: space-between;">
+                        <div style="border: 1px solid #000; padding: 6px; width: 60%;">
+                            <strong>Отчетна единица:</strong> <span t-out="company.name"/>
+                        </div>
+                        <div style="border: 1px solid #000; padding: 6px; width: 35%; text-align: right;">
+                            <strong>ЕИК по БУЛСТАТ:</strong>
+                            <span t-out="company.vat or company.company_registry or ''"/>
+                        </div>
+                    </div>
+
+                    <h2 style="text-align: center; margin: 16px 0;">
+                        ГОД — Доп. справки за <span t-out="year_current"/> г.
+                    </h2>
+                    <p class="text-muted" style="font-size: 8pt;">
+                        Раздели I-V на Приложение 1 (Справка 5) — НСИ Заповед РД-05-796/27.11.2025.
+                        Стойностите са в хил. лв.
+                    </p>
+
+                    <table style="border-collapse: collapse; width: 100%; font-size: 9pt;">
+                        <thead>
+                            <tr style="background: #f8f8f8;">
+                                <th style="border: 1px solid #000;">Код</th>
+                                <th style="border: 1px solid #000; width: 100px; text-align: right;">Стойност (хил. лв.)</th>
+                                <th t-if="show_previous" style="border: 1px solid #000; width: 100px; text-align: right;">Предходна година</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="god_rows" t-as="row">
+                                <td style="border: 1px solid #000; padding: 2px 4px;">
+                                    <span t-out="row['code']"/>
+                                </td>
+                                <td style="border: 1px solid #000; text-align: right; padding: 2px 4px;">
+                                    <span t-out="'%.0f' % (row['value'] / 1000.0) if row['value'] else ''"/>
+                                </td>
+                                <td t-if="show_previous" style="border: 1px solid #000; text-align: right; padding: 2px 4px;">
+                                    <t t-if="row['value_prev'] is not None">
+                                        <span t-out="'%.0f' % (row['value_prev'] / 1000.0) if row['value_prev'] else ''"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div style="margin-top: 24px;">
+                        <strong>Дата:</strong>
+                        <span style="border-bottom: 1px solid #000; display: inline-block; width: 150px;"></span>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

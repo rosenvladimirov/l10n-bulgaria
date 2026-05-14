@@ -19,7 +19,7 @@
                         </group>
                     </group>
                     <p class="text-muted">
-                        Recomputes <code>l10n_bg_account_tag_ids</code> on move
+                        Recomputes <code>account_tag_ids</code> on move
                         lines as the layered set:
                         <code>account.tag_ids</code> ∪
                         <code>product.l10n_bg_account_tag_ids</code>,

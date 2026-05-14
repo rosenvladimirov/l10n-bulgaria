@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='information']" position="inside">
                 <group string="BG Report Tags" name="l10n_bg_report_tags">
-                    <field name="l10n_bg_account_tag_ids"
+                    <field name="account_tag_ids"
                            widget="many2many_tags"
                            options="{'color_field': 'color'}"
                            readonly="parent_state == 'posted'"/>
@@ -22,7 +22,7 @@
         <field name="inherit_id" ref="account.view_move_line_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='tax_tag_ids']" position="after">
-                <field name="l10n_bg_account_tag_ids"
+                <field name="account_tag_ids"
                        widget="many2many_tags"
                        optional="hide"/>
             </xpath>
@@ -36,7 +36,7 @@
         <field name="arch" type="xml">
             <!-- Journal Items tab — anchor on tax_ids (tax_tag_ids is not in default columns) -->
             <xpath expr="//field[@name='line_ids']/list/field[@name='tax_ids']" position="after">
-                <field name="l10n_bg_account_tag_ids"
+                <field name="account_tag_ids"
                        widget="many2many_tags"
                        optional="hide"
                        string="BG Report Tags"/>

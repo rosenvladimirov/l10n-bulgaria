@@ -198,3 +198,47 @@ class PaymentTransaction(models.Model):
                 _("myPOS: payment failed — status %(code)s (%(label)s)")
                 % {"code": status_key or "?", "label": label}
             )
+
+    # ──────────────────────────────────────────────────────────────────
+    # IPCRefund (Bundle 2) — Odoo 19 hook
+    # ──────────────────────────────────────────────────────────────────
+    # Odoo 19 changed the contract: `_refund()` upstream creates the child
+    # refund tx and calls `_send_refund_request()` ON THE CHILD with no
+    # args. So here `self` is the refund tx; `self.source_transaction_id`
+    # is the original purchase.
+
+    def _send_refund_request(self):
+        super()._send_refund_request()
+        if self.provider_code != "mypos":
+            return
+        self._mypos_do_refund(source_tx=self.source_transaction_id, refund_tx=self)
+
+    def _mypos_do_refund(self, source_tx, refund_tx):
+        """Shared refund driver: build → sign → POST → verify → set state.
+
+        `source_tx` is the original (captured) purchase; `refund_tx` is the
+        negative-amount child. Failures land on refund_tx as an error state
+        so the operator sees them in the chatter.
+        """
+        provider = source_tx.provider_id
+        try:
+            payload = provider._mypos_build_refund_payload(refund_tx, source_tx)
+            body = provider._mypos_send_refund(payload)
+        except ValidationError as e:
+            refund_tx._set_error(str(e))
+            return
+
+        status = body.get("Status") or body.get("status")
+        status_key = str(status) if status is not None else ""
+        ref_trnref = body.get("IPC_Trnref") or body.get("ipc_trnref")
+        if ref_trnref:
+            refund_tx.provider_reference = ref_trnref
+
+        if status_key in ("0", "success"):
+            refund_tx._set_done()
+        else:
+            label = _MYPOS_STATUS.get(status_key, "unknown")
+            refund_tx._set_error(
+                _("myPOS: refund declined — status %(code)s (%(label)s)")
+                % {"code": status_key or "?", "label": label}
+            )

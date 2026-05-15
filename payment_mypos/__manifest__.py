@@ -12,7 +12,7 @@ Bancontact and other supported card schemes through 3D Secure flows.
 
 Designed for use in 30+ EU countries where myPOS operates.
 """,
-    "version": "18.0.1.2.0",
+    "version": "18.0.1.3.0",
     "category": "Accounting/Payment Providers",
     "license": "LGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
@@ -20,10 +20,17 @@ Designed for use in 30+ EU countries where myPOS operates.
     "depends": [
         "payment",
         "website_payment",
+        # Owner-encrypted credential storage (clientId / clientSecret + future
+        # RSA private key). Mirrors the InfoPay 6.0.0 pattern: keys live in
+        # the company-owner's crypto.wallet, decrypted with the owner's
+        # bcrypt password hash so cron can sudo to the owner and read them.
+        "l10n_bg_bank_wallet",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "views/payment_mypos_templates.xml",
         "views/payment_provider_views.xml",
+        "views/mypos_load_credentials_wizard_views.xml",
         "data/payment_provider_data.xml",
     ],
     "assets": {

@@ -122,3 +122,76 @@ class PaymentProvider(models.Model):
             return True
         except InvalidSignature:
             return False
+
+    # ──────────────────────────────────────────────────────────────────
+    # Partner-level API credentials (clientId / clientSecret)
+    # ──────────────────────────────────────────────────────────────────
+    # Stored in the company-owner's `crypto.wallet`, NOT on this model.
+    # Rationale (mirrors l10n_bg_infopay 6.0.0 pattern):
+    #   • Owner-bound encryption — wallet is unlocked with the owner's
+    #     bcrypt password hash, so cron jobs sudo-ing to the owner can
+    #     read them without prompting for a session password.
+    #   • Per-company isolation — wallet is keyed by user_id, and we look
+    #     up the owner via `company.partner_id.user_ids[:1]`.
+    #   • No plaintext footprint on payment.provider — secrets never
+    #     appear in record dumps, exports, or backup CSVs.
+    # The myPOS Checkout API hosted-redirect flow (IPCPurchase) still uses
+    # SID + WalletNumber + RSA private key from the existing fields; the
+    # clientId/Secret pair is for partner-side endpoints (provisioning,
+    # IPN management) introduced in v1.4.1.
+
+    _WALLET_KEY_CLIENT_ID = "mypos_client_id"
+    _WALLET_KEY_CLIENT_SECRET = "mypos_client_secret"
+
+    def _mypos_wallet_owner_id(self):
+        """Pick the user_id that owns the wallet holding myPOS credentials.
+
+        Matches the InfoPay convention: the first user linked to the
+        company partner. Falls back to current user if no owner exists yet
+        (e.g. fresh sandbox install) — sudo callers will still work.
+        """
+        self.ensure_one()
+        users = self.company_id.partner_id.user_ids
+        return users[:1].id or self.env.user.id
+
+    def _mypos_get_client_credentials(self):
+        """Return (clientId, clientSecret) from the owner's crypto.wallet.
+
+        Returns (None, None) if either is missing — callers decide whether
+        that's a hard error or expected (e.g. before first credential gen).
+        """
+        self.ensure_one()
+        Wallet = self.env["crypto.wallet"].sudo()
+        owner_id = self._mypos_wallet_owner_id()
+        try:
+            cid = Wallet.quick_access(self._WALLET_KEY_CLIENT_ID, user_id=owner_id)
+            sec = Wallet.quick_access(self._WALLET_KEY_CLIENT_SECRET, user_id=owner_id)
+        except Exception as e:
+            _logger.warning("myPOS: wallet read failed for company %s: %s", self.company_id.id, e)
+            return None, None
+        return cid, sec
+
+    def _mypos_set_client_credentials(self, client_id, client_secret):
+        """Persist (clientId, clientSecret) into the owner's crypto.wallet.
+
+        Idempotent — calling again with new values rotates the keys.
+        Raises ValidationError if either argument is empty; the wallet
+        layer additionally requires write permissions (group_system).
+        """
+        self.ensure_one()
+        if not client_id or not client_secret:
+            raise ValidationError(_("myPOS: both clientId and clientSecret are required"))
+        Wallet = self.env["crypto.wallet"].sudo()
+        owner_id = self._mypos_wallet_owner_id()
+        Wallet.quick_store(self._WALLET_KEY_CLIENT_ID, "text", client_id, user_id=owner_id)
+        Wallet.quick_store(self._WALLET_KEY_CLIENT_SECRET, "text", client_secret, user_id=owner_id)
+        _logger.info(
+            "myPOS: client credentials stored in wallet for company %s (owner uid=%s)",
+            self.company_id.id, owner_id,
+        )
+        return True
+
+    def _mypos_has_client_credentials(self):
+        """Cheap presence check — True iff both wallet keys decrypt."""
+        cid, sec = self._mypos_get_client_credentials()
+        return bool(cid and sec)

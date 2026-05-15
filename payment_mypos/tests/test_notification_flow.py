@@ -34,11 +34,15 @@ class TestMyPosNotificationFlow(TransactionCase):
             "country_id": cls.env.ref("base.bg").id,
         })
         cls.currency_eur = cls.env.ref("base.EUR")
+        # Odoo 18 adds a NOT NULL constraint on payment.transaction.payment_method_id;
+        # use the generic 'card' method that the module's data file already wires up.
+        cls.payment_method_card = cls.env.ref("payment.payment_method_card")
 
     def _new_tx(self, reference="MYPOS-TEST-1", amount=12.50):
         """Create a draft payment.transaction tied to the test provider."""
         return self.env["payment.transaction"].create({
             "provider_id": self.provider.id,
+            "payment_method_id": self.payment_method_card.id,
             "reference": reference,
             "amount": amount,
             "currency_id": self.currency_eur.id,

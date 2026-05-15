@@ -289,29 +289,37 @@ class InfopayProvider(models.AbstractModel):
     # ── bulk payments ─────────────────────────────────────────────────
 
     @api.model
-    def _create_bulk_sepa_payments(self, session, debtor_iban, payments):
+    def _create_bulk_sepa_payments(
+        self, session, debtor_iban, payments, service_level=None,
+    ):
         """*payments*: list of dicts ``{creditor_name, creditor_iban,
         amount, description, country}``.  Min 2 / max 250 items.
+
+        ``service_level`` ∈ ``SEPA`` | ``INST`` — слага се на всеки
+        payment ако е подаден (Borica ``EnumSepaServiceLevel``).
         """
+        def _entry(p):
+            entry = {
+                "CreditorName": p["creditor_name"][:35],
+                "CreditorAccount": {"IBAN": p["creditor_iban"]},
+                "CreditorAddress": {"Country": p["country"]},
+                "InstructedAmount": {
+                    "Amount": str(p["amount"]),
+                    "Currency": "EUR",
+                },
+                "RemittanceInformationUnstructured": p["description"][:70],
+            }
+            if service_level:
+                entry["ServiceLevel"] = service_level
+            return entry
+
         return self._request(
             "POST",
             "/api/bulk-payments/sepa-credit-transfers",
             session=session,
             json={
                 "DebitorAccount": {"IBAN": debtor_iban},
-                "Payments": [
-                    {
-                        "CreditorName": p["creditor_name"][:35],
-                        "CreditorAccount": {"IBAN": p["creditor_iban"]},
-                        "CreditorAddress": {"Country": p["country"]},
-                        "InstructedAmount": {
-                            "Amount": str(p["amount"]),
-                            "Currency": "EUR",
-                        },
-                        "RemittanceInformationUnstructured": p["description"][:70],
-                    }
-                    for p in payments
-                ],
+                "Payments": [_entry(p) for p in payments],
             },
         )
 

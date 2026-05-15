@@ -76,9 +76,14 @@ class InfopayPaymentMixin(models.AbstractModel):
 
     # ── bulk payments ─────────────────────────────────────────────────
 
-    def _l10n_bg_infopay_create_bulk_sepa(self, debtor_iban, payments):
+    def _l10n_bg_infopay_create_bulk_sepa(
+        self, debtor_iban, payments, service_level=None,
+    ):
         """Bulk SEPA EUR — *payments*: dicts with ``creditor_name,
         creditor_iban, amount, description, country``.  Min 2 / max 250.
+
+        ``service_level`` ∈ ``SEPA`` (standard) | ``INST`` (instant);
+        прилага се за всеки payment в bulk-а.
         """
         if not 2 <= len(payments) <= 250:
             raise UserError(self.env._(
@@ -89,6 +94,7 @@ class InfopayPaymentMixin(models.AbstractModel):
             "_create_bulk_sepa_payments",
             debtor_iban=debtor_iban,
             payments=payments,
+            service_level=service_level,
         )
 
     # ── status polling ────────────────────────────────────────────────

@@ -9,17 +9,27 @@ method records (``l10n_bg_infopay_domestic_bgn`` +
 endpoint-а като ``deprecated: true`` в integration_openapi.yaml.
 Само ``l10n_bg_infopay_sepa_eur`` остава активен.
 
-Тъй като `l10n_bg_infopay` е dep на bridge модулите, той upgrade-ва
-ПЪРВИ.  Към момента, в който този script тече, bridge модулите още
-не са пуснали техните pre-migrations — значи трябва **тук** да
-изпразним всички references преди да изтрием самите method records:
+`l10n_bg_infopay` е dep на bridge модулите, така че upgrade-ва ПЪРВИ.
+Към момента, в който този script тече, bridge модулите още не са
+пуснали техните pre-migrations — затова **тук** изпразваме всички
+references преди да изтрием самите method records.
 
-  * account.payment.line — отвържи payment_mode_id
-  * account.payment — отвържи payment_method_line_id
-  * account.payment.method.line — DELETE
-  * account.payment.mode — DELETE
-  * account.payment.method — DELETE (накрая)
-  * ir.model.data — DELETE свързаните XMLID-та
+References (от \d account_payment_method / mode / method_line):
+  * account_payment.payment_method_id              → SET NULL
+  * account_payment.payment_method_line_id         → SET NULL
+  * account_payment_register.payment_method_line_id → SET NULL
+  * account_move.preferred_payment_method_line_id  → SET NULL
+  * account_move.payment_mode_id                   → SET NULL
+  * account_move_line.payment_mode_id              → SET NULL
+  * account_payment_order.payment_method_id        → SET NULL
+  * account_payment_order.payment_mode_id          → SET NULL
+  * purchase_order.payment_mode_id                 → SET NULL
+  * sale_order.payment_mode_id                     → SET NULL
+  * account_journal_account_payment_mode_rel       → DELETE rows
+  * account_payment_mode_variable_journal_rel      → DELETE rows
+  * account_payment_mode.refund_payment_mode_id    → SET NULL
+  * account_payment_method_line + payment_mode     → DELETE
+  * ir_model_data + account_payment_method         → DELETE
 
 Скриптът е идемпотентен — повторен запуск не fail-ва."""
 
@@ -53,52 +63,100 @@ def migrate(cr, version):
         return
 
     _logger.info(
-        "InfoPay 6.0.3 pre-migration: cleaning references за methods %s.",
-        list(DEPRECATED_CODES),
+        "InfoPay 6.0.3 pre-migration: cleaning references за methods %s "
+        "(ids=%s).",
+        list(DEPRECATED_CODES), list(method_ids),
     )
 
-    # 1) account.payment.line — premakhni references KЪM modes.
+    # Compute method.line ids and mode ids ranged by deprecated methods.
     cr.execute(
-        """
-        UPDATE account_payment_line apl
-        SET payment_mode_id = NULL
-        FROM account_payment_mode apm
-        WHERE apl.payment_mode_id = apm.id
-          AND apm.payment_method_id IN %s
-        """,
+        "SELECT id FROM account_payment_method_line WHERE payment_method_id IN %s",
         (method_ids,),
     )
-    _logger.info("  unset payment_mode_id on %d payment.lines", cr.rowcount)
-
-    # 2) account.payment — premakhni references KЪM method.lines.
+    method_line_ids = tuple(row[0] for row in cr.fetchall())
     cr.execute(
-        """
-        UPDATE account_payment
-        SET payment_method_line_id = NULL
-        WHERE payment_method_line_id IN (
-            SELECT id FROM account_payment_method_line
-            WHERE payment_method_id IN %s
+        "SELECT id FROM account_payment_mode WHERE payment_method_id IN %s",
+        (method_ids,),
+    )
+    mode_ids = tuple(row[0] for row in cr.fetchall())
+
+    _logger.info(
+        "  affected: %d method.lines, %d modes",
+        len(method_line_ids), len(mode_ids),
+    )
+
+    # ── method-line references → SET NULL ───────────────────────────
+    if method_line_ids:
+        for table, column in (
+            ("account_payment",          "payment_method_line_id"),
+            ("account_payment_register", "payment_method_line_id"),
+            ("account_move",             "preferred_payment_method_line_id"),
+        ):
+            cr.execute(
+                f"UPDATE {table} SET {column} = NULL WHERE {column} IN %s",
+                (method_line_ids,),
+            )
+            if cr.rowcount:
+                _logger.info("  %s.%s: cleared %d rows",
+                             table, column, cr.rowcount)
+
+    # ── mode references → SET NULL ──────────────────────────────────
+    if mode_ids:
+        for table, column in (
+            ("account_move",          "payment_mode_id"),
+            ("account_move_line",     "payment_mode_id"),
+            ("account_payment_order", "payment_mode_id"),
+            ("purchase_order",        "payment_mode_id"),
+            ("sale_order",            "payment_mode_id"),
+            ("account_payment_mode",  "refund_payment_mode_id"),
+        ):
+            cr.execute(
+                f"UPDATE {table} SET {column} = NULL WHERE {column} IN %s",
+                (mode_ids,),
+            )
+            if cr.rowcount:
+                _logger.info("  %s.%s: cleared %d rows",
+                             table, column, cr.rowcount)
+        # M2M tables — изтрий редовете.
+        for table, column in (
+            ("account_journal_account_payment_mode_rel",   "account_payment_mode_id"),
+            ("account_payment_mode_variable_journal_rel",  "payment_mode_id"),
+        ):
+            cr.execute(
+                f"DELETE FROM {table} WHERE {column} IN %s",
+                (mode_ids,),
+            )
+            if cr.rowcount:
+                _logger.info("  %s: deleted %d M2M rows", table, cr.rowcount)
+
+    # ── method references → SET NULL ────────────────────────────────
+    for table, column in (
+        ("account_payment",       "payment_method_id"),
+        ("account_payment_order", "payment_method_id"),
+    ):
+        cr.execute(
+            f"UPDATE {table} SET {column} = NULL WHERE {column} IN %s",
+            (method_ids,),
         )
-        """,
-        (method_ids,),
-    )
-    _logger.info("  unset method_line_id on %d account.payments", cr.rowcount)
+        if cr.rowcount:
+            _logger.info("  %s.%s: cleared %d rows",
+                         table, column, cr.rowcount)
 
-    # 3) account.payment.method.line.
-    cr.execute(
-        "DELETE FROM account_payment_method_line WHERE payment_method_id IN %s",
-        (method_ids,),
-    )
-    _logger.info("  deleted %d method.lines", cr.rowcount)
+    # ── DELETE child records ────────────────────────────────────────
+    if method_line_ids:
+        cr.execute(
+            "DELETE FROM account_payment_method_line WHERE id IN %s",
+            (method_line_ids,),
+        )
+        _logger.info("  deleted %d method.lines", cr.rowcount)
+    if mode_ids:
+        cr.execute(
+            "DELETE FROM account_payment_mode WHERE id IN %s",
+            (mode_ids,),
+        )
+        _logger.info("  deleted %d payment.modes", cr.rowcount)
 
-    # 4) account.payment.mode.
-    cr.execute(
-        "DELETE FROM account_payment_mode WHERE payment_method_id IN %s",
-        (method_ids,),
-    )
-    _logger.info("  deleted %d payment.modes", cr.rowcount)
-
-    # 5) ir.model.data за XML IDs.
+    # ── ir.model.data ───────────────────────────────────────────────
     cr.execute(
         """
         DELETE FROM ir_model_data
@@ -109,7 +167,7 @@ def migrate(cr, version):
     )
     _logger.info("  removed %d ir.model.data rows", cr.rowcount)
 
-    # 6) Самите method records.
+    # ── method records themselves ───────────────────────────────────
     cr.execute(
         "DELETE FROM account_payment_method WHERE id IN %s",
         (method_ids,),

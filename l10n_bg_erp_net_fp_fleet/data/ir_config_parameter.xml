@@ -6,7 +6,6 @@
         <record id="fernet_key_param_doc" model="ir.config_parameter">
             <field name="key">l10n_bg_erp_net_fp_fleet.fernet_key</field>
             <field name="value"></field>
-            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
         </record>
     </data>
 </odoo>

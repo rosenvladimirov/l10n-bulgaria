@@ -1,140 +1,563 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="0">
-        <record id="nra" model="res.partner">
-            <field name="name">National Revenue Agency</field>
-            <field name="city">Sofia</field>
-            <field name="street">bul. Dondukov</field>
-            <field name="country_id" ref="base.bg" />
-            <field name="zip">1000</field>
-            <field name="phone">070018700</field>
-            <field name="email">nap@nra.bg</field>
-            <field name="company_type">company</field>
-            <field name="vat">BG131063188</field>
-<!--            <field name="lang" ref="base.lang_bg"/>-->
-            <field name="website">https://nra.bg</field>
-        </record>
-        <record id="nra_manager" model="res.partner">
-            <field name="name">Rumen Specov</field>
-            <field name="city">Sofia</field>
-            <field name="country_id" ref="base.bg" />
-            <field name="city_id" ref="l10n_bg_city.68134" />
-            <field name="email">r.spetsov@nra.bg</field>
-            <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
-            <field name="company_type">person</field>
-            <field name="type">contact</field>
-            <field name="function">CEO</field>
-            <field name="phone">+35929853001</field>
-        </record>
-        <record id="nra_central" model="res.partner">
-            <field name="name">Central Office of the National Revenue Agency</field>
-            <field name="city">Sofia</field>
-            <field name="city_id" ref="l10n_bg_city.68134" />
-            <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
-            <field name="street">bul. Dondukov</field>
-            <field name="street_number">42</field>
-            <field name="country_id" ref="base.bg" />
-            <field name="zip">1000</field>
-            <field name="phone">070018700</field>
-            <field name="email">nap@nra.bg</field>
-            <field name="company_type">company</field>
-        </record>
-        <record id="nra_central_department" model="res.partner">
-            <field name="name">Central Office of the National Revenue Agency</field>
-            <field name="city">Sofia</field>
-            <field name="city_id" ref="l10n_bg_city.68134" />
-            <field name="parent_id" ref="l10n_bg_tax_offices.nra_central" />
-            <field name="street">bul. Dondukov</field>
-            <field name="street_number">42</field>
-            <field name="country_id" ref="base.bg" />
-            <field name="company_type">company</field>
-        </record>
-        <record id="nra_partner_sofia_department" model="res.partner">
-            <field name="name">Territorial department of NRA Sofia</field>
-            <field name="city">Sofia</field>
-            <field name="city_id" ref="l10n_bg_city.68134" />
-            <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
-            <field name="street">ul. Aksakov</field>
-            <field name="street_number">21</field>
-            <field name="country_id" ref="base.bg" />
-            <field name="zip">1000</field>
-            <field name="phone">+359298593821</field>
-            <field name="email">td_sofia_grad@ro22.nra.bg</field>
-            <field name="company_type">company</field>
-        </record>
-        <record id="nra_sofia_department" model="res.partner">
-            <field name="name">Territorial department of NRA Sofia</field>
-            <field name="city">Sofia</field>
-            <field name="city_id" ref="l10n_bg_city.68134" />
-            <field name="street">ul. Aksakov</field>
-            <field name="street_number">21</field>
-            <field name="country_id" ref="base.bg" />
-            <field
-            name="parent_id"
-            ref="l10n_bg_tax_offices.nra_partner_sofia_department"
-        />
-            <field name="company_type">company</field>
-            <field name="phone">+359298593821</field>
-            <field name="email">td_sofia_grad@ro22.nra.bg</field>
-        </record>
-        <record id="nra_partner_sofia_big" model="res.partner">
-            <field
-            name="name"
-        >Territorial department of NRA Big taxpayers and insurers</field>
-            <field name="city">Sofia</field>
-            <field name="city_id" ref="l10n_bg_city.68134" />
-            <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
-            <field name="street">ul. Aksakov</field>
-            <field name="street_number">29</field>
-            <field name="country_id" ref="base.bg" />
-            <field name="zip">1000</field>
-            <field name="phone">+359298593915</field>
-            <field name="email">td_gdo@ro29.nra.bg</field>
-            <field name="company_type">company</field>
-        </record>
-        <record id="nra_big_department" model="res.partner">
-            <field
-            name="name"
-        >Territorial department of NRA Big taxpayers and insurers</field>
-            <field name="city">Sofia</field>
-            <field name="city_id" ref="l10n_bg_city.68134" />
-            <field name="street">ul. Aksakov</field>
-            <field name="street_number">29</field>
-            <field name="country_id" ref="base.bg" />
-            <field name="parent_id" ref="l10n_bg_tax_offices.nra_partner_sofia_big" />
-            <field name="company_type">company</field>
-            <field name="phone">+359298593915</field>
-            <field name="email">td_gdo@ro29.nra.bg</field>
-        </record>
-        <record id="nra_partner_sofia_middle" model="res.partner">
-            <field
-            name="name"
-        >Territorial department of NRA Middle taxpayers and insurers</field>
-            <field name="city">Sofia</field>
-            <field name="city_id" ref="l10n_bg_city.68134" />
-            <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
-            <field name="street">ul. Gurko</field>
-            <field name="street_number">12</field>
-            <field name="country_id" ref="base.bg" />
-            <field name="zip">1000</field>
-            <field name="phone">+359298596033</field>
-            <field name="email">sdo2225_delov@ro22.nra.bg</field>
-            <field name="company_type">company</field>
-        </record>
-        <record id="nra_middle_department" model="res.partner">
-            <field
-            name="name"
-        >Territorial department of NRA Middle taxpayers and insurers</field>
-            <field name="city">Sofia</field>
-            <field name="city_id" ref="l10n_bg_city.68134" />
-            <field name="street">ul. Gurko</field>
-            <field name="street_number">12</field>
-            <field name="country_id" ref="base.bg" />
-            <field
-            name="parent_id"
-            ref="l10n_bg_tax_offices.nra_partner_sofia_middle"
-        />
-            <field name="company_type">company</field>
-            <field name="phone">+359298596033</field>
-            <field name="email">sdo2225_delov@ro22.nra.bg</field>
-        </record>
+    <!--
+        NAP / НАП — Bulgarian National Revenue Agency
+        2026 structure: 6 TDs (Sofia, Plovdiv, Varna, Burgas, Veliko Tarnovo, GDO)
+        + 22 oblast offices subordinate to those TDs.
+        Last refresh: 2026-05-15 (Phase 4.4).
+    -->
+
+    <!-- ===== NAP parent + central office ===== -->
+
+    <record id="nra" model="res.partner">
+        <field name="name">National Revenue Agency</field>
+        <field name="city">Sofia</field>
+        <field name="city_id" ref="l10n_bg_city.68134" />
+        <field name="street">bul. Knyaz Aleksandar Dondukov</field>
+        <field name="street_number">52</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">1000</field>
+        <field name="phone">0700 18 700</field>
+        <field name="mobile">+359 2 9859 6801</field>
+        <field name="email">infocenter@nra.bg</field>
+        <field name="company_type">company</field>
+        <field name="vat">BG131063188</field>
+        <field name="website">https://nra.bg</field>
+    </record>
+
+    <record id="nra_manager" model="res.partner">
+        <field name="name">Milena Krastanova</field>
+        <field name="city">Sofia</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="city_id" ref="l10n_bg_city.68134" />
+        <field name="email">infocenter@nra.bg</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
+        <field name="company_type">person</field>
+        <field name="type">contact</field>
+        <field name="function">Executive Director (since 2026-03-09)</field>
+        <field name="phone">+359 2 9859 6801</field>
+    </record>
+
+    <record id="nra_central" model="res.partner">
+        <field name="name">Central Office of the National Revenue Agency</field>
+        <field name="city">Sofia</field>
+        <field name="city_id" ref="l10n_bg_city.68134" />
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
+        <field name="street">bul. Knyaz Aleksandar Dondukov</field>
+        <field name="street_number">52</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">1000</field>
+        <field name="phone">0700 18 700</field>
+        <field name="email">infocenter@nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_central_department" model="res.partner">
+        <field name="name">Central Office of the National Revenue Agency</field>
+        <field name="city">Sofia</field>
+        <field name="city_id" ref="l10n_bg_city.68134" />
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_central" />
+        <field name="street">bul. Knyaz Aleksandar Dondukov</field>
+        <field name="street_number">52</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="company_type">company</field>
+    </record>
+
+    <!-- ===== ТД София-град (ro22) + sub-departments ===== -->
+
+    <record id="nra_partner_sofia_department" model="res.partner">
+        <field name="name">TD NAP Sofia (ТД на НАП София)</field>
+        <field name="city">Sofia</field>
+        <field name="city_id" ref="l10n_bg_city.68134" />
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
+        <field name="street">ul. Aksakov</field>
+        <field name="street_number">21</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">1000</field>
+        <field name="phone">+359 2 9859 3821</field>
+        <field name="email">td_sofia_grad@ro22.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_sofia_department" model="res.partner">
+        <field name="name">TD NAP Sofia (TD branch)</field>
+        <field name="city">Sofia</field>
+        <field name="city_id" ref="l10n_bg_city.68134" />
+        <field name="street">ul. Aksakov</field>
+        <field name="street_number">21</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_partner_sofia_department" />
+        <field name="company_type">company</field>
+        <field name="phone">+359 2 9859 3821</field>
+        <field name="email">td_sofia_grad@ro22.nra.bg</field>
+    </record>
+
+    <!-- ===== Дирекция Големи данъкоплатци и осигурители (ГДО / ro29) ===== -->
+
+    <record id="nra_partner_sofia_big" model="res.partner">
+        <field name="name">Directorate Large Taxpayers and Insurers (Дирекция ГДО)</field>
+        <field name="city">Sofia</field>
+        <field name="city_id" ref="l10n_bg_city.68134" />
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
+        <field name="street">ul. Aksakov</field>
+        <field name="street_number">29</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">1000</field>
+        <field name="phone">+359 2 9859 3913</field>
+        <field name="email">td_gdo@ro29.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_big_department" model="res.partner">
+        <field name="name">Directorate Large Taxpayers and Insurers (branch)</field>
+        <field name="city">Sofia</field>
+        <field name="city_id" ref="l10n_bg_city.68134" />
+        <field name="street">ul. Aksakov</field>
+        <field name="street_number">29</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_partner_sofia_big" />
+        <field name="company_type">company</field>
+        <field name="phone">+359 2 9859 3913</field>
+        <field name="email">td_gdo@ro29.nra.bg</field>
+    </record>
+
+    <!-- ===== Дирекция СДО — Sofia, Plovdiv, Varna, Burgas, V.Tarnovo ===== -->
+
+    <record id="nra_partner_sofia_middle" model="res.partner">
+        <field name="name">Directorate Medium Taxpayers and Insurers — Sofia (Дирекция СДО)</field>
+        <field name="city">Sofia</field>
+        <field name="city_id" ref="l10n_bg_city.68134" />
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
+        <field name="street">ul. General Gurko</field>
+        <field name="street_number">12</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">1000</field>
+        <field name="phone">+359 2 9859 6075</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_middle_department" model="res.partner">
+        <field name="name">Directorate Medium Taxpayers and Insurers — Sofia (branch)</field>
+        <field name="city">Sofia</field>
+        <field name="city_id" ref="l10n_bg_city.68134" />
+        <field name="street">ul. General Gurko</field>
+        <field name="street_number">12</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_partner_sofia_middle" />
+        <field name="company_type">company</field>
+        <field name="phone">+359 2 9859 6075</field>
+    </record>
+
+    <record id="nra_sdo_plovdiv" model="res.partner">
+        <field name="name">Directorate Medium Taxpayers — Plovdiv (Дирекция СДО Пловдив)</field>
+        <field name="city">Plovdiv</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
+        <field name="street">ul. Radetski</field>
+        <field name="street_number">18 A</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">4000</field>
+        <field name="phone">032/603 215</field>
+        <field name="email">sdo@ro16.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_sdo_varna" model="res.partner">
+        <field name="name">Directorate Medium Taxpayers — Varna (Дирекция СДО Варна)</field>
+        <field name="city">Varna</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
+        <field name="street">ul. Osmi Primorski Polk</field>
+        <field name="street_number">128</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">9000</field>
+        <field name="phone">052/360 988</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_sdo_burgas" model="res.partner">
+        <field name="name">Directorate Medium Taxpayers — Burgas (Дирекция СДО Бургас)</field>
+        <field name="city">Burgas</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
+        <field name="street">ul. Tsar Petar</field>
+        <field name="street_number">5Б</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">8000</field>
+        <field name="phone">056/878 172</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_sdo_vtarnovo" model="res.partner">
+        <field name="name">Directorate Medium Taxpayers — V. Tarnovo (Дирекция СДО Велико Търново)</field>
+        <field name="city">Veliko Tarnovo</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">5000</field>
+        <field name="phone">062/617 161</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <!-- ===== ТД на НАП Пловдив (ro16) ===== -->
+
+    <record id="nra_td_plovdiv" model="res.partner">
+        <field name="name">TD NAP Plovdiv (ТД на НАП Пловдив)</field>
+        <field name="city">Plovdiv</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
+        <field name="street">ul. Skopie</field>
+        <field name="street_number">106</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">4004</field>
+        <field name="phone">032/935 681</field>
+        <field name="email">td_plovdiv@ro16.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <!-- ===== ТД на НАП Варна (ro03) ===== -->
+
+    <record id="nra_td_varna" model="res.partner">
+        <field name="name">TD NAP Varna (ТД на НАП Варна)</field>
+        <field name="city">Varna</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
+        <field name="street">ul. Osmi Primorski Polk</field>
+        <field name="street_number">128</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">9000</field>
+        <field name="phone">052/360 885</field>
+        <field name="email">tdd03_varna@ro03.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <!-- ===== ТД на НАП Бургас (ro02) ===== -->
+
+    <record id="nra_td_burgas" model="res.partner">
+        <field name="name">TD NAP Burgas (ТД на НАП Бургас)</field>
+        <field name="city">Burgas</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
+        <field name="street">ul. Tsar Petar</field>
+        <field name="street_number">5Б</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">8000</field>
+        <field name="phone">056/878 229</field>
+        <field name="email">td_burgas@ro02.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <!-- ===== ТД на НАП Велико Търново (ro04) ===== -->
+
+    <record id="nra_td_vtarnovo" model="res.partner">
+        <field name="name">TD NAP Veliko Tarnovo (ТД на НАП Велико Търново)</field>
+        <field name="city">Veliko Tarnovo</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra" />
+        <field name="street">pl. Tsentar</field>
+        <field name="street_number">2</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">5000</field>
+        <field name="phone">062/617 182</field>
+        <field name="email">td_velikotarnovo@ro04.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <!-- ===== Oblast offices (22) — under their respective TD ===== -->
+
+    <!-- Under TD Sofia -->
+    <record id="nra_office_sofiaoblast" model="res.partner">
+        <field name="name">NAP Office Sofia-Oblast (Офис София-област)</field>
+        <field name="city">Sofia</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_partner_sofia_department" />
+        <field name="street">bul. Vitosha</field>
+        <field name="street_number">6</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">1040</field>
+        <field name="phone">02/9334 023</field>
+        <field name="email">td_sofiaoblast@ro23.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_blagoevgrad" model="res.partner">
+        <field name="name">NAP Office Blagoevgrad (Офис Благоевград)</field>
+        <field name="city">Blagoevgrad</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_partner_sofia_department" />
+        <field name="street">ul. Gyorche Petrov</field>
+        <field name="street_number">2</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">2700</field>
+        <field name="phone">073/889 101</field>
+        <field name="email">td_blagoevgrad@ro01.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_kyustendil" model="res.partner">
+        <field name="name">NAP Office Kyustendil (Офис Кюстендил)</field>
+        <field name="city">Kyustendil</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_partner_sofia_department" />
+        <field name="street">ul. Demokratsia</field>
+        <field name="street_number">55</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">2500</field>
+        <field name="phone">078/559 120</field>
+        <field name="email">td_kyustendil@ro10.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_pernik" model="res.partner">
+        <field name="name">NAP Office Pernik (Офис Перник)</field>
+        <field name="city">Pernik</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_partner_sofia_department" />
+        <field name="street">pl. Sv. Ivan Rilski</field>
+        <field name="street_number">1</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">2300</field>
+        <field name="phone">076/64 71 64</field>
+        <field name="email">td_pernik@ro14.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <!-- Under TD Plovdiv -->
+    <record id="nra_office_kardzhali" model="res.partner">
+        <field name="name">NAP Office Kardzhali (Офис Кърджали)</field>
+        <field name="city">Kardzhali</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_plovdiv" />
+        <field name="street">ul. Despot Slav</field>
+        <field name="street_number">1</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">6600</field>
+        <field name="phone">0361/66 399</field>
+        <field name="email">td_kardzhali@ro09.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_pazardzhik" model="res.partner">
+        <field name="name">NAP Office Pazardzhik (Офис Пазарджик)</field>
+        <field name="city">Pazardzhik</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_plovdiv" />
+        <field name="street">ul. Asen Zlatarev</field>
+        <field name="street_number">7</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">4400</field>
+        <field name="phone">034/403 205</field>
+        <field name="email">td_pazardzhik@ro13.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_smolyan" model="res.partner">
+        <field name="name">NAP Office Smolyan (Офис Смолян)</field>
+        <field name="city">Smolyan</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_plovdiv" />
+        <field name="street">bul. Bulgaria</field>
+        <field name="street_number">12</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">4700</field>
+        <field name="phone">0301/60 200</field>
+        <field name="email">td_smolyan@ro21.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_stzagora" model="res.partner">
+        <field name="name">NAP Office Stara Zagora (Офис Стара Загора)</field>
+        <field name="city">Stara Zagora</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_plovdiv" />
+        <field name="street">ul. Kenali</field>
+        <field name="street_number">1</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">6000</field>
+        <field name="phone">042/692 339</field>
+        <field name="email">td_stzagora@ro24.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_haskovo" model="res.partner">
+        <field name="name">NAP Office Haskovo (Офис Хасково)</field>
+        <field name="city">Haskovo</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_plovdiv" />
+        <field name="street">pl. Svoboda</field>
+        <field name="street_number">2</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">6300</field>
+        <field name="phone">038/609 297</field>
+        <field name="email">td_haskovo@ro26.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <!-- Under TD Varna -->
+    <record id="nra_office_dobrich" model="res.partner">
+        <field name="name">NAP Office Dobrich (Офис Добрич)</field>
+        <field name="city">Dobrich</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_varna" />
+        <field name="street">ul. Nezavisimost</field>
+        <field name="street_number">7</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">9300</field>
+        <field name="phone">058/653 517</field>
+        <field name="email">td_dobrich@ro08.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_razgrad" model="res.partner">
+        <field name="name">NAP Office Razgrad (Офис Разград)</field>
+        <field name="city">Razgrad</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_varna" />
+        <field name="street">pl. Nezavisimost</field>
+        <field name="street_number">1</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">7200</field>
+        <field name="phone">084/617 102</field>
+        <field name="email">tdd_razgrad@ro17.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_ruse" model="res.partner">
+        <field name="name">NAP Office Ruse (Офис Русе)</field>
+        <field name="city">Ruse</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_varna" />
+        <field name="street">ul. Mayor Atanas Uzunov</field>
+        <field name="street_number">19</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">7002</field>
+        <field name="phone">082/808 161</field>
+        <field name="email">td_ruse@ro18.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_silistra" model="res.partner">
+        <field name="name">NAP Office Silistra (Офис Силистра)</field>
+        <field name="city">Silistra</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_varna" />
+        <field name="street">ul. Skobelev</field>
+        <field name="street_number">8</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">7500</field>
+        <field name="phone">086/81 52 52</field>
+        <field name="email">td_silistra@ro19.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_targovishte" model="res.partner">
+        <field name="name">NAP Office Targovishte (Офис Търговище)</field>
+        <field name="city">Targovishte</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_varna" />
+        <field name="street">pl. Svoboda</field>
+        <field name="street_number">1</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">7700</field>
+        <field name="phone">0601/69 04 74</field>
+        <field name="email">tdd_targovishte@ro25.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_shumen" model="res.partner">
+        <field name="name">NAP Office Shumen (Офис Шумен)</field>
+        <field name="city">Shumen</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_varna" />
+        <field name="street">pl. Osvobozhdenie</field>
+        <field name="street_number">2</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">9700</field>
+        <field name="phone">054/856 430</field>
+        <field name="email">td_shumen@ro27.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <!-- Under TD Burgas -->
+    <record id="nra_office_sliven" model="res.partner">
+        <field name="name">NAP Office Sliven (Офис Сливен)</field>
+        <field name="city">Sliven</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_burgas" />
+        <field name="street">ul. General Stolipin</field>
+        <field name="street_number">19</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">8800</field>
+        <field name="phone">044/610 109</field>
+        <field name="email">td_sliven@ro20.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_yambol" model="res.partner">
+        <field name="name">NAP Office Yambol (Офис Ямбол)</field>
+        <field name="city">Yambol</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_burgas" />
+        <field name="street">ul. Targovska</field>
+        <field name="street_number">2</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">8600</field>
+        <field name="phone">046/686 115</field>
+        <field name="email">td_yambol@ro28.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <!-- Under TD Veliko Tarnovo -->
+    <record id="nra_office_vidin" model="res.partner">
+        <field name="name">NAP Office Vidin (Офис Видин)</field>
+        <field name="city">Vidin</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_vtarnovo" />
+        <field name="street">ul. Shesti Septemvri</field>
+        <field name="street_number">12</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">3700</field>
+        <field name="phone">094/690 422</field>
+        <field name="email">td_vidin@ro05.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_vratsa" model="res.partner">
+        <field name="name">NAP Office Vratsa (Офис Враца)</field>
+        <field name="city">Vratsa</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_vtarnovo" />
+        <field name="street">ul. Vasil Kanchev</field>
+        <field name="street_number">86</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">3000</field>
+        <field name="phone">092/6684 114</field>
+        <field name="email">td_vratsa@ro06.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_gabrovo" model="res.partner">
+        <field name="name">NAP Office Gabrovo (Офис Габрово)</field>
+        <field name="city">Gabrovo</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_vtarnovo" />
+        <field name="street">ul. Aprilovska</field>
+        <field name="street_number">7</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">5300</field>
+        <field name="phone">066/815 216</field>
+        <field name="email">td_gabrovo@ro07.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_lovech" model="res.partner">
+        <field name="name">NAP Office Lovech (Офис Ловеч)</field>
+        <field name="city">Lovech</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_vtarnovo" />
+        <field name="street">ul. Targovska</field>
+        <field name="street_number">43</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">5500</field>
+        <field name="phone">068/68 51 01</field>
+        <field name="email">td_lovech@ro11.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_montana" model="res.partner">
+        <field name="name">NAP Office Montana (Офис Монтана)</field>
+        <field name="city">Montana</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_vtarnovo" />
+        <field name="street">ul. Lyuben Karavelov</field>
+        <field name="street_number">11</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">3400</field>
+        <field name="phone">096/39 02 10</field>
+        <field name="email">td_montana@ro12.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
+
+    <record id="nra_office_pleven" model="res.partner">
+        <field name="name">NAP Office Pleven (Офис Плевен)</field>
+        <field name="city">Pleven</field>
+        <field name="parent_id" ref="l10n_bg_tax_offices.nra_td_vtarnovo" />
+        <field name="street">ul. Doyran</field>
+        <field name="street_number">43</field>
+        <field name="country_id" ref="base.bg" />
+        <field name="zip">5800</field>
+        <field name="phone">064/89 83 36</field>
+        <field name="email">td_pleven@ro15.nra.bg</field>
+        <field name="company_type">company</field>
+    </record>
 </odoo>

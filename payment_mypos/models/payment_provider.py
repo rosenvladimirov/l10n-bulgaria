@@ -3,7 +3,9 @@
 
 import base64
 import logging
+from collections import OrderedDict
 
+import requests
 from cryptography.exceptions import InvalidSignature
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
@@ -16,6 +18,10 @@ _logger = logging.getLogger(__name__)
 
 API_URL_TEST = "https://www.mypos.com/vmp/checkout-test"
 API_URL_PROD = "https://www.mypos.com/vmp/checkout"
+
+# myPOS Helper::isValidOutputFormat accepts only 'xml' / 'json' (NOT 'post'),
+# so server-to-server calls (Refund, Void) must request a structured format.
+_MYPOS_OUTPUT_FORMAT = "json"
 
 
 class PaymentProvider(models.Model):
@@ -38,6 +44,19 @@ class PaymentProvider(models.Model):
         string="Key Index",
         default=1,
         help="Index of the RSA key pair registered in myPOS.",
+    )
+    # Non-secret integration identifiers (visible on the Partner Portal
+    # Summary tab). Mandatory for IPCRefund / IPCVoid under Checkout API
+    # v1.4.1, so they live on the model rather than the wallet.
+    mypos_application_id = fields.Char(
+        string="myPOS Application ID",
+        help="Integration Application ID (e.g. mps-app-XXXXXXXX). "
+             "Required for refund/void under Checkout API v1.4.1.",
+    )
+    mypos_partner_id = fields.Char(
+        string="myPOS Partner ID",
+        help="Integration Partner ID (e.g. mps-p-XXXXXXXX). "
+             "Required for refund/void under Checkout API v1.4.1.",
     )
     mypos_private_key = fields.Text(
         string="Merchant Private Key (RSA, PEM)",
@@ -195,3 +214,89 @@ class PaymentProvider(models.Model):
         """Cheap presence check — True iff both wallet keys decrypt."""
         cid, sec = self._mypos_get_client_credentials()
         return bool(cid and sec)
+
+    # ──────────────────────────────────────────────────────────────────
+    # IPCRefund — server-to-server refund (Bundle 2)
+    # ──────────────────────────────────────────────────────────────────
+
+    def _mypos_build_refund_payload(self, refund_tx, source_tx):
+        """Ordered dict of POST fields for IPCRefund.
+
+        Field order MUST match the signing order (myPOS concatenates
+        values with '-' in send order). Mirrors IPC/Refund.php::process.
+        AUP: IPC_Trnref binds the refund to the original purchase's
+        gateway transaction — myPOS refuses refunds whose trnref doesn't
+        resolve to an original capture, so funds can only return to the
+        original card.
+        """
+        self.ensure_one()
+        if not source_tx.provider_reference:
+            raise ValidationError(_(
+                "myPOS: cannot refund — the source transaction has no IPC_Trnref "
+                "(provider_reference). It was never confirmed by the gateway, so "
+                "there is nothing to refund."
+            ))
+        if self.mypos_application_id is False or self.mypos_partner_id is False \
+                or not self.mypos_application_id or not self.mypos_partner_id:
+            raise ValidationError(_(
+                "myPOS: Application ID and Partner ID are required for refunds "
+                "under Checkout API v1.4.1. Set them on the payment provider."
+            ))
+        return OrderedDict(
+            [
+                ("IPCmethod", "IPCRefund"),
+                ("IPCVersion", "1.4.1"),
+                ("IPCLanguage", (refund_tx.partner_lang or "en")[:2].lower()),
+                ("SID", self.mypos_sid or ""),
+                ("WalletNumber", self.mypos_wallet or ""),
+                ("KeyIndex", str(self.mypos_key_index or 1)),
+                ("Source", "SDK_PYTHON_ODOO_1.0"),
+                ("Currency", source_tx.currency_id.name),
+                ("Amount", "%.2f" % abs(refund_tx.amount)),
+                ("OrderID", refund_tx.reference),
+                ("IPC_Trnref", source_tx.provider_reference),
+                ("OutputFormat", _MYPOS_OUTPUT_FORMAT),
+                ("ApplicationID", self.mypos_application_id),
+                ("PartnerID", self.mypos_partner_id),
+            ]
+        )
+
+    def _mypos_send_refund(self, payload):
+        """Sign, POST, verify the response signature, return the parsed dict.
+
+        Raises ValidationError on transport failure or signature mismatch.
+        The response envelope mirrors IPC/Response.php: the 'Signature'
+        field is removed, the remaining values are '-'-joined + base64'd,
+        and verified with the myPOS public certificate (same primitive as
+        notification verification — _mypos_verify).
+        """
+        self.ensure_one()
+        payload = OrderedDict(payload)  # don't mutate caller's dict
+        payload["Signature"] = self._mypos_sign(payload)
+        url = self._mypos_get_api_url()
+        try:
+            resp = requests.post(url, data=dict(payload), timeout=30)
+            resp.raise_for_status()
+        except requests.RequestException as e:
+            raise ValidationError(_("myPOS: refund request failed — %s") % e) from e
+
+        try:
+            body = resp.json()
+        except ValueError as e:
+            raise ValidationError(
+                _("myPOS: refund response was not JSON: %s") % resp.text[:200]
+            ) from e
+
+        sig = None
+        signed = OrderedDict()
+        for k, v in body.items():
+            if k.lower() == "signature":
+                sig = v
+            else:
+                signed[k] = v
+        if not sig:
+            raise ValidationError(_("myPOS: refund response missing signature"))
+        if not self._mypos_verify(signed, sig):
+            _logger.warning("myPOS: refund response signature invalid")
+            raise ValidationError(_("myPOS: refund response signature invalid"))
+        return body

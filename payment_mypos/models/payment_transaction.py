@@ -177,3 +177,49 @@ class PaymentTransaction(models.Model):
                 _("myPOS: payment failed — status %(code)s (%(label)s)")
                 % {"code": status_key or "?", "label": label}
             )
+
+    # ──────────────────────────────────────────────────────────────────
+    # IPCRefund (Bundle 2) — Odoo 18 hook
+    # ──────────────────────────────────────────────────────────────────
+    # In Odoo 18 `_send_refund_request` is called on the SOURCE (parent)
+    # transaction with an explicit amount; super() creates the child
+    # refund tx and returns it. We POST IPCRefund and set the child's
+    # state from the gateway response.
+
+    def _send_refund_request(self, amount_to_refund=None):
+        refund_tx = super()._send_refund_request(amount_to_refund=amount_to_refund)
+        if self.provider_code != "mypos":
+            return refund_tx
+        self._mypos_do_refund(source_tx=self, refund_tx=refund_tx)
+        return refund_tx
+
+    def _mypos_do_refund(self, source_tx, refund_tx):
+        """Shared refund driver: build → sign → POST → verify → set state.
+
+        `source_tx` is the original (captured) purchase; `refund_tx` is the
+        negative-amount child. Raises nothing — failures land on refund_tx
+        as an error state so the operator sees them in the chatter.
+        """
+        provider = source_tx.provider_id
+        try:
+            payload = provider._mypos_build_refund_payload(refund_tx, source_tx)
+            body = provider._mypos_send_refund(payload)
+        except ValidationError as e:
+            refund_tx._set_error(str(e))
+            return
+
+        # Response is parsed + signature-verified by _mypos_send_refund.
+        status = body.get("Status") or body.get("status")
+        status_key = str(status) if status is not None else ""
+        ref_trnref = body.get("IPC_Trnref") or body.get("ipc_trnref")
+        if ref_trnref:
+            refund_tx.provider_reference = ref_trnref
+
+        if status_key in ("0", "success"):
+            refund_tx._set_done()
+        else:
+            label = _MYPOS_STATUS.get(status_key, "unknown")
+            refund_tx._set_error(
+                _("myPOS: refund declined — status %(code)s (%(label)s)")
+                % {"code": status_key or "?", "label": label}
+            )

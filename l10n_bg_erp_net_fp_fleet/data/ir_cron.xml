@@ -3,7 +3,7 @@
     <data noupdate="1">
         <record id="cron_expire_pairing_tokens" model="ir.cron">
             <field name="name">ErpNet.FP Fleet — expire pairing tokens</field>
-            <field name="model_id" ref="model_erpnet_fp_proxy"/>
+            <field name="model_id" ref="l10n_bg_erp_net_fp_fleet.model_erpnet_fp_proxy"/>
             <field name="state">code</field>
             <field name="code">model._cron_expire_pairing_tokens()</field>
             <field name="user_id" ref="base.user_root"/>

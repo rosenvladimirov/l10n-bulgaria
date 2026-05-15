@@ -1,49 +1,57 @@
-# Payment Provider: Borica APGW (BG)
+# Платежен доставчик — Borica APGW
 
-> Картови плащания през Borica APGW (EMV 3DS 2.x)
+> Приемане на картови плащания през Borica e-commerce gateway (APGW,
+> CGI v4.0, EMV 3-D Secure 2.x) — acquiring канал, издаван от
+> български банки.
 
-**Модул:** `payment_borica` | **Версия:** 18.0.1.0.0 | **Лиценз:** LGPL-3 | **Категория:** Accounting/Payment Providers
+**Модул:** `payment_borica` | **Версия:** 18.0.1.0.0 | **Лиценз:** LGPL-3 | **Категория:** Localization / Payment
 
 ## Описание
 
-Картови плащания през Borica APGW (EMV 3DS 2.x)
+Borica е националният картов оператор на България; неговият **APGW**
+(e-commerce gateway) е acquiring каналът, който повечето български
+банки издават на търговците. Този модул добавя Borica като Odoo
+`payment.provider`, така че web-shop / invoice плащания минават през
+gateway-а на банката с пълна EMV 3-D Secure 2.x автентикация на
+картодържателя.
+
+## Архитектура
+
+- `payment.provider` — `provider` selection разширен с
+  `("borica", "Borica APGW")`; носи terminal/acquirer credentials на
+  търговеца.
+- CGI v4.0 request signing + 3DS 2.x redirect flow.
+- `_process_notification_data(notification_data)` — верифицира
+  подписания gateway callback и reconcile-ва състоянието на
+  транзакцията (authorised / declined / cancelled).
 
 ## Зависимости
 
 | Odoo базови | Българска локализация |
 |---|---|
-| `payment`, `website_payment` | — |
+| `payment` | `l10n_bg` |
 
-## Разширени модели
+## Конфигурация
 
-- `payment.provider` (extension)
-- `payment.transaction` (extension)
+1. Invoicing → Payment Providers → Borica APGW → въведете
+   bank-issued terminal ID / acquirer credentials, задайте test/production.
+2. Активирайте на website / invoice payment flow-овете.
+3. Верифицирайте, че gateway callback URL-ът е достъпен от Borica.
 
-## Изгледи (views)
+## Стратегическа бележка
 
-- `views/payment_borica_templates.xml`
-- `views/payment_provider_views.xml`
+Borica + myPOS са primary card-acceptance доставчиците за българската
+локализация (LGPL-3, EU фокус). Виж
+`claude.ai/memory/project_payment_provider_strategy.md`.
 
-## Контролери
+## Известни ограничения
 
-- `controllers/main.py`
-
-## Заредени данни
-
-- `data/payment_provider_data.xml`
-
-## Инсталация
-
-```bash
-# Добавете пътя на репозиторията в Odoo addons_path,
-# след това инсталирайте през UI Apps → търсене 'payment_borica' или през CLI:
-odoo -i payment_borica -d <вашата_база> --stop-after-init
-```
+- Изисква Borica merchant договор през българска банка
+  (terminal/acquirer credentials са bank-issued).
+- 3DS challenge UX зависи от издаващата банка на картодържателя.
 
 ## Свързани
 
-- Главно репозитори: [`l10n-bulgaria`](../README.md)
-- Модулни тестове: `tests/`
-
----
-*Генериран 2026-05-15 от `__manifest__.py` + source layout. Ръчно обогатяване за пълен handbook.*
+- Преглед на репозиторията: [`../OVERVIEW.bg.md`](../OVERVIEW.bg.md)
+- Sibling доставчик: `payment_mypos`
+- Стратегия: `claude.ai/memory/project_payment_provider_strategy.md`

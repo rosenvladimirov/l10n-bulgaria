@@ -1,52 +1,63 @@
-# Payment Provider: myPOS
+# Payment Provider — myPOS Checkout
 
-> Accept card payments via myPOS Checkout API (REST + 3DS)
+> Accept card payments via the myPOS Checkout API (REST + 3DS):
+> hosted-redirect purchase plus refund/void.
 
-**Module:** `payment_mypos` | **Version:** 18.0.1.2.0 | **License:** LGPL-3 | **Category:** Accounting/Payment Providers
+**Module:** `payment_mypos` | **Version:** 18.0.2.0.0 | **License:** LGPL-3 | **Category:** Localization / Payment
 
 ## Overview
 
-myPOS payment provider for Odoo eCommerce, Sales and Invoicing.
-Integrates the myPOS Checkout API v1.4.1 — accepts Visa, Mastercard, JCB,
-Bancontact and other supported card schemes through 3D Secure flows.
-Designed for use in 30+ EU countries where myPOS operates.
+myPOS is a pan-European merchant-acquiring provider popular with
+Bulgarian SMBs (its hardware is shared lineage with Datecs). This
+module adds myPOS as an Odoo `payment.provider` using the **myPOS
+Checkout API v1.4.1** — the hosted-redirect purchase flow
+(`IPCPurchase`) for payment, plus `IPCRefund` / `IPCVoid` for
+post-payment operations.
+
+## Architecture
+
+- `payment.provider` — myPOS provider with the Checkout credentials.
+  Refund/void require additional credentials (set on the provider) —
+  mandatory for `IPCRefund` / `IPCVoid` under Checkout API v1.4.1.
+- Purchase: hosted-redirect (`IPCPurchase`) with 3-D Secure.
+- Refund/Void: server-to-server REST calls keyed by the original
+  transaction.
 
 ## Dependencies
 
 | Odoo core | Bulgarian-localization |
 |---|---|
-| `payment`, `website_payment` | — |
+| `payment` | `l10n_bg` |
 
-## Extended models
+## Configuration
 
-- `payment.provider` (inherited)
-- `payment.transaction` (inherited)
+1. Invoicing → Payment Providers → myPOS → enter the Checkout
+   store/keys; add the refund/void credentials if you need
+   server-side reversals.
+2. Set test/production; enable on website/invoice flows.
 
-## Views
+## AUP / compliance constraints
 
-- `views/payment_mypos_templates.xml`
-- `views/payment_provider_views.xml`
+Per the myPOS Acceptable Use Policy: card PAN/PIN/CVV must never be
+logged or stored; refunds only to the original card; chargeback rate
+must stay < 1%; pre-auth is allowed only for hotel / cruise /
+rent-a-car. See
+`claude.ai/memory/reference_mypos_acceptable_use_policy.md`.
 
-## Controllers
+## Strategic note
 
-- `controllers/main.py`
+myPOS + Borica are the primary card providers for the localization
+(EU focus, LGPL-3). See
+`claude.ai/memory/project_payment_provider_strategy.md`.
 
-## Seeded data
+## Known limitations
 
-- `data/payment_provider_data.xml`
-
-## Installation
-
-```bash
-# Add this repository's path to your Odoo addons_path,
-# then install via UI Apps → search 'payment_mypos' or via CLI:
-odoo -i payment_mypos -d <your_database> --stop-after-init
-```
+- Refund/void need the extra Checkout credentials configured;
+  otherwise only purchase works.
+- Hosted-redirect UX is myPOS-controlled.
 
 ## See also
 
-- Parent repository: [`l10n-bulgaria`](../README.md)
-- Module tests: `tests/`
-
----
-*Generated 2026-05-15 from `__manifest__.py` + source layout. Hand-enrich for full handbook coverage.*
+- Parent repo overview: [`../OVERVIEW.md`](../OVERVIEW.md)
+- Sibling provider: `payment_borica`
+- AUP: `claude.ai/memory/reference_mypos_acceptable_use_policy.md`

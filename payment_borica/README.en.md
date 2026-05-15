@@ -1,54 +1,56 @@
-# Payment Provider: Borica APGW (BG)
+# Payment Provider — Borica APGW
 
-> Accept card payments via Borica APGW (CGI v4.0, EMV 3DS 2.x)
+> Accept card payments through the Borica e-commerce gateway (APGW,
+> CGI v4.0, EMV 3-D Secure 2.x) — a Bulgarian-bank-issued acquiring
+> channel.
 
-**Module:** `payment_borica` | **Version:** 18.0.1.0.0 | **License:** LGPL-3 | **Category:** Accounting/Payment Providers
+**Module:** `payment_borica` | **Version:** 18.0.1.0.0 | **License:** LGPL-3 | **Category:** Localization / Payment
 
 ## Overview
 
-Borica APGW payment provider for Odoo eCommerce, Sales and Invoicing.
-Implements the Borica e-Gateway CGI/WWW Forms interface v4.0 with the
-MAC_GENERAL signing scheme — accepts bcard, Visa, Mastercard, Diners and
-Discover cards through 3-D Secure (EMV 3DS v2.1 / v2.2).
-Designed for Bulgarian merchants with a vPOS contract from any of the
-local acquirer banks routing through Borica.
+Borica is the Bulgarian national card operator; its **APGW**
+(e-commerce gateway) is the acquiring channel most Bulgarian banks
+issue to merchants. This module adds Borica as an Odoo
+`payment.provider` so web-shop / invoice payments route through the
+bank's gateway with full EMV 3-D Secure 2.x cardholder authentication.
+
+## Architecture
+
+- `payment.provider` — `provider` selection extended with
+  `("borica", "Borica APGW")`; carries the merchant's terminal/
+  acquirer credentials.
+- CGI v4.0 request signing + the 3DS 2.x redirect flow.
+- `_process_notification_data(notification_data)` — verifies the
+  signed gateway callback and reconciles the transaction state
+  (authorised / declined / cancelled).
 
 ## Dependencies
 
 | Odoo core | Bulgarian-localization |
 |---|---|
-| `payment`, `website_payment` | — |
+| `payment` | `l10n_bg` |
 
-## Extended models
+## Configuration
 
-- `payment.provider` (inherited)
-- `payment.transaction` (inherited)
+1. Invoicing → Payment Providers → Borica APGW → enter the
+   bank-issued terminal ID / acquirer credentials, set test/production.
+2. Enable on the website / invoice payment flows.
+3. Verify the gateway callback URL is reachable from Borica.
 
-## Views
+## Strategic note
 
-- `views/payment_borica_templates.xml`
-- `views/payment_provider_views.xml`
+Borica + myPOS are the primary card-acceptance providers for the
+Bulgarian localization (LGPL-3, EU focus). See
+`claude.ai/memory/project_payment_provider_strategy.md`.
 
-## Controllers
+## Known limitations
 
-- `controllers/main.py`
-
-## Seeded data
-
-- `data/payment_provider_data.xml`
-
-## Installation
-
-```bash
-# Add this repository's path to your Odoo addons_path,
-# then install via UI Apps → search 'payment_borica' or via CLI:
-odoo -i payment_borica -d <your_database> --stop-after-init
-```
+- Requires a Borica merchant agreement via a Bulgarian bank
+  (terminal/acquirer credentials are bank-issued).
+- 3DS challenge UX depends on the cardholder's issuing bank.
 
 ## See also
 
-- Parent repository: [`l10n-bulgaria`](../README.md)
-- Module tests: `tests/`
-
----
-*Generated 2026-05-15 from `__manifest__.py` + source layout. Hand-enrich for full handbook coverage.*
+- Parent repo overview: [`../OVERVIEW.md`](../OVERVIEW.md)
+- Sibling provider: `payment_mypos`
+- Strategy: `claude.ai/memory/project_payment_provider_strategy.md`

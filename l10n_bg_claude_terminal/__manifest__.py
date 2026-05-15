@@ -2,14 +2,14 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Claude Terminal (Chatter & List View)",
-    "version": "19.0.1.34.1",
+    "version": "19.0.1.35.0",
     "category": "Technical",
     "summary": "Claude Code terminal + AI Tokenizer (Qdrant/Ollama) — MCP Docker stack",
     "author": "Rosen Vladimirov, BL Consulting, Odoo Community Association (OCA)",
     "maintainers": ["rosen-vladimirov"],
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria/tree/19.0/l10n_bg_claude_terminal",
     "license": "AGPL-3",
-    "depends": ["mail", "web", "bus", "base_setup"],
+    "depends": ["mail", "web", "bus", "base_setup", "l10n_bg_live_refresh"],
     "excludes": ["mcp_terminal"],
     "external_dependencies": {"python": ["pyzipper"]},
     "data": [
@@ -22,10 +22,8 @@
     ],
     "assets": {
         "web.assets_backend": [
+            "l10n_bg_claude_terminal/static/src/js/terminal_refresh_compat.js",
             "l10n_bg_claude_terminal/static/src/scss/terminal.scss",
-            "l10n_bg_claude_terminal/static/src/scss/terminal_live_refresh.scss",
-            "l10n_bg_claude_terminal/static/src/js/terminal_refresh_service.js",
-            "l10n_bg_claude_terminal/static/src/js/terminal_live_refresh.js",
             "l10n_bg_claude_terminal/static/src/js/terminal_utils.js",
             "l10n_bg_claude_terminal/static/src/js/terminal_chatter.js",
             "l10n_bg_claude_terminal/static/src/xml/terminal_chatter.xml",

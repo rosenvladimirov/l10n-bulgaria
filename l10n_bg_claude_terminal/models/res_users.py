@@ -521,12 +521,12 @@ class ResUsers(models.Model):
         Called by the MCP server (odoo_refresh tool) after creating/updating
         records so the Odoo tab auto-reloads.
         """
-        self.env["bus.bus"]._sendone(
-            self.env.user.partner_id,
-            "claude_terminal/refresh",
-            payload or {},
+        return self.env["live.refresh"].notify(
+            model=(payload or {}).get("model"),
+            res_ids=(payload or {}).get("res_ids"),
+            mode="record",
+            values=(payload or {}).get("values"),
         )
-        return True
 
     @api.model
     def notify_claude_refresh_field(self, payload=None):
@@ -544,12 +544,12 @@ class ResUsers(models.Model):
                 "sessions": [{session_id, model, res_id, view_type}, ...]
             }
         """
-        self.env["bus.bus"]._sendone(
-            self.env.user.partner_id,
-            "claude_terminal/refresh_field",
-            payload or {},
+        return self.env["live.refresh"].notify(
+            model=(payload or {}).get("model"),
+            res_ids=(payload or {}).get("res_ids"),
+            mode="field",
+            values=(payload or {}).get("values"),
         )
-        return True
 
     @api.model
     def notify_claude_refresh_list(self, payload=None):
@@ -567,12 +567,12 @@ class ResUsers(models.Model):
                 "sessions": [...]
             }
         """
-        self.env["bus.bus"]._sendone(
-            self.env.user.partner_id,
-            "claude_terminal/refresh_list",
-            payload or {},
+        return self.env["live.refresh"].notify(
+            model=(payload or {}).get("model"),
+            res_ids=(payload or {}).get("res_ids"),
+            mode="list",
+            values=(payload or {}).get("values"),
         )
-        return True
 
     @api.model
     def get_claude_mcp_config(self):

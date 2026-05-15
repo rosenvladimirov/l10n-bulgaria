@@ -1,35 +1,41 @@
-# Bulgarian Invoice Copy
+# Bulgaria — Invoice COPY Watermark
 
-> Add COPY watermark to Bulgarian invoice reports
+> Adds a "COPY" watermark to Bulgarian invoice reports so reprints are
+> visually distinguishable from the original.
 
-**Module:** `l10n_bg_invoice_copy` | **Version:** 18.0.1.0.0 | **License:** AGPL-3 | **Category:** Accounting/Localizations
+**Module:** `l10n_bg_invoice_copy` | **Version:** 18.0.1.0.0 | **License:** AGPL-3 | **Category:** Localization
 
 ## Overview
 
-This module adds a "COPY" watermark to invoice reports in Bulgaria.
-        It inherits the standard invoice report template and adds the copy designation.
+Bulgarian practice requires that any reprint of an already-issued
+invoice is clearly marked as a copy ("КОПИЕ"), so it cannot be
+mistaken for a second original. This module overlays a watermark on
+the standard invoice PDF when the document is not the first print.
+
+## What it does
+
+Inherits the standard `account.report_invoice_document` QWeb template
+and renders a diagonal "COPY" watermark layer over the invoice body.
+Purely a report-layer change — no model fields, no data.
 
 ## Dependencies
 
 | Odoo core | Bulgarian-localization |
 |---|---|
-| `account` | `l10n_bg_report_theme` |
+| `account` | `l10n_bg` |
 
-## Views
+## Configuration
 
-- `views/report_invoice_copy.xml`
+None. Install and the watermark appears on invoice reprints.
 
-## Installation
+## Relationship to `l10n_bg_invoice_grif`
 
-```bash
-# Add this repository's path to your Odoo addons_path,
-# then install via UI Apps → search 'l10n_bg_invoice_copy' or via CLI:
-odoo -i l10n_bg_invoice_copy -d <your_database> --stop-after-init
-```
+`l10n_bg_invoice_grif` is the richer variant — it adds an explicit
+**Гриф** field (ОРИГИНАЛ / КОПИЕ) printed on the invoice. Use
+`invoice_copy` for a simple visual watermark; use `invoice_grif` when
+the original/copy status must be an explicit labelled field.
 
 ## See also
 
-- Parent repository: [`l10n-bulgaria`](../README.md)
-
----
-*Generated 2026-05-15 from `__manifest__.py` + source layout. Hand-enrich for full handbook coverage.*
+- Parent repo overview: [`../OVERVIEW.md`](../OVERVIEW.md)
+- Sibling: `l10n_bg_invoice_grif`

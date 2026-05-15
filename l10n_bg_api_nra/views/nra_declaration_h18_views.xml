@@ -116,10 +116,5 @@
         <field name="context">{'default_declaration_type': 'h18_eshop'}</field>
     </record>
 
-    <menuitem id="menu_nra_declaration_h18"
-              name="H-18 Audit (e-shop)"
-              parent="menu_nra_all"
-              action="action_nra_declaration_h18"
-              sequence="50"/>
 
 </odoo>

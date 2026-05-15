@@ -117,7 +117,6 @@ class NraDeclarationD1(models.Model):
         "nra.declaration.d1.line",
         "declaration_id",
         string="Insured Persons (Осигурени лица)",
-        states={"draft": [("readonly", False)]},
     )
     d1_line_count = fields.Integer(
         compute="_compute_d1_line_count",
@@ -131,7 +130,6 @@ class NraDeclarationD1(models.Model):
         ],
         string="Correction Type",
         default="0",
-        states={"draft": [("readonly", False)]},
     )
 
     @api.depends("d1_line_ids")

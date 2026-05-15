@@ -73,7 +73,6 @@ class NraDeclarationVies(models.Model):
         "nra.declaration.vies.line",
         "declaration_id",
         string="VIES Lines (Редове VIES)",
-        states={"draft": [("readonly", False)]},
     )
     vies_line_count = fields.Integer(
         compute="_compute_vies_line_count",
@@ -107,7 +106,6 @@ class NraDeclarationVies(models.Model):
         ],
         string="Correction Type",
         default="0",
-        states={"draft": [("readonly", False)]},
     )
 
     @api.depends("vies_line_ids")

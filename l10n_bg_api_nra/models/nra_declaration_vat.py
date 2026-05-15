@@ -45,7 +45,6 @@ class NraDeclarationVat(models.Model):
         "nra.declaration.vat.line",
         "declaration_id",
         string="VAT Lines (Клетки)",
-        states={"draft": [("readonly", False)]},
     )
     vat_line_count = fields.Integer(
         compute="_compute_vat_line_count",
@@ -56,22 +55,18 @@ class NraDeclarationVat(models.Model):
     vat_total_sales = fields.Float(
         string="Total Sales (Общо продажби)",
         digits=(12, 2),
-        states={"draft": [("readonly", False)]},
     )
     vat_total_purchases = fields.Float(
         string="Total Purchases (Общо покупки)",
         digits=(12, 2),
-        states={"draft": [("readonly", False)]},
     )
     vat_charged = fields.Float(
         string="VAT Charged (Начислен ДДС)",
         digits=(12, 2),
-        states={"draft": [("readonly", False)]},
     )
     vat_credit = fields.Float(
         string="VAT Credit (Данъчен кредит)",
         digits=(12, 2),
-        states={"draft": [("readonly", False)]},
     )
     vat_due = fields.Float(
         string="VAT Due (ДДС за внасяне)",
@@ -94,7 +89,6 @@ class NraDeclarationVat(models.Model):
         ],
         string="Correction Type",
         default="0",
-        states={"draft": [("readonly", False)]},
     )
 
     @api.depends("vat_line_ids")

@@ -44,7 +44,6 @@ class NraDeclaration(models.Model):
         required=True,
         default=lambda self: self.env.company,
         readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     declaration_type = fields.Selection(
         selection=[
@@ -56,7 +55,6 @@ class NraDeclaration(models.Model):
         string="Declaration Type",
         required=True,
         readonly=True,
-        states={"draft": [("readonly", False)]},
         tracking=True,
     )
     state = fields.Selection(
@@ -90,13 +88,11 @@ class NraDeclaration(models.Model):
         ],
         string="Month",
         readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     period_year = fields.Char(
         string="Year",
         size=4,
         readonly=True,
-        states={"draft": [("readonly", False)]},
     )
 
     # ------------------------------------------------------------------

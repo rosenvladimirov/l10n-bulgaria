@@ -108,7 +108,6 @@ class NraDeclarationD6(models.Model):
         "nra.declaration.d6.line",
         "declaration_id",
         string="Contribution Lines (Вноски)",
-        states={"draft": [("readonly", False)]},
     )
     d6_line_count = fields.Integer(
         compute="_compute_d6_line_count",
@@ -122,11 +121,9 @@ class NraDeclarationD6(models.Model):
         ],
         string="Correction Type",
         default="0",
-        states={"draft": [("readonly", False)]},
     )
     d6_payment_date = fields.Date(
         string="Payment Date (Дата на плащане/изплащане)",
-        states={"draft": [("readonly", False)]},
     )
 
     @api.depends("d6_line_ids")

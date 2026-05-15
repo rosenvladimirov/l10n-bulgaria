@@ -23,17 +23,32 @@
     -->
 
     <!--
-        Кодът остава `l10n_bg_infopay_sepa_eur` (не се преименува —
-        чупи references), но display name-ът е „InfoPay Credit Transfer
-        (EUR)“ за да не звучи „само за чужбина“: SEPA Credit Transfer
-        покрива и вътрешнодържавни (BG→BG в EUR), и трансгранични
-        EUR плащания.  Стандартен (SEPA) или Instant (INST) се избира
-        per-order чрез `l10n_bg_infopay_service_level`.
+        Два метода за организационно/счетоводно разграничение.  И
+        двата технически маршрутизират към същия Borica endpoint
+        (`/api/payments/sepa-credit-transfers` за single,
+        `/api/bulk-payments/sepa-credit-transfers` за bulk) — Borica
+        НЕ предоставя отделен domestic-EUR endpoint след влизането
+        на BG в еврозоната (старият `-bgn` е deprecated).  Разликата
+        е намерението на оператора + reporting:
+
+          • SEPA      — трансгранични EUR плащания (EU/EEA).
+          • Domestic  — вътрешни BG→BG EUR плащания.
+
+        Country в payload-а се извлича автоматично от партньора
+        (BG за domestic).  Стандартен (SEPA) или Instant (INST)
+        се избира ортогонално чрез `l10n_bg_infopay_service_level`.
     -->
     <record id="account_payment_method_infopay_sepa_eur"
             model="account.payment.method">
-        <field name="name">InfoPay Credit Transfer (EUR)</field>
+        <field name="name">InfoPay SEPA (EUR)</field>
         <field name="code">l10n_bg_infopay_sepa_eur</field>
+        <field name="payment_type">outbound</field>
+    </record>
+
+    <record id="account_payment_method_infopay_domestic_eur"
+            model="account.payment.method">
+        <field name="name">InfoPay Domestic (EUR)</field>
+        <field name="code">l10n_bg_infopay_domestic_eur</field>
         <field name="payment_type">outbound</field>
     </record>
 

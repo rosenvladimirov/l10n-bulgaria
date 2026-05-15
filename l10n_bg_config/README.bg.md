@@ -1,12 +1,81 @@
-# Bulgaria localization Configuration
+# Българска локализация — Конфигурационен гръбнак
 
-> Централна конфигурация на българската локализация
+> Основният модул на българската локализация. Инсталира core стека,
+> скрива BG-специфичния UI за не-български фирми, валидира
+> идентификатори и криптира API credentials.
 
 **Модул:** `l10n_bg_config` | **Версия:** 18.0.8.3.0 | **Лиценз:** LGPL-3 | **Категория:** Localization
 
 ## Описание
 
-Централна конфигурация на българската локализация
+`l10n_bg_config` е крайъгълният камък, от който зависи всеки друг
+модул на българската локализация. Има три задачи:
+
+1. **Инсталация на локализацията с един клик.** Инсталирането му
+   автоматично издърпва останалата част от core стека —
+   `l10n_bg`, `l10n_bg_reports_audit`, `l10n_bg_report_theme`,
+   `l10n_bg_ledger`, `l10n_bg_tariff_code` — така че нова база става
+   готова за България без ръчно търсене на зависимости.
+2. **Мултифирмена UI дисциплина.** В база, която смесва български и
+   небългарски фирми, BG-специфичните полета и групи биха задръствали
+   всяка форма за небългарските субекти. Mixin-ът на модула ги
+   премахва автоматично спрямо активната фирма.
+3. **Сигурност на credentials.** API ключовете за НАП / банковите
+   интеграции никога не се съхраняват в чист текст — модулът доставя
+   XOR+Base64 деривацията на ключове, ползвана в цялата локализация,
+   плюс Fernet-криптиран черен списък на фирми.
+
+## Архитектура
+
+### `l10n.bg.config.mixin` (AbstractModel)
+
+Сърцето на модула. Всеки модел, който го наследи, получава:
+
+- `is_l10n_bg_record` — computed boolean, истина когато фирмата на
+  записа (или активната фирма) е маркирана като българска чрез
+  `res.company._check_is_l10n_bg_record()`.
+- Override-нат `get_view()`, който за **небългарски фирми**
+  пренаписва върнатата arch:
+  - слага `column_invisible` на всяко list `<field name="l10n_bg_*">`
+  - слага `invisible` на всяко form `<field name="l10n_bg_*">` и всяка
+    `<group>` чието `id`/`name` съдържа `l10n_bg`
+  - скрива search филтри чието `domain`/`context` реферира `l10n_bg`
+
+  Това означава, че локализационен модул може свободно да добавя
+  `l10n_bg_*` полета; те просто изчезват за фирмите, които не се
+  нуждаят от тях — без ръчни `invisible` атрибути във всеки view.
+
+### Разширени core модели
+
+| Модел | Защо е разширен |
+|---|---|
+| `res.company` | `_check_is_l10n_bg_record()` gate; съхранение на BG API ключ |
+| `res.partner` | BG ЕИК/БУЛСТАТ, crypt key, blacklist lookup |
+| `account.move` / `account.move.line` | наследяват mixin → авто-скриване на BG полета за не-BG фирми |
+| `account.chart.template` | hook points за БГ сметкоплан |
+| `account.account.tag` | база за НАП клетъчно тагване |
+| `res.bank` | флаг `l10n_bg_nap_approved` (филтър одобрени от НАП банки) |
+| `res.country` | hooks за преводими области/региони |
+| `ir.module.module` | помощници за оркестрация на инсталацията |
+
+### Сигурност на credentials и черен списък
+
+- `generate_encryption_keys(key1, key2)` / `decrypt_key(...)` —
+  XOR-базирана деривация на ключове. `is_valid_api_key(uic, api_key,
+  crypt_key)` валидира тройката НАП submission credentials без пряка
+  проверка за равенство (digest folding за прикриване на намерението).
+- `prepare_zip_payload()` — обвива файловете на НАП отчетите;
+  инжектира случайна еднократна парола когато тройката API ключове на
+  фирмата е невалидна, така че експортите деградират безопасно вместо
+  да изтичат.
+- **Черен списък:** `data/blacklist.enc` е Fernet-криптиран файл;
+  контролер `/l10n_bg/blacklist/check` го декриптира с ключа от
+  `ir.config_parameter`. OWL service показва sticky предупреждение
+  когато заредена фирма е в черния списък и недизмисваем overlay ако
+  security файлът липсва/е повреден. *(От 18.0.8.2.1 JS service-ът е
+  short-circuit-нат в `start()`; контролер + файл + bus канал остават
+  — re-enable чрез премахване на early return в
+  `static/src/services/blacklist_service.js`.)*
 
 ## Зависимости
 
@@ -14,54 +83,34 @@
 |---|---|
 | `account`, `base_vat` | `l10n_bg`, `l10n_bg_ledger`, `l10n_bg_tariff_code` |
 
-**Python пакети:** `xmltodict`, `cryptography`
+**Python пакети:** `xmltodict`, `cryptography` (Fernet).
 
-## Нови модели
+## Конфигурация
 
-- `account.move`
-- `account.move.line`
-- `l10n.bg.config.mixin`
-- `res.partner`
+1. Apps → търсене **l10n_bg_config** → Install (зависимостите се авто-инсталират).
+2. Settings → Localization → Bulgarian Localization → преглед на активните модули.
+3. Задайте ЕИК/БУЛСТАТ и НАП API credentials на фирмения партньор;
+   модулът деривира и съхранява криптирания crypt key.
+4. При ползване на черния списък: задайте Fernet ключа в
+   `ir.config_parameter` и управлявайте записите чрез
+   `tools/update_blacklist.py`.
 
-## Разширени модели
+## Конвенция за именуване на полета (валидна за цялата екосистема)
 
-- `account.account.tag` (extension)
-- `account.chart.template` (extension)
-- `ir.module.module` (extension)
-- `res.bank` (extension)
-- `res.company` (extension)
-- `res.config.settings` (extension)
-- `res.country` (extension)
+Всяко поле, което локализационен модул добавя към Odoo core модел
+(`account.move`, `res.partner`, `res.company`, `pos.*`, …) **трябва**
+да е с префикс `l10n_bg_`. View пренаписването на mixin-а разчита на
+този префикс за да намери и скрие полетата — непрефиксирани полета ще
+изтекат във форми на не-BG фирми.
 
-## Изгледи (views)
+## Известни ограничения
 
-- `views/account_account_tag_views.xml`
-- `views/account_move_views.xml`
-- `views/partner_view.xml`
-- `views/res_company_views.xml`
-- `views/res_config_view.xml`
-
-## Контролери
-
-- `controllers/blacklist_controller.py`
-
-## Заредени данни
-
-- `data/blacklist.enc`
-- `data/res_lang_data.xml`
-- `data/template`
-
-## Инсталация
-
-```bash
-# Добавете пътя на репозиторията в Odoo addons_path,
-# след това инсталирайте през UI Apps → търсене 'l10n_bg_config' или през CLI:
-odoo -i l10n_bg_config -d <вашата_база> --stop-after-init
-```
+- Blacklist JS UI изключен по подразбиране от 18.0.8.2.1 (backend частите са налични).
+- `get_view` arch пренаписването е per-call; много големи views добавят минимален parse overhead за не-BG фирми.
 
 ## Свързани
 
-- Главно репозитори: [`l10n-bulgaria`](../README.md)
-
----
-*Генериран 2026-05-15 от `__manifest__.py` + source layout. Ръчно обогатяване за пълен handbook.*
+- Преглед на репозиторията: [`../OVERVIEW.bg.md`](../OVERVIEW.bg.md)
+- Cross-repo карта: `claude.ai/L10N_BG_ECOSYSTEM.md`
+- `readme/` — DESCRIPTION / CONTEXT / CONFIGURE изходни бележки
+- Downstream consumers: практически всеки `l10n_bg_*` модул

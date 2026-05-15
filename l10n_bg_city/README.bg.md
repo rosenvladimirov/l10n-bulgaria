@@ -1,58 +1,104 @@
-# Bulgaria - Cities and Locations
+# България — Населени места и ЕКАТТЕ географска база
 
-> ЕКАТТЕ — населени места, общини, кметства, области
+> Авторитетната българска база на населени места: 28 области, 265
+> общини, ~3000 кметства, 5000+ населени места — всички с официалните
+> им ЕКАТТЕ кодове.
 
 **Модул:** `l10n_bg_city` | **Версия:** 18.0.1.1.0 | **Лиценз:** AGPL-3 | **Категория:** Localization
 
 ## Описание
 
-ЕКАТТЕ — населени места, общини, кметства, области
+Българските официални документи, НАП декларации, Intrastat подавания
+и НСИ статистически отчети изискват **ЕКАТТЕ** код (Единен
+класификатор на административно-териториалните и териториалните
+единици — националният класификатор на населените места). Този модул
+зарежда пълната йерархия, така че адресите се избират от
+стандартизиран списък вместо да се пишат свободно, премахвайки
+печатните грешки, които чупят легални подавания.
+
+## Модел на данните
+
+### `res.city.types` (нов)
+
+Таксономия на типове населени места: град, село, градче, квартал,
+манастир, жп гара, … Всеки ред носи `code` и преводимо `name`.
+
+### `res.city` (разширен)
+
+| Поле | Значение |
+|---|---|
+| `l10n_bg_ecattu` | 5-цифреният ЕКАТТЕ код — ключът за всички официални отчети |
+| `l10n_bg_type_settlement_id` | M2O → `res.city.types` |
+| `l10n_bg_city_hall_id` / `l10n_bg_city_hall_code` | Родителско кметство |
+| `l10n_bg_municipality_id` | Родителска община |
+| `l10n_bg_has_tax_office` | Маркира населени места с офис на НАП (ползва се от `l10n_bg_tax_offices`) |
+| `l10n_bg_structure_type` | `normal` / `cityhall` / `municipality` — управлява триетажната йерархия + domain филтриране |
+
+Йерархията е **Населено място → Кметство → Община → Област**, с умни
+domains, предотвратяващи циклични референции и ограничаващи списъците
+за избор по държава + structure type.
+
+### `res.country.state` (разширен)
+
+`name` направено преводимо — пълна поддръжка на 28-те български
+области на български и английски.
+
+## Зареждане на данни
+
+`post_init_hook` bulk-импортира четири CSV-та от модула:
+
+- `res.country.state.csv` — 28 области
+- `res.city.municipality.csv` — 265 общини
+- `res.city.cityhall.csv` — кметства
+- `res.city.csv` — 5000+ населени места
+
+Плюс `res_city_types.xml` (таксономия) и `res_country_data.xml`.
+
+## ЕКАТТЕ тримесечен sync (от 18.0.1.1.0 — Phase 4.1)
+
+`data/ir_cron_data.xml` доставя **неактивен** тримесечен cron,
+управляващ модела `l10n.bg.ekatte.sync`. При активиране:
+
+1. сваля НСИ ЕКАТТЕ deposit (или ползва ръчно качен ZIP/DBF
+   attachment за air-gapped сайтове),
+2. парсва DBF таблиците чрез `dbfread` (cp1251),
+3. upsert-ва `res.city` записи по ключ `l10n_bg_ecattu`.
+
+Гъвкави column aliases поемат НСИ формат drift между релийзи. Cron-ът
+се доставя изключен — оператор го включва след валидиране на column
+mapping срещу текущия НСИ релийз.
+
+**Python пакети:** `dbfread`, `requests`.
 
 ## Зависимости
 
 | Odoo базови | Българска локализация |
 |---|---|
-| `base_address_extended`, `contacts` | — |
+| `base_address_extended`, `contacts` | — (фундаментален; ниско в графа зависимости) |
 
-**Python пакети:** `dbfread`, `requests`
+## Конфигурация
 
-## Нови модели
+1. Инсталация — `post_init_hook` зарежда пълния dataset (еднократно, ~30 с).
+2. (Опционално) Settings → активирайте "EKATTE: Quarterly Sync" cron
+   след като НСИ deposit форматът е верифициран; или пуснете ръчен
+   sync от формата `l10n.bg.ekatte.sync` с качен ZIP/DBF.
 
-- `l10n.bg.ekatte.sync`
-- `res.city.types`
+## Downstream consumers
 
-## Разширени модели
+`l10n_bg_tax_offices` (маркиране на офис населени места),
+`l10n_bg_intrastat` (location кодове), `l10n_bg_reports_audit`
+(географска отчетност), `l10n_bg_company_registry`, address-completion
+в цялата локализация.
 
-- `res.city` (extension)
-- `res.country.state` (extension)
+## Известни ограничения
 
-## Изгледи (views)
-
-- `views/l10n_bg_ekatte_sync_views.xml`
-- `views/res_city_view.xml`
-
-## Заредени данни
-
-- `data/ir_cron_data.xml`
-- `data/res.city.cityhall.csv`
-- `data/res.city.csv`
-- `data/res.city.municipality.csv`
-- `data/res.country.state.csv`
-- `data/res_city_types.xml`
-- `data/res_country_data.xml`
-- `data/src`
-
-## Инсталация
-
-```bash
-# Добавете пътя на репозиторията в Odoo addons_path,
-# след това инсталирайте през UI Apps → търсене 'l10n_bg_city' или през CLI:
-odoo -i l10n_bg_city -d <вашата_база> --stop-after-init
-```
+- EKATTE sync cron изключен по подразбиране докато column mapping не е
+  валидиран срещу реален НСИ deposit ZIP.
+- Първоначалният post-init импорт е голям; очаквайте еднократно
+  забавяне при първа инсталация.
 
 ## Свързани
 
-- Главно репозитори: [`l10n-bulgaria`](../README.md)
-
----
-*Генериран 2026-05-15 от `__manifest__.py` + source layout. Ръчно обогатяване за пълен handbook.*
+- Преглед на репозиторията: [`../OVERVIEW.bg.md`](../OVERVIEW.bg.md)
+- Phase 4.1 sync детайл: `claude.ai/memory/project_payroll_personnel_roadmap_2026_05_13.md`
+- `readme/` — DESCRIPTION / CONTEXT изходни бележки

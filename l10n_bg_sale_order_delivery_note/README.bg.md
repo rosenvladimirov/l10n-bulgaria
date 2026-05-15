@@ -1,39 +1,41 @@
-# Bulgarian Sale Order Delivery Note
+# България — Приемно-предавателен отчет от поръчка
 
-> Acceptance/Delivery doc за SO
+> QWeb PDF "приемно-предавателен" / pro-forma отчет, генериран
+> директно от българска поръчка за продажба.
 
-**Модул:** `l10n_bg_sale_order_delivery_note` | **Версия:** 18.0.1.1.1 | **Лиценз:** LGPL-3 | **Категория:** Sales/Bulgaria
+**Модул:** `l10n_bg_sale_order_delivery_note` | **Версия:** 18.0.1.1.1 | **Лиценз:** LGPL-3 | **Категория:** Localization
 
 ## Описание
 
-Acceptance/Delivery doc за SO
+Българската търговска практика често изисква
+приемно-предавателен / pro-forma документ, издаден на ниво
+**поръчка за продажба** (преди или вместо stock-side приемно-предавателния
+протокол). Този модул добавя този отчет на `sale.order`.
+
+## Какво предоставя
+
+`ir.actions.report` `action_report_pro_forma_invoice` →
+`report_saleorder_delivery_note` (qweb-pdf), bind-нат към `sale.order`,
+така че документът е достъпен от Print менюто на поръчката. Layout-ът
+ползва българския report theme.
 
 ## Зависимости
 
 | Odoo базови | Българска локализация |
 |---|---|
-| `sale`, `base_comment_template` | `l10n_bg_report_theme` |
+| `sale` | `l10n_bg`, `l10n_bg_report_theme` |
 
-## Нови модели
+## Конфигурация
 
-- `sale.order`
+Няма. Инсталирайте — приемно-предавателният отчет се появява в Print
+менюто на поръчката.
 
-## Отчети (reports)
+## Свързани модули
 
-- `report/ir_action_report_templates.xml`
-- `report/ir_actions_report.xml`
-
-## Инсталация
-
-```bash
-# Добавете пътя на репозиторията в Odoo addons_path,
-# след това инсталирайте през UI Apps → търсене 'l10n_bg_sale_order_delivery_note' или през CLI:
-odoo -i l10n_bg_sale_order_delivery_note -d <вашата_база> --stop-after-init
-```
+`l10n_bg_report_stock` предоставя stock-picking-side приемно-предавателния
+протокол + документ; този модул е sale-order-side вариантът.
 
 ## Свързани
 
-- Главно репозитори: [`l10n-bulgaria`](../README.md)
-
----
-*Генериран 2026-05-15 от `__manifest__.py` + source layout. Ръчно обогатяване за пълен handbook.*
+- Преглед на репозиторията: [`../OVERVIEW.bg.md`](../OVERVIEW.bg.md)
+- Stock-side: `l10n_bg_report_stock`

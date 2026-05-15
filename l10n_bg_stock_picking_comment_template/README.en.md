@@ -1,34 +1,45 @@
-# Bulgaria — Stock Picking Comment Template Positioning
+# Bulgaria — Picking Comment-Template Positioning
 
-> Reposition base_comment_template top/bottom blocks on the Bulgarian handover protocol and accepted delivery slip reports
+> Repositions the `base_comment_template` top/bottom blocks on the
+> Bulgarian handover protocol and accepted-delivery slip so the
+> commercial text lands where the BG document layout expects it.
 
-**Module:** `l10n_bg_stock_picking_comment_template` | **Version:** 18.0.1.0.0 | **License:** AGPL-3 | **Category:** Warehouse Management
+**Module:** `l10n_bg_stock_picking_comment_template` | **Version:** 18.0.1.0.0 | **License:** AGPL-3 | **Category:** Localization
 
 ## Overview
 
-Reposition base_comment_template top/bottom blocks on the Bulgarian handover protocol and accepted delivery slip reports
+OCA's `base_comment_template` injects standard top/bottom commercial
+text into reports, but its default anchor points don't match the
+Bulgarian handover-protocol / accepted-delivery layout from
+`l10n_bg_report_stock`. This module re-anchors those comment blocks to
+the correct positions on the BG documents.
+
+## What it does
+
+Inherits `stock.report_delivery_document`:
+
+- `<xpath expr="//div[@id='informations']" position="after">` — top
+  comment block placed after the info block
+- `<xpath expr="//div[@name='signature']" position="before">` — bottom
+  comment block placed before the signature area
+
+Layout-aware via guards (`is_handover_protocol`,
+`l10n_bg_report_stock_accepted`) so it only repositions on the
+relevant BG documents, not on the generic delivery slip.
 
 ## Dependencies
 
 | Odoo core | Bulgarian-localization |
 |---|---|
-| `stock_picking_comment_template` | `l10n_bg_report_stock` |
+| `stock`, `base_comment_template` | `l10n_bg`, `l10n_bg_report_stock` |
 
-## Views
+## Configuration
 
-- `views/report_stock_picking_comments.xml`
-
-## Installation
-
-```bash
-# Add this repository's path to your Odoo addons_path,
-# then install via UI Apps → search 'l10n_bg_stock_picking_comment_template' or via CLI:
-odoo -i l10n_bg_stock_picking_comment_template -d <your_database> --stop-after-init
-```
+None. Install alongside `l10n_bg_report_stock` and
+`base_comment_template`; comment blocks render in the correct place
+on the BG handover/accepted-delivery documents.
 
 ## See also
 
-- Parent repository: [`l10n-bulgaria`](../README.md)
-
----
-*Generated 2026-05-15 from `__manifest__.py` + source layout. Hand-enrich for full handbook coverage.*
+- Parent repo overview: [`../OVERVIEW.md`](../OVERVIEW.md)
+- Documents: `l10n_bg_report_stock`

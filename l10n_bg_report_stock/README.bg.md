@@ -1,40 +1,45 @@
-# L10n Bg Report Stock
+# България — Приемно-предавателни складови документи
 
-> Приемно-предавателни документи в stock picking
+> Добавя българския приемно-предавателен протокол и accepted-delivery
+> slip PDF отчети към складовите pickings.
 
-**Модул:** `l10n_bg_report_stock` | **Версия:** 18.0.1.0.0 | **Лиценз:** AGPL-3 | **Категория:** ?
+**Модул:** `l10n_bg_report_stock` | **Версия:** 18.0.1.0.0 | **Лиценз:** AGPL-3 | **Категория:** Localization
 
 ## Описание
 
-Приемно-предавателни документи в stock picking
+Българските движения на стоки се документират с **приемно-предавателен
+протокол** и **приемно-предавателен документ** — подписано
+доказателство за доставка/приемане, различно от фактурата. Този модул
+добавя тези два PDF отчета към `stock.picking` ползвайки
+section-based `l10n_bg_report_theme` layout-а.
+
+## Какво предоставя
+
+- `report/report_accepted_deliveryslip.xml` — приемно-предавателен документ
+- `report/report_handover_protocol.xml` — приемно-предавателен протокол
+- `report/stock_report_views.xml` — свързва отчетите към picking-а
+- `stock.move.line._get_aggregated_product_quantities()` разширен, така
+  че документите агрегират количествата по българския начин
 
 ## Зависимости
 
 | Odoo базови | Българска локализация |
 |---|---|
-| `stock` | `l10n_bg_report_theme` |
+| `stock` | `l10n_bg`, `l10n_bg_report_theme` |
 
-## Разширени модели
+## Конфигурация
 
-- `stock.move.line` (extension)
+Няма. Инсталирайте — двата отчета се появяват в Print менюто на
+складовите pickings.
 
-## Отчети (reports)
+## Свързани модули
 
-- `report/report_accepted_deliveryslip.xml`
-- `report/report_handover_protocol.xml`
-- `report/stock_report_views.xml`
-
-## Инсталация
-
-```bash
-# Добавете пътя на репозиторията в Odoo addons_path,
-# след това инсталирайте през UI Apps → търсене 'l10n_bg_report_stock' или през CLI:
-odoo -i l10n_bg_report_stock -d <вашата_база> --stop-after-init
-```
+- `l10n_bg_stock_picking_comment_template` — препозиционира
+  base_comment_template блокове на тези документи
+- `l10n_bg_stock_sale_line_description` — добавя SO line description
+- `l10n_bg_sale_order_delivery_note` — SO-side accepted-delivery отчет
 
 ## Свързани
 
-- Главно репозитори: [`l10n-bulgaria`](../README.md)
-
----
-*Генериран 2026-05-15 от `__manifest__.py` + source layout. Ръчно обогатяване за пълен handbook.*
+- Преглед на репозиторията: [`../OVERVIEW.bg.md`](../OVERVIEW.bg.md)
+- Report theme: `l10n_bg_report_theme`

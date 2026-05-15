@@ -92,8 +92,27 @@ class PaymentTransaction(models.Model):
         )
 
     def _mypos_get_return_url(self, kind):
+        """Build URL_OK / URL_Cancel / URL_Notify for the gateway.
+
+        myPOS rejects non-HTTPS notify URLs on production ("transaction
+        reversal" per the official integration checklist). We enforce it
+        early — only test-mode providers are allowed to use http://, and
+        even then with a warning so the dev sees the eventual prod gate.
+        """
         self.ensure_one()
-        base = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
+        base = self.env["ir.config_parameter"].sudo().get_param("web.base.url") or ""
+        if not base.startswith("https://"):
+            if self.provider_id.state != "test":
+                raise ValidationError(_(
+                    "myPOS: web.base.url must be HTTPS for production transactions "
+                    "(current: %s). The gateway reverses transactions whose URL_Notify "
+                    "is not SSL-enabled."
+                ) % base)
+            _logger.warning(
+                "myPOS: web.base.url is not HTTPS (%s) — allowed in test mode only. "
+                "Set base URL to https:// before switching the provider to production.",
+                base,
+            )
         return f"{base}/payment/mypos/{kind}"
 
     def _get_tx_from_notification_data(self, provider_code, notification_data):

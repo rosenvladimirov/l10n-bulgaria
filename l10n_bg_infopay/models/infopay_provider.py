@@ -257,6 +257,14 @@ class InfopayProvider(models.AbstractModel):
     # ръчно докато Borica добави `/domestic-budget-transfers-eur`.
 
     @api.model
+    def _normalize_iban(self, iban):
+        """Borica SEPA endpoint иска compact IBAN.  Odoo съхранява
+        ``res.partner.bank.acc_number`` форматиран с интервали за
+        четимост (``BG08 UBBS 8888 ...``) → 400 „IBAN is not valid!“.
+        Махаме whitespace + uppercase."""
+        return "".join((iban or "").split()).upper()
+
+    @api.model
     def _create_sepa_payment(
         self, session, debtor_iban, creditor_name, creditor_iban,
         amount, description, creditor_country,
@@ -264,7 +272,7 @@ class InfopayProvider(models.AbstractModel):
     ):
         payment = {
             "CreditorName": creditor_name[:35],
-            "CreditorAccount": {"IBAN": creditor_iban},
+            "CreditorAccount": {"IBAN": self._normalize_iban(creditor_iban)},
             "CreditorAddress": {"Country": creditor_country},
             "InstructedAmount": {"Amount": str(amount), "Currency": "EUR"},
             "RemittanceInformationUnstructured": description[:70],
@@ -281,7 +289,7 @@ class InfopayProvider(models.AbstractModel):
             "/api/payments/sepa-credit-transfers",
             session=session,
             json={
-                "DebitorAccount": {"IBAN": debtor_iban},
+                "DebitorAccount": {"IBAN": self._normalize_iban(debtor_iban)},
                 "Payment": payment,
             },
         )
@@ -301,7 +309,9 @@ class InfopayProvider(models.AbstractModel):
         def _entry(p):
             entry = {
                 "CreditorName": p["creditor_name"][:35],
-                "CreditorAccount": {"IBAN": p["creditor_iban"]},
+                "CreditorAccount": {
+                    "IBAN": self._normalize_iban(p["creditor_iban"]),
+                },
                 "CreditorAddress": {"Country": p["country"]},
                 "InstructedAmount": {
                     "Amount": str(p["amount"]),
@@ -318,7 +328,7 @@ class InfopayProvider(models.AbstractModel):
             "/api/bulk-payments/sepa-credit-transfers",
             session=session,
             json={
-                "DebitorAccount": {"IBAN": debtor_iban},
+                "DebitorAccount": {"IBAN": self._normalize_iban(debtor_iban)},
                 "Payments": [_entry(p) for p in payments],
             },
         )

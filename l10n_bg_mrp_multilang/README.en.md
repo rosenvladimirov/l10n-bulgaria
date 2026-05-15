@@ -1,34 +1,34 @@
-# L10n Bg Mrp Multilang
+# Bulgaria — Multilingual MRP Workcenter
 
-> Multilanguage filed for mrp_workcenter name
+> Makes the MRP workcenter name translatable so manufacturing
+> documents print bilingually like the rest of the localization.
 
-**Module:** `l10n_bg_mrp_multilang` | **Version:** 18.0.1.0.0 | **License:** LGPL-3 | **Category:** ?
+**Module:** `l10n_bg_mrp_multilang` | **Version:** 18.0.1.0.0 | **License:** LGPL-3 | **Category:** Localization
 
 ## Overview
 
-Multilanguage filed for mrp_workcenter name
+The multilang stack (`partner_multilang` / `l10n_bg_multilang`) makes
+partner/employee/bank names bilingual. Manufacturing documents
+(work orders, BoM printouts) also show the **workcenter** name — this
+one-field module makes it translatable too, so MRP paperwork stays
+consistent with Bulgarian bilingual requirements.
+
+## What it does
+
+`mrp.workcenter` — `name` set `translate=True`. Nothing else.
 
 ## Dependencies
 
 | Odoo core | Bulgarian-localization |
 |---|---|
-| `mrp` | — |
+| `mrp` | (pairs with `l10n_bg_multilang`) |
 
-## Extended models
+## Configuration
 
-- `mrp.workcenter` (inherited)
-
-## Installation
-
-```bash
-# Add this repository's path to your Odoo addons_path,
-# then install via UI Apps → search 'l10n_bg_mrp_multilang' or via CLI:
-odoo -i l10n_bg_mrp_multilang -d <your_database> --stop-after-init
-```
+None. Install — workcenter names accept per-language values.
 
 ## See also
 
-- Parent repository: [`l10n-bulgaria`](../README.md)
-
----
-*Generated 2026-05-15 from `__manifest__.py` + source layout. Hand-enrich for full handbook coverage.*
+- Parent repo overview: [`../OVERVIEW.md`](../OVERVIEW.md)
+- Multilang core: `partner_multilang`, `l10n_bg_multilang`
+- Sibling: `l10n_bg_project_multilang`

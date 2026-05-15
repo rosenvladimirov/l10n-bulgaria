@@ -1,42 +1,45 @@
-# Account Statement Import Mt940
+# България — MT940 импорт на банкови извлечения
 
-> MT940 банкови извлечения — БГ банки
+> Добавя SWIFT **MT940** формат към Odoo импорта на банкови извлечения,
+> с разхлабен `:28C:` StatementNumber pattern за приемане на експорти
+> от български банки.
 
-**Модул:** `l10n_bg_account_statement_import_mt940` | **Версия:** 18.0.1.0.0 | **Лиценз:** AGPL-3 | **Категория:** ?
+**Модул:** `l10n_bg_account_statement_import_mt940` | **Версия:** 18.0.1.0.0 | **Лиценз:** AGPL-3 | **Категория:** Localization
 
 ## Описание
 
-MT940 банкови извлечения — БГ банки
+Повечето български банки експортират извлечения в **MT940** (SWIFT).
+Odoo core импортът не изброява MT940; а `StatementNumber` regex-ът на
+стандартната `mt940` Python библиотека е по-строг от това, което някои
+български банки емитват. Този модул регистрира формата и patch-ва
+pattern-а, така че тези експорти се парсват чисто.
+
+## Какво прави
+
+- `_get_bank_statements_available_import_formats()` разширен да добави
+  `"mt940"` към поддържаните формати.
+- `mt940.tags.StatementNumber.pattern` override-нат с разхлабен regex,
+  така че `:28C:` полето от български банки се приема.
 
 ## Зависимости
 
-| Odoo базови | Българска локализация |
-|---|---|
-| `account_statement_import_file` | — |
+| Odoo базови | Българска локализация | Python пакет |
+|---|---|---|
+| `account_statement_import` база | `l10n_bg` | `mt940` |
 
-**Python пакети:** `mt-940`
+## Конфигурация
 
-## Разширени модели
+1. Инсталация (`pip install mt940` ако още не е наличен).
+2. Accounting → импорт на банково извлечение → изберете **MT940**
+   формат → качете `.940` / `.sta` файла на банката.
 
-- `account.journal` (extension)
+## Бележка vs InfoPay
 
-## Помощници (wizards)
-
-- `wizard/account_statement_import.py`
-- `wizard/bank_custom_tags.py`
-
-## Инсталация
-
-```bash
-# Добавете пътя на репозиторията в Odoo addons_path,
-# след това инсталирайте през UI Apps → търсене 'l10n_bg_account_statement_import_mt940' или през CLI:
-odoo -i l10n_bg_account_statement_import_mt940 -d <вашата_база> --stop-after-init
-```
+За Borica InfoPay банки предпочитайте live API (`l10n_bg_infopay` +
+bridges) пред MT940 файлов импорт. MT940 е fallback за банки без
+InfoPay канал.
 
 ## Свързани
 
-- Главно репозитори: [`l10n-bulgaria`](../README.md)
-- Модулни тестове: `tests/`
-
----
-*Генериран 2026-05-15 от `__manifest__.py` + source layout. Ръчно обогатяване за пълен handbook.*
+- Преглед на репозиторията: [`../OVERVIEW.bg.md`](../OVERVIEW.bg.md)
+- Live алтернатива: `l10n_bg_infopay`

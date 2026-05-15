@@ -1,47 +1,44 @@
-# HR Org Chart — Multilang Fix
+# HR Org Chart — Multilang JSONB Fix
 
-> Resolve translatable JSONB employee names to plain strings before the hr_org_chart widget renders them.
+> Resolves translatable JSONB employee names to plain strings before
+> the `hr_org_chart` widget renders them — without this the org chart
+> shows raw `{"en_US": ...}` dicts.
 
-**Module:** `hr_org_chart_multilang_fix` | **Version:** 18.0.1.0.0 | **License:** AGPL-3 | **Category:** Human Resources
+**Module:** `hr_org_chart_multilang_fix` | **Version:** 18.0.1.0.0 | **License:** AGPL-3 | **Category:** Localization
 
 ## Overview
 
-HR Org Chart — Multilang Fix
-When ``hr.employee.name`` (or related Char fields) is made translatable by a
-third-party module (e.g. ``l10n_bg_multilang`` + ``partner_multilang``), Odoo
-18 stores the value as a PostgreSQL JSONB column
-(``{"en_US": "...", "bg_BG": "..."}``).
-The Enterprise ``hr_org_chart`` widget pulls employee data through the
-``/hr/get_org_chart`` JSON-RPC route, whose ``_prepare_employee_data``
-controller method serialises ``employee.name`` directly into the response
-payload. Under certain request contexts (no active ``lang``, ``prefetch_langs``
-flag, sudo without lang propagation, etc.), the field arrives at the
-JavaScript layer as the raw JSONB dict, and the OWL template renders it as
-``[object Object]``.
-This patch module overrides ``_prepare_employee_data`` and resolves every
-potentially translatable string field (``name``, ``job_name``, ``job_title``)
+When `partner_multilang` / `l10n_bg_multilang` make
+`hr.employee.name` translatable, Odoo 18 stores it as a PostgreSQL
+**JSONB** column. The `hr_org_chart` OWL widget receives the raw JSONB
+dict and renders it literally (`{"en_US": "...", "bg_BG": "..."}`)
+instead of the name. This patch resolves the value to a plain string
+for the active language before it reaches the JavaScript layer.
+
+## What it does
+
+Overrides `_prepare_employee_data` and resolves every name-like field
+from its JSONB form to the active-language string. If the multilang
+modules are not installed (no JSONB), the patch is a **no-op** — safe
+to install regardless.
 
 ## Dependencies
 
 | Odoo core | Bulgarian-localization |
 |---|---|
-| `hr_org_chart` | — |
+| `hr_org_chart` | (effective only with `l10n_bg_multilang`/`partner_multilang`) |
 
-## Controllers
+## Configuration
 
-- `controllers/hr_org_chart.py`
+None. Install — the org chart renders proper names.
 
-## Installation
+## Related JSONB-fix modules
 
-```bash
-# Add this repository's path to your Odoo addons_path,
-# then install via UI Apps → search 'hr_org_chart_multilang_fix' or via CLI:
-odoo -i hr_org_chart_multilang_fix -d <your_database> --stop-after-init
-```
+This is one of the JSONB-name compatibility shims; the other is
+`l10n_bg_account_reconcile_patch` (fixes JSONB names in bank-statement
+reconciliation). See `partner_multilang` for the root cause.
 
 ## See also
 
-- Parent repository: [`l10n-bulgaria`](../README.md)
-
----
-*Generated 2026-05-15 from `__manifest__.py` + source layout. Hand-enrich for full handbook coverage.*
+- Parent repo overview: [`../OVERVIEW.md`](../OVERVIEW.md)
+- Root cause: `partner_multilang` (JSONB names)

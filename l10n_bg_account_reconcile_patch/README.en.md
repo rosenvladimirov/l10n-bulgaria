@@ -1,32 +1,46 @@
-# Account Reconcile Partner Regex SQL Fix
+# Bulgaria — Account Reconcile JSONB-Name Fix
 
-**Module:** `l10n_bg_account_reconcile_patch` | **Version:** 18.0.1.0.0 | **License:** OPL-1 | **Category:** ?
+> Patches bank-statement reconciliation so partner matching works when
+> partner names are stored as translatable JSONB (the
+> `partner_multilang` side-effect).
+
+**Module:** `l10n_bg_account_reconcile_patch` | **Version:** 18.0.1.0.0 | **License:** OPL-1 | **Category:** Localization
 
 ## Overview
 
-Fix partner name regexp_matches for translated jsonb names.
+When `partner_multilang` makes `res.partner.name` a translatable
+**JSONB** column, Odoo's bank-statement reconciliation partner-matching
+runs `regexp_matches` against the raw JSONB and fails to find the
+partner. This module monkey-patches the matching logic to resolve the
+JSONB name first, so auto-reconciliation keeps working in a
+multilingual database.
+
+## What it does
+
+Via a `post_load_hook` (monkey-patch, no model changes):
+
+- `_retrieve_partner_patch` — replaces the partner-retrieval logic;
+  the SQL `regexp_matches(...)` now operates on the resolved name text
+  instead of the JSONB blob.
+- `_get_st_line_strings_for_matching` — adjusted so the statement-line
+  strings compare against the proper name representation.
 
 ## Dependencies
 
 | Odoo core | Bulgarian-localization |
 |---|---|
-| `account_reconcile_model_oca` | — |
+| `account_accountant` (reconcile) | effective with `partner_multilang` |
 
-## Installation
+## Configuration
 
-```bash
-# Add this repository's path to your Odoo addons_path,
-# then install via UI Apps → search 'l10n_bg_account_reconcile_patch' or via CLI:
-odoo -i l10n_bg_account_reconcile_patch -d <your_database> --stop-after-init
-```
+None. Install — reconciliation partner matching tolerates JSONB names.
 
-## Licensing
+## Related JSONB-fix modules
 
-OPL-1 commercial add-on. Production use requires a paid license via the Bulgaria-localization vendor.
+Companion to `hr_org_chart_multilang_fix` (org-chart JSONB names).
+Root cause documented in `partner_multilang`.
 
 ## See also
 
-- Parent repository: [`l10n-bulgaria`](../README.md)
-
----
-*Generated 2026-05-15 from `__manifest__.py` + source layout. Hand-enrich for full handbook coverage.*
+- Parent repo overview: [`../OVERVIEW.md`](../OVERVIEW.md)
+- Root cause: `partner_multilang`

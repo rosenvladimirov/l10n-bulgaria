@@ -1,34 +1,46 @@
-# Account Reconcile Partner Regex SQL Fix
+# България — Account Reconcile JSONB-Name поправка
 
-> Поправка на partner-name regex за JSONB
+> Patch-ва bank-statement reconciliation, така че partner matching-ът
+> работи когато partner имената са съхранени като преводим JSONB
+> (страничен ефект от `partner_multilang`).
 
-**Модул:** `l10n_bg_account_reconcile_patch` | **Версия:** 18.0.1.0.0 | **Лиценз:** OPL-1 | **Категория:** ?
+**Модул:** `l10n_bg_account_reconcile_patch` | **Версия:** 18.0.1.0.0 | **Лиценз:** OPL-1 | **Категория:** Localization
 
 ## Описание
 
-Поправка на partner-name regex за JSONB
+Когато `partner_multilang` направи `res.partner.name` преводима
+**JSONB** колона, Odoo bank-statement reconciliation partner-matching
+изпълнява `regexp_matches` срещу суровия JSONB и не намира партньора.
+Този модул monkey-patch-ва matching логиката да резолва JSONB името
+първо, така че auto-reconciliation продължава да работи в многоезична
+база.
+
+## Какво прави
+
+Чрез `post_load_hook` (monkey-patch, без model промени):
+
+- `_retrieve_partner_patch` — заменя partner-retrieval логиката;
+  SQL `regexp_matches(...)` сега оперира върху резолвнатия текст на
+  името вместо JSONB blob-а.
+- `_get_st_line_strings_for_matching` — настроен, така че
+  statement-line низовете сравняват срещу правилната name репрезентация.
 
 ## Зависимости
 
 | Odoo базови | Българска локализация |
 |---|---|
-| `account_reconcile_model_oca` | — |
+| `account_accountant` (reconcile) | ефективен с `partner_multilang` |
 
-## Инсталация
+## Конфигурация
 
-```bash
-# Добавете пътя на репозиторията в Odoo addons_path,
-# след това инсталирайте през UI Apps → търсене 'l10n_bg_account_reconcile_patch' или през CLI:
-odoo -i l10n_bg_account_reconcile_patch -d <вашата_база> --stop-after-init
-```
+Няма. Инсталирайте — reconciliation partner matching толерира JSONB имена.
 
-## Лицензиране
+## Свързани JSONB-fix модули
 
-OPL-1 комерсиален add-on. Production използване изисква платен лиценз от доставчика на българската локализация.
+Companion на `hr_org_chart_multilang_fix` (org-chart JSONB имена).
+Root cause документиран в `partner_multilang`.
 
 ## Свързани
 
-- Главно репозитори: [`l10n-bulgaria`](../README.md)
-
----
-*Генериран 2026-05-15 от `__manifest__.py` + source layout. Ръчно обогатяване за пълен handbook.*
+- Преглед на репозиторията: [`../OVERVIEW.bg.md`](../OVERVIEW.bg.md)
+- Root cause: `partner_multilang`

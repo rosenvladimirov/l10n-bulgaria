@@ -16,7 +16,7 @@ Payment Provider: myPOS
 
 |badge1| |badge2|
 
-This module integrates the **myPOS Checkout API v1.4** as an Odoo
+This module integrates the **myPOS Checkout API v1.4.1** as an Odoo
 ``payment.provider``. Designed for use in 30+ EU countries where myPOS
 operates.
 
@@ -31,16 +31,38 @@ Features
 * REST-based redirect flow (IPCPurchase opcode)
 * 3-D Secure 2.x authentication via myPOS hosted page
 * Server-to-server notification (S2S) handler at ``/payment/mypos/notify``
-* RSA-SHA256 request signing + response verification
+* RSA-SHA256 request signing + response verification (byte-identical to
+  the official myPOS PHP SDK)
+* Server-to-server refunds (IPCRefund) with AUP-enforced binding to the
+  original captured transaction
+* Partner API credentials (clientId / clientSecret) stored encrypted in
+  the company-owner's ``crypto.wallet`` — never on the model
+* HTTPS-enforced ``URL_Notify`` (production state)
 * Sandbox + production endpoint switching via provider state
 
 Configuration
 =============
 
-#. Install ``payment_mypos``
+#. Install ``payment_mypos`` (pulls in ``l10n_bg_bank_wallet``)
 #. Go to **Accounting → Configuration → Payment Providers**
 #. Edit *myPOS* — set state to *Test* or *Enabled*
-#. Fill in: Store ID, Wallet Number, Key Index, Private Key, Public Cert
+#. Fill in store-level credentials: Store ID, Wallet Number, Key Index,
+   Private Key, Public Cert
+#. Fill in integration identifiers: Application ID (``mps-app-…``),
+   Partner ID (``mps-p-…``) — required for refunds under v1.4.1
+#. Load partner API credentials via **Load myPOS API Credentials**
+   wizard (paste the JSON from ``tools/mypos_browser credentials
+   --integration-id N``) — stored in the owner's wallet
+
+Onboarding a merchant
+---------------------
+
+The Partner Portal integration is partner-level. Each merchant that
+wants to accept payments through it links their own myPOS *Store* via
+the partner-integration invitation URL surfaced at credential-generation
+time (``merchant.mypos.com/partners-integration?message=…``). The
+merchant's Store carries its own SID / Wallet / RSA key pair — those go
+in the per-company provider record above.
 
 Sandbox credentials
 -------------------
@@ -54,6 +76,13 @@ For development and testing, use these public sandbox values from
 * **Key Index:** ``1``
 
 3-D Secure is **not enforced** in sandbox; signatures are still required.
+
+A self-generated RSA-2048 key pair is sufficient for unit tests (the
+suite generates one in ``tests/test_signature.py``). End-to-end testing
+against the live sandbox gateway additionally requires a merchant Store
+linked to the integration.
+
+See ``CHANGELOG.md`` for the full version history.
 
 Bug Tracker
 ===========

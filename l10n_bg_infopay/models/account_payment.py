@@ -134,6 +134,7 @@ class AccountPayment(models.Model):
             self.currency_id.name,
             sca_url,
         )
+        self._l10n_bg_infopay_enqueue_poll()
         return result
 
     # ── status polling ────────────────────────────────────────────────
@@ -295,6 +296,49 @@ class AccountPayment(models.Model):
 
     # ── bulk submit helper ────────────────────────────────────────────
 
+    # async status poll (queue_job via l10n_bg_queue_poll)
+
+    def _l10n_bg_infopay_queue_poll(self):
+        """Poll non-final InfoPay payments in ``self`` once and handle
+        final states; return True when none remain pending.
+
+        Consumed by ``queue.poll`` -- truthy stops the poll loop.
+        """
+        resolved = INFOPAY_FINAL_OK | INFOPAY_FINAL_FAIL
+        pending = self.filtered(
+            lambda p: p.l10n_bg_infopay_payment_id
+            and p.l10n_bg_infopay_status not in resolved
+        )
+        if pending:
+            pending._infopay_pull_status()
+        still = self.filtered(
+            lambda p: p.l10n_bg_infopay_payment_id
+            and p.l10n_bg_infopay_status not in resolved
+        )
+        return not still
+
+    def _l10n_bg_infopay_enqueue_poll(self):
+        """Enqueue async status polling with adaptive backoff + live
+        refresh of the payment form (l10n_bg_queue_poll).  cron 42 stays
+        disabled as a manual safety-net.
+        """
+        targets = self.filtered("l10n_bg_infopay_payment_id")
+        if not targets:
+            return
+        self.env["queue.poll"].start(
+            "account.payment",
+            targets.ids,
+            "_l10n_bg_infopay_queue_poll",
+            refresh={
+                "model": "account.payment",
+                "res_ids": targets.ids,
+                "mode": "record",
+            },
+            identity_key="infopay-poll-%s" % (
+                ",".join(str(i) for i in sorted(targets.ids)),
+            ),
+        )
+
     def _infopay_submit_bulk(self):
         """Submit multiple payments as a single bulk order.
 
@@ -374,4 +418,5 @@ class AccountPayment(models.Model):
             "l10n_bg_infopay_status": result.get("TransactionStatus"),
             "l10n_bg_infopay_bulk": True,
         })
+        self._l10n_bg_infopay_enqueue_poll()
         return result

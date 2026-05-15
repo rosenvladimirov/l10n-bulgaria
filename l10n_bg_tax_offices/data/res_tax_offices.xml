@@ -18,7 +18,6 @@
         <field name="country_id" ref="base.bg" />
         <field name="zip">1000</field>
         <field name="phone">0700 18 700</field>
-        <field name="mobile">+359 2 9859 6801</field>
         <field name="email">infocenter@nra.bg</field>
         <field name="company_type">company</field>
         <field name="vat">BG131063188</field>

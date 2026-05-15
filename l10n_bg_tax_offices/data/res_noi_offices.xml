@@ -16,7 +16,6 @@
         <field name="country_id" ref="base.bg" />
         <field name="zip">1303</field>
         <field name="phone">0700 14 802</field>
-        <field name="mobile">+359 2 902 0506</field>
         <field name="email">noi@nssi.bg</field>
         <field name="website">https://nssi.bg</field>
         <field name="company_type">company</field>

@@ -45,6 +45,10 @@ class InfopayProvider(models.AbstractModel):
             headers["SessionId"] = session["session_id"]
             headers["SessionKey"] = session["session_key"]
         headers.setdefault("Content-Type", "application/json")
+        # Azure Application Gateway пред InfoPay блокира default User-Agent
+        # на `requests` (python-requests/X.Y) с 403 Forbidden.  Всеки
+        # друг non-default UA минава — задаваме стабилен наш identifier.
+        headers.setdefault("User-Agent", "Odoo-InfoPay/1.0 (+l10n_bg_infopay)")
 
         try:
             resp = requests.request(
@@ -197,9 +201,13 @@ class InfopayProvider(models.AbstractModel):
         all_transactions = []
         balances = []
         endpoint = f"/api/accounts/{account_id}/transactions"
+        # withBalance=true е необходимо, за да върне Borica `Balances`
+        # масив (ActualBalance / AvailableBalance / BeginDay) — без
+        # него bank statement-а в Odoo остава без начално салдо.
         params = {
             "dateFrom": date_from.isoformat(),
             "dateTo": date_to.isoformat(),
+            "withBalance": "true",
         }
 
         while endpoint:
@@ -235,32 +243,26 @@ class InfopayProvider(models.AbstractModel):
         return result.get("NotSyncedTransactionsDates", [])
 
     # ── single payments ───────────────────────────────────────────────
+    # След влизането на България в еврозоната от 01.01.2026 Borica
+    # маркира трите `-bgn` endpoint-а като ``deprecated: true`` в
+    # integration_openapi.yaml:
+    #
+    #   • /api/payments/domestic-credit-transfers-bgn
+    #   • /api/payments/domestic-budget-transfers-bgn
+    #   • /api/bulk-payments/domestic-credit-transfers-bgn
+    #
+    # Всички плащания (single + bulk, domestic + EU) минават през
+    # SEPA EUR endpoint-ите.  Budget endpoint в EUR все още не е
+    # публикуван — за НАП/мита/община се ползва банковият портал
+    # ръчно докато Borica добави `/domestic-budget-transfers-eur`.
 
     @api.model
-    def _create_domestic_payment(
-        self, session, debtor_iban, creditor_name, creditor_iban,
-        amount, description, service_level=None, end_to_end_id=None,
-    ):
-        payment = {
-            "CreditorName": creditor_name[:35],
-            "CreditorAccount": {"IBAN": creditor_iban},
-            "InstructedAmount": {"Amount": str(amount), "Currency": "BGN"},
-            "RemittanceInformationUnstructured": description[:70],
-        }
-        if service_level:
-            payment["ServiceLevel"] = service_level
-        if end_to_end_id:
-            payment["EndToEndIdentification"] = end_to_end_id[:35]
-
-        return self._request(
-            "POST",
-            "/api/payments/domestic-credit-transfers-bgn",
-            session=session,
-            json={
-                "DebitorAccount": {"IBAN": debtor_iban},
-                "Payment": payment,
-            },
-        )
+    def _normalize_iban(self, iban):
+        """Borica SEPA endpoint иска compact IBAN.  Odoo съхранява
+        ``res.partner.bank.acc_number`` форматиран с интервали за
+        четимост (``BG08 UBBS 8888 ...``) → 400 „IBAN is not valid!“.
+        Махаме whitespace + uppercase."""
+        return "".join((iban or "").split()).upper()
 
     @api.model
     def _create_sepa_payment(
@@ -270,7 +272,7 @@ class InfopayProvider(models.AbstractModel):
     ):
         payment = {
             "CreditorName": creditor_name[:35],
-            "CreditorAccount": {"IBAN": creditor_iban},
+            "CreditorAccount": {"IBAN": self._normalize_iban(creditor_iban)},
             "CreditorAddress": {"Country": creditor_country},
             "InstructedAmount": {"Amount": str(amount), "Currency": "EUR"},
             "RemittanceInformationUnstructured": description[:70],
@@ -287,100 +289,65 @@ class InfopayProvider(models.AbstractModel):
             "/api/payments/sepa-credit-transfers",
             session=session,
             json={
-                "DebitorAccount": {"IBAN": debtor_iban},
+                "DebitorAccount": {"IBAN": self._normalize_iban(debtor_iban)},
                 "Payment": payment,
             },
-        )
-
-    @api.model
-    def _create_budget_payment(
-        self, session, debtor_iban, creditor_name, creditor_iban,
-        amount, description, ultimate_debtor, tax_payer_id, tax_payer_type,
-        service_level=None, end_to_end_id=None,
-    ):
-        data = {
-            "DebitorAccount": {"IBAN": debtor_iban},
-            "CreditorName": creditor_name[:35],
-            "CreditorAccount": {"IBAN": creditor_iban},
-            "InstructedAmount": {"Amount": str(amount), "Currency": "BGN"},
-            "RemittanceInformationUnstructured": description[:70],
-            "UltimateDebtor": ultimate_debtor,
-            "BudgetPaymentDetails": {
-                "TaxPayerId": tax_payer_id,
-                "TaxPayerType": tax_payer_type,
-            },
-        }
-        if service_level:
-            data["ServiceLevel"] = service_level
-        if end_to_end_id:
-            data["EndToEndIdentification"] = end_to_end_id[:35]
-
-        return self._request(
-            "POST",
-            "/api/payments/domestic-budget-transfers-bgn",
-            session=session,
-            json=data,
         )
 
     # ── bulk payments ─────────────────────────────────────────────────
 
     @api.model
-    def _create_bulk_domestic_payments(self, session, debtor_iban, payments):
-        """*payments*: list of dicts ``{creditor_name, creditor_iban,
-        amount, description}``.  Min 2 / max 250 items.
-        """
-        return self._request(
-            "POST",
-            "/api/bulk-payments/domestic-credit-transfers-bgn",
-            session=session,
-            json={
-                "DebitorAccount": {"IBAN": debtor_iban},
-                "Payments": [
-                    {
-                        "CreditorName": p["creditor_name"][:35],
-                        "CreditorAccount": {"IBAN": p["creditor_iban"]},
-                        "InstructedAmount": {
-                            "Amount": str(p["amount"]),
-                            "Currency": "BGN",
-                        },
-                        "RemittanceInformationUnstructured": p["description"][:70],
-                    }
-                    for p in payments
-                ],
-            },
-        )
-
-    @api.model
-    def _create_bulk_sepa_payments(self, session, debtor_iban, payments):
+    def _create_bulk_sepa_payments(
+        self, session, debtor_iban, payments, service_level=None,
+    ):
         """*payments*: list of dicts ``{creditor_name, creditor_iban,
         amount, description, country}``.  Min 2 / max 250 items.
+
+        ``service_level`` ∈ ``SEPA`` | ``INST`` — слага се на всеки
+        payment ако е подаден (Borica ``EnumSepaServiceLevel``).
         """
+        def _entry(p):
+            entry = {
+                "CreditorName": p["creditor_name"][:35],
+                "CreditorAccount": {
+                    "IBAN": self._normalize_iban(p["creditor_iban"]),
+                },
+                "CreditorAddress": {"Country": p["country"]},
+                "InstructedAmount": {
+                    "Amount": str(p["amount"]),
+                    "Currency": "EUR",
+                },
+                "RemittanceInformationUnstructured": p["description"][:70],
+            }
+            if service_level:
+                entry["ServiceLevel"] = service_level
+            return entry
+
         return self._request(
             "POST",
             "/api/bulk-payments/sepa-credit-transfers",
             session=session,
             json={
-                "DebitorAccount": {"IBAN": debtor_iban},
-                "Payments": [
-                    {
-                        "CreditorName": p["creditor_name"][:35],
-                        "CreditorAccount": {"IBAN": p["creditor_iban"]},
-                        "CreditorAddress": {"Country": p["country"]},
-                        "InstructedAmount": {
-                            "Amount": str(p["amount"]),
-                            "Currency": "EUR",
-                        },
-                        "RemittanceInformationUnstructured": p["description"][:70],
-                    }
-                    for p in payments
-                ],
+                "DebitorAccount": {"IBAN": self._normalize_iban(debtor_iban)},
+                "Payments": [_entry(p) for p in payments],
             },
         )
 
     # ── payment status ────────────────────────────────────────────────
 
     @api.model
-    def _get_payment_status(self, session, payment_id, bulk=False):
+    def _get_payment_status(
+        self, session, payment_id, bulk=False, status_url=None,
+    ):
+        """Provери статуса на плащане.
+
+        Ако ``status_url`` е подаден (``Links.Status`` от payment
+        response-а), ползва го директно — Borica контролира URL-а,
+        по-надеждно от конструиране.  ``_request`` приема пълен URL.
+        Иначе fallback към конструиран endpoint по ``payment_id``.
+        """
+        if status_url:
+            return self._request("GET", status_url, session=session)
         prefix = "bulk-payments" if bulk else "payments"
         return self._request(
             "GET", f"/api/{prefix}/{payment_id}/status", session=session

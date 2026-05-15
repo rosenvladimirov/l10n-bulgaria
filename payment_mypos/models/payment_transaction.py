@@ -4,7 +4,7 @@
 import logging
 from collections import OrderedDict
 
-from odoo import _, models
+from odoo import _, api, models
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -115,34 +115,57 @@ class PaymentTransaction(models.Model):
             )
         return f"{base}/payment/mypos/{kind}"
 
-    def _get_tx_from_notification_data(self, provider_code, notification_data):
-        tx = super()._get_tx_from_notification_data(provider_code, notification_data)
-        if provider_code != "mypos" or len(tx) == 1:
-            return tx
-        reference = notification_data.get("OrderID") or notification_data.get("order_id")
-        if not reference:
-            raise ValidationError(_("myPOS: missing OrderID in notification"))
-        tx = self.search([("reference", "=", reference), ("provider_code", "=", "mypos")])
-        if not tx:
-            raise ValidationError(
-                _("myPOS: no transaction found for reference %s") % reference
-            )
-        return tx
+    # ──────────────────────────────────────────────────────────────────
+    # Odoo 19 hook overrides
+    # ──────────────────────────────────────────────────────────────────
+    # Odoo 19 split the old `_process_notification_data` into a small
+    # composable set of methods on payment.transaction:
+    #
+    #   _process(provider_code, payment_data)         — entry; routes to:
+    #     _search_by_reference()  → uses _extract_reference (we override)
+    #     _validate_amount()      → uses _extract_amount_data (default OK)
+    #     _apply_updates()        → vendor hook (we override)
+    #     _tokenize()             → only when self.tokenize is set
+    #
+    # The Odoo 18 module had its own `_process_notification_data` and
+    # `_get_tx_from_notification_data` overrides; the equivalents here are
+    # `_apply_updates` and `_extract_reference` respectively. Signature
+    # verification happens inside `_apply_updates` (early-return on bad
+    # sig sets the tx to error state via `_set_error`).
 
-    def _process_notification_data(self, notification_data):
-        super()._process_notification_data(notification_data)
-        if self.provider_code != "mypos":
-            return
-
-        signature = notification_data.pop("Signature", None) or notification_data.pop(
-            "signature", None
+    @api.model
+    def _extract_reference(self, provider_code, payment_data):
+        """Pull OrderID out of myPOS callbacks; defer to upstream otherwise."""
+        if provider_code != "mypos":
+            return super()._extract_reference(provider_code, payment_data)
+        return (
+            payment_data.get("OrderID")
+            or payment_data.get("order_id")
+            or payment_data.get("reference")
+            or ""
         )
+
+    def _apply_updates(self, payment_data):
+        """myPOS state machine: verify signature, capture IPC_Trnref, transition state.
+
+        Mirrors the Odoo 18 implementation in `_process_notification_data`
+        but split into the new Odoo 19 hook surface. The amount-validation
+        step from `_validate_amount` ran upstream before us; if it failed
+        the tx is already in error and we short-circuit.
+        """
+        if self.provider_code != "mypos":
+            return super()._apply_updates(payment_data)
+
+        if self.state == "error":
+            return  # amount mismatch — _validate_amount already set the message
+
+        signature = payment_data.pop("Signature", None) or payment_data.pop("signature", None)
         if not signature:
             self._set_error(_("myPOS: notification missing signature"))
             return
 
         signed_fields = OrderedDict(
-            (k, v) for k, v in notification_data.items() if k != "Signature"
+            (k, v) for k, v in payment_data.items() if k != "Signature"
         )
         if not self.provider_id._mypos_verify(signed_fields, signature):
             _logger.warning("myPOS: invalid signature on notification for %s", self.reference)
@@ -150,19 +173,17 @@ class PaymentTransaction(models.Model):
             return
 
         # Capture gateway transaction reference for downstream Refund/Void calls
-        # — IPCRefund / IPCVoid both require IPC_Trnref from the original purchase.
-        trnref = notification_data.get("IPC_Trnref") or notification_data.get("Trnref")
+        trnref = payment_data.get("IPC_Trnref") or payment_data.get("Trnref")
         if trnref and not self.provider_reference:
             self.provider_reference = trnref
 
-        status = notification_data.get("Status") or notification_data.get("status")
+        status = payment_data.get("Status") or payment_data.get("status")
         status_key = str(status) if status is not None else ""
 
         if status_key in ("0", "success"):
             self._set_done()
         elif status_key == "20":
-            # DUPLICATE_TRANSMISSION — myPOS retried because it didn't get an OK
-            # back. Safe no-op: caller returns "OK" so the gateway stops retrying.
+            # DUPLICATE_TRANSMISSION — myPOS retried; idempotent no-op.
             _logger.info(
                 "myPOS: duplicate-transmission notify for %s (state=%s) — idempotent no-op",
                 self.reference, self.state,

@@ -69,7 +69,7 @@ class TestMyPosNotificationFlow(TransactionCase):
             ("Amount", "12.50"),
             ("Currency", "EUR"),
         ]))
-        tx._process_notification_data(data)
+        tx._apply_updates(data)
         self.assertEqual(tx.state, "done")
         self.assertEqual(tx.provider_reference, "MYPOS-TXREF-9999",
             "IPC_Trnref must be captured for downstream refund/void calls")
@@ -90,7 +90,7 @@ class TestMyPosNotificationFlow(TransactionCase):
             ("OrderID", tx.reference),
             ("Status", "cancel"),
         ]))
-        tx._process_notification_data(data)
+        tx._apply_updates(data)
         self.assertEqual(tx.state, "cancel")
 
     def test_notification_unsigned_status_injection_rejected(self):
@@ -104,7 +104,7 @@ class TestMyPosNotificationFlow(TransactionCase):
         ]))
         # Now an attacker (or buggy controller) appends Status post-sign:
         signed["Status"] = "0"
-        tx._process_notification_data(signed)
+        tx._apply_updates(signed)
         # Must NOT transition to done — signature verification must fail
         self.assertNotEqual(tx.state, "done")
 
@@ -119,7 +119,7 @@ class TestMyPosNotificationFlow(TransactionCase):
             ("OrderID", tx.reference),
             ("Status", "0"),
         ]))
-        tx._process_notification_data(ok)
+        tx._apply_updates(ok)
         self.assertEqual(tx.state, "done")
 
         # Gateway retries with DUPLICATE_TRANSMISSION marker
@@ -128,7 +128,7 @@ class TestMyPosNotificationFlow(TransactionCase):
             ("OrderID", tx.reference),
             ("Status", "20"),
         ]))
-        tx._process_notification_data(dup)
+        tx._apply_updates(dup)
         # State must remain "done", not flipped to "error"
         self.assertEqual(tx.state, "done")
 
@@ -142,7 +142,7 @@ class TestMyPosNotificationFlow(TransactionCase):
             ("OrderID", tx.reference),
             ("Status", "9"),
         ]))
-        tx._process_notification_data(data)
+        tx._apply_updates(data)
         self.assertEqual(tx.state, "error")
         # The state_message must contain the mapped label so support staff
         # can diagnose without consulting myPOS docs each time.
@@ -159,7 +159,7 @@ class TestMyPosNotificationFlow(TransactionCase):
             ("Status", "0"),
             ("IPC_Trnref", "FIRST-TXREF"),
         ]))
-        tx._process_notification_data(first)
+        tx._apply_updates(first)
         self.assertEqual(tx.provider_reference, "FIRST-TXREF")
 
         # A retry with a different trnref (shouldn't happen in practice, but
@@ -170,5 +170,5 @@ class TestMyPosNotificationFlow(TransactionCase):
             ("Status", "20"),
             ("IPC_Trnref", "DIFFERENT-TXREF"),
         ]))
-        tx._process_notification_data(second)
+        tx._apply_updates(second)
         self.assertEqual(tx.provider_reference, "FIRST-TXREF")

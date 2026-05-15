@@ -243,32 +243,18 @@ class InfopayProvider(models.AbstractModel):
         return result.get("NotSyncedTransactionsDates", [])
 
     # ── single payments ───────────────────────────────────────────────
-
-    @api.model
-    def _create_domestic_payment(
-        self, session, debtor_iban, creditor_name, creditor_iban,
-        amount, description, service_level=None, end_to_end_id=None,
-    ):
-        payment = {
-            "CreditorName": creditor_name[:35],
-            "CreditorAccount": {"IBAN": creditor_iban},
-            "InstructedAmount": {"Amount": str(amount), "Currency": "BGN"},
-            "RemittanceInformationUnstructured": description[:70],
-        }
-        if service_level:
-            payment["ServiceLevel"] = service_level
-        if end_to_end_id:
-            payment["EndToEndIdentification"] = end_to_end_id[:35]
-
-        return self._request(
-            "POST",
-            "/api/payments/domestic-credit-transfers-bgn",
-            session=session,
-            json={
-                "DebitorAccount": {"IBAN": debtor_iban},
-                "Payment": payment,
-            },
-        )
+    # След влизането на България в еврозоната от 01.01.2026 Borica
+    # маркира трите `-bgn` endpoint-а като ``deprecated: true`` в
+    # integration_openapi.yaml:
+    #
+    #   • /api/payments/domestic-credit-transfers-bgn
+    #   • /api/payments/domestic-budget-transfers-bgn
+    #   • /api/bulk-payments/domestic-credit-transfers-bgn
+    #
+    # Всички плащания (single + bulk, domestic + EU) минават през
+    # SEPA EUR endpoint-ите.  Budget endpoint в EUR все още не е
+    # публикуван — за НАП/мита/община се ползва банковият портал
+    # ръчно докато Borica добави `/domestic-budget-transfers-eur`.
 
     @api.model
     def _create_sepa_payment(
@@ -300,63 +286,7 @@ class InfopayProvider(models.AbstractModel):
             },
         )
 
-    @api.model
-    def _create_budget_payment(
-        self, session, debtor_iban, creditor_name, creditor_iban,
-        amount, description, ultimate_debtor, tax_payer_id, tax_payer_type,
-        service_level=None, end_to_end_id=None,
-    ):
-        data = {
-            "DebitorAccount": {"IBAN": debtor_iban},
-            "CreditorName": creditor_name[:35],
-            "CreditorAccount": {"IBAN": creditor_iban},
-            "InstructedAmount": {"Amount": str(amount), "Currency": "BGN"},
-            "RemittanceInformationUnstructured": description[:70],
-            "UltimateDebtor": ultimate_debtor,
-            "BudgetPaymentDetails": {
-                "TaxPayerId": tax_payer_id,
-                "TaxPayerType": tax_payer_type,
-            },
-        }
-        if service_level:
-            data["ServiceLevel"] = service_level
-        if end_to_end_id:
-            data["EndToEndIdentification"] = end_to_end_id[:35]
-
-        return self._request(
-            "POST",
-            "/api/payments/domestic-budget-transfers-bgn",
-            session=session,
-            json=data,
-        )
-
     # ── bulk payments ─────────────────────────────────────────────────
-
-    @api.model
-    def _create_bulk_domestic_payments(self, session, debtor_iban, payments):
-        """*payments*: list of dicts ``{creditor_name, creditor_iban,
-        amount, description}``.  Min 2 / max 250 items.
-        """
-        return self._request(
-            "POST",
-            "/api/bulk-payments/domestic-credit-transfers-bgn",
-            session=session,
-            json={
-                "DebitorAccount": {"IBAN": debtor_iban},
-                "Payments": [
-                    {
-                        "CreditorName": p["creditor_name"][:35],
-                        "CreditorAccount": {"IBAN": p["creditor_iban"]},
-                        "InstructedAmount": {
-                            "Amount": str(p["amount"]),
-                            "Currency": "BGN",
-                        },
-                        "RemittanceInformationUnstructured": p["description"][:70],
-                    }
-                    for p in payments
-                ],
-            },
-        )
 
     @api.model
     def _create_bulk_sepa_payments(self, session, debtor_iban, payments):

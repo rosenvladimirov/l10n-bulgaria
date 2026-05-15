@@ -81,40 +81,30 @@ class AccountPayment(models.Model):
         creditor_name = self.partner_id.name or ""
         description = self.ref or self.name or ""
 
+        currency_name = self.currency_id.name
+        if currency_name != "EUR":
+            raise UserError(
+                self.env._(
+                    "InfoPay supports only EUR payments since 01.01.2026 "
+                    "(BG eurozone entry).  Currency '%s' is not supported.",
+                    currency_name,
+                )
+            )
+        country = (
+            self.partner_id.country_id.code
+            or partner_bank.acc_number[:2]
+            or "BG"
+        )
         with journal._infopay_session() as (provider, session):
-            currency_name = self.currency_id.name
-            if currency_name == "BGN":
-                result = provider._create_domestic_payment(
-                    session,
-                    debtor_iban,
-                    creditor_name,
-                    creditor_iban,
-                    self.amount,
-                    description,
-                )
-            elif currency_name == "EUR":
-                country = (
-                    self.partner_id.country_id.code
-                    or partner_bank.acc_number[:2]  # first 2 chars of IBAN
-                    or "BG"
-                )
-                result = provider._create_sepa_payment(
-                    session,
-                    debtor_iban,
-                    creditor_name,
-                    creditor_iban,
-                    self.amount,
-                    description,
-                    creditor_country=country,
-                )
-            else:
-                raise UserError(
-                    self.env._(
-                        "InfoPay supports only BGN and EUR payments.  "
-                        "Currency '%s' is not supported.",
-                        currency_name,
-                    )
-                )
+            result = provider._create_sepa_payment(
+                session,
+                debtor_iban,
+                creditor_name,
+                creditor_iban,
+                self.amount,
+                description,
+                creditor_country=country,
+            )
 
         sca_url = (result.get("Links") or {}).get("ScaRedirect")
         self.write({
@@ -130,56 +120,6 @@ class AccountPayment(models.Model):
             self.currency_id.name,
             sca_url,
         )
-        return result
-
-    def _infopay_submit_budget(
-        self, ultimate_debtor, tax_payer_id, tax_payer_type,
-        service_level=None,
-    ):
-        """Submit a budget/tax payment to InfoPay.
-
-        Only BGN domestic budget transfers are supported.
-        ``tax_payer_type``: ``'EGN'``, ``'EIK'`` or ``'PNF'``.
-        """
-        self.ensure_one()
-        journal = self.journal_id
-        if not journal.l10n_bg_infopay_account_id:
-            raise UserError(
-                self.env._(
-                    "Journal '%s' is not configured for InfoPay.", journal.name
-                )
-            )
-
-        debtor_iban = journal.bank_account_id.acc_number
-        partner_bank = self.partner_bank_id or self.partner_id.bank_ids[:1]
-        if not partner_bank:
-            raise UserError(
-                self.env._(
-                    "Partner '%s' has no bank account configured.",
-                    self.partner_id.name,
-                )
-            )
-
-        with journal._infopay_session() as (provider, session):
-            result = provider._create_budget_payment(
-                session,
-                debtor_iban,
-                self.partner_id.name or "",
-                partner_bank.acc_number,
-                self.amount,
-                self.ref or self.name or "",
-                ultimate_debtor=ultimate_debtor,
-                tax_payer_id=tax_payer_id,
-                tax_payer_type=tax_payer_type,
-                service_level=service_level,
-            )
-
-        sca_url = (result.get("Links") or {}).get("ScaRedirect")
-        self.write({
-            "l10n_bg_infopay_payment_id": result.get("PaymentId"),
-            "l10n_bg_infopay_sca_url": sca_url,
-            "l10n_bg_infopay_status": result.get("TransactionStatus"),
-        })
         return result
 
     # ── status polling ────────────────────────────────────────────────
@@ -332,6 +272,14 @@ class AccountPayment(models.Model):
                 self.env._("All bulk payments must use the same currency.")
             )
         currency_name = currencies[0].name
+        if currency_name != "EUR":
+            raise UserError(
+                self.env._(
+                    "InfoPay bulk payments support only EUR since 01.01.2026 "
+                    "(BG eurozone entry).  Currency '%s' is not supported.",
+                    currency_name,
+                )
+            )
 
         debtor_iban = journal.bank_account_id.acc_number
 
@@ -344,35 +292,22 @@ class AccountPayment(models.Model):
                         "Partner '%s' has no bank account.", pay.partner_id.name
                     )
                 )
-            entry = {
+            pay_dicts.append({
                 "creditor_name": pay.partner_id.name or "",
                 "creditor_iban": partner_bank.acc_number,
                 "amount": pay.amount,
                 "description": pay.ref or pay.name or "",
-            }
-            if currency_name == "EUR":
-                entry["country"] = (
+                "country": (
                     pay.partner_id.country_id.code
                     or partner_bank.acc_number[:2]
                     or "BG"
-                )
-            pay_dicts.append(entry)
+                ),
+            })
 
         with journal._infopay_session() as (provider, session):
-            if currency_name == "BGN":
-                result = provider._create_bulk_domestic_payments(
-                    session, debtor_iban, pay_dicts
-                )
-            elif currency_name == "EUR":
-                result = provider._create_bulk_sepa_payments(
-                    session, debtor_iban, pay_dicts
-                )
-            else:
-                raise UserError(
-                    self.env._(
-                        "InfoPay bulk payments support only BGN and EUR."
-                    )
-                )
+            result = provider._create_bulk_sepa_payments(
+                session, debtor_iban, pay_dicts
+            )
 
         sca_url = (result.get("Links") or {}).get("ScaRedirect")
         self.write({

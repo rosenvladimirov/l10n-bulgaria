@@ -32,25 +32,26 @@ env['account.journal']._infopay_sync_all_statements()
 
 ### Submitting payment orders
 
+After 2026-01-01 (Bulgaria's eurozone entry) Borica marks the three
+`-bgn` payment endpoints (`domestic-credit-transfers-bgn`,
+`domestic-budget-transfers-bgn`, `bulk-payments/domestic-credit-
+transfers-bgn`) as `deprecated: true` in their OpenAPI spec.  All
+payments now route through the SEPA EUR endpoints.
+
 ```python
 payment = env['account.payment'].browse(payment_id)
 
-# Single domestic BGN payment
+# Single SEPA EUR payment (covers both BG-domestic and cross-border)
 payment._infopay_submit()
 
-# Single SEPA EUR payment (auto-detected by currency)
-payment._infopay_submit()
-
-# Budget / tax payment
-payment._infopay_submit_budget(
-    ultimate_debtor='Ivan Ivanov',
-    tax_payer_id='8407088414',
-    tax_payer_type='EGN',
-)
-
-# Bulk payment (2–250 items, same journal & currency)
+# Bulk payment (2–250 items, same journal, all EUR)
 payments._infopay_submit_bulk()
 ```
+
+Budget payments (НАП, customs, municipalities) currently have no
+SEPA-equivalent endpoint; operators submit those via the bank portal
+manually until Borica publishes
+`/api/payments/domestic-budget-transfers-eur`.
 
 ### Polling payment status
 

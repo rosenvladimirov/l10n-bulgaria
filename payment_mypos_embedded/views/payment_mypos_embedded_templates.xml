@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Rendered into the payment page when mypos_flow == 'embedded'.
+         No <form> auto-submit: a mount div + the official SDK script +
+         a JSON config blob the frontend asset (embedded_checkout.js)
+         reads and feeds to MyPOSEmbedded.createPayment. -->
+    <template id="embedded_form">
+        <div class="o_mypos_embedded"
+             t-att-id="mypos_embedded_mount_id"
+             t-att-data-mypos-params="mypos_embedded_params"
+             t-att-data-mypos-sandbox="mypos_embedded_is_sandbox and '1' or '0'"/>
+        <script type="text/javascript"
+                src="https://developers.mypos.com/repository/mypos-embedded-sdk.js"/>
+    </template>
+
+</odoo>

@@ -3,18 +3,25 @@
 
 """Upgrade 6.0.2 → 6.0.3 — премахни двата deprecated InfoPay
 method records (``l10n_bg_infopay_domestic_bgn`` +
-``l10n_bg_infopay_budget_bgn``).
+``l10n_bg_infopay_budget_bgn``) и всички references към тях.
 
 След 01.01.2026 (BG в еврозоната) Borica маркира трите `-bgn`
 endpoint-а като ``deprecated: true`` в integration_openapi.yaml.
 Само ``l10n_bg_infopay_sepa_eur`` остава активен.
 
-Pre-migration на bridge модулите (l10n_bg_infopay_oca_payment ≥1.3.3
-и l10n_bg_infopay_ee_payment ≥1.3.3) трябва да тече ПРЕДИ този
-скрипт за да изпразнят payment.mode / method.line / payment-line
-references.  Ако bridge упгрейдът не е стартиран още, скриптът ще
-fail-не с FK violation — operator-ът трябва да upgrade-не bridge
-модулите едновременно с този."""
+Тъй като `l10n_bg_infopay` е dep на bridge модулите, той upgrade-ва
+ПЪРВИ.  Към момента, в който този script тече, bridge модулите още
+не са пуснали техните pre-migrations — значи трябва **тук** да
+изпразним всички references преди да изтрием самите method records:
+
+  * account.payment.line — отвържи payment_mode_id
+  * account.payment — отвържи payment_method_line_id
+  * account.payment.method.line — DELETE
+  * account.payment.mode — DELETE
+  * account.payment.method — DELETE (накрая)
+  * ir.model.data — DELETE свързаните XMLID-та
+
+Скриптът е идемпотентен — повторен запуск не fail-ва."""
 
 import logging
 
@@ -38,14 +45,60 @@ def migrate(cr, version):
         "SELECT id FROM account_payment_method WHERE code IN %s",
         (DEPRECATED_CODES,),
     )
-    method_ids = [row[0] for row in cr.fetchall()]
+    method_ids = tuple(row[0] for row in cr.fetchall())
     if not method_ids:
         _logger.info(
             "InfoPay 6.0.3 pre-migration: deprecated methods already absent.",
         )
         return
 
-    # Изтрий ir.model.data сочеща към deprecated method records.
+    _logger.info(
+        "InfoPay 6.0.3 pre-migration: cleaning references за methods %s.",
+        list(DEPRECATED_CODES),
+    )
+
+    # 1) account.payment.line — premakhni references KЪM modes.
+    cr.execute(
+        """
+        UPDATE account_payment_line apl
+        SET payment_mode_id = NULL
+        FROM account_payment_mode apm
+        WHERE apl.payment_mode_id = apm.id
+          AND apm.payment_method_id IN %s
+        """,
+        (method_ids,),
+    )
+    _logger.info("  unset payment_mode_id on %d payment.lines", cr.rowcount)
+
+    # 2) account.payment — premakhni references KЪM method.lines.
+    cr.execute(
+        """
+        UPDATE account_payment
+        SET payment_method_line_id = NULL
+        WHERE payment_method_line_id IN (
+            SELECT id FROM account_payment_method_line
+            WHERE payment_method_id IN %s
+        )
+        """,
+        (method_ids,),
+    )
+    _logger.info("  unset method_line_id on %d account.payments", cr.rowcount)
+
+    # 3) account.payment.method.line.
+    cr.execute(
+        "DELETE FROM account_payment_method_line WHERE payment_method_id IN %s",
+        (method_ids,),
+    )
+    _logger.info("  deleted %d method.lines", cr.rowcount)
+
+    # 4) account.payment.mode.
+    cr.execute(
+        "DELETE FROM account_payment_mode WHERE payment_method_id IN %s",
+        (method_ids,),
+    )
+    _logger.info("  deleted %d payment.modes", cr.rowcount)
+
+    # 5) ir.model.data за XML IDs.
     cr.execute(
         """
         DELETE FROM ir_model_data
@@ -54,17 +107,11 @@ def migrate(cr, version):
         """,
         (DEPRECATED_XMLIDS,),
     )
-    _logger.info(
-        "InfoPay 6.0.3 pre-migration: removed %d ir.model.data rows.",
-        cr.rowcount,
-    )
+    _logger.info("  removed %d ir.model.data rows", cr.rowcount)
 
-    # Изтрий самите method records.
+    # 6) Самите method records.
     cr.execute(
         "DELETE FROM account_payment_method WHERE id IN %s",
-        (tuple(method_ids),),
+        (method_ids,),
     )
-    _logger.info(
-        "InfoPay 6.0.3 pre-migration: deleted %d deprecated methods.",
-        cr.rowcount,
-    )
+    _logger.info("  deleted %d deprecated methods", cr.rowcount)

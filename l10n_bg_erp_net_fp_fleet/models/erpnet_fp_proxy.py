@@ -103,7 +103,7 @@ class ErpNetFpProxy(models.Model):
         help="Timestamp of the last accepted heartbeat.",
     )
     alive = fields.Boolean(
-        compute="_compute_alive", store=False,
+        compute="_compute_alive", search="_search_alive", store=False,
         help="True if last_seen is within "
              f"{_ALIVE_WINDOW_SECONDS} s.",
     )
@@ -144,6 +144,21 @@ class ErpNetFpProxy(models.Model):
                 continue
             delta = (now - rec.last_seen).total_seconds()
             rec.alive = delta < _ALIVE_WINDOW_SECONDS
+
+    def _search_alive(self, operator, value):
+        """Translate alive (time-based, non-stored) into a last_seen domain."""
+        if operator not in ("=", "!="):
+            raise NotImplementedError(
+                "Unsupported operator %r for 'alive'" % operator)
+        threshold = fields.Datetime.now() - timedelta(
+            seconds=_ALIVE_WINDOW_SECONDS)
+        want_alive = (operator == "=" and value) or (
+            operator == "!=" and not value)
+        if want_alive:
+            return [("last_seen", "!=", False),
+                    ("last_seen", ">=", threshold)]
+        return ["|", ("last_seen", "=", False),
+                ("last_seen", "<", threshold)]
 
     @api.depends("devices_json")
     def _compute_devices_summary(self):

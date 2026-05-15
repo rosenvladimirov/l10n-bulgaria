@@ -336,7 +336,18 @@ class InfopayProvider(models.AbstractModel):
     # ── payment status ────────────────────────────────────────────────
 
     @api.model
-    def _get_payment_status(self, session, payment_id, bulk=False):
+    def _get_payment_status(
+        self, session, payment_id, bulk=False, status_url=None,
+    ):
+        """Provери статуса на плащане.
+
+        Ако ``status_url`` е подаден (``Links.Status`` от payment
+        response-а), ползва го директно — Borica контролира URL-а,
+        по-надеждно от конструиране.  ``_request`` приема пълен URL.
+        Иначе fallback към конструиран endpoint по ``payment_id``.
+        """
+        if status_url:
+            return self._request("GET", status_url, session=session)
         prefix = "bulk-payments" if bulk else "payments"
         return self._request(
             "GET", f"/api/{prefix}/{payment_id}/status", session=session

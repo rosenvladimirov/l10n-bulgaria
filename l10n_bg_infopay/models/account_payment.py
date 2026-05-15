@@ -8,8 +8,12 @@ from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
+# Borica ``EnumPaymentStatus`` (виж integration_openapi.yaml).
+# Авторитетен признак за финалност е ``TransactionStatus.IsFinal``
+# (boolean) — тези множества определят само ПОСОКАТА (успех / отказ)
+# когато статусът е финален.
 INFOPAY_FINAL_OK = frozenset({
-    "Processed", "ProcessedInterbank", "Executed", "Completed",
+    "Processed", "ProcessedInterbank", "Executed",
 })
 INFOPAY_FINAL_FAIL = frozenset({
     "Cancelled", "Rejected", "InsufficientFunds",
@@ -30,6 +34,14 @@ class AccountPayment(models.Model):
         readonly=True,
         copy=False,
         help="Redirect URL for Strong Customer Authentication at the bank.",
+    )
+    l10n_bg_infopay_status_url = fields.Char(
+        string="InfoPay Status URL",
+        readonly=True,
+        copy=False,
+        help="Линк, върнат от InfoPay (``Links.Status``) за проверка на "
+             "статуса на плащането.  Polling-ът го ползва директно "
+             "вместо да конструира endpoint — Borica контролира URL-а.",
     )
     l10n_bg_infopay_status = fields.Char(
         string="InfoPay Status",
@@ -106,10 +118,12 @@ class AccountPayment(models.Model):
                 creditor_country=country,
             )
 
-        sca_url = (result.get("Links") or {}).get("ScaRedirect")
+        links = result.get("Links") or {}
+        sca_url = links.get("ScaRedirect")
         self.write({
             "l10n_bg_infopay_payment_id": result.get("PaymentId"),
             "l10n_bg_infopay_sca_url": sca_url,
+            "l10n_bg_infopay_status_url": links.get("Status"),
             "l10n_bg_infopay_status": result.get("TransactionStatus"),
         })
         _logger.info(
@@ -124,8 +138,59 @@ class AccountPayment(models.Model):
 
     # ── status polling ────────────────────────────────────────────────
 
+    @staticmethod
+    def _l10n_bg_infopay_parse_status(result):
+        """Извлечи ``(status_str, is_final)`` от status response-а.
+
+        Авторитетен признак за финалност е
+        ``TransactionStatus.IsFinal`` (boolean).  ``Status`` enum-ът
+        определя само посоката (успех / отказ) когато е финален.
+        """
+        tx = result.get("TransactionStatus") or {}
+        if isinstance(tx, dict):
+            status_str = tx.get("Status") or result.get(
+                "TransactionState", ""
+            )
+            is_final = bool(tx.get("IsFinal", False))
+        else:
+            status_str = result.get("TransactionState", "")
+            is_final = False
+        return status_str, is_final
+
+    def _l10n_bg_infopay_apply_final_status(self, status_str, is_final):
+        """Актуализирай payment документа според финалния статус.
+
+        * финален + успех  → лог (плащането е минало).
+        * финален + отказ  → отказва Odoo плащането ако е draft.
+        * не-финален       → нищо (продължава polling).
+        * финален, но неясен (напр. PartiallyProcessed) → warning,
+          оставя за ръчна проверка (не импровизираме счетоводство).
+        """
+        self.ensure_one()
+        if not is_final:
+            return
+        if status_str in INFOPAY_FINAL_OK:
+            _logger.info(
+                "InfoPay payment %s completed (%s)",
+                self.l10n_bg_infopay_payment_id, status_str,
+            )
+        elif status_str in INFOPAY_FINAL_FAIL:
+            _logger.warning(
+                "InfoPay payment %s failed (%s)",
+                self.l10n_bg_infopay_payment_id, status_str,
+            )
+            if self.state == "draft":
+                self.action_cancel()
+        else:
+            _logger.warning(
+                "InfoPay payment %s final with unhandled status '%s' — "
+                "manual review needed.",
+                self.l10n_bg_infopay_payment_id, status_str,
+            )
+
     def _infopay_check_status(self):
-        """Poll InfoPay for the current payment status and update the record.
+        """Poll InfoPay for the current payment status and update the
+        record.  Ползва записания ``Links.Status`` URL когато е наличен.
 
         Returns the raw API response dict.
         """
@@ -136,13 +201,13 @@ class AccountPayment(models.Model):
         journal = self.journal_id
         with journal._infopay_session() as (provider, session):
             result = provider._get_payment_status(
-                session, self.l10n_bg_infopay_payment_id, bulk=self.l10n_bg_infopay_bulk
+                session,
+                self.l10n_bg_infopay_payment_id,
+                bulk=self.l10n_bg_infopay_bulk,
+                status_url=self.l10n_bg_infopay_status_url or None,
             )
 
-        tx_status = result.get("TransactionStatus", {})
-        status_str = tx_status.get("Status", result.get("TransactionState", ""))
-        is_final = tx_status.get("IsFinal", False)
-
+        status_str, is_final = self._l10n_bg_infopay_parse_status(result)
         self.l10n_bg_infopay_status = status_str
         _logger.info(
             "InfoPay payment %s status: %s (final: %s)",
@@ -151,15 +216,15 @@ class AccountPayment(models.Model):
         return result
 
     def _infopay_pull_status(self):
-        """Check status for a recordset of payments and handle final states.
-
-        * Successful final statuses → log as completed.
-        * Failed final statuses → cancel the Odoo payment if still draft.
+        """Check status for a recordset of payments and handle final
+        states (auto-cancel on rejection, log on success).
         """
         for payment in self:
             if not payment.l10n_bg_infopay_payment_id:
                 continue
-            if payment.l10n_bg_infopay_status in INFOPAY_FINAL_OK | INFOPAY_FINAL_FAIL:
+            if payment.l10n_bg_infopay_status in (
+                INFOPAY_FINAL_OK | INFOPAY_FINAL_FAIL
+            ):
                 continue  # already resolved
 
             try:
@@ -171,23 +236,12 @@ class AccountPayment(models.Model):
                 )
                 continue
 
-            tx_status = result.get("TransactionStatus", {})
-            status_str = tx_status.get(
-                "Status", result.get("TransactionState", "")
+            status_str, is_final = payment._l10n_bg_infopay_parse_status(
+                result,
             )
-
-            if status_str in INFOPAY_FINAL_OK:
-                _logger.info(
-                    "InfoPay payment %s completed (%s)",
-                    payment.l10n_bg_infopay_payment_id, status_str,
-                )
-            elif status_str in INFOPAY_FINAL_FAIL:
-                _logger.warning(
-                    "InfoPay payment %s failed (%s)",
-                    payment.l10n_bg_infopay_payment_id, status_str,
-                )
-                if payment.state == "draft":
-                    payment.action_cancel()
+            payment._l10n_bg_infopay_apply_final_status(
+                status_str, is_final,
+            )
 
     @api.model
     def _infopay_pull_all_pending(self):
@@ -214,17 +268,20 @@ class AccountPayment(models.Model):
                                 session,
                                 payment.l10n_bg_infopay_payment_id,
                                 bulk=payment.l10n_bg_infopay_bulk,
+                                status_url=(
+                                    payment.l10n_bg_infopay_status_url
+                                    or None
+                                ),
                             )
-                            tx = result.get("TransactionStatus", {})
-                            status = tx.get(
-                                "Status",
-                                result.get("TransactionState", ""),
+                            status_str, is_final = (
+                                payment._l10n_bg_infopay_parse_status(
+                                    result,
+                                )
                             )
-                            payment.l10n_bg_infopay_status = status
-
-                            if status in INFOPAY_FINAL_FAIL \
-                                    and payment.state == "draft":
-                                payment.action_cancel()
+                            payment.l10n_bg_infopay_status = status_str
+                            payment._l10n_bg_infopay_apply_final_status(
+                                status_str, is_final,
+                            )
                         except Exception:
                             _logger.exception(
                                 "InfoPay status poll failed for payment %s",
@@ -309,10 +366,11 @@ class AccountPayment(models.Model):
                 session, debtor_iban, pay_dicts
             )
 
-        sca_url = (result.get("Links") or {}).get("ScaRedirect")
+        links = result.get("Links") or {}
         self.write({
             "l10n_bg_infopay_payment_id": result.get("PaymentId"),
-            "l10n_bg_infopay_sca_url": sca_url,
+            "l10n_bg_infopay_sca_url": links.get("ScaRedirect"),
+            "l10n_bg_infopay_status_url": links.get("Status"),
             "l10n_bg_infopay_status": result.get("TransactionStatus"),
             "l10n_bg_infopay_bulk": True,
         })

@@ -99,14 +99,20 @@ class InfopayPaymentMixin(models.AbstractModel):
 
     # ── status polling ────────────────────────────────────────────────
 
-    def _l10n_bg_infopay_get_payment_status(self, payment_id, bulk=False):
+    def _l10n_bg_infopay_get_payment_status(
+        self, payment_id, bulk=False, status_url=None,
+    ):
         """Return raw payment-status dict; caller checks
         ``IsFinal`` and acts on terminal states.
+
+        ``status_url`` (``Links.Status`` от payment response-а) се
+        предпочита пред конструиран endpoint когато е наличен.
         """
         return self._l10n_bg_infopay_with_session(
             "_get_payment_status",
             payment_id=payment_id,
             bulk=bulk,
+            status_url=status_url,
         )
 
     # ── private session orchestration ─────────────────────────────────

@@ -1,0 +1,30 @@
+// Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
+// License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
+// ── Live refresh flash animations ───────────────────────────────────
+//
+// Applied for ~1.5s when the server pushes a live-refresh notification,
+// then removed — see live_refresh_controllers.js.
+
+@keyframes o_live_refresh_flash_anim {
+    0%   { background: rgba(137, 180, 250, 0); box-shadow: 0 0 0 0 rgba(137, 180, 250, 0); }
+    20%  { background: rgba(137, 180, 250, 0.35); box-shadow: 0 0 0 3px rgba(137, 180, 250, 0.5); }
+    100% { background: rgba(137, 180, 250, 0); box-shadow: 0 0 0 0 rgba(137, 180, 250, 0); }
+}
+
+@keyframes o_live_refresh_row_flash_anim {
+    0%   { background: rgba(166, 227, 161, 0); }
+    20%  { background: rgba(166, 227, 161, 0.4); }
+    100% { background: rgba(166, 227, 161, 0); }
+}
+
+.o_live_refresh_flash {
+    animation: o_live_refresh_flash_anim 1.5s ease-out;
+    border-radius: 3px;
+    transition: background 0.3s;
+}
+
+.o_live_refresh_row_flash,
+.o_live_refresh_row_flash td {
+    animation: o_live_refresh_row_flash_anim 1.5s ease-out;
+}

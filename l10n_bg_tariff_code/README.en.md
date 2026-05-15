@@ -1,70 +1,78 @@
-# Bulgaria Tariff Code Management
+# Bulgaria — TARIC / HS / CN Code Management
 
-> TARIC/HS/CN Code Management with EU API Integration
+> Customs commodity-code management for products and invoice lines,
+> with a local cache of EU TARIC tariff rates pulled from the European
+> CIRCABC dataset.
 
-**Module:** `l10n_bg_tariff_code` | **Version:** 18.0.3.0.11 | **License:** LGPL-3 | **Category:** Accounting/Localizations
+**Module:** `l10n_bg_tariff_code` | **Version:** 18.0.3.0.11 | **License:** LGPL-3 | **Category:** Localization
 
 ## Overview
 
-Bulgaria Tariff Code Management
-This module provides comprehensive tariff code management for Bulgarian companies.
-TARIC Integration
------------------
-* Automatic TARIC code detection from HS/CN/Intrastat codes
-* Real-time tariff rate lookup from EU TARIC API system
-* Caching mechanism for tariff rates
-* Support for multiple countries of origin
-* Backward compatibility with HS/CN codes
-Product Extensions
-------------------
-* Tariff code management on products
-* Automatic HS code synchronization
-* Country of origin tracking
+Bulgarian customs declarations and Intrastat reporting require each
+product to carry its **TARIC / HS / CN** commodity code, and customs
+valuation needs the applicable tariff rate. Querying the EU TARIC
+system on every line would be slow and rate-limited, so this module
+maintains a **local rate cache** keyed by CN code + country + validity
+window, refreshed from the official CIRCABC data.
+
+## Data model
+
+### `l10n_bg.taric.cache` (new)
+
+Local cache of TARIC tariff rates from CIRCABC.
+
+| Field | Meaning |
+|---|---|
+| `cn_code` | Combined Nomenclature code (rec name) |
+| `country_code` | Origin country the rate applies to |
+| `measure_type` | TARIC measure type (duty, anti-dumping, …) |
+| `valid_from` / `valid_to` | Rate validity window |
+
+Lookups hit the cache first; a miss (or stale entry past
+`valid_to`) triggers a refresh from the configured TARIC API.
+
+### Extended models
+
+| Model | Addition |
+|---|---|
+| `product.template` / `product.product` | TARIC/HS/CN code fields |
+| `account.move.line` | tariff code propagation for customs valuation |
+| `res.company` | `l10n_bg_taric_api_url`, `l10n_bg_taric_api_enabled`, `l10n_bg_taric_cache_duration` (hours), default fallback rate, auto-download toggle |
+| `res.config.settings` | exposes the above as settings |
 
 ## Dependencies
 
 | Odoo core | Bulgarian-localization |
 |---|---|
-| `account`, `stock_delivery` | — |
+| `product` (+ account base) | `l10n_bg` |
 
-**External Python packages:** `requests`
+**External Python:** `requests`.
 
-## New models
+## Configuration
 
-- `cn_code`
-- `l10n_bg.taric.cache`
+1. Settings → Bulgarian Localization → TARIC:
+   - **Enable TARIC API** + **TARIC API URL** (EU endpoint).
+   - **Cache Duration (hours)** — how long a cached rate is trusted.
+   - Default fallback rate when a code can't be resolved.
+2. Assign TARIC/CN codes on products (manually or via
+   `taric_ai_classifier` for AI-assisted classification).
 
-## Extended models
+## Downstream consumers
 
-- `account.move.line` (inherited)
-- `product.product` (inherited)
-- `product.template` (inherited)
-- `res.company` (inherited)
-- `res.config.settings` (inherited)
+`taric_ai_classifier` (AI classification writes codes here),
+`l10n_bg_intrastat` (commodity codes on declarations),
+`l10n_bg_tax_admin` customs flows.
 
-## Views
+## Known limitations
 
-- `views/account_move_line_views.xml`
-- `views/l10n_bg_taric_cache.xml`
-- `views/menu.xml`
-- `views/product_template_views.xml`
-- `views/res_config_view.xml`
-
-## Seeded data
-
-- `data/l10n_bg_tarif_code_data.xml`
-
-## Installation
-
-```bash
-# Add this repository's path to your Odoo addons_path,
-# then install via UI Apps → search 'l10n_bg_tariff_code' or via CLI:
-odoo -i l10n_bg_tariff_code -d <your_database> --stop-after-init
-```
+- Cache freshness depends on `cache_duration`; a rate that changes
+  mid-window is only picked up after expiry (or manual refresh).
+- CIRCABC dataset structure changes occasionally — the fetch layer
+  tolerates common shifts but a major EU format change needs a code
+  update.
 
 ## See also
 
-- Parent repository: [`l10n-bulgaria`](../README.md)
-
----
-*Generated 2026-05-15 from `__manifest__.py` + source layout. Hand-enrich for full handbook coverage.*
+- Parent repo overview: [`../OVERVIEW.md`](../OVERVIEW.md)
+- AI classifier: `taric_ai_classifier`
+- Customs consumer: `l10n_bg_intrastat`, `l10n_bg_tax_admin`

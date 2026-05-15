@@ -1,56 +1,64 @@
-# AI Pipeline (Skills + Injection Engine)
+# AI Pipeline — Skills + Injection Engine
 
-> AI pipeline стек със скилове (progressive disclosure)
+> Pipeline стек с Anthropic-style **Skills**: progressive disclosure,
+> семантично съвпадение и динамично инжектиране на стъпки, надграден
+> върху AI Tokenizer (Qdrant) от `l10n_bg_claude_terminal`.
 
-**Модул:** `l10n_bg_ai_pipeline` | **Версия:** 18.0.1.0.0 | **Лиценз:** AGPL-3 | **Категория:** Technical
+**Модул:** `l10n_bg_ai_pipeline` | **Версия:** 18.0.1.0.0 | **Лиценз:** AGPL-3 | **Категория:** Localization / AI
 
 ## Описание
 
-AI pipeline стек със скилове (progressive disclosure)
+Преизползваема execution рамка за AI-подпомогната обработка на
+документи. Вместо един монолитен prompt, работата се декомпозира на
+**skills** (самостоятелни способности), избирани чрез семантично
+съвпадение спрямо задачата, с динамично инжектирани стъпки —
+"progressive disclosure" pattern-ът: само релевантните за текущия
+документ skills се зареждат в контекста.
+
+## Модел на данните
+
+| Модел | Роля |
+|---|---|
+| `ai.skill` | Именувана способност с description embedding + language scope (`all` обработва `[xx_YY]…[/xx_YY]` езикови блокове) |
+| `ai.pipeline.step` | Дефиниция на една стъпка в pipeline |
+| `ai.pipeline.run` | Одит trail за едно изпълнение на именуван pipeline |
+| `ai.pipeline.runner` | Оркестрира step изпълнение + динамично инжектиране |
+| `ai.composite.document` | Документ, сглобен през стъпки |
+| `ai.qdrant.skills.client` (AbstractModel) | Qdrant REST клиент за **skills** embeddings колекцията — отделен, така че skill-description векторите никога не се смесват с документните вектори |
+
+Семантично съвпадение: embedding на задачата се сравнява срещу skill
+description embeddings в Qdrant; топ-съвпаденията се инжектират като
+активния step набор.
 
 ## Зависимости
 
 | Odoo базови | Българска локализация |
 |---|---|
-| — | `l10n_bg_claude_terminal` |
+| (през base) | `l10n_bg_claude_terminal` (AI Tokenizer / Qdrant / Ollama инфра) |
 
-## Нови модели
+## Конфигурация
 
-- `ai.pipeline.run`
-- `ai.pipeline.runner`
-- `ai.pipeline.step`
-- `ai.qdrant.skills.client`
-- `ai.skill`
-- `display_name`
+1. Инсталирайте `l10n_bg_claude_terminal` първо (предоставя
+   Qdrant/Ollama connection config на фирмата).
+2. Инсталирайте този модул; дефинирайте `ai.skill` записи
+   (description движи семантичния match) и сглобете pipelines от
+   `ai.pipeline.step`.
 
-## Разширени модели
+## Downstream consumers
 
-- `ai.composite.document` (extension)
-- `ai.qdrant.client` (extension)
+`l10n_bg_ai_invoice_glue` (vendor-bill извличане) и
+`l10n_bg_ai_customs_glue` (customs-declaration извличане) изпълняват
+своето извличане като pipelines/skills на този engine.
 
-## Изгледи (views)
+## Известни ограничения
 
-- `views/ai_pipeline_run_views.xml`
-- `views/ai_pipeline_step_views.xml`
-- `views/ai_skill_views.xml`
-- `views/menu.xml`
-
-## Заредени данни
-
-- `data/pipeline_steps.xml`
-
-## Инсталация
-
-```bash
-# Добавете пътя на репозиторията в Odoo addons_path,
-# след това инсталирайте през UI Apps → търсене 'l10n_bg_ai_pipeline' или през CLI:
-odoo -i l10n_bg_ai_pipeline -d <вашата_база> --stop-after-init
-```
+- Качеството на skill selection зависи от добре написани skill
+  descriptions (те са embedding източникът).
+- Изисква достъпен Qdrant + embedding модел (Ollama) през
+  `l10n_bg_claude_terminal`.
 
 ## Свързани
 
-- Главно репозитори: [`l10n-bulgaria`](../README.md)
-- Модулни тестове: `tests/`
-
----
-*Генериран 2026-05-15 от `__manifest__.py` + source layout. Ръчно обогатяване за пълен handbook.*
+- Преглед на репозиторията: [`../OVERVIEW.bg.md`](../OVERVIEW.bg.md)
+- Инфра: `l10n_bg_claude_terminal`
+- Consumers: `l10n_bg_ai_invoice_glue`, `l10n_bg_ai_customs_glue`

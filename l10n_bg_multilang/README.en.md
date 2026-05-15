@@ -1,44 +1,68 @@
-# Multi Language Partner, Company, Employee
+# Bulgaria — Multilingual Core Records
+
+> Extends the `partner_multilang` transliteration engine beyond
+> partners to employees, banks, warehouses, currencies, resources and
+> regions — so every record that prints on a Bulgarian document is
+> bilingual.
 
 **Module:** `l10n_bg_multilang` | **Version:** 18.0.0.1.0 | **License:** LGPL-3 | **Category:** Localization
 
 ## Overview
 
-Multi language support for Partner, Company, Employee.
+`partner_multilang` makes `res.partner` names multilingual + auto
+transliterated. But a Bulgarian invoice/payroll document also prints
+employee names, bank names, warehouse names and currency labels —
+those need the same bilingual treatment. This module applies the
+`res.transliterate.mixin` and `translate=True` to that wider set of
+core models.
+
+## Extended models
+
+| Model | Translatable field(s) | Mixin |
+|---|---|---|
+| `hr.employee` | `name` | + `res.transliterate.mixin` |
+| `res.country.state` | `name` | + `res.transliterate.mixin` |
+| `res.bank` | `name` | — |
+| `stock.warehouse` | `name` | — |
+| `res.currency` | `symbol`, `currency_unit_label`, `currency_subunit_label` | — |
+| `resource.resource` | `name` | — |
+| `res.country` | (translatable hooks) | — |
+
+Employee and country-state get the full transliteration mixin (auto
+Cyrillic→Latin + multilingual `display_name`); the rest get
+`translate=True` so values can be maintained per language and printed
+correctly on documents/reports.
 
 ## Dependencies
 
 | Odoo core | Bulgarian-localization |
 |---|---|
-| `hr`, `stock`, `partner_multilang` | `partner_multilang` |
+| (hr/stock/resource base) | `partner_multilang` |
 
-## New models
+Hard dependency on `partner_multilang` — the transliteration engine
+and JSONB-name infrastructure live there.
 
-- `hr.employee`
-- `res.country.state`
+## Configuration
 
-## Extended models
+No configuration. Once installed, the listed models accept per-language
+values; transliteration follows the `partner_multilang` company toggle
+(**Transliterate Names**).
 
-- `res.bank` (inherited)
-- `res.currency` (inherited)
-- `resource.resource` (inherited)
-- `stock.warehouse` (inherited)
+## Why a separate module
 
-## Views
+Kept distinct from `partner_multilang` so a deployment that only needs
+multilingual *partners* (e.g. a pure-sales setup) isn't forced to
+translate HR/stock/resource models it doesn't print.
 
-- `views/res_country_view.xml`
+## Known limitations
 
-## Installation
-
-```bash
-# Add this repository's path to your Odoo addons_path,
-# then install via UI Apps → search 'l10n_bg_multilang' or via CLI:
-odoo -i l10n_bg_multilang -d <your_database> --stop-after-init
-```
+- Inherits all `partner_multilang` caveats (JSONB-name handling for
+  raw SQL, short-string detection).
+- `res.currency` label translation affects display only; accounting
+  amounts are unaffected.
 
 ## See also
 
-- Parent repository: [`l10n-bulgaria`](../README.md)
-
----
-*Generated 2026-05-15 from `__manifest__.py` + source layout. Hand-enrich for full handbook coverage.*
+- Parent repo overview: [`../OVERVIEW.md`](../OVERVIEW.md)
+- Engine: `partner_multilang`
+- Sibling extensions: `l10n_bg_mrp_multilang`, `l10n_bg_project_multilang`

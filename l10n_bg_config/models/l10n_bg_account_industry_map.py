@@ -79,7 +79,7 @@ class L10nBgAccountIndustryMap(models.Model):
         ),
     ]
 
-    @api.depends("kid_id.complete_name", "account_code", "relation_type")
+    @api.depends("kid_id.code", "account_code", "relation_type")
     def _compute_display_name(self):
         for rec in self:
             rec.display_name = (

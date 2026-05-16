@@ -16,7 +16,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   would fail).
 
 ### Changed
-- Removed the dead `post_migrate_hook` manifest key and function.
+- Removed the dead `post_migrate_hook` manifest key and function, and
+  the now-stale `post_migrate_hook` re-export in `__init__.py` (its
+  presence raised `ImportError` on module load once the function was
+  gone).
 - Added `migrations/18.0.8.3.1/post-migrate.py` performing the same
   idempotent backfill (`_init_blacklist_key` + multilanguage inverse)
   on `-u`, for all companies.

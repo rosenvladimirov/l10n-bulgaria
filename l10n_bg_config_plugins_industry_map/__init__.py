@@ -1,1 +1,1 @@
-from .hooks import post_init_reload_chart
+# Pure-data plugin: КИД ↔ account mapping seed (loaded via manifest data).

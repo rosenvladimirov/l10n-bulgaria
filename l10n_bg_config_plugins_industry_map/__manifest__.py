@@ -25,7 +25,7 @@ budget entities (sector O) are intentionally out of scope — they use
 separate accounting frameworks (БНБ/КФН МСФО, budget chart) and are not
 covered by the national chart of accounts.
     """,
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "development_status": "Beta",
     "category": "Accounting/Localizations",
     "license": "LGPL-3",
@@ -35,7 +35,9 @@ covered by the national chart of accounts.
         "account",
         "l10n_bg_config",
     ],
-    "data": [],
+    "data": [
+        "data/l10n.bg.account.industry.map.csv",
+    ],
     "demo": [],
     "installable": True,
     "auto_install": False,
@@ -45,5 +47,4 @@ covered by the national chart of accounts.
     "odoo_version": "18.0",
     "python_version": ">=3.11",
     "countries": ["BG"],
-    "post_init_hook": "post_init_reload_chart",
 }

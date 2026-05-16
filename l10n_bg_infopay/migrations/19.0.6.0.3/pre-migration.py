@@ -14,7 +14,7 @@ endpoint-а като ``deprecated: true`` в integration_openapi.yaml.
 пуснали техните pre-migrations — затова **тук** изпразваме всички
 references преди да изтрием самите method records.
 
-References (от \d account_payment_method / mode / method_line):
+References (от \\d account_payment_method / mode / method_line):
   * account_payment.payment_method_id              → SET NULL
   * account_payment.payment_method_line_id         → SET NULL
   * account_payment_register.payment_method_line_id → SET NULL
@@ -31,7 +31,14 @@ References (от \d account_payment_method / mode / method_line):
   * account_payment_method_line + payment_mode     → DELETE
   * ir_model_data + account_payment_method         → DELETE
 
-Скриптът е идемпотентен — повторен запуск не fail-ва."""
+Скриптът е идемпотентен — повторен запуск не fail-ва.
+
+OCA payment-mode стекът (``account_payment_mode`` / ``account_payment_order``
+и purchase/sale разширенията им) е ОПЦИОНАЛЕН — тези таблици/колони може
+изобщо да не съществуват (чиста инсталация без OCA payment-mode, напр.
+mcpworks_dev). Затова всеки достъп до тях е пазен с ``_table_exists`` /
+``_column_exists``; липсваща таблица/колона = няма какво да се чисти там
+(не е грешка)."""
 
 import logging
 
@@ -45,6 +52,20 @@ DEPRECATED_XMLIDS = (
     "l10n_bg_infopay.account_payment_method_infopay_domestic_bgn",
     "l10n_bg_infopay.account_payment_method_infopay_budget_bgn",
 )
+
+
+def _table_exists(cr, table):
+    cr.execute("SELECT to_regclass(%s)", (f"public.{table}",))
+    return cr.fetchone()[0] is not None
+
+
+def _column_exists(cr, table, column):
+    cr.execute(
+        "SELECT 1 FROM information_schema.columns "
+        "WHERE table_name = %s AND column_name = %s",
+        (table, column),
+    )
+    return cr.fetchone() is not None
 
 
 def migrate(cr, version):
@@ -74,11 +95,14 @@ def migrate(cr, version):
         (method_ids,),
     )
     method_line_ids = tuple(row[0] for row in cr.fetchall())
-    cr.execute(
-        "SELECT id FROM account_payment_mode WHERE payment_method_id IN %s",
-        (method_ids,),
-    )
-    mode_ids = tuple(row[0] for row in cr.fetchall())
+    # ``account_payment_mode`` идва от OCA account_payment_mode — може да липсва.
+    mode_ids = ()
+    if _table_exists(cr, "account_payment_mode"):
+        cr.execute(
+            "SELECT id FROM account_payment_mode WHERE payment_method_id IN %s",
+            (method_ids,),
+        )
+        mode_ids = tuple(row[0] for row in cr.fetchall())
 
     _logger.info(
         "  affected: %d method.lines, %d modes",
@@ -92,6 +116,8 @@ def migrate(cr, version):
             ("account_payment_register", "payment_method_line_id"),
             ("account_move",             "preferred_payment_method_line_id"),
         ):
+            if not _column_exists(cr, table, column):
+                continue
             cr.execute(
                 f"UPDATE {table} SET {column} = NULL WHERE {column} IN %s",
                 (method_line_ids,),
@@ -110,6 +136,8 @@ def migrate(cr, version):
             ("sale_order",            "payment_mode_id"),
             ("account_payment_mode",  "refund_payment_mode_id"),
         ):
+            if not _column_exists(cr, table, column):
+                continue
             cr.execute(
                 f"UPDATE {table} SET {column} = NULL WHERE {column} IN %s",
                 (mode_ids,),
@@ -122,6 +150,8 @@ def migrate(cr, version):
             ("account_journal_account_payment_mode_rel",   "account_payment_mode_id"),
             ("account_payment_mode_variable_journal_rel",  "payment_mode_id"),
         ):
+            if not _table_exists(cr, table):
+                continue
             cr.execute(
                 f"DELETE FROM {table} WHERE {column} IN %s",
                 (mode_ids,),
@@ -134,6 +164,8 @@ def migrate(cr, version):
         ("account_payment",       "payment_method_id"),
         ("account_payment_order", "payment_method_id"),
     ):
+        if not _column_exists(cr, table, column):
+            continue
         cr.execute(
             f"UPDATE {table} SET {column} = NULL WHERE {column} IN %s",
             (method_ids,),

@@ -42,6 +42,6 @@ def post_init_hook(env):
     _init_blacklist_key(env)
 
 
-def post_migrate_hook(env):
-    """Ad-hoc hook при ъпгрейд от стари версии без блекълист."""
-    _init_blacklist_key(env)
+# Upgrade-time backfill (blacklist key + multilanguage state) lives in
+# migrations/<version>/post-migrate.py — stock Odoo does not honor a
+# 'post_migrate_hook' manifest key, only OpenUpgrade does.

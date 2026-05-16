@@ -5,21 +5,32 @@ from odoo.exceptions import ValidationError
 
 
 class BGModEconomicActivity(models.Model):
+    """Bulgarian Economic Activity (КИД) for MOD.
+
+    The neutral КИД structure (code / name / level / parent / version /
+    industry bridge) now lives canonically in ``l10n.bg.kid``
+    (``l10n_bg_config``). This model keeps its own table, name, data,
+    ids, views and dependents *unchanged* — it merely prototype-inherits
+    the shared definition and adds the payroll-only MOD amounts. The
+    self-referential hierarchy fields are re-targeted to this model so
+    the existing seed (``parent_id/id``) and views keep working as-is;
+    the upgrade only adds two nullable columns (``kid_version``,
+    ``partner_industry_id``) and needs no data migration.
+    """
+
     _name = 'bg.hr.payroll.economic.activity'
+    _inherit = ['l10n.bg.kid']
     _description = 'Bulgarian Economic Activity (KID) for MOD'
     _order = 'code'
 
-    name = fields.Char(string='Activity Name', required=True, translate=True)
-    code = fields.Char(string='KID Code', required=True, index=True)
-    parent_id = fields.Many2one('bg.hr.payroll.economic.activity', string='Parent Activity')
-    child_ids = fields.One2many('bg.hr.payroll.economic.activity', 'parent_id', string='Child Activities')
-    active = fields.Boolean(string='Active', default=True)
-    level = fields.Selection([
-        ('section', 'Section'),
-        ('division', 'Division'),
-        ('group', 'Group'),
-        ('class', 'Class')
-    ], string='Level', required=True)
+    # Keep the hierarchy inside this model (do not delegate to l10n.bg.kid)
+    # so the pre-existing seed / views / dependents stay byte-compatible.
+    parent_id = fields.Many2one(
+        'bg.hr.payroll.economic.activity', string='Parent Activity'
+    )
+    child_ids = fields.One2many(
+        'bg.hr.payroll.economic.activity', 'parent_id', string='Child Activities'
+    )
 
     # MOD amounts by qualification groups
     mod_manager = fields.Float(string='MOD - Managers', default=0.0,
@@ -43,12 +54,6 @@ class BGModEconomicActivity(models.Model):
     date_from = fields.Date(string='Valid From', required=True, default=fields.Date.today)
     date_to = fields.Date(string='Valid To')
 
-    @api.depends('code', 'name')
-    def _compute_display_name(self):
-        """Override display name computation for Odoo 19"""
-        for record in self:
-            record.display_name = f"[{record.code}] {record.name}"
-
     @api.model
     def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None):
         """Override to improve performance when loading large datasets"""
@@ -70,12 +75,6 @@ class BGModEconomicActivity(models.Model):
             'elementary': self.mod_elementary,
         }
         return mapping.get(qualification_group, 0.0)
-
-    @api.constrains('code')
-    def _check_unique_code(self):
-        for record in self:
-            if self.search_count([('code', '=', record.code), ('id', '!=', record.id)]) > 0:
-                raise ValidationError(f"KID code '{record.code}' already exists!")
 
     @api.constrains('date_from', 'date_to')
     def _check_dates(self):

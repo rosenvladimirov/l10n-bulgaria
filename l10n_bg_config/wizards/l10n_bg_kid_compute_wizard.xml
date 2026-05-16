@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_l10n_bg_kid_compute_wizard_form" model="ir.ui.view">
+        <field name="name">l10n.bg.kid.compute.wizard.form</field>
+        <field name="model">l10n.bg.kid.compute.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Derive primary economic activity (КИД)">
+                <p class="text-muted">
+                    Net sales revenue is summed (credit − debit) on the
+                    accounts mapped as net-revenue indicators per КИД and
+                    rolled up to the section level, following the НСИ
+                    methodology. Leave the dates empty for all time.
+                </p>
+                <group>
+                    <group>
+                        <field name="company_id"
+                               groups="base.group_multi_company"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group>
+                        <field name="primary_kid_id" readonly="1"/>
+                    </group>
+                </group>
+                <field name="result_line_ids" readonly="1">
+                    <list default_order="net_revenue desc">
+                        <field name="is_primary" widget="boolean_favorite"
+                               nolabel="1"/>
+                        <field name="kid_id"/>
+                        <field name="net_revenue"/>
+                        <field name="currency_id" column_invisible="1"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_compute" type="object"
+                            string="Compute" class="btn-primary"/>
+                    <button string="Close" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

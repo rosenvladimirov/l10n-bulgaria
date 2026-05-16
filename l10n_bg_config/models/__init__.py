@@ -1,6 +1,8 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from . import ir_module
+from . import l10n_bg_kid
+from . import l10n_bg_account_industry_map
 from . import chart_template
 from . import l10n_bg_config_mixin
 from . import account_move

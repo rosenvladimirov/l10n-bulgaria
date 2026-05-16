@@ -1,7 +1,7 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Bulgarian HR Payroll Classifications',
-    'version': '19.0.5.0.2',
+    'version': '19.0.6.0.0',
     'category': 'Human Resources/Localization',
     'summary': 'Bulgarian localization for HR payroll with NKPD and Economic Activity classifications',
     'description': """
@@ -38,6 +38,9 @@
     'depends': [
         'base',
         'hr',
+        # КИД structure is now defined canonically in l10n_bg_config
+        # (model l10n.bg.kid); this module prototype-inherits it.
+        'l10n_bg_config',
     ],
     'data': [
         'security/ir.model.access.csv',

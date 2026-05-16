@@ -11,6 +11,13 @@
                     <field name="l10n_bg_uic_type" readonly="0" />
                     <field name="l10n_bg_represent_contact_id" />
                     <field name="l10n_bg_departament_code"/>
+                    <field name="l10n_bg_kid_version"/>
+                    <div class="o_row">
+                        <field name="l10n_bg_primary_kid_id" readonly="1"/>
+                        <button name="action_l10n_bg_compute_primary_kid"
+                                type="object" string="Derive from revenue"
+                                class="btn-link" icon="fa-calculator"/>
+                    </div>
                 </group>
             </xpath>
         </field>

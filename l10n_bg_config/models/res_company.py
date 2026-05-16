@@ -47,6 +47,21 @@ class ResCompany(models.Model):
         inverse="_inverse_l10n_bg_represent_contact_id",
         store=True,
     )
+    l10n_bg_kid_version = fields.Selection(
+        selection=[("2008", "КИД-2008"), ("2025", "КИД-2025")],
+        string="КИД edition",
+        default="2025",
+        help="КИД edition used when deriving the primary economic activity.",
+    )
+    l10n_bg_primary_kid_id = fields.Many2one(
+        "l10n.bg.kid",
+        string="Primary economic activity (КИД)",
+        domain="[('level', '=', 'section'), "
+        "('kid_version', '=', l10n_bg_kid_version)]",
+        help="Main activity derived from the net sales revenue accounts "
+        "following the НСИ methodology (highest relative share of net "
+        "sales revenue). Recompute via the КИД derivation wizard.",
+    )
     l10n_bg_departament_code = fields.Integer("Departament code")
     l10n_bg_config_template = fields.Binary("Config Template", attachment=False)
     l10n_bg_key = fields.Char(related="partner_id.l10n_bg_key", readonly=False)
@@ -144,3 +159,78 @@ class ResCompany(models.Model):
 
     def action_process_config_file(self):
         self._process_config_file()
+
+    def _l10n_bg_compute_primary_kid(self, date_from=False, date_to=False):
+        """Rank КИД sections by net sales revenue (НСИ methodology).
+
+        The main economic activity is the one with the highest relative
+        share of net sales revenue. We sum ``credit - debit`` of posted
+        journal items on the accounts mapped (``revenue_indicator=True``)
+        to each КИД, in the optional ``[date_from, date_to]`` window, and
+        roll the result up to the section level.
+
+        Limitation: a revenue code shared by several sections (e.g. 703 →
+        services) contributes to each of them, so 701 (production) / 702
+        (trade) / 704 (rent) are the decisive signals; finer per-section
+        attribution would require analytic accounts.
+
+        :return: ordered list of ``(section_kid, net_revenue)`` desc; also
+                 writes ``l10n_bg_primary_kid_id`` on each company.
+        """
+        self.ensure_one()
+        Map = self.env["l10n.bg.account.industry.map"]
+        AML = self.env["account.move.line"]
+
+        rows = Map.search(
+            [
+                ("revenue_indicator", "=", True),
+                ("kid_version", "=", self.l10n_bg_kid_version),
+                "|",
+                ("company_id", "=", False),
+                ("company_id", "=", self.id),
+            ]
+        )
+
+        revenue_by_section = {}
+        for row in rows:
+            section = row.kid_id
+            while section.parent_id:
+                section = section.parent_id
+            accounts = row._resolve_accounts(self)
+            if not accounts:
+                continue
+            aml_domain = [
+                ("account_id", "in", accounts.ids),
+                ("parent_state", "=", "posted"),
+                ("company_id", "=", self.id),
+            ]
+            if date_from:
+                aml_domain.append(("date", ">=", date_from))
+            if date_to:
+                aml_domain.append(("date", "<=", date_to))
+            groups = AML._read_group(
+                aml_domain, [], ["debit:sum", "credit:sum"]
+            )
+            debit, credit = (groups[0] if groups else (0.0, 0.0))
+            net_revenue = (credit or 0.0) - (debit or 0.0)
+            if section:
+                revenue_by_section.setdefault(section, 0.0)
+                revenue_by_section[section] += net_revenue
+
+        ranking = sorted(
+            revenue_by_section.items(), key=lambda kv: kv[1], reverse=True
+        )
+        if ranking and ranking[0][1] > 0:
+            self.l10n_bg_primary_kid_id = ranking[0][0].id
+        return ranking
+
+    def action_l10n_bg_compute_primary_kid(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Derive primary economic activity (КИД)",
+            "res_model": "l10n.bg.kid.compute.wizard",
+            "view_mode": "form",
+            "target": "new",
+            "context": {"default_company_id": self.id},
+        }

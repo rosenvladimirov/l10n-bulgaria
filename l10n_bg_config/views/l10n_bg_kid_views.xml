@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_l10n_bg_kid_list" model="ir.ui.view">
+        <field name="name">l10n.bg.kid.list</field>
+        <field name="model">l10n.bg.kid</field>
+        <field name="arch" type="xml">
+            <list string="КИД">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="level"/>
+                <field name="kid_version"/>
+                <field name="partner_industry_id" optional="show"/>
+                <field name="map_count" string="Mappings" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_l10n_bg_kid_form" model="ir.ui.view">
+        <field name="name">l10n.bg.kid.form</field>
+        <field name="model">l10n.bg.kid</field>
+        <field name="arch" type="xml">
+            <form string="КИД">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_maps" type="object"
+                                class="oe_stat_button" icon="fa-link">
+                            <field name="map_count" widget="statinfo" string="Mappings"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="level"/>
+                            <field name="kid_version"/>
+                        </group>
+                        <group>
+                            <field name="parent_id"
+                                   domain="[('kid_version', '=', kid_version)]"/>
+                            <field name="partner_industry_id"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <field name="child_ids" readonly="1">
+                        <list>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="level"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_l10n_bg_kid_search" model="ir.ui.view">
+        <field name="name">l10n.bg.kid.search</field>
+        <field name="model">l10n.bg.kid</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="partner_industry_id"/>
+                <filter string="КИД-2025" name="v2025"
+                        domain="[('kid_version', '=', '2025')]"/>
+                <filter string="КИД-2008" name="v2008"
+                        domain="[('kid_version', '=', '2008')]"/>
+                <separator/>
+                <filter string="Sections" name="sections"
+                        domain="[('level', '=', 'section')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Edition" name="grp_version"
+                            context="{'group_by': 'kid_version'}"/>
+                    <filter string="Level" name="grp_level"
+                            context="{'group_by': 'level'}"/>
+                    <filter string="Parent" name="grp_parent"
+                            context="{'group_by': 'parent_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_l10n_bg_kid" model="ir.actions.act_window">
+        <field name="name">КИД classification</field>
+        <field name="res_model">l10n.bg.kid</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_l10n_bg_kid_search"/>
+        <field name="context">{'search_default_sections': 1, 'search_default_v2025': 1}</field>
+    </record>
+
+    <record id="view_l10n_bg_account_industry_map_list" model="ir.ui.view">
+        <field name="name">l10n.bg.account.industry.map.list</field>
+        <field name="model">l10n.bg.account.industry.map</field>
+        <field name="arch" type="xml">
+            <list string="Account ↔ КИД" editable="bottom">
+                <field name="kid_id"/>
+                <field name="kid_version" optional="show"/>
+                <field name="account_code"/>
+                <field name="relation_type"/>
+                <field name="revenue_indicator"/>
+                <field name="note" optional="show"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_l10n_bg_account_industry_map_form" model="ir.ui.view">
+        <field name="name">l10n.bg.account.industry.map.form</field>
+        <field name="model">l10n.bg.account.industry.map</field>
+        <field name="arch" type="xml">
+            <form string="Account ↔ КИД">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="kid_id"/>
+                            <field name="account_code"/>
+                            <field name="relation_type"/>
+                        </group>
+                        <group>
+                            <field name="revenue_indicator"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="note" placeholder="Accounting-standard rationale (СС 2 / СС 11 / СС 41 …)"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_l10n_bg_account_industry_map_search" model="ir.ui.view">
+        <field name="name">l10n.bg.account.industry.map.search</field>
+        <field name="model">l10n.bg.account.industry.map</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="kid_id"/>
+                <field name="account_code"/>
+                <filter string="Net-revenue indicator" name="rev"
+                        domain="[('revenue_indicator', '=', True)]"/>
+                <filter string="Mandatory" name="mand"
+                        domain="[('relation_type', '=', 'mandatory')]"/>
+                <filter string="Forbidden" name="forb"
+                        domain="[('relation_type', '=', 'forbidden')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Economic activity" name="grp_kid"
+                            context="{'group_by': 'kid_id'}"/>
+                    <filter string="Relation" name="grp_rel"
+                            context="{'group_by': 'relation_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_l10n_bg_account_industry_map" model="ir.actions.act_window">
+        <field name="name">Account ↔ КИД mapping</field>
+        <field name="res_model">l10n.bg.account.industry.map</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_l10n_bg_account_industry_map_search"/>
+    </record>
+
+    <menuitem id="menu_l10n_bg_kid_root"
+              name="Bulgarian КИД"
+              parent="account.menu_finance_configuration"
+              sequence="90"/>
+    <menuitem id="menu_l10n_bg_kid"
+              name="КИД classification"
+              parent="menu_l10n_bg_kid_root"
+              action="action_l10n_bg_kid"
+              sequence="10"/>
+    <menuitem id="menu_l10n_bg_account_industry_map"
+              name="Account ↔ КИД mapping"
+              parent="menu_l10n_bg_kid_root"
+              action="action_l10n_bg_account_industry_map"
+              sequence="20"/>
+
+</odoo>

@@ -351,6 +351,50 @@ class AccountChartTemplate(models.AbstractModel):
             self._get_bg_fiscal_position_data
         )
 
+    def _parse_csv_safe(self, template_code, model, module):
+        """``_parse_csv`` that tolerates an absent template file.
+
+        The base ``l10n_bg_config`` ships no seed for the КИД / account-
+        industry-map models — the data comes from
+        ``l10n_bg_config_plugins_*``. ``_update_template_data`` still calls
+        the base getter first, so a missing CSV must yield ``{}`` instead
+        of raising.
+        """
+        try:
+            return self._parse_csv(template_code, model, module)
+        except (FileNotFoundError, OSError, ValueError):
+            return {}
+
+    @template(model='l10n.bg.kid')
+    def _get_bg_kid_data(self, template_code, module=BASE_MODULE):
+        """КИД classification rows for ``template_code`` from ``module``."""
+        return self._parse_csv_safe(template_code, 'l10n.bg.kid', module)
+
+    @template(model='l10n.bg.kid')
+    def _get_l10n_bg_kid(self, template_code):
+        """Merge the КИД classification across base + installed plugins."""
+        return self._update_template_data(
+            {},
+            template_code,
+            self._get_bg_kid_data,
+        )
+
+    @template(model='l10n.bg.account.industry.map')
+    def _get_bg_account_industry_map_data(self, template_code, module=BASE_MODULE):
+        """Account↔КИД mapping rows for ``template_code`` from ``module``."""
+        return self._parse_csv_safe(
+            template_code, 'l10n.bg.account.industry.map', module
+        )
+
+    @template(model='l10n.bg.account.industry.map')
+    def _get_l10n_bg_account_industry_map(self, template_code):
+        """Merge the account↔КИД mapping across base + installed plugins."""
+        return self._update_template_data(
+            {},
+            template_code,
+            self._get_bg_account_industry_map_data,
+        )
+
     @template('bg')
     def _get_bg_template_data_external(self):
         """

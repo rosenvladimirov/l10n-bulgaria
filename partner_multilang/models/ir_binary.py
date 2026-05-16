@@ -3,11 +3,7 @@ import logging
 from mimetypes import guess_extension
 
 from odoo import models
-
-from odoo.tools import replace_exceptions
-
-from odoo.exceptions import UserError
-from odoo.tools.mimetypes import guess_mimetype, get_extension
+from odoo.tools.mimetypes import get_extension
 
 _logger = logging.getLogger(__name__)
 
@@ -19,77 +15,38 @@ class IrBinary(models.AbstractModel):
         self, record, field_name='raw', filename=None, filename_field='name',
         mimetype=None, default_mimetype='application/octet-stream',
     ):
+        """Delegate to core (keeps all robustness: missing-file / placeholder
+        fallback handled by ir.binary._get_image_stream_from and the
+        controllers). Only fix the download name when ``filename_field`` is a
+        translate=True field returning a {lang: value} dict — the sole purpose
+        of this module's override. Previously the whole method was
+        reimplemented, which broke core's graceful handling and turned missing
+        / legacy attachments into hard HTTP 500s.
         """
-        Create a :class:odoo.http.Stream: from a record's binary field.
-
-        :param record: the record where to load the data from.
-        :param str field_name: the binary field where to load the data
-            from.
-        :param Optional[str] filename: when the stream is downloaded by
-            a browser, what filename it should have on disk. By default
-            it is ``{model}-{id}-{field}.{extension}``, the extension is
-            determined thanks to mimetype.
-        :param Optional[str] filename_field: like ``filename`` but use
-            one of the record's char field as filename.
-        :param Optional[str] mimetype: the data mimetype to use instead
-            of the stored one (attachment) or the one determined by
-            magic.
-        :param str default_mimetype: the mimetype to use when the
-            mimetype couldn't be determined. By default it is
-            ``application/octet-stream``.
-        :rtype: odoo.http.Stream
-        """
-        with replace_exceptions(ValueError, by=UserError(f'Expected singleton: {record}')):  # pylint: disable=missing-gettext
-            record.ensure_one()
-
+        stream = super()._get_stream_from(
+            record, field_name=field_name, filename=filename,
+            filename_field=filename_field, mimetype=mimetype,
+            default_mimetype=default_mimetype,
+        )
+        if filename or not filename_field:
+            return stream
         try:
-            field_def = record._fields[field_name]
-        except KeyError:
-            raise UserError(f"Record has no field {field_name!r}.")  # pylint: disable=missing-gettext
-        if field_def.type != 'binary':
-            raise UserError(  # pylint: disable=missing-gettext
-                f"Field {field_def!r} is type {field_def.type!r} but "
-                f"it is only possible to stream Binary or Image fields."
-            )
-
-        stream = self._record_to_stream(record, field_name)
-
-        if stream.type in ('data', 'path'):
-            if mimetype:
-                stream.mimetype = mimetype
-            elif not stream.mimetype:
-                if stream.type == 'data':
-                    head = stream.data[:1024]
-                else:
-                    with open(stream.path, 'rb') as file:
-                        head = file.read(1024)
-                stream.mimetype = guess_mimetype(head, default=default_mimetype)
-
-            if filename:
-                stream.download_name = filename
-            elif filename_field in record:
-                field_value = record[filename_field]
-                # КРИТИЧНО: Handle dict from translate=True fields
-                if isinstance(field_value, dict):
-                    try:
-                        lang = self.env.context.get('lang') or self.env.user.lang or 'en_US'
-                        field_value = field_value.get(lang) or \
-                                      field_value.get('en_US') or \
-                                      next(iter(field_value.values()), None)
-                    except Exception as e:
-                        _logger.warning(f"Error extracting string from dict field '{filename_field}': {e}")
-                        field_value = None
-
-                # Set download_name only if we have a valid value
+            if filename_field not in record._fields:
+                return stream
+            field_value = record[filename_field]
+            if isinstance(field_value, dict):
+                lang = self.env.context.get('lang') or self.env.user.lang or 'en_US'
+                field_value = (field_value.get(lang)
+                               or field_value.get('en_US')
+                               or next(iter(field_value.values()), None))
                 if field_value:
-                    stream.download_name = str(field_value)
-
-            if not stream.download_name:
-                stream.download_name = f'{record._table}-{record.id}-{field_name}'
-
-            stream.download_name = stream.download_name.replace('\n', '_').replace('\r', '_')
-            if (not get_extension(stream.download_name)
-                and stream.mimetype != 'application/octet-stream'):
-                stream.download_name += guess_extension(stream.mimetype) or ''
-
+                    name = str(field_value).replace('\n', '_').replace('\r', '_')
+                    if (not get_extension(name) and stream.mimetype
+                            and stream.mimetype != 'application/octet-stream'):
+                        name += guess_extension(stream.mimetype) or ''
+                    stream.download_name = name
+        except Exception as exc:  # never break streaming over a filename tweak
+            _logger.warning(
+                "partner_multilang: download_name tweak skipped for "
+                "%s.%s: %s", record._name, filename_field, exc)
         return stream

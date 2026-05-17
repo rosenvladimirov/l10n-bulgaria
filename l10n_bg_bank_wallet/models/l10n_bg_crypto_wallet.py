@@ -52,6 +52,13 @@ class CryptographyManager:
     @staticmethod
     def derive_key(password: str, salt: bytes):
         """Derive an encryption key from password and salt"""
+        if not isinstance(password, str) or not password:
+            raise UserError(
+                'Нужна е главна парола за създаване/отключване на портфела. '
+                'Отворете портфела чрез съветника за отключване и въведете паролата си. '
+                '(Паролата на потребителя в Odoo не е четима по дизайн — затова '
+                'master_password не може да се вземе автоматично от user_id.password.)'
+            )
         kdf = PBKDF2HMAC(
             algorithm=hashes.SHA256(),
             length=CRYPTO_CONFIG['KEY_LENGTH'],
@@ -637,6 +644,17 @@ class CryptoWallet(models.Model):
         for vals in vals_list:
             processed_vals = vals.copy()
             master_password = processed_vals.pop('master_password', None) or self.get_user_master_password()
+            # get_user_master_password() връща user_id.password, който в Odoo е
+            # write-only и при четене ВИНАГИ е False. Затова при създаване без
+            # изрично подадена master_password няма как да инициализираме портфела —
+            # отказваме ясно вместо krash в derive_key (bool.encode()).
+            if not isinstance(master_password, str) or not master_password:
+                raise UserError(
+                    'Портфелът не може да се създаде без главна парола. '
+                    'Създайте/отключете го чрез съветника (Wallet → Unlock) '
+                    'или подайте "master_password" при създаване. '
+                    'Паролата на потребителя в Odoo не е четима по дизайн.'
+                )
 
             master_passwords.append(master_password)
             processed_vals_list.append(processed_vals)

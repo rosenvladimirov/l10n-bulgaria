@@ -4,6 +4,22 @@ All notable changes to the l10n_bg_bank_wallet module will be documented in this
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [19.0.1.0.7] - 2026-05-17
+
+### Fixed
+- Wallet creation via UI crashed with `AttributeError: 'bool' object has no
+  attribute 'encode'` in `derive_key`. Root cause: `get_user_master_password()`
+  returns `user_id.password`, which in Odoo is write-only and **always reads as
+  `False`**, so `create()` passed `False` to `_initialize_empty_wallet` →
+  `derive_key(False, salt)`. The design intent (master password = user's Odoo
+  password, supplied via the unlock wizard) is unchanged.
+- `derive_key` now raises a clear `UserError` when password is not a non-empty
+  `str` (instead of a cryptic AttributeError / HTTP 500).
+- `create()` now fails fast with a clear `UserError` when no usable
+  `master_password` is available, before any half-initialised record is made.
+  Wallets must be created/unlocked via the wizard (which prompts for the
+  password) or with an explicit `master_password` value.
+
 ## [19.0.1.0.0] - 2026-04-01
 
 ### Changed

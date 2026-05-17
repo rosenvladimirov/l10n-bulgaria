@@ -4,6 +4,15 @@ All notable changes to the l10n_bg_bank_wallet module will be documented in this
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [19.0.1.0.9] - 2026-05-17
+
+### Fixed
+- `_create_initial_wallet` now initialises a pre-existing but empty
+  "System Keys" wallet (no `encrypted_data`) instead of skipping it.
+  Such records were left behind by UI create attempts before 19.0.1.0.8
+  and stayed permanently unusable (the "wallet exists but never
+  initialised" case).
+
 ## [19.0.1.0.8] - 2026-05-17
 
 ### Fixed

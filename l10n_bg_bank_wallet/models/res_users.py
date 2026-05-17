@@ -106,7 +106,18 @@ class Users(models.Model):
                 ('name', '=', 'System Keys'),
             ], limit=1)
             if existing:
-                _logger.debug("Wallet already exists for user %s, skipping creation", user_id)
+                # Заварен запис без encrypted_data (напр. създаден от
+                # UI преди фикса) — НЕ го skip-ваме, а го инициализираме,
+                # иначе портфелът остава вечно неизползваем.
+                if not existing.encrypted_data:
+                    existing._initialize_empty_wallet(master_password)
+                    _logger.info(
+                        "Initialised pre-existing empty wallet for user %s",
+                        user_id)
+                else:
+                    _logger.debug(
+                        "Wallet already exists for user %s, skipping",
+                        user_id)
                 return
             wallet_model.create({
                 'name': 'System Keys',

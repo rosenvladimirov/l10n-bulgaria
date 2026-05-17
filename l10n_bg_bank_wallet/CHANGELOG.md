@@ -4,6 +4,16 @@ All notable changes to the l10n_bg_bank_wallet module will be documented in this
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [19.0.1.1.2] - 2026-05-17
+
+### Added
+- "Import from ZIP" button in the Key Manager wizard footer (next to
+  "Export Key"). The import wizard existed and was bound to the
+  contextual Action menu via `binding_model_id`, but users expected it
+  inside the Key Manager dialog itself. New `import_keys()` method on
+  `crypto.wallet.key.manager` opens `crypto.wallet.import.wizard`
+  pre-filled with the current wallet.
+
 ## [19.0.1.1.1] - 2026-05-17
 
 ### Fixed

@@ -84,6 +84,18 @@ class CryptoWalletKeyManager(models.TransientModel):
             'context': {'default_wallet_id': self.wallet_id.id},
         }
 
+    def import_keys(self):
+        """Отваря wizard за импорт на ключове от AES-256 ZIP."""
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Import keys from ZIP'),
+            'res_model': 'crypto.wallet.import.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_wallet_id': self.wallet_id.id},
+        }
+
     def view_key(self):
         """Показва данните на избрания ключ"""
         self.ensure_one()

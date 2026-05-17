@@ -28,7 +28,10 @@
             <graph string="Devices by kind" type="bar" sample="0">
                 <field name="kind"/>
                 <field name="proxy_id" type="col"/>
-                <field name="id" type="measure" string="Count" aggregator="count_distinct"/>
+                <!-- Без явен measure: graph view ползва вградения implicit Count.
+                     `aggregator` НЕ е валиден атрибут на <field> в graph RelaxNG
+                     (Odoo 19) → блокираше зареждането на модула; `id` като measure
+                     без агрегатор пък чупеше browser-а. Count by kind/proxy = желаното. -->
             </graph>
         </field>
     </record>
@@ -41,7 +44,7 @@
             <pivot string="Devices: proxy × kind" sample="0">
                 <field name="proxy_id" type="row"/>
                 <field name="kind" type="col"/>
-                <field name="id" type="measure" string="Count" aggregator="count_distinct"/>
+                <!-- Без явен measure: pivot view default-ва на вградения Count measure. -->
             </pivot>
         </field>
     </record>

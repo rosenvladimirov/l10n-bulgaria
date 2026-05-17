@@ -4,6 +4,27 @@ All notable changes to the l10n_bg_bank_wallet module will be documented in this
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [19.0.1.0.8] - 2026-05-17
+
+### Fixed
+- **Design bug: wallet never auto-created on modern Odoo.** The module
+  keys the wallet with the user's bcrypt password hash
+  (`_create_initial_wallet(user_id, hash)`), but obtained it from
+  `res.users.password` via the ORM, which in Odoo 17+ is write-only and
+  **always reads `False`**. Consequently `_check_credentials` returned
+  early on every login (`if not new_password_hash`), so the "System
+  Keys" wallet was never created/re-synced and `get_user_master_password`
+  always yielded `False` — wallets could not be created or unlocked.
+- `crypto.wallet._read_bcrypt_hash()` (new helper): reads the real
+  bcrypt hash directly from the `res_users.password` column via SQL by
+  the owner-privileged wallet code — the value the design already uses
+  as the master password. `get_user_master_password()` now uses it.
+- `res.users._check_credentials`: reads the bcrypt hash via SQL (not the
+  always-False ORM field) and, on a normal login with no "System Keys"
+  wallet, auto-creates it with the bcrypt hash (what `_verify_wallet_sync`
+  intended but was never invoked). Re-encryption on password change is
+  preserved with the working hash source.
+
 ## [19.0.1.0.7] - 2026-05-17
 
 ### Fixed

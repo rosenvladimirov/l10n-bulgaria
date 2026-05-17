@@ -303,10 +303,28 @@ class CryptoWallet(models.Model):
         _logger.debug(f"Wallet '{self.name}' locked")
 
     # === SIMPLIFIED USER INTERFACE METHODS ===
+    @staticmethod
+    def _read_bcrypt_hash(env, user_id):
+        """Връща bcrypt hash-а на потребителя от колоната res_users.password.
+
+        res.users.password през ORM в Odoo 17+ е write-only и при четене
+        ВИНАГИ е False.  Реалният bcrypt hash (с който се ключира
+        портфелът — виж res_users._create_initial_wallet) живее в
+        колоната res_users.password; привилегированият wallet код го чете
+        директно през SQL.  Това е master password-ът на портфела —
+        консистентно при създаване, отключване и cron.
+        """
+        if not user_id:
+            return False
+        env.cr.execute(
+            "SELECT password FROM res_users WHERE id = %s", (user_id,))
+        row = env.cr.fetchone()
+        return row[0] if row and row[0] else False
+
     def get_user_master_password(self):
         """Get master password for current user - renamed for clarity"""
         self._check_permission_level('read')
-        return self.user_id.password
+        return self._read_bcrypt_hash(self.env, self.user_id.id)
 
     def unlock_with_user_password(self):
         """Unlock wallet using user's master password"""

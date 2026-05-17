@@ -52,6 +52,14 @@ class CryptographyManager:
     @staticmethod
     def derive_key(password: str, salt: bytes):
         """Derive an encryption key from password and salt"""
+        # user-facing → английски (преводимо); коментарите остават български
+        if not isinstance(password, str) or not password:
+            raise UserError(
+                "A master password is required to create or unlock the wallet. "
+                "Open the wallet via the unlock wizard and enter your password. "
+                "(The Odoo user password is write-only by design, so the master "
+                "password cannot be taken automatically from user_id.password.)"
+            )
         kdf = PBKDF2HMAC(
             algorithm=hashes.SHA256(),
             length=CRYPTO_CONFIG['KEY_LENGTH'],
@@ -190,6 +198,13 @@ class CryptoWallet(models.Model):
     # === PERMISSION AND ACCESS CONTROL ===
     def _check_permission_level(self, permission_level):
         """Simplified permission check - only owner or admin"""
+        # Trusted server/sudo код (env.su) — собственият lifecycle на
+        # модула (_create_initial_wallet/init/reencrypt), cron и InfoPay
+        # четат wallet-а през sudo към owner-а.  Този custom gate е само
+        # за интерактивен непривилегирован user; Odoo ir.model.access +
+        # record rules важат на ORM ниво независимо.
+        if self.env.su:
+            return True
         # Check if owner
         if self.user_id == self.env.user:
             return True
@@ -202,6 +217,9 @@ class CryptoWallet(models.Model):
 
     def _validate_record_access(self, operation='read'):
         """Check if the current user has access to this wallet record"""
+        # Виж бележката в _check_permission_level — sudo/server код минава.
+        if self.env.su:
+            return True
         if self.user_id != self.env.user and not self.env.user.has_group(PERMISSION_LEVELS['admin']):
             raise AccessError(f'Нямате достъп до портфел "{self.name}"')
         return True
@@ -282,23 +300,51 @@ class CryptoWallet(models.Model):
         self.is_locked = False
         self.last_accessed = fields.Datetime.now()
         self.decrypted_keys = json.dumps(wallet_data, indent=2)
-        self.env.context = dict(self.env.context, wallet_key=encryption_key.decode())
+        # Odoo 18/19: env.context е read-only — НЕ кешираме ключа в контекста.
+        # Ключът се деривира stateless при нужда от get_user_master_password()
+        # (bcrypt hash) + salt (виж _derive_active_key).
+
+    def _derive_active_key(self):
+        """Деривира текущия encryption key stateless (без env.context кеш).
+
+        Odoo 18/19 забранява присвояване на env.context, затова старият
+        wallet_key-в-контекста кеш е премахнат.  Ключът е детерминиран
+        от master password-а (bcrypt hash) + солта на портфела.
+        """
+        master_password = self.get_user_master_password()
+        salt = base64.b64decode(self.salt)
+        return self.crypto_manager.derive_key(master_password, salt)
 
     def lock_wallet(self):
         """Lock the wallet"""
         self._check_permission_level('read')
         self.is_locked = True
         self.decrypted_keys = False
-        # Clear key from context
-        if 'wallet_key' in self.env.context:
-            self.env.context = {k: v for k, v in self.env.context.items() if k != 'wallet_key'}
         _logger.debug(f"Wallet '{self.name}' locked")
 
     # === SIMPLIFIED USER INTERFACE METHODS ===
+    @staticmethod
+    def _read_bcrypt_hash(env, user_id):
+        """Връща bcrypt hash-а на потребителя от колоната res_users.password.
+
+        res.users.password през ORM в Odoo 17+ е write-only и при четене
+        ВИНАГИ е False.  Реалният bcrypt hash (с който се ключира
+        портфелът — виж res_users._create_initial_wallet) живее в
+        колоната res_users.password; привилегированият wallet код го чете
+        директно през SQL.  Това е master password-ът на портфела —
+        консистентно при създаване, отключване и cron.
+        """
+        if not user_id:
+            return False
+        env.cr.execute(
+            "SELECT password FROM res_users WHERE id = %s", (user_id,))
+        row = env.cr.fetchone()
+        return row[0] if row and row[0] else False
+
     def get_user_master_password(self):
         """Get master password for current user - renamed for clarity"""
         self._check_permission_level('read')
-        return self.user_id.password
+        return self._read_bcrypt_hash(self.env, self.user_id.id)
 
     def unlock_with_user_password(self):
         """Unlock wallet using user's master password"""
@@ -404,17 +450,12 @@ class CryptoWallet(models.Model):
         return keys_info
 
     def _get_or_unlock_wallet(self, master_password):
-        """Get wallet data, unlock if necessary - extracted method"""
-        if self.is_locked:
-            return self.unlock_wallet_with_password(master_password)
+        """Get wallet data, unlock if necessary - extracted method.
 
-        wallet_key = self.env.context.get('wallet_key')
-        if not wallet_key:
-            return self.unlock_wallet_with_password(master_password)
-
-        encrypted_data = base64.b64decode(self.encrypted_data)
-        decrypted_json = self._crypto_manager.decrypt_data(encrypted_data, wallet_key.encode())
-        return json.loads(decrypted_json)
+        Odoo 18/19: без env.context кеш — unlock-ът е детерминиран и евтин,
+        затова просто декриптираме с master_password всеки път.
+        """
+        return self.unlock_wallet_with_password(master_password)
 
     def _update_wallet_metadata(self, wallet_data):
         """Update wallet metadata - extracted method"""
@@ -422,14 +463,14 @@ class CryptoWallet(models.Model):
         wallet_data['metadata']['last_modified'] = fields.Datetime.now().isoformat()
 
     def _save_wallet_data(self, wallet_data):
-        """Save wallet data with current encryption key - extracted method"""
-        wallet_key = self.env.context.get('wallet_key')
-        if not wallet_key:
-            master_password = self.get_user_master_password()
-            self.unlock_wallet_with_password(master_password)
-            wallet_key = self.env.context.get('wallet_key')
+        """Save wallet data with current encryption key - extracted method.
 
-        encrypted_data = self._crypto_manager.encrypt_data(json.dumps(wallet_data), wallet_key.encode())
+        Odoo 18/19: ключът се деривира stateless (master password + salt),
+        а не от премахнатия env.context кеш.
+        """
+        wallet_key = self._derive_active_key()
+
+        encrypted_data = self._crypto_manager.encrypt_data(json.dumps(wallet_data), wallet_key)
         self.encrypted_data = base64.b64encode(encrypted_data).decode()
 
         self._persist_wallet_to_disk()
@@ -637,6 +678,17 @@ class CryptoWallet(models.Model):
         for vals in vals_list:
             processed_vals = vals.copy()
             master_password = processed_vals.pop('master_password', None) or self.get_user_master_password()
+            # get_user_master_password() връща user_id.password, който в Odoo е
+            # write-only и при четене ВИНАГИ е False. Затова при създаване без
+            # изрично подадена master_password няма как да инициализираме портфела —
+            # отказваме ясно вместо krash в derive_key (bool.encode()).
+            if not isinstance(master_password, str) or not master_password:
+                raise UserError(
+                    "The wallet cannot be created without a master password. "
+                    "Create/unlock it via the wizard (Wallet → Unlock) or pass "
+                    "an explicit \"master_password\" on creation. The Odoo user "
+                    "password is write-only by design and cannot be read back."
+                )
 
             master_passwords.append(master_password)
             processed_vals_list.append(processed_vals)
@@ -727,8 +779,8 @@ class CryptoWallet(models.Model):
         # Save to disk
         self._persist_wallet_to_disk()
 
-        # Update context
-        self.env.context = dict(self.env.context, wallet_key=new_key.decode())
+        # Odoo 18/19: env.context е read-only — ключът вече се деривира
+        # stateless (виж _derive_active_key); няма context кеш за update.
         self.is_locked = False
 
         _logger.debug(f"Wallet '{self.name}' reencrypted successfully")

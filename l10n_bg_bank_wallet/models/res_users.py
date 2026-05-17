@@ -16,19 +16,47 @@ class Users(models.Model):
     )
 
     def _check_credentials(self, credential, user_agent_env):
-        """Прихваща успешната авторизация и синхронизира портфела"""
-        old_password_hash = self.env.user.password
+        """Прихваща успешната авторизация и синхронизира портфела.
+
+        Пропуска wallet операциите при API-key автентикация (password
+        хешът е ``False``) или когато потребителят вече е бил проверен
+        в текущия request.
+        """
+        # res.users.password (ORM) в Odoo 17+ е write-only → винаги False,
+        # затова четем реалния bcrypt hash директно от колоната.  Иначе
+        # целият hook е мъртъв (старият код връщаше рано на `if not
+        # new_password_hash`) и портфелът никога не се създава/пресинхронизира.
+        def _bcrypt_hash(uid):
+            if not uid:
+                return False
+            self.env.cr.execute(
+                "SELECT password FROM res_users WHERE id = %s", (uid,))
+            row = self.env.cr.fetchone()
+            return row[0] if row and row[0] else False
+
+        old_password_hash = _bcrypt_hash(self.env.uid)
 
         result = super()._check_credentials(credential, user_agent_env)
 
-        new_password_hash = self.env.user.password
         user_id = self.env.uid
+        new_password_hash = _bcrypt_hash(user_id)
 
-        if old_password_hash != new_password_hash:
+        # API-key auth → bcrypt hash е False → нищо за синхронизиране
+        if not new_password_hash:
+            return result
+
+        if old_password_hash and old_password_hash != new_password_hash:
             _logger.info("Password hash changed for user %s", user_id)
             self._handle_wallet_reencryption(user_id, old_password_hash, new_password_hash)
         else:
-            self._verify_wallet_sync(user_id, new_password_hash)
+            # Нормален логин: ако липсва "System Keys" портфел — създаваме
+            # го с bcrypt hash-а (master password-ът по дизайн).  Това е
+            # каквото _verify_wallet_sync вече прави, но никога не се викаше.
+            user = self.env['res.users'].browse(user_id)
+            system_wallet = user.crypto_wallet_ids.filtered(
+                lambda w: w.name == 'System Keys')
+            if not system_wallet:
+                self._create_initial_wallet(user_id, new_password_hash)
 
         return result
 
@@ -78,7 +106,18 @@ class Users(models.Model):
                 ('name', '=', 'System Keys'),
             ], limit=1)
             if existing:
-                _logger.debug("Wallet already exists for user %s, skipping creation", user_id)
+                # Заварен запис без encrypted_data (напр. създаден от
+                # UI преди фикса) — НЕ го skip-ваме, а го инициализираме,
+                # иначе портфелът остава вечно неизползваем.
+                if not existing.encrypted_data:
+                    existing._initialize_empty_wallet(master_password)
+                    _logger.info(
+                        "Initialised pre-existing empty wallet for user %s",
+                        user_id)
+                else:
+                    _logger.debug(
+                        "Wallet already exists for user %s, skipping",
+                        user_id)
                 return
             wallet_model.create({
                 'name': 'System Keys',

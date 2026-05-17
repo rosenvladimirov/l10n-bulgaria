@@ -4,6 +4,29 @@ All notable changes to the l10n_bg_bank_wallet module will be documented in this
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [18.0.1.1.0] - 2026-05-17
+
+### Fixed
+- Backport of the 19.0.1.0.7–19.0.1.1.1 wallet-lifecycle fix chain (all
+  six bugs were present identically on 18.0). The Odoo `api.Environment`
+  refactor that makes `context`/`cr`/`uid`/`su` **read-only landed in
+  Odoo 18.0**, so every item — including the `env.context` one — applies.
+  - `derive_key`: clear `UserError` instead of `bool.encode()` 500.
+  - `_read_bcrypt_hash()` (new) + `get_user_master_password()`: read the
+    bcrypt hash from `res_users.password` via SQL (the ORM field is
+    write-only/`False` on Odoo 17+).
+  - `res.users._check_credentials`: SQL bcrypt hash + auto-create the
+    "System Keys" wallet on normal login; `_create_initial_wallet`
+    initialises a pre-existing empty wallet instead of skipping it.
+  - `_check_permission_level` / `_validate_record_access`: `env.su`
+    bypass so the module's own sudo'd lifecycle is not blocked.
+  - Removed the illegal `self.env.context = ...` key cache (read-only on
+    Odoo 18/19); key derived statelessly via `_derive_active_key`.
+  Verified end-to-end on the 19.0 twin (create→init→unlock→import→
+  readback, InfoPay 4 keys). Bulgarian `help=` string on
+  `crypto_wallet_ids` kept as-is (grandfathered; the 19.0 i18n sweep was
+  deliberately not bundled into this lifecycle backport).
+
 ## [18.0.1.0.5] - 2026-03-24
 
 ### Fixed

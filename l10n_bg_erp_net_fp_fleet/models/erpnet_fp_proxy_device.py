@@ -31,6 +31,7 @@ _KIND_LABELS = [
     ("scale", "Weighing scale"),
     ("reader", "Barcode reader"),
     ("display", "Customer display"),
+    ("camera", "Camera"),
 ]
 
 
@@ -83,6 +84,7 @@ class ErpNetFpProxyDevice(models.Model):
             "scales": "scale",
             "readers": "reader",
             "displays": "display",
+            "cameras": "camera",
         }
         seen_keys = set()
         for plural, ids in (devices_payload or {}).items():

@@ -4,6 +4,25 @@ All notable changes to the l10n_bg_bank_wallet module will be documented in this
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [19.0.1.1.0] - 2026-05-17
+
+### Fixed
+- **Holistic wallet-lifecycle fix.** The custom app-level permission
+  gate (`_check_permission_level`, `_validate_record_access`) blocked
+  the module's *own* sudo'd lifecycle: `_create_initial_wallet` runs
+  `.sudo()` → `env.user` becomes superuser, which is neither the wallet
+  owner nor a member of the custom `group_crypto_wallet_admin` group, so
+  `_initialize_empty_wallet`'s write (`self.salt = ...`) raised
+  `AccessError`. Same gate blocked sudo unlock for cron/InfoPay.
+- Both gate methods now return early when `self.env.su` is True (trusted
+  server/sudo context). The gate is purposely only for interactive,
+  non-privileged users; Odoo's `ir.model.access` and record rules still
+  govern access at the ORM layer, so this does not weaken real security
+  (a normal user cannot obtain `env.su`).
+- Completes the 19.0.1.0.7–1.0.9 chain (derive_key guard, SQL bcrypt
+  hash, login auto-create, initialise-pre-existing-empty) — the
+  create→init→unlock path now works end to end on Odoo 19.
+
 ## [19.0.1.0.9] - 2026-05-17
 
 ### Fixed

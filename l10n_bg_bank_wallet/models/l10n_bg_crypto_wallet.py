@@ -198,6 +198,13 @@ class CryptoWallet(models.Model):
     # === PERMISSION AND ACCESS CONTROL ===
     def _check_permission_level(self, permission_level):
         """Simplified permission check - only owner or admin"""
+        # Trusted server/sudo код (env.su) — собственият lifecycle на
+        # модула (_create_initial_wallet/init/reencrypt), cron и InfoPay
+        # четат wallet-а през sudo към owner-а.  Този custom gate е само
+        # за интерактивен непривилегирован user; Odoo ir.model.access +
+        # record rules важат на ORM ниво независимо.
+        if self.env.su:
+            return True
         # Check if owner
         if self.user_id == self.env.user:
             return True
@@ -210,6 +217,9 @@ class CryptoWallet(models.Model):
 
     def _validate_record_access(self, operation='read'):
         """Check if the current user has access to this wallet record"""
+        # Виж бележката в _check_permission_level — sudo/server код минава.
+        if self.env.su:
+            return True
         if self.user_id != self.env.user and not self.env.user.has_group(PERMISSION_LEVELS['admin']):
             raise AccessError(f'Нямате достъп до портфел "{self.name}"')
         return True

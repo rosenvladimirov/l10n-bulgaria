@@ -73,12 +73,24 @@ class L10nBgKid(models.Model):
     )
     active = fields.Boolean(string="Active", default=True)
 
-    # Accounting bridge — these are O2M / non-stored compute / method only,
-    # so prototype-inheriting tables (payroll) gain NO extra DB column.
+    # Accounting bridge — O2M / M2M / non-stored compute only, so
+    # prototype-inheriting tables (payroll) gain NO extra DB column
+    # (M2M lives in its own relation table, not on l10n_bg_kid).
     map_ids = fields.One2many(
         "l10n.bg.account.industry.map", "kid_id", string="Account mappings"
     )
     map_count = fields.Integer(compute="_compute_map_count")
+    # Explicit many2many: one chart, many КИД. A sector-specific account
+    # rule is shared by every КИД sector that needs it.
+    account_rule_ids = fields.Many2many(
+        "l10n.bg.account.kid.rule",
+        relation="l10n_bg_kid_account_rule_rel",
+        column1="kid_id",
+        column2="rule_id",
+        string="Account rules",
+        help="Sector-specific account-code rules tied to this КИД sector.",
+    )
+    account_rule_count = fields.Integer(compute="_compute_account_rule_count")
 
     @api.depends("code", "name")
     def _compute_display_name(self):
@@ -92,6 +104,11 @@ class L10nBgKid(models.Model):
         counts = {kid.id: count for kid, count in data}
         for record in self:
             record.map_count = counts.get(record.id, 0)
+
+    @api.depends("account_rule_ids")
+    def _compute_account_rule_count(self):
+        for record in self:
+            record.account_rule_count = len(record.account_rule_ids)
 
     def action_view_maps(self):
         self.ensure_one()

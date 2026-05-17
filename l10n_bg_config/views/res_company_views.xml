@@ -18,6 +18,7 @@
                                 type="object" string="Derive from revenue"
                                 class="btn-link" icon="fa-calculator"/>
                     </div>
+                    <field name="l10n_bg_kid_ids" widget="many2many_tags"/>
                 </group>
             </xpath>
         </field>

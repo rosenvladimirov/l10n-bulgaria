@@ -193,12 +193,75 @@ class AccountChartTemplate(models.AbstractModel):
         Returns:
             dict: The updated template data for the specified account account.
         """
-        return self._update_template_data(
+        data = self._update_template_data(
             super()._get_account_account(template_code),
             template_code,
             self._get_bg_account_data,
             type_template='account.account',
         )
+        return self._l10n_bg_filter_accounts_by_kid(data)
+
+    def _l10n_bg_filter_accounts_by_kid(self, data):
+        """Install-time филтър „един сметкоплан, много КИД".
+
+        Изхвърля от шаблона сметките, които НЕ са нужни на активните за
+        фирмата КИД сектори:
+
+          * ``framework_specific`` правило → винаги се маха (банки/
+            застраховане МСФО, бюджетен сметкоплан — извън нац. план);
+          * ``sector_specific`` правило → маха се, ако пресечната
+            множина на ``rule.kid_ids`` с ``company.l10n_bg_kid_ids`` е
+            празна (т.е. никой избран сектор не иска сметката);
+          * всичко останало (вкл. некласифицирано) се ПАЗИ — default-keep,
+            за да не изпуснем core сметка, която сме забравили.
+
+        При базова инсталация ``l10n_bg_kid_ids`` е празно → минават само
+        универсалните сметки. Безопасно е no-op, ако моделът с правила
+        още не е в регистъра или няма правила.
+        """
+        Rule = self.env.get('l10n.bg.account.kid.rule')
+        if Rule is None:
+            return data
+        try:
+            rules = Rule.sudo().search([])
+        except Exception:  # noqa: BLE001 — registry/table not ready yet
+            return data
+        if not rules:
+            return data
+
+        company = self.env.company
+        active_kid_ids = set(
+            getattr(company, 'l10n_bg_kid_ids', self.env['l10n.bg.kid'])
+            .ids
+        )
+
+        # Подготвяме списък (само-цифров префикс, решение) подреден по
+        # дължина низходящо, за да печели най-специфичното правило.
+        decisions = []
+        for rule in rules:
+            prefix = ''.join(filter(str.isdigit, rule.account_code or ''))
+            if not prefix:
+                continue
+            if rule.classification == 'framework_specific':
+                drop = True
+            elif rule.classification == 'sector_specific':
+                drop = not (set(rule.kid_ids.ids) & active_kid_ids)
+            else:  # universal
+                drop = False
+            decisions.append((prefix, drop))
+        decisions.sort(key=lambda x: len(x[0]), reverse=True)
+
+        result = {}
+        for xmlid, vals in data.items():
+            code = ''.join(filter(str.isdigit, str(vals.get('code') or '')))
+            keep = True
+            for prefix, drop in decisions:
+                if code.startswith(prefix):
+                    keep = not drop
+                    break
+            if keep:
+                result[xmlid] = vals
+        return result
 
     @template(model='account.group')
     def _get_bg_account_group_data(self, template_code, module=BASE_MODULE):

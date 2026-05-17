@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Класификация на Националния сметкоплан по КИД (обоснована — НСС/ЗСч/НСИ).
+     Default-keep: seed-ват се само ИЗКЛЮЧЕНИЯТА (sector/framework);
+     некласифицирана сметка остава universal по подразбиране.
+     K (банки/застраховане) и O (бюджет) ползват изцяло отделни планове —
+     нямат национален код за маркиране, затова няма framework редове тук. -->
+<odoo noupdate="0">
+
+    <!-- Биологични активи — СС 41, сектор A (селско/горско/рибно) -->
+    <record id="kidrule_271" model="l10n.bg.account.kid.rule">
+        <field name="account_code">271</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_A')])]"/>
+        <field name="note">Гори — дългосрочни биологични активи (СС 41)</field>
+    </record>
+    <record id="kidrule_272" model="l10n.bg.account.kid.rule">
+        <field name="account_code">272</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_A')])]"/>
+        <field name="note">Трайни насаждения (СС 41)</field>
+    </record>
+    <record id="kidrule_274" model="l10n.bg.account.kid.rule">
+        <field name="account_code">274</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_A')])]"/>
+        <field name="note">Животни в основни стада (СС 41)</field>
+    </record>
+    <record id="kidrule_311" model="l10n.bg.account.kid.rule">
+        <field name="account_code">311</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_A')])]"/>
+        <field name="note">Краткотрайни биологични активи (СС 41)</field>
+    </record>
+
+    <!-- Запаси — СС 2 -->
+    <record id="kidrule_303" model="l10n.bg.account.kid.rule">
+        <field name="account_code">303</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_A'), ref('l10n_bg_config.kid_2025_C')])]"/>
+        <field name="note">Продукция — само производство/земеделие (СС 2)</field>
+    </record>
+    <record id="kidrule_305" model="l10n.bg.account.kid.rule">
+        <field name="account_code">305</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_A'), ref('l10n_bg_config.kid_2025_C'), ref('l10n_bg_config.kid_2025_F')])]"/>
+        <field name="note">Незавършено производство (СС 2 / СС 11)</field>
+    </record>
+    <record id="kidrule_304" model="l10n.bg.account.kid.rule">
+        <field name="account_code">304</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_G'), ref('l10n_bg_config.kid_2025_I')])]"/>
+        <field name="note">Стоки — препродажба без преработка (СС 2); G + I</field>
+    </record>
+
+    <!-- Данъчни разчети — ЗАДС / Митнически кодекс -->
+    <record id="kidrule_456" model="l10n.bg.account.kid.rule">
+        <field name="account_code">456</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_C'), ref('l10n_bg_config.kid_2025_D'), ref('l10n_bg_config.kid_2025_G')])]"/>
+        <field name="note">Акцизи (ЗАДС) — акцизни стоки: C, D, G</field>
+    </record>
+    <record id="kidrule_457" model="l10n.bg.account.kid.rule">
+        <field name="account_code">457</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_G'), ref('l10n_bg_config.kid_2025_C'), ref('l10n_bg_config.kid_2025_H')])]"/>
+        <field name="note">Митнически вземания (внос/износ извън ЕС): G, C, H</field>
+    </record>
+
+    <!-- Разходи по дейности — СС 2 / СС 11 -->
+    <record id="kidrule_611" model="l10n.bg.account.kid.rule">
+        <field name="account_code">611</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_A'), ref('l10n_bg_config.kid_2025_C'), ref('l10n_bg_config.kid_2025_F')])]"/>
+        <field name="note">Разходи за основна дейност — производство/земеделие; F по СС 11</field>
+    </record>
+    <record id="kidrule_612" model="l10n.bg.account.kid.rule">
+        <field name="account_code">612</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_A'), ref('l10n_bg_config.kid_2025_C'), ref('l10n_bg_config.kid_2025_F')])]"/>
+        <field name="note">Разходи за спомагателна дейност (СС 2)</field>
+    </record>
+    <record id="kidrule_615" model="l10n.bg.account.kid.rule">
+        <field name="account_code">615</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_G')])]"/>
+        <field name="note">Разходи за продажби — изразени при търговия (G)</field>
+    </record>
+
+    <!-- Приходи — СС 18 / СС 40; носители на основна дейност (НСИ) -->
+    <record id="kidrule_701" model="l10n.bg.account.kid.rule">
+        <field name="account_code">701</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_A'), ref('l10n_bg_config.kid_2025_C')])]"/>
+        <field name="note">Приходи от продукция (СС 18) — A, C</field>
+    </record>
+    <record id="kidrule_702" model="l10n.bg.account.kid.rule">
+        <field name="account_code">702</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_G'), ref('l10n_bg_config.kid_2025_I')])]"/>
+        <field name="note">Приходи от стоки (СС 18) — G, I</field>
+    </record>
+    <record id="kidrule_703" model="l10n.bg.account.kid.rule">
+        <field name="account_code">703</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_F'), ref('l10n_bg_config.kid_2025_H'), ref('l10n_bg_config.kid_2025_I'), ref('l10n_bg_config.kid_2025_J'), ref('l10n_bg_config.kid_2025_M'), ref('l10n_bg_config.kid_2025_N'), ref('l10n_bg_config.kid_2025_P'), ref('l10n_bg_config.kid_2025_Q'), ref('l10n_bg_config.kid_2025_R')])]"/>
+        <field name="note">Приходи от услуги (СС 18) — услуговите сектори</field>
+    </record>
+    <record id="kidrule_704" model="l10n.bg.account.kid.rule">
+        <field name="account_code">704</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_L')])]"/>
+        <field name="note">Приходи от наеми — инвестиционни имоти (СС 40), сектор L</field>
+    </record>
+
+    <!-- Нестопанска дейност — СС 9, ЮЛНЦ (сектор S) -->
+    <record id="kidrule_711" model="l10n.bg.account.kid.rule">
+        <field name="account_code">711</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_S')])]"/>
+        <field name="note">Приходи от регламентирана нестопанска дейност (СС 9)</field>
+    </record>
+    <record id="kidrule_712" model="l10n.bg.account.kid.rule">
+        <field name="account_code">712</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_S')])]"/>
+        <field name="note">Членски внос (СС 9)</field>
+    </record>
+    <record id="kidrule_713" model="l10n.bg.account.kid.rule">
+        <field name="account_code">713</field>
+        <field name="classification">sector_specific</field>
+        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_S')])]"/>
+        <field name="note">Дарения и финансирания — нестопански (СС 9)</field>
+    </record>
+
+</odoo>

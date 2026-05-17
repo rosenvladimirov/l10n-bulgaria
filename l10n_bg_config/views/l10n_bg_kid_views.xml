@@ -158,6 +158,72 @@
         <field name="search_view_id" ref="view_l10n_bg_account_industry_map_search"/>
     </record>
 
+    <record id="view_l10n_bg_account_kid_rule_list" model="ir.ui.view">
+        <field name="name">l10n.bg.account.kid.rule.list</field>
+        <field name="model">l10n.bg.account.kid.rule</field>
+        <field name="arch" type="xml">
+            <list string="Account КИД rules" editable="bottom">
+                <field name="account_code"/>
+                <field name="classification"/>
+                <field name="kid_ids" widget="many2many_tags"
+                       column_invisible="False"/>
+                <field name="note" optional="show"/>
+                <field name="active" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_l10n_bg_account_kid_rule_form" model="ir.ui.view">
+        <field name="name">l10n.bg.account.kid.rule.form</field>
+        <field name="model">l10n.bg.account.kid.rule</field>
+        <field name="arch" type="xml">
+            <form string="Account КИД rule">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="account_code"/>
+                            <field name="classification"/>
+                        </group>
+                        <group>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <field name="kid_ids" widget="many2many_tags"
+                           invisible="classification != 'sector_specific'"/>
+                    <field name="note"
+                           placeholder="Accounting-standard rationale (СС 2 / СС 11 / СС 41 / ЗАДС …)"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_l10n_bg_account_kid_rule_search" model="ir.ui.view">
+        <field name="name">l10n.bg.account.kid.rule.search</field>
+        <field name="model">l10n.bg.account.kid.rule</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="account_code"/>
+                <field name="kid_ids"/>
+                <filter string="Universal" name="f_univ"
+                        domain="[('classification', '=', 'universal')]"/>
+                <filter string="Sector-specific" name="f_sect"
+                        domain="[('classification', '=', 'sector_specific')]"/>
+                <filter string="Framework-specific" name="f_frame"
+                        domain="[('classification', '=', 'framework_specific')]"/>
+                <separator/>
+                <filter string="Classification" name="g_class"
+                        context="{'group_by': 'classification'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_l10n_bg_account_kid_rule" model="ir.actions.act_window">
+        <field name="name">Account КИД classification</field>
+        <field name="res_model">l10n.bg.account.kid.rule</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_l10n_bg_account_kid_rule_search"/>
+    </record>
+
     <menuitem id="menu_l10n_bg_kid_root"
               name="Bulgarian КИД"
               parent="account.menu_finance_configuration"
@@ -172,5 +238,10 @@
               parent="menu_l10n_bg_kid_root"
               action="action_l10n_bg_account_industry_map"
               sequence="20"/>
+    <menuitem id="menu_l10n_bg_account_kid_rule"
+              name="Account КИД classification"
+              parent="menu_l10n_bg_kid_root"
+              action="action_l10n_bg_account_kid_rule"
+              sequence="30"/>
 
 </odoo>

@@ -59,32 +59,6 @@
         <field name="note">Митнически вземания (внос/износ извън ЕС): G, C, H</field>
     </record>
 
-    <!-- Приходи — СС 18 / СС 40; носители на основна дейност (НСИ) -->
-    <record id="kidrule_701" model="l10n.bg.account.kid.rule">
-        <field name="account_code">701</field>
-        <field name="classification">sector_specific</field>
-        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_A'), ref('l10n_bg_config.kid_2025_C')])]"/>
-        <field name="note">Приходи от продукция (СС 18) — A, C</field>
-    </record>
-    <record id="kidrule_702" model="l10n.bg.account.kid.rule">
-        <field name="account_code">702</field>
-        <field name="classification">sector_specific</field>
-        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_G'), ref('l10n_bg_config.kid_2025_I')])]"/>
-        <field name="note">Приходи от стоки (СС 18) — G, I</field>
-    </record>
-    <record id="kidrule_703" model="l10n.bg.account.kid.rule">
-        <field name="account_code">703</field>
-        <field name="classification">sector_specific</field>
-        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_F'), ref('l10n_bg_config.kid_2025_H'), ref('l10n_bg_config.kid_2025_I'), ref('l10n_bg_config.kid_2025_J'), ref('l10n_bg_config.kid_2025_M'), ref('l10n_bg_config.kid_2025_N'), ref('l10n_bg_config.kid_2025_P'), ref('l10n_bg_config.kid_2025_Q'), ref('l10n_bg_config.kid_2025_R')])]"/>
-        <field name="note">Приходи от услуги (СС 18) — услуговите сектори</field>
-    </record>
-    <record id="kidrule_704" model="l10n.bg.account.kid.rule">
-        <field name="account_code">704</field>
-        <field name="classification">sector_specific</field>
-        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_L')])]"/>
-        <field name="note">Приходи от наеми — инвестиционни имоти (СС 40), сектор L</field>
-    </record>
-
     <!-- Нестопанска дейност — СС 9, ЮЛНЦ (сектор S) -->
     <record id="kidrule_711" model="l10n.bg.account.kid.rule">
         <field name="account_code">711</field>

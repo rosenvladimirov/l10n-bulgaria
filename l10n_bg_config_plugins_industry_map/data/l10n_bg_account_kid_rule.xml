@@ -45,13 +45,6 @@
         <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_A'), ref('l10n_bg_config.kid_2025_C'), ref('l10n_bg_config.kid_2025_F')])]"/>
         <field name="note">Незавършено производство (СС 2 / СС 11)</field>
     </record>
-    <record id="kidrule_304" model="l10n.bg.account.kid.rule">
-        <field name="account_code">304</field>
-        <field name="classification">sector_specific</field>
-        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_G'), ref('l10n_bg_config.kid_2025_I')])]"/>
-        <field name="note">Стоки — препродажба без преработка (СС 2); G + I</field>
-    </record>
-
     <!-- Данъчни разчети — ЗАДС / Митнически кодекс -->
     <record id="kidrule_456" model="l10n.bg.account.kid.rule">
         <field name="account_code">456</field>
@@ -64,26 +57,6 @@
         <field name="classification">sector_specific</field>
         <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_G'), ref('l10n_bg_config.kid_2025_C'), ref('l10n_bg_config.kid_2025_H')])]"/>
         <field name="note">Митнически вземания (внос/износ извън ЕС): G, C, H</field>
-    </record>
-
-    <!-- Разходи по дейности — СС 2 / СС 11 -->
-    <record id="kidrule_611" model="l10n.bg.account.kid.rule">
-        <field name="account_code">611</field>
-        <field name="classification">sector_specific</field>
-        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_A'), ref('l10n_bg_config.kid_2025_C'), ref('l10n_bg_config.kid_2025_F')])]"/>
-        <field name="note">Разходи за основна дейност — производство/земеделие; F по СС 11</field>
-    </record>
-    <record id="kidrule_612" model="l10n.bg.account.kid.rule">
-        <field name="account_code">612</field>
-        <field name="classification">sector_specific</field>
-        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_A'), ref('l10n_bg_config.kid_2025_C'), ref('l10n_bg_config.kid_2025_F')])]"/>
-        <field name="note">Разходи за спомагателна дейност (СС 2)</field>
-    </record>
-    <record id="kidrule_615" model="l10n.bg.account.kid.rule">
-        <field name="account_code">615</field>
-        <field name="classification">sector_specific</field>
-        <field name="kid_ids" eval="[Command.set([ref('l10n_bg_config.kid_2025_G')])]"/>
-        <field name="note">Разходи за продажби — изразени при търговия (G)</field>
     </record>
 
     <!-- Приходи — СС 18 / СС 40; носители на основна дейност (НСИ) -->

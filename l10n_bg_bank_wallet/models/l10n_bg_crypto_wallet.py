@@ -52,12 +52,13 @@ class CryptographyManager:
     @staticmethod
     def derive_key(password: str, salt: bytes):
         """Derive an encryption key from password and salt"""
+        # user-facing → английски (преводимо); коментарите остават български
         if not isinstance(password, str) or not password:
             raise UserError(
-                'Нужна е главна парола за създаване/отключване на портфела. '
-                'Отворете портфела чрез съветника за отключване и въведете паролата си. '
-                '(Паролата на потребителя в Odoo не е четима по дизайн — затова '
-                'master_password не може да се вземе автоматично от user_id.password.)'
+                "A master password is required to create or unlock the wallet. "
+                "Open the wallet via the unlock wizard and enter your password. "
+                "(The Odoo user password is write-only by design, so the master "
+                "password cannot be taken automatically from user_id.password.)"
             )
         kdf = PBKDF2HMAC(
             algorithm=hashes.SHA256(),
@@ -650,10 +651,10 @@ class CryptoWallet(models.Model):
             # отказваме ясно вместо krash в derive_key (bool.encode()).
             if not isinstance(master_password, str) or not master_password:
                 raise UserError(
-                    'Портфелът не може да се създаде без главна парола. '
-                    'Създайте/отключете го чрез съветника (Wallet → Unlock) '
-                    'или подайте "master_password" при създаване. '
-                    'Паролата на потребителя в Odoo не е четима по дизайн.'
+                    "The wallet cannot be created without a master password. "
+                    "Create/unlock it via the wizard (Wallet → Unlock) or pass "
+                    "an explicit \"master_password\" on creation. The Odoo user "
+                    "password is write-only by design and cannot be read back."
                 )
 
             master_passwords.append(master_password)

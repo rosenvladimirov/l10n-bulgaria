@@ -62,6 +62,20 @@ class ResCompany(models.Model):
         "following the НСИ methodology (highest relative share of net "
         "sales revenue). Recompute via the КИД derivation wizard.",
     )
+    l10n_bg_kid_ids = fields.Many2many(
+        "l10n.bg.kid",
+        relation="res_company_l10n_bg_kid_rel",
+        column1="company_id",
+        column2="kid_id",
+        string="Active КИД sectors",
+        domain="[('level', '=', 'section'), "
+        "('kid_version', '=', l10n_bg_kid_version)]",
+        help="КИД sectors this company operates in. Drives the "
+        "chart-of-accounts install filter: at base install this is "
+        "empty, so only universal accounts load; selecting a sector "
+        "(and reloading the chart template) lets its sector-specific "
+        "accounts through.",
+    )
     l10n_bg_departament_code = fields.Integer("Departament code")
     l10n_bg_config_template = fields.Binary("Config Template", attachment=False)
     l10n_bg_key = fields.Char(related="partner_id.l10n_bg_key", readonly=False)

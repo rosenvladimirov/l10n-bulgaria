@@ -14,6 +14,9 @@ class ResConfigSettings(models.TransientModel):
     is_l10n_bg_multilanguage = fields.Json(
         related="company_id.is_l10n_bg_multilanguage", readonly=False
     )
+    l10n_bg_kid_ids = fields.Many2many(
+        related="company_id.l10n_bg_kid_ids", readonly=False
+    )
     is_l10n_bg_multilanguage_text = fields.Text(
         string="Multilanguage Settings",
         compute="_compute_multilanguage_text"

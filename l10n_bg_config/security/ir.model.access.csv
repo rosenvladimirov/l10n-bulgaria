@@ -9,5 +9,7 @@ l10n_bg_config.access_l10n_bg_kid_user,l10n.bg.kid.user,l10n_bg_config.model_l10
 l10n_bg_config.access_l10n_bg_kid_manager,l10n.bg.kid.manager,l10n_bg_config.model_l10n_bg_kid,account.group_account_manager,1,1,1,1
 l10n_bg_config.access_l10n_bg_account_industry_map_user,l10n.bg.account.industry.map.user,l10n_bg_config.model_l10n_bg_account_industry_map,account.group_account_user,1,0,0,0
 l10n_bg_config.access_l10n_bg_account_industry_map_manager,l10n.bg.account.industry.map.manager,l10n_bg_config.model_l10n_bg_account_industry_map,account.group_account_manager,1,1,1,1
+l10n_bg_config.access_l10n_bg_account_kid_rule_user,l10n.bg.account.kid.rule.user,l10n_bg_config.model_l10n_bg_account_kid_rule,account.group_account_user,1,0,0,0
+l10n_bg_config.access_l10n_bg_account_kid_rule_manager,l10n.bg.account.kid.rule.manager,l10n_bg_config.model_l10n_bg_account_kid_rule,account.group_account_manager,1,1,1,1
 l10n_bg_config.access_l10n_bg_kid_compute_wizard,l10n.bg.kid.compute.wizard,l10n_bg_config.model_l10n_bg_kid_compute_wizard,account.group_account_user,1,1,1,1
 l10n_bg_config.access_l10n_bg_kid_compute_wizard_line,l10n.bg.kid.compute.wizard.line,l10n_bg_config.model_l10n_bg_kid_compute_wizard_line,account.group_account_user,1,1,1,1

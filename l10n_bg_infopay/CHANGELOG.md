@@ -1,5 +1,31 @@
 # Changelog
 
+## 19.0.6.0.9 (2026-05-17)
+
+### Fixed
+- **Online bank statement chain — fixes all-statements-Invalid.**
+  InfoPay returns the `balances` array as an account-level snapshot
+  (same value for every requested window — NOT window-scoped).  The
+  OCA statement bridge stamped that snapshot as `balance_start` /
+  `balance_end_real` on **every** statement, so `balance_end`
+  (computed) never matched `balance_end_real` and Odoo flagged every
+  statement *Invalid* (`account.journal.open_invalid_statements_action`).
+
+  New behaviour (opt-in, governed by the Pull wizard checkboxes):
+  - `populate_balance_start` → anchor only the **first** statement of
+    the journal to the real balance (`actual_now − Σ all movements`);
+    OCA chains the rest from the previous statement's `balance_end`
+    (`_update_statement_balances`) → exact continuous chain, zero false
+    Invalid.
+  - `populate_balance_end` → set `balance_end_real` only on the latest
+    window (reaching today) for end-to-end reconciliation.
+  - Added `_l10n_bg_infopay_resolve_actual_balance` (strict
+    ActualBalance, AvailableBalance fallback) to the statement mixin;
+    `_l10n_bg_infopay_summarize_balances` now documents the
+    snapshot-not-per-period caveat.
+
+  Companion bridge release: `l10n_bg_infopay_oca_statement` 19.0.1.0.6.
+
 ## 19.0.5.0.0 (2026-05-10) — BREAKING
 
 ### Changed

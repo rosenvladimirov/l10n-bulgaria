@@ -300,16 +300,26 @@ class CryptoWallet(models.Model):
         self.is_locked = False
         self.last_accessed = fields.Datetime.now()
         self.decrypted_keys = json.dumps(wallet_data, indent=2)
-        self.env.context = dict(self.env.context, wallet_key=encryption_key.decode())
+        # Odoo 19: env.context е read-only — НЕ кешираме ключа в контекста.
+        # Ключът се деривира stateless при нужда от get_user_master_password()
+        # (bcrypt hash) + salt (виж _derive_active_key).
+
+    def _derive_active_key(self):
+        """Деривира текущия encryption key stateless (без env.context кеш).
+
+        Odoo 19 забранява присвояване на env.context, затова старият
+        wallet_key-в-контекста кеш е премахнат.  Ключът е детерминиран
+        от master password-а (bcrypt hash) + солта на портфела.
+        """
+        master_password = self.get_user_master_password()
+        salt = base64.b64decode(self.salt)
+        return self.crypto_manager.derive_key(master_password, salt)
 
     def lock_wallet(self):
         """Lock the wallet"""
         self._check_permission_level('read')
         self.is_locked = True
         self.decrypted_keys = False
-        # Clear key from context
-        if 'wallet_key' in self.env.context:
-            self.env.context = {k: v for k, v in self.env.context.items() if k != 'wallet_key'}
         _logger.debug(f"Wallet '{self.name}' locked")
 
     # === SIMPLIFIED USER INTERFACE METHODS ===
@@ -440,17 +450,12 @@ class CryptoWallet(models.Model):
         return keys_info
 
     def _get_or_unlock_wallet(self, master_password):
-        """Get wallet data, unlock if necessary - extracted method"""
-        if self.is_locked:
-            return self.unlock_wallet_with_password(master_password)
+        """Get wallet data, unlock if necessary - extracted method.
 
-        wallet_key = self.env.context.get('wallet_key')
-        if not wallet_key:
-            return self.unlock_wallet_with_password(master_password)
-
-        encrypted_data = base64.b64decode(self.encrypted_data)
-        decrypted_json = self._crypto_manager.decrypt_data(encrypted_data, wallet_key.encode())
-        return json.loads(decrypted_json)
+        Odoo 19: без env.context кеш — unlock-ът е детерминиран и евтин,
+        затова просто декриптираме с master_password всеки път.
+        """
+        return self.unlock_wallet_with_password(master_password)
 
     def _update_wallet_metadata(self, wallet_data):
         """Update wallet metadata - extracted method"""
@@ -458,14 +463,14 @@ class CryptoWallet(models.Model):
         wallet_data['metadata']['last_modified'] = fields.Datetime.now().isoformat()
 
     def _save_wallet_data(self, wallet_data):
-        """Save wallet data with current encryption key - extracted method"""
-        wallet_key = self.env.context.get('wallet_key')
-        if not wallet_key:
-            master_password = self.get_user_master_password()
-            self.unlock_wallet_with_password(master_password)
-            wallet_key = self.env.context.get('wallet_key')
+        """Save wallet data with current encryption key - extracted method.
 
-        encrypted_data = self._crypto_manager.encrypt_data(json.dumps(wallet_data), wallet_key.encode())
+        Odoo 19: ключът се деривира stateless (master password + salt),
+        а не от премахнатия env.context кеш.
+        """
+        wallet_key = self._derive_active_key()
+
+        encrypted_data = self._crypto_manager.encrypt_data(json.dumps(wallet_data), wallet_key)
         self.encrypted_data = base64.b64encode(encrypted_data).decode()
 
         self._persist_wallet_to_disk()
@@ -774,8 +779,8 @@ class CryptoWallet(models.Model):
         # Save to disk
         self._persist_wallet_to_disk()
 
-        # Update context
-        self.env.context = dict(self.env.context, wallet_key=new_key.decode())
+        # Odoo 19: env.context е read-only — ключът вече се деривира
+        # stateless (виж _derive_active_key); няма context кеш за update.
         self.is_locked = False
 
         _logger.debug(f"Wallet '{self.name}' reencrypted successfully")

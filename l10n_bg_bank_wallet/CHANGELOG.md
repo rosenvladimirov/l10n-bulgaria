@@ -4,6 +4,22 @@ All notable changes to the l10n_bg_bank_wallet module will be documented in this
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [19.0.1.1.1] - 2026-05-17
+
+### Fixed
+- **Odoo 19: `env.context` is read-only** — the wallet cached the
+  decrypted key via `self.env.context = dict(...)` (4 sites), which on
+  Odoo 19 raises `Attribute 'context' is read-only, call env() instead`,
+  masked by the broad except as "wrong master password / corrupted
+  wallet". This blocked every unlock/import.
+- Removed the env.context `wallet_key` cache entirely. The key is now
+  derived statelessly on demand via `_derive_active_key()`
+  (`get_user_master_password()` bcrypt hash + salt — deterministic, the
+  same `derive_key` used by init/unlock). `_get_or_unlock_wallet`,
+  `_save_wallet_data`, `_update_session_state`, `lock_wallet` and the
+  reencrypt path updated accordingly. No crypto change, no DB-cached
+  secret; completes the create→init→unlock→import path on Odoo 19.
+
 ## [19.0.1.1.0] - 2026-05-17
 
 ### Fixed

@@ -164,11 +164,39 @@ class InfopayStatementMixin(models.AbstractModel):
             "narration": narration,
         }
 
+    def _l10n_bg_infopay_resolve_actual_balance(self, balances: list):
+        """Връща текущото *счетоводно* салдо на сметката (ActualBalance),
+        с резервен вариант AvailableBalance.  InfoPay връща този масив
+        като account-level snapshot — еднакъв за всеки заявен период
+        (НЕ е window-scoped), затова е надежден само като „салдо СЕГА",
+        не като per-period начално/крайно салдо.
+
+        Returns ``float`` or ``None`` when neither variant is present.
+        """
+        actual = available = None
+        for bal in balances or []:
+            try:
+                val = float(bal.get("BalanceAmount", {}).get("amount", 0))
+            except (ValueError, TypeError):
+                continue
+            bal_type = bal.get("BalanceType")
+            if bal_type == "ActualBalance":
+                actual = val
+            elif bal_type == "AvailableBalance" and available is None:
+                available = val
+        return actual if actual is not None else available
+
     def _l10n_bg_infopay_summarize_balances(self, balances: list) -> dict:
         """Reduce InfoPay balances list to ``{begin, end}`` floats.
 
         InfoPay returns several balance variants (BeginDay, ActualBalance,
         AvailableBalance, ...).  We pick the most common pair.
+
+        ВНИМАНИЕ: тези стойности са account-level snapshot (салдо СЕГА),
+        НЕ per-period.  Не ги ползвай директно като balance_start/
+        balance_end_real на отделните извлечения — счупва веригата
+        (виж bridge ``_obtain_statement_data``).  За реконсилиране
+        ползвай ``_l10n_bg_infopay_resolve_actual_balance``.
         """
         result = {"begin": None, "end": None}
         for bal in balances or []:
@@ -179,9 +207,7 @@ class InfopayStatementMixin(models.AbstractModel):
             bal_type = bal.get("BalanceType")
             if bal_type == "BeginDay":
                 result["begin"] = val
-            elif bal_type in ("ActualBalance", "AvailableBalance"):
-                if result["end"] is None:
-                    result["end"] = val
+        result["end"] = self._l10n_bg_infopay_resolve_actual_balance(balances)
         return result
 
     # ── helper used by hosts that create statements directly ──────────

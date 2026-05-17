@@ -1,5 +1,28 @@
 # Changelog
 
+## 18.0.6.0.9 (2026-05-17)
+
+### Fixed
+- **Online bank statement chain — corrects the opt-in balance fill.**
+  InfoPay returns the `balances` array as an account-level snapshot
+  (same value for every requested window — NOT window-scoped).  When
+  the operator ticked the Pull-wizard balance checkboxes the bridge
+  stamped that snapshot as `balance_start` / `balance_end_real` on
+  **every** statement → `balance_end` never matched → all statements
+  flagged *Invalid*.
+
+  New behaviour (same opt-in checkboxes):
+  - `populate_balance_start` → anchor only the **first** statement of
+    the journal to the real balance (`actual_now − Σ all movements`);
+    OCA chains the rest from the previous statement's `balance_end`
+    → exact continuous chain, zero false Invalid.
+  - `populate_balance_end` → set `balance_end_real` only on the latest
+    window (reaching today) for end-to-end reconciliation.
+  - Added `_l10n_bg_infopay_resolve_actual_balance` (strict
+    ActualBalance, AvailableBalance fallback) to the statement mixin.
+
+  Companion bridge release: `l10n_bg_infopay_oca_statement` 18.0.1.0.12.
+
 ## 18.0.5.0.0 (2026-05-10) — BREAKING
 
 ### Changed

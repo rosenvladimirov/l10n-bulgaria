@@ -25,7 +25,7 @@ budget entities (sector O) are intentionally out of scope — they use
 separate accounting frameworks (БНБ/КФН МСФО, budget chart) and are not
 covered by the national chart of accounts.
     """,
-    "version": "18.0.1.0.3",
+    "version": "18.0.1.0.4",
     "development_status": "Beta",
     "category": "Accounting/Localizations",
     "license": "LGPL-3",

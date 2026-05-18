@@ -1,0 +1,6 @@
+# Sector S accounting content goes here, merged automatically through
+# the l10n_bg_config account.chart.template plugin pipeline:
+#   account.account-bg.csv  account.group-bg.csv
+#   account.tax-bg.csv      account.fiscal.position-bg.csv
+# ACCOUNTING REVIEW PENDING — fill from sourced BG standards, do not
+# improvise. List the files in __manifest__.py "data" once populated.

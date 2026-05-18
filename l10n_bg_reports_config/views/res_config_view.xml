@@ -9,59 +9,40 @@
             <xpath expr="//app[@name='l10n_bg_config']" position="inside">
                 <block title="Settings" name="l10n_bg_audit_report">
                     <setting
-                        id="l10n_bg_audit_oca_setting"
-                        title="OCA settings"
-                        string="OCA settings"
-                        help="OCA modules for help."
+                        id="l10n_bg_audit_oca_account_usability"
+                        title="Account - Missing Menus"
+                        string="Account - Missing Menus"
+                        help="OCA: restores missing accounting menus."
                     >
-                        <div class="d-flex">
-                            <field name="module_account_usability" class="ml16" />
-                            <label
-                                for="module_account_usability"
-                                class="o_light_label"
-                            />
-                        </div>
-                        <div class="d-flex">
-                            <field
-                                name="module_account_financial_report"
-                                class="ml16"
-                            />
-                            <label
-                                for="module_account_financial_report"
-                                class="o_light_label"
-                            />
-                        </div>
+                        <field name="module_account_usability" />
+                    </setting>
+                    <setting
+                        id="l10n_bg_audit_oca_account_financial_report"
+                        title="Account Financial Reports (OCA)"
+                        string="Account Financial Reports (OCA)"
+                        help="OCA accounting financial reports engine."
+                    >
+                        <field name="module_account_financial_report" />
                     </setting>
                     <setting
                         id="l10n_bg_audit_ee_setting"
-                        title="EE settings"
-                        string="EE settings"
-                        help="EE modules for help."
+                        title="Accounting Reports"
+                        string="Accounting Reports"
+                        help="EE accounting reports engine."
                     >
-                        <div class="d-flex">
-                            <field
-                                name="module_account_reports"
-                                class="ml16"
-                                widget="upgrade_boolean"
-                            />
-                            <label for="module_account_reports" class="o_light_label" />
-                        </div>
+                        <field name="module_account_reports" widget="upgrade_boolean" />
                     </setting>
                     <setting
                         id="l10n_bg_audit_assistant_setting"
                         title="Assistant"
                         string="Assistant"
-                        help="Assistant to help configure bulgarian accounting tags manual."
+                        help="Assistant to help configure Bulgarian accounting tags manually."
                     >
-                        <div class="content-group" name="l10n_bg_report_audit_report_assistant">
-                            <div class="d-flex">
-                                <button name="l10n_bg_reports_config.action_account_tags_bulk_edit"
-                                    string="Bulk Edit"
-                                    type="action"
-                                    class="oe_highlight"
-                                    groups="account.group_account_manager" />
-                            </div>
-                        </div>
+                        <button name="l10n_bg_reports_config.action_account_tags_bulk_edit"
+                            string="Bulk Edit"
+                            type="action"
+                            class="oe_highlight"
+                            groups="account.group_account_manager" />
                     </setting>
                     <setting
                         id="l10n_bg_audit_by_file_setting"
@@ -69,75 +50,51 @@
                         string="Re configure"
                         help="Use the already loaded settings to reset everything to their original state."
                     >
-                        <div class="content-group" name="l10n_bg_report_audit_report_file_setting_force">
-                            <div class="d-flex">
-                                <button name="action_update_l10n_bg_report_audit_settings"
-                                    string="Force re-configure"
-                                    type="object"
-                                    class="oe_highlight"
-                                    groups="account.group_account_manager" />
-                            </div>
-                        </div>
+                        <button name="action_update_l10n_bg_report_audit_settings"
+                            string="Force re-configure"
+                            type="object"
+                            class="oe_highlight"
+                            groups="account.group_account_manager" />
                     </setting>
                     <setting
-                        id="l10n_bg_audit_report_setting"
-                        title="Vat &amp; Intrastat"
-                        string="Vat &amp; Intrastat"
-                        help="Mandatory Declaration thresholds. Calculate VAT base on formula."
+                        id="l10n_bg_audit_intra_stat_type"
+                        title="Level of registration"
+                        string="Level of registration"
+                        help="Mandatory declaration thresholds. Calculate VAT base on formula."
                     >
-                        <div class="content-group" name="l10n_bg_report_intra_stat">
-                            <div class="d-flex">
-                                <label
-                                    for="l10n_bg_intra_stat_type"
-                                    class="o_light_label ml16"
-                                />
-                                <field name="l10n_bg_intra_stat_type" class="ml16" />
-                            </div>
-                            <div class="d-flex">
-                                <field
-                                    name="l10n_bg_odoo_compatible"
-                                    class="ml16"
-                                    readonly="0"
-                                />
-                                <label
-                                    for="l10n_bg_odoo_compatible"
-                                    class="o_light_label"
-                                />
-                            </div>
-                            <div class="d-flex">
-                                <field
-                                    name="l10n_bg_intra_stat_incomes"
-                                    class="ml16"
-                                    readonly="0"
-                                />
-                                <label
-                                    for="l10n_bg_intra_stat_incomes"
-                                    class="o_light_label"
-                                />
-                            </div>
-                            <div class="d-flex">
-                                <field
-                                    name="l10n_bg_intra_stat_outcomes"
-                                    class="ml16"
-                                    readonly="0"
-                                />
-                                <label
-                                    for="l10n_bg_intra_stat_outcomes"
-                                    class="o_light_label"
-                                />
-                            </div>
-                            <div class="d-flex">
-                                <field
-                                    name="l10n_bg_audit_use_tax"
-                                    class="ml16"
-                                    readonly="0"
-                                />
-                                <label
-                                    for="l10n_bg_audit_use_tax"
-                                    class="o_light_label"
-                                />
-                            </div>
-                        </div>
+                        <field name="l10n_bg_intra_stat_type" />
+                    </setting>
+                    <setting
+                        id="l10n_bg_audit_odoo_compatible"
+                        title="Odoo compatible"
+                        string="Odoo compatible"
+                        help="Keep the declaration Odoo-compatible."
+                    >
+                        <field name="l10n_bg_odoo_compatible" />
+                    </setting>
+                    <setting
+                        id="l10n_bg_audit_intra_stat_incomes"
+                        title="Intra-Community incomes"
+                        string="Intra-Community incomes"
+                        help="An obligation to submit intra-Community incomes."
+                    >
+                        <field name="l10n_bg_intra_stat_incomes" />
+                    </setting>
+                    <setting
+                        id="l10n_bg_audit_intra_stat_outcomes"
+                        title="Intra-Community supplies"
+                        string="Intra-Community supplies"
+                        help="An obligation to submit intra-Community supplies."
+                    >
+                        <field name="l10n_bg_intra_stat_outcomes" />
+                    </setting>
+                    <setting
+                        id="l10n_bg_audit_use_tax"
+                        title="Use Forced Customs Tax"
+                        string="Use Forced Customs Tax"
+                        help="Enable audit tax handling force customs type calculation reports."
+                    >
+                        <field name="l10n_bg_audit_use_tax" />
                     </setting>
                 </block>
             </xpath>

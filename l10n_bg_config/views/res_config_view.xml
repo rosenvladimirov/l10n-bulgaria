@@ -137,6 +137,38 @@
                                     class="oe_highlight"/>
                             </div>
                         </setting>
+                        <setting
+                            id="l10n_bg_config_setting_kid_codes_params"
+                            title="КИД codes (init)"
+                            string="КИД codes (init)"
+                            help="Capture the company's КИД activity codes as free text at setup. They are parsed into the active КИД sectors when the chart of accounts is loaded (only while the sector list is still empty); 'Resolve from codes' re-parses on demand."
+                        >
+                            <div
+                                class="content-group"
+                                name="l10n_bg_config_is_l10n_bg_setting_kid_codes_container"
+                            >
+                                <div class="d-flex">
+                                    <field name="l10n_bg_kid_codes" class="ml16" />
+                                    <label
+                                        for="l10n_bg_kid_codes"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                                <div class="mt16">
+                                    <field name="l10n_bg_kid_ids"
+                                           widget="many2many_tags"
+                                           readonly="1"
+                                           nolabel="1"/>
+                                </div>
+                                <div class="mt16">
+                                    <button name="action_l10n_bg_resolve_kid_codes"
+                                            type="object"
+                                            string="Resolve from codes"
+                                            class="btn-link"
+                                            icon="fa-magic"/>
+                                </div>
+                            </div>
+                        </setting>
                     </block>
                     <block title="Multilang cyrillic support" name="l10n_bg_multilang">
                         <setting

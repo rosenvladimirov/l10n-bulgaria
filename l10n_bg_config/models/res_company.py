@@ -1,11 +1,31 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 import base64
 import json
+import logging
+import re
 
 from odoo import Command, api, fields, models
 import xml.etree.ElementTree as ET
 
+_logger = logging.getLogger(__name__)
+
 L10N_BG_MULTILANGUAGE = ("l10n_bg_multilang", "partner_multilang")
+
+# КИД-2008 / NACE Rev.2 division → section ranges (виж одобрения spec за
+# init free-text КИД). Резолва числов КИД код до секция дори когато само
+# 21-те секции са seed-нати (без l10n_bg_payroll_classifications няма
+# division/group/class йерархия). Текущият КИД-2025 seed запазва
+# 21-буквената схема A..U, затова една таблица обслужва и двете издания;
+# 2025 J→K разделянето ще се добави per-edition щом официалните 2025
+# раздели се финализират.
+_L10N_BG_KID_DIVISION_SECTION = (
+    (1, 3, "A"), (5, 9, "B"), (10, 33, "C"), (35, 35, "D"),
+    (36, 39, "E"), (41, 43, "F"), (45, 47, "G"), (49, 53, "H"),
+    (55, 56, "I"), (58, 63, "J"), (64, 66, "K"), (68, 68, "L"),
+    (69, 75, "M"), (77, 82, "N"), (84, 84, "O"), (85, 85, "P"),
+    (86, 88, "Q"), (90, 93, "R"), (94, 96, "S"), (97, 98, "T"),
+    (99, 99, "U"),
+)
 
 
 class ResCompany(models.Model):
@@ -75,6 +95,15 @@ class ResCompany(models.Model):
         "empty, so only universal accounts load; selecting a sector "
         "(and reloading the chart template) lets its sector-specific "
         "accounts through.",
+    )
+    l10n_bg_kid_codes = fields.Char(
+        string="КИД codes (init)",
+        help="Free-text list of КИД activity codes captured at company "
+        "setup (e.g. '41, 43.21, F' or '6201'). Parsed into 'Active "
+        "КИД sectors' when the chart of accounts is loaded and that "
+        "field is still empty (text = bootstrap, the sector list is "
+        "authoritative once set). Use 'Resolve from codes' to "
+        "re-parse on demand.",
     )
     l10n_bg_departament_code = fields.Integer("Departament code")
     l10n_bg_config_template = fields.Binary("Config Template", attachment=False)
@@ -248,3 +277,106 @@ class ResCompany(models.Model):
             "target": "new",
             "context": {"default_company_id": self.id},
         }
+
+    def _l10n_bg_resolve_one_kid_code(self, token, kid_version):
+        """Резолва един КИД токен до неговата секция (или празно).
+
+        Разпознава нивото по формата: 1 буква = секция; иначе се
+        нормализира до числа (``6103`` → ``61.03``). Първо опитва точно
+        съвпадение по код (пълна йерархия, когато
+        ``l10n_bg_payroll_classifications`` я seed-ва) и се изкачва до
+        секцията; ако няма йерархия — fallback през статичната
+        раздел→секция таблица. Връща празен recordset при неразпознат
+        код (никога не вдига грешка).
+        """
+        Kid = self.env["l10n.bg.kid"]
+        text = (token or "").strip().upper()
+        if not text:
+            return Kid
+        # Самостоятелна буква на секция (A..U / A..V за 2025).
+        if len(text) == 1 and text.isalpha():
+            return Kid.search(
+                [
+                    ("code", "=", text),
+                    ("kid_version", "=", kid_version),
+                    ("level", "=", "section"),
+                ],
+                limit=1,
+            )
+        digits = re.sub(r"\D", "", text)
+        if not digits:
+            return Kid
+        # Нормализация към Odoo КИД пунктуация: XXXX → XX.XX, XXX → XX.X.
+        if len(digits) == 3:
+            norm = f"{digits[:2]}.{digits[2:]}"
+        elif len(digits) >= 4:
+            norm = f"{digits[:2]}.{digits[2:4]}"
+        else:
+            norm = digits[:2]
+        rec = Kid.search(
+            [
+                ("code", "in", list({norm, digits})),
+                ("kid_version", "=", kid_version),
+            ],
+            limit=1,
+        )
+        if rec:
+            while rec.parent_id:
+                rec = rec.parent_id
+            return rec
+        # Fallback: статична раздел→секция таблица (само-секции install).
+        division = int(digits[:2])
+        for low, high, letter in _L10N_BG_KID_DIVISION_SECTION:
+            if low <= division <= high:
+                return Kid.search(
+                    [
+                        ("code", "=", letter),
+                        ("kid_version", "=", kid_version),
+                        ("level", "=", "section"),
+                    ],
+                    limit=1,
+                )
+        return Kid
+
+    def _l10n_bg_resolve_kid_codes(self, text, kid_version):
+        """Парсва свободен списък КИД кодове до ``l10n.bg.kid`` секции.
+
+        Токенизира по ``, ; whitespace newline``, резолва всеки токен
+        през :meth:`_l10n_bg_resolve_one_kid_code` и връща уникалните
+        секции. Неразпознат токен се логва и се прескача — никога не
+        проваля import-а (default-keep философия).
+
+        :return: ``l10n.bg.kid`` recordset от различни секции.
+        """
+        Kid = self.env["l10n.bg.kid"]
+        if not text:
+            return Kid
+        sections = Kid
+        for raw in re.split(r"[,;\s]+", text.strip()):
+            token = raw.strip()
+            if not token:
+                continue
+            section = self._l10n_bg_resolve_one_kid_code(token, kid_version)
+            if section:
+                sections |= section
+            else:
+                _logger.warning(
+                    "l10n_bg КИД init: unrecognised code %r (edition %s) "
+                    "— skipped",
+                    token,
+                    kid_version,
+                )
+        return sections
+
+    def action_l10n_bg_resolve_kid_codes(self):
+        """Ръчно пре-парсва ``l10n_bg_kid_codes`` → ``l10n_bg_kid_ids``.
+
+        За разлика от auto-bootstrap-а при chart load, бутонът ВИНАГИ
+        презаписва секторния M2M от текста (изричен потребителски акт).
+        """
+        for company in self:
+            sections = company._l10n_bg_resolve_kid_codes(
+                company.l10n_bg_kid_codes, company.l10n_bg_kid_version
+            )
+            company.l10n_bg_kid_ids = [Command.set(sections.ids)]
+        return True

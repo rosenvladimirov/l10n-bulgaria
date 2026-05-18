@@ -17,6 +17,9 @@ class ResConfigSettings(models.TransientModel):
     l10n_bg_kid_ids = fields.Many2many(
         related="company_id.l10n_bg_kid_ids", readonly=False
     )
+    l10n_bg_kid_codes = fields.Char(
+        related="company_id.l10n_bg_kid_codes", readonly=False
+    )
     is_l10n_bg_multilanguage_text = fields.Text(
         string="Multilanguage Settings",
         compute="_compute_multilanguage_text"
@@ -96,6 +99,11 @@ class ResConfigSettings(models.TransientModel):
         view = self.env.ref('l10n_bg_config.view_res_partner_form_api_key', raise_if_not_found=False)
         if view:
             view.active = self.enable_partner_api_key_view
+
+    def action_l10n_bg_resolve_kid_codes(self):
+        """Препраща към едноименния метод на текущата фирма."""
+        self.ensure_one()
+        return self.company_id.action_l10n_bg_resolve_kid_codes()
 
     @api.depends('company_id.is_l10n_bg_multilanguage')
     def _compute_multilanguage_text(self):

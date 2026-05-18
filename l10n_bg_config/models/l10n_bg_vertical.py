@@ -277,6 +277,26 @@ class L10nBgVerticalStep(models.Model):
             step.state = state
 
     # ── действия ───────────────────────────────────────────────────────
+    def _reopen_wizard(self):
+        """Връща action, който преотваря стъпер-модала на текущия
+        вертикал. В `target='new'` диалог row-бутон, който върне
+        falsy, ЗАТВАРЯ диалога — затова всяко row-действие трябва да
+        върне това (както footer Back/Next правят `wizard._open()`).
+        Wizard id идва през context-а на списъка
+        (`{'l10n_bg_wiz_id': id}` в `step_ids`)."""
+        wid = self.env.context.get("l10n_bg_wiz_id")
+        if not wid:
+            return False
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Bulgarian Localization Installer"),
+            "res_model": "l10n.bg.vertical.wizard",
+            "res_id": wid,
+            "view_mode": "form",
+            "views": [(False, "form")],
+            "target": "new",
+        }
+
     def _ensure_unlocked(self):
         self.ensure_one()
         if not self.vertical_id.is_unlocked:
@@ -305,10 +325,9 @@ class L10nBgVerticalStep(models.Model):
                 % (self.module_name or "")
             )
         if mod.state in ("installed", "to upgrade"):
-            # Вече инсталиран — нищо за правене; НЕ пълен web reload
-            # (затваря стъпер-модала и дразни). Връщаме None →
-            # embedded списъкът се пре-чита и стъперът остава отворен.
-            return False
+            # Вече инсталиран — нищо за правене; преотвори стъпера
+            # (НЕ client reload, НЕ falsy — и двете затварят модала).
+            return self._reopen_wizard()
         if mod.state == "uninstallable":
             raise UserError(
                 _("Module '%s' is not installable.") % self.module_name
@@ -322,15 +341,13 @@ class L10nBgVerticalStep(models.Model):
                 % self.module_name
             )
         mod.button_immediate_install()
-        # НЕ `{'type':'ir.actions.client','tag':'reload'}` — пълният web
-        # reload затваря стъпер-модала (операторът трябва да го отвори
-        # пак и да навигира обратно — дразнещо). Връщаме None →
-        # Odoo пре-чита формата на визарда → `_compute_runtime`
-        # преизчислява от ir.module.module.state → стъпката става „done",
-        # модалът остава отворен. (Новоинсталираният модул носи свои
-        # менюта/assets, които ще се появят при ръчен refresh — без
-        # значение за самия инсталатор; накрая Finish/Close.)
-        return False
+        # НЕ client reload (затваря модала, дразнещо) и НЕ falsy (също
+        # затваря диалога). Преотваряме стъпера на същия вертикал →
+        # `_compute_runtime` показва стъпката „done", операторът
+        # продължава. (Новоинсталираният модул носи свои менюта/assets,
+        # които се появяват при ръчен refresh / на Finish — без
+        # значение за самия инсталатор.)
+        return self._reopen_wizard()
 
     def action_open_config(self):
         """Отваря междинния config action или показва инструкцията."""
@@ -371,12 +388,10 @@ class L10nBgVerticalStep(models.Model):
             Progress.create(
                 dict(vals, company_id=company.id, step_id=self.id)
             )
-        # Връщаме None: нито checkpoint/config, нито install стъпка
-        # затваря стъпера — embedded списъкът се пре-чита (recompute) и
-        # операторът остава на същия екран. (Новоинсталиран модул носи
-        # свои менюта/assets — появяват се при ръчен refresh / на
-        # Finish; без значение за самия инсталатор.)
-        return False
+        # Mark done/reset/checkpoint — преотвори стъпера (falsy би
+        # затворил target='new' диалога). Стъпката се преизчислява и
+        # операторът остава в инсталатора.
+        return self._reopen_wizard()
 
     def action_mark_done(self):
         self.ensure_one()

@@ -55,7 +55,8 @@
                                 class="btn-primary" />
                     </div>
                 </div>
-                <field name="step_ids" nolabel="1">
+                <field name="step_ids" nolabel="1"
+                       context="{'l10n_bg_wiz_id': id}">
                     <list create="false" delete="false" edit="false"
                           decoration-success="state in ('done', 'auto')"
                           decoration-muted="state in ('skipped', 'unavailable') or (optional and state != 'done')">

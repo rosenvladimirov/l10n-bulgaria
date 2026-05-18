@@ -114,9 +114,26 @@ class L10nBgVertical(models.Model):
             else:
                 vertical.state = "available"
 
+    @api.model
+    def _l10n_bg_resume_vertical(self):
+        """Вертикалът, на който инсталаторът да стартира: първият
+        наличен/в-прогрес; иначе първият незавършен; иначе първият
+        (всички готови → отваря последователността от началото)."""
+        verticals = self.search([])
+        if not verticals:
+            return verticals
+        resume = verticals.filtered(
+            lambda v: v.state in ("available", "in_progress")
+        )
+        if resume:
+            return resume[:1]
+        not_done = verticals.filtered(lambda v: not v.done)
+        return (not_done or verticals)[:1]
+
     def action_open_wizard(self):
-        """Отваря визарда за тази секция (вертикал). Заключена секция
-        (предходната не е инсталирана) не се отваря — стои read-only."""
+        """Отваря многостъпковия инсталатор, позициониран на тази
+        секция. Заключена секция (предходната не е инсталирана) не се
+        отваря директно — стои read-only в списъка."""
         self.ensure_one()
         if not self.is_unlocked:
             raise UserError(
@@ -129,14 +146,7 @@ class L10nBgVertical(models.Model):
         wizard = self.env["l10n.bg.vertical.wizard"].create(
             {"vertical_id": self.id}
         )
-        return {
-            "type": "ir.actions.act_window",
-            "name": "%s — %s" % (self.code, self.name),
-            "res_model": "l10n.bg.vertical.wizard",
-            "res_id": wizard.id,
-            "view_mode": "form",
-            "target": "new",
-        }
+        return wizard._open()
 
 
 class L10nBgVerticalStep(models.Model):
@@ -189,6 +199,12 @@ class L10nBgVerticalStep(models.Model):
     channel_group = fields.Char(
         help="Mutually-exclusive channel tag (e.g. one InfoPay bridge, "
         "one ErpNet.FP IoT bridge). Informational for the operator."
+    )
+    registry_fetch = fields.Boolean(
+        help="When set, the installer offers an inline 'fetch company "
+        "data from the Bulgarian Trade Register by VAT/UIC' control "
+        "bound to this checkpoint step (auto-installs "
+        "l10n_bg_company_registry on demand)."
     )
 
     module_state = fields.Char(compute="_compute_runtime")
@@ -261,6 +277,26 @@ class L10nBgVerticalStep(models.Model):
             step.state = state
 
     # ── действия ───────────────────────────────────────────────────────
+    def _reopen_wizard(self):
+        """Връща action, който преотваря стъпер-модала на текущия
+        вертикал. В `target='new'` диалог row-бутон, който върне
+        falsy, ЗАТВАРЯ диалога — затова всяко row-действие трябва да
+        върне това (както footer Back/Next правят `wizard._open()`).
+        Wizard id идва през context-а на списъка
+        (`{'l10n_bg_wiz_id': id}` в `step_ids`)."""
+        wid = self.env.context.get("l10n_bg_wiz_id")
+        if not wid:
+            return False
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Bulgarian Localization Installer"),
+            "res_model": "l10n.bg.vertical.wizard",
+            "res_id": wid,
+            "view_mode": "form",
+            "views": [(False, "form")],
+            "target": "new",
+        }
+
     def _ensure_unlocked(self):
         self.ensure_one()
         if not self.vertical_id.is_unlocked:
@@ -289,7 +325,9 @@ class L10nBgVerticalStep(models.Model):
                 % (self.module_name or "")
             )
         if mod.state in ("installed", "to upgrade"):
-            return self._reload()
+            # Вече инсталиран — нищо за правене; преотвори стъпера
+            # (НЕ client reload, НЕ falsy — и двете затварят модала).
+            return self._reopen_wizard()
         if mod.state == "uninstallable":
             raise UserError(
                 _("Module '%s' is not installable.") % self.module_name
@@ -303,7 +341,13 @@ class L10nBgVerticalStep(models.Model):
                 % self.module_name
             )
         mod.button_immediate_install()
-        return self._reload()
+        # НЕ client reload (затваря модала, дразнещо) и НЕ falsy (също
+        # затваря диалога). Преотваряме стъпера на същия вертикал →
+        # `_compute_runtime` показва стъпката „done", операторът
+        # продължава. (Новоинсталираният модул носи свои менюта/assets,
+        # които се появяват при ръчен refresh / на Finish — без
+        # значение за самия инсталатор.)
+        return self._reopen_wizard()
 
     def action_open_config(self):
         """Отваря междинния config action или показва инструкцията."""
@@ -344,7 +388,10 @@ class L10nBgVerticalStep(models.Model):
             Progress.create(
                 dict(vals, company_id=company.id, step_id=self.id)
             )
-        return self._reload()
+        # Mark done/reset/checkpoint — преотвори стъпера (falsy би
+        # затворил target='new' диалога). Стъпката се преизчислява и
+        # операторът остава в инсталатора.
+        return self._reopen_wizard()
 
     def action_mark_done(self):
         self.ensure_one()
@@ -354,12 +401,6 @@ class L10nBgVerticalStep(models.Model):
     def action_reset(self):
         self.ensure_one()
         return self._set_progress(False)
-
-    def _reload(self):
-        return {
-            "type": "ir.actions.client",
-            "tag": "reload",
-        }
 
 
 class L10nBgVerticalProgress(models.Model):

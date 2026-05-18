@@ -6,7 +6,15 @@
         <field name="arch" type="xml">
             <form>
                 <field name="vertical_id" invisible="1" />
+                <field name="is_first" invisible="1" />
+                <field name="is_last" invisible="1" />
+                <field name="next_locked" invisible="1" />
+                <field name="show_registry_fetch" invisible="1" />
+                <field name="registry_step_id" invisible="1" />
                 <div class="oe_title">
+                    <span class="text-muted">
+                        <field name="step_label" />
+                    </span>
                     <h1>
                         <field name="code" class="me-2" />
                         <field name="name" />
@@ -25,10 +33,33 @@
                 <field name="description" readonly="1" nolabel="1"
                        class="text-muted mb-3"
                        invisible="not description" />
-                <field name="step_ids" nolabel="1">
+                <div class="alert alert-info d-flex flex-column gap-2 mb-3"
+                     role="alert" invisible="not show_registry_fetch">
+                    <div>
+                        <i class="fa fa-cloud-download me-1" />
+                        Enter the company VAT or UIC and fetch its data
+                        from the Bulgarian Trade Register
+                        (portal.registryagency.bg). This also sets the
+                        company country to Bulgaria and marks the
+                        company-setup step done. The
+                        l10n_bg_company_registry module is auto-installed
+                        on first use (then press the button again).
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <field name="registry_vat_eik"
+                               placeholder="BG123456789 or 123456789"
+                               class="me-2" nolabel="1" />
+                        <button name="action_registry_fetch" type="object"
+                                string="Fetch from Trade Register"
+                                icon="fa-cloud-download"
+                                class="btn-primary" />
+                    </div>
+                </div>
+                <field name="step_ids" nolabel="1"
+                       context="{'l10n_bg_wiz_id': id}">
                     <list create="false" delete="false" edit="false"
                           decoration-success="state in ('done', 'auto')"
-                          decoration-muted="state in ('skipped', 'unavailable')">
+                          decoration-muted="state in ('skipped', 'unavailable') or (optional and state != 'done')">
                         <field name="sequence" widget="handle" />
                         <field name="name" />
                         <field name="step_type" />
@@ -36,7 +67,7 @@
                         <field name="module_state" optional="hide" />
                         <field name="channel_group" optional="hide" />
                         <field name="edition" optional="hide" widget="badge" />
-                        <field name="optional" optional="hide" />
+                        <field name="optional" string="Optional" optional="show" />
                         <field name="state" widget="badge"
                                decoration-success="state in ('done', 'auto')"
                                decoration-warning="state == 'pending'"
@@ -60,9 +91,27 @@
                                 invisible="step_type == 'install_module' or not done" />
                     </list>
                 </field>
+                <div class="text-warning mt-2" invisible="not next_locked">
+                    <i class="fa fa-lock me-1" />
+                    Complete the required steps to unlock the next vertical.
+                    Steps marked Optional (muted) do not block — skip them freely.
+                </div>
                 <footer>
+                    <button name="action_back" type="object"
+                            string="‹ Back" class="btn-secondary"
+                            invisible="is_first" />
                     <button name="action_refresh" type="object"
-                            string="Refresh" class="btn-primary" />
+                            string="Refresh" class="btn-secondary" />
+                    <button name="action_next" type="object"
+                            string="Next ›" class="btn-primary"
+                            invisible="is_last or next_locked" />
+                    <button name="action_next" type="object"
+                            string="Finish" class="btn-primary"
+                            invisible="not is_last or next_locked" />
+                    <button name="action_skip" type="object"
+                            string="Skip" class="btn-link"
+                            invisible="is_last"
+                            help="Move forward to inspect later verticals (read-only; does not bypass gating)." />
                     <button string="Close" class="btn-secondary"
                             special="cancel" />
                 </footer>

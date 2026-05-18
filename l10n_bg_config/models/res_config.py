@@ -2,7 +2,8 @@
 import base64
 import json
 
-from odoo import fields, models, api
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class ResConfigSettings(models.TransientModel):
@@ -19,11 +20,6 @@ class ResConfigSettings(models.TransientModel):
     )
     l10n_bg_kid_codes = fields.Char(
         related="company_id.l10n_bg_kid_codes", readonly=False
-    )
-    l10n_bg_vertical_ids = fields.Many2many(
-        "l10n.bg.vertical",
-        string="Installation verticals",
-        compute="_compute_l10n_bg_vertical_ids",
     )
     is_l10n_bg_multilanguage_text = fields.Text(
         string="Multilanguage Settings",
@@ -105,11 +101,20 @@ class ResConfigSettings(models.TransientModel):
         if view:
             view.active = self.enable_partner_api_key_view
 
-    def _compute_l10n_bg_vertical_ids(self):
-        # Всички seed-нати вертикали, подредени; gating-ът е в модела.
-        verticals = self.env["l10n.bg.vertical"].search([])
-        for record in self:
-            record.l10n_bg_vertical_ids = verticals
+    def action_l10n_bg_open_installer(self):
+        """Отваря многостъпковия воден инсталатор от секцията Settings,
+        позициониран на вертикала за продължаване (resume)."""
+        self.ensure_one()
+        Vertical = self.env["l10n.bg.vertical"]
+        start = Vertical._l10n_bg_resume_vertical()
+        if not start:
+            raise UserError(
+                _("No installation verticals are configured.")
+            )
+        wizard = self.env["l10n.bg.vertical.wizard"].create(
+            {"vertical_id": start.id}
+        )
+        return wizard._open()
 
     def action_l10n_bg_resolve_kid_codes(self):
         """Препраща към едноименния метод на текущата фирма."""

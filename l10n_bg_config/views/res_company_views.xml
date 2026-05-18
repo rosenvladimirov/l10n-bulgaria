@@ -18,6 +18,12 @@
                                 type="object" string="Derive from revenue"
                                 class="btn-link" icon="fa-calculator"/>
                     </div>
+                    <div class="o_row">
+                        <field name="l10n_bg_kid_codes"/>
+                        <button name="action_l10n_bg_resolve_kid_codes"
+                                type="object" string="Resolve from codes"
+                                class="btn-link" icon="fa-magic"/>
+                    </div>
                     <field name="l10n_bg_kid_ids" widget="many2many_tags"/>
                 </group>
             </xpath>

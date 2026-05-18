@@ -3,7 +3,7 @@
 import logging
 import re
 
-from odoo import models
+from odoo import Command, models
 from odoo.addons.account.models.chart_template import template
 from itertools import zip_longest
 
@@ -230,6 +230,18 @@ class AccountChartTemplate(models.AbstractModel):
             return data
 
         company = self.env.company
+        # Init free-text bootstrap: ако явният секторен M2M още е празен,
+        # но при настройката на фирмата са въведени КИД кодове в свободен
+        # текст — резолвай ги сега (text = bootstrap, M2M = авторитатен
+        # щом веднъж е попълнен; ръчният бутон override-ва).
+        kid_ids = getattr(company, 'l10n_bg_kid_ids', self.env['l10n.bg.kid'])
+        kid_codes = getattr(company, 'l10n_bg_kid_codes', False)
+        if not kid_ids and kid_codes:
+            sections = company._l10n_bg_resolve_kid_codes(
+                kid_codes, company.l10n_bg_kid_version
+            )
+            if sections:
+                company.l10n_bg_kid_ids = [Command.set(sections.ids)]
         active_kid_ids = set(
             getattr(company, 'l10n_bg_kid_ids', self.env['l10n.bg.kid'])
             .ids

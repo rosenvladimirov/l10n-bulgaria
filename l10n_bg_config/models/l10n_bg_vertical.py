@@ -305,7 +305,10 @@ class L10nBgVerticalStep(models.Model):
                 % (self.module_name or "")
             )
         if mod.state in ("installed", "to upgrade"):
-            return self._reload()
+            # Вече инсталиран — нищо за правене; НЕ пълен web reload
+            # (затваря стъпер-модала и дразни). Връщаме None →
+            # embedded списъкът се пре-чита и стъперът остава отворен.
+            return False
         if mod.state == "uninstallable":
             raise UserError(
                 _("Module '%s' is not installable.") % self.module_name
@@ -319,7 +322,15 @@ class L10nBgVerticalStep(models.Model):
                 % self.module_name
             )
         mod.button_immediate_install()
-        return self._reload()
+        # НЕ `{'type':'ir.actions.client','tag':'reload'}` — пълният web
+        # reload затваря стъпер-модала (операторът трябва да го отвори
+        # пак и да навигира обратно — дразнещо). Връщаме None →
+        # Odoo пре-чита формата на визарда → `_compute_runtime`
+        # преизчислява от ir.module.module.state → стъпката става „done",
+        # модалът остава отворен. (Новоинсталираният модул носи свои
+        # менюта/assets, които ще се появят при ръчен refresh — без
+        # значение за самия инсталатор; накрая Finish/Close.)
+        return False
 
     def action_open_config(self):
         """Отваря междинния config action или показва инструкцията."""
@@ -360,11 +371,11 @@ class L10nBgVerticalStep(models.Model):
             Progress.create(
                 dict(vals, company_id=company.id, step_id=self.id)
             )
-        # Връщаме None: checkpoint/config стъпка не инсталира модул, не
-        # е нужен пълен web reload — embedded списъкът в стъпер-визарда
-        # се пре-чита (recompute) и операторът остава на същия екран.
-        # (Само install стъпката прави `_reload()` — нов модул → web
-        # клиентът трябва да се презареди.)
+        # Връщаме None: нито checkpoint/config, нито install стъпка
+        # затваря стъпера — embedded списъкът се пре-чита (recompute) и
+        # операторът остава на същия екран. (Новоинсталиран модул носи
+        # свои менюта/assets — появяват се при ръчен refresh / на
+        # Finish; без значение за самия инсталатор.)
         return False
 
     def action_mark_done(self):
@@ -375,12 +386,6 @@ class L10nBgVerticalStep(models.Model):
     def action_reset(self):
         self.ensure_one()
         return self._set_progress(False)
-
-    def _reload(self):
-        return {
-            "type": "ir.actions.client",
-            "tag": "reload",
-        }
 
 
 class L10nBgVerticalProgress(models.Model):

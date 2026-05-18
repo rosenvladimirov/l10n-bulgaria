@@ -191,10 +191,12 @@ class L10nBgVerticalWizard(models.TransientModel):
             )
         if mod.state not in ("installed", "to upgrade"):
             mod.button_immediate_install()
-            # След install регистърът се презарежда — новият модел е
-            # годен чак след web reload; операторът натиска бутона пак
-            # (НЕ правим fetch в същата транзакция).
-            return {"type": "ir.actions.client", "tag": "reload"}
+            # НЕ client reload (затваря стъпер-модала — дразни).
+            # Преотваряме стъпера на същия вертикал; операторът натиска
+            # „Fetch" пак — модулът вече е инсталиран и fetch-ът минава
+            # (новият модел е годен в следващата заявка; НЕ правим fetch
+            # в същата транзакция веднага след install).
+            return self._open()
         company = self.env.company
         partner = company.partner_id
         if not partner:

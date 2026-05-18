@@ -68,14 +68,14 @@ class ResCompany(models.Model):
         store=True,
     )
     l10n_bg_kid_version = fields.Selection(
-        selection=[("2008", "КИД-2008"), ("2025", "КИД-2025")],
-        string="КИД edition",
+        selection=[("2008", "KID-2008"), ("2025", "KID-2025")],
+        string="KID edition",
         default="2025",
-        help="КИД edition used when deriving the primary economic activity.",
+        help="KID edition used when deriving the primary economic activity.",
     )
     l10n_bg_primary_kid_id = fields.Many2one(
         "l10n.bg.kid",
-        string="Primary economic activity (КИД)",
+        string="Primary economic activity (KID)",
         domain="[('level', '=', 'section'), "
         "('kid_version', '=', l10n_bg_kid_version)]",
         help="Main activity derived from the net sales revenue accounts "
@@ -87,20 +87,20 @@ class ResCompany(models.Model):
         relation="res_company_l10n_bg_kid_rel",
         column1="company_id",
         column2="kid_id",
-        string="Active КИД sectors",
+        string="Active KID sectors",
         domain="[('level', '=', 'section'), "
         "('kid_version', '=', l10n_bg_kid_version)]",
-        help="КИД sectors this company operates in. Drives the "
+        help="KID sectors this company operates in. Drives the "
         "chart-of-accounts install filter: at base install this is "
         "empty, so only universal accounts load; selecting a sector "
         "(and reloading the chart template) lets its sector-specific "
         "accounts through.",
     )
     l10n_bg_kid_codes = fields.Char(
-        string="КИД codes (init)",
-        help="Free-text list of КИД activity codes captured at company "
+        string="KID codes (init)",
+        help="Free-text list of KID activity codes captured at company "
         "setup (e.g. '41, 43.21, F' or '6201'). Parsed into 'Active "
-        "КИД sectors' when the chart of accounts is loaded and that "
+        "KID sectors' when the chart of accounts is loaded and that "
         "field is still empty (text = bootstrap, the sector list is "
         "authoritative once set). Use 'Resolve from codes' to "
         "re-parse on demand.",
@@ -361,7 +361,7 @@ class ResCompany(models.Model):
                 sections |= section
             else:
                 _logger.warning(
-                    "l10n_bg КИД init: unrecognised code %r (edition %s) "
+                    "l10n_bg KID init: unrecognised code %r (edition %s) "
                     "— skipped",
                     token,
                     kid_version,

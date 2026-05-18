@@ -117,14 +117,14 @@
                         </setting>
                     </block>
                     <block
-                        title="КИД codes (init)"
+                        title="KID codes (init)"
                         name="l10n_bg_config_kid_codes"
                     >
                         <setting
                             id="l10n_bg_config_setting_kid_codes_params"
-                            title="КИД codes (init)"
-                            string="КИД codes (init)"
-                            help="Capture the company's КИД activity codes as free text at setup. They are parsed into the active КИД sectors when the chart of accounts is loaded (only while the sector list is still empty); 'Resolve from codes' re-parses on demand."
+                            title="KID codes (init)"
+                            string="KID codes (init)"
+                            help="Capture the company's KID activity codes as free text at setup. They are parsed into the active KID sectors when the chart of accounts is loaded (only while the sector list is still empty); 'Resolve from codes' re-parses on demand."
                         >
                             <div
                                 class="content-group"
@@ -151,42 +151,20 @@
                         </setting>
                     </block>
                     <block
-                        title="Localization Installer (verticals)"
+                        title="Localization Installer"
                         name="l10n_bg_config_verticals"
                     >
                         <setting
                             id="l10n_bg_config_setting_verticals"
                             title="Guided installation by vertical"
                             string="Guided installation by vertical"
-                            help="Each section is a vertical (V0–V12). A section unlocks only once the previous one is installed; locked sections stay read-only. Open a section's wizard to install its modules in order and run the intermediate configuration."
+                            help="Step-by-step installer that walks the Bulgarian localization vertical by vertical (V0–V12). Each vertical is one step; the next one unlocks only after the current is completed."
                         >
-                            <field name="l10n_bg_vertical_ids" nolabel="1">
-                                <list create="false" delete="false" edit="false"
-                                      decoration-success="state == 'done'"
-                                      decoration-info="state == 'in_progress'"
-                                      decoration-muted="state == 'locked'">
-                                    <field name="sequence" column_invisible="1" />
-                                    <field name="code" />
-                                    <field name="name" />
-                                    <field name="edition" widget="badge" />
-                                    <field name="state" widget="badge"
-                                           decoration-success="state == 'done'"
-                                           decoration-info="state == 'in_progress'"
-                                           decoration-warning="state == 'available'"
-                                           decoration-danger="state == 'locked'" />
-                                    <field name="step_done" string="Done" />
-                                    <field name="step_total" string="Total" />
-                                    <field name="progress" widget="progressbar" />
-                                    <button name="action_open_wizard" type="object"
-                                            string="Open installer" icon="fa-magic"
-                                            class="btn-link"
-                                            invisible="state == 'locked'" />
-                                    <button name="action_open_wizard" type="object"
-                                            string="Locked" icon="fa-lock"
-                                            class="btn-link text-muted" disabled="1"
-                                            invisible="state != 'locked'" />
-                                </list>
-                            </field>
+                            <button name="action_l10n_bg_open_installer"
+                                    type="object"
+                                    string="Open Localization Installer"
+                                    icon="fa-magic"
+                                    class="btn-primary" />
                         </setting>
                     </block>
                     <block title="Multilang cyrillic support" name="l10n_bg_multilang">

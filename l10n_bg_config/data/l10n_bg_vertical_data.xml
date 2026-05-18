@@ -27,7 +27,7 @@
         <field name="sequence">20</field>
         <field name="name">Set company country = Bulgaria, load the BG chart of accounts, set UIC/VAT</field>
         <field name="step_type">checkpoint</field>
-        <field name="instruction">Set the company country to Bulgaria, load the Bulgarian chart of accounts for the company, and fill the company UIC (ЕИК/БУЛСТАТ) and VAT number. The chart MUST be loaded before any reporting/VAT/tax module works correctly.</field>
+        <field name="instruction">Set the company country to Bulgaria, load the Bulgarian chart of accounts for the company, and fill the company UIC (company registration number) and VAT number. The chart MUST be loaded before any reporting/VAT/tax module works correctly.</field>
     </record>
     <record id="v0_s30" model="l10n.bg.vertical.step">
         <field name="vertical_id" ref="vertical_v0"/>
@@ -94,10 +94,10 @@
     <!-- ═══ V2 — Accounting &amp; КИД industry packs ═══ -->
     <record id="vertical_v2" model="l10n.bg.vertical">
         <field name="code">V2</field>
-        <field name="name">Accounting &amp; КИД Industry Packs</field>
+        <field name="name">Accounting &amp; KID Industry Packs</field>
         <field name="sequence">20</field>
         <field name="edition">ce</field>
-        <field name="description">Chart-of-accounts industry tailoring via КИД sectors. Reload the chart and have an accountant verify the resulting accounts.</field>
+        <field name="description">Chart-of-accounts industry tailoring via KID sectors. Reload the chart and have an accountant verify the resulting accounts.</field>
     </record>
     <record id="v2_s10" model="l10n.bg.vertical.step">
         <field name="vertical_id" ref="vertical_v2"/>
@@ -111,14 +111,14 @@
         <field name="sequence">20</field>
         <field name="name">Install industry pack(s): agriculture / manufacturing / construction / nonprofit</field>
         <field name="step_type">checkpoint</field>
-        <field name="instruction">Install only the l10n_bg_config_plugins_industry_* packs relevant to the company (agriculture=A, manufacturing=C, construction=F, nonprofit=S). Each adds its КИД sector to the company and reloads the chart automatically.</field>
+        <field name="instruction">Install only the l10n_bg_config_plugins_industry_* packs relevant to the company (agriculture=A, manufacturing=C, construction=F, nonprofit=S). Each adds its KID sector to the company and reloads the chart automatically.</field>
     </record>
     <record id="v2_s30" model="l10n.bg.vertical.step">
         <field name="vertical_id" ref="vertical_v2"/>
         <field name="sequence">30</field>
-        <field name="name">Select КИД sectors / reload chart / accountant sign-off</field>
+        <field name="name">Select KID sectors / reload chart / accountant sign-off</field>
         <field name="step_type">checkpoint</field>
-        <field name="instruction">Set the company's active КИД sectors (or fill the init КИД codes), reload the chart template, and have the accountant verify the resulting account set (sector account CSVs are sourced from НСС/ЗСч).</field>
+        <field name="instruction">Set the company's active KID sectors (or fill the init KID codes), reload the chart template, and have the accountant verify the resulting account set (sector account CSVs are sourced from the Bulgarian accounting standards).</field>
     </record>
     <record id="v2_s40" model="l10n.bg.vertical.step">
         <field name="vertical_id" ref="vertical_v2"/>
@@ -134,7 +134,7 @@
     <!-- ═══ V3 — VAT &amp; НАП Reporting ═══ -->
     <record id="vertical_v3" model="l10n.bg.vertical">
         <field name="code">V3</field>
-        <field name="name">VAT &amp; НАП Reporting</field>
+        <field name="name">VAT &amp; NRA Reporting</field>
         <field name="sequence">30</field>
         <field name="edition">ee</field>
         <field name="description">VAT ledgers + NRA declaration submission. Requires a loaded chart and an unlocked wallet.</field>

@@ -1,13 +1,25 @@
 # Copyright 2026 Rosen Vladimirov
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
-"""Визард на една инсталационна секция (вертикал).
+"""Многостъпков воден инсталатор на българската локализация.
 
-Отваря се от бутона в res.config.settings за съответната секция.
-Показва подредените стъпки; всеки ред има действия Install / Open
-config / Mark done. Самата gating логика е в `l10n.bg.vertical`.
+Един wizard, който се отваря с бутон от секцията Settings и върви
+вертикал по вертикал (V0→V12) — една стъпка = един вертикал. Всеки
+екран показва подстъпките на текущия вертикал (Install / Open config /
+Mark done). Навигацията е Back / Skip / Next:
+
+- **Next** е заключен докато текущият вертикал не е завършен (същият
+  gating както досега — `l10n.bg.vertical.done`); на последния
+  завършен вертикал Next става Finish и затваря визарда.
+- **Skip** премества само изгледа напред (оглед на по-късни вертикали);
+  заключен вертикал остава read-only и реалните действия по стъпките
+  пак минават през `_ensure_unlocked()` — Skip НЕ заобикаля gating-а.
+- **Back** се връща на предходния вертикал.
+
+Цялата инсталационна/gating логика остава в `l10n.bg.vertical[.step]`.
 """
 
-from odoo import fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class L10nBgVerticalWizard(models.TransientModel):
@@ -15,7 +27,7 @@ class L10nBgVerticalWizard(models.TransientModel):
     _description = "Bulgarian Localization Vertical Installer Wizard"
 
     vertical_id = fields.Many2one(
-        "l10n.bg.vertical", required=True, readonly=True, ondelete="cascade"
+        "l10n.bg.vertical", required=True, ondelete="cascade"
     )
     code = fields.Char(related="vertical_id.code", readonly=True)
     name = fields.Char(related="vertical_id.name", readonly=True)
@@ -35,18 +47,95 @@ class L10nBgVerticalWizard(models.TransientModel):
         string="Steps",
     )
 
+    # ── навигация (стъпер) ──────────────────────────────────────────────
+    position = fields.Integer(compute="_compute_nav")
+    total = fields.Integer(compute="_compute_nav")
+    step_label = fields.Char(compute="_compute_nav")
+    is_first = fields.Boolean(compute="_compute_nav")
+    is_last = fields.Boolean(compute="_compute_nav")
+    next_locked = fields.Boolean(
+        compute="_compute_nav",
+        help="True while the current vertical is not yet completed — "
+        "the Next button stays disabled (gating).",
+    )
+
     def _compute_step_ids(self):
         for wiz in self:
             wiz.step_ids = wiz.vertical_id.step_ids
 
-    def action_refresh(self):
-        """Презарежда визарда (след install/config действие)."""
+    @api.depends("vertical_id", "vertical_id.done")
+    @api.depends_context("company")
+    def _compute_nav(self):
+        ordered = self.env["l10n.bg.vertical"].search([])
+        ids = ordered.ids
+        total = len(ids)
+        for wiz in self:
+            idx = ids.index(wiz.vertical_id.id) if wiz.vertical_id.id in ids else 0
+            wiz.position = idx + 1
+            wiz.total = total
+            wiz.step_label = _(
+                "Step %(pos)s / %(total)s", pos=idx + 1, total=total
+            )
+            wiz.is_first = idx == 0
+            wiz.is_last = idx + 1 >= total
+            wiz.next_locked = not wiz.vertical_id.done
+
+    # ── helpers ─────────────────────────────────────────────────────────
+    def _open(self):
+        """Преотваря същия wizard запис (модал) — стандартен Odoo
+        многоекранен паттерн: мутираме `vertical_id` и пре-четем."""
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": "%s — %s" % (self.code, self.name),
+            "name": _("Bulgarian Localization Installer"),
             "res_model": "l10n.bg.vertical.wizard",
             "res_id": self.id,
             "view_mode": "form",
+            "views": [(False, "form")],
             "target": "new",
         }
+
+    def _ordered_ids(self):
+        return self.env["l10n.bg.vertical"].search([]).ids
+
+    # ── действия ────────────────────────────────────────────────────────
+    def action_back(self):
+        self.ensure_one()
+        ids = self._ordered_ids()
+        idx = ids.index(self.vertical_id.id)
+        if idx > 0:
+            self.vertical_id = ids[idx - 1]
+        return self._open()
+
+    def action_skip(self):
+        """Само навигация напред (оглед); НЕ заобикаля gating-а —
+        заключеният вертикал остава read-only."""
+        self.ensure_one()
+        ids = self._ordered_ids()
+        idx = ids.index(self.vertical_id.id)
+        if idx + 1 < len(ids):
+            self.vertical_id = ids[idx + 1]
+            return self._open()
+        return {"type": "ir.actions.act_window_close"}
+
+    def action_next(self):
+        self.ensure_one()
+        if not self.vertical_id.done:
+            raise UserError(
+                _(
+                    "Complete vertical '%s' before continuing."
+                )
+                % self.vertical_id.code
+            )
+        ids = self._ordered_ids()
+        idx = ids.index(self.vertical_id.id)
+        if idx + 1 < len(ids):
+            self.vertical_id = ids[idx + 1]
+            return self._open()
+        # последният завършен вертикал → Finish
+        return {"type": "ir.actions.act_window_close"}
+
+    def action_refresh(self):
+        """Презарежда визарда (след install/config действие)."""
+        self.ensure_one()
+        return self._open()

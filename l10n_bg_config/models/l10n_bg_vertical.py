@@ -114,9 +114,26 @@ class L10nBgVertical(models.Model):
             else:
                 vertical.state = "available"
 
+    @api.model
+    def _l10n_bg_resume_vertical(self):
+        """Вертикалът, на който инсталаторът да стартира: първият
+        наличен/в-прогрес; иначе първият незавършен; иначе първият
+        (всички готови → отваря последователността от началото)."""
+        verticals = self.search([])
+        if not verticals:
+            return verticals
+        resume = verticals.filtered(
+            lambda v: v.state in ("available", "in_progress")
+        )
+        if resume:
+            return resume[:1]
+        not_done = verticals.filtered(lambda v: not v.done)
+        return (not_done or verticals)[:1]
+
     def action_open_wizard(self):
-        """Отваря визарда за тази секция (вертикал). Заключена секция
-        (предходната не е инсталирана) не се отваря — стои read-only."""
+        """Отваря многостъпковия инсталатор, позициониран на тази
+        секция. Заключена секция (предходната не е инсталирана) не се
+        отваря директно — стои read-only в списъка."""
         self.ensure_one()
         if not self.is_unlocked:
             raise UserError(
@@ -129,14 +146,7 @@ class L10nBgVertical(models.Model):
         wizard = self.env["l10n.bg.vertical.wizard"].create(
             {"vertical_id": self.id}
         )
-        return {
-            "type": "ir.actions.act_window",
-            "name": "%s — %s" % (self.code, self.name),
-            "res_model": "l10n.bg.vertical.wizard",
-            "res_id": wizard.id,
-            "view_mode": "form",
-            "target": "new",
-        }
+        return wizard._open()
 
 
 class L10nBgVerticalStep(models.Model):
@@ -344,7 +354,12 @@ class L10nBgVerticalStep(models.Model):
             Progress.create(
                 dict(vals, company_id=company.id, step_id=self.id)
             )
-        return self._reload()
+        # Връщаме None: checkpoint/config стъпка не инсталира модул, не
+        # е нужен пълен web reload — embedded списъкът в стъпер-визарда
+        # се пре-чита (recompute) и операторът остава на същия екран.
+        # (Само install стъпката прави `_reload()` — нов модул → web
+        # клиентът трябва да се презареди.)
+        return False
 
     def action_mark_done(self):
         self.ensure_one()

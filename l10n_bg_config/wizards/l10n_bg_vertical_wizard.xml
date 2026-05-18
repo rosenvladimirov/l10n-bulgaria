@@ -6,7 +6,13 @@
         <field name="arch" type="xml">
             <form>
                 <field name="vertical_id" invisible="1" />
+                <field name="is_first" invisible="1" />
+                <field name="is_last" invisible="1" />
+                <field name="next_locked" invisible="1" />
                 <div class="oe_title">
+                    <span class="text-muted">
+                        <field name="step_label" />
+                    </span>
                     <h1>
                         <field name="code" class="me-2" />
                         <field name="name" />
@@ -60,9 +66,26 @@
                                 invisible="step_type == 'install_module' or not done" />
                     </list>
                 </field>
+                <div class="text-warning mt-2" invisible="not next_locked">
+                    <i class="fa fa-lock me-1" />
+                    Complete this vertical to unlock the next one.
+                </div>
                 <footer>
+                    <button name="action_back" type="object"
+                            string="‹ Back" class="btn-secondary"
+                            invisible="is_first" />
                     <button name="action_refresh" type="object"
-                            string="Refresh" class="btn-primary" />
+                            string="Refresh" class="btn-secondary" />
+                    <button name="action_next" type="object"
+                            string="Next ›" class="btn-primary"
+                            invisible="is_last or next_locked" />
+                    <button name="action_next" type="object"
+                            string="Finish" class="btn-primary"
+                            invisible="not is_last or next_locked" />
+                    <button name="action_skip" type="object"
+                            string="Skip" class="btn-link"
+                            invisible="is_last"
+                            help="Move forward to inspect later verticals (read-only; does not bypass gating)." />
                     <button string="Close" class="btn-secondary"
                             special="cancel" />
                 </footer>

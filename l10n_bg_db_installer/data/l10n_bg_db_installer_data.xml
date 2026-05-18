@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Server action: отваря водения Localization Installer стъпер.
+         Преизползва l10n_bg_config (_l10n_bg_resume_vertical + wizard),
+         нула дублирана логика. -->
+    <record id="action_l10n_bg_open_installer_srv" model="ir.actions.server">
+        <field name="name">Open Bulgarian Localization Installer</field>
+        <field name="model_id" ref="l10n_bg_config.model_l10n_bg_vertical" />
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+start = env['l10n.bg.vertical']._l10n_bg_resume_vertical()
+if not start:
+    raise UserError(_("No installation verticals are configured."))
+wiz = env['l10n.bg.vertical.wizard'].create({'vertical_id': start.id})
+action = wiz._open()
+]]></field>
+    </record>
+
+    <!-- Configuration step: при първи вход на админ в новосъздадената
+         BG база се представя автоматично и отваря инсталатора.
+         Модулът auto_install-ва само при l10n_bg_config (т.е. в BG бази),
+         затова todo-то съществува само там. -->
+    <record id="todo_l10n_bg_open_installer" model="ir.actions.todo">
+        <field name="action_id" ref="action_l10n_bg_open_installer_srv" />
+        <field name="sequence">5</field>
+        <field name="state">open</field>
+    </record>
+</odoo>

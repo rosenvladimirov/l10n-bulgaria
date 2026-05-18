@@ -34,29 +34,27 @@
                             id="l10n_bg_config_setting_params"
                             title="Bulgaria settings"
                             string="Bulgaria settings"
-                            help="Theoretical section for settings"
+                            help="Use Bulgaria accounting for this company"
                         >
+                            <field name="is_l10n_bg_record" />
                             <div
-                                class="content-group"
+                                class="content-group mt16"
                                 name="l10n_bg_config_is_l10n_bg_setting_container"
                             >
-                                <div class="d-flex">
-                                    <field name="is_l10n_bg_record" class="ml16" />
+                                <div class="row">
                                     <label
-                                        for="is_l10n_bg_record"
-                                        class="o_light_label"
+                                        for="is_l10n_bg_multilanguage_text"
+                                        string="Multilanguage Modules"
+                                        class="col-lg-3 o_light_label"
                                     />
-                                </div>
-                                <div class="mt16">
-                                    <div class="row">
-                                        <label for="is_l10n_bg_multilanguage_text" string="Multilanguage Modules" class="col-lg-3 o_light_label" />
-                                        <div class="col-lg-9">
-                                            <field name="is_l10n_bg_multilanguage_text"
-                                                   widget="text"
-                                                   readonly="1"
-                                                   nolabel="1"
-                                                   style="font-family: monospace; white-space: pre-wrap;" />
-                                        </div>
+                                    <div class="col-lg-9">
+                                        <field
+                                            name="is_l10n_bg_multilanguage_text"
+                                            widget="text"
+                                            readonly="1"
+                                            nolabel="1"
+                                            style="font-family: monospace; white-space: pre-wrap;"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -71,21 +69,16 @@
                                 class="content-group"
                                 name="l10n_bg_config_is_l10n_bg_setting_api_container"
                             >
-                                <div class="d-flex">
-                                    <field name="l10n_bg_key" class="ml16" />
-                                    <label
-                                        for="l10n_bg_key"
-                                        class="o_light_label"
-                                    />
+                                <div class="mt8">
+                                    <label for="l10n_bg_key" class="o_light_label" />
+                                    <field name="l10n_bg_key" class="w-75" />
                                 </div>
                                 <div class="mt16">
-                                    <div class="d-flex">
-                                        <field name="enable_partner_api_key_view" class="ml16" />
-                                        <label
-                                            for="enable_partner_api_key_view"
-                                            class="o_light_label"
-                                        />
-                                    </div>
+                                    <field name="enable_partner_api_key_view" />
+                                    <label
+                                        for="enable_partner_api_key_view"
+                                        class="o_light_label"
+                                    />
                                 </div>
                             </div>
                         </setting>
@@ -95,15 +88,10 @@
                             string="Configuration file settings"
                             help="Use configuration files to set up different Odoo parameters. For example, changing tags, their configuration. Adding new tags, etc."
                         >
-                            <div
-                                class="content-group"
-                                name="l10n_bg_config_is_l10n_bg_setting_container"
-                            >
-                                <button name="%(l10n_bg_config.action_account_account_settings_xml_file)d"
-                                    string="Upload configuration file"
-                                    type="action"
-                                    class="oe_highlight"/>
-                            </div>
+                            <button name="%(l10n_bg_config.action_account_account_settings_xml_file)d"
+                                string="Upload configuration file"
+                                type="action"
+                                class="oe_highlight"/>
                         </setting>
                         <setting
                             id="l10n_bg_config_setting_preview_params"
@@ -111,15 +99,10 @@
                             string="Preview file settings"
                             help="Preview configuration setting uploaded in system by configuration files."
                         >
-                            <div
-                                class="content-group"
-                                name="l10n_bg_config_is_l10n_bg_setting_preview_container"
-                            >
-                                <button name="%(l10n_bg_config.action_account_settings_xml_file)d"
-                                    string="Preview configuration settings"
-                                    type="action"
-                                    class="oe_highlight"/>
-                            </div>
+                            <button name="%(l10n_bg_config.action_account_settings_xml_file)d"
+                                string="Preview configuration settings"
+                                type="action"
+                                class="oe_highlight"/>
                         </setting>
                         <setting
                             id="l10n_bg_config_setting_plugins_params"
@@ -127,15 +110,10 @@
                             string="Install/Uninstall Plugins"
                             help="Choose actions for each plugin through the appropriate checkerboards."
                         >
-                            <div
-                                class="content-group"
-                                name="l10n_bg_config_is_l10n_bg_setting_plugins_container"
-                            >
-                                <button name="%(l10n_bg_config.action_account_plugins_wizard)d"
-                                    string="Config Plugins"
-                                    type="action"
-                                    class="oe_highlight"/>
-                            </div>
+                            <button name="%(l10n_bg_config.action_account_plugins_wizard)d"
+                                string="Config Plugins"
+                                type="action"
+                                class="oe_highlight"/>
                         </setting>
                         <setting
                             id="l10n_bg_config_setting_kid_codes_params"
@@ -147,12 +125,9 @@
                                 class="content-group"
                                 name="l10n_bg_config_is_l10n_bg_setting_kid_codes_container"
                             >
-                                <div class="d-flex">
-                                    <field name="l10n_bg_kid_codes" class="ml16" />
-                                    <label
-                                        for="l10n_bg_kid_codes"
-                                        class="o_light_label"
-                                    />
+                                <div class="mt8">
+                                    <label for="l10n_bg_kid_codes" class="o_light_label" />
+                                    <field name="l10n_bg_kid_codes" class="w-75" />
                                 </div>
                                 <div class="mt16">
                                     <field name="l10n_bg_kid_ids"
@@ -170,6 +145,45 @@
                             </div>
                         </setting>
                     </block>
+                    <block
+                        title="Localization Installer (verticals)"
+                        name="l10n_bg_config_verticals"
+                    >
+                        <setting
+                            id="l10n_bg_config_setting_verticals"
+                            title="Guided installation by vertical"
+                            string="Guided installation by vertical"
+                            help="Each section is a vertical (V0–V12). A section unlocks only once the previous one is installed; locked sections stay read-only. Open a section's wizard to install its modules in order and run the intermediate configuration."
+                        >
+                            <field name="l10n_bg_vertical_ids" nolabel="1">
+                                <list create="false" delete="false" edit="false"
+                                      decoration-success="state == 'done'"
+                                      decoration-info="state == 'in_progress'"
+                                      decoration-muted="state == 'locked'">
+                                    <field name="sequence" column_invisible="1" />
+                                    <field name="code" />
+                                    <field name="name" />
+                                    <field name="edition" widget="badge" />
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'done'"
+                                           decoration-info="state == 'in_progress'"
+                                           decoration-warning="state == 'available'"
+                                           decoration-danger="state == 'locked'" />
+                                    <field name="step_done" string="Done" />
+                                    <field name="step_total" string="Total" />
+                                    <field name="progress" widget="progressbar" />
+                                    <button name="action_open_wizard" type="object"
+                                            string="Open installer" icon="fa-magic"
+                                            class="btn-link"
+                                            invisible="state == 'locked'" />
+                                    <button name="action_open_wizard" type="object"
+                                            string="Locked" icon="fa-lock"
+                                            class="btn-link text-muted" disabled="1"
+                                            invisible="state != 'locked'" />
+                                </list>
+                            </field>
+                        </setting>
+                    </block>
                     <block title="Multilang cyrillic support" name="l10n_bg_multilang">
                         <setting
                             id="l10n_bg_partner_multilang_modules"
@@ -177,21 +191,7 @@
                             string="Partner multilang"
                             help="Multilang support for partner names and more"
                         >
-                            <div
-                                class="content-group"
-                                name="l10n_bg_partner_multilang_setting_container"
-                            >
-                                <div class="d-flex">
-                                    <field
-                                        name="module_partner_multilang"
-                                        class="ml16"
-                                    />
-                                    <label
-                                        for="module_partner_multilang"
-                                        class="o_light_label"
-                                    />
-                                </div>
-                            </div>
+                            <field name="module_partner_multilang" />
                         </setting>
                         <setting
                             id="l10n_bg_multilang_modules"
@@ -199,21 +199,7 @@
                             string="Other multilang"
                             help="Multilang support for other fields"
                         >
-                            <div
-                                class="content-group"
-                                name="l10n_bg_other_multilang_setting_container"
-                            >
-                                <div class="d-flex">
-                                    <field
-                                        name="module_l10n_bg_multilang"
-                                        class="ml16"
-                                    />
-                                    <label
-                                        for="module_l10n_bg_multilang"
-                                        class="o_light_label"
-                                    />
-                                </div>
-                            </div>
+                            <field name="module_l10n_bg_multilang" />
                         </setting>
                     </block>
                     <block title="Report forms" name="l10n_bg_report_forms">
@@ -223,21 +209,7 @@
                             string="Report printing forms"
                             help="Reform the reports forms support for Bulgaria"
                         >
-                            <div
-                                class="content-group"
-                                name="l10n_bg_report_forms_setting_container"
-                            >
-                                <div class="d-flex">
-                                    <field
-                                        name="module_l10n_bg_report_theme"
-                                        class="ml16"
-                                    />
-                                    <label
-                                        for="module_l10n_bg_report_theme"
-                                        class="o_light_label"
-                                    />
-                                </div>
-                            </div>
+                            <field name="module_l10n_bg_report_theme" />
                         </setting>
                         <setting
                             id="l10n_bg_reports_audit_modules"
@@ -245,67 +217,23 @@
                             string="Report audit for tax administration base"
                             help="The module provides support for financial and tax reporting in compliance with Bulgarian legislation."
                         >
-                            <div
-                                class="content-group"
-                                name="l10n_bg_reports_audit_setting_container"
-                            >
-                                <div class="d-flex">
-                                    <field
-                                        name="module_l10n_bg_reports_audit"
-                                        class="ml16"
-                                    />
-                                    <label
-                                        for="module_l10n_bg_reports_audit"
-                                        class="o_light_label"
-                                    />
-                                </div>
-                            </div>
+                            <field name="module_l10n_bg_reports_audit" />
                         </setting>
                         <setting
                             id="l10n_bg_report_vat_modules"
-                            title="VAT Report for tax administration (OCA))"
+                            title="VAT Report for tax administration (OCA)"
                             string="VAT Report for tax administration (OCA)"
                             help="The module provides files export for VAT reporting in compliance with Bulgarian legislation base on OCA reports"
                         >
-                            <div
-                                class="content-group"
-                                name="l10n_bg_report_vat_setting_container"
-                            >
-                                <div class="d-flex">
-                                    <field
-                                        name="module_l10n_bg_report_vat"
-                                        class="ml16"
-                                    />
-                                    <label
-                                        for="module_l10n_bg_report_vat"
-                                        class="o_light_label"
-                                    />
-                                </div>
-                            </div>
+                            <field name="module_l10n_bg_report_vat" />
                         </setting>
                         <setting
                             id="l10n_bg_vat_reports_modules"
-                            title="VAT Report for tax administration (EE))"
+                            title="VAT Report for tax administration (EE)"
                             string="VAT Report for tax administration (EE)"
                             help="The module provides files export for VAT reporting in compliance with Bulgarian legislation base on EE reports"
                         >
-                            <div
-                                class="content-group"
-                                name="l10n_bg_vat_reports_setting_container"
-                            >
-                                <div class="d-flex">
-                                    <field
-                                        name="module_l10n_bg_vat_reports"
-                                        class="ml16"
-                                        widget="upgrade_boolean"
-
-                                    />
-                                    <label
-                                        for="module_l10n_bg_vat_reports"
-                                        class="o_light_label"
-                                    />
-                                </div>
-                            </div>
+                            <field name="module_l10n_bg_vat_reports" widget="upgrade_boolean" />
                         </setting>
                     </block>
                     <block title="Bank - modules" name="l10n_bg_bank">
@@ -315,21 +243,7 @@
                             string="Bank related Modules"
                             help="Will update daily from cron only if is checked Automatic Currency Rates (OCA) and you added a rate_provider"
                         >
-                            <div
-                                class="content-group"
-                                name="l10n_bg_bank_setting_oca_container"
-                            >
-                                <div class="d-flex">
-                                    <field
-                                        name="module_currency_rate_update_bg_bnb"
-                                        class="ml16"
-                                    />
-                                    <label
-                                        for="module_currency_rate_update_bg_bnb"
-                                        class="o_light_label"
-                                    />
-                                </div>
-                            </div>
+                            <field name="module_currency_rate_update_bg_bnb" />
                         </setting>
                         <setting
                             id="l10n_bg_ee_bank_modules"
@@ -337,22 +251,7 @@
                             string="Bank currency download fix"
                             help="Fix coefficient in Automatic Currency Rates (EE)"
                         >
-                            <div
-                                class="content-group"
-                                name="l10n_bg_bank_setting_ee_container"
-                            >
-                                <div class="d-flex">
-                                    <field
-                                        name="module_currency_rate_live_fix"
-                                        class="ml16"
-                                        widget="upgrade_boolean"
-                                    />
-                                    <label
-                                        for="module_currency_rate_live_fix"
-                                        class="o_light_label"
-                                    />
-                                </div>
-                            </div>
+                            <field name="module_currency_rate_live_fix" widget="upgrade_boolean" />
                         </setting>
                     </block>
                     <block
@@ -365,16 +264,7 @@
                             string="Extend address"
                             help="Extend address with Bulgaria localization."
                         >
-                            <div class="d-flex">
-                                <field
-                                    name="module_l10n_bg_address_extended"
-                                    class="ml16"
-                                />
-                                <label
-                                    for="module_l10n_bg_address_extended"
-                                    class="o_light_label"
-                                />
-                            </div>
+                            <field name="module_l10n_bg_address_extended" />
                         </setting>
                         <setting
                             id="l10n_bg_city_setting_container"
@@ -382,13 +272,7 @@
                             string="Bulgarian cities"
                             help="Bulgaria cities, melisipalies, states..."
                         >
-                            <div class="d-flex">
-                                <field name="module_l10n_bg_city" class="ml16" />
-                                <label
-                                    for="module_l10n_bg_city"
-                                    class="o_light_label"
-                                />
-                            </div>
+                            <field name="module_l10n_bg_city" />
                         </setting>
                         <setting
                             id="l10n_bg_tax_offices_setting_container"
@@ -396,13 +280,7 @@
                             string="National Revenue Agency"
                             help="National Revenue Agency departments, offices and head office."
                         >
-                            <div class="d-flex">
-                                <field name="module_l10n_bg_tax_offices" class="ml16" />
-                                <label
-                                    for="module_l10n_bg_tax_offices"
-                                    class="o_light_label"
-                                />
-                            </div>
+                            <field name="module_l10n_bg_tax_offices" />
                         </setting>
                     </block>
                 </app>

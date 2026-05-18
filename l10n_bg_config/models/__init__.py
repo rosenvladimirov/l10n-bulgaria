@@ -4,6 +4,7 @@ from . import ir_module
 from . import l10n_bg_kid
 from . import l10n_bg_account_kid_rule
 from . import l10n_bg_account_industry_map
+from . import l10n_bg_vertical
 from . import chart_template
 from . import l10n_bg_config_mixin
 from . import account_move

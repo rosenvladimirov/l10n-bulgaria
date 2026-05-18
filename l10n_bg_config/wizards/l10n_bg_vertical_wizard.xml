@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="l10n_bg_vertical_wizard_form" model="ir.ui.view">
+        <field name="name">l10n.bg.vertical.wizard.form</field>
+        <field name="model">l10n.bg.vertical.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="vertical_id" invisible="1" />
+                <div class="oe_title">
+                    <h1>
+                        <field name="code" class="me-2" />
+                        <field name="name" />
+                    </h1>
+                    <div>
+                        <field name="edition" widget="badge" class="me-2" />
+                        <field name="state" widget="badge"
+                               decoration-success="state == 'done'"
+                               decoration-info="state == 'in_progress'"
+                               decoration-warning="state == 'available'"
+                               decoration-danger="state == 'locked'" />
+                        <span class="ms-3">Progress:</span>
+                        <field name="progress" widget="progressbar" />
+                    </div>
+                </div>
+                <field name="description" readonly="1" nolabel="1"
+                       class="text-muted mb-3"
+                       invisible="not description" />
+                <field name="step_ids" nolabel="1">
+                    <list create="false" delete="false" edit="false"
+                          decoration-success="state in ('done', 'auto')"
+                          decoration-muted="state in ('skipped', 'unavailable')">
+                        <field name="sequence" widget="handle" />
+                        <field name="name" />
+                        <field name="step_type" />
+                        <field name="module_name" optional="show" />
+                        <field name="module_state" optional="hide" />
+                        <field name="channel_group" optional="hide" />
+                        <field name="edition" optional="hide" widget="badge" />
+                        <field name="optional" optional="hide" />
+                        <field name="state" widget="badge"
+                               decoration-success="state in ('done', 'auto')"
+                               decoration-warning="state == 'pending'"
+                               decoration-danger="state == 'unavailable'"
+                               decoration-muted="state == 'skipped'" />
+                        <button name="action_install" type="object"
+                                string="Install" icon="fa-download"
+                                class="btn-link"
+                                invisible="step_type != 'install_module' or state in ('done', 'auto', 'unavailable')" />
+                        <button name="action_open_config" type="object"
+                                string="Open / Info" icon="fa-cog"
+                                class="btn-link"
+                                invisible="step_type == 'install_module'" />
+                        <button name="action_mark_done" type="object"
+                                string="Mark done" icon="fa-check"
+                                class="btn-link"
+                                invisible="step_type == 'install_module' or done" />
+                        <button name="action_reset" type="object"
+                                string="Reset" icon="fa-undo"
+                                class="btn-link"
+                                invisible="step_type == 'install_module' or not done" />
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_refresh" type="object"
+                            string="Refresh" class="btn-primary" />
+                    <button string="Close" class="btn-secondary"
+                            special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -20,6 +20,11 @@ class ResConfigSettings(models.TransientModel):
     l10n_bg_kid_codes = fields.Char(
         related="company_id.l10n_bg_kid_codes", readonly=False
     )
+    l10n_bg_vertical_ids = fields.Many2many(
+        "l10n.bg.vertical",
+        string="Installation verticals",
+        compute="_compute_l10n_bg_vertical_ids",
+    )
     is_l10n_bg_multilanguage_text = fields.Text(
         string="Multilanguage Settings",
         compute="_compute_multilanguage_text"
@@ -99,6 +104,12 @@ class ResConfigSettings(models.TransientModel):
         view = self.env.ref('l10n_bg_config.view_res_partner_form_api_key', raise_if_not_found=False)
         if view:
             view.active = self.enable_partner_api_key_view
+
+    def _compute_l10n_bg_vertical_ids(self):
+        # Всички seed-нати вертикали, подредени; gating-ът е в модела.
+        verticals = self.env["l10n.bg.vertical"].search([])
+        for record in self:
+            record.l10n_bg_vertical_ids = verticals
 
     def action_l10n_bg_resolve_kid_codes(self):
         """Препраща към едноименния метод на текущата фирма."""

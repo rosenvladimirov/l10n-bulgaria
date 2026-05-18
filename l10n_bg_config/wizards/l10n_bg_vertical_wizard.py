@@ -59,9 +59,30 @@ class L10nBgVerticalWizard(models.TransientModel):
         "the Next button stays disabled (gating).",
     )
 
+    # ── Trade Register auto-fill (само за вертикал с registry_fetch стъпка) ─
+    registry_step_id = fields.Many2one(
+        "l10n.bg.vertical.step",
+        compute="_compute_registry",
+        help="Checkpoint step in the current vertical that offers the "
+        "Trade Register auto-fill, if any.",
+    )
+    show_registry_fetch = fields.Boolean(compute="_compute_registry")
+    registry_vat_eik = fields.Char(
+        string="VAT / UIC",
+        help="Bulgarian VAT (BG…) or UIC/EIK (9 or 13 digits) to look "
+        "up in the Trade Register.",
+    )
+
     def _compute_step_ids(self):
         for wiz in self:
             wiz.step_ids = wiz.vertical_id.step_ids
+
+    @api.depends("vertical_id")
+    def _compute_registry(self):
+        for wiz in self:
+            step = wiz.vertical_id.step_ids.filtered("registry_fetch")[:1]
+            wiz.registry_step_id = step
+            wiz.show_registry_fetch = bool(step)
 
     @api.depends("vertical_id", "vertical_id.done")
     @api.depends_context("company")
@@ -138,4 +159,65 @@ class L10nBgVerticalWizard(models.TransientModel):
     def action_refresh(self):
         """Презарежда визарда (след install/config действие)."""
         self.ensure_one()
+        return self._open()
+
+    def action_registry_fetch(self):
+        """Свали данните на фирмата от Търговския регистър по ДДС/ЕИК,
+        попълни фирмения партньор, постави държава = България и маркирай
+        чекпойнт стъпката готова. Auto-install на
+        l10n_bg_company_registry при липса (install, НЕ upgrade —
+        поука от Teo: каскаден upgrade чупи registry-то)."""
+        self.ensure_one()
+        step = self.registry_step_id
+        if not step:
+            raise UserError(_("This vertical has no Trade Register step."))
+        if not self.registry_vat_eik:
+            raise UserError(_("Enter a VAT number or UIC first."))
+        Module = self.env["ir.module.module"].sudo()
+        mod = Module.search(
+            [("name", "=", "l10n_bg_company_registry")], limit=1
+        )
+        if not mod:
+            raise UserError(
+                _(
+                    "Module 'l10n_bg_company_registry' is not available "
+                    "in this instance (not in the addons path). Deploy "
+                    "it first."
+                )
+            )
+        if mod.state == "uninstallable":
+            raise UserError(
+                _("Module 'l10n_bg_company_registry' is not installable.")
+            )
+        if mod.state not in ("installed", "to upgrade"):
+            mod.button_immediate_install()
+            # След install регистърът се презарежда — новият модел е
+            # годен чак след web reload; операторът натиска бутона пак
+            # (НЕ правим fetch в същата транзакция).
+            return {"type": "ir.actions.client", "tag": "reload"}
+        company = self.env.company
+        partner = company.partner_id
+        if not partner:
+            raise UserError(_("The active company has no linked partner."))
+        Wizard = self.env["bg.company.search.wizard"]
+        try:
+            rw = Wizard.create(
+                {"partner_id": partner.id, "eik": self.registry_vat_eik}
+            )
+            rw.action_fetch_data()
+            rw.action_populate_partner()
+        except UserError:
+            raise
+        except Exception as exc:
+            raise UserError(
+                _("Trade Register fetch failed: %s") % exc
+            ) from exc
+        bg = self.env.ref("base.bg", raise_if_not_found=False)
+        if bg:
+            if company.country_id != bg:
+                company.country_id = bg.id
+            if partner.country_id != bg:
+                partner.country_id = bg.id
+        # чекпойнтът е готов → маркирай и презареди стъпера
+        step.action_mark_done()
         return self._open()

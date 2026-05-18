@@ -27,7 +27,8 @@
         <field name="sequence">20</field>
         <field name="name">Set company country = Bulgaria, load the BG chart of accounts, set UIC/VAT</field>
         <field name="step_type">checkpoint</field>
-        <field name="instruction">Set the company country to Bulgaria, load the Bulgarian chart of accounts for the company, and fill the company UIC (company registration number) and VAT number. The chart MUST be loaded before any reporting/VAT/tax module works correctly.</field>
+        <field name="instruction">Set the company country to Bulgaria, load the Bulgarian chart of accounts for the company, and fill the company UIC (company registration number) and VAT number. Tip: enter the VAT/UIC below and use 'Fetch from Trade Register' to auto-fill the company data and mark this step done. The chart MUST be loaded before any reporting/VAT/tax module works correctly.</field>
+        <field name="registry_fetch" eval="True"/>
     </record>
     <record id="v0_s30" model="l10n.bg.vertical.step">
         <field name="vertical_id" ref="vertical_v0"/>

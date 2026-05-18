@@ -200,6 +200,12 @@ class L10nBgVerticalStep(models.Model):
         help="Mutually-exclusive channel tag (e.g. one InfoPay bridge, "
         "one ErpNet.FP IoT bridge). Informational for the operator."
     )
+    registry_fetch = fields.Boolean(
+        help="When set, the installer offers an inline 'fetch company "
+        "data from the Bulgarian Trade Register by VAT/UIC' control "
+        "bound to this checkpoint step (auto-installs "
+        "l10n_bg_company_registry on demand)."
+    )
 
     module_state = fields.Char(compute="_compute_runtime")
     available = fields.Boolean(compute="_compute_runtime")

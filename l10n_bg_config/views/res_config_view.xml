@@ -117,14 +117,14 @@
                         </setting>
                     </block>
                     <block
-                        title="KID codes (init)"
-                        name="l10n_bg_config_kid_codes"
+                        title="Localization Installer"
+                        name="l10n_bg_config_verticals"
                     >
                         <setting
                             id="l10n_bg_config_setting_kid_codes_params"
                             title="KID codes (init)"
                             string="KID codes (init)"
-                            help="Capture the company's KID activity codes as free text at setup. They are parsed into the active KID sectors when the chart of accounts is loaded (only while the sector list is still empty); 'Resolve from codes' re-parses on demand."
+                            help="Capture the company's KID activity codes as free text at setup. They are parsed into the active KID sectors when the chart of accounts is loaded (only while the sector list is still empty); 'Resolve from codes' re-parses on demand. The guided installer uses these when filtering the chart."
                         >
                             <div
                                 class="content-group"
@@ -149,16 +149,11 @@
                                 </div>
                             </div>
                         </setting>
-                    </block>
-                    <block
-                        title="Localization Installer"
-                        name="l10n_bg_config_verticals"
-                    >
                         <setting
                             id="l10n_bg_config_setting_verticals"
                             title="Guided installation by vertical"
                             string="Guided installation by vertical"
-                            help="Step-by-step installer that walks the Bulgarian localization vertical by vertical (V0–V12). Each vertical is one step; the next one unlocks only after the current is completed."
+                            help="Step-by-step installer that walks the Bulgarian localization vertical by vertical (V0–V12). Each vertical is one step; the next one unlocks only after the current is completed. Set the KID codes above first — the installer's accounting vertical uses them."
                         >
                             <button name="action_l10n_bg_open_installer"
                                     type="object"

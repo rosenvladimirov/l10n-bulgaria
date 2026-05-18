@@ -219,6 +219,24 @@ class AccountChartTemplate(models.AbstractModel):
         универсалните сметки. Безопасно е no-op, ако моделът с правила
         още не е в регистъра или няма правила.
         """
+        # Init free-text bootstrap — В НАЧАЛОТО, преди rule-guard-овете:
+        # ако явният секторен M2M още е празен, но при настройката на
+        # фирмата са въведени КИД кодове в свободен текст — резолвай ги
+        # сега (text = bootstrap, M2M = авторитатен щом веднъж е попълнен;
+        # ръчният бутон override-ва). Прави се ПРЕДИ проверката за
+        # правила, за да попълни kid_ids дори когато
+        # l10n.bg.account.kid.rule още не е seed-нат (иначе free-text
+        # кодовете никога не биха стигнали до kid_ids).
+        company = self.env.company
+        kid_ids = getattr(company, 'l10n_bg_kid_ids', self.env['l10n.bg.kid'])
+        kid_codes = getattr(company, 'l10n_bg_kid_codes', False)
+        if not kid_ids and kid_codes:
+            sections = company._l10n_bg_resolve_kid_codes(
+                kid_codes, company.l10n_bg_kid_version
+            )
+            if sections:
+                company.l10n_bg_kid_ids = [Command.set(sections.ids)]
+
         Rule = self.env.get('l10n.bg.account.kid.rule')
         if Rule is None:
             return data
@@ -229,19 +247,6 @@ class AccountChartTemplate(models.AbstractModel):
         if not rules:
             return data
 
-        company = self.env.company
-        # Init free-text bootstrap: ако явният секторен M2M още е празен,
-        # но при настройката на фирмата са въведени КИД кодове в свободен
-        # текст — резолвай ги сега (text = bootstrap, M2M = авторитатен
-        # щом веднъж е попълнен; ръчният бутон override-ва).
-        kid_ids = getattr(company, 'l10n_bg_kid_ids', self.env['l10n.bg.kid'])
-        kid_codes = getattr(company, 'l10n_bg_kid_codes', False)
-        if not kid_ids and kid_codes:
-            sections = company._l10n_bg_resolve_kid_codes(
-                kid_codes, company.l10n_bg_kid_version
-            )
-            if sections:
-                company.l10n_bg_kid_ids = [Command.set(sections.ids)]
         active_kid_ids = set(
             getattr(company, 'l10n_bg_kid_ids', self.env['l10n.bg.kid'])
             .ids

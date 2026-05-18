@@ -115,6 +115,11 @@
                                 type="action"
                                 class="oe_highlight"/>
                         </setting>
+                    </block>
+                    <block
+                        title="КИД codes (init)"
+                        name="l10n_bg_config_kid_codes"
+                    >
                         <setting
                             id="l10n_bg_config_setting_kid_codes_params"
                             title="КИД codes (init)"

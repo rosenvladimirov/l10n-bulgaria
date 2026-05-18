@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="l10n_bg_onboarding.App">
+        <div class="bgob-root">
+            <div class="bgob-grain" />
+            <div class="bgob-edge bgob-edge--top" />
+            <div class="bgob-edge bgob-edge--bottom" />
+
+            <!-- LOADING -->
+            <div t-if="state.loading" class="bgob-load">
+                <div class="bgob-load-mark" />
+                <p>Preparing your Bulgarian setup…</p>
+            </div>
+
+            <!-- HERO -->
+            <section t-elif="state.phase === 'hero'" class="bgob-hero">
+                <div class="bgob-hero-inner">
+                    <p class="bgob-kicker">Bulgarian Localization</p>
+                    <h1 class="bgob-display">
+                        Let's set up<br/><em>your books</em>, properly.
+                    </h1>
+                    <p class="bgob-lede">
+                        A guided, chapter-by-chapter installation —
+                        from the chart of accounts to the Revenue
+                        Agency. <t t-esc="total"/> chapters. You stay
+                        in control of every step.
+                    </p>
+                    <div class="bgob-hero-actions">
+                        <button class="bgob-btn bgob-btn--primary"
+                                t-on-click="begin">
+                            Begin the setup
+                            <span class="bgob-arrow">→</span>
+                        </button>
+                        <button class="bgob-btn bgob-btn--ghost"
+                                t-on-click="finish">
+                            Skip to Odoo
+                        </button>
+                    </div>
+                </div>
+                <div class="bgob-hero-rule" />
+            </section>
+
+            <!-- CHAPTER -->
+            <section t-elif="state.phase === 'chapter'" class="bgob-chapter">
+                <header class="bgob-rail">
+                    <span class="bgob-rail-no">
+                        <t t-esc="(state.idx + 1).toString().padStart(2,'0')"/>
+                        <i>/</i>
+                        <t t-esc="total.toString().padStart(2,'0')"/>
+                    </span>
+                    <div class="bgob-rail-track">
+                        <span class="bgob-rail-fill"
+                              t-attf-style="width:{{ progressPct }}%"/>
+                    </div>
+                    <span class="bgob-rail-pct">
+                        <t t-esc="progressPct"/>%
+                    </span>
+                </header>
+
+                <div class="bgob-stage">
+                    <div class="bgob-scene" t-ref="scene" />
+
+                    <div class="bgob-panel">
+                        <p class="bgob-kicker">
+                            <t t-esc="currentChapter.kicker"/>
+                        </p>
+                        <h2 class="bgob-display bgob-display--sm">
+                            <span class="bgob-vcode"
+                                  t-esc="current and current.code"/>
+                            <t t-esc="current and current.name"/>
+                        </h2>
+                        <p class="bgob-line">
+                            <t t-esc="currentChapter.line"/>
+                        </p>
+
+                        <!-- V0: Trade Register fetch -->
+                        <div t-if="currentSteps.some(s =&gt; s.registry_fetch)"
+                             class="bgob-trade">
+                            <input type="text"
+                                   class="bgob-input"
+                                   placeholder="VAT BG… or UIC (9/13 digits)"
+                                   t-model="state.vatEik"/>
+                            <button class="bgob-btn bgob-btn--gold"
+                                    t-att-disabled="state.busy"
+                                    t-on-click="tradeRegister">
+                                Fetch from Trade Register
+                            </button>
+                        </div>
+
+                        <ul class="bgob-steps">
+                            <t t-foreach="currentSteps" t-as="s"
+                               t-key="s.id">
+                                <li t-attf-class="bgob-step bgob-step--{{ s.state }} {{ s.optional and s.state !== 'done' ? 'bgob-step--opt' : '' }}">
+                                    <span class="bgob-step-dot" />
+                                    <span class="bgob-step-name">
+                                        <t t-esc="s.name"/>
+                                        <em t-if="s.optional"
+                                            class="bgob-tag">optional</em>
+                                    </span>
+                                    <span class="bgob-step-act">
+                                        <button t-if="s.step_type === 'install_module' and !['done','auto','unavailable'].includes(s.state)"
+                                                class="bgob-mini"
+                                                t-att-disabled="state.busy"
+                                                t-on-click="() => this.installStep(s)">
+                                            Install
+                                        </button>
+                                        <button t-if="s.step_type !== 'install_module'"
+                                                class="bgob-mini bgob-mini--ghost"
+                                                t-att-disabled="state.busy"
+                                                t-on-click="() => this.openConfig(s)">
+                                            Open / Info
+                                        </button>
+                                        <button t-if="s.step_type !== 'install_module' and !s.done"
+                                                class="bgob-mini"
+                                                t-att-disabled="state.busy"
+                                                t-on-click="() => this.markDone(s)">
+                                            Mark done
+                                        </button>
+                                        <button t-if="s.step_type !== 'install_module' and s.done"
+                                                class="bgob-mini bgob-mini--ghost"
+                                                t-att-disabled="state.busy"
+                                                t-on-click="() => this.resetStep(s)">
+                                            Reset
+                                        </button>
+                                        <span t-if="['done','auto'].includes(s.state)"
+                                              class="bgob-check">✓</span>
+                                    </span>
+                                </li>
+                            </t>
+                        </ul>
+
+                        <p t-if="state.error" class="bgob-error">
+                            <t t-esc="state.error"/>
+                        </p>
+
+                        <footer class="bgob-nav">
+                            <button class="bgob-btn bgob-btn--ghost"
+                                    t-if="state.idx &gt; 0"
+                                    t-on-click="back">‹ Back</button>
+                            <span class="bgob-nav-spacer" />
+                            <button class="bgob-btn bgob-btn--ghost"
+                                    t-if="!isLast"
+                                    t-on-click="skip">Skip</button>
+                            <button class="bgob-btn bgob-btn--primary"
+                                    t-att-disabled="!canNext"
+                                    t-on-click="next">
+                                <t t-esc="isLast ? 'Finish' : 'Next'"/>
+                                <span class="bgob-arrow"
+                                      t-if="!isLast">→</span>
+                            </button>
+                        </footer>
+                        <p t-if="!canNext" class="bgob-hint">
+                            Complete the required steps to unlock the
+                            next chapter — optional ones don't block.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FINALE -->
+            <section t-else="" class="bgob-finale">
+                <div class="bgob-burst" />
+                <p class="bgob-kicker">Setup complete</p>
+                <h1 class="bgob-display">
+                    Your localization<br/><em>is alive.</em>
+                </h1>
+                <p class="bgob-lede">
+                    <t t-esc="progressPct"/>% of chapters done. You can
+                    re-open the installer anytime from Settings →
+                    Localization Installer.
+                </p>
+                <button class="bgob-btn bgob-btn--primary"
+                        t-on-click="finish">
+                    Enter Odoo <span class="bgob-arrow">→</span>
+                </button>
+            </section>
+        </div>
+    </t>
+
+</templates>

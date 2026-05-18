@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Full-screen OWL client action (the animated onboarding app). -->
+    <record id="action_l10n_bg_onboarding" model="ir.actions.client">
+        <field name="name">Bulgarian Localization Onboarding</field>
+        <field name="tag">l10n_bg_onboarding.app</field>
+        <field name="target">fullscreen</field>
+    </record>
+
+    <!-- Configuration step → presents on first admin login in the new
+         BG database and opens the animated onboarding. Sequence 1 so it
+         runs before the plain modal-stepper todo of
+         l10n_bg_db_installer (augment, not replace). -->
+    <record id="todo_l10n_bg_onboarding" model="ir.actions.todo">
+        <field name="action_id" ref="action_l10n_bg_onboarding" />
+        <field name="sequence">1</field>
+        <field name="state">open</field>
+    </record>
+</odoo>

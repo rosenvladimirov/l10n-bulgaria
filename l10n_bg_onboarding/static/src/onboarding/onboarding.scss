@@ -1,0 +1,455 @@
+// Folk-Modernist Editorial — "Ink & Rose"
+// Тъмен ink канвас, parchment текст, българска роза + тракийско злато,
+// шевица (cross-stitch) геометрия. Недженерик, editorial, с движение.
+
+.bgob-root {
+    --ink: #0e0b0c;
+    --ink-2: #15101270;
+    --paper: #f4ece0;
+    --paper-dim: #f4ece0a8;
+    --rose: #c2304b;
+    --rose-deep: #7a1f33;
+    --gold: #c8a24a;
+    --forest: #3f7a5e;
+    --line: #f4ece022;
+
+    position: absolute;
+    inset: 0;
+    overflow: hidden auto;
+    background:
+        radial-gradient(120% 90% at 82% 6%, #1b1416 0%, transparent 55%),
+        radial-gradient(90% 80% at 0% 100%, #170f15 0%, transparent 50%),
+        var(--ink);
+    color: var(--paper);
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino,
+        "Spectral", Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    em {
+        font-style: italic;
+        color: var(--rose);
+    }
+
+    // ── атмосфера ───────────────────────────────────────────────
+    .bgob-grain {
+        position: absolute;
+        inset: -50%;
+        pointer-events: none;
+        opacity: 0.05;
+        background-image: radial-gradient(
+            var(--paper) 0.5px,
+            transparent 0.5px
+        );
+        background-size: 4px 4px;
+        animation: bgob-grain 6s steps(6) infinite;
+    }
+    .bgob-edge {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 14px;
+        pointer-events: none;
+        background: repeating-linear-gradient(
+            90deg,
+            var(--rose) 0 10px,
+            transparent 10px 20px,
+            var(--gold) 20px 30px,
+            transparent 30px 40px
+        );
+        opacity: 0.5;
+        mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+        &--top { top: 0; }
+        &--bottom { bottom: 0; transform: scaleY(-1); }
+    }
+
+    // ── типография ──────────────────────────────────────────────
+    .bgob-kicker {
+        font-family: "DejaVu Sans Mono", "SFMono-Regular", monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.42em;
+        font-size: 11px;
+        color: var(--gold);
+        margin: 0 0 18px;
+    }
+    .bgob-display {
+        font-size: clamp(2.6rem, 6.2vw, 5.6rem);
+        line-height: 0.98;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        margin: 0;
+        text-wrap: balance;
+        &--sm {
+            font-size: clamp(1.7rem, 3vw, 2.7rem);
+            line-height: 1.05;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5em;
+            flex-wrap: wrap;
+        }
+    }
+    .bgob-vcode {
+        font-family: "DejaVu Sans Mono", monospace;
+        font-size: 0.5em;
+        color: var(--gold);
+        border: 1px solid var(--line);
+        padding: 0.18em 0.5em;
+        border-radius: 2px;
+    }
+    .bgob-lede {
+        max-width: 46ch;
+        font-size: clamp(1rem, 1.3vw, 1.18rem);
+        line-height: 1.55;
+        color: var(--paper-dim);
+    }
+
+    // ── loading ─────────────────────────────────────────────────
+    .bgob-load {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-content: center;
+        justify-items: center;
+        gap: 22px;
+        color: var(--paper-dim);
+        .bgob-load-mark {
+            width: 46px;
+            height: 46px;
+            border: 2px solid var(--line);
+            border-top-color: var(--rose);
+            border-radius: 50%;
+            animation: bgob-spin 0.9s linear infinite;
+        }
+    }
+
+    // ── HERO ────────────────────────────────────────────────────
+    .bgob-hero {
+        min-height: 100%;
+        display: grid;
+        align-content: center;
+        padding: clamp(28px, 7vw, 96px);
+        position: relative;
+        animation: bgob-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+        .bgob-hero-inner { max-width: 60ch; }
+        .bgob-hero-rule {
+            position: absolute;
+            right: clamp(28px, 7vw, 96px);
+            top: 50%;
+            width: 38vw;
+            max-width: 520px;
+            height: 60%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            opacity: 0.5;
+            background:
+                conic-gradient(from 45deg at 50% 50%,
+                    var(--rose) 0 25%, transparent 0 50%,
+                    var(--gold) 0 75%, transparent 0) ;
+            mask: radial-gradient(circle, #000 0 38%, transparent 60%);
+            animation: bgob-rot 44s linear infinite;
+        }
+    }
+    .bgob-hero-actions {
+        display: flex;
+        gap: 14px;
+        margin-top: 38px;
+        flex-wrap: wrap;
+    }
+
+    // ── CHAPTER ─────────────────────────────────────────────────
+    .bgob-chapter {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: clamp(22px, 4vw, 52px);
+        gap: clamp(20px, 3vw, 40px);
+    }
+    .bgob-rail {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        .bgob-rail-no {
+            font-family: "DejaVu Sans Mono", monospace;
+            font-size: 13px;
+            color: var(--paper-dim);
+            i { color: var(--line); font-style: normal; margin: 0 4px; }
+        }
+        .bgob-rail-track {
+            flex: 1;
+            height: 2px;
+            background: var(--line);
+            overflow: hidden;
+        }
+        .bgob-rail-fill {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--rose));
+            transition: width 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+        }
+        .bgob-rail-pct {
+            font-family: "DejaVu Sans Mono", monospace;
+            font-size: 12px;
+            color: var(--gold);
+            min-width: 4ch;
+            text-align: right;
+        }
+    }
+    .bgob-stage {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1.05fr 1fr;
+        gap: clamp(24px, 4vw, 64px);
+        align-items: center;
+        @media (max-width: 980px) {
+            grid-template-columns: 1fr;
+        }
+    }
+    .bgob-scene {
+        aspect-ratio: 1;
+        max-height: 64vh;
+        display: grid;
+        place-items: center;
+        position: relative;
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 8%;
+            border: 1px solid var(--line);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+        .bgob-motif {
+            width: 78%;
+            height: 78%;
+            filter: drop-shadow(0 22px 40px #00000055);
+        }
+        .bgob-motif-rot {
+            transform-origin: 112px 112px;
+            animation: bgob-rot 60s linear infinite;
+        }
+        .bgob-stitch {
+            opacity: 0;
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: bgob-stitch 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)
+                both;
+        }
+    }
+    .bgob-panel {
+        max-width: 56ch;
+        animation: bgob-slide 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+    .bgob-line {
+        font-size: 1.08rem;
+        line-height: 1.5;
+        color: var(--paper-dim);
+        margin: 14px 0 22px;
+    }
+
+    .bgob-trade {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+    .bgob-input {
+        flex: 1;
+        min-width: 220px;
+        background: var(--ink-2);
+        border: 1px solid var(--line);
+        color: var(--paper);
+        padding: 12px 14px;
+        font: inherit;
+        outline: none;
+        &:focus { border-color: var(--gold); }
+    }
+
+    // ── списък стъпки ───────────────────────────────────────────
+    .bgob-steps {
+        list-style: none;
+        margin: 0 0 18px;
+        padding: 0;
+        border-top: 1px solid var(--line);
+    }
+    .bgob-step {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 13px 4px;
+        border-bottom: 1px solid var(--line);
+        .bgob-step-dot {
+            width: 9px;
+            height: 9px;
+            flex: none;
+            background: var(--rose);
+            transform: rotate(45deg);
+        }
+        .bgob-step-name {
+            flex: 1;
+            font-size: 0.98rem;
+        }
+        .bgob-step-act {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .bgob-tag {
+            font-family: "DejaVu Sans Mono", monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--paper-dim);
+            margin-left: 8px;
+        }
+        .bgob-check { color: var(--forest); font-size: 1.1rem; }
+        &--done,
+        &--auto {
+            .bgob-step-dot { background: var(--forest); }
+            .bgob-step-name { color: var(--paper-dim); }
+        }
+        &--unavailable {
+            opacity: 0.4;
+            .bgob-step-dot { background: var(--line); }
+        }
+        &--opt {
+            opacity: 0.62;
+            .bgob-step-dot {
+                background: transparent;
+                border: 1px solid var(--gold);
+            }
+        }
+    }
+
+    // ── бутони ──────────────────────────────────────────────────
+    .bgob-btn {
+        font: inherit;
+        font-size: 0.96rem;
+        letter-spacing: 0.01em;
+        padding: 13px 24px;
+        border: 1px solid transparent;
+        cursor: pointer;
+        background: none;
+        color: var(--paper);
+        transition: transform 0.15s, background 0.2s, color 0.2s,
+            border-color 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        &:hover { transform: translateY(-1px); }
+        &[disabled] {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+        &--primary {
+            background: var(--rose);
+            color: #fff;
+            &:hover { background: var(--rose-deep); }
+        }
+        &--gold {
+            background: var(--gold);
+            color: var(--ink);
+        }
+        &--ghost {
+            border-color: var(--line);
+            color: var(--paper-dim);
+            &:hover { color: var(--paper); border-color: var(--paper-dim); }
+        }
+        .bgob-arrow {
+            transition: transform 0.2s;
+        }
+        &:hover .bgob-arrow { transform: translateX(4px); }
+    }
+    .bgob-mini {
+        font: inherit;
+        font-size: 0.82rem;
+        padding: 6px 13px;
+        border: 1px solid var(--rose);
+        background: transparent;
+        color: var(--paper);
+        cursor: pointer;
+        &:hover { background: var(--rose); }
+        &--ghost {
+            border-color: var(--line);
+            color: var(--paper-dim);
+            &:hover { background: transparent; color: var(--paper); }
+        }
+        &[disabled] { opacity: 0.4; cursor: not-allowed; }
+    }
+
+    .bgob-nav {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 6px;
+        .bgob-nav-spacer { flex: 1; }
+    }
+    .bgob-hint {
+        margin: 12px 0 0;
+        font-size: 0.84rem;
+        color: var(--gold);
+        opacity: 0.85;
+    }
+    .bgob-error {
+        margin: 6px 0 12px;
+        padding: 10px 14px;
+        border-left: 2px solid var(--rose);
+        background: #c2304b18;
+        font-size: 0.9rem;
+    }
+
+    // ── FINALE ──────────────────────────────────────────────────
+    .bgob-finale {
+        min-height: 100%;
+        display: grid;
+        place-content: center;
+        justify-items: center;
+        text-align: center;
+        gap: 22px;
+        padding: 8vw;
+        position: relative;
+        animation: bgob-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+        .bgob-burst {
+            position: absolute;
+            width: 70vmin;
+            height: 70vmin;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--rose), var(--gold), var(--forest), var(--rose)
+            );
+            filter: blur(60px);
+            opacity: 0.22;
+            animation: bgob-rot 30s linear infinite;
+        }
+        > * { position: relative; }
+    }
+
+    // ── keyframes ───────────────────────────────────────────────
+    @keyframes bgob-grain {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(6px, 4px); }
+    }
+    @keyframes bgob-spin { to { transform: rotate(360deg); } }
+    @keyframes bgob-rot { to { transform: rotate(360deg); } }
+    @keyframes bgob-stitch {
+        0% { opacity: 0; transform: scale(0.2) rotate(-12deg); }
+        100% { opacity: 1; transform: scale(1) rotate(0); }
+    }
+    @keyframes bgob-rise {
+        0% { opacity: 0; transform: translateY(26px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bgob-slide {
+        0% { opacity: 0; transform: translateX(26px); }
+        100% { opacity: 1; transform: translateX(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        * { animation: none !important; transition: none !important; }
+    }
+}

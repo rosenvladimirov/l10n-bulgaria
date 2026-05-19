@@ -4,15 +4,15 @@
         <field name="name">res.partner.property.form.l10n_bg</field>
         <field name="model">res.partner</field>
         <field name="priority">2</field>
-        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="inherit_id" ref="account.view_partner_property_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='company_registry']" position="after">
                 <field name="l10n_bg_uic_type" readonly="parent_id" />
                 <field name="l10n_bg_uic" readonly="parent_id" />
                 <field name="l10n_bg_represent_contact_id" readonly="parent_id" />
             </xpath>
-            <xpath expr="//group[@name='misc']" position="after">
-                <group name="l110n_bg_settings" string="Settings">
+            <xpath expr="//page[@name='accounting']//group[@name='credit_limits']" position="after">
+                <group name="l10n_bg_settings" string="Settings">
                     <field name="l10n_bg_key"/>
                     <field name="l10n_bg_crypt_key" groups="base.group_no_one"/>
                 </group>

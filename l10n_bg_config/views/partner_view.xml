@@ -10,7 +10,7 @@
                 <group name="l10n_bg_identification" string="Bulgarian Identification">
                     <field name="l10n_bg_uic_type" readonly="parent_id" />
                     <field name="l10n_bg_uic" readonly="parent_id" />
-                    <field name="l10n_bg_represent_contact_id" readonly="parent_id" />
+                    <field name="l10n_bg_represent_contact_id" readonly="parent_id" invisible="not is_company" />
                 </group>
             </xpath>
             <xpath expr="//group[@name='misc']" position="after">

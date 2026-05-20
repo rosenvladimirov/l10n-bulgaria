@@ -133,10 +133,45 @@ class L10nBgDatabase(Database):
         return response
 
     def _l10n_bg_seed_new_db(self, dbname, vat_eik, kid):
-        """Записва ЕИК/ДДС + KID върху главната фирма на новата база.
-        Стъперът V0 'Fetch from Trade Register' ползва company.vat;
-        KID отива в l10n_bg_kid_codes (free-text bootstrap го резолвира
-        при зареждане на сметкоплана)."""
+        """Инсталира l10n_bg на новата база + записва ЕИК/ДДС + KID върху
+        главната фирма. country_code='bg' в core create_database САМО
+        сетва `company.country_id` — НЕ инсталира localization (Odoo 19+
+        chart-of-accounts се инсталира отделно). Затова явно тригерваме
+        `button_immediate_install` на l10n_bg, което каскадира:
+        l10n_bg_config (auto_install) → l10n_bg_db_installer (auto_install)
+        → l10n_bg_onboarding (auto_install). След това полето
+        l10n_bg_kid_codes съществува и пишем KID."""
+        # Стъпка 1: install l10n_bg (cascade). update_list е нужно ако
+        # модулната листа в DB още не е сканирана (свежа база).
+        registry = odoo.modules.registry.Registry(dbname)
+        with registry.cursor() as cr:
+            env = api.Environment(cr, SUPERUSER_ID, {})
+            M = env["ir.module.module"].sudo()
+            try:
+                M.update_list()
+            except Exception:  # noqa: BLE001 — update_list е nicety
+                _logger.exception(
+                    "l10n_bg_db_installer: update_list failed on %s",
+                    dbname,
+                )
+            l10n_bg = M.search(
+                [
+                    ("name", "=", "l10n_bg"),
+                    ("state", "in", ("uninstalled", "to install")),
+                ],
+                limit=1,
+            )
+            if l10n_bg:
+                _logger.info(
+                    "l10n_bg_db_installer: installing l10n_bg on %s",
+                    dbname,
+                )
+                # button_immediate_install commit-ва вътрешно и
+                # презарежда registry; cursor-ът ни остарява веднага.
+                l10n_bg.button_immediate_install()
+
+        # Стъпка 2: свеж registry/cursor (l10n_bg вече зареден →
+        # l10n_bg_kid_codes полето вече съществува); пишем vat + KID.
         registry = odoo.modules.registry.Registry(dbname)
         with registry.cursor() as cr:
             env = api.Environment(cr, SUPERUSER_ID, {})

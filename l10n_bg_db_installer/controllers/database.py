@@ -30,20 +30,20 @@ _logger = logging.getLogger(__name__)
 # country_code == 'bg'.
 _BG_FIELDS_HTML = """
 <div class="mb-3 row field-l10n-bg" id="l10n_bg_db_installer_fields">
-  <label for="l10n_bg_vat_eik" class="col-form-label col-sm-3">
+  <label for="l10n_bg_vat_eik" class="col-md-4 col-form-label">
     VAT / UIC (Bulgaria)
   </label>
-  <div class="col-sm-9">
+  <div class="col-md-8">
     <input type="text" name="l10n_bg_vat_eik" id="l10n_bg_vat_eik"
            class="form-control"
            placeholder="BG123456789 or 123456789"/>
   </div>
 </div>
 <div class="mb-3 row field-l10n-bg">
-  <label for="l10n_bg_kid" class="col-form-label col-sm-3">
+  <label for="l10n_bg_kid" class="col-md-4 col-form-label">
     KID codes (Bulgaria)
   </label>
-  <div class="col-sm-9">
+  <div class="col-md-8">
     <input type="text" name="l10n_bg_kid" id="l10n_bg_kid"
            class="form-control" placeholder="e.g. 41, 43.21 or 6201"/>
   </div>

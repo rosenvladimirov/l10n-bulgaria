@@ -11,9 +11,13 @@
          BG database and opens the animated onboarding. Sequence 1 so it
          runs before the plain modal-stepper todo of
          l10n_bg_db_installer (augment, not replace). -->
+    <!-- 2026-05-20: state='done' (НЕ auto-fire). OWL fullscreen takeover
+         даваше CF 404 на първи логин в test стака (нестабилно на fresh DB).
+         Записът остава видим; за ръчно пускане: UPDATE ir_actions_todo
+         SET state='open' WHERE id=... -->
     <record id="todo_l10n_bg_onboarding" model="ir.actions.todo">
         <field name="action_id" ref="action_l10n_bg_onboarding" />
         <field name="sequence">1</field>
-        <field name="state">open</field>
+        <field name="state">done</field>
     </record>
 </odoo>

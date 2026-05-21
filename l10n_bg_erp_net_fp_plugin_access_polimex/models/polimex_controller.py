@@ -177,6 +177,21 @@ class PolimexController(models.Model):
 
     # ─── YAML emission ──────────────────────────────────────────
 
+    def _bare_host(self) -> str:
+        """Return host without scheme/port — the proxy's polimex driver
+        builds `http://{host}/sdk/cmd.json` itself, so an input like
+        'http://192.168.3.151' would produce 'http://http://...' and
+        fail with DNS resolution. Tolerate both forms in the UI by
+        normalising here at YAML-emit time.
+        """
+        import urllib.parse as _u
+        raw = (self.host or "").strip()
+        if not raw:
+            return ""
+        # urlparse needs a scheme to extract hostname; assume http if missing.
+        parsed = _u.urlparse(raw if "://" in raw else "http://" + raw)
+        return parsed.hostname or raw.split(":")[0]
+
     def _yaml_entries(self):
         """One controller often contributes MULTIPLE access entries
         (one per door/output that has a magnet/strike/motor part). The

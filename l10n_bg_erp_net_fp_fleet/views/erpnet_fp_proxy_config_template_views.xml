@@ -107,8 +107,7 @@
                     </group>
                     <notebook>
                         <page string="YAML" name="yaml">
-                            <field name="yaml_text" widget="ace"
-                                   options="{'mode': 'yaml'}"/>
+                            <field name="yaml_text" widget="ace"/>
                         </page>
                         <page string="Notes" name="notes">
                             <field name="notes"/>

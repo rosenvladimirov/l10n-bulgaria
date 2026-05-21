@@ -219,12 +219,10 @@
                                         </group>
                                         <group string="Payload">
                                             <field name="payload_json" widget="ace"
-                                                   options="{'mode': 'json'}"
                                                    nolabel="1" readonly="1"/>
                                         </group>
                                         <group string="Result">
                                             <field name="result_json" widget="ace"
-                                                   options="{'mode': 'json'}"
                                                    nolabel="1" readonly="1"
                                                    invisible="state != 'completed'"/>
                                             <field name="error" readonly="1"
@@ -289,11 +287,9 @@
                         </page>
                         <page string="Raw heartbeat" name="raw"
                               groups="base.group_system">
-                            <field name="devices_json" widget="ace"
-                                   options="{'mode': 'json'}" readonly="1"/>
+                            <field name="devices_json" widget="ace" readonly="1"/>
                             <separator string="Runtime config versions (raw)"/>
-                            <field name="runtime_config_versions_json" widget="ace"
-                                   options="{'mode': 'json'}" readonly="1"/>
+                            <field name="runtime_config_versions_json" widget="ace" readonly="1"/>
                         </page>
                         <page string="Notes" name="notes">
                             <field name="notes"/>

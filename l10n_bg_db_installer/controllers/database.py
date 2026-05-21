@@ -608,6 +608,15 @@ class L10nBgDatabase(Database):
         response = super().manager(**kw)
         return self._l10n_bg_inject_fields(response)
 
+    @http.route("/web/database/selector", type="http", auth="none")
+    def selector(self, **kw):
+        # Odoo 19 separate controller — рендерира List + Create form-и
+        # когато има налични DB-та (при липсващи /web/database/manager е
+        # default route). Същата HTML структура: 2 форми за
+        # /web/database/create; inject-а минава през _l10n_bg_inject_fields.
+        response = super().selector(**kw)
+        return self._l10n_bg_inject_fields(response)
+
     @http.route(
         "/web/database/create",
         type="http",

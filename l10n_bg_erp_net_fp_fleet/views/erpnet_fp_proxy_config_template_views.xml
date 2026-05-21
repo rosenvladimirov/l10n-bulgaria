@@ -136,17 +136,13 @@
                 <filter string="Access"    name="k_access"   domain="[('kind','=','access')]"/>
                 <filter string="Biometric" name="k_biometric" domain="[('kind','=','biometric')]"/>
                 <separator/>
-                <filter string="In sync"     name="f_sync"  domain="[('sync_status','=','in_sync')]"/>
-                <filter string="Out of sync" name="f_drift" domain="[('sync_status','=','out_of_sync')]"/>
-                <filter string="Never pushed" name="f_never" domain="[('sync_status','=','never')]"/>
-                <separator/>
+                <filter string="Never pushed" name="f_never"
+                        domain="[('last_pushed_at','=',False)]"/>
                 <filter string="Archived" name="f_inactive"
                         domain="[('active','=',False)]"/>
                 <group expand="1" string="Group by">
                     <filter string="Proxy" name="g_proxy" context="{'group_by': 'proxy_id'}"/>
                     <filter string="Kind"  name="g_kind"  context="{'group_by': 'kind'}"/>
-                    <filter string="Sync status" name="g_sync"
-                            context="{'group_by': 'sync_status'}"/>
                 </group>
             </search>
         </field>

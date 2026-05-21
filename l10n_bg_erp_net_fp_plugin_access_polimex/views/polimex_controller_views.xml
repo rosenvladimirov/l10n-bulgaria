@@ -30,7 +30,7 @@
                 <field name="mode"/>
                 <field name="part_count"/>
                 <templates>
-                    <t t-name="kanban-box"><div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                    <t t-name="card">
                         <div class="d-flex justify-content-between">
                             <div>
                                 <strong><field name="name"/></strong>
@@ -48,7 +48,7 @@
                             <i class="fa fa-cog me-1"/>
                             <field name="part_count"/> parts
                         </div>
-                    </div></t>
+                    </t>
                 </templates>
             </kanban>
         </field>
@@ -128,7 +128,17 @@
                                     <field name="kind"/>
                                     <field name="io_channel"/>
                                     <field name="access_id" optional="show"/>
-                                    <field name="is_output" optional="hide"/>
+                                    <field name="is_output" column_invisible="True"/>
+                                    <!-- Inline action buttons — visible
+                                         only for output parts (magnet/
+                                         strike/motor). Reader / sensor /
+                                         button rows hide them. -->
+                                    <button name="action_open" type="object"
+                                            icon="fa-unlock" title="Open"
+                                            invisible="not is_output"/>
+                                    <button name="action_deny" type="object"
+                                            icon="fa-lock" title="Deny"
+                                            invisible="not is_output"/>
                                     <field name="active" widget="boolean_toggle"/>
                                 </list>
                             </field>

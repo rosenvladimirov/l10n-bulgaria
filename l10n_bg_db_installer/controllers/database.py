@@ -526,17 +526,26 @@ def _background_install(dbname):
         # mrp, pos, и т.н.). Pattern в odoo.conf:
         #   [l10n_bg_onboarding]
         #   extra_modules = sale_management,purchase,crm,mrp,point_of_sale
+        # config.misc е сменян между Odoo версиите (понякога dict,
+        # понякога module, понякога липсва). Чета odoo.conf-а директно
+        # през configparser за пълна предсказуемост.
         extras_raw = ""
         try:
-            extras_raw = (
-                config.misc.get("l10n_bg_onboarding", {})
-                .get("extra_modules", "")
-                or ""
-            )
+            import configparser
+            rcfile = config.rcfile or "/etc/odoo/odoo.conf"
+            parser = configparser.ConfigParser(strict=False)
+            parser.read(rcfile)
+            if parser.has_section("l10n_bg_onboarding"):
+                extras_raw = parser.get(
+                    "l10n_bg_onboarding",
+                    "extra_modules",
+                    fallback="",
+                ) or ""
         except Exception:  # noqa: BLE001
             _logger.exception(
                 "l10n_bg_db_installer: reading [l10n_bg_onboarding] "
-                "from odoo.conf failed"
+                "from %s failed",
+                getattr(config, "rcfile", "<no rcfile>"),
             )
         extras = [m.strip() for m in extras_raw.split(",") if m.strip()]
         if extras:

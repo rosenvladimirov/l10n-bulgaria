@@ -169,8 +169,29 @@ class BusInjectController(http.Controller):
         }
 
         # Publish onto bus.bus — broadcast on the canonical channel.
-        # No DB record is created (per docs/proxy_push_schema.md).
+        # No DB record is created BY THIS CONTROLLER (per
+        # docs/proxy_push_schema.md). Downstream addons (e.g.
+        # hr_attendance_access_control) MAY implement
+        # `_on_proxy_event(envelope)` on a model whose _name matches
+        # one of the hook targets below — bus_inject calls them after
+        # publishing, so they can persist / react without taking a hard
+        # dependency on this module.
         request.env["bus.bus"]._sendone(
             PROXY_EVENTS_CHANNEL, PROXY_EVENTS_CHANNEL, msg)
+
+        # Soft hooks — fire-and-forget. Errors in a hook MUST NOT break
+        # the bus publish path: the live signal is the primary contract,
+        # persistence is secondary. Each hook target is checked with
+        # `in self.env` (model registry) so a missing addon is silent.
+        for hook_model in ("hr.rfid.event",):
+            try:
+                Model = request.env.get(hook_model)
+                if Model is None or not hasattr(Model, "_on_proxy_event"):
+                    continue
+                Model.sudo()._on_proxy_event(msg)
+            except Exception:  # noqa: BLE001
+                _logger.exception(
+                    "bus_inject hook %s failed for envelope id=%s type=%s",
+                    hook_model, event_id, msg.get("type"))
 
         return _json_response({"ok": True, "id": event_id, "channel": PROXY_EVENTS_CHANNEL})

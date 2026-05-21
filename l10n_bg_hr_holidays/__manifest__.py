@@ -1,6 +1,6 @@
 {
     'name': 'Bulgaria - HR Holidays',
-    'version': '19.0.1.4.0',
+    'version': '19.0.1.5.0',
     'category': 'Human Resources/Time Off',
     'summary': 'Bulgarian localization for HR Holidays',
     'description': """

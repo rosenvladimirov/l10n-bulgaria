@@ -13,10 +13,31 @@
               action="action_erpnet_fp_proxy"
               sequence="10"/>
 
+    <menuitem id="menu_statistics"
+              name="Statistics"
+              parent="menu_root_fleet"
+              sequence="50"/>
+
+    <menuitem id="menu_devices"
+              name="Devices"
+              parent="menu_statistics"
+              action="action_erpnet_fp_proxy_device"
+              sequence="10"/>
+
     <menuitem id="menu_config"
               name="Configuration"
               parent="menu_root_fleet"
               groups="base.group_system"
               sequence="90"/>
+
+    <!-- Emergency takeover entry — gated to fleet managers (not system
+         admins generally, because the rescue token is the trust anchor
+         and operators shouldn't trip it casually). -->
+    <menuitem id="menu_grab_proxy"
+              name="Grab Proxy"
+              parent="menu_root_fleet"
+              action="action_erpnet_fp_grab_proxy_wizard"
+              groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"
+              sequence="80"/>
 
 </odoo>

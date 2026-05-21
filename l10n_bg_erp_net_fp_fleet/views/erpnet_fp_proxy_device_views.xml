@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- ─── List ────────────────────────────────────────────────── -->
+    <record id="view_erpnet_fp_proxy_device_list" model="ir.ui.view">
+        <field name="name">erpnet.fp.proxy.device.list</field>
+        <field name="model">erpnet.fp.proxy.device</field>
+        <field name="arch" type="xml">
+            <list string="Devices"
+                  decoration-muted="not active"
+                  decoration-info="proxy_alive">
+                <field name="proxy_id"/>
+                <field name="kind"/>
+                <field name="identifier"/>
+                <field name="last_seen"/>
+                <field name="first_seen" optional="hide"/>
+                <field name="proxy_alive" widget="boolean_toggle" readonly="1"/>
+                <field name="active" widget="boolean_toggle" readonly="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ─── Graph (count by kind) ──────────────────────────────── -->
+    <record id="view_erpnet_fp_proxy_device_graph" model="ir.ui.view">
+        <field name="name">erpnet.fp.proxy.device.graph</field>
+        <field name="model">erpnet.fp.proxy.device</field>
+        <field name="arch" type="xml">
+            <graph string="Devices by kind" type="bar" sample="0">
+                <field name="kind"/>
+                <field name="proxy_id" type="col"/>
+                <!-- Без явен measure: graph view ползва вградения implicit Count.
+                     `aggregator` НЕ е валиден атрибут на <field> в graph RelaxNG
+                     (Odoo 19) → блокираше зареждането на модула; `id` като measure
+                     без агрегатор пък чупеше browser-а. Count by kind/proxy = желаното. -->
+            </graph>
+        </field>
+    </record>
+
+    <!-- ─── Pivot (proxy × kind) ───────────────────────────────── -->
+    <record id="view_erpnet_fp_proxy_device_pivot" model="ir.ui.view">
+        <field name="name">erpnet.fp.proxy.device.pivot</field>
+        <field name="model">erpnet.fp.proxy.device</field>
+        <field name="arch" type="xml">
+            <pivot string="Devices: proxy × kind" sample="0">
+                <field name="proxy_id" type="row"/>
+                <field name="kind" type="col"/>
+                <!-- Без явен measure: pivot view default-ва на вградения Count measure. -->
+            </pivot>
+        </field>
+    </record>
+
+    <!-- ─── Search ──────────────────────────────────────────────── -->
+    <record id="view_erpnet_fp_proxy_device_search" model="ir.ui.view">
+        <field name="name">erpnet.fp.proxy.device.search</field>
+        <field name="model">erpnet.fp.proxy.device</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="identifier"/>
+                <field name="proxy_id"/>
+                <filter string="Active" name="f_active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="f_archived" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Printers" name="f_printer" domain="[('kind', '=', 'printer')]"/>
+                <filter string="Pinpads"  name="f_pinpad"  domain="[('kind', '=', 'pinpad')]"/>
+                <filter string="Scales"   name="f_scale"   domain="[('kind', '=', 'scale')]"/>
+                <filter string="Readers"  name="f_reader"  domain="[('kind', '=', 'reader')]"/>
+                <filter string="Displays" name="f_display" domain="[('kind', '=', 'display')]"/>
+                <separator/>
+                <filter string="Proxy alive" name="f_proxy_alive"
+                        domain="[('proxy_id.last_seen', '>=',
+                                  (datetime.datetime.now() - datetime.timedelta(seconds=180)).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                <separator/>
+                <group>
+                    <filter string="Kind"  name="g_kind"  context="{'group_by': 'kind'}"/>
+                    <filter string="Proxy" name="g_proxy" context="{'group_by': 'proxy_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ─── Action ──────────────────────────────────────────────── -->
+    <record id="action_erpnet_fp_proxy_device" model="ir.actions.act_window">
+        <field name="name">Devices</field>
+        <field name="res_model">erpnet.fp.proxy.device</field>
+        <field name="view_mode">graph,pivot,list</field>
+        <field name="search_view_id" ref="view_erpnet_fp_proxy_device_search"/>
+        <field name="context">{'search_default_f_active': 1, 'search_default_g_kind': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No devices reported yet.
+            </p>
+            <p>
+                As soon as a proxy heartbeats, its devices show up here. Switch
+                between graph (count by kind) and pivot (proxy × kind) for stats.
+            </p>
+        </field>
+    </record>
+
+</odoo>

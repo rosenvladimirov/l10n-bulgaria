@@ -1,0 +1,758 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_erp_net_fp_fleet
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-18 20:52+0000\n"
+"PO-Revision-Date: 2026-05-18 20:52+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
+msgid "(empty)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid "<span>Archive</span>"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid "<span>Reactivate</span>"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp_fleet.selection__erpnet_fp_proxy__state__active
+msgid "Active"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__admin_token_encrypted
+msgid "Admin Token Encrypted"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__alive
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_search
+msgid "Alive"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.constraint,message:l10n_bg_erp_net_fp_fleet.constraint_erpnet_fp_proxy_name_uniq
+msgid "Another proxy already uses this name."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp_fleet.selection__erpnet_fp_proxy__state__archived
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_search
+msgid "Archived"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_program_vat_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
+msgid "Cannot reach proxy at %(url)s: %(err)s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.ui.menu,name:l10n_bg_erp_net_fp_fleet.menu_config
+msgid "Configuration"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_program_vat_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_program_vat_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_program_vat_wizard__current_rates_json
+msgid "Current Rates Json"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_program_vat_wizard_form
+msgid "Currently programmed (read-only)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_list
+msgid "Devices"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__devices_json
+msgid "Devices Json"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__devices_summary
+msgid "Devices Summary"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_kanban
+msgid "Devices:"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_program_vat_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp_fleet.selection__erpnet_fp_proxy__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.actions.act_window,help:l10n_bg_erp_net_fp_fleet.action_erpnet_fp_proxy
+msgid ""
+"Each shop running an ErpNet.FP proxy can heartbeat here. Click\n"
+"                <b>New</b>, then <b>Generate Pairing Token</b> on the form to enrol it."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.module.category,name:l10n_bg_erp_net_fp_fleet.module_category_erpnet_fp_fleet
+msgid "ErpNet.FP Fleet"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.actions.server,name:l10n_bg_erp_net_fp_fleet.cron_expire_pairing_tokens_ir_actions_server
+msgid "ErpNet.FP Fleet — expire pairing tokens"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid "ErpNet.FP Proxy"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model,name:l10n_bg_erp_net_fp_fleet.model_erpnet_fp_proxy
+msgid "ErpNet.FP Proxy Instance"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__admin_token_encrypted
+msgid ""
+"Fernet ciphertext of the proxy's admin token. Reported by the proxy in its "
+"heartbeat so this backend can call /admin/* endpoints (self-update, logs, "
+"vat-rates)."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model,name:l10n_bg_erp_net_fp_fleet.model_erpnet_fp_fernet
+msgid "Fernet helper for ErpNet.FP fleet"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp_fleet.action_erpnet_fp_proxy
+#: model:ir.ui.menu,name:l10n_bg_erp_net_fp_fleet.menu_root_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_list
+msgid "Fleet"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:res.groups,name:l10n_bg_erp_net_fp_fleet.group_fleet_manager
+msgid "Fleet Manager"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:res.groups,name:l10n_bg_erp_net_fp_fleet.group_fleet_user
+msgid "Fleet Viewer"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid ""
+"Forget the registry secret + admin token? The proxy will need to re-pair."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid "Generate Pairing Token"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid ""
+"Generate a pairing token, then paste it into the proxy's\n"
+"                                <code>config.yaml</code> under <code>server.registry.pairing_token</code>.\n"
+"                                Set <code>server.registry.enabled: true</code> and restart the proxy."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:res.groups,comment:l10n_bg_erp_net_fp_fleet.group_fleet_manager
+msgid "Generate pairing tokens, trigger updates, program VAT, view logs."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_search
+msgid "Group by"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_program_vat_wizard__rate_a
+msgid "Group А"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_program_vat_wizard__rate_b
+msgid "Group Б"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_program_vat_wizard__rate_c
+msgid "Group В"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_program_vat_wizard__rate_d
+msgid "Group Г"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__has_admin_token
+msgid "Has Admin Token"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid "Health"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__host
+msgid "Host"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_kanban
+msgid "Host:"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__host
+msgid "Hostname reported by the proxy in its last heartbeat."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__name
+msgid "Human-readable identifier — e.g. 'sofia-shop-1'."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_program_vat_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid "Identity"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__message_has_error
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__devices_json
+msgid ""
+"JSON: {printers: [...], pinpads: [...], scales: [...], readers: [...], "
+"displays: [...]}"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
+msgid "Last 200 log lines"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__last_seen
+msgid "Last Seen"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_program_vat_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_program_vat_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_kanban
+msgid "Last seen:"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__registry_secret
+msgid ""
+"Long-lived shared secret used by the proxy to HMAC-sign heartbeat bodies. "
+"Generated automatically on pair."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.module.category,description:l10n_bg_erp_net_fp_fleet.module_category_erpnet_fp_fleet
+msgid "Manage distributed ErpNet.FP fiscal-printer proxies."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__name
+msgid "Name"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_program_vat_wizard_form
+msgid "New rates (%)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
+msgid ""
+"No admin token recorded for this proxy. Wait for the next heartbeat or check"
+" that the proxy has bootstrapped its admin token (logs: "
+"ADMIN_TOKEN_BOOTSTRAP banner)."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__notes
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid "Notes"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_search
+msgid "Offline"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__pairing_token
+msgid ""
+"One-time token; valid for one hour. Paste into the proxy's config.yaml under"
+" server.registry.pairing_token, then start the proxy. Cleared after first "
+"successful pair."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_search
+msgid "Pairing"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__pairing_expires
+msgid "Pairing Expires"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__pairing_token
+msgid "Pairing Token"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp_fleet.selection__erpnet_fp_proxy__state__pairing
+msgid "Pairing pending"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
+msgid "Pairing token"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
+msgid "Pairing token generated; expires in %(h)s hour(s)."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
+msgid ""
+"Paste this into the proxy's config.yaml under `server.registry.pairing_token`:\n"
+"\n"
+"%(t)s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_program_vat_wizard__printer_id
+msgid "Printer"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/wizard/erpnet_fp_program_vat_wizard.py:0
+msgid "Printer %(p)s now reports rates A=%(a)s, B=%(b)s, C=%(c)s, D=%(d)s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_program_vat_wizard__printer_id
+msgid ""
+"Printer ID as configured on the proxy (matches the `id:` key under "
+"`printers:` in config.yaml)."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_program_vat_wizard_form
+msgid "Program"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid "Program VAT"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_program_vat_wizard_form
+msgid "Program VAT rates"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model,name:l10n_bg_erp_net_fp_fleet.model_erpnet_fp_program_vat_wizard
+msgid "Program VAT rates on a remote ErpNet.FP printer"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.ui.menu,name:l10n_bg_erp_net_fp_fleet.menu_proxies
+msgid "Proxies"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_program_vat_wizard__proxy_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid "Proxy"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
+msgid "Proxy %(url)s returned %(code)s: %(body)s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__url
+msgid "Proxy URL"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
+msgid ""
+"Proxy URL is empty. Set it on the form before calling /admin/* endpoints."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__version
+msgid "Proxy semver, reported in heartbeat."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__url
+msgid ""
+"Public URL where this proxy is reachable, e.g. "
+"https://erpnet.shop1.lan.mcpworks.net. Used for back-channel /admin/* calls "
+"(Update / Logs / VAT)."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:res.groups,comment:l10n_bg_erp_net_fp_fleet.group_fleet_user
+msgid "Read-only access to the proxy fleet."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.actions.act_window,help:l10n_bg_erp_net_fp_fleet.action_erpnet_fp_proxy
+msgid "Register your first ErpNet.FP proxy."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__registry_secret
+msgid "Registry Secret"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
+msgid "Registry secret reset — proxy must re-pair."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid "Reset Secret"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid "Self-update Proxy"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
+msgid "Self-update scheduled"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
+msgid "Self-update triggered: %(m)s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__state
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_search
+msgid "State"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__last_seen
+msgid "Timestamp of the last accepted heartbeat."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__alive
+msgid "True if last_seen is within 180 s."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
+msgid "Update scheduled."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/wizard/erpnet_fp_program_vat_wizard.py:0
+msgid "VAT programmed"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp_fleet/wizard/erpnet_fp_program_vat_wizard.py:0
+msgid ""
+"VAT rates programmed on printer %(p)s: А=%(a)s%%, Б=%(b)s%%, В=%(c)s%%, "
+"Г=%(d)s%%. Result: %(r)s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__version
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_search
+msgid "Version"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid "View Logs"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_kanban
+msgid "alive"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid "https://erpnet.shop1.lan.mcpworks.net"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_kanban
+msgid "offline"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid "sofia-shop-1"
+msgstr ""

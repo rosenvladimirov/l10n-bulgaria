@@ -25,6 +25,28 @@ from odoo.http import Response, request
 
 _logger = logging.getLogger(__name__)
 
+# Bus channel that the kanban auto-refresh JS listens on. Anyone with
+# read access to the proxy fleet subscribes; the message payload
+# carries minimal record info so the client can decide whether to
+# reload the view.
+_FLEET_BUS_CHANNEL = "erpnet_fp_fleet"
+
+
+def _notify_fleet(env, kind: str, proxy) -> None:
+    """Push a `fleet_update` event onto the bus so any open Fleet view
+    auto-refreshes. `kind` is one of: enrol_new, enrol_refresh, heartbeat,
+    banned."""
+    try:
+        env["bus.bus"]._sendone(_FLEET_BUS_CHANNEL, "fleet_update", {
+            "kind": kind,
+            "id": proxy.id if proxy else None,
+            "name": proxy.name if proxy else "",
+            "state": proxy.state if proxy else "",
+        })
+    except Exception:  # noqa: BLE001
+        # Never let bus failure block the heartbeat handler.
+        _logger.exception("Bus notify failed")
+
 
 def _json_response(payload: dict, status: int = 200) -> Response:
     return Response(
@@ -43,6 +65,122 @@ def _verify_hmac(body: bytes, secret: str, provided_sig: str) -> bool:
 
 
 class ErpNetFpRegistryController(http.Controller):
+
+    # ─── POST /erp_net_fp/registry/auto-enrol ────────────────────
+
+    @http.route(
+        "/erp_net_fp/registry/auto-enrol",
+        type="http", auth="public", methods=["POST"], csrf=False,
+    )
+    def registry_auto_enrol(self, **kw):
+        """Zero-touch enrolment using the proxy's admin_token as
+        proof-of-possession.
+
+        A fresh proxy starts with:
+          * URL hardcoded in config.yaml (default iot.mcpworks.net)
+          * admin_token auto-bootstrapped on first run
+            (`/admin/bootstrap-info` flow, RFC1918-restricted, single-claim)
+
+        On startup it POSTs here with `{name, host, version, admin_token}`
+        and gets back `{secret, name}`. From that moment the proxy
+        heartbeats with HMAC-signed bodies as in the manual flow.
+
+        Idempotency: if a record with matching `name` already exists,
+        we either:
+          * accept (admin_token matches the stored one, or no stored
+            token yet) — refresh secret + return
+          * reject 409 (admin_token mismatches) — operator must reset
+            via the UI
+        If no record exists, create one with state=active.
+
+        This is opt-in via `server.registry.enabled: true` on the
+        proxy. There is intentionally no shared enrolment secret —
+        the per-proxy admin_token is the unit of authentication.
+        """
+        try:
+            raw = request.httprequest.get_data() or b""
+            data = json.loads(raw or b"{}")
+        except ValueError:
+            return _json_response({"error": "Invalid JSON body"}, 400)
+
+        name = (data.get("name") or "").strip()
+        host = (data.get("host") or "").strip()
+        version = (data.get("version") or "").strip()
+        admin_token = (data.get("admin_token") or "").strip()
+        public_url = (data.get("public_url") or "").rstrip("/")
+        if not (name and admin_token):
+            return _json_response(
+                {"error": "name + admin_token required"}, 400)
+
+        Proxy = request.env["erpnet.fp.proxy"].sudo()
+        existing = Proxy.search([("name", "=", name)], limit=1)
+        new_secret = secrets.token_urlsafe(32)
+
+        if existing:
+            # Archived = banned. Operator must Unarchive the record
+            # before this proxy can re-enrol. The proxy's admin_token
+            # remains valid to call /admin/* but it can no longer
+            # heartbeat or appear in the active fleet.
+            if existing.state == "archived":
+                _logger.warning(
+                    "Auto-enrol BANNED: proxy %r is archived "
+                    "(host=%r).", name, host)
+                _notify_fleet(request.env, "banned", existing)
+                return _json_response(
+                    {"error": "Proxy archived — banned. Unarchive in the "
+                              "Fleet UI to allow re-enrolment.",
+                     "banned": True},
+                    403)
+            stored = existing.get_admin_token()
+            if stored and stored != admin_token:
+                _logger.warning(
+                    "Auto-enrol rejected: name=%r admin_token mismatch "
+                    "(host=%r). Operator must Reset Secret in UI to "
+                    "allow re-enrolment.", name, host)
+                return _json_response(
+                    {"error": "Name taken — admin token mismatch. "
+                              "Reset Secret in the Fleet UI to re-enrol."},
+                    409)
+            existing_vals = {
+                "registry_secret": new_secret,
+                "host": host or existing.host,
+                "version": version or existing.version,
+                "state": "active",
+                "last_seen": fields.Datetime.now(),
+            }
+            if public_url:
+                existing_vals["url"] = public_url
+            existing.write(existing_vals)
+            existing.set_admin_token(admin_token)
+            existing.message_post(body=(
+                f"Proxy auto-enrolled (host={host!r}, version={version!r})."
+            ))
+            _logger.info("Proxy %s auto-enrolled (host=%s, version=%s)",
+                         name, host, version)
+            _notify_fleet(request.env, "enrol_refresh", existing)
+            return _json_response({"secret": new_secret, "name": name})
+
+        # New record — accept open enrolment.
+        new_vals = {
+            "name": name,
+            "host": host,
+            "version": version,
+            "registry_secret": new_secret,
+            "state": "active",
+            "last_seen": fields.Datetime.now(),
+        }
+        if public_url:
+            new_vals["url"] = public_url
+        rec = Proxy.create(new_vals)
+        rec.set_admin_token(admin_token)
+        rec.message_post(body=(
+            f"Proxy auto-enrolled — first-time registration "
+            f"(host={host!r}, version={version!r})."
+        ))
+        _logger.info("New proxy %s auto-enrolled (host=%s, version=%s)",
+                     name, host, version)
+        _notify_fleet(request.env, "enrol_new", rec)
+        return _json_response({"secret": new_secret, "name": name})
 
     # ─── POST /erp_net_fp/registry/pair ──────────────────────────
 
@@ -145,26 +283,66 @@ class ErpNetFpRegistryController(http.Controller):
                 proxy = cand
                 break
         if proxy is None:
+            # Two distinct cases:
+            #   * Operator deleted the record → proxy should re-enrol
+            #     immediately (returns 410 Gone, proxy clears its
+            #     local secret and falls back to auto-enrol).
+            #   * Operator archived the record → ban; proxy must NOT
+            #     re-enrol (returns 403 Forbidden).
+            # Disambiguate by checking for any record (incl. archived)
+            # whose secret would have validated the HMAC.
+            archived = Proxy.search([
+                ("registry_secret", "!=", False),
+                ("state", "=", "archived"),
+            ])
+            for cand in archived:
+                if _verify_hmac(body, cand.registry_secret, sig):
+                    _logger.warning(
+                        "Heartbeat rejected — proxy %r is archived",
+                        cand.name)
+                    _notify_fleet(request.env, "banned", cand)
+                    return _json_response(
+                        {"error": "Proxy archived — banned",
+                         "banned": True},
+                        403)
             _logger.warning("Heartbeat rejected — no proxy matched HMAC "
-                            "(host=%r)", host)
-            return _json_response({"error": "Invalid signature"}, 401)
+                            "(host=%r). Proxy will re-enrol.", host)
+            return _json_response(
+                {"error": "Unknown proxy — please re-enrol",
+                 "reenrol": True},
+                410)
 
         # Apply the heartbeat
         version = (data.get("version") or "").strip()
         new_host = (data.get("host") or host or "").strip()
         admin_token = (data.get("admin_token") or "").strip()
+        public_url = (data.get("public_url") or "").rstrip("/")
         devices = data.get("devices") or {}
         try:
             devices_json = json.dumps(devices, sort_keys=True)
         except (TypeError, ValueError):
             devices_json = "{}"
+        # R3 — runtime_config_versions: {kind: 'sha256:<hex>'} reported by the
+        # proxy after each AC fragment hot-reload. Backward-compat: pre-0.7.0
+        # proxies don't ship this key → stored as empty dict, computes blank.
+        runtime_versions = data.get("runtime_config_versions") or {}
+        try:
+            runtime_json = json.dumps(runtime_versions, sort_keys=True)
+        except (TypeError, ValueError):
+            runtime_json = "{}"
         vals = {
             "last_seen": fields.Datetime.now(),
             "version": version or proxy.version,
             "host": new_host or proxy.host,
             "devices_json": devices_json,
+            "runtime_config_versions_json": runtime_json,
             "state": "active",
         }
+        # Only overwrite URL if proxy reported one — keep manual edits
+        # done by admin in the form view if proxy doesn't know its
+        # public URL (e.g. local-only dev proxies).
+        if public_url:
+            vals["url"] = public_url
         proxy.write(vals)
         if admin_token:
             try:
@@ -173,4 +351,75 @@ class ErpNetFpRegistryController(http.Controller):
                 _logger.exception(
                     "Failed to encrypt+store admin token for proxy %s",
                     proxy.name)
-        return _json_response({"ok": True, "name": proxy.name})
+
+        # Sync devices into the per-device model so admins can pivot
+        # / chart by kind across the fleet. The handler runs as the
+        # public user (no ACL on fleet models) — sudo() is mandatory.
+        try:
+            request.env["erpnet.fp.proxy.device"].sudo()._sync_from_heartbeat(
+                proxy, devices)
+        except Exception:  # noqa: BLE001
+            _logger.exception(
+                "Device sync failed for proxy %s", proxy.name)
+
+        # Pick up pending commands (state='pending') and flip them to
+        # 'sent' so they aren't replayed on subsequent heartbeats. The
+        # proxy reports back via /command-result.
+        Command = request.env["erpnet.fp.proxy.command"].sudo()
+        pending = Command.search([
+            ("proxy_id", "=", proxy.id),
+            ("state", "=", "pending"),
+        ])
+        commands_payload = [Command._serialize_for_proxy(c) for c in pending]
+        if pending:
+            pending.mark_sent()
+
+        _notify_fleet(request.env, "heartbeat", proxy)
+        return _json_response({
+            "ok": True,
+            "name": proxy.name,
+            "commands": commands_payload,
+            "cors_origins": proxy._get_cors_origins_list(),
+        })
+
+    # ─── POST /erp_net_fp/registry/command-result ────────────────
+
+    @http.route(
+        "/erp_net_fp/registry/command-result",
+        type="http", auth="public", methods=["POST"], csrf=False,
+    )
+    def registry_command_result(self, **kw):
+        """Receive a command execution result from a proxy.
+
+        Body (JSON, HMAC-signed by registry_secret like heartbeat):
+            {command_id, ok: bool, result: dict|null, error: str|null}
+        """
+        body = request.httprequest.get_data() or b""
+        try:
+            data = json.loads(body or b"{}")
+        except ValueError:
+            return _json_response({"error": "Invalid JSON body"}, 400)
+
+        sig = (request.httprequest.headers.get("X-Registry-Signature")
+               or "").strip()
+        if not sig:
+            return _json_response(
+                {"error": "X-Registry-Signature header missing"}, 401)
+
+        command_id = data.get("command_id")
+        if not isinstance(command_id, int):
+            return _json_response({"error": "command_id required"}, 400)
+
+        Command = request.env["erpnet.fp.proxy.command"].sudo()
+        cmd = Command.browse(command_id)
+        if not cmd.exists() or not cmd.proxy_id.registry_secret:
+            return _json_response({"error": "Unknown command"}, 404)
+        if not _verify_hmac(body, cmd.proxy_id.registry_secret, sig):
+            return _json_response({"error": "Invalid signature"}, 401)
+
+        cmd.record_result(
+            ok=bool(data.get("ok")),
+            result=data.get("result"),
+            error=(data.get("error") or "")[:8000],
+        )
+        return _json_response({"ok": True})

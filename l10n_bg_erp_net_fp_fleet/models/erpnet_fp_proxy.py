@@ -116,6 +116,38 @@ class ErpNetFpProxy(models.Model):
         compute="_compute_devices_summary", store=False,
     )
 
+    # ─── Runtime config versions (R3 — proxy heartbeat) ─────────
+    # Proxy ships SHA-256 of each loaded config.d/<kind>.yaml fragment
+    # in every heartbeat. Storing the full JSON keeps us schema-tolerant
+    # if new sections show up; the four explicit Char fields below give
+    # the list/form views something to bind to without parsing JSON each
+    # render.
+
+    runtime_config_versions_json = fields.Text(
+        readonly=True,
+        help="Raw JSON: {kind: 'sha256:<hex>'} reported by the proxy on "
+             "its last heartbeat. Drift-detected in the form view.",
+    )
+    runtime_mqtt_version = fields.Char(
+        string="MQTT runtime ver.",
+        compute="_compute_runtime_versions", store=True,
+        help="SHA-256 of config.d/mqtt.yaml as loaded by the proxy. "
+             "Compare with mqtt.broker.config.last_pushed_version on "
+             "the source records to detect drift.",
+    )
+    runtime_camera_version = fields.Char(
+        string="Cameras runtime ver.",
+        compute="_compute_runtime_versions", store=True,
+    )
+    runtime_access_version = fields.Char(
+        string="Access runtime ver.",
+        compute="_compute_runtime_versions", store=True,
+    )
+    runtime_biometric_version = fields.Char(
+        string="Biometric runtime ver.",
+        compute="_compute_runtime_versions", store=True,
+    )
+
     # ─── Admin token (Fernet-encrypted at rest) ─────────────────
 
     admin_token_encrypted = fields.Char(
@@ -126,6 +158,32 @@ class ErpNetFpProxy(models.Model):
     )
     has_admin_token = fields.Boolean(
         compute="_compute_has_admin_token", store=False,
+    )
+
+    # ─── CORS allowed origins ───────────────────────────────────
+
+    cors_origins = fields.Text(
+        string="CORS Allowed Origins",
+        help="One origin per line — e.g. https://dev-18.odoo-shell.space.\n"
+             "Pushed to the proxy on every heartbeat; proxy regenerates "
+             "Traefik dynamic config and the file watcher hot-reloads. "
+             "Lines starting with `#` are comments; blank lines ignored. "
+             "Origins MUST be scheme+host[+port], no path, no trailing slash.",
+    )
+
+    # ─── Reverse links ──────────────────────────────────────────
+
+    command_ids = fields.One2many(
+        "erpnet.fp.proxy.command", "proxy_id", string="Commands",
+    )
+    device_ids = fields.One2many(
+        "erpnet.fp.proxy.device", "proxy_id", string="Devices",
+    )
+    pending_command_count = fields.Integer(
+        compute="_compute_pending_command_count", store=False,
+    )
+    device_count = fields.Integer(
+        compute="_compute_device_count", store=False,
     )
 
     _sql_constraints = [
@@ -146,19 +204,41 @@ class ErpNetFpProxy(models.Model):
             rec.alive = delta < _ALIVE_WINDOW_SECONDS
 
     def _search_alive(self, operator, value):
-        """Translate alive (time-based, non-stored) into a last_seen domain."""
-        if operator not in ("=", "!="):
-            raise NotImplementedError(
-                "Unsupported operator %r for 'alive'" % operator)
-        threshold = fields.Datetime.now() - timedelta(
-            seconds=_ALIVE_WINDOW_SECONDS)
-        want_alive = (operator == "=" and value) or (
-            operator == "!=" and not value)
-        if want_alive:
-            return [("last_seen", "!=", False),
-                    ("last_seen", ">=", threshold)]
+        """Translate `alive == True/False` search into a `last_seen` window."""
+        from datetime import timedelta as _td
+        threshold = fields.Datetime.now() - _td(seconds=_ALIVE_WINDOW_SECONDS)
+        # Normalise (operator, value) → "want_alive" boolean
+        if operator in ("=", "==", "in"):
+            want = bool(value if not isinstance(value, (list, tuple)) else value[0])
+        elif operator in ("!=", "<>", "not in"):
+            want = not bool(value if not isinstance(value, (list, tuple)) else value[0])
+        else:
+            return [("id", "in", [])]
+        if want:
+            return [("last_seen", ">=", threshold)]
         return ["|", ("last_seen", "=", False),
-                ("last_seen", "<", threshold)]
+                    ("last_seen", "<", threshold)]
+
+    @api.depends("runtime_config_versions_json")
+    def _compute_runtime_versions(self):
+        """Extract per-kind SHA-256 from the JSON blob the proxy ships.
+
+        Keeps `sha256:<hex>` prefix intact so the UI can render a
+        monospace chip + truncate to 12 chars (see view). Empty
+        string when the proxy hasn't reported a fragment for that
+        kind yet (means the fragment file doesn't exist on disk).
+        """
+        for rec in self:
+            data = {}
+            if rec.runtime_config_versions_json:
+                try:
+                    data = json.loads(rec.runtime_config_versions_json)
+                except (ValueError, TypeError):
+                    data = {}
+            rec.runtime_mqtt_version = data.get("mqtt") or ""
+            rec.runtime_camera_version = data.get("cameras") or ""
+            rec.runtime_access_version = data.get("access") or ""
+            rec.runtime_biometric_version = data.get("biometric") or ""
 
     @api.depends("devices_json")
     def _compute_devices_summary(self):
@@ -182,6 +262,18 @@ class ErpNetFpProxy(models.Model):
     def _compute_has_admin_token(self):
         for rec in self.sudo():
             rec.has_admin_token = bool(rec.admin_token_encrypted)
+
+    @api.depends("command_ids.state")
+    def _compute_pending_command_count(self):
+        for rec in self:
+            rec.pending_command_count = len(rec.command_ids.filtered(
+                lambda c: c.state in ("pending", "sent")
+            ))
+
+    @api.depends("device_ids", "device_ids.active")
+    def _compute_device_count(self):
+        for rec in self:
+            rec.device_count = len(rec.device_ids.filtered("active"))
 
     # ─── Admin token helpers ────────────────────────────────────
 
@@ -275,84 +367,170 @@ class ErpNetFpProxy(models.Model):
             },
         }
 
-    # ─── Back-channel /admin/* buttons ──────────────────────────
+    # ─── Queue commands (pull-model — proxies are NAT-fronted) ──
 
-    def _admin_call(self, method: str, path: str,
-                    params: dict | None = None,
-                    json_body: dict | None = None,
-                    timeout: int = 30):
-        """Wrapper for back-channel calls to the proxy's /admin/*."""
-        import requests
+    def _enqueue_command(self, kind: str, payload: dict | None = None):
+        """Drop a command on the proxy's queue. Picked up at the next
+        heartbeat (≤ interval_seconds latency)."""
         self.ensure_one()
-        if not self.url:
-            raise UserError(_(
-                "Proxy URL is empty. Set it on the form before calling "
-                "/admin/* endpoints."))
-        token = self.get_admin_token()
-        if not token:
-            raise UserError(_(
-                "No admin token recorded for this proxy. Wait for the "
-                "next heartbeat or check that the proxy has bootstrapped "
-                "its admin token (logs: ADMIN_TOKEN_BOOTSTRAP banner)."))
-        url = self.url.rstrip("/") + path
-        try:
-            r = requests.request(
-                method, url,
-                params=params,
-                json=json_body,
-                headers={"X-Admin-Token": token},
-                timeout=timeout,
-            )
-        except requests.RequestException as exc:
-            raise UserError(_(
-                "Cannot reach proxy at %(url)s: %(err)s",
-                url=url, err=exc,
-            )) from exc
-        if r.status_code >= 400:
-            raise UserError(_(
-                "Proxy %(url)s returned %(code)s: %(body)s",
-                url=url, code=r.status_code, body=r.text[:500],
-            ))
-        try:
-            return r.json()
-        except ValueError:
-            return {"raw": r.text}
+        import json as _json
+        return self.env["erpnet.fp.proxy.command"].create({
+            "proxy_id": self.id,
+            "kind": kind,
+            "payload_json": _json.dumps(payload or {}),
+        })
 
-    def action_self_update(self):
-        self.ensure_one()
-        result = self._admin_call("POST", "/admin/self-update")
-        msg = result.get("message") or _("Update scheduled.")
-        self.message_post(body=_("Self-update triggered: %(m)s", m=msg))
+    @api.model
+    def _enqueue_push_config(self, base_url, payload):
+        """Soft-API за access-control модулите (lpr.camera.config /
+        lpr.access.controller `action_sync_config_to_proxy`).
+
+        Намира прокси по неговия `url` и слага `push_config` команда
+        на опашката му (бавния pull/heartbeat remote-mgmt path).
+        Връща командата (truthy) или False ако няма съответстващо
+        прокси. Извикващият НЕ зависи от този модул (HTTP-decoupled,
+        soft hasattr-guard от негова страна) → нула copyleft връзка.
+        """
+        target = (base_url or "").rstrip("/")
+        if not target:
+            return False
+        proxy = self.search([("url", "!=", False)]).filtered(
+            lambda p: (p.url or "").rstrip("/") == target
+        )[:1]
+        if not proxy:
+            return False
+        return proxy._enqueue_command("push_config", payload or {})
+
+    def _command_queued_notification(self, kind_label: str):
+        """Standard 'Queued' toast — shown after enqueueing a command."""
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": _("Self-update scheduled"),
-                "message": msg,
+                "title": _("Queued"),
+                "message": _(
+                    "%(label)s will run on the proxy's next heartbeat "
+                    "(within %(s)s s).",
+                    label=kind_label,
+                    s=self.env.context.get("heartbeat_interval", 60),
+                ),
                 "type": "success",
                 "sticky": False,
             },
         }
 
-    def action_view_logs(self):
+    def action_self_update(self):
         self.ensure_one()
-        result = self._admin_call("GET", "/admin/logs",
-                                  params={"tail": 200})
-        lines = result.get("lines") or []
-        text = "\n".join(
-            f"{l.get('level','')[:4]:4s} {l.get('name','')}: {l.get('msg','')}"
-            for l in lines[-200:]
-        )
+        self._enqueue_command("self_update")
+        return self._command_queued_notification(_("Self-update"))
+
+    # ─── Push config (per-kind + bulk) ──────────────────────────
+    #
+    # Soft-resolution: each kind maps to an Odoo model that provides
+    # `get_config_payload()` (callable @api.model returning the YAML
+    # section as list[dict]). If the source model is not installed on
+    # this stack, the per-kind button is a UserError telling the
+    # operator which module to install. The bulk action collects all
+    # available kinds and skips the missing ones.
+
+    _PUSH_CONFIG_SOURCES = {
+        # kind         (model, source-module hint for the error msg)
+        "mqtt":      ("mqtt.broker.config",  "hr_attendance_access_control"),
+        "cameras":   ("camera.config",       "hr_attendance_access_control"),
+        "access":    ("access.point",        "hr_attendance_access_control"),
+        "biometric": ("biometric.verifier",  "hr_attendance_access_control"),
+    }
+
+    def _collect_push_section(self, kind):
+        """Resolve `kind` → list[dict] section payload, or raise.
+
+        Looks up the registered source model and calls its
+        `get_config_payload()` method (must be @api.model). The Odoo
+        side stays decoupled from the proxy side — it just speaks the
+        same wire format that the proxy's loader/registry already
+        understands.
+        """
+        spec = self._PUSH_CONFIG_SOURCES.get(kind)
+        if spec is None:
+            raise UserError(_(
+                "Unknown push_config kind %(k)r — allowed: %(all)s",
+                k=kind, all=sorted(self._PUSH_CONFIG_SOURCES)))
+        model_name, module_hint = spec
+        model = self.env.get(model_name)
+        if model is None:
+            raise UserError(_(
+                "No source model for %(k)s — install %(m)s on this "
+                "Odoo to push the %(k)s fragment.",
+                k=kind, m=module_hint))
+        if not hasattr(model, "get_config_payload"):
+            raise UserError(_(
+                "Source model %(m)s exists but exposes no "
+                "get_config_payload() — likely an old version of "
+                "%(mod)s. Update the access-control module to a "
+                "version that includes R5 multi-broker support.",
+                m=model_name, mod=module_hint))
+        return model.get_config_payload()
+
+    def _push_kind(self, kind):
+        """Enqueue a push_config command for one AC kind on THIS proxy."""
+        self.ensure_one()
+        section = self._collect_push_section(kind)
+        self._enqueue_command("push_config", {"kind": kind, "section": section})
+        return kind
+
+    def action_push_config_mqtt(self):
+        self.ensure_one()
+        self._push_kind("mqtt")
+        return self._command_queued_notification(_("Push MQTT config"))
+
+    def action_push_config_cameras(self):
+        self.ensure_one()
+        self._push_kind("cameras")
+        return self._command_queued_notification(_("Push Cameras config"))
+
+    def action_push_config_access(self):
+        self.ensure_one()
+        self._push_kind("access")
+        return self._command_queued_notification(_("Push Access config"))
+
+    def action_push_config_biometric(self):
+        self.ensure_one()
+        self._push_kind("biometric")
+        return self._command_queued_notification(_("Push Biometric config"))
+
+    def action_push_config_all(self):
+        """Push every AC kind whose source model is installed.
+
+        Skips kinds with no source model (no error — those slots are
+        just empty). Returns a notification listing what was pushed.
+        """
+        self.ensure_one()
+        pushed = []
+        skipped = []
+        for kind in self._PUSH_CONFIG_SOURCES:
+            try:
+                self._push_kind(kind)
+                pushed.append(kind)
+            except UserError as e:
+                skipped.append(f"{kind} ({e.args[0] if e.args else 'no source'})")
+        msg = _("Pushed: %(p)s. Skipped: %(s)s.",
+                p=", ".join(pushed) or _("(none)"),
+                s=", ".join(skipped) or _("(none)"))
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": _("Last 200 log lines"),
-                "message": text or _("(empty)"),
-                "type": "info",
-                "sticky": True,
+                "title": _("Push All Config"),
+                "message": msg,
+                "type": "success" if pushed else "warning",
+                "sticky": bool(skipped),
             },
         }
+
+    def action_view_logs(self):
+        self.ensure_one()
+        self._enqueue_command("get_logs", {"tail": 200})
+        return self._command_queued_notification(_("Log fetch"))
 
     def action_open_program_vat_wizard(self):
         self.ensure_one()
@@ -364,6 +542,26 @@ class ErpNetFpProxy(models.Model):
             "target": "new",
             "context": {"default_proxy_id": self.id},
         }
+
+    # ─── CORS list parsing ──────────────────────────────────────
+
+    def _get_cors_origins_list(self):
+        """Return validated origins from `cors_origins`, ready to push to
+        the proxy in the heartbeat response. Strips comments / blanks /
+        trailing slashes and only accepts http(s)://host[:port] shape.
+        """
+        self.ensure_one()
+        if not self.cors_origins:
+            return []
+        out = []
+        for raw in self.cors_origins.splitlines():
+            s = raw.strip().rstrip("/")
+            if not s or s.startswith("#"):
+                continue
+            if not (s.startswith("http://") or s.startswith("https://")):
+                continue
+            out.append(s)
+        return out
 
     # ─── Cron: pairing-token expiry sweep ───────────────────────
 

@@ -273,16 +273,32 @@ export class OnboardingApp extends Component {
                 await this._reload();
             }
 
-            // 4. Auto next ако vertical е done. Recurse за следващ.
+            // 4. Auto next:
+            //  - canNext (vertical done) → advance + recurse
+            //  - NOT canNext но НЕ сме направили нищо на тази vertical
+            //    (didSomething=False) → vertical е stuck (липсва
+            //    required module/config_action) → safe-skip напред,
+            //    user-ът ще се върне ръчно ако трябва
+            //  - NOT canNext и didSomething=True → току що install-нахме
+            //    нещо, изчакай user или re-poll по-късно (НЕ блокирай
+            //    forever — wizard ще остане на тази vertical и
+            //    разчита на user click)
             if (this.canNext && !this.isLast) {
                 this.state.idx += 1;
                 this.state.busy = false;
-                // микро пауза за UI visual feedback (картинките да се
-                // обновят преди да пуснем следваща глава)
                 await new Promise((r) => setTimeout(r, 400));
                 return this._maybeAutoInstall();
             }
             if (this.canNext && this.isLast) {
+                this.state.phase = "finale";
+            } else if (!didSomething && !this.isLast) {
+                // Stuck vertical (config_action или missing module —
+                // нищо за auto-do). Skip напред БЕЗ да виси wizard-а.
+                this.state.idx += 1;
+                this.state.busy = false;
+                await new Promise((r) => setTimeout(r, 400));
+                return this._maybeAutoInstall();
+            } else if (!didSomething && this.isLast) {
                 this.state.phase = "finale";
             }
         } catch (e) {
@@ -293,8 +309,6 @@ export class OnboardingApp extends Component {
         } finally {
             this.state.busy = false;
         }
-        // eslint-disable-next-line no-unused-vars
-        void didSomething;
     }
 
     // ── действия по стъпки (минават през backend методите) ─────────

@@ -587,6 +587,88 @@ def _background_install(dbname):
                     "on %s", dbname,
                 )
 
+        # Install ALL required plan modules (V0-V12). Cascade на l10n_bg
+        # покрива auto_install chain (config/db_installer/onboarding).
+        # Plan-а включва още ~25 модула (l10n_bg_tax_offices,
+        # l10n_bg_api_nra, l10n_bg_bank_wallet, l10n_bg_infopay,
+        # l10n_bg_intrastat, l10n_bg_hr_payroll, l10n_bg_tax_admin, ...)
+        # които НЕ са auto_install. Преди тях се очакваше client wizard
+        # да ги install-не чрез action_install, но client-side ORM call
+        # пада на cron lock → wizard виси. Решение: install в backend
+        # със retry pattern → client wizard вижда "all done" и recurse
+        # безшумно през всички V0-V12 до finale.
+        _set_status(
+            dbname, "running",
+            "Installing remaining BG plan modules...",
+        )
+        plan_max_retries = 20
+        for plan_attempt in range(plan_max_retries):
+            try:
+                registry = odoo.modules.registry.Registry(dbname)
+                with registry.cursor() as cr:
+                    env = api.Environment(cr, SUPERUSER_ID, {})
+                    Step = env["l10n.bg.vertical.step"].sudo()
+                    required_steps = Step.search(
+                        [
+                            ("step_type", "=", "install_module"),
+                            ("optional", "=", False),
+                        ]
+                    )
+                    mod_names = sorted(set(
+                        n for n in required_steps.mapped("module_name")
+                        if n
+                    ))
+                    if not mod_names:
+                        break
+                    M = env["ir.module.module"].sudo()
+                    plan_mods = M.search(
+                        [
+                            ("name", "in", mod_names),
+                            (
+                                "state", "in",
+                                ("uninstalled", "to install"),
+                            ),
+                        ]
+                    )
+                    if not plan_mods:
+                        break  # всички вече installed
+                    _logger.info(
+                        "l10n_bg_db_installer: installing plan "
+                        "modules: %s (attempt %d)",
+                        plan_mods.mapped("name"), plan_attempt + 1,
+                    )
+                    plan_mods.button_immediate_install()
+                break  # success
+            except (
+                psycopg2.errors.SerializationFailure,
+                psycopg2.errors.InFailedSqlTransaction,
+            ) as exc:
+                if plan_attempt + 1 < plan_max_retries:
+                    _set_status(
+                        dbname, "running",
+                        f"Plan: cron busy, waiting "
+                        f"({plan_attempt + 1}/{plan_max_retries})...",
+                    )
+                    _logger.warning(
+                        "l10n_bg_db_installer: plan modules cron lock "
+                        "(%s) on %s (attempt %d) — retry in 3s",
+                        type(exc).__name__, dbname, plan_attempt + 1,
+                    )
+                    time.sleep(3)
+                    continue
+                _logger.exception(
+                    "l10n_bg_db_installer: plan modules install "
+                    "failed on %s after %d attempts",
+                    dbname, plan_max_retries,
+                )
+                break
+            except Exception:  # noqa: BLE001
+                _logger.exception(
+                    "l10n_bg_db_installer: plan modules install "
+                    "failed on %s", dbname,
+                )
+                break
+
         # Допълнителни модули от odoo.conf [l10n_bg_onboarding] секция.
         # Това е extension hook — Rosen: "освен модулите на wizard-а
         # искам да зареждаш допълнително и модулите от конфига". Plan-а

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Plugins live under Fleet → Settings (operator-level). -->
+    <menuitem id="menu_polimex_controllers"
+              name="Polimex Controllers"
+              parent="l10n_bg_erp_net_fp_fleet.menu_settings"
+              action="action_polimex_controller"
+              sequence="30"/>
+
+</odoo>

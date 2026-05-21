@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_polimex_controller_user,polimex.controller user,model_polimex_controller,l10n_bg_erp_net_fp_fleet.group_fleet_user,1,0,0,0
+access_polimex_controller_manager,polimex.controller manager,model_polimex_controller,l10n_bg_erp_net_fp_fleet.group_fleet_manager,1,1,1,1
+access_polimex_part_user,polimex.part user,model_polimex_part,l10n_bg_erp_net_fp_fleet.group_fleet_user,1,0,0,0
+access_polimex_part_manager,polimex.part manager,model_polimex_part,l10n_bg_erp_net_fp_fleet.group_fleet_manager,1,1,1,1

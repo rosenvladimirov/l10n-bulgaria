@@ -322,11 +322,20 @@ class ErpNetFpRegistryController(http.Controller):
             devices_json = json.dumps(devices, sort_keys=True)
         except (TypeError, ValueError):
             devices_json = "{}"
+        # R3 — runtime_config_versions: {kind: 'sha256:<hex>'} reported by the
+        # proxy after each AC fragment hot-reload. Backward-compat: pre-0.7.0
+        # proxies don't ship this key → stored as empty dict, computes blank.
+        runtime_versions = data.get("runtime_config_versions") or {}
+        try:
+            runtime_json = json.dumps(runtime_versions, sort_keys=True)
+        except (TypeError, ValueError):
+            runtime_json = "{}"
         vals = {
             "last_seen": fields.Datetime.now(),
             "version": version or proxy.version,
             "host": new_host or proxy.host,
             "devices_json": devices_json,
+            "runtime_config_versions_json": runtime_json,
             "state": "active",
         }
         # Only overwrite URL if proxy reported one — keep manual edits

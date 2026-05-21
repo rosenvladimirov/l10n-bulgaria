@@ -116,6 +116,38 @@ class ErpNetFpProxy(models.Model):
         compute="_compute_devices_summary", store=False,
     )
 
+    # ─── Runtime config versions (R3 — proxy heartbeat) ─────────
+    # Proxy ships SHA-256 of each loaded config.d/<kind>.yaml fragment
+    # in every heartbeat. Storing the full JSON keeps us schema-tolerant
+    # if new sections show up; the four explicit Char fields below give
+    # the list/form views something to bind to without parsing JSON each
+    # render.
+
+    runtime_config_versions_json = fields.Text(
+        readonly=True,
+        help="Raw JSON: {kind: 'sha256:<hex>'} reported by the proxy on "
+             "its last heartbeat. Drift-detected in the form view.",
+    )
+    runtime_mqtt_version = fields.Char(
+        string="MQTT runtime ver.",
+        compute="_compute_runtime_versions", store=True,
+        help="SHA-256 of config.d/mqtt.yaml as loaded by the proxy. "
+             "Compare with mqtt.broker.config.last_pushed_version on "
+             "the source records to detect drift.",
+    )
+    runtime_camera_version = fields.Char(
+        string="Cameras runtime ver.",
+        compute="_compute_runtime_versions", store=True,
+    )
+    runtime_access_version = fields.Char(
+        string="Access runtime ver.",
+        compute="_compute_runtime_versions", store=True,
+    )
+    runtime_biometric_version = fields.Char(
+        string="Biometric runtime ver.",
+        compute="_compute_runtime_versions", store=True,
+    )
+
     # ─── Admin token (Fernet-encrypted at rest) ─────────────────
 
     admin_token_encrypted = fields.Char(
@@ -186,6 +218,27 @@ class ErpNetFpProxy(models.Model):
             return [("last_seen", ">=", threshold)]
         return ["|", ("last_seen", "=", False),
                     ("last_seen", "<", threshold)]
+
+    @api.depends("runtime_config_versions_json")
+    def _compute_runtime_versions(self):
+        """Extract per-kind SHA-256 from the JSON blob the proxy ships.
+
+        Keeps `sha256:<hex>` prefix intact so the UI can render a
+        monospace chip + truncate to 12 chars (see view). Empty
+        string when the proxy hasn't reported a fragment for that
+        kind yet (means the fragment file doesn't exist on disk).
+        """
+        for rec in self:
+            data = {}
+            if rec.runtime_config_versions_json:
+                try:
+                    data = json.loads(rec.runtime_config_versions_json)
+                except (ValueError, TypeError):
+                    data = {}
+            rec.runtime_mqtt_version = data.get("mqtt") or ""
+            rec.runtime_camera_version = data.get("cameras") or ""
+            rec.runtime_access_version = data.get("access") or ""
+            rec.runtime_biometric_version = data.get("biometric") or ""
 
     @api.depends("devices_json")
     def _compute_devices_summary(self):
@@ -370,6 +423,109 @@ class ErpNetFpProxy(models.Model):
         self.ensure_one()
         self._enqueue_command("self_update")
         return self._command_queued_notification(_("Self-update"))
+
+    # ─── Push config (per-kind + bulk) ──────────────────────────
+    #
+    # Soft-resolution: each kind maps to an Odoo model that provides
+    # `get_config_payload()` (callable @api.model returning the YAML
+    # section as list[dict]). If the source model is not installed on
+    # this stack, the per-kind button is a UserError telling the
+    # operator which module to install. The bulk action collects all
+    # available kinds and skips the missing ones.
+
+    _PUSH_CONFIG_SOURCES = {
+        # kind         (model, source-module hint for the error msg)
+        "mqtt":      ("mqtt.broker.config",  "hr_attendance_access_control"),
+        "cameras":   ("camera.config",       "hr_attendance_access_control"),
+        "access":    ("access.point",        "hr_attendance_access_control"),
+        "biometric": ("biometric.verifier",  "hr_attendance_access_control"),
+    }
+
+    def _collect_push_section(self, kind):
+        """Resolve `kind` → list[dict] section payload, or raise.
+
+        Looks up the registered source model and calls its
+        `get_config_payload()` method (must be @api.model). The Odoo
+        side stays decoupled from the proxy side — it just speaks the
+        same wire format that the proxy's loader/registry already
+        understands.
+        """
+        spec = self._PUSH_CONFIG_SOURCES.get(kind)
+        if spec is None:
+            raise UserError(_(
+                "Unknown push_config kind %(k)r — allowed: %(all)s",
+                k=kind, all=sorted(self._PUSH_CONFIG_SOURCES)))
+        model_name, module_hint = spec
+        model = self.env.get(model_name)
+        if model is None:
+            raise UserError(_(
+                "No source model for %(k)s — install %(m)s on this "
+                "Odoo to push the %(k)s fragment.",
+                k=kind, m=module_hint))
+        if not hasattr(model, "get_config_payload"):
+            raise UserError(_(
+                "Source model %(m)s exists but exposes no "
+                "get_config_payload() — likely an old version of "
+                "%(mod)s. Update the access-control module to a "
+                "version that includes R5 multi-broker support.",
+                m=model_name, mod=module_hint))
+        return model.get_config_payload()
+
+    def _push_kind(self, kind):
+        """Enqueue a push_config command for one AC kind on THIS proxy."""
+        self.ensure_one()
+        section = self._collect_push_section(kind)
+        self._enqueue_command("push_config", {"kind": kind, "section": section})
+        return kind
+
+    def action_push_config_mqtt(self):
+        self.ensure_one()
+        self._push_kind("mqtt")
+        return self._command_queued_notification(_("Push MQTT config"))
+
+    def action_push_config_cameras(self):
+        self.ensure_one()
+        self._push_kind("cameras")
+        return self._command_queued_notification(_("Push Cameras config"))
+
+    def action_push_config_access(self):
+        self.ensure_one()
+        self._push_kind("access")
+        return self._command_queued_notification(_("Push Access config"))
+
+    def action_push_config_biometric(self):
+        self.ensure_one()
+        self._push_kind("biometric")
+        return self._command_queued_notification(_("Push Biometric config"))
+
+    def action_push_config_all(self):
+        """Push every AC kind whose source model is installed.
+
+        Skips kinds with no source model (no error — those slots are
+        just empty). Returns a notification listing what was pushed.
+        """
+        self.ensure_one()
+        pushed = []
+        skipped = []
+        for kind in self._PUSH_CONFIG_SOURCES:
+            try:
+                self._push_kind(kind)
+                pushed.append(kind)
+            except UserError as e:
+                skipped.append(f"{kind} ({e.args[0] if e.args else 'no source'})")
+        msg = _("Pushed: %(p)s. Skipped: %(s)s.",
+                p=", ".join(pushed) or _("(none)"),
+                s=", ".join(skipped) or _("(none)"))
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("Push All Config"),
+                "message": msg,
+                "type": "success" if pushed else "warning",
+                "sticky": bool(skipped),
+            },
+        }
 
     def action_view_logs(self):
         self.ensure_one()

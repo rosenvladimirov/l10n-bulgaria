@@ -84,6 +84,35 @@
                             confirm="Forget the registry secret + admin token? The proxy will need to re-pair."
                             invisible="state == 'draft'"
                             groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
+                    <!-- Push config — soft-resolves the source model per kind.
+                         Hidden in draft because the proxy hasn't paired yet. -->
+                    <button name="action_push_config_all"
+                            type="object"
+                            string="Push All Config"
+                            class="btn-secondary"
+                            invisible="state != 'active'"
+                            groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"
+                            help="Push every AC fragment (cameras/access/mqtt/biometric) whose source model is installed."/>
+                    <button name="action_push_config_mqtt"
+                            type="object"
+                            string="Push MQTT"
+                            invisible="state != 'active'"
+                            groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
+                    <button name="action_push_config_cameras"
+                            type="object"
+                            string="Push Cameras"
+                            invisible="state != 'active'"
+                            groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
+                    <button name="action_push_config_access"
+                            type="object"
+                            string="Push Access"
+                            invisible="state != 'active'"
+                            groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
+                    <button name="action_push_config_biometric"
+                            type="object"
+                            string="Push Biometric"
+                            invisible="state != 'active'"
+                            groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
                     <field name="state" widget="statusbar"
                            statusbar_visible="draft,pairing,active"/>
                 </header>
@@ -211,9 +240,32 @@
                                 only needed for stricter setups.
                             </p>
                         </page>
+                        <page string="Configuration drift" name="config_drift">
+                            <div class="alert alert-info" role="alert">
+                                SHA-256 versions reported by the proxy on its
+                                last heartbeat. Compare with
+                                <code>last_pushed_version</code> on the source
+                                records (<i>MQTT Brokers</i>, <i>Camera Config</i>,
+                                etc.) to see if the proxy is in sync. Empty rows
+                                mean the proxy hasn't loaded a fragment for that
+                                kind — usually because no <code>config.d/&lt;kind&gt;.yaml</code>
+                                file exists yet.
+                            </div>
+                            <group>
+                                <group string="AC fragment versions">
+                                    <field name="runtime_mqtt_version" readonly="1"/>
+                                    <field name="runtime_camera_version" readonly="1"/>
+                                    <field name="runtime_access_version" readonly="1"/>
+                                    <field name="runtime_biometric_version" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
                         <page string="Raw heartbeat" name="raw"
                               groups="base.group_system">
                             <field name="devices_json" widget="ace"
+                                   options="{'mode': 'json'}" readonly="1"/>
+                            <separator string="Runtime config versions (raw)"/>
+                            <field name="runtime_config_versions_json" widget="ace"
                                    options="{'mode': 'json'}" readonly="1"/>
                         </page>
                         <page string="Notes" name="notes">

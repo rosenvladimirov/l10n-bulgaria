@@ -36,7 +36,7 @@ Depends:
   * l10n_bg_erp_net_fp_fleet — for the proxy registry + HMAC-verify
     helper. No code coupling beyond import of `_verify_hmac`.
 """,
-    'version': '18.0.1.1.0',
+    'version': '18.0.1.2.0',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',

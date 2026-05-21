@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
     "name": "Bulgarian Localization Onboarding",
-    "version": "19.0.1.0.1",
+    "version": "19.0.1.1.0",
     "summary": "Full-screen animated guided setup shown on first login of "
     "a freshly created Bulgarian database",
     "description": """

@@ -133,10 +133,12 @@ export class OnboardingApp extends Component {
     begin() {
         this.state.phase = "chapter";
         this.state.idx = 0;
+        this._maybeAutoInstall();
     }
     back() {
         if (this.state.idx > 0) {
             this.state.idx -= 1;
+            this._maybeAutoInstall();
         }
     }
     next() {
@@ -148,6 +150,7 @@ export class OnboardingApp extends Component {
             return;
         }
         this.state.idx += 1;
+        this._maybeAutoInstall();
     }
     skip() {
         if (this.isLast) {
@@ -155,9 +158,52 @@ export class OnboardingApp extends Component {
             return;
         }
         this.state.idx += 1;
+        this._maybeAutoInstall();
     }
     finish() {
         browser.location.href = "/odoo";
+    }
+
+    // ── auto-install: required `install_module` стъпки се install-ват
+    // автоматично при влизане в chapter. Optional остават за user
+    // (checkbox/бутон в template). Non-install_module steps (manual
+    // config) също са user-controlled (Configure / Mark Done бутони).
+    async _maybeAutoInstall() {
+        const v = this.current;
+        if (!v) {
+            return;
+        }
+        const pending = (this.state.steps[v.id] || []).filter(
+            (s) =>
+                s.step_type === "install_module" &&
+                !s.optional &&
+                !s.done &&
+                !["auto", "unavailable"].includes(s.state)
+        );
+        if (!pending.length || this.state.busy) {
+            return;
+        }
+        this.state.busy = true;
+        this.state.error = "";
+        try {
+            // Sequential install (cascade-вите вътре в Odoo са идемпотентни,
+            // но паралелните registry reload-и могат да дадат race).
+            for (const step of pending) {
+                await this.orm.call(
+                    "l10n.bg.vertical.step",
+                    "action_install",
+                    [[step.id]]
+                );
+            }
+            await this._reload();
+        } catch (e) {
+            this.state.error =
+                (e && e.data && e.data.message) ||
+                (e && e.message) ||
+                "Auto-install failed.";
+        } finally {
+            this.state.busy = false;
+        }
     }
 
     // ── действия по стъпки (минават през backend методите) ─────────

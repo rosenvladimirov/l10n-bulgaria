@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
     "name": "Bulgarian Database Installer",
-    "version": "19.0.1.2.4",
+    "version": "19.0.1.2.5",
     "summary": "Bulgaria fields on the database manager + guided "
     "localization setup on a freshly created database",
     "description": """

@@ -26,7 +26,9 @@ JS poll page държи всеки HTTP request под 100s.
 
 import logging
 import threading
+import time
 
+import psycopg2.errors
 import werkzeug.utils
 import werkzeug.wrappers
 from lxml import html as lxml_html
@@ -382,27 +384,64 @@ def _background_install(dbname):
                     "l10n_bg_db_installer: update_list failed on %s",
                     dbname,
                 )
-            l10n_bg = M.search(
-                [
-                    ("name", "=", "l10n_bg"),
-                    ("state", "in", ("uninstalled", "to install")),
-                ],
-                limit=1,
-            )
-            if l10n_bg:
-                _set_status(
-                    dbname, "running",
-                    "Installing l10n_bg (cascade: config + db_installer + "
-                    "onboarding)...",
-                )
-                _logger.info(
-                    "l10n_bg_db_installer: cascade install on %s", dbname
-                )
-                # button_immediate_install commit-ва вътрешно и презарежда
-                # registry; cursor-ът ни остарява веднага след това.
-                l10n_bg.button_immediate_install()
-            else:
-                _set_status(dbname, "running", "l10n_bg already installed")
+
+        # button_immediate_install заключва ir_cron с FOR UPDATE NOWAIT.
+        # На свежа DB cron-ите стартират едновременно (Base: Auto-vacuum,
+        # Portal Users Deletion и др.) и държат lock-а 1-3s. NOWAIT
+        # fail-ва веднага → psycopg2.errors.SerializationFailure → нашият
+        # cursor се аborт-ва. Retry с пауза до cron-ите свършат.
+        max_retries = 20
+        for attempt in range(max_retries):
+            try:
+                registry = odoo.modules.registry.Registry(dbname)
+                with registry.cursor() as cr:
+                    env = api.Environment(cr, SUPERUSER_ID, {})
+                    M = env["ir.module.module"].sudo()
+                    l10n_bg = M.search(
+                        [
+                            ("name", "=", "l10n_bg"),
+                            (
+                                "state", "in",
+                                ("uninstalled", "to install"),
+                            ),
+                        ],
+                        limit=1,
+                    )
+                    if not l10n_bg:
+                        _set_status(
+                            dbname, "running",
+                            "l10n_bg already installed",
+                        )
+                        break
+                    _set_status(
+                        dbname, "running",
+                        "Installing l10n_bg (cascade: config + "
+                        "db_installer + onboarding)..."
+                        + (f" [retry {attempt}]" if attempt else ""),
+                    )
+                    _logger.info(
+                        "l10n_bg_db_installer: cascade install on %s "
+                        "(attempt %d)",
+                        dbname, attempt + 1,
+                    )
+                    l10n_bg.button_immediate_install()
+                break  # success
+            except psycopg2.errors.SerializationFailure:
+                # ir_cron заключен от concurrent cron job. Wait + retry.
+                if attempt + 1 < max_retries:
+                    _set_status(
+                        dbname, "running",
+                        f"Cron busy, waiting "
+                        f"(attempt {attempt + 1}/{max_retries})...",
+                    )
+                    _logger.warning(
+                        "l10n_bg_db_installer: cron lock contention on "
+                        "%s (attempt %d) — retry in 3s",
+                        dbname, attempt + 1,
+                    )
+                    time.sleep(3)
+                    continue
+                raise
 
         # Apply pending VAT/KID върху главната компания. Свеж registry
         # cursor — l10n_bg_config поста-installation вече дефинира

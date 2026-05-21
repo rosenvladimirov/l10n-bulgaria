@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Add an "Inject Test Event" header button to the proxy form
+         when bus_inject is installed. Picks a random spot in the
+         header so it doesn't fight with the existing fleet buttons. -->
+    <record id="view_erpnet_fp_proxy_form_inherit_bus_inject"
+            model="ir.ui.view">
+        <field name="name">erpnet.fp.proxy.form.inherit.bus_inject</field>
+        <field name="model">erpnet.fp.proxy</field>
+        <field name="inherit_id"
+               ref="l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form"/>
+        <field name="arch" type="xml">
+            <button name="action_self_update" position="after">
+                <button name="action_inject_test_event"
+                        type="object"
+                        string="🧪 Inject Test Event"
+                        invisible="state != 'active'"
+                        help="Send a synthetic door.opened envelope through bus_inject — proves the live event pipeline + toast without needing hardware."
+                        groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
+            </button>
+        </field>
+    </record>
+
+</odoo>

@@ -15,7 +15,15 @@ proxy decides what to do with them based on Odoo policy.
 """
 from __future__ import annotations
 
-from odoo import api, fields, models
+import json
+import logging
+
+import requests
+
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
+
+_logger = logging.getLogger(__name__)
 
 
 _KIND_SELECTION = [
@@ -85,3 +93,93 @@ class PolimexPart(models.Model):
             rec.is_output = rec.kind in _OUTPUT_KINDS
 
     is_output = fields.Boolean(compute="_compute_is_output", store=False)
+
+    # ─── Operator actions ──────────────────────────────────────
+    #
+    # Output parts (magnet/strike/motor) get Open + Deny buttons that
+    # POST against the owning proxy's REST surface synchronously.
+    # The bus_inject side-effect (door.opened / door.denied) is emitted
+    # by the proxy itself — operators see the toast within ~1s.
+
+    def _call_proxy_access(self, action, seconds=None):
+        """POST <proxy.url>/access/<access_id>/<action> with the proxy's
+        admin_token. Returns the parsed JSON response. Raises UserError
+        on transport/HTTP failures so the operator gets a clear message.
+        """
+        self.ensure_one()
+        if not self.is_output:
+            raise UserError(_(
+                "Part %(p)s is kind '%(k)s' — only output parts "
+                "(magnet/strike/motor) can be opened/denied.",
+                p=self.display_name, k=self.kind))
+        ctrl = self.controller_id
+        if not ctrl.proxy_id:
+            raise UserError(_("Controller %s has no proxy assigned.",
+                              ctrl.name))
+        proxy = ctrl.proxy_id
+        base = (proxy.url or "").rstrip("/")
+        if not base:
+            raise UserError(_(
+                "Proxy %s has no URL set — cannot reach its /access "
+                "endpoint.", proxy.name))
+        token = proxy.sudo().get_admin_token() if hasattr(
+            proxy, "get_admin_token") else ""
+        if not token:
+            raise UserError(_(
+                "Proxy %s hasn't reported an admin token yet (no "
+                "heartbeat carrying it has arrived). Wait one minute "
+                "after the proxy boots before trying again.",
+                proxy.name))
+        target_id = self.access_id or self.name
+        url = f"{base}/access/{target_id}/{action}"
+        body = {}
+        if action == "open" and seconds is not None:
+            body["seconds"] = float(seconds)
+        try:
+            r = requests.post(url, json=body,
+                              headers={"X-Admin-Token": token},
+                              timeout=8.0)
+        except requests.RequestException as e:
+            raise UserError(_(
+                "Could not reach proxy at %(u)s: %(e)s",
+                u=base, e=e)) from e
+        if r.status_code != 200:
+            raise UserError(_(
+                "Proxy returned HTTP %(s)d: %(b)s",
+                s=r.status_code, b=r.text[:400]))
+        try:
+            return r.json()
+        except ValueError:
+            return {"raw": r.text}
+
+    def action_open(self):
+        self.ensure_one()
+        # Inherit controller's default pulse_seconds — None ⇒ proxy
+        # uses its own default. Operators who want a non-default
+        # duration can override here later if we add a wizard.
+        secs = self.controller_id.pulse_seconds or None
+        res = self._call_proxy_access("open", seconds=secs)
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("🔓 Open"),
+                "message": _("Proxy: %s", res.get("detail") or "ok"),
+                "type": "success" if res.get("ok", True) else "danger",
+                "sticky": False,
+            },
+        }
+
+    def action_deny(self):
+        self.ensure_one()
+        res = self._call_proxy_access("deny")
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("🔒 Deny"),
+                "message": _("Proxy: %s", res.get("detail") or "ok"),
+                "type": "warning" if res.get("ok", True) else "danger",
+                "sticky": False,
+            },
+        }

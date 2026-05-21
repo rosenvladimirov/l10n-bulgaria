@@ -22,6 +22,19 @@
         <field name="model">polimex.part</field>
         <field name="arch" type="xml">
             <form string="Polimex Part">
+                <header>
+                    <!-- Open / Deny — synchronous HTTP call to the
+                         owning proxy. Visible only for output parts
+                         (magnet/strike/motor). Reader / sensor / button
+                         are inputs, no actuation. -->
+                    <button name="action_open" type="object"
+                            string="🔓 Open"
+                            class="btn-primary"
+                            invisible="not is_output"/>
+                    <button name="action_deny" type="object"
+                            string="🔒 Deny"
+                            invisible="not is_output"/>
+                </header>
                 <sheet>
                     <widget name="web_ribbon" title="Archived"
                             bg_color="text-bg-danger"

@@ -3,7 +3,7 @@
 
 {
     'name': 'Bulgarian Banking Integration - Crypto Wallet',
-    'version': '18.0.1.1.1',
+    'version': '18.0.1.1.2',
     'category': 'Localization',
     'summary': 'Secure storage of cryptographic keys and passwords for banking integrations',
     'description': """

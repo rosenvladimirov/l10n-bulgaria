@@ -12,7 +12,11 @@ class Users(models.Model):
         'crypto.wallet',
         'user_id',
         string='Crypto Wallets',
-        help='Криптирани портфейли на потребителя'
+        help='Криптирани портфейли на потребителя',
+        # Ограничено до internal users — portal/public нямат crypto.wallet
+        # ACL групи и достъпът до полето би хвърлил AccessError при
+        # POST /web/login или всеки res.users read (виж log от 2026-05-21).
+        groups='base.group_user',
     )
 
     def _check_credentials(self, credential, user_agent_env):

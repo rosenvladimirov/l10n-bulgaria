@@ -350,6 +350,55 @@ poll();
 """
 
 
+def _grant_admin_full_access(env):
+    """Add internal admin user към всички НЕ-portal/public групи.
+
+    Стратегия: search всички res.groups, изключи:
+      - base.group_portal (Portal user — external clients)
+      - base.group_public (Public — anonymous website visitor)
+      - category 'Hidden' (internal system tags, не са user-facing)
+      - групи с име съдържащо 'Portal', 'Public', 'Share', 'External'
+        (защита срещу third-party модули които дефинират подобни групи
+        без явен xml_id към base.group_portal)
+
+    ВАЖНО: вътре в Odoo, добавянето на portal/public група към internal
+    user превключва неговата res.users.share=True → user-ът губи Internal
+    User права (counter-intuitively). Затова филтрираме строго.
+
+    Returns: брой добавени групи.
+    """
+    admin = env.ref("base.user_admin", raise_if_not_found=False)
+    if not admin:
+        return 0
+    excluded_ids = []
+    for xmlid in ("base.group_portal", "base.group_public"):
+        g = env.ref(xmlid, raise_if_not_found=False)
+        if g:
+            excluded_ids.append(g.id)
+    Group = env["res.groups"].sudo()
+    domain = [("id", "not in", excluded_ids)]
+    hidden_cat = env.ref(
+        "base.module_category_hidden", raise_if_not_found=False
+    )
+    if hidden_cat:
+        domain.append(("category_id", "!=", hidden_cat.id))
+    candidates = Group.search(domain)
+    blocked = ("portal", "public", "share", "external")
+    safe = candidates.filtered(
+        lambda g: not any(
+            kw in (g.name or "").lower() for kw in blocked
+        )
+    )
+    # Изключи и групите, които вече има (за чисти logs)
+    existing = set(admin.groups_id.ids)
+    new_ids = [gid for gid in safe.ids if gid not in existing]
+    if new_ids:
+        admin.sudo().write(
+            {"groups_id": [(4, gid) for gid in new_ids]}
+        )
+    return len(new_ids)
+
+
 def _set_status(dbname, status, message=""):
     """Update install status в ir.config_parameter (нов cursor, idempotent)."""
     try:
@@ -477,6 +526,13 @@ def _background_install(dbname):
         # V0 (l10n.bg.vertical.step.registry_fetch=True). Това попълва
         # company name/address/representative от търговския регистър по
         # VAT/UIC, без user-ът да го прави ръчно през wizard-а после.
+        #
+        # ВАЖНО: action_registry_fetch е 2-фазен:
+        #  1-ва call: ако l10n_bg_company_registry липсва → install + early
+        #             return (без fetch — модулът е installed едва сега).
+        #  2-ра call: модулът installed → действителен fetch + populate.
+        # Затова правим 2 call-а в отделни cursor-и (между тях
+        # button_immediate_install commit-ва и registry се reload-ва).
         if vat_eik_for_fetch:
             _set_status(
                 dbname, "running",
@@ -484,33 +540,38 @@ def _background_install(dbname):
                 f"(VAT/UIC={vat_eik_for_fetch})...",
             )
             try:
-                registry = odoo.modules.registry.Registry(dbname)
-                with registry.cursor() as cr:
-                    env = api.Environment(cr, SUPERUSER_ID, {})
-                    Step = env["l10n.bg.vertical.step"].sudo()
-                    # NB: step.done е computed (НЕ store), не може да
-                    # се ползва в domain. Search-ваме само registry_fetch
-                    # стъпки и filter-ваме в Python.
-                    candidates = Step.search(
-                        [("registry_fetch", "=", True)],
-                        order="vertical_id, sequence, id",
-                    )
-                    registry_step = candidates.filtered(
-                        lambda s: not s.done
-                    )[:1]
-                    if registry_step:
+                registry_step_vid = None
+                for attempt in range(2):
+                    registry = odoo.modules.registry.Registry(dbname)
+                    with registry.cursor() as cr:
+                        env = api.Environment(cr, SUPERUSER_ID, {})
+                        Step = env["l10n.bg.vertical.step"].sudo()
+                        # step.done е computed (не store) → filter в Python.
+                        candidates = Step.search(
+                            [("registry_fetch", "=", True)],
+                            order="vertical_id, sequence, id",
+                        )
+                        registry_step = candidates.filtered(
+                            lambda s: not s.done
+                        )[:1]
+                        if not registry_step:
+                            break  # already done — skip
+                        registry_step_vid = (
+                            registry_step.vertical_id.id
+                        )
                         Wiz = env["l10n.bg.vertical.wizard"].sudo()
                         wiz = Wiz.create(
                             {
-                                "vertical_id": registry_step.vertical_id.id,
+                                "vertical_id": registry_step_vid,
                                 "registry_vat_eik": vat_eik_for_fetch,
                             }
                         )
                         wiz.action_registry_fetch()
                         _logger.info(
-                            "l10n_bg_db_installer: Trade Register fetch "
-                            "OK for VAT=%s (step=%s)",
-                            vat_eik_for_fetch, registry_step.id,
+                            "l10n_bg_db_installer: Trade Register call "
+                            "%d/2 OK (VAT=%s, step=%s)",
+                            attempt + 1, vat_eik_for_fetch,
+                            registry_step.id,
                         )
             except Exception:  # noqa: BLE001 — fetch failure не блокира
                 _logger.exception(
@@ -587,6 +648,30 @@ def _background_install(dbname):
                     "l10n_bg_db_installer: extras install failed on %s",
                     dbname,
                 )
+
+        # Финален hook: дай на admin user-а ВСИЧКИ съдържателни групи
+        # на инсталираните модули. ВНИМАНИЕ: portal/public/share групи
+        # СЕ ИЗКЛЮЧВАТ — добавянето им на internal admin user сменя
+        # неговата природа от Internal към Portal (счупва ACL flows).
+        _set_status(
+            dbname, "running",
+            "Granting admin access to installed modules...",
+        )
+        try:
+            registry = odoo.modules.registry.Registry(dbname)
+            with registry.cursor() as cr:
+                env = api.Environment(cr, SUPERUSER_ID, {})
+                granted = _grant_admin_full_access(env)
+                _logger.info(
+                    "l10n_bg_db_installer: granted admin %d "
+                    "groups on %s",
+                    granted, dbname,
+                )
+        except Exception:  # noqa: BLE001 — permissions не блокира flow
+            _logger.exception(
+                "l10n_bg_db_installer: admin permission grant failed "
+                "on %s", dbname,
+            )
 
         _set_status(dbname, "ready", "Installation complete")
         _logger.info(

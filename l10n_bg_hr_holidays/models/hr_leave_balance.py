@@ -80,10 +80,12 @@ class HrLeaveBalance(models.Model):
 
     _depends = {
         "hr.leave": [
-            "employee_id", "holiday_status_id", "state", "number_of_days",
+            "employee_id", "holiday_status_id", "state",
+            "number_of_days", "request_date_from",
         ],
         "hr.leave.allocation": [
-            "employee_id", "holiday_status_id", "state", "number_of_days",
+            "employee_id", "holiday_status_id", "state",
+            "number_of_days", "date_from", "date_to",
         ],
         "hr.leave.type": [
             "l10n_bg_code", "request_unit",
@@ -129,28 +131,49 @@ class HrLeaveBalance(models.Model):
 
     @api.model
     def _allocated_subquery(self) -> SQL:
-        """Pre-aggregated allocations.
+        """Pre-aggregated allocations, валидни КЪМ ДНЕС.
 
-        Override в downstream module за scope-ване (e.g. по година,
-        изключване на accrual plans, БГ-специфични условия).
+        Парира canonical поведение: брои само allocations където днешната
+        дата е в интервала [date_from, date_to]. Изтекли алокации (date_to
+        в миналото) и бъдещи (date_from в бъдещето) се пропускат — те не
+        формират current балансаз.
+
+        Канонично референция: addons/hr_holidays/models/hr_leave_allocation.py
+        _get_allocation_data_request → филтрира по същия начин преди да
+        пресметне max_leaves.
+
+        Override в downstream module за специфично scope-ване (напр. per
+        година ако trябва lifetime view, или за accrual proration).
         """
         return SQL("""
             SELECT employee_id, holiday_status_id, SUM(number_of_days) AS days
             FROM hr_leave_allocation
             WHERE state = 'validate'
+              AND (date_from IS NULL OR date_from <= CURRENT_DATE)
+              AND (date_to   IS NULL OR date_to   >= CURRENT_DATE)
             GROUP BY employee_id, holiday_status_id
         """)
 
     @api.model
     def _taken_subquery(self) -> SQL:
-        """Pre-aggregated taken leaves — разделено на validated и pending.
+        """Pre-aggregated taken leaves, до ДНЕШНА ДАТА.
 
-        Парира canonical hr.leave.type.get_allocation_data():
+        Критичен филтър: request_date_from <= CURRENT_DATE. Без този филтър
+        SQL view-ът броеше бъдещи планирани отпуски като „ползвани", което
+        правеше virtual_remaining_days негативно при служители с одобрени
+        отпуски напред в годината. Сега се парира canonical
+        get_allocation_data(employee, today) поведението — таken
+        отразява само случилия се труд.
+
+        Разделение:
         - days_validated → leaves_taken (state='validate')
         - days_pending → разлика до virtual_leaves_taken (confirm + validate1)
 
-        Refuse и cancel state-овете се изключват — те не пасат към никой
-        канонизран баланс.
+        Refuse / cancel state-овете се изключват.
+
+        За проекция към края на годината — използвай canonical
+        leave_type.get_allocation_data(employee, end_of_year) на ниво
+        контролер (виж l10n_bg_hr_portal dashboard).
         """
         return SQL("""
             SELECT
@@ -162,5 +185,6 @@ class HrLeaveBalance(models.Model):
                     THEN number_of_days ELSE 0 END) AS days_pending
             FROM hr_leave
             WHERE state IN ('validate', 'confirm', 'validate1')
+              AND request_date_from <= CURRENT_DATE
             GROUP BY employee_id, holiday_status_id
         """)

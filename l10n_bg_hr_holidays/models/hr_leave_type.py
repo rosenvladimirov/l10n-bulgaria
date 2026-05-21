@@ -53,7 +53,17 @@ class HRLeaveType(models.Model):
         for leave_type in self:
             leave_type.l10n_bg_allow_paid_days = leave_type.time_type == 'leave'
 
-    @api.depends('l10n_bg_code')
+    @api.depends('l10n_bg_code', 'name')
     def _compute_display_name(self):
+        """Префиксира името с НОИ/КТ кода, ако такъв е зададен.
+
+        Старата имплементация използваше `code and f'[{code}] '` което при
+        празен code оценява в False (булева стойност) → f-string записва
+        низа "False" в display_name. Резултат: „FalseДопълнителни часове".
+        Новата прави явна проверка и пропуска префикса когато кода липсва.
+        """
         for record in self:
-            record.display_name = f"{record.l10n_bg_code and f'[{record.l10n_bg_code}] '}{record.name}"
+            if record.l10n_bg_code:
+                record.display_name = f"[{record.l10n_bg_code}] {record.name or ''}"
+            else:
+                record.display_name = record.name or ""

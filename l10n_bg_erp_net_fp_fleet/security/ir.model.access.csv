@@ -6,3 +6,6 @@ access_erpnet_fp_proxy_device_manager,erpnet.fp.proxy.device manager,model_erpne
 access_erpnet_fp_proxy_command_user,erpnet.fp.proxy.command user,model_erpnet_fp_proxy_command,group_fleet_user,1,0,0,0
 access_erpnet_fp_proxy_command_manager,erpnet.fp.proxy.command manager,model_erpnet_fp_proxy_command,group_fleet_manager,1,1,1,1
 access_erpnet_fp_program_vat_wizard,erpnet.fp.program.vat.wizard,model_erpnet_fp_program_vat_wizard,group_fleet_manager,1,1,1,1
+access_erpnet_fp_grab_proxy_wizard,erpnet.fp.grab.proxy.wizard,model_erpnet_fp_grab_proxy_wizard,group_fleet_manager,1,1,1,1
+access_erpnet_fp_proxy_config_template_user,erpnet.fp.proxy.config.template user,model_erpnet_fp_proxy_config_template,group_fleet_user,1,0,0,0
+access_erpnet_fp_proxy_config_template_manager,erpnet.fp.proxy.config.template manager,model_erpnet_fp_proxy_config_template,group_fleet_manager,1,1,1,1

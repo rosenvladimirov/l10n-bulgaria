@@ -64,6 +64,79 @@ class HRLeave(models.Model):
                         _('Paid days cannot be negative for leave request "%s".') % leave.name
                     )
 
+    @api.constrains("number_of_days", "holiday_status_id",
+                    "employee_id", "request_date_from", "state")
+    def _check_l10n_bg_max_days(self):
+        """Валидира БГ-законовите лимити на отпуска.
+
+        Два независими лимита (виж hr.leave.type):
+        - l10n_bg_max_days_per_year — годишен таван (по календарна година)
+        - l10n_bg_max_days_total — общ таван (lifetime / per event)
+
+        Refuse/cancel заявки се изключват от агрегата.
+        Стойност 0 = няма лимит → constraint пропуска.
+        При нарушение показваме legal_reference към user-а.
+        """
+        for leave in self:
+            ltype = leave.holiday_status_id
+            if not ltype:
+                continue
+            if leave.state in ("refuse", "cancel"):
+                continue
+            year_cap = ltype.l10n_bg_max_days_per_year or 0
+            total_cap = ltype.l10n_bg_max_days_total or 0
+            if not year_cap and not total_cap:
+                continue
+            ref = (
+                _(" (Legal reference: %s)") % ltype.l10n_bg_legal_reference
+                if ltype.l10n_bg_legal_reference else ""
+            )
+
+            if year_cap and leave.request_date_from:
+                year_start = leave.request_date_from.replace(month=1, day=1)
+                year_end = leave.request_date_from.replace(month=12, day=31)
+                yearly_used = sum(self.search([
+                    ("employee_id", "=", leave.employee_id.id),
+                    ("holiday_status_id", "=", ltype.id),
+                    ("state", "in", ("confirm", "validate1", "validate")),
+                    ("request_date_from", ">=", year_start),
+                    ("request_date_from", "<=", year_end),
+                    ("id", "!=", leave.id),
+                ]).mapped("number_of_days") or [0.0])
+                if yearly_used + (leave.number_of_days or 0.0) > year_cap:
+                    raise ValidationError(_(
+                        "Annual leave cap exceeded for leave type '%(type)s'. "
+                        "Allowed: %(cap)d days/year; already used: "
+                        "%(used).1f days; this request: %(req).1f days "
+                        "(year of %(year)d).%(ref)s",
+                        type=ltype.display_name,
+                        cap=year_cap,
+                        used=yearly_used,
+                        req=leave.number_of_days or 0.0,
+                        year=leave.request_date_from.year,
+                        ref=ref,
+                    ))
+
+            if total_cap:
+                total_used = sum(self.search([
+                    ("employee_id", "=", leave.employee_id.id),
+                    ("holiday_status_id", "=", ltype.id),
+                    ("state", "in", ("confirm", "validate1", "validate")),
+                    ("id", "!=", leave.id),
+                ]).mapped("number_of_days") or [0.0])
+                if total_used + (leave.number_of_days or 0.0) > total_cap:
+                    raise ValidationError(_(
+                        "Total leave cap exceeded for leave type '%(type)s'. "
+                        "Allowed: %(cap)d days total; already used: "
+                        "%(used).1f days; this request: %(req).1f days."
+                        "%(ref)s",
+                        type=ltype.display_name,
+                        cap=total_cap,
+                        used=total_used,
+                        req=leave.number_of_days or 0.0,
+                        ref=ref,
+                    ))
+
     @api.onchange('holiday_status_id')
     def _onchange_holiday_status_id_paid_days(self):
         """Нулира платените дни когато се промени типа отпуска"""
@@ -84,3 +157,10 @@ class HRLeave(models.Model):
                 }
             }
 
+    @api.model
+    def name_search(self, name='', args=None, operator='ilike', limit=100):
+        args = args or []
+        domain = []
+        if name:
+            domain = ['|', ('code', operator, name), ('name', operator, name)]
+        return super().name_search(name=name, args=domain+args, operator=operator, limit=limit)

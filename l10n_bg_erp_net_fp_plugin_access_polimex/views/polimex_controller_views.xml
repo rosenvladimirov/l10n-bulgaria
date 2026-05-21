@@ -88,12 +88,25 @@
                             <field name="template_id"
                                    domain="[('kind','=','access'),('proxy_id','=',proxy_id)]"
                                    context="{'default_proxy_id': proxy_id, 'default_kind': 'access'}"/>
+                            <field name="transport_mode" widget="radio"/>
                             <field name="active" invisible="1"/>
                         </group>
-                        <group string="Bridge">
-                            <field name="host" placeholder="http://192.168.3.151"/>
-                            <field name="sdk_user"/>
+                        <group string="SDK pull (proxy → Polimex)"
+                               invisible="transport_mode != 'sdk_pull'">
+                            <field name="host"
+                                   placeholder="http://192.168.3.151"
+                                   required="transport_mode == 'sdk_pull'"/>
+                            <field name="sdk_user"
+                                   required="transport_mode == 'sdk_pull'"/>
                             <field name="sdk_password" password="True"/>
+                        </group>
+                        <group string="HTTP push (Polimex → proxy)"
+                               invisible="transport_mode != 'http_push'">
+                            <field name="convertor_serial"
+                                   placeholder="e.g. 436900"
+                                   required="transport_mode == 'http_push'"/>
+                            <field name="shared_secret" password="True"/>
+                            <field name="push_interval_seconds"/>
                         </group>
                         <group string="RS-485 bus">
                             <field name="bus_id"/>

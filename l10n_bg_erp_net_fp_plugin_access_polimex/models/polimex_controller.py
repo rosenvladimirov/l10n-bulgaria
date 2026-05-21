@@ -34,6 +34,24 @@ _MODE_SELECTION = [
     ("4", "Four Doors"),
 ]
 
+# Transport — how the proxy talks to the Polimex Web Module.
+#
+#   sdk_pull  — proxy actively POSTs to /sdk/cmd.json on the Web Module
+#               whenever it has a command. Real-time (~50ms). Requires
+#               a LAN path from proxy → Polimex and an SDK user/password
+#               set inside the Polimex UI ('SDK Active' enabled).
+#
+#   http_push — Polimex actively POSTs to the proxy every interval
+#               (default 60s) with events; the proxy returns queued
+#               commands in the response. Works through NAT/firewalls
+#               but commands are delayed up to the interval. Requires
+#               the proxy's public URL and a shared secret set in the
+#               Polimex 'HTTP Push' settings.
+_TRANSPORT_SELECTION = [
+    ("sdk_pull",  "SDK pull (proxy → Polimex, real-time)"),
+    ("http_push", "HTTP push (Polimex → proxy, heartbeat-driven)"),
+]
+
 
 class PolimexController(models.Model):
     _name = "polimex.controller"
@@ -54,17 +72,49 @@ class PolimexController(models.Model):
              "Module. Decides where the regenerated YAML gets pushed.",
     )
 
-    # ─── Bridge — Polimex Web Device ────────────────────────────
-    host = fields.Char(
-        string="Web Module URL", required=True, tracking=True,
-        help="HTTP base URL of the Polimex Web Module hosting this "
-             "controller, e.g. http://192.168.3.151. SPA + SDK both "
-             "live at the same address.",
+    # ─── Transport ──────────────────────────────────────────────
+    transport_mode = fields.Selection(
+        _TRANSPORT_SELECTION, default="sdk_pull", required=True,
+        tracking=True,
+        help="Pick how the proxy talks to this Polimex Web Module. "
+             "Switch any time; YAML regeneration emits the right "
+             "fields for the chosen mode.",
     )
-    sdk_user = fields.Char(default="sdk", required=True)
+
+    # ─── Bridge — Polimex Web Device (SDK pull mode) ────────────
+    host = fields.Char(
+        string="Web Module URL", tracking=True,
+        help="(SDK pull mode) HTTP base URL of the Polimex Web Module, "
+             "e.g. http://192.168.3.151. The proxy POSTs to "
+             "<host>/sdk/cmd.json when it needs to send a command.",
+    )
+    sdk_user = fields.Char(
+        default="sdk",
+        help="(SDK pull mode) Username for the dedicated SDK user "
+             "configured inside the Polimex Web UI.",
+    )
     sdk_password = fields.Char(
-        help="Password for the dedicated SDK user. Set inside the "
-             "Polimex Web UI (separate from admin/UI password).",
+        help="(SDK pull mode) Password for the SDK user.",
+    )
+
+    # ─── Bridge — Polimex Web Device (HTTP push mode) ───────────
+    convertor_serial = fields.Char(
+        string="Convertor serial #", tracking=True,
+        help="(HTTP push mode) The bridge's serial number as reported "
+             "in the heartbeat body (`convertor` field). Matches the "
+             "Polimex to this record on incoming POSTs.",
+    )
+    shared_secret = fields.Char(
+        help="(HTTP push mode) Shared bearer token the proxy expects "
+             "in the Authorization header of every incoming heartbeat. "
+             "Set the same value inside the Polimex 'HTTP Push' settings.",
+    )
+    push_interval_seconds = fields.Integer(
+        string="Push interval (s)", default=60,
+        help="(HTTP push mode) How often the Polimex is expected to "
+             "post a heartbeat. Used as the inactivity threshold — "
+             "if no heartbeat arrives in 3× this, the controller is "
+             "marked unreachable.",
     )
 
     # ─── RS-485 bus address ─────────────────────────────────────
@@ -141,14 +191,13 @@ class PolimexController(models.Model):
         self.ensure_one()
         entries = []
         output_kinds = ("magnet", "strike", "motor")
+        is_push = self.transport_mode == "http_push"
         for part in self.part_ids.filtered(
                 lambda p: p.active and p.kind in output_kinds):
             entry = {
                 "id": part.access_id or part.name,
                 "driver": "polimex",
-                "host": self.host or "",
-                "user": self.sdk_user or "sdk",
-                "password": self.sdk_password or "",
+                "transport": self.transport_mode or "sdk_pull",
                 "bus_id": self.bus_id,
                 "output": part.io_channel,
                 "mode": int(self.mode or "1"),
@@ -156,6 +205,19 @@ class PolimexController(models.Model):
                 "pulse_seconds": float(self.pulse_seconds or 3.0),
                 "fail_secure": bool(self.fail_secure),
             }
+            if is_push:
+                # Polimex initiates; proxy is the server. Identify the
+                # bridge by serial so heartbeats from this Polimex map
+                # back to this access entry.
+                entry["convertor_serial"] = self.convertor_serial or ""
+                entry["shared_secret"] = self.shared_secret or ""
+                entry["push_interval_seconds"] = self.push_interval_seconds or 60
+            else:
+                # SDK pull — proxy calls Polimex directly. Outbound
+                # auth is HTTP Basic with the SDK user/password.
+                entry["host"] = self.host or ""
+                entry["user"] = self.sdk_user or "sdk"
+                entry["password"] = self.sdk_password or ""
             entries.append(entry)
         return entries
 

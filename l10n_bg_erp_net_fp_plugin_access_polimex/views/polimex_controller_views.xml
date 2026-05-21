@@ -128,7 +128,17 @@
                                     <field name="kind"/>
                                     <field name="io_channel"/>
                                     <field name="access_id" optional="show"/>
-                                    <field name="is_output" optional="hide"/>
+                                    <field name="is_output" column_invisible="True"/>
+                                    <!-- Inline action buttons — visible
+                                         only for output parts (magnet/
+                                         strike/motor). Reader / sensor /
+                                         button rows hide them. -->
+                                    <button name="action_open" type="object"
+                                            icon="fa-unlock" title="Open"
+                                            invisible="not is_output"/>
+                                    <button name="action_deny" type="object"
+                                            icon="fa-lock" title="Deny"
+                                            invisible="not is_output"/>
                                     <field name="active" widget="boolean_toggle"/>
                                 </list>
                             </field>

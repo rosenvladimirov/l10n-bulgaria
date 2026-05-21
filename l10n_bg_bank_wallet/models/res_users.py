@@ -110,9 +110,16 @@ class Users(models.Model):
             # Нормален логин: ако липсва "System Keys" портфел — създаваме
             # го с bcrypt hash-а (master password-ът по дизайн).  Това е
             # каквото _verify_wallet_sync вече прави, но никога не се викаше.
-            user = self.env['res.users'].browse(user_id)
-            system_wallet = user.crypto_wallet_ids.filtered(
-                lambda w: w.name == 'System Keys')
+            #
+            # crypto_wallet_ids е One2many → достъп до него стартира search на
+            # crypto.wallet под env.uid. За portal/public/internal users БЕЗ
+            # crypto.wallet групи това хвърля ACL AccessError → 403 на login.
+            # Sudo()-търсене с explicit user_id филтър заобикаля ACL без да
+            # маскира собствеността (виж feedback_sudo_capture_user_id_before).
+            system_wallet = self.env['crypto.wallet'].sudo().search([
+                ('user_id', '=', user_id),
+                ('name', '=', 'System Keys'),
+            ], limit=1)
             if not system_wallet:
                 self._create_initial_wallet(user_id, new_password_hash)
 
@@ -121,8 +128,11 @@ class Users(models.Model):
     def _handle_wallet_reencryption(self, user_id, old_hash, new_hash):
         """Обработва прекриптирането при промяна на хеша"""
         try:
-            user = self.env['res.users'].browse(user_id)
-            system_wallet = user.crypto_wallet_ids.filtered(lambda w: w.name == 'System Keys')
+            # sudo() + explicit user_id за да не deny-ва при users без crypto групи
+            system_wallet = self.env['crypto.wallet'].sudo().search([
+                ('user_id', '=', user_id),
+                ('name', '=', 'System Keys'),
+            ], limit=1)
 
             if system_wallet and old_hash:
                 success = system_wallet.auto_reencrypt_on_password_change(old_hash, new_hash)
@@ -139,8 +149,11 @@ class Users(models.Model):
     def _verify_wallet_sync(self, user_id, current_hash):
         """Проверява синхронизацията на портфела при същия хеш"""
         try:
-            user = self.env['res.users'].browse(user_id)
-            system_wallet = user.crypto_wallet_ids.filtered(lambda w: w.name == 'System Keys')
+            # sudo() + explicit user_id за да не deny-ва при users без crypto групи
+            system_wallet = self.env['crypto.wallet'].sudo().search([
+                ('user_id', '=', user_id),
+                ('name', '=', 'System Keys'),
+            ], limit=1)
 
             if system_wallet:
                 try:

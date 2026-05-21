@@ -100,6 +100,20 @@ class ErpNetFpProxyConfigTemplate(models.Model):
              "the proxy's runtime_*_version (from heartbeat) to detect "
              "drift.",
     )
+    # Stamp the wall-clock the yaml_text was last meaningfully changed.
+    # We can't depend on write_date for drift detection because every
+    # `action_push_to_proxy` calls self.write(last_pushed_at=...), which
+    # touches write_date and would mark the record out_of_sync immediately
+    # after a push. Touching `yaml_text_changed_at` only happens when
+    # yaml_text actually changes (see _onchange / create / write override
+    # below) — that's the meaningful clock for "did the operator alter
+    # the payload since the last push".
+    yaml_text_changed_at = fields.Datetime(
+        readonly=True,
+        help="Wall-clock of the last meaningful yaml_text change. "
+             "Used by sync_status — not write_date — so post-push "
+             "metadata writes don't trigger false drift.",
+    )
     sync_status = fields.Selection([
         ("never",       "Never pushed"),
         ("in_sync",     "In sync"),
@@ -123,15 +137,36 @@ class ErpNetFpProxyConfigTemplate(models.Model):
             rec.display_name = (
                 f"{rec.kind or '?'} · {rec.name or ''}".strip(" ·"))
 
-    @api.depends("last_pushed_at", "write_date")
+    @api.depends("last_pushed_at", "yaml_text_changed_at")
     def _compute_sync_status(self):
         for rec in self:
             if not rec.last_pushed_at:
                 rec.sync_status = "never"
-            elif rec.write_date and rec.write_date > rec.last_pushed_at:
+            elif (rec.yaml_text_changed_at
+                  and rec.yaml_text_changed_at > rec.last_pushed_at):
                 rec.sync_status = "out_of_sync"
             else:
                 rec.sync_status = "in_sync"
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        # New record with explicit yaml_text → stamp the change clock so
+        # sync_status reads `never` correctly (never pushed yet) and
+        # flips to `out_of_sync` immediately after the first push if the
+        # operator edits before pushing.
+        for vals in vals_list:
+            if "yaml_text" in vals and "yaml_text_changed_at" not in vals:
+                vals["yaml_text_changed_at"] = fields.Datetime.now()
+        return super().create(vals_list)
+
+    def write(self, vals):
+        # Only the meaningful payload key bumps the change clock.
+        # `last_pushed_at` / `last_pushed_version` writes from the
+        # push action do NOT touch it, so post-push state stays in_sync.
+        if "yaml_text" in vals and "yaml_text_changed_at" not in vals:
+            vals = dict(vals)
+            vals["yaml_text_changed_at"] = fields.Datetime.now()
+        return super().write(vals)
 
     # ─── Push action ────────────────────────────────────────────
 

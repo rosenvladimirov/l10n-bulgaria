@@ -108,8 +108,12 @@ class ResCompany(models.Model):
         :param user_signature: Base64 encoded user certificate (КЕП)
         """
         self.ensure_one()
+        # Захвани реалния user ПРЕДИ sudo() — sudo() bypass-ва _check_permission_level
+        # и `self.env.user` става SUPERUSER. Sudo е нужно само да позволи ACL-достъп
+        # до crypto.wallet table; всеки достъп до wallet записи минава с explicit user_id.
+        real_user = self.env.user
         Wallet = self.env["crypto.wallet"].sudo()
-        wallet = Wallet.get_user_wallet_or_create()
+        wallet = Wallet.get_user_wallet_or_create(user_id=real_user.id)
 
         # Remove old keys if they exist
         for key_name in (
@@ -138,12 +142,12 @@ class ResCompany(models.Model):
                 NRA_WALLET_KEY_USER_SIGNATURE, "certificate", user_signature
             )
         self.write({
-            "l10n_bg_nra_token_user_id": self.env.user.id,
+            "l10n_bg_nra_token_user_id": real_user.id,
         })
         _logger.info(
             "NRA API credentials stored in wallet for company %s by user %s",
             self.name,
-            self.env.user.name,
+            real_user.name,
         )
 
     def _nra_get_credentials(self):
@@ -156,12 +160,14 @@ class ResCompany(models.Model):
         :raises UserError: if credentials not found
         """
         self.ensure_one()
+        # Захвани реалния user.id ПРЕДИ sudo (под sudo self.env.user.id = SUPERUSER_ID).
+        real_uid = self.env.user.id
         Wallet = self.env["crypto.wallet"].sudo()
 
         # Try current user's wallet first
         user_wallet = Wallet.search(
             [
-                ("user_id", "=", self.env.user.id),
+                ("user_id", "=", real_uid),
                 ("name", "=", "System Keys"),
             ],
             limit=1,
@@ -180,8 +186,8 @@ class ResCompany(models.Model):
 
         # Fallback to token owner's wallet
         token_user = self.l10n_bg_nra_token_user_id
-        if token_user and token_user.id != self.env.user.id:
-            owner_wallet = Wallet.sudo().search(
+        if token_user and token_user.id != real_uid:
+            owner_wallet = Wallet.search(
                 [
                     ("user_id", "=", token_user.id),
                     ("name", "=", "System Keys"),
@@ -215,18 +221,19 @@ class ResCompany(models.Model):
         :raises UserError: if credentials not found
         """
         self.ensure_one()
+        real_uid = self.env.user.id  # capture before sudo bypasses _check_permission_level
         Wallet = self.env["crypto.wallet"].sudo()
 
         # Try current user's wallet first
         for wallet_search in [
-            [("user_id", "=", self.env.user.id), ("name", "=", "System Keys")],
+            [("user_id", "=", real_uid), ("name", "=", "System Keys")],
             [("user_id", "=", self.l10n_bg_nra_token_user_id.id), ("name", "=", "System Keys")]
-            if self.l10n_bg_nra_token_user_id and self.l10n_bg_nra_token_user_id.id != self.env.user.id
+            if self.l10n_bg_nra_token_user_id and self.l10n_bg_nra_token_user_id.id != real_uid
             else None,
         ]:
             if not wallet_search:
                 continue
-            wallet = Wallet.sudo().search(wallet_search, limit=1)
+            wallet = Wallet.search(wallet_search, limit=1)
             if wallet:
                 try:
                     pin_data = wallet.get_key_with_user_password(
@@ -254,8 +261,9 @@ class ResCompany(models.Model):
         :param expires_in: Token lifetime in seconds
         """
         self.ensure_one()
+        real_uid = self.env.user.id  # capture before sudo
         Wallet = self.env["crypto.wallet"].sudo()
-        wallet = Wallet.get_user_wallet_or_create()
+        wallet = Wallet.get_user_wallet_or_create(user_id=real_uid)
 
         # Remove old token if exists
         try:
@@ -288,12 +296,13 @@ class ResCompany(models.Model):
         ):
             return False
 
+        real_uid = self.env.user.id  # capture before sudo
         Wallet = self.env["crypto.wallet"].sudo()
 
         # Try current user's wallet
         user_wallet = Wallet.search(
             [
-                ("user_id", "=", self.env.user.id),
+                ("user_id", "=", real_uid),
                 ("name", "=", "System Keys"),
             ],
             limit=1,
@@ -309,8 +318,8 @@ class ResCompany(models.Model):
 
         # Fallback to token owner's wallet
         token_user = self.l10n_bg_nra_token_user_id
-        if token_user and token_user.id != self.env.user.id:
-            owner_wallet = Wallet.sudo().search(
+        if token_user and token_user.id != real_uid:
+            owner_wallet = Wallet.search(
                 [
                     ("user_id", "=", token_user.id),
                     ("name", "=", "System Keys"),
@@ -331,8 +340,9 @@ class ResCompany(models.Model):
     def _nra_clear_credentials(self):
         """Remove all NRA credentials from wallet."""
         self.ensure_one()
+        real_uid = self.env.user.id  # capture before sudo
         Wallet = self.env["crypto.wallet"].sudo()
-        wallet = Wallet.get_user_wallet_or_create()
+        wallet = Wallet.get_user_wallet_or_create(user_id=real_uid)
         for key_name in (
             NRA_WALLET_KEY_API_KEY,
             NRA_WALLET_KEY_API_SECRET,
@@ -386,8 +396,9 @@ class ResCompany(models.Model):
     def action_nra_clear_token(self):
         """Clear the cached NRA API token from wallet."""
         self.ensure_one()
+        real_uid = self.env.user.id  # capture before sudo
         Wallet = self.env["crypto.wallet"].sudo()
-        wallet = Wallet.get_user_wallet_or_create()
+        wallet = Wallet.get_user_wallet_or_create(user_id=real_uid)
         try:
             wallet.remove_key_with_user_password(NRA_WALLET_KEY_ACCESS_TOKEN)
         except Exception:

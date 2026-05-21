@@ -34,6 +34,7 @@ from lxml import html as lxml_html
 import odoo
 from odoo import SUPERUSER_ID, api, http
 from odoo.addons.web.controllers.database import Database
+from odoo.tools import config
 
 _logger = logging.getLogger(__name__)
 
@@ -478,14 +479,66 @@ def _background_install(dbname):
                     "on %s", dbname,
                 )
 
-        # NB: Extra modules от odoo.conf бяха предложени, но Rosen
-        # реши: "не местим в конфига; visualizardят виртуално кликва"
-        # — целият install flow трябва да минава през стандартния
-        # l10n.bg.vertical (V0-V12), който onboarding-ът автоматично
-        # проходва. Тук правим само l10n_bg cascade (4 модула: l10n_bg,
-        # l10n_bg_config, l10n_bg_db_installer, l10n_bg_onboarding);
-        # останалите 25+ модула от plan-а install-ват се от
-        # onboarding_action.js._maybeAutoInstall (auto-progression).
+        # Допълнителни модули от odoo.conf [l10n_bg_onboarding] секция.
+        # Това е extension hook — Rosen: "освен модулите на wizard-а
+        # искам да зареждаш допълнително и модулите от конфига". Plan-а
+        # (V0-V12) install-ва BG-специфичните модули; config extras
+        # покрива общи Odoo модули за демо setup-и (sale, purchase, crm,
+        # mrp, pos, и т.н.). Pattern в odoo.conf:
+        #   [l10n_bg_onboarding]
+        #   extra_modules = sale_management,purchase,crm,mrp,point_of_sale
+        extras_raw = ""
+        try:
+            extras_raw = (
+                config.misc.get("l10n_bg_onboarding", {})
+                .get("extra_modules", "")
+                or ""
+            )
+        except Exception:  # noqa: BLE001
+            _logger.exception(
+                "l10n_bg_db_installer: reading [l10n_bg_onboarding] "
+                "from odoo.conf failed"
+            )
+        extras = [m.strip() for m in extras_raw.split(",") if m.strip()]
+        if extras:
+            _set_status(
+                dbname, "running",
+                f"Installing extras from odoo.conf: "
+                f"{', '.join(extras)}...",
+            )
+            try:
+                registry = odoo.modules.registry.Registry(dbname)
+                with registry.cursor() as cr:
+                    env = api.Environment(cr, SUPERUSER_ID, {})
+                    M = env["ir.module.module"].sudo()
+                    M.update_list()
+                    extra_mods = M.search(
+                        [
+                            ("name", "in", extras),
+                            (
+                                "state", "in",
+                                ("uninstalled", "to install"),
+                            ),
+                        ]
+                    )
+                    missing = set(extras) - set(extra_mods.mapped("name"))
+                    if missing:
+                        _logger.warning(
+                            "l10n_bg_db_installer: extras not found "
+                            "or already installed: %s",
+                            sorted(missing),
+                        )
+                    if extra_mods:
+                        extra_mods.button_immediate_install()
+                        _logger.info(
+                            "l10n_bg_db_installer: installed extras: %s",
+                            extra_mods.mapped("name"),
+                        )
+            except Exception:  # noqa: BLE001
+                _logger.exception(
+                    "l10n_bg_db_installer: extras install failed on %s",
+                    dbname,
+                )
 
         _set_status(dbname, "ready", "Installation complete")
         _logger.info(

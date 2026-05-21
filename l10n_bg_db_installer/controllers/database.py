@@ -623,39 +623,71 @@ def _background_install(dbname):
                 f"Installing extras from odoo.conf: "
                 f"{', '.join(extras)}...",
             )
-            try:
-                registry = odoo.modules.registry.Registry(dbname)
-                with registry.cursor() as cr:
-                    env = api.Environment(cr, SUPERUSER_ID, {})
-                    M = env["ir.module.module"].sudo()
-                    M.update_list()
-                    extra_mods = M.search(
-                        [
-                            ("name", "in", extras),
-                            (
-                                "state", "in",
-                                ("uninstalled", "to install"),
-                            ),
-                        ]
-                    )
-                    missing = set(extras) - set(extra_mods.mapped("name"))
-                    if missing:
+            # Същия retry pattern като l10n_bg cascade — cron lock може
+            # да хване и extras install (нов wave от crons стартира при
+            # registry reload след cascade-а).
+            extras_max_retries = 20
+            for ex_attempt in range(extras_max_retries):
+                try:
+                    registry = odoo.modules.registry.Registry(dbname)
+                    with registry.cursor() as cr:
+                        env = api.Environment(cr, SUPERUSER_ID, {})
+                        M = env["ir.module.module"].sudo()
+                        extra_mods = M.search(
+                            [
+                                ("name", "in", extras),
+                                (
+                                    "state", "in",
+                                    ("uninstalled", "to install"),
+                                ),
+                            ]
+                        )
+                        missing = (
+                            set(extras) - set(extra_mods.mapped("name"))
+                        )
+                        if missing:
+                            _logger.warning(
+                                "l10n_bg_db_installer: extras not found "
+                                "or already installed: %s",
+                                sorted(missing),
+                            )
+                        if extra_mods:
+                            _logger.info(
+                                "l10n_bg_db_installer: installing "
+                                "extras: %s (attempt %d)",
+                                extra_mods.mapped("name"), ex_attempt + 1,
+                            )
+                            extra_mods.button_immediate_install()
+                    break  # success
+                except (
+                    psycopg2.errors.SerializationFailure,
+                    psycopg2.errors.InFailedSqlTransaction,
+                ) as exc:
+                    if ex_attempt + 1 < extras_max_retries:
+                        _set_status(
+                            dbname, "running",
+                            f"Extras: cron busy, waiting "
+                            f"({ex_attempt + 1}/{extras_max_retries})...",
+                        )
                         _logger.warning(
-                            "l10n_bg_db_installer: extras not found "
-                            "or already installed: %s",
-                            sorted(missing),
+                            "l10n_bg_db_installer: extras cron lock "
+                            "(%s) on %s (attempt %d) — retry in 3s",
+                            type(exc).__name__, dbname, ex_attempt + 1,
                         )
-                    if extra_mods:
-                        extra_mods.button_immediate_install()
-                        _logger.info(
-                            "l10n_bg_db_installer: installed extras: %s",
-                            extra_mods.mapped("name"),
-                        )
-            except Exception:  # noqa: BLE001
-                _logger.exception(
-                    "l10n_bg_db_installer: extras install failed on %s",
-                    dbname,
-                )
+                        time.sleep(3)
+                        continue
+                    _logger.exception(
+                        "l10n_bg_db_installer: extras install failed "
+                        "on %s after %d attempts",
+                        dbname, extras_max_retries,
+                    )
+                    break
+                except Exception:  # noqa: BLE001 — други грешки → log + skip
+                    _logger.exception(
+                        "l10n_bg_db_installer: extras install failed "
+                        "on %s", dbname,
+                    )
+                    break
 
         # Финален hook: дай на admin user-а ВСИЧКИ съдържателни групи
         # на инсталираните модули. ВНИМАНИЕ: portal/public/share групи

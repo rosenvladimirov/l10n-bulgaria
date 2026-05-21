@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
+    <!-- Root label is 'Hardware Fleet' so it doesn't collide with the
+         vehicle Fleet app (Odoo core fleet.* module). The XML id stays
+         `menu_root_fleet` for stability — other plugins (polimex,
+         bus_inject) reference it as parent. -->
     <menuitem id="menu_root_fleet"
-              name="Fleet"
+              name="Hardware Fleet"
               groups="l10n_bg_erp_net_fp_fleet.group_fleet_user"
               web_icon="l10n_bg_erp_net_fp_fleet,static/description/icon.png"
               sequence="95"/>

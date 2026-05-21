@@ -73,58 +73,273 @@ _BG_FIELDS_HTML = """
 </div>
 """
 
-# Progress page — JS poller извиква /web/database/l10n_bg_install_status
-# на всеки 2s. При status='ready' → redirect; при 'error' → червен bar.
-_PROGRESS_HTML = """<!DOCTYPE html>
+# Progress page — self-contained, без external CSS (някои Odoo 19
+# Bootstrap paths не работят за nodb routes). JS poller извиква
+# /web/database/l10n_bg_install_status на всеки ~1.5s. При status='ready'
+# → confetti + redirect; при 'error' → червен bar.
+_PROGRESS_HTML = r"""<!DOCTYPE html>
 <html><head>
 <meta charset="utf-8"/>
-<title>Setting up Bulgarian Odoo localization...</title>
-<link rel="stylesheet" href="/web/static/lib/bootstrap/dist/css/bootstrap.min.css"/>
-<style>body{padding:3rem 1rem;max-width:680px;margin:auto}</style>
+<title>Bulgarian Odoo Setup</title>
+<style>
+:root {
+  --bg-white: #ffffff;
+  --bg-green: #00966E;
+  --bg-red:   #D62718;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+  background: linear-gradient(135deg, #f6f8fa 0%, #fff 50%, #f1f5fa 100%);
+  margin: 0; padding: 2rem 1rem; min-height: 100vh;
+  color: #2c2c2c;
+}
+.flag-stripe {
+  position: fixed; top: 0; left: 0; right: 0; height: 8px;
+  background: linear-gradient(to right,
+    var(--bg-white) 0% 33%,
+    var(--bg-green) 33% 66%,
+    var(--bg-red)   66% 100%);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  z-index: 1000;
+}
+.container {
+  max-width: 680px; margin: 2rem auto 0;
+  background: white; border-radius: 16px;
+  padding: 2rem 2.2rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.07);
+}
+h1 {
+  margin: 0 0 0.3rem; font-size: 1.45rem; font-weight: 700;
+  background: linear-gradient(135deg, var(--bg-green) 0%, var(--bg-red) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.subtitle { color: #999; font-size: 0.88rem; margin: 0 0 1.5rem; }
+.dbname { font-family: ui-monospace, monospace;
+  background: #f3f4f6; padding: 2px 8px; border-radius: 5px;
+  font-size: 0.85rem; }
+.modules {
+  display: flex; gap: 0.6rem; justify-content: center; margin: 1.4rem 0;
+  flex-wrap: wrap;
+}
+.module {
+  width: 90px; padding: 0.7rem 0.4rem;
+  background: white; border: 2px solid #e8eaef;
+  border-radius: 12px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4px; font-size: 0.68rem; color: #888;
+  transition: all 0.4s cubic-bezier(.34,1.56,.64,1);
+  position: relative;
+}
+.module .icon { font-size: 1.9rem; line-height: 1; filter: grayscale(0.5); transition: filter .4s; }
+.module.active {
+  border-color: var(--bg-green);
+  background: #fafffd;
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(0,150,110,0.18);
+  color: #00966E;
+  font-weight: 600;
+}
+.module.active .icon { filter: none; animation: bounce 0.55s ease infinite alternate; }
+.module.done {
+  border-color: var(--bg-green); background: #e9f8f3;
+  color: #00966E; font-weight: 600;
+}
+.module.done .icon { filter: none; }
+.module.done::after {
+  content: "✓"; position: absolute; top: -8px; right: -8px;
+  width: 22px; height: 22px; background: var(--bg-green); color: white;
+  border-radius: 50%; font-size: 0.85rem; font-weight: bold;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,150,110,0.4);
+}
+@keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-9px); } }
+
+.progress-wrap {
+  background: #eef1f4; border-radius: 999px; height: 14px;
+  overflow: hidden; margin: 1.3rem 0; position: relative;
+}
+.progress {
+  height: 100%; width: 4%;
+  transition: width 0.8s ease-out;
+  background: linear-gradient(90deg,
+    var(--bg-white) 0%,
+    var(--bg-green) 40%,
+    var(--bg-red)   80%);
+  background-size: 220% 100%;
+  animation: shimmer 2.4s linear infinite;
+  border-radius: 999px;
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.08);
+}
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: 0% 0; } }
+
+#status {
+  text-align: center; font-weight: 500; margin: 1rem 0;
+  min-height: 1.5rem; color: #555;
+}
+.spinner {
+  display: inline-block; width: 14px; height: 14px;
+  border: 2px solid #e0e0e0; border-top-color: var(--bg-green);
+  border-radius: 50%; animation: spin 0.7s linear infinite;
+  margin-right: 0.6rem; vertical-align: middle;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.log {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.78rem;
+  background: #fafbfc;
+  border-left: 3px solid var(--bg-green);
+  padding: 0.7rem 1rem; margin-top: 1.2rem;
+  max-height: 180px; overflow-y: auto; border-radius: 6px;
+}
+.log-entry { margin: 0.25rem 0; line-height: 1.4; }
+.log-time { color: #b8bcc4; }
+.log-msg { color: #3a3a3a; }
+
+.confetti {
+  position: fixed; top: -20px; font-size: 1.6rem;
+  pointer-events: none; animation: fall linear forwards;
+  z-index: 999; user-select: none;
+}
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+.flag-wave {
+  position: fixed; bottom: 1.2rem; right: 1.5rem; font-size: 3rem;
+  animation: wave 1.8s ease-in-out infinite alternate;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.12));
+}
+@keyframes wave {
+  0%   { transform: rotate(-7deg) translateY(0); }
+  100% { transform: rotate(7deg) translateY(-4px); }
+}
+</style>
 </head><body>
-<h3>Setting up your Bulgarian Odoo database</h3>
-<p class="text-muted">Database: <code>__DBNAME__</code></p>
-<div class="progress my-4" style="height:1.5rem">
-  <div id="bar" class="progress-bar progress-bar-striped progress-bar-animated bg-primary" style="width:100%">Installing modules...</div>
+<div class="flag-stripe"></div>
+<div class="container">
+  <h1>🇧🇬 Setting up your Bulgarian Odoo</h1>
+  <p class="subtitle">Database: <span class="dbname">__DBNAME__</span></p>
+
+  <div class="modules">
+    <div class="module" data-mod="l10n_bg">
+      <div class="icon">📊</div><span>l10n_bg</span>
+    </div>
+    <div class="module" data-mod="l10n_bg_config">
+      <div class="icon">⚙️</div><span>config</span>
+    </div>
+    <div class="module" data-mod="l10n_bg_db_installer">
+      <div class="icon">🪄</div><span>installer</span>
+    </div>
+    <div class="module" data-mod="l10n_bg_onboarding">
+      <div class="icon">🎓</div><span>onboarding</span>
+    </div>
+  </div>
+
+  <div class="progress-wrap"><div class="progress" id="bar"></div></div>
+  <div id="status"><span class="spinner"></span>Starting installation...</div>
+
+  <div class="log" id="log"></div>
 </div>
-<pre id="log" class="bg-light p-3 small" style="max-height:280px;overflow:auto"></pre>
-<p id="status" class="text-info">Starting installation...</p>
+<div class="flag-wave">🇧🇬</div>
+
 <script>
 const dbname = "__DBNAME__";
+const MODS = ["l10n_bg", "l10n_bg_config", "l10n_bg_db_installer", "l10n_bg_onboarding"];
+// stage detection — съчетава message текст в progressing.
+const STAGES = [
+  { match: "starting",        pct:  5, mod:  null },
+  { match: "Updating module", pct: 18, mod: "l10n_bg" },
+  { match: "Installing l10n_bg", pct: 65, mod: "l10n_bg_config" },
+  { match: "Applying VAT",    pct: 92, mod: "l10n_bg_db_installer" },
+  { match: "complete",        pct:100, mod: "l10n_bg_onboarding" },
+];
 const logEl = document.getElementById("log");
 const statusEl = document.getElementById("status");
 const barEl = document.getElementById("bar");
 let lastMsg = "";
-function append(msg){
-  if (msg && msg !== lastMsg){
-    const t = new Date().toLocaleTimeString();
-    logEl.textContent += "[" + t + "] " + msg + "\\n";
-    logEl.scrollTop = logEl.scrollHeight;
-    lastMsg = msg;
+
+function append(msg) {
+  if (!msg || msg === lastMsg) return;
+  lastMsg = msg;
+  const t = new Date().toLocaleTimeString();
+  const e = document.createElement("div");
+  e.className = "log-entry";
+  const tEl = document.createElement("span");
+  tEl.className = "log-time"; tEl.textContent = "[" + t + "] ";
+  const mEl = document.createElement("span");
+  mEl.className = "log-msg"; mEl.textContent = msg;
+  e.appendChild(tEl); e.appendChild(mEl);
+  logEl.appendChild(e);
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+function updateStage(msg, status) {
+  let stage = null;
+  for (const s of STAGES) {
+    if (msg && msg.toLowerCase().indexOf(s.match.toLowerCase()) !== -1) {
+      stage = s;
+    }
+  }
+  if (status === "ready") stage = STAGES[STAGES.length - 1];
+  if (!stage) return;
+  barEl.style.width = stage.pct + "%";
+  const idx = stage.mod ? MODS.indexOf(stage.mod) : -1;
+  MODS.forEach((m, i) => {
+    const el = document.querySelector('[data-mod="' + m + '"]');
+    if (!el) return;
+    el.classList.remove("active", "done");
+    if (status === "ready" || i < idx) el.classList.add("done");
+    else if (i === idx) el.classList.add("active");
+  });
+}
+
+function celebrate() {
+  const emojis = ["🎉", "🎊", "✨", "🇧🇬", "💎", "⭐", "🌟"];
+  for (let i = 0; i < 60; i++) {
+    setTimeout(function () {
+      const c = document.createElement("div");
+      c.className = "confetti";
+      c.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      c.style.left = Math.random() * 100 + "vw";
+      c.style.animationDuration = (1.8 + Math.random() * 3) + "s";
+      document.body.appendChild(c);
+      setTimeout(function () { c.remove(); }, 5500);
+    }, i * 55);
   }
 }
-function poll(){
+
+function poll() {
   fetch("/web/database/l10n_bg_install_status?dbname=" + encodeURIComponent(dbname))
-    .then(r => r.json())
-    .then(d => {
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
       const s = (d && d.status) || "unknown";
       const m = (d && d.message) || "";
-      statusEl.textContent = m || s;
       append(m);
-      if (s === "ready"){
-        barEl.classList.remove("progress-bar-animated", "bg-primary");
-        barEl.classList.add("bg-success");
-        barEl.textContent = "Done!";
-        setTimeout(() => window.location = "/odoo?db=" + encodeURIComponent(dbname), 1200);
-      } else if (s === "error"){
-        barEl.classList.remove("progress-bar-animated", "bg-primary");
-        barEl.classList.add("bg-danger");
-        barEl.textContent = "Failed";
+      updateStage(m, s);
+      if (s === "ready") {
+        statusEl.innerHTML = "🎉 All set! Redirecting to your fresh Odoo...";
+        celebrate();
+        setTimeout(function () {
+          window.location = "/odoo?db=" + encodeURIComponent(dbname);
+        }, 2800);
+      } else if (s === "error") {
+        statusEl.innerHTML = "❌ " + (m || "Installation failed");
+        barEl.style.background = "var(--bg-red)";
+        barEl.style.animation = "none";
       } else {
-        setTimeout(poll, 2000);
+        const span = document.createElement("span");
+        span.className = "spinner";
+        statusEl.innerHTML = "";
+        statusEl.appendChild(span);
+        statusEl.appendChild(document.createTextNode(m || s));
+        setTimeout(poll, 1500);
       }
     })
-    .catch(() => setTimeout(poll, 5000));
+    .catch(function () { setTimeout(poll, 4000); });
 }
 poll();
 </script>

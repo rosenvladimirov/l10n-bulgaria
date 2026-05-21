@@ -327,6 +327,27 @@ class ErpNetFpProxy(models.Model):
             "payload_json": _json.dumps(payload or {}),
         })
 
+    @api.model
+    def _enqueue_push_config(self, base_url, payload):
+        """Soft-API за access-control модулите (lpr.camera.config /
+        lpr.access.controller `action_sync_config_to_proxy`).
+
+        Намира прокси по неговия `url` и слага `push_config` команда
+        на опашката му (бавния pull/heartbeat remote-mgmt path).
+        Връща командата (truthy) или False ако няма съответстващо
+        прокси. Извикващият НЕ зависи от този модул (HTTP-decoupled,
+        soft hasattr-guard от негова страна) → нула copyleft връзка.
+        """
+        target = (base_url or "").rstrip("/")
+        if not target:
+            return False
+        proxy = self.search([("url", "!=", False)]).filtered(
+            lambda p: (p.url or "").rstrip("/") == target
+        )[:1]
+        if not proxy:
+            return False
+        return proxy._enqueue_command("push_config", payload or {})
+
     def _command_queued_notification(self, kind_label: str):
         """Standard 'Queued' toast — shown after enqueueing a command."""
         return {

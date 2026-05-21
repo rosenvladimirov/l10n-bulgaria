@@ -29,6 +29,7 @@ _KIND_LABELS = [
     ("self_update", "Self-update (compose pull + recreate)"),
     ("get_logs", "Fetch /admin/logs"),
     ("program_vat", "Program VAT rates"),
+    ("push_config", "Push device configuration"),
 ]
 
 

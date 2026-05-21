@@ -179,11 +179,18 @@ class ErpNetFpProxy(models.Model):
     device_ids = fields.One2many(
         "erpnet.fp.proxy.device", "proxy_id", string="Devices",
     )
+    config_template_ids = fields.One2many(
+        "erpnet.fp.proxy.config.template", "proxy_id",
+        string="Config Templates",
+    )
     pending_command_count = fields.Integer(
         compute="_compute_pending_command_count", store=False,
     )
     device_count = fields.Integer(
         compute="_compute_device_count", store=False,
+    )
+    config_template_count = fields.Integer(
+        compute="_compute_config_template_count", store=False,
     )
 
     _sql_constraints = [
@@ -274,6 +281,24 @@ class ErpNetFpProxy(models.Model):
     def _compute_device_count(self):
         for rec in self:
             rec.device_count = len(rec.device_ids.filtered("active"))
+
+    @api.depends("config_template_ids", "config_template_ids.active")
+    def _compute_config_template_count(self):
+        for rec in self:
+            rec.config_template_count = len(
+                rec.config_template_ids.filtered("active"))
+
+    # Quick navigation from the smart button on the proxy form.
+    def action_open_config_templates(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Config Templates"),
+            "res_model": "erpnet.fp.proxy.config.template",
+            "view_mode": "kanban,list,form",
+            "domain": [("proxy_id", "=", self.id)],
+            "context": {"default_proxy_id": self.id},
+        }
 
     # ─── Admin token helpers ────────────────────────────────────
 

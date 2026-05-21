@@ -84,8 +84,9 @@
                             confirm="Forget the registry secret + admin token? The proxy will need to re-pair."
                             invisible="state == 'draft'"
                             groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
-                    <!-- Push config — soft-resolves the source model per kind.
-                         Hidden in draft because the proxy hasn't paired yet. -->
+                    <!-- Bulk push — kept on the header because it spans
+                         all four AC fragments. The per-kind pushes are
+                         smart-buttons in the box below. -->
                     <button name="action_push_config_all"
                             type="object"
                             string="Push All Config"
@@ -93,31 +94,57 @@
                             invisible="state != 'active'"
                             groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"
                             help="Push every AC fragment (cameras/access/mqtt/biometric) whose source model is installed."/>
-                    <button name="action_push_config_mqtt"
-                            type="object"
-                            string="Push MQTT"
-                            invisible="state != 'active'"
-                            groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
-                    <button name="action_push_config_cameras"
-                            type="object"
-                            string="Push Cameras"
-                            invisible="state != 'active'"
-                            groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
-                    <button name="action_push_config_access"
-                            type="object"
-                            string="Push Access"
-                            invisible="state != 'active'"
-                            groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
-                    <button name="action_push_config_biometric"
-                            type="object"
-                            string="Push Biometric"
-                            invisible="state != 'active'"
-                            groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager"/>
                     <field name="state" widget="statusbar"
                            statusbar_visible="draft,pairing,active"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
+                        <!-- Per-kind push smart buttons (G1). Soft-resolves
+                             source model; UserError if the source module
+                             isn't installed yet. -->
+                        <button name="action_push_config_mqtt" type="object"
+                                class="oe_stat_button" icon="fa-cloud-upload"
+                                invisible="state != 'active'"
+                                groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Push</span>
+                                <span class="o_stat_value">MQTT</span>
+                            </div>
+                        </button>
+                        <button name="action_push_config_cameras" type="object"
+                                class="oe_stat_button" icon="fa-video-camera"
+                                invisible="state != 'active'"
+                                groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Push</span>
+                                <span class="o_stat_value">Cameras</span>
+                            </div>
+                        </button>
+                        <button name="action_push_config_access" type="object"
+                                class="oe_stat_button" icon="fa-key"
+                                invisible="state != 'active'"
+                                groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Push</span>
+                                <span class="o_stat_value">Access</span>
+                            </div>
+                        </button>
+                        <button name="action_push_config_biometric" type="object"
+                                class="oe_stat_button" icon="fa-user"
+                                invisible="state != 'active'"
+                                groups="l10n_bg_erp_net_fp_fleet.group_fleet_manager">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Push</span>
+                                <span class="o_stat_value">Biometric</span>
+                            </div>
+                        </button>
+                        <button name="action_open_config_templates"
+                                type="object"
+                                class="oe_stat_button" icon="fa-file-code-o"
+                                groups="l10n_bg_erp_net_fp_fleet.group_fleet_user">
+                            <field name="config_template_count" widget="statinfo"
+                                   string="Templates"/>
+                        </button>
                         <button name="action_archive_proxy" type="object"
                                 class="oe_stat_button" icon="fa-archive"
                                 invisible="state == 'archived'"

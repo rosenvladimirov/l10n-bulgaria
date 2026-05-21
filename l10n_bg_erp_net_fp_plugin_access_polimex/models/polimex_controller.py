@@ -44,8 +44,8 @@ class PolimexController(models.Model):
 
     name = fields.Char(
         required=True, tracking=True,
-        help="Operator-friendly label, e.g. 'Front Gate' or 'BL office "
-             "entrance'.",
+        help="Operator-friendly label, e.g. 'Front Gate' or 'Warehouse "
+             "side entrance'.",
     )
     active = fields.Boolean(default=True, tracking=True)
     proxy_id = fields.Many2one(

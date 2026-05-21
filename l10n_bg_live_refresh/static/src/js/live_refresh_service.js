@@ -23,10 +23,41 @@ import { registry } from "@web/core/registry";
  * to work — bus_service multiplexes subscribers — but the recommended
  * path is the env.bus event above.
  */
-const liveRefreshService = {
-    dependencies: ["bus_service"],
+// Per-event-type → toast notification class. Maps the proxy_push_schema
+// type vocabulary onto Odoo notification kinds + a short headline.
+const _TOAST_KIND = {
+    "door.opened":    {kind: "success", title: "🚪 Door opened"},
+    "door.denied":    {kind: "danger",  title: "🚫 Access denied"},
+    "door.sensor":    {kind: "info",    title: "Door state"},
+    "card.read":      {kind: "info",    title: "💳 Card scanned"},
+    "plate.detected": {kind: "info",    title: "🚗 Plate seen"},
+    "plate.injected": {kind: "info",    title: "🧪 Plate (test)"},
+    "button.pressed": {kind: "info",    title: "🔘 Exit button"},
+    "barrier.changed": {kind: "info",   title: "🚧 Barrier"},
+    "controller.heartbeat":   {kind: "info",    title: "📡 Heartbeat"},
+    "controller.unreachable": {kind: "warning", title: "📡 Controller unreachable"},
+    "mqtt.message":   {kind: "info",    title: "📨 MQTT"},
+    "biometric.match": {kind: "success", title: "🧬 Face matched"},
+};
 
-    start(env, { bus_service }) {
+function _formatProxyEvent(envelope) {
+    const {type, source = {}, data = {}} = envelope || {};
+    const meta = _TOAST_KIND[type] || {kind: "info", title: type};
+    const parts = [];
+    if (source.proxy) parts.push(source.proxy);
+    if (source.device) parts.push(source.device);
+    // Pick a couple of recognisable data fields if present.
+    if (data.plate) parts.push(`plate=${data.plate}`);
+    if (data.card_id) parts.push(`card=${data.card_id}`);
+    if (data.state) parts.push(`state=${data.state}`);
+    if (data.reason) parts.push(`reason=${data.reason}`);
+    return {kind: meta.kind, title: meta.title, message: parts.join(" · ") || type};
+}
+
+const liveRefreshService = {
+    dependencies: ["bus_service", "notification"],
+
+    start(env, { bus_service, notification }) {
         // ─── Legacy live-refresh channels ───────────────────────
         bus_service.subscribe("live_refresh/record", (payload) => {
             env.bus.trigger("LIVE_REFRESH", payload);
@@ -48,8 +79,23 @@ const liveRefreshService = {
         // Routed as a single "PROXY_EVENT" event; handlers switch on
         // `detail.type`. Keeps the bus channel surface minimal — adding
         // a new event type doesn't require a new subscription.
+        //
+        // ALSO emits a global toast notification with a sensible
+        // type→kind mapping (see _TOAST_KIND above). The visible toast
+        // is independent of any open view — operators see live events
+        // from every Odoo tab without opening a specific dashboard.
         bus_service.subscribe("erpnet_fp_proxy_events", (payload) => {
             env.bus.trigger("PROXY_EVENT", payload);
+            try {
+                const t = _formatProxyEvent(payload);
+                notification.add(t.message, {
+                    title: t.title,
+                    type: t.kind,
+                    sticky: false,
+                });
+            } catch (e) {
+                console.warn("PROXY_EVENT toast suppressed:", e);
+            }
         });
     },
 };

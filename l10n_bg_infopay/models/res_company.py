@@ -136,7 +136,7 @@ class ResCompany(models.Model):
         token owner via sudo.  ``label`` only colours error messages.
         """
         self.ensure_one()
-        Wallet = self.env["crypto.wallet"]
+        Wallet = self.env["crypto.wallet"].sudo()
 
         user_wallet = Wallet.search([
             ("user_id", "=", self.env.user.id),

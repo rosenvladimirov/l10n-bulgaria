@@ -89,7 +89,7 @@ class ResCompany(models.Model):
         :param user_signature: Base64 encoded user certificate (КЕП)
         """
         self.ensure_one()
-        Wallet = self.env["crypto.wallet"]
+        Wallet = self.env["crypto.wallet"].sudo()
         wallet = Wallet.get_user_wallet_or_create()
 
         # Remove old keys if they exist
@@ -137,7 +137,7 @@ class ResCompany(models.Model):
         :raises UserError: if credentials not found
         """
         self.ensure_one()
-        Wallet = self.env["crypto.wallet"]
+        Wallet = self.env["crypto.wallet"].sudo()
 
         # Try current user's wallet first
         user_wallet = Wallet.search(
@@ -203,7 +203,7 @@ class ResCompany(models.Model):
         :raises UserError: if credentials not found
         """
         self.ensure_one()
-        Wallet = self.env["crypto.wallet"]
+        Wallet = self.env["crypto.wallet"].sudo()
 
         # Try current user's wallet first
         for wallet_search in [
@@ -251,7 +251,7 @@ class ResCompany(models.Model):
 
         # Try wallet storage first
         try:
-            Wallet = self.env["crypto.wallet"]
+            Wallet = self.env["crypto.wallet"].sudo()
             wallet = Wallet.get_user_wallet_or_create()
             for key_name in (NRA_WALLET_KEY_API_KEY, NRA_WALLET_KEY_ACCESS_TOKEN):
                 try:
@@ -304,7 +304,7 @@ class ResCompany(models.Model):
 
         # Try wallet first, fall back to ir.config_parameter
         try:
-            Wallet = self.env["crypto.wallet"]
+            Wallet = self.env["crypto.wallet"].sudo()
             wallet = Wallet.get_user_wallet_or_create()
             try:
                 wallet.remove_key_with_user_password(NRA_WALLET_KEY_ACCESS_TOKEN)
@@ -340,7 +340,7 @@ class ResCompany(models.Model):
         ):
             return False
 
-        Wallet = self.env["crypto.wallet"]
+        Wallet = self.env["crypto.wallet"].sudo()
 
         # Try current user's wallet
         user_wallet = Wallet.search(
@@ -400,7 +400,7 @@ class ResCompany(models.Model):
     def _nra_clear_credentials(self):
         """Remove all NRA credentials from wallet."""
         self.ensure_one()
-        Wallet = self.env["crypto.wallet"]
+        Wallet = self.env["crypto.wallet"].sudo()
         wallet = Wallet.get_user_wallet_or_create()
         for key_name in (
             NRA_WALLET_KEY_API_KEY,
@@ -470,7 +470,7 @@ class ResCompany(models.Model):
     def action_nra_clear_token(self):
         """Clear the cached NRA API token from wallet."""
         self.ensure_one()
-        Wallet = self.env["crypto.wallet"]
+        Wallet = self.env["crypto.wallet"].sudo()
         wallet = Wallet.get_user_wallet_or_create()
         try:
             wallet.remove_key_with_user_password(NRA_WALLET_KEY_ACCESS_TOKEN)

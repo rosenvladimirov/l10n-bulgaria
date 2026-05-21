@@ -157,7 +157,7 @@ class NraCredentialsWizard(models.TransientModel):
                     NRA_WALLET_KEY_USER_PIN,
                     NRA_WALLET_KEY_USER_SIGNATURE,
                 )
-                Wallet = self.env["crypto.wallet"]
+                Wallet = self.env["crypto.wallet"].sudo()
                 wallet = Wallet.get_user_wallet_or_create()
                 if self.user_pin:
                     try:

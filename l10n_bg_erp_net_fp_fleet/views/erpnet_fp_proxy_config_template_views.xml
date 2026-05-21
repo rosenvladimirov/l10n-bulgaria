@@ -17,34 +17,34 @@
                 <field name="last_pushed_at"/>
                 <field name="active"/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
-                            <div class="o_kanban_record_top">
-                                <div class="o_kanban_record_headings">
-                                    <strong class="o_kanban_record_title">
-                                        <field name="name"/>
-                                    </strong>
-                                    <div class="o_kanban_record_subtitle text-muted">
-                                        <field name="proxy_id"/>
-                                    </div>
-                                </div>
-                                <div>
-                                    <span t-if="record.sync_status.raw_value == 'in_sync'"
-                                          class="badge text-bg-success">in sync</span>
-                                    <span t-if="record.sync_status.raw_value == 'out_of_sync'"
-                                          class="badge text-bg-warning">drift</span>
-                                    <span t-if="record.sync_status.raw_value == 'never'"
-                                          class="badge text-bg-secondary">never</span>
+                    <!-- Odoo 19 kanban uses <t t-name="card"> as the
+                         single record template (renamed from
+                         "kanban-box" in v18). The wrapper div is no
+                         longer needed — the renderer wraps for us. -->
+                    <t t-name="card">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <strong><field name="name"/></strong>
+                                <div class="text-muted small">
+                                    <field name="proxy_id"/>
                                 </div>
                             </div>
-                            <div class="o_kanban_record_body">
-                                <small t-if="record.last_pushed_at.raw_value">
-                                    Pushed <field name="last_pushed_at" widget="relative"/>
-                                </small>
-                                <small t-if="!record.last_pushed_at.raw_value" class="text-muted">
-                                    Not pushed yet
-                                </small>
+                            <div>
+                                <span t-if="record.sync_status.raw_value == 'in_sync'"
+                                      class="badge text-bg-success">in sync</span>
+                                <span t-if="record.sync_status.raw_value == 'out_of_sync'"
+                                      class="badge text-bg-warning">drift</span>
+                                <span t-if="record.sync_status.raw_value == 'never'"
+                                      class="badge text-bg-secondary">never</span>
                             </div>
+                        </div>
+                        <div class="mt-2">
+                            <small t-if="record.last_pushed_at.raw_value">
+                                Pushed <field name="last_pushed_at" widget="relative"/>
+                            </small>
+                            <small t-if="!record.last_pushed_at.raw_value" class="text-muted">
+                                Not pushed yet
+                            </small>
                         </div>
                     </t>
                 </templates>

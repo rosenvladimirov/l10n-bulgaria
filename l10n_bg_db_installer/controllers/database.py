@@ -570,27 +570,32 @@ class L10nBgDatabase(Database):
             )
             if not forms:
                 return response
-            frag = lxml_html.fragment_fromstring(
-                _BG_FIELDS_HTML, create_parent="div"
-            )
-            bg_rows = list(frag)
-            # Намери row-а с country_code select-а и вмъкни BG полетата
-            # СЛЕД него, ПРЕДИ Demo Data row-а (Rosen 2026-05-20: „двете
-            # нови полета трябва да са преди демо датата след кънтри").
-            # addnext() слага immediate next sibling → за да запазим
-            # реда на двете BG полета iterate-ваме в обратен ред.
-            country_rows = forms[0].xpath(
-                './/div[contains(@class, "row")]'
-                '[.//*[@name="country_code"]]'
-            )
-            if country_rows:
-                anchor = country_rows[0]
-                for child in reversed(bg_rows):
-                    anchor.addnext(child)
-            else:
-                # Fallback (анкерът липсва) → в края на формата.
-                for child in bg_rows:
-                    forms[0].append(child)
+            # Odoo 19 DB manager-а рендерира ДВЕ форми за create:
+            # form 1 = top-level (показва се ако няма DB-та)
+            # form 2 = вътре в .modal-fade.o_database_create (Bootstrap
+            #   модал, отваря се с бутон "Create Database" при налични
+            #   DB-та). И двете трябва да имат BG полетата.
+            for form in forms:
+                frag = lxml_html.fragment_fromstring(
+                    _BG_FIELDS_HTML, create_parent="div"
+                )
+                bg_rows = list(frag)
+                # Намери row-а с country_code select-а и вмъкни BG
+                # полетата СЛЕД него, ПРЕДИ Demo Data row-а. addnext()
+                # слага immediate next sibling → за да запазим реда на
+                # двете BG полета iterate-ваме в обратен ред.
+                country_rows = form.xpath(
+                    './/div[contains(@class, "row")]'
+                    '[.//*[@name="country_code"]]'
+                )
+                if country_rows:
+                    anchor = country_rows[0]
+                    for child in reversed(bg_rows):
+                        anchor.addnext(child)
+                else:
+                    # Fallback (анкерът липсва) → в края на формата.
+                    for child in bg_rows:
+                        form.append(child)
             response.set_data(lxml_html.tostring(doc, encoding="unicode"))
         except Exception:  # noqa: BLE001 — UI nicety; не чупи manager-а
             _logger.exception(

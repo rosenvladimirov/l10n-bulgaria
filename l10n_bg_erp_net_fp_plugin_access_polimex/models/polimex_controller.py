@@ -230,8 +230,9 @@ class PolimexController(models.Model):
             else:
                 # SDK pull — proxy calls Polimex directly. Outbound
                 # auth is HTTP Basic with the SDK user/password.
-                entry["host"] = self.host or ""
-                entry["user"] = self.sdk_user or "sdk"
+                # Strip scheme/port — driver builds 'http://{host}' itself.
+                entry["host"] = self._bare_host()
+                entry["user"] = self.sdk_user or "admin"
                 entry["password"] = self.sdk_password or ""
             entries.append(entry)
         return entries

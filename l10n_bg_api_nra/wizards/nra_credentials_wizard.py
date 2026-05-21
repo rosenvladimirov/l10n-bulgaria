@@ -157,8 +157,9 @@ class NraCredentialsWizard(models.TransientModel):
                     NRA_WALLET_KEY_USER_PIN,
                     NRA_WALLET_KEY_USER_SIGNATURE,
                 )
+                real_uid = self.env.user.id  # capture before sudo
                 Wallet = self.env["crypto.wallet"].sudo()
-                wallet = Wallet.get_user_wallet_or_create()
+                wallet = Wallet.get_user_wallet_or_create(user_id=real_uid)
                 if self.user_pin:
                     try:
                         wallet.remove_key_with_user_password(NRA_WALLET_KEY_USER_PIN)

@@ -136,10 +136,12 @@ class ResCompany(models.Model):
         token owner via sudo.  ``label`` only colours error messages.
         """
         self.ensure_one()
+        # Под sudo self.env.user.id = SUPERUSER_ID; захвани реалния user.id ПРЕДИ.
+        real_uid = self.env.user.id
         Wallet = self.env["crypto.wallet"].sudo()
 
         user_wallet = Wallet.search([
-            ("user_id", "=", self.env.user.id),
+            ("user_id", "=", real_uid),
             ("name", "=", "System Keys"),
         ], limit=1)
         if user_wallet:
@@ -156,7 +158,7 @@ class ResCompany(models.Model):
                 "_l10n_bg_infopay_set_admin_credentials() to populate.",
                 self.name,
             ))
-        owner_wallet = Wallet.sudo().search([
+        owner_wallet = Wallet.search([
             ("user_id", "=", token_user.id),
             ("name", "=", "System Keys"),
         ], limit=1)

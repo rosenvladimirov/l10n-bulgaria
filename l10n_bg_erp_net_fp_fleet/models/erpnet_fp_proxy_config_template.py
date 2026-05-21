@@ -104,7 +104,10 @@ class ErpNetFpProxyConfigTemplate(models.Model):
         ("never",       "Never pushed"),
         ("in_sync",     "In sync"),
         ("out_of_sync", "Out of sync — record changed since last push"),
-    ], compute="_compute_sync_status", store=False)
+    ], compute="_compute_sync_status", store=True,
+        # Stored so search filters + group_by + kanban progressbar
+        # all work without a custom search method.
+    )
 
     display_name = fields.Char(compute="_compute_display_name")
 

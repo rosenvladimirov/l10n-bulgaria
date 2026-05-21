@@ -1,18 +1,15 @@
 /** @odoo-module **/
 
 /**
- * Auto-refresh listener for the ErpNet.FP Fleet kanban/list view.
+ * Fleet auto-refresh — handler for `FLEET_UPDATE` env.bus events
+ * dispatched by the central hub in `l10n_bg_live_refresh`.
  *
- * The server emits `fleet_update` events on the `erpnet_fp_fleet`
- * bus channel whenever a proxy heartbeats, auto-enrols, or gets
- * banned. This module subscribes to that channel and, when a hit
- * arrives, asks every open `erpnet.fp.proxy` view (kanban/list/form)
- * to reload its records.
- *
- * Throttled to one reload per 3 seconds so a fleet with hundreds of
- * heartbeating proxies doesn't hammer the browser. The trade-off is
- * worth it — admins want "is my new shop online?" feedback within
- * a minute, not real-time tick rate.
+ * The actual bus.bus channel subscription (`erpnet_fp_fleet`) lives in
+ * the live_refresh service (consolidated to avoid every plugin opening
+ * its own subscription). This service just listens for the env.bus
+ * relay event and asks every open `erpnet.fp.proxy` view to reload —
+ * throttled to ≤1 reload per 3 s so a fleet of hundreds of heartbeats
+ * doesn't hammer the browser.
  */
 
 import { registry } from "@web/core/registry";
@@ -20,13 +17,13 @@ import { registry } from "@web/core/registry";
 const _MIN_INTERVAL_MS = 3000;
 
 export const fleetAutorefreshService = {
-    dependencies: ["bus_service", "action"],
-    start(env, { bus_service, action }) {
+    dependencies: ["live_refresh", "action"],
+    start(env, _deps) {
         let _lastTick = 0;
         let _pending = null;
 
         const _reloadOpenFleetViews = () => {
-            // Throttle — collapse bursts of bus events into one reload.
+            // Throttle — collapse bursts of FLEET_UPDATE events into one reload.
             const now = Date.now();
             if (now - _lastTick < _MIN_INTERVAL_MS) {
                 if (_pending) return;
@@ -37,17 +34,10 @@ export const fleetAutorefreshService = {
                 return;
             }
             _lastTick = now;
-            // Fire a global event the controller picks up.
             env.bus.trigger("ROUTE_CHANGE_REQUEST_FLEET_RELOAD");
         };
 
-        bus_service.addChannel("erpnet_fp_fleet");
-        bus_service.addEventListener("notification", ({ detail }) => {
-            for (const { type, payload } of detail) {
-                if (type !== "fleet_update") continue;
-                _reloadOpenFleetViews();
-            }
-        });
+        env.bus.addEventListener("FLEET_UPDATE", _reloadOpenFleetViews);
     },
 };
 

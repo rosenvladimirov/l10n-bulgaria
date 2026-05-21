@@ -34,6 +34,7 @@ from lxml import html as lxml_html
 import odoo
 from odoo import SUPERUSER_ID, api, http
 from odoo.addons.web.controllers.database import Database
+from odoo.tools import config
 
 _logger = logging.getLogger(__name__)
 
@@ -407,12 +408,14 @@ def _background_install(dbname):
         # cursor — l10n_bg_config поста-installation вече дефинира
         # res.company.vat и l10n_bg_kid_codes полета.
         _set_status(dbname, "running", "Applying VAT/EIK + KID...")
+        vat_eik_for_fetch = ""
         registry = odoo.modules.registry.Registry(dbname)
         with registry.cursor() as cr:
             env = api.Environment(cr, SUPERUSER_ID, {})
             ICP = env["ir.config_parameter"].sudo()
             vat_eik = ICP.get_param(_ICP_PENDING_VAT) or ""
             kid = ICP.get_param(_ICP_PENDING_KID) or ""
+            vat_eik_for_fetch = vat_eik
             if vat_eik or kid:
                 company = env.ref(
                     "base.main_company", raise_if_not_found=False
@@ -430,6 +433,107 @@ def _background_install(dbname):
                 # с '' изтрива записа в Odoo 19 ir.config_parameter).
                 ICP.set_param(_ICP_PENDING_VAT, "")
                 ICP.set_param(_ICP_PENDING_KID, "")
+
+        # Auto Trade Register fetch — за registry_fetch стъпката на
+        # V0 (l10n.bg.vertical.step.registry_fetch=True). Това попълва
+        # company name/address/representative от търговския регистър по
+        # VAT/UIC, без user-ът да го прави ръчно през wizard-а после.
+        if vat_eik_for_fetch:
+            _set_status(
+                dbname, "running",
+                f"Fetching company data from Trade Register "
+                f"(VAT/UIC={vat_eik_for_fetch})...",
+            )
+            try:
+                registry = odoo.modules.registry.Registry(dbname)
+                with registry.cursor() as cr:
+                    env = api.Environment(cr, SUPERUSER_ID, {})
+                    Step = env["l10n.bg.vertical.step"].sudo()
+                    registry_step = Step.search(
+                        [
+                            ("registry_fetch", "=", True),
+                            ("done", "=", False),
+                        ],
+                        order="vertical_id, sequence, id",
+                        limit=1,
+                    )
+                    if registry_step:
+                        Wiz = env["l10n.bg.vertical.wizard"].sudo()
+                        wiz = Wiz.create(
+                            {
+                                "vertical_id": registry_step.vertical_id.id,
+                                "registry_vat_eik": vat_eik_for_fetch,
+                            }
+                        )
+                        wiz.action_registry_fetch()
+                        _logger.info(
+                            "l10n_bg_db_installer: Trade Register fetch "
+                            "OK for VAT=%s (step=%s)",
+                            vat_eik_for_fetch, registry_step.id,
+                        )
+            except Exception:  # noqa: BLE001 — fetch failure не блокира
+                _logger.exception(
+                    "l10n_bg_db_installer: Trade Register fetch failed "
+                    "on %s", dbname,
+                )
+
+        # Extra modules от odoo.conf [l10n_bg_onboarding] section.
+        # Pattern: tools.config.misc — dict от sections; всяка секция е
+        # dict от key/value. Пример odoo.conf:
+        #   [l10n_bg_onboarding]
+        #   extra_modules = l10n_bg_bank_wallet,l10n_bg_infopay,l10n_bg_hr
+        extras_raw = ""
+        try:
+            extras_raw = (
+                config.misc.get("l10n_bg_onboarding", {})
+                .get("extra_modules", "")
+                or ""
+            )
+        except Exception:  # noqa: BLE001
+            _logger.exception(
+                "l10n_bg_db_installer: reading [l10n_bg_onboarding] "
+                "from odoo.conf failed"
+            )
+        extras = [m.strip() for m in extras_raw.split(",") if m.strip()]
+        if extras:
+            _set_status(
+                dbname, "running",
+                f"Installing extra modules from odoo.conf: "
+                f"{', '.join(extras)}...",
+            )
+            try:
+                registry = odoo.modules.registry.Registry(dbname)
+                with registry.cursor() as cr:
+                    env = api.Environment(cr, SUPERUSER_ID, {})
+                    M = env["ir.module.module"].sudo()
+                    M.update_list()
+                    extra_mods = M.search(
+                        [
+                            ("name", "in", extras),
+                            (
+                                "state", "in",
+                                ("uninstalled", "to install"),
+                            ),
+                        ]
+                    )
+                    missing = set(extras) - set(extra_mods.mapped("name"))
+                    if missing:
+                        _logger.warning(
+                            "l10n_bg_db_installer: extra modules not "
+                            "found or already installed: %s",
+                            sorted(missing),
+                        )
+                    if extra_mods:
+                        extra_mods.button_immediate_install()
+                        _logger.info(
+                            "l10n_bg_db_installer: installed extras: %s",
+                            extra_mods.mapped("name"),
+                        )
+            except Exception:  # noqa: BLE001 — extras failure не блокира
+                _logger.exception(
+                    "l10n_bg_db_installer: extra modules install "
+                    "failed on %s", dbname,
+                )
 
         _set_status(dbname, "ready", "Installation complete")
         _logger.info(

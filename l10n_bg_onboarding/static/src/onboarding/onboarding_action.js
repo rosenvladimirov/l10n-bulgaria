@@ -88,6 +88,25 @@ export class OnboardingApp extends Component {
         }
         this.state.verticals = verticals;
         this.state.steps = byV;
+        // Auto-seed vatEik от company.vat (db_installer го попълва от
+        // ir.config_parameter.l10n_bg.pending_vat_eik при post-install).
+        // Така Trade Register fetch на V0 става без user input.
+        if (!this.state.vatEik) {
+            try {
+                const cmp = await this.orm.searchRead(
+                    "res.company",
+                    [],
+                    ["vat"],
+                    { limit: 1, order: "id" }
+                );
+                if (cmp.length && cmp[0].vat) {
+                    this.state.vatEik = cmp[0].vat;
+                }
+            } catch (e) {
+                // graceful — vat field може да липсва ако l10n_bg_config
+                // не е installed още
+            }
+        }
         this.state.loading = false;
     }
 
@@ -164,38 +183,108 @@ export class OnboardingApp extends Component {
         browser.location.href = "/odoo";
     }
 
-    // ── auto-install: required `install_module` стъпки се install-ват
-    // автоматично при влизане в chapter. Optional остават за user
-    // (checkbox/бутон в template). Non-install_module steps (manual
-    // config) също са user-controlled (Configure / Mark Done бутони).
+    // ── auto-progression: преминава V0 → последна, auto-completing
+    // required steps без user click. Optional остават за user.
+    //
+    // Per vertical:
+    //  1. Required install_module → action_install
+    //  2. Required checkpoint с registry_fetch=True + знаем VAT →
+    //     vertical.wizard.action_registry_fetch (fetch от Търговския
+    //     регистър; mark done auto)
+    //  3. Други required checkpoint → action_mark_done (user-ите ги
+    //     преглеждат в Settings → l10n.bg.vertical UI след wizard-а)
+    //  4. Required config_action → НЕ auto (изисква user input в
+    //     отделен form/wizard); wizard спира, user натиска Next ръчно
+    //  5. Ako canNext → recurse в следващ vertical
     async _maybeAutoInstall() {
+        if (this.state.busy) {
+            return;
+        }
         const v = this.current;
         if (!v) {
             return;
         }
-        const pending = (this.state.steps[v.id] || []).filter(
-            (s) =>
-                s.step_type === "install_module" &&
-                !s.optional &&
-                !s.done &&
-                !["auto", "unavailable"].includes(s.state)
-        );
-        if (!pending.length || this.state.busy) {
-            return;
-        }
         this.state.busy = true;
         this.state.error = "";
+        let didSomething = false;
         try {
-            // Sequential install (cascade-вите вътре в Odoo са идемпотентни,
-            // но паралелните registry reload-и могат да дадат race).
-            for (const step of pending) {
+            // 1. install_module required
+            const installs = (this.state.steps[v.id] || []).filter(
+                (s) =>
+                    s.step_type === "install_module" &&
+                    !s.optional &&
+                    !s.done &&
+                    !["auto", "unavailable"].includes(s.state)
+            );
+            for (const step of installs) {
                 await this.orm.call(
                     "l10n.bg.vertical.step",
                     "action_install",
                     [[step.id]]
                 );
+                didSomething = true;
             }
-            await this._reload();
+            if (installs.length) {
+                await this._reload();
+            }
+
+            // 2. Trade Register fetch (registry_fetch=True + знаем VAT)
+            const fresh = this.state.steps[v.id] || [];
+            const regStep = fresh.find(
+                (s) => s.registry_fetch && !s.done && !s.optional
+            );
+            if (regStep && this.state.vatEik) {
+                const wizId = await this.orm.create(
+                    "l10n.bg.vertical.wizard",
+                    [
+                        {
+                            vertical_id: v.id,
+                            registry_vat_eik: this.state.vatEik,
+                        },
+                    ]
+                );
+                await this.orm.call(
+                    "l10n.bg.vertical.wizard",
+                    "action_registry_fetch",
+                    [[wizId]]
+                );
+                await this._reload();
+                didSomething = true;
+            }
+
+            // 3. Други required checkpoint → mark done
+            const checkpoints = (this.state.steps[v.id] || []).filter(
+                (s) =>
+                    s.step_type === "checkpoint" &&
+                    !s.optional &&
+                    !s.done &&
+                    !s.registry_fetch &&
+                    !["auto", "unavailable"].includes(s.state)
+            );
+            for (const step of checkpoints) {
+                await this.orm.call(
+                    "l10n.bg.vertical.step",
+                    "action_mark_done",
+                    [[step.id]]
+                );
+                didSomething = true;
+            }
+            if (checkpoints.length) {
+                await this._reload();
+            }
+
+            // 4. Auto next ако vertical е done. Recurse за следващ.
+            if (this.canNext && !this.isLast) {
+                this.state.idx += 1;
+                this.state.busy = false;
+                // микро пауза за UI visual feedback (картинките да се
+                // обновят преди да пуснем следваща глава)
+                await new Promise((r) => setTimeout(r, 400));
+                return this._maybeAutoInstall();
+            }
+            if (this.canNext && this.isLast) {
+                this.state.phase = "finale";
+            }
         } catch (e) {
             this.state.error =
                 (e && e.data && e.data.message) ||
@@ -204,6 +293,8 @@ export class OnboardingApp extends Component {
         } finally {
             this.state.busy = false;
         }
+        // eslint-disable-next-line no-unused-vars
+        void didSomething;
     }
 
     // ── действия по стъпки (минават през backend методите) ─────────

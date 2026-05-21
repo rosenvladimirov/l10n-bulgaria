@@ -1,6 +1,7 @@
 import logging
 
-from odoo import models, fields
+from odoo import _, models, fields
+from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
@@ -14,6 +15,63 @@ class Users(models.Model):
         string='Crypto Wallets',
         help='Encrypted user wallets'
     )
+
+    def write(self, vals):
+        # При archive (active=False) — пълно изтриване на собствените
+        # wallets на потребителя. ondelete='cascade' върху
+        # crypto.wallet.user_id хваща пълно unlink на user-а; този override
+        # хваща mid-state archive, където Odoo само сетва active=False без
+        # да unlink-ва записа.
+        if vals.get('active') is False:
+            for user in self:
+                if not user.active:
+                    # Вече archive-нат → skip; защита срещу повторно
+                    # влизане през self-recursion (някои UI flow-та
+                    # повтарят write).
+                    continue
+                if user.id == self.env.uid:
+                    raise UserError(_(
+                        "You cannot archive your own user (%(login)s). "
+                        "Ask another administrator to do it.",
+                        login=user.login,
+                    ))
+                # Block ако user е InfoPay token user на жива компания
+                # — InfoPay sync ще се счупи. Полето е от l10n_bg_config;
+                # проверяваме безопасно през ORM с hasattr на _fields.
+                company_model = self.env['res.company'].sudo()
+                token_field = 'l10n_bg_infopay_token_user_id'
+                if token_field in company_model._fields:
+                    domain = [(token_field, '=', user.id)]
+                    blocking = company_model.search(domain)
+                    if blocking:
+                        raise UserError(_(
+                            "%(user)s is the InfoPay token user of company "
+                            "%(companies)s. Reassign a new token user "
+                            "before archiving.",
+                            user=user.name,
+                            companies=", ".join(blocking.mapped('name')),
+                        ))
+                # Hard delete на собствените wallets. message_post в
+                # chatter-а на user-а ПРЕДИ unlink — иначе wallet recordset
+                # е празно.
+                wallets = self.env['crypto.wallet'].sudo().search(
+                    [('user_id', '=', user.id)]
+                )
+                if wallets:
+                    names = ", ".join(wallets.mapped('name'))
+                    user.message_post(body=_(
+                        "Deleted %(n)s crypto wallet(s) on archive: "
+                        "%(names)s",
+                        n=len(wallets),
+                        names=names,
+                    ))
+                    wallets.sudo().unlink()
+                    _logger.info(
+                        "Archived user %s (id=%s) → unlinked %d crypto "
+                        "wallets",
+                        user.login, user.id, len(wallets),
+                    )
+        return super().write(vals)
 
     def _check_credentials(self, credential, user_agent_env):
         """Прихваща успешната авторизация и синхронизира портфела.

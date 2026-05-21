@@ -164,7 +164,10 @@ class CryptoWallet(models.Model):
     _rec_name = 'name'
 
     name = fields.Char('Stored key name', required=True)
-    user_id = fields.Many2one('res.users', 'User', required=True, default=lambda self: self.env.user)
+    user_id = fields.Many2one(
+        'res.users', 'User', required=True, index=True,
+        ondelete='cascade',
+        default=lambda self: self.env.user)
     encrypted_data = fields.Text('Encrypted data', readonly=True)
     salt = fields.Text('Salt to encrypt', readonly=True)
     is_locked = fields.Boolean('Locked', default=True)

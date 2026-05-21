@@ -32,6 +32,26 @@ class BGModEconomicActivity(models.Model):
         'bg.hr.payroll.economic.activity', 'parent_id', string='Child Activities'
     )
 
+    # Override account_rule_ids inherited from l10n.bg.kid (l10n_bg_config 18.0.8.5+):
+    # `l10n.bg.kid` declares this Many2many with explicit
+    # `relation='l10n_bg_kid_account_rule_rel'`. Because we _inherit l10n.bg.kid as
+    # a MIXIN (not _inherits delegation), the field copies into this model's namespace
+    # and points to the SAME relation table — but the column1='kid_id' FK then has
+    # ambiguous referent (l10n.bg.kid.id vs bg.hr.payroll.economic.activity.id) and
+    # Odoo registry setup fails with:
+    #     TypeError: Many2many fields ... use the same table and columns
+    # Fix: own relation table with explicit FK columns, semantically same semantic
+    # ("which account rules apply to this MOD economic-activity sector").
+    account_rule_ids = fields.Many2many(
+        'l10n.bg.account.kid.rule',
+        relation='bg_payroll_eco_activity_kid_rule_rel',
+        column1='eco_activity_id',
+        column2='rule_id',
+        string='Account Rules (MOD)',
+        help='Sector-specific account-code rules за този МОД-код. Override '
+             'на наследеното от l10n.bg.kid поле с собствена relation table.',
+    )
+
     # MOD amounts by qualification groups
     mod_manager = fields.Float(string='MOD - Managers', default=0.0,
                               help='Minimum insurance income for managers')

@@ -475,8 +475,16 @@ def _background_install(dbname):
                     )
                     l10n_bg.button_immediate_install()
                 break  # success
-            except psycopg2.errors.SerializationFailure:
-                # ir_cron заключен от concurrent cron job. Wait + retry.
+            except (
+                psycopg2.errors.SerializationFailure,
+                psycopg2.errors.InFailedSqlTransaction,
+            ) as exc:
+                # ir_cron заключен от concurrent cron job.
+                # SerializationFailure = direct NOWAIT fail.
+                # InFailedSqlTransaction = Odoo bug при render на UserError
+                # за cron lock — внутрешният cursor абортира при
+                # translation lookup и грешката се wrap-ва.
+                # И двете → wait + retry.
                 if attempt + 1 < max_retries:
                     _set_status(
                         dbname, "running",
@@ -484,9 +492,9 @@ def _background_install(dbname):
                         f"(attempt {attempt + 1}/{max_retries})...",
                     )
                     _logger.warning(
-                        "l10n_bg_db_installer: cron lock contention on "
-                        "%s (attempt %d) — retry in 3s",
-                        dbname, attempt + 1,
+                        "l10n_bg_db_installer: cron lock contention "
+                        "(%s) on %s (attempt %d) — retry in 3s",
+                        type(exc).__name__, dbname, attempt + 1,
                     )
                     time.sleep(3)
                     continue

@@ -13,7 +13,11 @@ class Users(models.Model):
         'crypto.wallet',
         'user_id',
         string='Crypto Wallets',
-        help='Encrypted user wallets'
+        help='Encrypted user wallets',
+        # Ограничено до internal users — portal/public нямат crypto.wallet
+        # ACL групи и достъпът до полето би хвърлил AccessError при
+        # POST /web/login или всеки res.users read.
+        groups='base.group_user',
     )
 
     def write(self, vals):

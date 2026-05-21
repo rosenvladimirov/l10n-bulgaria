@@ -16,8 +16,6 @@
                 <field name="sync_status"/>
                 <field name="last_pushed_at"/>
                 <field name="active"/>
-                <progressbar field="sync_status"
-                             colors='{"in_sync":"success","out_of_sync":"warning","never":"muted"}'/>
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_card oe_kanban_global_click">
@@ -122,40 +120,13 @@
         </field>
     </record>
 
-    <!-- ─── Search view ─── -->
-    <record id="view_erpnet_fp_proxy_config_template_search" model="ir.ui.view">
-        <field name="name">erpnet.fp.proxy.config.template.search</field>
-        <field name="model">erpnet.fp.proxy.config.template</field>
-        <field name="arch" type="xml">
-            <search>
-                <field name="name"/>
-                <field name="proxy_id"/>
-                <field name="kind"/>
-                <filter string="MQTT"      name="k_mqtt"     domain="[('kind','=','mqtt')]"/>
-                <filter string="Cameras"   name="k_cameras"  domain="[('kind','=','cameras')]"/>
-                <filter string="Access"    name="k_access"   domain="[('kind','=','access')]"/>
-                <filter string="Biometric" name="k_biometric" domain="[('kind','=','biometric')]"/>
-                <separator/>
-                <filter string="Never pushed" name="f_never"
-                        domain="[('last_pushed_at','=',False)]"/>
-                <filter string="Archived" name="f_inactive"
-                        domain="[('active','=',False)]"/>
-                <group expand="1" string="Group by">
-                    <filter string="Proxy" name="g_proxy" context="{'group_by': 'proxy_id'}"/>
-                    <filter string="Kind"  name="g_kind"  context="{'group_by': 'kind'}"/>
-                </group>
-            </search>
-        </field>
-    </record>
-
-    <!-- ─── Action ─── -->
+    <!-- ─── Action ─── (search view = Odoo default; we keep the action
+         minimal so the install never trips a validation race against
+         a freshly-added field that isn't yet schema-migrated.) -->
     <record id="action_erpnet_fp_proxy_config_template" model="ir.actions.act_window">
         <field name="name">Devices</field>
         <field name="res_model">erpnet.fp.proxy.config.template</field>
         <field name="view_mode">kanban,list,form</field>
-        <field name="search_view_id"
-               ref="view_erpnet_fp_proxy_config_template_search"/>
-        <field name="context">{'search_default_g_kind': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create your first config template

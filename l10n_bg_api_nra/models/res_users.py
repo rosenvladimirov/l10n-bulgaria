@@ -33,7 +33,7 @@ class ResUsers(models.Model):
         :param env: Environment
         :param user_id: ID of the user logging in
         """
-        Wallet = env["crypto.wallet"]
+        Wallet = env["crypto.wallet"].sudo()
 
         # Find companies with NRA API enabled for this user
         companies = env["res.company"].sudo().search(

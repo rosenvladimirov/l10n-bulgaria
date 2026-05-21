@@ -26,7 +26,7 @@ config.d/access.yaml.
 Plugin pattern — модулът е optional. Без него Polimex YAML се
 поддържа ръчно в template form-а.
 """,
-    'version': '18.0.1.2.2',
+    'version': '18.0.1.2.3',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',

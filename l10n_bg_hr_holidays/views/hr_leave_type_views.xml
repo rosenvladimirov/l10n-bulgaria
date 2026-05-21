@@ -19,6 +19,12 @@
                             <field name="l10n_bg_leave_reason_id"
                                    options="{'no_create': True, 'no_create_edit': True}"/>
                         </group>
+                        <group name="l10n_bg_legal_caps" string="BG Legal Caps">
+                            <field name="l10n_bg_max_days_per_year"/>
+                            <field name="l10n_bg_max_days_total"/>
+                            <field name="l10n_bg_legal_reference"
+                                   placeholder="e.g. КТ чл. 160, ал. 1"/>
+                        </group>
                     </group>
                 </xpath>
             </field>

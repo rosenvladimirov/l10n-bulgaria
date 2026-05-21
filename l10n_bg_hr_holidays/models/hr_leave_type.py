@@ -29,6 +29,39 @@ class HRLeaveType(models.Model):
         'nssi.leave.reason',
         string='Leave Reason'
     )
+    # ---------------------------------------------------------------------
+    # БГ-законови лимити (КТ / КСО) — конфигурируеми на ниво leave type.
+    # Stand-by ValidationError в hr_leave._check_l10n_bg_max_days.
+    # Seed defaults в data/hr_holidays_data.xml; може да се override-нат
+    # per company чрез inheritance ако КТД дава по-добри условия.
+    # ---------------------------------------------------------------------
+    l10n_bg_max_days_per_year = fields.Integer(
+        string="Max Days per Year",
+        default=0,
+        help="Annual cap in working days (per calendar year, per employee). "
+             "0 = no annual cap. "
+             "Examples per Bulgarian law: care for sick family member "
+             "(NSSI 07, KT chap. 167) — 10 days/year (КСО чл. 45, ал. 1, "
+             "т. 2); service-counting unpaid leave (KT 160 §1) — 30 days/year; "
+             "marriage / bereavement / blood donation (KT 157) — 2 days/event."
+    )
+    l10n_bg_max_days_total = fields.Integer(
+        string="Max Days Total (per event/lifetime)",
+        default=0,
+        help="Total cap in working days — applies to a single event or to "
+             "the employee's lifetime per this type. 0 = no total cap. "
+             "Examples: maternity pregnancy and birth (NSSI 04, KT 163) — "
+             "410 days total per pregnancy (КСО чл. 50, ал. 1); paternity "
+             "(KT 163-10) — 15 days per child; final state exam (KT 170) — "
+             "30 days per event."
+    )
+    l10n_bg_legal_reference = fields.Char(
+        string="Legal Reference",
+        help="Citation of the law and article that establishes the cap, "
+             "e.g. 'КСО чл. 45, ал. 1, т. 2' or 'КТ чл. 160, ал. 1'. "
+             "Shown to the user when ValidationError is raised on overflow."
+    )
+
     l10n_bg_doo_treatment = fields.Selection([
         ('normal', 'Normal — employer DOO/ZO/UPF on wage'),
         ('nssi_maternity', 'NSSI-funded maternity (BG Labor Code arts. 163, 164, 163-10, 166)'),

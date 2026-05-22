@@ -36,6 +36,11 @@ const _TOAST_KIND = {
     "barrier.changed": {kind: "info",   title: "🚧 Barrier"},
     "controller.heartbeat":   {kind: "info",    title: "📡 Heartbeat"},
     "controller.unreachable": {kind: "warning", title: "📡 Controller unreachable"},
+    // Watchdog liveness transitions (server/watchdog.py). Offline is a
+    // RED, STICKY alert that stays on screen until the admin dismisses
+    // it; online is a transient green recovery toast.
+    "controller.offline": {kind: "danger",  title: "🔴 Controller OFFLINE", sticky: true},
+    "controller.online":  {kind: "success", title: "🟢 Controller back online"},
     "mqtt.message":   {kind: "info",    title: "📨 MQTT"},
     "biometric.match": {kind: "success", title: "🧬 Face matched"},
 };
@@ -51,7 +56,11 @@ function _formatProxyEvent(envelope) {
     if (data.card_id) parts.push(`card=${data.card_id}`);
     if (data.state) parts.push(`state=${data.state}`);
     if (data.reason) parts.push(`reason=${data.reason}`);
-    return {kind: meta.kind, title: meta.title, message: parts.join(" · ") || type};
+    if (data.silent_seconds) parts.push(`silent ${data.silent_seconds}s`);
+    // Sticky when the type is flagged sticky OR data.severity == alert.
+    const sticky = Boolean(meta.sticky) || data.severity === "alert";
+    return {kind: meta.kind, title: meta.title,
+            message: parts.join(" · ") || type, sticky};
 }
 
 const liveRefreshService = {
@@ -91,7 +100,7 @@ const liveRefreshService = {
                 notification.add(t.message, {
                     title: t.title,
                     type: t.kind,
-                    sticky: false,
+                    sticky: t.sticky,
                 });
             } catch (e) {
                 console.warn("PROXY_EVENT toast suppressed:", e);

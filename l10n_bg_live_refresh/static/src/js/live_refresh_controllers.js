@@ -73,6 +73,18 @@ patch(FormController.prototype, {
             if (!currentId) return;
             const resIds = detail.res_ids || [];
             if (resIds.length && !resIds.includes(currentId)) return;
+            // Match-by-field (proxy refresh hints): repaint only when the
+            // open record's `match_field` equals `match_value` — lets the
+            // hardware proxy target a record by a business key (e.g.
+            // ctrl_id) without knowing its Odoo res_id. Loose == so
+            // "38" (str from JSON) matches 38 (int).
+            if (detail.match_field !== undefined) {
+                const cur = record.data?.[detail.match_field];
+                // m2o comes as [id, name]; compare on the id.
+                const curVal = Array.isArray(cur) ? cur[0] : cur;
+                /* eslint-disable-next-line eqeqeq */
+                if (curVal != detail.match_value) return;
+            }
 
             await record.load();
             this.model.notify?.();

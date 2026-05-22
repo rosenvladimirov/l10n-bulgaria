@@ -105,6 +105,32 @@ const liveRefreshService = {
             } catch (e) {
                 console.warn("PROXY_EVENT toast suppressed:", e);
             }
+            // Per-component refresh hints (data._refresh) — declared in
+            // the proxy config `refresh:` block. Re-emit them on the
+            // legacy field/list channels so open Form/List controllers
+            // repaint exactly the declared field/view. The FormController
+            // patch matches on {model, match_field, match_value} so no
+            // Odoo res_id round-trip is needed.
+            try {
+                const hints = payload?.data?._refresh;
+                if (Array.isArray(hints)) {
+                    for (const h of hints) {
+                        if (!h || !h.model) continue;
+                        if (h.mode === "list") {
+                            env.bus.trigger("LIVE_REFRESH_LIST", {model: h.model});
+                        } else if (h.field) {
+                            env.bus.trigger("LIVE_REFRESH_FIELD", {
+                                model: h.model,
+                                fields: [h.field],
+                                match_field: h.match_field,
+                                match_value: h.match_value,
+                            });
+                        }
+                    }
+                }
+            } catch (e) {
+                console.warn("PROXY_EVENT refresh hints suppressed:", e);
+            }
         });
     },
 };

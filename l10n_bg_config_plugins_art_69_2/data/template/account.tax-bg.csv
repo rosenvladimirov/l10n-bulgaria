@@ -1,5 +1,0 @@
-"id","sequence","name","description","invoice_label","amount","amount_type","type_tax_use","tax_group_id","repartition_line_ids/factor_percent","repartition_line_ids/repartition_type","repartition_line_ids/document_type","repartition_line_ids/tag_ids","repartition_line_ids/account_id","description@bg","active","fiscal_position_ids","original_tax_ids","children_tax_ids","invoice_legal_notes"
-"l10n_bg_sale_vat_69_2","501","0% Under Art. 69(2)","0% Under Article 69, paragraph 2 of the VAT","0% Art.69(2)","0.0","percent","sale","tax_group_vat_0","100","base","invoice","18","","0% Сделка по чл. 69 ал. 2 ЗДДС","1","fiscal_position_template_69_2","l10n_bg_sale_vat_20,l10n_bg_sale_vat_20_personal,l10n_bg_sale_vat_9,l10n_bg_sale_vat_9_personal,l10n_bg_sale_vat_0_exempt","","Доставка по чл. 69, ал. 2 от ЗДДС - освободена от ДДС в страната на получателя"
-"","","","","","","","","","100","tax","invoice","","","","","","","",""
-"","","","","","","","","","100","base","refund","18","","","","","","",""
-"","","","","","","","","","100","tax","refund","","","","","","","",""

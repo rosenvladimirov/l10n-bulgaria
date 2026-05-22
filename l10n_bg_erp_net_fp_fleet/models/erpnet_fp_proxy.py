@@ -408,7 +408,7 @@ class ErpNetFpProxy(models.Model):
     @api.model
     def _enqueue_push_config(self, base_url, payload):
         """Soft-API за access-control модулите (lpr.camera.config /
-        lpr.access.controller `action_sync_config_to_proxy`).
+        access.controller `action_sync_config_to_proxy`).
 
         Намира прокси по неговия `url` и слага `push_config` команда
         на опашката му (бавния pull/heartbeat remote-mgmt path).

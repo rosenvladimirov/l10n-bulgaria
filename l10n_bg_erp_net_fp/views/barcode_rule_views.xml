@@ -16,7 +16,7 @@
         <field name="inherit_id"
                ref="barcodes.view_barcode_rule_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//sheet/group" position="after">
+            <xpath expr="//form/group" position="after">
                 <group string="Routing target (live_refresh)"
                        name="l10n_bg_target">
                     <field name="l10n_bg_target_model_id"

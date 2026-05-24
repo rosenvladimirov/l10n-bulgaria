@@ -87,6 +87,30 @@ class L10nBgFiscalPlu(models.Model):
         default=True,
         help="Inactive slots are skipped during PLU push.",
     )
+
+    # ─── Per-device sync state ─────────────────────────────────────
+    # Each PLU may be pushed to multiple fiscal devices (multi-printer
+    # shops). `device_sync_ids` holds one line per (PLU, device) with
+    # its current sync state — refreshed by the verification wizard.
+    device_sync_ids = fields.One2many(
+        "l10n.bg.fiscal.plu.device.line",
+        "plu_id",
+        string="Synced devices",
+        help="On which fiscal devices is this PLU currently programmed "
+        "and what is the sync state for each.",
+    )
+    synced_device_count = fields.Integer(
+        compute="_compute_synced_device_count",
+        store=False,
+    )
+
+    @api.depends("device_sync_ids.state")
+    def _compute_synced_device_count(self):
+        for r in self:
+            r.synced_device_count = len(
+                r.device_sync_ids.filtered(lambda l: l.state == "synced")
+            )
+
     push_state = fields.Selection(
         [
             ("pending", "Pending push"),
@@ -281,7 +305,37 @@ class L10nBgFiscalPlu(models.Model):
                 vals["plu_number"] = self._next_free_plu(
                     vals.get("company_id") or self.env.company.id
                 )
-        return super().create(vals_list)
+        records = super().create(vals_list)
+        # Propagate vat_group_id and name to linked products on create
+        records._propagate_to_products({"vat_group_id", "name", "price"})
+        return records
+
+    def write(self, vals):
+        res = super().write(vals)
+        # Propagate vat/name/price changes to linked products so the two
+        # sources of truth (PLU and product.template) stay in sync.
+        watched = {"vat_group_id", "name", "price"} & vals.keys()
+        if watched:
+            self._propagate_to_products(watched)
+        return res
+
+    def _propagate_to_products(self, changed_fields):
+        """Push selected fields from PLU → linked product.template records.
+
+        Bi-directional sync: when the cashier edits the PLU (vat/price/
+        name), products attached via `product_ids` get the same values.
+        Avoids drift between the fiscal-side snapshot and the catalogue.
+        """
+        for plu in self.filtered(lambda p: p.product_ids):
+            templates = plu.product_ids.mapped("product_tmpl_id")
+            vals = {}
+            if "vat_group_id" in changed_fields and plu.vat_group_id:
+                vals["l10n_bg_fiscal_vat_group_id"] = plu.vat_group_id.id
+            # Name/price са read-only-ish (snapshot за бона); пропагираме
+            # ги САМО ако са explicit changed — за да не презапишем
+            # каталога без причина.
+            if vals:
+                templates.sudo().write(vals)
 
     # ------------------------------------------------------------------
     # Manual push to device (retry / forced)

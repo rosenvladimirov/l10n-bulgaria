@@ -74,11 +74,13 @@
         <field name="view_mode">list,form</field>
     </record>
 
+    <!-- Z-reports — moved under "Reporting" (POS Reports submenu) —
+         this is a reporting function, not a top-level entry. -->
     <menuitem id="menu_l10n_bg_fiscal_z_report"
               name="Z-reports"
-              parent="point_of_sale.menu_point_root"
+              parent="point_of_sale.menu_point_rep"
               action="action_l10n_bg_fiscal_z_report"
-              sequence="80"
+              sequence="50"
               groups="point_of_sale.group_pos_manager"/>
 
 </odoo>

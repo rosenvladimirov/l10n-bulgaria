@@ -261,9 +261,21 @@ class FiscalPrinterDevice(models.Model):
         try:
             raw = self.get_journal_info(from_date=from_iso, to_date=to_iso)
         except Exception as exc:  # noqa: BLE001
-            _logger.warning(
-                "Failed to pull sales from device %s: %s", self.name, exc
-            )
+            # В browser-proxy topology сървърът не може да достигне
+            # локалното прокси на касиера — "No browser connected" е
+            # нормалното състояние когато никой POS не е активен. Логваме
+            # на INFO за тоя случай (не WARNING — иначе spam в логовете),
+            # WARNING запазваме за реални транспортни проблеми.
+            msg = str(exc)
+            if "No browser connected" in msg:
+                _logger.info(
+                    "Skipping pull sales for %s: no active POS browser "
+                    "(expected in browser-proxy mode)", self.name,
+                )
+            else:
+                _logger.warning(
+                    "Failed to pull sales from device %s: %s", self.name, exc
+                )
             return []
         if not raw:
             return []

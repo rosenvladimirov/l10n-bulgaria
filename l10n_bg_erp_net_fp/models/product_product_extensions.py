@@ -11,7 +11,7 @@ prices in the same fiscal session and break the audit trail).
 from odoo import models
 
 
-PLU_TRIGGERING_FIELDS = ("name", "list_price", "lst_price", "taxes_id")
+PLU_TRIGGERING_FIELDS = ("name", "list_price", "taxes_id")
 
 
 class ProductProduct(models.Model):

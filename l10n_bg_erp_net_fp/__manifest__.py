@@ -1,4 +1,3 @@
-
 # Copyright 2025 Rosen Vladimirov
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
@@ -23,7 +22,7 @@ supported by ErpNet.FP server. Features include:
 * Bulgarian tax group mapping (А, Б, В, Г)
 * Dual connection mode: Direct (server) and Proxy (browser)
 """,
-    'version': '18.0.15.1.0',
+    'version': '19.0.15.1.0',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
@@ -31,27 +30,27 @@ supported by ErpNet.FP server. Features include:
     "development_status": "Production/Stable",
     'maintainers': ['rosenvladimirov'],
     # Version-bump notes:
-    #   18.0.9.0.0  → added `iot` (EE) hard dep for native IoT Box flow
-    #   18.0.10.0.0 → added `mrp` + `stock` deps for packaging weight QC
-    #   18.0.10.1.0 → REMOVED `iot`, `mrp`, `stock` hard deps — IoT bridge
+    #   19.0.9.0.0  → added `iot` (EE) hard dep for native IoT Box flow
+    #   19.0.10.0.0 → added `mrp` + `stock` deps for packaging weight QC
+    #   19.0.10.1.0 → REMOVED `iot`, `mrp`, `stock` hard deps — IoT bridge
     #                 + packaging QC moved to `l10n_bg_erp_net_fp_iot`
     #                 (l10n-bulgaria-ee repo, auto_install=True). Core
     #                 stays Community-installable with no IoT/MRP needs.
-    #   18.0.10.3.0 → External POS mode Phase 1 — `l10n.bg.fiscal.plu`
+    #   19.0.10.3.0 → External POS mode Phase 1 — `l10n.bg.fiscal.plu`
     #                 model + consistency check + sync from pricelist +
     #                 stale triggers (product/pricelist write) + two
     #                 wizards (allocate from products, top-N best-sellers).
     #                 Skeleton for Phase 2 (POS open push) and Phase 3
     #                 (POS close Z-import) — toggle on pos.config still
     #                 has no behaviour wired beyond the constraint.
-    #   18.0.11.0.0 → External POS mode Phase 2 — POS session open hook
+    #   19.0.11.0.0 → External POS mode Phase 2 — POS session open hook
     #                 orchestrates push to device (fiscal.session open +
     #                 VAT groups + operators + PLU table from registry +
     #                 logo + header/footer + X-report sanity). Push
     #                 status surfaced on session form with retry button.
     #                 Manual "Push to device" button on PLU list/form.
     #                 Phase 3 (close-time Z + sales import) still TODO.
-    #   18.0.11.1.0 → External POS mode Phase 3 — POS session close hook
+    #   19.0.11.1.0 → External POS mode Phase 3 — POS session close hook
     #                 pulls journal from device, imports receipts as
     #                 pos.order records (PLU→product reverse lookup,
     #                 dedupe by FP/<n>), triggers Z (auto_z_on_close),
@@ -60,7 +59,7 @@ supported by ErpNet.FP server. Features include:
     #                 state) for offline-device scenarios. New field
     #                 pos.payment.method.l10n_bg_external_kind for
     #                 cash/card/voucher mapping.
-    #   18.0.11.2.0 → External POS mode Phase 4 — resilience: daily cron
+    #   19.0.11.2.0 → External POS mode Phase 4 — resilience: daily cron
     #                 23:55 auto-close stuck fiscal sessions (Н-18 ≤24h);
     #                 Z-report retry x3 on transient errors (paper-out,
     #                 timeout); pre-push capacity guard (plu_capacity vs
@@ -68,7 +67,7 @@ supported by ErpNet.FP server. Features include:
     #                 fiscal.session inherits mail.thread/activity for
     #                 alert posting; mail.activity_data_warning fallback
     #                 for managers when auto-Z fails.
-    #   18.0.11.3.0 → External POS mode Phase 4.5 — multi-device support:
+    #   19.0.11.3.0 → External POS mode Phase 4.5 — multi-device support:
     #                 new pos.config.l10n_bg_extra_fiscal_printer_ids M2m
     #                 + computed l10n_bg_all_fiscal_devices union; push
     #                 and close orchestrators iterate all devices, one
@@ -77,7 +76,7 @@ supported by ErpNet.FP server. Features include:
     #                 backward-compat computed primary alias; receipts
     #                 dedupe key now includes device id (FP/D<id>/<n>);
     #                 force-close handles all open fiscal sessions.
-    #   18.0.11.4.0 → External POS mode Phase 5 — UX polish:
+    #   19.0.11.4.0 → External POS mode Phase 5 — UX polish:
     #                 POS UI Navbar badge "External mode" (JS+OWL patch)
     #                 with click-to-show push status notification;
     #                 mid-shift X-report wizard with inline JSON preview
@@ -111,7 +110,7 @@ supported by ErpNet.FP server. Features include:
         'views/pos_payment_method_proxy_views.xml',
         'views/res_config_settings_views.xml',
         'views/res_users_views.xml',
-        # 18.0.15.0.0 — External Shift Dashboard actions MUST be loaded
+        # 19.0.15.0.0 — External Shift Dashboard actions MUST be loaded
         # before menu_items.xml so the menu can resolve the action xml-ids.
         'views/fiscal_shift_views.xml',
         'views/fiscal_shift_receipt_views.xml',
@@ -126,6 +125,7 @@ supported by ErpNet.FP server. Features include:
         'wizard/plu_allocate_wizard_view.xml',
         'wizard/plu_push_wizard_view.xml',
         'wizard/plu_topn_wizard_view.xml',
+        'wizard/plu_verify_wizard_view.xml',
         'wizard/x_report_wizard_view.xml',
     ],
     'demo': [
@@ -142,16 +142,12 @@ supported by ErpNet.FP server. Features include:
             'l10n_bg_erp_net_fp/static/src/js/pinpad_provider_card.js',
             'l10n_bg_erp_net_fp/static/src/xml/pinpad_provider_card.xml',
             'l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js',
-            # 18.0.10.1.0 — Grafana embed dashboard
             'l10n_bg_erp_net_fp/static/src/js/grafana_dashboard.js',
             'l10n_bg_erp_net_fp/static/src/xml/grafana_dashboard.xml',
         ],
-        # 18.0.15.0.0 — External Shift dedicated frontend bundle.
-        # Standalone OWL app served at /external-shift route. Inherits
-        # the standard backend bundle for OWL framework + services
-        # (orm, notification, …) — but the QWeb shell template skips
-        # the backend chrome so the OWL app fills the viewport, like
-        # the POS app does at /pos/ui.
+        # 19.0.15.1.0 — External Shift dedicated frontend bundle.
+        # Standalone OWL app served at /external-shift route — same
+        # architectural pattern as `point_of_sale._assets_pos` for /pos/ui.
         'l10n_bg_erp_net_fp.external_shift_assets': [
             ('include', 'web.assets_backend'),
             'l10n_bg_erp_net_fp/static/src/external_shift/styles/'

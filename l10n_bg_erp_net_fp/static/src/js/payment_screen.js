@@ -104,18 +104,75 @@ patch(OrderPaymentValidation.prototype, {
                 } else {
                     console.error("[FiscalPayment] ❌ Fiscal print FAILED:", result);
 
+                    // AUTO-VOID на pinpad транзакциите — ако фискалният бон се
+                    // провали, клиентът НЕ трябва да остане с дебитирана карта
+                    // без съответен бон. Намираме всички платежни линии, маркирани
+                    // от `payment_datecs_pay.js` (l10n_bg_pinpad_rrn), и викаме
+                    // /pinpads/<id>/void за всяка.
+                    const paymentLines =
+                        order.payment_ids || order.get_paymentlines?.() || [];
+                    const toVoid = paymentLines.filter(
+                        (l) => l.l10n_bg_pinpad_rrn && l.l10n_bg_pinpad_host
+                    );
+                    let voidedCount = 0;
+                    let voidFailed = false;
+                    for (const line of toVoid) {
+                        const url =
+                            String(line.l10n_bg_pinpad_host).replace(/\/+$/, "") +
+                            `/pinpads/${encodeURIComponent(line.l10n_bg_pinpad_id)}/void`;
+                        try {
+                            const resp = await fetch(url, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    amount: line.l10n_bg_pinpad_amount,
+                                    rrn: line.l10n_bg_pinpad_rrn,
+                                    auth_id: line.l10n_bg_pinpad_auth_id,
+                                }),
+                            });
+                            const voidResult = resp.ok ? await resp.json() : null;
+                            if (voidResult && voidResult.ok) {
+                                voidedCount++;
+                                console.log(
+                                    "[FiscalPayment] 🔄 Auto-VOID OK · RRN",
+                                    line.l10n_bg_pinpad_rrn
+                                );
+                            } else {
+                                voidFailed = true;
+                                console.error(
+                                    "[FiscalPayment] ⚠ Auto-VOID failed · RRN",
+                                    line.l10n_bg_pinpad_rrn, voidResult
+                                );
+                            }
+                        } catch (e) {
+                            voidFailed = true;
+                            console.error(
+                                "[FiscalPayment] ⚠ Auto-VOID exception · RRN",
+                                line.l10n_bg_pinpad_rrn, e
+                            );
+                        }
+                    }
+
                     if (notification) {
                         const errorType = refundInfo.isRefund ? _t("сторно бон") : _t("фискален бон");
-
-                        notification.add(
+                        let body =
                             _t("Грешка при печат на ") + errorType + ": " +
-                            (result.message?.body || "Неизвестна грешка") +
-                            _t("\n\nПоръчката НЕ МОЖЕ да бъде валидирана без фискален бон!"),
-                            {
-                                type: "danger",
-                                sticky: true
+                            (result.message?.body || _t("Неизвестна грешка")) +
+                            _t("\n\nПоръчката НЕ МОЖЕ да бъде валидирана без фискален бон!");
+                        if (toVoid.length) {
+                            if (voidFailed) {
+                                body += _t(
+                                    "\n\n⚠ ВНИМАНИЕ: автоматичното VOID на картовото плащане НЕ премина за %s от %s транзакции. Провери терминала и при нужда направи ръчно VOID/отмяна през банката, преди да опитваш отново!",
+                                    toVoid.length - voidedCount, toVoid.length,
+                                );
+                            } else {
+                                body += _t(
+                                    "\n\n🔄 Автоматично прекъснах %s картово(и) плащане(я) — клиентът не е дебитиран.",
+                                    voidedCount,
+                                );
                             }
-                        );
+                        }
+                        notification.add(body, { type: "danger", sticky: true });
                     }
 
                     console.log("[FiscalPayment] ⛔ Order validation BLOCKED due to fiscal print failure");

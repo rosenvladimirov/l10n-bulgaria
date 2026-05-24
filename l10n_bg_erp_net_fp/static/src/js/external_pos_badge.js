@@ -16,7 +16,7 @@
 import { Component } from "@odoo/owl";
 import { patch } from "@web/core/utils/patch";
 import { _t } from "@web/core/l10n/translation";
-import { Navbar } from "@point_of_sale/app/navbar/navbar";
+import { Navbar } from "@point_of_sale/app/components/navbar/navbar";
 
 patch(Navbar.prototype, {
     get l10nBgExternalMode() {

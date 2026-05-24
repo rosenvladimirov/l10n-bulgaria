@@ -216,7 +216,7 @@
                 <filter string="Today" name="filter_today"
                         domain="[('opened_at','&gt;=',
                                   context_today().strftime('%Y-%m-%d'))]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Device" name="group_device"
                             context="{'group_by': 'device_id'}"/>
                     <filter string="Operator" name="group_operator"

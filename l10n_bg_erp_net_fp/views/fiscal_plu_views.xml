@@ -127,7 +127,7 @@
                         domain="[('push_state', '=', 'name_drift')]"/>
                 <filter name="filter_errors" string="Errors"
                         domain="[('push_state', '=', 'error')]"/>
-                <group string="Group by">
+                <group>
                     <filter name="group_state" string="Push state"
                             context="{'group_by': 'push_state'}"/>
                     <filter name="group_pricelist" string="Source pricelist"

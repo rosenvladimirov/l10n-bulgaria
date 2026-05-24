@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================================================
+         Extend barcode.rule form with l10n_bg_target_* routing hints.
+         Lets an admin point a specific GS1 prefix (e.g. AI=01 GTIN)
+         at an exact model+field on a specific form view, so the
+         live_refresh barcode_handler can drop the parsed value in
+         the right input without keyboard focus tricks.
+         ============================================================ -->
+
+    <record id="view_barcode_rule_form_l10n_bg_route"
+            model="ir.ui.view">
+        <field name="name">barcode.rule.form.l10n_bg_route</field>
+        <field name="model">barcode.rule</field>
+        <field name="inherit_id"
+               ref="barcodes.barcode_rule_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="after">
+                <group string="Routing target (live_refresh)"
+                       name="l10n_bg_target">
+                    <field name="l10n_bg_target_model_id"
+                           options="{'no_create': True,
+                                     'no_open': True}"/>
+                    <field name="l10n_bg_target_field"
+                           placeholder="e.g. barcode, name,
+                                        weight, list_price"/>
+                    <field name="l10n_bg_target_form_xmlid"
+                           placeholder="e.g. stock.view_picking_form"/>
+                    <p class="text-muted" colspan="2">
+                        When the proxy reader feed delivers a scan
+                        matching this rule, the browser handler
+                        writes <em>parsed_value</em> directly into
+                        the target field on the matching open form
+                        — bypassing keyboard focus. Leave the form
+                        xml_id empty to accept any open form of the
+                        target model.
+                    </p>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

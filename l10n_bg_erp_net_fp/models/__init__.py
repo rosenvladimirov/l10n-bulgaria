@@ -37,3 +37,4 @@ from . import fiscal_shift_receipt
 # auto_install=True) in 18.0.10.1.0 so the core stays Community-installable.
 # Packaging QC depends on iot.device for the scale read, so it ships
 # only on EE-bridge installs.
+from . import barcode_rule_extensions

@@ -27,7 +27,7 @@ export const shiftStateService = {
                     "fiscal.printer.device",
                     [["active", "=", true]],
                     ["id", "name", "host", "printer_id",
-                     "connection_mode", "driver_type"],
+                     "connection_mode", "driver_type", "company_id"],
                     { order: "name" },
                 );
             },
@@ -63,16 +63,25 @@ export const shiftStateService = {
                 return recs[0] || null;
             },
 
-            async loadProductsAndPlu() {
+            async loadProductsAndPlu(companyId) {
                 // PLU registry is THE source of truth — only show
                 // products that have a PLU (otherwise the cashier
                 // can't ring them up on the device anyway).
+                //
+                // `companyId` (from the selected device) overrides the
+                // user's currently-active company so PLU / products are
+                // looked up in the device's tenant — without this, a
+                // cashier whose default active company is "Main" sees
+                // an empty grid when the device is in "BG Company".
+                const ctx = companyId
+                    ? { allowed_company_ids: [companyId] }
+                    : {};
                 const plus = await orm.searchRead(
                     "l10n.bg.fiscal.plu",
                     [["active", "=", true]],
                     ["id", "plu_number", "name", "price",
                      "push_state", "product_ids"],
-                    { order: "plu_number" },
+                    { order: "plu_number", context: ctx },
                 );
 
                 const allProductIds = new Set();
@@ -89,7 +98,7 @@ export const shiftStateService = {
                         [["id", "in", [...allProductIds]]],
                         ["id", "display_name", "default_code",
                          "list_price", "barcode"],
-                        { order: "display_name" },
+                        { order: "display_name", context: ctx },
                     );
                 }
 

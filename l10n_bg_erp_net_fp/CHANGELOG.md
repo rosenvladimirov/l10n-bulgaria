@@ -22,9 +22,14 @@ EE IoT box.
   `barcode_scanned` on the core `barcode` service so existing form-view
   handlers (stock pickings, inventory, hr.attendance, …) Just Work.
 
-Host resolution priority: `pos.session.l10n_bg_erp_net_fp_host` (POS only)
-→ `ir.config_parameter l10n_bg_erp_net_fp.host` (backend) →
-`window.location.origin` (fallback).
+Host resolution — single source of truth is `fiscal.printer.device.host`:
+- POS context: `pos.config.l10n_bg_erp_net_fp_host` (already computed
+  from `pos.config.l10n_bg_fiscal_printer_id.host`).
+- Backend context: `searchRead` the first active proxy-mode device.
+
+No `ir.config_parameter` to set, no extra config screen. If no device
+is configured the reader bridge stays silent (consumers can still
+call `.subscribe()` — they just get nothing).
 
 Pure browser ↔ WebSocket — no server-side bus.bus, no Odoo controller,
 no extra cron. Hot-plug: service re-scans `/readers` every 30 s.

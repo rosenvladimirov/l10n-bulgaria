@@ -88,7 +88,7 @@ export const shiftStateService = {
                         "product.product",
                         [["id", "in", [...allProductIds]]],
                         ["id", "display_name", "default_code",
-                         "lst_price", "barcode"],
+                         "list_price", "barcode"],
                         { order: "display_name" },
                     );
                 }

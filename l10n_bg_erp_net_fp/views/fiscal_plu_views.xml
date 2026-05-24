@@ -87,7 +87,30 @@
                                     <field name="default_code"/>
                                     <field name="display_name"/>
                                     <field name="barcode"/>
-                                    <field name="lst_price"/>
+                                    <field name="list_price"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page name="devices" string="Synced devices">
+                            <p class="text-muted">
+                                On which fiscal printers is this PLU
+                                currently programmed. Use "Verify on devices"
+                                wizard to refresh the state by reading the
+                                PLU back from each device.
+                            </p>
+                            <field name="device_sync_ids">
+                                <list editable="bottom">
+                                    <field name="device_id"/>
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'synced'"
+                                           decoration-warning="state == 'stale'"
+                                           decoration-danger="state in ('missing', 'error')"/>
+                                    <field name="pushed_name" optional="hide"/>
+                                    <field name="pushed_price" optional="hide"/>
+                                    <field name="pushed_vat_group" optional="hide"/>
+                                    <field name="last_synced_at"/>
+                                    <field name="last_verified_at"/>
+                                    <field name="error_msg" optional="hide"/>
                                 </list>
                             </field>
                         </page>
@@ -161,11 +184,23 @@
         </field>
     </record>
 
-    <menuitem id="menu_fiscal_plu"
+    <!-- Consolidated PLU configuration section under POS Configuration.
+         Holds: PLU slots, import wizard, top-N report (future: push wizard). -->
+    <menuitem id="menu_fiscal_plu_root"
               name="Fiscal PLU"
               parent="point_of_sale.menu_point_config_product"
-              action="action_l10n_bg_fiscal_plu"
               sequence="15"
               groups="point_of_sale.group_pos_manager"/>
+
+    <menuitem id="menu_fiscal_plu"
+              name="PLU slots"
+              parent="menu_fiscal_plu_root"
+              action="action_l10n_bg_fiscal_plu"
+              sequence="10"
+              groups="point_of_sale.group_pos_manager"/>
+
+    <!-- (Място за бъдещи sub-менюта: PLU sequence, mass-push wizard и т.н.
+         ПЛУ sequence-ите засега се достъпват през Settings → Technical
+         → Sequences (group `base.group_system`).) -->
 
 </odoo>

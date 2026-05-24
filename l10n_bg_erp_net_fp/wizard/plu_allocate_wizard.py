@@ -85,7 +85,7 @@ class L10nBgFiscalPluAllocateWizard(models.TransientModel):
                     product, quantity=1.0
                 )
             except Exception:
-                expected_price = product.lst_price
+                expected_price = product.list_price
             plu = Plu.create(
                 {
                     "company_id": self.company_id.id,

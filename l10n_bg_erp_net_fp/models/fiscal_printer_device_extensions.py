@@ -357,7 +357,7 @@ class FiscalPrinterDevice(models.Model):
             "view_mode": "form",
             "target": "new",
             "context": {
-                "default_company_id": self.company_id.id,
+                "default_company_id": self.env.company.id,
                 "default_device_ids": [(6, 0, [self.id])],
                 "default_scope": "pending",
             },
@@ -378,7 +378,7 @@ class FiscalPrinterDevice(models.Model):
             plus.append({
                 "plu": p.l10n_bg_fiscal_plu_number,
                 "name": (p.display_name or "")[:34],
-                "price": p.lst_price,
+                "price": p.list_price,
                 "vat_group": p.l10n_bg_fiscal_vat_group or "B",
                 "unit": p.l10n_bg_fiscal_measurement_unit or "pcs",
                 "barcode": p.barcode or "",

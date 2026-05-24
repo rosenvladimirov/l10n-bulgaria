@@ -14,7 +14,10 @@
                 <group string="Fiscal device (PLU)" name="fiscal_plu">
                     <group>
                         <field name="l10n_bg_fiscal_plu_number"/>
-                        <field name="l10n_bg_fiscal_vat_group"/>
+                        <field name="l10n_bg_fiscal_vat_group_id"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="l10n_bg_fiscal_vat_group"
+                               readonly="1" string="VAT letter"/>
                         <field name="l10n_bg_fiscal_measurement_unit"/>
                     </group>
                 </group>

@@ -171,8 +171,13 @@ export class PaymentDatecsPay extends PaymentInterface {
         // за UI; тези `l10n_bg_pinpad_*` са за machine-to-machine void.
         line.l10n_bg_pinpad_host = host;
         line.l10n_bg_pinpad_id = pinpadId;
-        line.l10n_bg_pinpad_rrn = result.rrn || "";
-        line.l10n_bg_pinpad_auth_id = result.authId || "";
+        // RRN/authId — terminal-issued. Понякога са null а само hostRrn/
+        // hostAuthId са попълнени (host relay mode). Auto-void filter-ът
+        // изисква rrn да е truthy → fall-back на hostRrn гарантира че
+        // void работи и за host-relay транзакции (иначе клиентът остава
+        // дебитиран при fiscal-print fail).
+        line.l10n_bg_pinpad_rrn = result.rrn || result.hostRrn || "";
+        line.l10n_bg_pinpad_auth_id = result.authId || result.hostAuthId || "";
         line.l10n_bg_pinpad_amount = line.amount;
         this.env.services.notification.add(
             _t("Pinpad approved · ref %s", txid || "—"),

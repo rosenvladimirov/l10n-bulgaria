@@ -125,6 +125,7 @@ supported by ErpNet.FP server. Features include:
         'wizard/plu_allocate_wizard_view.xml',
         'wizard/plu_push_wizard_view.xml',
         'wizard/plu_topn_wizard_view.xml',
+        'wizard/plu_verify_wizard_view.xml',
         'wizard/x_report_wizard_view.xml',
     ],
     'demo': [

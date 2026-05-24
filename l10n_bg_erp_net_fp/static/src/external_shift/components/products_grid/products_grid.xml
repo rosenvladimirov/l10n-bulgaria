@@ -45,7 +45,7 @@
                                     [<t t-esc="p.default_code"/>]
                                 </t>
                                 <span class="float-end">
-                                    <t t-esc="p.lst_price.toFixed(2)"/>
+                                    <t t-esc="p.list_price.toFixed(2)"/>
                                 </span>
                             </div>
                             <div class="text-muted small mt-1"

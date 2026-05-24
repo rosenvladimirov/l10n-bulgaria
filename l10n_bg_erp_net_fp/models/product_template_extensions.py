@@ -51,14 +51,39 @@ class ProductTemplate(models.Model):
         "1..3000 basic). Auto-assigned on first sync; can be overridden "
         "manually.",
     )
+    # Source of truth: Many2one to account.tax.group (unified with
+    # l10n.bg.fiscal.plu.vat_group_id). Letter (А/Б/В/Г) is derived
+    # from tax_group.l10n_bg_fiscal_tax_group via the computed below.
+    l10n_bg_fiscal_vat_group_id = fields.Many2one(
+        "account.tax.group",
+        string="Fiscal VAT Group",
+        index=True,
+        help="Tax group programmed on the fiscal device for this product. "
+        "The device letter (А/Б/В/Г) is derived from the tax group's "
+        "`l10n_bg_fiscal_tax_group` field. Unified with "
+        "`l10n.bg.fiscal.plu.vat_group_id` — set in either place and the "
+        "other auto-updates.",
+    )
+    # Back-compat letter — computed from the M2O above. Kept as a field
+    # because existing callers (proxy push, JS, search filters) expect
+    # the letter directly ("А"/"Б"/"В"/"Г").
     l10n_bg_fiscal_vat_group = fields.Selection(
         DATECS_VAT_GROUPS,
-        string="Fiscal VAT Group",
-        default="А",
-        help="VAT group letter on the fiscal device. Maps to "
-        "device's valVat parameter index — must agree with the "
-        "device's actual VAT-rate programming.",
+        string="Fiscal VAT Letter",
+        compute="_compute_l10n_bg_fiscal_vat_letter",
+        store=True,
+        readonly=True,
+        help="Device letter (А/Б/В/Г) — derived from `Fiscal VAT Group`. "
+        "Read-only since v0.13.7; set via the tax group instead.",
     )
+
+    @api.depends("l10n_bg_fiscal_vat_group_id.l10n_bg_fiscal_tax_group")
+    def _compute_l10n_bg_fiscal_vat_letter(self):
+        for r in self:
+            tg = r.l10n_bg_fiscal_vat_group_id
+            r.l10n_bg_fiscal_vat_group = (
+                tg.l10n_bg_fiscal_tax_group if tg else "А"
+            )
     l10n_bg_fiscal_measurement_unit = fields.Selection(
         DATECS_MEASUREMENT_UNITS,
         string="Fiscal Measurement Unit",
@@ -128,3 +153,38 @@ class ProductTemplate(models.Model):
                     tmpl.l10n_bg_fiscal_plu_number = int(next_num)
                 except (ValueError, TypeError):
                     pass
+
+
+# ──────────────────────────────────────────────────────────────────
+# POS data — изпращаме фискалните полета на product.product, за да може
+# JS-ът (erp_net_fp_printer.js) да чете `l10n_bg_fiscal_plu_number` и да
+# изпраща `pluNumber` в item-ите на фискалния бон (за PLU-only устройства).
+# ──────────────────────────────────────────────────────────────────
+
+
+class ProductProduct(models.Model):
+    _inherit = "product.product"
+
+    # Related fields от template-а — за да са достъпни на product.product
+    # records (POS frontend ползва product.product, не product.template).
+    l10n_bg_fiscal_plu_number = fields.Integer(
+        related="product_tmpl_id.l10n_bg_fiscal_plu_number",
+        store=True, readonly=True, index=True,
+    )
+    l10n_bg_fiscal_vat_group = fields.Selection(
+        related="product_tmpl_id.l10n_bg_fiscal_vat_group",
+        store=False, readonly=True,
+    )
+    l10n_bg_fiscal_measurement_unit = fields.Selection(
+        related="product_tmpl_id.l10n_bg_fiscal_measurement_unit",
+        store=False, readonly=True,
+    )
+
+    @api.model
+    def _load_pos_data_fields(self, config_id):
+        fields_list = super()._load_pos_data_fields(config_id)
+        for f in ("l10n_bg_fiscal_plu_number", "l10n_bg_fiscal_vat_group",
+                  "l10n_bg_fiscal_measurement_unit"):
+            if f not in fields_list and f in self._fields:
+                fields_list.append(f)
+        return fields_list

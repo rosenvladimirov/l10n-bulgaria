@@ -292,6 +292,17 @@ export class ErpNetFPPrinter {
                 unitPrice = Math.abs(unitPrice);
             }
 
+            // PLU number — за фискални устройства в PLU-only mode (ФП-700МК
+            // отказва free-text sales с ERR_R_PLU_VAT_DISABLE). Ако продуктът
+            // в Odoo има програмиран `l10n_bg_fiscal_plu_number`, изпращаме го
+            // — proxy ще ползва `sale_programmed` (cmd 0x3A) вместо
+            // `register_sale`. PLU-тo трябва предварително синхнат към ФУ-то
+            // (fiscal.printer.device → action_sync_plu).
+            const product = line.product_id || line.product;
+            const pluNumber =
+                product?.l10n_bg_fiscal_plu_number
+                ?? line.l10n_bg_fiscal_plu_number
+                ?? null;
             const item = {
                 text: line.get_full_product_name?.() ||
                       line.full_product_name ||
@@ -301,6 +312,9 @@ export class ErpNetFPPrinter {
                 unitPrice: unitPrice,
                 taxGroup: this._getTaxGroup(line, order),
             };
+            if (pluNumber) {
+                item.pluNumber = pluNumber;
+            }
             amount_return += parseFloat((item.quantity * item.unitPrice).toFixed(2));
 
             const discount = line.get_discount?.() || line.discount || 0;

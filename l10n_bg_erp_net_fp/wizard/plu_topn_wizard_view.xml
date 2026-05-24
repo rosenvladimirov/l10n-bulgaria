@@ -42,9 +42,9 @@
 
     <menuitem id="menu_fiscal_plu_topn"
               name="Top-N best-sellers"
-              parent="point_of_sale.menu_point_config_product"
+              parent="l10n_bg_erp_net_fp.menu_fiscal_plu_root"
               action="action_l10n_bg_fiscal_plu_topn"
-              sequence="17"
+              sequence="30"
               groups="point_of_sale.group_pos_manager"/>
 
 </odoo>

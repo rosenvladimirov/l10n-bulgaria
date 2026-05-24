@@ -25,3 +25,6 @@ access_l10n_bg_fiscal_shift_receipt_user,l10n.bg.fiscal.shift.receipt.user,model
 access_l10n_bg_fiscal_shift_receipt_manager,l10n.bg.fiscal.shift.receipt.manager,model_l10n_bg_fiscal_shift_receipt,point_of_sale.group_pos_manager,1,0,1,0
 access_l10n_bg_fiscal_shift_receipt_line_user,l10n.bg.fiscal.shift.receipt.line.user,model_l10n_bg_fiscal_shift_receipt_line,point_of_sale.group_pos_user,1,0,1,0
 access_l10n_bg_fiscal_shift_receipt_line_manager,l10n.bg.fiscal.shift.receipt.line.manager,model_l10n_bg_fiscal_shift_receipt_line,point_of_sale.group_pos_manager,1,0,1,0
+access_l10n_bg_fiscal_plu_device_line_user,l10n.bg.fiscal.plu.device.line user,model_l10n_bg_fiscal_plu_device_line,point_of_sale.group_pos_user,1,0,0,0
+access_l10n_bg_fiscal_plu_device_line_manager,l10n.bg.fiscal.plu.device.line manager,model_l10n_bg_fiscal_plu_device_line,point_of_sale.group_pos_manager,1,1,1,1
+access_l10n_bg_fiscal_plu_verify_wizard,l10n.bg.fiscal.plu.verify.wizard,model_l10n_bg_fiscal_plu_verify_wizard,point_of_sale.group_pos_manager,1,1,1,1

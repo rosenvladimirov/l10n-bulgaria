@@ -148,6 +148,83 @@
         </field>
     </record>
 
+    <!-- Kanban view — quick visual at-a-glance status of each device. -->
+    <record id="view_fiscal_printer_device_kanban" model="ir.ui.view">
+        <field name="name">fiscal.printer.device.kanban</field>
+        <field name="model">fiscal.printer.device</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="driver_type" quick_create="false">
+                <field name="name"/>
+                <field name="host"/>
+                <field name="printer_id"/>
+                <field name="connection_mode"/>
+                <field name="proxy_connected"/>
+                <field name="proxy_printer_ok"/>
+                <field name="current_status"/>
+                <field name="is_ready"/>
+                <field name="active"/>
+                <field name="driver_type"/>
+                <field name="l10n_bg_device_serial"/>
+                <field name="l10n_bg_uns_next_number"/>
+                <field name="plu_programmed"/>
+                <field name="last_plu_sync"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="o_kanban_card_content">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                    <small class="o_kanban_record_subtitle text-muted">
+                                        <field name="driver_type"/>
+                                    </small>
+                                </div>
+                                <div>
+                                    <span t-if="record.is_ready.raw_value"
+                                          class="badge text-bg-success">Ready</span>
+                                    <span t-elif="record.connection_mode.raw_value == 'proxy' and !record.proxy_connected.raw_value"
+                                          class="badge text-bg-danger">Offline</span>
+                                    <span t-else=""
+                                          class="badge text-bg-warning">Unknown</span>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_body mt-2">
+                                <div t-if="record.l10n_bg_device_serial.raw_value">
+                                    <i class="fa fa-barcode me-1"/>
+                                    <span>ИН: </span>
+                                    <field name="l10n_bg_device_serial"/>
+                                </div>
+                                <div>
+                                    <i class="fa fa-server me-1"/>
+                                    <field name="printer_id"/>
+                                    <span class="text-muted"> @ </span>
+                                    <field name="host"/>
+                                </div>
+                                <div t-if="record.plu_programmed.raw_value">
+                                    <i class="fa fa-list me-1"/>
+                                    <span>PLU: </span>
+                                    <field name="plu_programmed"/>
+                                    <span t-if="record.last_plu_sync.raw_value" class="text-muted ms-2">
+                                        synced <field name="last_plu_sync" widget="date"/>
+                                    </span>
+                                </div>
+                                <div t-if="record.l10n_bg_uns_next_number.raw_value &gt; 1">
+                                    <i class="fa fa-hashtag me-1"/>
+                                    <span>UNS next: </span>
+                                    <field name="l10n_bg_uns_next_number"/>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_bottom mt-2">
+                                <field name="current_status" class="text-muted small"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <!-- Search View -->
     <record id="view_fiscal_printer_device_search" model="ir.ui.view">
         <field name="name">fiscal.printer.device.search</field>
@@ -159,7 +236,7 @@
                 <field name="printer_id"/>
                 <filter string="Active" name="active" domain="[('active', '=', True)]"/>
                 <filter string="Auto Z Report" name="auto_z" domain="[('auto_z_report', '=', True)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Connection Mode" name="group_connection_mode" context="{'group_by': 'connection_mode'}"/>
                 </group>
             </search>
@@ -170,8 +247,7 @@
     <record id="action_fiscal_printer_device" model="ir.actions.act_window">
         <field name="name">Fiscal Printers</field>
         <field name="res_model">fiscal.printer.device</field>
-        <field name="view_mode">list,form</field>
-        <field name="view_id" ref="view_fiscal_printer_device_tree"/>
+        <field name="view_mode">kanban,list,form</field>
         <field name="search_view_id" ref="view_fiscal_printer_device_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

@@ -1,5 +1,36 @@
 # Changelog
 
+## [19.0.15.3.0] - 2026-05-24
+
+### Added — Community alternative to Enterprise `iot` + `pos_iot` for barcode readers
+
+Replaces the licensed-only path for getting hardware barcode-reader scans into
+Odoo. Subscribes the browser to the local Odoo.ErpNet.FP proxy's
+`/readers/<id>/ws` WebSocket and forwards each scan to the existing Odoo
+barcode-handling layer — same UX as if the reader were a keyboard wedge or an
+EE IoT box.
+
+- `static/src/services/erpnet_reader_service.js` — shared core service:
+  auto-discovers active readers via `GET /readers`, subscribes to each via
+  WebSocket with exponential-backoff reconnect, fans out scans through an
+  Owl EventBus. Loaded into BOTH `web.assets_backend` and
+  `point_of_sale._assets_pos`.
+- `static/src/js/pos_barcode_bridge.js` — POS-side glue: pipes scans into
+  the core POS `barcode_reader` service so existing screen handlers
+  (product lookup, customer search, weight code, etc.) Just Work.
+- `static/src/js/backend_barcode_bridge.js` — backend-side glue: triggers
+  `barcode_scanned` on the core `barcode` service so existing form-view
+  handlers (stock pickings, inventory, hr.attendance, …) Just Work.
+
+Host resolution priority: `pos.session.l10n_bg_erp_net_fp_host` (POS only)
+→ `ir.config_parameter l10n_bg_erp_net_fp.host` (backend) →
+`window.location.origin` (fallback).
+
+Pure browser ↔ WebSocket — no server-side bus.bus, no Odoo controller,
+no extra cron. Hot-plug: service re-scans `/readers` every 30 s.
+
+*Assisted by Claude Code*
+
 ## [19.0.15.2.0] - 2026-05-22
 
 ### Added — `fiscal_plu_eligible` opt-out flag

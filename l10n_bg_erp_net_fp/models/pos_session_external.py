@@ -125,14 +125,12 @@ class PosSession(models.Model):
         """
         self.ensure_one()
         all_steps = []  # [(device.name, step, ok, message), ...]
+        # Multi-device per config (config_id.l10n_bg_all_fiscal_devices) — the
+        # cashier picks the device on the External Shift Dashboard and opens
+        # the shift there. We do NOT auto-create the l10n.bg.fiscal.shift
+        # record here: an opening shift would close the device selector in
+        # the dashboard before the cashier has a chance to pick.
         for device in self.config_id.l10n_bg_all_fiscal_devices:
-            # NEW: auto-create the matching l10n.bg.fiscal.shift record so
-            # it appears in the External Fiscal Shifts kanban immediately
-            # when the external POS session opens (instead of requiring the
-            # cashier to manually click "Open shift" in the dashboard).
-            self.env["l10n.bg.fiscal.shift"]._l10n_bg_ensure_open_for_session(
-                device=device, session=self,
-            )
             for step in self._l10n_bg_push_to_device(device):
                 all_steps.append((device.name, *step))
 

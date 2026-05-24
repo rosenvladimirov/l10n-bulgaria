@@ -1,90 +1,59 @@
-
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
 import { patch } from "@web/core/utils/patch";
-import { PaymentScreen } from "@point_of_sale/app/screens/payment_screen/payment_screen";
+import OrderPaymentValidation from "@point_of_sale/app/utils/order_payment_validation";
 import { ErpNetFPPrinter } from "@l10n_bg_erp_net_fp/js/erp_net_fp_printer";
 
-console.log("[FiscalPayment] 🔧 Loading Fiscal Payment Extension...");
+console.log("[FiscalPayment] 🔧 Loading Fiscal Payment Extension (v19)...");
 
-/**
- * Patch на PaymentScreen за да hook-нем validateOrder()
- * ПРАВИЛНОТО МЯСТО ЗА FISCAL PRINTER INTEGRATION!
- */
-patch(PaymentScreen.prototype, {
+// v19: validateOrder/finalizeValidation се преместиха от PaymentScreen.prototype
+// в нов клас OrderPaymentValidation (app/utils/order_payment_validation.js).
+// Hook-ваме публичния finalizeValidation (без `_` префикс — преименуван в v19).
+patch(OrderPaymentValidation.prototype, {
 
-    /**
-     * Hook AFTER all Odoo-side validation has passed (no-customer,
-     * payment-rounding, missing-line-quantities, etc.). Runs BEFORE
-     * the order is closed/synced — perfect place to talk to the
-     * fiscal printer.
-     *
-     * Why not validateOrder(): that hook fires BEFORE Odoo's own
-     * `_isOrderValid` checks (customer required for invoice, etc.),
-     * so a fiscal receipt could go out the printer even when the
-     * order would later be rejected by Odoo. We want printer ONLY
-     * after Odoo has greenlit the order.
-     *
-     * @override
-     */
-    async _finalizeValidation() {
+    async finalizeValidation() {
         console.log("[FiscalPayment] ═══════════════════════════════════════");
-        console.log("[FiscalPayment] 🎯 _finalizeValidation() called");
+        console.log("[FiscalPayment] 🎯 finalizeValidation() called");
         console.log("[FiscalPayment] ═══════════════════════════════════════");
 
-        const order = this.currentOrder;
+        const order = this.order;
 
-        // GUARD: if this order has already been fiscalised in a previous
-        // _finalizeValidation() attempt that crashed (e.g. backend
-        // 'Missing required account on accountable line'), DO NOT
-        // re-print — the device has already produced one. Just delegate
-        // straight to super so the user can fix the Odoo problem and
-        // retry without spamming receipts.
+        // GUARD: ако този order вече е fiscalised в предишен failed опит, не печатай пак.
         if (order?.l10n_bg_is_fiscalized) {
             console.log("[FiscalPayment] ⏭ Order already fiscalised — skipping reprint, delegating to super");
-            return await super._finalizeValidation();
+            return await super.finalizeValidation();
         }
 
         console.log("[FiscalPayment] Current order:", order);
         console.log("[FiscalPayment] Order name:", order?.name);
         console.log("[FiscalPayment] Order lines:", order?.lines?.length);
 
-        // ════════════════════════════════════════════════════════════
-        // ВАЖНО: Запазваме reference към order за да го използваме в BasePrinter
-        // ════════════════════════════════════════════════════════════
         window.__fiscalPrinterCurrentOrder = order;
         window.__fiscalPrinterPosStore = this.pos;
 
-        // Проверяваме дали има fiscal printer конфигуриран
         const fiscalPrinterHost = this.pos.session?.l10n_bg_erp_net_fp_host;
         const fiscalPrinterId = this.pos.session?.l10n_bg_erp_net_fp_ip;
 
         console.log("[FiscalPayment] Fiscal printer host:", fiscalPrinterHost);
         console.log("[FiscalPayment] Fiscal printer ID:", fiscalPrinterId);
 
+        const notification = this.pos.env?.services?.notification;
+
         if (fiscalPrinterHost && fiscalPrinterId && order) {
             console.log("[FiscalPayment] 🚀 Fiscal printer configured, checking order type...");
 
-            // ════════════════════════════════════════════════════════════
-            // ПРОВЕРКА: Дали е СТОРНО поръчка?
-            // ════════════════════════════════════════════════════════════
             const refundInfo = this._getRefundInfo(order);
-
             console.log("[FiscalPayment] Is refund order:", refundInfo.isRefund);
 
             try {
-                // Създаваме fiscal printer instance
-                const fiscalPrinter = new ErpNetFPPrinter(this.env, {
+                const fiscalPrinter = new ErpNetFPPrinter(this.pos.env, {
                     baseUrl: fiscalPrinterHost,
                     printerId: fiscalPrinterId,
                 });
 
                 let result;
 
-                // ════════════════════════════════════════════════════════════
-                // АКО Е СТОРНО - ИЗПРАЩАМЕ REVERSAL RECEIPT
-                // ════════════════════════════════════════════════════════════
                 if (refundInfo.isRefund && refundInfo.originalOrder) {
                     console.log("[FiscalPayment] 🔄 Processing REFUND order...");
                     console.log("[FiscalPayment] Original order:", refundInfo.originalOrder.name);
@@ -97,12 +66,7 @@ patch(PaymentScreen.prototype, {
                         order,
                         reason
                     );
-
-                }
-                // ════════════════════════════════════════════════════════════
-                // АКО Е НОРМАЛНА ПОРЪЧКА - ИЗПРАЩАМЕ НОРМАЛЕН RECEIPT
-                // ════════════════════════════════════════════════════════════
-                else {
+                } else {
                     console.log("[FiscalPayment] 📄 Processing NORMAL order...");
                     result = await fiscalPrinter.printReceipt(order);
                 }
@@ -114,58 +78,103 @@ patch(PaymentScreen.prototype, {
                     console.log("[FiscalPayment] Receipt #:", result.fiscalData?.receiptNumber);
                     console.log("[FiscalPayment] Fiscal Memory #:", result.fiscalData?.fiscalMemorySerialNumber);
 
-                    // ════════════════════════════════════════════════════════════
-                    // ЗАПИСВАМЕ FISCAL DATA В ORDER-А
-                    // По този начин BasePrinter ще знае че order е фискализиран
-                    // ════════════════════════════════════════════════════════════
                     order.l10n_bg_fiscal_receipt_number = result.fiscalData?.receiptNumber;
                     order.l10n_bg_fiscal_memory_number = result.fiscalData?.fiscalMemorySerialNumber;
-                    order.l10n_bg_is_fiscalized = true;  // ← FLAG за BasePrinter!
+                    order.l10n_bg_is_fiscalized = true;
 
                     if (refundInfo.isRefund) {
-                        order.l10n_bg_is_reversal = true;  // ← Маркираме като сторно
+                        order.l10n_bg_is_reversal = true;
                     }
 
                     window.__fiscalPrinterCurrentOrder.l10n_bg_is_fiscalized = true;
                     window.__fiscalPrinterCurrentOrder.l10n_bg_fiscal_receipt_number = result.fiscalData?.receiptNumber;
                     window.__fiscalPrinterCurrentOrder.l10n_bg_fiscal_memory_number = result.fiscalData?.fiscalMemorySerialNumber;
 
-                    // Notification за успех
-                    if (this.env?.services?.notification) {
+                    if (notification) {
                         const message = refundInfo.isRefund
                             ? _t("Сторно бон отпечатан ")
                             : _t("Фискален бон отпечатан ");
 
-                        this.env.services.notification.add(
+                        notification.add(
                             message +
                             (result.fiscalData?.receiptNumber ? `№${result.fiscalData.receiptNumber}` : ""),
                             { type: "success" }
                         );
                     }
-
                 } else {
                     console.error("[FiscalPayment] ❌ Fiscal print FAILED:", result);
 
-                    // ════════════════════════════════════════════════════════════
-                    // ВАЖНО: Ако fiscal печат не работи, БЛОКИРАМЕ VALIDATION-А!
-                    // Това е законово изискване в България
-                    // ════════════════════════════════════════════════════════════
-
-                    if (this.env?.services?.notification) {
-                        const errorType = refundInfo.isRefund ? _t("сторно бон") : _t("фискален бон");
-
-                        this.env.services.notification.add(
-                            _t("Грешка при печат на ") + errorType + ": " +
-                            (result.message?.body || "Неизвестна грешка") +
-                            _t("\n\nПоръчката НЕ МОЖЕ да бъде валидирана без фискален бон!"),
-                            {
-                                type: "danger",
-                                sticky: true
+                    // AUTO-VOID на pinpad транзакциите — ако фискалният бон се
+                    // провали, клиентът НЕ трябва да остане с дебитирана карта
+                    // без съответен бон. Намираме всички платежни линии, маркирани
+                    // от `payment_datecs_pay.js` (l10n_bg_pinpad_rrn), и викаме
+                    // /pinpads/<id>/void за всяка.
+                    const paymentLines =
+                        order.payment_ids || order.get_paymentlines?.() || [];
+                    const toVoid = paymentLines.filter(
+                        (l) => l.l10n_bg_pinpad_rrn && l.l10n_bg_pinpad_host
+                    );
+                    let voidedCount = 0;
+                    let voidFailed = false;
+                    for (const line of toVoid) {
+                        const url =
+                            String(line.l10n_bg_pinpad_host).replace(/\/+$/, "") +
+                            `/pinpads/${encodeURIComponent(line.l10n_bg_pinpad_id)}/void`;
+                        try {
+                            const resp = await fetch(url, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    amount: line.l10n_bg_pinpad_amount,
+                                    rrn: line.l10n_bg_pinpad_rrn,
+                                    auth_id: line.l10n_bg_pinpad_auth_id,
+                                }),
+                            });
+                            const voidResult = resp.ok ? await resp.json() : null;
+                            if (voidResult && voidResult.ok) {
+                                voidedCount++;
+                                console.log(
+                                    "[FiscalPayment] 🔄 Auto-VOID OK · RRN",
+                                    line.l10n_bg_pinpad_rrn
+                                );
+                            } else {
+                                voidFailed = true;
+                                console.error(
+                                    "[FiscalPayment] ⚠ Auto-VOID failed · RRN",
+                                    line.l10n_bg_pinpad_rrn, voidResult
+                                );
                             }
-                        );
+                        } catch (e) {
+                            voidFailed = true;
+                            console.error(
+                                "[FiscalPayment] ⚠ Auto-VOID exception · RRN",
+                                line.l10n_bg_pinpad_rrn, e
+                            );
+                        }
                     }
 
-                    // НЕ извикваме super.validateOrder() ако fiscal печат не работи!
+                    if (notification) {
+                        const errorType = refundInfo.isRefund ? _t("сторно бон") : _t("фискален бон");
+                        let body =
+                            _t("Грешка при печат на ") + errorType + ": " +
+                            (result.message?.body || _t("Неизвестна грешка")) +
+                            _t("\n\nПоръчката НЕ МОЖЕ да бъде валидирана без фискален бон!");
+                        if (toVoid.length) {
+                            if (voidFailed) {
+                                body += _t(
+                                    "\n\n⚠ ВНИМАНИЕ: автоматичното VOID на картовото плащане НЕ премина за %s от %s транзакции. Провери терминала и при нужда направи ръчно VOID/отмяна през банката, преди да опитваш отново!",
+                                    toVoid.length - voidedCount, toVoid.length,
+                                );
+                            } else {
+                                body += _t(
+                                    "\n\n🔄 Автоматично прекъснах %s картово(и) плащане(я) — клиентът не е дебитиран.",
+                                    voidedCount,
+                                );
+                            }
+                        }
+                        notification.add(body, { type: "danger", sticky: true });
+                    }
+
                     console.log("[FiscalPayment] ⛔ Order validation BLOCKED due to fiscal print failure");
                     return;
                 }
@@ -174,8 +183,8 @@ patch(PaymentScreen.prototype, {
                 console.error("[FiscalPayment] ❌ Fiscal printer error:", error);
                 console.error("[FiscalPayment] ❌ Error stack:", error.stack);
 
-                if (this.env?.services?.notification) {
-                    this.env.services.notification.add(
+                if (notification) {
+                    notification.add(
                         _t("Грешка при комуникация с фискален принтер: ") + error.message +
                         _t("\n\nПоръчката НЕ МОЖЕ да бъде валидирана без фискален бон!"),
                         {
@@ -185,7 +194,6 @@ patch(PaymentScreen.prototype, {
                     );
                 }
 
-                // НЕ извикваме super.validateOrder() при грешка!
                 console.log("[FiscalPayment] ⛔ Order validation BLOCKED due to fiscal printer error");
                 return;
             }
@@ -194,27 +202,12 @@ patch(PaymentScreen.prototype, {
             console.log("[FiscalPayment] Proceeding with normal validation...");
         }
 
-        // ════════════════════════════════════════════════════════════
-        // АКО ВСИЧКО Е ОК (или няма fiscal printer) - ПРОДЪЛЖАВАМЕ С НОРМАЛЕН FLOW
-        // ════════════════════════════════════════════════════════════
         console.log("[FiscalPayment] ✅ Proceeding to normal order finalization...");
-        const ret = await super._finalizeValidation();
+        const ret = await super.finalizeValidation();
 
-        // SKIP ReceiptScreen — the Datecs device already produced the
-        // physical receipt; we don't need Odoo's preview/print/email
-        // dialog after that. Equivalent to enabling
-        // iface_print_skip_screen, which in core requires
-        // iface_print_auto + a POSBox we don't have.
-        //
-        // BEFORE switching screens, fire-and-forget a text e-mail to
-        // the customer if their partner record has an e-mail address.
-        // The backend extension (pos_order_extensions._add_mail_attachment)
-        // accepts an empty ticket image and skips the JPG attachment —
-        // the customer just gets the standard "Receipt N is ready"
-        // notification. Image rendering in the absent ReceiptScreen
-        // would require us to mount the receipt component off-screen,
-        // which is heavy; the text-only path is enough for the audit
-        // trail (the physical fiscal bon is the legal copy anyway).
+        // SKIP ReceiptScreen — фискалното устройство вече произведе хартиен бон;
+        // не ни трябва Odoo preview/print/email диалог. + email-ваме клиента
+        // ако партньорът има email.
         if (order?.l10n_bg_is_fiscalized) {
             try {
                 const partner = order.get_partner?.() || order.partner_id;
@@ -234,7 +227,12 @@ patch(PaymentScreen.prototype, {
                 console.log("[FiscalPayment] ⏭ Skipping ReceiptScreen → ProductScreen");
                 order.set_screen_data?.({ name: "" });
                 this.pos.selectNextOrder?.();
-                this.pos.showScreen("ProductScreen");
+                // v19: pos.navigate е заменил pos.showScreen
+                if (typeof this.pos.navigate === "function") {
+                    this.pos.navigate("ProductScreen");
+                } else if (typeof this.pos.showScreen === "function") {
+                    this.pos.showScreen("ProductScreen");
+                }
             } catch (e) {
                 console.warn("[FiscalPayment] ReceiptScreen skip failed:", e);
             }
@@ -242,21 +240,12 @@ patch(PaymentScreen.prototype, {
         return ret;
     },
 
-    /**
-     * Извлича информация за сторно поръчка
-     *
-     * @param {Object} order - POS Order
-     * @returns {Object} { isRefund: boolean, originalOrder: Object|null }
-     */
     _getRefundInfo(order) {
         const orderLines = order.lines || order.get_orderlines?.() || [];
 
-        // Проверяваме дали има линии с отрицателни количества
-        // и извличаме оригиналния order
         for (const line of orderLines) {
             const qty = line.get_quantity?.() || line.qty || 0;
 
-            // Ако има отрицателно количество И има refunded_orderline_id -> СТОРНО
             if (qty < 0 && line.refunded_orderline_id) {
                 const originalOrder = line.refunded_orderline_id.order_id;
 
@@ -279,24 +268,9 @@ patch(PaymentScreen.prototype, {
         };
     },
 
-    /**
-     * Определя причината за сторниране
-     *
-     * @param {Object} order - POS Order
-     * @returns {String} "operator-error", "refund", или "tax-base-reduction"
-     */
     _getRefundReason(order) {
-        // Може да добавите логика за избор на причина
-        // Например от popup или от order properties
-
-        // По подразбиране връщаме "refund"
         return "refund";
-
-        // Алтернативно можете да проверите:
-        // if (order.refund_reason) return order.refund_reason;
-        // if (order.is_operator_error) return "operator-error";
-        // if (order.is_tax_reduction) return "tax-base-reduction";
     }
 });
 
-console.log("[FiscalPayment] ✅ PaymentScreen patched successfully");
+console.log("[FiscalPayment] ✅ OrderPaymentValidation patched successfully (v19)");

@@ -139,6 +139,116 @@ class FiscalPrinterDevice(models.Model):
         help="Number of PLUs currently stored on the device.",
     )
 
+    # ─── НАП-compliant УНП брояч (Наредба Н-18, Прил. 29) ─────────
+    # УНП формат: <ИН на ФУ 8 chars>-<оператор 4 chars>-<пореден 7 цифри>
+    # Пример: DT737851-0001-0000001
+    # `l10n_bg_uns_next_number` нараства с 1 при всяка продажба, **per
+    # устройство** (не се нулира между сесии — НАП изискване за уникалност
+    # и непрекъснатост в живота на ФУ).
+    l10n_bg_device_serial = fields.Char(
+        string="Device serial (ИН на ФУ)",
+        readonly=True,
+        copy=False,
+        help="Real fiscal device individual number (ИН на ФУ — 2 letters + "
+        "6 digits, assigned by NRA). Auto-populated from the proxy's "
+        "/printers/<id> endpoint on the first UNS allocation. Used as the "
+        "first part of the УНП per Наредба Н-18.",
+    )
+    l10n_bg_uns_next_number = fields.Integer(
+        string="UNS counter (next)",
+        default=1,
+        copy=False,
+        help="Next sale sequential number to be allocated. Increments +1 "
+        "per sale, never resets (per НАП Прил. 29). Reset ONLY on device "
+        "replacement.",
+    )
+
+    @api.model
+    def l10n_bg_allocate_uns(self, printer_name, operator_code=None, device_serial=None):
+        """Allocate next УНП for the named fiscal device.
+
+        Atomically increments the counter and returns the full УНП string:
+            <device_serial>-<operator 4 digits>-<counter 7 digits>
+
+        Args:
+            printer_name: device key from config.yaml (e.g., 'dp150').
+            operator_code: cashier code (digits) — padded to 4 chars.
+            device_serial: ИН на ФУ от проксито (JS-side fetch). Server-side
+                fetch не сработва при browser-proxy topology (Odoo сървърът
+                не може да достигне локалното прокси на касиера).
+
+        Returns:
+            * full УНП string on success (e.g., 'DT737851-0001-0000123')
+            * None if device not found or serial cannot be obtained (JS
+              falls back to local heuristic in that case).
+        """
+        if not printer_name:
+            return None
+        dev = self.search([("name", "=", printer_name)], limit=1)
+        if not dev:
+            _logger.warning("l10n_bg_allocate_uns: device %r not found", printer_name)
+            return None
+
+        # 1) Записваме serial-а ако е подаден (от JS) и още го нямаме записан
+        if device_serial and not dev.l10n_bg_device_serial:
+            dev.sudo().write({"l10n_bg_device_serial": device_serial.strip()[:32]})
+            _logger.info("device serial cached от JS: %s = %s",
+                         printer_name, device_serial.strip())
+        # 2) Lazy server-side fetch (работи само ако сървърът достига проксито —
+        # rare за browser-proxy topology, но опит)
+        if not dev.l10n_bg_device_serial:
+            try:
+                dev._l10n_bg_refresh_device_serial()
+            except Exception:  # noqa: BLE001
+                _logger.exception("УНП allocate: serial refresh failed for %s", printer_name)
+        if not dev.l10n_bg_device_serial:
+            _logger.warning(
+                "l10n_bg_allocate_uns: no device serial for %r, returning None "
+                "(JS will fall back to local heuristic)", printer_name,
+            )
+            return None
+
+        # 2) atomic increment + fetch (PostgreSQL UPDATE...RETURNING)
+        self.env.cr.execute(
+            """
+            UPDATE fiscal_printer_device
+            SET l10n_bg_uns_next_number = l10n_bg_uns_next_number + 1
+            WHERE id = %s
+            RETURNING l10n_bg_uns_next_number - 1
+            """,
+            (dev.id,),
+        )
+        counter = self.env.cr.fetchone()[0]
+
+        # 3) форматираме УНП-то (op padded to 4 chars, counter to 7 digits)
+        op = str(operator_code or "1").zfill(4)[-4:]
+        uns = f"{dev.l10n_bg_device_serial}-{op}-{counter:07d}"
+        _logger.info(
+            "УНП allocate: %s op=%s counter=%d → %s",
+            printer_name, op, counter, uns,
+        )
+        return uns
+
+    def _l10n_bg_refresh_device_serial(self):
+        """Lazy GET /printers/<name> на проксито и попълва l10n_bg_device_serial.
+        Викан само вътрешно от l10n_bg_allocate_uns; не е public RPC."""
+        self.ensure_one()
+        if not self.host:
+            return
+        import requests  # local import — модулът се товари лениво
+        url = self.host.rstrip("/") + "/printers/" + self.name
+        try:
+            r = requests.get(url, timeout=5)
+            r.raise_for_status()
+            data = r.json()
+            serial = (data.get("serialNumber") or "").strip()
+            if serial:
+                self.sudo().write({"l10n_bg_device_serial": serial})
+                _logger.info("device serial синхрониран от проксито: %s = %s",
+                             self.name, serial)
+        except Exception as exc:  # noqa: BLE001
+            _logger.warning("Не успях да взема serial от %s: %s", url, exc)
+
     # ─── Convenience: helpers exposed to the JS layer ──────────────
 
     def _is_proxy_capable(self):

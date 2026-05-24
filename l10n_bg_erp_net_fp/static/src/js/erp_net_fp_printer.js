@@ -105,8 +105,8 @@ export class ErpNetFPPrinter {
             operatorOpts.operatorPassword = session.l10n_bg_fp_operator_password;
         }
 
-        // Подготвяме данните за фискален бон
-        const receiptData = this._prepareFiscalReceiptData(order, posConfig, operatorOpts);
+        // Подготвяме данните за фискален бон (async — взима УНП от ORM allocator)
+        const receiptData = await this._prepareFiscalReceiptData(order, posConfig, operatorOpts);
 
         // Detect invoice mode — Odoo POS sets `to_invoice` flag from
         // the standard "Фактура" checkbox in the payment screen. When
@@ -242,7 +242,7 @@ export class ErpNetFPPrinter {
      * @param {Object} options - Допълнителни опции (operator, operatorPassword, info, etc.)
      * @returns {Object} Fiscal receipt data
      */
-    _prepareFiscalReceiptData(order, posConfig, options = {}) {
+    async _prepareFiscalReceiptData(order, posConfig, options = {}) {
         const items = [];
         let amount_return = 0;
         let all_payments = 0;
@@ -252,9 +252,37 @@ export class ErpNetFPPrinter {
         const orderLines = order.lines || order.get_orderlines?.() || [];
 
         for (const line of orderLines) {
-            // Вземаме количеството
-            let quantity = line.get_quantity?.() || line.qty || 0;
-            let unitPrice = line.get_unit_display_price?.() || line.price || 0;
+            // qty + единична цена С ДДС (GROSS) — НЕ NET. Фискалните устройства
+            // от Datecs (DP-150) очакват цени per VAT group ВКЛЮЧИТЕЛНО ДДС
+            // (Б1.98), за да съвпадне със сумата на плащането (картовите
+            // плащания изискват ТОЧНА сума иначе E404 "Command not allowed").
+            // В v19 POS: `line.priceIncl` = line total С ДДС, `line.price_unit`
+            // = NET unit. Изчисляваме gross unit = priceIncl/qty с fallback-и.
+            let quantity = line.qty ?? line.get_quantity?.() ?? 1;
+            const grossTotal =
+                line.priceIncl
+                ?? line.price_subtotal_incl
+                ?? line.getPriceWithTax?.()
+                ?? line.get_price_with_tax?.();
+            let unitPrice;
+            if (grossTotal !== undefined && grossTotal !== null && quantity) {
+                unitPrice = grossTotal / quantity;
+            } else {
+                // Fallback ако gross липсва: ползваме каквото има (NET е приемлив
+                // за устройства, които сами добавят ДДС, но Datecs DP-150 НЕ
+                // прави това → бонът пада).
+                unitPrice =
+                    line.getUnitDisplayPrice?.()
+                    ?? line.get_unit_display_price?.()
+                    ?? line.price_unit
+                    ?? line.price
+                    ?? 0;
+            }
+            console.log("[ErpNetFPPrinter]    line price (gross):", unitPrice,
+                        "qty:", quantity,
+                        "(priceIncl:", line.priceIncl,
+                        ", price_subtotal_incl:", line.price_subtotal_incl,
+                        ", price_unit NET:", line.price_unit, ")");
 
             // ════════════════════════════════════════════════════════════
             // ВАЖНО: За сторно бонове ErpNet.FP изисква ПОЛОЖИТЕЛНИ стойности
@@ -313,17 +341,16 @@ export class ErpNetFPPrinter {
             });
         }
 
-        // Добавяме рестото ако има (само за нормални бонове, не за сторно)
-        if (!isReversal && all_payments > 0 && amount_return > 0 && all_payments - amount_return !== 0) {
-            payments.push({
-                amount: parseFloat(((all_payments - amount_return) * -1).toFixed(2)),
-                paymentType: 'change',
-            });
-        }
+        // НЕ пращаме отделен "change" payment ред — ErpNet.FP проксито/ФУ
+        // не приема такъв enum (валидни са cash/card/check/bank/coupons/...).
+        // Устройството САМО изчислява рестото от tendered amount (ако
+        // сумата на плащанията > сумата на артикулите, разликата е автоматично
+        // ресто и се принтира на бона).
 
-        // Уникален номер на продажбата
-        // Формат: XX123456-YYYY-1234567 (ErpNet.FP изискване)
-        const uniqueSaleNumber = this._formatUniqueSaleNumber(order, posConfig);
+        // Уникален номер на продажбата (НАП-compliant per-device counter).
+        // Изпробваме server-side allocator (atomic +1 per device, ползва
+        // реалния ИН на ФУ); fallback е локалната евристика.
+        const uniqueSaleNumber = await this._formatUniqueSaleNumber(order, posConfig);
 
         const receiptData = {
             uniqueSaleNumber: uniqueSaleNumber,
@@ -361,9 +388,60 @@ export class ErpNetFPPrinter {
      * @param {Object} posConfig - POS Configuration
      * @returns {String} Форматиран уникален номер
      */
-    _formatUniqueSaleNumber(order, posConfig) {
-        // Част 1: Printer ID (2 букви + 6 цифри)
-        // Пример: dt737851 -> DT737851
+    async _formatUniqueSaleNumber(order, posConfig) {
+        // НАП-compliant: server-side allocator (atomic +1 per ФУ, реален
+        // ИН на ФУ от устройството). Fall-back на локалната евристика ако
+        // RPC-то fail-не (offline POS, или сървърна грешка).
+        const operatorCode =
+            order?.cashier?.id
+            ?? order?.user_id?.id
+            ?? posConfig?.session_id
+            ?? posConfig?.id
+            ?? 1;
+
+        // JS fetch на ИН на ФУ от проксито (Odoo сървърът не може да го направи
+        // в browser-proxy topology). Подаваме serial-а на ORM allocator-а.
+        let deviceSerial = "";
+        try {
+            const url = this.baseUrl + "/printers/" + encodeURIComponent(this.printerId);
+            const resp = await fetch(url, { method: "GET" });
+            if (resp.ok) {
+                const data = await resp.json();
+                deviceSerial = (data.serialNumber || "").trim();
+            }
+        } catch (e) {
+            console.warn("[ErpNetFPPrinter] proxy serial fetch fail:", e);
+        }
+
+        try {
+            const orm = this.env?.services?.orm;
+            if (orm) {
+                const uns = await orm.call(
+                    "fiscal.printer.device",
+                    "l10n_bg_allocate_uns",
+                    [this.printerId, String(operatorCode), deviceSerial || null],
+                );
+                if (uns) {
+                    console.log("[ErpNetFPPrinter] УНП от ORM allocator:", uns,
+                                "(serial from proxy:", deviceSerial, ")");
+                    return uns;
+                }
+                console.warn(
+                    "[ErpNetFPPrinter] ORM allocator върна null — fallback на локалната евристика"
+                );
+            }
+        } catch (e) {
+            console.warn("[ErpNetFPPrinter] ORM allocator грешка:", e,
+                         "— fallback на локалната евристика");
+        }
+        return this._formatUniqueSaleNumberLocal(order, posConfig);
+    }
+
+    _formatUniqueSaleNumberLocal(order, posConfig) {
+        // Fallback — само ако сървърният allocator е недостъпен. Не е
+        // NRA-compliant (нумерацията се нулира между сесии при липса на
+        // tracking_number; може да дава дубликати). Ползва се само за да не
+        // блокира продажбата при временно сървърен срив.
         const printerIdUpper = this.printerId.toUpperCase();
 
         // Извличаме букви и цифри от printer ID
@@ -388,16 +466,24 @@ export class ErpNetFPPrinter {
         const posId = posConfig?.id || posConfig?.session_id || 1;
         const posPart = String(posId).padStart(4, '0').slice(-4);
 
-        // Част 3: 7 цифри - order sequence number
-        // Опитваме се да извлечем числа от order.name
-        let orderNumber = String(order.sequence_number || order.id || 1);
-
-        if (order.name) {
-            const matches = order.name.match(/\d+/g);
-            if (matches && matches.length > 0) {
-                // Вземаме всички числа и ги комбинираме
-                orderNumber = matches.join('');
+        // Част 3: 7 ЦИФРИ — order sequence. В Odoo 19 order.id често е низ
+        // (uuid, напр. "b1d2f81") и order.name = "/", затова извличаме САМО
+        // цифрите от наличните източници; ако никъде няма цифри — резервен
+        // timestamp. Иначе буквите чупят УНП-то (устройството връща E401
+        // "Syntax error in the received data").
+        let orderNumber = "";
+        for (const cand of [order.tracking_number, order.sequence_number,
+                            order.pos_reference, order.name, order.id]) {
+            if (cand !== undefined && cand !== null) {
+                const digits = String(cand).replace(/\D/g, "");
+                if (digits) {
+                    orderNumber = digits;
+                    break;
+                }
             }
+        }
+        if (!orderNumber) {
+            orderNumber = String(Date.now());
         }
 
         // Вземаме последните 7 цифри или допълваме с нули
@@ -462,19 +548,18 @@ export class ErpNetFPPrinter {
      * Определя типа на плащането
      */
     _getPaymentType(payment) {
-        const methodName = (payment.payment_method?.name || payment.name || "").toLowerCase();
-
-        if (
-            methodName.includes("cash") ||
-            methodName.includes("каса") ||
-            methodName.includes("кеш")
-        ) {
-            return "cash";
+        // Чете explicit полето `l10n_bg_fiscal_payment_type` от pos.payment.
+        // method (auto-default-нато при инсталация по use_payment_terminal/
+        // is_cash_count/type, editable от касиера за coupon/voucher/internal).
+        // Заменя предишния fragile name-heuristic (cash/каса/datecs/...) —
+        // имената са user-конфигурируеми и не са надежден ключ.
+        const pm = payment.payment_method || payment.payment_method_id || {};
+        if (pm.l10n_bg_fiscal_payment_type) {
+            return pm.l10n_bg_fiscal_payment_type;
         }
-        if (methodName.includes("card") || methodName.includes("карта")) {
-            return "card";
-        }
-
+        // Defensive fallback ако полето не е заредено (стар bundle/missing -u):
+        if (pm.use_payment_terminal) return "card";
+        if (pm.is_cash_count) return "cash";
         return "cash";
     }
 
@@ -683,7 +768,7 @@ export class ErpNetFPPrinter {
         }
 
         // ВАЖНО: Подаваме isReversal: true за да конвертира към положителни стойности
-        const receiptData = this._prepareFiscalReceiptData(refundOrder, posConfig, operatorOpts);
+        const receiptData = await this._prepareFiscalReceiptData(refundOrder, posConfig, operatorOpts);
 
         // Добавяме данните от оригиналния бон
         receiptData.receiptNumber = originalFiscalData.receiptNumber;

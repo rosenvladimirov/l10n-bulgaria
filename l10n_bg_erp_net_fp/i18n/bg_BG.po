@@ -1,0 +1,4489 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_erp_net_fp
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-19 09:37+0000\n"
+"PO-Revision-Date: 2026-05-19 09:37+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+msgid ""
+"\n"
+"\n"
+"Моля, проверете:\n"
+"• ErpNet.FP сървърът е стартиран\n"
+"• Принтерът е достъпен от сървъра"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+msgid ""
+"\n"
+"\n"
+"Моля, уверете се че:\n"
+"• Браузърът с ErpNet прокси е отворен\n"
+"• Принтерът е свързан и включен\n"
+"• Прокси приложението има достъп до принтера"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/cash_move_popup.js:0
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/opening_control_popup_fiscal.js:0
+msgid ""
+"\n"
+"\n"
+"Операцията НЕ МОЖЕ да бъде завършена без фискален принтер!"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/payment_screen.js:0
+msgid ""
+"\n"
+"\n"
+"Поръчката НЕ МОЖЕ да бъде валидирана без фискален бон!"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+msgid " (+%d more)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py:0
+msgid "%(n)d fiscal session(s) marked closed_partial."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py:0
+msgid "(preview)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_users_form_inherit_l10n_bg_fp
+msgid "0000"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__nsale_prefix
+msgid ""
+"2-letter prefix for Unique Sale Numbers (LLDDDDDD-CCCC-DDDDDDD). Per-device,"
+" ensures uniqueness across multiple devices in the same shop. Required for "
+"Datecs PM v2.11.4 syntax #2."
+msgstr ""
+"2-буквен префикс за Уникален номер на продажба (ЛЛЦЦЦЦЦЦ-СССС-ЦЦЦЦЦЦЦ). За "
+"всяко устройство поотделно, осигурява уникалност при няколко устройства в "
+"един обект. Изисква се за синтаксис #2 на Datecs PM v2.11.4."
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_kanban
+msgid ""
+"<i class=\"fa fa-external-link me-1\"/>\n"
+"                                    Open Dashboard"
+msgstr ""
+"<i class=\"fa fa-external-link me-1\"/>\n"
+"                                    Отвори табло"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.pos_config_view_form_inherit_fiscal_printer
+msgid ""
+"<i class=\"fa fa-info-circle\"/>\n"
+"                                        Fiscal printer will be used for receipt printing.\n"
+"                                        Configure the printer device in: <strong>Point of Sale → Configuration → Fiscal Printers</strong>"
+msgstr ""
+"<i class=\"fa fa-info-circle\"/>\n"
+"                                        Фискалният принтер ще се използва за печат на касови бележки.\n"
+"                                        Конфигурирайте устройството в: <strong>Точка на продажба → Конфигурация → Фискални принтери</strong>"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.res_config_settings_view_form_inherit_fiscal_printer
+msgid ""
+"<i class=\"fa fa-info-circle\"/>\n"
+"                                        Fiscal printer will be used for receipt printing.\n"
+"                                        X/Z reports will be printed automatically during session operations."
+msgstr ""
+"<i class=\"fa fa-info-circle\"/>\n"
+"                                        Фискалният принтер ще се използва за печат на касови бележки.\n"
+"                                        X/Z отчетите ще се отпечатват автоматично при операции със сесията."
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "<span class=\"o_stat_text\">History</span>"
+msgstr "<span class=\"o_stat_text\">История</span>"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_kanban
+msgid "<span class=\"small text-muted\">Closed</span>"
+msgstr "<span class=\"small text-muted\">Затворена</span>"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_kanban
+msgid "<span class=\"small text-muted\">Opened</span>"
+msgstr "<span class=\"small text-muted\">Отворена</span>"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_kanban
+msgid "<span class=\"text-muted ms-1\">receipts</span>"
+msgstr "<span class=\"text-muted ms-1\">бележки</span>"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__account_tax_group__l10n_bg_fiscal_tax_group__а
+msgid "A - VAT 0%"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.actions.act_window,help:l10n_bg_erp_net_fp.action_l10n_bg_fiscal_plu
+msgid ""
+"A PLU (Price Look-Up) is an article slot programmed\n"
+"                on the fiscal device. Each slot maps to one or more\n"
+"                Odoo products via M2M and gets pushed to the device\n"
+"                on POS session open."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__account_move_id
+msgid "Account Move"
+msgstr "Счетоводна операция"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__message_needaction
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__message_needaction
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_l10n_bg_fiscal_plu_topn_wizard
+msgid "Activate top-N best-selling PLUs"
+msgstr "Активиране на топ-N най-продаваните PLU"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__active
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__active
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_search
+msgid "Active"
+msgstr "Активен"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__activity_ids
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__activity_ids
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__activity_exception_decoration
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__activity_exception_decoration
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__activity_state
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__activity_state
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__activity_type_icon
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__activity_type_icon
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp.action_l10n_bg_fiscal_plu_allocate
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp.action_l10n_bg_fiscal_plu_allocate_template
+msgid "Add to fiscal PLU base"
+msgstr "Добавяне в фискална PLU база"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_config__l10n_bg_extra_fiscal_printer_ids
+msgid "Additional fiscal printers"
+msgstr "Допълнителни фискални принтери"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_config_form_proxy
+msgid "Additional fiscal printers (BG)"
+msgstr "Допълнителни фискални принтери (BG)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_plu_push_wizard__scope__pending
+msgid "All Pending + Stale"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_plu_push_wizard__scope__all_pushable
+msgid "All except Conflict / Error"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_config__l10n_bg_all_fiscal_devices
+msgid "All fiscal devices"
+msgstr "Всички фискални устройства"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_allocate_wizard.py:0
+msgid "All selected products are already linked to PLU slots."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_allocate_wizard_form
+msgid "Allocate"
+msgstr "Разпредели"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_allocate_wizard_form
+msgid "Allocate Fiscal PLUs"
+msgstr "Разпределяне на фискални PLU кодове"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_l10n_bg_fiscal_plu_allocate_wizard
+msgid "Allocate fiscal PLUs for selected products"
+msgstr "Разпределяне на фискални PLU за избрани продукти"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_allocate_wizard.py:0
+msgid "Allocated PLU slots"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_x_report_wizard__allowed_device_ids
+msgid "Allowed Device"
+msgstr "Разрешено устройство"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+msgid "An X report can only be printed with an open session"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_topn_wizard_form
+msgid "Apply (archive losers)"
+msgstr "Приложи (архивирай изпадналите)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_topn_wizard__archive_zero_velocity
+msgid "Archive PLUs with no sales"
+msgstr "Архивиране на PLU без продажби"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_form
+msgid "Archived"
+msgstr "Архивиран"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "Are you sure you want to delete old history?"
+msgstr "Сигурни ли сте, че искате да изтриете старата история?"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "Are you sure you want to generate a Z report?"
+msgstr "Сигурни ли сте, че искате да генерирате Z отчет?"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_form
+msgid "Article name on receipt"
+msgstr "Наименование на артикула в касовата бележка"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__name
+msgid ""
+"Article name printed on the fiscal receipt. Snapshot — synced from the "
+"canonical (first) linked product on demand."
+msgstr ""
+"Наименование на артикула, отпечатано на фискалната бележка. Снимка — "
+"синхронизира се от основния (първи) свързан продукт при поискване."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__message_attachment_count
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__message_attachment_count
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+msgid "Attention"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_allocate_wizard__auto_validate
+msgid "Auto Validate"
+msgstr "Автоматична валидация"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_search
+msgid "Auto Z Report"
+msgstr "Автоматичен Z отчет"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_config__l10n_bg_auto_z_on_close
+msgid "Auto Z on POS close"
+msgstr "Автоматичен Z при затваряне на ПОС"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_config_form_proxy
+msgid "Auto Z on POS close (BG)"
+msgstr "Автоматичен Z-отчет при затваряне на POS (BG)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.server,name:l10n_bg_erp_net_fp.ir_cron_auto_close_stuck_fiscal_sessions_ir_actions_server
+msgid "Auto-close stuck fiscal sessions (Н-18 ≤24h)"
+msgstr "Автоматично затваряне на заседнали фискални сесии (Н-18 ≤24h)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_printer_device__driver_type__auto
+msgid "Auto-detect (legacy / ErpNet.FP)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.pos_config_view_form_inherit_fiscal_printer
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.res_config_settings_view_form_inherit_fiscal_printer
+msgid "Automatic Z Report on Session Close"
+msgstr "Автоматичен Z отчет при затваряне на сесия"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__auto_z_report
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_res_config_settings__l10n_bg_auto_z_on_close
+msgid "Automatic Z report"
+msgstr "Автоматичен Z-отчет"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__auto_z_report
+msgid "Automatic generation of Z report"
+msgstr "Автоматично генериране на Z-отчет"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_config_form_proxy
+msgid ""
+"Automatically print a Z-report on the fiscal device when the POS session is "
+"closed."
+msgstr ""
+"Автоматично отпечатва Z-отчет на фискалното устройство при затваряне на POS "
+"сесията."
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "Automation"
+msgstr "Автоматизация"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__account_tax_group__l10n_bg_fiscal_tax_group__б
+msgid "B - VAT 20%"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__pos_printer__printer_type__erp_net_fp
+msgid "BG ErpNET FP"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/top_bar/top_bar.xml:0
+msgid "Back to backend"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_session__pos_session_id
+msgid ""
+"Back-link to the browser/UI POS session that triggered this fiscal session, "
+"if any. The two are NOT the same — fiscal sessions live on the device, POS "
+"sessions in the Odoo UI; their lifecycles can differ."
+msgstr ""
+"Обратна връзка към ПОС сесията в браузъра/интерфейса, инициирала тази "
+"фискална сесия, ако има такава. Двете НЕ са едно и също — фискалните сесии "
+"са на устройството, ПОС сесиите са в интерфейса на Odoo; жизненият им цикъл "
+"може да се различава."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_session__source__backend
+msgid "Back-office (invoicing)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "Basic Settings"
+msgstr "Основни настройки"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_printer_device__on_sync_fail__block
+msgid "Block POS opening"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__stamp_image
+msgid "Bottom-of-receipt seal. Same constraints as Customer Logo."
+msgstr ""
+"Печат в долната част на касовата бележка. Същите ограничения като "
+"Клиентското лого."
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_tree
+msgid "Browser"
+msgstr "Браузър"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_printer_device__connection_mode__proxy
+msgid "Browser Proxy (Printer in local network)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "Browser Proxy Status"
+msgstr "Статус на браузър прокси"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js:0
+msgid "Browser fetch failed (%s)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__proxy_connected
+msgid "Browser свързан"
+msgstr "Браузър свързан"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_users_form_inherit_l10n_bg_fp
+msgid "Bulgarian Fiscal Printer"
+msgstr "Български фискален принтер"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_l10n_bg_fiscal_z_report
+msgid "Bulgarian fiscal Z-report event (per session, per device)"
+msgstr "Българско фискално събитие Z-отчет (на сесия, на устройство)"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.pos_config_view_form_inherit_fiscal_printer
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.res_config_settings_view_form_inherit_fiscal_printer
+msgid "Bulgarian fiscal printer integration via ErpNet.FP"
+msgstr "Интеграция с български фискален принтер чрез ErpNet.FP"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__account_tax_group__l10n_bg_fiscal_tax_group__в
+msgid "C - VAT 20%"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_allocate_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_topn_wizard_form
+msgid "Cancel"
+msgstr "Отказ"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+msgid ""
+"Cannot open POS session — %(n)d PLU(s) are in conflict/error state: "
+"%(names)s%(more)s. Fix them from Settings → Bulgarian Fiscal → PLU Slots "
+"before opening the session."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py:0
+msgid ""
+"Cannot push — %(n)d PLU(s) are in conflict/error. Fix them first:\n"
+"\n"
+"%(lines)s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_shift_receipt__payment_kind__card
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__pos_payment_method__l10n_bg_external_kind__card
+msgid "Card"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_shift_receipt__payment_kind__cash
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__pos_payment_method__l10n_bg_external_kind__cash
+msgid "Cash"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/cash_move_popup.js:0
+msgid "Cash in/out of %s is ignored."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_config__l10n_bg_external_pos_mode
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_external_pos_mode
+msgid "Cash register as POS (external)"
+msgstr "Касов апарат като POS (външен)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_fp_operator
+msgid "Cashier operator code"
+msgstr "Код на касиер-оператор"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_fp_operator_password
+msgid "Cashier operator password"
+msgstr "Парола на касиер-оператор"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__operator_user_id
+msgid ""
+"Cashier responsible for this shift. Their `l10n_bg_fp_operator` code is "
+"pushed to the device on open."
+msgstr ""
+"Касиерът, отговорен за тази смяна. Кодът им `l10n_bg_fp_operator` се изпраща"
+" към устройството при отваряне."
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "Check Status"
+msgstr "Проверка на статус"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_tree
+msgid "Check consistency"
+msgstr "Провери съответствие"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_status__create_date
+msgid "Check time"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "Cleanup Old History"
+msgstr "Изчисти стара история"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_priters_status.py:0
+msgid "Clear history"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.server,name:l10n_bg_erp_net_fp.ir_cron_cleanup_printer_status_history_ir_actions_server
+msgid "Clearing old printer status history"
+msgstr "Изчистване на стара история на статуса на принтера"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_push_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_x_report_wizard_form
+msgid "Close"
+msgstr "Затвори"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/top_bar/top_bar.xml:0
+msgid "Close Shift"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/external_shift_app.js:0
+msgid "Close Shift failed"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_session_form
+msgid "Close session"
+msgstr "Затваряне на сесия"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_shift__state__closed
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_search
+msgid "Closed"
+msgstr "Затворен"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_session__state__closed
+msgid "Closed (Z reported)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_session__state__closed_partial
+msgid "Closed (force / no Z)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__closed_at
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__closed_at
+msgid "Closed At"
+msgstr "Затворена в"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_shift__state__closing
+msgid "Closing (Z + import)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/top_bar/top_bar.xml:0
+msgid "Closing…"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__cmd_name
+msgid "Cmd Name"
+msgstr "Наименование на команда"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js:0
+msgid "Command not allowed in the current fiscal mode."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__company_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__company_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_allocate_wizard__company_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_push_wizard__company_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_topn_wizard__company_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__company_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__company_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__company_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_search
+msgid "Company"
+msgstr "Компания"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_topn_wizard__window_days
+msgid "Compute sales velocity over this many days back from today."
+msgstr ""
+"Изчислява активността на продажбите за посочения брой дни назад от днес."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_res_config_settings
+msgid "Config Settings"
+msgstr "Настройки на конфигурацията"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.actions.act_window,help:l10n_bg_erp_net_fp.action_fiscal_printer_device
+msgid "Configure fiscal printers for your POS systems."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_plu__push_state__conflict
+msgid "Conflict (M2M products disagree)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_search
+msgid "Conflicts"
+msgstr "Конфликти"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__connection_mode
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_search
+msgid "Connection Mode"
+msgstr "Режим на свързване"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py:0
+msgid "Consistent — ready to push."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/printer_id_field.js:0
+msgid "Could not reach proxy: %s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.actions.act_window,help:l10n_bg_erp_net_fp.action_l10n_bg_fiscal_plu
+msgid "Create your first PLU slot"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.actions.act_window,help:l10n_bg_erp_net_fp.action_fiscal_printer_device
+msgid "Create your first fiscal printer!"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_cash_operation_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_response__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_status__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_allocate_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_push_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_topn_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_x_report_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_cash_operation_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__create_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__create_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_response__create_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__create_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__create_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_allocate_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_push_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_topn_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__create_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__create_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__create_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_x_report_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__currency_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__currency_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__currency_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__currency_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__currency_id
+msgid "Currency"
+msgstr "Валута"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__logo_image
+msgid "Customer Logo"
+msgstr "Клиентско лого"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__account_tax_group__l10n_bg_fiscal_tax_group__г
+msgid "D - VAT 9%"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_printer_device__driver_type__daisy_isl
+msgid "Daisy ISL"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_order__l10n_bg_fiscal_receipt_datetime
+msgid "Date/Time of fiscal receipt"
+msgstr "Дата/час на фискален бон"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_printer_device__driver_type__datecs_isl
+msgid "Datecs ISL (DP-25 / DP-150X / FP-700X / FP-2000)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_printer_device__driver_type__datecs_pm
+msgid "Datecs PM v2.11.4 (FP-700 MX series)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_res_config_settings__erpnet_fp_grafana_dashboard_uid
+msgid "Default dashboard UID"
+msgstr "UID на таблото по подразбиране"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__department_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_allocate_wizard__department_id
+msgid "Department"
+msgstr "Отдел"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/top_bar/top_bar.xml:0
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__device_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__device_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__device_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__device_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_x_report_wizard__device_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__device_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_search
+msgid "Device"
+msgstr "Устройство"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "Device Name"
+msgstr "Име на устройство"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__device_returned_totals
+msgid "Device Returned Totals"
+msgstr "Устройството върна обороти"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__device_totals_json
+msgid "Device Totals Json"
+msgstr "JSON обороти от устройството"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__department_id
+msgid "Device department slot (1..99). Default 1."
+msgstr "Слот на отдел на устройството (1..99). По подразбиране 1."
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_extensions.py:0
+msgid "Device is in legacy ErpNet.FP mode — no pinpad support."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__operator_code
+msgid ""
+"Device operator slot (1..16 typically). Maps to a res.users record by "
+"`l10n_bg_fp_operator`."
+msgstr ""
+"Слот на оператора в устройството (обикновено 1..16). Свързва се със запис в "
+"res.users чрез `l10n_bg_fp_operator`."
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/external_pos_badge.js:0
+msgid "Device ready"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_x_report_wizard__response_text
+msgid "Device response"
+msgstr "Отговор от устройството"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_z_report_form
+msgid "Device totals"
+msgstr "Суми от устройството"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js:0
+msgid "Device unreachable. Check serial cable / power."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_frame_log__direction__in
+msgid "Device → Host"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__vat_letter
+msgid "Device-side VAT letter (А/Б/В/Г). Use for ledger mapping."
+msgstr ""
+"Буква за ДДС група в устройството (А/Б/В/Г). Използвайте за съпоставяне с "
+"счетоводни сметки."
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/external_pos_badge.js:0
+msgid "Device: error"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/external_pos_badge.js:0
+msgid "Device: partial"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/external_pos_badge.js:0
+msgid "Device: pending"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.ui.menu,name:l10n_bg_erp_net_fp.menu_fiscal_printer_device
+msgid "Devices"
+msgstr "Устройства"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_session__discrepancy
+msgid ""
+"Difference between sum of imported pos.order amounts and the Z-report total."
+" Non-zero = receipts may be missing or duplicated; investigate."
+msgstr ""
+"Разлика между сумата на импортираните суми от pos.order и общия оборот от "
+"Z-отчета. Ненулева стойност означава, че може да има липсващи или дублирани "
+"бележки — необходима е проверка."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_printer_device__connection_mode__direct
+msgid "Direct (Server can access printer)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__connection_mode
+msgid ""
+"Direct: Server connects directly to printer\n"
+"Browser Proxy: Browser makes requests and sends results to server"
+msgstr ""
+"Директен: сървърът се свързва директно с принтера\n"
+"Браузър прокси: браузърът изпраща заявки и препраща резултатите към сървъра"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__direction
+msgid "Direction"
+msgstr "Посока"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
+msgid "Disabling SSL verification for HTTPS connection is not recommended!"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__discrepancy
+msgid "Discrepancy (Odoo vs Z)"
+msgstr "Разлика (Odoo спрямо Z)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_cash_operation_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__display_name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__display_name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_response__display_name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_status__display_name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__display_name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__display_name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_allocate_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_push_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_topn_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__display_name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__display_name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_x_report_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_shift__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form_proxy
+msgid "Driver"
+msgstr "Драйвер"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__driver_type
+msgid "Driver / Protocol"
+msgstr "Драйвер / Протокол"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_push_wizard__dry_run
+msgid "Dry-run (preview only)"
+msgstr "Пробен режим (само преглед)"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py:0
+msgid "Dry-run preview — nothing was sent to any device."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_printer_device__driver_type__eltrade_isl
+msgid "Eltrade ISL"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.res_config_settings_inherit_grafana
+msgid "Embedded Grafana monitoring (optional)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/x_report_wizard.py:0
+msgid "Empty response from device."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__endpoint
+msgid "Endpoint"
+msgstr "Крайна точка"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_frame_log__endpoint
+msgid ""
+"ErpNet.FP HTTP endpoint that produced this frame, e.g. "
+"'/printers/dp150/receipt'."
+msgstr ""
+"HTTP крайна точка на ErpNet.FP, генерирала този кадър, напр. "
+"'/printers/dp150/receipt'."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_config__l10n_bg_erp_net_fp_host
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_erp_net_fp_host
+msgid "ErpNet.FP Host"
+msgstr "ErpNet.FP хост"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_config__l10n_bg_erp_net_fp_ip
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_erp_net_fp_ip
+msgid "ErpNet.FP IP"
+msgstr "ErpNet.FP IP адрес"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.client,name:l10n_bg_erp_net_fp.action_grafana_dashboard
+msgid "ErpNet.FP Monitoring"
+msgstr "Мониторинг ErpNet.FP"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "ErpNet.FP принтерът не е правилно конфигуриран."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_shift__state__error
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_z_report__reconcile_status__error
+msgid "Error"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__error_code
+msgid "Error Code"
+msgstr "Код на грешка"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__error_message
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_response__error_message
+msgid "Error Message"
+msgstr "Съобщение за грешка"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_status__error_message
+msgid "Error message"
+msgstr "Съобщение за грешка"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_search
+msgid "Errored"
+msgstr "С грешка"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_search
+msgid "Errors"
+msgstr "Грешки"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp.action_l10n_bg_fiscal_shift
+msgid "External Fiscal Shifts"
+msgstr "Външни фискални смени"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_config_form_proxy
+msgid "External POS mode (BG)"
+msgstr "Външен POS режим (BG)"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py:0
+msgid "External POS mode is not enabled on this configuration."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/external_pos_badge.js:0
+msgid "External POS mode — push status: %s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/xml/external_pos_badge.xml:0
+msgid "External POS mode — sales on fiscal device"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/top_bar/top_bar.xml:0
+msgid "External Shift"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.ui.menu,name:l10n_bg_erp_net_fp.menu_l10n_bg_fiscal_shift
+msgid "External Shifts"
+msgstr "Външни смени"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_config_extensions.py:0
+msgid ""
+"External-POS mode on '%(name)s' requires at least one fiscal printer device "
+"assigned (primary or in 'Additional fiscal printers')."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_l10n_bg_fiscal_shift_receipt
+msgid "External-mode Fiscal Receipt"
+msgstr "Фискален касов бележка в външен режим"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_l10n_bg_fiscal_shift_receipt_line
+msgid "External-mode Fiscal Receipt Line"
+msgstr "Ред на фискален касов бележка в външен режим"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_l10n_bg_fiscal_shift
+msgid "External-mode Fiscal Shift"
+msgstr "Фискална смяна в външен режим"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py:0
+msgid ""
+"External-mode close: %s\n"
+"%s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_payment_method__l10n_bg_external_kind
+msgid "External-mode payment kind"
+msgstr "Вид плащане в外部 режим"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py:0
+msgid "External-mode push"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_external_push_status
+msgid "External-mode push status"
+msgstr "Статус на изпращане (външен режим)"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py:0
+msgid ""
+"External-mode push: %s\n"
+"%s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_config__l10n_bg_extra_fiscal_printer_ids
+msgid ""
+"Extra fiscal devices (besides the primary). Used when a single POS "
+"configuration drives multiple cash registers in the same shop. Each device "
+"gets its own fiscal.session and Z-report cycle."
+msgstr ""
+"Допълнителни фискални устройства (освен основното). Използват се, когато "
+"една POS конфигурация обслужва няколко касови апарата в един обект. Всяко "
+"устройство има собствен фискален сеанс и цикъл на Z-отчет."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_frame_log__state__failed
+msgid "FAILED"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/external_shift_app.js:0
+msgid "Failed to load dashboard"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_status__firmware_version
+msgid "Firmware version"
+msgstr "Версия на фърмуера"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_fiscal_session_id
+msgid ""
+"First-opened fiscal.session for this pos.session (backward-compat alias). "
+"Use l10n_bg_fiscal_session_ids for the full set in multi-device shops."
+msgstr ""
+"Първата отворена фискална сесия за тази POS сесия (псевдоним за обратна "
+"съвместимост). Използвайте l10n_bg_fiscal_session_ids за пълния набор в "
+"магазини с множество устройства."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp.action_fiscal_frame_log
+msgid "Fiscal Frame Log"
+msgstr "Лог на фискални пакети"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_frame_log_tree
+msgid "Fiscal Frame Log (append-only)"
+msgstr "Журнал на фискалните кадри (само за добавяне)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_product_product__l10n_bg_fiscal_measurement_unit
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_product_template__l10n_bg_fiscal_measurement_unit
+msgid "Fiscal Measurement Unit"
+msgstr "Фискална мерна единица"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.ui.menu,name:l10n_bg_erp_net_fp.menu_fiscal_plu
+msgid "Fiscal PLU"
+msgstr "Фискални артикули"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_product_product__l10n_bg_fiscal_plu_number
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_product_template__l10n_bg_fiscal_plu_number
+msgid "Fiscal PLU #"
+msgstr "Фискален PLU №"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_l10n_bg_fiscal_plu
+msgid "Fiscal PLU Slot"
+msgstr "Фискално PLU място"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp.action_l10n_bg_fiscal_plu
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_tree
+msgid "Fiscal PLU Slots"
+msgstr "Фискални PLU позиции"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.pos_config_view_form_inherit_fiscal_printer
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.res_config_settings_view_form_inherit_fiscal_printer
+msgid "Fiscal Printer (ErpNet.FP)"
+msgstr "Фискален принтер (ErpNet.FP)"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "Fiscal Printer Device"
+msgstr "Фискално устройство"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_search
+msgid "Fiscal Printer Devices"
+msgstr "Фискални принтери"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_fiscal_frame_log
+msgid "Fiscal Printer Frame Log (append-only)"
+msgstr "Лог на рамка на фискален принтер (само добавяне)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_fiscal_printer_response
+msgid "Fiscal Printer Response"
+msgstr "Отговор на фискален принтер"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_fiscal_printer_status
+msgid "Fiscal Printer Status"
+msgstr "Статус на фискален принтер"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp.action_fiscal_printer_device
+#: model:ir.ui.menu,name:l10n_bg_erp_net_fp.menu_fiscal_printer_root
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.res_config_settings_view_form_inherit_fiscal_printer
+msgid "Fiscal Printers"
+msgstr "Фискални принтери"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp.action_l10n_bg_fiscal_shift_receipt
+#: model:ir.ui.menu,name:l10n_bg_erp_net_fp.menu_l10n_bg_fiscal_shift_receipt
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_receipt_tree
+msgid "Fiscal Receipts"
+msgstr "Фискални бележки"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_fiscal_session
+msgid "Fiscal Session (Z-cycle marker)"
+msgstr "Фискална сесия (маркер на Z-цикъл)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp.action_fiscal_session
+#: model:ir.ui.menu,name:l10n_bg_erp_net_fp.menu_fiscal_session
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_session_tree
+msgid "Fiscal Sessions"
+msgstr "Фискални сесии"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_tree
+msgid "Fiscal Shifts"
+msgstr "Фискални смени"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_product_product__l10n_bg_fiscal_vat_group
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_product_template__l10n_bg_fiscal_vat_group
+msgid "Fiscal VAT Group"
+msgstr "Фискална ДДС група"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_extensions.py:0
+msgid "Fiscal device '%(name)s' sync failed: %(msg)s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_product_template_form_proxy_fiscal
+msgid "Fiscal device (PLU)"
+msgstr "Фискално устройство (PLU)"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_extensions.py:0
+msgid "Fiscal device not found."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__device_id
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__device_id
+msgid ""
+"Fiscal device this shift drives. PLU/VAT/operators are pushed to this device"
+" on open; Z-report and journal are pulled on close."
+msgstr ""
+"Фискалното устройство, управлявано от тази смяна. PLU/ДДС/оператори се "
+"изпращат към устройството при отваряне; Z-отчет и журнал се изтеглят при "
+"затваряне."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_order__l10n_bg_fiscal_memory_number
+msgid "Fiscal memory"
+msgstr "Фискална памет"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_status__fiscal_memory_available
+msgid "Fiscal memory available"
+msgstr "Фискална памет налична"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_order__l10n_bg_fiscal_memory_number
+msgid "Fiscal memory serial number"
+msgstr "Сериен номер на фискалната памет"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_order__l10n_bg_fiscal_receipt_number
+msgid "Fiscal number"
+msgstr "Фискален номер"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_status__printer_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_config__l10n_bg_fiscal_printer_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_printer__l10n_bg_fiscal_printer_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_fiscal_printer_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_res_config_settings__l10n_bg_fiscal_printer_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_session_form_inherit_fiscal
+msgid "Fiscal printer"
+msgstr "Фискален принтер"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_config__l10n_bg_fiscal_printer_id
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_fiscal_printer_id
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_res_config_settings__l10n_bg_fiscal_printer_id
+msgid "Fiscal printer for this POS configuration"
+msgstr "Фискален принтер за тази ПОС конфигурация"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_printer__l10n_bg_fiscal_printer_id
+msgid "Fiscal printer for this POS terminal"
+msgstr "Фискален принтер за този POS терминал"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_res_users__l10n_bg_fp_operator
+msgid "Fiscal printer operator code"
+msgstr "Код на оператор на фискален принтер"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_res_users__l10n_bg_fp_operator_password
+msgid "Fiscal printer operator password"
+msgstr "Парола на оператора на фискален принтер"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_fiscal_printer_device
+msgid "Fiscal printer server ErpNet.FP"
+msgstr "Сервър на фискален принтер ErpNet.FP"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_order__l10n_bg_fiscal_receipt_number
+msgid "Fiscal receipt number from ErpNet.FP"
+msgstr "Номер на фискалния бон от ErpNet.FP"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_fiscal_session_ids
+msgid "Fiscal sessions (Z-cycles)"
+msgstr "Фискални сесии (Z-цикли)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__message_follower_ids
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__message_follower_ids
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__message_partner_ids
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__message_partner_ids
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__activity_type_icon
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_session__activity_type_icon
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py:0
+msgid "Force-close"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_session_form_inherit_fiscal
+msgid "Force-close (no device)"
+msgstr "Принудително затваряне (без устройство)"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_session_form_inherit_fiscal
+msgid ""
+"Force-close marks the fiscal sessions as 'closed_partial' without contacting"
+" the devices. Use only if the device(s) are offline and reconcile manually "
+"later. Proceed?"
+msgstr ""
+"Принудителното затваряне маркира фискалните сесии като 'closed_partial' без "
+"да се свързва с устройствата. Използвайте само ако устройствата са офлайн и "
+"извършете ръчно изравняване по-късно. Продължи?"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py:0
+msgid ""
+"Force-closed without device contact: %s. Reconcile manually with each "
+"device's Z-report."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/printer_id_field.js:0
+msgid "Found %s printer(s) on the proxy."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.ui.menu,name:l10n_bg_erp_net_fp.menu_fiscal_frame_log
+msgid "Frame Log"
+msgstr "Лог на кадрите"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_frame_log.py:0
+msgid "Frame log is append-only (Наредба Н-18 compliance)."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_frame_log__error_message
+msgid ""
+"Free-text error from the device, the HTTP layer, or the Python exception "
+"path. Populated when error_code alone is not descriptive enough (transport "
+"timeouts, browser proxy failures, JSON parse errors)."
+msgstr ""
+"Грешка в свободен текст от устройството, HTTP слоя или Python изключение. "
+"Попълва се, когато error_code сам по себе си не е достатъчно описателен "
+"(времеви изчаквания на транспорта, грешки на браузър прокси, грешки при "
+"парсване на JSON)."
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js:0
+msgid "General device error. Check the next code for detail."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.server,name:l10n_bg_erp_net_fp.ir_cron_generate_z_reports_ir_actions_server
+msgid "Generate automatic Z reports"
+msgstr "Генериране на автоматични Z отчети"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_res_config_settings__erpnet_fp_grafana_url
+msgid "Grafana base URL"
+msgstr "Базов URL на Grafana"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/grafana_dashboard.js:0
+msgid ""
+"Grafana base URL not configured. Settings → POS → ErpNet.FP → Grafana base "
+"URL."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_search
+msgid "Group By"
+msgstr "Групиране по"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_search
+msgid "Group by"
+msgstr "Групиране по"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__has_message
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__has_message
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__has_message
+msgid "Has Message"
+msgstr "Има съобщение"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_x_report_wizard__has_response
+msgid "Has Response"
+msgstr "Има отговор"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__status_history_days
+msgid "History storage days"
+msgstr "Дни за съхранение на история"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__host
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_printer__l10n_bg_proxy_ip
+msgid "Host"
+msgstr "Хост"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_frame_log__direction__out
+msgid "Host → Device"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_frame_log__cmd_name
+msgid "Human-readable command label (driver-specific)."
+msgstr "Четим от човек етикет на командата (специфичен за драйвера)."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__push_message
+msgid ""
+"Human-readable detail of the current push_state — validation diagnostics or "
+"error message from the device."
+msgstr ""
+"Четимо описание на текущия статус на изпращане — диагностика при валидация "
+"или съобщение за грешка от устройството."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_external_push_summary
+msgid ""
+"Human-readable summary of the last PLU/config push to the fiscal device when"
+" external POS mode is active."
+msgstr ""
+"Четимо резюме на последното изпращане на PLU/конфигурация към фискалното "
+"устройство при активен външен POS режим."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_cash_operation_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_response__id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_status__id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_allocate_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_push_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_topn_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_x_report_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__printer_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_printer__l10n_bg_printer_id
+msgid "ID on a printer"
+msgstr "ID на принтера"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__activity_exception_icon
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__activity_exception_icon
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__activity_exception_icon
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_session__activity_exception_icon
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_payment_method__l10n_bg_pinpad_id
+msgid ""
+"Identifier of the pinpad as registered in the Odoo.ErpNet.FP proxy "
+"`config.yaml` (e.g. `datecs_pay_main`). Optional — when blank the proxy "
+"chooses its default pinpad."
+msgstr ""
+"Идентификатор на пинпада, регистриран в `config.yaml` на Odoo.ErpNet.FP "
+"прокси (напр. `datecs_pay_main`). По избор — при празно поле проксито избира"
+" пинпада си по подразбиране."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_allocate_wizard__skip_existing
+msgid ""
+"If True, products already linked to a PLU slot are skipped silently. If "
+"False, they raise an error."
+msgstr ""
+"Ако е True, продуктите, вече свързани с PLU слот, се пропускат без "
+"съобщение. Ако е False, се генерира грешка."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_topn_wizard__archive_zero_velocity
+msgid ""
+"If a PLU's linked products have zero sales in the window, archive it "
+"(active=False)."
+msgstr ""
+"Ако свързаните продукти на даден PLU нямат продажби в зададения период, той "
+"се архивира (active=False)."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__message_needaction
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_session__message_needaction
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__message_has_error
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__message_has_sms_error
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_session__message_has_error
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_session__message_has_sms_error
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__message_has_error
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form_proxy
+msgid "Images"
+msgstr "Изображения"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.ui.menu,name:l10n_bg_erp_net_fp.menu_fiscal_plu_allocate
+msgid "Import PLUs from Products"
+msgstr "Импортиране на артикули от продукти"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__imported_receipt_count
+msgid "Imported Receipt Count"
+msgstr "Брой импортирани касови бележки"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_search
+msgid "Inactive"
+msgstr "Неактивен"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__active
+msgid "Inactive slots are skipped during PLU push."
+msgstr "Неактивните слотове се пропускат при изпращане на PLU."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_printer_device__driver_type__incotex_isl
+msgid "Incotex ICP"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_form
+msgid "Internal notes for cashiers / admins…"
+msgstr "Вътрешни бележки за касиери / администратори…"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
+msgid "Invalid host URL format"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
+msgid "Invalid host URL: %s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__message_is_follower
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__message_is_follower
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__is_pos_driven
+msgid "Is Pos Driven"
+msgstr "Управлявана от ПОС"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_order__l10n_bg_is_fiscalized
+msgid "Is fiscalized?"
+msgstr "Фискализирана?"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_order__l10n_bg_is_reversal
+msgid "Is reversal?"
+msgstr "Сторно?"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_order__l10n_bg_is_fiscalized
+msgid "Is the order fiscalized?"
+msgstr "Фискализирана ли е поръчката?"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_order__l10n_bg_is_reversal
+msgid "Is the order reversal?"
+msgstr "Поръчката сторно ли е?"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__issued_at
+msgid "Issued At"
+msgstr "Издадена в"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_frame_log__payload
+msgid "JSON / human-readable representation of the request or response body."
+msgstr "JSON / четимо представяне на тялото на заявката или отговора."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__reconcile_diff_json
+msgid "JSON: per-group (device − Odoo) differences. Empty {} when matched."
+msgstr "JSON: разлики по група (устройство − Odoo). Празен {} при съвпадение."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__odoo_totals_json
+msgid "JSON: {group_letter: turnover_amount} aggregated from pos.order."
+msgstr "JSON: {буква_група: сума_оборот} агрегирани от pos.order."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__device_totals_json
+msgid "JSON: {group_letter: turnover_amount} as reported by the device."
+msgstr "JSON: {буква_група: сума_оборот} съгласно данните от устройството."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_topn_wizard__keep_top_n
+msgid "Keep top N"
+msgstr "Максимален брой PLU"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_topn_wizard.py:0
+msgid "Kept active: %(kept)s   Archived: %(dropped)s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__last_plu_sync
+msgid "Last PLU sync"
+msgstr "Последна синхронизация на PLU"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__last_pushed_at
+msgid "Last Pushed At"
+msgstr "Последно изпратено в"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_push_wizard__last_run_at
+msgid "Last Run At"
+msgstr "Последно изпълнение на"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_cash_operation_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_response__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_status__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_allocate_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_push_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_topn_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_x_report_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_cash_operation_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__write_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__write_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_response__write_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_status__write_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__write_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__write_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_allocate_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_push_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_topn_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__write_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__write_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__write_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_x_report_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__last_validated_at
+msgid "Last Validated At"
+msgstr "Последно валидирано в"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_last_x_report
+msgid "Last X report"
+msgstr "Последен X отчет"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__last_z_report
+msgid "Last Z report"
+msgstr "Последен Z-отчет"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_status__document_number
+msgid "Last document number"
+msgstr "Номер на последен документ"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_external_push_at
+msgid "Last push"
+msgstr "Последно изпращане"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__line_ids
+msgid "Line"
+msgstr "Ред"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__line_total
+msgid "Line Total"
+msgstr "Сума на ред"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_receipt_form
+msgid "Lines"
+msgstr "Редове"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__product_ids
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_form
+msgid "Linked products"
+msgstr "Свързани продукти"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/live_feed/live_feed.xml:0
+msgid "Live device feed"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/products_grid/products_grid.xml:0
+msgid "Loading…"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
+msgid "Local network address detected. Connection mode set to \"Browser Proxy\"."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_session__source__manual
+msgid "Manual (admin button)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_payment_method__l10n_bg_external_kind
+msgid ""
+"Maps device payment types onto Odoo payment methods when importing receipts "
+"from a fiscal device acting as primary POS. Leave blank to exclude this "
+"method from external-mode imports."
+msgstr ""
+"Съответства на типовете плащане на устройството към методите на плащане в "
+"Odoo при импортиране на бележки от фискално устройство, действащо като "
+"основен ПОС. Оставете празно, за да изключите този метод от импорта в外部 "
+"режим."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__vat_group_id
+msgid "Maps to the device's tax slots (А/Б/В/Г in БГ)."
+msgstr "Съответства на данъчните слотове на устройството (А/Б/В/Г за БГ)."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_z_report__reconcile_status__matched
+msgid "Matched"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_topn_wizard__keep_top_n
+msgid ""
+"Maximum PLU slots to keep active. Tune to your device's capacity (Datecs "
+"DP-150/FP-700X ~2000, Tremol M20 ~5000)."
+msgstr ""
+"Максимален брой активни PLU слотове. Настройте спрямо капацитета на "
+"устройството (Datecs DP-150/FP-700X ~2000, Tremol M20 ~5000)."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__plu_capacity
+msgid ""
+"Maximum number of PLUs the device can hold. Defaults: Datecs ISL (DP-150X / "
+"FP-700X) = 10000, Datecs PM compact = 4000, others = 4000. Override here if "
+"your device firmware exposes a different limit. The pre-push guard refuses "
+"to send more PLUs than this number."
+msgstr ""
+"Максимален брой PLU, които устройството може да съхранява. По подразбиране: "
+"Datecs ISL (DP-150X / FP-700X) = 10000, Datecs PM компактен = 4000, останали"
+" = 4000. Променете тук, ако фърмуерът на устройството ви показва различна "
+"граница. Проверката преди изпращане отказва да изпрати повече PLU от този "
+"брой."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_product_product__l10n_bg_fiscal_measurement_unit
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_product_template__l10n_bg_fiscal_measurement_unit
+msgid ""
+"Measurement unit slot for the fiscal device PLU (Datecs PM syntax #2 field "
+"15)."
+msgstr ""
+"Слот за мерна единица на PLU за фискалното устройство (поле 15, синтаксис #2"
+" на Datecs PM)."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__message_has_error
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__message_has_error
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__message_ids
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__message_ids
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_l10n_bg_fiscal_x_report_wizard
+msgid "Mid-shift X-report wizard"
+msgstr "Помощник за X-отчет в средата на смяната"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__z_report_minute
+msgid "Minute for Z report"
+msgstr "Минута за Z-отчет"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__z_report_minute
+msgid "Minute to generate Z report (0-59)"
+msgstr "Минута за генериране на Z-отчет (0–59)"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
+msgid "Minutes must be between 0 and 59"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_z_report__reconcile_status__mismatch
+msgid "Mismatch"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js:0
+msgid "Missing host or endpoint in fiscal proxy action."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_shift_receipt__payment_kind__mixed
+msgid "Mixed"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.ui.menu,name:l10n_bg_erp_net_fp.menu_grafana_dashboard
+msgid "Monitoring"
+msgstr "Мониторинг"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_config_form_proxy
+msgid ""
+"Multi-device shops — primary device above + extras here. Each device gets "
+"its own fiscal.session and Z-cycle."
+msgstr ""
+"Магазини с множество устройства — основно устройство по-горе + допълнителни "
+"тук. Всяко устройство получава собствена фискална сесия и Z-цикъл."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__push_summary
+msgid ""
+"Multi-line summary of what was pushed at open / pulled at close. Each line: "
+"`[step] ✓|✗ message`."
+msgstr ""
+"Многоредово обобщение на изпратеното при отваряне / изтегленото при "
+"затваряне. Всеки ред: `[стъпка] ✓|✗ съобщение`."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__my_activity_date_deadline
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__my_activity_date_deadline
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__name
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__name
+msgid "Name"
+msgstr "Наименование"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_search
+msgid "Name drift"
+msgstr "Разминаване в имената"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_plu__push_state__name_drift
+msgid "Name drift (renamed)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__activity_date_deadline
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__activity_date_deadline
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__activity_summary
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__activity_summary
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__activity_type_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__activity_type_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py:0
+msgid "No PLUs match the selected scope on company %s."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_topn_wizard.py:0
+msgid "No PLUs to rank."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/products_grid/products_grid.xml:0
+msgid "No POS-enabled products to show."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_z_report__reconcile_status__no_device_totals
+msgid "No device totals"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/payment_screen_pinpad.js:0
+msgid "No fiscal device configured for this POS — pinpad disabled."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.actions.act_window,help:l10n_bg_erp_net_fp.action_l10n_bg_fiscal_shift
+msgid "No fiscal shifts yet"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_extensions.py:0
+msgid "No host configured."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_extensions.py:0
+msgid "No logo uploaded — set Customer Logo first."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.actions.act_window,help:l10n_bg_erp_net_fp.action_fiscal_printer_response
+msgid "No printer responses found"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py:0
+msgid "No products linked to PLU."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/external_pos_badge.js:0
+msgid "No push has been performed yet for this session."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py:0
+msgid "No source pricelist set."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_extensions.py:0
+msgid "No stamp uploaded — set Stamp Image first."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_frame_log__error_code
+msgid ""
+"Non-zero if the device returned a numeric fiscal error code (e.g. Datecs ISL"
+" E-codes). Free-text errors go in error_message."
+msgstr ""
+"Ненулева стойност, ако устройството е върнало числов фискален код на грешка "
+"(напр. Datecs ISL E-кодове). Грешките в свободен текст се записват в "
+"error_message."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__pos_session__l10n_bg_external_push_status__none
+msgid "Not pushed"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__note
+msgid "Note"
+msgstr "Забележка"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_users_form_inherit_l10n_bg_fp
+msgid "Notes"
+msgstr "Бележки"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py:0
+msgid "Nothing to push after consistency check."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__message_needaction_counter
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__message_needaction_counter
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__plu_programmed
+msgid "Number of PLUs currently stored on the device."
+msgstr "Брой PLU, текущо съхранени на устройството."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__status_history_days
+msgid ""
+"Number of days to keep status history. Older records are automatically "
+"deleted."
+msgstr ""
+"Брой дни за съхранение на статусната история. По-старите записи се изтриват "
+"автоматично."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__message_has_error_counter
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__message_has_error_counter
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_session__imported_receipt_count
+msgid "Number of fiscal receipts imported from the device on close."
+msgstr "Брой фискални бележки, импортирани от устройството при затваряне."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__message_needaction_counter
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_session__message_needaction_counter
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__message_has_error_counter
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_session__message_has_error_counter
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__retry_count
+msgid "Number of retries on failure"
+msgstr "Брой повторни опити при неуспех"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_frame_log__state__ok
+msgid "OK"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__odoo_totals_json
+msgid "Odoo Totals Json"
+msgstr "JSON обороти от Odoo"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_z_report_form
+msgid "Odoo aggregate"
+msgstr "Обобщение от Odoo"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_cash_operation_wizard_form
+msgid "Office cash operation"
+msgstr "Касова операция в офиса"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_session_form_inherit_fiscal
+msgid "Officially introduced"
+msgstr "Официално въведено"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_session_form_inherit_fiscal
+msgid "Officially removed"
+msgstr "Официално премахнато"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__on_sync_fail
+msgid "On sync failure"
+msgstr "При неуспех на синхронизация"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form_proxy
+msgid "One footer line per row (max 10)"
+msgstr "Един ред на долен колонтитул на ред (макс. 10)"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form_proxy
+msgid "One header line per row (max 10)"
+msgstr "Един ред на заглавие на ред (макс. 10)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_session__state__open
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_shift__state__open
+msgid "Open"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "Open Drawer"
+msgstr "Отвори чекмедже"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.server,name:l10n_bg_erp_net_fp.action_external_shift_dashboard_new
+msgid "Open External Shift Dashboard"
+msgstr "Отваряне на таблото на външни смени"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/top_bar/top_bar.xml:0
+msgid "Open Shift"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.ui.menu,name:l10n_bg_erp_net_fp.menu_external_shift_new
+msgid "Open Shift Dashboard"
+msgstr "Табло на отворена смяна"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/external_shift_app.js:0
+msgid "Open Shift failed"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.actions.act_window,help:l10n_bg_erp_net_fp.action_l10n_bg_fiscal_shift
+msgid ""
+"Open the standalone External Shift Dashboard to start\n"
+"                a new shift on a fiscal device."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__opened_at
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__opened_at
+msgid "Opened At"
+msgstr "Отворена в"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/live_feed/live_feed.xml:0
+msgid "Opened at"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_shift__state__opening
+msgid "Opening (push PLU/VAT/operator)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/top_bar/top_bar.xml:0
+msgid "Opening…"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js:0
+msgid "Operation aborted"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js:0
+msgid "Operation completed"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js:0
+msgid "Operation timed out after %ss — printer unresponsive."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_search
+msgid "Operator"
+msgstr "Оператор"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__operator_code
+msgid "Operator Code"
+msgstr "Код на оператор"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__operator_user_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__operator_user_id
+msgid "Operator User"
+msgstr "Потребител-оператор"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_users_form_inherit_l10n_bg_fp
+msgid "Operator credentials"
+msgstr "Идентификационни данни на оператора"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_fp_operator
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_res_users__l10n_bg_fp_operator
+msgid ""
+"Operator number on the Bulgarian fiscal printer (typically 1..30). Sent in "
+"every fiscal-receipt and report request issued by this user. Leave empty to "
+"fall back to the ErpNet.FP server default (operator=1)."
+msgstr ""
+"Номер на оператора на българския фискален принтер (обикновено 1..30). "
+"Изпраща се при всяка заявка за фискален бон и отчет от този потребител. "
+"Оставете празно, за да се използва стойността по подразбиране на ErpNet.FP "
+"сървъра (оператор=1)."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_frame_log__pos_order_id
+msgid ""
+"Originating POS order, if any (most fiscal calls are tied to one). Empty for"
+" X/Z reports, cash ops, status checks."
+msgstr ""
+"Изходяща поръчка от ПОС, ако има такава (повечето фискални операции са "
+"свързани с поръчка). Празно за X/Z отчети, касови операции и проверки на "
+"статус."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_shift_receipt__payment_kind__other
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__pos_payment_method__l10n_bg_external_kind__other
+msgid "Other"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_frame_log__state
+msgid "Outcome of the call. 'failed' → see error_message / error_code."
+msgstr "Резултат от извикването. 'failed' → вижте error_message / error_code."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__plu_number
+msgid "PLU #"
+msgstr "PLU №"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form_proxy
+msgid "PLU bookkeeping"
+msgstr "Счетоводство на PLU"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__plu_capacity
+msgid "PLU capacity"
+msgstr "Капацитет за PLU"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py:0
+msgid "PLU capacity exceeded (%s slots used). Deactivate unused slots first."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py:0
+msgid "PLU name '%(plu)s' ≠ product '%(prod)s'"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.constraint,message:l10n_bg_erp_net_fp.constraint_l10n_bg_fiscal_plu_uniq_company_plu_number
+msgid "PLU number must be unique per company."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_product_product__l10n_bg_fiscal_plu_number
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_product_template__l10n_bg_fiscal_plu_number
+msgid ""
+"PLU number on the fiscal device (1..100000 capable, 1..3000 basic). Auto-"
+"assigned on first sync; can be overridden manually."
+msgstr ""
+"PLU номер на фискалното устройство (1..100000 разширен, 1..3000 базов). "
+"Присвоява се автоматично при първа синхронизация; може да се замени ръчно."
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py:0
+msgid "PLU price %(plu)s ≠ pricelist %(pl)s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__plu_programmed
+msgid "PLU programmed"
+msgstr "Програмирани PLU"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_external.py:0
+msgid ""
+"PLU push aborted: %(want)s active PLUs > device capacity %(cap)s. Run the "
+"'Top-N best-sellers' wizard to archive low-velocity slots first."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__plu_number
+msgid ""
+"PLU slot on the device. Use to reverse-lookup the linked product(s) via "
+"`l10n.bg.fiscal.plu`."
+msgstr ""
+"PLU слот в устройството. Използвайте за обратно търсене на свързаните "
+"продукти чрез `l10n.bg.fiscal.plu`."
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_topn_wizard.py:0
+msgid "PLU velocity ranking"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_push_wizard__plu_ids
+msgid "PLUs"
+msgstr "PLU-та"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_cash_operation_wizard__session_id
+msgid "POS Сесия"
+msgstr "POS сесия"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_session__source__pos_external
+msgid "POS — external mode (КА като POS)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_session__source__pos_printer
+msgid "POS — printer mode (Odoo POS + receipt printer)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_status__paper_available
+msgid "Paper available"
+msgstr "Хартия налична"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__pos_session__l10n_bg_external_push_status__partial
+msgid "Partial (some items failed)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_fp_operator_password
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_res_users__l10n_bg_fp_operator_password
+msgid ""
+"Password for this operator on the Bulgarian fiscal printer. Default factory "
+"value is `0000` (Datecs / Daisy / Eltrade / Tremol all ship with this). "
+"Leave empty to fall back to the ErpNet.FP server default."
+msgstr ""
+"Парола за този оператор на българския фискален принтер. Фабричната стойност "
+"по подразбиране е `0000` (Datecs / Daisy / Eltrade / Tremol се доставят с "
+"тази парола). Оставете празно, за да се използва стойността по подразбиране "
+"на ErpNet.FP сървъра."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__payload
+msgid "Payload"
+msgstr "Съдържание"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__payment_kind
+msgid "Payment Kind"
+msgstr "Начин на плащане"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_plu__push_state__pending
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_search
+msgid "Pending push"
+msgstr "Чакащо изпращане"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/live_feed/live_feed.xml:0
+msgid ""
+"Phase 1 — real-time receipt poll every 5s.\n"
+"                For now this panel is a placeholder."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/x_report_wizard.py:0
+msgid "Pick a fiscal device first."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py:0
+msgid "Pick at least one target device."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_payment_method_form_proxy
+msgid "Pinpad (Odoo.ErpNet.FP proxy)"
+msgstr "Pinpad (Odoo.ErpNet.FP прокси)"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/payment_screen_pinpad.js:0
+msgid "Pinpad RPC failed: %s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/payment_screen_pinpad.js:0
+msgid "Pinpad approved · ref %s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/payment_screen_pinpad.js:0
+msgid "Pinpad charge failed: %s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_payment_method__l10n_bg_pinpad_id
+msgid "Pinpad identifier"
+msgstr "Идентификатор на пинпад"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__plu_id
+msgid "Plu"
+msgstr "PLU"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__plu_number
+msgid "Plu Number"
+msgstr "PLU номер"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "Конфигурация на каса"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_pos_order
+msgid "Point of Sale Orders"
+msgstr "Поръчки на каса"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_pos_payment_method
+msgid "Point of Sale Payment Methods"
+msgstr "Методи на плащане на каса"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_pos_printer
+msgid "Point of Sale Printer"
+msgstr "Принтер на каса"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_pos_session
+msgid "Point of Sale Session"
+msgstr "Сесия на каса"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__pos_order_id
+msgid "Pos Order"
+msgstr "Поръчка от ПОС"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__pos_session_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_x_report_wizard__pos_session_id
+msgid "Pos Session"
+msgstr "ПОС сесия"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_topn_wizard_form
+msgid "Preview ranking"
+msgstr "Преглед на класирането"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_push_wizard__dry_run
+msgid ""
+"Preview the plan without sending anything to the device. Uncheck and Run "
+"again to push for real."
+msgstr ""
+"Преглед на плана без изпращане на данни към устройството. Премахнете "
+"отметката и стартирайте отново за реално изпълнение."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__price
+msgid "Price"
+msgstr "Цена"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__price
+msgid ""
+"Price programmed on the device. Snapshot — synced from source pricelist on "
+"demand. Mid-shift changes mark the slot stale; re-push happens on next POS "
+"open."
+msgstr ""
+"Цена, програмирана на устройството. Снимка — синхронизира се от изходния "
+"ценоразпис при поискване. Промени в средата на смяна маркират слота като "
+"остарял; повторното изпращане се извършва при следващото отваряне на ПОС."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_product_pricelist
+msgid "Pricelist"
+msgstr "Прайс-лист"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_product_pricelist_item
+msgid "Pricelist Rule"
+msgstr "Правило на прайс-лист"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__source_pricelist_id
+msgid ""
+"Pricelist used to compute PLU price. Defaults to pos.config.pricelist_id of "
+"this company's POS configurations."
+msgstr ""
+"Ценоразпис, използван за изчисляване на PLU цената. По подразбиране се взима"
+" pos.config.pricelist_id от ПОС конфигурациите на тази компания."
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_form
+msgid "Pricing"
+msgstr "Ценообразуване"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_fiscal_session_id
+msgid "Primary fiscal session"
+msgstr "Основна фискална сесия"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_config__l10n_bg_auto_z_on_close
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_res_config_settings__l10n_bg_auto_z_on_close
+msgid ""
+"Print a Z-report on the device when the POS session closes (in addition to "
+"the device's own scheduled auto-Z)."
+msgstr ""
+"Отпечатване на Z-отчет на устройството при затваряне на ПОС сесията (в "
+"допълнение към собствения планиран авто-Z на устройството)."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_response__printer_id
+msgid "Printer"
+msgstr "Принтер"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_tree
+msgid "Printer OK"
+msgstr "Принтерът е наред"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_response_form
+msgid "Printer Response"
+msgstr "Отговор от принтера"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp.action_fiscal_printer_response
+#: model:ir.ui.menu,name:l10n_bg_erp_net_fp.menu_fiscal_printer_response
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_response_list
+msgid "Printer Responses"
+msgstr "Отговори на принтер"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_printer__printer_type
+msgid "Printer Type"
+msgstr "Тип принтер"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js:0
+msgid "Printer error"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_priters_status.py:0
+msgid "Printer is ready"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js:0
+msgid "Printer not ready: %s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_priters_status.py:0
+msgid "Printer status"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js:0
+msgid "Printer status check returned HTTP %s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_product_template
+msgid "Product"
+msgstr "Продукт"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_product_product
+msgid "Product Variant"
+msgstr "Вариант на продукт"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_allocate_wizard_form
+msgid "Products"
+msgstr "Продукти"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/products_grid/products_grid.xml:0
+msgid "Products & PLU coverage"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py:0
+msgid "Products in PLU have different pricelist prices: %s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_allocate_wizard__product_ids
+msgid "Products to allocate"
+msgstr "Продукти за разпределяне"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__product_ids
+msgid ""
+"Products which trigger this PLU when scanned/sold. Multiple products → one "
+"PLU = synonymous items, bundles or variant collapsing."
+msgstr ""
+"Продукти, които задействат този PLU при сканиране/продажба. Множество "
+"продукти → един PLU = синонимни артикули, комплекти или обединяване на "
+"варианти."
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form_proxy
+msgid "Proxy / Multi-driver"
+msgstr "Прокси / Мулти-драйвер"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_res_config_settings__erpnet_fp_grafana_url
+msgid ""
+"Public URL of your Grafana instance, e.g. https://grafana.lan.mcpworks.net. "
+"Leave empty to hide the monitoring menu."
+msgstr ""
+"Публичният URL на вашия Grafana сървър, напр. "
+"https://grafana.lan.mcpworks.net. Оставете празно, за да скриете менюто за "
+"мониторинг."
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.res_config_settings_inherit_grafana
+msgid ""
+"Public URL of your Grafana instance. When\n"
+"                            set, the \"Monitoring\" menu under Fiscal\n"
+"                            Printers opens the dashboard inside an\n"
+"                            iframe — no separate browser tab needed\n"
+"                            for ops staff."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__push_message
+msgid "Push Message"
+msgstr "Съобщение за изпращане"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_extensions.py:0
+msgid "Push PLUs to %s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_push_wizard_form
+msgid "Push PLUs to Fiscal Device(s)"
+msgstr "Изпращане на PLU-та към фискално устройство(а)"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py:0
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp.action_l10n_bg_fiscal_plu_push
+msgid "Push PLUs to device"
+msgstr "Изпращане на PLU в устройството"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_l10n_bg_fiscal_plu_push_wizard
+msgid "Push PLUs to fiscal device(s)"
+msgstr "Изпращане на PLU към фискално устройство(а)"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "Push PLUs..."
+msgstr "Изпрати PLU-та..."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__push_state
+msgid "Push State"
+msgstr "Статус на изпращане"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__push_summary
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_form
+msgid "Push Summary"
+msgstr "Обобщение на изпращането"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py:0
+msgid "Push completed."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_plu__push_state__error
+msgid "Push error"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__pos_session__l10n_bg_external_push_status__error
+msgid "Push failed"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_search
+msgid "Push state"
+msgstr "Статус на изпращане"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_external_push_summary
+msgid "Push summary"
+msgstr "Резюме на изпращането"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_tree
+msgid "Push to device"
+msgstr "Изпрати към устройството"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp.action_l10n_bg_fiscal_plu_push_binding
+msgid "Push to device..."
+msgstr "Изпращане в устройството..."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_plu__push_state__pushed
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__pos_session__l10n_bg_external_push_status__ok
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_search
+msgid "Pushed"
+msgstr "Изпратен"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__quantity
+msgid "Quantity"
+msgstr "Количество"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_topn_wizard_form
+msgid ""
+"Ranks PLUs by sales velocity over the configured\n"
+"                        window. The top-N stay active; the rest are\n"
+"                        archived so they're skipped on PLU push to the\n"
+"                        device. Use this when your active SKU count\n"
+"                        exceeds the device's PLU capacity."
+msgstr ""
+"Класира PLU-тата по скорост на продажби за конфигурирания\n"
+"                        период. Топ-N остават активни; останалите се\n"
+"                        архивират и се пропускат при изпращане на PLU към\n"
+"                        устройството. Използвайте това, когато броят на активните SKU\n"
+"                        надвишава капацитета за PLU на устройството."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__raw_messages
+msgid "Raw Messages"
+msgstr "Необработени съобщения"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__raw_payload
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_receipt_form
+msgid "Raw Payload"
+msgstr "Необработени данни"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__raw_hex
+msgid "Raw bytes (hex)"
+msgstr "Необработени байтове (шестнадесетичен)"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_z_report_form
+msgid "Raw messages"
+msgstr "Необработени съобщения"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_status__is_ready
+msgid "Ready"
+msgstr "Готов"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__receipt_ids
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__receipt_id
+msgid "Receipt"
+msgstr "Бележка"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__receipt_count
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__receipt_count
+msgid "Receipt Count"
+msgstr "Брой бележки"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__footer_lines
+msgid "Receipt Footer (10 lines)"
+msgstr "Край на бележка (10 реда)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__header_lines
+msgid "Receipt Header (10 lines)"
+msgstr "Заглавие на бележка (10 реда)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__receipt_number
+msgid "Receipt Number"
+msgstr "Номер на бележката"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.constraint,message:l10n_bg_erp_net_fp.constraint_l10n_bg_fiscal_shift_receipt_uniq_company_device_receipt
+msgid "Receipt number must be unique per device per company."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form_proxy
+msgid "Receipt template"
+msgstr "Шаблон на касова бележка"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/live_feed/live_feed.xml:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_form
+msgid "Receipts"
+msgstr "Касови бележки"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__reconcile_diff_json
+msgid "Reconcile Diff Json"
+msgstr "JSON разлики при равнение"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__reconcile_status
+msgid "Reconcile Status"
+msgstr "Статус на равнение"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_z_report_form
+msgid "Reconcile diff"
+msgstr "Изравняване на разлики"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/xml/printer_id_field.xml:0
+msgid "Refresh from proxy"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/external_shift_app.js:0
+msgid "Reloaded."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__report_number
+msgid "Report Number"
+msgstr "Номер на отчет"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_response__request_id
+msgid "Request ID"
+msgstr "ID на заявка"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_x_report_wizard_form
+msgid "Response"
+msgstr "Отговор"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_response__response_data
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_response_form
+msgid "Response Data"
+msgstr "Данни от отговора"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__activity_user_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__activity_user_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_push_wizard_form
+msgid "Result"
+msgstr "Резултат"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__retry_count
+msgid "Retry Count"
+msgstr "Брой повторни опити"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_session_form_inherit_fiscal
+msgid "Retry external-mode push"
+msgstr "Повторен опит за изпращане в zewnętrzен режим"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_push_wizard_form
+msgid "Run"
+msgstr "Изпълни"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_x_report_wizard_form
+msgid "Run X-report"
+msgstr "Изпълни X-отчет"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_allocate_wizard__auto_validate
+msgid "Run consistency check on each created PLU immediately."
+msgstr ""
+"Изпълнява проверка за съответствие на всеки създаден PLU веднага след "
+"създаването му."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_x_report_wizard__z_running_total
+msgid "Running total"
+msgstr "Текуща сума"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__message_has_sms_error
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__message_has_sms_error
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__sales_total
+msgid "Sales Total"
+msgstr "Общо продажби"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_config_form_proxy
+msgid ""
+"Sales are entered on the fiscal device itself; Odoo POS UI manages the shift"
+" / fiscal session lifecycle. PLU + logo + parameters are pushed to the "
+"device on POS open."
+msgstr ""
+"Продажбите се въвеждат директно на фискалното устройство; интерфейсът на "
+"Odoo POS управлява жизнения цикъл на смяната / фискалната сесия. PLU + лого "
+"+ параметри се изпращат към устройството при отваряне на POS."
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/live_feed/live_feed.xml:0
+msgid "Sales total"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_topn_wizard__window_days
+msgid "Sales window (days)"
+msgstr "Период на продажбите (дни)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_session__source__cron
+msgid "Scheduled cron"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_push_wizard__scope
+msgid "Scope"
+msgstr "Обхват"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
+msgid "Security Warning"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/external_shift_app.js:0
+msgid "Select a device first."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.pos_config_view_form_inherit_fiscal_printer
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.res_config_settings_view_form_inherit_fiscal_printer
+msgid "Select fiscal printer device..."
+msgstr "Изберете фискален принтер..."
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_push_wizard_form
+msgid "Selected PLUs"
+msgstr "Избрани PLU-та"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_plu_push_wizard__scope__selected
+msgid "Selected PLUs only"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_users_form_inherit_l10n_bg_fp
+msgid ""
+"Sent in every fiscal-receipt request issued\n"
+"                                by this user. Leave empty to fall back to\n"
+"                                the ErpNet.FP server defaults\n"
+"                                (operator=1, password=0000)."
+msgstr ""
+"Изпращат се при всяка заявка за фискален бон,\n"
+"                                издадена от този потребител. Оставете празно, за да се\n"
+"                                използват стойностите по подразбиране на сървъра ErpNet.FP\n"
+"                                (оператор=1, парола=0000)."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__sequence
+msgid "Sequence"
+msgstr "Последователност"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__report_number
+msgid ""
+"Sequential Z-report number reported by the device. Empty when the driver "
+"doesn't return it."
+msgstr ""
+"Поредният номер на Z-отчета, върнат от устройството. Празен, когато "
+"драйверът не го връща."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_status__serial_number
+msgid "Serial number"
+msgstr "Сериен номер"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__session_id
+msgid "Session"
+msgstr "Сесия"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py:0
+msgid "Session must be opened before pushing to the fiscal device."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__shift_id
+msgid "Shift"
+msgstr "Смяна"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_shift.py:0
+msgid "Shift cannot move to 'closed' from state %s."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_shift.py:0
+msgid "Shift cannot move to 'closing' from state %s."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_shift.py:0
+msgid "Shift cannot move to 'open' from state %s."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_shift.py:0
+msgid "Shift cannot move to 'opening' from state %s."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/external_shift_app.js:0
+msgid "Shift closed."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/external_shift_app.js:0
+msgid "Shift opened successfully."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/external_shift_app.js:0
+msgid "Shift opened."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_printer_device__on_sync_fail__silent
+msgid "Silent — log only"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_allocate_wizard__skip_existing
+msgid "Skip Existing"
+msgstr "Пропускане на съществуващи"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__plu_number
+msgid "Slot number on the fiscal device (1..N depending on capacity)."
+msgstr ""
+"Номер на слот на фискалното устройство (1..N в зависимост от капацитета)."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__source
+msgid "Source"
+msgstr "Източник"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__source_pricelist_id
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_allocate_wizard__source_pricelist_id
+msgid "Source Pricelist"
+msgstr "Изходен ценоразпис"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_search
+msgid "Source pricelist"
+msgstr "Изходна ценова листа"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_search
+msgid "Stale"
+msgstr "Остарял"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_plu__push_state__stale
+msgid "Stale (changed)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__stamp_image
+msgid "Stamp Image"
+msgstr "Изображение на печат"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__state
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__state
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__state
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_search
+msgid "State"
+msgstr "Статус"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_status__status
+msgid "Status"
+msgstr "Статус"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "Status History"
+msgstr "История на статусите"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "Status Info"
+msgstr "Информация за статус"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__activity_state
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_session__activity_state
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js:0
+msgid "Status check timed out after %ss"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_priters_status.py:0
+msgid "Status history"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py:0
+msgid "Status: %s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js:0
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_response__success
+msgid "Success"
+msgstr "Успешно"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
+msgid "Successfully generated Z report"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__summary
+msgid "Summary"
+msgstr "Резюме"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_push_wizard__summary_html
+msgid "Summary Html"
+msgstr "Обобщение (HTML)"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form_proxy
+msgid "Sync PLU"
+msgstr "Синхронизиране на PLU"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_extensions.py:0
+msgid "Sync failed: %(msg)s — policy: %(p)s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_tree
+msgid "Sync from pricelist"
+msgstr "Синхронизирай от ценова листа"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form_proxy
+msgid "Sync header/footer"
+msgstr "Синхронизиране на горен/долен колонтитул"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py:0
+msgid "Synced from pricelist '%s'."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js:0
+msgid "Syntax error in data sent to the device."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu_push_wizard__device_ids
+msgid "Target devices"
+msgstr "Целеви устройства"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_account_tax_group
+msgid "Tax Group"
+msgstr "Група данък"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_account_tax_group__l10n_bg_fiscal_tax_group
+msgid "Tax group"
+msgstr "Данъчна група"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_account_tax_group__l10n_bg_fiscal_tax_group
+msgid "Tax group for a fiscal printer"
+msgstr "Данъчна група за фискален принтер"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "Test X Report"
+msgstr "Тест X Отчет"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "Test Z Report"
+msgstr "Тест Z Отчет"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.res_config_settings_inherit_grafana
+msgid ""
+"The UID of the Grafana dashboard to\n"
+"                            embed. The bundled dashboard ships as\n"
+"                            <code>erpnet-fp-overview</code>."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_res_config_settings__erpnet_fp_grafana_dashboard_uid
+msgid ""
+"The UID of the Grafana dashboard to embed. The bundled dashboard ships as "
+"`erpnet-fp-overview`."
+msgstr ""
+"UID на таблото в Grafana, което да бъде вградено. Вграденото табло се "
+"доставя като `erpnet-fp-overview`."
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
+msgid "The Z report has been generated successfully"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
+msgid "The time must be between 0 and 23"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_order__l10n_bg_fiscal_receipt_datetime
+msgid "The time of issuing the fiscal receipt"
+msgstr "Времето на издаване на фискалния бон"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+msgid "There is no fiscal printer configured"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+msgid "There is no fiscal printer configured for this POS session"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_allocate_wizard.py:0
+msgid "These products are already linked to PLU slots: %s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.actions.act_window,help:l10n_bg_erp_net_fp.action_fiscal_printer_response
+msgid ""
+"This view shows responses from client-side printer requests.\n"
+"                Records are automatically deleted after 1 hour."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_topn_wizard_form
+msgid "This will archive PLUs that fall outside the top-N. Proceed?"
+msgstr "Това ще архивира PLU-тата, които не влизат в топ-N. Продължавате?"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__z_report_hour
+msgid "Time to generate Z report (0-23)"
+msgstr "Час за генериране на Z-отчет (0–23)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__timeout
+msgid "Timeout"
+msgstr "Изчакване"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__timeout
+msgid "Timeout in seconds"
+msgstr "Изчакване в секунди"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Timeout при връзка с принтера"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_frame_log__timestamp
+msgid "Timestamp"
+msgstr "Времева марка"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_search
+msgid "Today"
+msgstr "Днес"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_topn_wizard.py:0
+msgid "Top-N applied"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp.action_l10n_bg_fiscal_plu_topn
+#: model:ir.ui.menu,name:l10n_bg_erp_net_fp.menu_fiscal_plu_topn
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_topn_wizard_form
+msgid "Top-N best-sellers"
+msgstr "ТОП-N най-продавани"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__logo_image
+msgid ""
+"Top-of-receipt graphic. Pushed to the device by 'Upload logo' button. "
+"Capability marker [*32] required (most modern Datecs PM models support "
+"this)."
+msgstr ""
+"Графика в горната част на касовата бележка. Качва се на устройството с "
+"бутона 'Качи лого'. Изисква се маркер за възможност [*32] (поддържа се от "
+"повечето съвременни модели Datecs PM)."
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_receipt_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_receipt_tree
+msgid "Total"
+msgstr "Общо"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__total_amount
+msgid "Total Amount"
+msgstr "Обща сума"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_tree
+msgid "Total receipts"
+msgstr "Общо касови бележки"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_tree
+msgid "Total sales"
+msgstr "Общо продажби"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_session__z_total_amount
+msgid "Total turnover reported on the Z-report."
+msgstr "Общ оборот, отчетен в Z-отчета."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_printer_device__driver_type__tremol_isl
+msgid "Tremol ISL"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__activity_exception_decoration
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_session__activity_exception_decoration
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__nsale_prefix
+msgid "UNS prefix (2 letters)"
+msgstr "УНП префикс (2 букви)"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
+msgid "URL scheme must be http or https"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_config__l10n_bg_all_fiscal_devices
+msgid ""
+"Union of primary + extra fiscal printers — iterated by the open/close "
+"orchestrators."
+msgstr ""
+"Обединение на основното и допълнителните фискални принтери — обхождани от "
+"оркестраторите за отваряне/затваряне."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__receipt_number
+msgid ""
+"Unique sale number (UNS) reported by the device. Format: LLDDDDDD-CCCC-"
+"DDDDDDD on БГ devices."
+msgstr ""
+"Уникален номер на продажбата (УНП), върнат от устройството. Формат: "
+"LLDDDDDD-CCCC-DDDDDDD при БГ устройства."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__unit_price
+msgid "Unit Price"
+msgstr "Единична цена"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js:0
+msgid "Unknown printer error."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js:0
+msgid "Unsupported tax group on this device."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__footer_lines
+msgid "Up to 10 lines of footer text printed at the bottom."
+msgstr ""
+"До 10 реда заключителен текст, отпечатван в долната част на бележката."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__header_lines
+msgid ""
+"Up to 10 lines of header text printed at the top of every fiscal receipt. "
+"Each line up to 32-64 chars depending on device print-column count."
+msgstr ""
+"До 10 реда заглавен текст, отпечатван в горната част на всяка фискална "
+"бележка. Всеки ред до 32–64 символа в зависимост от броя колони на "
+"устройството."
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form_proxy
+msgid "Upload logo"
+msgstr "Качване на лого"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form_proxy
+msgid "Upload stamp"
+msgstr "Качване на печат"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_payment_method__l10n_bg_use_pinpad
+msgid "Use Pinpad (proxy-driven)"
+msgstr "Използвай пинпад (чрез прокси)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_res_users
+msgid "User"
+msgstr "Потребител"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_plu__vat_group_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_plu_search
+msgid "VAT group"
+msgstr "ДДС група"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_product_product__l10n_bg_fiscal_vat_group
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_product_template__l10n_bg_fiscal_vat_group
+msgid ""
+"VAT group letter on the fiscal device. Maps to device's valVat parameter "
+"index — must agree with the device's actual VAT-rate programming."
+msgstr ""
+"Буква на ДДС група на фискалното устройство. Съответства на индекса на "
+"параметъра valVat на устройството — трябва да съвпада с реалното "
+"програмиране на ДДС ставките на устройството."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt_line__vat_letter
+msgid "Vat Letter"
+msgstr "ДДС буква"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift_receipt__raw_payload
+msgid ""
+"Verbatim JSON from the device journal — preserved for audit purposes "
+"(Наредба Н-18)."
+msgstr ""
+"Оригинален JSON от журнала на устройството — запазен за одиторски цели "
+"(Наредба Н-18)."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__ssl_verify
+msgid "Verify SSL"
+msgstr "Проверка на SSL"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__ssl_verify
+msgid "Verify SSL certificates (disable for self-signed certificates)"
+msgstr ""
+"Проверка на SSL сертификати (деактивирайте при самоподписани сертификати)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__l10n_bg_fiscal_shift_receipt__payment_kind__voucher
+msgid "Voucher"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__pos_payment_method__l10n_bg_external_kind__voucher
+msgid "Voucher / coupon"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_printer_device__on_sync_fail__warning
+msgid "Warn but continue"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__website_message_ids
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__website_message_ids
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__website_message_ids
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_session__website_message_ids
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__on_sync_fail
+msgid ""
+"What happens when the device fails health-check during POS session opening: "
+"block opening, warn but continue, or silently log. `block` is the production"
+" default for fiscal compliance."
+msgstr ""
+"Действие при неуспешна проверка на устройството при отваряне на сесия в ПОС:"
+" блокиране, предупреждение и продължаване или тихо записване в лог. `block` "
+"е производственото по подразбиране за фискално съответствие."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_session__source
+msgid ""
+"What triggered this fiscal session — POS open, back-office bulk print, "
+"manual admin button, or scheduled cron."
+msgstr ""
+"Какво е инициирало тази фискална сесия — отваряне на ПОС, групов печат от "
+"бек-офиса, ръчен бутон от администратор или планиран cron."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_config__l10n_bg_external_pos_mode
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_external_pos_mode
+msgid ""
+"When enabled, sales are entered on the fiscal device itself — Odoo POS UI is"
+" used as a 'shift' container around device-side sales. Sync (PLU + logo + "
+"stamp + parameters) is pushed to the device on POS open. When disabled "
+"(default), the device acts purely as a receipt printer behind Odoo POS."
+msgstr ""
+"При активиране продажбите се въвеждат директно на фискалното устройство — "
+"интерфейсът на Odoo POS служи като контейнер за смяна около продажбите на "
+"устройството. При отваряне на POS към устройството се изпращат "
+"синхронизационни данни (PLU, лого, печат, параметри). При деактивиране (по "
+"подразбиране) устройството работи единствено като принтер за фискални бонове"
+" зад Odoo POS."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_pos_payment_method__l10n_bg_use_pinpad
+msgid ""
+"When enabled, the POS will call the local Python proxy to perform the card "
+"charge on a physical pinpad before allowing the order to validate. Requires "
+"a fiscal device in proxy mode."
+msgstr ""
+"При активиране ПОС ще извика локалния Python прокси за извършване на картово"
+" плащане на физически пинпад преди потвърждаване на поръчката. Изисква "
+"фискално устройство в прокси режим."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__driver_type
+msgid ""
+"Which fiscal-printer protocol the device speaks. Leave on 'Auto-detect' for "
+"backward compatibility with ErpNet.FP — the Python proxy infers the driver "
+"from its `config.yaml`."
+msgstr ""
+"Фискален протокол, поддържан от устройството. Оставете 'Автоматично "
+"разпознаване' за съвместимост с ErpNet.FP — Python прокси определя драйвера "
+"от `config.yaml`."
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_frame_log__raw_hex
+msgid "Wire bytes for compliance — preserved verbatim."
+msgstr "Байтове от протокола за съответствие — запазени без изменение."
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_order_search_inherit_fiscal
+msgid "With Fiscal Receipt"
+msgstr "С фискален бон"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_order_search_inherit_fiscal
+msgid "Without Fiscal Receipt"
+msgstr "Без фискален бон"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "X Report"
+msgstr "X Отчет"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
+msgid "X report generated successfully"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/xml/pos_close_popup_template.xml:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_session_form_inherit_fiscal
+msgid "X Отчет"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+msgid "X отчет отпечатан успешно"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/close_pos_popup_patch.js:0
+msgid "X отчетът е отпечатан успешно"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/top_bar/top_bar.xml:0
+msgid "X-Report"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/x_report_wizard.py:0
+msgid "X-report"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp.action_l10n_bg_fiscal_x_report_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_x_report_wizard_form
+msgid "X-report (mid-shift)"
+msgstr "X-отчет (в средата на смяната)"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/external_shift_app.js:0
+msgid "X-report failed"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/external_shift_app.js:0
+msgid "X-report fired. %s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__z_number
+msgid "Z Number"
+msgstr "Z номер"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_form
+msgid "Z Payload"
+msgstr "Z Съдържание"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__z_payload_json
+msgid "Z Payload Json"
+msgstr "Z данни (JSON)"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_z_report__z_print_at
+msgid "Z Print At"
+msgstr "Отпечатан Z в"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_printer_device_form
+msgid "Z Report"
+msgstr "Z Отчет"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_z_report_datetime
+msgid "Z Report Date/Time"
+msgstr "Дата/час на Z-отчет"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_l10n_bg_fiscal_shift__z_total
+msgid "Z Total"
+msgstr "Z сума"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__z_report_number
+msgid "Z report #"
+msgstr "Z отчет №"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_pos_session__l10n_bg_z_report_printed
+msgid "Z report printed"
+msgstr "Отпечатан Z отчет"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__z_report_hour
+msgid "Z report time"
+msgstr "Час за Z-отчет"
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_session__z_total_amount
+msgid "Z total"
+msgstr "Z оборот"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/xml/pos_close_popup_template.xml:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_session_form_inherit_fiscal
+msgid "Z Отчет"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+msgid "Z отчет вече е отпечатан за тази сесия"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+msgid "Z отчет отпечатан успешно"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/close_pos_popup_patch.js:0
+msgid "Z отчетът е отпечатан успешно! Дневните данни са нулирани."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+msgid "Z отчетът е отпечатан успешно. Сесията може да бъде затворена."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_pos_session_form_inherit_fiscal
+msgid "Z отчетът нулира дневните отчети. Продължи?"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/top_bar/top_bar.xml:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_shift_form
+msgid "Z-Report"
+msgstr "Z-Отчет"
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_z_report_form
+msgid "Z-report"
+msgstr "Z-отчет"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/external_shift_app.js:0
+msgid "Z-report failed"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/external_shift_app.js:0
+msgid "Z-report fired. %s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp.action_l10n_bg_fiscal_z_report
+#: model:ir.ui.menu,name:l10n_bg_erp_net_fp.menu_l10n_bg_fiscal_z_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_l10n_bg_fiscal_z_report_list
+msgid "Z-reports"
+msgstr "Z-отчети"
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/top_bar/top_bar.xml:0
+msgid "cashier rings up sales on the device"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/cash_move_popup.js:0
+msgid "deposit"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.res_config_settings_inherit_grafana
+msgid "erpnet-fp-overview"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.res_config_settings_inherit_grafana
+msgid "https://grafana.lan.mcpworks.net"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/printer_id_field.js:0
+msgid "unknown error"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/cash_move_popup.js:0
+msgid "withdraw"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__product_template__l10n_bg_fiscal_vat_group__а
+msgid "А (стандартна 20%)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__product_template__l10n_bg_fiscal_vat_group__б
+msgid "Б (намалена 9%)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__status_count
+msgid "Брой статуси"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/close_pos_popup_patch.js:0
+msgid "Генериране на X отчет..."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/close_pos_popup_patch.js:0
+msgid "Генериране на Z отчет..."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__is_ready
+msgid "Готов"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+msgid "Грешка"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Грешка в конфигурацията"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Грешка при X отчет"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/close_pos_popup_patch.js:0
+msgid "Грешка при X отчет: "
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Грешка при Z отчет"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/close_pos_popup_patch.js:0
+msgid "Грешка при Z отчет: "
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Грешка при вкарване на пари"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Грешка при изкарване на пари"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/fiscal_cash_operation_wizard.py:0
+msgid "Грешка при изпълнение на операцията: %s"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/opening_control_popup_fiscal.js:0
+msgid "Грешка при комуникация с фискален принтер при откриване на касата: "
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/cash_move_popup.js:0
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/payment_screen.js:0
+msgid "Грешка при комуникация с фискален принтер: "
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/close_pos_popup_patch.js:0
+msgid "Грешка при печат"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/payment_screen.js:0
+msgid "Грешка при печат на "
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Грешка при печат на дубликат"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Грешка при сторно печат"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/cash_move_popup.js:0
+msgid "Грешка при фискален "
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Грешка при фискален печат"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/opening_control_popup_fiscal.js:0
+msgid "Грешка при фискално вкарване на пари при откриване на касата: "
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp.field_fiscal_printer_device__proxy_printer_ok
+msgid "Дали браузърът може да достъпи хоста на принтера"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/xml/pos_close_popup_template.xml:0
+msgid "Дневен фискален отчет с нулиране на дневните данни"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__product_template__l10n_bg_fiscal_vat_group__з
+msgid "З (нулева)"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_cash_operation_wizard_form
+msgid "Изпълни"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Липсва оригинална поръчка"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Липсва поръчка"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Липсва фискален номер"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/xml/pos_close_popup_template.xml:0
+msgid "Междинен отчет без нулиране на дневните данни"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Не може да се намери оригиналната поръчка за сторниране."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Невалидна поръчка"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/opening_control_popup_fiscal.js:0
+msgid "Неизвестна грешка"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Неизвестна грешка от принтера"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+msgid ""
+"Няма връзка с фискалния принтер.\n"
+"\n"
+"Моля, отворете браузъра с ErpNet прокси приложението."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/fiscal_cash_operation_wizard.py:0
+msgid "Няма конфигуриран фискален принтер"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+msgid "Няма конфигуриран фискален принтер за тази POS сесия"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Няма поръчка за печат."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid ""
+"Оригиналната поръчка няма фискален номер. Не може да се направи сторно."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp.view_fiscal_cash_operation_wizard_form
+msgid "Отказ"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Поръчката няма продуктови линии."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__proxy_last_seen
+msgid "Последен heartbeat"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__proxy_printer_ok
+msgid "Принтер достъпен от браузъра"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/erp_net_fp_printer.js:0
+msgid "Принтерът върна грешка"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+msgid "Принтерът не е достъпен"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_cash_operation_wizard__reason
+msgid "Причина"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__proxy_user_id
+msgid "Свързан потребител"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model,name:l10n_bg_erp_net_fp.model_fiscal_cash_operation_wizard
+msgid "Служебни касови операции"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_cash_operation_wizard__operation_type__deposit
+msgid "Служебно въведени"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/fiscal_cash_operation_wizard.py:0
+msgid "Служебно въведени: %.2f"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__fiscal_cash_operation_wizard__operation_type__withdraw
+msgid "Служебно изведени"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/fiscal_cash_operation_wizard.py:0
+msgid "Служебно изведени: %.2f"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__status_ids
+msgid "Статусна история"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/payment_screen.js:0
+msgid "Сторно бон отпечатан "
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_cash_operation_wizard__amount
+msgid "Сума"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/fiscal_cash_operation_wizard.py:0
+msgid "Сумата трябва да е положително число"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_printer_device__current_status
+msgid "Текущ статус"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp.field_fiscal_cash_operation_wizard__operation_type
+msgid "Тип операция"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
+#: code:addons/l10n_bg_erp_net_fp/wizard/fiscal_cash_operation_wizard.py:0
+msgid "Успех"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/payment_screen.js:0
+msgid "Фискален бон отпечатан "
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/close_pos_popup_patch.js:0
+msgid "Фискалният принтер не е конфигуриран"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__product_template__l10n_bg_fiscal_measurement_unit__0
+msgid "бр."
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#: model:ir.model.fields.selection,name:l10n_bg_erp_net_fp.selection__product_template__l10n_bg_fiscal_measurement_unit__1
+msgid "кг"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/payment_screen.js:0
+msgid "сторно бон"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/js/payment_screen.js:0
+msgid "фискален бон"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/xml/printer_id_field.xml:0
+msgid "— select —"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py:0
+msgid "✓ OK"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-javascript
+#: code:addons/l10n_bg_erp_net_fp/static/src/external_shift/components/products_grid/products_grid.xml:0
+msgid "✓ programmed · ⚠ stale · ✗ missing"
+msgstr ""
+
+#. module: l10n_bg_erp_net_fp
+#. odoo-python
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py:0
+msgid "✗ FAILED: %s"
+msgstr ""

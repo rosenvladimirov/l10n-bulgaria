@@ -3,26 +3,32 @@
 /**
  * Pinpad-aware patch on PaymentScreen.
  *
- * Strict ADD-only: this is a SEPARATE patch file from the existing
- * `payment_screen.js` (which hooks `validateOrder()` for fiscal-print
- * integration). This patch hooks `addNewPaymentLine` so when a
- * payment method marked `l10n_bg_use_pinpad` is selected, the POS
- * delegates the card charge to the local Python proxy via RPC.
+ * When a payment method marked `l10n_bg_use_pinpad` is selected, the POS
+ * charges the card on a physical pinpad through the LOCAL ErpNet.FP proxy.
  *
- * The two patches are orthogonal — both can coexist on the same
- * PaymentScreen.prototype because `patch()` composes per-method.
+ * Топология (важно): проксито, което кара pinpad-а, върви ДО POS-а (на
+ * същата машина като браузъра), НЕ на Odoo сървъра. Отдалечена Odoo не
+ * може да го достигне. Затова — точно както фискалният печат — БРАУЗЪРЪТ
+ * вика проксито директно (browser-proxy) през advertised host-а от
+ * сесията `l10n_bg_erp_net_fp_host`. Няма server-side обиколка.
+ *
+ * Strict ADD-only: separate patch file from `payment_screen.js` (which
+ * hooks `validateOrder()`); `patch()` composes per-method so both coexist.
  */
 
 import { _t } from "@web/core/l10n/translation";
 import { patch } from "@web/core/utils/patch";
 import { PaymentScreen } from "@point_of_sale/app/screens/payment_screen/payment_screen";
 
+// Колко чакаме клиента да пъхне картата + PIN (хостовият round-trip + EMV).
+const PINPAD_TIMEOUT_MS = 90000;
+
 patch(PaymentScreen.prototype, {
     /**
      * @override
-     * Intercept payment line creation for pinpad-marked methods.
-     * On success, mark the line with the pinpad transaction id.
-     * On failure, prevent the line from being added.
+     * Прихваща създаването на платежен ред за pinpad-маркирани методи.
+     * При одобрение маркира реда с транзакционната референция; при отказ
+     * или грешка не добавя ред (POS остава с дължимо).
      */
     async addNewPaymentLine(paymentMethod) {
         // Defensive: super first when method isn't pinpad-marked.
@@ -33,64 +39,75 @@ patch(PaymentScreen.prototype, {
         const order = this.currentOrder;
         const remaining = order.getDue();
         if (remaining <= 0) {
-            // Nothing to charge — fall through to default behaviour.
+            // Нищо за таксуване — стандартно поведение.
             return await super.addNewPaymentLine(...arguments);
         }
 
-        // Find a fiscal device on this POS config (any active one).
-        const deviceId = this.pos.config?.l10n_bg_fiscal_printer_id?.[0]
-            || this.pos.session?.l10n_bg_erp_net_fp_device_id;
-        if (!deviceId) {
+        // Browser-reachable прокси host — същият, който фискалният печат ползва.
+        const host = this.pos.session?.l10n_bg_erp_net_fp_host;
+        if (!host) {
             this.env.services.notification.add(
-                _t("No fiscal device configured for this POS — pinpad disabled."),
+                _t("No ErpNet.FP proxy host configured for this POS — pinpad disabled."),
                 { type: "warning" },
             );
             return await super.addNewPaymentLine(...arguments);
         }
 
+        const pinpadId = paymentMethod.l10n_bg_pinpad_id || "default";
+        const baseUrl = String(host).replace(/\/+$/, "");
+        const url = `${baseUrl}/pinpads/${encodeURIComponent(pinpadId)}/purchase`;
         const orderName = order.name || order.uid || "";
+
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), PINPAD_TIMEOUT_MS);
         let result;
         try {
-            result = await this.env.services.orm.call(
-                "fiscal.printer.device",
-                "charge_pinpad",
-                [],
-                {
-                    device_id: deviceId,
+            const resp = await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
                     amount: remaining,
                     currency: this.pos.currency?.name || "BGN",
-                    pinpad_id: paymentMethod.l10n_bg_pinpad_id || null,
                     reference: orderName,
-                },
-            );
+                }),
+                signal: ctrl.signal,
+            });
+            if (!resp.ok) {
+                throw new Error(`HTTP ${resp.status}`);
+            }
+            result = await resp.json();
         } catch (err) {
-            this.env.services.notification.add(
-                _t("Pinpad RPC failed: %s", err.message || err),
-                { type: "danger" },
-            );
+            const msg = err.name === "AbortError"
+                ? _t("Pinpad timed out — no response from the terminal.")
+                : _t("Pinpad request failed: %s", err.message || err);
+            this.env.services.notification.add(msg, { type: "danger" });
             return false;
+        } finally {
+            clearTimeout(timer);
         }
 
+        // Проксито връща HTTP 200 дори при отказ — решаваме по `ok`, не по статуса.
         if (!result || !result.ok) {
             this.env.services.notification.add(
-                _t("Pinpad charge failed: %s",
-                   (result && result.message) || _t("unknown error")),
+                _t("Pinpad declined: %s", (result && result.error) || _t("unknown error")),
                 { type: "danger" },
             );
             return false;
         }
 
-        // Charge succeeded — proceed with normal line creation, then
-        // tag the new line with the pinpad transaction id (so it lands
-        // on the receipt + reaches the backend).
+        // Одобрено — добавяме реда и го маркираме с реф (RRN / auth от хоста),
+        // за да попадне на бона и да стигне бекенда.
         const ok = await super.addNewPaymentLine(...arguments);
+        const txid = result.rrn || result.authId || result.hostRrn || "";
         const newLine = order.getSelectedPaymentline();
-        if (newLine && result.transaction_id) {
+        if (newLine) {
             newLine.set_payment_status?.("done");
-            newLine.transaction_id = result.transaction_id;
+            if (txid) {
+                newLine.transaction_id = txid;
+            }
         }
         this.env.services.notification.add(
-            _t("Pinpad approved · ref %s", result.transaction_id || "—"),
+            _t("Pinpad approved · ref %s", txid || "—"),
             { type: "success" },
         );
         return ok;

@@ -70,6 +70,9 @@
                             <field name="connection_mode" widget="radio" options="{'horizontal': true}"/>
                             <field name="active"/>
                             <field name="ssl_verify"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"
+                                   options="{'no_create': True}"/>
                         </group>
                         <group string="Status Info">
                             <field name="current_status" readonly="1"/>
@@ -144,6 +147,8 @@
                 <field name="current_status"/>
                 <field name="is_ready"/>
                 <field name="active"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
             </list>
         </field>
     </record>

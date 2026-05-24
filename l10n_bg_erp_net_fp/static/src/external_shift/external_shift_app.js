@@ -74,8 +74,16 @@ class ExternalShiftApp extends Component {
                 this.state.shift = await this.shiftSvc.findActiveShift(
                     this.state.deviceId);
             }
+            // Pass the selected device's company so PLU/products are
+            // looked up in the device's tenant, regardless of the
+            // cashier's currently-active company.
+            const dev = this.activeDevice;
+            const companyId = dev && dev.company_id
+                ? (Array.isArray(dev.company_id)
+                    ? dev.company_id[0] : dev.company_id)
+                : null;
             const { products, plusByProduct } =
-                await this.shiftSvc.loadProductsAndPlu();
+                await this.shiftSvc.loadProductsAndPlu(companyId);
             this.state.products = products;
             this.state.plusByProduct = plusByProduct;
         } catch (err) {
@@ -93,6 +101,16 @@ class ExternalShiftApp extends Component {
     async onDeviceChange(deviceId) {
         this.state.deviceId = deviceId;
         this.state.shift = await this.shiftSvc.findActiveShift(deviceId);
+        // Re-load the product grid scoped to the new device's tenant.
+        const dev = this.activeDevice;
+        const companyId = dev && dev.company_id
+            ? (Array.isArray(dev.company_id)
+                ? dev.company_id[0] : dev.company_id)
+            : null;
+        const { products, plusByProduct } =
+            await this.shiftSvc.loadProductsAndPlu(companyId);
+        this.state.products = products;
+        this.state.plusByProduct = plusByProduct;
     }
 
     async onOpenShift() {

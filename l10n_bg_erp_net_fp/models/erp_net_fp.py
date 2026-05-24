@@ -29,6 +29,17 @@ class FiscalPrinterDevice(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char('Name', required=True)
+    # Multi-company tenant key — needed by the External Shift dashboard
+    # so it can filter PLU/products/tax-group lookups via
+    # `context: {allowed_company_ids: [device.company_id]}` regardless of
+    # the cashier user's currently-active company.
+    company_id = fields.Many2one(
+        'res.company', string='Company',
+        required=True, index=True,
+        default=lambda self: self.env.company,
+        help='Tenant that owns this fiscal device. PLU, taxes and '
+        'operators are scoped to this company.',
+    )
     host = fields.Char('Host', required=True, default='http://localhost:8001')
     printer_id = fields.Char('ID on a printer', required=True)
     active = fields.Boolean('Active', default=True)

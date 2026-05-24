@@ -28,6 +28,17 @@ const posReaderBridgeService = {
 
     start(env, { "l10n_bg_erp_net_fp.reader": reader,
                   barcode_reader: posBarcode }) {
+        // Conflict guard — EE pos_iot already pipes IoT-box scans
+        // into posBarcode.scan(). Doubling up would add every product
+        // twice. We detect EE pos_iot by looking for the `iot_box`
+        // service in the registry and skip the bridge if present.
+        const services = registry.category("services");
+        if (services.contains("iot_longpolling") ||
+            services.contains("iot_box")) {
+            console.info("[PosBarcodeBridge] EE pos_iot detected — "
+                         + "skipping bridge to avoid double-scan");
+            return {};
+        }
         if (!posBarcode || typeof posBarcode.scan !== "function") {
             console.warn("[PosBarcodeBridge] POS barcode_reader service "
                          + "is missing scan(); aborting bridge");

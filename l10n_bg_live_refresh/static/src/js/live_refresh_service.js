@@ -11,12 +11,26 @@ import { registry } from "@web/core/registry";
  *   live_refresh/field   -> env.bus event "LIVE_REFRESH_FIELD"
  *   live_refresh/list    -> env.bus event "LIVE_REFRESH_LIST"
  *   erpnet_fp_fleet      -> env.bus event "FLEET_UPDATE"   (was fleet_autorefresh.js)
- *   erpnet_fp_proxy_events -> env.bus event "PROXY_EVENT"  (new — bus_inject envelope)
+ *   erpnet_fp_proxy_events -> env.bus event "PROXY_EVENT"  (bus_inject envelope)
  *
- * Plugin modules subscribe via env.bus.addEventListener("PROXY_EVENT", cb)
- * where cb receives a CustomEvent whose `.detail` is the full envelope
- * { v, type, source, ts, id, data }. To filter, switch on `detail.type`
- * (a string like "plate.detected" / "door.opened") inside the handler.
+ * On every PROXY_EVENT we also re-fire a typed env.bus event for
+ * the common POS-hardware streams so widgets/handlers can subscribe
+ * narrowly without switching on `detail.type`:
+ *
+ *   type == "barcode.scanned" -> env.bus event "BARCODE_SCANNED"
+ *   type == "scale.weighed"   -> env.bus event "SCALE_READ"
+ *
+ * `.detail` of every event is the full envelope
+ * `{ v, type, source, ts, id, data }`. For barcode, `data.barcode`
+ * (+ optional `symbology`, `reader_id`) carries the scan. For
+ * scale, `data.weight` + `data.unit` (default "kg") + `data.stable`
+ * (bool) carry the reading.
+ *
+ * Plugin modules subscribe via:
+ *   env.bus.addEventListener("BARCODE_SCANNED", (ev) => {
+ *       const code = ev.detail.data.barcode;
+ *       ...
+ *   });
  *
  * Backwards-compat note: any module that still ships its own
  * `bus_service.addChannel("erpnet_fp_fleet")` + listener will continue
@@ -43,6 +57,14 @@ const _TOAST_KIND = {
     "controller.online":  {kind: "success", title: "🟢 Controller back online"},
     "mqtt.message":   {kind: "info",    title: "📨 MQTT"},
     "biometric.match": {kind: "success", title: "🧬 Face matched"},
+    // POS hardware — barcode reader (HID-over-VSP, USB-CDC, BT-VSP)
+    // and electronic scale (Adam, Mettler, Datecs, ...). The proxy
+    // emits these on `/readers/<id>/ws` and `/scales/<id>/ws`
+    // respectively; bus_inject also re-broadcasts them on the
+    // erpnet_fp_proxy_events channel so any open Odoo tab sees them
+    // (not just the screen subscribed to the WebSocket).
+    "barcode.scanned": {kind: "info",   title: "🏷 Barcode"},
+    "scale.weighed":   {kind: "info",   title: "⚖️ Scale"},
 };
 
 function _formatProxyEvent(envelope) {
@@ -54,6 +76,12 @@ function _formatProxyEvent(envelope) {
     // Pick a couple of recognisable data fields if present.
     if (data.plate) parts.push(`plate=${data.plate}`);
     if (data.card_id) parts.push(`card=${data.card_id}`);
+    if (data.barcode) parts.push(`barcode=${data.barcode}`);
+    if (data.weight !== undefined && data.weight !== null) {
+        const unit = data.unit || "kg";
+        const stable = data.stable === false ? " (unstable)" : "";
+        parts.push(`${data.weight}${unit}${stable}`);
+    }
     if (data.state) parts.push(`state=${data.state}`);
     if (data.reason) parts.push(`reason=${data.reason}`);
     if (data.silent_seconds) parts.push(`silent ${data.silent_seconds}s`);
@@ -95,6 +123,21 @@ const liveRefreshService = {
         // from every Odoo tab without opening a specific dashboard.
         bus_service.subscribe("erpnet_fp_proxy_events", (payload) => {
             env.bus.trigger("PROXY_EVENT", payload);
+            // ─── dedicated convenience events ────────────────────
+            // Form widgets / form controllers that only care about
+            // barcode or weight don't have to switch on detail.type
+            // inside a single PROXY_EVENT handler — they subscribe
+            // to the typed event directly.
+            try {
+                const t = payload && payload.type;
+                if (t === "barcode.scanned") {
+                    env.bus.trigger("BARCODE_SCANNED", payload);
+                } else if (t === "scale.weighed") {
+                    env.bus.trigger("SCALE_READ", payload);
+                }
+            } catch (e) {
+                console.warn("typed event dispatch suppressed:", e);
+            }
             try {
                 const t = _formatProxyEvent(payload);
                 notification.add(t.message, {

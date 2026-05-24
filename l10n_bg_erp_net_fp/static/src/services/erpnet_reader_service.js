@@ -16,15 +16,18 @@
  * to every active one. On WS disconnect it retries with exponential
  * backoff capped at 30s.
  *
- * Host resolution priority (first non-empty wins):
- *   1. ir.config_parameter `l10n_bg_erp_net_fp.host`   (backend RPC)
- *   2. pos.session config `l10n_bg_erp_net_fp_host`    (POS-only)
- *   3. window.location.origin                          (fallback when
- *                                                       proxy runs on
- *                                                       same host)
+ * Host resolution — single source of truth is `fiscal.printer.device.host`
+ * (the URL of the Odoo.ErpNet.FP proxy in front of the hardware). The
+ * service picks it up automatically; no separate config to set:
  *
- * Designed to live in BOTH POS asset bundle and web.assets_backend —
- * the backend integration uses bus.bus to fan out across users.
+ *   POS context     → pos.config.l10n_bg_erp_net_fp_host  (computed
+ *                     from pos.config.l10n_bg_fiscal_printer_id.host)
+ *   Backend context → searchRead the first active fiscal.printer.device
+ *                     with connection_mode='proxy' and use its host.
+ *
+ * If neither is configured the service stays silent (no readers).
+ *
+ * Designed to live in BOTH POS asset bundle and web.assets_backend.
  *
  * NOT YET IMPLEMENTED: writes to the reader (we only consume scans).
  */
@@ -37,6 +40,20 @@ const RECONNECT_MIN_MS = 1_000;
 const RECONNECT_MAX_MS = 30_000;
 const POLL_INTERVAL_MS = 30_000;   // re-scan /readers periodically
                                     // for hot-plugged devices
+
+
+/** Inert service object — returned when no proxy host is configured,
+ * so consumers can still call .subscribe() without crashing. */
+function _disabledService() {
+    return {
+        subscribe(_handler) {
+            return { unsubscribe() {} };
+        },
+        list() { return []; },
+        async refresh() {},
+        bus: null,
+    };
+}
 
 
 class ErpNetReader {
@@ -119,7 +136,11 @@ export const erpnetReaderService = {
     dependencies: ["orm"],
 
     async start(env, { orm }) {
-        // host resolution — see module docstring for priority
+        // ─── host resolution ─────────────────────────────────────
+        // Single source of truth: `fiscal.printer.device.host`.
+        // The POS reads it via pos.config.l10n_bg_erp_net_fp_host
+        // (computed from the config's primary fiscal printer).
+        // The backend reads it via RPC directly off the model.
         let host = "";
         if (env.services && env.services.pos &&
                 env.services.pos.session &&
@@ -128,19 +149,24 @@ export const erpnetReaderService = {
         }
         if (!host) {
             try {
-                const v = await orm.call(
-                    "ir.config_parameter", "get_param",
-                    ["l10n_bg_erp_net_fp.host", ""]);
-                if (v) host = v;
+                const recs = await orm.searchRead(
+                    "fiscal.printer.device",
+                    [["active", "=", true],
+                     ["connection_mode", "=", "proxy"],
+                     ["host", "!=", false]],
+                    ["host"],
+                    { limit: 1, order: "id" },
+                );
+                if (recs && recs.length) host = recs[0].host;
             } catch (e) {
                 console.warn("[ErpNetReaderService] "
-                             + "ir.config_parameter lookup failed:", e);
+                             + "fiscal.printer.device lookup failed:", e);
             }
         }
         if (!host) {
-            host = window.location.origin;
-            console.warn("[ErpNetReaderService] no host configured — "
-                         + "falling back to", host);
+            console.warn("[ErpNetReaderService] no fiscal.printer.device "
+                         + "host configured — readers disabled");
+            return _disabledService();
         }
         const baseUrl = host.replace(/\/+$/, "");
 

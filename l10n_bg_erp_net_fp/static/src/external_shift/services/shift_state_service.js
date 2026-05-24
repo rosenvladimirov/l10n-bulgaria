@@ -108,7 +108,10 @@ export const shiftStateService = {
                         [["id", "in", [...allProductIds]]],
                         ["id", "display_name", "default_code",
                          "list_price", "barcode"],
-                        { order: "display_name", context: ctx },
+                        // v19: `display_name` is a non-stored compute,
+                        // can't be passed as `order`. v18 tolerates
+                        // it but we keep lockstep with the v19 fix.
+                        { order: "name", context: ctx },
                     );
                 }
 

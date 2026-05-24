@@ -207,7 +207,7 @@ export const shiftStateService = {
                     );
                     if (plus.length) {
                         try {
-                            await proxy.pushPluBulk(
+                            const result = await proxy.pushPluBulk(
                                 device,
                                 plus.map(p => ({
                                     plu: p.plu_number,
@@ -215,8 +215,39 @@ export const shiftStateService = {
                                     price: p.price,
                                 })),
                             );
-                            summaryLines.push(
-                                `[plu] ✓ ${plus.length} pushed`);
+                            // proxy returns {ok, programmed, errors[]}.
+                            // Parse it: total ECR failure with all-E402
+                            // means the device is a stand-alone register
+                            // (e.g. Datecs DP-150) that doesn't accept
+                            // host-side PLU programming. Treat as a
+                            // soft notice, not a shift-blocking error —
+                            // the cashier programs PLUs from the device
+                            // menu and Odoo just tracks the registry
+                            // for audit / Z-report import.
+                            const programmed = (result && result.programmed) || 0;
+                            const errs = (result && result.errors) || [];
+                            const allE402 = errs.length === plus.length
+                                && errs.every(
+                                    e => (e.error || "").includes("E402"));
+                            if (programmed === plus.length) {
+                                summaryLines.push(
+                                    `[plu] ✓ ${programmed} pushed`);
+                            } else if (allE402) {
+                                summaryLines.push(
+                                    `[plu] — ECR/ISL device, host PLU `
+                                    + `push not supported; program `
+                                    + `manually on the cash register`);
+                            } else if (programmed > 0) {
+                                summaryLines.push(
+                                    `[plu] ⚠ ${programmed}/${plus.length} `
+                                    + `pushed, ${errs.length} failed `
+                                    + `(first: ${errs[0]?.error || "?"})`);
+                            } else {
+                                summaryLines.push(
+                                    `[plu] ✗ 0/${plus.length} pushed `
+                                    + `(first error: `
+                                    + `${errs[0]?.error || "unknown"})`);
+                            }
                         } catch (err) {
                             summaryLines.push(
                                 `[plu] ✗ ${err.message}`);

@@ -123,7 +123,14 @@ export class PaymentDatecsPay extends PaymentInterface {
                 signal: ctrl.signal,
             });
             if (!resp.ok) {
-                throw new Error(`HTTP ${resp.status}`);
+                // Surface the proxy's error body — it tells us the exact
+                // reason (404 for unknown pinpad id, 4xx detail messages,
+                // 5xx tracebacks, etc.). Without this the toast just said
+                // "HTTP 404" with no clue what the URL or pinpad id was.
+                let body = "";
+                try { body = (await resp.text()).slice(0, 300); } catch (_) {}
+                throw new Error(
+                    `HTTP ${resp.status} on ${url} — ${body || "(no body)"}`);
             }
             result = await resp.json();
             console.log("[DatecsPay] proxy response:", JSON.stringify(result));
@@ -138,9 +145,13 @@ export class PaymentDatecsPay extends PaymentInterface {
                 }
                 return false;
             }
+            // Always log the full error to console — sticky toasts have
+            // limited width and may truncate the URL/status.
+            console.error("[DatecsPay] purchase fetch failed:", e,
+                          "url=", url, "pinpadId=", pinpadId, "host=", host);
             this.env.services.notification.add(
                 _t("Pinpad request failed: %s", e.message || e),
-                { type: "danger" },
+                { type: "danger", sticky: true },
             );
             return false;
         } finally {

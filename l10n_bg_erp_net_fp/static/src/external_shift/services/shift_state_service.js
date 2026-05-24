@@ -34,14 +34,24 @@ export const shiftStateService = {
 
             async findActiveShift(deviceId) {
                 if (!deviceId) return null;
-                const id = await orm.call(
+                const raw = await orm.call(
                     "l10n.bg.fiscal.shift",
                     "find_active_shift", [deviceId],
                 );
+                // Server returns a recordset → serialised as either:
+                //   • false / null   (no match — empty recordset),
+                //   • number         (single id), or
+                //   • [id, ...]      (multi).
+                // `!raw` is false for [] (empty array is truthy in JS),
+                // so we must explicitly check length too.
+                if (!raw || (Array.isArray(raw) && raw.length === 0)) {
+                    return null;
+                }
+                const id = Array.isArray(raw) ? raw[0] : raw;
                 if (!id) return null;
                 const recs = await orm.read(
                     "l10n.bg.fiscal.shift",
-                    [Array.isArray(id) ? id[0] : id],
+                    [id],
                     ["id", "name", "state", "device_id",
                      "operator_user_id", "opened_at",
                      "receipt_count", "sales_total",

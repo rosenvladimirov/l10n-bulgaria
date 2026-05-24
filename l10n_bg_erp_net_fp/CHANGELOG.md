@@ -4,6 +4,32 @@ All notable changes to the l10n_bg_erp_net_fp module will be documented in this 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [18.0.15.2.0] - 2026-05-22
+
+### Added — `fiscal_plu_eligible` opt-out flag
+
+- `product.template.l10n_bg_fiscal_plu_eligible` (Boolean, indexed, default
+  True) — marks whether a product should occupy a PLU slot on the fiscal
+  device.
+- `product.product.l10n_bg_fiscal_plu_eligible` — related store=True for fast
+  filtering and inclusion in `_load_pos_data_fields()`.
+- When False, sales fall back to free-price entry (Datecs cmd 0x31): name and
+  price travel per-receipt instead of being programmed once. Designed for
+  long-tail items so the limited PLU table (3000 slots on FP-class devices
+  like BlueCash-50) stays for hot SKUs.
+- Default True (opt-out) — preserves current behaviour for existing
+  databases.
+- Native BlueCash client (`BlueCash.PluClient`, repo
+  `~/Проекти/odoo/iot/BlueCash.PluClient`) reads this field to build the
+  push set.
+
+### Resolves
+
+Open question #4 from the BlueCash PLU Client architecture doc
+(`~/Свалени/CLAUDE(1).md` §10).
+
+*Assisted by Claude Code*
+
 ## [18.0.10.0.0] - 2026-05-06
 
 ### Added — Packaging weight QC (Phase 3)

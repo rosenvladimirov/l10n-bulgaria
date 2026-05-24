@@ -91,6 +91,23 @@ class ProductTemplate(models.Model):
         help="Measurement unit slot for the fiscal device PLU (Datecs "
         "PM syntax #2 field 15).",
     )
+    # Слот-pressure управление за устройства с твърд лимит (BlueCash-50 = 3000).
+    # Default True (opt-out) — повечето retail артикули с баркод са eligible.
+    # False → продажбата минава през free-price fallback (Datecs cmd 0x31),
+    # името + цената идват от Odoo в момента на продажбата, без слот на ФУ.
+    l10n_bg_fiscal_plu_eligible = fields.Boolean(
+        string="Eligible for PLU Slot",
+        default=True,
+        index=True,
+        help="When True, this product gets allocated a PLU slot on the "
+        "fiscal device and is pushed at the next Open Shift. When False, "
+        "sales fall back to free-price entry (cmd 0x31) — the name and "
+        "price travel per-receipt instead of being programmed once. "
+        "Disable for long-tail items rarely sold so the limited PLU table "
+        "(3000 slots on FP-class devices like BlueCash-50) stays for hot "
+        "SKUs. Native BlueCash client (`BlueCash.PluClient`) reads this "
+        "field to build the push set.",
+    )
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -179,12 +196,17 @@ class ProductProduct(models.Model):
         related="product_tmpl_id.l10n_bg_fiscal_measurement_unit",
         store=False, readonly=True,
     )
+    l10n_bg_fiscal_plu_eligible = fields.Boolean(
+        related="product_tmpl_id.l10n_bg_fiscal_plu_eligible",
+        store=True, readonly=True, index=True,
+    )
 
     @api.model
     def _load_pos_data_fields(self, config_id):
         fields_list = super()._load_pos_data_fields(config_id)
         for f in ("l10n_bg_fiscal_plu_number", "l10n_bg_fiscal_vat_group",
-                  "l10n_bg_fiscal_measurement_unit"):
+                  "l10n_bg_fiscal_measurement_unit",
+                  "l10n_bg_fiscal_plu_eligible"):
             if f not in fields_list and f in self._fields:
                 fields_list.append(f)
         return fields_list

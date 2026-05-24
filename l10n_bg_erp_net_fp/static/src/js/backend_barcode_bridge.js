@@ -29,6 +29,15 @@ const backendReaderBridgeService = {
 
     start(env, { "l10n_bg_erp_net_fp.reader": reader,
                   barcode: barcodeSvc }) {
+        // Conflict guard — EE iot already feeds barcode_service via
+        // the IoT longpoll. Skip our bridge if it's installed so
+        // every scan only fires once.
+        const services = registry.category("services");
+        if (services.contains("iot_longpolling")) {
+            console.info("[BackendBarcodeBridge] EE iot detected — "
+                         + "skipping bridge to avoid double-dispatch");
+            return {};
+        }
         if (!barcodeSvc || !barcodeSvc.bus) {
             console.warn("[BackendBarcodeBridge] core barcode service "
                          + "has no .bus; aborting bridge");

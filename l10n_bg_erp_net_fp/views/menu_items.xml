@@ -2,24 +2,30 @@
 <odoo>
 
     <!-- ===========================================================
-         External-shift cashier menus — top-level under POS
-         (visible to every POS user, daily-use)
+         External-shift cashier menus — collapsed under a single
+         "External POS" submenu under POS root (daily-use).
          =========================================================== -->
+
+    <menuitem id="menu_external_pos_root"
+              name="External POS"
+              parent="point_of_sale.menu_point_root"
+              sequence="22"
+              groups="point_of_sale.group_pos_user"/>
 
     <!-- External Shifts kanban — primary cashier entry point -->
     <menuitem id="menu_l10n_bg_fiscal_shift"
               name="External Shifts"
-              parent="point_of_sale.menu_point_root"
+              parent="menu_external_pos_root"
               action="action_l10n_bg_fiscal_shift"
-              sequence="22"
+              sequence="10"
               groups="point_of_sale.group_pos_user"/>
 
     <!-- Quick "New Shift" launcher → /external-shift -->
     <menuitem id="menu_external_shift_new"
               name="Open Shift Dashboard"
-              parent="point_of_sale.menu_point_root"
+              parent="menu_external_pos_root"
               action="action_external_shift_dashboard_new"
-              sequence="24"
+              sequence="20"
               groups="point_of_sale.group_pos_user"/>
 
     <!-- ===========================================================

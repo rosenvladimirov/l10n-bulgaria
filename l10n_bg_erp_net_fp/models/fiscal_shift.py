@@ -196,11 +196,18 @@ class L10nBgFiscalShift(models.Model):
 
     @api.model
     def find_active_shift(self, device_id):
-        """Return the currently-open shift on a device, or False."""
-        return self.search([
+        """Return the currently-open shift on a device, or False.
+
+        We return an `int` (or False) rather than a recordset so the
+        JSON-RPC client sees an unambiguous scalar — an empty recordset
+        serialises to `[]`, which is truthy in JS and breaks the
+        caller's null-check.
+        """
+        shift = self.search([
             ("device_id", "=", device_id),
             ("state", "in", ("opening", "open", "closing")),
         ], limit=1)
+        return shift.id if shift else False
 
     @api.model
     def _l10n_bg_ensure_open_for_session(self, device, session):

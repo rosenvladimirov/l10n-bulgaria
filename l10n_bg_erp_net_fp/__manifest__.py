@@ -22,7 +22,7 @@ supported by ErpNet.FP server. Features include:
 * Bulgarian tax group mapping (А, Б, В, Г)
 * Dual connection mode: Direct (server) and Proxy (browser)
 """,
-    'version': '18.0.15.2.0',
+    'version': '18.0.15.3.0',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
@@ -144,6 +144,10 @@ supported by ErpNet.FP server. Features include:
             'l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js',
             'l10n_bg_erp_net_fp/static/src/js/grafana_dashboard.js',
             'l10n_bg_erp_net_fp/static/src/xml/grafana_dashboard.xml',
+            # 19.0.15.3.0 — Community alternative to Enterprise iot module:
+            # WS subscription to /readers/<id>/ws → core barcode_service.
+            'l10n_bg_erp_net_fp/static/src/services/erpnet_reader_service.js',
+            'l10n_bg_erp_net_fp/static/src/js/backend_barcode_bridge.js',
         ],
         # 19.0.15.1.0 — External Shift dedicated frontend bundle.
         # Standalone OWL app served at /external-shift route — same
@@ -190,6 +194,10 @@ supported by ErpNet.FP server. Features include:
             # Phase 5 — external POS mode badge in Navbar
             'l10n_bg_erp_net_fp/static/src/js/external_pos_badge.js',
             'l10n_bg_erp_net_fp/static/src/xml/external_pos_badge.xml',
+            # 19.0.15.3.0 — Community alternative to Enterprise pos_iot:
+            # WS subscription to /readers/<id>/ws → POS barcode_reader.
+            'l10n_bg_erp_net_fp/static/src/services/erpnet_reader_service.js',
+            'l10n_bg_erp_net_fp/static/src/js/pos_barcode_bridge.js',
         ],
     },
     'images': [

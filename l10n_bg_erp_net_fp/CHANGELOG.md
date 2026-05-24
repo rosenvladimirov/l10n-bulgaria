@@ -1,10 +1,37 @@
 # Changelog
 
-All notable changes to the l10n_bg_erp_net_fp module will be documented in this file.
+## [18.0.15.3.0] - 2026-05-24
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+### Added — Community alternative to Enterprise `iot` + `pos_iot` for barcode readers
 
-## [18.0.15.2.0] - 2026-05-22
+Replaces the licensed-only path for getting hardware barcode-reader scans into
+Odoo. Subscribes the browser to the local Odoo.ErpNet.FP proxy's
+`/readers/<id>/ws` WebSocket and forwards each scan to the existing Odoo
+barcode-handling layer — same UX as if the reader were a keyboard wedge or an
+EE IoT box.
+
+- `static/src/services/erpnet_reader_service.js` — shared core service:
+  auto-discovers active readers via `GET /readers`, subscribes to each via
+  WebSocket with exponential-backoff reconnect, fans out scans through an
+  Owl EventBus. Loaded into BOTH `web.assets_backend` and
+  `point_of_sale._assets_pos`.
+- `static/src/js/pos_barcode_bridge.js` — POS-side glue: pipes scans into
+  the core POS `barcode_reader` service so existing screen handlers
+  (product lookup, customer search, weight code, etc.) Just Work.
+- `static/src/js/backend_barcode_bridge.js` — backend-side glue: triggers
+  `barcode_scanned` on the core `barcode` service so existing form-view
+  handlers (stock pickings, inventory, hr.attendance, …) Just Work.
+
+Host resolution priority: `pos.session.l10n_bg_erp_net_fp_host` (POS only)
+→ `ir.config_parameter l10n_bg_erp_net_fp.host` (backend) →
+`window.location.origin` (fallback).
+
+Pure browser ↔ WebSocket — no server-side bus.bus, no Odoo controller,
+no extra cron. Hot-plug: service re-scans `/readers` every 30 s.
+
+*Assisted by Claude Code*
+
+## [19.0.15.2.0] - 2026-05-22
 
 ### Added — `fiscal_plu_eligible` opt-out flag
 
@@ -30,62 +57,39 @@ Open question #4 from the BlueCash PLU Client architecture doc
 
 *Assisted by Claude Code*
 
-## [18.0.10.0.0] - 2026-05-06
+All notable changes to the l10n_bg_erp_net_fp module will be documented in this file.
 
-### Added — Packaging weight QC (Phase 3)
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-- New abstract mixin `l10n.bg.packaging.weighable.mixin` — encapsulates the read-scale → compare-vs-expected ± tolerance → write-state → notify flow. Reused by `mrp.production` and `stock.picking`.
-- `mrp.production.action_verify_packaging_weight()` — reads the configured scale via `iot.device.read_weight()` (Phase 2), computes expected weight from BoM lines × MO scaling factor, compares ± tolerance, writes `packaging_weight_state` (pending / pass / fail) plus actual / expected / verified-at / message fields.
-- `stock.picking.action_verify_packaging_weight()` — same pattern, expected weight summed over move lines.
-- `mrp.bom.weight_tolerance_percent` — per-BoM tolerance % override
-- `mrp.bom.package_empty_weight` — weight of the empty box / crate (kg) added to expected total
-- `res.company.default_packaging_tolerance_percent` (default 5 %)
-- `res.company.default_packaging_scale_id` — fall-through scale device when MO/picking doesn't override
-- `res.company.default_packaging_empty_weight` — fall-through empty weight for pickings
-- New header buttons "Verify package weight" on MO and picking forms
-- New "Packaging QC" notebook page on MO + picking forms (state badge + actual + expected + verified-at + message)
-- New "Packaging Weight QC" app block in Settings (company defaults)
+## [19.0.10.0.0] - 2026-05-06
 
-### Dependencies
+### Added — Packaging weight QC (Phase 3, mirrors 18.0.10.0.0)
 
-- Added `mrp` and `stock` to `depends`. Both are CE-available, so this is not a license-edition jump (unlike the 18.0.9.0.0 `iot` dep).
-
-### Backward compatibility
-
-- All new fields are optional and default to safe no-ops. Existing MOs / pickings / BoMs continue working without verification — the workflow is opt-in via the explicit "Verify package weight" button.
-- No existing field, method, or view ID was changed.
+See 18.0.10.0.0 for the full feature list. Added: `mrp` and `stock` dependencies, `l10n.bg.packaging.weighable.mixin`, MO + picking + BoM extensions, company-level defaults, "Verify package weight" buttons + Packaging QC notebook pages.
 
 *Assisted by Claude Code*
 
-## [18.0.9.0.0] - 2026-05-06
+## [19.0.9.0.0] - 2026-05-06
 
-### Added — Native Odoo IoT Box integration (Phase 2.a + 2.b + 2.c)
+### Added — Native Odoo IoT Box integration (mirrors 18.0.9.0.0)
 
-- New hard dependency: `iot` (EE module). Clients on Community Edition without the EE `iot` module must stay on the 18.0.8.4.x branch.
-- `iot.box.connection_mode` field (`direct` / `proxy`) with auto-detection from host (`192.168.*`, `10.*`, `.local` → `proxy`)
-- `iot.box.erp_net_fp_url` + `iot.box.erp_net_fp_ssl_verify` fields — link an `iot.box` record to an ErpNet.FP instance
-- `iot.box._rpc_proxy_to_iot()` server method — browser-via-server fallback when the browser cannot reach the IoT Box directly
-- `iot.device.action_via_proxy(payload, timeout)` — universal server-side dispatch helper. Routes through `direct` HTTP or `proxy` (bus.bus → browser → IoT Box → response) based on the parent `iot.box.connection_mode`
-- `iot.device.read_weight()` — convenience wrapper for scale-type devices (used by future MO / picking weight verification flows)
-- New table `iot.device.response` — generic response store for browser-proxied IoT actions; mirrors `fiscal.printer.response` lifecycle but stays separate so legacy fiscal flow is untouched
-- JS: `IoTLongpolling._rpcIoT` patched — when `iot.box.connection_mode == 'proxy'`, browser tunnels its IoT requests through Odoo `iot.box._rpc_proxy_to_iot` instead of fetching `iot_ip` directly
-- JS: bus subscriber on channel `iot.device.request` — receives server-initiated IoT actions, fetches the IoT Box URL on the server's behalf, writes result into `iot.device.response`
-- View: `iot.box` form extended with "ErpNet.FP Integration" section (URL, SSL verify, connection mode) and "Discover ErpNet.FP devices" header button
-- Wizard `iot.discover.wizard` — opens from `iot.box` form, queries `GET /scales`, `/displays`, `/readers`, `/printers`, `/pinpads` of the linked ErpNet.FP, presents the discovered devices in a checkbox list, creates `iot.device` records (with proper `<kind>.<id>` identifier) on confirm. Idempotent — re-running skips already-configured devices.
-- Bridge `fiscal.printer.device` → `iot.box` — new `iot_box_id` Many2one + "Create matching IoT Box" button on the printer form. `fiscal.printer.device` stays the source of truth for `host` / `printer_id` / `connection_mode` / `ssl_verify`; iot.box mirrors them on every `write()`.
+- New hard dependency: `iot` (EE module). Clients on Community Edition without the EE `iot` module must stay on the 19.0.8.4.x branch.
+- `iot.box.connection_mode` field (`direct` / `proxy`) with auto-detection from host
+- `iot.box.erp_net_fp_url` + `iot.box.erp_net_fp_ssl_verify` fields
+- `iot.box._rpc_proxy_to_iot()` — browser-via-server fallback
+- `iot.device.action_via_proxy(payload, timeout)` — universal server-side dispatch
+- `iot.device.read_weight()` — convenience wrapper for scale devices
+- New table `iot.device.response` — generic response store, separate from `fiscal.printer.response`
+- "Discover ErpNet.FP devices" wizard — auto-creates `iot.device` records from `/scales`, `/displays`, `/readers`, `/printers`, `/pinpads`
+- Bridge `fiscal.printer.device` → `iot.box` — "Create matching IoT Box" button + bidirectional URL sync via `write()` override
+- JS: `IoTLongpolling._rpcIoT` patched. **v19 imports from `@iot/network_utils/iot_longpolling`** (different from v18 `@iot/iot_longpolling`).
+- JS: bus subscriber on channel `iot.device.request`
 
 ### Backward compatibility
 
-- `fiscal.printer.device` flow is **unchanged** — same model, same fields, same RPC paths, same `fiscal.printer.response` table. Existing clients can upgrade without changing their fiscal printer setup.
-- New IoT integration is **opt-in** — activated only when an `iot.box` record is created with an ErpNet.FP URL. Otherwise the module behaves exactly as 18.0.8.4.x.
-- All new code is ADD-only; no existing model fields, methods, view IDs, or JS service names were renamed or removed.
-
-### Why
-
-- Native `pos_iot.scale_screen` button "Тегли" → reads weight via `iot.device` → now works against ErpNet.FP scales without a custom widget
-- Native scanner long-poll → barcode events from ErpNet.FP `reader.<id>` flow into POS, quality, picking, and any other native iot.device consumer
-- Native `pos_iot` customer-display update → maps to ErpNet.FP `display.<id>`
-- Foundation for future MO / picking weight-verification flows (Phase 3) and any custom form `<button>` that needs scale input
+- `fiscal.printer.device` flow unchanged
+- New IoT integration is opt-in
+- All new code is ADD-only
 
 *Assisted by Claude Code*
 

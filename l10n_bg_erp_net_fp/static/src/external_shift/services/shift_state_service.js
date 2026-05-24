@@ -175,11 +175,25 @@ export const shiftStateService = {
                     try {
                         const st = await proxy.status(device);
                         if (st && st.ok === false) {
-                            throw new Error(
-                                "Device not ready: "
-                                + JSON.stringify(st.messages || []));
+                            // DP-150 (ISL C-variant, fw 3.00) reports sticky
+                            // E402 + E199 on every GET_STATUS — even when
+                            // the device is alive and listening in PC mode.
+                            // The next successful command clears them. If
+                            // those are the only errors → treat as warning.
+                            const errors = (st.messages || []).filter(
+                                m => m.type === "error");
+                            const stickyOnly = errors.length > 0 && errors.every(
+                                e => ["E402", "E199"].includes(e.code));
+                            if (!stickyOnly) {
+                                throw new Error(
+                                    "Device not ready: "
+                                    + JSON.stringify(errors));
+                            }
+                            summaryLines.push(
+                                "[status] ⚠ sticky E402/E199 ignored");
+                        } else {
+                            summaryLines.push("[status] ✓ device ready");
                         }
-                        summaryLines.push("[status] ✓ device ready");
                     } catch (err) {
                         summaryLines.push(`[status] ✗ ${err.message}`);
                         throw err;

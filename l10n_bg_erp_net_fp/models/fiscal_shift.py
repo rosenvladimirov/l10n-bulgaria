@@ -202,6 +202,28 @@ class L10nBgFiscalShift(models.Model):
             ("state", "in", ("opening", "open", "closing")),
         ], limit=1)
 
+    @api.model
+    def _l10n_bg_ensure_open_for_session(self, device, session):
+        """Auto-create an OPEN shift for (device, pos.session) if missing.
+
+        Called from `pos_session_external._l10n_bg_external_open_push`
+        when an external POS session opens — so the External Fiscal
+        Shifts kanban shows the shift immediately, instead of requiring
+        the cashier to navigate to the dashboard and manually open it.
+        """
+        existing = self.find_active_shift(device.id)
+        if existing:
+            return existing
+        return self.sudo().create({
+            "device_id": device.id,
+            "operator_user_id": session.user_id.id,
+            # fiscal.printer.device has no company_id field (shared across
+            # companies), so fall back to the POS session's company.
+            "company_id": session.company_id.id or self.env.company.id,
+            "state": "opening",
+            "opened_at": fields.Datetime.now(),
+        })
+
     # ------------------------------------------------------------------
     # Frontend launcher — opens the standalone OWL app at /external-shift.
     # The frontend has its OWN asset bundle (`l10n_bg_erp_net_fp.external_

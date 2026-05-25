@@ -39,3 +39,6 @@ from . import fiscal_shift_receipt
 # only on EE-bridge installs.
 from . import barcode_rule_extensions
 from . import barcode_rule_target
+
+# BlueCash shift-close sync service (anchor_bluecash_shift_sync_contract)
+from . import shift_sync_service

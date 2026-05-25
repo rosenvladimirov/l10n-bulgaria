@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl).
+
+     QWeb PDF шаблон за Приложение №8 — Идентификационен документ за
+     превоз на опасни отпадъци. Видимият текст е на английски; преводът
+     към български е в i18n/bg_BG.po (изходът се рендерира на BG щом
+     потребителят/компанията са на lang=bg_BG, което е стандарт за
+     регулаторно подаване в РИОСВ). -->
+<odoo>
+
+    <template id="report_waste_id_document_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <h2 class="text-center">Identification Document for Hazardous Waste Transport</h2>
+                <p class="text-center"><small>Annex 8 of Ordinance 1/2014</small></p>
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <strong>No.:</strong> <span t-field="o.name"/>
+                    </div>
+                    <div class="col-6 text-right">
+                        <strong>Date:</strong> <span t-field="o.date"/>
+                    </div>
+                </div>
+
+                <h4 class="mt-4">Section A. Load</h4>
+                <table class="table table-sm table-bordered">
+                    <tr>
+                        <td>Waste Code</td>
+                        <td><span t-field="o.waste_code_id.code"/> - <span t-field="o.waste_code_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td>Origin (Technological Process)</td>
+                        <td><span t-field="o.origin_description"/></td>
+                    </tr>
+                    <tr>
+                        <td>Hazard Properties (H-codes)</td>
+                        <td><span t-field="o.hazard_properties"/></td>
+                    </tr>
+                    <tr>
+                        <td>UN No.</td>
+                        <td><span t-field="o.un_number"/> / class <span t-field="o.un_class"/> / cipher <span t-field="o.un_cipher"/></td>
+                    </tr>
+                    <tr>
+                        <td>International Regulation</td>
+                        <td><span t-field="o.transport_regulation"/></td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>
+                            <span t-field="o.quantity_ton"/> ton
+                            <span t-if="o.quantity_m3"> / <t t-esc="o.quantity_m3"/> m3</span>
+                        </td>
+                    </tr>
+                </table>
+
+                <h5 class="mt-3">Sender</h5>
+                <p>
+                    <span t-field="o.sender_partner_id"/><br/>
+                    <span t-field="o.sender_partner_id.contact_address_inline"/>
+                </p>
+
+                <h4 class="mt-4">Section B. Carrier</h4>
+                <table class="table table-sm table-bordered">
+                    <tr>
+                        <td>Carrier</td>
+                        <td><span t-field="o.carrier_partner_id"/></td>
+                    </tr>
+                    <tr>
+                        <td>Vehicle</td>
+                        <td><span t-field="o.vehicle_type"/> - <span t-field="o.vehicle_plate"/></td>
+                    </tr>
+                    <tr>
+                        <td>Packaging</td>
+                        <td>
+                            <span t-if="o.has_packaging" t-field="o.packaging_type"/>
+                            <span t-if="not o.has_packaging">without packaging (bulk)</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Route</td>
+                        <td><span t-field="o.route"/></td>
+                    </tr>
+                </table>
+
+                <h4 class="mt-4">Section C. Receiver</h4>
+                <table class="table table-sm table-bordered">
+                    <tr>
+                        <td>Receiver</td>
+                        <td><span t-field="o.receiver_partner_id"/></td>
+                    </tr>
+                    <tr>
+                        <td>Treatment Type</td>
+                        <td><span t-field="o.treatment_type"/></td>
+                    </tr>
+                    <tr>
+                        <td>Delivery Date</td>
+                        <td><span t-field="o.delivery_date"/> <span t-field="o.delivery_time"/></td>
+                    </tr>
+                    <tr>
+                        <td>Delivery Vehicle Plate</td>
+                        <td><span t-field="o.delivery_vehicle_plate"/></td>
+                    </tr>
+                </table>
+
+                <div class="row mt-5">
+                    <div class="col-4 text-center">
+                        <p>____________________</p>
+                        <p>Sender</p>
+                    </div>
+                    <div class="col-4 text-center">
+                        <p>____________________</p>
+                        <p>Carrier</p>
+                    </div>
+                    <div class="col-4 text-center">
+                        <p>____________________</p>
+                        <p>Receiver</p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_waste_id_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="l10n_bg_waste_report.report_waste_id_document_document"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>

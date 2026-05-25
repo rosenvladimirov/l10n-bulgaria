@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_waste_permit_search" model="ir.ui.view">
+        <field name="name">l10n.bg.waste.permit.search</field>
+        <field name="model">l10n.bg.waste.permit</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="riosv_office"/>
+                <separator/>
+                <filter name="filter_active" string="Active" domain="[('state','=','active')]"/>
+                <filter name="filter_draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="filter_expired" string="Expired" domain="[('state','=','expired')]"/>
+                <!-- Odoo 19: groupby filters must be flat (no <group> wrapper inside <search>). -->
+                <separator/>
+                <filter name="group_state" string="Status" context="{'group_by':'state'}"/>
+                <filter name="group_authority" string="Authority" context="{'group_by':'issuing_authority'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_waste_permit_list" model="ir.ui.view">
+        <field name="name">l10n.bg.waste.permit.list</field>
+        <field name="model">l10n.bg.waste.permit</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'active'" decoration-warning="state == 'suspended'" decoration-muted="state in ['expired','revoked']">
+                <field name="name"/>
+                <field name="permit_type"/>
+                <field name="issuing_authority"/>
+                <field name="riosv_office"/>
+                <field name="date_issued"/>
+                <field name="date_valid_to"/>
+                <field name="line_count"/>
+                <field name="state" widget="badge"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_waste_permit_form" model="ir.ui.view">
+        <field name="name">l10n.bg.waste.permit.form</field>
+        <field name="model">l10n.bg.waste.permit</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_activate" type="object" string="Activate" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_suspend" type="object" string="Suspend" invisible="state != 'active'"/>
+                    <button name="action_revoke" type="object" string="Revoke" invisible="state in ['draft','revoked']"/>
+                    <button name="action_set_to_draft" type="object" string="Set to Draft" invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,expired"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. RD-XX-2026-001"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="permit_type"/>
+                            <field name="issuing_authority"/>
+                            <field name="riosv_office" invisible="issuing_authority != 'riosv'"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="date_issued"/>
+                            <field name="date_valid_from"/>
+                            <field name="date_valid_to"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Permitted Activities" name="lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="site_id"/>
+                                    <field name="waste_code_id"/>
+                                    <field name="activity_id"/>
+                                    <field name="annual_quota_kg"/>
+                                    <field name="max_storage_kg"/>
+                                    <field name="quota_used_ytd_kg" readonly="1"/>
+                                    <field name="quota_remaining_kg" readonly="1"/>
+                                    <field name="quota_percent_used" readonly="1" widget="percentage"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Scanned Permit" name="attachments">
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_waste_permit" model="ir.actions.act_window">
+        <field name="name">Waste Permits</field>
+        <field name="res_model">l10n.bg.waste.permit</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_filter_active': 1}</field>
+    </record>
+
+    <!-- Direct list-only вид на permit lines (за reporting / dashboards). -->
+    <record id="view_waste_permit_line_list_overview" model="ir.ui.view">
+        <field name="name">l10n.bg.waste.permit.line.list.overview</field>
+        <field name="model">l10n.bg.waste.permit.line</field>
+        <field name="arch" type="xml">
+            <list decoration-warning="quota_percent_used &gt; 80" decoration-danger="quota_percent_used &gt; 100">
+                <field name="permit_id"/>
+                <field name="site_id"/>
+                <field name="waste_code_id"/>
+                <field name="activity_id"/>
+                <field name="annual_quota_kg"/>
+                <field name="quota_used_ytd_kg"/>
+                <field name="quota_remaining_kg"/>
+                <field name="quota_percent_used" widget="percentage"/>
+                <field name="current_storage_kg"/>
+                <field name="max_storage_kg"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_waste_permit_line_overview" model="ir.actions.act_window">
+        <field name="name">Quota Overview</field>
+        <field name="res_model">l10n.bg.waste.permit.line</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_waste_permit_line_list_overview"/>
+        <field name="domain">[('permit_id.state','=','active')]</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_picking_type_form_waste" model="ir.ui.view">
+        <field name="name">stock.picking.type.form.waste</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <group string="Waste" groups="l10n_bg_waste_base.group_waste_manager">
+                    <field name="is_waste_intake"/>
+                    <field name="waste_default_activity_id" invisible="not is_waste_intake"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

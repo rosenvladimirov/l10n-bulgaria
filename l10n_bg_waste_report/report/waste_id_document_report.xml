@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="action_report_waste_id_document" model="ir.actions.report">
+        <field name="name">Annex 8 - ID Document</field>
+        <field name="model">l10n.bg.waste.id.document</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_bg_waste_report.report_waste_id_document</field>
+        <field name="report_file">l10n_bg_waste_report.report_waste_id_document</field>
+        <field name="binding_model_id" ref="l10n_bg_waste_picking.model_l10n_bg_waste_id_document"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

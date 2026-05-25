@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_waste_site_list" model="ir.ui.view">
+        <field name="name">l10n.bg.waste.site.list</field>
+        <field name="model">l10n.bg.waste.site</field>
+        <field name="arch" type="xml">
+            <list string="Waste Sites">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="site_number"/>
+                <field name="municipality"/>
+                <field name="city"/>
+                <field name="ekatte"/>
+                <field name="riosv_office"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_waste_site_form" model="ir.ui.view">
+        <field name="name">l10n.bg.waste.site.form</field>
+        <field name="model">l10n.bg.waste.site</field>
+        <field name="arch" type="xml">
+            <form string="Waste Site">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Plant Byala Slatina"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code" readonly="1"/>
+                            <field name="site_number"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="municipality"/>
+                            <field name="city"/>
+                            <field name="ekatte"/>
+                            <field name="riosv_office"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Warehouses" name="warehouses">
+                            <field name="warehouse_ids"/>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_waste_site" model="ir.actions.act_window">
+        <field name="name">Waste Sites</field>
+        <field name="res_model">l10n.bg.waste.site</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

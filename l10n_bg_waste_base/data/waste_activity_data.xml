@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl).
+
+     R/D дейности по Допълнителните разпоредби на ЗУО:
+       - Приложение 1: R1-R13 — оползотворяване (recovery)
+       - Приложение 2: D1-D15 — обезвреждане (disposal)
+     Имената са преводими (translate=True на полето). Тук са английски,
+     преводът на български е в i18n/bg_BG.po. -->
+<odoo noupdate="1">
+
+    <!-- ============= Recovery activities (R1–R13) ============= -->
+    <record id="waste_activity_R1" model="l10n.bg.waste.activity">
+        <field name="code">R1</field>
+        <field name="type">R</field>
+        <field name="sequence">10</field>
+        <field name="name">Use principally as a fuel or other means to generate energy</field>
+    </record>
+    <record id="waste_activity_R2" model="l10n.bg.waste.activity">
+        <field name="code">R2</field>
+        <field name="type">R</field>
+        <field name="sequence">20</field>
+        <field name="name">Solvent reclamation/regeneration</field>
+    </record>
+    <record id="waste_activity_R3" model="l10n.bg.waste.activity">
+        <field name="code">R3</field>
+        <field name="type">R</field>
+        <field name="sequence">30</field>
+        <field name="name">Recycling/reclamation of organic substances which are not used as solvents</field>
+        <field name="description">Includes composting and other biological transformation processes. Plastic recycling falls here (relevant for code 15 01 02).</field>
+    </record>
+    <record id="waste_activity_R4" model="l10n.bg.waste.activity">
+        <field name="code">R4</field>
+        <field name="type">R</field>
+        <field name="sequence">40</field>
+        <field name="name">Recycling/reclamation of metals and metal compounds</field>
+    </record>
+    <record id="waste_activity_R5" model="l10n.bg.waste.activity">
+        <field name="code">R5</field>
+        <field name="type">R</field>
+        <field name="sequence">50</field>
+        <field name="name">Recycling/reclamation of other inorganic materials</field>
+    </record>
+    <record id="waste_activity_R6" model="l10n.bg.waste.activity">
+        <field name="code">R6</field>
+        <field name="type">R</field>
+        <field name="sequence">60</field>
+        <field name="name">Regeneration of acids or bases</field>
+    </record>
+    <record id="waste_activity_R7" model="l10n.bg.waste.activity">
+        <field name="code">R7</field>
+        <field name="type">R</field>
+        <field name="sequence">70</field>
+        <field name="name">Recovery of components used for pollution abatement</field>
+    </record>
+    <record id="waste_activity_R8" model="l10n.bg.waste.activity">
+        <field name="code">R8</field>
+        <field name="type">R</field>
+        <field name="sequence">80</field>
+        <field name="name">Recovery of components from catalysts</field>
+    </record>
+    <record id="waste_activity_R9" model="l10n.bg.waste.activity">
+        <field name="code">R9</field>
+        <field name="type">R</field>
+        <field name="sequence">90</field>
+        <field name="name">Oil re-refining or other reuses of oil</field>
+    </record>
+    <record id="waste_activity_R10" model="l10n.bg.waste.activity">
+        <field name="code">R10</field>
+        <field name="type">R</field>
+        <field name="sequence">100</field>
+        <field name="name">Land treatment resulting in benefit to agriculture or ecological improvement</field>
+    </record>
+    <record id="waste_activity_R11" model="l10n.bg.waste.activity">
+        <field name="code">R11</field>
+        <field name="type">R</field>
+        <field name="sequence">110</field>
+        <field name="name">Use of wastes obtained from any of the operations R1 to R10</field>
+    </record>
+    <record id="waste_activity_R12" model="l10n.bg.waste.activity">
+        <field name="code">R12</field>
+        <field name="type">R</field>
+        <field name="sequence">120</field>
+        <field name="name">Exchange of wastes for submission to any of the operations R1 to R11</field>
+        <field name="description">Includes preliminary operations prior to recovery: dismantling, sorting, crushing, compacting, pelletising, repackaging, blending.</field>
+    </record>
+    <record id="waste_activity_R13" model="l10n.bg.waste.activity">
+        <field name="code">R13</field>
+        <field name="type">R</field>
+        <field name="sequence">130</field>
+        <field name="name">Storage of wastes pending any of the operations R1 to R12</field>
+        <field name="description">Excluding temporary storage on the site of production, pending collection.</field>
+    </record>
+
+    <!-- ============= Disposal activities (D1–D15) ============= -->
+    <record id="waste_activity_D1" model="l10n.bg.waste.activity">
+        <field name="code">D1</field>
+        <field name="type">D</field>
+        <field name="sequence">200</field>
+        <field name="name">Deposit into or onto land (e.g. landfill)</field>
+    </record>
+    <record id="waste_activity_D2" model="l10n.bg.waste.activity">
+        <field name="code">D2</field>
+        <field name="type">D</field>
+        <field name="sequence">210</field>
+        <field name="name">Land treatment (e.g. biodegradation of liquid or sludgy discards in soils)</field>
+    </record>
+    <record id="waste_activity_D3" model="l10n.bg.waste.activity">
+        <field name="code">D3</field>
+        <field name="type">D</field>
+        <field name="sequence">220</field>
+        <field name="name">Deep injection</field>
+    </record>
+    <record id="waste_activity_D4" model="l10n.bg.waste.activity">
+        <field name="code">D4</field>
+        <field name="type">D</field>
+        <field name="sequence">230</field>
+        <field name="name">Surface impoundment</field>
+    </record>
+    <record id="waste_activity_D5" model="l10n.bg.waste.activity">
+        <field name="code">D5</field>
+        <field name="type">D</field>
+        <field name="sequence">240</field>
+        <field name="name">Specially engineered landfill</field>
+    </record>
+    <record id="waste_activity_D6" model="l10n.bg.waste.activity">
+        <field name="code">D6</field>
+        <field name="type">D</field>
+        <field name="sequence">250</field>
+        <field name="name">Release into a water body except seas/oceans</field>
+    </record>
+    <record id="waste_activity_D7" model="l10n.bg.waste.activity">
+        <field name="code">D7</field>
+        <field name="type">D</field>
+        <field name="sequence">260</field>
+        <field name="name">Release to seas/oceans including sea-bed insertion</field>
+    </record>
+    <record id="waste_activity_D8" model="l10n.bg.waste.activity">
+        <field name="code">D8</field>
+        <field name="type">D</field>
+        <field name="sequence">270</field>
+        <field name="name">Biological treatment producing final compounds or mixtures discarded by D1–D12</field>
+    </record>
+    <record id="waste_activity_D9" model="l10n.bg.waste.activity">
+        <field name="code">D9</field>
+        <field name="type">D</field>
+        <field name="sequence">280</field>
+        <field name="name">Physico-chemical treatment producing final compounds or mixtures discarded by D1–D12</field>
+    </record>
+    <record id="waste_activity_D10" model="l10n.bg.waste.activity">
+        <field name="code">D10</field>
+        <field name="type">D</field>
+        <field name="sequence">290</field>
+        <field name="name">Incineration on land</field>
+    </record>
+    <record id="waste_activity_D11" model="l10n.bg.waste.activity">
+        <field name="code">D11</field>
+        <field name="type">D</field>
+        <field name="sequence">300</field>
+        <field name="name">Incineration at sea</field>
+    </record>
+    <record id="waste_activity_D12" model="l10n.bg.waste.activity">
+        <field name="code">D12</field>
+        <field name="type">D</field>
+        <field name="sequence">310</field>
+        <field name="name">Permanent storage (e.g. emplacement of containers in a mine)</field>
+    </record>
+    <record id="waste_activity_D13" model="l10n.bg.waste.activity">
+        <field name="code">D13</field>
+        <field name="type">D</field>
+        <field name="sequence">320</field>
+        <field name="name">Blending or mixing prior to submission to any of the operations D1 to D12</field>
+    </record>
+    <record id="waste_activity_D14" model="l10n.bg.waste.activity">
+        <field name="code">D14</field>
+        <field name="type">D</field>
+        <field name="sequence">330</field>
+        <field name="name">Repackaging prior to submission to any of the operations D1 to D13</field>
+    </record>
+    <record id="waste_activity_D15" model="l10n.bg.waste.activity">
+        <field name="code">D15</field>
+        <field name="type">D</field>
+        <field name="sequence">340</field>
+        <field name="name">Storage pending any of the operations D1 to D14</field>
+        <field name="description">Excluding temporary storage on the site of production, pending collection.</field>
+    </record>
+
+</odoo>

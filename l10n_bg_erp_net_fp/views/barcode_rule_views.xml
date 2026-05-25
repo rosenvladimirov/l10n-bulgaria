@@ -46,36 +46,10 @@
         </field>
     </record>
 
-    <!-- ============================================================
-         barcode.nomenclature form — add a "Push to proxy hosts"
-         button in the header. Bulk-pushes the dump_for_proxy()
-         payload to every active proxy-mode fiscal.printer.device's
-         host via POST /admin/nomenclature/reload.
-         ============================================================ -->
-
-    <record id="view_barcode_nomenclature_form_l10n_bg_push"
-            model="ir.ui.view">
-        <field name="name">barcode.nomenclature.form.l10n_bg_push</field>
-        <field name="model">barcode.nomenclature</field>
-        <field name="inherit_id"
-               ref="barcodes.view_barcode_nomenclature_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//sheet" position="before">
-                <header>
-                    <button name="action_push_to_proxy_hosts"
-                            string="Push to proxy hosts"
-                            type="object"
-                            class="btn-primary"
-                            help="POST the full nomenclature dump
-                                  (rules + routing targets) to every
-                                  active proxy-mode fiscal printer
-                                  device's host. The proxy persists
-                                  it as config/nomenclature.json
-                                  and uses it for local barcode
-                                  parsing."/>
-                </header>
-            </xpath>
-        </field>
-    </record>
+    <!-- (Earlier draft had a "Push nomenclature to proxy" button
+         here. Removed per Rosen — the proxy stays a transparent
+         relay; nomenclature parsing happens client-side in the
+         live_refresh barcode_handler via the
+         barcode.nomenclature.parse_for_target() RPC.) -->
 
 </odoo>

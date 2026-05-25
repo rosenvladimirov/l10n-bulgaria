@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_waste_code_user,waste.code user read,model_l10n_bg_waste_code,group_waste_user,1,0,0,0
+access_waste_code_admin,waste.code admin full,model_l10n_bg_waste_code,group_waste_admin,1,1,1,1
+access_waste_activity_user,waste.activity user read,model_l10n_bg_waste_activity,group_waste_user,1,0,0,0
+access_waste_activity_admin,waste.activity admin full,model_l10n_bg_waste_activity,group_waste_admin,1,1,1,1
+access_waste_site_user,waste.site user read,model_l10n_bg_waste_site,group_waste_user,1,0,0,0
+access_waste_site_manager,waste.site manager rw,model_l10n_bg_waste_site,group_waste_manager,1,1,1,0
+access_waste_site_admin,waste.site admin full,model_l10n_bg_waste_site,group_waste_admin,1,1,1,1

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <menuitem
+        id="menu_waste_id_documents"
+        name="Annex 8 ID Documents"
+        parent="l10n_bg_waste_base.menu_waste_operations"
+        sequence="40"
+        action="action_waste_id_document"
+        groups="l10n_bg_waste_base.group_waste_user"/>
+
+</odoo>

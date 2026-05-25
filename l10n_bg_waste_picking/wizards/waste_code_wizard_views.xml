@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_waste_code_wizard_form" model="ir.ui.view">
+        <field name="name">l10n.bg.waste.code.wizard.form</field>
+        <field name="model">l10n.bg.waste.code.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Waste Code Entry">
+                <field name="picking_id" invisible="1"/>
+                <field name="quota_breach_json" invisible="1"/>
+                <field name="has_block" invisible="1"/>
+                <field name="quota_warning" widget="html" readonly="1" invisible="not quota_warning"/>
+                <group>
+                    <field name="line_ids" nolabel="1">
+                        <list editable="bottom">
+                            <field name="move_line_id" invisible="1"/>
+                            <field name="product_id" readonly="1"/>
+                            <field name="quantity" readonly="1"/>
+                            <field name="product_uom_id" readonly="1"/>
+                            <field name="waste_code_id" required="1"/>
+                        </list>
+                    </field>
+                </group>
+                <group invisible="not has_block" string="Quota Decision">
+                    <field name="decision" required="has_block"/>
+                    <field name="decision_note" required="decision == 'proceed' and has_block" placeholder="State why this shipment is accepted despite breaching the quota. The note will be logged in the picking chatter and the company waste manager will be notified."/>
+                </group>
+                <footer>
+                    <button name="action_apply" type="object" string="Apply and Validate" class="btn-primary"/>
+                    <button special="cancel" string="Discard"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

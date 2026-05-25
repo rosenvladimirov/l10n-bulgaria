@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_waste_annual_report_wizard_form" model="ir.ui.view">
+        <field name="name">l10n.bg.waste.annual.report.wizard.form</field>
+        <field name="model">l10n.bg.waste.annual.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Annex 18 Annual Report">
+                <group>
+                    <field name="site_id"/>
+                    <field name="period_year"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </group>
+                <footer>
+                    <button name="action_generate" type="object" string="Generate XLSX" class="btn-primary"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_waste_annual_report_wizard" model="ir.actions.act_window">
+        <field name="name">Annual Report (Annex 18)</field>
+        <field name="res_model">l10n.bg.waste.annual.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

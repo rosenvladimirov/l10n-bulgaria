@@ -1,0 +1,152 @@
+#  * l10n_bg_waste_permit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ============= res.groups (категория през split-on-/) =============
+#. module: l10n_bg_waste_permit
+msgid "Permit Number"
+msgstr "Номер на разрешителното"
+
+#. module: l10n_bg_waste_permit
+msgid "Permit Type"
+msgstr "Тип на разрешителното"
+
+#. module: l10n_bg_waste_permit
+msgid "Treatment permit (WMA Art. 67)"
+msgstr "Разрешение за третиране (чл. 67 ЗУО)"
+
+#. module: l10n_bg_waste_permit
+msgid "Registration document (WMA Art. 78)"
+msgstr "Регистрационен документ (чл. 78 ЗУО)"
+
+#. module: l10n_bg_waste_permit
+msgid "Integrated permit"
+msgstr "Комплексно разрешително (КР)"
+
+#. module: l10n_bg_waste_permit
+msgid "Issuing Authority"
+msgstr "Издаващ орган"
+
+#. module: l10n_bg_waste_permit
+msgid "Ministry of Environment (MOEW)"
+msgstr "Министерство на околната среда (МОСВ)"
+
+#. module: l10n_bg_waste_permit
+msgid "Regional Inspectorate (RIOSV)"
+msgstr "Регионална инспекция (РИОСВ)"
+
+#. module: l10n_bg_waste_permit
+msgid "Executive Environment Agency (IAOS)"
+msgstr "Изпълнителна агенция по околна среда (ИАОС)"
+
+#. module: l10n_bg_waste_permit
+msgid "RIOSV Office"
+msgstr "РИОСВ (град)"
+
+#. module: l10n_bg_waste_permit
+msgid "Date Issued"
+msgstr "Дата на издаване"
+
+#. module: l10n_bg_waste_permit
+msgid "Valid From"
+msgstr "В сила от"
+
+#. module: l10n_bg_waste_permit
+msgid "Valid Until"
+msgstr "Валидно до"
+
+#. module: l10n_bg_waste_permit
+msgid "Draft"
+msgstr "Чернова"
+
+#. module: l10n_bg_waste_permit
+msgid "Active"
+msgstr "Активно"
+
+#. module: l10n_bg_waste_permit
+msgid "Suspended"
+msgstr "Спряно"
+
+#. module: l10n_bg_waste_permit
+msgid "Expired"
+msgstr "Изтекло"
+
+#. module: l10n_bg_waste_permit
+msgid "Revoked"
+msgstr "Отнето"
+
+#. module: l10n_bg_waste_permit
+msgid "Permitted Activities"
+msgstr "Разрешени дейности"
+
+#. module: l10n_bg_waste_permit
+msgid "Scanned Permit"
+msgstr "Сканирано разрешително"
+
+# ============= permit line =============
+#. module: l10n_bg_waste_permit
+msgid "Waste Code"
+msgstr "Код на отпадъка"
+
+#. module: l10n_bg_waste_permit
+msgid "Activity"
+msgstr "Дейност"
+
+#. module: l10n_bg_waste_permit
+msgid "Annual Quota (kg)"
+msgstr "Годишна квота (кг)"
+
+#. module: l10n_bg_waste_permit
+msgid "Max On-Site Storage (kg)"
+msgstr "Максимум на площадката (кг)"
+
+#. module: l10n_bg_waste_permit
+msgid "Used Year-to-Date (kg)"
+msgstr "Изразходвана (YTD, кг)"
+
+#. module: l10n_bg_waste_permit
+msgid "Remaining (kg)"
+msgstr "Остатъчна квота (кг)"
+
+#. module: l10n_bg_waste_permit
+msgid "Used (%)"
+msgstr "Изразходвана (%)"
+
+#. module: l10n_bg_waste_permit
+msgid "Currently On-Site (kg)"
+msgstr "Текущо на площадката (кг)"
+
+# ============= menus + buttons =============
+#. module: l10n_bg_waste_permit
+msgid "Permits"
+msgstr "Разрешителни"
+
+#. module: l10n_bg_waste_permit
+msgid "Quota Overview"
+msgstr "Преглед на квоти"
+
+#. module: l10n_bg_waste_permit
+msgid "Activate"
+msgstr "Активирай"
+
+#. module: l10n_bg_waste_permit
+msgid "Suspend"
+msgstr "Спри"
+
+#. module: l10n_bg_waste_permit
+msgid "Revoke"
+msgstr "Отнеми"
+
+#. module: l10n_bg_waste_permit
+msgid "Set to Draft"
+msgstr "Върни в чернова"

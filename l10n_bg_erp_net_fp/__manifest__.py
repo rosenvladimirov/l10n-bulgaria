@@ -22,7 +22,7 @@ supported by ErpNet.FP server. Features include:
 * Bulgarian tax group mapping (А, Б, В, Г)
 * Dual connection mode: Direct (server) and Proxy (browser)
 """,
-    'version': '19.0.15.5.0',
+    'version': '19.0.15.5.1',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
@@ -145,10 +145,13 @@ supported by ErpNet.FP server. Features include:
             'l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js',
             'l10n_bg_erp_net_fp/static/src/js/grafana_dashboard.js',
             'l10n_bg_erp_net_fp/static/src/xml/grafana_dashboard.xml',
-            # 19.0.15.3.0 — Community alternative to Enterprise iot module:
-            # WS subscription to /readers/<id>/ws → core barcode_service.
-            'l10n_bg_erp_net_fp/static/src/services/erpnet_reader_service.js',
-            'l10n_bg_erp_net_fp/static/src/js/backend_barcode_bridge.js',
+            # Backend barcode bridge is handled by `l10n_bg_live_refresh`'s
+            # bus.bus subscriber (BARCODE_SCANNED env.bus event). NOT
+            # the WebSocket direct path — that would conflict with the
+            # bus_inject envelope and double-dispatch.
+            #
+            # POS keeps the WebSocket direct path (below) because per-
+            # tab POS sessions benefit from the lower latency.
         ],
         # 19.0.15.1.0 — External Shift dedicated frontend bundle.
         # Standalone OWL app served at /external-shift route — same

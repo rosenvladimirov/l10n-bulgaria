@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl).
+
+     Odoo 19 update: res.groups.category_id is removed; groups are now
+     categorized in Settings UI via the group name itself, split on '/'.
+     So we name them "Bulgarian Waste Management / User" etc. -->
+<odoo noupdate="1">
+
+    <!-- User: read catalog + create pickings; въвежда код през wizard. -->
+    <record id="group_waste_user" model="res.groups">
+        <field name="name">Bulgarian Waste Management / User</field>
+        <field name="implied_ids" eval="[(4, ref('stock.group_stock_user'))]"/>
+    </record>
+
+    <!-- Manager: управлява разрешителни и квоти; получава нотификации над квотите. -->
+    <record id="group_waste_manager" model="res.groups">
+        <field name="name">Bulgarian Waste Management / Manager</field>
+        <field name="implied_ids" eval="[(4, ref('group_waste_user'))]"/>
+    </record>
+
+    <!-- Admin: master data (waste codes catalog, site↔warehouse links). -->
+    <record id="group_waste_admin" model="res.groups">
+        <field name="name">Bulgarian Waste Management / Administrator</field>
+        <field name="implied_ids" eval="[(4, ref('group_waste_manager')), (4, ref('base.group_system'))]"/>
+    </record>
+
+    <!-- Multi-company record rules за site (permit-ите се rule-ват в _permit модула). -->
+    <record id="rule_waste_site_company" model="ir.rule">
+        <field name="name">Waste Site: multi-company</field>
+        <field name="model_id" ref="model_l10n_bg_waste_site"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','in',company_ids)]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+</odoo>

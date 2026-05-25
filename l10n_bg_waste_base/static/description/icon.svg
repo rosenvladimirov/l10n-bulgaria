@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- l10n_bg_waste_base — Folk-Modernist Ink & Rose icon
+     © 2026 Rosen Vladimirov · AGPL-3
+     Концепция: българска шевица-розетка с триквета-листа (3-лобов цикъл) —
+     намек за рециклиращ цикъл, без стандартен Möbius-клипарт.
+     Всичко е inline (без <symbol>/<use>) — за съвместимост с ImageMagick
+     и други rasterizers, които не поддържат references-и. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+
+  <!-- ============== ФОН ============== -->
+  <rect width="256" height="256" fill="#FAF6EE"/>
+
+  <!-- Едва доловима ортогонална мрежа (текстура). -->
+  <g stroke="#1F3D44" stroke-opacity="0.06" stroke-width="1" stroke-linecap="round">
+    <path d="M 32 0 L 32 256 M 64 0 L 64 256 M 96 0 L 96 256
+             M 128 0 L 128 256 M 160 0 L 160 256 M 192 0 L 192 256 M 224 0 L 224 256"/>
+    <path d="M 0 32 L 256 32 M 0 64 L 256 64 M 0 96 L 256 96
+             M 0 128 L 256 128 M 0 160 L 256 160 M 0 192 L 256 192 M 0 224 L 256 224"/>
+  </g>
+
+  <!-- ============== ШЕВИЧНИ ЪГЛОВИ ОРНАМЕНТИ ============== -->
+  <g stroke="#1F3D44" stroke-width="2.2" stroke-linecap="round" opacity="0.78">
+    <!-- TL -->
+    <path d="M 16 16 L 24 24 M 16 24 L 24 16"/>
+    <path d="M 17 37 L 23 43 M 17 43 L 23 37"/>
+    <path d="M 37 17 L 43 23 M 37 23 L 43 17"/>
+    <!-- TR -->
+    <path d="M 232 16 L 240 24 M 232 24 L 240 16"/>
+    <path d="M 233 37 L 239 43 M 233 43 L 239 37"/>
+    <path d="M 213 17 L 219 23 M 213 23 L 219 17"/>
+    <!-- BL -->
+    <path d="M 16 232 L 24 240 M 16 240 L 24 232"/>
+    <path d="M 17 213 L 23 219 M 17 219 L 23 213"/>
+    <path d="M 37 233 L 43 239 M 37 239 L 43 233"/>
+    <!-- BR -->
+    <path d="M 232 232 L 240 240 M 232 240 L 240 232"/>
+    <path d="M 233 213 L 239 219 M 233 219 L 239 213"/>
+    <path d="M 213 233 L 219 239 M 213 239 L 219 233"/>
+  </g>
+
+  <!-- ============== ТРИКВЕТА (3 листа в кръгово движение, ink) ============== -->
+  <!-- Листо 1 — север (нагоре) -->
+  <g transform="translate(128,128)">
+    <path d="M 0,-6 C -8,-18 -22,-30 -16,-58 C -10,-78 -2,-86 0,-92
+             C 2,-86 10,-78 16,-58 C 22,-30 8,-18 0,-6 Z"
+          fill="#1F3D44"/>
+    <path d="M 0,-12 L 0,-82" stroke="#FAF6EE" stroke-width="1.6" stroke-linecap="round"/>
+    <g stroke="#FAF6EE" stroke-width="1.4" stroke-linecap="round">
+      <path d="M -4,-30 L 4,-30 M -4,-45 L 4,-45 M -4,-60 L 4,-60 M -3,-72 L 3,-72"/>
+    </g>
+    <circle r="3" cy="-90" fill="#C44A5D"/>
+  </g>
+  <!-- Листо 2 — югоизток (rotate 120°) -->
+  <g transform="translate(128,128) rotate(120)">
+    <path d="M 0,-6 C -8,-18 -22,-30 -16,-58 C -10,-78 -2,-86 0,-92
+             C 2,-86 10,-78 16,-58 C 22,-30 8,-18 0,-6 Z"
+          fill="#1F3D44"/>
+    <path d="M 0,-12 L 0,-82" stroke="#FAF6EE" stroke-width="1.6" stroke-linecap="round"/>
+    <g stroke="#FAF6EE" stroke-width="1.4" stroke-linecap="round">
+      <path d="M -4,-30 L 4,-30 M -4,-45 L 4,-45 M -4,-60 L 4,-60 M -3,-72 L 3,-72"/>
+    </g>
+    <circle r="3" cy="-90" fill="#C44A5D"/>
+  </g>
+  <!-- Листо 3 — югозапад (rotate 240°) -->
+  <g transform="translate(128,128) rotate(240)">
+    <path d="M 0,-6 C -8,-18 -22,-30 -16,-58 C -10,-78 -2,-86 0,-92
+             C 2,-86 10,-78 16,-58 C 22,-30 8,-18 0,-6 Z"
+          fill="#1F3D44"/>
+    <path d="M 0,-12 L 0,-82" stroke="#FAF6EE" stroke-width="1.6" stroke-linecap="round"/>
+    <g stroke="#FAF6EE" stroke-width="1.4" stroke-linecap="round">
+      <path d="M -4,-30 L 4,-30 M -4,-45 L 4,-45 M -4,-60 L 4,-60 M -3,-72 L 3,-72"/>
+    </g>
+    <circle r="3" cy="-90" fill="#C44A5D"/>
+  </g>
+
+  <!-- ============== ЦЕНТРАЛНА РОЗЕТКА (sage пръстен + 6 ромби + ink център) ============== -->
+  <!-- Sage съединителен пръстен -->
+  <circle cx="128" cy="128" r="32" fill="#8FA89E"/>
+  <circle cx="128" cy="128" r="32" fill="none" stroke="#1F3D44" stroke-width="2"/>
+
+  <!-- 6 розови ромбови листенца — 6 inline копия, всяко с явна ротация -->
+  <g transform="translate(128,128) rotate(0)">
+    <path d="M 0,-34 L 8,-18 L 0,-2 L -8,-18 Z" fill="#C44A5D"/>
+    <path d="M 0,-30 L 4,-18 L 0,-6 L -4,-18 Z" fill="#FAF6EE" opacity="0.55"/>
+  </g>
+  <g transform="translate(128,128) rotate(60)">
+    <path d="M 0,-34 L 8,-18 L 0,-2 L -8,-18 Z" fill="#C44A5D"/>
+    <path d="M 0,-30 L 4,-18 L 0,-6 L -4,-18 Z" fill="#FAF6EE" opacity="0.55"/>
+  </g>
+  <g transform="translate(128,128) rotate(120)">
+    <path d="M 0,-34 L 8,-18 L 0,-2 L -8,-18 Z" fill="#C44A5D"/>
+    <path d="M 0,-30 L 4,-18 L 0,-6 L -4,-18 Z" fill="#FAF6EE" opacity="0.55"/>
+  </g>
+  <g transform="translate(128,128) rotate(180)">
+    <path d="M 0,-34 L 8,-18 L 0,-2 L -8,-18 Z" fill="#C44A5D"/>
+    <path d="M 0,-30 L 4,-18 L 0,-6 L -4,-18 Z" fill="#FAF6EE" opacity="0.55"/>
+  </g>
+  <g transform="translate(128,128) rotate(240)">
+    <path d="M 0,-34 L 8,-18 L 0,-2 L -8,-18 Z" fill="#C44A5D"/>
+    <path d="M 0,-30 L 4,-18 L 0,-6 L -4,-18 Z" fill="#FAF6EE" opacity="0.55"/>
+  </g>
+  <g transform="translate(128,128) rotate(300)">
+    <path d="M 0,-34 L 8,-18 L 0,-2 L -8,-18 Z" fill="#C44A5D"/>
+    <path d="M 0,-30 L 4,-18 L 0,-6 L -4,-18 Z" fill="#FAF6EE" opacity="0.55"/>
+  </g>
+
+  <!-- Малки ink квадратчета между ромбовете (классически шевица декор) -->
+  <g fill="#1F3D44">
+    <g transform="translate(128,128) rotate(30)"><rect x="-2.5" y="-22" width="5" height="5"/></g>
+    <g transform="translate(128,128) rotate(90)"><rect x="-2.5" y="-22" width="5" height="5"/></g>
+    <g transform="translate(128,128) rotate(150)"><rect x="-2.5" y="-22" width="5" height="5"/></g>
+    <g transform="translate(128,128) rotate(210)"><rect x="-2.5" y="-22" width="5" height="5"/></g>
+    <g transform="translate(128,128) rotate(270)"><rect x="-2.5" y="-22" width="5" height="5"/></g>
+    <g transform="translate(128,128) rotate(330)"><rect x="-2.5" y="-22" width="5" height="5"/></g>
+  </g>
+
+  <!-- Ink център с rose сърце -->
+  <circle cx="128" cy="128" r="9" fill="#1F3D44"/>
+  <circle cx="128" cy="128" r="4" fill="#C44A5D"/>
+</svg>

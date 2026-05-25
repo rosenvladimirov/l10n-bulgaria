@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl).
+
+     Каталог на отпадъчните кодове по Приложение 1 на Наредба №2/2014.
+
+     ЧАСТИЧЕН SEED: всичките 20 секции (chapter records) + първите подсекции
+     и leaf кодовете, релевантни за Полигруп (рециклиране на пластмаси, R3).
+     Пълният списък (~840 кода) се добавя в отделна стъпка чрез
+     `tools/fetch_full_seed.py` (вж. README).
+
+     Формат на кода: 'XX XX XX' (с интервали — съответства на НИСО). Опасните
+     кодове носят '*' в края (напр. '19 12 11*'). -->
+<odoo noupdate="1">
+
+    <!-- ============================================================ -->
+    <!-- 20 раздела (chapter records, 2-digit, parent_id = False)      -->
+    <!-- ============================================================ -->
+    <record id="waste_code_01" model="l10n.bg.waste.code">
+        <field name="code">01</field>
+        <field name="name">Wastes resulting from exploration, mining, quarrying, and physical and chemical treatment of minerals</field>
+    </record>
+    <record id="waste_code_02" model="l10n.bg.waste.code">
+        <field name="code">02</field>
+        <field name="name">Wastes from agriculture, horticulture, aquaculture, forestry, hunting and fishing, food preparation and processing</field>
+    </record>
+    <record id="waste_code_03" model="l10n.bg.waste.code">
+        <field name="code">03</field>
+        <field name="name">Wastes from wood processing and the production of panels and furniture, pulp, paper and cardboard</field>
+    </record>
+    <record id="waste_code_04" model="l10n.bg.waste.code">
+        <field name="code">04</field>
+        <field name="name">Wastes from the leather, fur and textile industries</field>
+    </record>
+    <record id="waste_code_05" model="l10n.bg.waste.code">
+        <field name="code">05</field>
+        <field name="name">Wastes from petroleum refining, natural gas purification and pyrolytic treatment of coal</field>
+    </record>
+    <record id="waste_code_06" model="l10n.bg.waste.code">
+        <field name="code">06</field>
+        <field name="name">Wastes from inorganic chemical processes</field>
+    </record>
+    <record id="waste_code_07" model="l10n.bg.waste.code">
+        <field name="code">07</field>
+        <field name="name">Wastes from organic chemical processes</field>
+    </record>
+    <record id="waste_code_08" model="l10n.bg.waste.code">
+        <field name="code">08</field>
+        <field name="name">Wastes from the manufacture, formulation, supply and use of coatings, adhesives, sealants and printing inks</field>
+    </record>
+    <record id="waste_code_09" model="l10n.bg.waste.code">
+        <field name="code">09</field>
+        <field name="name">Wastes from the photographic industry</field>
+    </record>
+    <record id="waste_code_10" model="l10n.bg.waste.code">
+        <field name="code">10</field>
+        <field name="name">Wastes from thermal processes</field>
+    </record>
+    <record id="waste_code_11" model="l10n.bg.waste.code">
+        <field name="code">11</field>
+        <field name="name">Wastes from chemical surface treatment and coating of metals and other materials; non-ferrous hydrometallurgy</field>
+    </record>
+    <record id="waste_code_12" model="l10n.bg.waste.code">
+        <field name="code">12</field>
+        <field name="name">Wastes from shaping and physical and mechanical surface treatment of metals and plastics</field>
+    </record>
+    <record id="waste_code_13" model="l10n.bg.waste.code">
+        <field name="code">13</field>
+        <field name="name">Oil wastes and wastes of liquid fuels (except edible oils)</field>
+    </record>
+    <record id="waste_code_14" model="l10n.bg.waste.code">
+        <field name="code">14</field>
+        <field name="name">Waste organic solvents, refrigerants and propellants</field>
+    </record>
+    <record id="waste_code_15" model="l10n.bg.waste.code">
+        <field name="code">15</field>
+        <field name="name">Waste packaging; absorbents, wiping cloths, filter materials and protective clothing not otherwise specified</field>
+    </record>
+    <record id="waste_code_16" model="l10n.bg.waste.code">
+        <field name="code">16</field>
+        <field name="name">Wastes not otherwise specified in the list</field>
+    </record>
+    <record id="waste_code_17" model="l10n.bg.waste.code">
+        <field name="code">17</field>
+        <field name="name">Construction and demolition wastes (including excavated soil from contaminated sites)</field>
+    </record>
+    <record id="waste_code_18" model="l10n.bg.waste.code">
+        <field name="code">18</field>
+        <field name="name">Wastes from human or animal health care and/or related research</field>
+    </record>
+    <record id="waste_code_19" model="l10n.bg.waste.code">
+        <field name="code">19</field>
+        <field name="name">Wastes from waste management facilities, off-site waste water treatment plants and the preparation of water intended for human consumption</field>
+    </record>
+    <record id="waste_code_20" model="l10n.bg.waste.code">
+        <field name="code">20</field>
+        <field name="name">Municipal wastes (household waste and similar commercial, industrial and institutional wastes) including separately collected fractions</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Подсекции (4-digit) — за Полигруп релевантните                -->
+    <!-- ============================================================ -->
+    <record id="waste_code_02_01" model="l10n.bg.waste.code">
+        <field name="code">02 01</field>
+        <field name="name">Wastes from agriculture, horticulture, aquaculture, forestry, hunting and fishing</field>
+        <field name="parent_id" ref="waste_code_02"/>
+    </record>
+    <record id="waste_code_07_02" model="l10n.bg.waste.code">
+        <field name="code">07 02</field>
+        <field name="name">Wastes from the manufacture, formulation, supply and use (MFSU) of plastics, synthetic rubber and man-made fibres</field>
+        <field name="parent_id" ref="waste_code_07"/>
+    </record>
+    <record id="waste_code_12_01" model="l10n.bg.waste.code">
+        <field name="code">12 01</field>
+        <field name="name">Wastes from shaping and physical and mechanical surface treatment of metals and plastics</field>
+        <field name="parent_id" ref="waste_code_12"/>
+    </record>
+    <record id="waste_code_15_01" model="l10n.bg.waste.code">
+        <field name="code">15 01</field>
+        <field name="name">Packaging (including separately collected municipal packaging waste)</field>
+        <field name="parent_id" ref="waste_code_15"/>
+    </record>
+    <record id="waste_code_16_01" model="l10n.bg.waste.code">
+        <field name="code">16 01</field>
+        <field name="name">End-of-life vehicles from different means of transport (including off-road machinery) and wastes from dismantling of end-of-life vehicles and vehicle maintenance</field>
+        <field name="parent_id" ref="waste_code_16"/>
+    </record>
+    <record id="waste_code_17_02" model="l10n.bg.waste.code">
+        <field name="code">17 02</field>
+        <field name="name">Wood, glass and plastic</field>
+        <field name="parent_id" ref="waste_code_17"/>
+    </record>
+    <record id="waste_code_19_12" model="l10n.bg.waste.code">
+        <field name="code">19 12</field>
+        <field name="name">Wastes from the mechanical treatment of waste (e.g. sorting, crushing, compacting, pelletising) not otherwise specified</field>
+        <field name="parent_id" ref="waste_code_19"/>
+    </record>
+    <record id="waste_code_20_01" model="l10n.bg.waste.code">
+        <field name="code">20 01</field>
+        <field name="name">Separately collected fractions (except 15 01)</field>
+        <field name="parent_id" ref="waste_code_20"/>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Leaf кодове, релевантни за Полигруп (рециклиране на пластмаси) -->
+    <!-- ============================================================ -->
+    <record id="waste_code_02_01_04" model="l10n.bg.waste.code">
+        <field name="code">02 01 04</field>
+        <field name="name">Waste plastics (excluding packaging)</field>
+        <field name="parent_id" ref="waste_code_02_01"/>
+    </record>
+    <record id="waste_code_07_02_13" model="l10n.bg.waste.code">
+        <field name="code">07 02 13</field>
+        <field name="name">Waste plastic</field>
+        <field name="parent_id" ref="waste_code_07_02"/>
+    </record>
+    <record id="waste_code_12_01_05" model="l10n.bg.waste.code">
+        <field name="code">12 01 05</field>
+        <field name="name">Plastic shavings and turnings</field>
+        <field name="parent_id" ref="waste_code_12_01"/>
+    </record>
+    <record id="waste_code_15_01_02" model="l10n.bg.waste.code">
+        <field name="code">15 01 02</field>
+        <field name="name">Plastic packaging</field>
+        <field name="parent_id" ref="waste_code_15_01"/>
+        <field name="description">Primary code for plastic packaging waste — Polygroup's main input stream for R3 recycling.</field>
+    </record>
+    <record id="waste_code_16_01_19" model="l10n.bg.waste.code">
+        <field name="code">16 01 19</field>
+        <field name="name">Plastic (from end-of-life vehicles)</field>
+        <field name="parent_id" ref="waste_code_16_01"/>
+    </record>
+    <record id="waste_code_17_02_03" model="l10n.bg.waste.code">
+        <field name="code">17 02 03</field>
+        <field name="name">Plastic (from construction and demolition)</field>
+        <field name="parent_id" ref="waste_code_17_02"/>
+    </record>
+    <record id="waste_code_19_12_04" model="l10n.bg.waste.code">
+        <field name="code">19 12 04</field>
+        <field name="name">Plastic and rubber (from mechanical treatment of waste)</field>
+        <field name="parent_id" ref="waste_code_19_12"/>
+    </record>
+    <record id="waste_code_20_01_39" model="l10n.bg.waste.code">
+        <field name="code">20 01 39</field>
+        <field name="name">Plastics (from municipal household waste)</field>
+        <field name="parent_id" ref="waste_code_20_01"/>
+    </record>
+
+    <!-- TODO: пълни 840+ кода — генерирай чрез tools/fetch_full_seed.py
+         и приложи в отделен commit. Виж README.md. -->
+
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+
+    <record id="cron_waste_permit_expiry" model="ir.cron">
+        <field name="name">Waste Permits: auto-expire</field>
+        <field name="model_id" ref="model_l10n_bg_waste_permit"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_check_expiry()</field>
+        <field name="active" eval="True"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+    </record>
+
+</odoo>

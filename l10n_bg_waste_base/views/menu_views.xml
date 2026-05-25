@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <!-- Root меню за waste management — общо за целия стак (base/permit/picking/report). -->
+    <menuitem
+        id="menu_waste_root"
+        name="Waste Management"
+        sequence="120"
+        web_icon="l10n_bg_waste_base,static/description/icon.png"
+        groups="group_waste_user"/>
+
+    <menuitem
+        id="menu_waste_operations"
+        name="Operations"
+        parent="menu_waste_root"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_waste_configuration"
+        name="Configuration"
+        parent="menu_waste_root"
+        sequence="90"/>
+
+    <menuitem
+        id="menu_waste_sites"
+        name="Sites"
+        parent="menu_waste_configuration"
+        sequence="10"
+        action="action_waste_site"
+        groups="group_waste_user"/>
+
+    <menuitem
+        id="menu_waste_codes"
+        name="Waste Codes"
+        parent="menu_waste_configuration"
+        sequence="20"
+        action="action_waste_code"
+        groups="group_waste_user"/>
+
+    <menuitem
+        id="menu_waste_activities"
+        name="R/D Activities"
+        parent="menu_waste_configuration"
+        sequence="30"
+        action="action_waste_activity"
+        groups="group_waste_admin"/>
+
+</odoo>

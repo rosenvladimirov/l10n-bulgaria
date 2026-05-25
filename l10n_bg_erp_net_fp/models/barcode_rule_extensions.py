@@ -2,26 +2,21 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 """
 Extend `barcode.rule` with **N routing targets** (form+field) and
-expose a JSON dump method on `barcode.nomenclature` for the Odoo
-ErpNet.FP proxy to consume.
+expose `barcode.nomenclature.parse_for_target(barcode)` so the
+live_refresh browser handler can drive scanned values straight
+into the right form/field slot.
 
-The proxy parses scans locally (without the round-trip to Odoo)
-using this dump; each scan envelope it emits on bus_inject is
-enriched with `data.target = [{model, field, form_xmlid}, ...]`
-and `data.parsed_value`, so the browser handler can drive the
-value into every matching open form simultaneously.
+Design: the proxy stays a thin relay — it emits raw
+`barcode.scanned` envelopes containing only barcode + reader_id.
+The browser handler does the parse via this method (RPC) and
+fans out to every matching open form. The single source of truth
+for parsing rules + routing lives here in Odoo.
 """
-import json
 import logging
 
-import requests
-
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
-
-DUMP_VERSION = 1
 
 
 class BarcodeRule(models.Model):
@@ -91,125 +86,3 @@ class BarcodeNomenclature(models.Model):
             "target": targets,
         }
 
-    # ─── proxy dump + push ────────────────────────────────────────
-
-    @api.model
-    def dump_for_proxy(self):
-        """Serialise this nomenclature + every rule + every routing
-        target into a JSON-friendly dict the proxy can persist and
-        use for local parsing.
-
-        Schema (versioned):
-
-            {
-                "version": 1,
-                "nomenclature": {"id": int, "name": str,
-                                 "upc_ean_conv": str},
-                "rules": [
-                    {
-                        "id": int,
-                        "name": str,
-                        "type": str,
-                        "encoding": str,
-                        "pattern": str,
-                        "sequence": int,
-                        "targets": [
-                            {"model": str, "field": str,
-                             "form_xmlid": str|None,
-                             "sequence": int},
-                            ...
-                        ],
-                    },
-                    ...
-                ],
-            }
-        """
-        self.ensure_one()
-        rules = []
-        for r in self.rule_ids.sorted("sequence"):
-            targets = []
-            for t in r.l10n_bg_target_ids.filtered("active").sorted("sequence"):
-                targets.append({
-                    "model": t.model_id.model,
-                    "field": t.field,
-                    "form_xmlid": t.form_xmlid or None,
-                    "sequence": t.sequence,
-                })
-            rules.append({
-                "id": r.id,
-                "name": r.name,
-                "type": r.type,
-                "encoding": r.encoding,
-                "pattern": r.pattern,
-                "sequence": r.sequence,
-                "targets": targets,
-            })
-        return {
-            "version": DUMP_VERSION,
-            "nomenclature": {
-                "id": self.id,
-                "name": self.name,
-                "upc_ean_conv": self.upc_ean_conv,
-            },
-            "rules": rules,
-        }
-
-    def action_push_to_proxy_hosts(self):
-        """Push the dump_for_proxy() payload to every active proxy-
-        mode fiscal printer device's host via
-        `POST /admin/nomenclature/reload`.
-
-        Aggregates per-host results in a UserError-style summary if
-        anything failed; otherwise returns a transient ir.actions
-        notification. SSL verify is OFF on purpose — proxy hosts use
-        Cloudflare Origin certs or self-signed in the merchant LAN.
-        """
-        self.ensure_one()
-        payload = self.dump_for_proxy()
-        hosts = self.env["fiscal.printer.device"].search([
-            ("active", "=", True),
-            ("connection_mode", "=", "proxy"),
-            ("host", "!=", False),
-        ]).mapped("host")
-        # Dedupe — many devices may share a host
-        hosts = sorted(set(h.rstrip("/") for h in hosts))
-        if not hosts:
-            raise UserError(_(
-                "No active proxy-mode fiscal.printer.device found — "
-                "nowhere to push the nomenclature to."))
-        ok, errors = [], []
-        for host in hosts:
-            url = f"{host}/admin/nomenclature/reload"
-            try:
-                resp = requests.post(
-                    url, json=payload, timeout=8.0, verify=False)
-                if 200 <= resp.status_code < 300:
-                    ok.append(host)
-                else:
-                    errors.append(f"{host}: HTTP {resp.status_code} "
-                                  f"{resp.text[:200]}")
-            except requests.RequestException as e:
-                errors.append(f"{host}: {e}")
-        if errors:
-            raise UserError(_(
-                "Push completed with errors:\n"
-                "OK (%(ok)d): %(ok_list)s\n"
-                "Failed (%(err)d):\n%(err_list)s"
-            ) % {
-                "ok": len(ok),
-                "ok_list": ", ".join(ok) or "—",
-                "err": len(errors),
-                "err_list": "\n".join("  • " + e for e in errors),
-            })
-        return {
-            "type": "ir.actions.client",
-            "tag": "display_notification",
-            "params": {
-                "type": "success",
-                "title": _("Nomenclature pushed"),
-                "message": _("Pushed to %(n)d proxy host(s): %(list)s") % {
-                    "n": len(ok), "list": ", ".join(ok),
-                },
-                "sticky": False,
-            },
-        }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_picking_form_waste" model="ir.ui.view">
+        <field name="name">stock.picking.form.waste</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='note']" position="before">
+                <group string="Waste Management" invisible="not is_waste_picking" groups="l10n_bg_waste_base.group_waste_user">
+                    <group>
+                        <field name="is_waste_picking" readonly="1"/>
+                        <field name="waste_site_id"/>
+                        <field name="waste_permit_id"/>
+                    </group>
+                    <group>
+                        <field name="waste_transport_doc"/>
+                        <field name="waste_vehicle_plate"/>
+                        <field name="waste_id_document_id"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,242 @@
+#  * l10n_bg_waste_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ============= XLSX Annex 4 — Monthly =============
+#. module: l10n_bg_waste_report
+msgid "Monthly Waste Bookkeeping - Annex 4 of Ordinance 1/2014"
+msgstr "Месечна отчетна книга — Приложение №4 на Наредба №1/2014"
+
+#. module: l10n_bg_waste_report
+msgid "Legal Entity"
+msgstr "Юридическо лице"
+
+#. module: l10n_bg_waste_report
+msgid "VAT / EIK"
+msgstr "ДДС № / ЕИК"
+
+#. module: l10n_bg_waste_report
+msgid "Address"
+msgstr "Адрес"
+
+#. module: l10n_bg_waste_report
+msgid "Site"
+msgstr "Площадка"
+
+#. module: l10n_bg_waste_report
+msgid "Site Number"
+msgstr "Номер на площадка"
+
+#. module: l10n_bg_waste_report
+msgid "Municipality"
+msgstr "Община"
+
+#. module: l10n_bg_waste_report
+msgid "Locality"
+msgstr "Населено място"
+
+#. module: l10n_bg_waste_report
+msgid "EKATTE"
+msgstr "ЕКАТТЕ"
+
+#. module: l10n_bg_waste_report
+msgid "RIOSV"
+msgstr "РИОСВ"
+
+#. module: l10n_bg_waste_report
+msgid "Period"
+msgstr "Период"
+
+#. module: l10n_bg_waste_report
+msgid "Date"
+msgstr "Дата"
+
+#. module: l10n_bg_waste_report
+msgid "Code"
+msgstr "Код"
+
+#. module: l10n_bg_waste_report
+msgid "Description"
+msgstr "Описание"
+
+#. module: l10n_bg_waste_report
+msgid "Sender"
+msgstr "Юр. лице (от)"
+
+#. module: l10n_bg_waste_report
+msgid "Sender VAT"
+msgstr "ЕИК"
+
+#. module: l10n_bg_waste_report
+msgid "Basis"
+msgstr "Основание"
+
+#. module: l10n_bg_waste_report
+msgid "Quantity (ton)"
+msgstr "Количество (тон)"
+
+#. module: l10n_bg_waste_report
+msgid "Activity (R/D)"
+msgstr "Дейност (R/D)"
+
+#. module: l10n_bg_waste_report
+msgid "Receiver"
+msgstr "Юр. лице (на)"
+
+#. module: l10n_bg_waste_report
+msgid "Receiver VAT"
+msgstr "ЕИК"
+
+# ============= XLSX Annex 18 — Annual =============
+#. module: l10n_bg_waste_report
+#, python-format
+msgid "Annual Report %s"
+msgstr "Годишен отчет %s"
+
+#. module: l10n_bg_waste_report
+msgid "Activity"
+msgstr "Дейност"
+
+# ============= PDF Annex 8 — ID Document =============
+#. module: l10n_bg_waste_report
+msgid "Identification Document for Hazardous Waste Transport"
+msgstr "Идентификационен документ за превоз на опасни отпадъци"
+
+#. module: l10n_bg_waste_report
+msgid "Annex 8 of Ordinance 1/2014"
+msgstr "Приложение №8 на Наредба №1/2014"
+
+#. module: l10n_bg_waste_report
+msgid "No.:"
+msgstr "№:"
+
+#. module: l10n_bg_waste_report
+msgid "Date:"
+msgstr "Дата:"
+
+#. module: l10n_bg_waste_report
+msgid "Section A. Load"
+msgstr "Раздел А. Товар"
+
+#. module: l10n_bg_waste_report
+msgid "Waste Code"
+msgstr "Код на отпадъка"
+
+#. module: l10n_bg_waste_report
+msgid "Origin (Technological Process)"
+msgstr "Произход (технологичен процес)"
+
+#. module: l10n_bg_waste_report
+msgid "Hazard Properties (H-codes)"
+msgstr "Свойства (H-кодове)"
+
+#. module: l10n_bg_waste_report
+msgid "UN No."
+msgstr "ООН №"
+
+#. module: l10n_bg_waste_report
+msgid "class"
+msgstr "клас"
+
+#. module: l10n_bg_waste_report
+msgid "cipher"
+msgstr "шифър"
+
+#. module: l10n_bg_waste_report
+msgid "International Regulation"
+msgstr "Международен регламент"
+
+#. module: l10n_bg_waste_report
+msgid "Quantity"
+msgstr "Количество"
+
+#. module: l10n_bg_waste_report
+msgid "ton"
+msgstr "тон"
+
+#. module: l10n_bg_waste_report
+msgid "Section B. Carrier"
+msgstr "Раздел Б. Превозвач"
+
+#. module: l10n_bg_waste_report
+msgid "Carrier"
+msgstr "Превозвач"
+
+#. module: l10n_bg_waste_report
+msgid "Vehicle"
+msgstr "Превозно средство"
+
+#. module: l10n_bg_waste_report
+msgid "Packaging"
+msgstr "Опаковка"
+
+#. module: l10n_bg_waste_report
+msgid "without packaging (bulk)"
+msgstr "без опаковка (наливно/насипно)"
+
+#. module: l10n_bg_waste_report
+msgid "Route"
+msgstr "Маршрут"
+
+#. module: l10n_bg_waste_report
+msgid "Section C. Receiver"
+msgstr "Раздел В. Товарополучател"
+
+#. module: l10n_bg_waste_report
+msgid "Treatment Type"
+msgstr "Вид третиране"
+
+#. module: l10n_bg_waste_report
+msgid "Delivery Date"
+msgstr "Дата на доставка"
+
+#. module: l10n_bg_waste_report
+msgid "Delivery Vehicle Plate"
+msgstr "Превозно средство при доставка"
+
+# ============= Menu / wizard =============
+#. module: l10n_bg_waste_report
+msgid "Reports"
+msgstr "Отчети"
+
+#. module: l10n_bg_waste_report
+msgid "Annex 4 — Monthly"
+msgstr "Приложение №4 — Месечен"
+
+#. module: l10n_bg_waste_report
+msgid "Annex 18 — Annual"
+msgstr "Приложение №18 — Годишен"
+
+#. module: l10n_bg_waste_report
+msgid "Generate XLSX"
+msgstr "Генерирай XLSX"
+
+#. module: l10n_bg_waste_report
+msgid "Year"
+msgstr "Година"
+
+#. module: l10n_bg_waste_report
+msgid "Month"
+msgstr "Месец"
+
+#. module: l10n_bg_waste_report
+msgid "Reporting Year"
+msgstr "Отчетна година"
+
+#. module: l10n_bg_waste_report
+msgid "Restrict to Codes"
+msgstr "Само за кодове"
+
+#. module: l10n_bg_waste_report
+msgid "Send To (Consultant)"
+msgstr "Изпрати на (консултант)"

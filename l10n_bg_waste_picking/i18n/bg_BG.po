@@ -1,0 +1,147 @@
+#  * l10n_bg_waste_picking
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ============= product / picking type =============
+#. module: l10n_bg_waste_picking
+msgid "Waste Product"
+msgstr "Продукт-отпадък"
+
+#. module: l10n_bg_waste_picking
+msgid "Default Waste Code"
+msgstr "Подразбиращ се код на отпадъка"
+
+#. module: l10n_bg_waste_picking
+msgid "Default Waste Activity"
+msgstr "Подразбираща се дейност за отпадъци"
+
+#. module: l10n_bg_waste_picking
+msgid "Waste Intake"
+msgstr "Приемане на отпадъци"
+
+# ============= stock.picking =============
+#. module: l10n_bg_waste_picking
+msgid "Waste Picking"
+msgstr "Приемане на отпадъци"
+
+#. module: l10n_bg_waste_picking
+msgid "Waste Site"
+msgstr "Площадка (отпадъци)"
+
+#. module: l10n_bg_waste_picking
+msgid "Permit"
+msgstr "Разрешително"
+
+#. module: l10n_bg_waste_picking
+msgid "Transport / ID Document #"
+msgstr "Товарителница / ID документ №"
+
+#. module: l10n_bg_waste_picking
+msgid "Vehicle Plate"
+msgstr "Регистрационен № на превозно средство"
+
+#. module: l10n_bg_waste_picking
+msgid "Annex 8 ID Document"
+msgstr "Идентификационен документ (Прил. №8)"
+
+# ============= stock.move.line =============
+#. module: l10n_bg_waste_picking
+msgid "Waste Code"
+msgstr "Код на отпадъка"
+
+#. module: l10n_bg_waste_picking
+msgid "Quantity (kg)"
+msgstr "Количество (кг)"
+
+#. module: l10n_bg_waste_picking
+msgid "Origin (Legal Entity)"
+msgstr "Произход (юр. лице)"
+
+# ============= stock.lot =============
+#. module: l10n_bg_waste_picking
+msgid "Waste Origin"
+msgstr "Произход на отпадъка"
+
+#. module: l10n_bg_waste_picking
+msgid "Source Pickings"
+msgstr "Източник на отпадъка (приемки)"
+
+#. module: l10n_bg_waste_picking
+msgid "Input Quantity (kg)"
+msgstr "Постъпил отпадък (кг)"
+
+#. module: l10n_bg_waste_picking
+msgid "Consumed (kg)"
+msgstr "Изразходван (кг)"
+
+# ============= ID document model =============
+#. module: l10n_bg_waste_picking
+msgid "Annex 8 - Hazardous Waste Transport Identification Document"
+msgstr "Приложение №8 — Идентификационен документ за превоз на опасни отпадъци"
+
+#. module: l10n_bg_waste_picking
+msgid "Document #"
+msgstr "№ на документа"
+
+#. module: l10n_bg_waste_picking
+msgid "Signed by Sender"
+msgstr "Подписан от товародател"
+
+#. module: l10n_bg_waste_picking
+msgid "Signed by Carrier"
+msgstr "Подписан от превозвач"
+
+#. module: l10n_bg_waste_picking
+msgid "Completed"
+msgstr "Завършен"
+
+#. module: l10n_bg_waste_picking
+msgid "Sent to RIOSV"
+msgstr "Изпратен в РИОСВ"
+
+#. module: l10n_bg_waste_picking
+msgid "Mark Completed"
+msgstr "Маркирай като завършен"
+
+#. module: l10n_bg_waste_picking
+msgid "Mark Sent to RIOSV"
+msgstr "Маркирай като изпратен в РИОСВ"
+
+# ============= wizard =============
+#. module: l10n_bg_waste_picking
+msgid "Waste Code Entry"
+msgstr "Въвеждане на код на отпадъка"
+
+#. module: l10n_bg_waste_picking
+msgid "Quota Warning"
+msgstr "Предупреждение за квота"
+
+#. module: l10n_bg_waste_picking
+msgid "Quota Decision"
+msgstr "Решение за квота"
+
+#. module: l10n_bg_waste_picking
+msgid "Proceed with shipment acceptance"
+msgstr "Все пак потвърди приемането"
+
+#. module: l10n_bg_waste_picking
+msgid "Cancel acceptance"
+msgstr "Отмени приемането"
+
+#. module: l10n_bg_waste_picking
+msgid "Justification"
+msgstr "Обосновка"
+
+#. module: l10n_bg_waste_picking
+msgid "Apply and Validate"
+msgstr "Приложи и валидирай"

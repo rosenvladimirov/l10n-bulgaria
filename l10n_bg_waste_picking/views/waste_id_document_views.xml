@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_waste_id_document_list" model="ir.ui.view">
+        <field name="name">l10n.bg.waste.id.document.list</field>
+        <field name="model">l10n.bg.waste.id.document</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="waste_code_id"/>
+                <field name="sender_partner_id"/>
+                <field name="carrier_partner_id"/>
+                <field name="receiver_partner_id"/>
+                <field name="quantity_ton"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_waste_id_document_form" model="ir.ui.view">
+        <field name="name">l10n.bg.waste.id.document.form</field>
+        <field name="model">l10n.bg.waste.id.document</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_mark_completed" string="Mark Completed" type="object" class="btn-primary" invisible="state in ['completed','sent_to_riosv']"/>
+                    <button name="action_send_to_riosv" string="Mark Sent to RIOSV" type="object" invisible="state != 'completed'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="picking_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="A · Load &amp; Sender" name="section_a">
+                            <group>
+                                <group string="Waste">
+                                    <field name="waste_code_id"/>
+                                    <field name="origin_description"/>
+                                    <field name="hazard_properties"/>
+                                    <field name="un_number"/>
+                                    <field name="un_class"/>
+                                    <field name="un_cipher"/>
+                                    <field name="transport_regulation"/>
+                                </group>
+                                <group string="Quantity">
+                                    <field name="quantity_ton"/>
+                                    <field name="quantity_m3"/>
+                                    <field name="handover_type"/>
+                                </group>
+                            </group>
+                            <group string="Sender">
+                                <field name="sender_partner_id"/>
+                            </group>
+                        </page>
+                        <page string="B · Carrier" name="section_b">
+                            <group>
+                                <group>
+                                    <field name="carrier_partner_id"/>
+                                    <field name="vehicle_type"/>
+                                    <field name="vehicle_plate"/>
+                                </group>
+                                <group>
+                                    <field name="has_packaging"/>
+                                    <field name="packaging_type" invisible="not has_packaging"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="route"/>
+                            </group>
+                        </page>
+                        <page string="C · Receiver" name="section_c">
+                            <group>
+                                <group>
+                                    <field name="receiver_partner_id"/>
+                                    <field name="treatment_type"/>
+                                </group>
+                                <group>
+                                    <field name="delivery_date"/>
+                                    <field name="delivery_time"/>
+                                    <field name="delivery_vehicle_plate"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_waste_id_document" model="ir.actions.act_window">
+        <field name="name">Annex 8 ID Documents</field>
+        <field name="res_model">l10n.bg.waste.id.document</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+
+    <record id="seq_waste_site" model="ir.sequence">
+        <field name="name">Waste Treatment Site</field>
+        <field name="code">l10n.bg.waste.site</field>
+        <field name="prefix">SITE/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

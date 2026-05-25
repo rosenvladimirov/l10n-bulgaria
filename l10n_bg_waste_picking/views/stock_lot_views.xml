@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_lot_form_waste" model="ir.ui.view">
+        <field name="name">stock.lot.form.waste</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <!-- Odoo 19: parent form no longer has <notebook>; target //sheet
+                 directly and add a <group> at the bottom of the sheet. -->
+            <xpath expr="//sheet" position="inside">
+                <group string="Waste Origin" name="waste_origin" groups="l10n_bg_waste_base.group_waste_user">
+                    <group>
+                        <field name="waste_code_id"/>
+                    </group>
+                    <group>
+                        <field name="waste_input_kg" readonly="1"/>
+                        <field name="waste_consumed_kg" readonly="1"/>
+                    </group>
+                    <field name="waste_source_picking_ids" readonly="1" colspan="2"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

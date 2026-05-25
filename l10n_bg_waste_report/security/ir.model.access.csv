@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_waste_monthly_wizard_user,waste.monthly.wizard user,model_l10n_bg_waste_monthly_report_wizard,l10n_bg_waste_base.group_waste_user,1,1,1,1
+access_waste_annual_wizard_user,waste.annual.wizard user,model_l10n_bg_waste_annual_report_wizard,l10n_bg_waste_base.group_waste_user,1,1,1,1

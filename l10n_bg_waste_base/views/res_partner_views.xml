@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_partner_form_waste" model="ir.ui.view">
+        <field name="name">res.partner.form.waste</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Waste Management" name="waste_management" groups="l10n_bg_waste_base.group_waste_user" invisible="parent_id">
+                    <group>
+                        <field name="is_waste_operator"/>
+                        <field name="waste_operator_role_ids" widget="many2many_tags" invisible="not is_waste_operator"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

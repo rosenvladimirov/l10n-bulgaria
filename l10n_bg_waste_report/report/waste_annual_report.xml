@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="action_report_waste_annual_xlsx" model="ir.actions.report">
+        <field name="name">Annex 18 - Annual Waste Report</field>
+        <field name="model">l10n.bg.waste.annual.report.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">l10n_bg_waste_report.report_waste_annual_xlsx</field>
+        <field name="report_file">annex18_annual_waste</field>
+        <field name="print_report_name">'Annex18-%s-%s' % (object.site_id.name, object.period_year)</field>
+    </record>
+
+</odoo>

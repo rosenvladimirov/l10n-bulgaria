@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_waste_permit_user,waste.permit user read,model_l10n_bg_waste_permit,l10n_bg_waste_base.group_waste_user,1,0,0,0
+access_waste_permit_manager,waste.permit manager full,model_l10n_bg_waste_permit,l10n_bg_waste_base.group_waste_manager,1,1,1,1
+access_waste_permit_line_user,waste.permit.line user read,model_l10n_bg_waste_permit_line,l10n_bg_waste_base.group_waste_user,1,0,0,0
+access_waste_permit_line_manager,waste.permit.line manager full,model_l10n_bg_waste_permit_line,l10n_bg_waste_base.group_waste_manager,1,1,1,1

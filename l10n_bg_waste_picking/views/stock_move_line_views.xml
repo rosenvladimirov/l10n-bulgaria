@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_move_line_operations_tree_waste" model="ir.ui.view">
+        <field name="name">stock.move.line.tree.waste</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_operation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='quantity']" position="after">
+                <field name="waste_code_id" optional="hide" groups="l10n_bg_waste_base.group_waste_user"/>
+                <field name="waste_quantity_kg" optional="hide" groups="l10n_bg_waste_base.group_waste_user"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

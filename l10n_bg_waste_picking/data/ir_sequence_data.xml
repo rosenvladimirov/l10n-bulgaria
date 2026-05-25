@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+
+    <record id="seq_waste_id_document" model="ir.sequence">
+        <field name="name">Waste Annex 8 Identification Document</field>
+        <field name="code">l10n.bg.waste.id.document</field>
+        <field name="prefix">ID/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

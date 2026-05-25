@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <menuitem
+        id="menu_waste_permits"
+        name="Permits"
+        parent="l10n_bg_waste_base.menu_waste_configuration"
+        sequence="5"
+        action="action_waste_permit"
+        groups="l10n_bg_waste_base.group_waste_user"/>
+
+    <menuitem
+        id="menu_waste_quota_overview"
+        name="Quota Overview"
+        parent="l10n_bg_waste_base.menu_waste_operations"
+        sequence="20"
+        action="action_waste_permit_line_overview"
+        groups="l10n_bg_waste_base.group_waste_user"/>
+
+</odoo>

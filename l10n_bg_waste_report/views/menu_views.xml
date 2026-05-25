@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <menuitem
+        id="menu_waste_reports"
+        name="Reports"
+        parent="l10n_bg_waste_base.menu_waste_root"
+        sequence="50"
+        groups="l10n_bg_waste_base.group_waste_user"/>
+
+    <menuitem
+        id="menu_waste_monthly_report"
+        name="Annex 4 — Monthly"
+        parent="menu_waste_reports"
+        sequence="10"
+        action="action_waste_monthly_report_wizard"
+        groups="l10n_bg_waste_base.group_waste_user"/>
+
+    <menuitem
+        id="menu_waste_annual_report"
+        name="Annex 18 — Annual"
+        parent="menu_waste_reports"
+        sequence="20"
+        action="action_waste_annual_report_wizard"
+        groups="l10n_bg_waste_base.group_waste_user"/>
+
+</odoo>

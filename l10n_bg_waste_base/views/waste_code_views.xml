@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_waste_code_search" model="ir.ui.view">
+        <field name="name">l10n.bg.waste.code.search</field>
+        <field name="model">l10n.bg.waste.code</field>
+        <field name="arch" type="xml">
+            <search string="Waste Codes">
+                <field name="code"/>
+                <field name="name"/>
+                <separator/>
+                <filter name="filter_hazardous" string="Hazardous" domain="[('is_hazardous','=',True)]"/>
+                <filter name="filter_mirror" string="Mirror Codes" domain="[('is_mirror','=',True)]"/>
+                <filter name="filter_chapter" string="Chapters" domain="[('level','=','chapter')]"/>
+                <filter name="filter_codes" string="Leaf Codes" domain="[('level','=','code')]"/>
+                <!-- Odoo 19: groupby filters must be flat (no <group> wrapper inside <search>). -->
+                <separator/>
+                <filter name="group_parent" string="Section" context="{'group_by':'parent_id'}"/>
+                <filter name="group_level" string="Level" context="{'group_by':'level'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_waste_code_list" model="ir.ui.view">
+        <field name="name">l10n.bg.waste.code.list</field>
+        <field name="model">l10n.bg.waste.code</field>
+        <field name="arch" type="xml">
+            <list string="Waste Codes" decoration-danger="is_hazardous" decoration-info="level == 'chapter'" decoration-muted="level == 'subchapter'">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="level"/>
+                <field name="is_hazardous"/>
+                <field name="is_mirror"/>
+                <field name="mirror_code_id" optional="hide"/>
+                <field name="parent_id" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_waste_code_form" model="ir.ui.view">
+        <field name="name">l10n.bg.waste.code.form</field>
+        <field name="model">l10n.bg.waste.code</field>
+        <field name="arch" type="xml">
+            <form string="Waste Code">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="code"/>
+                        <h1><field name="code"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="parent_id"/>
+                            <field name="level" readonly="1"/>
+                            <field name="default_uom_id"/>
+                        </group>
+                        <group>
+                            <field name="is_hazardous"/>
+                            <field name="is_mirror"/>
+                            <field name="mirror_code_id" invisible="not is_mirror" required="is_mirror"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes" name="notes">
+                            <field name="description"/>
+                        </page>
+                        <page string="Sub-codes" name="children" invisible="level == 'code'">
+                            <field name="child_ids" readonly="1">
+                                <list>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="is_hazardous"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_waste_code" model="ir.actions.act_window">
+        <field name="name">Waste Codes</field>
+        <field name="res_model">l10n.bg.waste.code</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_waste_code_search"/>
+        <field name="context">{'search_default_filter_codes': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Set up the Bulgarian waste classification catalog.
+            </p>
+            <p>
+                Codes follow Annex 1 of Ordinance 2/2014 - 6-digit codes in
+                the format <b>'XX XX XX'</b>, with hazardous codes carrying
+                the suffix <b>*</b>.
+            </p>
+        </field>
+    </record>
+
+</odoo>

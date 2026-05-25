@@ -141,21 +141,35 @@ const barcodeHandlerService = {
                     }
                 }
             }
-            if (target && target.model && target.field) {
-                const input = _findTargetInput(
-                    target.model, target.field, target.form_xmlid);
-                if (input) {
+            // target may be:
+            //   - undefined        → no routing configured, fallback
+            //   - array            → multi-target, fill EVERY match
+            //   - object (legacy)  → single target, treat as 1-item
+            //                        array for backwards-compat
+            const targets = Array.isArray(target)
+                ? target
+                : (target && target.model ? [target] : []);
+            if (targets.length) {
+                const filled = [];
+                for (const t of targets) {
+                    if (!t || !t.model || !t.field) continue;
+                    const input = _findTargetInput(
+                        t.model, t.field, t.form_xmlid);
+                    if (!input) continue;
                     try {
                         _setInputValue(input,
-                                       value !== undefined ? value : code);
-                        console.log("[BarcodeHandler] routed scan to "
-                                    + `${target.model}.${target.field}`,
-                                    "value=", value);
-                        return;
+                            value !== undefined ? value : code);
+                        filled.push(`${t.model}.${t.field}`);
                     } catch (e) {
-                        console.error("[BarcodeHandler] field fill "
-                                      + "failed, falling through:", e);
+                        console.error("[BarcodeHandler] fill failed "
+                                      + `for ${t.model}.${t.field}:`,
+                                      e);
                     }
+                }
+                if (filled.length) {
+                    console.log("[BarcodeHandler] routed scan to:",
+                                filled.join(", "), "value=", value);
+                    return;
                 }
             }
             // Fallback — fire the global barcode_service event, same

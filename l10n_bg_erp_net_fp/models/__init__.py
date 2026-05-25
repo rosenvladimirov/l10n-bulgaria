@@ -42,3 +42,6 @@ from . import barcode_rule_target
 
 # BlueCash shift-close sync service (anchor_bluecash_shift_sync_contract)
 from . import shift_sync_service
+
+# BlueCash shift-signal push (anchor_bluecash_shift_signal_contract)
+from . import pos_session_signal

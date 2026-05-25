@@ -38,3 +38,4 @@ from . import fiscal_shift_receipt
 # Packaging QC depends on iot.device for the scale read, so it ships
 # only on EE-bridge installs.
 from . import barcode_rule_extensions
+from . import barcode_rule_target

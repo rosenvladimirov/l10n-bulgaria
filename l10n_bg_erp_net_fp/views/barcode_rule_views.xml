@@ -2,11 +2,10 @@
 <odoo>
 
     <!-- ============================================================
-         Extend barcode.rule form with l10n_bg_target_* routing hints.
-         Lets an admin point a specific GS1 prefix (e.g. AI=01 GTIN)
-         at an exact model+field on a specific form view, so the
-         live_refresh barcode_handler can drop the parsed value in
-         the right input without keyboard focus tricks.
+         Extend barcode.rule form — drop the old scalar
+         l10n_bg_target_* trio, replace with a Many2many-style
+         editable list of routing targets. One rule can now fan
+         out to N (model, field, form) slots simultaneously.
          ============================================================ -->
 
     <record id="view_barcode_rule_form_l10n_bg_route"
@@ -17,26 +16,64 @@
                ref="barcodes.view_barcode_rule_form"/>
         <field name="arch" type="xml">
             <xpath expr="//form/group" position="after">
-                <group string="Routing target (live_refresh)"
-                       name="l10n_bg_target">
-                    <field name="l10n_bg_target_model_id"
-                           options="{'no_create': True,
-                                     'no_open': True}"/>
-                    <field name="l10n_bg_target_field"
-                           placeholder="e.g. barcode, name,
-                                        weight, list_price"/>
-                    <field name="l10n_bg_target_form_xmlid"
-                           placeholder="e.g. stock.view_picking_form"/>
+                <group string="Routing targets (live_refresh)"
+                       name="l10n_bg_targets">
+                    <field name="l10n_bg_target_ids" nolabel="1"
+                           colspan="2">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="model_id"
+                                   options="{'no_create': True,
+                                             'no_open': True}"/>
+                            <field name="field"
+                                   placeholder="e.g. lot_name"/>
+                            <field name="form_xmlid" optional="show"
+                                   placeholder="e.g. stock.view_picking_form"/>
+                            <field name="note" optional="hide"/>
+                            <field name="active" widget="boolean_toggle"
+                                   optional="hide"/>
+                        </list>
+                    </field>
                     <p class="text-muted" colspan="2">
-                        When the proxy reader feed delivers a scan
-                        matching this rule, the browser handler
-                        writes <em>parsed_value</em> directly into
-                        the target field on the matching open form
-                        — bypassing keyboard focus. Leave the form
-                        xml_id empty to accept any open form of the
-                        target model.
+                        Each scan matching this rule fills <em>every</em>
+                        listed slot. The browser handler skips targets
+                        whose form isn't open in the current tab. Leave
+                        <em>form xml_id</em> empty to accept any open
+                        form of the target model.
                     </p>
                 </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ============================================================
+         barcode.nomenclature form — add a "Push to proxy hosts"
+         button in the header. Bulk-pushes the dump_for_proxy()
+         payload to every active proxy-mode fiscal.printer.device's
+         host via POST /admin/nomenclature/reload.
+         ============================================================ -->
+
+    <record id="view_barcode_nomenclature_form_l10n_bg_push"
+            model="ir.ui.view">
+        <field name="name">barcode.nomenclature.form.l10n_bg_push</field>
+        <field name="model">barcode.nomenclature</field>
+        <field name="inherit_id"
+               ref="barcodes.view_barcode_nomenclature_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="action_push_to_proxy_hosts"
+                            string="Push to proxy hosts"
+                            type="object"
+                            class="btn-primary"
+                            help="POST the full nomenclature dump
+                                  (rules + routing targets) to every
+                                  active proxy-mode fiscal printer
+                                  device's host. The proxy persists
+                                  it as config/nomenclature.json
+                                  and uses it for local barcode
+                                  parsing."/>
+                </header>
             </xpath>
         </field>
     </record>

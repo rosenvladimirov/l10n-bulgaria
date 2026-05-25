@@ -45,3 +45,6 @@ from . import shift_sync_service
 
 # BlueCash shift-signal push (anchor_bluecash_shift_signal_contract)
 from . import pos_session_signal
+
+# BlueCash storno Phase 2 (anchor_bluecash_storno_phase2_contract)
+from . import pos_order_storno_service

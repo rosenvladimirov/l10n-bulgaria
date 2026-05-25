@@ -55,13 +55,10 @@ const scaleHandlerService = {
     dependencies: ["bus_service"],
 
     start(env) {
-        const services = registry.category("services");
-        if (services.contains("iot_longpolling")) {
-            console.info("[ScaleHandler] EE iot detected — "
-                         + "skipping live_refresh scale handler "
-                         + "to avoid double-dispatch");
-            return {};
-        }
+        // (Earlier draft had a conflict guard checking for the
+        // `iot_longpolling` service. Backend usually doesn't have it
+        // unless EE iot is genuinely installed; the guard was a no-op
+        // for community installs and unnecessarily noisy in logs.)
         const handler = (ev) => {
             const data = ev?.detail?.data || {};
             if (data.weight === undefined || data.weight === null) return;

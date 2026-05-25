@@ -83,14 +83,12 @@ const barcodeHandlerService = {
     dependencies: ["bus_service", "barcode", "orm"],
 
     start(env, { bus_service: _bus, barcode: barcodeSvc, orm }) {
-        // Conflict guard — EE iot already feeds barcode_service.
-        const services = registry.category("services");
-        if (services.contains("iot_longpolling")) {
-            console.info("[BarcodeHandler] EE iot detected — "
-                         + "skipping live_refresh barcode handler "
-                         + "to avoid double-dispatch");
-            return {};
-        }
+        // (Earlier draft had a conflict guard checking for the
+        // `iot_longpolling` service in the registry. Backend doesn't
+        // always have it though — only when EE iot is genuinely
+        // installed — so the guard was a no-op there. Kept commented
+        // for future reference if double-dispatch ever becomes an
+        // issue.)
         if (!barcodeSvc || !barcodeSvc.bus) {
             console.warn("[BarcodeHandler] core barcode service has "
                          + "no .bus; nothing to forward to");

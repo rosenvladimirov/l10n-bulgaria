@@ -1,0 +1,128 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_address_extended
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-18 20:06+0000\n"
+"PO-Revision-Date: 2026-05-18 20:06+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_address_extended
+#. odoo-python
+#: code:addons/l10n_bg_address_extended/models/res_partner.py:0
+msgid ", Floor: "
+msgstr ""
+
+#. module: l10n_bg_address_extended
+#. odoo-python
+#: code:addons/l10n_bg_address_extended/models/res_partner.py:0
+msgid ", building: "
+msgstr ""
+
+#. module: l10n_bg_address_extended
+#: model_terms:ir.ui.view,arch_db:l10n_bg_address_extended.l10n_bg_address_street_extended_form
+msgid "<span> - </span>"
+msgstr ""
+
+#. module: l10n_bg_address_extended
+#: model_terms:ir.ui.view,arch_db:l10n_bg_address_extended.l10n_bg_address_street_extended_form
+msgid "Building  #"
+msgstr "Блок №"
+
+#. module: l10n_bg_address_extended
+#: model:ir.model.fields,field_description:l10n_bg_address_extended.field_res_company__street_building_number
+#: model:ir.model.fields,field_description:l10n_bg_address_extended.field_res_partner__street_building_number
+#: model:ir.model.fields,field_description:l10n_bg_address_extended.field_res_users__street_building_number
+msgid "Building Number"
+msgstr "Номер на сграда"
+
+#. module: l10n_bg_address_extended
+#: model:ir.model.fields,help:l10n_bg_address_extended.field_res_company__country_enforce_cities
+msgid ""
+"Check this box to ensure every address created in that country has a 'City' "
+"chosen in the list of the country's cities."
+msgstr ""
+"Поставете отметка, за да гарантирате, че всеки адрес, създаден в тази "
+"държава, има избран 'Град' от списъка с градове на държавата."
+
+#. module: l10n_bg_address_extended
+#: model_terms:ir.ui.view,arch_db:l10n_bg_address_extended.view_company_form_city_id
+msgid "City"
+msgstr "Град"
+
+#. module: l10n_bg_address_extended
+#: model:ir.model.fields,field_description:l10n_bg_address_extended.field_res_company__city_id
+msgid "City ID"
+msgstr "Идентификатор на град"
+
+#. module: l10n_bg_address_extended
+#: model:ir.model,name:l10n_bg_address_extended.model_res_company
+msgid "Companies"
+msgstr "Компании"
+
+#. module: l10n_bg_address_extended
+#: model:ir.model,name:l10n_bg_address_extended.model_res_partner
+msgid "Contact"
+msgstr "Контакт"
+
+#. module: l10n_bg_address_extended
+#: model:ir.model.fields,field_description:l10n_bg_address_extended.field_res_company__street_number2
+msgid "Door"
+msgstr "Апартамент"
+
+#. module: l10n_bg_address_extended
+#: model:ir.model.fields,field_description:l10n_bg_address_extended.field_res_company__country_enforce_cities
+msgid "Enforce Cities"
+msgstr "Задължителни градове"
+
+#. module: l10n_bg_address_extended
+#: model_terms:ir.ui.view,arch_db:l10n_bg_address_extended.l10n_bg_address_street_extended_form
+msgid "Floor #"
+msgstr "Етаж №"
+
+#. module: l10n_bg_address_extended
+#: model:ir.model.fields,field_description:l10n_bg_address_extended.field_res_company__street_floor_number
+#: model:ir.model.fields,field_description:l10n_bg_address_extended.field_res_partner__street_floor_number
+#: model:ir.model.fields,field_description:l10n_bg_address_extended.field_res_users__street_floor_number
+msgid "Floor Number"
+msgstr "Номер на етаж"
+
+#. module: l10n_bg_address_extended
+#: model:ir.model.fields,field_description:l10n_bg_address_extended.field_res_company__street_number
+msgid "House"
+msgstr "Къща"
+
+#. module: l10n_bg_address_extended
+#: model:ir.model.fields,field_description:l10n_bg_address_extended.field_res_partner__street_sector_number
+#: model:ir.model.fields,field_description:l10n_bg_address_extended.field_res_users__street_sector_number
+msgid "Sector Name/Number"
+msgstr "Наименование/номер на квартал"
+
+#. module: l10n_bg_address_extended
+#: model:ir.model.fields,field_description:l10n_bg_address_extended.field_res_company__street_sector_number
+msgid "Sector Number"
+msgstr "Номер на квартал"
+
+#. module: l10n_bg_address_extended
+#: model_terms:ir.ui.view,arch_db:l10n_bg_address_extended.l10n_bg_address_street_extended_form
+msgid "Sector name/Number"
+msgstr "Наименование/Номер на район"
+
+#. module: l10n_bg_address_extended
+#. odoo-python
+#: code:addons/l10n_bg_address_extended/models/res_partner.py:0
+msgid "Sector: "
+msgstr ""
+
+#. module: l10n_bg_address_extended
+#: model:ir.model.fields,field_description:l10n_bg_address_extended.field_res_company__street_name
+msgid "Street Name"
+msgstr "Наименование на улица"

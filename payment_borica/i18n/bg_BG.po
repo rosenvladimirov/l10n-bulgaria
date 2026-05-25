@@ -1,0 +1,192 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* payment_borica
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-18 20:28+0000\n"
+"PO-Revision-Date: 2026-05-18 20:28+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: payment_borica
+#: model:ir.model.fields,help:payment_borica.field_payment_provider__borica_merchant
+msgid "10-char merchant identifier issued by the acquirer bank."
+msgstr "10-символен идентификатор на търговец, издаден от банката acquirer."
+
+#. module: payment_borica
+#: model:ir.model.fields,help:payment_borica.field_payment_provider__borica_terminal
+msgid "8-char terminal identifier issued by the acquirer bank, e.g. V1800001."
+msgstr ""
+"8-символен идентификатор на терминал, издаден от банката acquirer, напр. "
+"V1800001."
+
+#. module: payment_borica
+#: model:ir.model.fields.selection,name:payment_borica.selection__payment_provider__code__borica
+#: model:payment.provider,name:payment_borica.payment_provider_borica
+msgid "Borica APGW"
+msgstr ""
+
+#. module: payment_borica
+#: model:ir.model.fields,field_description:payment_borica.field_payment_provider__borica_merchant
+msgid "Borica Merchant ID"
+msgstr "Борика Merchant ID"
+
+#. module: payment_borica
+#: model:ir.model.fields,field_description:payment_borica.field_payment_provider__borica_public_cert
+msgid "Borica Public Certificate (PEM)"
+msgstr "Публичен сертификат на Борика (PEM)"
+
+#. module: payment_borica
+#: model:ir.model.fields,field_description:payment_borica.field_payment_provider__borica_terminal
+msgid "Borica Terminal (TID)"
+msgstr "Борика Терминал (TID)"
+
+#. module: payment_borica
+#. odoo-python
+#: code:addons/payment_borica/models/payment_provider.py:0
+msgid "Borica provider requires: %s"
+msgstr ""
+
+#. module: payment_borica
+#. odoo-python
+#: code:addons/payment_borica/models/payment_transaction.py:0
+msgid "Borica: invalid response signature"
+msgstr ""
+
+#. module: payment_borica
+#. odoo-python
+#: code:addons/payment_borica/models/payment_transaction.py:0
+msgid "Borica: missing ORDER in notification"
+msgstr ""
+
+#. module: payment_borica
+#. odoo-python
+#: code:addons/payment_borica/models/payment_transaction.py:0
+msgid "Borica: missing P_SIGN in response"
+msgstr ""
+
+#. module: payment_borica
+#. odoo-python
+#: code:addons/payment_borica/models/payment_transaction.py:0
+msgid "Borica: no transaction found for ORDER=%s"
+msgstr ""
+
+#. module: payment_borica
+#. odoo-python
+#: code:addons/payment_borica/models/payment_provider.py:0
+msgid "Borica: private key is not configured"
+msgstr ""
+
+#. module: payment_borica
+#. odoo-python
+#: code:addons/payment_borica/models/payment_provider.py:0
+msgid "Borica: public certificate is not configured"
+msgstr ""
+
+#. module: payment_borica
+#. odoo-python
+#: code:addons/payment_borica/models/payment_transaction.py:0
+msgid "Borica: unknown ACTION=%s RC=%s"
+msgstr ""
+
+#. module: payment_borica
+#: model:ir.model.fields,field_description:payment_borica.field_payment_provider__code
+msgid "Code"
+msgstr "Код"
+
+#. module: payment_borica
+#: model:ir.model.fields,field_description:payment_borica.field_payment_provider__borica_country
+msgid "Country"
+msgstr "Държава"
+
+#. module: payment_borica
+#: model:ir.model.fields,field_description:payment_borica.field_payment_provider__borica_lang
+msgid "Default language"
+msgstr "Език по подразбиране"
+
+#. module: payment_borica
+#: model:ir.model.fields,field_description:payment_borica.field_payment_provider__borica_merch_gmt
+msgid "GMT offset"
+msgstr "Часова зона (GMT отместване)"
+
+#. module: payment_borica
+#: model:ir.model.fields,help:payment_borica.field_payment_provider__borica_merch_name
+msgid "Latin merchant name as registered with the acquirer."
+msgstr ""
+"Наименование на търговеца на латиница, така както е регистрирано при банката"
+" acquirer."
+
+#. module: payment_borica
+#: model:ir.model.fields,field_description:payment_borica.field_payment_provider__borica_email
+msgid "Merchant Email"
+msgstr "Имейл на търговец"
+
+#. module: payment_borica
+#: model:ir.model.fields,field_description:payment_borica.field_payment_provider__borica_merch_name
+msgid "Merchant Name"
+msgstr "Наименование на търговец"
+
+#. module: payment_borica
+#: model:ir.model.fields,field_description:payment_borica.field_payment_provider__borica_private_key
+msgid "Merchant Private Key (PEM)"
+msgstr "Частен ключ на търговец (PEM)"
+
+#. module: payment_borica
+#: model:ir.model.fields,field_description:payment_borica.field_payment_provider__borica_merch_url
+msgid "Merchant URL"
+msgstr "URL на търговец"
+
+#. module: payment_borica
+#: model:ir.model.fields,help:payment_borica.field_payment_provider__borica_public_cert
+msgid "PEM-encoded Borica certificate used to verify response signatures."
+msgstr ""
+"Сертификат на Борика в PEM формат, използван за проверка на подписите в "
+"отговорите."
+
+#. module: payment_borica
+#: model:ir.model.fields,help:payment_borica.field_payment_provider__borica_private_key
+msgid "PEM-encoded RSA private key used to sign requests."
+msgstr "RSA частен ключ в PEM формат, използван за подписване на заявките."
+
+#. module: payment_borica
+#: model:ir.model,name:payment_borica.model_payment_provider
+msgid "Payment Provider"
+msgstr "Поставчик на плащания"
+
+#. module: payment_borica
+#: model:ir.model,name:payment_borica.model_payment_transaction
+msgid "Payment Transaction"
+msgstr "Трансакция на плащане"
+
+#. module: payment_borica
+#: model:ir.model.fields,help:payment_borica.field_payment_provider__code
+msgid "The technical code of this payment provider."
+msgstr "Техническият код на този доставчик на плащания."
+
+#. module: payment_borica
+#: model_terms:payment.provider,pending_msg:payment_borica.payment_provider_borica
+msgid ""
+"Your payment has been successfully processed but is waiting for approval."
+msgstr ""
+
+#. module: payment_borica
+#: model_terms:payment.provider,done_msg:payment_borica.payment_provider_borica
+msgid "Вашето плащане е обработено успешно."
+msgstr ""
+
+#. module: payment_borica
+#: model_terms:payment.provider,cancel_msg:payment_borica.payment_provider_borica
+msgid "Вашето плащане е отменено."
+msgstr ""
+
+#. module: payment_borica
+#: model_terms:payment.provider,auth_msg:payment_borica.payment_provider_borica
+msgid "Плащането Ви е упълномощено."
+msgstr ""

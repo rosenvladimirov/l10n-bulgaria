@@ -4,16 +4,47 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-07 10:49+0000\n"
-"PO-Revision-Date: 2025-06-07 10:49+0000\n"
+"POT-Creation-Date: 2026-05-19 06:28+0000\n"
+"PO-Revision-Date: 2026-05-19 06:28+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_plugins_wizard_form
+msgid ""
+"<b>Plugin Management</b><br/><br/>\n"
+"                        Use this panel to <b>enable or disable plugins</b> that extend the system's functionality.<br/><br/>\n"
+"                        ✔️ Use checkboxes to activate or deactivate specific plugins.<br/>\n"
+"                        ✔️ Use the <b>force reload checkbox</b> if you've made changes to localization templates and want them to be applied immediately.<br/><br/>\n"
+"                        <i>Note: Forcing a reload may take time on large databases.</i>"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid ""
+"<code>&lt;configuration&gt;\n"
+"    &lt;settings&gt;\n"
+"        &lt;setting model=\"account.account.tag\" field=\"l10n_bg_applicability\" value=\"sale\"&gt;\n"
+"            -11,+11,-12_1,-12_2,+12_1,+12_2,-13,+13,-14,+14,-15,+15,-16,+16,-17,+17,-18,+18,-19,+19,-21,+21,-22,+22,-23,+23,-24,+24\n"
+"        &lt;/setting&gt;\n"
+"        &lt;setting model=\"account.account.tag\" field=\"l10n_bg_applicability\" value=\"purchase\"&gt;\n"
+"            -30,+30,-31,+31,-32,+32,-41,+41,-42,+42\n"
+"        &lt;/setting&gt;\n"
+"    &lt;/settings&gt;\n"
+"&lt;/configuration&gt;\n"
+"</code>"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
+msgid "<span class=\"ms-3\">Progress:</span>"
+msgstr ""
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
@@ -51,8 +82,18 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:l10n.bg.vertical,name:l10n_bg_config.vertical_v11
+msgid "AI / Tooling (optional)"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "API key for external functionality"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,name:l10n_bg_config.vertical_v12
+msgid "Access Control / Attendance (OPL)"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -61,8 +102,124 @@ msgid "Account Chart Template"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__account_rule_count
+msgid "Account Rule Count"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_account_account_tag
 msgid "Account Tag"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_industry_map__account_code
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_kid_rule__account_code
+msgid "Account code"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__map_ids
+msgid "Account mappings"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_account_industry_map__revenue_indicator
+msgid ""
+"Account participates in the НСИ reverse-derivation of the company's primary "
+"КИД (net sales revenue accounts only)."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__account_rule_ids
+msgid "Account rules"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.actions.act_window,name:l10n_bg_config.action_l10n_bg_account_kid_rule
+#: model:ir.ui.menu,name:l10n_bg_config.menu_l10n_bg_account_kid_rule
+msgid "Account КИД classification"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_account_kid_rule_form
+msgid "Account КИД rule"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_account_kid_rule_list
+msgid "Account КИД rules"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_account_industry_map_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_account_industry_map_list
+msgid "Account ↔ КИД"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.actions.act_window,name:l10n_bg_config.action_l10n_bg_account_industry_map
+#: model:ir.ui.menu,name:l10n_bg_config.menu_l10n_bg_account_industry_map
+msgid "Account ↔ КИД mapping"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_l10n_bg_account_kid_rule
+msgid "Account-code КИД classification rule"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,name:l10n_bg_config.vertical_v2
+msgid "Accounting & КИД Industry Packs"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_account_kid_rule_form
+msgid "Accounting-standard rationale (СС 2 / СС 11 / СС 41 / ЗАДС …)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_account_industry_map_form
+msgid "Accounting-standard rationale (СС 2 / СС 11 / СС 41 …)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_account_kid_rule__note
+msgid ""
+"Accounting-standard rationale / source (СС 2 / СС 11 / СС 41 / ЗАДС …)."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_account_industry_map__note
+msgid "Accounting-standard rationale / source (СС 2, СС 11, СС 41 …)."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__action_xmlid
+msgid "Action Xmlid"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v1_s10
+msgid ""
+"Activate bg_BG and en_US languages before installing transliteration so "
+"existing names get processed."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_kid_rule__active
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__active
+msgid "Active"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_kid_ids
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__l10n_bg_kid_ids
+msgid "Active KID sectors"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__name
+msgid "Activity name"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -122,10 +279,25 @@ msgid "Allows to set tax report in Bulgaria accounting"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.constraint,message:l10n_bg_config.constraint_l10n_bg_account_kid_rule_account_code_uniq
+msgid "An account-code prefix can have only one classification rule."
+msgstr ""
+
+#. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
 msgid ""
 "An installation process where field values are set based on predefined "
 "criteria"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical_step__edition__any
+msgid "Any"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical__edition__any
+msgid "Any edition"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -139,6 +311,22 @@ msgstr ""
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
 msgid "Application"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_plugins_wizard_form
+msgid "Apply"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical_step__state__auto
+msgid "Auto-installed"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__available
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical__state__available
+msgid "Available"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -172,6 +360,11 @@ msgid "BG Unique identification code under the CRA"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_res_bank
+msgid "Bank"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "Bank - modules"
 msgstr ""
@@ -184,6 +377,30 @@ msgstr ""
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "Bank related Modules"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,name:l10n_bg_config.vertical_v4
+msgid "Banking & InfoPay (Borica PSD2)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,description:l10n_bg_config.vertical_v1
+msgid "Bilingual partner/master data with transliteration."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,description:l10n_bg_config.vertical_v4
+msgid ""
+"Borica InfoPay statements/payments. Pick exactly one framework bridge (OCA "
+"or EE)."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_kid__partner_industry_id
+msgid ""
+"Bridge to the standard Odoo industry (res.partner.industry / "
+"partner.industry_id). Set on sections."
 msgstr ""
 
 #. module: l10n_bg_config
@@ -250,7 +467,7 @@ msgstr ""
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
-msgid "Bulgaria cites, melisipalies, states..."
+msgid "Bulgaria cities, melisipalies, states..."
 msgstr ""
 
 #. module: l10n_bg_config
@@ -260,13 +477,50 @@ msgid "Bulgaria settings"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_l10n_bg_kid
+msgid "Bulgarian Classification of Economic Activities (КИД)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,description:l10n_bg_config.vertical_v9
+msgid "Bulgarian Intrastat XML declaration (subset of VAT reporting)."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_l10n_bg_vertical_step
+msgid "Bulgarian Localization Installation Step"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_l10n_bg_vertical
+msgid "Bulgarian Localization Installation Vertical"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_l10n_bg_vertical_progress
+msgid "Bulgarian Localization Step Progress (per company)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_l10n_bg_vertical_wizard
+msgid "Bulgarian Localization Vertical Installer Wizard"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_move_form
 msgid "Bulgarian VAT"
 msgstr ""
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
-msgid "Bulgarian cites"
+msgid "Bulgarian cities"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,description:l10n_bg_config.vertical_v7
+msgid ""
+"Bulgarian manufacturing valuation: material consumption via 601 transit, "
+"cleared to 611 on MO completion."
 msgstr ""
 
 #. module: l10n_bg_config
@@ -275,14 +529,40 @@ msgid "Bulgarian multi register codes"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:l10n.bg.vertical,description:l10n_bg_config.vertical_v6
+msgid ""
+"Bulgarian payroll + NRA payroll declarations. Requires V3 NRA configured "
+"first for the declaration bridges."
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_uic_id_number
 msgid "Bulgarian registration codes base on OCA module partner_identification"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.ui.menu,name:l10n_bg_config.menu_l10n_bg_kid_root
+msgid "Bulgarian КИД"
 msgstr ""
 
 #. module: l10n_bg_config
 #: model:ir.actions.act_window,name:l10n_bg_config.action_account_account_settings_xml_file
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
 msgid "Bulk Edit Account Tags"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_plugins_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"Capture the company's KID activity codes as free text at setup. They are "
+"parsed into the active KID sectors when the chart of accounts is loaded "
+"(only while the sector list is still empty); 'Resolve from codes' re-parses "
+"on demand."
 msgstr ""
 
 #. module: l10n_bg_config
@@ -297,6 +577,28 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__channel_group
+msgid "Channel Group"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_account_industry_map__relation_type__characteristic
+msgid "Characteristic"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,description:l10n_bg_config.vertical_v2
+msgid ""
+"Chart-of-accounts industry tailoring via КИД sectors. Reload the chart and "
+"have an accountant verify the resulting accounts."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__child_ids
+msgid "Child activities"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_company__l10n_bg_uic_type
 #: model:ir.model.fields,help:l10n_bg_config.field_res_partner__l10n_bg_uic_type
 #: model:ir.model.fields,help:l10n_bg_config.field_res_users__l10n_bg_uic_type
@@ -304,13 +606,51 @@ msgid "Choice type of Bulgaria UID."
 msgstr ""
 
 #. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Choose actions for each plugin through the appropriate checkerboards."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_kid__level__class
+msgid "Class"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_kid_rule__classification
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_account_kid_rule_search
+msgid "Classification"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_preview_xml_file_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_kid_compute_wizard_form
 msgid "Close"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__code
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_wizard__code
+msgid "Code"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical__edition__ce
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical_step__edition__ce
+msgid "Community"
 msgstr ""
 
 #. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_res_company
 msgid "Companies"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__company_id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_industry_map__company_id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard__company_id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_progress__company_id
+msgid "Company"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -321,6 +661,21 @@ msgstr ""
 #. module: l10n_bg_config
 #: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__type__represent
 msgid "Company represent/manager"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical__state__done
+msgid "Completed"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_kid_compute_wizard_form
+msgid "Compute"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Config Plugins"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -341,8 +696,58 @@ msgid "Config xml File"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical_step__step_type__config_action
+msgid "Configuration"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "Configuration file settings"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v5_s20
+msgid "Configure ErpNet.FP server URL, map printers, per-printer VAT rates"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v9_s20
+msgid ""
+"Configure Intrastat obligation, thresholds and flow direction; verify CN8 "
+"mapping. Accountant decision."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v3_s60
+msgid "Configure NRA mode (test/prod), token owner, authenticate once"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v4_s40
+msgid ""
+"Configure bank journal IBAN(s), InfoPay tokens, import & unlock wallet ZIP"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v12_s20
+msgid "Configure credential channel + camera/LPR"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v10_s20
+msgid "Configure fiscal-position tax-actions, EORI, customs offices"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v6_s30
+msgid "Configure salary structures, contribution rates, minimum thresholds"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v12_s20
+msgid ""
+"Configure the credential channel and camera/LPR. Optionally install "
+"access_control_guest for guest/partner vehicle access."
 msgstr ""
 
 #. module: l10n_bg_config
@@ -351,19 +756,48 @@ msgid "Contact"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:l10n.bg.vertical,description:l10n_bg_config.vertical_v0
+msgid ""
+"Core Bulgarian localization foundation. Everything else depends on this. "
+"Requires the BG chart of accounts loaded."
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_res_country
 msgid "Country"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__create_uid
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__create_uid
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_industry_map__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_kid_rule__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard_line__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_progress__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_wizard__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__create_date
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__create_date
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__create_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_industry_map__create_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_kid_rule__create_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__create_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard_line__create_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__create_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_progress__create_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__create_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_wizard__create_date
 msgid "Created on"
 msgstr ""
 
@@ -371,6 +805,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_crypt_key
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_crypt_key
 msgid "Crypt Key"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard_line__currency_id
+msgid "Currency"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -391,13 +830,42 @@ msgid "Departament code"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_company_form
+msgid "Derive from revenue"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_l10n_bg_kid_compute_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_kid_compute_wizard_form
+msgid "Derive primary economic activity (КИД)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard__primary_kid_id
+msgid "Derived primary КИД"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_account_tag__description
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__description
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_wizard__description
 msgid "Description"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__display_name
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__display_name
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__display_name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_industry_map__display_name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_kid_rule__display_name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__display_name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__display_name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_progress__display_name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__display_name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_wizard__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -412,8 +880,38 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_kid__level__division
+msgid "Division"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__l10n_bg_document_number
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__l10n_bg_document_number
+msgid "Document Number (BG)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__done
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_progress__done
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__done
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical_step__state__done
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Done"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_progress__done_date
+msgid "Done Date"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_currency_rate_update_bg_bnb
 msgid "Download currency rates from Bulgaria National Bank (OCA)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.constraint,message:l10n_bg_config.constraint_l10n_bg_account_industry_map_kid_account_company_uniq
+msgid "Duplicate КИД / account / company mapping."
 msgstr ""
 
 #. module: l10n_bg_config
@@ -422,8 +920,46 @@ msgid "EU Tax administration number"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v3_s40
+msgid "Each credential owner creates and unlocks their wallet"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"Each section is a vertical (V0–V12). A section unlocks only once the "
+"previous one is installed; locked sections stay read-only. Open a section's "
+"wizard to install its modules in order and run the intermediate "
+"configuration."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard_line__kid_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_account_industry_map_search
+msgid "Economic activity"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__edition
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__edition
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_wizard__edition
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_kid_search
+msgid "Edition"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
 msgid "Element Structure"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__enable_partner_api_key_view
+msgid "Enable Partner API Key Shortcut"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__enable_partner_api_key_view
+msgid "Enable the API Key shortcut (Shift+Alt+K) in partner form view"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -452,8 +988,28 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical_step__edition__ee
+msgid "Enterprise"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical__edition__ee
+msgid "Enterprise bridge"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
 msgid "Example XML"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical_step__edition__opl
+msgid "Expert"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical__edition__opl
+msgid "Expert (OPL-1)"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -467,8 +1023,68 @@ msgid "Extend address with Bulgaria localization."
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:l10n.bg.vertical,name:l10n_bg_config.vertical_v5
+msgid "Fiscal Devices (ErpNet.FP)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,description:l10n_bg_config.vertical_v5
+msgid ""
+"Fiscal-printer integration. Pick the IoT bridge matching the present IoT "
+"stack."
+msgstr ""
+
+#. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "Fix coefficient in Automatic Currency Rates (EE)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_plugins_wizard_line__state__to_install
+msgid "For installation"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_account_industry_map__relation_type__forbidden
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_account_industry_map_search
+msgid "Forbidden"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__force_update
+msgid "Force Update"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_account_plugins_wizard__force_update
+msgid "Force update of plugins even if they are already installed"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,name:l10n_bg_config.vertical_v0
+msgid "Foundation & Config"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_account_kid_rule__classification__framework_specific
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_account_kid_rule_search
+msgid "Framework-specific"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_company__l10n_bg_kid_codes
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__l10n_bg_kid_codes
+msgid ""
+"Free-text list of KID activity codes captured at company setup (e.g. '41, "
+"43.21, F' or '6201'). Parsed into 'Active KID sectors' when the chart of "
+"accounts is loaded and that field is still empty (text = bootstrap, the "
+"sector list is authoritative once set). Use 'Resolve from codes' to re-parse"
+" on demand."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard__date_from
+msgid "From"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -477,14 +1093,312 @@ msgid "Generate XML files for Bulgaria intrastat (EE)"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_kid__level__group
+msgid "Group"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_account_industry_map_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_kid_search
+msgid "Group By"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_vertical_step__instruction
+msgid "Guidance for configuration / manual checkpoint steps."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Guided installation by vertical"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,name:l10n_bg_config.vertical_v6
+msgid "HR & Payroll (OPL)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__id
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__id
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_industry_map__id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_kid_rule__id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard_line__id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_progress__id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_wizard__id
 msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v3_s60
+msgid ""
+"In Settings set the NRA test/production mode and the token-owner user; the "
+"owner authenticates once so the wallet stores the NRA access token. "
+"Optionally override the sandbox base URL."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical__state__in_progress
+msgid "In progress"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,description:l10n_bg_config.vertical_v11
+msgid ""
+"In-Odoo Claude terminal, AI pipeline, TARIC/invoice AI. Infrastructure — "
+"optional."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__to_install
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
+msgid "Install"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v6_s50
+msgid ""
+"Install NRA payroll declarations (dec1/dec6/etz/noi) — bridges auto-activate"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v8_s20
+msgid ""
+"Install document add-ons (invoice copy/grif, delivery note, stock reports)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v4_s50
+msgid ""
+"Install exactly ONE pair: OCA (l10n_bg_infopay_oca_statement + _oca_payment)"
+" OR EE (l10n_bg_infopay_ee_statement + _ee_payment). They auto-install when "
+"the framework counterpart is present."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v12_s10
+msgid "Install hr_attendance_access_control"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v2_s20
+msgid ""
+"Install industry pack(s): agriculture / manufacturing / construction / "
+"nonprofit"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v0_s40
+msgid "Install l10n_bg_address_extended"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v3_s50
+msgid "Install l10n_bg_api_nra"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v6_s50
+msgid ""
+"Install l10n_bg_api_nra_dec1/_dec6/_etz/_noi (requires V3 l10n_bg_api_nra "
+"configured); the l10n_bg_hr_payroll_nra_* bridges auto-install. Test-mode "
+"submission before production."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v4_s10
+msgid "Install l10n_bg_bank_wallet"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v3_s30
+msgid "Install l10n_bg_bank_wallet & create/unlock wallet"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v0_s30
+msgid "Install l10n_bg_city"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v11_s10
+msgid "Install l10n_bg_claude_terminal"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v0_s60
+msgid "Install l10n_bg_company_registry"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v0_s10
+msgid "Install l10n_bg_config (foundation)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v2_s10
+msgid "Install l10n_bg_config_plugins_industry_map"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v5_s10
+msgid "Install l10n_bg_erp_net_fp"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v6_s20
+msgid "Install l10n_bg_hr_payroll"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v4_s30
+msgid "Install l10n_bg_infopay"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v4_s60
+msgid "Install l10n_bg_infopay_ui (exactly one copy)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v9_s10
+msgid "Install l10n_bg_intrastat"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v4_s20
+msgid "Install l10n_bg_live_refresh + l10n_bg_queue_poll"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v7_s10
+msgid "Install l10n_bg_mrp_account"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v1_s30
+msgid "Install l10n_bg_multilang"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v6_s10
+msgid "Install l10n_bg_payroll_classifications + l10n_bg_hr_holidays"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v8_s10
+msgid "Install l10n_bg_report_theme"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v3_s10
+msgid "Install l10n_bg_reports_audit"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v3_s20
+msgid "Install l10n_bg_reports_config"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v10_s10
+msgid "Install l10n_bg_tax_admin"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v10_s30
+msgid "Install l10n_bg_tax_admin_manual + customs rate"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v0_s50
+msgid "Install l10n_bg_tax_offices"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v3_s70
+msgid "Install l10n_bg_vat_reports (EE)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical_step__step_type__install_module
+msgid "Install module"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v2_s20
+msgid ""
+"Install only the l10n_bg_config_plugins_industry_* packs relevant to the "
+"company (agriculture=A, manufacturing=C, construction=F, nonprofit=S). Each "
+"adds its КИД sector to the company and reloads the chart automatically."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v1_s20
+msgid "Install partner_multilang"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v8_s20
+msgid ""
+"Install the needed ones: l10n_bg_invoice_copy, l10n_bg_invoice_grif, "
+"l10n_bg_report_stock (+ comment/description), "
+"l10n_bg_sale_order_delivery_note. Configure comment templates / report "
+"blocks."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Install/Uninstall Plugins"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__l10n_bg_vertical_ids
+msgid "Installation verticals"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_plugins_wizard_line__state__installed
+msgid "Installed"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__instruction
+msgid "Instruction"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,name:l10n_bg_config.vertical_v9
+msgid "Intrastat"
+msgstr ""
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/res_partner.py:0
+msgid "Invalid checksum for Bulgarian VAT number: %s"
+msgstr ""
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/res_partner.py:0
+msgid "Invalid format for Bulgarian VAT number: %s"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v5_s40
+msgid "IoT bridge auto-installs (OCA iot_oca OR native iot)"
 msgstr ""
 
 #. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__is_l10n_bg_record
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__is_l10n_bg_record
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_move_line__is_l10n_bg_record
 #: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_config_mixin__is_l10n_bg_record
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__is_l10n_bg_record
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__is_l10n_bg_record
@@ -492,9 +1406,8 @@ msgid "Is Bulgaria Record"
 msgstr ""
 
 #. module: l10n_bg_config
-#: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__is_company_master
-#: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__is_company_master
-msgid "Is Company Master"
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__is_unlocked
+msgid "Is Unlocked"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -503,20 +1416,97 @@ msgid "Journal Entry"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_kid_codes
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__l10n_bg_kid_codes
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "KID codes (init)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_kid_version
+msgid "KID edition"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_company__l10n_bg_kid_version
+msgid "KID edition used when deriving the primary economic activity."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_company__l10n_bg_kid_ids
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__l10n_bg_kid_ids
+msgid ""
+"KID sectors this company operates in. Drives the chart-of-accounts install "
+"filter: at base install this is empty, so only universal accounts load; "
+"selecting a sector (and reloading the chart template) lets its sector-"
+"specific accounts through."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_company__l10n_bg_kid_version__2008
+msgid "KID-2008"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_company__l10n_bg_kid_version__2025
+msgid "KID-2025"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__write_uid
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__write_uid
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_industry_map__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_kid_rule__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard_line__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_progress__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_wizard__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__write_date
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__write_date
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_xml_file__write_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_industry_map__write_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_kid_rule__write_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__write_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard_line__write_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__write_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_progress__write_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__write_date
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_wizard__write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_country__title_format
 msgid "Layout in Name views"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_account_industry_map__company_id
+msgid ""
+"Leave empty for the localization default; set it only for a company-specific"
+" override."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__level
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_kid_search
+msgid "Level"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -530,6 +1520,89 @@ msgid "Live Currency Rate Fix for Bulgaria (EE) module"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Localization Installer (verticals)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical__state__locked
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Locked"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_company__l10n_bg_primary_kid_id
+msgid ""
+"Main activity derived from the net sales revenue accounts following the НСИ "
+"methodology (highest relative share of net sales revenue). Recompute via the"
+" КИД derivation wizard."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.actions.act_window,name:l10n_bg_config.action_account_plugins_wizard
+msgid "Manage Plugins"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_account_industry_map__relation_type__mandatory
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_account_industry_map_search
+msgid "Mandatory"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical_step__step_type__checkpoint
+msgid "Manual checkpoint"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,name:l10n_bg_config.vertical_v7
+msgid "Manufacturing (601→611 transit)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__map_count
+msgid "Map Count"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v3_s80
+msgid ""
+"Map account tags to NRA cells and have the accountant verify the VAT ledger "
+"boxes before the first filing. (Enterprise channel; alternative is "
+"l10n_bg_report_vat — mutually exclusive.)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_kid_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_kid_list
+msgid "Mappings"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_bank__l10n_bg_nap_approved
+msgid ""
+"Mark banks that are on the National Revenue Agencys list of institutions "
+"approved for payment of budget receivables (tax, social contributions, "
+"customs). Used to filter the bank-account picker in payment-order wizards so"
+" a treasurer only sees institutions that can process government payments."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
+msgid "Mark done"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_account_plugins_wizard_line__to_install
+msgid "Mark for installation"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_account_plugins_wizard_line__to_uninstall
+msgid "Mark for uninstallation"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_l10n_bg_config_mixin
 msgid "Mixin model for applying to any object that use Bulgarian Accounting"
 msgstr ""
@@ -537,6 +1610,44 @@ msgstr ""
 #. module: l10n_bg_config
 #: model:ir.model,name:l10n_bg_config.model_ir_module_module
 msgid "Module"
+msgstr ""
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/l10n_bg_vertical.py:0
+msgid ""
+"Module '%s' auto-installs with its counterpart — do not install it manually."
+msgstr ""
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/l10n_bg_vertical.py:0
+msgid ""
+"Module '%s' is not available in this instance (not in the addons path). "
+"Deploy it first."
+msgstr ""
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/l10n_bg_vertical.py:0
+msgid "Module '%s' is not installable."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__module_name
+msgid "Module Name"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__module_state
+msgid "Module State"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_vertical_step__skip_if_auto_install
+msgid ""
+"Module auto-installs with a counterpart — the installer must not act on it "
+"manually."
 msgstr ""
 
 #. module: l10n_bg_config
@@ -555,8 +1666,38 @@ msgid "Multilang support for partner names and more"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Multilanguage Modules"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__is_l10n_bg_multilanguage_text
+msgid "Multilanguage Settings"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_vertical_step__channel_group
+msgid ""
+"Mutually-exclusive channel tag (e.g. one InfoPay bridge, one ErpNet.FP IoT "
+"bridge). Informational for the operator."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_bank__l10n_bg_nap_approved
+msgid "NAP-Approved"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_tax_offices
 msgid "NRA Bulgaria, tax offices and departments"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_wizard__name
+msgid "Name"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -570,14 +1711,144 @@ msgid "National Revenue Agency departments, offices and head office."
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard_line__net_revenue
+msgid "Net sales revenue"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_kid_compute_wizard_form
+msgid ""
+"Net sales revenue is summed (credit − debit) on the\n"
+"                    accounts mapped as net-revenue indicators per КИД and\n"
+"                    rolled up to the section level, following the НСИ\n"
+"                    methodology. Leave the dates empty for all time."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_industry_map__revenue_indicator
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_account_industry_map_search
+msgid "Net-revenue indicator"
+msgstr ""
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/l10n_bg_vertical.py:0
+msgid "No configuration action or instruction defined for '%s'."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_plugins_wizard_line__state__uninstalled
+msgid "Not installed"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_industry_map__note
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_kid_rule__note
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_progress__note
+msgid "Note"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__l10n_bg_name
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__l10n_bg_name
 msgid "Number of locale document"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__l10n_bg_name_value
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__l10n_bg_name_value
+msgid "Number of locale document (stored)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical_step__edition__oca
+msgid "OCA"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical__edition__oca
+msgid "OCA channel"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__partner_industry_id
+msgid "Odoo industry"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v7_s20
+msgid ""
+"On the relevant product categories set the Material Consumption Transit "
+"Account (601) and Production Account (611). Requires real-time inventory "
+"valuation."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.constraint,message:l10n_bg_config.constraint_l10n_bg_vertical_progress_company_step_uniq
+msgid "One progress record per company and step."
+msgstr ""
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/l10n_bg_account_kid_rule.py:0
+msgid "Only sector-specific rules may reference КИД sectors (rule '%s')."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
+msgid "Open / Info"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Open installer"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__optional
+msgid "Optional"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_vertical_step__action_xmlid
+msgid "Optional XML id of the configuration action to open."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v2_s40
+msgid ""
+"Optional config plugins (NSI expenses / payroll accounts / art.69§2 / "
+"art.82§2)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_vertical_step__optional
+msgid "Optional step — does not block the vertical / next ones."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v5_s30
+msgid "Optional: install l10n_bg_erp_net_fp_fleet (control plane)"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "Other multilang"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_kid_search
+msgid "Parent"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__parent_id
+msgid "Parent activity"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,name:l10n_bg_config.vertical_v1
+msgid "Partner & Geographic Multilingual"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -593,6 +1864,47 @@ msgstr ""
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "Partners & Addresses"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v6_s30
+msgid ""
+"Payroll specialist configures salary structures, social-security "
+"contribution rates and minimum insurance thresholds."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical_step__state__pending
+msgid "Pending"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v10_s20
+msgid ""
+"Per fiscal position add Tax-Action rows (target doc type, narration, "
+"replacement position/account/factor); set partner/company EORI; "
+"create/verify customs offices and nomenclature. Then test with a qualifying "
+"vendor bill."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v4_s50
+msgid "Pick ONE framework bridge — OCA: statement + payment"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__plugin_id
+msgid "Plugin"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard__plugin_line_ids
+msgid "Plugins"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_account_plugins_wizard_line
+msgid "Plugins Wizard Line"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -623,6 +1935,32 @@ msgid "Preview setting as xml file"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard_line__is_primary
+msgid "Primary"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_primary_kid_id
+msgid "Primary economic activity (KID)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_l10n_bg_kid_compute_wizard_line
+msgid "Primary КИД derivation result line"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,description:l10n_bg_config.vertical_v8
+msgid "Professional BG document layouts and delivery/handover reports."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__progress
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_wizard__progress
+msgid "Progress"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_intrastat_product
 msgid "Provide Intrastat Product Declaration. (OCA)"
 msgstr ""
@@ -633,8 +1971,41 @@ msgid "Provide base for Accounting TAX Audit reports for Bulgarian - NRA."
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v11_s20
+msgid "Provision MCP stack (Claude terminal + Qdrant + Ollama), set keys"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v11_s20
+msgid ""
+"Provision the MCP Docker stack and set connection/provider params. Then "
+"optionally install l10n_bg_ai_pipeline, l10n_bg_ai_invoice_glue, "
+"taric_ai_classifier."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard__result_line_ids
+msgid "Ranking"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "Reform the reports forms support for Bulgaria"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
+msgid "Refresh"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_account_industry_map_search
+msgid "Relation"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_industry_map__relation_type
+msgid "Relation Type"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -653,6 +2024,11 @@ msgid "Report printing forms"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:l10n.bg.vertical,name:l10n_bg_config.vertical_v8
+msgid "Reporting / Theme / Documents"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_represent_contact_id
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_represent_contact_id
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_represent_contact_id
@@ -660,8 +2036,115 @@ msgid "Representative"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
+msgid "Reset"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_company_form
+msgid "Resolve from codes"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_preview_xml_file_form
 msgid "Save like XML"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_kid__level__section
+msgid "Section"
+msgstr ""
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/l10n_bg_vertical.py:0
+msgid "Section '%s' is locked. Complete the previous vertical first."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_kid_search
+msgid "Sections"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_account_kid_rule__classification__sector_specific
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_account_kid_rule_search
+msgid "Sector-specific"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_kid__account_rule_ids
+msgid "Sector-specific account-code rules tied to this КИД sector."
+msgstr ""
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/l10n_bg_account_kid_rule.py:0
+msgid "Sector-specific rule '%s' must list at least one КИД sector."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v2_s30
+msgid "Select КИД sectors / reload chart / accountant sign-off"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__sequence
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v9_s20
+msgid "Set Intrastat obligation / thresholds / flow (accountant)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v0_s20
+msgid ""
+"Set company country = Bulgaria, load the BG chart of accounts, set UIC/VAT"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v1_s10
+msgid "Set database languages (bg_BG + en_US)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v4_s40
+msgid ""
+"Set journal IBAN(s), the company InfoPay user-token (write) and admin Fernet"
+" token (cron read), import the wallet keys ZIP and unlock. Borica production"
+" credentials are provisioned out-of-band."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v7_s20
+msgid "Set product-category 601 transit + 611 production account (accountant)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v5_s20
+msgid ""
+"Set the ErpNet.FP server URL, map fiscal printers and configure per-printer "
+"VAT rates."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v0_s20
+msgid ""
+"Set the company country to Bulgaria, load the Bulgarian chart of accounts "
+"for the company, and fill the company UIC (ЕИК/БУЛСТАТ) and VAT number. The "
+"chart MUST be loaded before any reporting/VAT/tax module works correctly."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v2_s30
+msgid ""
+"Set the company's active КИД sectors (or fill the init КИД codes), reload "
+"the chart template, and have the accountant verify the resulting account set"
+" (sector account CSVs are sourced from НСС/ЗСч)."
 msgstr ""
 
 #. module: l10n_bg_config
@@ -671,8 +2154,83 @@ msgid "Settings"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_vertical__progress
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_vertical_wizard__progress
+msgid "Share of required steps done."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__skip_if_auto_install
+msgid "Skip If Auto Install"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical_step__state__skipped
+msgid "Skipped"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_vertical__code
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_vertical_wizard__code
+msgid "Stable code, e.g. V0."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__state
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__state
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__state
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_wizard__state
+msgid "State"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_progress__step_id
+msgid "Step"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__step_done
+msgid "Step Done"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__step_total
+msgid "Step Total"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__step_type
+msgid "Step Type"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical__step_ids
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_wizard__step_ids
+msgid "Steps"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_multilang
 msgid "Switch on multilanguage support"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_account_industry_map__account_code
+msgid ""
+"Synthetic account code prefix, matched as code LIKE '<value>%' (e.g. 701 "
+"covers 701, 701.000, 701.100)."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_account_kid_rule__account_code
+msgid ""
+"Synthetic account-code prefix, matched as code LIKE '<value>%' (e.g. 303 "
+"covers 303, 303.000, 303.100)."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,name:l10n_bg_config.vertical_v10
+msgid "Tax Assistant (Art.117 / Customs)"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -681,9 +2239,23 @@ msgid "Tax agent"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_vertical_step__module_name
+msgid ""
+"Technical name of the module to install (resolved at runtime; if absent in "
+"this instance the step is unavailable)."
+msgstr ""
+
+#. module: l10n_bg_config
 #. odoo-javascript
 #: code:addons/l10n_bg_config/static/src/views/form_view.js:0
 msgid "The API Key is: ${result}"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v3_s40
+msgid ""
+"The NRA token owner (and any InfoPay credential owner) must create + unlock "
+"their password-derived wallet before API submission works."
 msgstr ""
 
 #. module: l10n_bg_config
@@ -708,11 +2280,6 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_config
-#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
-msgid "Theatrical section for settings"
-msgstr ""
-
-#. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
 msgid ""
 "This XML file is used to mass apply values to specific fields in records of "
@@ -726,8 +2293,23 @@ msgstr ""
 
 #. module: l10n_bg_config
 #. odoo-python
-#: code:addons/l10n_bg_config/hooks.py:0
-msgid "This module is only for Bulgaria"
+#: code:addons/l10n_bg_config/models/l10n_bg_vertical.py:0
+msgid "This step is not a module installation."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard__date_to
+msgid "To"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_plugins_wizard_line__state__to_remove
+msgid "To remove"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Total"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -736,10 +2318,34 @@ msgid "Transliterate partner, city, street names ISO9 and other"
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_vertical__is_unlocked
+msgid ""
+"True if the previous vertical is completed (or this is the first one). A "
+"locked vertical is read-only."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,description:l10n_bg_config.vertical_v12
+msgid ""
+"Two-channel access control (credential + camera/LPR). Standalone — no "
+"l10n_bg dependency."
+msgstr ""
+
+#. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_uic_type
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_uic_type
 #: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_uic_type
 msgid "Type of Bulgaria UID"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_vertical_step__state__unavailable
+msgid "Unavailable"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__to_uninstall
+msgid "Uninstall"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -755,6 +2361,12 @@ msgstr ""
 #: model:ir.model.fields,help:l10n_bg_config.field_res_users__l10n_bg_uic
 msgid ""
 "Unique identification code for the Bulgaria received from trade registry"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_account_kid_rule__classification__universal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_account_kid_rule_search
+msgid "Universal"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -784,9 +2396,27 @@ msgstr ""
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Use Bulgaria accounting for this company"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid ""
 "Use configuration files to set up different Odoo parameters. For example, "
 "changing tags, their configuration. Adding new tags, etc."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v2_s40
+msgid ""
+"Use the Config Plugins wizard to install NSI expense / social-security / "
+"special-VAT account plugins, then reload the chart. Accountant sign-off "
+"required."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,name:l10n_bg_config.vertical_v3
+msgid "VAT & НАП Reporting"
 msgstr ""
 
 #. module: l10n_bg_config
@@ -796,17 +2426,49 @@ msgstr ""
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
-msgid "VAT Report for tax administration (EE))"
-msgstr ""
-
-#. module: l10n_bg_config
-#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
 msgid "VAT Report for tax administration (OCA)"
 msgstr ""
 
 #. module: l10n_bg_config
-#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
-msgid "VAT Report for tax administration (OCA))"
+#: model:l10n.bg.vertical,description:l10n_bg_config.vertical_v3
+msgid ""
+"VAT ledgers + NRA declaration submission. Requires a loaded chart and an "
+"unlocked wallet."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical,description:l10n_bg_config.vertical_v10
+msgid ""
+"VAT protocols (Art.117), customs DN+MRN, fiscal-position tax-action routing."
+" Paid OPL module."
+msgstr ""
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/res_partner.py:0
+msgid "Validation error for Bulgarian VAT: %s - %s"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v3_s80
+msgid "Verify NRA tag mapping & VAT ledger boxes (accountant)"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_step__vertical_id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_vertical_wizard__vertical_id
+msgid "Vertical"
+msgstr ""
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/l10n_bg_vertical.py:0
+msgid "Vertical '%s' is locked. Complete the previous vertical first."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.constraint,message:l10n_bg_config.constraint_l10n_bg_vertical_code_uniq
+msgid "Vertical code must be unique."
 msgstr ""
 
 #. module: l10n_bg_config
@@ -817,6 +2479,17 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__wizard_id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid_compute_wizard_line__wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_account_plugins_wizard
+msgid "Wizard for accounting plugins"
+msgstr ""
+
+#. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
 msgid "XML Configuration File for Odoo"
 msgstr ""
@@ -824,4 +2497,209 @@ msgstr ""
 #. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__l10n_bg_config_file_preview
 msgid "XML Preview"
+msgstr ""
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/res_partner.py:0
+msgid ""
+"You cannot change the Tax ID for partner '%s' because there are already "
+"posted accounting entries. Old Tax ID: %s, New Tax ID: %s"
+msgstr ""
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/res_partner.py:0
+msgid ""
+"You cannot change the parent company for partner '%s' because the parent has"
+" a different Tax ID. Partner Tax ID: %s, Parent Tax ID: %s. This is not "
+"allowed when there are posted accounting entries."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,instruction:l10n_bg_config.v5_s40
+msgid ""
+"l10n_bg_erp_net_fp_iot_oca (OCA iot_oca) or l10n_bg_erp_net_fp_iot (native "
+"iot) auto-installs when its IoT stack is present — do not install manually; "
+"just verify the device appears."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.vertical.step,name:l10n_bg_config.v6_s40
+msgid "l10n_bg_hr_payroll_account — map salary rules to GL"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_N
+msgid "Административни и спомагателни дейности"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_T
+msgid "Дейности на домакинства като работодатели"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_U
+msgid "Дейности на екстериториални организации и служби"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_B
+msgid "Добивна промишленост"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_E
+msgid ""
+"Доставяне на води; канализационни услуги, управление на отпадъци и "
+"възстановяване"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_S
+msgid "Други дейности"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_O
+msgid "Държавно управление"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_kid_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_kid_list
+msgid "КИД"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_industry_map__kid_id
+msgid "КИД activity"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.actions.act_window,name:l10n_bg_config.action_l10n_bg_kid
+#: model:ir.ui.menu,name:l10n_bg_config.menu_l10n_bg_kid
+msgid "КИД classification"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__code
+msgid "КИД code"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_industry_map__kid_version
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_kid__kid_version
+msgid "КИД edition"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_l10n_bg_account_kid_rule__kid_ids
+msgid "КИД sectors"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_account_kid_rule__kid_ids
+msgid ""
+"КИД sectors that require this account (only for sector-specific rules)."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_l10n_bg_account_industry_map
+msgid "КИД ↔ Account mapping"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_kid__kid_version__2008
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_kid_search
+msgid "КИД-2008"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_account_industry_map__kid_version
+#: model:ir.model.fields,help:l10n_bg_config.field_l10n_bg_kid__kid_version
+msgid ""
+"КИД-2008 (NACE Rev.2) is in force for periods up to 2024; КИД-2025 (NACE "
+"Rev.2.1) applies from 01.01.2025."
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__l10n_bg_kid__kid_version__2025
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_kid_search
+msgid "КИД-2025"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_R
+msgid "Култура, спорт и развлечения"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_P
+msgid "Образование"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_L
+msgid "Операции с недвижими имоти"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_C
+msgid "Преработваща промишленост"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_D
+msgid ""
+"Производство и разпределение на електрическа и топлинна енергия и на "
+"газообразни горива"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_M
+msgid "Професионални дейности и научни изследвания"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_A
+msgid "Селско, горско и рибно стопанство"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_F
+msgid "Строителство"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_J
+msgid ""
+"Създаване и разпространение на информация и творчески продукти; "
+"далекосъобщения"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_H
+msgid "Транспорт, складиране и пощи"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_G
+msgid "Търговия; ремонт на автомобили и мотоциклети"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_K
+msgid "Финансови и застрахователни дейности"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_I
+msgid "Хотелиерство и ресторантьорство"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:l10n.bg.kid,name:l10n_bg_config.kid_2025_Q
+msgid "Хуманно здравеопазване и социална работа"
 msgstr ""

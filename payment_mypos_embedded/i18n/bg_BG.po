@@ -1,0 +1,50 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* payment_mypos_embedded
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-18 20:29+0000\n"
+"PO-Revision-Date: 2026-05-18 20:29+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: payment_mypos_embedded
+#: model:ir.model.fields.selection,name:payment_mypos_embedded.selection__payment_provider__mypos_flow__embedded
+msgid "Embedded iFrame (on-site)"
+msgstr ""
+
+#. module: payment_mypos_embedded
+#: model:ir.model.fields.selection,name:payment_mypos_embedded.selection__payment_provider__mypos_flow__redirect
+msgid "Hosted Redirect (default)"
+msgstr ""
+
+#. module: payment_mypos_embedded
+#: model:ir.model,name:payment_mypos_embedded.model_payment_provider
+msgid "Payment Provider"
+msgstr "Поставчик на плащания"
+
+#. module: payment_mypos_embedded
+#: model:ir.model,name:payment_mypos_embedded.model_payment_transaction
+msgid "Payment Transaction"
+msgstr "Трансакция на плащане"
+
+#. module: payment_mypos_embedded
+#: model:ir.model.fields,help:payment_mypos_embedded.field_payment_provider__mypos_flow
+msgid ""
+"Redirect: shopper goes to the myPOS hosted page (RSA-signed IPCPurchase).\n"
+"Embedded: the myPOS SDK mounts a branded iFrame in the Odoo checkout — no client-side signature; security is the signed server-to-server urlNotify callback. Visa/Mastercard/Maestro only (no Apple/Google Pay)."
+msgstr ""
+"Пренасочване: купувачът се пренасочва към хостваната страница на myPOS (RSA-подписан IPCPurchase).\n"
+"Вграден: myPOS SDK зарежда брандиран iFrame в checkout страницата на Odoo — без клиентски подпис; сигурността се осигурява чрез подписан server-to-server urlNotify callback. Само Visa/Mastercard/Maestro (без Apple Pay/Google Pay)."
+
+#. module: payment_mypos_embedded
+#: model:ir.model.fields,field_description:payment_mypos_embedded.field_payment_provider__mypos_flow
+msgid "myPOS Checkout Flow"
+msgstr "myPOS Процес на плащане"

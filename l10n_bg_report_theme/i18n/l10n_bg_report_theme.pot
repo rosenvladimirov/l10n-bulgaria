@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-08 10:39+0000\n"
-"PO-Revision-Date: 2025-06-08 10:39+0000\n"
+"POT-Creation-Date: 2026-05-18 20:53+0000\n"
+"PO-Revision-Date: 2026-05-18 20:53+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,23 +16,29 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_wizard_section_preview
-msgid "INV/2023/00003"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "2023-09-25"
 msgstr ""
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_wizard_section_preview
-msgid "Invoice"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.signatures_section
+msgid ":<span/>"
 msgstr ""
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
-msgid "Shipping address:"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "<i class=\"fa fa-repeat\"/> Reset"
 msgstr ""
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
-msgid "The Attention of:"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_saleorder_document
+msgid "<strong class=\"o_section_labels\">Shipping address:</strong>"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_saleorder_document
+msgid "<strong class=\"o_section_labels\">The Attention of:</strong>"
 msgstr ""
 
 #. module: l10n_bg_report_theme
@@ -41,8 +47,23 @@ msgid "<strong>Deal Date</strong>"
 msgstr ""
 
 #. module: l10n_bg_report_theme
+#: model:ir.module.category,description:l10n_bg_report_theme.category_l10n_bg_report_theme
+msgid "Access management for different sections in Bulgarian reports"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.group_control_address_swap
+msgid "Address Swap Control"
+msgstr ""
+
+#. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
 msgid "Address:"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:ir.module.category,name:l10n_bg_report_theme.category_l10n_bg_report_theme
+msgid "BG Report Theme"
 msgstr ""
 
 #. module: l10n_bg_report_theme
@@ -91,13 +112,14 @@ msgid "Base Colors"
 msgstr ""
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
-msgid "CUSTOMER"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.signatures_section
+msgid "COMPILER"
 msgstr ""
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
-msgid "Cancelled Invoice"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.signatures_section
+msgid "CUSTOMER"
 msgstr ""
 
 #. module: l10n_bg_report_theme
@@ -141,8 +163,23 @@ msgid "Created on"
 msgstr ""
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
-msgid "Credit Note"
+#: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__custom_scss_path
+msgid "Custom SCSS Path"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.group_control_date_format
+msgid "Date Format Control"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.l10n_bg_deal_date
+msgid "Deal Date Control"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.group_control_delivery_date
+msgid "Delivery Date Control"
 msgstr ""
 
 #. module: l10n_bg_report_theme
@@ -156,17 +193,12 @@ msgid "Document Layout Colors Configuration"
 msgstr ""
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
-msgid "Draft Invoice"
-msgstr ""
-
-#. module: l10n_bg_report_theme
 #: model:ir.model.fields,field_description:l10n_bg_report_theme.field_res_company__font
 msgid "Font"
 msgstr ""
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_saleorder_document
 msgid "From:"
 msgstr ""
 
@@ -181,17 +213,17 @@ msgid "Included in layout"
 msgstr ""
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
-msgid "Invoice"
+#: model:res.groups,name:l10n_bg_report_theme.group_control_signatures_invoice
+msgid "Invoice Signatures Control"
 msgstr ""
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_saleorder_document
 msgid "Invoicing address:"
 msgstr ""
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_saleorder_document
 msgid "Invoicing and shipping address:"
 msgstr ""
 
@@ -257,8 +289,23 @@ msgid "Name"
 msgstr ""
 
 #. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
+msgid "ORIGINAL"
+msgstr ""
+
+#. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.external_layout_sections
 msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.group_control_signatures
+msgid "Parties Signatures Control"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.group_control_due_date
+msgid "Payment Due Date Control"
 msgstr ""
 
 #. module: l10n_bg_report_theme
@@ -272,8 +319,28 @@ msgid "Preview print logo"
 msgstr ""
 
 #. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.group_control_signatures_purchase_order
+msgid "Purchase Order Signatures Control"
+msgstr ""
+
+#. module: l10n_bg_report_theme
 #: model:ir.model,name:l10n_bg_report_theme.model_ir_actions_report
 msgid "Report Action"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.group_control_represent_person
+msgid "Represent Person Control"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+msgid "Represent contact"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
+msgid "Reset SCSS Colors"
 msgstr ""
 
 #. module: l10n_bg_report_theme
@@ -297,8 +364,38 @@ msgid "SUPPLIER"
 msgstr ""
 
 #. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.group_control_sale_description
+msgid "Sale Description Control"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.group_control_signatures_sale_order
+msgid "Sale Order Signatures Control"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.group_control_sale_person
+msgid "Sale Person Control"
+msgstr ""
+
+#. module: l10n_bg_report_theme
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.view_base_document_layout
 msgid "Selection theme Colors"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+msgid "Sender represent contact"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.signatures_section
+msgid "Signature and Stamp"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,name:l10n_bg_report_theme.group_control_signatures_stock_picking
+msgid "Stock Picking Signatures Control"
 msgstr ""
 
 #. module: l10n_bg_report_theme
@@ -307,14 +404,14 @@ msgid "Str.:"
 msgstr ""
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_no_partner
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_saleorder_document
 msgid "TIN"
 msgstr ""
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.document_tax_totals_template_extended
-msgid "<span>Untaxed Amount</span>"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.deal_partner
+msgid "UIC"
 msgstr ""
 
 #. module: l10n_bg_report_theme
@@ -348,11 +445,76 @@ msgid "Upload your header file 30x210mm"
 msgstr ""
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
-msgid "Vendor Bill"
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_date_format
+msgid "Users who can control date formats (with or without time)"
 msgstr ""
 
 #. module: l10n_bg_report_theme
-#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.report_invoice_document
-msgid "Vendor Credit Note"
+#: model:res.groups,comment:l10n_bg_report_theme.l10n_bg_deal_date
+msgid "Users who can view and control deal dates in documents"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_delivery_date
+msgid "Users who can view and control delivery dates in invoices"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_due_date
+msgid "Users who can view and control payment due dates in invoices"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_represent_person
+msgid ""
+"Users who can view and control represent person information in documents"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_sale_description
+msgid ""
+"Users who can view and control sale order line descriptions in stock reports"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_sale_person
+msgid "Users who can view and control sale person information in sales"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_signatures
+msgid ""
+"Users who can view the signatures section for deal parties in documents"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_signatures_invoice
+msgid "Users who can view the signatures section in invoices"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_signatures_purchase_order
+msgid "Users who can view the signatures section in purchase orders"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_signatures_sale_order
+msgid "Users who can view the signatures section in sale orders"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_signatures_stock_picking
+msgid "Users who can view the signatures section in stock pickings"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model:res.groups,comment:l10n_bg_report_theme.group_control_address_swap
+msgid ""
+"When enabled, swaps address and information block positions in reports "
+"(address moves to left, information block to right)"
+msgstr ""
+
+#. module: l10n_bg_report_theme
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_theme.signatures_section
+msgid "____________________"
 msgstr ""

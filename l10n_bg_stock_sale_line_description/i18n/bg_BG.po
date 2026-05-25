@@ -1,0 +1,42 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_stock_sale_line_description
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-18 20:28+0000\n"
+"PO-Revision-Date: 2026-05-18 20:28+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_stock_sale_line_description
+#: model:ir.model.fields,field_description:l10n_bg_stock_sale_line_description.field_stock_move__sale_line_description
+msgid "Description"
+msgstr "Описание"
+
+#. module: l10n_bg_stock_sale_line_description
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_sale_line_description.view_picking_form_sale_line_description
+msgid "Sale Description"
+msgstr "Описание за продажба"
+
+#. module: l10n_bg_stock_sale_line_description
+#: model:res.groups,name:l10n_bg_stock_sale_line_description.group_control_sale_description
+msgid "Sale Description Control"
+msgstr ""
+
+#. module: l10n_bg_stock_sale_line_description
+#: model:ir.model,name:l10n_bg_stock_sale_line_description.model_stock_move
+msgid "Stock Move"
+msgstr "Движение на склад"
+
+#. module: l10n_bg_stock_sale_line_description
+#: model:res.groups,comment:l10n_bg_stock_sale_line_description.group_control_sale_description
+msgid ""
+"Users who can view and control sale order line descriptions in stock reports"
+msgstr ""

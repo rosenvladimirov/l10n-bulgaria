@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-25 05:56+0000\n"
-"PO-Revision-Date: 2026-02-25 05:56+0000\n"
+"POT-Creation-Date: 2026-05-19 07:04+0000\n"
+"PO-Revision-Date: 2026-05-19 07:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -50,6 +50,1620 @@ msgid "(TRI) Art. 117 of the VAT Act in connection with Art. 15"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_01000
+msgid "01000 — Записан, но невнесен капитал"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02110
+msgid "02110 — Продукти от развойна дейност"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02120
+msgid ""
+"02120 — Концесии, патенти, лицензии, търговски марки, програмни продукти и "
+"други подобни права и активи"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02130
+msgid "02130 — Търговска репутация"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02140
+msgid ""
+"02140 — Предоставени аванси и нематериални активи в процес на изграждане"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02141
+msgid "02141 — Предоставени аванси (НМА)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02150
+msgid "02150 — Активи с право на ползване по оперативен лизинг (МСС)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02210
+msgid "02210 — Земи и сгради"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02211
+msgid "02211 — Земи"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02212
+msgid "02212 — Сгради"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02220
+msgid "02220 — Машини, производствено оборудване и апаратура"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02230
+msgid "02230 — Съоръжения и други"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02240
+msgid "02240 — Предоставени аванси и ДМА в процес на изграждане"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02241
+msgid "02241 — Предоставени аванси (ДМА)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02250
+msgid "02250 — Активи с право на ползване по оперативен лизинг (ДМА, МСС)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02310
+msgid "02310 — Акции и дялове в предприятия от група"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02311
+msgid ""
+"02311 — Акции/дялове в нефинансови предприятия от група (вкл. централни "
+"управления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02320
+msgid "02320 — Предоставени заеми на предприятия от група"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02330
+msgid "02330 — Акции и дялове в асоциирани и смесени предприятия"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02331
+msgid ""
+"02331 — Акции/дялове в нефинансови асоциирани и смесени (вкл. централни "
+"управления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02340
+msgid ""
+"02340 — Предоставени заеми, свързани с асоциирани и смесени предприятия"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02350
+msgid "02350 — Дългосрочни инвестиции"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02351
+msgid "02351 — Дългови ценни книжа (облигации)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02352
+msgid "02352 — Капиталови ценни книжа (акции и дялове)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02353
+msgid "02353 — Инвестиционни имоти"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02354
+msgid "02354 — Инвестиционни имоти с право на ползване (МСС)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02360
+msgid "02360 — Други заеми"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02370
+msgid "02370 — Изкупени собствени акции"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_02400
+msgid "02400 — Отсрочени данъци (активи)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03110
+msgid "03110 — Суровини и материали"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03120
+msgid "03120 — Незавършено производство"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03121
+msgid "03121 — Млади животни и животни за угояване и разплод"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03130
+msgid "03130 — Продукция и стоки"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03131
+msgid "03131 — Продукция"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03132
+msgid "03132 — Стоки"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03140
+msgid "03140 — Предоставени аванси (материални запаси)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03210
+msgid "03210 — Вземания от клиенти и доставчици"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03211
+msgid "03211 — Вземания от клиенти и доставчици (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03220
+msgid "03220 — Вземания от предприятия от група"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03221
+msgid "03221 — Вземания от предприятия от група (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03230
+msgid "03230 — Вземания, свързани с асоциирани и смесени предприятия"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03231
+msgid "03231 — Вземания, свързани с асоциирани и смесени (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03240
+msgid "03240 — Други вземания"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03241
+msgid "03241 — Други вземания (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03310
+msgid "03310 — Акции и дялове в предприятия от група (текущи)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03320
+msgid "03320 — Изкупени собствени акции (текущи)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03330
+msgid "03330 — Други инвестиции"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03331
+msgid "03331 — Дългови ценни книжа (текущи)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03332
+msgid "03332 — Капиталови ценни книжа (текущи)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03410
+msgid "03410 — Касови наличности и сметки в страната"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03411
+msgid "03411 — Касови наличности в лева (страна)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03412
+msgid "03412 — Касови наличности във валута (левова равностойност, страна)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03413
+msgid "03413 — Разплащателни сметки (страна)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03414
+msgid "03414 — Блокирани парични средства (страна)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03415
+msgid "03415 — Парични еквиваленти (страна)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03420
+msgid "03420 — Касови наличности и сметки в чужбина"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03421
+msgid "03421 — Касови наличности в лева (чужбина)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03422
+msgid "03422 — Касови наличности във валута (чужбина)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03423
+msgid "03423 — Разплащателни сметки във валута (чужбина)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_03424
+msgid "03424 — Блокирани парични средства във валута (чужбина)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_04000
+msgid "04000 — Разходи за бъдещи периоди"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05100
+msgid "05100 — Записан капитал"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05110
+msgid "05110 — Акционерен капитал"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05111
+msgid "05111 — Котирани акции на финансовите пазари"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05112
+msgid "05112 — Некотирани акции на финансовите пазари"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05120
+msgid "05120 — Други видове записан капитал"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05121
+msgid "05121 — Допълнителен капитал (апортни вноски)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05200
+msgid "05200 — Премии от емисии"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05300
+msgid "05300 — Резерв от последващи оценки"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05310
+msgid "05310 — Резерв от последващи оценки на финансови инструменти"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05410
+msgid "05410 — Законови резерви"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05420
+msgid "05420 — Резерв, свързан с изкупени собствени акции"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05430
+msgid "05430 — Резерв съгласно учредителен акт"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05440
+msgid "05440 — Други резерви"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05441
+msgid "05441 — Допълнителни резерви"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05510
+msgid "05510 — Неразпределена печалба"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05520
+msgid "05520 — Непокрита загуба"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05600
+msgid "05600 — Текуща печалба (загуба)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_05601
+msgid "05601 — Авансово разпределена текуща печалба"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_06100
+msgid "06100 — Провизии за пенсии и други подобни задължения"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_06200
+msgid "06200 — Провизии за данъци"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_06210
+msgid "06210 — Отсрочени данъци (пасиви)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_06300
+msgid "06300 — Други провизии и сходни задължения"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07100
+msgid "07100 — Облигационни заеми"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07101
+msgid "07101 — Облигационни заеми (до 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07102
+msgid "07102 — Облигационни заеми (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07110
+msgid "07110 — Конвертируеми облигационни заеми"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07111
+msgid "07111 — Конвертируеми облигационни заеми (до 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07112
+msgid "07112 — Конвертируеми облигационни заеми (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07200
+msgid "07200 — Задължения към финансови предприятия"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07201
+msgid "07201 — Задължения към финансови предприятия (до 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07202
+msgid "07202 — Задължения към финансови предприятия (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07300
+msgid "07300 — Получени аванси"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07301
+msgid "07301 — Получени аванси (до 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07302
+msgid "07302 — Получени аванси (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07400
+msgid "07400 — Задължения към доставчици"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07401
+msgid "07401 — Задължения към доставчици (до 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07402
+msgid "07402 — Задължения към доставчици (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07500
+msgid "07500 — Задължения по полици"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07501
+msgid "07501 — Задължения по полици (до 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07502
+msgid "07502 — Задължения по полици (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07600
+msgid "07600 — Задължения към предприятия от група"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07601
+msgid "07601 — Задължения към предприятия от група (до 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07602
+msgid "07602 — Задължения към предприятия от група (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07700
+msgid "07700 — Задължения, свързани с асоциирани и смесени предприятия"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07701
+msgid "07701 — Задължения към асоциирани и смесени (до 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07702
+msgid "07702 — Задължения към асоциирани и смесени (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07800
+msgid "07800 — Други задължения"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07801
+msgid "07801 — Други задължения (до 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07802
+msgid "07802 — Други задължения (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07810
+msgid "07810 — Задължения към персонала"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07811
+msgid "07811 — Задължения към персонала (до 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07812
+msgid "07812 — Задължения към персонала (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07820
+msgid "07820 — Осигурителни задължения"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07821
+msgid "07821 — Осигурителни задължения (до 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07822
+msgid "07822 — Осигурителни задължения (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07830
+msgid "07830 — Данъчни задължения"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07831
+msgid "07831 — Данъчни задължения (до 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07832
+msgid "07832 — Данъчни задължения (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07900
+msgid "07900 — Задължения по договори за оперативен лизинг"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07901
+msgid "07901 — Задължения по оперативен лизинг (до 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_07902
+msgid "07902 — Задължения по оперативен лизинг (над 1 година)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_08000
+msgid "08000 — Финансирания и приходи за бъдещи периоди"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_08001
+msgid "08001 — Финансирания"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_bal_08002
+msgid "08002 — Приходи за бъдещи периоди"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10100
+msgid "10100 — Намаление на запасите от продукция и незавършено производство"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10200
+msgid "10200 — Разходи за суровини, материали и външни услуги"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10210
+msgid "10210 — Суровини и материали"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10220
+msgid "10220 — Външни услуги"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10300
+msgid "10300 — Разходи за персонала"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10310
+msgid "10310 — Разходи за възнаграждения"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10311
+msgid "10311 — Компенсируеми отпуски"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10320
+msgid "10320 — Разходи за осигуровки (към осигурителни фондове)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10321
+msgid "10321 — Осигуровки, свързани с пенсии"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10400
+msgid "10400 — Разходи за амортизация и обезценка"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10410
+msgid "10410 — Разходи за амортизация и обезценка на ДМА и НМА"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10411
+msgid "10411 — Разходи за амортизация"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10412
+msgid "10412 — Разходи от обезценка"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10413
+msgid ""
+"10413 — Амортизация на активи с право на ползване по оперативен лизинг (МСС)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10420
+msgid "10420 — Разходи от обезценка на текущи (краткотрайни) активи"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10500
+msgid "10500 — Други разходи"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10510
+msgid "10510 — Балансова стойност на продадените активи"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_10520
+msgid "10520 — Провизии"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_11100
+msgid ""
+"11100 — Разходи от обезценка на финансови активи (вкл. текущи инвестиции)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_11110
+msgid "11110 — Отрицателни разлики от промяна на валутни курсове"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_11200
+msgid "11200 — Разходи за лихви и други финансови разходи"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_11201
+msgid "11201 — Разходи за лихви по оперативен лизинг (МСС)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_11210
+msgid "11210 — Разходи, свързани с предприятия от група"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_11220
+msgid "11220 — Отрицателни разлики от операции с финансови активи"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_14200
+msgid "14200 — Разходи за данъци от печалбата"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_14300
+msgid "14300 — Други данъци, алтернативни на корпоративния данък"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_15100
+msgid "15100 — Нетни приходи от продажби"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_15110
+msgid "15110 — Продукция"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_15120
+msgid "15120 — Стоки"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_15130
+msgid "15130 — Услуги"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_15131
+msgid "15131 — Приходи от търговско-посредническа дейност"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_15132
+msgid "15132 — Приходи от наеми"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_15133
+msgid "15133 — Приходи от промишлени услуги (вкл. на ишлеме)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_15200
+msgid "15200 — Увеличение на запасите от продукция и незавършено производство"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_15300
+msgid "15300 — Разходи за придобиване на активи по стопански начин"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_15310
+msgid "15310 — Със строителен характер"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_15400
+msgid "15400 — Други приходи"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_15410
+msgid "15410 — Приходи от финансирания"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_15411
+msgid "15411 — Финансирания от правителството"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_15420
+msgid "15420 — Приходи от продажби на суровини и материали"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_15430
+msgid "15430 — Приходи от продажби на дълготрайни активи"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_15500
+msgid "15500 — Брутни приходи от продажби (вкл. акцизи, без ДДС)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_15510
+msgid "15510 — Приходи от продажби на населението"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_15550
+msgid ""
+"15550 — Приходи от онлайн търговия с продукция/стоки/суровини/материали"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_15600
+msgid "15600 — Приходи от извършени работи по договор като подизпълнител"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_15700
+msgid "15700 — Левова равностойност на валутни приходи от износ"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_15710
+msgid "15710 — Приходи от услуги на чуждестранни клиенти"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_15711
+msgid "15711 — От страни членки на ЕС"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_15800
+msgid "15800 — Приходи от услуги по производство на ишлеме"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_15810
+msgid "15810 — На чуждестранни клиенти (ишлеме)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_15900
+msgid "15900 — Приходи от страничен продукти (околна среда)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_15950
+msgid "15950 — Приходи от финансирания (правителство) — околна среда"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_16100
+msgid "16100 — Приходи от участия в дъщерни, асоциирани и смесени предприятия"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_16110
+msgid "16110 — Приходи от участия в предприятия от група"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_16200
+msgid "16200 — Приходи от други инвестиции и заеми (нетекущи)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_16210
+msgid "16210 — Приходи от предприятия от група (нетекущи инвестиции/заеми)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_16300
+msgid "16300 — Други лихви и финансови приходи"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_16310
+msgid "16310 — Приходи от предприятия от група (лихви)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_16320
+msgid "16320 — Положителни разлики от операции с финансови активи"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_pl_16330
+msgid "16330 — Положителни разлики от промяна на валутни курсове"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_21000
+msgid "21000 — Разходи за суровини и материали (общо)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_21110
+msgid "21110 — Енергийни продукти"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_21111
+msgid "21111 — Енергийни продукти за транспортни средства"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_21120
+msgid "21120 — Вода"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_21135
+msgid "21135 — Суровини и материали за производствено потребление"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_21140
+msgid "21140 — Други суровини и материали"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31000
+msgid "31000 — Разходи за външни услуги (общо)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31001
+msgid "31001 — Наем на дълготрайни материални активи (МСС)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31002
+msgid "31002 — Наем на дълготрайни нематериални активи (МСС)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31003
+msgid "31003 — Наем на инвестиционни имоти (сублизинг, МСС)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31101
+msgid "31101 — Разходи за услуги от чуждестранни лица"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31110
+msgid "31110 — Застраховки"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31111
+msgid "31111 — Социални застраховки"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31120
+msgid "31120 — Граждански договори и хонорари"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31121
+msgid "31121 — Граждански договори (само наети без друг работодател)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31130
+msgid "31130 — Наеми"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31131
+msgid "31131 — Наем на ДМА"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31132
+msgid "31132 — Разходи за електроенергия (наеми)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31140
+msgid "31140 — Суми по договор с подизпълнител"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31141
+msgid "31141 — Със строителни фирми (подизпълнители)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31150
+msgid "31150 — Плащания на агенции за набиране на персонал"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31160
+msgid "31160 — Пощенски, куриерски и далекосъобщителни услуги"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31170
+msgid "31170 — Нает транспорт"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31180
+msgid "31180 — Текущ ремонт на собствени активи"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31181
+msgid "31181 — Текущ ремонт на сгради"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31182
+msgid "31182 — Текущ ремонт на машини и оборудване"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31190
+msgid "31190 — Консултантски дейности"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31191
+msgid "31191 — Юридически консултации"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31192
+msgid "31192 — Счетоводни и одиторски консултации"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31200
+msgid "31200 — Рекламни дейности"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31210
+msgid "31210 — Други външни услуги"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31211
+msgid "31211 — За доставяне на вода"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31212
+msgid "31212 — За отвеждане и пречистване на отпадъчни води"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31213
+msgid "31213 — За събиране и третиране на отпадъци"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31214
+msgid "31214 — За потребление на електроенергия"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_31260
+msgid "31260 — Разходи за ремонт на наети активи"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_41000
+msgid "41000 — Други разходи (общо)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_41100
+msgid "41100 — Балансова стойност на продадените активи"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_41110
+msgid "41110 — Стоки"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_41120
+msgid "41120 — Суровини и материали"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_41130
+msgid "41130 — Млади животни и животни за угояване"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_41140
+msgid "41140 — Дълготрайни материални и нематериални активи"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_41200
+msgid "41200 — Разходи за командировки"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_41300
+msgid "41300 — Други"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_41310
+msgid "41310 — Данък сгради/превозни средства/социални/представителни"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51100
+msgid "51100 — Получени приходи от дивиденти (общо)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51120
+msgid "51120 — Получени дивиденти — резидентен сектор"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51121
+msgid "51121 — От нефинансови предприятия (резидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51122
+msgid "51122 — От финансови предприятия (резидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51123
+msgid "51123 — От държавно управление (резидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51124
+msgid "51124 — От домакинства (резидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51125
+msgid "51125 — От НТООД (резидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51130
+msgid "51130 — Получени дивиденти — нерезидентен сектор"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51131
+msgid "51131 — От нефинансови предприятия (нерезидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51132
+msgid "51132 — От финансови предприятия (нерезидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51133
+msgid "51133 — От държавно управление (нерезидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51134
+msgid "51134 — От домакинства (нерезидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51135
+msgid "51135 — От НТООД (нерезидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51200
+msgid "51200 — Платени дивиденти (общо)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51220
+msgid "51220 — Платени дивиденти — резидентен сектор"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51221
+msgid "51221 — На нефинансови предприятия (резидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51222
+msgid "51222 — На финансови предприятия (резидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51223
+msgid "51223 — На държавно управление (резидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51224
+msgid "51224 — На домакинства (резидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51225
+msgid "51225 — На НТООД (резидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51230
+msgid "51230 — Платени дивиденти — нерезидентен сектор"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51231
+msgid "51231 — На нефинансови предприятия (нерезидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51232
+msgid "51232 — На финансови предприятия (нерезидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51233
+msgid "51233 — На държавно управление (нерезидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51234
+msgid "51234 — На домакинства (нерезидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_51235
+msgid "51235 — На НТООД (нерезидент)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61531_out
+msgid "61531 — Търговски контрагенти (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61531_in
+msgid "61531 — Търговски контрагенти (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61532_out
+msgid "61532 — Краткосрочни финансови активи (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61532_in
+msgid ""
+"61532 — Краткосрочни финансови активи, държани за търговски цели "
+"(постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61533_out
+msgid "61533 — Трудови възнаграждения (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61533_in
+msgid "61533 — Трудови възнаграждения (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61534_out
+msgid "61534 — Лихви, комисионни, дивиденти (плащания, осн. дейност)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61534_in
+msgid "61534 — Лихви, комисионни, дивиденти (постъпления, осн. дейност)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61535_out
+msgid "61535 — Валутни курсови разлики (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61535_in
+msgid "61535 — Положителни/отрицателни валутни курсови разлики (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61536_out
+msgid "61536 — Разпределение на печалби (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61536_in
+msgid "61536 — Разпределение на печалби (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61537_in
+msgid "61537 — Възстановени данъци върху печалбата (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61537_out
+msgid "61537 — Платени данъци върху печалбата (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61538_out
+msgid "61538 — Други ПП от основна дейност (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61538_in
+msgid "61538 — Други ПП от основна дейност (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61541_out
+msgid "61541 — Дълготрайни активи (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61541_in
+msgid "61541 — Дълготрайни активи (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61542_out
+msgid "61542 — Краткосрочни финансови активи, инв. дейност (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61542_in
+msgid "61542 — Краткосрочни финансови активи, инв. дейност (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61543_out
+msgid "61543 — Лихви/комисионни/дивиденти, инв. (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61543_in
+msgid "61543 — Лихви/комисионни/дивиденти, инв. (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61544_out
+msgid "61544 — Бизнескомбинации — придобивания (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61544_in
+msgid "61544 — Бизнескомбинации — придобивания (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61545_out
+msgid "61545 — Валутни курсови разлики, инв. (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61545_in
+msgid "61545 — Валутни курсови разлики, инв. (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61546_out
+msgid "61546 — Други ПП от инвестиционна дейност (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61546_in
+msgid "61546 — Други ПП от инвестиционна дейност (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61551_out
+msgid "61551 — Емитиране/обратно изкупуване (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61551_in
+msgid "61551 — Емитиране/обратно изкупуване на ценни книжа (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61552_out
+msgid "61552 — Връщане на вноски на собствениците (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61552_in
+msgid "61552 — Допълнителни вноски от собственици (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61553_in
+msgid "61553 — Получени заеми (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61553_out
+msgid "61553 — Предоставени заеми / погасяване (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61554_out
+msgid "61554 — Лихви/комисионни/дивиденти, фин. (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61554_in
+msgid "61554 — Лихви/комисионни/дивиденти, фин. (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61555_out
+msgid "61555 — Лизингови договори (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61555_in
+msgid "61555 — Лизингови договори (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61556_out
+msgid "61556 — Валутни курсови разлики, фин. (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61556_in
+msgid "61556 — Валутни курсови разлики, фин. (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61557_out
+msgid "61557 — Други ПП от финансова дейност (плащания)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_cf_61557_in
+msgid "61557 — Други ПП от финансова дейност (постъпления)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_equity_61620
+msgid "61620 — Промени в счетоводната политика"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_equity_61630
+msgid "61630 — Грешки (коригиране)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_equity_61651
+msgid "61651 — Изменение за сметка на собствениците — Увеличение"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_equity_61652
+msgid "61652 — Изменение за сметка на собствениците — Намаление"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_equity_61660
+msgid "61660 — Финансов резултат за текущия период"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_equity_61670
+msgid "61670 — Разпределение на печалбата"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_equity_61671
+msgid "61671 — Разпределение за дивиденти"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_equity_61680
+msgid "61680 — Покриване на загуба"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_equity_61691
+msgid "61691 — Последващи оценки на активи и пасиви — Увеличение"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_equity_61692
+msgid "61692 — Последващи оценки на активи и пасиви — Намаление"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:account.account.tag,name:l10n_bg_reports_audit.bg_god_equity_61710
+msgid "61710 — Други изменения в собствения капитал"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+msgid "<small>(име, презиме, фамилия)</small>"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+msgid "<strong>Дата:</strong>"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.god_pdf
+msgid ""
+"<strong>Дата:</strong>\n"
+"                        <span style=\"border-bottom: 1px solid #000; display: inline-block; width: 150px;\"/>"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_cf_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_equity_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_pl_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.god_pdf
+msgid "<strong>ЕИК по БУЛСТАТ:</strong>"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_cf_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_equity_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_pl_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.god_pdf
+msgid "<strong>Отчетна единица:</strong>"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+msgid "<strong>Подпис:</strong>"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_cf_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_equity_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_pl_pdf
+msgid "<strong>Ръководител:</strong>"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_cf_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_equity_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_pl_pdf
+msgid "<strong>Съставител:</strong>"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.constraint,message:l10n_bg_reports_audit.constraint_l10n_bg_vat_ratio_history_unique_year_month_company
 msgid "A VAT ratio for this period already exists for this company!"
 msgstr ""
@@ -67,12 +1681,28 @@ msgstr ""
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_partner_line__account_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_product_line__account_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__account_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__account_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__account_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__account_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__account_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_annual_line_mixin__account_id
 msgid "Account"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_res_config_settings__module_account_usability
 msgid "Account - Missing Menus"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__account_code
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__account_code
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__account_code
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__account_code
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__account_code
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_annual_line_mixin__account_code
+msgid "Account Code"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -92,6 +1722,16 @@ msgid "Account Move"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__account_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__account_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__account_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__account_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__account_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_annual_line_mixin__account_name
+msgid "Account Name"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model,name:l10n_bg_reports_audit.model_account_account_tag
 msgid "Account Tag"
 msgstr ""
@@ -99,6 +1739,12 @@ msgstr ""
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_partner_line__account_type
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_product_line__account_type
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__account_type
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__account_type
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__account_type
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__account_type
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__account_type
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_annual_line_mixin__account_type
 msgid "Account Type"
 msgstr ""
 
@@ -174,6 +1820,11 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_auto_map_god_tags_wizard__applicability_filter__all
+msgid "All annual report tags"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields,help:l10n_bg_reports_audit.field_l10n_bg_vat_ratio_history__denominator_box_42
 msgid ""
 "Amount of received subsidies not included in tax base (Art. 73, Para. 4, "
@@ -212,6 +1863,11 @@ msgid "Applicability"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_auto_map_god_tags_wizard__applicability_filter
+msgid "Apply to"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_intrastat_threshold__month__4
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_vat_ratio_history__month__4
 msgid "April"
@@ -241,6 +1897,11 @@ msgid "Art. 119 - Report for sales"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_position__asset
+msgid "Asset (debit-normal)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__message_attachment_count
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_vat_ratio_history__message_attachment_count
 msgid "Attachment Count"
@@ -255,6 +1916,52 @@ msgstr ""
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_intrastat_threshold__month__8
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_vat_ratio_history__month__8
 msgid "August"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_l10n_bg_auto_map_god_tags_wizard
+msgid "Auto-map NSI annual report tags to accounts (standard BG chart)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_l10n_bg_annual_line_mixin
+msgid "BG Annual Report Line — Common SQL Builder"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_gfo_balance_line
+msgid "BG GFO Balance Sheet — Per (Tag, Account)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_gfo_cf_line
+msgid "BG GFO Cash Flow — Per (Tag, Account)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_gfo_equity_line
+msgid "BG GFO Changes in Equity — Per (Tag, Account)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_gfo_pl_line
+msgid "BG GFO Profit & Loss — Per (Tag, Account)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_account_bg_god_line
+msgid "BG NSI Annual Activity Report — Per (Tag, Account)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_move_line__account_tag_ids
+msgid "BG Report Tags"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/wizards/recompute_aml_report_tags_wizard.py:0
+msgid "BG Report Tags Recomputed"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -276,6 +1983,26 @@ msgstr ""
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__applicability__l10n_bg_product
 msgid "BG-NSI Usage for Products"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__balance_sum
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__balance_sum
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__balance_sum
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__balance_sum
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__balance_sum
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_annual_line_mixin__balance_sum
+msgid "Balance"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_extract_basis__balance
+msgid "Balance (cumulative)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_auto_map_god_tags_wizard__applicability_filter__gfo_balance
+msgid "Balance Sheet only"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -351,6 +2078,11 @@ msgid "Bulgarian Intrastat Threshold History"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_l10n_bg_audit_extractor
+msgid "Bulgarian Reports Tag-Based Extractor"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model,name:l10n_bg_reports_audit.model_l10n_bg_vat_ratio_history
 msgid "Bulgarian VAT Ratio History (Art. 73, Para. 5)"
 msgstr ""
@@ -364,6 +2096,26 @@ msgstr ""
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_sale_line__state__cancel
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_vies_total_declar__state__cancel
 msgid "Cancelled"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_auto_map_god_tags_wizard__applicability_filter__gfo_cf
+msgid "Cash Flow only"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_position__inflow
+msgid "Cash inflow (credit on cash account)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_position__outflow
+msgid "Cash outflow (debit on cash account)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_auto_map_god_tags_wizard__applicability_filter__gfo_equity
+msgid "Changes in Equity only"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -392,6 +2144,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__company_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__company_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__company_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__company_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__company_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__company_id
@@ -401,7 +2158,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__company_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__company_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_total_declar__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_annual_line_mixin__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_auto_map_god_tags_wizard__company_ids
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_gfo_print_wizard__company_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__company_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_recompute_aml_report_tags_wizard__company_ids
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_vat_ratio_history__company_id
 msgid "Company"
 msgstr ""
@@ -496,15 +2257,31 @@ msgid "Counter sales"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_auto_map_god_tags_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_gfo_print_wizard__create_uid
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_recompute_aml_report_tags_wizard__create_uid
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_vat_ratio_history__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_auto_map_god_tags_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_gfo_print_wizard__create_date
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__create_date
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_recompute_aml_report_tags_wizard__create_date
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_vat_ratio_history__create_date
 msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__credit_sum
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__credit_sum
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__credit_sum
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__credit_sum
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__credit_sum
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_annual_line_mixin__credit_sum
+msgid "Credit"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -546,6 +2323,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__company_currency_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__company_currency_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__company_currency_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__company_currency_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__company_currency_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__company_currency_id
@@ -554,6 +2336,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__company_currency_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__company_currency_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_total_declar__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_annual_line_mixin__company_currency_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__currency_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_vat_ratio_history__currency_id
 msgid "Currency"
@@ -607,6 +2390,18 @@ msgid "Date"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_gfo_print_wizard__date_from
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_recompute_aml_report_tags_wizard__date_from
+msgid "Date From"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_gfo_print_wizard__date_to
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_recompute_aml_report_tags_wizard__date_to
+msgid "Date To"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields,help:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__date_from
 msgid "Date from which this threshold is valid"
 msgstr ""
@@ -615,6 +2410,16 @@ msgstr ""
 #: model:ir.model.fields,help:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__date_to
 msgid ""
 "Date until which this threshold is valid (leave empty for current threshold)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__debit_sum
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__debit_sum
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__debit_sum
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__debit_sum
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__debit_sum
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_annual_line_mixin__debit_sum
+msgid "Debit"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -695,6 +2500,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__display_name
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__display_name
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__display_name
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__display_name
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__display_name
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__display_name
@@ -704,7 +2514,10 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__display_name
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__display_name
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_total_declar__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_auto_map_god_tags_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_gfo_print_wizard__display_name
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__display_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_recompute_aml_report_tags_wizard__display_name
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_vat_ratio_history__display_name
 msgid "Display Name"
 msgstr ""
@@ -734,9 +2547,24 @@ msgid "Enable audit tax handling force customs type calculation reports."
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_position__decrease
+msgid "Equity decrease"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_position__increase
+msgid "Equity increase"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bank_statement_line__l10n_bg_exemption_reason
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_move__l10n_bg_exemption_reason
 msgid "Exemption reason (BG)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_position__expense
+msgid "Expense (debit - credit)"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -752,6 +2580,17 @@ msgstr ""
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,help:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__threshold_dispatches_extended
 msgid "Extended threshold for intra-Community supplies (in BGN)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_account_tag__l10n_bg_extract_basis
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__l10n_bg_extract_basis
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__l10n_bg_extract_basis
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__l10n_bg_extract_basis
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__l10n_bg_extract_basis
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__l10n_bg_extract_basis
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_annual_line_mixin__l10n_bg_extract_basis
+msgid "Extraction Basis"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -789,6 +2628,37 @@ msgid "From"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_report_l10n_bg_reports_audit_gfo_balance_pdf
+msgid "GFO Balance Sheet — Report Values"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_report_l10n_bg_reports_audit_gfo_cf_pdf
+msgid "GFO Cash Flow — Report Values"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_report_l10n_bg_reports_audit_gfo_equity_pdf
+msgid "GFO Changes in Equity — Report Values"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_report_l10n_bg_reports_audit_gfo_pl_pdf
+msgid "GFO P&L — Report Values"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_report_l10n_bg_reports_audit_gfo_report_base
+msgid "GFO/GOD Report Values Base"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/wizards/auto_map_god_tags_wizard.py:0
+msgid "GOD tag mapping applied"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__has_message
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_vat_ratio_history__has_message
 msgid "Has Message"
@@ -800,6 +2670,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_purchases_line__id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_sales_line__id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_purchases_line__id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_info_sale_line__id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_total_purchases_line__id
@@ -809,7 +2684,10 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_result_declar__id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_info_declar__id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vies_total_declar__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_auto_map_god_tags_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_gfo_print_wizard__id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_recompute_aml_report_tags_wizard__id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_vat_ratio_history__id
 msgid "ID"
 msgstr ""
@@ -841,6 +2719,13 @@ msgid "If checked, some messages have a delivery error."
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_l10n_bg_auto_map_god_tags_wizard__overwrite
+msgid ""
+"If unchecked (default), tags are ADDED to accounts already carrying the tag "
+"list. If checked, replaces tag_ids on matched accounts."
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_type_vat__in_customs
 msgid "Import Customs declaration"
 msgstr ""
@@ -863,6 +2748,7 @@ msgstr ""
 
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_account_tag__is_l10n_bg_record
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_product_template__is_l10n_bg_record
 msgid "Is Bulgaria Record"
 msgstr ""
 
@@ -906,13 +2792,19 @@ msgid "June"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_auto_map_god_tags_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_gfo_print_wizard__write_uid
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_recompute_aml_report_tags_wizard__write_uid
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_vat_ratio_history__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_auto_map_god_tags_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_gfo_print_wizard__write_date
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__write_date
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_recompute_aml_report_tags_wizard__write_date
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_vat_ratio_history__write_date
 msgid "Last Updated on"
 msgstr ""
@@ -931,6 +2823,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_res_company__l10n_bg_intra_stat_type
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_res_config_settings__l10n_bg_intra_stat_type
 msgid "Level of registration"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_position__liability_equity
+msgid "Liability / Equity (credit-normal)"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -964,6 +2861,25 @@ msgstr ""
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__54
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_exemption_reason__54
 msgid "Marriage/absence/destruction of goods under Art. 15a, para. 10 of VAT"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_auto_map_god_tags_wizard__matched_account_count
+msgid "Matched Account Count"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_auto_map_god_tags_wizard__matched_tag_count
+msgid "Matched Tag Count"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_move_line__account_tag_ids
+msgid ""
+"Materialized at posting time:\n"
+"  base = account.tag_ids (standard Odoo)\n"
+"  + product.account_tag_ids (extends, statistical)\n"
+"  override partner.l10n_bg_tax_tag_(receivable|payable)_ids on receivable/payable accounts (institutional sector replaces default gfo_balance/god classification of the partner-account)."
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -1011,6 +2927,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_product_product__l10n_bg_account_tag_ids
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_product_template__l10n_bg_account_tag_ids
 msgid "NSI Account Tags"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_auto_map_god_tags_wizard__applicability_filter__god
+msgid "NSI Activity Report only"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_report_l10n_bg_reports_audit_god_pdf
+msgid "NSI Annual Activity Report — Report Values"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -1070,6 +2996,12 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/wizards/auto_map_god_tags_wizard.py:0
+msgid "No matches."
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__notes
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_vat_ratio_history__notes
 msgid "Notes"
@@ -1123,6 +3055,11 @@ msgid "Odoo compatible"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_auto_map_god_tags_wizard__overwrite
+msgid "Overwrite existing"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_vies_line__partner_id
 msgid "Partner"
 msgstr ""
@@ -1153,6 +3090,12 @@ msgstr ""
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_partner_line__period
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_product_line__period
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__period
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__period
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__period
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__period
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__period
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_annual_line_mixin__period
 msgid "Period"
 msgstr ""
 
@@ -1179,9 +3122,40 @@ msgid "Posted"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_recompute_aml_report_tags_wizard__posted_only
+msgid "Posted Only"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_auto_map_god_tags_wizard__preview_text
+msgid "Preview Text"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_l10n_bg_gfo_print_wizard
+msgid "Print GFO / GOD NSI Annex 1 forms"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/wizards/recompute_aml_report_tags_wizard.py:0
+msgid "Processed %s move line(s)."
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_recompute_aml_report_tags_wizard__processed_count
+msgid "Processed Count"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model,name:l10n_bg_reports_audit.model_product_template
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_calc_product_line__product_id
 msgid "Product"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_auto_map_god_tags_wizard__applicability_filter__gfo_pl
+msgid "Profit & Loss only"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -1243,6 +3217,11 @@ msgid "Receivable"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_l10n_bg_gfo_print_wizard__show_previous_year
+msgid "Render a second column with the previous year for comparison."
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_45__53
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_move__l10n_bg_exemption_reason__53
 msgid ""
@@ -1256,9 +3235,45 @@ msgid "Report Action"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_account_tag__l10n_bg_position
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__l10n_bg_position
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__l10n_bg_position
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__l10n_bg_position
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__l10n_bg_position
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__l10n_bg_position
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_annual_line_mixin__l10n_bg_position
+msgid "Report Position"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__tag_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__tag_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__tag_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__tag_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__tag_id
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_annual_line_mixin__tag_id
+msgid "Report Tag"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_gfo_print_wizard__report_type
+msgid "Report Type"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__activity_user_id
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_vat_ratio_history__activity_user_id
 msgid "Responsible User"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model,name:l10n_bg_reports_audit.model_l10n_bg_recompute_aml_report_tags_wizard
+msgid "Retroactively recompute aml.account_tag_ids"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_position__revenue
+msgid "Revenue (credit - debit)"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -1278,6 +3293,14 @@ msgid "Sales report - tickets"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_account_tag__l10n_bg_position
+msgid ""
+"Semantic position of this tag inside the report row. Defines the signed "
+"extraction formula. UI validates against l10n_bg_applicability — not all "
+"positions are valid for every category."
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_intrastat_threshold__month__9
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_vat_ratio_history__month__9
 msgid "September"
@@ -1286,6 +3309,31 @@ msgstr ""
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,help:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__active
 msgid "Set to false to archive the threshold"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_gfo_print_wizard__show_previous_year
+msgid "Show Previous Year"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__value
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__value
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__value
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__value
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__value
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_annual_line_mixin__value
+msgid "Signed Value"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__value
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__value
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__value
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__value
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_bg_god_line__value
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_l10n_bg_annual_line_mixin__value
+msgid "Signed value computed from l10n_bg_position formula."
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -1369,6 +3417,24 @@ msgstr ""
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_vat_info_declar__info_tag_1
 msgid "TIN"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/models/account_account_tag.py:0
+msgid ""
+"Tag '%(name)s' with l10n_bg_applicability '%(cat)s' cannot have "
+"l10n_bg_position '%(pos)s'. Valid positions: %(valid)s."
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_balance_line__tag_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_cf_line__tag_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_equity_line__tag_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_gfo_pl_line__tag_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_account_bg_god_line__tag_name
+#: model:ir.model.fields,field_description:l10n_bg_reports_audit.field_l10n_bg_annual_line_mixin__tag_name
+msgid "Tag Name"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -1477,6 +3543,11 @@ msgstr ""
 #. module: l10n_bg_reports_audit
 #: model:ir.model.fields,help:l10n_bg_reports_audit.field_l10n_bg_vat_ratio_history__numerator_total
 msgid "Total numerator according to Art. 73, Para. 3"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_account_tag__l10n_bg_extract_basis__turnover
+msgid "Turnover (period only)"
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -1628,6 +3699,12 @@ msgstr ""
 #: model:ir.model.fields,help:l10n_bg_reports_audit.field_l10n_bg_intrastat_threshold__website_message_ids
 #: model:ir.model.fields,help:l10n_bg_reports_audit.field_l10n_bg_vat_ratio_history__website_message_ids
 msgid "Website communication history"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#. odoo-python
+#: code:addons/l10n_bg_reports_audit/wizards/auto_map_god_tags_wizard.py:0
+msgid "Wrote tag→account links on %s account(s)."
 msgstr ""
 
 #. module: l10n_bg_reports_audit
@@ -2310,6 +4387,221 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_reports_audit
+#: model:ir.model.fields,help:l10n_bg_reports_audit.field_account_account_tag__l10n_bg_extract_basis
+msgid ""
+"balance — SUM from beginning to date_to (Balance sheet accounts).\n"
+"turnover — SUM in period [date_from, date_to] (P&L accounts).\n"
+"\n"
+"Default cases:\n"
+"  Assets / Liabilities / Equity → balance\n"
+"  Revenue / Expense → turnover\n"
+"  Cash flow → turnover\n"
+"  Equity movements → turnover"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
 #: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__account_bg_info_purchases_line__info_tag_5__83
 msgid "sales of bread"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+msgid "АКТИВ"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_gfo_print_wizard__report_type__god
+msgid "ГОД — Доп. справки"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.actions.report,name:l10n_bg_reports_audit.action_report_god
+msgid "ГОД — Доп. справки (НСИ Прил.1)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.god_pdf
+msgid "ГОД — Доп. справки за"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_cf_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_equity_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_pl_pdf
+msgid "ГОДИНА"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.actions.report,name:l10n_bg_reports_audit.action_report_gfo_cf
+msgid "ГФО — Отчет за паричните потоци (пряк метод)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.actions.report,name:l10n_bg_reports_audit.action_report_gfo_pl
+msgid "ГФО — Отчет за приходите и разходите"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.actions.report,name:l10n_bg_reports_audit.action_report_gfo_equity
+msgid "ГФО — Отчет за собствения капитал"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.actions.report,name:l10n_bg_reports_audit.action_report_gfo_balance
+msgid "ГФО — Счетоводен баланс"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_cf_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.god_pdf
+msgid "Код"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_equity_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_pl_pdf
+msgid "Код на реда"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_cf_pdf
+msgid "Наименование на паричните потоци"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_pl_pdf
+msgid "Наименование на приходите"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_pl_pdf
+msgid "Наименование на разходите"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_cf_pdf
+msgid "Нетен поток"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_cf_pdf
+msgid "ОТЧЕТ ЗА ПАРИЧНИТЕ ПОТОЦИ ПО ПРЕКИЯ МЕТОД ЗА"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_pl_pdf
+msgid "ОТЧЕТ ЗА ПРИХОДИТЕ И РАЗХОДИТЕ ЗА"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_equity_pdf
+msgid "ОТЧЕТ ЗА СОБСТВЕНИЯ КАПИТАЛ ЗА"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_equity_pdf
+msgid "Общо собствен капитал (хил. лв.)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_gfo_print_wizard__report_type__gfo_cf
+msgid "Отчет за паричните потоци (пряк метод)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_gfo_print_wizard__report_type__gfo_pl
+msgid "Отчет за приходите и разходите"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_gfo_print_wizard__report_type__gfo_equity
+msgid "Отчет за собствения капитал"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+msgid "ПАСИВ"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_cf_pdf
+msgid "Плащания"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_equity_pdf
+msgid "Показатели"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_cf_pdf
+msgid "Постъпления"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_equity_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.god_pdf
+msgid "Предходна година"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.god_pdf
+msgid ""
+"Раздели I-V на Приложение 1 (Справка 5) — НСИ Заповед РД-05-796/27.11.2025.\n"
+"                        Стойностите са в хил. лв."
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+msgid "Раздели, групи, статии"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+msgid "СЧЕТОВОДЕН БАЛАНС КЪМ"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.god_pdf
+msgid "Стойност (хил. лв.)"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_pl_pdf
+msgid "Сума хил. лв.<br/>предходна година"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_pl_pdf
+msgid ""
+"Сума хил. лв.<br/>предходна година<br/>\n"
+"                                    ("
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_pl_pdf
+msgid "Сума хил. лв.<br/>текуща година"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_balance_pdf
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_pl_pdf
+msgid ""
+"Сума хил. лв.<br/>текуща година<br/>\n"
+"                                    ("
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model:ir.model.fields.selection,name:l10n_bg_reports_audit.selection__l10n_bg_gfo_print_wizard__report_type__gfo_balance
+msgid "Счетоводен баланс"
+msgstr ""
+
+#. module: l10n_bg_reports_audit
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_audit.gfo_cf_pdf
+msgid "Текущ период (хил. лв.)"
 msgstr ""

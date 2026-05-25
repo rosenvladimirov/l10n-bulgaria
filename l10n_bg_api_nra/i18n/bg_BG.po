@@ -1,0 +1,2218 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_api_nra
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-19 05:55+0000\n"
+"PO-Revision-Date: 2026-05-19 05:55+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration.py:0
+msgid ""
+"%(type)s declarations cannot be submitted via this NRA API endpoint. Use the"
+" NRA portal directly."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__payment_month__1
+msgid "01"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d1_line__insurance_type__01
+msgid "01 — Трудов договор по КТ"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__payment_month__2
+msgid "02"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__payment_month__3
+msgid "03"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__payment_month__4
+msgid "04"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d1_line__insurance_type__04
+msgid "04 — Управление и контрол на ТД/ЕТ"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__payment_month__5
+msgid "05"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__payment_month__6
+msgid "06"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__payment_month__7
+msgid "07"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__payment_month__8
+msgid "08"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__payment_month__9
+msgid "09"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_h18_refund__r_paym__1
+msgid "1 — Payment card"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_h18_line__paym__1
+msgid "1 — Payment service under Art. 3 PSA with bank card"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__contribution_type__1
+msgid "1 — Дължими вноски за месеца"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__payment_month__10
+msgid "10"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d1_line__insurance_type__10
+msgid "10 — Без трудово правоотношение (граждански договор)"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__payment_month__11
+msgid "11"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__payment_month__12
+msgid "12"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d1_line__insurance_type__12
+msgid "12 — Самоосигуряващо се лице"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__payment_month__13
+msgid "13"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d1_line__insurance_type__14
+msgid "14 — Работещ без трудово правоотношение с осигуряване"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_h18_refund__r_paym__2
+msgid "2 — Bank transfer"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_h18_line__paym__2
+msgid "2 — Electronic money — virtual"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__contribution_type__2
+msgid "2 — Еднократни суми"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_h18_refund__r_paym__3
+msgid "3 — Cash"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_h18_line__paym__3
+msgid "3 — Courier with cash on delivery"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__contribution_type__3
+msgid "3 — Самоосигуряващи се лица"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_h18_line__paym__4
+msgid "4 — Electronic wallet"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_h18_refund__r_paym__4
+msgid "4 — Other"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__contribution_type__4
+msgid "4 — Годишно изравняване"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_h18_line__paym__5
+msgid "5 — Other payment services (other than 1 and 4)"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d6_line__contribution_type__5
+msgid "5 — Неразпределена печалба"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_h18_line__paym__6
+msgid "6 — Transfers via bank services"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d1_line__insurance_type__82
+msgid "82 — Морски лица"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d1_line__insurance_type__90
+msgid "90 — Неплатен отпуск/майчинство"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/hr_employee.py:0
+msgid ""
+"<p class='o_view_nocontent_smiling_face'>No NRA declarations for %(name)s "
+"yet</p>"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_credentials_wizard_view_form
+msgid "API Authentication"
+msgstr "API Удостоверяване"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_credentials_wizard__api_key
+msgid "API Key (Client ID)"
+msgstr "API ключ (Client ID)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_credentials_wizard__api_secret
+msgid "API Secret (Client Secret)"
+msgstr "API тайна (Client Secret)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__state__accepted
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_search
+msgid "Accepted"
+msgstr "Приет"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__accepted_count
+msgid "Accepted Records"
+msgstr "Приети записи"
+
+#. module: l10n_bg_api_nra
+#: model:ir.module.category,description:l10n_bg_api_nra.module_category_nra_api
+msgid "Access rights for NRA API declarations"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.ui.menu,name:l10n_bg_api_nra.menu_nra_all
+msgid "All Declarations"
+msgstr "Всички декларации"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_hr_employee__l10n_bg_nra_declaration_ids
+msgid ""
+"All NRA declarations that reference this employee by ЕГН. Declaration type "
+"plug-ins (ETZ, НОИ, etc.) register their line models via "
+"_l10n_bg_nra_declaration_lookups."
+msgstr ""
+"Всички декларации към НАП, свързани с този служител по ЕГН. Приставките за "
+"тип декларация (ЕТЗ, НОИ и др.) регистрират своите модели на редове чрез "
+"_l10n_bg_nra_declaration_lookups."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vat_line__amount
+msgid "Amount (Сума)"
+msgstr "Сума"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__period_month__4
+msgid "April"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_form
+msgid "Are you sure you want to submit this declaration to NRA?"
+msgstr "Сигурни ли сте, че искате да подадете тази декларация към НАП?"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line_art__art_name
+msgid "Article name"
+msgstr "Наименование на артикул"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__art_line_ids
+msgid "Articles"
+msgstr "Артикули"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__art_count
+msgid "Articles count"
+msgstr "Брой артикули"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__period_month__8
+msgid "August"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__nra_response_html
+msgid "Base64-decoded HTML result from NRA status check."
+msgstr "HTML резултат от проверка на статус в НАП, декодиран от Base64."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_credentials_wizard__user_signature
+msgid ""
+"Base64-encoded public certificate from the Qualified Electronic Signature "
+"(КЕП). Remove the BEGIN/END CERTIFICATE lines and all newlines before "
+"pasting."
+msgstr ""
+"Публичният сертификат от Квалифицирания електронен подпис (КЕП), кодиран в "
+"Base64. Премахнете редовете BEGIN/END CERTIFICATE и всички нови редове преди"
+" поставяне."
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/wizards/nra_credentials_wizard.py:0
+msgid "Both API Key and API Secret are required."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/js/sign_submit_dialog.js:0
+msgid ""
+"Browser blocked request to http://127.0.0.1:8090 (Private Network Access). "
+"Please allow insecure private network requests in your browser settings and "
+"try again."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration.py:0
+msgid "Can only check status for submitted declarations."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration.py:0
+msgid "Can only generate files for declarations in 'Draft' state."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration.py:0
+msgid "Can only submit declarations in 'Ready' or 'Error' state."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_credentials_wizard_view_form
+msgid "Cancel"
+msgstr "Отказ"
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_api_provider.py:0
+msgid "Cannot connect to NRA API token endpoint: %s"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/js/sign_submit_dialog.js:0
+msgid "Cannot extract ЕГН from the selected certificate."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration.py:0
+msgid "Cannot reset a declaration that has been submitted or accepted by NRA."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vat_line__cell_number
+msgid "Cell (Клетка)"
+msgstr "Клетка"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_form
+msgid "Check Status"
+msgstr "Проверка на статус"
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/js/sign_submit_dialog.js:0
+msgid "Checking http://127.0.0.1:8090"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.view_company_form_nra_api
+msgid "Clear Token"
+msgstr "Изчистване на токен"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_form_h18
+msgid "Collect online orders"
+msgstr "Събиране на онлайн поръчки"
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration_h18_eshop.py:0
+msgid "Collected %s orders for %s/%s."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model,name:l10n_bg_api_nra.model_res_company
+msgid "Companies"
+msgstr "Компании"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_credentials_wizard__company_id
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__company_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_search
+msgid "Company"
+msgstr "Фирма"
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/js/sign_submit_dialog.js:0
+msgid "Connect to StampIT signing component"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/res_company.py:0
+msgid "Connection failed: %s"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/res_company.py:0
+msgid "Connection successful! Token obtained."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__d6_line_ids
+msgid "Contribution Lines (Вноски)"
+msgstr "Вноски"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__contribution_type
+msgid "Contribution Type (Вид плащане)"
+msgstr "Вид плащане"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__d1_correction_type
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__d6_correction_type
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__vat_correction_type
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__vies_correction_type
+msgid "Correction Type"
+msgstr "Вид корекция"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vies_line__partner_country_code
+msgid "Country Code"
+msgstr "Код на държава"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.actions.act_window,help:l10n_bg_api_nra.action_nra_declaration
+msgid "Create your first NRA declaration"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_credentials_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line_art__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_refund__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vat_line__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vies_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_credentials_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__create_date
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__create_date
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__create_date
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__create_date
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line_art__create_date
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_refund__create_date
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vat_line__create_date
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vies_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/wizards/nra_credentials_wizard.py:0
+msgid "Credentials saved securely in your crypto wallet."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__doo_amount
+msgid "DOO (Фонд Пенсии)"
+msgstr "ДОО (Фонд Пенсии)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__doo_employee
+msgid "DOO — Employee (ДОО работник)"
+msgstr "ДОО — работник"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__doo_employer
+msgid "DOO — Employer (ДОО работодател)"
+msgstr "ДОО — работодател"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__dzpo_employee
+msgid "DZPO — Employee (ДЗПО работник)"
+msgstr "ДЗПО — работник"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__dzpo_employer
+msgid "DZPO — Employer (ДЗПО работодател)"
+msgstr "ДЗПО — работодател"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__dzpo_ppf
+msgid "DZPO — PPF (ДЗПО-ППФ)"
+msgstr "ДЗПО — ППФ"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__dzpo_upf
+msgid "DZPO — UPF (ДЗПО-УПФ)"
+msgstr "ДЗПО — УПФ"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__days_without_pay
+msgid "Days Without Pay (Дни без заплащане)"
+msgstr "Дни без заплащане"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__days_in_insurance
+msgid "Days in Insurance (Дни в осигуряване)"
+msgstr "Дни в осигуряване"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__period_month__12
+msgid "December"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__declaration_id
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__declaration_id
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__declaration_id
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_refund__declaration_id
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vat_line__declaration_id
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vies_line__declaration_id
+msgid "Declaration"
+msgstr "Декларация"
+
+#. module: l10n_bg_api_nra
+#: model:ir.ui.menu,name:l10n_bg_api_nra.menu_nra_declaration_d1
+msgid "Declaration Form 1 (D1)"
+msgstr "Декларационна форма 1 (Д1)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model,name:l10n_bg_api_nra.model_nra_declaration_d1_line
+msgid "Declaration Form 1 — Insured Person Line"
+msgstr "Декларация форма 1 — ред застрахова лице"
+
+#. module: l10n_bg_api_nra
+#: model:ir.ui.menu,name:l10n_bg_api_nra.menu_nra_declaration_d6
+msgid "Declaration Form 6 (D6)"
+msgstr "Декларационна форма 6 (Д6)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model,name:l10n_bg_api_nra.model_nra_declaration_d6_line
+msgid "Declaration Form 6 — Contribution Line"
+msgstr "Декларация форма 6 — ред вноска"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__declaration_type
+msgid "Declaration Type"
+msgstr "Вид декларация"
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/controllers/main.py:0
+msgid "Declaration has no generated file. Click 'Generate' first."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/controllers/main.py:0
+msgid "Declaration not found."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_api_provider.py:0
+msgid "Declaration type '%(type)s' is not supported by the NRA API."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vat_line__description
+msgid "Description (Описание)"
+msgstr "Описание"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_form_h18
+msgid "Discount"
+msgstr "Отстъпка"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__ord_disc
+msgid "Discount (BGN)"
+msgstr "Отстъпка (лв.)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_credentials_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__display_name
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line_art__display_name
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_refund__display_name
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vat_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vies_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__doc_n
+msgid "Document #"
+msgstr "Номер на документ"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__doc_date
+msgid "Document date"
+msgstr "Дата на документа"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__eshop_domain
+msgid "Domain or link to the shop — written into <domain_name>."
+msgstr "Домейн или връзка към магазина — записва се в <domain_name>."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__state__draft
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_search
+msgid "Draft"
+msgstr "Чернова"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__eshop_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_res_company__l10n_bg_eshop_uid
+msgid "E-shop UID (NRA)"
+msgstr "Уникален номер на е-магазин (НАП)"
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration_h18_eshop.py:0
+msgid "E-shop UID (НАП) is required."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__eshop_domain
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_res_company__l10n_bg_eshop_domain
+msgid "E-shop domain"
+msgstr "Домейн на е-магазин"
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration_h18_eshop.py:0
+msgid "E-shop domain is required."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_form_h18
+msgid "E-shop registration"
+msgstr "Регистрация на е-магазин"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__eshop_type
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_res_company__l10n_bg_eshop_type
+msgid "E-shop type"
+msgstr "Вид е-магазин"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_res_company__l10n_bg_eshop_type
+msgid "E-shop type: 1 = own (own domain), 2 = online platform (marketplace)."
+msgstr ""
+"Тип на е-магазина: 1 = собствен (собствен домейн), 2 = онлайн платформа "
+"(маркетплейс)."
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_api_provider.py:0
+msgid ""
+"Either document ID or entry number + entry date are required to check "
+"declaration status."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model,name:l10n_bg_api_nra.model_hr_employee
+msgid "Employee"
+msgstr "Служител"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__end_date
+msgid "End Date (Край)"
+msgstr "Край (Крайна дата)"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_credentials_wizard_view_form
+msgid ""
+"Enter your NRA API credentials. They will be stored\n"
+"                            securely in your encrypted crypto wallet, not in the database."
+msgstr ""
+"Въведете вашите идентификационни данни за НАП API. Те ще бъдат съхранени\n"
+"                            сигурно в криптирания ви крипто портфейл, а не в базата данни."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__state__error
+msgid "Error"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__period_month__2
+msgid "February"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/js/sign_submit_dialog.js:0
+msgid "Fetching the document bytes from Odoo"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__xml_content
+msgid "File Content"
+msgstr "Съдържание на файл"
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration.py:0
+msgid "File generation is not implemented for declaration type '%s'."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__xml_filename
+msgid "Filename"
+msgstr "Име на файл"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_form
+msgid "Generate XML"
+msgstr "Генериране на XML"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_form_h18
+msgid "Generate audit XML"
+msgstr "Генериране на одит XML"
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration_h18_eshop.py:0
+msgid "Generated H-18 audit XML — %s orders, %s refunds."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_search
+msgid "Group By"
+msgstr "Групиране по"
+
+#. module: l10n_bg_api_nra
+#: model:ir.actions.act_window,name:l10n_bg_api_nra.action_nra_declaration_h18
+#: model:ir.ui.menu,name:l10n_bg_api_nra.menu_nra_declaration_h18
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_form_h18
+msgid "H-18 Audit (e-shop)"
+msgstr "H-18 Одит (e-shop)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__declaration_type__h18_eshop
+msgid "H-18 Audit File (e-shop)"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model,name:l10n_bg_api_nra.model_nra_declaration_h18_line_art
+msgid "H-18 Audit File — Article (artenum)"
+msgstr "H-18 одитен файл — артикул (artenum)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model,name:l10n_bg_api_nra.model_nra_declaration_h18_line
+msgid "H-18 Audit File — Order Line (orderenum)"
+msgstr "H-18 одитен файл — ред поръчка (orderenum)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model,name:l10n_bg_api_nra.model_nra_declaration_h18_refund
+msgid "H-18 Audit File — Refund Line (rorderenum)"
+msgstr "H-18 одитен файл — ред кредит (rorderenum)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__has_message
+msgid "Has Message"
+msgstr "Има съобщение"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__health_employee
+msgid "Health Ins. — Employee (ЗО работник)"
+msgstr "ЗО — работник"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__health_employer
+msgid "Health Ins. — Employer (ЗО работодател)"
+msgstr "ЗО — работодател"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__health_insurance
+msgid "Health Insurance (ЗО)"
+msgstr "Здравно осигуряване (ЗО)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_credentials_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__id
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__id
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__id
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__id
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line_art__id
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_refund__id
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vat_line__id
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vies_line__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__id_type
+msgid "ID Type"
+msgstr "Вид идентификатор"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration_h18_line__proc_id
+msgid "Identifier of the payment service provider (optional)."
+msgstr "Идентификатор на доставчика на платежни услуги (незадължително)."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__message_has_error
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__income_tax
+msgid "Income Tax (ДДФЛ)"
+msgstr "ДДФЛ"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__tax_amount
+msgid "Income Tax (Данък)"
+msgstr "Данък върху доходите"
+
+#. module: l10n_bg_api_nra
+#: model:ir.ui.menu,name:l10n_bg_api_nra.menu_nra_insurance
+msgid "Insurance"
+msgstr "Застраховки"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_res_company__l10n_bg_nra_insurance_fund
+msgid "Insurance Fund (Осигурителна каса)"
+msgstr "Осигурителна каса"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__insurance_income
+msgid "Insurance Income (Осиг. доход)"
+msgstr "Осигурителен доход"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__insurance_type
+msgid "Insurance Type (Вид осигурен)"
+msgstr "Вид осигурен"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__d1_line_ids
+msgid "Insured Persons (Осигурени лица)"
+msgstr "Осигурени лица"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__period_month__1
+msgid "January"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__period_month__7
+msgid "July"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__period_month__6
+msgid "June"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_credentials_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line_art__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_refund__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vat_line__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vies_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_credentials_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__write_date
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__write_date
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__write_date
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__write_date
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line_art__write_date
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_refund__write_date
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vat_line__write_date
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vies_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__d1_line_count
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__d6_line_count
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__vat_line_count
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__vies_line_count
+msgid "Line Count"
+msgstr "Брой редове"
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/js/sign_submit_dialog.js:0
+msgid "Load declaration XML"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__period_month__3
+msgid "March"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__period_month__5
+msgid "May"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration_h18_eshop.py:0
+msgid "Module `sale_management` is not installed."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__period_month
+msgid "Month"
+msgstr "Месец"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.module.category,name:l10n_bg_api_nra.module_category_nra_api
+msgid "NRA API"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.view_company_form_nra_api
+msgid "NRA API Configuration (НАП API)"
+msgstr "Конфигурация на НАП API"
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/res_company.py:0
+msgid "NRA API Connection"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/wizards/nra_credentials_wizard.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_credentials_wizard_view_form
+msgid "NRA API Credentials"
+msgstr "Идентификационни данни за НАП API"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model,name:l10n_bg_api_nra.model_nra_credentials_wizard
+msgid "NRA API Credentials Setup"
+msgstr "Конфигурация на API учетни данни НАП"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_res_company__l10n_bg_nra_api_enabled
+msgid "NRA API Enabled"
+msgstr "НАП API активиран"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_res_company__l10n_bg_nra_test_mode
+msgid "NRA API Test Mode"
+msgstr "НАП API тестов режим"
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_api_provider.py:0
+msgid ""
+"NRA API access denied. Your API key may not have permission for this "
+"service."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_api_provider.py:0
+msgid ""
+"NRA API authentication failed. Please verify the API key and secret for "
+"company '%s'."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_api_provider.py:0
+msgid "NRA API authentication failed. Please verify your credentials."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_api_provider.py:0
+msgid "NRA API connection error: %s"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/res_company.py:0
+msgid ""
+"NRA API credentials not found for company '%s'. Please configure them in "
+"Settings → NRA API."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_api_provider.py:0
+msgid "NRA API error (HTTP %(code)s): %(body)s"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_api_provider.py:0
+msgid "NRA API rate limit exceeded after %s retries. Please try again later."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_api_provider.py:0
+msgid "NRA API token request failed (HTTP %(code)s): %(body)s"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model,name:l10n_bg_api_nra.model_nra_declaration
+msgid "NRA Declaration"
+msgstr "Декларация НАП"
+
+#. module: l10n_bg_api_nra
+#: model:ir.actions.act_window,name:l10n_bg_api_nra.action_nra_declaration
+#: model:ir.ui.menu,name:l10n_bg_api_nra.menu_nra_root
+msgid "NRA Declarations"
+msgstr "НАП Декларации"
+
+#. module: l10n_bg_api_nra
+#: model:res.groups,name:l10n_bg_api_nra.group_nra_manager
+msgid "NRA Declarations Manager"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:res.groups,name:l10n_bg_api_nra.group_nra_user
+msgid "NRA Declarations User"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__nra_document_id
+msgid "NRA Document ID"
+msgstr "Идентификатор на документ в НАП"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__nra_doc_number
+msgid "NRA Document Number"
+msgstr "Номер на документ в НАП"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__nra_entry_date
+msgid "NRA Entry Date (Дата на входиране)"
+msgstr "Дата на входиране в НАП"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__nra_entry_number
+msgid "NRA Entry Number (Входящ номер)"
+msgstr "Входящ номер в НАП"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__nra_incoming_number
+msgid "NRA Incoming Number"
+msgstr "Входящ номер от НАП"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model,name:l10n_bg_api_nra.model_nra_api_provider
+msgid "NRA Public API Client"
+msgstr "Клиент на публичния API на НАП"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__nra_response_message
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_form
+msgid "NRA Response"
+msgstr "Отговор от НАП"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__nra_response_html
+msgid "NRA Response (HTML)"
+msgstr "Отговор от НАП (HTML)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_res_company__l10n_bg_nra_token_user_id
+msgid "NRA Token Owner"
+msgstr "Собственик на НАП токен"
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/res_company.py:0
+msgid ""
+"NRA user credentials (ЕГН and КЕП certificate) not found for company '%s'. "
+"Please configure them in Settings → NRA API."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__person_names
+msgid "Names (Имена)"
+msgstr "Имена"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration.py:0
+msgid ""
+"No NRA document ID or entry number. The declaration may not have been "
+"submitted correctly."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration.py:0
+msgid "No data to generate file for declaration '%s'."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration.py:0
+msgid "No file content. Please generate the file first."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__period_month__11
+msgid "November"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration_h18_line__doc_n
+msgid ""
+"Number of the document under Art. 52s, par. 1, item 1 (invoice / delivery "
+"note)."
+msgstr ""
+"Номер на документа по чл. 52с, ал. 1, т. 1 (фактура / известие за доставка)."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__period_month__10
+msgid "October"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__eshop_type__2
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__res_company__l10n_bg_eshop_type__2
+msgid "Online sales platform"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration_h18_eshop.py:0
+msgid "Only valid on H-18 e-shop declarations."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vies_line__operation_type
+msgid "Operation Type (Вид операция)"
+msgstr "Вид операция"
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration_h18_line.py:0
+msgid "Order %s: sum of article totals (%.2f) differs from ord_total2 (%.2f)."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__ord_d
+msgid "Order date"
+msgstr "Дата на поръчка"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line_art__line_id
+msgid "Order line"
+msgstr "Ред от поръчка"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__ord_n
+msgid "Order number"
+msgstr "Номер на поръчка"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__h18_order_line_ids
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_form_h18
+msgid "Orders"
+msgstr "Поръчки"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__h18_order_count
+msgid "Orders count"
+msgstr "Брой поръчки"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__eshop_type__1
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__res_company__l10n_bg_eshop_type__1
+msgid "Own online shop"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__pos_n
+msgid "POS / Terminal #"
+msgstr "ПОС / Терминал №"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration_h18_line__pos_n
+msgid "POS or terminal number (optional)."
+msgstr "Номер на ПОС или терминал (незадължително)."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__state__partially_accepted
+msgid "Partially Accepted"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vies_line__partner_id
+msgid "Partner"
+msgstr "Контрагент"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vies_line__partner_name
+msgid "Partner Name"
+msgstr "Наименование на контрагент"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vies_line__partner_vat
+msgid "Partner VAT (ДДС номер на контрагент)"
+msgstr "ДДС номер на контрагент"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__d6_payment_date
+msgid "Payment Date (Дата на плащане/изплащане)"
+msgstr "Дата на плащане/изплащане"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__payment_month
+msgid "Payment Month"
+msgstr "Месец на плащане"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__payment_year
+msgid "Payment Year"
+msgstr "Година на плащане"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__paym
+msgid "Payment method"
+msgstr "Начин на плащане"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_search
+msgid "Period"
+msgstr "Период"
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration_h18_eshop.py:0
+msgid "Period (month + year) is required."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_credentials_wizard__user_pin
+msgid ""
+"Personal identifier (ЕГН or ЛНЧ) of the person authorized to submit "
+"declarations. Must match the КЕП certificate."
+msgstr ""
+"Личен идентификатор (ЕГН или ЛНЧ) на лицето, упълномощено да подава "
+"декларации. Трябва да съответства на КЕП сертификата."
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/js/sign_submit_dialog.js:0
+msgid "Posting signed payload to the public API"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__proc_id
+msgid "Processor ID"
+msgstr "Идентификатор на процесор"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line_art__art_quant
+msgid "Quantity"
+msgstr "Количество"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__state__ready
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_search
+msgid "Ready"
+msgstr "Готов"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__name
+msgid "Reference"
+msgstr "Референция"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_refund__r_ord_n
+msgid "Refund / order #"
+msgstr "Сторно / поръчка №"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_refund__r_date
+msgid "Refund date"
+msgstr "Дата на сторното"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration_h18_refund__r_ord_n
+msgid ""
+"Refund number (or unique number of the credit document and the original "
+"order)."
+msgstr ""
+"Номер на сторното (или уникален номер на кредитния документ и оригиналната "
+"поръчка)."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_refund__r_paym
+msgid "Refund payment method"
+msgstr "Начин на плащане при сторно"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_form_h18
+msgid "Refunded"
+msgstr "Върнати"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_refund__r_amount
+msgid "Refunded amount (BGN)"
+msgstr "Върната сума (лв.)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__h18_refund_line_ids
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_form_h18
+msgid "Refunds"
+msgstr "Кредитни известия"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__h18_refund_count
+msgid "Refunds count"
+msgstr "Брой кредитни известия"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__state__rejected
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_search
+msgid "Rejected"
+msgstr "Отхвърлен"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_credentials_wizard_view_form
+msgid ""
+"Required for submitting declarations. The User PIN must match\n"
+"                            the КЕП certificate holder and must be authorized to submit\n"
+"                            declarations for the taxpayer (company)."
+msgstr ""
+"Необходимо за подаване на декларации. ПИН кодът на потребителя трябва да съответства\n"
+"                            на притежателя на КЕП сертификата и трябва да е упълномощен да подава\n"
+"                            декларации от името на данъкоплатеца (фирмата)."
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_form
+msgid "Reset to Draft"
+msgstr "Върни в чернова"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_form
+msgid "Response (HTML)"
+msgstr "Отговор (HTML)"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_form
+msgid "Response Message"
+msgstr "Съобщение от отговора"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_credentials_wizard_view_form
+msgid "Save Credentials"
+msgstr "Запазване на идентификационните данни"
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/js/sign_submit_dialog.js:0
+msgid "Select your certificate (first time only), then enter PIN"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__period_month__9
+msgid "September"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__sequence
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__sequence
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vat_line__sequence
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vies_line__sequence
+msgid "Sequence"
+msgstr "Поредност"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.view_company_form_nra_api
+msgid "Set API Credentials"
+msgstr "Задаване на API идентификационни данни"
+
+#. module: l10n_bg_api_nra
+#: model:ir.actions.act_window,name:l10n_bg_api_nra.action_nra_credentials_wizard
+msgid "Set NRA API Credentials"
+msgstr "Задаване на НАП API удостоверения"
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration_h18_eshop.py:0
+msgid "Set period (month + year) first."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/xml/sign_submit_dialog.xml:0
+msgid "Sign & Submit with КЕП"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/js/sign_submit_dialog.js:0
+msgid "Sign with КЕП"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration.py:0
+msgid "Signer certificate, PIN and PKCS#7 signature are all required."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/js/sign_submit_dialog.js:0
+msgid "StampIT signing component is not running. Start it from portal.nra.bg."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__start_date
+msgid "Start Date (Начало)"
+msgstr "Начало (Начална дата)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__state
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_search
+msgid "Status"
+msgstr "Статус"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__submission_date
+msgid "Submission Date"
+msgstr "Дата на подаване"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.actions.act_window,help:l10n_bg_api_nra.action_nra_declaration
+msgid ""
+"Submit insurance declarations (обр. 1, обр. 6), electronic labor records (ЕТЗ),\n"
+"                VAT and VIES declarations to the National Revenue Agency (НАП)."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_form
+msgid "Submit to NRA"
+msgstr "Подаване към НАП"
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/js/sign_submit_dialog.js:0
+msgid "Submit to НАП"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__state__submitted
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_search
+msgid "Submitted"
+msgstr "Подаден"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__supplementary_insurance_income
+msgid "Supplementary Income (Допълн. осиг. доход)"
+msgstr "Допълнителен осигурителен доход"
+
+#. module: l10n_bg_api_nra
+#: model:ir.ui.menu,name:l10n_bg_api_nra.menu_nra_tax
+msgid "Tax"
+msgstr "Данъци"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__tax_income
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_vies_line__tax_base
+msgid "Tax Base (Данъчна основа)"
+msgstr "Данъчна основа"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_res_company__l10n_bg_nra_taxpayer_pin_type
+msgid "Taxpayer PIN Type (Тип идентификатор на ЗЛ)"
+msgstr "Тип идентификатор на ЗЛ"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__teachers_fund
+msgid "Teachers Fund (УчПФ)"
+msgstr "Учителски пенсионен фонд (УчПФ)"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.view_company_form_nra_api
+msgid "Test Connection"
+msgstr "Тест на връзката"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_res_company__l10n_bg_nra_token_expiry
+msgid "Token Expiry"
+msgstr "Валидност на токена"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d6_line__total_amount
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_form_h18
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_form
+msgid "Total"
+msgstr "Общо"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__vat_total_purchases
+msgid "Total Purchases (Общо покупки)"
+msgstr "Общо покупки"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__total_count
+msgid "Total Records"
+msgstr "Общо записи"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__vat_total_sales
+msgid "Total Sales (Общо продажби)"
+msgstr "Общо продажби"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__vies_total_services
+msgid "Total Services (Общо доставки на услуги)"
+msgstr "Общо доставки на услуги"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__vies_total_supplies
+msgid "Total Supplies (Общо доставки на стоки)"
+msgstr "Общо доставки на стоки"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__vies_total_triangular
+msgid "Total Triangular (Общо тристранни)"
+msgstr "Общо тристранни операции"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__ord_total2
+msgid "Total delivered with VAT (BGN)"
+msgstr "Общо доставено с ДДС (лв.)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration_h18_line__ord_total2
+msgid "Total of the delivered/dispatched goods/services with VAT."
+msgstr "Обща стойност на доставените/изпратените стоки/услуги с ДДС."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration_h18_line__ord_total1
+msgid "Total of the requested goods/services without VAT."
+msgstr "Обща стойност на заявените стоки/услуги без ДДС."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__h18_total_orders
+msgid "Total orders (BGN)"
+msgstr "Общо поръчки (лв.)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__h18_total_refunds
+msgid "Total refunds (BGN)"
+msgstr "Общо възстановявания (лв.)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line_art__art_sum
+msgid "Total with VAT (BGN)"
+msgstr "Общо с ДДС (лв.)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__ord_total1
+msgid "Total without VAT (BGN)"
+msgstr "Общо без ДДС (лв.)"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_form_h18
+msgid "Total1"
+msgstr "Сума1"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_form_h18
+msgid "Totals (preview)"
+msgstr "Общи суми (преглед)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__trans_n
+msgid "Transaction #"
+msgstr "Транзакция №"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_search
+msgid "Type"
+msgstr "Тип"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_res_company__l10n_bg_nra_taxpayer_pin_type
+msgid "Type of taxpayer identifier sent to NRA API."
+msgstr ""
+"Тип на идентификатора на данъчно задълженото лице, изпращан към НАП API."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_res_company__l10n_bg_nra_user_pin_type
+msgid "Type of user identifier for the person submitting declarations."
+msgstr "Тип на идентификатора на лицето, подаващо декларациите."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__l10n_bg_uic
+msgid "UIC (ЕИК)"
+msgstr "ЕИК"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__eshop_uid
+msgid ""
+"Unique e-shop number (Appendix 33 / Art. 52r). Defaults to the value on the "
+"company record."
+msgstr ""
+"Уникален номер на е-магазин (Приложение 33 / чл. 52р). По подразбиране се "
+"използва стойността от записа на компанията."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_res_company__l10n_bg_eshop_uid
+msgid ""
+"Unique e-shop number assigned by NRA during registration under Appendix 33 "
+"(Art. 52r of Ordinance H-18)."
+msgstr ""
+"Уникален номер на е-магазина, присвоен от НАП при регистрацията по "
+"Приложение 33 (чл. 52р от Наредба Н-18)."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__l10n_bg_uic
+msgid ""
+"Unique identification code for the Bulgaria received from trade registry"
+msgstr ""
+"Единен идентификационен код, получен от Търговския регистър на България."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration_h18_line__ord_n
+msgid "Unique order number assigned by the e-shop software."
+msgstr ""
+"Уникален номер на поръчката, присвоен от софтуера на електронния магазин."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration_h18_line__trans_n
+msgid "Unique transaction number from the payment provider (optional)."
+msgstr ""
+"Уникален номер на транзакцията от доставчика на платежни услуги "
+"(незадължително)."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line_art__art_price
+msgid "Unit price w/o VAT (BGN)"
+msgstr "Единична цена без ДДС (лв.)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_res_company__l10n_bg_nra_test_mode
+msgid "Use the NRA test environment for API calls."
+msgstr "Използване на тестовата среда на НАП за API заявки."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model,name:l10n_bg_api_nra.model_res_users
+msgid "User"
+msgstr "Потребител"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_credentials_wizard__user_signature
+msgid "User Certificate (КЕП Base64)"
+msgstr "Сертификат на потребителя (КЕП Base64)"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_credentials_wizard_view_form
+msgid "User Identification (for declaration submission)"
+msgstr "Идентификация на потребителя (за подаване на декларации)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_credentials_wizard__user_pin
+msgid "User PIN (ЕГН/ЛНЧ на подаващия)"
+msgstr "ЕГН/ЛНЧ на подаващия"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_res_company__l10n_bg_nra_user_pin_type
+msgid "User PIN Type (Тип идентификатор на потребител)"
+msgstr "Тип идентификатор на потребител"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_res_company__l10n_bg_nra_token_user_id
+msgid "User who stored the NRA API credentials."
+msgstr "Потребител, съхранил идентификационните данни за НАП API."
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_form_h18
+msgid "VAT"
+msgstr "ДДС"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__vat_charged
+msgid "VAT Charged (Начислен ДДС)"
+msgstr "Начислен ДДС"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__vat_credit
+msgid "VAT Credit (Данъчен кредит)"
+msgstr "Данъчен кредит"
+
+#. module: l10n_bg_api_nra
+#: model:ir.ui.menu,name:l10n_bg_api_nra.menu_nra_declaration_vat
+msgid "VAT Declaration"
+msgstr "Декларация за ДДС"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model,name:l10n_bg_api_nra.model_nra_declaration_vat_line
+msgid "VAT Declaration Line"
+msgstr "Ред ДДС декларация"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__vat_due
+msgid "VAT Due (ДДС за внасяне)"
+msgstr "ДДС за внасяне"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__vat_line_ids
+msgid "VAT Lines (Клетки)"
+msgstr "Клетки по ДДС"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__vat_refund
+msgid "VAT Refund (ДДС за възстановяване)"
+msgstr "ДДС за възстановяване"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line__ord_vat
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line_art__art_vat
+msgid "VAT amount (BGN)"
+msgstr "Сума на ДДС (лв.)"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_h18_line_art__art_vat_rate
+msgid "VAT rate (%)"
+msgstr "Ставка ДДС (%)"
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration_h18_line.py:0
+msgid "VAT rate must be between 0 and 100 (got %s)."
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_search
+msgid "VIES"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.ui.menu,name:l10n_bg_api_nra.menu_nra_declaration_vies
+msgid "VIES Declaration"
+msgstr "Декларация VIES"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model,name:l10n_bg_api_nra.model_nra_declaration_vies_line
+msgid "VIES Declaration Line"
+msgstr "Ред VIES декларация"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__vies_line_ids
+msgid "VIES Lines (Редове VIES)"
+msgstr "Редове VIES"
+
+#. module: l10n_bg_api_nra
+#: model:ir.actions.act_window,name:l10n_bg_api_nra.action_nra_declaration_vies
+msgid "VIES Декларация"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__declaration_type__vies
+msgid "VIES декларация"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_form
+msgid "VIES — Декларация"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_res_company__l10n_bg_eshop_domain
+msgid ""
+"Web address or domain of the e-shop — written into the <domain_name> element"
+" of the audit XML."
+msgstr ""
+"Уеб адрес или домейн на е-магазина — записва се в елемента <domain_name> на "
+"одитния XML."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_res_company__l10n_bg_nra_insurance_fund
+msgid ""
+"Whether declarations are submitted from an insurance fund (осигурителна "
+"каса)."
+msgstr "Указва дали декларациите се подават от осигурителна каса."
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_form
+msgid "XML & Response"
+msgstr "XML и отговор"
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_form
+msgid "XML Content"
+msgstr "XML съдържание"
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration_h18_eshop.py:0
+msgid ""
+"XML does not validate against dec_audit.xsd:\n"
+"%s"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration.py:0
+msgid "XML syntax error: %s"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/nra_declaration.py:0
+msgid "XML validation error: %s"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration__period_year
+msgid "Year"
+msgstr "Година"
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__nra_document_id
+msgid "documentId returned by NRA API on successful submission."
+msgstr "documentId, върнат от API на НАП при успешно подаване."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__nra_entry_date
+msgid "entryDate returned by NRA API."
+msgstr "entryDate, върната от API на НАП."
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__nra_doc_number
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__nra_entry_number
+#: model:ir.model.fields,help:l10n_bg_api_nra.field_nra_declaration__nra_incoming_number
+msgid "entryNumber returned by NRA API."
+msgstr "entryNumber, върнат от API на НАП."
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/xml/sign_submit_dialog.xml:0
+msgid "Вх. №:"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/xml/sign_submit_dialog.xml:0
+msgid "Грешка:"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_search
+msgid "ДДС"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.actions.act_window,name:l10n_bg_api_nra.action_nra_declaration_vat
+msgid "ДДС Декларация"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__declaration_type__vat
+msgid "ДДС декларация"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_form
+msgid "ДДС — Декларация"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__res_company__l10n_bg_nra_insurance_fund__1
+msgid "Да"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.actions.act_window,name:l10n_bg_api_nra.action_nra_declaration_d1
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__declaration_type__d1
+msgid "Декларация обр. 1"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.actions.act_window,name:l10n_bg_api_nra.action_nra_declaration_d6
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__declaration_type__d6
+msgid "Декларация обр. 6"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_vies_line__operation_type__supplies
+msgid "Доставки на стоки (Supply of goods)"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_vies_line__operation_type__services
+msgid "Доставки на услуги (Supply of services)"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d1_line__id_type__0
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__res_company__l10n_bg_nra_taxpayer_pin_type__ind_egn
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__res_company__l10n_bg_nra_user_pin_type__ind_egn
+msgid "ЕГН"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_nra_declaration_d1_line__egn_lnch
+msgid "ЕГН/ЛНЧ"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__res_company__l10n_bg_nra_taxpayer_pin_type__ind_bulstat
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__res_company__l10n_bg_nra_user_pin_type__ind_bulstat
+msgid "ЕИК по БУЛСТАТ на ФЛ"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__res_company__l10n_bg_nra_taxpayer_pin_type__bus_bulstat
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__res_company__l10n_bg_nra_user_pin_type__bus_bulstat
+msgid "ЕИК по Булстат/ЕИК по ЗТРРЮЛНЦ"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__d1_correction_type__2
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__d6_correction_type__2
+msgid "Заличаваща (Deletion)"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/xml/sign_submit_dialog.xml:0
+msgid "Затвори"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__d1_correction_type__1
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__d6_correction_type__1
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__vat_correction_type__1
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__vies_correction_type__1
+msgid "Коригираща (Correction)"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__res_company__l10n_bg_nra_taxpayer_pin_type__ind_lnch
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__res_company__l10n_bg_nra_user_pin_type__ind_lnch
+msgid "ЛН/ЛНЧ"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d1_line__id_type__1
+msgid "ЛНЧ"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/xml/sign_submit_dialog.xml:0
+msgid "Моля изчакайте…"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_hr_employee__l10n_bg_nra_declaration_ids
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.hr_employee_view_form_inherit_nra
+msgid "НАП Декларации"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields,field_description:l10n_bg_api_nra.field_hr_employee__l10n_bg_nra_declaration_count
+msgid "НАП Декларации (брой)"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-python
+#: code:addons/l10n_bg_api_nra/models/hr_employee.py:0
+msgid "НАП Декларации — %s"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__res_company__l10n_bg_nra_insurance_fund__0
+msgid "Не"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_search
+msgid "Обр. 1"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_form
+msgid "Обр. 1 — Осигурени лица"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_search
+msgid "Обр. 6"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_declaration_view_form
+msgid "Обр. 6 — Дължими вноски"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/xml/sign_submit_dialog.xml:0
+msgid "Отказ"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__d1_correction_type__0
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__d6_correction_type__0
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__vat_correction_type__0
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__vies_correction_type__0
+msgid "Редовна (Regular)"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_d1_line__id_type__2
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__res_company__l10n_bg_nra_taxpayer_pin_type__ind_slno
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__res_company__l10n_bg_nra_user_pin_type__ind_slno
+msgid "Служебен номер"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration_vies_line__operation_type__triangular
+msgid "Тристранни операции (Triangular operations)"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/xml/sign_submit_dialog.xml:0
+msgid "Успешно подадено!"
+msgstr ""
+
+#. module: l10n_bg_api_nra
+#. odoo-javascript
+#: code:addons/l10n_bg_api_nra/static/src/xml/sign_submit_dialog.xml:0
+msgid "от"
+msgstr ""

@@ -1,0 +1,348 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_company_registry
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-18 20:52+0000\n"
+"PO-Revision-Date: 2026-05-18 20:52+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__display_activity_code
+msgid "Activity Code"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_res_partner__l10n_bg_activity_code
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_res_users__l10n_bg_activity_code
+msgid "Activity Code (NACE)"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__display_activity_description
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_res_partner__l10n_bg_activity_description
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_res_users__l10n_bg_activity_description
+msgid "Activity Description"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__display_address_bg
+msgid "Address (BG)"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model,name:l10n_bg_company_registry.model_bg_company_search_wizard
+msgid "Bulgarian Company Search Wizard"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,help:l10n_bg_company_registry.field_res_partner__l10n_bg_legal_form
+#: model:ir.model.fields,help:l10n_bg_company_registry.field_res_users__l10n_bg_legal_form
+msgid "Bulgarian legal form (ООД, ЕООД, АД, etc.)"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__display_city_id
+msgid "City"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model_terms:ir.ui.view,arch_db:l10n_bg_company_registry.view_bg_company_search_wizard_form
+msgid "Close"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.actions.act_window,name:l10n_bg_company_registry.action_bg_company_search_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_bg_company_registry.view_bg_company_search_wizard_form
+msgid "Commercial register data"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__company_data_json
+msgid "Company Data"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,help:l10n_bg_company_registry.field_bg_company_search_wizard__eik
+msgid "Company EIK number (9 or 13 digits)"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__display_name_bg
+msgid "Company Name (BG)"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__display_name_en
+msgid "Company Name (EN)"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model_terms:ir.ui.view,arch_db:l10n_bg_company_registry.view_bg_company_search_wizard_form
+msgid "Company data"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model,name:l10n_bg_company_registry.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__display_country_id
+msgid "Country"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,help:l10n_bg_company_registry.field_res_partner__l10n_bg_registration_court
+#: model:ir.model.fields,help:l10n_bg_company_registry.field_res_users__l10n_bg_registration_court
+msgid "Court where company is registered"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__data_fetched
+msgid "Data Fetched"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,help:l10n_bg_company_registry.field_res_partner__l10n_bg_registration_date
+#: model:ir.model.fields,help:l10n_bg_company_registry.field_res_users__l10n_bg_registration_date
+msgid "Date of company registration in Bulgarian Trade Register"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model_terms:ir.ui.view,arch_db:l10n_bg_company_registry.view_bg_company_search_wizard_form
+msgid "Download data from registry"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__eik
+msgid "EIK"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__eik_changed
+msgid "EIK Changed"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model_terms:ir.ui.view,arch_db:l10n_bg_company_registry.view_bg_company_search_wizard_form
+msgid "Enter EIC (9 or 13 digits)"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#. odoo-python
+#: code:addons/l10n_bg_company_registry/wizard/bg_company_search_wizard.py:0
+msgid "Error reading data from registry: %s"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model_terms:ir.ui.view,arch_db:l10n_bg_company_registry.view_bg_company_search_wizard_form
+msgid "Fill in partner data"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model_terms:ir.ui.view,arch_db:l10n_bg_company_registry.view_bg_company_search_wizard_form
+msgid "Full address (from register)"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,help:l10n_bg_company_registry.field_bg_company_search_wizard__eik_changed
+msgid "Indicates if EIK was changed by user"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,help:l10n_bg_company_registry.field_bg_company_search_wizard__data_fetched
+msgid "Indicates if data was successfully fetched"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#. odoo-python
+#: code:addons/l10n_bg_company_registry/wizard/bg_company_search_wizard.py:0
+msgid "Invalid UIC format. Please enter 9 or 13 digits."
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__display_legal_form_bg
+msgid "Legal Form (BG)"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_res_partner__l10n_bg_legal_form
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_res_users__l10n_bg_legal_form
+msgid "Legal Form (Bulgarian)"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,help:l10n_bg_company_registry.field_res_partner__l10n_bg_activity_code
+#: model:ir.model.fields,help:l10n_bg_company_registry.field_res_users__l10n_bg_activity_code
+msgid "Main economic activity code"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#. odoo-python
+#: code:addons/l10n_bg_company_registry/wizard/bg_company_search_wizard.py:0
+msgid ""
+"No company with UIC was found: %s\n"
+"\n"
+"The company was not found in the official trade register.\n"
+"\n"
+"Please check if the UIC number is correct."
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#. odoo-python
+#: code:addons/l10n_bg_company_registry/wizard/bg_company_search_wizard.py:0
+msgid "No registry data saved. Please press \"Download Data\" again."
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__original_eik
+msgid "Original UIC"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,help:l10n_bg_company_registry.field_bg_company_search_wizard__original_eik
+msgid "Original UIC from partner (to detect changes)"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,help:l10n_bg_company_registry.field_bg_company_search_wizard__partner_id
+msgid "Partner to populate with company data"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#. odoo-python
+#: code:addons/l10n_bg_company_registry/wizard/bg_company_search_wizard.py:0
+msgid "Please enter the UIC number"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.actions.server,name:l10n_bg_company_registry.action_populate_bg_registry_data
+msgid "Populate BG Registry Data"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__display_postal_code
+msgid "Postal Code"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,help:l10n_bg_company_registry.field_bg_company_search_wizard__company_data_json
+msgid "Raw company data from registry"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_res_partner__l10n_bg_registration_court
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_res_users__l10n_bg_registration_court
+msgid "Registration Court"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__display_registration_date
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_res_partner__l10n_bg_registration_date
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_res_users__l10n_bg_registration_date
+msgid "Registration Date"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__display_state_id
+msgid "State"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__display_street
+msgid "Street"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__display_eik
+msgid "UIC"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model:ir.model.fields,field_description:l10n_bg_company_registry.field_bg_company_search_wizard__display_vat
+msgid "VAT Number"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model_terms:ir.ui.view,arch_db:l10n_bg_company_registry.view_bg_company_search_wizard_form
+msgid "Адрес"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#. odoo-python
+#: code:addons/l10n_bg_company_registry/models/res_partner.py:0
+msgid "Данни от търговски регистър"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#: model_terms:ir.ui.view,arch_db:l10n_bg_company_registry.view_partner_form
+msgid "Изтегли данни от търговския регистър по ЕИК"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#. odoo-python
+#: code:addons/l10n_bg_company_registry/models/res_partner.py:0
+msgid "Моля въведете валиден български ДДС номер (започва с BG)"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#. odoo-python
+#: code:addons/l10n_bg_company_registry/wizard/bg_company_search_wizard.py:0
+msgid "Моля първо изтеглете данните от регистъра"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#. odoo-python
+#: code:addons/l10n_bg_company_registry/wizard/bg_company_search_wizard.py:0
+msgid "Няма зададен партньор"
+msgstr ""
+
+#. module: l10n_bg_company_registry
+#. odoo-python
+#: code:addons/l10n_bg_company_registry/models/res_partner.py:0
+msgid "Този метод работи само за български ЕИК номера"
+msgstr ""

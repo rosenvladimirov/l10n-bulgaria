@@ -1,0 +1,1546 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_bank_wallet
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-19 04:22+0000\n"
+"PO-Revision-Date: 2026-05-19 04:22+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_add_key_wizard.py:0
+msgid ""
+"\n"
+"        <strong>Преглед на ключа:</strong><br/>\n"
+"        <strong>Име:</strong> %(name)s<br/>\n"
+"        <strong>Тип:</strong> %(type)s<br/>\n"
+"        <strong>Размер:</strong> %(size)s<br/>\n"
+"        <strong>Описание:</strong> %(description)s\n"
+"        "
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_form_view
+msgid "<span class=\"o_stat_text\">Keys</span>"
+msgstr "<span class=\"o_stat_text\">Ключове</span>"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid ""
+"<strong>Master парола:</strong> Автоматично се използва хешът на вашата "
+"потребителска парола"
+msgstr ""
+"<strong>Главна парола:</strong> Автоматично се използва хешът на вашата "
+"потребителска парола"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_change_password_wizard_form
+msgid ""
+"<strong>Внимание!</strong><br/>\n"
+"                    Промяната на главната парола ще прекриптира всички данни в портфела.\n"
+"                    Моля, запазете новата парола на сигурно място."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_generate_keypair_wizard_form
+msgid ""
+"<strong>Генериране на криптографски ключове</strong><br/>\n"
+"                    Генерирайте двойка ключове (частен и публичен) за криптографски операции.\n"
+"                    Ключовете ще бъдат автоматично съхранени в портфела."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid ""
+"<strong>Данни на ключа</strong><br/>\n"
+"                    Информация за избрания ключ от портфела."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_export_wizard_form
+msgid ""
+"<strong>Експортиране на портфел</strong><br/>\n"
+"                    Експортирайте данните от портфела за backup или пренасяне.\n"
+"                    Препоръчваме криптиран експорт за по-висока сигурност."
+msgstr ""
+"<strong>Експортиране на портфел</strong><br/>\n"
+"                    Експортирайте данните от портфела за резервно копие или пренасяне.\n"
+"                    Препоръчваме криптиран експорт за по-висока сигурност."
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_export_wizard_form
+msgid ""
+"<strong>Експортът е завършен успешно!</strong><br/>\n"
+"                    Данните са готови за изтегляне или копиране."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_generate_keypair_wizard_form
+msgid ""
+"<strong>Ключовете са генерирани успешно!</strong><br/>\n"
+"                    Двойката ключове е създадена и запазена в портфела."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid ""
+"<strong>Криптиране:</strong> PBKDF2 с 100,000 итерации + Fernet симетрично "
+"криптиране"
+msgstr ""
+"<strong>Криптиране:</strong> PBKDF2 със 100 000 итерации + Fernet симетрично"
+" криптиране"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid ""
+"<strong>Мениджър на ключове</strong><br/>\n"
+"                    Управлявайте ключовете в криптирания портфел."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_unlock_wizard_form
+msgid ""
+"<strong>Отключване на портфел</strong><br/>\n"
+"                    Въведете главната парола за отключване на криптирания портфел.\n"
+"                    Портфелът ще остане отключен до края на сесията."
+msgstr ""
+"<strong>Отключване на портфейл</strong><br/>\n"
+"                    Въведете главната парола за отключване на шифрования портфейл.\n"
+"                    Портфейлът ще остане отключен до края на сесията."
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid ""
+"<strong>Сигурност:</strong> Само вие можете да достъпите вашите ключове"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid ""
+"<strong>Съхранение:</strong> Данните се съхраняват криптирани в базата данни"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__zip_file
+msgid ""
+"AES-256 password-protected ZIP exported from another crypto.wallet (or a "
+"backup of this one)."
+msgstr ""
+"ZIP архив, защитен с парола по AES-256, експортиран от друг крипто портфейл "
+"(или резервно копие на този)."
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields.selection,name:l10n_bg_bank_wallet.selection__crypto_wallet_add_key_wizard__key_type__api_key
+msgid "API ключ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_form_view
+msgid "Add Key"
+msgstr "Добавяне на ключ"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_search_view
+msgid "By Creation Month"
+msgstr "По месец на създаване"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_search_view
+msgid "By Status"
+msgstr "По статус"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_search_view
+msgid "By User"
+msgstr "По потребител"
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_import_wizard.py:0
+msgid "Cannot decode the uploaded file."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_form_view
+msgid "Change Master Password"
+msgstr "Смяна на главна парола"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_import_wizard_form
+msgid "Close"
+msgstr "Затваряне"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_import_wizard_form
+msgid "Conflict resolution"
+msgstr "Разрешаване на конфликти"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.actions.act_window,help:l10n_bg_bank_wallet.crypto_wallet_action
+msgid "Create your first crypto wallet!"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_search_view
+msgid "Created This Month"
+msgstr "Създаден този месец"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_add_key_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_generate_keypair_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_key_manager__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_unlock_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__create_date
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__created_date
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_add_key_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_generate_keypair_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_key_manager__create_date
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_unlock_wizard__create_date
+msgid "Created on"
+msgstr "Създаден на"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_form_view
+msgid "Crypto Wallet"
+msgstr "Крипто портфейл"
+
+#. module: l10n_bg_bank_wallet
+#: model:res.groups,name:l10n_bg_bank_wallet.group_crypto_wallet_admin
+msgid "Crypto Wallet: Administrator"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:res.groups,name:l10n_bg_bank_wallet.group_crypto_wallet_export
+msgid "Crypto Wallet: Export Access"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:res.groups,name:l10n_bg_bank_wallet.group_crypto_wallet_generate
+msgid "Crypto Wallet: Generate Keys"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:res.groups,name:l10n_bg_bank_wallet.group_crypto_wallet_read
+msgid "Crypto Wallet: Read Access"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:res.groups,name:l10n_bg_bank_wallet.group_crypto_wallet_write
+msgid "Crypto Wallet: Write Access"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.actions.act_window,name:l10n_bg_bank_wallet.crypto_wallet_action
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_res_users__crypto_wallet_ids
+#: model:ir.ui.menu,name:l10n_bg_bank_wallet.crypto_wallet_menu_root
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_tree_view
+msgid "Crypto Wallets"
+msgstr "Криптографски портфели"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.actions.act_window,help:l10n_bg_bank_wallet.crypto_wallet_action
+msgid ""
+"Crypto wallets allow you to securely store\n"
+"                passwords, API keys and other sensitive data."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__decrypted_keys
+msgid "Decrypted Keys"
+msgstr "Декриптирани ключове"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_import_wizard_form
+msgid "Destination wallet credentials"
+msgstr "Данни за целевия портфейл"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__display_name
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_add_key_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_generate_keypair_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_key_manager__display_name
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_unlock_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields.selection,name:l10n_bg_bank_wallet.selection__crypto_wallet_generate_keypair_wizard__key_type__ec
+msgid "Elliptic Curve (SECP256R1)"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_form_view
+msgid "Encrypted Data"
+msgstr "Шифровани данни"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__encrypted_data
+msgid "Encrypted data"
+msgstr "Криптирани данни"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_form_view
+msgid "Export Wallet"
+msgstr "Експортиране на портфейл"
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_export_wizard.py:0
+msgid "Export password is required."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__file_path
+msgid "File path on disk"
+msgstr "Път до файла на диска"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__zip_filename
+msgid "Filename"
+msgstr "Име на файла"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_search_view
+msgid "Group By"
+msgstr "Групиране по"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__id
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_add_key_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_generate_keypair_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_key_manager__id
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_unlock_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__overwrite
+msgid ""
+"If a key with the same name already exists, replace it.  Default: skip "
+"duplicates (safer)."
+msgstr ""
+"Ако вече съществува ключ със същото име, той ще бъде заменен. По "
+"подразбиране: пропускане на дубликати (по-безопасно)."
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_import_wizard_form
+msgid "Import"
+msgstr "Импортиране"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.actions.act_window,name:l10n_bg_bank_wallet.action_crypto_wallet_import_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_import_wizard_form
+msgid "Import keys from ZIP"
+msgstr "Импортиране на ключове от ZIP"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__result_imported
+msgid "Imported"
+msgstr "Импортирани"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields.selection,name:l10n_bg_bank_wallet.selection__crypto_wallet_export_wizard__export_format__json
+msgid "JSON (незащитен)"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_form_view
+msgid "Key Management"
+msgstr "Управление на ключове"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_add_key_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_generate_keypair_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_key_manager__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_unlock_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__write_date
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_add_key_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_generate_keypair_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_key_manager__write_date
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_unlock_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__last_accessed
+msgid "Last opened"
+msgstr "Последно отворен"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_tree_view
+msgid "Lock"
+msgstr "Заключване"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_form_view
+msgid "Lock Wallet"
+msgstr "Заключване на портфейл"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__is_locked
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_search_view
+msgid "Locked"
+msgstr "Заключен"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__master_password
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__master_password
+msgid "Master password"
+msgstr "Главна парола"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__master_password
+msgid ""
+"Master password for the destination wallet.  Leave blank to use the current "
+"user password."
+msgstr ""
+"Главна парола за целевия портфейл. Оставете празно, за да се използва "
+"паролата на текущия потребител."
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_search_view
+msgid "My Wallets"
+msgstr "Моите портфейли"
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_export_wizard.py:0
+msgid "No data to export."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__overwrite
+msgid "Overwrite existing keys"
+msgstr "Презапиши съществуващи ключове"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__result_overwritten
+msgid "Overwritten"
+msgstr "Презаписани"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields.selection,name:l10n_bg_bank_wallet.selection__crypto_wallet_add_key_wizard__key_type__pgp_key
+msgid "PGP ключ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__zip_password
+msgid "Password used when the ZIP was created."
+msgstr "Паролата, използвана при създаването на ZIP архива."
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_import_wizard.py:0
+msgid "Please upload a ZIP file."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields.selection,name:l10n_bg_bank_wallet.selection__crypto_wallet_generate_keypair_wizard__key_type__rsa
+msgid "RSA (2048 бита)"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields.selection,name:l10n_bg_bank_wallet.selection__crypto_wallet_add_key_wizard__key_type__rsa_public
+msgid "RSA Публичен ключ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields.selection,name:l10n_bg_bank_wallet.selection__crypto_wallet_add_key_wizard__key_type__rsa_private
+msgid "RSA Частен ключ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_import_wizard_form
+msgid "Result"
+msgstr "Резултат"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields.selection,name:l10n_bg_bank_wallet.selection__crypto_wallet_add_key_wizard__key_type__ssh_key
+msgid "SSH ключ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__salt
+msgid "Salt to encrypt"
+msgstr "Сол за криптиране"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_search_view
+msgid "Search in Wallets"
+msgstr "Търсене в портфейли"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_form_view
+msgid "Show All Keys"
+msgstr "Показване на всички ключове"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__result_skipped
+msgid "Skipped"
+msgstr "Пропуснати"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__name
+msgid "Stored key name"
+msgstr "Наименование на съхранения ключ"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__result_summary
+msgid "Summary"
+msgstr "Резюме"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__use_user_password
+msgid ""
+"Take the master password from the logged-in user instead of asking "
+"explicitly."
+msgstr ""
+"Взима главната парола от влезлия потребител, вместо да я изисква изрично."
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_tree_view
+msgid "Unlock"
+msgstr "Отключване"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_form_view
+msgid "Unlock Wallet"
+msgstr "Отключване на портфейл"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_search_view
+msgid "Unlocked"
+msgstr "Отключен"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__use_user_password
+msgid "Use current user password"
+msgstr "Използвай паролата на текущия потребител"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model,name:l10n_bg_bank_wallet.model_res_users
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__user_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_search_view
+msgid "User"
+msgstr "Потребител"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model,name:l10n_bg_bank_wallet.model_crypto_wallet
+msgid "Virtual encrypted wallet for keys"
+msgstr "Виртуален криптиран портфел за ключове"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__wallet_id
+msgid "Wallet"
+msgstr "Портфел"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_form_view
+msgid "Wallet Content"
+msgstr "Съдържание на портфейл"
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_search_view
+msgid "Wallet Name"
+msgstr "Име на портфейл"
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_import_wizard.py:0
+msgid "Wallet is required."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.ui.menu,name:l10n_bg_bank_wallet.crypto_wallet_menu
+msgid "Wallets"
+msgstr "Портфейли"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model,name:l10n_bg_bank_wallet.model_crypto_wallet_generate_keypair_wizard
+msgid "Wizard за генериране на двойка ключове"
+msgstr "Съветник за генериране на двойка ключове"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model,name:l10n_bg_bank_wallet.model_crypto_wallet_add_key_wizard
+msgid "Wizard за добавяне на ключ в криптиран портфел"
+msgstr "Съветник за добавяне на ключ в криптиран портфел"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model,name:l10n_bg_bank_wallet.model_crypto_wallet_export_wizard
+msgid "Wizard за експортиране на криптиран портфел"
+msgstr "Съветник за експортиране на криптиран портфел"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model,name:l10n_bg_bank_wallet.model_crypto_wallet_import_wizard
+msgid "Wizard за импорт на ключове от ZIP в портфейла"
+msgstr "Съветник за импорт на ключове от ZIP файл в портфела"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model,name:l10n_bg_bank_wallet.model_crypto_wallet_unlock_wizard
+msgid "Wizard за отключване на криптиран портфел"
+msgstr "Съветник за отключване на криптиран портфел"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model,name:l10n_bg_bank_wallet.model_crypto_wallet_change_password_wizard
+msgid "Wizard за промяна на главната парола на портфела"
+msgstr "Съветник за промяна на главната парола на портфела"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__zip_file
+msgid "ZIP file"
+msgstr "ZIP файл"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__zip_password
+msgid "ZIP password"
+msgstr "Парола за ZIP"
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_import_wizard.py:0
+msgid "ZIP password is required."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid ""
+"Ако промените потребителската си парола, ще трябва да актуализирате портфела"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_generate_keypair_wizard__key_name
+msgid "Базово име за двойката ключове (ще се добавят _private и _public)"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_key_manager__keys_count
+msgid "Брой ключове"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__include_metadata
+msgid "Включва създаване дата, потребител и др."
+msgstr "Включва дата на създаване, потребител и др."
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__include_metadata
+msgid "Включи метаданни"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__master_password
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_unlock_wizard__master_password
+msgid "Въведете главната парола за отключване на портфела"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_export_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_unlock_wizard_form
+msgid "Въведете главната парола..."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid "Въведете име на ключа..."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid "Въведете името на ключа..."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__new_password
+msgid "Въведете новата главна парола"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_change_password_wizard_form
+msgid "Въведете новата парола..."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__confirm_password
+msgid "Въведете отново новата парола за потвърждение"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_export_wizard_form
+msgid "Въведете парола за експорта..."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__old_password
+msgid "Въведете текущата главна парола"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_change_password_wizard_form
+msgid "Въведете текущата главна парола..."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_generate_keypair_wizard.py:0
+msgid "Възникна грешка при генерирането: %s"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_export_wizard.py:0
+msgid "Възникна грешка при експорта: %s"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_change_password_wizard.py:0
+msgid "Възникна грешка при промяната на паролата: %s"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_unlock_wizard.py:0
+msgid "Възникна неочаквана грешка при отключването: %s"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid "Генерирай двойка"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_key_manager_wizard.py:0
+msgid "Генерирай двойка ключове"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_generate_keypair_wizard_form
+msgid "Генерирай и добави още"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_generate_keypair_wizard_form
+msgid "Генерирай ключове"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_generate_keypair_wizard.py:0
+msgid "Генерирай нова двойка ключове"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_generate_keypair_wizard_form
+msgid "Генериране на двойка ключове"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_generate_keypair_wizard_form
+msgid "Генерирани ключове"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__master_password
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_unlock_wizard__master_password
+msgid "Главна парола"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_change_password_wizard.py:0
+msgid "Главната парола на портфел \"%s\" е променена успешно!"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_export_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_generate_keypair_wizard_form
+msgid "Готово"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_change_password_wizard.py:0
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_generate_keypair_wizard.py:0
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_key_manager_wizard.py:0
+msgid "Грешка"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_add_key_wizard.py:0
+msgid "Грешка при добавяне на ключ: %s"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_export_wizard.py:0
+msgid "Грешка при експорта"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_key_manager_wizard.py:0
+msgid "Грешка при зареждане на ключовете: %s"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_unlock_wizard.py:0
+msgid "Грешка при отключване"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_key_manager_wizard.py:0
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_add_key_wizard__key_data
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_key_manager__selected_key_data
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid "Данни на ключа"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_add_key_wizard.py:0
+msgid "Данните на ключа не могат да надвишават 64KB"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_export_wizard.py:0
+msgid ""
+"Данните са готови за копиране. Моля, селектирайте и копирайте текста по-"
+"долу."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_key_manager__selected_key_created
+msgid "Дата на създаване"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid "Добави и създай нов"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.ui.menu,name:l10n_bg_bank_wallet.menu_crypto_wallet_add_key
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid "Добави ключ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.actions.act_window,name:l10n_bg_bank_wallet.action_crypto_wallet_add_key_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid "Добави ключ в портфела"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid "Добави ключа"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_add_key_wizard.py:0
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_key_manager_wizard.py:0
+msgid "Добави нов ключ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_add_key_wizard__description
+msgid "Допълнителна информация за ключа"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_change_password_wizard_form
+msgid "Допълнителни опции"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields.selection,name:l10n_bg_bank_wallet.selection__crypto_wallet_add_key_wizard__key_type__other
+msgid "Друго"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid "Експортирай ключ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_export_wizard_form
+msgid "Експортиране"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_key_manager_wizard.py:0
+msgid "Експортиране на ключ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_export_wizard_form
+msgid "Експортиране на портфел"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__export_data
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_export_wizard_form
+msgid "Експортирани данни"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid "Затвори"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_key_manager__selected_key_name
+msgid "Избран ключ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__use_user_password
+msgid "Използва паролата на текущия потребител"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_unlock_wizard__use_user_password
+msgid "Използва паролата на текущия потребител като главна парола"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__use_current_user_password
+msgid "Използва паролата на текущия потребител като стара парола"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__use_user_password
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_unlock_wizard__use_user_password
+msgid "Използвай паролата на потребителя"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__use_current_user_password
+msgid "Използвай паролата на потребителя като стара"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_export_wizard_form
+msgid "Изтегли файл"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_add_key_wizard__key_name
+msgid "Име на ключа"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_generate_keypair_wizard__key_name
+msgid "Име на ключовете"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_generate_keypair_wizard__public_key_name
+msgid "Име на публичния ключ"
+msgstr "Ime на публичния ключ"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__export_filename
+msgid "Име на файла"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_generate_keypair_wizard__private_key_name
+msgid "Име на частния ключ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_generate_keypair_wizard.py:0
+msgid "Името може да съдържа само букви, цифри, тире, долна черта и точки"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_add_key_wizard.py:0
+msgid ""
+"Името на ключа може да съдържа само букви, цифри, тире, долна черта и точки"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_add_key_wizard.py:0
+msgid "Името на ключа не може да бъде по-дълго от 50 символа"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid "Името на ключа трябва да е уникално"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_generate_keypair_wizard.py:0
+msgid "Името не може да бъде по-дълго от 40 символа"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid "Информация"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_add_key_wizard.py:0
+msgid "Информация за ключа"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid "Информация за портфела"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_add_key_wizard.py:0
+msgid "Ключ с име \"%s\" вече съществува в портфела"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid "Ключове в портфела"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_generate_keypair_wizard.py:0
+msgid "Ключове с имена \"%s\" или \"%s\" вече съществуват в портфела!"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_add_key_wizard.py:0
+msgid "Ключът \"%s\" (тип: %s) е добавен успешно в портфела"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_key_manager_wizard.py:0
+msgid "Ключът \"%s\" е премахнат успешно."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_export_wizard_form
+msgid "Копирай в клипборда"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_export_wizard.py:0
+msgid "Копиране"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields.selection,name:l10n_bg_bank_wallet.selection__crypto_wallet_export_wizard__export_format__encrypted
+msgid "Криптиран експорт"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_res_users__crypto_wallet_ids
+msgid "Криптирани портфейли на потребителя"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid "Максимален размер на ключ: 64KB"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model,name:l10n_bg_bank_wallet.model_crypto_wallet_key_manager
+msgid "Мениджър за ключове в криптиран портфел"
+msgstr "Управител на ключове в криптиран портфел"
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_generate_keypair_wizard.py:0
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_key_manager_wizard.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid "Мениджър на ключове"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_key_manager_wizard.py:0
+msgid "Моля, въведете името на ключа."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid "Назад"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_export_wizard_form
+msgid "Настройки на експорта"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_generate_keypair_wizard_form
+msgid "Настройки на ключовете"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_key_manager_wizard.py:0
+msgid "Не може да се зареди ключът: %s"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_key_manager_wizard.py:0
+msgid "Не може да се премахне ключът: %s"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_change_password_wizard.py:0
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_export_wizard.py:0
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_generate_keypair_wizard.py:0
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_unlock_wizard.py:0
+msgid "Неочаквана грешка"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_change_password_wizard.py:0
+msgid "Неуспешна промяна на паролата"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_add_key_wizard.py:0
+msgid "Неуспешно добавяне на ключа в портфела"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_key_manager_wizard.py:0
+msgid "Неуспешно премахване на ключа"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__new_password
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_change_password_wizard_form
+msgid "Нова парола"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_change_password_wizard.py:0
+msgid "Новата парола и потвърждението не съвпадат!"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_change_password_wizard.py:0
+msgid "Новата парола трябва да съдържа поне 8 символа!"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_generate_keypair_wizard.py:0
+msgid "Няма генериран публичен ключ!"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_generate_keypair_wizard.py:0
+msgid "Няма генериран частен ключ!"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_add_key_wizard.py:0
+msgid "Няма описание"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_key_manager_wizard.py:0
+msgid "Няма съхранени ключове в този портфел."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid "Обнови"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__update_user_password
+msgid "Обнови паролата на потребителя"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__update_user_password
+msgid "Обновява и паролата на потребителя в системата"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid "Операции с ключ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_add_key_wizard__description
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_generate_keypair_wizard__description
+msgid "Описание"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid "Описание на ключа (по избор)"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_generate_keypair_wizard__description
+msgid "Описание на предназначението на ключовете"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_generate_keypair_wizard_form
+msgid "Описание на предназначението..."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_change_password_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_export_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_generate_keypair_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_unlock_wizard_form
+msgid "Отказ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_unlock_wizard_form
+msgid "Отключи"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_unlock_wizard_form
+msgid "Отключи и покажи ключове"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_key_manager_wizard.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_unlock_wizard_form
+msgid "Отключи портфела"
+msgstr "Отключи портфейла"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields.selection,name:l10n_bg_bank_wallet.selection__crypto_wallet_add_key_wizard__key_type__password
+msgid "Парола"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__export_password
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_export_wizard_form
+msgid "Парола за експорта"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__export_password
+msgid "Парола за криптиране на експорта (само за криптиран формат)"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_change_password_wizard.py:0
+msgid "Паролата е променена и портфелът е отключен успешно!"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_change_password_wizard.py:0
+msgid "Паролата е променена, но възникна грешка при отключването: %s"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_export_wizard.py:0
+msgid "Паролата за експорта е задължителна при криптиран формат!"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_export_wizard.py:0
+msgid "Паролата за експорта е задължителна!"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_export_wizard.py:0
+msgid "Паролата за експорта и потвърждението не съвпадат!"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_export_wizard.py:0
+msgid "Паролите за експорта не съвпадат!"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid "Покажи ключ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_generate_keypair_wizard_form
+msgid "Покажи публичен ключ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_generate_keypair_wizard_form
+msgid "Покажи частен ключ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__wallet_id
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__wallet_id
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_generate_keypair_wizard__wallet_id
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_key_manager__wallet_id
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_unlock_wizard__wallet_id
+msgid "Портфел"
+msgstr "Портфейл"
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_unlock_wizard.py:0
+msgid ""
+"Портфелът \"%s\" е отключен успешно!\n"
+"Намерени са %d ключа."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_key_manager__is_wallet_locked
+msgid "Портфелът е заключен"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid ""
+"Поставете тук съдържанието на ключа...\n"
+"\n"
+"Примери:\n"
+"- RSA ключ: -----BEGIN PRIVATE KEY-----\n"
+"- API ключ: sk_live_abc123...\n"
+"- Парола: MySecurePassword123"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_change_password_wizard_form
+msgid "Потвърдете новата парола..."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__confirm_export_password
+msgid "Потвърдете паролата за експорта"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_export_wizard_form
+msgid "Потвърдете паролата..."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__confirm_password
+msgid "Потвърди новата парола"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__confirm_export_password
+msgid "Потвърди паролата"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid "Преглед"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid "Премахни ключ"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_change_password_wizard_form
+msgid "Промени главната парола"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_change_password_wizard_form
+msgid "Промени и отключи"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_change_password_wizard_form
+msgid "Промени паролата"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_generate_keypair_wizard_form
+msgid "Резултат"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_generate_keypair_wizard.py:0
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_generate_keypair_wizard__generation_result
+msgid "Резултат от генерирането"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_export_wizard.py:0
+msgid "Резултат от експорта"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields.selection,name:l10n_bg_bank_wallet.selection__crypto_wallet_add_key_wizard__key_type__certificate
+msgid "Сертификат"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_key_manager_form
+msgid "Сигурни ли сте, че искате да премахнете този ключ?"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_key_manager__key_list
+msgid "Списък с ключове"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_change_password_wizard__old_password
+msgid "Стара парола"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_add_key_wizard__key_data
+msgid "Съдържанието на ключа (ще бъде криптирано)"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_change_password_wizard_form
+msgid "Текуща парола"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_add_key_wizard__key_type
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_key_manager__selected_key_type
+msgid "Тип на ключа"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_generate_keypair_wizard__key_type
+msgid "Тип на ключовете"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields.selection,name:l10n_bg_bank_wallet.selection__crypto_wallet_add_key_wizard__key_type__token
+msgid "Токен"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_add_key_wizard__key_name
+msgid "Уникално име за идентификация на ключа"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_add_key_wizard.py:0
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_change_password_wizard.py:0
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_key_manager_wizard.py:0
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_unlock_wizard.py:0
+msgid "Успех"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_generate_keypair_wizard.py:0
+msgid ""
+"Успешно генерирани %s ключове:\n"
+"\n"
+"Частен ключ: %s\n"
+"Публичен ключ: %s\n"
+"\n"
+"Ключовете са запазени в портфела и криптирани с вашата главна парола."
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__export_format
+msgid "Формат на експорта"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#. odoo-python
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_change_password_wizard.py:0
+msgid "Частичен успех"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_generate_keypair_wizard_form
+msgid "напр. my_ssl_cert"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid "⚠️ Важни предупреждения:"
+msgstr ""
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.view_crypto_wallet_add_key_wizard_form
+msgid "🔒 Как работи криптирането:"
+msgstr ""

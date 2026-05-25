@@ -1,0 +1,681 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_tariff_code
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-18 21:16+0000\n"
+"PO-Revision-Date: 2026-05-18 21:16+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_move_line_form_tariff
+msgid "85333900 (CN) / 853339 (HS)"
+msgstr "85333900 (КН) / 853339 (ХС)"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields.selection,name:l10n_bg_tariff_code.selection__l10n_bg_taric_cache__source__api
+msgid "API"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_res_company__l10n_bg_auto_download
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_res_config_settings__l10n_bg_auto_download
+msgid "Auto Download"
+msgstr "Автоматично изтегляне"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_move_line_form_tariff
+msgid "Automatically extracted from product or Intrastat"
+msgstr "Автоматично извлечен от продукт или Интрастат"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields.selection,name:l10n_bg_tariff_code.selection__l10n_bg_taric_cache__source__circabc
+msgid "CIRCABC Import"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_import_wizard__circabc_url
+msgid "CIRCABC URL"
+msgstr "URL на CIRCABC"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_cache__cn_code
+msgid "CN Code"
+msgstr "КН код"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.res_config_settings_view_form_tariff
+msgid "Cache Duration"
+msgstr "Продължителност на кеша"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_product_product__l10n_bg_tariff_rate
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_product_template__l10n_bg_tariff_rate
+msgid "Cached tariff rate for this product"
+msgstr "Кеширана тарифна ставка за този продукт"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_l10n_bg_taric_import_wizard
+msgid "Cancel"
+msgstr "Отказ"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_l10n_bg_taric_cache__cn_code
+msgid "Combined Nomenclature code (8-10 digits)"
+msgstr "Код по Комбинирана номенклатура (8–10 цифри)"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model,name:l10n_bg_tariff_code.model_res_company
+msgid "Companies"
+msgstr "Компании"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model,name:l10n_bg_tariff_code.model_res_config_settings
+msgid "Config Settings"
+msgstr "Настройки на конфигурацията"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.res_config_settings_view_form_tariff
+msgid "Configure access to download from EU TARIC system"
+msgstr "Конфигуриране на достъп за изтегляне от системата на ЕС TARIC"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_move_line_tree_tariff
+msgid "Copy tariff codes to product HS codes"
+msgstr "Копиране на тарифните кодове в HS кодовете на продуктите"
+
+#. module: l10n_bg_tariff_code
+#. odoo-python
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
+msgid ""
+"Could not identify required columns. Expected: CN Code, Country, Duty Rate"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_l10n_bg_taric_cache_search
+msgid "Country"
+msgstr "Държава"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_cache__country_code
+msgid "Country Code"
+msgstr "Код на държава"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_cache__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_import_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_cache__create_date
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_import_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_l10n_bg_taric_cache__duty_rate
+msgid "Customs duty rate in percentage"
+msgstr "Митническа ставка в проценти"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_cache__source
+msgid "Data Source"
+msgstr "Източник на данни"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.product_template_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.res_config_settings_view_form_tariff
+msgid "Default Tariff Rate"
+msgstr "Стандартна тарифна ставка"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_product_product__l10n_bg_tariff_rate
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_product_template__l10n_bg_tariff_rate
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_res_company__l10n_bg_default_tariff_rate
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_res_config_settings__l10n_bg_default_tariff_rate
+msgid "Default Tariff Rate (%)"
+msgstr "Тарифна ставка по подразбиране (%)"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.res_config_settings_view_form_tariff
+msgid "Default tariff rate when TARIC lookup fails"
+msgstr "Стандартна тарифна ставка при неуспешна справка в TARIC"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_res_company__l10n_bg_default_tariff_rate
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_res_config_settings__l10n_bg_default_tariff_rate
+msgid "Default tariff rate when it cannot be found in TARIC"
+msgstr ""
+"Тарифна ставка по подразбиране, когато не може да бъде намерена в TARIC"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_cache__description
+msgid "Description"
+msgstr "Описание"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_account_move_line__l10n_bg_tariff_description
+msgid "Description from the TARIC system"
+msgstr "Описание от системата TARIC"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_product_product__l10n_bg_tariff_description
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_product_template__l10n_bg_tariff_description
+msgid "Description of the tariff rate for this product"
+msgstr "Описание на тарифната ставка за този продукт"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_l10n_bg_taric_import_wizard__circabc_url
+msgid "Direct link to TARIC Excel/CSV file on CIRCABC"
+msgstr "Директна връзка към файл Excel/CSV с данни от TARIC в CIRCABC"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_cache__display_name
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_import_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_res_company__l10n_bg_auto_download
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_res_config_settings__l10n_bg_auto_download
+msgid "Download TARIC data automatically"
+msgstr "Изтегля данните от TARIC автоматично"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields.selection,name:l10n_bg_tariff_code.selection__l10n_bg_taric_import_wizard__import_method__url
+msgid "Download from URL"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_cache__duty_rate
+msgid "Duty Rate (%)"
+msgstr "Мито (%)"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_res_company__l10n_bg_taric_api_enabled
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_res_config_settings__l10n_bg_taric_api_enabled
+msgid "Enable TARIC API"
+msgstr "Активиране на TARIC API"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_res_company__l10n_bg_taric_api_enabled
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_res_config_settings__l10n_bg_taric_api_enabled
+msgid "Enable automatic TARIC lookup"
+msgstr "Активира автоматичното търсене в TARIC"
+
+#. module: l10n_bg_tariff_code
+#. odoo-python
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
+msgid "Failed to download TARIC data from CIRCABC: %s"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#. odoo-python
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
+msgid "Failed to import TARIC data: %s"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#. odoo-python
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
+msgid "Failed to read CSV file: %s"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#. odoo-python
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
+msgid "Failed to read Excel file: %s"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#. odoo-python
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
+msgid "File is empty"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_import_wizard__filename
+msgid "Filename"
+msgstr "Име на файл"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_l10n_bg_taric_cache_search
+msgid "From API"
+msgstr "От API"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_l10n_bg_taric_cache_search
+msgid "From CIRCABC"
+msgstr "От CIRCABC"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_l10n_bg_taric_cache__description
+msgid "Goods nomenclature description"
+msgstr "Описание по стокова номенклатура"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_l10n_bg_taric_cache_search
+msgid "Group By"
+msgstr "Групиране по"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_res_company__l10n_bg_taric_cache_duration
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_res_config_settings__l10n_bg_taric_cache_duration
+msgid "How many hours to cache tariff rates"
+msgstr "Колко часа да се кешират тарифните ставки"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_cache__id
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_import_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_l10n_bg_taric_cache__country_code
+msgid "ISO country code (e.g., CN, US, etc.)"
+msgstr "ISO код на държава (напр. CN, US и др.)"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_l10n_bg_taric_import_wizard
+msgid "Import"
+msgstr "Импортиране"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_import_wizard__import_method
+msgid "Import Method"
+msgstr "Метод на импортиране"
+
+#. module: l10n_bg_tariff_code
+#. odoo-python
+#: code:addons/l10n_bg_tariff_code/wizards/l10n_bg_taric_import_wizard.py:0
+msgid "Import Successful"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.actions.act_window,name:l10n_bg_tariff_code.action_l10n_bg_taric_import
+#: model:ir.ui.menu,name:l10n_bg_tariff_code.menu_l10n_bg_taric_import
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_l10n_bg_taric_import_wizard
+msgid "Import TARIC Data"
+msgstr "Импортиране на данни TARIC"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.actions.act_window,help:l10n_bg_tariff_code.action_l10n_bg_taric_cache
+msgid ""
+"Import TARIC data from CIRCABC or it will be automatically populated from "
+"API calls."
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#. odoo-python
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
+msgid ""
+"Import completed:\n"
+"- New records: %d\n"
+"- Updated records: %d\n"
+"- Errors: %d"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#. odoo-python
+#: code:addons/l10n_bg_tariff_code/wizards/l10n_bg_taric_import_wizard.py:0
+msgid "Import failed: %s"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_account_move_line__l10n_bg_tariff_rate_is_manual
+msgid ""
+"Indicates whether the rate is manually entered and should not be "
+"recalculated automatically"
+msgstr ""
+"Указва дали ставката е въведена ръчно и не трябва да се преизчислява "
+"автоматично"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model,name:l10n_bg_tariff_code.model_account_move_line
+msgid "Journal Item"
+msgstr "Статия в дневник"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_cache__last_update
+msgid "Last Update"
+msgstr "Последна актуализация"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_cache__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_import_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_cache__write_date
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_import_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_account_move_line__l10n_bg_tariff_last_update
+msgid "Last tariff rate update"
+msgstr "Последна актуализация на тарифната ставка"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_l10n_bg_taric_cache_search
+msgid "Manual"
+msgstr "Ръчно"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields.selection,name:l10n_bg_tariff_code.selection__l10n_bg_taric_cache__source__manual
+msgid "Manual Entry"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_account_move_line__l10n_bg_tariff_rate_is_manual
+msgid "Manual Rate Override"
+msgstr "Ръчно заместване на ставката"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_account_move_line__l10n_bg_tariff_code_manual
+msgid "Manual Tariff Code"
+msgstr "Ръчен тарифен код"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_account_move_line__l10n_bg_tariff_rate_manual
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_product_product__l10n_bg_tariff_rate_manual
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_product_template__l10n_bg_tariff_rate_manual
+msgid "Manual Tariff Rate (%)"
+msgstr "Ръчна тарифна ставка (%)"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_move_line_form_tariff
+msgid "Manually entered code"
+msgstr "Ръчно въведен код"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_account_move_line__l10n_bg_tariff_code_manual
+msgid "Manually entered tariff code"
+msgstr "Ръчно въведен тарифен код"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_account_move_line__l10n_bg_tariff_rate_manual
+msgid "Manually entered tariff rate"
+msgstr "Ръчно въведена тарифна ставка"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_product_product__l10n_bg_tariff_rate_manual
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_product_template__l10n_bg_tariff_rate_manual
+msgid "Manually entered tariff rate (priority over automatic)"
+msgstr "Ръчно въведена тарифна ставка (приоритет пред автоматичната)"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_cache__measure_type
+msgid "Measure Type"
+msgstr "Тип мярка"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.actions.act_window,help:l10n_bg_tariff_code.action_l10n_bg_taric_cache
+msgid "No TARIC data cached yet"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#. odoo-python
+#: code:addons/l10n_bg_tariff_code/wizards/l10n_bg_taric_import_wizard.py:0
+msgid "Please enter CIRCABC URL"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#. odoo-python
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
+msgid "Please install 'openpyxl' or 'xlrd' package: pip install openpyxl"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#. odoo-python
+#: code:addons/l10n_bg_tariff_code/wizards/l10n_bg_taric_import_wizard.py:0
+msgid "Please upload a file"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model,name:l10n_bg_tariff_code.model_product_template
+msgid "Product"
+msgstr "Продукт"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model,name:l10n_bg_tariff_code.model_product_product
+msgid "Product Variant"
+msgstr "Вариант на продукт"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_move_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_move_line_tree_tariff
+msgid "Rate"
+msgstr "Ставка"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_l10n_bg_taric_cache_search
+msgid "Search TARIC Cache"
+msgstr "Търсене в ТАРИК кеш"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_l10n_bg_taric_cache_search
+msgid "Source"
+msgstr "Източник"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.ui.menu,name:l10n_bg_tariff_code.menu_l10n_bg_taric_root
+msgid "TARIC"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_res_company__l10n_bg_taric_api_url
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_res_config_settings__l10n_bg_taric_api_url
+msgid "TARIC API URL"
+msgstr "URL на TARIC API"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.actions.act_window,name:l10n_bg_tariff_code.action_l10n_bg_taric_cache
+#: model:ir.ui.menu,name:l10n_bg_tariff_code.menu_l10n_bg_taric_cache
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_l10n_bg_taric_cache_tree
+msgid "TARIC Cache"
+msgstr "Кеш TARIC"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_res_company__l10n_bg_taric_cache_duration
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_res_config_settings__l10n_bg_taric_cache_duration
+msgid "TARIC Cache Duration (hours)"
+msgstr "Продължителност на кеша на TARIC (часове)"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_l10n_bg_taric_cache_form
+msgid "TARIC Cache Entry"
+msgstr "ТАРИК кеш запис"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_product_product__taric_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_product_template__taric_code
+msgid "TARIC Code"
+msgstr "Код TARIC"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model,name:l10n_bg_tariff_code.model_l10n_bg_taric_import_wizard
+msgid "TARIC Data Import Wizard"
+msgstr "Съветник за импортиране на данни TARIC"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_import_wizard__file_data
+msgid "TARIC File"
+msgstr "TARIC файл"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.res_config_settings_view_form_tariff
+msgid "TARIC Integration"
+msgstr "Интеграция с TARIC"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.product_template_form_view
+msgid "TARIC Rate"
+msgstr "Ставка по TARIC"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model,name:l10n_bg_tariff_code.model_l10n_bg_taric_cache
+msgid "TARIC Tariff Rate Cache"
+msgstr "Кеш на митническия тариф TARIC"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_product_product__taric_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_product_template__taric_code
+msgid "TARIC code of the product (synchronized with HS Code)"
+msgstr "TARIC код на продукта (синхронизиран с HS код)"
+
+#. module: l10n_bg_tariff_code
+#. odoo-python
+#: code:addons/l10n_bg_tariff_code/wizards/l10n_bg_taric_import_wizard.py:0
+msgid "TARIC data imported successfully"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.constraint,message:l10n_bg_tariff_code.constraint_l10n_bg_taric_cache_unique_taric_entry
+msgid "TARIC entry must be unique per code, country and validity period!"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_move_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_move_line_tree_tariff
+msgid "Tariff Code"
+msgstr "Тарифен код"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_move_line_form_tariff
+msgid "Tariff Code (CN/HS/Intrastat)"
+msgstr "Тарифен код (КН/ХС/Интрастат)"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_account_move_line__l10n_bg_tariff_description
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_product_product__l10n_bg_tariff_description
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_product_template__l10n_bg_tariff_description
+msgid "Tariff Description"
+msgstr "Тарифно описание"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_account_move_line__l10n_bg_tariff_last_update
+msgid "Tariff Last Update"
+msgstr "Последна актуализация на тарифата"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_move_line_form_tariff
+msgid "Tariff Rate"
+msgstr "Митническа ставка"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_account_move_line__l10n_bg_tariff_rate
+msgid "Tariff Rate (%)"
+msgstr "Тарифна ставка (%)"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_product_product__l10n_bg_tariff_last_update
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_product_template__l10n_bg_tariff_last_update
+msgid "Tariff Rate Last Update"
+msgstr "Последна актуализация на тарифната ставка"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_account_move_line__l10n_bg_tariff_code
+msgid "Tariff code (CN/HS/intrastat compatible)"
+msgstr "Тарифен код (съвместим с КН/HS/интрастат)"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_account_move_line__l10n_bg_tariff_rate
+msgid "Tariff rate from the EU Taric System"
+msgstr "Тарифна ставка от системата EU TARIC"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_account_move_line__l10n_bg_tariff_code
+msgid "Tariff/HS/CN Code"
+msgstr "Тарифен/HS/КН код"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_l10n_bg_taric_cache__measure_type
+msgid "Type of measure (e.g., 103 = Third country duty)"
+msgstr "Вид мярка (напр. 103 = Мито за трети страни)"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_res_company__l10n_bg_taric_api_url
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_res_config_settings__l10n_bg_taric_api_url
+msgid "URL of the European TARIC API system"
+msgstr "URL адрес на европейската система TARIC API"
+
+#. module: l10n_bg_tariff_code
+#. odoo-python
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
+msgid ""
+"Unsupported file format. Only Excel (.xlsx) and CSV files are supported."
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_move_line_tree_tariff
+msgid "Update Tariff Rates"
+msgstr "Актуализиране на тарифните ставки"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.product_template_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_move_line_form_tariff
+msgid "Update from TARIC"
+msgstr "Актуализиране от TARIC"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_l10n_bg_taric_import_wizard__file_data
+msgid "Upload Excel (.xlsx) or CSV file with TARIC data"
+msgstr "Качете файл Excel (.xlsx) или CSV с данни от TARIC"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields.selection,name:l10n_bg_tariff_code.selection__l10n_bg_taric_import_wizard__import_method__file
+msgid "Upload File"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_cache__valid_from
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_l10n_bg_taric_cache_search
+msgid "Valid From"
+msgstr "В сила от"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,field_description:l10n_bg_tariff_code.field_l10n_bg_taric_cache__valid_to
+msgid "Valid To"
+msgstr "В сила до"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_l10n_bg_taric_cache_search
+msgid "Valid Today"
+msgstr "Валидни днес"
+
+#. module: l10n_bg_tariff_code
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_product_product__l10n_bg_tariff_last_update
+#: model:ir.model.fields,help:l10n_bg_tariff_code.field_product_template__l10n_bg_tariff_last_update
+msgid "When was the tariff rate last updated"
+msgstr "Кога е актуализирана последно тарифната ставка"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.res_config_settings_view_form_tariff
+msgid "hours"
+msgstr "часове"
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_l10n_bg_taric_import_wizard
+msgid "https://circabc.europa.eu/sd/a/[file-id]/TARIC_data.xlsx"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.res_config_settings_view_form_tariff
+msgid "https://ec.europa.eu/taxation_customs/dds2/taric/services/taricws"
+msgstr ""
+
+#. module: l10n_bg_tariff_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_tariff_code.view_move_line_tree_tariff
+msgid "🔄 Sync HS Codes"
+msgstr "🔄 Синхронизиране на HS кодове"

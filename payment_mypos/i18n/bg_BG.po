@@ -1,0 +1,424 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* payment_mypos
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-18 20:29+0000\n"
+"PO-Revision-Date: 2026-05-18 20:29+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/wizards/mypos_load_credentials_wizard.py:0
+msgid "Both clientId and clientSecret are required."
+msgstr ""
+
+#. module: payment_mypos
+#: model_terms:ir.ui.view,arch_db:payment_mypos.view_mypos_load_credentials_wizard_form
+msgid "Cancel"
+msgstr "Отказ"
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_payment_provider__code
+msgid "Code"
+msgstr "Код"
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_mypos_load_credentials_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_mypos_load_credentials_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/wizards/mypos_load_credentials_wizard.py:0
+msgid "Credentials stored in the company-owner's wallet."
+msgstr ""
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_mypos_load_credentials_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: payment_mypos
+#: model:ir.model.fields.selection,name:payment_mypos.selection__mypos_load_credentials_wizard__input_mode__manual
+msgid "Enter clientId / clientSecret manually"
+msgstr ""
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_mypos_load_credentials_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: payment_mypos
+#: model:ir.model.fields,help:payment_mypos.field_payment_provider__mypos_key_index
+msgid "Index of the RSA key pair registered in myPOS."
+msgstr "Индекс на RSA двойката ключове, регистрирана в myPOS."
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_mypos_load_credentials_wizard__input_mode
+msgid "Input Mode"
+msgstr "Режим на въвеждане"
+
+#. module: payment_mypos
+#: model:ir.model.fields,help:payment_mypos.field_payment_provider__mypos_application_id
+msgid ""
+"Integration Application ID (e.g. mps-app-XXXXXXXX). Required for refund/void"
+" under Checkout API v1.4.1."
+msgstr ""
+"Идентификатор на интеграционното приложение (напр. mps-app-XXXXXXXX). "
+"Необходим за възстановяване/анулиране чрез Checkout API v1.4.1."
+
+#. module: payment_mypos
+#: model:ir.model.fields,help:payment_mypos.field_payment_provider__mypos_partner_id
+msgid ""
+"Integration Partner ID (e.g. mps-p-XXXXXXXX). Required for refund/void under"
+" Checkout API v1.4.1."
+msgstr ""
+"Идентификатор на интеграционния партньор (напр. mps-p-XXXXXXXX). Необходим "
+"за възстановяване/анулиране чрез Checkout API v1.4.1."
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/wizards/mypos_load_credentials_wizard.py:0
+msgid "Invalid JSON: %s"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/wizards/mypos_load_credentials_wizard.py:0
+msgid ""
+"JSON does not contain clientId/clientSecret. Expected the file produced by "
+"`mypos credentials --integration-id N`."
+msgstr ""
+
+#. module: payment_mypos
+#: model:ir.model.fields,help:payment_mypos.field_mypos_load_credentials_wizard__input_mode
+msgid ""
+"JSON mode accepts the file produced by `mypos credentials --integration-id "
+"N` — paste its contents into the field below."
+msgstr ""
+"JSON режимът приема файла, генериран от `mypos credentials --integration-id "
+"N` — поставете съдържанието му в полето по-долу."
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_mypos_load_credentials_wizard__raw_json
+msgid "JSON payload"
+msgstr "JSON съдържание"
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_payment_provider__mypos_key_index
+msgid "Key Index"
+msgstr "Индекс на ключ"
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_mypos_load_credentials_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_mypos_load_credentials_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: payment_mypos
+#: model:ir.actions.act_window,name:payment_mypos.action_mypos_load_credentials_wizard
+#: model_terms:ir.ui.view,arch_db:payment_mypos.view_mypos_load_credentials_wizard_form
+msgid "Load myPOS API Credentials"
+msgstr "Зареждане на API учетни данни на myPOS"
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_payment_provider__mypos_private_key
+msgid "Merchant Private Key (RSA, PEM)"
+msgstr "Частен ключ на търговеца (RSA, PEM)"
+
+#. module: payment_mypos
+#: model:ir.model.fields,help:payment_mypos.field_payment_provider__mypos_private_key
+msgid "PEM-encoded RSA private key used to sign requests."
+msgstr "RSA частен ключ в PEM формат, използван за подписване на заявките."
+
+#. module: payment_mypos
+#: model:ir.model.fields,help:payment_mypos.field_payment_provider__mypos_public_cert
+msgid "PEM-encoded myPOS certificate used to verify response signatures."
+msgstr ""
+"Сертификат на myPOS в PEM формат, използван за проверка на подписите на "
+"отговорите."
+
+#. module: payment_mypos
+#: model:ir.model.fields,help:payment_mypos.field_mypos_load_credentials_wizard__client_id
+msgid "Partner-API client identifier (visible, not a secret on its own)"
+msgstr ""
+"Клиентски идентификатор за Partner API (видим, сам по себе си не е тайна)"
+
+#. module: payment_mypos
+#: model:ir.model.fields,help:payment_mypos.field_mypos_load_credentials_wizard__client_secret
+msgid ""
+"Partner-API secret. Goes straight to the wallet; never stored on this "
+"wizard."
+msgstr ""
+"Тайна за Partner API. Изпраща се директно към портфейла; не се съхранява в "
+"този съветник."
+
+#. module: payment_mypos
+#: model:ir.model.fields.selection,name:payment_mypos.selection__mypos_load_credentials_wizard__input_mode__json
+msgid "Paste JSON (from mypos_browser credentials)"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/wizards/mypos_load_credentials_wizard.py:0
+msgid "Paste the JSON payload first."
+msgstr ""
+
+#. module: payment_mypos
+#: model:ir.model.fields,help:payment_mypos.field_mypos_load_credentials_wizard__raw_json
+msgid "Paste the entire JSON file (clientId, clientSecret, etc.)"
+msgstr "Поставете целия JSON файл (clientId, clientSecret и др.)"
+
+#. module: payment_mypos
+#: model:ir.model,name:payment_mypos.model_payment_provider
+msgid "Payment Provider"
+msgstr "Поставчик на плащания"
+
+#. module: payment_mypos
+#: model:ir.model,name:payment_mypos.model_payment_transaction
+msgid "Payment Transaction"
+msgstr "Трансакция на плащане"
+
+#. module: payment_mypos
+#: model_terms:ir.ui.view,arch_db:payment_mypos.view_mypos_load_credentials_wizard_form
+msgid ""
+"Stash the partner-level API credentials (clientId / clientSecret)\n"
+"                    into the company-owner's encrypted wallet. The secret is shown\n"
+"                    by myPOS only once at generation time — paste it here immediately\n"
+"                    after running <code>mypos credentials --integration-id N</code>."
+msgstr ""
+"Съхранете API идентификационните данни на партньорско ниво (clientId / clientSecret)\n"
+"                    в криптирания портфейл на собственика на компанията. Тайният ключ се показва\n"
+"                    от myPOS само веднъж при генерирането му — поставете го тук незабавно\n"
+"                    след изпълнение на <code>mypos credentials --integration-id N</code>."
+
+#. module: payment_mypos
+#: model:ir.model.fields,help:payment_mypos.field_payment_provider__mypos_sid
+msgid "Store ID provided by myPOS. Sandbox default: 000000000000010"
+msgstr ""
+"Идентификатор на магазина, предоставен от myPOS. По подразбиране в тестова "
+"среда: 000000000000010"
+
+#. module: payment_mypos
+#: model_terms:ir.ui.view,arch_db:payment_mypos.view_mypos_load_credentials_wizard_form
+msgid "Store in Wallet"
+msgstr "Съхрани в портфейла"
+
+#. module: payment_mypos
+#: model:ir.model.fields,help:payment_mypos.field_payment_provider__code
+msgid "The technical code of this payment provider."
+msgstr "Техническият код на този доставчик на плащания."
+
+#. module: payment_mypos
+#: model:ir.model.fields,help:payment_mypos.field_payment_provider__mypos_wallet
+msgid ""
+"Wallet number associated with the merchant. Sandbox default: 61938166610"
+msgstr ""
+"Номер на портфейла, свързан с търговеца. По подразбиране в тестова среда: "
+"61938166610"
+
+#. module: payment_mypos
+#: model_terms:payment.provider,pending_msg:payment_mypos.payment_provider_mypos
+msgid ""
+"Your payment has been successfully processed but is waiting for approval."
+msgstr ""
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_mypos_load_credentials_wizard__client_id
+msgid "clientId"
+msgstr ""
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_mypos_load_credentials_wizard__client_secret
+msgid "clientSecret"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/wizards/mypos_load_credentials_wizard.py:0
+#: model:ir.model.fields.selection,name:payment_mypos.selection__payment_provider__code__mypos
+#: model:payment.provider,name:payment_mypos.payment_provider_mypos
+msgid "myPOS"
+msgstr ""
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_payment_provider__mypos_application_id
+msgid "myPOS Application ID"
+msgstr "Идентификатор на приложение myPOS"
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_payment_provider__mypos_partner_id
+msgid "myPOS Partner ID"
+msgstr "Идентификатор на партньор myPOS"
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_mypos_load_credentials_wizard__provider_id
+msgid "myPOS Provider"
+msgstr "Доставчик myPOS"
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_payment_provider__mypos_public_cert
+msgid "myPOS Public Certificate (PEM)"
+msgstr "Публичен сертификат myPOS (PEM)"
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_payment_provider__mypos_sid
+msgid "myPOS Store ID (SID)"
+msgstr "myPOS Идентификатор на магазин (SID)"
+
+#. module: payment_mypos
+#: model:ir.model.fields,field_description:payment_mypos.field_payment_provider__mypos_wallet
+msgid "myPOS Wallet Number"
+msgstr "Номер на портфейл myPOS"
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_provider.py:0
+msgid "myPOS provider requires: %s"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_provider.py:0
+msgid ""
+"myPOS: Application ID and Partner ID are required for refunds under Checkout"
+" API v1.4.1. Set them on the payment provider."
+msgstr ""
+
+#. module: payment_mypos
+#: model:ir.model,name:payment_mypos.model_mypos_load_credentials_wizard
+msgid "myPOS: Load Partner API Credentials into Wallet"
+msgstr "myPOS: Зареждане на API учетни данни на партньор в портфейла"
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_provider.py:0
+msgid "myPOS: both clientId and clientSecret are required"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_provider.py:0
+msgid ""
+"myPOS: cannot refund — the source transaction has no IPC_Trnref "
+"(provider_reference). It was never confirmed by the gateway, so there is "
+"nothing to refund."
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_transaction.py:0
+msgid "myPOS: invalid response signature"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_provider.py:0
+msgid "myPOS: merchant private key is not configured"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_transaction.py:0
+msgid "myPOS: missing OrderID in notification"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_transaction.py:0
+msgid "myPOS: no transaction found for reference %s"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_transaction.py:0
+msgid "myPOS: notification missing signature"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_transaction.py:0
+msgid "myPOS: payment failed — status %(code)s (%(label)s)"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_provider.py:0
+msgid "myPOS: public certificate is not configured"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_transaction.py:0
+msgid "myPOS: refund declined — status %(code)s (%(label)s)"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_provider.py:0
+msgid "myPOS: refund request failed — %s"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_provider.py:0
+msgid "myPOS: refund response missing signature"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_provider.py:0
+msgid "myPOS: refund response signature invalid"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_provider.py:0
+msgid "myPOS: refund response was not JSON: %s"
+msgstr ""
+
+#. module: payment_mypos
+#. odoo-python
+#: code:addons/payment_mypos/models/payment_transaction.py:0
+msgid ""
+"myPOS: web.base.url must be HTTPS for production transactions (current: %s)."
+" The gateway reverses transactions whose URL_Notify is not SSL-enabled."
+msgstr ""
+
+#. module: payment_mypos
+#: model_terms:ir.ui.view,arch_db:payment_mypos.view_mypos_load_credentials_wizard_form
+msgid "{\"clientId\": \"client_...\", \"clientSecret\": \"secret_...\", ...}"
+msgstr ""
+
+#. module: payment_mypos
+#: model_terms:payment.provider,done_msg:payment_mypos.payment_provider_mypos
+msgid "Вашето плащане е обработено успешно."
+msgstr ""
+
+#. module: payment_mypos
+#: model_terms:payment.provider,cancel_msg:payment_mypos.payment_provider_mypos
+msgid "Вашето плащане е отменено."
+msgstr ""
+
+#. module: payment_mypos
+#: model_terms:payment.provider,auth_msg:payment_mypos.payment_provider_mypos
+msgid "Плащането Ви е упълномощено."
+msgstr ""

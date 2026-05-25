@@ -1,0 +1,514 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_infopay
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-18 20:51+0000\n"
+"PO-Revision-Date: 2026-05-18 20:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
+msgid "All bulk payments must use the same currency."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
+msgid "All bulk payments must use the same journal."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/res_company.py:0
+msgid "Both uniqueId and accessToken are required."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/l10n_bg_infopay_payment_mixin.py:0
+msgid "Bulk SEPA payments require 2-250 items; got %d."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
+msgid "Bulk payments allow at most 250 items."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
+msgid "Bulk payments require at least 2 items."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#: model:ir.model,name:l10n_bg_infopay.model_res_company
+msgid "Companies"
+msgstr "Компании"
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/res_company.py:0
+msgid "Crypto wallet not found for user '%s'."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
+msgid ""
+"Customer %s has no identification number (EIK / ЕГН / ЛНЧ or VAT) set — "
+"InfoPay requires one."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
+msgid "Customer %s is missing city or street — both are required by InfoPay."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
+msgid ""
+"Derived InfoPay number %s for move %s does not match the required regex."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields.selection,name:l10n_bg_infopay.selection__account_move__l10n_bg_infopay_state__error
+msgid "Error"
+msgstr ""
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_journal__l10n_bg_infopay_number_series_id
+msgid ""
+"GUID of the invoice number series pre-created in the InfoPay portal.  Borica"
+" does not expose a list endpoint, so this is configuration data — copy it "
+"from the portal once."
+msgstr ""
+"GUID на серията номера за фактури, предварително създадена в портала на "
+"InfoPay. Borica не предоставя endpoint за списък, затова това е "
+"конфигурационна стойност — копирайте я от портала еднократно."
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_bank_statement_line__l10n_bg_infopay_invoice_id
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_move__l10n_bg_infopay_invoice_id
+msgid ""
+"GUID returned by POST /api/invoices.  Acts as the only handle to the "
+"document inside InfoPay (no GET / cancel endpoint)."
+msgstr ""
+"GUID, върнат от POST /api/invoices. Служи като единствен идентификатор на "
+"документа в InfoPay (без GET / cancel endpoint)."
+
+#. module: l10n_bg_infopay
+#: model_terms:ir.ui.view,arch_db:l10n_bg_infopay.view_move_form_infopay_invoice
+msgid "InfoPay"
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/res_company.py:0
+msgid ""
+"InfoPay %s missing from owner's wallet — re-run the matching set-credentials"
+" helper to populate."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#: model_terms:ir.ui.view,arch_db:l10n_bg_infopay.view_account_journal_form_infopay_invoice
+msgid "InfoPay (issuance)"
+msgstr "InfoPay (издаване)"
+
+#. module: l10n_bg_infopay
+#: model:ir.model,name:l10n_bg_infopay.model_infopay_provider
+msgid "InfoPay API Client"
+msgstr "InfoPay API клиент"
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/infopay_provider.py:0
+msgid "InfoPay API error (%(code)s): %(body)s"
+msgstr ""
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_journal__l10n_bg_infopay_account_id
+msgid "InfoPay Account ID"
+msgstr "InfoPay ИД на сметка"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_payment__l10n_bg_infopay_bulk
+msgid "InfoPay Bulk"
+msgstr "InfoPay групово плащане"
+
+#. module: l10n_bg_infopay
+#: model:account.payment.method,name:l10n_bg_infopay.account_payment_method_infopay_domestic_eur
+msgid "InfoPay Domestic (EUR)"
+msgstr ""
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_bank_statement_line__l10n_bg_infopay_invoice_id
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_move__l10n_bg_infopay_invoice_id
+msgid "InfoPay Invoice ID"
+msgstr "InfoPay ИД на фактура"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_bank_statement_line__l10n_bg_infopay_error
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_move__l10n_bg_infopay_error
+msgid "InfoPay Last Error"
+msgstr "InfoPay последна грешка"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_journal__l10n_bg_infopay_last_sync
+msgid "InfoPay Last Sync"
+msgstr "InfoPay последна синхронизация"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_journal__l10n_bg_infopay_number_series_id
+msgid "InfoPay Number Series"
+msgstr "InfoPay серия номера"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_payment__l10n_bg_infopay_payment_id
+msgid "InfoPay Payment ID"
+msgstr "InfoPay ИД на плащане"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_payment__l10n_bg_infopay_sca_url
+msgid "InfoPay SCA URL"
+msgstr ""
+
+#. module: l10n_bg_infopay
+#: model:account.payment.method,name:l10n_bg_infopay.account_payment_method_infopay_sepa_eur
+msgid "InfoPay SEPA (EUR)"
+msgstr ""
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_bank_statement_line__l10n_bg_infopay_sent_at
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_move__l10n_bg_infopay_sent_at
+msgid "InfoPay Sent At"
+msgstr "InfoPay изпратено на"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_payment__l10n_bg_infopay_status
+msgid "InfoPay Status"
+msgstr "InfoPay статус"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_payment__l10n_bg_infopay_status_url
+msgid "InfoPay Status URL"
+msgstr "InfoPay URL за статус"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_res_company__l10n_bg_infopay_token_user_id
+msgid "InfoPay Token Owner"
+msgstr "Собственик на InfoPay токен"
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/infopay_provider.py:0
+msgid "InfoPay access denied. Check subscription plan."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/infopay_provider.py:0
+msgid "InfoPay authentication failed. Check credentials."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
+msgid ""
+"InfoPay bulk payments support only EUR since 01.01.2026 (BG eurozone entry)."
+"  Currency '%s' is not supported."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/infopay_provider.py:0
+msgid "InfoPay connection error: %s"
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/infopay_provider.py:0
+msgid "InfoPay credentials are not configured on company '%s'."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
+msgid "InfoPay does not support currency %s — supported: %s."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
+msgid "InfoPay invoice issuance failed: %s"
+msgstr ""
+
+#. module: l10n_bg_infopay
+#: model_terms:ir.ui.view,arch_db:l10n_bg_infopay.view_account_journal_form_infopay_invoice
+msgid ""
+"InfoPay invoice issuance stores the invoice in the\n"
+"                        InfoPay dashboard for payment-bill correlation. It\n"
+"                        is <b>not</b> a real B2B e-invoice exchange — for\n"
+"                        that, use eFaktura.bg or CAIS EPP. The number\n"
+"                        series GUID must be pre-created in the InfoPay\n"
+"                        portal."
+msgstr ""
+"Издаването на фактура през InfoPay съхранява фактурата в\n"
+"                        таблото на InfoPay за съпоставяне на плащания и сметки. Това\n"
+"                        <b>не</b> е реален B2B обмен на е-фактури — за\n"
+"                        тази цел използвайте eFaktura.bg или CAIS EPP. GUID на\n"
+"                        номерната серия трябва да бъде предварително създаден в портала\n"
+"                        на InfoPay."
+
+#. module: l10n_bg_infopay
+#: model:ir.model,name:l10n_bg_infopay.model_l10n_bg_infopay_payment_mixin
+msgid "InfoPay payment-order mixin (host-agnostic)"
+msgstr "InfoPay миксин за нареждане на плащание (независим от хоста)"
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/infopay_provider.py:0
+msgid "InfoPay session creation failed: %s"
+msgstr ""
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_bank_statement_line__l10n_bg_infopay_state
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_move__l10n_bg_infopay_state
+msgid "InfoPay state"
+msgstr "InfoPay статус"
+
+#. module: l10n_bg_infopay
+#: model:ir.model,name:l10n_bg_infopay.model_l10n_bg_infopay_statement_mixin
+msgid "InfoPay statement-import mixin (host-agnostic)"
+msgstr "InfoPay миксин за импортиране на извлечения (независим от хоста)"
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
+msgid ""
+"InfoPay supports only EUR payments since 01.01.2026 (BG eurozone entry).  "
+"Currency '%s' is not supported."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
+msgid "Invoice %s cannot be issued via InfoPay (state=%s, infopay_state=%s)."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
+msgid "Invoice %s has no customer set."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
+msgid "Invoice %s has no product lines to send to InfoPay."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
+msgid "Invoice %s has not been saved yet; cannot derive an InfoPay number."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
+msgid ""
+"Invoice id %s exceeds 10 digits — InfoPay number cannot be derived without "
+"overflow.  Configure l10n_bg_document_number on the move or switch to a "
+"dedicated InfoPay sequence."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
+msgid "Invoice issued via InfoPay.<br/>InfoPay ID: <code>%s</code>"
+msgstr ""
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_journal__l10n_bg_infopay_invoice_enabled
+msgid "Issue invoices via InfoPay"
+msgstr "Издаване на фактури чрез InfoPay"
+
+#. module: l10n_bg_infopay
+#: model_terms:ir.ui.view,arch_db:l10n_bg_infopay.view_move_form_infopay_invoice
+msgid "Issue via InfoPay"
+msgstr "Издаване чрез InfoPay"
+
+#. module: l10n_bg_infopay
+#: model:ir.model,name:l10n_bg_infopay.model_account_journal
+msgid "Journal"
+msgstr "Дневник"
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_journal.py:0
+msgid "Journal '%s' has no InfoPay Account ID configured."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
+msgid "Journal '%s' has no InfoPay number series configured."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
+msgid "Journal '%s' has no bank account number set."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
+msgid "Journal '%s' is not configured for InfoPay."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#: model:ir.model,name:l10n_bg_infopay.model_account_move
+msgid "Journal Entry"
+msgstr "Дневник запис"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_bank_statement_line__l10n_bg_infopay_can_issue
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_move__l10n_bg_infopay_can_issue
+msgid "L10N Bg Infopay Can Issue"
+msgstr "L10N BG InfoPay може да издава"
+
+#. module: l10n_bg_infopay
+#: model_terms:ir.ui.view,arch_db:l10n_bg_infopay.view_move_form_infopay_invoice
+msgid "Last error"
+msgstr "Последна грешка"
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/infopay_provider.py:0
+msgid "No InfoPay admin credentials configured on company '%s'."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/res_company.py:0
+msgid ""
+"No InfoPay token owner configured on company '%s'.  Run "
+"_infopay_set_credentials() or _l10n_bg_infopay_set_admin_credentials() to "
+"populate."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields.selection,name:l10n_bg_infopay.selection__account_move__l10n_bg_infopay_state__not_sent
+msgid "Not sent"
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
+msgid "Partner '%s' has no bank account configured."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
+msgid "Partner '%s' has no bank account."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#: model:ir.model,name:l10n_bg_infopay.model_account_payment
+msgid "Payments"
+msgstr "Плащания"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_payment__l10n_bg_infopay_sca_url
+msgid "Redirect URL for Strong Customer Authentication at the bank."
+msgstr ""
+"URL за пренасочване при Силна автентикация на клиента (SCA) в банката."
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields.selection,name:l10n_bg_infopay.selection__account_move__l10n_bg_infopay_state__sent
+msgid "Sent"
+msgstr ""
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_journal__l10n_bg_infopay_last_sync
+msgid "Timestamp of the last successful transaction sync."
+msgstr "Дата и час на последната успешна синхронизация на транзакции."
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_payment__l10n_bg_infopay_bulk
+msgid "True if this payment was sent as part of a bulk payment."
+msgstr "Указва, че плащането е изпратено като част от групово плащане."
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_journal__l10n_bg_infopay_account_id
+msgid ""
+"UUID of this bank account in InfoPay.  Set automatically by "
+"_infopay_discover_accounts()."
+msgstr ""
+"UUID на тази банкова сметка в InfoPay. Задава се автоматично от "
+"_infopay_discover_accounts()."
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/l10n_bg_infopay_payment_mixin.py:0
+msgid "Unknown InfoPay provider method '%s'."
+msgstr ""
+
+#. module: l10n_bg_infopay
+#: model:ir.model,name:l10n_bg_infopay.model_res_users
+msgid "User"
+msgstr "Потребител"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_res_company__l10n_bg_infopay_token_user_id
+msgid ""
+"User whose crypto wallet stores the InfoPay credentials (both user-side and "
+"admin-side).  Pointing at the owner is non-secret — the credential pairs "
+"only decrypt with the owner's bcrypt password hash."
+msgstr ""
+"Потребител, чийто крипто портфейл съхранява идентификационните данни за "
+"InfoPay (потребителски и административни). Посочването на собственика не е "
+"тайна — двойките идентификационни данни се декриптират само с bcrypt хеша на"
+" паролата на собственика."
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_journal__l10n_bg_infopay_invoice_enabled
+msgid ""
+"When enabled, posted customer invoices on this journal can be submitted to "
+"the InfoPay /api/invoices endpoint.  Use only with sale journals."
+msgstr ""
+"При активиране, публикуваните клиентски фактури в този журнал могат да се "
+"изпращат към крайната точка /api/invoices на InfoPay. Използвайте само с "
+"журнали за продажби."
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_payment__l10n_bg_infopay_status_url
+msgid ""
+"Линк, върнат от InfoPay (``Links.Status``) за проверка на статуса на "
+"плащането.  Polling-ът го ползва директно вместо да конструира endpoint — "
+"Borica контролира URL-а."
+msgstr ""
+"Линк, върнат от InfoPay (``Links.Status``) за проверка на статуса на "
+"плащането. Polling-ът го ползва директно вместо да конструира endpoint — "
+"Borica контролира URL-а."
+
+#. module: l10n_bg_infopay
+#. odoo-python
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
+msgid "Освободена доставка / 0%% VAT"
+msgstr ""

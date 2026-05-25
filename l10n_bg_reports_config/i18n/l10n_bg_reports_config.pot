@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e-20251015\n"
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-15 16:04+0000\n"
-"PO-Revision-Date: 2025-10-15 16:04+0000\n"
+"POT-Creation-Date: 2026-05-19 04:22+0000\n"
+"PO-Revision-Date: 2026-05-19 04:22+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -136,8 +136,18 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_auto_map_god_tags_wizard_form
+msgid "Apply"
+msgstr ""
+
+#. module: l10n_bg_reports_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_account_tag_bulk_edit_wizard_form
 msgid "Apply by choice"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_auto_map_god_tags_wizard_form
+msgid "Apply the tag→account mapping now?"
 msgstr ""
 
 #. module: l10n_bg_reports_config
@@ -161,6 +171,28 @@ msgstr ""
 #. module: l10n_bg_reports_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
 msgid "Assistant to help configure bulgarian accounting tags manual."
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.actions.act_window,name:l10n_bg_reports_config.action_l10n_bg_auto_map_god_tags_wizard
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_l10n_bg_auto_map_god_tags
+msgid "Auto-map GOD/GFO Tags"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_auto_map_god_tags_wizard_form
+msgid "Auto-map GOD/GFO Tags to Accounts"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_move_form_bg_report_tags
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_move_line_form_bg_report_tags
+msgid "BG Report Tags"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_balance_line_tree
+msgid "Balance"
 msgstr ""
 
 #. module: l10n_bg_reports_config
@@ -215,6 +247,9 @@ msgstr ""
 
 #. module: l10n_bg_reports_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_account_tag_bulk_edit_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_auto_map_god_tags_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_gfo_print_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_recompute_aml_report_tags_wizard_form
 msgid "Cancel"
 msgstr ""
 
@@ -250,6 +285,15 @@ msgid "Created on"
 msgstr ""
 
 #. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_balance_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_cf_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_equity_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_pl_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_god_line_tree
+msgid "Credit"
+msgstr ""
+
+#. module: l10n_bg_reports_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_intrastat_threshold_search
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_search
 msgid "Current Year"
@@ -266,6 +310,15 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_purchases_line_search
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_calc_sales_line_search
 msgid "Date"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_balance_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_cf_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_equity_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_pl_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_god_line_tree
+msgid "Debit"
 msgstr ""
 
 #. module: l10n_bg_reports_config
@@ -301,6 +354,16 @@ msgid "Display Name"
 msgstr ""
 
 #. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.l10n_bg_view_move_form_base
+msgid "Document Number"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.l10n_bg_view_move_form_base
+msgid "Document Type"
+msgstr ""
+
+#. module: l10n_bg_reports_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
 msgid "EE modules for help."
 msgstr ""
@@ -323,8 +386,77 @@ msgid "Error computing VAT ratio: %s"
 msgstr ""
 
 #. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.l10n_bg_view_move_form_base
+msgid "Exemption reason"
+msgstr ""
+
+#. module: l10n_bg_reports_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
 msgid "Force re-configure"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_balance_line_graph
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_balance_line_tree
+msgid "GFO Balance Sheet"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_balance_line_pivot
+msgid "GFO Balance Sheet (per Tag/Account)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_cf_line_graph
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_cf_line_tree
+msgid "GFO Cash Flow"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_cf_line_pivot
+msgid "GFO Cash Flow (Direct Method)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_equity_line_graph
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_equity_line_pivot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_equity_line_tree
+msgid "GFO Changes in Equity"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_pl_line_graph
+msgid "GFO P&L"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_pl_line_tree
+msgid "GFO Profit & Loss"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_pl_line_pivot
+msgid "GFO Profit & Loss (per Tag/Account)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_god_line_graph
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_god_line_tree
+msgid "GOD"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_god_line_pivot
+msgid "GOD — NSI Annual Activity Report"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_gfo_print_wizard_form
+msgid ""
+"Generates the NSI Annex 1 PDF in pixel-perfect layout from\n"
+"                        the materialized aml tags. Values in thousands BGN.\n"
+"                        Currently implemented: Balance Sheet. P&amp;L, Cash Flow,\n"
+"                        Equity, GOD annexes — coming next."
 msgstr ""
 
 #. module: l10n_bg_reports_config
@@ -402,6 +534,17 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_form
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_search
 msgid "Manual"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_auto_map_god_tags_wizard_form
+msgid ""
+"Maps each NSI annual-report tag to accounts whose\n"
+"                        <code>code_store</code> begins with the standard\n"
+"                        <code>l10n_bg</code> chart prefixes baked into the\n"
+"                        wizard. Idempotent unless <em>Overwrite</em> is checked.\n"
+"                        Click <strong>Preview</strong> to see which accounts\n"
+"                        would be tagged before applying."
 msgstr ""
 
 #. module: l10n_bg_reports_config
@@ -539,6 +682,27 @@ msgid "Posted Journal Items"
 msgstr ""
 
 #. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_auto_map_god_tags_wizard_form
+msgid "Preview"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.actions.act_window,name:l10n_bg_reports_config.action_l10n_bg_gfo_print_wizard
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_l10n_bg_gfo_print
+msgid "Print GFO / GOD"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_gfo_print_wizard_form
+msgid "Print GFO / GOD NSI Annex 1"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_gfo_print_wizard_form
+msgid "Print PDF"
+msgstr ""
+
+#. module: l10n_bg_reports_config
 #: model:ir.actions.act_window,name:l10n_bg_reports_config.action_account_bg_product_pivot
 #: model:ir.ui.menu,name:l10n_bg_reports_config.menu_action_account_bg_product_pivot
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_product_pivot
@@ -560,6 +724,40 @@ msgstr ""
 #. module: l10n_bg_reports_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
 msgid "Re configure"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_recompute_aml_report_tags_wizard_form
+msgid "Recompute"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.actions.act_window,name:l10n_bg_reports_config.action_l10n_bg_recompute_aml_report_tags_wizard
+msgid "Recompute BG Report Tags on Lines"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_recompute_aml_report_tags_wizard_form
+msgid "Recompute BG Report Tags on Move Lines"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_l10n_bg_recompute_aml_report_tags
+msgid "Recompute BG Tags on Move Lines"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_recompute_aml_report_tags_wizard_form
+msgid ""
+"Recomputes <code>account_tag_ids</code> on move\n"
+"                        lines as the layered set:\n"
+"                        <code>account.tag_ids</code> ∪\n"
+"                        <code>product.l10n_bg_account_tag_ids</code>,\n"
+"                        with partner-sector override\n"
+"                        (<code>partner.l10n_bg_tax_tag_(receivable|payable)_ids</code>)\n"
+"                        on receivable/payable lines. Run after changing\n"
+"                        product/partner NSI tags or after the\n"
+"                        auto-map wizard."
 msgstr ""
 
 #. module: l10n_bg_reports_config
@@ -587,6 +785,15 @@ msgstr ""
 #. module: l10n_bg_reports_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.res_config_settings_view_form
 msgid "Settings"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_balance_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_cf_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_equity_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_gfo_pl_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_account_bg_god_line_tree
+msgid "Signed Value"
 msgstr ""
 
 #. module: l10n_bg_reports_config
@@ -802,4 +1009,34 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_intrastat_threshold_search
 #: model_terms:ir.ui.view,arch_db:l10n_bg_reports_config.view_l10n_bg_vat_ratio_history_search
 msgid "Year"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.actions.act_window,name:l10n_bg_reports_config.action_account_bg_god_line
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_account_bg_god
+msgid "ГОД (НСИ)"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.actions.act_window,name:l10n_bg_reports_config.action_account_bg_gfo_balance_line
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_account_bg_gfo_balance
+msgid "ГФО Баланс"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.actions.act_window,name:l10n_bg_reports_config.action_account_bg_gfo_cf_line
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_account_bg_gfo_cf
+msgid "ГФО ОПП"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.actions.act_window,name:l10n_bg_reports_config.action_account_bg_gfo_pl_line
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_account_bg_gfo_pl
+msgid "ГФО ОПР"
+msgstr ""
+
+#. module: l10n_bg_reports_config
+#: model:ir.actions.act_window,name:l10n_bg_reports_config.action_account_bg_gfo_equity_line
+#: model:ir.ui.menu,name:l10n_bg_reports_config.menu_account_bg_gfo_equity
+msgid "ГФО ОСК"
 msgstr ""

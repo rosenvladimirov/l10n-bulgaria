@@ -1,0 +1,101 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_multilang
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-18 20:27+0000\n"
+"PO-Revision-Date: 2026-05-18 20:27+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,help:l10n_bg_multilang.field_res_country_state__name
+msgid ""
+"Administrative divisions of a country. E.g. Fed. State, Departement, Canton"
+msgstr ""
+"Административни деления на държава. Напр. федерална провинция, департамент, "
+"кантон"
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_res_bank
+msgid "Bank"
+msgstr "Банка"
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_res_country_state
+msgid "Country state"
+msgstr "Област/Състояние на държава"
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_res_currency
+msgid "Currency"
+msgstr "Валута"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_currency__currency_subunit_label
+msgid "Currency Subunit"
+msgstr "Дробна единица на валутата"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_currency__currency_unit_label
+msgid "Currency Unit"
+msgstr "Основна единица на валутата"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,help:l10n_bg_multilang.field_res_currency__symbol
+msgid "Currency sign, to be used when printing amounts."
+msgstr "Знак на валутата, използван при отпечатване на суми."
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_hr_employee
+msgid "Employee"
+msgstr "Служител"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_hr_employee__name
+msgid "Employee Name"
+msgstr "Име на служител"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_bank__name
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_resource_resource__name
+msgid "Name"
+msgstr "Наименование"
+
+#. module: l10n_bg_multilang
+#: model:ir.model,name:l10n_bg_multilang.model_resource_resource
+msgid "Resources"
+msgstr "Ресурси"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_country_state__name
+msgid "State Name"
+msgstr "Наименование на област/щат"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_currency__symbol
+msgid "Symbol"
+msgstr "Символ"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,help:l10n_bg_multilang.field_hr_employee__transliterate_tracking
+#: model:ir.model.fields,help:l10n_bg_multilang.field_res_country_state__transliterate_tracking
+msgid ""
+"Technical field to track which fields have been transliterated. Format: "
+"{\"field_name\": True}"
+msgstr ""
+"Техническо поле за проследяване на транслитерираните полета. Формат: "
+"{\"field_name\": True}"
+
+#. module: l10n_bg_multilang
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_hr_employee__transliterate_tracking
+#: model:ir.model.fields,field_description:l10n_bg_multilang.field_res_country_state__transliterate_tracking
+msgid "Transliteration Tracking"
+msgstr "Проследяване на транслитерацията"

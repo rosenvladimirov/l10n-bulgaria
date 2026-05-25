@@ -1,61 +1,50 @@
 # Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 """
-Extend the core `barcode.rule` with **routing hints** so the proxy's
-WebSocket reader feed can target a specific field on a specific form
-in the Odoo backend.
+Extend `barcode.rule` with **N routing targets** (form+field) and
+expose a JSON dump method on `barcode.nomenclature` for the Odoo
+ErpNet.FP proxy to consume.
 
-Without these hints, a scan goes through the core barcode_service bus
-and any active form-view handler may pick it up — POS / inventory /
-attendance, etc. With them, the live_refresh barcode_handler can
-dispatch the parsed value straight to the right `<input>` even when
-the active view is something else entirely (e.g. operator scans a
-GTIN into a custom MO form while the navbar is over a different
-record).
-
-Three new fields, all optional:
-
-    l10n_bg_target_model_id    — ir.model the rule targets
-    l10n_bg_target_field       — name of the field on that model
-    l10n_bg_target_form_xmlid  — optional, narrows to a specific
-                                 form view (xml_id of the
-                                 ir.ui.view); when empty the
-                                 dispatcher matches by model only.
-
-And one classmethod-style helper on `barcode.nomenclature`:
-
-    parse_for_target(barcode)  →  dict({
-        rule_id, type, encoding, base_code, parsed_value,
-        target: {model, field, form_xmlid}
-    })  |  None
+The proxy parses scans locally (without the round-trip to Odoo)
+using this dump; each scan envelope it emits on bus_inject is
+enriched with `data.target = [{model, field, form_xmlid}, ...]`
+and `data.parsed_value`, so the browser handler can drive the
+value into every matching open form simultaneously.
 """
-from odoo import api, fields, models
+import json
+import logging
+
+import requests
+
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
+
+_logger = logging.getLogger(__name__)
+
+DUMP_VERSION = 1
 
 
 class BarcodeRule(models.Model):
     _inherit = "barcode.rule"
 
-    l10n_bg_target_model_id = fields.Many2one(
-        "ir.model",
-        string="Target Model",
-        ondelete="cascade",
-        index=True,
-        help="When set, the barcode_handler in the browser will write "
-        "the parsed value into a field of this model on the currently-"
-        "open Form view. Leave empty to fall back to the global "
-        "barcode_service dispatch.",
+    l10n_bg_target_ids = fields.One2many(
+        "l10n.bg.barcode.rule.target",
+        "rule_id",
+        string="Routing targets",
+        help="Each scan matching this rule fills ALL listed (model, "
+        "field, form) slots simultaneously. Add as many targets as "
+        "you need — the browser handler skips ones whose form isn't "
+        "currently open.",
     )
-    l10n_bg_target_field = fields.Char(
-        string="Target Field",
-        help="Name of the field on `Target Model` that receives the "
-        "parsed value. Must be a Char/Float/Monetary/Integer.",
+    l10n_bg_target_count = fields.Integer(
+        compute="_compute_l10n_bg_target_count",
+        store=False,
     )
-    l10n_bg_target_form_xmlid = fields.Char(
-        string="Target Form (xml_id)",
-        help="Optional — narrows targeting to one specific form view "
-        "(e.g. 'stock.view_picking_form'). When empty, any open form "
-        "of `Target Model` accepts the scan.",
-    )
+
+    @api.depends("l10n_bg_target_ids")
+    def _compute_l10n_bg_target_count(self):
+        for r in self:
+            r.l10n_bg_target_count = len(r.l10n_bg_target_ids)
 
 
 class BarcodeNomenclature(models.Model):
@@ -63,30 +52,17 @@ class BarcodeNomenclature(models.Model):
 
     @api.model
     def parse_for_target(self, barcode):
-        """Run the configured nomenclature parse on `barcode` and
-        return — in addition to the parsed value — the routing hints
-        declared on the matching rule.
+        """Parse `barcode` and return the matched rule's routing
+        targets, plus the parsed value. Multi-target — the caller
+        is expected to fan out to all (model, field, form) slots
+        listed in `target`.
 
         Returns:
-            dict with keys:
-                rule_id        — barcode.rule id of the match
-                type           — rule.type ('product', 'weight', etc.)
-                encoding       — rule.encoding (ean13, gs1, ...)
-                base_code      — barcode minus the prefix/check digit
-                                 (as `parse_barcode` returns)
-                parsed_value   — the value the rule extracts
-                                 (weight in kg for weight rules,
-                                 price in currency units for price
-                                 rules, etc.)
-                target         — {model, field, form_xmlid} taken
-                                 from the matching rule's
-                                 l10n_bg_target_* fields. Empty dict
-                                 if no targeting was configured.
+            {
+                rule_id, type, encoding, base_code, parsed_value,
+                target: [{model, field, form_xmlid}, ...],
+            }
             or None if no rule matches.
-
-        Pure ORM call — safe to expose over JSON-RPC from the JS
-        handler (no privilege checks beyond standard ACL on
-        barcode.nomenclature).
         """
         self.ensure_one()
         parsed = self.parse_barcode(barcode)
@@ -96,19 +72,144 @@ class BarcodeNomenclature(models.Model):
             lambda r: r.type == parsed.get("type")
             and r.encoding == parsed.get("encoding")
         )[:1]
-        target = {}
+        targets = []
         if rule:
-            if rule.l10n_bg_target_model_id:
-                target["model"] = rule.l10n_bg_target_model_id.model
-            if rule.l10n_bg_target_field:
-                target["field"] = rule.l10n_bg_target_field
-            if rule.l10n_bg_target_form_xmlid:
-                target["form_xmlid"] = rule.l10n_bg_target_form_xmlid
+            for t in rule.l10n_bg_target_ids.filtered("active"):
+                row = {
+                    "model": t.model_id.model,
+                    "field": t.field,
+                }
+                if t.form_xmlid:
+                    row["form_xmlid"] = t.form_xmlid
+                targets.append(row)
         return {
             "rule_id": rule.id if rule else False,
             "type": parsed.get("type"),
             "encoding": parsed.get("encoding"),
             "base_code": parsed.get("base_code") or parsed.get("code"),
             "parsed_value": parsed.get("value"),
-            "target": target,
+            "target": targets,
+        }
+
+    # ─── proxy dump + push ────────────────────────────────────────
+
+    @api.model
+    def dump_for_proxy(self):
+        """Serialise this nomenclature + every rule + every routing
+        target into a JSON-friendly dict the proxy can persist and
+        use for local parsing.
+
+        Schema (versioned):
+
+            {
+                "version": 1,
+                "nomenclature": {"id": int, "name": str,
+                                 "upc_ean_conv": str},
+                "rules": [
+                    {
+                        "id": int,
+                        "name": str,
+                        "type": str,
+                        "encoding": str,
+                        "pattern": str,
+                        "sequence": int,
+                        "targets": [
+                            {"model": str, "field": str,
+                             "form_xmlid": str|None,
+                             "sequence": int},
+                            ...
+                        ],
+                    },
+                    ...
+                ],
+            }
+        """
+        self.ensure_one()
+        rules = []
+        for r in self.rule_ids.sorted("sequence"):
+            targets = []
+            for t in r.l10n_bg_target_ids.filtered("active").sorted("sequence"):
+                targets.append({
+                    "model": t.model_id.model,
+                    "field": t.field,
+                    "form_xmlid": t.form_xmlid or None,
+                    "sequence": t.sequence,
+                })
+            rules.append({
+                "id": r.id,
+                "name": r.name,
+                "type": r.type,
+                "encoding": r.encoding,
+                "pattern": r.pattern,
+                "sequence": r.sequence,
+                "targets": targets,
+            })
+        return {
+            "version": DUMP_VERSION,
+            "nomenclature": {
+                "id": self.id,
+                "name": self.name,
+                "upc_ean_conv": self.upc_ean_conv,
+            },
+            "rules": rules,
+        }
+
+    def action_push_to_proxy_hosts(self):
+        """Push the dump_for_proxy() payload to every active proxy-
+        mode fiscal printer device's host via
+        `POST /admin/nomenclature/reload`.
+
+        Aggregates per-host results in a UserError-style summary if
+        anything failed; otherwise returns a transient ir.actions
+        notification. SSL verify is OFF on purpose — proxy hosts use
+        Cloudflare Origin certs or self-signed in the merchant LAN.
+        """
+        self.ensure_one()
+        payload = self.dump_for_proxy()
+        hosts = self.env["fiscal.printer.device"].search([
+            ("active", "=", True),
+            ("connection_mode", "=", "proxy"),
+            ("host", "!=", False),
+        ]).mapped("host")
+        # Dedupe — many devices may share a host
+        hosts = sorted(set(h.rstrip("/") for h in hosts))
+        if not hosts:
+            raise UserError(_(
+                "No active proxy-mode fiscal.printer.device found — "
+                "nowhere to push the nomenclature to."))
+        ok, errors = [], []
+        for host in hosts:
+            url = f"{host}/admin/nomenclature/reload"
+            try:
+                resp = requests.post(
+                    url, json=payload, timeout=8.0, verify=False)
+                if 200 <= resp.status_code < 300:
+                    ok.append(host)
+                else:
+                    errors.append(f"{host}: HTTP {resp.status_code} "
+                                  f"{resp.text[:200]}")
+            except requests.RequestException as e:
+                errors.append(f"{host}: {e}")
+        if errors:
+            raise UserError(_(
+                "Push completed with errors:\n"
+                "OK (%(ok)d): %(ok_list)s\n"
+                "Failed (%(err)d):\n%(err_list)s"
+            ) % {
+                "ok": len(ok),
+                "ok_list": ", ".join(ok) or "—",
+                "err": len(errors),
+                "err_list": "\n".join("  • " + e for e in errors),
+            })
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "type": "success",
+                "title": _("Nomenclature pushed"),
+                "message": _("Pushed to %(n)d proxy host(s): %(list)s") % {
+                    "n": len(ok), "list": ", ".join(ok),
+                },
+                "sticky": False,
+            },
         }

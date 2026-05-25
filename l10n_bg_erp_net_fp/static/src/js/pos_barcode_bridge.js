@@ -28,17 +28,16 @@ const posReaderBridgeService = {
 
     start(env, { "l10n_bg_erp_net_fp.reader": reader,
                   barcode_reader: posBarcode }) {
-        // Conflict guard — EE pos_iot already pipes IoT-box scans
-        // into posBarcode.scan(). Doubling up would add every product
-        // twice. We detect EE pos_iot by looking for the `iot_box`
-        // service in the registry and skip the bridge if present.
-        const services = registry.category("services");
-        if (services.contains("iot_longpolling") ||
-            services.contains("iot_box")) {
-            console.info("[PosBarcodeBridge] EE pos_iot detected — "
-                         + "skipping bridge to avoid double-scan");
-            return {};
-        }
+        // Previous conflict guard checked for "iot_box"/"iot_longpolling"
+        // services in the registry, but POS core registers an `iot_box`
+        // placeholder service unconditionally — so the guard tripped
+        // every POS session and the bridge never ran. Removed.
+        //
+        // If a site actually installs EE pos_iot in parallel later,
+        // we'll need a more specific detector — e.g. check
+        // ir.module.module for state='installed' on 'pos_iot', or
+        // look at pos.config.iot_box_id. For now the proxy bridge
+        // always wires up.
         if (!posBarcode || typeof posBarcode.scan !== "function") {
             console.warn("[PosBarcodeBridge] POS barcode_reader service "
                          + "is missing scan(); aborting bridge");

@@ -30,3 +30,5 @@ access_l10n_bg_fiscal_plu_device_line_manager,l10n.bg.fiscal.plu.device.line man
 access_l10n_bg_fiscal_plu_verify_wizard,l10n.bg.fiscal.plu.verify.wizard,model_l10n_bg_fiscal_plu_verify_wizard,point_of_sale.group_pos_manager,1,1,1,1
 access_l10n_bg_barcode_rule_target_user,l10n.bg.barcode.rule.target user,model_l10n_bg_barcode_rule_target,base.group_user,1,0,0,0
 access_l10n_bg_barcode_rule_target_manager,l10n.bg.barcode.rule.target manager,model_l10n_bg_barcode_rule_target,base.group_system,1,1,1,1
+access_l10n_bg_shift_sync_service_user,l10n.bg.erp.net.fp.shift.sync user,model_l10n_bg_erp_net_fp_shift_sync,point_of_sale.group_pos_user,1,0,0,0
+access_l10n_bg_shift_sync_service_manager,l10n.bg.erp.net.fp.shift.sync manager,model_l10n_bg_erp_net_fp_shift_sync,point_of_sale.group_pos_manager,1,1,1,1

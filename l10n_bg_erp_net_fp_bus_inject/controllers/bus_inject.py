@@ -183,7 +183,7 @@ class BusInjectController(http.Controller):
         # the bus publish path: the live signal is the primary contract,
         # persistence is secondary. Each hook target is checked with
         # `in self.env` (model registry) so a missing addon is silent.
-        for hook_model in ("hr.rfid.event",):
+        for hook_model in ("hr.rfid.event", "access.proxy.bridge"):
             try:
                 Model = request.env.get(hook_model)
                 if Model is None or not hasattr(Model, "_on_proxy_event"):

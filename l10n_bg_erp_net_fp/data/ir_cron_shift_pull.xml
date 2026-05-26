@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            Shift bridge — pull pending shifts от Android устройства.
+
+            За всеки `fiscal.printer.device` с попълнени `host` +
+            `l10n_bg_device_serial`: HTTP GET към `<host>/shifts/<serial>/pending`,
+            apply през `l10n.bg.erp.net.fp.shift.sync.apply()`, после
+            POST `mark_synced`. Idempotent — replay-safe и при retry.
+
+            Default interval: 5 минути. Android изпраща `shift.closed`
+            notification на проксито при Z-затваряне; future enhancement
+            (Phase 2) ще trigger-ва apply_pending извън разписанието чрез
+            тази notification.
+        -->
+        <record id="ir_cron_shift_bridge_pull" model="ir.cron">
+            <field name="name">Shift bridge — pull pending shifts</field>
+            <field name="model_id" ref="model_l10n_bg_erp_net_fp_shift_bridge_client"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_apply_all_devices()</field>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="active" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

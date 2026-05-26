@@ -32,5 +32,6 @@ access_l10n_bg_barcode_rule_target_user,l10n.bg.barcode.rule.target user,model_l
 access_l10n_bg_barcode_rule_target_manager,l10n.bg.barcode.rule.target manager,model_l10n_bg_barcode_rule_target,base.group_system,1,1,1,1
 access_l10n_bg_shift_sync_service_user,l10n.bg.erp.net.fp.shift.sync user,model_l10n_bg_erp_net_fp_shift_sync,point_of_sale.group_pos_user,1,0,0,0
 access_l10n_bg_shift_sync_service_manager,l10n.bg.erp.net.fp.shift.sync manager,model_l10n_bg_erp_net_fp_shift_sync,point_of_sale.group_pos_manager,1,1,1,1
+access_l10n_bg_shift_bridge_client_manager,l10n.bg.erp.net.fp.shift.bridge.client manager,model_l10n_bg_erp_net_fp_shift_bridge_client,point_of_sale.group_pos_manager,1,1,1,1
 access_l10n_bg_pos_order_storno_user,l10n.bg.erp.net.fp.pos.order.storno user,model_l10n_bg_erp_net_fp_pos_order_storno,point_of_sale.group_pos_user,1,0,0,0
 access_l10n_bg_pos_order_storno_manager,l10n.bg.erp.net.fp.pos.order.storno manager,model_l10n_bg_erp_net_fp_pos_order_storno,point_of_sale.group_pos_manager,1,1,1,1

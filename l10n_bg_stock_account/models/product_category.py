@@ -59,3 +59,28 @@ class ProductCategory(models.Model):
         help='Income account used when the vendor invoice price is lower than the PO price. '
              'The difference is booked directly as financial income without chain traversal.',
     )
+
+    # Сметка за брак/липса (напр. 669.200) — дебитира се при scrap или
+    # отрицателна inventory adjustment. Без отделна сметка системата ползва
+    # l10n_bg_stock_output_account_id (COGS), което осчетоводява брак като
+    # реализирана продажба — счетоводно грешно.
+    l10n_bg_stock_loss_account_id = fields.Many2one(
+        'account.account',
+        string='Stock Loss Account (брак/липси)',
+        company_dependent=True,
+        check_company=True,
+        help='Expense account debited for scrap and negative inventory '
+             'adjustments (e.g. 669.200). Falls back to Stock Output Account '
+             'if not set.',
+    )
+
+    # Сметка за излишък от инвентаризация (напр. 709.000) — кредитира се при
+    # положителна inventory adjustment.
+    l10n_bg_stock_gain_account_id = fields.Many2one(
+        'account.account',
+        string='Stock Gain Account (излишъци)',
+        company_dependent=True,
+        check_company=True,
+        help='Income account credited for positive inventory adjustments '
+             '(e.g. 709.000). Falls back to Stock Input Account if not set.',
+    )

@@ -66,14 +66,11 @@ class BarcodeRuleTarget(models.Model):
         "dispatcher).",
     )
 
-    _sql_constraints = [
-        (
-            "uniq_rule_target",
-            "unique(rule_id, model_id, field, form_xmlid)",
-            "A barcode rule target with the same model, field and form "
-            "already exists.",
-        ),
-    ]
+    _uniq_rule_target = models.Constraint(
+        "unique(rule_id, model_id, field, form_xmlid)",
+        "A barcode rule target with the same model, field and form "
+        "already exists.",
+    )
 
     @api.depends("model_id", "field", "form_xmlid")
     def _compute_display_name(self):

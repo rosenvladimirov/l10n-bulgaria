@@ -75,13 +75,10 @@ class L10nBgAccountKidRule(models.Model):
     )
     active = fields.Boolean(default=True)
 
-    _sql_constraints = [
-        (
-            "account_code_uniq",
-            "unique(account_code)",
-            "An account-code prefix can have only one classification rule.",
-        ),
-    ]
+    _account_code_uniq = models.Constraint(
+        "unique(account_code)",
+        "An account-code prefix can have only one classification rule.",
+    )
 
     @api.depends("account_code", "classification")
     def _compute_display_name(self):

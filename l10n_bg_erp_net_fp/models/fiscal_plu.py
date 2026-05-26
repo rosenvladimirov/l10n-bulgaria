@@ -135,13 +135,10 @@ class L10nBgFiscalPlu(models.Model):
     last_validated_at = fields.Datetime(readonly=True, copy=False)
     note = fields.Text()
 
-    _sql_constraints = [
-        (
-            "uniq_company_plu_number",
-            "unique(company_id, plu_number)",
-            "PLU number must be unique per company.",
-        ),
-    ]
+    _uniq_company_plu_number = models.Constraint(
+        "unique(company_id, plu_number)",
+        "PLU number must be unique per company.",
+    )
 
     # ------------------------------------------------------------------
     # Defaults / computes

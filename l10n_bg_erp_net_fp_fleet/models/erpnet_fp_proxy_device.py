@@ -63,11 +63,10 @@ class ErpNetFpProxyDevice(models.Model):
     last_seen = fields.Datetime(default=fields.Datetime.now, readonly=True)
     active = fields.Boolean(default=True, index=True)
 
-    _sql_constraints = [
-        ("proxy_kind_id_uniq",
-         "UNIQUE(proxy_id, kind, identifier)",
-         "A device with this kind/identifier already exists for this proxy."),
-    ]
+    _proxy_kind_id_uniq = models.Constraint(
+        "UNIQUE(proxy_id, kind, identifier)",
+        "A device with this kind/identifier already exists for this proxy.",
+    )
 
     # ─── Heartbeat sync ─────────────────────────────────────────
 

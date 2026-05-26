@@ -125,11 +125,10 @@ class ErpNetFpProxyConfigTemplate(models.Model):
 
     display_name = fields.Char(compute="_compute_display_name")
 
-    _sql_constraints = [
-        ("name_proxy_kind_uniq",
-         "UNIQUE(proxy_id, kind, name)",
-         "Another template on this proxy already has that name + kind."),
-    ]
+    _name_proxy_kind_uniq = models.Constraint(
+        "UNIQUE(proxy_id, kind, name)",
+        "Another template on this proxy already has that name + kind.",
+    )
 
     @api.depends("name", "kind")
     def _compute_display_name(self):

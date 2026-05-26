@@ -81,11 +81,10 @@ class AiPipelineStep(models.Model):
     last_run_message = fields.Text(readonly=True)
     last_run_date = fields.Datetime(readonly=True)
 
-    _sql_constraints = [
-        ("ai_pipeline_step_name_uniq",
-         "unique(pipeline, name)",
-         "Step name must be unique per pipeline."),
-    ]
+    _ai_pipeline_step_name_uniq = models.Constraint(
+        "unique(pipeline, name)",
+        "Step name must be unique per pipeline.",
+    )
 
     # ──────────────────────────────────────────────────────────
     # Validation

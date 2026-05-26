@@ -67,9 +67,10 @@ class L10nBgVertical(models.Model):
         compute="_compute_state",
     )
 
-    _sql_constraints = [
-        ("code_uniq", "unique(code)", "Vertical code must be unique."),
-    ]
+    _code_uniq = models.Constraint(
+        "unique(code)",
+        "Vertical code must be unique.",
+    )
 
     @api.depends("step_ids")
     @api.depends_context("company")
@@ -425,10 +426,7 @@ class L10nBgVerticalProgress(models.Model):
     done_date = fields.Datetime()
     note = fields.Text()
 
-    _sql_constraints = [
-        (
-            "company_step_uniq",
-            "unique(company_id, step_id)",
-            "One progress record per company and step.",
-        ),
-    ]
+    _company_step_uniq = models.Constraint(
+        "unique(company_id, step_id)",
+        "One progress record per company and step.",
+    )

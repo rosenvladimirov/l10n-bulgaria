@@ -74,13 +74,10 @@ class AiViewRegistry(models.Model):
         string="Documents",
     )
 
-    _sql_constraints = [
-        (
-            "uniq_model_view",
-            "UNIQUE(model_id, view_type, view_id)",
-            "Registry entry already exists for this model / view type / view.",
-        ),
-    ]
+    _uniq_model_view = models.Constraint(
+        "UNIQUE(model_id, view_type, view_id)",
+        "Registry entry already exists for this model / view type / view.",
+    )
 
     @api.depends("model_id", "view_type", "view_id")
     def _compute_name(self):

@@ -56,9 +56,19 @@ class StockMove(models.Model):
         value = abs(self.value)
         categ = self.product_id.categ_id.sudo()
 
+        # Scrap или негативна inventory adjustment → loss account (669.xxx) вместо COGS.
+        # Без отделна сметка системата (стандартно) ползваше l10n_bg_stock_output (COGS) —
+        # счетоводно грешно, защото брак не е реализирана продажба.
+        is_loss = bool(self.scrap_id) or (self.is_inventory and self.is_out)
+
         # Изходящ move: Dr. output_account (702.100) / Cr. stock_valuation (302)
+        # При scrap/loss → Dr. loss_account (669.xxx) с fallback към output_account.
         if self.is_out:
-            output_acc = categ.l10n_bg_stock_output_account_id
+            output_acc = (
+                categ.l10n_bg_stock_loss_account_id
+                if is_loss
+                else False
+            ) or categ.l10n_bg_stock_output_account_id
             if not output_acc:
                 return []
             return [
@@ -79,8 +89,14 @@ class StockMove(models.Model):
             ]
 
         # Входящ move: Dr. stock_valuation (302) / Cr. input_account (301)
-        # Fallback към stock_variation ако input_account не е зададен
-        input_acc = categ.l10n_bg_stock_input_account_id or accounts.get('stock_variation')
+        # При положителна inventory adjustment → Cr. gain_account (709.xxx)
+        # с fallback към input_account → stock_variation.
+        is_gain = self.is_inventory and self.is_in
+        input_acc = (
+            (categ.l10n_bg_stock_gain_account_id if is_gain else False)
+            or categ.l10n_bg_stock_input_account_id
+            or accounts.get('stock_variation')
+        )
         if not input_acc:
             return []
 

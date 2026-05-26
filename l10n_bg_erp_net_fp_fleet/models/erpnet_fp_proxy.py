@@ -193,10 +193,10 @@ class ErpNetFpProxy(models.Model):
         compute="_compute_config_template_count", store=False,
     )
 
-    _sql_constraints = [
-        ("name_uniq", "UNIQUE(name)",
-         "Another proxy already uses this name."),
-    ]
+    _name_uniq = models.Constraint(
+        "UNIQUE(name)",
+        "Another proxy already uses this name.",
+    )
 
     # ─── Computes ───────────────────────────────────────────────
 

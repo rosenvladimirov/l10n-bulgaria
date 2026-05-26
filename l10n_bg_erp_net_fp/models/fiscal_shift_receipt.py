@@ -82,11 +82,10 @@ class L10nBgFiscalShiftReceipt(models.Model):
         "account.move", readonly=True, copy=False,
     )
 
-    _sql_constraints = [
-        ("uniq_company_device_receipt",
-         "unique(company_id, device_id, receipt_number)",
-         "Receipt number must be unique per device per company."),
-    ]
+    _uniq_company_device_receipt = models.Constraint(
+        "unique(company_id, device_id, receipt_number)",
+        "Receipt number must be unique per device per company.",
+    )
 
     def _compute_operator_user(self):
         Users = self.env["res.users"].sudo()

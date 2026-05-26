@@ -71,13 +71,10 @@ class L10nBgAccountIndustryMap(models.Model):
         "company-specific override.",
     )
 
-    _sql_constraints = [
-        (
-            "kid_account_company_uniq",
-            "unique(kid_id, account_code, company_id)",
-            "Duplicate КИД / account / company mapping.",
-        ),
-    ]
+    _kid_account_company_uniq = models.Constraint(
+        "unique(kid_id, account_code, company_id)",
+        "Duplicate КИД / account / company mapping.",
+    )
 
     @api.depends("kid_id.code", "account_code", "relation_type")
     def _compute_display_name(self):

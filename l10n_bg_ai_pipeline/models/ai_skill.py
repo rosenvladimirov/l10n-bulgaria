@@ -117,9 +117,10 @@ class AiSkill(models.Model):
     qdrant_point_id = fields.Char(copy=False)
     error_message = fields.Text(readonly=True)
 
-    _sql_constraints = [
-        ("ai_skill_name_uniq", "unique(name)", "Skill name must be unique."),
-    ]
+    _ai_skill_name_uniq = models.Constraint(
+        "unique(name)",
+        "Skill name must be unique.",
+    )
 
     # ── Selection helpers ──────────────────────────────────────
     @api.model

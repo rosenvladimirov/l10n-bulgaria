@@ -67,10 +67,7 @@ class L10nBgFiscalPluDeviceLine(models.Model):
     pushed_price = fields.Float(readonly=True, copy=False)
     pushed_vat_group = fields.Char(readonly=True, copy=False, size=4)
 
-    _sql_constraints = [
-        (
-            "uniq_plu_device",
-            "UNIQUE(plu_id, device_id)",
-            "A PLU sync line per device must be unique.",
-        ),
-    ]
+    _uniq_plu_device = models.Constraint(
+        "UNIQUE(plu_id, device_id)",
+        "A PLU sync line per device must be unique.",
+    )

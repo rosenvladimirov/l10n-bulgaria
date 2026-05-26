@@ -63,13 +63,10 @@ class AiCompositeDocument(models.Model):
     )
     error_message = fields.Text(string="Last Error")
 
-    _sql_constraints = [
-        (
-            "uniq_doc",
-            "UNIQUE(registry_id, res_id)",
-            "A composite document already exists for this registry/record.",
-        ),
-    ]
+    _uniq_doc = models.Constraint(
+        "UNIQUE(registry_id, res_id)",
+        "A composite document already exists for this registry/record.",
+    )
 
     @api.depends("model_name", "res_id")
     def _compute_display_name(self):

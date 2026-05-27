@@ -5,6 +5,11 @@
         <field name="model">datecs.printer</field>
         <field name="arch" type="xml">
             <list decoration-muted="not active">
+                <header>
+                    <button name="action_import_from_proxies" type="object"
+                            string="📥 Import from Proxy" class="btn-primary"
+                            confirm="Import all printers reported by registered proxies?"/>
+                </header>
                 <field name="name"/>
                 <field name="template_id"/>
                 <field name="proxy_id"/>

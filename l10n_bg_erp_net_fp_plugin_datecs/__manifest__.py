@@ -24,7 +24,7 @@ Pre-seeded models:
 - Datecs BlueCash-55 (mobile fiscal + pinpad + scanner)
 - Datecs BluePad-55 (BLE pinpad)
     """,
-    'version': '18.0.1.3.0',
+    'version': '18.0.1.4.0',
     'author': 'Rosen Vladimirov',
     'license': 'LGPL-3',
     'category': 'Fleet',

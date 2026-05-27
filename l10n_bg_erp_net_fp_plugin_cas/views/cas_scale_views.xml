@@ -1,10 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="view_cas_scale_kanban" model="ir.ui.view">
+        <field name="name">cas.scale.kanban</field>
+        <field name="model">cas.scale</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="proxy_id" sample="1">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="serial_number"/>
+                <field name="template_id"/>
+                <field name="driver"/>
+                <field name="transport"/>
+                <field name="active"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <strong>
+                                    <i class="fa fa-balance-scale me-1 text-primary"/>
+                                    <field name="name"/>
+                                </strong>
+                                <div class="text-muted small">
+                                    SN: <field name="serial_number"/>
+                                </div>
+                                <div t-if="record.template_id.raw_value" class="small">
+                                    📋 <field name="template_id"/>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <span class="badge text-bg-secondary">
+                                    <field name="transport"/>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="mt-2 small text-muted">
+                            <field name="driver"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record id="view_cas_scale_list" model="ir.ui.view">
         <field name="name">cas.scale.list</field>
         <field name="model">cas.scale</field>
         <field name="arch" type="xml">
             <list decoration-muted="not active">
+                <header>
+                    <button name="action_import_from_proxies" type="object"
+                            string="📥 Import from Proxy" class="btn-primary"
+                            confirm="Import scales matching CAS prefix from proxies?"/>
+                </header>
                 <field name="name"/>
                 <field name="template_id"/>
                 <field name="proxy_id"/>
@@ -50,6 +97,6 @@
     <record id="action_cas_scale" model="ir.actions.act_window">
         <field name="name">CAS Scales</field>
         <field name="res_model">cas.scale</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">kanban,list,form</field>
     </record>
 </odoo>

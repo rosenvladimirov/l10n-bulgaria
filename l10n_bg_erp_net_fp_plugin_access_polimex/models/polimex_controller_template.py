@@ -215,18 +215,45 @@ class PolimexControllerApply(models.Model):
                 _logger.info("Endpoint created: %s output=%s",
                              ep.proxy_access_id, ep.output_no)
 
-            # ── 3. Auto-link orphan device_placements (controller_id NULL)
-            # които съответстват на тoзи hardware via name match. Не
-            # дозираме — потребителят може да върне после.
-            for dp in Placement.search([
-                    ("controller_id", "=", False),
-                    "|", ("name", "ilike", ctrl.name),
-                    ("name", "ilike", ctrl.convertor_serial or "____")]):
-                dp.controller_id = ac.id
+            # ── 3. Create device_placements from polimex.parts ──
+            # 1 placement per part, mapped на device_kind. Linked към
+            # the new virtual ac. Idempotent: skip ако вече има
+            # placement за тoзи controller_id със същия name.
+            KIND_MAP = {
+                "magnet": "magnet",
+                "strike": "magnet",     # strike = magnetic lock variant
+                "motor":  "relay",      # gate motor → relay kind
+                "reader": "reader",
+                "sensor": "door_sensor",
+                "button": "exit_button",
+            }
+            # Resolve default facility — от съществуващ access_point или
+            # първата facility (за случаите когато няма access points)
+            default_facility = self.env["access.facility"].sudo().search(
+                [], limit=1)
+            existing_placement_names = {
+                (p.name or "").strip() for p in Placement.search(
+                    [("controller_id", "=", ac.id)])
+            }
+            created_placements = 0
+            for part in ctrl.part_ids.filtered("active"):
+                if (part.name or "").strip() in existing_placement_names:
+                    continue
+                dk = KIND_MAP.get(part.kind, "sensor")
+                Placement.create({
+                    "name": part.name,
+                    "device_kind": dk,
+                    "controller_id": ac.id,
+                    "facility_id": default_facility.id
+                        if default_facility else False,
+                    "active": True,
+                    "sequence": part.sequence or 10,
+                })
+                created_placements += 1
 
         msg = _("Hardware %(name)s → 1 access.controller + %(ep)d "
-                "endpoint(s) created.", name=", ".join(self.mapped("name")),
-                ep=created_ep)
+                "endpoint(s) + device_placements created.",
+                name=", ".join(self.mapped("name")), ep=created_ep)
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",

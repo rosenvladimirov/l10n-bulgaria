@@ -367,14 +367,16 @@
         </field>
     </record>
 
-    <!-- Action from version -->
+    <!-- Action from version
+         NB: в Odoo 19 `active_id` НЕ се evaluate-ва в domain/context на
+         act_window. Smart button-ите трябва да подават нужните default
+         стойности чрез своя `context` и domain се чете от него. -->
     <record id="action_l10n_bg_hr_contract_amendment_from_contract"
             model="ir.actions.act_window">
         <field name="name">Contract Amendments</field>
         <field name="res_model">l10n_bg.hr.version.amendment</field>
         <field name="view_mode">list,form</field>
-        <field name="context">{'default_version_id': active_id}</field>
-        <field name="domain">[('version_id', '=', active_id)]</field>
+        <field name="domain">[('version_id', '=', context.get('default_version_id', False))]</field>
     </record>
 
     <!-- Action from employee -->
@@ -383,7 +385,7 @@
         <field name="name">Contract Amendments</field>
         <field name="res_model">l10n_bg.hr.version.amendment</field>
         <field name="view_mode">list,form</field>
-        <field name="domain">[('employee_id', '=', active_id)]</field>
+        <field name="domain">[('employee_id', '=', context.get('default_employee_id', False))]</field>
     </record>
 
     <!-- ================================================================== -->

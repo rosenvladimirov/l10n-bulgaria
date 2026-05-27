@@ -9,7 +9,7 @@
                 <field name="l10n_bg_name_value" invisible="1" force_save="1"/><!-- Technical field: used in domain/compute -->
             </xpath>
             <xpath expr="//group[@name='l10n_bg_documents']" position="inside">
-                <field name="l10n_bg_name"/>
+                <field name="l10n_bg_name" invisible="1" force_save="1"/>
                 <field name="l10n_bg_deal_date"/>
             </xpath>
             <xpath expr="//page[@id='other_tab_entry']/group[@id='other_tab_entry_group']" position="inside">

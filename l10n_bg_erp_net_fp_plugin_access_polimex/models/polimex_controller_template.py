@@ -142,39 +142,49 @@ class PolimexControllerApply(models.Model):
         }
 
     def action_create_virtual_access_controllers(self):
-        """За всеки output part (magnet / strike / motor) с access_id
-        създай съответен access.controller запис (virtual layer).
+        """**1 ac per polimex.controller (hardware)** + multiple
+        endpoints (1 per output magnet/strike/motor).
 
-        Без това физическите parts не могат да се pulse-ват от Odoo —
-        access.controller е HTTP wrapper-а към proxy. 1 magnet ↔ 1
-        virtual access.controller. Idempotent: skip ако вече има
-        access.controller със същия proxy_access_id.
+        Преди: 1 ac per output → много дубликати за iCON130. Сега:
+        1 ac wraps the hardware controller, endpoint_ids list
+        outputs за target-вани door-open команди.
 
-        Resolve-ва и polimex_bus_id от controller's bus_id.
+        Идемпотентно:
+        - 1 ac per polimex.controller (lookup по polimex_bus_id +
+          proxy_base_url)
+        - Endpoints създават се per output part; skip ако вече има
+          endpoint with same (controller_id, output_no)
+
+        Bonus: link-ва съществуващите device_placement records към
+        новия ac, ако имат controller_id=NULL и същия bus_id чрез
+        access_point.
         """
         AccessCtrl = self.env["access.controller"].sudo()
-        proxy_url = "https://fp-mec.odoo-shell.space"  # default; ще се
-        # вземе от proxy_id когато имаме линк
-        created_total = 0
-        skipped_total = 0
+        Endpoint = self.env["access.controller.endpoint"].sudo()
+        Placement = self.env["access.device_placement"].sudo()
+        created_ac = 0
+        created_ep = 0
         for ctrl in self:
-            # Resolve proxy URL — от polimex.controller.proxy_id ако е
-            # set (към erpnet.fp.proxy)
+            proxy_url = "https://fp-mec.odoo-shell.space"
             if ctrl.proxy_id and getattr(ctrl.proxy_id, "url", False):
                 proxy_url = ctrl.proxy_id.url
-            for part in ctrl.part_ids.filtered(
-                    lambda p: p.kind in ("magnet", "strike", "motor")
-                    and p.access_id and p.active):
-                # Idempotent skip
-                if AccessCtrl.search_count([
-                        ("proxy_access_id", "=", part.access_id),
-                        ("proxy_base_url", "=", proxy_url)]):
-                    skipped_total += 1
-                    continue
+
+            # ── 1. Resolve / create the SINGLE virtual ac per hardware ──
+            outputs = ctrl.part_ids.filtered(
+                lambda p: p.kind in ("magnet", "strike", "motor")
+                and p.access_id and p.active)
+            if not outputs:
+                continue
+            ac = AccessCtrl.search([
+                ("polimex_bus_id", "=", ctrl.bus_id),
+                ("proxy_base_url", "=", proxy_url),
+            ], limit=1)
+            if not ac:
+                primary_output = outputs[0]
                 ac = AccessCtrl.create({
-                    "name": f"{ctrl.name} — {part.name}",
+                    "name": ctrl.name,
                     "proxy_base_url": proxy_url,
-                    "proxy_access_id": part.access_id,
+                    "proxy_access_id": primary_output.access_id,
                     "pulse_seconds": ctrl.pulse_seconds or 3.0,
                     "timeout": 5,
                     "active": True,
@@ -183,19 +193,45 @@ class PolimexControllerApply(models.Model):
                         if ctrl.convertor_serial
                         and str(ctrl.convertor_serial).isdigit() else False,
                 })
+                created_ac += 1
                 _logger.info(
-                    "Virtual access.controller created: id=%s "
-                    "proxy_access_id=%s polimex_bus=%s",
-                    ac.id, part.access_id, ctrl.bus_id)
-                created_total += 1
-        msg = _(
-            "%(c)d virtual access.controller(s) created (%(s)d skipped — "
-            "already existed).", c=created_total, s=skipped_total)
+                    "Virtual access.controller created: id=%s name=%s "
+                    "polimex_bus=%s", ac.id, ac.name, ctrl.bus_id)
+
+            # ── 2. Endpoints per output ──
+            existing_outputs = {e.output_no for e in ac.endpoint_ids}
+            for part in outputs:
+                if part.io_channel in existing_outputs:
+                    continue
+                ep = Endpoint.create({
+                    "controller_id": ac.id,
+                    "name": part.name,
+                    "output_no": part.io_channel,
+                    "proxy_access_id": part.access_id,
+                    "pulse_seconds": ctrl.pulse_seconds or 3.0,
+                    "active": True,
+                })
+                created_ep += 1
+                _logger.info("Endpoint created: %s output=%s",
+                             ep.proxy_access_id, ep.output_no)
+
+            # ── 3. Auto-link orphan device_placements (controller_id NULL)
+            # които съответстват на тoзи hardware via name match. Не
+            # дозираме — потребителят може да върне после.
+            for dp in Placement.search([
+                    ("controller_id", "=", False),
+                    "|", ("name", "ilike", ctrl.name),
+                    ("name", "ilike", ctrl.convertor_serial or "____")]):
+                dp.controller_id = ac.id
+
+        msg = _("Hardware %(name)s → 1 access.controller + %(ep)d "
+                "endpoint(s) created.", name=", ".join(self.mapped("name")),
+                ep=created_ep)
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "type": "success" if created_total else "info",
+                "type": "success" if (created_ac or created_ep) else "info",
                 "message": msg,
                 "sticky": False,
             },

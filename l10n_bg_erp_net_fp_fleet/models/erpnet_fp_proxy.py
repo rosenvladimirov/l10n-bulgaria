@@ -466,6 +466,61 @@ class ErpNetFpProxy(models.Model):
         "biometric": ("biometric.verifier",  "hr_attendance_access_control"),
     }
 
+    def _auto_push_drifted_configs(self, runtime_versions):
+        """При heartbeat — за всеки kind с known source model,
+        compare-ва runtime_version vs latest template push version.
+        Mismatch (или празно runtime → emptyDir wipe) → enqueue
+        push_config command автоматично.
+
+        Решава: post pod-restart proxy с emptyDir config.d → Odoo
+        авто-rehydrate-ва без manual click. Memory P12 fix.
+
+        Безопасно: skip kind ако source model не е инсталиран или
+        няма pushed template.
+        """
+        self.ensure_one()
+        Template = self.env["erpnet.fp.proxy.config.template"].sudo()
+        Command = self.env["erpnet.fp.proxy.command"].sudo()
+        for kind in self._PUSH_CONFIG_SOURCES:
+            spec = self._PUSH_CONFIG_SOURCES.get(kind)
+            if not spec:
+                continue
+            model_name, _hint = spec
+            if self.env.get(model_name) is None:
+                continue
+            # Latest template push for тoзи (proxy, kind)
+            tpl = Template.search([
+                ("proxy_id", "=", self.id),
+                ("kind", "=", kind),
+                ("active", "=", True),
+            ], order="last_pushed_at desc", limit=1)
+            if not tpl or not tpl.last_pushed_version:
+                continue
+            runtime_v = (runtime_versions or {}).get(kind)
+            if runtime_v == tpl.last_pushed_version:
+                continue  # in sync
+            # Skip ако вече има pending push_config за тoзи kind
+            pending = Command.search([
+                ("proxy_id", "=", self.id),
+                ("kind", "=", "push_config"),
+                ("state", "in", ["pending", "sent"]),
+            ], limit=10)
+            already_queued = any(
+                (c.payload_json or "").find(f'"kind":"{kind}"') >= 0
+                for c in pending)
+            if already_queued:
+                continue
+            _logger.info(
+                "Auto-rehydrate: proxy %s kind=%s drift "
+                "(runtime=%s template=%s) — enqueueing push_config",
+                self.name, kind, runtime_v, tpl.last_pushed_version)
+            try:
+                self._push_kind(kind)
+            except Exception:  # noqa: BLE001
+                _logger.exception(
+                    "Auto-rehydrate _push_kind failed for %s %s",
+                    self.name, kind)
+
     def _collect_push_section(self, kind):
         """Resolve `kind` → list[dict] section payload, or raise.
 

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_datecs_pinpad_list" model="ir.ui.view">
+        <field name="name">datecs.pinpad.list</field>
+        <field name="model">datecs.pinpad</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="not active">
+                <field name="name"/>
+                <field name="template_id"/>
+                <field name="proxy_id"/>
+                <field name="serial_number"/>
+                <field name="transport"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_datecs_pinpad_form" model="ir.ui.view">
+        <field name="name">datecs.pinpad.form</field>
+        <field name="model">datecs.pinpad</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="POS pinpad"/></h1>
+                    </div>
+                    <group>
+                        <group string="Identification">
+                            <field name="template_id" options="{'no_create': True}"/>
+                            <field name="proxy_id" options="{'no_create': True}"/>
+                            <field name="serial_number"/>
+                            <field name="firmware"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group string="Connection">
+                            <field name="transport"/>
+                            <field name="port" invisible="transport != 'serial'"/>
+                            <field name="bluetooth_address" invisible="transport != 'bluetooth'"/>
+                            <field name="tcp_host" invisible="transport != 'tcp'"/>
+                            <field name="tcp_port" invisible="transport != 'tcp'"/>
+                            <field name="driver"/>
+                        </group>
+                    </group>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_datecs_pinpad" model="ir.actions.act_window">
+        <field name="name">Datecs Pinpads</field>
+        <field name="res_model">datecs.pinpad</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

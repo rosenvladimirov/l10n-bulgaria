@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+
+    <record id="template_dp150" model="datecs.printer.template">
+        <field name="name">Datecs DP-150</field>
+        <field name="code">dp150</field>
+        <field name="sequence">10</field>
+        <field name="driver">datecs.isl</field>
+        <field name="default_transport">serial</field>
+        <field name="description">Entry-level fiscal printer (serial USB).
+            ISL protocol. Standard pricing model.</field>
+    </record>
+
+    <record id="template_fp700mx" model="datecs.printer.template">
+        <field name="name">Datecs FP-700MX</field>
+        <field name="code">fp700mx</field>
+        <field name="sequence">20</field>
+        <field name="driver">datecs.pm</field>
+        <field name="default_transport">serial</field>
+        <field name="plu_mode">True</field>
+        <field name="description">Fiscal printer със PLU-only mode
+            (host PLU push не работи — PM-only feature). Empirically
+            verified 11-slot PM mapping (memory: feedback_fp700mx_plu_only).</field>
+    </record>
+
+    <record id="template_bluecash50" model="datecs.printer.template">
+        <field name="name">Datecs BlueCash-50</field>
+        <field name="code">bluecash50</field>
+        <field name="sequence">30</field>
+        <field name="driver">datecs.fpr</field>
+        <field name="default_transport">bluetooth</field>
+        <field name="description">Mobile fiscal printer + barcode scanner.
+            BLE connectivity. 2-channel device (fiscal + scanner).</field>
+    </record>
+
+    <record id="template_bluecash55" model="datecs.printer.template">
+        <field name="name">Datecs BlueCash-55</field>
+        <field name="code">bluecash55</field>
+        <field name="sequence">40</field>
+        <field name="driver">datecs.fpr</field>
+        <field name="default_transport">bluetooth</field>
+        <field name="description">Mobile fiscal printer + pinpad + scanner.
+            3-channel device (fiscal + pinpad + scanner). Service:
+            DA054852 е тест unit (memory: project_bluecash55_three_bridges).</field>
+    </record>
+
+</odoo>

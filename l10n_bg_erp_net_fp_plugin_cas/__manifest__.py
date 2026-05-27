@@ -3,7 +3,7 @@
 {
     'name': 'ErpNet.FP Fleet — CAS Scales Plugin',
     'summary': "CAS weighing scales (PR-Plus, CL-5000, bench) catalog + auto YAML push.",
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.0.1',
     'author': 'Rosen Vladimirov',
     'license': 'LGPL-3',
     'category': 'Fleet',

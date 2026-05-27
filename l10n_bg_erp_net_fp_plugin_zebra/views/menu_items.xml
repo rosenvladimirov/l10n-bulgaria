@@ -2,12 +2,12 @@
 <odoo>
     <menuitem id="menu_zebra_readers"
               name="Zebra / Symbol Scanners"
-              parent="l10n_bg_erp_net_fp_fleet.menu_settings"
+              parent="l10n_bg_erp_net_fp_fleet.menu_settings_devices"
               action="action_zebra_reader"
-              sequence="50"/>
+              sequence="60"/>
     <menuitem id="menu_zebra_reader_templates"
               name="Zebra / Symbol Scanners Templates"
-              parent="l10n_bg_erp_net_fp_fleet.menu_settings"
+              parent="l10n_bg_erp_net_fp_fleet.menu_settings_templates"
               action="action_zebra_reader_template"
-              sequence="51"/>
+              sequence="60"/>
 </odoo>

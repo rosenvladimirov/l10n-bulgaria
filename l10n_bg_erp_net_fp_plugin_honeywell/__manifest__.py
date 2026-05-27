@@ -3,7 +3,7 @@
 {
     'name': 'ErpNet.FP Fleet — Honeywell Scanners Plugin',
     'summary': "Honeywell barcode readers (1470g, 1250g, 5145) catalog + auto YAML push.",
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.0.1',
     'author': 'Rosen Vladimirov',
     'license': 'LGPL-3',
     'category': 'Fleet',

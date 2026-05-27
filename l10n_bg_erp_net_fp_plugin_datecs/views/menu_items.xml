@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Records → Settings/Devices -->
     <menuitem id="menu_datecs_printers"
               name="Datecs Printers"
-              parent="l10n_bg_erp_net_fp_fleet.menu_settings"
+              parent="l10n_bg_erp_net_fp_fleet.menu_settings_devices"
               action="action_datecs_printer"
               sequence="40"/>
-    <menuitem id="menu_datecs_printer_templates"
-              name="Datecs Printer Templates"
-              parent="l10n_bg_erp_net_fp_fleet.menu_settings"
-              action="action_datecs_printer_template"
-              sequence="41"/>
     <menuitem id="menu_datecs_pinpads"
               name="Datecs Pinpads"
-              parent="l10n_bg_erp_net_fp_fleet.menu_settings"
+              parent="l10n_bg_erp_net_fp_fleet.menu_settings_devices"
               action="action_datecs_pinpad"
-              sequence="42"/>
+              sequence="41"/>
+
+    <!-- Templates → Settings/Templates -->
+    <menuitem id="menu_datecs_printer_templates"
+              name="Datecs Printer Templates"
+              parent="l10n_bg_erp_net_fp_fleet.menu_settings_templates"
+              action="action_datecs_printer_template"
+              sequence="40"/>
     <menuitem id="menu_datecs_pinpad_templates"
               name="Datecs Pinpad Templates"
-              parent="l10n_bg_erp_net_fp_fleet.menu_settings"
+              parent="l10n_bg_erp_net_fp_fleet.menu_settings_templates"
               action="action_datecs_pinpad_template"
-              sequence="43"/>
+              sequence="41"/>
 </odoo>

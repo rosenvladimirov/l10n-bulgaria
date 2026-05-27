@@ -2,12 +2,12 @@
 <odoo>
     <menuitem id="menu_honeywell_readers"
               name="Honeywell Scanners"
-              parent="l10n_bg_erp_net_fp_fleet.menu_settings"
+              parent="l10n_bg_erp_net_fp_fleet.menu_settings_devices"
               action="action_honeywell_reader"
               sequence="50"/>
     <menuitem id="menu_honeywell_reader_templates"
               name="Honeywell Scanners Templates"
-              parent="l10n_bg_erp_net_fp_fleet.menu_settings"
+              parent="l10n_bg_erp_net_fp_fleet.menu_settings_templates"
               action="action_honeywell_reader_template"
-              sequence="51"/>
+              sequence="50"/>
 </odoo>

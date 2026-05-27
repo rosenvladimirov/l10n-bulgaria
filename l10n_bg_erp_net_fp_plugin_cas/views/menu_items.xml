@@ -2,12 +2,12 @@
 <odoo>
     <menuitem id="menu_cas_scales"
               name="CAS Scales"
-              parent="l10n_bg_erp_net_fp_fleet.menu_settings"
+              parent="l10n_bg_erp_net_fp_fleet.menu_settings_devices"
               action="action_cas_scale"
-              sequence="50"/>
+              sequence="70"/>
     <menuitem id="menu_cas_scale_templates"
               name="CAS Scales Templates"
-              parent="l10n_bg_erp_net_fp_fleet.menu_settings"
+              parent="l10n_bg_erp_net_fp_fleet.menu_settings_templates"
               action="action_cas_scale_template"
-              sequence="51"/>
+              sequence="70"/>
 </odoo>

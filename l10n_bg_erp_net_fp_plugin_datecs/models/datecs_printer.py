@@ -146,12 +146,20 @@ class DatecsPrinter(models.Model):
         tpl_map = {tpl.code: tpl for tpl in templates}
         # known mappings (memory: feedback_fp700mx_plu_only_mode_empirical,
         # project_bluecash55_three_bridges)
-        prefix_hints = {
-            'DT': 'dp150',         # Datecs DP-150 ECR
-            'DA052': 'fp700mx',    # Datecs FP-700MX
-            'DA054': 'bluecash55', # BlueCash-55 mobile
-            'DA050': 'bluecash50', # BlueCash-50
-        }
+        # Prefix match — first match wins (longest first preferred)
+        prefix_hints = [
+            ('DA052', 'fp700mx'),     # Datecs FP-700MX hardware serial
+            ('DA054', 'bluecash55'),  # BlueCash-55 hardware serial
+            ('DA050', 'bluecash50'),  # BlueCash-50 hardware serial
+            ('DT', 'dp150'),          # Datecs DP-150 ECR hardware serial
+            ('DP150', 'dp150'),       # ad-hoc proxy id
+            ('DP-150', 'dp150'),
+            ('FP700', 'fp700mx'),     # ad-hoc (handles fp700mx/fp700mk typos)
+            ('FP-700', 'fp700mx'),
+            ('BLUECASH55', 'bluecash55'),
+            ('BLUECASH-55', 'bluecash55'),
+            ('BLUECASH50', 'bluecash50'),
+        ]
         created = 0
         skipped = 0
         for dev in proxies_devices:
@@ -167,10 +175,11 @@ class DatecsPrinter(models.Model):
                 skipped += 1
                 continue
             tpl = False
-            for prefix, code in prefix_hints.items():
+            for prefix, code in prefix_hints:
                 if ident.upper().startswith(prefix):
                     tpl = tpl_map.get(code)
-                    break
+                    if tpl:
+                        break
             vals = {
                 'name': f'Datecs {ident}',
                 'serial_number': ident,

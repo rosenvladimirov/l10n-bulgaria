@@ -42,6 +42,53 @@ class DatecsPinpad(models.Model):
             self.driver = self.template_id.driver or 'datecs.pinpad'
             self.transport = self.template_id.default_transport or 'bluetooth'
 
+    def action_compare_template(self):
+        """Read-only diff срещу template — не пише, не push-ва конфиг."""
+        self.ensure_one()
+        if not self.template_id:
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'type': 'warning',
+                    'title': _('No Template'),
+                    'message': _('Select a Model Template first.'),
+                    'sticky': False,
+                },
+            }
+        tpl = self.template_id
+        rows = [
+            (self.driver or '', tpl.driver or '', 'Driver'),
+            (self.transport or '', tpl.default_transport or '', 'Transport'),
+        ]
+        diffs = [r for r in rows if r[0] != r[1]]
+        if not diffs:
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'type': 'success',
+                    'title': _('Match'),
+                    'message': _(
+                        'All template fields match current values '
+                        '(template: %s).', tpl.display_name),
+                    'sticky': False,
+                },
+            }
+        lines = [_('Differences vs template "%s":', tpl.display_name)]
+        for cur, tplv, label in diffs:
+            lines.append(_('• %s: current=%s | template=%s', label, cur, tplv))
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'type': 'warning',
+                'title': _('Template diff'),
+                'message': '\n'.join(lines),
+                'sticky': True,
+            },
+        }
+
     @api.model
     def get_config_payload(self):
         """Generate proxy pinpads: section."""

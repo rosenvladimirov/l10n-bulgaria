@@ -24,6 +24,9 @@
                     <button name="action_apply_template" type="object"
                             string="📋 Apply Template" class="btn-secondary"
                             invisible="not template_id"/>
+                    <button name="action_compare_template" type="object"
+                            string="🔍 Compare with Template" class="btn-secondary"
+                            invisible="not template_id"/>
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="Archived"

@@ -72,13 +72,14 @@
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
                 <button name="action_apply_template" type="object"
-                        string="📋 Apply Template" class="btn-secondary"
-                        invisible="not template_id"
+                        string="📋 Apply Hardware Template"
+                        class="btn-secondary"
+                        invisible="not hardware_template_id"
                         confirm="Това ще създаде parts от template-а
                                  (skip-вa съществуващи). Продължи?"/>
             </xpath>
             <xpath expr="//field[@name='firmware']" position="after">
-                <field name="template_id"
+                <field name="hardware_template_id"
                        options="{'no_create': True}"/>
             </xpath>
         </field>

@@ -138,7 +138,7 @@ class DatecsPrinter(models.Model):
         съществува. Идемпотент — re-run-ва се safely."""
         Device = self.env['erpnet.fp.proxy.device'].sudo()
         Template = self.env['datecs.printer.template'].sudo()
-        proxies_devices = Device.search([('kind', '=', 'printers')])
+        proxies_devices = Device.search([('kind', '=', 'printer')])
         # Auto-detect template by serial prefix или fallback
         # tpl_by_prefix: DP-150 → 'DT*' (Datecs DP-150 серийници почват
         # с DT — known от feedback_proxy_device_serial_id_convention)

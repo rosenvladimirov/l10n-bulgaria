@@ -95,7 +95,7 @@ class DatecsPinpad(models.Model):
         datecs.pinpad запис за всеки нов serial."""
         Device = self.env['erpnet.fp.proxy.device'].sudo()
         Template = self.env['datecs.pinpad.template'].sudo()
-        devices = Device.search([('kind', '=', 'pinpads')])
+        devices = Device.search([('kind', '=', 'pinpad')])
         templates = Template.search([])
         tpl_map = {tpl.code: tpl for tpl in templates}
         # known prefixes (BluePad-55 устройства = ДП50, серийни като

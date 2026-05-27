@@ -8,4 +8,10 @@
               action="action_polimex_controller"
               sequence="30"/>
 
+    <menuitem id="menu_polimex_templates"
+              name="Polimex Templates"
+              parent="l10n_bg_erp_net_fp_fleet.menu_settings"
+              action="action_polimex_template"
+              sequence="31"/>
+
 </odoo>

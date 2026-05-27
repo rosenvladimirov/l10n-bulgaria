@@ -79,6 +79,58 @@ class DatecsPrinter(models.Model):
                 rec.transport = tpl.default_transport
             rec.plu_mode = tpl.plu_mode
 
+    def action_compare_template(self):
+        """Diff между record и template — read-only.
+        Не пише, не push-ва конфиг — само notification със списък
+        на разликите."""
+        self.ensure_one()
+        if not self.template_id:
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'type': 'warning',
+                    'title': _('No Template'),
+                    'message': _('Select a Model Template first.'),
+                    'sticky': False,
+                },
+            }
+        tpl = self.template_id
+        # mapping: record_field → (current, template_value, label)
+        rows = [
+            ('driver', self.driver or '', tpl.driver or '', 'Driver'),
+            ('transport', self.transport or '', tpl.default_transport or '',
+             'Transport'),
+            ('plu_mode', str(self.plu_mode), str(tpl.plu_mode), 'PLU mode'),
+        ]
+        diffs = [r for r in rows if r[1] != r[2]]
+        if not diffs:
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'type': 'success',
+                    'title': _('Match'),
+                    'message': _(
+                        'All template fields match current values '
+                        '(template: %s).', tpl.display_name),
+                    'sticky': False,
+                },
+            }
+        lines = [_('Differences vs template "%s":', tpl.display_name)]
+        for _f, cur, tplv, label in diffs:
+            lines.append(_('• %s: current=%s | template=%s', label, cur, tplv))
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'type': 'warning',
+                'title': _('Template diff'),
+                'message': '\n'.join(lines),
+                'sticky': True,
+            },
+        }
+
     @api.model
     def get_config_payload(self):
         """Return ALL active printers as proxy printers: section."""

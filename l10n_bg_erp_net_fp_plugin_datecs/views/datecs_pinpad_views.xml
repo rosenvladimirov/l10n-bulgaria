@@ -20,6 +20,11 @@
         <field name="model">datecs.pinpad</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="action_compare_template" type="object"
+                            string="🔍 Compare with Template" class="btn-secondary"
+                            invisible="not template_id"/>
+                </header>
                 <sheet>
                     <div class="oe_title">
                         <label for="name"/>

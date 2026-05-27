@@ -90,6 +90,74 @@ class DatecsPinpad(models.Model):
         }
 
     @api.model
+    def action_import_from_proxies(self):
+        """Чете erpnet.fp.proxy.device с kind='pinpads' и създава
+        datecs.pinpad запис за всеки нов serial."""
+        Device = self.env['erpnet.fp.proxy.device'].sudo()
+        Template = self.env['datecs.pinpad.template'].sudo()
+        devices = Device.search([('kind', '=', 'pinpads')])
+        templates = Template.search([])
+        tpl_map = {tpl.code: tpl for tpl in templates}
+        # known prefixes (BluePad-55 устройства = ДП50, серийни като
+        # PP* или DA* в зависимост от партида)
+        prefix_hints = {
+            'PP': 'bluepad55',
+            'DA': 'bluepad55',  # повечето BluePad-55 също DA-prefix
+        }
+        created = 0
+        skipped = 0
+        for dev in devices:
+            ident = (dev.identifier or '').strip()
+            if not ident:
+                continue
+            # pinpad_<serial> е името в proxy; пресмятам serial
+            clean = ident
+            if clean.startswith('pinpad_'):
+                clean = clean[len('pinpad_'):]
+            exists = self.search([
+                ('proxy_id', '=', dev.proxy_id.id),
+                ('serial_number', '=', clean),
+            ], limit=1)
+            if exists:
+                skipped += 1
+                continue
+            tpl = False
+            for prefix, code in prefix_hints.items():
+                if clean.upper().startswith(prefix):
+                    tpl = tpl_map.get(code)
+                    break
+            vals = {
+                'name': f'Datecs Pinpad {clean}',
+                'serial_number': clean,
+                'proxy_id': dev.proxy_id.id,
+            }
+            if tpl:
+                vals['template_id'] = tpl.id
+                vals['driver'] = tpl.driver
+                vals['transport'] = tpl.default_transport or 'bluetooth'
+            self.create(vals)
+            created += 1
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'type': 'success' if created else 'info',
+                'title': _('Import from Proxy'),
+                'message': '\n'.join([
+                    _('Imported: %s new pinpad(s)', created),
+                    _('Skipped: %s existing record(s)', skipped),
+                    _('Scanned: %s proxy device entries', len(devices)),
+                ]),
+                'sticky': True,
+                'next': {
+                    'type': 'ir.actions.act_window',
+                    'res_model': 'datecs.pinpad',
+                    'view_mode': 'list,form',
+                },
+            },
+        }
+
+    @api.model
     def get_config_payload(self):
         """Generate proxy pinpads: section."""
         entries = []

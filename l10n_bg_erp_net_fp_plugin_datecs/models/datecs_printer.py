@@ -132,6 +132,79 @@ class DatecsPrinter(models.Model):
         }
 
     @api.model
+    def action_import_from_proxies(self):
+        """Чете erpnet.fp.proxy.device с kind='printers' и създава
+        datecs.printer запис за всеки идентификатор който още не
+        съществува. Идемпотент — re-run-ва се safely."""
+        Device = self.env['erpnet.fp.proxy.device'].sudo()
+        Template = self.env['datecs.printer.template'].sudo()
+        proxies_devices = Device.search([('kind', '=', 'printers')])
+        # Auto-detect template by serial prefix или fallback
+        # tpl_by_prefix: DP-150 → 'DT*' (Datecs DP-150 серийници почват
+        # с DT — known от feedback_proxy_device_serial_id_convention)
+        templates = Template.search([])
+        tpl_map = {tpl.code: tpl for tpl in templates}
+        # known mappings (memory: feedback_fp700mx_plu_only_mode_empirical,
+        # project_bluecash55_three_bridges)
+        prefix_hints = {
+            'DT': 'dp150',         # Datecs DP-150 ECR
+            'DA052': 'fp700mx',    # Datecs FP-700MX
+            'DA054': 'bluecash55', # BlueCash-55 mobile
+            'DA050': 'bluecash50', # BlueCash-50
+        }
+        created = 0
+        skipped = 0
+        for dev in proxies_devices:
+            ident = (dev.identifier or '').strip()
+            if not ident:
+                continue
+            # Дубликат check — по (proxy_id, serial_number)
+            exists = self.search([
+                ('proxy_id', '=', dev.proxy_id.id),
+                ('serial_number', '=', ident),
+            ], limit=1)
+            if exists:
+                skipped += 1
+                continue
+            tpl = False
+            for prefix, code in prefix_hints.items():
+                if ident.upper().startswith(prefix):
+                    tpl = tpl_map.get(code)
+                    break
+            vals = {
+                'name': f'Datecs {ident}',
+                'serial_number': ident,
+                'proxy_id': dev.proxy_id.id,
+            }
+            if tpl:
+                vals['template_id'] = tpl.id
+                vals['driver'] = tpl.driver
+                vals['transport'] = tpl.default_transport or 'serial'
+                vals['plu_mode'] = tpl.plu_mode
+            self.create(vals)
+            created += 1
+        msg_lines = [
+            _('Imported: %s new printer(s)', created),
+            _('Skipped: %s existing record(s)', skipped),
+            _('Scanned: %s proxy device entries', len(proxies_devices)),
+        ]
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'type': 'success' if created else 'info',
+                'title': _('Import from Proxy'),
+                'message': '\n'.join(msg_lines),
+                'sticky': True,
+                'next': {
+                    'type': 'ir.actions.act_window',
+                    'res_model': 'datecs.printer',
+                    'view_mode': 'list,form',
+                },
+            },
+        }
+
+    @api.model
     def get_config_payload(self):
         """Return ALL active printers as proxy printers: section."""
         entries = []

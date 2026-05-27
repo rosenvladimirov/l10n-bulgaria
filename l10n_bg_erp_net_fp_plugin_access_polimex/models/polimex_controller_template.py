@@ -83,31 +83,33 @@ class PolimexControllerTemplateLine(models.Model):
 class PolimexControllerApply(models.Model):
     _inherit = "polimex.controller"
 
-    template_id = fields.Many2one(
+    hardware_template_id = fields.Many2one(
         "polimex.controller.template", string="Hardware Template",
         help="Polimex model template — позволява Apply Template бутона "
              "автоматично да създаде всички parts (magnets + readers + "
-             "sensors + buttons) според известната hardware конфигурация.")
+             "sensors + buttons) според известната hardware конфигурация. "
+             "Различно от template_id (което сочи към "
+             "erpnet.fp.proxy.config.template — YAML config push).")
 
     def action_apply_template(self):
         """Create polimex.part records from the selected template.
 
-        Pre-condition: template_id is set. Strategy: skip parts that
-        already exist (по kind + io_channel) — не дубира при повторно
-        прилагане. Полето access_suffix на template line е concat-нато
-        с controller's identifier за уникален access:id (напр.
-        'inner_door' + '_a' = 'inner_door_a').
+        Pre-condition: hardware_template_id is set. Strategy: skip parts
+        that already exist (по kind + io_channel) — не дубира при
+        повторно прилагане. Полето access_suffix на template line е
+        concat-нато с controller's identifier за уникален access:id
+        (напр. 'inner_door' + '_a' = 'inner_door_a').
         """
         Part = self.env["polimex.part"].sudo()
         created_total = 0
         for ctrl in self:
-            if not ctrl.template_id:
+            if not ctrl.hardware_template_id:
                 raise UserError(_(
                     "Controller %(name)s has no Hardware Template. "
                     "Select one and try again.", name=ctrl.name))
             existing = {(p.kind, p.io_channel)
                         for p in ctrl.part_ids}
-            for line in ctrl.template_id.line_ids:
+            for line in ctrl.hardware_template_id.line_ids:
                 key = (line.kind, line.io_channel)
                 if key in existing:
                     continue

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_datecs_printer_list" model="ir.ui.view">
+        <field name="name">datecs.printer.list</field>
+        <field name="model">datecs.printer</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="not active">
+                <field name="name"/>
+                <field name="template_id"/>
+                <field name="proxy_id"/>
+                <field name="serial_number"/>
+                <field name="transport"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_datecs_printer_form" model="ir.ui.view">
+        <field name="name">datecs.printer.form</field>
+        <field name="model">datecs.printer</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_apply_template" type="object"
+                            string="📋 Apply Template" class="btn-secondary"
+                            invisible="not template_id"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived"
+                            bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Front desk DP-150"/></h1>
+                    </div>
+                    <group>
+                        <group string="Identification">
+                            <field name="template_id" options="{'no_create': True}"/>
+                            <field name="proxy_id" options="{'no_create': True}"/>
+                            <field name="serial_number"/>
+                            <field name="firmware"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group string="Connection">
+                            <field name="transport"/>
+                            <field name="port" invisible="transport != 'serial'"/>
+                            <field name="baudrate" invisible="transport != 'serial'"/>
+                            <field name="network_host" invisible="transport != 'network'"/>
+                            <field name="network_port" invisible="transport != 'network'"/>
+                            <field name="bluetooth_address" invisible="transport != 'bluetooth'"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Driver / Mode">
+                            <field name="driver"/>
+                            <field name="plu_mode"/>
+                        </group>
+                        <group string="Operator">
+                            <field name="operator"/>
+                            <field name="operator_password" password="True"/>
+                        </group>
+                    </group>
+                    <field name="notes" placeholder="Notes…"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_datecs_printer" model="ir.actions.act_window">
+        <field name="name">Datecs Printers</field>
+        <field name="res_model">datecs.printer</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

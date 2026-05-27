@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_zebra_readers"
+              name="Zebra / Symbol Scanners"
+              parent="l10n_bg_erp_net_fp_fleet.menu_settings"
+              action="action_zebra_reader"
+              sequence="50"/>
+    <menuitem id="menu_zebra_reader_templates"
+              name="Zebra / Symbol Scanners Templates"
+              parent="l10n_bg_erp_net_fp_fleet.menu_settings"
+              action="action_zebra_reader_template"
+              sequence="51"/>
+</odoo>

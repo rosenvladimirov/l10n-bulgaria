@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cas_scale_user,cas.scale user,model_cas_scale,l10n_bg_erp_net_fp_fleet.group_fleet_user,1,0,0,0
+access_cas_scale_manager,cas.scale manager,model_cas_scale,l10n_bg_erp_net_fp_fleet.group_fleet_manager,1,1,1,1
+access_cas_scale_template_user,cas.scale.template user,model_cas_scale_template,l10n_bg_erp_net_fp_fleet.group_fleet_user,1,0,0,0
+access_cas_scale_template_manager,cas.scale.template manager,model_cas_scale_template,l10n_bg_erp_net_fp_fleet.group_fleet_manager,1,1,1,1

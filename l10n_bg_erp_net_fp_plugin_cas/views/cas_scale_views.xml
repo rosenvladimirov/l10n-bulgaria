@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cas_scale_list" model="ir.ui.view">
+        <field name="name">cas.scale.list</field>
+        <field name="model">cas.scale</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="not active">
+                <field name="name"/>
+                <field name="template_id"/>
+                <field name="proxy_id"/>
+                <field name="serial_number"/>
+                <field name="transport"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_cas_scale_form" model="ir.ui.view">
+        <field name="name">cas.scale.form</field>
+        <field name="model">cas.scale</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="template_id" options="{'no_create': True}"/>
+                            <field name="proxy_id" options="{'no_create': True}"/>
+                            <field name="serial_number"/>
+                            <field name="firmware"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group>
+                            <field name="transport"/>
+                            <field name="port" invisible="transport != 'serial'"/>
+                            <field name="baudrate" invisible="transport != 'serial'"/>
+                            <field name="network_host" invisible="transport != 'network'"/>
+                            <field name="network_port" invisible="transport != 'network'"/>
+                            <field name="bluetooth_address" invisible="transport != 'bluetooth'"/>
+                            <field name="driver"/>
+                        </group>
+                    </group>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_cas_scale" model="ir.actions.act_window">
+        <field name="name">CAS Scales</field>
+        <field name="res_model">cas.scale</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

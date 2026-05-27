@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_datecs_printer_user,datecs.printer user,model_datecs_printer,l10n_bg_erp_net_fp_fleet.group_fleet_user,1,0,0,0
+access_datecs_printer_manager,datecs.printer manager,model_datecs_printer,l10n_bg_erp_net_fp_fleet.group_fleet_manager,1,1,1,1
+access_datecs_printer_template_user,datecs.printer.template user,model_datecs_printer_template,l10n_bg_erp_net_fp_fleet.group_fleet_user,1,0,0,0
+access_datecs_printer_template_manager,datecs.printer.template manager,model_datecs_printer_template,l10n_bg_erp_net_fp_fleet.group_fleet_manager,1,1,1,1
+access_datecs_pinpad_user,datecs.pinpad user,model_datecs_pinpad,l10n_bg_erp_net_fp_fleet.group_fleet_user,1,0,0,0
+access_datecs_pinpad_manager,datecs.pinpad manager,model_datecs_pinpad,l10n_bg_erp_net_fp_fleet.group_fleet_manager,1,1,1,1
+access_datecs_pinpad_template_user,datecs.pinpad.template user,model_datecs_pinpad_template,l10n_bg_erp_net_fp_fleet.group_fleet_user,1,0,0,0
+access_datecs_pinpad_template_manager,datecs.pinpad.template manager,model_datecs_pinpad_template,l10n_bg_erp_net_fp_fleet.group_fleet_manager,1,1,1,1

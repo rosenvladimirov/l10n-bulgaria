@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+
+    <record id="template_hw_1470g" model="honeywell.reader.template">
+        <field name="name">Honeywell 1470g</field>
+        <field name="code">hw_1470g</field>
+        <field name="sequence">10</field>
+        <field name="driver">honeywell.scanner</field>
+        <field name="default_transport">serial</field>
+        <field name="description">Gun scanner, serial USB (memory: feedback_honeywell_1470g_serial_setup).</field>
+    </record>
+
+    <record id="template_hw_1250g" model="honeywell.reader.template">
+        <field name="name">Honeywell Voyager 1250g</field>
+        <field name="code">hw_1250g</field>
+        <field name="sequence">20</field>
+        <field name="driver">honeywell.scanner</field>
+        <field name="default_transport">usb_hid</field>
+        <field name="description">Wedge scanner (keyboard emulation).</field>
+    </record>
+
+    <record id="template_hw_5145" model="honeywell.reader.template">
+        <field name="name">Honeywell Eclipse 5145</field>
+        <field name="code">hw_5145</field>
+        <field name="sequence">30</field>
+        <field name="driver">honeywell.scanner</field>
+        <field name="default_transport">usb_hid</field>
+        <field name="description">Entry-level desktop scanner.</field>
+    </record>
+</odoo>

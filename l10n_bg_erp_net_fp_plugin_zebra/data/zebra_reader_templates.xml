@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+
+    <record id="template_zb_ds2208" model="zebra.reader.template">
+        <field name="name">Zebra DS2208</field>
+        <field name="code">zb_ds2208</field>
+        <field name="sequence">10</field>
+        <field name="driver">zebra.scanner</field>
+        <field name="default_transport">usb_hid</field>
+        <field name="description">Desktop scanner.</field>
+    </record>
+
+    <record id="template_zb_ds3678" model="zebra.reader.template">
+        <field name="name">Zebra DS3678</field>
+        <field name="code">zb_ds3678</field>
+        <field name="sequence">20</field>
+        <field name="driver">zebra.scanner</field>
+        <field name="default_transport">bluetooth</field>
+        <field name="description">Wireless gun scanner.</field>
+    </record>
+
+    <record id="template_zb_ls2208" model="zebra.reader.template">
+        <field name="name">Symbol LS2208</field>
+        <field name="code">zb_ls2208</field>
+        <field name="sequence">30</field>
+        <field name="driver">zebra.scanner</field>
+        <field name="default_transport">serial</field>
+        <field name="description">Legacy serial scanner (memory: feedback_symbol_zebra_linux_no_serial).</field>
+    </record>
+</odoo>

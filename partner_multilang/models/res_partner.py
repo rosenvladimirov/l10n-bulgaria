@@ -38,7 +38,8 @@ class Partner(models.Model):
     def init(self):
         super().init()
         # Ensure the technical JSONB column exists without module upgrade.
-        self._cr.execute(
+        # Odoo 19: self._cr е deprecated → използваме self.env.cr.
+        self.env.cr.execute(
             'ALTER TABLE "res_partner" '
             'ADD COLUMN IF NOT EXISTS complete_name_multilanguage jsonb'
         )

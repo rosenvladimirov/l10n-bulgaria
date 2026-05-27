@@ -362,6 +362,18 @@ class ErpNetFpRegistryController(http.Controller):
             _logger.exception(
                 "Device sync failed for proxy %s", proxy.name)
 
+        # AUTO-REHYDRATE: ако proxy reportеd empty runtime_versions
+        # (e.g. post-restart с emptyDir → config.d wiped), OR ако
+        # template version != runtime version → auto-enqueue
+        # push_config commands. Това решава "конфиг изчезва при
+        # pod restart" проблема (memory P12 task).
+        try:
+            proxy._auto_push_drifted_configs(runtime_versions)
+        except Exception:  # noqa: BLE001
+            _logger.exception(
+                "auto-push drifted configs failed for proxy %s",
+                proxy.name)
+
         # Pick up pending commands (state='pending') and flip them to
         # 'sent' so they aren't replayed on subsequent heartbeats. The
         # proxy reports back via /command-result.

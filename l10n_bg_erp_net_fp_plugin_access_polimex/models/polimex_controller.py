@@ -53,6 +53,20 @@ _TRANSPORT_SELECTION = [
 ]
 
 
+class _ErpNetFpProxyPolimexRouting(models.Model):
+    """Override _PUSH_CONFIG_SOURCES['access'] да сочи към polimex.controller
+    (имa get_config_payload), вместо default 'access.point' (не съществува).
+    """
+    _inherit = "erpnet.fp.proxy"
+
+    @property
+    def _PUSH_CONFIG_SOURCES(self):
+        sources = dict(super()._PUSH_CONFIG_SOURCES)
+        sources["access"] = ("polimex.controller",
+                             "l10n_bg_erp_net_fp_plugin_access_polimex")
+        return sources
+
+
 class PolimexController(models.Model):
     _name = "polimex.controller"
     _description = "Polimex iCON Access Controller (RS-485 node)"
@@ -235,6 +249,20 @@ class PolimexController(models.Model):
                 entry["user"] = self.sdk_user or "admin"
                 entry["password"] = self.sdk_password or ""
             entries.append(entry)
+        return entries
+
+    @api.model
+    def get_config_payload(self):
+        """Return ALL active polimex.controllers's access entries.
+
+        Called от erpnet.fp.proxy._collect_push_section('access') при
+        push_config + при auto-rehydrate (heartbeat drift detection).
+        Plain list[dict] — proxy applies като `access:` section на
+        config.d/access.yaml.
+        """
+        entries = []
+        for ctrl in self.search([("active", "=", True)]):
+            entries.extend(ctrl._yaml_entries())
         return entries
 
     def action_regenerate_yaml(self):

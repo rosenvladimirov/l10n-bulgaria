@@ -32,6 +32,11 @@ class DatecsPrinter(models.Model):
     serial_number = fields.Char(string='Serial Number',
         help='Datecs printer serial (DA052093, DA054852, etc.).')
     firmware = fields.Char()
+    has_builtin_scanner = fields.Boolean(
+        string='Has Built-in Scanner',
+        help='True ако ФА има интегриран barcode reader (BlueCash-55 серии). '
+             'Auto-set от Import from Proxy ако proxy декларира '
+             '`<serial>_scanner` като reader.')
 
     # Connection
     transport = fields.Selection(
@@ -139,6 +144,13 @@ class DatecsPrinter(models.Model):
         Device = self.env['erpnet.fp.proxy.device'].sudo()
         Template = self.env['datecs.printer.template'].sudo()
         proxies_devices = Device.search([('kind', '=', 'printer')])
+        # Collect known scanner identifiers — `<printer_serial>_scanner`
+        # pattern means built-in scanner на BlueCash-55 ФА.
+        reader_devs = Device.search([('kind', '=', 'reader')])
+        scanner_serials = {
+            (d.proxy_id.id, d.identifier.replace('_scanner', ''))
+            for d in reader_devs if d.identifier.endswith('_scanner')
+        }
         # Auto-detect template by serial prefix или fallback
         # tpl_by_prefix: DP-150 → 'DT*' (Datecs DP-150 серийници почват
         # с DT — known от feedback_proxy_device_serial_id_convention)
@@ -180,10 +192,12 @@ class DatecsPrinter(models.Model):
                     tpl = tpl_map.get(code)
                     if tpl:
                         break
+            has_scanner = (dev.proxy_id.id, ident) in scanner_serials
             vals = {
                 'name': f'Datecs {ident}',
                 'serial_number': ident,
                 'proxy_id': dev.proxy_id.id,
+                'has_builtin_scanner': has_scanner,
             }
             if tpl:
                 vals['template_id'] = tpl.id

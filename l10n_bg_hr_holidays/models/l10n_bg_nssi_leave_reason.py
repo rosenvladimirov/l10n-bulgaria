@@ -20,9 +20,13 @@ class NssiLeaveReason(models.Model):
             record.display_name = f"[{record.code}] {record.name}"
 
     @api.model
-    def name_search(self, name='', args=None, operator='ilike', limit=100):
-        args = args or []
-        domain = []
+    def name_search(self, name='', domain=None, operator='ilike', limit=100):
+        # Odoo 19: BaseModel.name_search преименува args → domain.
+        domain = domain or []
+        extra_domain = []
         if name:
-            domain = ['|', ('code', operator, name), ('name', operator, name)]
-        return super().name_search(name=name, args=domain+args, operator=operator, limit=limit)
+            extra_domain = ['|', ('code', operator, name), ('name', operator, name)]
+        return super().name_search(
+            name=name, domain=extra_domain + domain,
+            operator=operator, limit=limit,
+        )

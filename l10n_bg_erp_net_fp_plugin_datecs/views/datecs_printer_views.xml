@@ -46,6 +46,7 @@
                             <field name="proxy_id" options="{'no_create': True}"/>
                             <field name="serial_number"/>
                             <field name="firmware"/>
+                            <field name="has_builtin_scanner"/>
                             <field name="active" widget="boolean_toggle"/>
                         </group>
                         <group string="Connection">

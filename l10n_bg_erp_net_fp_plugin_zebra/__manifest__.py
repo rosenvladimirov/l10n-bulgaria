@@ -3,7 +3,7 @@
 {
     'name': 'ErpNet.FP Fleet — Zebra / Symbol Scanners Plugin',
     'summary': "Zebra/Symbol barcode readers (DS2208, DS3678, LS2208) catalog + auto YAML push.",
-    'version': '19.0.1.0.1',
+    'version': '19.0.1.1.0',
     'author': 'Rosen Vladimirov',
     'license': 'LGPL-3',
     'category': 'Fleet',

@@ -5,6 +5,11 @@
         <field name="model">zebra.reader</field>
         <field name="arch" type="xml">
             <list decoration-muted="not active">
+                <header>
+                    <button name="action_import_from_proxies" type="object"
+                            string="📥 Import from Proxy" class="btn-primary"
+                            confirm="Import readers matching Zebra/Symbol prefix from proxies?"/>
+                </header>
                 <field name="name"/>
                 <field name="template_id"/>
                 <field name="proxy_id"/>

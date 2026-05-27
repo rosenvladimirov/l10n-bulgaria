@@ -140,3 +140,63 @@ class PolimexControllerApply(models.Model):
                 "sticky": False,
             },
         }
+
+    def action_create_virtual_access_controllers(self):
+        """За всеки output part (magnet / strike / motor) с access_id
+        създай съответен access.controller запис (virtual layer).
+
+        Без това физическите parts не могат да се pulse-ват от Odoo —
+        access.controller е HTTP wrapper-а към proxy. 1 magnet ↔ 1
+        virtual access.controller. Idempotent: skip ако вече има
+        access.controller със същия proxy_access_id.
+
+        Resolve-ва и polimex_bus_id от controller's bus_id.
+        """
+        AccessCtrl = self.env["access.controller"].sudo()
+        proxy_url = "https://fp-mec.odoo-shell.space"  # default; ще се
+        # вземе от proxy_id когато имаме линк
+        created_total = 0
+        skipped_total = 0
+        for ctrl in self:
+            # Resolve proxy URL — от polimex.controller.proxy_id ако е
+            # set (към erpnet.fp.proxy)
+            if ctrl.proxy_id and getattr(ctrl.proxy_id, "url", False):
+                proxy_url = ctrl.proxy_id.url
+            for part in ctrl.part_ids.filtered(
+                    lambda p: p.kind in ("magnet", "strike", "motor")
+                    and p.access_id and p.active):
+                # Idempotent skip
+                if AccessCtrl.search_count([
+                        ("proxy_access_id", "=", part.access_id),
+                        ("proxy_base_url", "=", proxy_url)]):
+                    skipped_total += 1
+                    continue
+                ac = AccessCtrl.create({
+                    "name": f"{ctrl.name} — {part.name}",
+                    "proxy_base_url": proxy_url,
+                    "proxy_access_id": part.access_id,
+                    "pulse_seconds": ctrl.pulse_seconds or 3.0,
+                    "timeout": 5,
+                    "active": True,
+                    "polimex_bus_id": ctrl.bus_id,
+                    "polimex_convertor": int(ctrl.convertor_serial)
+                        if ctrl.convertor_serial
+                        and str(ctrl.convertor_serial).isdigit() else False,
+                })
+                _logger.info(
+                    "Virtual access.controller created: id=%s "
+                    "proxy_access_id=%s polimex_bus=%s",
+                    ac.id, part.access_id, ctrl.bus_id)
+                created_total += 1
+        msg = _(
+            "%(c)d virtual access.controller(s) created (%(s)d skipped — "
+            "already existed).", c=created_total, s=skipped_total)
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "type": "success" if created_total else "info",
+                "message": msg,
+                "sticky": False,
+            },
+        }

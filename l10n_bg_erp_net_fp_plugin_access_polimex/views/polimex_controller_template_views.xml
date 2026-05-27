@@ -77,6 +77,14 @@
                         invisible="not hardware_template_id"
                         confirm="Това ще създаде parts от template-а
                                  (skip-вa съществуващи). Продължи?"/>
+                <button name="action_create_virtual_access_controllers"
+                        type="object"
+                        string="🔗 Create Access Controllers"
+                        class="btn-primary"
+                        confirm="За всеки output (magnet/strike/motor)
+                                 с access_id ще се създаде виртуален
+                                 access.controller запис. Idempotent
+                                 (skip-вa съществуващи). Продължи?"/>
             </xpath>
             <xpath expr="//field[@name='firmware']" position="after">
                 <field name="hardware_template_id"

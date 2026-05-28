@@ -150,61 +150,42 @@ remains.
 | 17 | **Fiscal-device monitoring (FDmon)** — 16 XSD schemas | `fbdata*.xsd`, `nra{common,req,res}.xsd`, `r{chng,dereg,reg}.xsd`, `req31/res31.xsd`, `xtask/ztask/xtiasutd/ztiasutd.xsd` | — | ⛔ specialised |
 | 18 | **Postal-operator data (Art.25 ZNAP)** — 4 XSD schemas | `pos_25.xsd`, `pos_25_tpacc.xsd`, `trans_25.xsd`, `trans_25_tbpos.xsd` | — | ⛔ specialised |
 
-### Prioritised next-step plan
+### Execution plan
 
-**P0 — required for general compliance in the 2025/2026 reporting cycle**
+The plan is split into three phases: **finishing in-flight work**,
+the **active development queue** (executed in strict order), and
+**out of scope** specialised domains.
 
-1. **Statement Art.73 (6) XML rewrite** against `dec73_6_publish.xsd`
-   - Module: `l10n_bg_api_nra_spr73` (update only)
-   - Reason: backend model exists, but the XML build is based on
-     reconstructed element names from spec documents; aligning to
-     the official schema is mandatory before NRA filing.
-   - Estimated effort: 2–3 person-days.
+#### Phase A — Finishing in-flight work (immediate)
 
-2. **SAF-T module** (`l10n_bg_saf_t`, new)
-   - Trigger: NRA Order З-ЦУ-30-1247/25.08.2025 mandates SAF-T from
-     **01 January 2026** for large enterprises (graduated thresholds
-     thereafter).
-   - Reason: legal requirement; cannot be substituted by existing
-     audit reports.
-   - Estimated effort: 7–10 person-days for monthly/annual/on-demand
-     XML generation from `account.move.line` + product/partner/tax
-     metadata.
+These items have backend models or imported XSDs already in place;
+they are completed before any new module is started.
 
-3. **Annual corporate tax declaration** (`l10n_bg_api_nra_dec92`, new)
-   - Trigger: Art.92 ZKPO — every legal entity files by 30 June for
-     the previous fiscal year.
-   - Source: GL + audit reports (`l10n_bg_reports_audit`).
-   - Estimated effort: 7–10 person-days.
+| # | Item | Module | Effort |
+|---|------|--------|--------|
+| A1 | **Statement Art.73 (6) XML rewrite** against `dec73_6_publish.xsd` — backend model exists but XML build is reconstructed from spec docs; align to official schema. | `l10n_bg_api_nra_spr73` (update) | 2–3 person-days |
+| A2 | **ETZ Art.123 declaration type** — add `declaration_type='etz123'` selection on `nra.declaration` with the reduced 13-field schema. Pairs with DOPK Art.77 in succession workflows. XSD already imported. | `l10n_bg_api_nra_etz` (update) | 1–2 person-days |
 
-4. **ETZ Art.123 declaration type** (`etz123` in existing module)
-   - Trigger: paired with DOPK Art.77 in company-succession workflows.
-   - Backend: separate `declaration_type='etz123'` selection on
-     `nra.declaration` with the reduced 13-field schema.
-   - Estimated effort: 1–2 person-days (XSD already imported).
+#### Phase B — Active development queue (strict order)
 
-**P1 — implement only if the deploying organisation’s business model
-requires it**
+Each module is started only after the previous one is production-ready.
+SAF-T is deliberately scheduled last so it consolidates lessons from
+earlier modules; its statutory effective date (01.01.2026) is tracked
+separately as a hard deadline.
 
-5. **SVFR (high-fiscal-risk goods movements)** — relevant for
-   wholesalers/transporters of fuel, textiles, mobile devices, etc.
-   New module `l10n_bg_svfr` covering 6 XSD schemas with REST API
-   integration to NRA. 3–5 person-days.
+| # | Order | Item | Module | Effort | Notes |
+|---|-------|------|--------|--------|-------|
+| B1 | 1st | **E-commerce alternative regime** | `l10n_bg_eshop_alt` (new) | 2–3 person-days | Produces `dec_audit.xsd` for online stores not running СУПТО; smallest surface, ships first to validate the modular pattern for new declaration types. |
+| B2 | 2nd | **Fiscal-device monitoring (FDmon)** | `l10n_bg_erp_net_fp_fdmon` (new) | 10–15 person-days | 16 XSD schemas covering NRA↔fiscal-device communication. A separate POS bridge (`l10n_bg_erp_net_fp_iot`) exists but speaks a different protocol stack. |
+| B3 | 3rd | **Annual corporate tax declaration (Art.92 ZKPO)** | `l10n_bg_api_nra_dec92` (new) | 7–10 person-days | Every legal entity files by 30 June for the previous fiscal year. Source: GL + `l10n_bg_reports_audit`. |
+| B4 | 4th | **SVFR — high-fiscal-risk goods movements** | `l10n_bg_svfr` (new) | 3–5 person-days | 6 XSD schemas + REST API for import / export / internal / third-country / annul / confirm flows. Required for wholesalers/transporters of fuel, textiles, mobile devices, etc. |
+| B5 | 5th | **SAF-T (Standard Audit File for Tax)** | `l10n_bg_saf_t` (new) | 7–10 person-days | Monthly / annual / on-demand XML from `account.move.line` plus product/partner/tax metadata. Implemented last to consolidate the patterns developed in B1–B4. NRA Order З-ЦУ-30-1247/25.08.2025 effective from 01.01.2026 with graduated thresholds — track that deadline outside this queue. |
 
-6. **E-commerce alternative regime** — relevant for online stores
-   not using a fiscal device (СУПТО). New module `l10n_bg_eshop_alt`
-   producing `dec_audit.xsd`. 2–3 person-days.
+#### Phase C — Out of scope (do not implement unless explicitly required)
 
-**P2 — out of scope unless the deploying organisation is in the
-relevant sector**
-
-7. **Fiscal-device monitoring (FDmon)** — for fiscal-device
-   manufacturers/distributors. A separate IoT-bridge module
-   `l10n_bg_erp_net_fp_iot` already exists for POS integration; FDmon
-   is a different protocol stack. 10–15 person-days.
-
-8. **Postal operator reporting (Art.25 ZNAP)** — for postal operators
-   and money-transfer agents only. 5–7 person-days.
+| Item | Reason |
+|------|--------|
+| **Postal-operator reporting (Art.25 ZNAP)** — 4 XSD schemas | Specialised domain (postal operators and money-transfer agents only); not part of the standard payroll / tax / audit workflow. 5–7 person-days if ever needed. |
 
 ### Verification workflow for new XSD imports
 

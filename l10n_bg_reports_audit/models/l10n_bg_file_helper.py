@@ -573,6 +573,7 @@ def get_l10n_bg_applicability(res):
         ("gfo_cf", "Annual Financial Statement — Cash Flow"),
         ("gfo_equity", "Annual Financial Statement — Changes in Equity"),
         ("god", "NSI Annual Activity Report (Appendices 1-15)"),
+        ("dec92", "Annual Tax Return Art.92 ZKPO"),
     ]
 
 

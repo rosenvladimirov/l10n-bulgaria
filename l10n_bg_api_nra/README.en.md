@@ -108,3 +108,125 @@ transport + signing here.
 - Parent repo overview: [`../OVERVIEW.md`](../OVERVIEW.md)
 - NRA form formats: `claude.ai/memory/reference_nra_obr55_okd5_formats.md`
 - Cross-repo map: `claude.ai/L10N_BG_ECOSYSTEM.md`
+
+---
+
+## Roadmap — Bulgarian NRA & NSSI declaration coverage
+
+**Reference:** 30 official NRA XSD schemas (2025/2026 batch) cover
+10 declaration topics. Tracking against this catalog gives a single
+source of truth for what is implemented, what is partial, and what
+remains.
+
+### Legend
+
+| Symbol | Meaning |
+|--------|---------|
+| ✅ | Production-ready: backend + XML build + XSD validation + UI |
+| ⚠️ | Partial: XSD imported but XML build needs rewrite, or `declaration_type` extension still pending |
+| ❌ | Not started: XSD available, no Odoo module |
+| ⛔ | Out of scope: specialised domain, deliberately not implemented |
+
+### Implementation matrix
+
+| # | Topic | XSD file(s) | Module | Status |
+|---|-------|-------------|--------|--------|
+| 1 | **Declaration Form 1** (insured-person data, monthly) | CSV format (no XSD) | `l10n_bg_api_nra_dec1` + `l10n_bg_hr_payroll_nra_dec1` | ✅ |
+| 2 | **Declaration Form 6** (aggregated monthly contributions) | No public XSD | `l10n_bg_api_nra_dec6` + `l10n_bg_hr_payroll_nra_noi` | ✅ |
+| 3 | **ETZ Art.62 LC** (standard labour contract notice) | `etz_employ_restrict.xsd` | `l10n_bg_api_nra_etz` + `l10n_bg_hr_payroll_nra_etz` | ✅ |
+| 4 | **ETZ Art.123 §5 LC** (employer succession) | `etz_123_employer.xsd` | XSD imported in `l10n_bg_api_nra_etz/data/`; `declaration_type='etz123'` **pending** | ⚠️ |
+| 5 | **Statement Art.73 (1) ZDDFL** (non-labour income) | `SPR73_1.xsd` (root `<dec731>`) | `l10n_bg_api_nra_spr73` | ✅ |
+| 6 | **Statement Art.73 (6) ZDDFL** (labour income, annual) | `dec73_6_publish.xsd` | `l10n_bg_api_nra_spr73` (XML build is reconstructed; **rewrite against XSD pending**) | ⚠️ |
+| 7 | **VAT Declaration + journals** (monthly ZIP package) | No public XSD (CSV format) | `l10n_bg_api_nra_vat` + `l10n_bg_account_nra_vat` (per-file КЕП signing supported) | ✅ |
+| 8 | **NSSI Appendix 9** (sick-leave certificate) | `Pril9.xsd` | `l10n_bg_api_nssi_pril9` | ✅ |
+| 9 | **NSSI Appendix 10** (maternity, employer-issued) | `Pril10.xsd` | `l10n_bg_api_nssi_pril10` | ✅ |
+| 10 | **NSSI Appendix 11** (maternity, self-employed) | `Pril11.xsd` | `l10n_bg_api_nssi_pril11` | ✅ |
+| 11 | **DOPK Art.77 notification** (company closure/transformation) | No XSD (paper / PDF) | `l10n_bg_dopk_art77` (QWeb PDF wizard, model `ОКд-107`) | ✅ |
+| 12 | **Intrastat** (EU goods/services) | No public XSD | `l10n_bg_intrastat` (XML generation, no XSD validation) | ⚠️ |
+| 13 | **SAF-T** (Standard Audit File for Tax) | `BG_SAFT_Schema_V_1.0.2.xsd` (active from 01.01.2026), `V_1.0` (legacy) | — | ❌ |
+| 14 | **Annual corporate tax (GDD Art.92 ZKPO)** | `dec92_2024_public.xsd` | — | ❌ |
+| 15 | **High-fiscal-risk goods movements (SVFR)** | `decHfr_internal/import/export/thirdcountry_v5_restrict.xsd`, `API_decHfr_annul/confirm_v3_restrict.xsd` (6 schemas total) | — | ❌ |
+| 16 | **E-commerce alternative reporting regime** (Ordinance N-18) | `dec_audit.xsd` | — | ❌ |
+| 17 | **Fiscal-device monitoring (FDmon)** — 16 XSD schemas | `fbdata*.xsd`, `nra{common,req,res}.xsd`, `r{chng,dereg,reg}.xsd`, `req31/res31.xsd`, `xtask/ztask/xtiasutd/ztiasutd.xsd` | — | ⛔ specialised |
+| 18 | **Postal-operator data (Art.25 ZNAP)** — 4 XSD schemas | `pos_25.xsd`, `pos_25_tpacc.xsd`, `trans_25.xsd`, `trans_25_tbpos.xsd` | — | ⛔ specialised |
+
+### Prioritised next-step plan
+
+**P0 — required for general compliance in the 2025/2026 reporting cycle**
+
+1. **Statement Art.73 (6) XML rewrite** against `dec73_6_publish.xsd`
+   - Module: `l10n_bg_api_nra_spr73` (update only)
+   - Reason: backend model exists, but the XML build is based on
+     reconstructed element names from spec documents; aligning to
+     the official schema is mandatory before NRA filing.
+   - Estimated effort: 2–3 person-days.
+
+2. **SAF-T module** (`l10n_bg_saf_t`, new)
+   - Trigger: NRA Order З-ЦУ-30-1247/25.08.2025 mandates SAF-T from
+     **01 January 2026** for large enterprises (graduated thresholds
+     thereafter).
+   - Reason: legal requirement; cannot be substituted by existing
+     audit reports.
+   - Estimated effort: 7–10 person-days for monthly/annual/on-demand
+     XML generation from `account.move.line` + product/partner/tax
+     metadata.
+
+3. **Annual corporate tax declaration** (`l10n_bg_api_nra_dec92`, new)
+   - Trigger: Art.92 ZKPO — every legal entity files by 30 June for
+     the previous fiscal year.
+   - Source: GL + audit reports (`l10n_bg_reports_audit`).
+   - Estimated effort: 7–10 person-days.
+
+4. **ETZ Art.123 declaration type** (`etz123` in existing module)
+   - Trigger: paired with DOPK Art.77 in company-succession workflows.
+   - Backend: separate `declaration_type='etz123'` selection on
+     `nra.declaration` with the reduced 13-field schema.
+   - Estimated effort: 1–2 person-days (XSD already imported).
+
+**P1 — implement only if the deploying organisation’s business model
+requires it**
+
+5. **SVFR (high-fiscal-risk goods movements)** — relevant for
+   wholesalers/transporters of fuel, textiles, mobile devices, etc.
+   New module `l10n_bg_svfr` covering 6 XSD schemas with REST API
+   integration to NRA. 3–5 person-days.
+
+6. **E-commerce alternative regime** — relevant for online stores
+   not using a fiscal device (СУПТО). New module `l10n_bg_eshop_alt`
+   producing `dec_audit.xsd`. 2–3 person-days.
+
+**P2 — out of scope unless the deploying organisation is in the
+relevant sector**
+
+7. **Fiscal-device monitoring (FDmon)** — for fiscal-device
+   manufacturers/distributors. A separate IoT-bridge module
+   `l10n_bg_erp_net_fp_iot` already exists for POS integration; FDmon
+   is a different protocol stack. 10–15 person-days.
+
+8. **Postal operator reporting (Art.25 ZNAP)** — for postal operators
+   and money-transfer agents only. 5–7 person-days.
+
+### Verification workflow for new XSD imports
+
+When integrating any future XSD:
+
+1. Drop the file under `static/description/` (or `data/` for backwards
+   compatibility) of the relevant declaration module.
+2. Build a sample XML record set; validate with
+   `xmllint --noout --schema /path/to/schema.xsd /tmp/sample.xml`.
+3. If element names disagree with reconstructed naming, treat the
+   XSD as authoritative — rewrite the `_build_*_xml()` method, do not
+   override the schema.
+4. Add a `_validate_*_xsd()` method that uses `lxml.etree.XMLSchema`
+   so generation enforces the schema at runtime.
+5. Re-test against the NRA client-side software (currently v17.03+
+   for income statements; v20250603 for FDmon; etc.) before treating
+   any module as production-ready.
+
+### Source of truth
+
+The 30-XSD catalog used for this gap analysis lives outside the
+repository (private mirror, crawled from `nra.bg` Programni produkti
+section). Whenever NRA publishes a new version, that mirror is
+re-crawled; this README is the changelog anchor for what flows from
+that mirror into the modules.

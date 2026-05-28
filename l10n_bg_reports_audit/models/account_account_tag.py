@@ -70,6 +70,10 @@ class AccountAccountTag(models.Model):
         "gfo_cf": ("inflow", "outflow"),
         "gfo_equity": ("increase", "decrease"),
         # 'god' allows any position (NSI rows mix balance + flow)
+        # 'dec92' allows any position (CIT return mixes balance lines for
+        # owners' equity / impairments, revenue/expense lines for the P&L
+        # source, and increase/decrease flags for permanent / temporary
+        # adjustments under Art.23-26 ZKPO).
         # legacy VAT categories (declaration/purchase/sale/vies) do not use l10n_bg_position
     }
 

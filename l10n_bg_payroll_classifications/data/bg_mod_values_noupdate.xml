@@ -1,0 +1,1066 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DEF-12: MOD стойности извадени от CSV-тата и noupdate-нати, 
+     за да не се презаписват с BGN при upgrade на модула при работа в EUR. 
+     CSV-тата държат структурата (parent/code/name/level); 
+     този файл държи стойностите и user-ите могат да override-нат без 
+     страх че upgrade ще върне обратно. -->
+<odoo>
+    <data noupdate="1">
+
+        <!-- ===== cls ===== -->
+        <record id="cls_01_11" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="cls_01_12" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="cls_01_13" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="cls_01_21" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="cls_01_22" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="cls_41_00" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="cls_42_00" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="cls_45_11" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="cls_47_11" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="cls_62_01" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1336.0</field>
+            <field name="mod_clerk">1077.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="cls_84_11" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">1077.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+
+        <!-- ===== div ===== -->
+        <record id="div_01" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_02" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_03" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_05" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_06" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_07" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_08" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_09" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_10" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_11" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_12" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_13" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_14" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_15" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_16" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_17" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_18" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_19" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_20" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_21" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_22" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_23" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_24" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_25" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_26" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1336.0</field>
+            <field name="mod_clerk">1077.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_27" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_28" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_29" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_30" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_31" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_32" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_33" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_35" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">1077.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_36" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_37" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_38" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_39" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_41" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_42" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_43" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_45" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_46" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_47" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_49" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_50" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_51" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_52" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_53" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_55" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_56" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_58" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_59" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_60" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_61" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1336.0</field>
+            <field name="mod_clerk">1077.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_62" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1336.0</field>
+            <field name="mod_clerk">1077.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_63" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1336.0</field>
+            <field name="mod_clerk">1077.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_64" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">1077.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_65" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">1077.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_66" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">1077.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_68" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_69" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_70" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_71" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_72" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1336.0</field>
+            <field name="mod_clerk">1077.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_73" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_74" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_75" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_77" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_78" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_79" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_80" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_81" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_82" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_84" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">1077.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_85" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_86" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1336.0</field>
+            <field name="mod_clerk">1077.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_87" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_88" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_90" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_91" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_92" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_93" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_94" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_95" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="div_96" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+
+        <!-- ===== grp ===== -->
+        <record id="grp_011" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="grp_012" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="grp_41_0" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="grp_42_0" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="grp_451" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="grp_471" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">933.0</field>
+            <field name="mod_technician">933.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="grp_620" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1336.0</field>
+            <field name="mod_clerk">1077.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="grp_841" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1336.0</field>
+            <field name="mod_specialist">1336.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">1077.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+        <record id="grp_851" model="bg.hr.payroll.economic.activity">
+            <field name="mod_manager">1077.0</field>
+            <field name="mod_specialist">1077.0</field>
+            <field name="mod_technician">1077.0</field>
+            <field name="mod_clerk">933.0</field>
+            <field name="mod_service">933.0</field>
+            <field name="mod_skilled">933.0</field>
+            <field name="mod_operator">933.0</field>
+            <field name="mod_elementary">933.0</field>
+        </record>
+    </data>
+</odoo>

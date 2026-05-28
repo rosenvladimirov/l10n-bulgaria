@@ -82,19 +82,27 @@ class BGModEconomicActivity(models.Model):
         return super().search_read(domain, fields, offset, limit, order)
 
     def get_effective_mod(self, qualification_group):
-        """Get effective MOD for a given qualification group"""
+        """Get effective MOD for a given qualification group.
+
+        Traverses up the КИД hierarchy via ``parent_id`` if the current
+        record has 0.0 for the requested qualification group. This
+        handles the common case where MOD values are configured on the
+        КИД division (e.g. 10) but the employee is assigned to a child
+        class (e.g. 10.39).
+        """
         self.ensure_one()
-        mapping = {
-            'manager': self.mod_manager,
-            'specialist': self.mod_specialist,
-            'technician': self.mod_technician,
-            'clerk': self.mod_clerk,
-            'service': self.mod_service,
-            'skilled': self.mod_skilled,
-            'operator': self.mod_operator,
-            'elementary': self.mod_elementary,
-        }
-        return mapping.get(qualification_group, 0.0)
+        attr = "mod_%s" % qualification_group
+        activity = self
+        # КИД parent chain max depth is 4 (section→division→group→class);
+        # cap traversal to guard against accidental loops in seed data.
+        for _depth in range(6):
+            value = getattr(activity, attr, 0.0) or 0.0
+            if value:
+                return value
+            if not activity.parent_id:
+                break
+            activity = activity.parent_id
+        return 0.0
 
     @api.constrains('date_from', 'date_to')
     def _check_dates(self):

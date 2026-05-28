@@ -1,7 +1,7 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Bulgarian HR Payroll Classifications',
-    'version': '19.0.6.0.1',
+    'version': '19.0.6.1.0',
     'category': 'Human Resources/Localization',
     'summary': 'Bulgarian localization for HR payroll with NKPD and Economic Activity classifications',
     'description': """
@@ -48,6 +48,9 @@
         'data/bg_hr_payroll_economic_activity/div/bg.hr.payroll.economic.activity.csv',
         'data/bg_hr_payroll_economic_activity/grp/bg.hr.payroll.economic.activity.csv',
         'data/bg_hr_payroll_economic_activity/cls/bg.hr.payroll.economic.activity.csv',
+        # DEF-12: MOD стойностите се зареждат СЛЕД CSV структурата
+        # през noupdate=1 XML, за да не се пренапишат при upgrade.
+        'data/bg_mod_values_noupdate.xml',
         'data/bg_hr_payroll_ncop_classification/major/bg.hr.payroll.ncop.classification.csv',
         'data/bg_hr_payroll_ncop_classification/sub_major/bg.hr.payroll.ncop.classification.csv',
         'data/bg_hr_payroll_ncop_classification/minor/bg.hr.payroll.ncop.classification.csv',

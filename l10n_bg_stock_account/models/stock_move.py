@@ -34,18 +34,26 @@ class StockMove(models.Model):
         Dr. property_stock_valuation_account_id  (стойност на стоката)
         Cr. account_stock_variation_id            (GRNI / clearing сметка)
 
-        При real_time продукти делегира към стандартния метод (location-based).
+        При real_time продукти делегира към стандартния метод (location-based)
+        с една BG корекция: при scrap подменяме COGS със loss account от
+        product.category.l10n_bg_stock_loss_account_id, ако е настроен.
         """
         self.ensure_one()
 
-        # Стандартен path за real_time продукти
+        # Стандартен path за real_time продукти + BG scrap корекция
         if self.product_id.valuation == 'real_time':
-            return super()._get_account_move_line_vals()
+            vals = super()._get_account_move_line_vals()
+            if self.scrap_id and self.is_out:
+                vals = self._l10n_bg_substitute_scrap_account(vals)
+            return vals
 
         # BG auto-post path
         categ = self.product_id.categ_id.sudo()
         if not categ.l10n_bg_stock_auto_post:
-            return super()._get_account_move_line_vals()
+            vals = super()._get_account_move_line_vals()
+            if self.scrap_id and self.is_out:
+                vals = self._l10n_bg_substitute_scrap_account(vals)
+            return vals
 
         accounts = self.product_id.product_tmpl_id.get_product_accounts()
         stock_valuation_acc = accounts.get('stock_valuation')
@@ -118,3 +126,25 @@ class StockMove(models.Model):
                 'product_id': self.product_id.id,
             },
         ]
+
+    def _l10n_bg_substitute_scrap_account(self, vals):
+        """Замени COGS account със loss account при scrap.
+
+        Стандартното Odoo поведение при scrap е да дебитира output account
+        (typically 701.100 — себестойност продадена продукция), което
+        счетоводно е грешно — брак не е реализирана продажба.
+
+        Когато категорията има ``l10n_bg_stock_loss_account_id``
+        (типично 669.200 — извънредни разходи / брак), подменяме
+        debit account-а на стандартния move с loss account-а.
+        """
+        self.ensure_one()
+        loss_acc = self.product_id.categ_id.sudo().l10n_bg_stock_loss_account_id
+        if not loss_acc or not vals:
+            return vals
+        for line in vals:
+            # При is_out: debit на изходящ е COGS/output. Cr. остава на
+            # stock valuation. Подменяме само debit-а.
+            if line.get('debit', 0.0) > 0 and line.get('credit', 0.0) == 0.0:
+                line['account_id'] = loss_acc.id
+        return vals

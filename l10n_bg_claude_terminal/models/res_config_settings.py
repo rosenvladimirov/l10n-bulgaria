@@ -31,9 +31,9 @@ class ResConfigSettings(models.TransientModel):
         readonly=True,
         groups="base.group_system",
     )
-    claude_embedding_api_key_display = fields.Char(
+    claude_anthropic_api_key_display = fields.Char(
         "Anthropic API Key (stored)",
-        related="company_id.claude_embedding_api_key",
+        related="company_id.claude_anthropic_api_key",
         readonly=True,
         groups="base.group_system",
     )

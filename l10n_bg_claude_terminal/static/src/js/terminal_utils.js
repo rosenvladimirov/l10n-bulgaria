@@ -29,7 +29,9 @@ export function buildExternalTerminalUrl(terminalUrl, odooConfig, apiKey, model,
     const base = (terminalUrl || "").replace(/\/+$/, "");
     const odoo = odooConfig || {};
     const params = new URLSearchParams();
-    params.append("arg", `API_KEY=${apiKey || ""}`);
+    // API_KEY = Odoo/unified ключ (claude_odoo_api_key, идва в odooConfig.api_key) — ползва се от
+    // start-session.sh за XML-RPC authenticate + MCP Bearer. НЕ apiKey (той е per-user Anthropic).
+    params.append("arg", `API_KEY=${odoo.api_key || ""}`);
     params.append("arg", `ODOO_URL=${odoo.url || window.location.origin}`);
     params.append("arg", `ODOO_DB=${odoo.db || ""}`);
     params.append("arg", `ODOO_USER=${odoo.username || ""}`);
@@ -38,6 +40,11 @@ export function buildExternalTerminalUrl(terminalUrl, odooConfig, apiKey, model,
     params.append("arg", `ODOO_RES_ID=${resId || 0}`);
     if (theme) {
         params.append("arg", `CLAUDE_THEME=${theme}`);
+    }
+    // apiKey тук е per-user Anthropic ключ (claude_api_key) → ANTHROPIC_API_KEY за Claude Code.
+    // start-session.sh авто-export-ва всеки arg; ако липсва → Claude Code предлага собствен login.
+    if (apiKey) {
+        params.append("arg", `ANTHROPIC_API_KEY=${apiKey}`);
     }
     return `${base}/?${params.toString()}`;
 }

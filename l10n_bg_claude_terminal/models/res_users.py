@@ -590,10 +590,13 @@ class ResUsers(models.Model):
                 "Only administrators can read Claude MCP configuration."
             ))
         user = self.env.user
+        # Терминалният Anthropic ключ (→ ANTHROPIC_API_KEY arg за Claude Code):
+        # фирмено поле (общо за усерите) → личен ключ на усера → празно (=login при старт).
+        anthropic_key = user.company_id.claude_anthropic_api_key or user.claude_api_key or ""
         return {
             "terminal_url": user.claude_terminal_url or "",
             "use_external": user.claude_use_external_terminal,
-            "api_key": user.claude_api_key or "",
+            "api_key": anthropic_key,
             "theme": user.claude_theme or "github",
             "odoo": {
                 "url": user.claude_odoo_url or "",

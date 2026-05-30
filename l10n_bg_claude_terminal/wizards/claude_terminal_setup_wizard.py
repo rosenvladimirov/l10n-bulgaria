@@ -499,6 +499,8 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
                 "claude_ollama_model": self.cfg_ollama_model,
                 "claude_embedding_provider": self.cfg_embedding_provider,
                 "claude_embedding_api_key": self.cfg_embedding_api_key,
+                # Anthropic ключът е ФИРМЕН (1-ви избор за терминала), не per-user.
+                "claude_anthropic_api_key": self.cfg_anthropic_api_key,
             }
             # Drop None so we don't wipe existing values that aren't in the upload
             company_vals = {k: v for k, v in company_vals.items() if v}
@@ -523,8 +525,8 @@ class ClaudeTerminalSetupWizard(models.TransientModel):
                 "claude_odoo_protocol": self.cfg_odoo_protocol or "xmlrpc",
                 "claude_odoo_verify_ssl": self.cfg_odoo_verify_ssl,
             }
-            if self.cfg_anthropic_api_key:
-                user_vals["claude_api_key"] = self.cfg_anthropic_api_key
+            # Anthropic ключът вече се пише на фирмата (company_vals по-горе), не на усера.
+            # Per-user claude_api_key остава за ръчен override от самия усер.
             if self.cfg_terminal_url:
                 user_vals["claude_terminal_url"] = self.cfg_terminal_url
             if self.cfg_terminal_theme:

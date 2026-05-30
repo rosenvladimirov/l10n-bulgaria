@@ -53,6 +53,11 @@
                             <field name="date_to"/>
                         </group>
                     </group>
+                    <group string="Insurance Rates (Annex 2 SSBA)">
+                        <group>
+                            <field name="tzbp_rate"/>
+                        </group>
+                    </group>
                     <notebook>
                         <page string="MOD by Qualification Groups">
                             <group string="Management and Specialist Positions">

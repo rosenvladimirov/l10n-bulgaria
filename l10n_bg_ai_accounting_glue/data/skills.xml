@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Общи знание-skills (L1 description + L2 content, без backing метод).
+     Генерализирани от натрупани операционни рецепти; матчват се по vector
+     similarity и инжектират процедурата като guidance в LLM контекста. -->
+<odoo noupdate="0">
+
+    <!-- ================================================================ -->
+    <!-- 1. ERP correction safety — базов guardrail (чете се пръв)         -->
+    <!-- ================================================================ -->
+    <record id="skill_bg_erp_correction_safety" model="ai.skill">
+        <field name="name">bg-erp-correction-safety</field>
+        <field name="language">bg_BG</field>
+        <field name="priority">5</field>
+        <field name="description">
+[en_US]
+Activate at the START of ANY data correction (write/create/unlink/raw
+SQL) on a Bulgarian Odoo accounting or stock record — account.move,
+stock.move, stock.valuation.layer, stock.quant, sale.order. Signals:
+the task is a manual fix of posted/done data, a backdated journal
+entry, an SVL/quant realign, or an inter-company flow. Establishes the
+hard guardrails before the domain skill runs.
+[/en_US]
+[bg_BG]
+Активира се в НАЧАЛОТО на ВСЯКА корекция на данни (write/create/unlink/
+raw SQL) върху българско Odoo счетоводство или склад — account.move,
+stock.move, stock.valuation.layer, stock.quant, sale.order. Сигнали:
+ръчна поправка на posted/done данни, backdated журнална статия,
+SVL/quant realign, inter-company поток. Дефинира guardrail-ите преди
+домейн skill-а.
+[/bg_BG]
+        </field>
+        <field name="content">
+[bg_BG]
+# ERP корекция — базови guardrail-и
+
+1. **Идентичност**: `who_am_i` + explicit connection преди всеки write
+   (MCP default връзка drift-ва). Потвърди компания/база.
+2. **Backup ПЪРВО**: JSON dump на засегнатите записи + rollback стойности
+   ПРЕДИ операцията. Без backup → не пипаш.
+3. **Raw SQL през server action**: когато `odoo_sql_query` не е наличен
+   (managed hosts), ползвай temp `ir.actions.server` (`state='code'`,
+   `env.cr.execute(...)` + `log(...)`), прочети от лога, после unlink на
+   action-а. Нужно за done-move SVL / state='done' записи, които ORM
+   unlink блокира.
+4. **move_type='entry' е безопасен за inter-company**: inter-company sync
+   hook-ове се тригърат САМО от invoice move_types (in_invoice/out_invoice/
+   in_refund/out_refund), `sale.order.write()`, `stock.picking.
+   button_validate()`. Корекции през `account.move` с `move_type='entry'`
+   + raw SQL заобикалят хуковете → няма нежелани movements в counterpart.
+5. **Locked sale.order**: `write{'locked': False}` → edit → възстанови
+   `{'locked': True}`. Никога raw промяна без възстановяване.
+6. **Backdate**: при backdated entry — `UPDATE account_move/account_move_line
+   SET create_date/write_date` към оригиналната дата (raw SQL).
+[/bg_BG]
+        </field>
+        <field name="active" eval="True"/>
+    </record>
+
+
+    <!-- ================================================================ -->
+    <!-- 3. Inter-company transit COGS                                     -->
+    <!-- ================================================================ -->
+    <record id="skill_bg_intercompany_transit_cogs" model="ai.skill">
+        <field name="name">bg-intercompany-transit-cogs</field>
+        <field name="language">bg_BG</field>
+        <field name="priority">25</field>
+        <field name="description">
+[en_US]
+Activate when a stock delivery to a related party flows through an
+inter-company transit location and the COGS journal entry is missing or
+the delivery was created with the wrong picking type (transit instead of
+a delivery order). Signals: SO with intercompany dropship/transit route,
+counterpart company in the group, SVL without account_move_id.
+[/en_US]
+[bg_BG]
+Активира се когато складова доставка към свързано лице минава през
+inter-company transit локация и липсва COGS статия, или доставката е с
+грешен picking type (transit вместо delivery order). Сигнали: SO с
+intercompany dropship/transit route, counterpart фирма в групата, SVL
+без account_move_id.
+[/bg_BG]
+        </field>
+        <field name="content">
+[bg_BG]
+# COGS при продажба към свързано лице през transit
+
+## Преди да започнеш (прочети)
+- Партньор: свързано лице → production COGS (серия **701**); външен клиент
+  → различна COGS логика (питай).
+- Категория на продукта: production (готова продукция) → **701.xxx**;
+  материали → **709.xxx**. Правило: `account.category.code` серия 701 =
+  production, 709 = materials.
+- `auto_generated` / counterpart PO → има ли огледален поток в другата фирма.
+
+## Принцип
+- COGS статия = `account.move` с **`move_type='entry'`** (НЕ задейства
+  inter-company sync — виж [[skill_bg_erp_correction_safety]]).
+- Lines: 303xxx Products **credit** → COGS related (701/709) **debit**.
+- **Стойност = production value + SUM(всички LC SVL.value за този output)**.
+  НЕ ползвай weighted-avg OUT value, НЕ `remaining_value`.
+- Link SVL→AM (raw SQL): `UPDATE stock_valuation_layer SET account_move_id`.
+- Backdate AM/AML към оригиналния `stock_move.date`.
+- След realign: reset `remaining_qty=0, remaining_value=0` на output SVL-те
+  (full consumption FIFO chain).
+- Quants: orphan на Customers (manual compensation) → DELETE; INSERT на
+  Inter-company transit с in_date=stock_move.date. Вече коректните — не пипай.
+
+Ако picking-ът е с грешен тип (transit вместо OUT) — swap picking_type през
+raw SQL, но dest=Inter-company transit ОСТАВА.
+[/bg_BG]
+        </field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- ================================================================ -->
+    <!-- 4. Phantom qty_delivered on confirmed SO line                     -->
+    <!-- ================================================================ -->
+    <record id="skill_bg_so_phantom_qty_delivered" model="ai.skill">
+        <field name="name">bg-so-phantom-qty-delivered</field>
+        <field name="language">bg_BG</field>
+        <field name="priority">25</field>
+        <field name="description">
+[en_US]
+Activate before raising or editing the quantity of a confirmed/locked
+sale.order.line that has a phantom qty_delivered (qty_delivered &gt; 0
+while its picking is only confirmed/assigned with no done move). Editing
+product_uom_qty in that state auto-dones the original move (draft COGS +
+backdated SVL) and launches a delta procurement, often into the wrong
+warehouse.
+[/en_US]
+[bg_BG]
+Активира се преди вдигане/редакция на количество на confirmed/locked
+sale.order.line с фантомен qty_delivered (qty_delivered &gt; 0, докато
+picking-ът е само confirmed/assigned, без done move). Запис на
+product_uom_qty в това състояние auto-done-ва оригиналния move (draft
+COGS + backdated SVL) и пуска delta procurement, често в грешен склад.
+[/bg_BG]
+        </field>
+        <field name="content">
+[bg_BG]
+# Фантомен qty_delivered на confirmed SO line
+
+## Превенция
+Преди вдигане на qty: провери `qty_delivered` vs реални done moves. Ако е
+фантомен → нулирай/оправи ПЪРВО, или очаквай auto-done + delta split.
+Предпочитай корекция на stock move/picking директно вместо SO line.
+
+## Clean-rebuild teardown (ако вече е станало)
+1. Cancel spurious delta picking/move (`action_cancel` — releases reservation).
+2. `unlink` на **draft** COGS `account.move`.
+3. Raw SQL (server action — ORM блокира done-move SVL):
+   - DELETE на `stock_valuation_layer` (done-move SVL) + done `stock_move_line`;
+   - `UPDATE stock_move SET state='draft', quantity=0, product_uom_qty={N}`;
+   - `UPDATE stock_picking SET state='draft', date_done=NULL, is_locked=false`;
+   - reverse quants: done move е преместил qty src→Customers → върни към src,
+     нулирай Customers.
+4. `action_confirm` + `action_assign` → re-reserve N.
+5. Сетни SO line price/qty; **възстанови `locked:true`**.
+
+Виж [[skill_bg_erp_correction_safety]] (locked SO, backup, raw SQL).
+[/bg_BG]
+        </field>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>

@@ -70,6 +70,17 @@ class BGModEconomicActivity(models.Model):
     mod_elementary = fields.Float(string='MOD - Elementary Occupations', default=0.0,
                                  help='Minimum insurance income for elementary occupations')
 
+    # TZBP-1: ТЗПБ ставката по закон се определя от КИД на дейността
+    # (Прил. 2 ЗБДОО), а не от професията (НКПД). Държим я тук, до МОД.
+    tzbp_rate = fields.Float(
+        string='TZPB Rate',
+        default=0.0,
+        help='Work-injury and occupational-disease (TZPB) contribution rate '
+             'for this economic activity (KID), per Annex 2 of the State Social '
+             'Insurance Budget Act. When set (> 0) it takes precedence over the '
+             'profession-based (NCOP) rate.',
+    )
+
     # Validity periods
     date_from = fields.Date(string='Valid From', required=True, default=fields.Date.today)
     date_to = fields.Date(string='Valid To')
@@ -97,6 +108,25 @@ class BGModEconomicActivity(models.Model):
         # cap traversal to guard against accidental loops in seed data.
         for _depth in range(6):
             value = getattr(activity, attr, 0.0) or 0.0
+            if value:
+                return value
+            if not activity.parent_id:
+                break
+            activity = activity.parent_id
+        return 0.0
+
+    def get_effective_tzbp_rate(self):
+        """Get the effective TZPB rate for this economic activity (КИД).
+
+        Mirrors :meth:`get_effective_mod`: traverses up the КИД hierarchy
+        via ``parent_id`` when the current record's ``tzbp_rate`` is 0.0,
+        so the rate can be configured on the КИД division and inherited by
+        its child classes.
+        """
+        self.ensure_one()
+        activity = self
+        for _depth in range(6):
+            value = activity.tzbp_rate or 0.0
             if value:
                 return value
             if not activity.parent_id:

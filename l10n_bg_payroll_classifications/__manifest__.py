@@ -51,6 +51,8 @@
         # DEF-12: MOD стойностите се зареждат СЛЕД CSV структурата
         # през noupdate=1 XML, за да не се пренапишат при upgrade.
         'data/bg_mod_values_noupdate.xml',
+        # TZBP-1: ТЗПБ ставки по КИД (Прил.2 ЗБДОО), noupdate след div записите.
+        'data/bg_tzbp_rates_noupdate.xml',
         'data/bg_hr_payroll_ncop_classification/major/bg.hr.payroll.ncop.classification.csv',
         'data/bg_hr_payroll_ncop_classification/sub_major/bg.hr.payroll.ncop.classification.csv',
         'data/bg_hr_payroll_ncop_classification/minor/bg.hr.payroll.ncop.classification.csv',

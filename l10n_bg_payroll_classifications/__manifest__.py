@@ -48,6 +48,7 @@
         'data/bg_hr_payroll_economic_activity/div/bg.hr.payroll.economic.activity.csv',
         'data/bg_hr_payroll_economic_activity/grp/bg.hr.payroll.economic.activity.csv',
         'data/bg_hr_payroll_economic_activity/cls/bg.hr.payroll.economic.activity.csv',
+        'data/bg_tzbp_rates_noupdate.xml',
         'data/bg_hr_payroll_ncop_classification/major/bg.hr.payroll.ncop.classification.csv',
         'data/bg_hr_payroll_ncop_classification/sub_major/bg.hr.payroll.ncop.classification.csv',
         'data/bg_hr_payroll_ncop_classification/minor/bg.hr.payroll.ncop.classification.csv',

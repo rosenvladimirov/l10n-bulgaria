@@ -1,5 +1,22 @@
 # Changelog
 
+## 19.0.1.36.0 — Двукючова Anthropic архитектура + терминал auth fix
+
+**Terminal auth fix:** `buildExternalTerminalUrl` праща `API_KEY` = `odooConfig.api_key`
+(= `res.users.claude_odoo_api_key`), а НЕ `claude_api_key`. Преди терминалът пращаше
+Anthropic ключа за Odoo `authenticate` → винаги "Invalid API key". `start-session.sh`
+ползва `API_KEY` за XML-RPC auth + MCP Bearer.
+
+**Двукючова Anthropic архитектура:**
+- Ново фирмено поле `res.company.claude_anthropic_api_key` — общ терминален Anthropic
+  ключ (1-ви избор).
+- `get_claude_mcp_config` резолва: `company.claude_anthropic_api_key → user.claude_api_key
+  → "" (=login при старт)`. Праща се като отделен `ANTHROPIC_API_KEY` arg.
+- Sync (`action_reload_anthropic_key`) пише в `claude_anthropic_api_key` (преди грешно в
+  `claude_embedding_api_key`); settings полето преименувано `*_display`.
+- Setup wizard: Anthropic ключът → фирмата, не усера.
+- Server-side ключ (фактури/анализи) остава в MCP server env, отделно от терминалния.
+
 ## 19.0.1.34.0 — Provisioning tenant id derives from company ДДС номер (port от 18.0.1.36.0)
 
 Setup wizard step 0 now passes `vat=res.company.vat` to the v3

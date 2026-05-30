@@ -48,11 +48,20 @@ class ResCompany(models.Model):
         groups="base.group_system",
         help="When the ANTHROPIC_API_KEY was last pulled from the MCP server.",
     )
+    claude_anthropic_api_key = fields.Char(
+        "Anthropic API Key (Company)",
+        groups="base.group_system",
+        help="Company-wide Anthropic API key for the Claude terminal. If set, "
+             "every user's terminal uses it (1st choice); otherwise the user's "
+             "own key (res.users.claude_api_key, 2nd choice) is used, and if that "
+             "is empty the terminal login flow runs at startup. Synced from the "
+             "MCP server via 'Reload'. Administrators only.",
+    )
 
     def action_reload_anthropic_key(self):
         """Pull ANTHROPIC_API_KEY from the MCP server and store it as the
-        embedding API key on this company.  Called from Settings and from
-        the per-user 'Test Connections' flow."""
+        company Anthropic key (claude_anthropic_api_key).  Called from Settings
+        and from the per-user 'Test Connections' flow."""
         def _mk_ctx():
             ctx = ssl.create_default_context()
             ctx.check_hostname = False
@@ -88,7 +97,7 @@ class ResCompany(models.Model):
                       "Set ANTHROPIC_API_KEY in the MCP server environment first.")
                 )
             rec.sudo().write({
-                "claude_embedding_api_key": ak,
+                "claude_anthropic_api_key": ak,
                 "claude_anthropic_key_synced_at": fields.Datetime.now(),
             })
             results.append(rec.name)

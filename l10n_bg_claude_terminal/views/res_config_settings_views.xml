@@ -56,10 +56,10 @@
                                 <field name="claude_anthropic_key_synced_at" readonly="1"/>
                             </div>
                             <div class="row mt16" invisible="not claude_anthropic_key_synced_at">
-                                <label for="claude_embedding_api_key_display"
+                                <label for="claude_anthropic_api_key_display"
                                        string="Stored key"
                                        class="col-lg-3 o_light_label"/>
-                                <field name="claude_embedding_api_key_display"
+                                <field name="claude_anthropic_api_key_display"
                                        password="True"
                                        readonly="1"/>
                             </div>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AI View Registry: form view-та на документите, които акаунтинг skills-ите
+     таргетират (sale.order — transit COGS + phantom qty; stock.picking —
+     phantom qty teardown). field_spec се генерира от формите (action_parse_arch
+     в post_init hook). account.move (entry) се регистрира от invoice glue. -->
+<odoo noupdate="0">
+
+    <record id="reg_sale_order" model="ai.view.registry">
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="view_type">form</field>
+        <field name="priority">25</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="reg_stock_picking" model="ai.view.registry">
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="view_type">form</field>
+        <field name="priority">25</field>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>

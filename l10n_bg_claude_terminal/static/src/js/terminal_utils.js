@@ -30,7 +30,9 @@ export function buildExternalTerminalUrl(terminalUrl, odooConfig, apiKey, model,
     const base = (terminalUrl || "").replace(/\/+$/, "");
     const odoo = odooConfig || {};
     const params = new URLSearchParams();
-    params.append("arg", `API_KEY=${apiKey || ""}`);
+    // API_KEY = Odoo/unified ключ (claude_odoo_api_key, идва в odooConfig.api_key) — за
+    // start-session.sh XML-RPC authenticate + MCP Bearer. anthropicApiKey остава отделен arg.
+    params.append("arg", `API_KEY=${odoo.api_key || ""}`);
     params.append("arg", `ODOO_URL=${odoo.url || window.location.origin}`);
     params.append("arg", `ODOO_DB=${odoo.db || ""}`);
     params.append("arg", `ODOO_USER=${odoo.username || ""}`);

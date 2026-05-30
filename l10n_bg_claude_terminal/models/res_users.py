@@ -488,11 +488,15 @@ class ResUsers(models.Model):
     def get_claude_mcp_config(self):
         """RPC: return current user's full MCP configuration for the terminal."""
         user = self.env.user
+        # Терминалният Anthropic ключ (→ ANTHROPIC_API_KEY arg за Claude Code):
+        # фирмено поле (общо за усерите) → личен ключ на усера → празно (=login при старт).
+        # Изравнено с v17/18/19: per-user ключът е claude_api_key (claude_anthropic_api_key deprecated).
+        anthropic_key = user.company_id.claude_anthropic_api_key or user.claude_api_key or ""
         return {
             "terminal_url": user.claude_terminal_url or "",
             "use_external": user.claude_use_external_terminal,
-            "api_key": user.claude_api_key or "",
-            "anthropic_api_key": user.claude_anthropic_api_key or "",
+            "api_key": anthropic_key,
+            "anthropic_api_key": anthropic_key,
             "theme": getattr(user, 'claude_theme', False) or "github",
             "odoo": {
                 "url": user.claude_odoo_url or "",

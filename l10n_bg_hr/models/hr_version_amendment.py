@@ -172,23 +172,11 @@ class L10nBGHrVersionAmendment(models.Model):
     # ПРОМЕНИ — РАБОТНО ВРЕМЕ
     # =========================================================================
 
-    old_working_time_type = fields.Selection([
-        ('1', 'Normal Working Time'),
-        ('2', 'Reduced Working Time'),
-        ('3', 'Part-Time'),
-        ('4', 'Flexible Working Time'),
-        ('5', 'Shift Work'),
-        ('6', 'Summarized Working Time'),
-    ], string='Previous Working Time Type', readonly=True)
+    old_working_time_type = fields.Selection(selection=lambda self: self.env['hr.version'].fields_get(
+            ['l10n_bg_working_time_type'])['l10n_bg_working_time_type']['selection'], string='Previous Working Time Type', readonly=True)
 
-    new_working_time_type = fields.Selection([
-        ('1', 'Normal Working Time'),
-        ('2', 'Reduced Working Time'),
-        ('3', 'Part-Time'),
-        ('4', 'Flexible Working Time'),
-        ('5', 'Shift Work'),
-        ('6', 'Summarized Working Time'),
-    ], string='New Working Time Type')
+    new_working_time_type = fields.Selection(selection=lambda self: self.env['hr.version'].fields_get(
+            ['l10n_bg_working_time_type'])['l10n_bg_working_time_type']['selection'], string='New Working Time Type')
 
     old_daily_hours = fields.Float(string='Previous Daily Hours', readonly=True)
     new_daily_hours = fields.Float(string='New Daily Hours')

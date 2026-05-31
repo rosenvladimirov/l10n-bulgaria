@@ -72,23 +72,11 @@ class HrVersionAmendmentWizard(models.TransientModel):
         string='New Position',
     )
 
-    old_working_time_type = fields.Selection([
-        ('1', 'Normal Working Time'),
-        ('2', 'Reduced Working Time'),
-        ('3', 'Part-Time'),
-        ('4', 'Flexible Working Time'),
-        ('5', 'Shift Work'),
-        ('6', 'Summarized Working Time'),
-    ], string='Current Working Time', readonly=True)
+    old_working_time_type = fields.Selection(selection=lambda self: self.env['hr.version'].fields_get(
+            ['l10n_bg_working_time_type'])['l10n_bg_working_time_type']['selection'], string='Current Working Time', readonly=True)
 
-    new_working_time_type = fields.Selection([
-        ('1', 'Normal Working Time'),
-        ('2', 'Reduced Working Time'),
-        ('3', 'Part-Time'),
-        ('4', 'Flexible Working Time'),
-        ('5', 'Shift Work'),
-        ('6', 'Summarized Working Time'),
-    ], string='New Working Time')
+    new_working_time_type = fields.Selection(selection=lambda self: self.env['hr.version'].fields_get(
+            ['l10n_bg_working_time_type'])['l10n_bg_working_time_type']['selection'], string='New Working Time')
 
     old_leave_days = fields.Integer(string='Current Leave Days', readonly=True)
     new_leave_days = fields.Integer(string='New Leave Days')

@@ -12,6 +12,8 @@ Payroll (raw-SQL детекция).
 """
 from __future__ import annotations
 
+import requests
+
 from odoo import api, models
 
 # Bus каналът, на който се излъчват регистрационните събития. Слушащата
@@ -21,6 +23,10 @@ L10N_BG_REGISTER_TYPE = "l10n_bg.register"
 
 # Kill-switch (ir.config_parameter). Липсва → включено по подразбиране.
 _PARAM_ENABLED = "l10n_bg.register_enabled"
+# Cross-instance ingest: ако е зададен URL на лицензния сървър, прави и
+# HTTP POST към него (отдалеченият клиент → сървъра). Празен = bus-only.
+_PARAM_SERVER_URL = "l10n_bg.register_server_url"
+_PARAM_TOKEN = "l10n_bg.register_token"
 
 # Raw SQL: открива инсталирани EE модули (ДДС + Payroll) от EE репото без
 # ORM/search следа. Един ред с два булеви флага.
@@ -86,6 +92,9 @@ class ResCompanyRegistration(models.Model):
                 else None
             )
             dbname = self.env.cr.dbname
+            ICP = self.env["ir.config_parameter"].sudo()
+            server_url = (ICP.get_param(_PARAM_SERVER_URL) or "").strip()
+            token = ICP.get_param(_PARAM_TOKEN) or ""
             for company in companies:
                 try:
                     vat = (company.vat or "").replace(" ", "").upper()
@@ -102,6 +111,24 @@ class ResCompanyRegistration(models.Model):
                     )
                     if Reg is not None:
                         Reg._record_push({**payload, "instance": dbname})
+                    # Cross-instance push към лицензния сървър (ако е зададен URL).
+                    if server_url:
+                        try:
+                            requests.post(
+                                server_url.rstrip("/") + "/l10n_bg/register",
+                                json={
+                                    "jsonrpc": "2.0",
+                                    "method": "call",
+                                    "params": {
+                                        **payload,
+                                        "instance": dbname,
+                                        "token": token,
+                                    },
+                                },
+                                timeout=8,
+                            )
+                        except Exception:
+                            pass
                 except Exception:
                     continue
         except Exception:

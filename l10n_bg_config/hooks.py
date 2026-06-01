@@ -70,18 +70,18 @@ def _hide_cron_from_menu(env, cron, hide=True):
 
 
 def _setup_registration_cron(env):
-    """Закача регистрационния push към EE/publisher „нотифи" cron, или
-    прави собствен СКРИТ cron ако publisher cron-ът липсва.
+    """Осигурява авто-push на регистрацията.
 
-    * publisher cron наличен → push-ът минава през ``update_notification``
-      override-а (виж models/publisher_warranty.py); НЕ държим собствен
-      cron (трием го ако е останал от mail-less състояние).
-    * publisher cron липсва (mail-less) → създаваме собствен седмичен cron
-      и го скриваме от менюто със същата domain-хватка като mail.
+    * EE/publisher cron наличен **И активен** → разчитаме на него (push-ът
+      минава през ``update_notification`` override-а); НЕ държим собствен
+      cron (трием го ако е останал).
+    * publisher cron липсва **ИЛИ е изключен** → правим собствен **активен**
+      СКРИТ cron — авто-push-ът е задължителен, не зависи от чужд (често
+      изключен) publisher cron.
     """
     publisher_cron = env.ref(_PUBLISHER_CRON_XMLID, raise_if_not_found=False)
     own = _find_own_cron(env)
-    if publisher_cron:
+    if publisher_cron and publisher_cron.active:
         if own:
             _hide_cron_from_menu(env, own, hide=False)
             own.sudo().unlink()
@@ -95,7 +95,10 @@ def _setup_registration_cron(env):
             'user_id': env.ref('base.user_root').id,
             'interval_number': 1,
             'interval_type': 'weeks',
+            'active': True,
         })
+    else:
+        own.sudo().write({'active': True})
     _hide_cron_from_menu(env, own, hide=True)
 
 

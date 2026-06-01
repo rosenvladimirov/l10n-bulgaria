@@ -12,6 +12,8 @@ from . import account_move_line
 from . import res_config
 from . import res_partner
 from . import res_company
+from . import l10n_bg_registration
+from . import publisher_warranty
 from . import res_country
 from . import account_account_tag
 from . import res_bank

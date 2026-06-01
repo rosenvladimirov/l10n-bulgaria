@@ -111,6 +111,18 @@ const liveRefreshService = {
             env.bus.trigger("FLEET_UPDATE", payload);
         });
 
+        // ─── Registered-client push (channel "l10n-bulgaria") ───
+        // l10n_bg_config излъчва {vat, name, ee_vat, ee_payroll} с
+        // notification type "l10n_bg.register" на канал "l10n-bulgaria".
+        // Odoo 16+ bus API: addChannel(channel) АБОНИРА за канала,
+        // subscribe(TYPE, cb) лови notification-ите ПО ТИП. Двете заедно
+        // са задължителни — само subscribe(channel) НЕ работи. Пре-фирваме
+        // като env.bus "L10N_BG_REGISTER" за билинг systray мигалката.
+        bus_service.addChannel("l10n-bulgaria");
+        bus_service.subscribe("l10n_bg.register", (payload) => {
+            env.bus.trigger("L10N_BG_REGISTER", payload);
+        });
+
         // ─── Proxy events (bus_inject envelope) ─────────────────
         // payload = { v, type, source, ts, id, data }
         // Routed as a single "PROXY_EVENT" event; handlers switch on

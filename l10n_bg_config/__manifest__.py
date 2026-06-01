@@ -160,7 +160,7 @@ This module is essential for:
 automatically installs it if not present. It serves as the configuration
 backbone for the entire Bulgarian localization ecosystem.
     """,
-    "version": "19.0.8.5.13",
+    "version": "19.0.8.6.1",
     # OCA Metadata
     "development_status": 'Beta',
     "category": 'Localization',
@@ -169,6 +169,8 @@ backbone for the entire Bulgarian localization ecosystem.
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "depends": [
         "base",
+        "bus",
+        "mail",
         "account",
         "base_vat",
         "l10n_bg",
@@ -205,6 +207,7 @@ backbone for the entire Bulgarian localization ecosystem.
     },
     "pre_init_hook": "pre_init_hook",
     "post_init_hook": "post_init_hook",
+    "uninstall_hook": "uninstall_hook",
     # NB: stock Odoo does NOT honor a 'post_migrate_hook' manifest key
     # (only OpenUpgrade does). Upgrade-time backfill lives in
     # migrations/<version>/post-migrate.py instead.

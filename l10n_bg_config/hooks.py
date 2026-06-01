@@ -16,20 +16,6 @@ _REGISTER_CRON_NAME = 'l10n_bg: Push registered clients'
 # Стандартният Odoo „нотифи" cron (mail) — закачаме се за него ако е наличен.
 _PUBLISHER_CRON_XMLID = 'mail.ir_cron_module_update_notification'
 
-# Ключът по подразбиране за криптиране на blacklist.enc.
-# LGPL — прозрачен. Целта е compliance signaling, не DRM.
-# Ако администраторът промени ключа (ir.config_parameter → l10n_bg.blacklist_key),
-# трябва да преген blacklist.enc с tools/update_blacklist.py.
-_BLACKLIST_DEFAULT_KEY = 'wsONQSiUYbHkR1dI5FhEwwb_vAVlZ4WU9IovLlSqhfw='
-
-
-def _init_blacklist_key(env):
-    """Инициализира ключа за блекълист при инсталация или ъпгрейд."""
-    ICP = env['ir.config_parameter'].sudo()
-    if not ICP.get_param('l10n_bg.blacklist_key'):
-        ICP.set_param('l10n_bg.blacklist_key', _BLACKLIST_DEFAULT_KEY)
-        _logger.info('l10n_bg_config: blacklist key initialized in ir.config_parameter')
-
 
 def pre_init_hook(env):
     # if env.user.company_id.country_code != 'BG':
@@ -43,6 +29,15 @@ def pre_init_hook(env):
         if language:
             load_language(env.cr, language.code)
             modules._update_translations(language.code)
+
+
+_BLACKLIST_DEFAULT_KEY = 'wsONQSiUYbHkR1dI5FhEwwb_vAVlZ4WU9IovLlSqhfw='
+
+
+def _init_blacklist_key(env):
+    ICP = env['ir.config_parameter'].sudo()
+    if not ICP.get_param('l10n_bg.blacklist_key'):
+        ICP.set_param('l10n_bg.blacklist_key', _BLACKLIST_DEFAULT_KEY)
 
 
 def _find_own_cron(env):
@@ -75,18 +70,18 @@ def _hide_cron_from_menu(env, cron, hide=True):
 
 
 def _setup_registration_cron(env):
-    """Закача регистрационния push към EE/publisher „нотифи" cron, или
-    прави собствен СКРИТ cron ако publisher cron-ът липсва.
+    """Осигурява авто-push на регистрацията.
 
-    * publisher cron наличен → push-ът минава през ``update_notification``
-      override-а (виж models/publisher_warranty.py); НЕ държим собствен
-      cron (трием го ако е останал от mail-less състояние).
-    * publisher cron липсва (mail-less) → създаваме собствен седмичен cron
-      и го скриваме от менюто със същата domain-хватка като mail.
+    * EE/publisher cron наличен **И активен** → разчитаме на него (push-ът
+      минава през ``update_notification`` override-а); НЕ държим собствен
+      cron (трием го ако е останал).
+    * publisher cron липсва **ИЛИ е изключен** → правим собствен **активен**
+      СКРИТ cron — авто-push-ът е задължителен, не зависи от чужд (често
+      изключен) publisher cron.
     """
     publisher_cron = env.ref(_PUBLISHER_CRON_XMLID, raise_if_not_found=False)
     own = _find_own_cron(env)
-    if publisher_cron:
+    if publisher_cron and publisher_cron.active:
         if own:
             _hide_cron_from_menu(env, own, hide=False)
             own.sudo().unlink()
@@ -100,7 +95,10 @@ def _setup_registration_cron(env):
             'user_id': env.ref('base.user_root').id,
             'interval_number': 1,
             'interval_type': 'weeks',
+            'active': True,
         })
+    else:
+        own.sudo().write({'active': True})
     _hide_cron_from_menu(env, own, hide=True)
 
 

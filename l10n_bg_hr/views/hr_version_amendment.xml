@@ -91,12 +91,10 @@
                     <notebook>
                         <!-- Amendment Details -->
                         <page string="Amendment Details" name="details">
-                            <group>
-                                <field name="description" nolabel="1"
-                                       placeholder="Enter amendment details"/>
-                                <field name="legal_basis"
-                                       placeholder="Legal basis (e.g. Art. 118 of Labor Code)"/>
-                            </group>
+                            <field name="description" nolabel="1"
+                                   placeholder="Enter amendment details" colspan="2"/>
+                            <field name="legal_basis" nolabel="1"
+                                   placeholder="Legal basis (e.g. Art. 118 of Labor Code)" colspan="2"/>
                         </page>
 
                         <!-- Wage Changes -->
@@ -114,8 +112,8 @@
                                     <field name="currency_id" invisible="1"/>
                                 </group>
                             </group>
-                            <group string="Change Justification">
-                                <field name="wage_change_reason" nolabel="1"/>
+                            <group string="Change Justification" colspan="2">
+                                <field name="wage_change_reason" nolabel="1" colspan="2"/>
                             </group>
                         </page>
 

@@ -81,7 +81,12 @@ class ResCompanyRegistration(models.Model):
         try:
             if not self._l10n_bg_registration_enabled():
                 return False
-            companies = self or self.search([("is_l10n_bg_record", "=", True)])
+            # Лиценз = (ЕИК + база). Рапортуваме САМО главната фирма (нулевата) —
+            # multi-company в една база НЕ е нарушение; останалите фирми не се броят.
+            companies = (
+                self.env.ref("base.main_company", raise_if_not_found=False)
+                or self.env["res.company"].search([], order="id", limit=1)
+            )
             ee = self._l10n_bg_ee_modules()
             bus = self.env["bus.bus"].sudo()
             # Soft-link: ако license_server е инсталиран (моделът съществува),

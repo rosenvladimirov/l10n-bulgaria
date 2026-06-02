@@ -53,7 +53,7 @@ NOT included
 * Заместени дни по чл. 154а КТ (РМС-обявени за връзка с уикенди) — не
   са предвидими, добавят се ръчно при обявяване.
     """,
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "development_status": "Mature",
     "category": "Localization",
     "license": "LGPL-3",

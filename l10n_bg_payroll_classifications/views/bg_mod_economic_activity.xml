@@ -54,7 +54,7 @@
                     </group>
                     <group string="Insurance Rates (Annex 2 SSBA)">
                         <group>
-                            <field name="tzbp_rate"/>
+                            <field name="tzbp_rate" widget="percentage"/>
                         </group>
                     </group>
                     <notebook>

@@ -240,3 +240,13 @@ class HrVersion(models.Model):
                 if next_no:
                     vals['l10n_bg_contract_number'] = next_no
         return super().create(vals_list)
+
+    def action_open_version(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'hr.version',
+            'res_id': self.id,
+            'views': [(False, 'form')],
+            'target': 'current',
+        }

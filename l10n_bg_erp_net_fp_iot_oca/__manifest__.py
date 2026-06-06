@@ -32,7 +32,7 @@ framework matches your edition.
 Auto-install: True — installs when `iot_oca` and `l10n_bg_erp_net_fp`
 are both present.
 """,
-    'version': '19.0.11.0.0',
+    'version': '20.0.11.0.0',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',

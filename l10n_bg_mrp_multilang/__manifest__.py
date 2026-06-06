@@ -4,7 +4,7 @@
 {
     'name': 'L10n Bg Mrp Multilang',
     'summary': """Multilanguage filed for mrp_workcenter name""",
-    'version': '19.0.1.0.0',
+    'version': '20.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'depends': [

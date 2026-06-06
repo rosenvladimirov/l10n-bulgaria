@@ -9,7 +9,7 @@ class AccountMoveLine(models.Model):
         вместо expense account.
 
         Стандартното поведение (stock_account): при real_time задава stock_valuation account.
-        Нашият случай: при auto_post manual_periodic задаваме stock_variation (GRNI/clearing),
+        Нашият случай: при auto_post periodic задаваме stock_variation (GRNI/clearing),
         за да може при фактуриране разликата от clearing-а да се изравни коректно.
 
         Сценарий:
@@ -28,7 +28,7 @@ class AccountMoveLine(models.Model):
             categ = line.product_id.categ_id.sudo()
             if not categ.l10n_bg_stock_auto_post:
                 continue
-            # Само за manual_periodic (real_time вече е обработено от super())
+            # Само за periodic (real_time вече е обработено от super())
             if line.product_id.valuation == 'real_time':
                 continue
 

@@ -28,7 +28,7 @@ class ProductCategory(models.Model):
     )
 
     # Флаг за автоматично счетоводство при валидация на пикинг.
-    # Позволява manual_periodic продукти да генерират счетоводни записи при PO цена,
+    # Позволява periodic продукти да генерират счетоводни записи при PO цена,
     # без да се сменя property_valuation на 'real_time'.
     l10n_bg_stock_auto_post = fields.Boolean(
         string='Auto-post stock accounting on validate',

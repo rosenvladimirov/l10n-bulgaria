@@ -6,7 +6,7 @@ class StockMove(models.Model):
 
     def _should_create_account_move(self):
         """Разширява стандартното условие: ако категорията има l10n_bg_stock_auto_post=True,
-        се позволява генериране на счетоводен запис при incoming пикинг дори при manual_periodic.
+        се позволява генериране на счетоводен запис при incoming пикинг дори при periodic.
 
         Стандартното условие изисква valuation == 'real_time'. Ние го заобикаляме само за
         incoming moves (is_in или is_dropship) с auto_post категория.

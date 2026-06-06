@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { Component, mount, useState, onMounted, whenReady } from "@odoo/owl";
+import { Component, mount, useState, onMounted } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
 import { getTemplate } from "@web/core/templates";
 import { useService } from "@web/core/utils/hooks";
@@ -208,6 +208,17 @@ class ExternalShiftApp extends Component {
     }
 }
 
+
+// OWL 3 премахна `whenReady` от @odoo/owl — локален еквивалент: resolve когато DOM е готов.
+function whenReady() {
+    return new Promise((resolve) => {
+        if (document.readyState !== "loading") {
+            resolve();
+        } else {
+            document.addEventListener("DOMContentLoaded", () => resolve(), { once: true });
+        }
+    });
+}
 
 (async function _start() {
     try {

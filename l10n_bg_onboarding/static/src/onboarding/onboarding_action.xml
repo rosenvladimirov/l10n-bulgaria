@@ -59,7 +59,7 @@
                 </header>
 
                 <div class="bgob-stage">
-                    <div class="bgob-scene" t-ref="scene" />
+                    <div class="bgob-scene" t-custom-ref="scene" />
 
                     <div class="bgob-panel">
                         <p class="bgob-kicker">
@@ -80,7 +80,7 @@
                             <input type="text"
                                    class="bgob-input"
                                    placeholder="VAT BG… or UIC (9/13 digits)"
-                                   t-model="state.vatEik"/>
+                                   t-custom-model="state.vatEik"/>
                             <button class="bgob-btn bgob-btn--gold"
                                     t-att-disabled="state.busy"
                                     t-on-click="tradeRegister">

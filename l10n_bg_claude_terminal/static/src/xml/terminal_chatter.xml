@@ -77,7 +77,7 @@
 
         <!-- ── iframe ── -->
         <div class="ct-iframe-container">
-            <iframe t-ref="iframe"
+            <iframe t-custom-ref="iframe"
                     t-att-src="iframeSrc"
                     class="ct-iframe"
                     sandbox="allow-scripts allow-same-origin allow-popups allow-forms"

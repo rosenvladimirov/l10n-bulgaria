@@ -1,6 +1,6 @@
 {
     "name": "Markdown Viewer Locale",
-    "version": "19.0.3.0.4",
+    "version": "20.0.3.0.4",
     "license": "LGPL-3",
     "category": "Tools",
     "summary": "View localized Markdown files based on user language",

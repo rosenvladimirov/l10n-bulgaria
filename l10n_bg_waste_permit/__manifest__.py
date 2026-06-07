@@ -2,7 +2,7 @@
 # License AGPL-3 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Bulgaria - Waste Management (Permits & Quotas)",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "summary": "Bulgarian waste treatment permits with annual quotas and "
                "real-time usage tracking against actual stock movements",
     "description": """

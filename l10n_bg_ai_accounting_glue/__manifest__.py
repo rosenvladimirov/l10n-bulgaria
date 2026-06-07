@@ -5,7 +5,7 @@
         "General Bulgarian accounting / MRP AI skills (knowledge-only) "
         "for the l10n_bg_ai_pipeline skills engine."
     ),
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "development_status": "Alpha",
     "category": "Accounting/Localizations",
     "license": "OPL-1",

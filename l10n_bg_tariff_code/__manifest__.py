@@ -45,7 +45,7 @@ Technical Features
 * EU country zero-rate support
 * Automatic product HS code updates
     """,
-    "version": "19.0.3.0.11",
+    "version": "20.0.3.0.11",
     "category": "Accounting/Localizations",
     "license": "LGPL-3",
     "author": "Rosen Vladimirov",

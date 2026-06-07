@@ -1,6 +1,6 @@
 {
     "name": "HR Org Chart — Multilang Fix",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "license": "AGPL-3",
     "category": "Human Resources",
     "author": "Rosen Vladimirov",

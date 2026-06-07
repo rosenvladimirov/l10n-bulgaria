@@ -178,7 +178,7 @@ Meets requirements for:
 enables full compliance with Bulgarian administrative and statistical standards.
 It's a foundational module for any serious Bulgarian localization implementation.
   """,
-    "version": "19.0.1.1.0",
+    "version": "20.0.1.1.0",
     "development_status": "Production/Stable",
     "category": "Localization",
     "license": "AGPL-3",

@@ -2,7 +2,7 @@
 # License AGPL-3 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Bulgaria - Waste Management (Reports)",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "summary": "XLSX monthly report (Annex 4), annual report skeleton "
                "(Annex 18) and PDF identification document (Annex 8)",
     "description": """

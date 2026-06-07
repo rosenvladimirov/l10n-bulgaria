@@ -4,7 +4,7 @@
     "name": "Bulgaria — Stock Picking Comment Template Positioning",
     "summary": "Render base_comment_template top/bottom blocks on the "
                "Bulgarian accepted delivery slip report",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "category": "Warehouse Management",
     "license": "AGPL-3",
     "author": "Rosen Vladimirov, BL Consulting, "

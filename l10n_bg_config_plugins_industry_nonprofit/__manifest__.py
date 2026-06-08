@@ -34,7 +34,7 @@ left empty — it must be filled from sourced Bulgarian accounting
 standards, not improvised. See README for the open decomposition design
 point regarding shared КИД account-code rules.
     """,
-    "version": "20.0.1.0.0",
+    "version": "19.4.1.0.0",
     "development_status": "Alpha",
     "category": "Accounting/Localizations",
     "license": "LGPL-3",

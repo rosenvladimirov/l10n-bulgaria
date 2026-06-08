@@ -21,7 +21,7 @@ Key differences vs the redirect flow:
 Switch a provider to embedded via the new "Checkout Flow" field on
 the myPOS payment provider.
 """,
-    "version": "20.0.1.0.0",
+    "version": "19.4.1.0.0",
     "category": "Accounting/Payment Providers",
     "license": "LGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",

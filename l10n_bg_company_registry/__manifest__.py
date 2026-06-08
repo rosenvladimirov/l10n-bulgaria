@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Bulgarian Company Registry Integration',
-    'version': '20.0.2.0.2',
+    'version': '19.4.2.0.2',
     'category': 'Localization',
     'summary': 'Real-time integration with Bulgarian Trade Registry (portal.registryagency.bg)',
     'description': """

@@ -33,7 +33,7 @@ After installation, project task fields will support multiple languages,
 allowing Bulgarian companies to manage projects in both Bulgarian and other languages.
 
     """,
-    'version': '20.0.1.0.0',
+    'version': '19.4.1.0.0',
     'license': 'AGPL-3',
     'author': 'Rosen Vladimirov',
     'maintainer': 'Rosen Vladimirov',

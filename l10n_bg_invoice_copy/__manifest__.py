@@ -3,7 +3,7 @@
 
 {
     'name': 'Bulgarian Invoice Copy',
-    'version': '20.0.1.0.0',
+    'version': '19.4.1.0.0',
     'category': 'Accounting/Localizations',
     'summary': 'Add COPY watermark to Bulgarian invoice reports',
     'description': """

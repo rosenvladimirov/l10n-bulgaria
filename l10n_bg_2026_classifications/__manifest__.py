@@ -41,7 +41,7 @@ Reference
 * ЗВЕРБ — фиксиран курс 1 EUR = 1.95583 BGN
 * НСИ NCOP-2011 — последна revision 2011 г.
     """,
-    "version": "20.0.1.0.0",
+    "version": "19.4.1.0.0",
     "development_status": "Mature",
     "category": "Localization",
     "license": "LGPL-3",

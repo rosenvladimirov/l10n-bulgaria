@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "AI Pipeline (Skills + Injection Engine)",
-    "version": "20.0.1.0.0",
+    "version": "19.4.1.0.0",
     "development_status": "Alpha",
     "category": "Technical",
     "summary": (

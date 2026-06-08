@@ -2,7 +2,7 @@
 # License AGPL-3 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Bulgaria - Waste Management (Stock Picking Integration)",
-    "version": "20.0.1.0.0",
+    "version": "19.4.1.0.0",
     "summary": "Capture waste codes at stock.picking validation, enforce "
                "permit quota and trace lots back to incoming pickings",
     "description": """

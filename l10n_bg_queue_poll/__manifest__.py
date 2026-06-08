@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Queue Poll (poll-until-condition via queue_job)",
-    "version": "20.0.1.2.0",
+    "version": "19.4.1.2.0",
     "category": "Technical",
     "summary": "Generic queue_job engine that polls a model method with "
                "adaptive backoff until it reports final, then live-refreshes",

@@ -2,7 +2,7 @@
 # License AGPL-3 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Bulgaria - Waste Management (Base)",
-    "version": "20.0.1.0.0",
+    "version": "19.4.1.0.0",
     "summary": "Bulgarian waste classification catalog, treatment activities, "
                "and treatment sites per Ordinance 2/2014 and the Waste Management Act",
     "description": """

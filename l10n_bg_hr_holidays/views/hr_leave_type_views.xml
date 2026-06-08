@@ -24,6 +24,7 @@
                             <field name="l10n_bg_max_days_total"/>
                             <field name="l10n_bg_legal_reference"
                                    placeholder="e.g. КТ чл. 160, ал. 1"/>
+                            <field name="l10n_bg_carryover_lapse_years"/>
                         </group>
                     </group>
                 </xpath>

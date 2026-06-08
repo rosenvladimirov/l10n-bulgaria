@@ -50,6 +50,10 @@ class HrLeaveBalance(models.Model):
 
     employee_id = fields.Many2one(
         "hr.employee", string="Employee", readonly=True)
+    company_id = fields.Many2one(
+        "res.company", string="Company", readonly=True,
+        help="Employee's company — drives the multi-company record rule and "
+             "the company-switcher filtering.")
     leave_type_id = fields.Many2one(
         "hr.leave.type", string="Leave Type", readonly=True)
     leave_type_code = fields.Char(
@@ -90,6 +94,9 @@ class HrLeaveBalance(models.Model):
         "hr.leave.type": [
             "l10n_bg_code", "request_unit",
         ],
+        "hr.employee": [
+            "company_id",
+        ],
     }
 
     @property
@@ -104,6 +111,7 @@ class HrLeaveBalance(models.Model):
                     ORDER BY allocated.employee_id, allocated.holiday_status_id
                 ) AS id,
                 allocated.employee_id AS employee_id,
+                emp.company_id AS company_id,
                 allocated.holiday_status_id AS leave_type_id,
                 lt.l10n_bg_code AS leave_type_code,
                 lt.request_unit AS request_unit,
@@ -124,7 +132,8 @@ class HrLeaveBalance(models.Model):
         return SQL(
             "FROM (%s) AS allocated "
             "LEFT JOIN (%s) AS taken USING (employee_id, holiday_status_id) "
-            "LEFT JOIN hr_leave_type lt ON lt.id = allocated.holiday_status_id",
+            "LEFT JOIN hr_leave_type lt ON lt.id = allocated.holiday_status_id "
+            "LEFT JOIN hr_employee emp ON emp.id = allocated.employee_id",
             self._allocated_subquery(),
             self._taken_subquery(),
         )

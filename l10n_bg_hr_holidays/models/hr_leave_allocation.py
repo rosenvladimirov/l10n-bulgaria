@@ -13,6 +13,56 @@ class HrLeaveAllocation(models.Model):
     """
     _inherit = 'hr.leave.allocation'
 
+    # ------------------------------------------------------------------
+    # FEAT-6 — FIFO консумация на годишния отпуск (КТ чл.176а, ал.2).
+    #
+    # Odoo консумира allocations подредени по `date_to` (най-рано изтичащ
+    # първи); open-ended allocations (без date_to) отиват ПОСЛЕДНИ. За БГ
+    # пренесеният платен годишен отпуск трябва да се изчерпва ПРЪВ (давност
+    # 2 г. от края на годината, за която се полага). Вместо да override-ваме
+    # core `_get_consumed_leaves` (без seam, крехко), задаваме date_to на
+    # carryover allocations → core-ският date_to sort става естествено FIFO.
+    #
+    # Scope: само leave types с l10n_bg_carryover_lapse_years > 0
+    # (KT155 / KT156*), не-accrual, само когато date_to не е зададен ръчно.
+    # ВНИМАНИЕ: date_to означава погасяване (forfeiture) на остатъка след
+    # тази дата — нормативно коректно, но е промяна в поведението.
+    # ------------------------------------------------------------------
+
+    def _l10n_bg_carryover_date_to(self):
+        """КТ чл.176а(2) date_to за carryover allocation, или False.
+
+        Не презаписва вече зададен date_to и пропуска accrual планове
+        (те управляват собствения си date_to)."""
+        self.ensure_one()
+        years = self.holiday_status_id.l10n_bg_carryover_lapse_years
+        if not years or self.date_to or not self.date_from \
+                or self.accrual_plan_id:
+            return False
+        # 2 години от КРАЯ на годината на гранта → 31.12 на (year + years).
+        return date(self.date_from.year + years, 12, 31)
+
+    def _l10n_bg_apply_carryover_lapse(self):
+        """Задава date_to на carryover allocations, където липсва."""
+        for alloc in self:
+            date_to = alloc._l10n_bg_carryover_date_to()
+            if date_to:
+                alloc.date_to = date_to
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        allocations = super().create(vals_list)
+        allocations._l10n_bg_apply_carryover_lapse()
+        return allocations
+
+    def write(self, vals):
+        res = super().write(vals)
+        # Преизчисли само ако се е сменил гранта/типа, а date_to не е пипан.
+        if ('date_to' not in vals
+                and ({'date_from', 'holiday_status_id'} & set(vals))):
+            self._l10n_bg_apply_carryover_lapse()
+        return res
+
     @api.model
     def l10n_bg_compute_pro_rata_days(
         self,

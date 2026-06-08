@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Multi-company запис-правило за hr.leave.balance.
+         Без него SQL view-ът показва служители от всички компании независимо
+         от company switcher-а (FEAT-4). company_id идва от employee_id.company_id;
+         NULL се пропуска (служители без компания). -->
+    <record id="hr_leave_balance_comp_rule" model="ir.rule">
+        <field name="name">Leave Balance: multi-company</field>
+        <field name="model_id" ref="model_hr_leave_balance"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="global" eval="True"/>
+    </record>
+
+    <!-- Същото multi-company правило за by-year справката (FEAT-5). -->
+    <record id="hr_leave_balance_year_comp_rule" model="ir.rule">
+        <field name="name">Leave Balance by Year: multi-company</field>
+        <field name="model_id" ref="model_hr_leave_balance_year"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="global" eval="True"/>
+    </record>
+
+</odoo>

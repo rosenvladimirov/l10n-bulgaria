@@ -1,6 +1,6 @@
 {
     'name': 'Bulgaria - HR Holidays',
-    'version': '18.0.1.7.1',
+    'version': '18.0.1.9.0',
     'category': 'Human Resources/Time Off',
     'summary': 'Bulgarian localization for HR Holidays',
     'description': """
@@ -75,10 +75,12 @@ Full documentation available in the module's data folder:
         'data/hr_holidays_doo_treatment.xml',
         'data/hr_holidays_legal_caps.xml',
         'security/ir.model.access.csv',
+        'security/hr_leave_balance_security.xml',
         'views/hr_leave_views.xml',
         'views/hr_leave_type_views.xml',
         'views/l10n_bg_nssi_leave_reason.xml',
         'views/hr_leave_balance_views.xml',
+        'views/hr_leave_balance_year_views.xml',
         'views/hr_leave_schedule_views.xml',
     ],
     'demo': [

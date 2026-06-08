@@ -3,3 +3,5 @@ access_nssi_leave_reason_user,NSSI leave reason - read,model_nssi_leave_reason,b
 access_nssi_leave_reason_hr_manager,NSSI leave reason - full,model_nssi_leave_reason,hr_holidays.group_hr_holidays_manager,1,1,1,1
 access_hr_leave_balance_user,hr.leave.balance user,model_hr_leave_balance,base.group_user,1,0,0,0
 access_hr_leave_balance_hr_manager,hr.leave.balance hr manager,model_hr_leave_balance,hr_holidays.group_hr_holidays_manager,1,0,0,0
+access_hr_leave_balance_year_user,hr.leave.balance.year user,model_hr_leave_balance_year,base.group_user,1,0,0,0
+access_hr_leave_balance_year_hr_manager,hr.leave.balance.year hr manager,model_hr_leave_balance_year,hr_holidays.group_hr_holidays_manager,1,0,0,0

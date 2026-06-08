@@ -277,6 +277,7 @@
         <record id="holiday_status_kt_annual" model="hr.leave.type">
             <field name="name">Annual Paid Leave</field>
             <field name="l10n_bg_code">KT155</field>
+            <field name="l10n_bg_carryover_lapse_years">2</field>
             <field name="requires_allocation">yes</field>
             <field name="allocation_validation_type">hr</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
@@ -292,6 +293,7 @@
         <record id="holiday_status_kt_hazardous" model="hr.leave.type">
             <field name="name">Additional Leave - Hazardous Conditions</field>
             <field name="l10n_bg_code">KT156A</field>
+            <field name="l10n_bg_carryover_lapse_years">2</field>
             <field name="requires_allocation">yes</field>
             <field name="allocation_validation_type">hr</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
@@ -307,6 +309,7 @@
         <record id="holiday_status_kt_irregular" model="hr.leave.type">
             <field name="name">Additional Leave - Irregular Working Hours</field>
             <field name="l10n_bg_code">KT156B</field>
+            <field name="l10n_bg_carryover_lapse_years">2</field>
             <field name="requires_allocation">yes</field>
             <field name="allocation_validation_type">hr</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
@@ -322,6 +325,7 @@
         <record id="holiday_status_kt_disabled" model="hr.leave.type">
             <field name="name">Additional Leave - Reduced Work Capacity</field>
             <field name="l10n_bg_code">KT156C</field>
+            <field name="l10n_bg_carryover_lapse_years">2</field>
             <field name="requires_allocation">yes</field>
             <field name="allocation_validation_type">hr</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>

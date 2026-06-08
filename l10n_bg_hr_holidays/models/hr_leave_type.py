@@ -29,6 +29,17 @@ class HRLeaveType(models.Model):
         'nssi.leave.reason',
         string='Leave Reason'
     )
+    l10n_bg_carryover_lapse_years = fields.Integer(
+        string="Carry-over Lapse (years)",
+        default=0,
+        help="Number of years after which unused paid annual leave of this "
+             "type lapses (BG Labor Code art. 176a §2 — 2 years from the end "
+             "of the year it is due for). When > 0, allocations of this type "
+             "get a date_to set automatically (end of grant year + N), so the "
+             "oldest entitlement is consumed first (FIFO). 0 = no lapse / "
+             "open-ended (default). Set to 2 only for basic/additional annual "
+             "paid leave (KT155 / KT156*)."
+    )
     # ---------------------------------------------------------------------
     # БГ-законови лимити (КТ / КСО) — конфигурируеми на ниво leave type.
     # Stand-by ValidationError в hr_leave._check_l10n_bg_max_days.

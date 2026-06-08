@@ -52,7 +52,13 @@ Reference
     ],
     "data": [],
     "post_init_hook": "post_init_hook",
-    "installable": True,
+    # DEF-22: RETIRED. Механичната BGN÷1.95583 конверсия НЕ съответства на
+    # ЗБДОО 2026 (законодателят определи НОВИ EUR стойности, не конвертирани) +
+    # broken parent-chain clone (новите записи сочеха към старите BGN записи).
+    # Коректните EUR стойности вече са в l10n_bg_payroll_classifications/
+    # data/bg_mod_values_noupdate.xml (noupdate=0). НЕ инсталирай — ще повреди
+    # вече-коректната база. Запазен само за git история.
+    "installable": False,
     "auto_install": False,
     "countries": ["BG"],
 }

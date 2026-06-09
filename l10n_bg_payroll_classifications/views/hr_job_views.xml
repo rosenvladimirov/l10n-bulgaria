@@ -56,7 +56,7 @@
                     <field name="l10n_bg_ncop_position_id" string="NCOP Position"/>
                 </field>
 
-                <filter name="employment_type" position="after">
+                <filter name="contract_type" position="after">
                     <filter string="NCOP Position" name="ncop_position" domain="[]" context="{'group_by': 'l10n_bg_ncop_position_id'}"/>
                 </filter>
             </field>

@@ -1,4 +1,5 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
+from . import ir_config_parameter
 
 from . import ir_module
 from . import l10n_bg_kid
@@ -16,4 +17,3 @@ from . import l10n_bg_registration
 from . import publisher_warranty
 from . import res_country
 from . import account_account_tag
-from . import res_bank

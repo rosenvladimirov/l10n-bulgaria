@@ -1,6 +1,6 @@
 {
     'name': 'Bulgaria - HR Holidays',
-    'version': '19.4.1.9.1',
+    'version': '19.4.2.0.0',
     'category': 'Human Resources/Time Off',
     'summary': 'Bulgarian localization for HR Holidays',
     'description': """
@@ -57,7 +57,7 @@ For questions about Bulgarian labor legislation, consult with:
 Documentation:
 --------------
 Full documentation available in the module's data folder:
-* hr_leave_types_documentation_bg.md - Detailed documentation
+* hr_work_entry_types_documentation_bg.md - Detailed documentation
 * quick_reference_bg.md - Quick reference guide
 * README.md - Installation and usage guide
     """,

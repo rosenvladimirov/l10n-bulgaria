@@ -1,5 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-"""Post-migrate: apply Bulgarian legal caps to existing hr.leave.type records.
+"""Post-migrate: apply Bulgarian legal caps to existing hr.work.entry.type records.
 
 Background:
 Original hr_holidays_data.xml seeds leave types with `noupdate="1"`. The
@@ -43,7 +43,7 @@ LEGAL_CAPS = [
 
 
 def migrate(cr, version):  # noqa: U100
-    """Apply legal caps directly on existing hr.leave.type records."""
+    """Apply legal caps directly on existing hr.work.entry.type records."""
     from odoo import api, SUPERUSER_ID
     env = api.Environment(cr, SUPERUSER_ID, {})
     applied = 0

@@ -14,7 +14,7 @@
                           quick_create="0"
                           hide_time="true">
                     <field name="employee_id"/>
-                    <field name="holiday_status_id"/>
+                    <field name="work_entry_type_id"/>
                     <field name="number_of_days" widget="float"/>
                     <field name="state"/>
                 </calendar>
@@ -28,7 +28,7 @@
             <field name="arch" type="xml">
                 <pivot string="Annual Leave Schedule" sample="1">
                     <field name="employee_id" type="row"/>
-                    <field name="holiday_status_id" type="row"/>
+                    <field name="work_entry_type_id" type="row"/>
                     <field name="date_from" interval="month" type="col"/>
                     <field name="number_of_days" type="measure"/>
                 </pivot>
@@ -43,7 +43,7 @@
                 <search string="Annual Leave Schedule">
                     <field name="employee_id"/>
                     <field name="department_id"/>
-                    <field name="holiday_status_id"/>
+                    <field name="work_entry_type_id"/>
                     <filter name="approved"
                             string="Approved"
                             domain="[('state','=','validate')]"/>
@@ -53,7 +53,7 @@
                     <separator/>
                     <filter name="bg_paid_annual"
                             string="Paid Annual Leave (KT art. 155-157)"
-                            domain="[('holiday_status_id.l10n_bg_code','=like','155%')]"/>
+                            domain="[('work_entry_type_id.l10n_bg_code','=like','155%')]"/>
                     <group>
                         <filter name="group_employee"
                                 string="Employee"
@@ -63,7 +63,7 @@
                                 context="{'group_by': 'department_id'}"/>
                         <filter name="group_type"
                                 string="Leave Type"
-                                context="{'group_by': 'holiday_status_id'}"/>
+                                context="{'group_by': 'work_entry_type_id'}"/>
                         <filter name="group_month"
                                 string="Month"
                                 context="{'group_by': 'date_from:month'}"/>

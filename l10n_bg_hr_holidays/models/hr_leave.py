@@ -10,7 +10,7 @@ class HRLeave(models.Model):
     # Нови полета за функционалността
     l10n_bg_paid_days_unpaid_leave = fields.Float(
         string='Paid Days',
-        related='holiday_status_id.l10n_bg_paid_days_unpaid_leave',
+        related='work_entry_type_id.l10n_bg_paid_days_unpaid_leave',
         store=True,
         help='Number of days to be paid when the leave type is unpaid. '
              'These days will be deducted from the total unpaid days.',
@@ -33,43 +33,43 @@ class HRLeave(models.Model):
     )
 
     l10n_bg_leave_reason_id = fields.Many2one(
-        related='holiday_status_id.l10n_bg_leave_reason_id',
+        related='work_entry_type_id.l10n_bg_leave_reason_id',
         store=True,
     )
 
-    @api.depends('holiday_status_id', 'holiday_status_id.l10n_bg_allow_paid_days')
+    @api.depends('work_entry_type_id', 'work_entry_type_id.l10n_bg_allow_paid_days')
     def _compute_show_paid_days_fields(self):
         """Определя дали да показва полетата за платени дни"""
         for leave in self:
             leave.l10n_bg_show_paid_days_fields = (
-                leave.holiday_status_id and leave.holiday_status_id.l10n_bg_allow_paid_days
+                leave.work_entry_type_id and leave.work_entry_type_id.l10n_bg_allow_paid_days
             )
 
-    @api.depends('number_of_days', 'l10n_bg_paid_days_unpaid_leave', 'holiday_status_id', 'holiday_status_id.l10n_bg_allow_paid_days')
+    @api.depends('number_of_days', 'l10n_bg_paid_days_unpaid_leave', 'work_entry_type_id', 'work_entry_type_id.l10n_bg_allow_paid_days')
     def _compute_l10n_bg_effective_unpaid_days(self):
         """Изчислява действителните неплатени дни след приспадане на платените"""
         for leave in self:
-            if leave.holiday_status_id and leave.holiday_status_id.l10n_bg_allow_paid_days:
+            if leave.work_entry_type_id and leave.work_entry_type_id.l10n_bg_allow_paid_days:
                 leave.l10n_bg_effective_unpaid_days = max(0.0, leave.number_of_days - leave.l10n_bg_paid_days_unpaid_leave)
             else:
                 leave.l10n_bg_effective_unpaid_days = 0.0
 
-    @api.constrains('l10n_bg_paid_days_unpaid_leave', 'number_of_days', 'holiday_status_id')
+    @api.constrains('l10n_bg_paid_days_unpaid_leave', 'number_of_days', 'work_entry_type_id')
     def _check_l10n_bg_paid_days_unpaid_leave(self):
         """Валидира че платените дни не превишават общия брой дни"""
         for leave in self:
-            if leave.holiday_status_id and leave.holiday_status_id.l10n_bg_allow_paid_days:
+            if leave.work_entry_type_id and leave.work_entry_type_id.l10n_bg_allow_paid_days:
                 if leave.l10n_bg_paid_days_unpaid_leave < 0:
                     raise ValidationError(
                         _('Paid days cannot be negative for leave request "%s".') % leave.name
                     )
 
-    @api.constrains("number_of_days", "holiday_status_id",
+    @api.constrains("number_of_days", "work_entry_type_id",
                     "employee_id", "request_date_from", "state")
     def _check_l10n_bg_max_days(self):
         """Валидира БГ-законовите лимити на отпуска.
 
-        Два независими лимита (виж hr.leave.type):
+        Два независими лимита (виж hr.work.entry.type):
         - l10n_bg_max_days_per_year — годишен таван (по календарна година)
         - l10n_bg_max_days_total — общ таван (lifetime / per event)
 
@@ -78,7 +78,7 @@ class HRLeave(models.Model):
         При нарушение показваме legal_reference към user-а.
         """
         for leave in self:
-            ltype = leave.holiday_status_id
+            ltype = leave.work_entry_type_id
             if not ltype:
                 continue
             if leave.state in ("refuse", "cancel"):
@@ -97,7 +97,7 @@ class HRLeave(models.Model):
                 year_end = leave.request_date_from.replace(month=12, day=31)
                 yearly_used = sum(self.search([
                     ("employee_id", "=", leave.employee_id.id),
-                    ("holiday_status_id", "=", ltype.id),
+                    ("work_entry_type_id", "=", ltype.id),
                     ("state", "in", ("confirm", "validate1", "validate")),
                     ("request_date_from", ">=", year_start),
                     ("request_date_from", "<=", year_end),
@@ -120,7 +120,7 @@ class HRLeave(models.Model):
             if total_cap:
                 total_used = sum(self.search([
                     ("employee_id", "=", leave.employee_id.id),
-                    ("holiday_status_id", "=", ltype.id),
+                    ("work_entry_type_id", "=", ltype.id),
                     ("state", "in", ("confirm", "validate1", "validate")),
                     ("id", "!=", leave.id),
                 ]).mapped("number_of_days") or [0.0])
@@ -137,23 +137,23 @@ class HRLeave(models.Model):
                         ref=ref,
                     ))
 
-    @api.onchange('holiday_status_id')
-    def _onchange_holiday_status_id_paid_days(self):
+    @api.onchange('work_entry_type_id')
+    def _onchange_work_entry_type_id_paid_days(self):
         """Нулира платените дни когато се промени типа отпуска"""
-        if self.holiday_status_id and not self.holiday_status_id.l10n_bg_allow_paid_days:
+        if self.work_entry_type_id and not self.work_entry_type_id.l10n_bg_allow_paid_days:
             self.l10n_bg_paid_days_unpaid_leave = 0.0
 
     @api.onchange('l10n_bg_paid_days_unpaid_leave')
     def _onchange_l10n_bg_paid_days_unpaid_leave(self):
         """Предупреждава потребителя ако платените дни са повече от общия брой"""
         if (self.l10n_bg_paid_days_unpaid_leave and self.number_of_days and
-            self.l10n_bg_paid_days_unpaid_leave != self.holiday_status_id.l10n_bg_paid_days_unpaid_leave):
+            self.l10n_bg_paid_days_unpaid_leave != self.work_entry_type_id.l10n_bg_paid_days_unpaid_leave):
             return {
                 'warning': {
                     'title': _('Warning'),
                     'message': _('Paid days (%.1f) exceed definned leave days (%.1f). '
                                  'Please adjust the values.') %
-                               (self.l10n_bg_paid_days_unpaid_leave, self.holiday_status_id.l10n_bg_paid_days_unpaid_leave)
+                               (self.l10n_bg_paid_days_unpaid_leave, self.work_entry_type_id.l10n_bg_paid_days_unpaid_leave)
                 }
             }
 

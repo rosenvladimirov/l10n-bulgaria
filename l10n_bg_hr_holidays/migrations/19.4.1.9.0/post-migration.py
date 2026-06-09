@@ -54,7 +54,7 @@ def migrate(cr, version):  # noqa: U100
     today = date.today()
     allocations = env["hr.leave.allocation"].with_context(
         active_test=False).search([
-            ("holiday_status_id", "in", type_ids),
+            ("work_entry_type_id", "in", type_ids),
             ("date_to", "=", False),
             ("date_from", "!=", False),
             ("accrual_plan_id", "=", False),
@@ -62,7 +62,7 @@ def migrate(cr, version):  # noqa: U100
     applied = 0
     skipped_past = 0
     for alloc in allocations:
-        years = alloc.holiday_status_id.l10n_bg_carryover_lapse_years
+        years = alloc.work_entry_type_id.l10n_bg_carryover_lapse_years
         computed = date(alloc.date_from.year + years, 12, 31)
         if computed < today:
             # Вече извън давност — не пипаме (ръчен преглед).

@@ -11,7 +11,7 @@ class HrLeaveBalance(models.Model):
     (employee, leave_type) to expose allocated / taken / remaining days.
 
     **Canonical parity (2026-05-21)**: numbers за регулярни allocations
-    съответстват на резултата от `hr.leave.type.get_allocation_data()` —
+    съответстват на резултата от `hr.work.entry.type.get_allocation_data()` —
     canonical Odoo API. Двата източника бяха сравнени и за тестов случай
     Платен Отпуск 22 alloc / 4 taken / 18 remaining → стойностите съвпадат.
 
@@ -36,7 +36,7 @@ class HrLeaveBalance(models.Model):
       `l10n_bg_hr_payroll` за accrual scoping.
 
     **БГ extensions** (l10n_bg_hr_payroll, l10n_bg_hr_payroll_*):
-    - `leave_type_code` (NSSI код от holiday_status_id.l10n_bg_code) — за
+    - `leave_type_code` (NSSI код от work_entry_type_id.l10n_bg_code) — за
       групиране по медицински категории (01-03/08-09 illness, 04 maternity,
       05-07 family care).
     - Future: separate `sick_taken_*`, `maternity_taken_*` агрегати — ще
@@ -55,12 +55,12 @@ class HrLeaveBalance(models.Model):
         help="Employee's company — drives the multi-company record rule and "
              "the company-switcher filtering.")
     leave_type_id = fields.Many2one(
-        "hr.leave.type", string="Leave Type", readonly=True)
+        "hr.work.entry.type", string="Leave Type", readonly=True)
     leave_type_code = fields.Char(
         string="NSSI/KT Code", readonly=True,
-        help="БГ-специфичен код от hr.leave.type.l10n_bg_code (01-17 НОИ + KT*). "
+        help="БГ-специфичен код от hr.work.entry.type.l10n_bg_code (01-17 НОИ + KT*). "
              "За групиране по медицински категории в downstream агрегати.")
-    request_unit = fields.Char(
+    unit_of_measure = fields.Char(
         string="Request Unit", readonly=True,
         help="day / half_day / hour — за конверсия в канонични дни.")
     allocated_days = fields.Float(
@@ -72,7 +72,7 @@ class HrLeaveBalance(models.Model):
     virtual_taken_days = fields.Float(
         string="Virtual Taken Days", readonly=True,
         help="Taken + pending (state IN ('confirm', 'validate1', 'validate')). "
-             "Парира virtual_leaves_taken в hr.leave.type.get_allocation_data.")
+             "Парира virtual_leaves_taken в hr.work.entry.type.get_allocation_data.")
     remaining_days = fields.Float(
         string="Remaining Days", readonly=True,
         help="allocated_days − taken_days (без pending заявки).")
@@ -84,15 +84,15 @@ class HrLeaveBalance(models.Model):
 
     _depends = {
         "hr.leave": [
-            "employee_id", "holiday_status_id", "state",
+            "employee_id", "work_entry_type_id", "state",
             "number_of_days", "request_date_from",
         ],
         "hr.leave.allocation": [
-            "employee_id", "holiday_status_id", "state",
+            "employee_id", "work_entry_type_id", "state",
             "number_of_days", "date_from", "date_to",
         ],
-        "hr.leave.type": [
-            "l10n_bg_code", "request_unit",
+        "hr.work.entry.type": [
+            "l10n_bg_code", "unit_of_measure",
         ],
         "hr.employee": [
             "company_id",
@@ -124,13 +124,13 @@ class HrLeaveBalance(models.Model):
         return SQL("""
             SELECT
                 ROW_NUMBER() OVER (
-                    ORDER BY allocated.employee_id, allocated.holiday_status_id
+                    ORDER BY allocated.employee_id, allocated.work_entry_type_id
                 ) AS id,
                 allocated.employee_id AS employee_id,
                 emp.company_id AS company_id,
-                allocated.holiday_status_id AS leave_type_id,
+                allocated.work_entry_type_id AS leave_type_id,
                 lt.l10n_bg_code AS leave_type_code,
-                lt.request_unit AS request_unit,
+                lt.unit_of_measure AS unit_of_measure,
                 allocated.days AS allocated_days,
                 COALESCE(taken.days_validated, 0) AS taken_days,
                 COALESCE(taken.days_pending, 0) + COALESCE(taken.days_validated, 0)
@@ -147,8 +147,8 @@ class HrLeaveBalance(models.Model):
     def _from(self) -> SQL:
         return SQL(
             "FROM (%s) AS allocated "
-            "LEFT JOIN (%s) AS taken USING (employee_id, holiday_status_id) "
-            "LEFT JOIN hr_leave_type lt ON lt.id = allocated.holiday_status_id "
+            "LEFT JOIN (%s) AS taken USING (employee_id, work_entry_type_id) "
+            "LEFT JOIN hr_work_entry_type lt ON lt.id = allocated.work_entry_type_id "
             "LEFT JOIN hr_employee emp ON emp.id = allocated.employee_id",
             self._allocated_subquery(),
             self._taken_subquery(),
@@ -171,12 +171,12 @@ class HrLeaveBalance(models.Model):
         година ако trябва lifetime view, или за accrual proration).
         """
         return SQL("""
-            SELECT employee_id, holiday_status_id, SUM(number_of_days) AS days
+            SELECT employee_id, work_entry_type_id, SUM(number_of_days) AS days
             FROM hr_leave_allocation
             WHERE state = 'validate'
               AND (date_from IS NULL OR date_from <= CURRENT_DATE)
               AND (date_to   IS NULL OR date_to   >= CURRENT_DATE)
-            GROUP BY employee_id, holiday_status_id
+            GROUP BY employee_id, work_entry_type_id
         """)
 
     @api.model
@@ -203,7 +203,7 @@ class HrLeaveBalance(models.Model):
         return SQL("""
             SELECT
                 employee_id,
-                holiday_status_id,
+                work_entry_type_id,
                 SUM(CASE WHEN state = 'validate'
                     THEN number_of_days ELSE 0 END) AS days_validated,
                 SUM(CASE WHEN state IN ('confirm', 'validate1')
@@ -211,5 +211,5 @@ class HrLeaveBalance(models.Model):
             FROM hr_leave
             WHERE state IN ('validate', 'confirm', 'validate1')
               AND request_date_from <= CURRENT_DATE
-            GROUP BY employee_id, holiday_status_id
+            GROUP BY employee_id, work_entry_type_id
         """)

@@ -7,22 +7,22 @@
     <data noupdate="0">
 
         <!-- Maternity leave (чл. 163 КТ — 410 days) -->
-        <record id="holiday_status_kt_maternity_410" model="hr.leave.type">
+        <record id="holiday_status_kt_maternity_410" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_maternity</field>
         </record>
 
         <!-- Paternity leave (чл. 163, ал. 10 КТ — 15 days) -->
-        <record id="holiday_status_kt_paternity" model="hr.leave.type">
+        <record id="holiday_status_kt_paternity" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_maternity</field>
         </record>
 
         <!-- Childcare leave up to 2 years (чл. 164 КТ) -->
-        <record id="holiday_status_kt_childcare_2y" model="hr.leave.type">
+        <record id="holiday_status_kt_childcare_2y" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_maternity</field>
         </record>
 
         <!-- Breastfeeding / baby care leave (чл. 166 КТ) -->
-        <record id="holiday_status_kt_breastfeeding" model="hr.leave.type">
+        <record id="holiday_status_kt_breastfeeding" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_maternity</field>
         </record>
 

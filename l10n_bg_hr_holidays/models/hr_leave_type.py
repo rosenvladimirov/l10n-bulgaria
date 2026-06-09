@@ -4,7 +4,7 @@ from odoo import api, fields, models, _
 
 
 class HRLeaveType(models.Model):
-    _inherit = 'hr.leave.type'
+    _inherit = 'hr.work.entry.type'
 
     l10n_bg_code = fields.Char(
         string='Code',
@@ -91,11 +91,15 @@ class HRLeaveType(models.Model):
              'art. 160 par. 1 — excluded from DOO base entirely.'
     )
 
-    @api.depends('time_type')
+    @api.depends('count_as')
     def _compute_l10n_bg_allow_paid_days(self):
-        """Compute whether paid days are allowed for this leave type"""
+        """Compute whether paid days are allowed for this leave type.
+
+        19.4 (master): hr.leave.type merged into hr.work.entry.type; the old
+        time_type=='leave' is now count_as=='absence' (vs 'working_time').
+        """
         for leave_type in self:
-            leave_type.l10n_bg_allow_paid_days = leave_type.time_type == 'leave'
+            leave_type.l10n_bg_allow_paid_days = leave_type.count_as == 'absence'
 
     @api.depends('l10n_bg_code', 'name')
     def _compute_display_name(self):

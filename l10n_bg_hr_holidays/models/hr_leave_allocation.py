@@ -35,7 +35,7 @@ class HrLeaveAllocation(models.Model):
         Не презаписва вече зададен date_to и пропуска accrual планове
         (те управляват собствения си date_to)."""
         self.ensure_one()
-        years = self.holiday_status_id.l10n_bg_carryover_lapse_years
+        years = self.work_entry_type_id.l10n_bg_carryover_lapse_years
         if not years or self.date_to or not self.date_from \
                 or self.accrual_plan_id:
             return False
@@ -59,7 +59,7 @@ class HrLeaveAllocation(models.Model):
         res = super().write(vals)
         # Преизчисли само ако се е сменил гранта/типа, а date_to не е пипан.
         if ('date_to' not in vals
-                and ({'date_from', 'holiday_status_id'} & set(vals))):
+                and ({'date_from', 'work_entry_type_id'} & set(vals))):
             self._l10n_bg_apply_carryover_lapse()
         return res
 

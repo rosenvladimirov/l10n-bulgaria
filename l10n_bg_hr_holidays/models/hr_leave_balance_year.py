@@ -38,10 +38,10 @@ class HrLeaveBalanceYear(models.Model):
         help="Employee's company — drives the multi-company record rule and "
              "the company-switcher filtering.")
     leave_type_id = fields.Many2one(
-        "hr.leave.type", string="Leave Type", readonly=True)
+        "hr.work.entry.type", string="Leave Type", readonly=True)
     leave_type_code = fields.Char(
         string="NSSI/KT Code", readonly=True,
-        help="БГ-специфичен код от hr.leave.type.l10n_bg_code.")
+        help="БГ-специфичен код от hr.work.entry.type.l10n_bg_code.")
     year = fields.Integer(
         string="Year", readonly=True,
         help="Календарна година: за гранти от allocation.date_from, за ползвания "
@@ -59,14 +59,14 @@ class HrLeaveBalanceYear(models.Model):
 
     _depends = {
         "hr.leave": [
-            "employee_id", "holiday_status_id", "state",
+            "employee_id", "work_entry_type_id", "state",
             "number_of_days", "request_date_from",
         ],
         "hr.leave.allocation": [
-            "employee_id", "holiday_status_id", "state",
+            "employee_id", "work_entry_type_id", "state",
             "number_of_days", "date_from",
         ],
-        "hr.leave.type": [
+        "hr.work.entry.type": [
             "l10n_bg_code",
         ],
         "hr.employee": [
@@ -91,11 +91,11 @@ class HrLeaveBalanceYear(models.Model):
         return SQL("""
             SELECT
                 ROW_NUMBER() OVER (
-                    ORDER BY employee_id, holiday_status_id, year
+                    ORDER BY employee_id, work_entry_type_id, year
                 ) AS id,
                 employee_id AS employee_id,
                 emp.company_id AS company_id,
-                holiday_status_id AS leave_type_id,
+                work_entry_type_id AS leave_type_id,
                 lt.l10n_bg_code AS leave_type_code,
                 year AS year,
                 COALESCE(allocated.days, 0) AS allocated_days,
@@ -109,8 +109,8 @@ class HrLeaveBalanceYear(models.Model):
         return SQL(
             "FROM (%s) AS allocated "
             "FULL OUTER JOIN (%s) AS taken "
-            "    USING (employee_id, holiday_status_id, year) "
-            "LEFT JOIN hr_leave_type lt ON lt.id = holiday_status_id "
+            "    USING (employee_id, work_entry_type_id, year) "
+            "LEFT JOIN hr_work_entry_type lt ON lt.id = work_entry_type_id "
             "LEFT JOIN hr_employee emp ON emp.id = employee_id",
             self._allocated_subquery(),
             self._taken_subquery(),
@@ -122,13 +122,13 @@ class HrLeaveBalanceYear(models.Model):
         return SQL("""
             SELECT
                 employee_id,
-                holiday_status_id,
+                work_entry_type_id,
                 EXTRACT(YEAR FROM date_from)::int AS year,
                 SUM(number_of_days) AS days
             FROM hr_leave_allocation
             WHERE state = 'validate'
               AND date_from IS NOT NULL
-            GROUP BY employee_id, holiday_status_id, EXTRACT(YEAR FROM date_from)
+            GROUP BY employee_id, work_entry_type_id, EXTRACT(YEAR FROM date_from)
         """)
 
     @api.model
@@ -137,13 +137,13 @@ class HrLeaveBalanceYear(models.Model):
         return SQL("""
             SELECT
                 employee_id,
-                holiday_status_id,
+                work_entry_type_id,
                 EXTRACT(YEAR FROM request_date_from)::int AS year,
                 SUM(CASE WHEN state = 'validate'
                     THEN number_of_days ELSE 0 END) AS days_validated
             FROM hr_leave
             WHERE state IN ('validate', 'confirm', 'validate1')
               AND request_date_from IS NOT NULL
-            GROUP BY employee_id, holiday_status_id,
+            GROUP BY employee_id, work_entry_type_id,
                      EXTRACT(YEAR FROM request_date_from)
         """)

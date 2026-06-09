@@ -78,6 +78,14 @@ class HrLeaveBalanceYear(models.Model):
     def _table_query(self) -> SQL:
         return SQL("%s %s", self._select(), self._from())
 
+    def init(self):
+        """Explicit (re)creation of the SQL view — see hr.leave.balance.init."""
+        self.env.cr.execute(SQL(
+            "DROP VIEW IF EXISTS %s CASCADE", SQL.identifier(self._table)))
+        self.env.cr.execute(SQL(
+            "CREATE VIEW %s AS (%s)",
+            SQL.identifier(self._table), self._table_query))
+
     @api.model
     def _select(self) -> SQL:
         return SQL("""

@@ -103,6 +103,22 @@ class HrLeaveBalance(models.Model):
     def _table_query(self) -> SQL:
         return SQL("%s %s", self._select(), self._from())
 
+    def init(self):
+        """Explicit (re)creation of the SQL view.
+
+        Odoo's automatic `_table_query` view management is unreliable across
+        installs/upgrades (it refuses to recreate an existing view — logs
+        "disabling automatic schema management" — and a column-set change can
+        otherwise break a CREATE OR REPLACE). DROP + CREATE here guarantees the
+        view always matches the current `_select()`/`_from()`, on both `-i` and
+        `-u`. Runtime-verified 2026-06-09 (виж payroll-trackers gate).
+        """
+        self.env.cr.execute(SQL(
+            "DROP VIEW IF EXISTS %s CASCADE", SQL.identifier(self._table)))
+        self.env.cr.execute(SQL(
+            "CREATE VIEW %s AS (%s)",
+            SQL.identifier(self._table), self._table_query))
+
     @api.model
     def _select(self) -> SQL:
         return SQL("""

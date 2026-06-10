@@ -112,3 +112,13 @@ company forms.
 - Cross-repo map: `claude.ai/L10N_BG_ECOSYSTEM.md`
 - `readme/` — DESCRIPTION / CONTEXT / CONFIGURE source notes
 - Downstream consumers: virtually every `l10n_bg_*` module
+
+## License validation & data (important)
+
+On installation this module registers the installation for **license validation**:
+a minimal record is sent to the vendor server — the **UIC (ЕИК) and name of the MAIN
+company**, a database identifier, and which paid (Enterprise) modules are installed.
+This is used solely to verify license entitlements for the paid modules. Additional
+companies in a multi-company database are NOT sent.
+
+Opt-out: system parameter `l10n_bg.register_enabled = 0`.

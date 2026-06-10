@@ -80,6 +80,8 @@
                                 confirm="Сигурни ли сте, че искате да премахнете този ключ?"/>
                         <button string="Експортирай ключ" name="export_key" type="object"
                                 class="btn-secondary"/>
+                        <button string="Import from ZIP" name="import_keys" type="object"
+                                class="btn-primary"/>
 
                         <!-- Други -->
                         <button string="Обнови" name="refresh_keys" type="object"

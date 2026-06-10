@@ -7,7 +7,7 @@
         <record id="holiday_status_nssi_01" model="hr.leave.type">
             <field name="name">Occupational Disease</field>
             <field name="l10n_bg_code">01</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_01"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -22,7 +22,7 @@
         <record id="holiday_status_nssi_02" model="hr.leave.type">
             <field name="name">Work Accident</field>
             <field name="l10n_bg_code">02</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_02"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -37,7 +37,7 @@
         <record id="holiday_status_nssi_03" model="hr.leave.type">
             <field name="name">Common Illness</field>
             <field name="l10n_bg_code">03</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_03"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -52,7 +52,7 @@
         <record id="holiday_status_nssi_04" model="hr.leave.type">
             <field name="name">Maternity - Pregnancy and Childbirth</field>
             <field name="l10n_bg_code">04</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_04"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -67,7 +67,7 @@
         <record id="holiday_status_nssi_05" model="hr.leave.type">
             <field name="name">Caring for Sick Child (under 2, on sick leave)</field>
             <field name="l10n_bg_code">05</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_05"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -81,7 +81,7 @@
         <record id="holiday_status_nssi_06" model="hr.leave.type">
             <field name="name">Quarantine</field>
             <field name="l10n_bg_code">06</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_06"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -97,7 +97,7 @@
         <record id="holiday_status_nssi_07" model="hr.leave.type">
             <field name="name">Accompanying a Sick Family Member (Adult, 18+)</field>
             <field name="l10n_bg_code">07</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_07"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -112,7 +112,7 @@
         <record id="holiday_status_nssi_08" model="hr.leave.type">
             <field name="name">Sanatorium or Spa Treatment</field>
             <field name="l10n_bg_code">08</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_08"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -126,7 +126,7 @@
         <record id="holiday_status_nssi_09" model="hr.leave.type">
             <field name="name">Recovery after Illness</field>
             <field name="l10n_bg_code">09</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_09"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -141,7 +141,7 @@
         <record id="holiday_status_nssi_10" model="hr.leave.type">
             <field name="name">Epidemiological Isolation</field>
             <field name="l10n_bg_code">10</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_10"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -156,7 +156,7 @@
         <record id="holiday_status_nssi_11" model="hr.leave.type">
             <field name="name">Medical Examinations and Tests</field>
             <field name="l10n_bg_code">11</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_11"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -170,7 +170,7 @@
         <record id="holiday_status_nssi_12" model="hr.leave.type">
             <field name="name">Organ Donation</field>
             <field name="l10n_bg_code">12</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_12"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -185,7 +185,7 @@
         <record id="holiday_status_nssi_13" model="hr.leave.type">
             <field name="name">Reintegration after Work Accident</field>
             <field name="l10n_bg_code">13</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_13"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -200,7 +200,7 @@
         <record id="holiday_status_nssi_14" model="hr.leave.type">
             <field name="name">Temporary Reassignment for Medical Reasons</field>
             <field name="l10n_bg_code">14</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_14"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -215,7 +215,7 @@
         <record id="holiday_status_nssi_15" model="hr.leave.type">
             <field name="name">Adoption Leave</field>
             <field name="l10n_bg_code">15</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_15"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -229,7 +229,7 @@
         <record id="holiday_status_nssi_16" model="hr.leave.type">
             <field name="name">In-vitro Procedures</field>
             <field name="l10n_bg_code">16</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_16"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -244,7 +244,7 @@
         <record id="holiday_status_nssi_17" model="hr.leave.type">
             <field name="name">Mental Health Leave</field>
             <field name="l10n_bg_code">17</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_17"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -259,7 +259,7 @@
         <record id="holiday_status_nssi_18" model="hr.leave.type">
             <field name="name">Non-work (Domestic) Accident</field>
             <field name="l10n_bg_code">18</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_18"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -275,7 +275,7 @@
         <record id="holiday_status_nssi_19" model="hr.leave.type">
             <field name="name">Caring for a Sick Child (under 18)</field>
             <field name="l10n_bg_code">19</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_19"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -295,7 +295,7 @@
             <field name="name">Annual Paid Leave</field>
             <field name="l10n_bg_code">KT155</field>
             <field name="l10n_bg_carryover_lapse_years">2</field>
-            <field name="requires_allocation">yes</field>
+            <field name="requires_allocation" eval="True"/>
             <field name="allocation_validation_type">hr</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -311,7 +311,7 @@
             <field name="name">Additional Leave - Hazardous Conditions</field>
             <field name="l10n_bg_code">KT156A</field>
             <field name="l10n_bg_carryover_lapse_years">2</field>
-            <field name="requires_allocation">yes</field>
+            <field name="requires_allocation" eval="True"/>
             <field name="allocation_validation_type">hr</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -327,7 +327,7 @@
             <field name="name">Additional Leave - Irregular Working Hours</field>
             <field name="l10n_bg_code">KT156B</field>
             <field name="l10n_bg_carryover_lapse_years">2</field>
-            <field name="requires_allocation">yes</field>
+            <field name="requires_allocation" eval="True"/>
             <field name="allocation_validation_type">hr</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -343,7 +343,7 @@
             <field name="name">Additional Leave - Reduced Work Capacity</field>
             <field name="l10n_bg_code">KT156C</field>
             <field name="l10n_bg_carryover_lapse_years">2</field>
-            <field name="requires_allocation">yes</field>
+            <field name="requires_allocation" eval="True"/>
             <field name="allocation_validation_type">hr</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -362,7 +362,7 @@
         <record id="holiday_status_kt_marriage" model="hr.leave.type">
             <field name="name">Marriage Leave</field>
             <field name="l10n_bg_code">KT157-1</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -375,7 +375,7 @@
         <record id="holiday_status_kt_blood_donation" model="hr.leave.type">
             <field name="name">Blood Donation Leave</field>
             <field name="l10n_bg_code">KT157-2</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -388,7 +388,7 @@
         <record id="holiday_status_kt_bereavement" model="hr.leave.type">
             <field name="name">Bereavement Leave</field>
             <field name="l10n_bg_code">KT157-3</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -401,7 +401,7 @@
         <record id="holiday_status_kt_court" model="hr.leave.type">
             <field name="name">Court Summons Leave</field>
             <field name="l10n_bg_code">KT157-4</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -414,7 +414,7 @@
         <record id="holiday_status_kt_public_duty" model="hr.leave.type">
             <field name="name">Public Office / Jury Duty Leave</field>
             <field name="l10n_bg_code">KT157-5</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -427,7 +427,7 @@
         <record id="holiday_status_kt_job_search" model="hr.leave.type">
             <field name="name">Job Search Leave</field>
             <field name="l10n_bg_code">KT157-6</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">False</field>
@@ -440,7 +440,7 @@
         <record id="holiday_status_kt_disaster_training" model="hr.leave.type">
             <field name="name">Disaster Response Training Leave</field>
             <field name="l10n_bg_code">KT157-7</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -453,7 +453,7 @@
         <record id="holiday_status_kt_pregnancy_checkup" model="hr.leave.type">
             <field name="name">Pregnancy Medical Check-ups</field>
             <field name="l10n_bg_code">KT157A-2</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -470,7 +470,7 @@
         <record id="holiday_status_kt_reserve_service" model="hr.leave.type">
             <field name="name">Voluntary Reserve Military Service</field>
             <field name="l10n_bg_code">KT158</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -483,7 +483,7 @@
         <record id="holiday_status_kt_unpaid" model="hr.leave.type">
             <field name="name">Unpaid Leave</field>
             <field name="l10n_bg_code">KT160</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="unpaid">True</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -498,7 +498,7 @@
         <record id="holiday_status_kt_professional_paid" model="hr.leave.type">
             <field name="name">Professional / Creative Leave (Paid)</field>
             <field name="l10n_bg_code">KT161A</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -512,7 +512,7 @@
         <record id="holiday_status_kt_professional_unpaid" model="hr.leave.type">
             <field name="name">Professional / Creative Leave (Unpaid)</field>
             <field name="l10n_bg_code">KT161B</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="unpaid">True</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -531,7 +531,7 @@
         <record id="holiday_status_kt_maternity_410" model="hr.leave.type">
             <field name="name">Maternity Leave (410 days)</field>
             <field name="l10n_bg_code">KT163</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -544,7 +544,7 @@
         <record id="holiday_status_kt_childcare_2y" model="hr.leave.type">
             <field name="name">Childcare Leave (up to 2 years)</field>
             <field name="l10n_bg_code">KT164</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -557,7 +557,7 @@
         <record id="holiday_status_kt_paternity" model="hr.leave.type">
             <field name="name">Paternity Leave (15 days)</field>
             <field name="l10n_bg_code">KT163-10</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -570,7 +570,7 @@
         <record id="holiday_status_kt_breastfeeding" model="hr.leave.type">
             <field name="name">Breastfeeding / Baby Care Leave</field>
             <field name="l10n_bg_code">KT166</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -583,7 +583,7 @@
         <record id="holiday_status_kt_parent_illness" model="hr.leave.type">
             <field name="name">Leave for Death/Serious Illness of Parent</field>
             <field name="l10n_bg_code">KT167</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -596,7 +596,7 @@
         <record id="holiday_status_kt_childcare_8y" model="hr.leave.type">
             <field name="name">Unpaid Childcare Leave (up to 8 years)</field>
             <field name="l10n_bg_code">KT167A</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="unpaid">True</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -610,7 +610,7 @@
         <record id="holiday_status_kt_multiple_children" model="hr.leave.type">
             <field name="name">Leave for Multiple Children</field>
             <field name="l10n_bg_code">KT168</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -627,7 +627,7 @@
         <record id="holiday_status_kt_education_annual" model="hr.leave.type">
             <field name="name">Educational Leave (25 days/year)</field>
             <field name="l10n_bg_code">KT169</field>
-            <field name="requires_allocation">yes</field>
+            <field name="requires_allocation" eval="True"/>
             <field name="allocation_validation_type">hr</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -641,7 +641,7 @@
         <record id="holiday_status_kt_final_exam" model="hr.leave.type">
             <field name="name">Final Exam Leave (30 days)</field>
             <field name="l10n_bg_code">KT170</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -654,7 +654,7 @@
         <record id="holiday_status_kt_phd_research" model="hr.leave.type">
             <field name="name">PhD Research Leave (6 months)</field>
             <field name="l10n_bg_code">KT171A</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
@@ -667,7 +667,7 @@
         <record id="holiday_status_kt_phd_defense" model="hr.leave.type">
             <field name="name">PhD Defense Leave (12 months)</field>
             <field name="l10n_bg_code">KT171B</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>

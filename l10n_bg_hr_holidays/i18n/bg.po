@@ -18,9 +18,9 @@ msgstr ""
 "X-Generator: Poedit 3.8\n"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_07
-msgid "Accompanying a Sick Family Member"
-msgstr "Придружаване на болен член на семейството"
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_07
+msgid "Accompanying a Sick Family Member (Adult, 18+)"
+msgstr "Придружаване на болен член на семейството (над 18 г.)"
 
 #. module: l10n_bg_hr_holidays
 #: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_07
@@ -29,25 +29,25 @@ msgid "Accompanying a sick family member"
 msgstr "Придружаване на болен член на семейството"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_hazardous
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_hazardous
 #, fuzzy
 msgid "Additional Leave - Hazardous Conditions"
 msgstr "Допълнителен отпуск - опасни условия"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_irregular
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_irregular
 #, fuzzy
 msgid "Additional Leave - Irregular Working Hours"
 msgstr "Допълнителен отпуск - нередовно работно време"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_disabled
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_disabled
 #, fuzzy
 msgid "Additional Leave - Reduced Work Capacity"
 msgstr "Допълнителен отпуск - намалена работоспособност"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_15
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_15
 #, fuzzy
 msgid "Adoption Leave"
 msgstr "Отпуск при осиновяване"
@@ -58,13 +58,13 @@ msgid "Adoption leave"
 msgstr "Отпуск при осиновяване"
 
 #. module: l10n_bg_hr_holidays
-#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_leave_type__l10n_bg_allow_paid_days
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_work_entry_type__l10n_bg_allow_paid_days
 #, fuzzy
 msgid "Allow Paid Days"
 msgstr "Позволете платени дни"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_annual
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_annual
 #, fuzzy
 msgid "Annual Paid Leave"
 msgstr "Годишен платен отпуск"
@@ -82,19 +82,19 @@ msgid "BG Configuration leaves"
 msgstr "Конфигурация BG оставя"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_bereavement
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_bereavement
 #, fuzzy
 msgid "Bereavement Leave"
 msgstr "Отпуск при загуба на близък"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_blood_donation
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_blood_donation
 #, fuzzy
 msgid "Blood Donation Leave"
 msgstr "Отпуск за кръводаряване"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_breastfeeding
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_breastfeeding
 #, fuzzy
 msgid "Breastfeeding / Baby Care Leave"
 msgstr "Отпуск за кърмене / грижи за бебето"
@@ -106,31 +106,39 @@ msgid "Check this if this leave type is unpaid by default"
 msgstr "Поставете отметка, ако този вид отпуск е неплатен по подразбиране"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_childcare_2y
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_childcare_2y
 #, fuzzy
 msgid "Childcare Leave (up to 2 years)"
 msgstr "Отпуск за гледане на дете (до 2 години)"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_05
-#, fuzzy
-msgid "Childcare up to 2 Years"
-msgstr "Грижи за деца до 2 години"
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_05
+msgid "Caring for Sick Child (under 2, on sick leave)"
+msgstr "Гледане на болно дете до 2 г. (болничен лист)"
 
 #. module: l10n_bg_hr_holidays
 #: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_05
-#, fuzzy
-msgid "Childcare up to 2 years"
-msgstr "Грижи за деца до 2 години"
+msgid "Caring for sick child (under 2)"
+msgstr "Гледане на болно дете до 2 г."
 
 #. module: l10n_bg_hr_holidays
-#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_leave_type__l10n_bg_code
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_19
+msgid "Caring for a Sick Child (under 18)"
+msgstr "Гледане на болно дете до 18 г."
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_19
+msgid "Caring for a sick child (under 18)"
+msgstr "Гледане на болно дете до 18 г."
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_work_entry_type__l10n_bg_code
 #: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_nssi_leave_reason__code
 msgid "Code"
 msgstr "Код"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_03
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_03
 msgid "Common Illness"
 msgstr "Общо заболяване"
 
@@ -141,7 +149,7 @@ msgid "Common illness"
 msgstr "Общо заболяване"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_court
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_court
 #, fuzzy
 msgid "Court Summons Leave"
 msgstr "Съдебни призовки"
@@ -163,7 +171,7 @@ msgid "Created on"
 msgstr "Създаден на"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_disaster_training
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_disaster_training
 #, fuzzy
 msgid "Disaster Response Training Leave"
 msgstr "Отпуск за обучение за реакция при бедствия"
@@ -174,7 +182,7 @@ msgid "Display Name"
 msgstr "Име за показване"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_education_annual
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_education_annual
 #, fuzzy
 msgid "Educational Leave (25 days/year)"
 msgstr "Отпуск за обучение (25 дни/година)"
@@ -188,7 +196,7 @@ msgid "Effective Unpaid Days"
 msgstr "Ефективни неплатени дни"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_10
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_10
 #, fuzzy
 msgid "Epidemiological Isolation"
 msgstr "Епидемиологична изолация"
@@ -200,7 +208,7 @@ msgid "Epidemiological isolation"
 msgstr "Епидемиологична изолация"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_final_exam
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_final_exam
 #, fuzzy
 msgid "Final Exam Leave (30 days)"
 msgstr "Отпуск за последния изпит (30 дни)"
@@ -211,7 +219,7 @@ msgid "ID"
 msgstr "Номер (ID)"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_16
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_16
 #, fuzzy
 msgid "In-vitro Procedures"
 msgstr "Процедури ин витро"
@@ -223,13 +231,13 @@ msgid "In-vitro procedures"
 msgstr "Ин витро процедури"
 
 #. module: l10n_bg_hr_holidays
-#: model:ir.model.fields,help:l10n_bg_hr_holidays.field_hr_leave_type__l10n_bg_code
+#: model:ir.model.fields,help:l10n_bg_hr_holidays.field_hr_work_entry_type__l10n_bg_code
 #, fuzzy
 msgid "Internal code for the leave type (e.g., KT155, NSSI01)"
 msgstr "Вътрешен код за вида отпуск (напр. KT155, NSSI01)"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_job_search
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_job_search
 #, fuzzy
 msgid "Job Search Leave"
 msgstr "Отпуск за търсене на работа"
@@ -246,36 +254,36 @@ msgstr "Последно актуализиран на"
 
 #. module: l10n_bg_hr_holidays
 #: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_leave__l10n_bg_leave_reason_id
-#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_leave_type__l10n_bg_leave_reason_id
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_work_entry_type__l10n_bg_leave_reason_id
 msgid "Leave Reason"
 msgstr "Причина за отпуска"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_parent_illness
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_parent_illness
 #, fuzzy
 msgid "Leave for Death/Serious Illness of Parent"
 msgstr "Отпуск при смърт/тежко заболяване на родител"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_multiple_children
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_multiple_children
 #, fuzzy
 msgid "Leave for Multiple Children"
 msgstr "Отпуск за няколко деца"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_marriage
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_marriage
 #, fuzzy
 msgid "Marriage Leave"
 msgstr "Отпуск за брак"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_04
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_04
 #, fuzzy
 msgid "Maternity - Pregnancy and Childbirth"
 msgstr "Майчинство - Бременност и раждане"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_maternity_410
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_maternity_410
 #, fuzzy
 msgid "Maternity Leave (410 days)"
 msgstr "Отпуск по майчинство (410 дни)"
@@ -287,7 +295,7 @@ msgid "Maternity – pregnancy and childbirth"
 msgstr "Майчинство - бременност и раждане"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_11
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_11
 #, fuzzy
 msgid "Medical Examinations and Tests"
 msgstr "Медицински прегледи и тестове"
@@ -299,7 +307,7 @@ msgid "Medical examinations and tests"
 msgstr "Медицински прегледи и тестове"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_17
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_17
 #, fuzzy
 msgid "Mental Health Leave"
 msgstr "Отпуск за психично здраве"
@@ -309,6 +317,16 @@ msgstr "Отпуск за психично здраве"
 #, fuzzy
 msgid "Mental health leave"
 msgstr "Отпуск за психично здраве"
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_18
+msgid "Non-work (Domestic) Accident"
+msgstr "Нетрудова (битова) злополука"
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_18
+msgid "Non-work (domestic) accident"
+msgstr "Нетрудова (битова) злополука"
 
 #. module: l10n_bg_hr_holidays
 #: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.view_nssi_leave_reason_form
@@ -331,7 +349,7 @@ msgstr "NSSI - причини за напускане (Приложение №9
 
 #. module: l10n_bg_hr_holidays
 #: model:ir.model.fields,help:l10n_bg_hr_holidays.field_hr_leave__l10n_bg_paid_days_unpaid_leave
-#: model:ir.model.fields,help:l10n_bg_hr_holidays.field_hr_leave_type__l10n_bg_paid_days_unpaid_leave
+#: model:ir.model.fields,help:l10n_bg_hr_holidays.field_hr_work_entry_type__l10n_bg_paid_days_unpaid_leave
 #, fuzzy
 msgid ""
 "Number of days to be paid when the leave type is unpaid. These days will be "
@@ -341,7 +359,7 @@ msgstr ""
 "неплатен. Тези дни ще бъдат приспаднати от общия брой неплатени дни."
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_01
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_01
 #, fuzzy
 msgid "Occupational Disease"
 msgstr "Професионално заболяване"
@@ -359,7 +377,7 @@ msgid "Official list used in Appendix №9 to NSSI."
 msgstr "Официален списък, използван в Приложение № 9 към NSSI."
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_12
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_12
 #, fuzzy
 msgid "Organ Donation"
 msgstr "Донорство на органи"
@@ -372,7 +390,7 @@ msgstr "Даряване на органи"
 
 #. module: l10n_bg_hr_holidays
 #: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_leave__l10n_bg_paid_days_unpaid_leave
-#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_leave_type__l10n_bg_paid_days_unpaid_leave
+#: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_work_entry_type__l10n_bg_paid_days_unpaid_leave
 #: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_view_form_paid_days
 #: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_view_list_paid_days
 #, fuzzy
@@ -398,49 +416,49 @@ msgstr ""
 "Платените дни не могат да бъдат отрицателни за заявка за отпуск \"%s\"."
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_paternity
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_paternity
 #, fuzzy
 msgid "Paternity Leave (15 days)"
 msgstr "Отпуск по бащинство (15 дни)"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_phd_defense
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_phd_defense
 #, fuzzy
 msgid "PhD Defense Leave (12 months)"
 msgstr "Отпуск за защита на докторска дисертация (12 месеца)"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_phd_research
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_phd_research
 #, fuzzy
 msgid "PhD Research Leave (6 months)"
 msgstr "Докторски отпуск за научни изследвания (6 месеца)"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_pregnancy_checkup
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_pregnancy_checkup
 #, fuzzy
 msgid "Pregnancy Medical Check-ups"
 msgstr "Медицински прегледи по време на бременност"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_professional_paid
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_professional_paid
 #, fuzzy
 msgid "Professional / Creative Leave (Paid)"
 msgstr "Професионален/творчески отпуск (платен)"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_professional_unpaid
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_professional_unpaid
 #, fuzzy
 msgid "Professional / Creative Leave (Unpaid)"
 msgstr "Професионален / творчески отпуск (неплатен)"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_public_duty
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_public_duty
 #, fuzzy
 msgid "Public Office / Jury Duty Leave"
 msgstr "Отпуск за заемане на публична длъжност/отпуск за работа като жури"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_06
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_06
 #: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_06
 msgid "Quarantine"
 msgstr "Карантина"
@@ -451,7 +469,7 @@ msgid "Reason"
 msgstr "Причина"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_09
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_09
 #, fuzzy
 msgid "Recovery after Illness"
 msgstr "Възстановяване след заболяване"
@@ -463,7 +481,7 @@ msgid "Recovery after illness"
 msgstr "Възстановяване след заболяване"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_13
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_13
 #, fuzzy
 msgid "Reintegration after Work Accident"
 msgstr "Реинтеграция след трудова злополука"
@@ -475,7 +493,7 @@ msgid "Reintegration after work accident"
 msgstr "Реинтеграция след трудова злополука"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_08
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_08
 #, fuzzy
 msgid "Sanatorium or Spa Treatment"
 msgstr "Санаториум или СПА лечение"
@@ -499,7 +517,7 @@ msgid "Technical field to control visibility of paid days fields"
 msgstr "Техническо поле за контрол на видимостта на полетата за платени дни"
 
 #. module: l10n_bg_hr_holidays
-#: model:ir.model.fields,help:l10n_bg_hr_holidays.field_hr_leave_type__l10n_bg_allow_paid_days
+#: model:ir.model.fields,help:l10n_bg_hr_holidays.field_hr_work_entry_type__l10n_bg_allow_paid_days
 #, fuzzy
 msgid ""
 "Technical field to determine if paid days can be specified for this leave "
@@ -509,7 +527,7 @@ msgstr ""
 "определят платени дни"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_14
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_14
 #, fuzzy
 msgid "Temporary Reassignment for Medical Reasons"
 msgstr "Временно преназначаване по медицински причини"
@@ -544,19 +562,19 @@ msgstr ""
 "Общ брой неплатени дни минус платените дни (само за видовете неплатен отпуск)"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_childcare_8y
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_childcare_8y
 #, fuzzy
 msgid "Unpaid Childcare Leave (up to 8 years)"
 msgstr "Неплатен отпуск за гледане на дете (до 8 години)"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_unpaid
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_unpaid
 #, fuzzy
 msgid "Unpaid Leave"
 msgstr "Неплатен отпуск"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_reserve_service
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_reserve_service
 #, fuzzy
 msgid "Voluntary Reserve Military Service"
 msgstr "Доброволна военна служба в резерв"
@@ -568,7 +586,7 @@ msgid "Warning"
 msgstr "Внимание"
 
 #. module: l10n_bg_hr_holidays
-#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_02
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_nssi_02
 #, fuzzy
 msgid "Work Accident"
 msgstr "Трудова злополука"

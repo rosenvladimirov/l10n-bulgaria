@@ -26,5 +26,123 @@
             <field name="l10n_bg_doo_treatment">nssi_maternity</field>
         </record>
 
+        <!-- ===================================================
+             Трудова злополука / професионална болест —
+             НОИ 90% (КСО чл. 41), без изискване за осиг. стаж
+             =================================================== -->
+
+        <!-- NSSI 01: Професионална болест -->
+        <record id="holiday_status_nssi_01" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_work_accident</field>
+        </record>
+
+        <!-- NSSI 02: Трудова злополука -->
+        <record id="holiday_status_nssi_02" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_work_accident</field>
+        </record>
+
+        <!-- NSSI 13: Реинтеграция след трудова злополука -->
+        <record id="holiday_status_nssi_13" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_work_accident</field>
+        </record>
+
+        <!-- ===================================================
+             Общо заболяване и приравнени — 3 раб. дни работодател
+             70% (КСО чл. 40, ал. 5), после НОИ 80%
+             =================================================== -->
+
+        <!-- NSSI 03: Общо заболяване -->
+        <record id="holiday_status_nssi_03" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_sick</field>
+        </record>
+
+        <!-- NSSI 06: Карантина -->
+        <record id="holiday_status_nssi_06" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_sick</field>
+        </record>
+
+        <!-- NSSI 07: Придружаване на болен пълнолетен (КСО чл. 45, ал. 1, т. 2) -->
+        <record id="holiday_status_nssi_07" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_sick</field>
+        </record>
+
+        <!-- NSSI 08: Санаторно-курортно лечение -->
+        <record id="holiday_status_nssi_08" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_sick</field>
+        </record>
+
+        <!-- NSSI 09: Възстановяване след заболяване -->
+        <record id="holiday_status_nssi_09" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_sick</field>
+        </record>
+
+        <!-- NSSI 10: Епидемиологична изолация -->
+        <record id="holiday_status_nssi_10" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_sick</field>
+        </record>
+
+        <!-- NSSI 11: Медицински прегледи и изследвания -->
+        <record id="holiday_status_nssi_11" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_sick</field>
+        </record>
+
+        <!-- NSSI 12: Донорство на органи -->
+        <record id="holiday_status_nssi_12" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_sick</field>
+        </record>
+
+        <!-- NSSI 14: Трудоустрояване по медицински причини -->
+        <record id="holiday_status_nssi_14" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_sick</field>
+        </record>
+
+        <!-- NSSI 16: Ин-витро процедури (КСО чл. 40, ал. 3) -->
+        <record id="holiday_status_nssi_16" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_sick</field>
+        </record>
+
+        <!-- NSSI 17: Психично здраве -->
+        <record id="holiday_status_nssi_17" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_sick</field>
+        </record>
+
+        <!-- NSSI 18: Нетрудова (битова) злополука (КСО чл. 40, ал. 1) -->
+        <record id="holiday_status_nssi_18" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_sick</field>
+        </record>
+
+        <!-- NSSI 19: Гледане на болно дете до 18 г. (КСО чл. 45, ал. 1, т. 1) -->
+        <record id="holiday_status_nssi_19" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_sick</field>
+        </record>
+
+        <!-- ===================================================
+             Майчинство по П9 кодове — НОИ финансирани (КСО чл. 50/53)
+             =================================================== -->
+
+        <!-- NSSI 04: Бременност и раждане (КСО чл. 50) -->
+        <record id="holiday_status_nssi_04" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_maternity</field>
+        </record>
+
+        <!-- NSSI 05: Гледане на болно дете до 2 г. (КСО чл. 53) -->
+        <record id="holiday_status_nssi_05" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_maternity</field>
+        </record>
+
+        <!-- NSSI 15: Осиновяване (КСО чл. 53в) -->
+        <record id="holiday_status_nssi_15" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">nssi_maternity</field>
+        </record>
+
+        <!-- ===================================================
+             Неплатен отпуск — над 30 раб. дни/год. извън ДОО база
+             (КТ чл. 160, КСО чл. 9, ал. 2, т. 3)
+             =================================================== -->
+
+        <record id="holiday_status_kt_unpaid" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">unpaid_no_doo</field>
+        </record>
+
     </data>
 </odoo>

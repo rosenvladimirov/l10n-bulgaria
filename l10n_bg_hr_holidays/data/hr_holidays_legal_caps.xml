@@ -33,10 +33,19 @@
              (до навършване на 2 г.) и общата норма 6 месеца per year.
              Оставяме без cap — controller-ите проверяват по възраст на детето. -->
 
-        <!-- NSSI 07: Гледане на болен член от семейството — 10 раб. дни/година -->
+        <!-- NSSI 07: Придружаване на болен пълнолетен член от семейството —
+             10 раб. дни/година (само за лица над 18 г.; за дете → код 19) -->
         <record id="holiday_status_nssi_07" model="hr.work.entry.type">
             <field name="l10n_bg_max_days_per_year">10</field>
             <field name="l10n_bg_legal_reference">КСО чл. 45, ал. 1, т. 2</field>
+        </record>
+
+        <!-- NSSI 19: Гледане на болно дете до 18 г. — 60 раб. дни/година
+             ОБЩО за всички осигурени членове на семейството (системата брои
+             per служител — общия семеен лимит се следи организационно) -->
+        <record id="holiday_status_nssi_19" model="hr.work.entry.type">
+            <field name="l10n_bg_max_days_per_year">60</field>
+            <field name="l10n_bg_legal_reference">КСО чл. 45, ал. 1, т. 1</field>
         </record>
 
         <!-- NSSI 11: Карантина — обикновено е свързано с дни на карантина,

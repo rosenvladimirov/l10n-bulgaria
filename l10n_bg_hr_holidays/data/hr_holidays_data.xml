@@ -66,9 +66,10 @@
             <field name="sequence">13</field>
         </record>
 
-        <!-- Childcare up to 2 years -->
+        <!-- Гледане на болно дете до 2 г. (болничен лист, П9) —
+             различен от чл. 164 КТ отглеждане на здраво дете (KT164, П10) -->
         <record id="holiday_status_nssi_05" model="hr.leave.type">
-            <field name="name">Childcare up to 2 Years</field>
+            <field name="name">Caring for Sick Child (under 2, on sick leave)</field>
             <field name="l10n_bg_code">05</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
@@ -97,9 +98,10 @@
             <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
-        <!-- Accompanying a sick family member -->
+        <!-- Придружаване на болен пълнолетен член на семейството (КСО чл. 45,
+             ал. 1, т. 2 — 10 раб. дни/год.); за болно дете до 18 г. — код 19 -->
         <record id="holiday_status_nssi_07" model="hr.leave.type">
-            <field name="name">Accompanying a Sick Family Member</field>
+            <field name="name">Accompanying a Sick Family Member (Adult, 18+)</field>
             <field name="l10n_bg_code">07</field>
             <field name="requires_allocation">no</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
@@ -267,6 +269,38 @@
             <field name="color">5</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">26</field>
+        </record>
+
+        <!-- Нетрудова (битова) злополука — КСО чл. 40, ал. 1; отделен П9 код,
+             плащане като общо заболяване (3 дни работодател 70%, после НОИ 80%) -->
+        <record id="holiday_status_nssi_18" model="hr.leave.type">
+            <field name="name">Non-work (Domestic) Accident</field>
+            <field name="l10n_bg_code">18</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_18"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">1</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">27</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+        </record>
+
+        <!-- Гледане на болно дете до 18 г. — КСО чл. 45, ал. 1, т. 1;
+             до 60 раб. дни/год. общо за всички осигурени членове на семейството -->
+        <record id="holiday_status_nssi_19" model="hr.leave.type">
+            <field name="name">Caring for a Sick Child (under 18)</field>
+            <field name="l10n_bg_code">19</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_19"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">5</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">28</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- ============================================ -->

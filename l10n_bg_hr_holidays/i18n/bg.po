@@ -19,8 +19,8 @@ msgstr ""
 
 #. module: l10n_bg_hr_holidays
 #: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_07
-msgid "Accompanying a Sick Family Member"
-msgstr "Придружаване на болен член на семейството"
+msgid "Accompanying a Sick Family Member (Adult, 18+)"
+msgstr "Придружаване на болен член на семейството (над 18 г.)"
 
 #. module: l10n_bg_hr_holidays
 #: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_07
@@ -113,15 +113,23 @@ msgstr "Отпуск за гледане на дете (до 2 години)"
 
 #. module: l10n_bg_hr_holidays
 #: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_05
-#, fuzzy
-msgid "Childcare up to 2 Years"
-msgstr "Грижи за деца до 2 години"
+msgid "Caring for Sick Child (under 2, on sick leave)"
+msgstr "Гледане на болно дете до 2 г. (болничен лист)"
 
 #. module: l10n_bg_hr_holidays
 #: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_05
-#, fuzzy
-msgid "Childcare up to 2 years"
-msgstr "Грижи за деца до 2 години"
+msgid "Caring for sick child (under 2)"
+msgstr "Гледане на болно дете до 2 г."
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_19
+msgid "Caring for a Sick Child (under 18)"
+msgstr "Гледане на болно дете до 18 г."
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_19
+msgid "Caring for a sick child (under 18)"
+msgstr "Гледане на болно дете до 18 г."
 
 #. module: l10n_bg_hr_holidays
 #: model:ir.model.fields,field_description:l10n_bg_hr_holidays.field_hr_leave_type__l10n_bg_code
@@ -309,6 +317,16 @@ msgstr "Отпуск за психично здраве"
 #, fuzzy
 msgid "Mental health leave"
 msgstr "Отпуск за психично здраве"
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_18
+msgid "Non-work (Domestic) Accident"
+msgstr "Нетрудова (битова) злополука"
+
+#. module: l10n_bg_hr_holidays
+#: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_18
+msgid "Non-work (domestic) accident"
+msgstr "Нетрудова (битова) злополука"
 
 #. module: l10n_bg_hr_holidays
 #: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.view_nssi_leave_reason_form

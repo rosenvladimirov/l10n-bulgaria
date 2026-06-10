@@ -77,6 +77,7 @@ class HRLeaveType(models.Model):
         ('normal', 'Normal — employer DOO/ZO/UPF on wage'),
         ('nssi_maternity', 'NSSI-funded maternity (BG Labor Code arts. 163, 164, 163-10, 166)'),
         ('nssi_sick', 'NSSI-funded sick leave (after 3 employer-paid days, BG Labor Code art. 162)'),
+        ('nssi_work_accident', 'NSSI-funded work accident / occupational disease (90%, Social Security Code art. 41)'),
         ('unpaid_no_doo', 'Unpaid > 30 days/year — excluded from DOO base'),
     ],
         string='DOO Treatment',
@@ -87,6 +88,9 @@ class HRLeaveType(models.Model):
              'contributions; employer DOO base excludes these days '
              '(BG Social Security Code art. 50). '
              '`nssi_sick` — first 3 days employer-paid (70%), remainder NSSI-funded. '
+             '`nssi_work_accident` — work accident / occupational disease; benefit rate '
+             'is 90% (BG Social Security Code art. 41) and no minimum insurance '
+             'length is required (art. 40 par. 1). '
              '`unpaid_no_doo` — unpaid leave above 30 days/year per BG Labor Code '
              'art. 160 par. 1 — excluded from DOO base entirely.'
     )

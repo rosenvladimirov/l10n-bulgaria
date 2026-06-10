@@ -9,7 +9,7 @@
             <field name="l10n_bg_code">01</field>
             <field name="code">01</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_01"/>
             <field name="support_document">True</field>
@@ -24,7 +24,7 @@
             <field name="l10n_bg_code">02</field>
             <field name="code">02</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_02"/>
             <field name="support_document">True</field>
@@ -39,7 +39,7 @@
             <field name="l10n_bg_code">03</field>
             <field name="code">03</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_03"/>
             <field name="support_document">True</field>
@@ -54,7 +54,7 @@
             <field name="l10n_bg_code">04</field>
             <field name="code">04</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_04"/>
             <field name="support_document">True</field>
@@ -69,7 +69,7 @@
             <field name="l10n_bg_code">05</field>
             <field name="code">05</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_05"/>
             <field name="support_document">True</field>
@@ -83,7 +83,7 @@
             <field name="l10n_bg_code">06</field>
             <field name="code">06</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_06"/>
             <field name="support_document">True</field>
@@ -99,7 +99,7 @@
             <field name="l10n_bg_code">07</field>
             <field name="code">07</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_07"/>
             <field name="support_document">True</field>
@@ -114,7 +114,7 @@
             <field name="l10n_bg_code">08</field>
             <field name="code">08</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_08"/>
             <field name="support_document">True</field>
@@ -128,7 +128,7 @@
             <field name="l10n_bg_code">09</field>
             <field name="code">09</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_09"/>
             <field name="support_document">True</field>
@@ -143,7 +143,7 @@
             <field name="l10n_bg_code">10</field>
             <field name="code">10</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_10"/>
             <field name="support_document">True</field>
@@ -158,7 +158,7 @@
             <field name="l10n_bg_code">11</field>
             <field name="code">11</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_11"/>
             <field name="support_document">True</field>
@@ -172,7 +172,7 @@
             <field name="l10n_bg_code">12</field>
             <field name="code">12</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_12"/>
             <field name="support_document">True</field>
@@ -187,7 +187,7 @@
             <field name="l10n_bg_code">13</field>
             <field name="code">13</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_13"/>
             <field name="support_document">True</field>
@@ -202,7 +202,7 @@
             <field name="l10n_bg_code">14</field>
             <field name="code">14</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_14"/>
             <field name="support_document">True</field>
@@ -217,7 +217,7 @@
             <field name="l10n_bg_code">15</field>
             <field name="code">15</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_15"/>
             <field name="support_document">True</field>
@@ -231,7 +231,7 @@
             <field name="l10n_bg_code">16</field>
             <field name="code">16</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_16"/>
             <field name="support_document">True</field>
@@ -246,7 +246,7 @@
             <field name="l10n_bg_code">17</field>
             <field name="code">17</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_17"/>
             <field name="support_document">True</field>
@@ -259,7 +259,7 @@
         <record id="holiday_status_nssi_18" model="hr.work.entry.type">
             <field name="name">Non-work (Domestic) Accident</field>
             <field name="l10n_bg_code">18</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_18"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -275,7 +275,7 @@
         <record id="holiday_status_nssi_19" model="hr.work.entry.type">
             <field name="name">Caring for a Sick Child (under 18)</field>
             <field name="l10n_bg_code">19</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_19"/>
             <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
@@ -297,7 +297,7 @@
             <field name="code">KT155</field>
             <field name="count_as">absence</field>
             <field name="l10n_bg_carryover_lapse_years">2</field>
-            <field name="requires_allocation">yes</field>
+            <field name="requires_allocation" eval="True"/>
             <field name="allocation_validation_type">hr</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">False</field>
@@ -312,7 +312,7 @@
             <field name="code">KT156A</field>
             <field name="count_as">absence</field>
             <field name="l10n_bg_carryover_lapse_years">2</field>
-            <field name="requires_allocation">yes</field>
+            <field name="requires_allocation" eval="True"/>
             <field name="allocation_validation_type">hr</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">False</field>
@@ -327,7 +327,7 @@
             <field name="code">KT156B</field>
             <field name="count_as">absence</field>
             <field name="l10n_bg_carryover_lapse_years">2</field>
-            <field name="requires_allocation">yes</field>
+            <field name="requires_allocation" eval="True"/>
             <field name="allocation_validation_type">hr</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">False</field>
@@ -342,7 +342,7 @@
             <field name="code">KT156C</field>
             <field name="count_as">absence</field>
             <field name="l10n_bg_carryover_lapse_years">2</field>
-            <field name="requires_allocation">yes</field>
+            <field name="requires_allocation" eval="True"/>
             <field name="allocation_validation_type">hr</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
@@ -360,7 +360,7 @@
             <field name="l10n_bg_code">KT157-1</field>
             <field name="code">KT157-1</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
             <field name="color">9</field>
@@ -373,7 +373,7 @@
             <field name="l10n_bg_code">KT157-2</field>
             <field name="code">KT157-2</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
             <field name="color">7</field>
@@ -386,7 +386,7 @@
             <field name="l10n_bg_code">KT157-3</field>
             <field name="code">KT157-3</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
             <field name="color">2</field>
@@ -399,7 +399,7 @@
             <field name="l10n_bg_code">KT157-4</field>
             <field name="code">KT157-4</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
             <field name="color">4</field>
@@ -412,7 +412,7 @@
             <field name="l10n_bg_code">KT157-5</field>
             <field name="code">KT157-5</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
             <field name="color">6</field>
@@ -425,7 +425,7 @@
             <field name="l10n_bg_code">KT157-6</field>
             <field name="code">KT157-6</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">False</field>
             <field name="color">5</field>
@@ -438,7 +438,7 @@
             <field name="l10n_bg_code">KT157-7</field>
             <field name="code">KT157-7</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
             <field name="color">1</field>
@@ -451,7 +451,7 @@
             <field name="l10n_bg_code">KT157A-2</field>
             <field name="code">KT157A-2</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="support_document">True</field>
             <field name="color">9</field>
@@ -468,7 +468,7 @@
             <field name="l10n_bg_code">KT158</field>
             <field name="code">KT158</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
             <field name="color">8</field>
@@ -481,7 +481,7 @@
             <field name="l10n_bg_code">KT160</field>
             <field name="code">KT160</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="unpaid">True</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">False</field>
@@ -495,7 +495,7 @@
             <field name="l10n_bg_code">KT161A</field>
             <field name="code">KT161A</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
             <field name="color">10</field>
@@ -508,7 +508,7 @@
             <field name="l10n_bg_code">KT161B</field>
             <field name="code">KT161B</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="unpaid">True</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
@@ -526,7 +526,7 @@
             <field name="l10n_bg_code">KT163</field>
             <field name="code">KT163</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
             <field name="color">9</field>
@@ -539,7 +539,7 @@
             <field name="l10n_bg_code">KT164</field>
             <field name="code">KT164</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
             <field name="color">9</field>
@@ -552,7 +552,7 @@
             <field name="l10n_bg_code">KT163-10</field>
             <field name="code">KT163-10</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
             <field name="color">9</field>
@@ -565,7 +565,7 @@
             <field name="l10n_bg_code">KT166</field>
             <field name="code">KT166</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
             <field name="color">9</field>
@@ -578,7 +578,7 @@
             <field name="l10n_bg_code">KT167</field>
             <field name="code">KT167</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="support_document">True</field>
             <field name="color">2</field>
@@ -591,7 +591,7 @@
             <field name="l10n_bg_code">KT167A</field>
             <field name="code">KT167A</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="unpaid">True</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
@@ -605,7 +605,7 @@
             <field name="l10n_bg_code">KT168</field>
             <field name="code">KT168</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
             <field name="color">9</field>
@@ -622,7 +622,7 @@
             <field name="l10n_bg_code">KT169</field>
             <field name="code">KT169</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">yes</field>
+            <field name="requires_allocation" eval="True"/>
             <field name="allocation_validation_type">hr</field>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
@@ -636,7 +636,7 @@
             <field name="l10n_bg_code">KT170</field>
             <field name="code">KT170</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
             <field name="color">6</field>
@@ -649,7 +649,7 @@
             <field name="l10n_bg_code">KT171A</field>
             <field name="code">KT171A</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
             <field name="color">6</field>
@@ -662,7 +662,7 @@
             <field name="l10n_bg_code">KT171B</field>
             <field name="code">KT171B</field>
             <field name="count_as">absence</field>
-            <field name="requires_allocation">no</field>
+            <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="support_document">True</field>
             <field name="color">6</field>

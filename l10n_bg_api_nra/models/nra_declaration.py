@@ -309,7 +309,18 @@ class NraDeclaration(models.Model):
                     "state": "ready",
                 }
             )
+            rec._snapshot_on_generate()
         return True
+
+    def _snapshot_on_generate(self):
+        """Hook: freeze a draft snapshot at XML-generation time.
+
+        No-op in base. Plug-in modules (e.g. ETZ) override this to capture
+        the raw export data as an audit snapshot at the moment the file is
+        generated.
+        """
+        self.ensure_one()
+        return
 
     def _check_submittable(self):
         """Raise UserError if the declaration cannot be submitted.
@@ -451,6 +462,18 @@ class NraDeclaration(models.Model):
             )
 
         self.write(vals)
+        self._promote_snapshot_on_submit()
+
+    def _promote_snapshot_on_submit(self):
+        """Hook: promote draft snapshot → final snapshot on submit.
+
+        No-op in base. Called from _process_submit_response right after the
+        state→'submitted' write — the single chokepoint both action_submit
+        and action_submit_signed funnel through. Plug-in modules override to
+        freeze the final audit snapshot.
+        """
+        self.ensure_one()
+        return
 
     def action_check_status(self):
         """Check the processing status of a submitted declaration."""

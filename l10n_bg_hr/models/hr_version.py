@@ -32,13 +32,17 @@ class HrVersion(models.Model):
         help='Complete address of work location for contract display'
     )
 
-    # Contract type specific to Bulgaria
-    l10n_bg_contract_duration_type = fields.Selection(
-        related='contract_type_id.l10n_bg_contract_duration_type',
-        string='BG Contract Duration Type',
-        store=True,
-        readonly=True
-    )
+    # Contract duration type specific to Bulgaria.
+    # 19.4/master: hr.contract.type was removed (hr.contract → hr.version), so
+    # the field that used to live on the contract type now lives directly on
+    # the contract version.
+    l10n_bg_contract_duration_type = fields.Selection([
+        ('indefinite', 'Indefinite Period'),
+        ('fixed_term', 'Fixed Term'),
+        ('specific_work', 'Until Completion of Specific Work'),
+        ('replacement', 'Replacement'),
+    ], string='BG Contract Duration Type', default='indefinite',
+        help='Duration type as required by Art. 68 of Bulgarian Labor Code')
     l10n_bg_uic = fields.Char(
         related='company_id.l10n_bg_uic',
         string='Company UIC',

@@ -55,7 +55,7 @@ class HrVersionAmendmentWizard(models.TransientModel):
     old_wage = fields.Monetary(
         string='Current Wage',
         currency_field='currency_id',
-        readonly=True,
+        compute='_compute_old_values', store=True, readonly=True,
     )
     new_wage = fields.Monetary(
         string='New Wage',
@@ -65,7 +65,7 @@ class HrVersionAmendmentWizard(models.TransientModel):
     old_position_id = fields.Many2one(
         'bg.hr.payroll.ncop.classification',
         string='Current Position',
-        readonly=True,
+        compute='_compute_old_values', store=True, readonly=True,
     )
     new_position_id = fields.Many2one(
         'bg.hr.payroll.ncop.classification',
@@ -73,15 +73,18 @@ class HrVersionAmendmentWizard(models.TransientModel):
     )
 
     old_working_time_type = fields.Selection(selection=lambda self: self.env['hr.version'].fields_get(
-            ['l10n_bg_working_time_type'])['l10n_bg_working_time_type']['selection'], string='Current Working Time', readonly=True)
+            ['l10n_bg_working_time_type'])['l10n_bg_working_time_type']['selection'], string='Current Working Time',
+        compute='_compute_old_values', store=True, readonly=True)
 
     new_working_time_type = fields.Selection(selection=lambda self: self.env['hr.version'].fields_get(
             ['l10n_bg_working_time_type'])['l10n_bg_working_time_type']['selection'], string='New Working Time')
 
-    old_leave_days = fields.Integer(string='Current Leave Days', readonly=True)
+    old_leave_days = fields.Integer(string='Current Leave Days',
+        compute='_compute_old_values', store=True, readonly=True)
     new_leave_days = fields.Integer(string='New Leave Days')
 
-    old_work_location = fields.Char(string='Current Work Location', readonly=True)
+    old_work_location = fields.Char(string='Current Work Location',
+        compute='_compute_old_values', store=True, readonly=True)
     new_work_location = fields.Char(string='New Work Location')
 
     @api.onchange('employee_id')
@@ -89,15 +92,19 @@ class HrVersionAmendmentWizard(models.TransientModel):
         if self.employee_id and self.employee_id.version_id:
             self.version_id = self.employee_id.version_id
 
-    @api.onchange('version_id')
-    def _onchange_version_id(self):
-        if self.version_id:
-            v = self.version_id
-            self.old_wage = v.wage
-            self.old_position_id = v.l10n_bg_qualification_group
-            self.old_working_time_type = v.l10n_bg_working_time_type
-            self.old_leave_days = v.l10n_bg_total_leave_days
-            self.old_work_location = v.work_location or ''
+    @api.depends('version_id')
+    def _compute_old_values(self):
+        # DEF-21: попълваме old_* server-side през compute(store=True), за да
+        # стигнат до action_create_amendment. readonly Python полета не се
+        # изпращат от web client-а при save на transient → onchange стойностите
+        # се губеха и amendment-ите записваха old_wage=0.
+        for wiz in self:
+            v = wiz.version_id
+            wiz.old_wage = v.wage if v else 0.0
+            wiz.old_position_id = v.l10n_bg_qualification_group if v else False
+            wiz.old_working_time_type = v.l10n_bg_working_time_type if v else False
+            wiz.old_leave_days = v.l10n_bg_total_leave_days if v else 0
+            wiz.old_work_location = (v.work_location or '') if v else ''
 
     def action_create_amendment(self):
         self.ensure_one()

@@ -52,7 +52,9 @@ Reference
     ],
     "data": [],
     "post_init_hook": "post_init_hook",
-    "installable": True,
+    # DEF-22: RETIRED (виж 19.0) — механична BGN÷1.95583 ≠ ЗБДОО 2026; коректните
+    # EUR са в l10n_bg_payroll_classifications. НЕ инсталирай.
+    "installable": False,
     "auto_install": False,
     "countries": ["BG"],
 }

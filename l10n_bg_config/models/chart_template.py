@@ -280,49 +280,11 @@ class AccountChartTemplate(models.AbstractModel):
                 result[xmlid] = vals
         return result
 
-    @template(model='account.group')
-    def _get_bg_account_group_data(self, template_code, module=BASE_MODULE):
-        """
-        Extracts and processes account group data from a CSV file using the given template.
-
-        This method reads a CSV file template corresponding to account groups and converts it
-        into data usable within the system. It is specifically tailored to work with account
-        group data and relies on predefined module contexts.
-
-        Arguments:
-            template_code (str): The reference code of the desired template to fetch account group data.
-            module (str): The module context within which the template resides. Defaults to BASE_MODULE.
-
-        Returns:
-            list[dict]: A list of dictionaries containing parsed account group data.
-
-        Raises:
-            None
-        """
-        return self._parse_csv(template_code, 'account.group', module)
-
-    @template(model='account.group')
-    def _get_account_group(self, template_code):
-        """
-        _get_account_group(template_code)
-
-        Retrieves and updates data for an account group based on the provided template code. The method
-        leverages a parent method to obtain initial account group data, then augments it using additional
-        template-specific information.
-
-        Parameters:
-            template_code: str
-                The code of the template for which account group data needs to be retrieved.
-
-        Returns:
-            dict
-                Updated account group data mapped to the provided template code.
-        """
-        return self._update_template_data(
-            super()._get_account_group(template_code),
-            template_code,
-            self._get_bg_account_group_data
-        )
+    # master/20: моделът account.group е НАПЪЛНО премахнат от core →
+    # @template(model='account.group') override-ите (_get_bg_account_group_data
+    # и _get_account_group) са изтрити на 20.0 branch-а; ГФО-то е tag-based и
+    # не стъпва на account.group. data/template/account.group-bg.csv остава
+    # неизползван (за справка/lockstep с 19.0).
 
     @template(model='account.tax')
     def _get_bg_tax_data(self, template_code, module=BASE_MODULE):

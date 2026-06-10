@@ -259,13 +259,13 @@
         <record id="holiday_status_nssi_18" model="hr.work.entry.type">
             <field name="name">Non-work (Domestic) Accident</field>
             <field name="l10n_bg_code">18</field>
+            <field name="code">18</field>
+            <field name="count_as">absence</field>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_18"/>
-            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="color">1</field>
-            <field name="company_id" eval="False"/>
             <field name="sequence">27</field>
             <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
@@ -275,13 +275,13 @@
         <record id="holiday_status_nssi_19" model="hr.work.entry.type">
             <field name="name">Caring for a Sick Child (under 18)</field>
             <field name="l10n_bg_code">19</field>
+            <field name="code">19</field>
+            <field name="count_as">absence</field>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_19"/>
-            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
             <field name="support_document">True</field>
             <field name="color">5</field>
-            <field name="company_id" eval="False"/>
             <field name="sequence">28</field>
             <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>

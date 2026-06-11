@@ -1,4 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ai_model_user,ai.model.user,model_ai_model,base.group_user,1,0,0,0
+access_ai_model_manager,ai.model.manager,model_ai_model,base.group_system,1,1,1,1
 access_ai_skill_user,ai.skill.user,model_ai_skill,base.group_user,1,0,0,0
 access_ai_skill_manager,ai.skill.manager,model_ai_skill,base.group_system,1,1,1,1
 access_ai_pipeline_step_user,ai.pipeline.step.user,model_ai_pipeline_step,base.group_user,1,0,0,0

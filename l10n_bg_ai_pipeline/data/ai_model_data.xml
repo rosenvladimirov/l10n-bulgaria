@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Seed на наличните Claude модели (code = Anthropic API id). Добавяй
+         нови записи без код; noupdate=1 пази ръчните редакции. -->
+    <record id="ai_model_opus_4_8" model="ai.model">
+        <field name="name">Claude Opus 4.8</field>
+        <field name="code">claude-opus-4-8</field>
+        <field name="tier">opus</field>
+        <field name="sequence">10</field>
+        <field name="note">Max capability — за сложни/многостранични документи.</field>
+    </record>
+    <record id="ai_model_sonnet_4_6" model="ai.model">
+        <field name="name">Claude Sonnet 4.6</field>
+        <field name="code">claude-sonnet-4-6</field>
+        <field name="tier">sonnet</field>
+        <field name="sequence">20</field>
+        <field name="note">Балансиран — добър default за осчетоводяване.</field>
+    </record>
+    <record id="ai_model_haiku_4_5" model="ai.model">
+        <field name="name">Claude Haiku 4.5</field>
+        <field name="code">claude-haiku-4-5</field>
+        <field name="tier">haiku</field>
+        <field name="sequence">30</field>
+        <field name="note">Бърз/евтин — рутинни прости фактури.</field>
+    </record>
+    <record id="ai_model_fable_5" model="ai.model">
+        <field name="name">Fable 5</field>
+        <field name="code">claude-fable-5</field>
+        <field name="tier">other</field>
+        <field name="sequence">40</field>
+    </record>
+</odoo>

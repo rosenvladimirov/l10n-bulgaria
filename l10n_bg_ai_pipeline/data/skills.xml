@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="0">
+
+    <!-- „Ask about record" knowledge skill — зарежда се от терминала, когато е
+         отворен в ASK режим (ODOO_FOCUS=ask) от конкретен запис. Това е
+         „специалната мемори", за която говорим: казва на терминалния Claude
+         да чете записа и да отговаря за него. Текстът е на английски (UI/skill),
+         с български превод inline. -->
+    <record id="skill_ask_about_record" model="ai.skill">
+        <field name="name">ask-about-record</field>
+        <field name="language">all</field>
+        <field name="priority">90</field>
+        <field name="description">
+[en_US]
+Activate when the terminal is opened in ASK mode (ODOO_FOCUS=ask) from a
+specific Odoo record. The launch context provides ODOO_MODEL and
+ODOO_RES_ID. Use this skill to answer the user's free-form questions about
+that exact record.
+[/en_US]
+[bg_BG]
+Активира се когато терминалът е отворен в ASK режим (ODOO_FOCUS=ask) от
+конкретен Odoo запис. Контекстът подава ODOO_MODEL и ODOO_RES_ID. Ползвай
+този skill за да отговаряш на свободните въпроси на потребителя за точно
+този запис.
+[/bg_BG]
+        </field>
+        <field name="content">
+[en_US]
+# Ask About Record
+
+You were opened in ASK mode from a specific Odoo record. The launch context
+exposes `ODOO_MODEL` and `ODOO_RES_ID` (also stored in `~/.odoo_session.json`).
+
+## What to do
+1. Read the record first: use the `odoo-rpc` MCP tools (`odoo_read` /
+   `odoo_search_read`) on `ODOO_MODEL` / `ODOO_RES_ID` to load its current
+   state before answering anything.
+2. Greet the user in one line, stating which record you are looking at
+   (model, id, and a human label such as name/reference).
+3. Answer the user's questions about THIS record — concisely, accurately and
+   in the user's language. Pull related data (chatter messages, attachments,
+   linked records) through MCP as needed.
+4. Do NOT modify the record unless the user explicitly asks you to. Default to
+   read-only; confirm before any write.
+[/en_US]
+[bg_BG]
+# Питай за записа
+
+Отворен си в ASK режим от конкретен Odoo запис. Контекстът подава
+`ODOO_MODEL` и `ODOO_RES_ID` (също в `~/.odoo_session.json`).
+
+## Какво да правиш
+1. Първо прочети записа: ползвай `odoo-rpc` MCP инструментите (`odoo_read` /
+   `odoo_search_read`) върху `ODOO_MODEL` / `ODOO_RES_ID`, преди да отговаряш.
+2. Поздрави потребителя с един ред, казвайки кой запис гледаш (модел, id и
+   човешко име/референция).
+3. Отговаряй на въпросите за ТОЗИ запис — кратко, точно и на езика на
+   потребителя. Дърпай свързани данни (chatter, прикачени файлове, свързани
+   записи) през MCP при нужда.
+4. НЕ променяй записа, освен ако потребителят изрично не поиска. По
+   подразбиране само четене; потвърди преди всякакъв запис.
+[/bg_BG]
+        </field>
+    </record>
+
+</odoo>

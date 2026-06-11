@@ -19,6 +19,8 @@ export class ClaudeTerminalDialog extends Component {
         close: Function,
         url: { type: String, optional: true },
         model: { type: String, optional: true },
+        resId: { type: [Number, Boolean], optional: true },
+        focus: { type: String, optional: true },
         odooConfig: { type: Object, optional: true },
         useExternal: { type: Boolean, optional: true },
         apiKey: { type: String, optional: true },
@@ -28,7 +30,8 @@ export class ClaudeTerminalDialog extends Component {
         if (this.props.useExternal) {
             return buildExternalTerminalUrl(
                 this.props.url, this.props.odooConfig,
-                this.props.apiKey || "", this.props.model, 0, "",
+                this.props.apiKey || "", this.props.model,
+                this.props.resId || 0, "", this.props.focus || "",
             );
         }
         const base = (this.props.url || "").replace(/\/+$/, "");
@@ -39,7 +42,10 @@ export class ClaudeTerminalDialog extends Component {
         params.append("arg", `ODOO_USER=${odoo.username || ""}`);
         params.append("arg", `ODOO_PROTOCOL=${odoo.protocol || "xmlrpc"}`);
         params.append("arg", `ODOO_MODEL=${this.props.model || ""}`);
-        params.append("arg", "ODOO_RES_ID=0");
+        params.append("arg", `ODOO_RES_ID=${this.props.resId || 0}`);
+        if (this.props.focus) {
+            params.append("arg", `ODOO_FOCUS=${this.props.focus}`);
+        }
         return `${base}/?${params.toString()}`;
     }
 }

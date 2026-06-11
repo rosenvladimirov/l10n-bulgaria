@@ -27,7 +27,6 @@ def migrate(cr, version):
           AND a.date_to IS NULL
           AND a.date_from IS NOT NULL
           AND a.accrual_plan_id IS NULL
-          AND a.active = TRUE
           AND a.state != 'refuse'
     """)
     _logger.info("FEAT-6/A: date_to backfill на %s allocations", cr.rowcount)

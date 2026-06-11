@@ -23,9 +23,11 @@
  * @param {string} model - Current Odoo model (context only)
  * @param {number|boolean} resId - Current record ID (context only)
  * @param {string} [theme] - Terminal color theme name
+ * @param {string} [focus] - Session focus hint (e.g. "ask"); exported as
+ *   ODOO_FOCUS so start-session.sh can prime the assistant (record Q&A mode)
  * @returns {string} Full URL with authentication parameters
  */
-export function buildExternalTerminalUrl(terminalUrl, odooConfig, apiKey, model, resId, theme) {
+export function buildExternalTerminalUrl(terminalUrl, odooConfig, apiKey, model, resId, theme, focus) {
     const base = (terminalUrl || "").replace(/\/+$/, "");
     const odoo = odooConfig || {};
     const params = new URLSearchParams();
@@ -40,6 +42,11 @@ export function buildExternalTerminalUrl(terminalUrl, odooConfig, apiKey, model,
     params.append("arg", `ODOO_RES_ID=${resId || 0}`);
     if (theme) {
         params.append("arg", `CLAUDE_THEME=${theme}`);
+    }
+    // focus hint (напр. "ask") → ODOO_FOCUS; start-session.sh приоритизира
+    // асистента (record Q&A режим — зарежда ask-about-record skill-а).
+    if (focus) {
+        params.append("arg", `ODOO_FOCUS=${focus}`);
     }
     // apiKey тук е per-user Anthropic ключ (claude_api_key) → ANTHROPIC_API_KEY за Claude Code.
     // start-session.sh авто-export-ва всеки arg; ако липсва → Claude Code предлага собствен login.

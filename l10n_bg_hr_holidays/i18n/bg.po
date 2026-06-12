@@ -124,7 +124,7 @@ msgstr "Гледане на болно дете до 2 г."
 #. module: l10n_bg_hr_holidays
 #: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_19
 msgid "Caring for a Sick Child (under 18)"
-msgstr "Гледане на болно дете до 18 г."
+msgstr "Гледане на болно дете (до 18 г.)"
 
 #. module: l10n_bg_hr_holidays
 #: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_19
@@ -321,7 +321,7 @@ msgstr "Отпуск за психично здраве"
 #. module: l10n_bg_hr_holidays
 #: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_nssi_18
 msgid "Non-work (Domestic) Accident"
-msgstr "Нетрудова (битова) злополука"
+msgstr "Битова (извънтрудова) злополука"
 
 #. module: l10n_bg_hr_holidays
 #: model:nssi.leave.reason,name:l10n_bg_hr_holidays.l10n_bg_nssi_18
@@ -402,7 +402,8 @@ msgstr "Платени дни"
 #: code:addons/l10n_bg_hr_holidays/models/hr_leave.py:0
 #, fuzzy
 msgid ""
-"Paid days (%.1f) exceed definned leave days (%.1f). Please adjust the values."
+"Paid days (%.1f) exceed definned leave days (%.1f). Please adjust the "
+"values."
 msgstr ""
 "Платените дни (%.1f) са повече от определените дни отпуск (%.1f). Моля, "
 "коригирайте стойностите."
@@ -412,8 +413,7 @@ msgstr ""
 #: code:addons/l10n_bg_hr_holidays/models/hr_leave.py:0
 #, fuzzy
 msgid "Paid days cannot be negative for leave request \"%s\"."
-msgstr ""
-"Платените дни не могат да бъдат отрицателни за заявка за отпуск \"%s\"."
+msgstr "Платените дни не могат да бъдат отрицателни за заявка за отпуск \"%s\"."
 
 #. module: l10n_bg_hr_holidays
 #: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_paternity
@@ -559,7 +559,8 @@ msgstr "Вид свободно време"
 #, fuzzy
 msgid "Total unpaid days minus the paid days (for unpaid leave types only)"
 msgstr ""
-"Общ брой неплатени дни минус платените дни (само за видовете неплатен отпуск)"
+"Общ брой неплатени дни минус платените дни (само за видовете неплатен "
+"отпуск)"
 
 #. module: l10n_bg_hr_holidays
 #: model:hr.leave.type,name:l10n_bg_hr_holidays.holiday_status_kt_childcare_8y
@@ -602,3 +603,66 @@ msgstr "Трудова злополука"
 #, fuzzy
 msgid "e.g. KT155, NSSI01"
 msgstr "напр. KT155, NSSI01"
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_type_view_form_paid_days
+msgid "BG Legal Caps"
+msgstr "Законови лимити (БГ)"
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.view_hr_leave_balance_list
+msgid "Leave Balance"
+msgstr "Салдо отпуски"
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.view_hr_leave_balance_search
+msgid "Search Leave Balance"
+msgstr "Търсене салдо отпуски"
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.view_hr_leave_balance_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.view_hr_leave_balance_year_search
+msgid "Overdrawn"
+msgstr "Превишен"
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.view_hr_leave_balance_search
+msgid "Exhausted"
+msgstr "Изчерпан"
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.view_hr_leave_balance_year_list
+msgid "Leave Balance by Year"
+msgstr "Салдо отпуски по година"
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.view_hr_leave_balance_year_search
+msgid "Search Leave Balance by Year"
+msgstr "Търсене салдо отпуски по година"
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.view_hr_leave_balance_year_search
+msgid "Remaining"
+msgstr "Остатък"
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_view_calendar_schedule
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_view_pivot_schedule
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_view_search_schedule
+msgid "Annual Leave Schedule"
+msgstr "График на отпуските"
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_view_search_schedule
+msgid "Approved"
+msgstr "Одобрен"
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_view_search_schedule
+msgid "Pending"
+msgstr "В изчакване"
+
+#. module: l10n_bg_hr_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr_holidays.hr_leave_view_search_schedule
+msgid "Paid Annual Leave (KT art. 155-157)"
+msgstr "Платен годишен отпуск (КТ чл. 155-157)"

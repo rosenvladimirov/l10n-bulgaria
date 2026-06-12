@@ -280,13 +280,14 @@ $ct-radius: 10px;
 }
 
 // ── Dialog (list/kanban modal) ──────────────────────────────
+// contentClass='ct-dialog-content' стои на .modal-content на терминалния
+// диалог. position:relative тук е контекст за absolute close бутона (замества
+// предишния ГЛОБАЛЕН `.o_dialog .modal-body`, който махаше падинга на ВСИЧКИ
+// стандартни модали). Падингът на body-то се маха през Dialog проп
+// withBodyPadding=false (built-in) — нула допир до стандартни модали.
 .ct-dialog-content {
     background: $ct-bg;
-}
-
-.o_dialog .modal-body {
     position: relative;
-    padding: 0 !important;
 }
 
 .ct-dialog-iframe {

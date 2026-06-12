@@ -218,6 +218,8 @@ msgstr "Общо годишен отпуск (дни)"
 
 #. module: l10n_bg_hr
 #: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_version__l10n_bg_amendment_ids
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_amendment_group
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_amendment_tab
 msgid "Contract Amendments"
 msgstr "Допълнителни споразумения"
 
@@ -225,3 +227,33 @@ msgstr "Допълнителни споразумения"
 #: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_version__l10n_bg_amendment_count
 msgid "Amendment Count"
 msgstr "Брой допълнителни споразумения"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_last_amendment_date
+msgid "Last Amendment Date"
+msgstr "Последно ДС (дата)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_last_amendment_summary
+msgid "Last Amendment Changes"
+msgstr "Последно ДС (промени)"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_amendment_group
+msgid "New Amendment"
+msgstr "Ново ДС"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_amendment_group
+msgid "Last Amendment"
+msgstr "Последно ДС"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_amendment_group
+msgid "Changes"
+msgstr "Промени"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_amendment_button
+msgid "Amendments"
+msgstr "Допълнителни споразумения"

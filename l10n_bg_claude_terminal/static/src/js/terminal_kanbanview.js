@@ -9,6 +9,7 @@ import { useService } from "@web/core/utils/hooks";
 import { rpc } from "@web/core/network/rpc";
 import { ClaudeTerminalDialog } from "./terminal_listview";
 import { buildExternalTerminalUrl } from "./terminal_utils";
+import { showClaudeDispatch } from "./claude_dispatch";
 
 // ── Patch KanbanController: add AI button logic ─────────────────
 
@@ -54,13 +55,26 @@ patch(KanbanController.prototype, {
         });
     },
 
-    openClaudeTerminal() {
-        this.dialogService.add(ClaudeTerminalDialog, {
-            url: this.claudeTerminalUrl,
-            model: this.props.resModel,
-            odooConfig: this.claudeOdooConfig,
-            useExternal: this.claudeUseExternal,
-            apiKey: this.claudeApiKey,
+    async openClaudeTerminal() {
+        // Генеричен dispatch грид на всеки модел (kanban няма row-selection → ids=[]).
+        const selected = (this.model?.root?.selection || [])
+            .map((r) => r.resId).filter(Boolean);
+        const openTerminal = (focus) => {
+            this.dialogService.add(ClaudeTerminalDialog, {
+                url: this.claudeTerminalUrl,
+                model: this.props.resModel,
+                resId: selected[0] || 0,
+                focus: focus || "",
+                odooConfig: this.claudeOdooConfig,
+                useExternal: this.claudeUseExternal,
+                apiKey: this.claudeApiKey,
+            });
+        };
+        await showClaudeDispatch(this.dialogService, {
+            resModel: this.props.resModel,
+            ids: selected,
+            env: this.env,
+            openTerminal,
         });
     },
 });

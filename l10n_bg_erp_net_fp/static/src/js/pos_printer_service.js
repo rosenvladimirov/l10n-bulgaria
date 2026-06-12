@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { patch } from "@web/core/utils/patch";
-import { PrinterService } from "@point_of_sale/app/services/printer_service";
+import { PrinterService } from "@point_of_sale/app/printer/printer_service";
 
 console.log("[FiscalPrinter] 🔧 Loading Fiscal Printer PrinterService Patch...");
 

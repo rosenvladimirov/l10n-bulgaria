@@ -101,10 +101,7 @@
             <field name="l10n_bg_doo_treatment">nssi_sick</field>
         </record>
 
-        <!-- NSSI 17: Психично здраве -->
-        <record id="holiday_status_nssi_17" model="hr.leave.type">
-            <field name="l10n_bg_doo_treatment">nssi_sick</field>
-        </record>
+        <!-- NSSI 17: премахнат (DEF-27 — няма го в П9) -->
 
         <!-- NSSI 18: Нетрудова (битова) злополука (КСО чл. 40, ал. 1) -->
         <record id="holiday_status_nssi_18" model="hr.leave.type">

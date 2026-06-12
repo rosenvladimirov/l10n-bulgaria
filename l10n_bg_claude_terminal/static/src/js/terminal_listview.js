@@ -9,6 +9,7 @@ import { patch } from "@web/core/utils/patch";
 import { useService } from "@web/core/utils/hooks";
 import { rpc } from "@web/core/network/rpc";
 import { buildExternalTerminalUrl } from "./terminal_utils";
+import { showClaudeDispatch } from "./claude_dispatch";
 
 // ── Dialog with terminal iframe ─────────────────────────────────
 
@@ -94,13 +95,27 @@ patch(ListController.prototype, {
         });
     },
 
-    openClaudeTerminal() {
-        this.dialogService.add(ClaudeTerminalDialog, {
-            url: this.claudeTerminalUrl,
-            model: this.props.resModel,
-            odooConfig: this.claudeOdooConfig,
-            useExternal: this.claudeUseExternal,
-            apiKey: this.claudeApiKey,
+    async openClaudeTerminal() {
+        // Показва генеричния dispatch грид (Terminal + Ask me + skills за модела),
+        // вместо да отваря терминала директно. Гридът работи на ВСЕКИ модел.
+        const selected = (this.model?.root?.selection || [])
+            .map((r) => r.resId).filter(Boolean);
+        const openTerminal = (focus) => {
+            this.dialogService.add(ClaudeTerminalDialog, {
+                url: this.claudeTerminalUrl,
+                model: this.props.resModel,
+                resId: selected[0] || 0,
+                focus: focus || "",
+                odooConfig: this.claudeOdooConfig,
+                useExternal: this.claudeUseExternal,
+                apiKey: this.claudeApiKey,
+            });
+        };
+        await showClaudeDispatch(this.dialogService, {
+            resModel: this.props.resModel,
+            ids: selected,
+            env: this.env,
+            openTerminal,
         });
     },
 });

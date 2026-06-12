@@ -2,7 +2,7 @@
 <templates xml:space="preserve">
 
 <t t-name="l10n_bg_claude_terminal.ClaudeDispatchDialog">
-    <Dialog t-props="{ title: ' ', size: 'sm', footer: false }">
+    <Dialog t-props="{ title: ' ', size: 'sm', footer: false, withBodyPadding: false, contentClass: 'o_claude_dispatch' }">
     <div class="ai-dispatch-body">
 
         <!-- ══ PICK — home-menu tile grid ══════════════════════════ -->

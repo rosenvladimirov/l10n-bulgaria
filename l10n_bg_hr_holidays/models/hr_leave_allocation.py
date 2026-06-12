@@ -40,7 +40,15 @@ class HrLeaveAllocation(models.Model):
                 or self.accrual_plan_id:
             return False
         # 2 години от КРАЯ на годината на гранта → 31.12 на (year + years).
-        return date(self.date_from.year + years, 12, 31)
+        # FEAT-6 опция А (ТРЗ, 2026-06-11): погасените по давност остатъци НЕ
+        # изгарят — уважават се и се консумират ПЪРВИ. Затова date_to никога
+        # не пада в миналото: clamp до 31.12 на текущата година. Така старите
+        # allocations са валидни, а core sort-ът по date_to ги нарежда преди
+        # новите (FIFO по година на придобиване; при равни дати редът на
+        # създаване ги запазва хронологични).
+        lapse_year = max(
+            self.date_from.year + years, fields.Date.today().year)
+        return date(lapse_year, 12, 31)
 
     def _l10n_bg_apply_carryover_lapse(self):
         """Задава date_to на carryover allocations, където липсва."""

@@ -1,0 +1,119 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_hr
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_001
+msgid "Indefinite employment contract under Art. 67, para. 1, item 1 of the Labor Code"
+msgstr "Безсрочен трудов договор по чл. 67, ал. 1, т. 1 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_002
+msgid "Fixed-term employment contract under Art. 68, para. 1, item 1 of the Labor Code"
+msgstr "Срочен трудов договор по чл. 68, ал. 1, т. 1 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_003
+msgid "Employment contract under Art. 68, para. 1, item 2 of the Labor Code"
+msgstr "Трудов договор по чл. 68, ал. 1, т. 2 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_004
+msgid "Employment contract under Art. 68, para. 1, item 3 of the Labor Code"
+msgstr "Трудов договор по чл. 68, ал. 1, т. 3 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_005
+msgid "Employment contract under Art. 68, para. 1, item 4 of the Labor Code"
+msgstr "Трудов договор по чл. 68, ал. 1, т. 4 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_006
+msgid "Employment contract under Art. 68, para. 1, item 5 of the Labor Code"
+msgstr "Трудов договор по чл. 68, ал. 1, т. 5 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_007
+msgid "Employment contract with probation period under Art. 70 of the Labor Code"
+msgstr "Трудов договор със срок за изпитване по чл. 70 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_008
+msgid "Agreement under Art. 107 of the Labor Code in connection with Art. 83 of the Labor Code"
+msgstr "Споразумение по чл. 107 във връзка с чл. 83 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_009
+msgid "Agreement under Art. 107 of the Labor Code in connection with Art. 89 of the Labor Code"
+msgstr "Споразумение по чл. 107 във връзка с чл. 89 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_010
+msgid "Additional employment contract under Art. 110 of the Labor Code"
+msgstr "Допълнителен трудов договор по чл. 110 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_011
+msgid "Additional employment contract under Art. 111 of the Labor Code"
+msgstr "Допълнителен трудов договор по чл. 111 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_012
+msgid "Employment contract under Art. 114, para. 1 of the Labor Code"
+msgstr "Трудов договор по чл. 114, ал. 1 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_013
+msgid "Decree under Art. 405a of the Labor Code"
+msgstr "Постановление по чл. 405а от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_014
+msgid "Employment contract for on-the-job training under Art. 230 of the Labor Code"
+msgstr "Трудов договор за стажуване по чл. 230 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_015
+msgid "Employment contract for internal replacement under Art. 259 of the Labor Code"
+msgstr "Трудов договор за вътрешно заместване по чл. 259 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_016
+msgid "Apprenticeship contract under Art. 233b of the Labor Code"
+msgstr "Договор за чиракуване по чл. 233б от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_017
+msgid "Employment contract under Art. 68, para. 1, item 2 or 3 in connection with Art. 121a, para. 2, item 1 of the Labor Code"
+msgstr "Трудов договор по чл. 68, ал. 1, т. 2 или 3 във връзка с чл. 121а, ал. 2, т. 1 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_018
+msgid "Additional agreement in the cases of Art. 121a, para. 1, item 1 of the Labor Code"
+msgstr "Допълнително споразумение по чл. 121а, ал. 1, т. 1 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_019
+msgid "Additional agreement under Art. 119, para. 1 of the Labor Code or order under Art. 118, para. 3 of the Labor Code for amendment of the basic remuneration"
+msgstr "Допълнително споразумение по чл. 119, ал. 1 / заповед по чл. 118, ал. 3 от КТ за изменение на основното трудово възнаграждение"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_020
+msgid "Additional agreement under Art. 119, para. 1 of the Labor Code or order under Art. 138a, para. 1 or 2 of the Labor Code for amendment of working time duration"
+msgstr "Допълнително споразумение по чл. 119, ал. 1 / заповед по чл. 138а, ал. 1 или 2 от КТ за изменение на работното време"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_021
+msgid "Additional agreement under Art. 119, para. 1 of the Labor Code, which amends the term of the employment contract or the position of the employee or the amount of agreed paid annual leave and/or the workplace"
+msgstr "Допълнително споразумение по чл. 119, ал. 1 от КТ за изменение на срока, длъжността, платения годишен отпуск и/или работното място"

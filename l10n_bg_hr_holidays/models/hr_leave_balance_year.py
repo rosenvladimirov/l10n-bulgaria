@@ -54,8 +54,10 @@ class HrLeaveBalanceYear(models.Model):
         help="Сума на validated leaves с request_date_from в тази година.")
     remaining_days = fields.Float(
         string="Remaining Days", readonly=True,
-        help="allocated_days − taken_days за годината (информационно — при "
-             "пренос остатъкът от дадена година се ползва в следваща).")
+        help="Остатък по година при FIFO разпределение (КТ чл. 176а, ал. 2): "
+             "общо взетите дни се изчерпват от най-старата квота напред, "
+             "независимо в коя година е заявката. Отрицателна стойност се "
+             "показва само при глобален overdraft на типа.")
 
     _depends = {
         "hr.leave": [
@@ -76,7 +78,59 @@ class HrLeaveBalanceYear(models.Model):
 
     @property
     def _table_query(self) -> SQL:
-        return SQL("%s %s", self._select(), self._from())
+        # FEAT-6/FEAT-5 (кейс Милена Велчева, 2026-06-11): remaining се смята
+        # с FIFO разпределение — общо взетите дни (целият тип) се изчерпват
+        # кумулативно от най-старата allocation година напред. Преди беше
+        # allocated − taken per year, при което заявка през 2026 показваше
+        # 2026: −37, а старите остатъци изглеждаха „недокоснати".
+        # taken_days колоната остава по година на ЗАЯВКАТА (информативна).
+        # 20/master: work_entry_type_id/hr_work_entry_type (на 19 беше
+        # holiday_status_id/hr_leave_type).
+        return SQL("""
+            WITH base AS (
+                SELECT
+                    employee_id,
+                    work_entry_type_id,
+                    year,
+                    COALESCE(allocated.days, 0) AS allocated_days,
+                    COALESCE(taken.days_validated, 0) AS taken_days
+                FROM (%s) AS allocated
+                FULL OUTER JOIN (%s) AS taken
+                    USING (employee_id, work_entry_type_id, year)
+            )
+            SELECT
+                ROW_NUMBER() OVER (
+                    ORDER BY b.employee_id, b.work_entry_type_id, b.year
+                ) AS id,
+                b.employee_id AS employee_id,
+                emp.company_id AS company_id,
+                b.work_entry_type_id AS leave_type_id,
+                lt.l10n_bg_code AS leave_type_code,
+                b.year AS year,
+                b.allocated_days AS allocated_days,
+                b.taken_days AS taken_days,
+                CASE
+                    WHEN b.allocated_days > 0 THEN
+                        b.allocated_days - LEAST(
+                            b.allocated_days,
+                            GREATEST(
+                                SUM(b.taken_days) OVER part
+                                - (SUM(b.allocated_days) OVER w
+                                   - b.allocated_days),
+                                0))
+                    ELSE LEAST(
+                        SUM(b.allocated_days) OVER part
+                        - SUM(b.taken_days) OVER part,
+                        0)
+                END AS remaining_days
+            FROM base b
+            LEFT JOIN hr_work_entry_type lt ON lt.id = b.work_entry_type_id
+            LEFT JOIN hr_employee emp ON emp.id = b.employee_id
+            WINDOW
+                w AS (PARTITION BY b.employee_id, b.work_entry_type_id
+                      ORDER BY b.year ROWS UNBOUNDED PRECEDING),
+                part AS (PARTITION BY b.employee_id, b.work_entry_type_id)
+        """, self._allocated_subquery(), self._taken_subquery())
 
     def init(self):
         """Explicit (re)creation of the SQL view — see hr.leave.balance.init."""
@@ -85,36 +139,6 @@ class HrLeaveBalanceYear(models.Model):
         self.env.cr.execute(SQL(
             "CREATE VIEW %s AS (%s)",
             SQL.identifier(self._table), self._table_query))
-
-    @api.model
-    def _select(self) -> SQL:
-        return SQL("""
-            SELECT
-                ROW_NUMBER() OVER (
-                    ORDER BY employee_id, work_entry_type_id, year
-                ) AS id,
-                employee_id AS employee_id,
-                emp.company_id AS company_id,
-                work_entry_type_id AS leave_type_id,
-                lt.l10n_bg_code AS leave_type_code,
-                year AS year,
-                COALESCE(allocated.days, 0) AS allocated_days,
-                COALESCE(taken.days_validated, 0) AS taken_days,
-                COALESCE(allocated.days, 0) - COALESCE(taken.days_validated, 0)
-                    AS remaining_days
-        """)
-
-    @api.model
-    def _from(self) -> SQL:
-        return SQL(
-            "FROM (%s) AS allocated "
-            "FULL OUTER JOIN (%s) AS taken "
-            "    USING (employee_id, work_entry_type_id, year) "
-            "LEFT JOIN hr_work_entry_type lt ON lt.id = work_entry_type_id "
-            "LEFT JOIN hr_employee emp ON emp.id = employee_id",
-            self._allocated_subquery(),
-            self._taken_subquery(),
-        )
 
     @api.model
     def _allocated_subquery(self) -> SQL:

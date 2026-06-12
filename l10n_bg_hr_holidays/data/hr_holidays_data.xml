@@ -240,19 +240,10 @@
             <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
-        <!-- Mental health leave -->
-        <record id="holiday_status_nssi_17" model="hr.work.entry.type">
-            <field name="name">Mental Health Leave</field>
-            <field name="l10n_bg_code">17</field>
-            <field name="code">17</field>
-            <field name="count_as">absence</field>
-            <field name="requires_allocation" eval="False"/>
-            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
-            <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_17"/>
-            <field name="support_document">True</field>
-            <field name="color">5</field>
-            <field name="sequence">26</field>
-        </record>
+        <!-- Код 17 „Mental Health Leave" ПРЕМАХНАТ (DEF-27, 2026-06-11):
+             не съществува в П9 класификацията на НОИ → отхвърляне при
+             подаване. На съществуващи бази migration 2.1.3 го
+             архивира (active=False). -->
 
         <!-- Нетрудова (битова) злополука — КСО чл. 40, ал. 1; отделен П9 код,
              плащане като общо заболяване (3 дни работодател 70%, после НОИ 80%) -->

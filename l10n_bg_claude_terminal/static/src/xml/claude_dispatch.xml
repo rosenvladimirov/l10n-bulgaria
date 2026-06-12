@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="l10n_bg_claude_terminal.ClaudeDispatchDialog">
+    <Dialog t-props="{ title: ' ', size: 'sm', footer: false }">
+    <div class="ai-dispatch-body">
+
+        <!-- ══ PICK — home-menu tile grid ══════════════════════════ -->
+        <div t-if="state.phase === 'pick'" class="ai-grid">
+
+            <button class="ai-grid-btn ai-grid-btn--close"
+                    title="Close"
+                    t-on-click="props.close">
+                <i class="fa fa-times ai-grid-icon"/>
+                <span class="ai-grid-label">Close</span>
+            </button>
+
+            <button class="ai-grid-btn"
+                    title="Open Claude AI chat session"
+                    t-on-click="clickTerminal">
+                <i class="fa fa-terminal ai-grid-icon"/>
+                <span class="ai-grid-label">Terminal</span>
+            </button>
+
+            <button class="ai-grid-btn"
+                    title="Open the terminal in ask mode — answers about this record"
+                    t-on-click="clickAsk">
+                <i class="fa fa-comments ai-grid-icon"/>
+                <span class="ai-grid-label">Ask me</span>
+            </button>
+
+            <t t-foreach="skills" t-as="skill" t-key="skill.key">
+                <button class="ai-grid-btn ai-grid-btn--skill"
+                        t-att-title="skill.label"
+                        t-on-click="() => this.clickSkill(skill)">
+                    <i t-attf-class="fa #{skill.icon or 'fa-magic'} ai-grid-icon"/>
+                    <span class="ai-grid-label" t-esc="skill.label"/>
+                </button>
+            </t>
+        </div>
+
+        <!-- ══ RUNNING ════════════════════════════════════════════ -->
+        <div t-if="state.phase === 'running'" class="ai-dispatch-exec">
+            <div class="ai-exec-hdr">
+                <span class="spinner-border spinner-border-sm text-primary"/>
+                <span class="ai-exec-label" t-esc="state.activeSkillLabel"/>
+            </div>
+            <div class="ai-log-console">
+                <t t-foreach="state.log" t-as="line" t-key="line_index">
+                    <div class="ai-log-line" t-esc="line"/>
+                </t>
+                <span class="ai-log-cursor">&#x258C;</span>
+            </div>
+        </div>
+
+        <!-- ══ DONE ═══════════════════════════════════════════════ -->
+        <div t-if="state.phase === 'done'" class="ai-dispatch-exec">
+            <div class="ai-exec-hdr ai-exec-hdr--ok">
+                <i class="fa fa-check-circle fa-lg"/>
+                <span>Completed successfully</span>
+            </div>
+            <div t-if="state.resultHtml" class="ai-result-card" t-out="state.resultHtml"/>
+            <div t-else="" class="ai-log-console ai-log-console--done">
+                <t t-foreach="state.log" t-as="line" t-key="line_index">
+                    <div class="ai-log-line" t-esc="line"/>
+                </t>
+            </div>
+            <button class="btn btn-primary w-100 mt-2" t-on-click="props.close">Close</button>
+        </div>
+
+        <!-- ══ ERROR ══════════════════════════════════════════════ -->
+        <div t-if="state.phase === 'error'" class="ai-dispatch-exec">
+            <div class="ai-exec-hdr ai-exec-hdr--err">
+                <i class="fa fa-times-circle fa-lg"/>
+                <span>Action failed</span>
+            </div>
+            <div class="ai-log-console ai-log-console--error" t-esc="state.error"/>
+            <div class="d-flex gap-2 mt-2">
+                <button class="btn btn-outline-secondary flex-fill" t-on-click="backToPick">
+                    <i class="fa fa-arrow-left me-1"/>Back
+                </button>
+                <button class="btn btn-outline-danger flex-fill" t-on-click="props.close">Close</button>
+            </div>
+        </div>
+
+    </div>
+    </Dialog>
+</t>
+
+</templates>

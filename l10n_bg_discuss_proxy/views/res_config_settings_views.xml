@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_discuss_proxy" model="ir.ui.view">
+        <field name="name">res.config.settings.discuss.proxy</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='general_settings']" position="inside">
+                <block title="Discuss Proxy (Claude)" name="discuss_proxy_block">
+                    <setting string="Centrifugo Proxy"
+                             help="Publish monitored users' Discuss messages to Centrifugo so an external Claude can listen + reply.">
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label for="discuss_proxy_centrifugo_url" string="API URL" class="col-lg-3 o_light_label"/>
+                                <field name="discuss_proxy_centrifugo_url"
+                                       placeholder="https://centrifugo.mcpworks.net/api"/>
+                            </div>
+                            <div class="row mt16">
+                                <label for="discuss_proxy_centrifugo_api_key" string="API Key" class="col-lg-3 o_light_label"/>
+                                <field name="discuss_proxy_centrifugo_api_key" password="True"/>
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

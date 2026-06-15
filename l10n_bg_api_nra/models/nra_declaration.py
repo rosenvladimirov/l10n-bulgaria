@@ -435,6 +435,24 @@ class NraDeclaration(models.Model):
                 return label
         return self.declaration_type
 
+    @api.depends("name", "declaration_type", "period_year", "period_month")
+    def _compute_display_name(self):
+        """DEF-41: смислен display name — референция + тип + период.
+
+        По подразбиране display_name = name (sequence „ETZ/2026/00068"), който
+        в dropdown-и/breadcrumbs не казва нито типа, нито периода. Добавяме
+        човешкия етикет на типа и периода mm.yyyy.
+        """
+        for rec in self:
+            parts = [rec.name or "/"]
+            type_label = rec.get_declaration_type_label()
+            if type_label and type_label != rec.declaration_type:
+                parts.append(type_label)
+            if rec.period_year and rec.period_month:
+                parts.append(
+                    "%s.%s" % (rec.period_month.zfill(2), rec.period_year))
+            rec.display_name = " — ".join(parts)
+
     def _process_submit_response(self, result):
         """Process the NRA API response after submission.
 

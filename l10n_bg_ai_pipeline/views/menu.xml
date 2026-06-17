@@ -29,4 +29,11 @@
         action="action_ai_pipeline_run"
         sequence="30"/>
 
+    <menuitem
+        id="menu_ai_model"
+        name="AI Models"
+        parent="menu_ai_pipeline_root"
+        action="action_ai_model"
+        sequence="5"/>
+
 </odoo>

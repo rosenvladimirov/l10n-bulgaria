@@ -46,7 +46,6 @@
         <field name="view_mode">list,form</field>
     </record>
 
-    <menuitem id="menu_ai_model" name="AI Models"
-              parent="menu_ai_pipeline_root"
-              action="action_ai_model" sequence="5"/>
+    <!-- Menuitem-ът е в views/menu.xml — parent-ът menu_ai_pipeline_root
+         се дефинира там и при ЧИСТ install този файл се зарежда преди него -->
 </odoo>

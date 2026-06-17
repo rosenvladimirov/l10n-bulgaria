@@ -42,7 +42,9 @@ _EE_MODULES_SQL = """
             OR name = 'l10n_bg_config_plugins_payroll'
         ), FALSE) AS ee_payroll
     FROM ir_module_module
-    WHERE state = 'installed'
+    -- 'to upgrade' се включва, защото пингът се прави и в post-migrate, когато
+    -- съседните модули са в преход (state='to upgrade') при общ -u.
+    WHERE state IN ('installed', 'to upgrade')
 """
 
 

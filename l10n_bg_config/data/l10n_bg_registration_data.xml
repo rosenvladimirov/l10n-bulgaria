@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Registration phone-home към лицензния сървър.
+         URL-ът е публичен (само POST към /l10n_bg/register). Токенът НЕ се
+         държи тук (публично репо) — задава се отделно като системен параметър
+         l10n_bg.register_token на инсталацията. -->
+    <data noupdate="1">
+        <record id="l10n_bg_register_server_url" model="ir.config_parameter">
+            <field name="key">l10n_bg.register_server_url</field>
+            <field name="value">https://www.odoo-shell.dev</field>
+        </record>
+        <record id="l10n_bg_register_enabled" model="ir.config_parameter">
+            <field name="key">l10n_bg.register_enabled</field>
+            <field name="value">1</field>
+        </record>
+    </data>
+</odoo>

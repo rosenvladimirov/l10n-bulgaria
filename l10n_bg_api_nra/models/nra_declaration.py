@@ -448,10 +448,19 @@ class NraDeclaration(models.Model):
             type_label = rec.get_declaration_type_label()
             if type_label and type_label != rec.declaration_type:
                 parts.append(type_label)
+            extra = rec._l10n_bg_display_name_extra()
+            if extra:
+                parts.append(extra)
             if rec.period_year and rec.period_month:
                 parts.append(
                     "%s.%s" % (rec.period_month.zfill(2), rec.period_year))
             rec.display_name = " — ".join(parts)
+
+    def _l10n_bg_display_name_extra(self):
+        """DEF-41: hook за допълнителен сегмент в display_name (напр. record_type
+        при ЕТЗ) — plug-in модулите го override-ват."""
+        self.ensure_one()
+        return ""
 
     def _process_submit_response(self, result):
         """Process the NRA API response after submission.

@@ -570,9 +570,11 @@
             <field name="sequence">403</field>
         </record>
 
-        <!-- Leave for Death/Serious Illness of Parent - Art. 167 KT -->
+        <!-- PRU-4: чл. 167 КТ препраща към отпуските по чл. 163-166 (две фази
+             с РАЗЛИЧНО обезщетение) — затова два leave типа. Фаза чл. 163
+             (майчинство) → BG_MATERNITY; преди погрешно LEAVE110 болничен. -->
         <record id="holiday_status_kt_parent_illness" model="hr.leave.type">
-            <field name="name">Leave for Death/Serious Illness of Parent</field>
+            <field name="name">Transfer of Maternity Leave (Art. 167 + Art. 163 LC)</field>
             <field name="l10n_bg_code">KT167</field>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
@@ -581,6 +583,19 @@
             <field name="color">2</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">404</field>
+        </record>
+
+        <!-- PRU-4: фаза чл. 164 (отглеждане на дете до 2 г.) → BG_CHILDCARE -->
+        <record id="holiday_status_kt_parent_childcare" model="hr.leave.type">
+            <field name="name">Transfer of Childcare Leave (Art. 167 + Art. 164 LC)</field>
+            <field name="l10n_bg_code">KT167C</field>
+            <field name="requires_allocation" eval="False"/>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">True</field>
+            <field name="color">2</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">405</field>
         </record>
 
         <!-- Unpaid Childcare Leave (up to 8 years) - Art. 167a KT -->

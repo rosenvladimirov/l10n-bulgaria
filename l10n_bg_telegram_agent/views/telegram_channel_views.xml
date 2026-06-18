@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_telegram_channel_form" model="ir.ui.view">
+        <field name="name">telegram.channel.form</field>
+        <field name="model">telegram.channel</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_open_discuss" type="object"
+                            string="Open Session" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="title" placeholder="chat title"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="account_id"/>
+                            <field name="chat_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="mode"/>
+                            <field name="enabled"/>
+                            <field name="discuss_channel_id"/>
+                            <field name="last_message_date"/>
+                        </group>
+                    </group>
+                    <group string="Persona / Scenario">
+                        <field name="persona" nolabel="1"
+                               placeholder="AI persona / scenario for auto mode..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_telegram_channel_list" model="ir.ui.view">
+        <field name="name">telegram.channel.list</field>
+        <field name="model">telegram.channel</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="title"/>
+                <field name="chat_id"/>
+                <field name="account_id"/>
+                <field name="mode"/>
+                <field name="enabled"/>
+                <field name="last_message_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_telegram_channel" model="ir.actions.act_window">
+        <field name="name">Telegram Sessions</field>
+        <field name="res_model">telegram.channel</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

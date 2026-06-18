@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- v2 вариант А: Odoo дърпа входящите от Centrifugo hub-а през history
+         API (cron polling). История TTL=300s покрива интервала. За по-ниска
+         латентност намали interval_number или мини на SSE-worker. -->
+    <record id="ir_cron_telegram_centrifugo_poll" model="ir.cron">
+        <field name="name">Telegram Agent: poll Centrifugo</field>
+        <field name="model_id" ref="model_telegram_account"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_poll_centrifugo()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="False"/>
+        <field name="doall" eval="False"/>
+    </record>
+</odoo>

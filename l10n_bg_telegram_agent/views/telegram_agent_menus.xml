@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_telegram_agent_root" name="Telegram Agent"
+              groups="group_telegram_agent_manager"
+              web_icon="mail,static/description/icon.png"/>
+    <menuitem id="menu_telegram_sessions" name="Sessions"
+              parent="menu_telegram_agent_root"
+              action="action_telegram_channel" sequence="10"/>
+    <menuitem id="menu_telegram_accounts" name="Accounts"
+              parent="menu_telegram_agent_root"
+              action="action_telegram_account" sequence="20"/>
+</odoo>

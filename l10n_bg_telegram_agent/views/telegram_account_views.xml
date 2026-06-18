@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_telegram_account_form" model="ir.ui.view">
+        <field name="name">telegram.account.form</field>
+        <field name="model">telegram.account</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_rotate_secret" type="object"
+                            string="Rotate HMAC Secret" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="listener name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="state"/>
+                            <field name="active"/>
+                            <field name="send_endpoint" placeholder="http://host:9105/send"/>
+                        </group>
+                        <group>
+                            <field name="registry_secret" password="True"/>
+                            <field name="channel_count"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Bound Chats">
+                            <field name="channel_ids">
+                                <list>
+                                    <field name="chat_id"/>
+                                    <field name="title"/>
+                                    <field name="mode"/>
+                                    <field name="enabled"/>
+                                    <field name="last_message_date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Centrifugo (variant A)">
+                            <group>
+                                <group string="Subscriber">
+                                    <field name="cf_poll_enabled"/>
+                                    <field name="centrifugo_api_url"
+                                           placeholder="https://centrifugo.mcpworks.net/api"/>
+                                    <field name="centrifugo_channel"
+                                           placeholder="telegram:rosen:359886100204"/>
+                                    <field name="centrifugo_api_key" password="True"/>
+                                </group>
+                                <group string="Stream cursor (read-only)">
+                                    <field name="cf_offset" readonly="1"/>
+                                    <field name="cf_epoch" readonly="1"/>
+                                    <field name="cf_last_poll" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_telegram_account_list" model="ir.ui.view">
+        <field name="name">telegram.account.list</field>
+        <field name="model">telegram.account</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="state"/>
+                <field name="channel_count"/>
+                <field name="send_endpoint"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_telegram_account" model="ir.actions.act_window">
+        <field name="name">Telegram Accounts</field>
+        <field name="res_model">telegram.account</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

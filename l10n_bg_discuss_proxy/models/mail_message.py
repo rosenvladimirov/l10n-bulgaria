@@ -16,9 +16,20 @@ from odoo import api, models
 _logger = logging.getLogger(__name__)
 
 
-def _chan(login):
-    """Centrifugo-safe канал суфикс от login (без @/./интервали)."""
-    return "discuss:" + re.sub(r"[^a-zA-Z0-9_-]", "_", login or "user")
+def _safe(token):
+    """Centrifugo-safe токен (без @/./интервали/двоеточия)."""
+    return re.sub(r"[^a-zA-Z0-9_-]", "_", token or "x")
+
+
+def _chan(tenant, login):
+    """Per-stack Centrifugo канал: ``discuss:<tenant>:<login>``.
+
+    МЦП правило: услугите се делят per-stack. Login сам по себе си НЕ е
+    глобално уникален между стакове (всеки стак има `admin`), затова tenant
+    (кода на стака) го прави уникален — точно както телефонът прави telegram
+    принципала уникален. Namespace-ът за Centrifugo е първата дума (`discuss`);
+    останалите двоеточия са просто част от името на канала."""
+    return "discuss:" + _safe(tenant) + ":" + _safe(login)
 
 try:
     import requests
@@ -48,6 +59,9 @@ class MailMessage(models.Model):
         key = (ICP.get_param("discuss_proxy.centrifugo_api_key") or "").strip()
         if not base or not key or requests is None:
             return
+        # Идентичност на стака (per-stack изолация). Default = db име.
+        tenant = (ICP.get_param("discuss_proxy.tenant_code")
+                  or self.env.cr.dbname or "").strip()
         Users = self.env["res.users"].sudo()
         for m in self:
             # Само истински разговори в discuss.channel (не log notes, не др. модели).
@@ -71,7 +85,7 @@ class MailMessage(models.Model):
                 # (вкл. отговорите на Claude, които се пишат като него) — иначе loop.
                 if m.author_id and u.partner_id and m.author_id.id == u.partner_id.id:
                     continue
-                self._cf_publish(base, key, _chan(u.login), {
+                self._cf_publish(base, key, _chan(tenant, u.login), {
                     "channel_id": channel.id,
                     "channel_name": channel.name or "",
                     "channel_type": channel.channel_type or "",

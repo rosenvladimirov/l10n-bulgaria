@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Discuss Proxy — listen to internal chat from outside",
-    "version": "19.0.1.1.0",
+    "version": "19.0.1.2.0",
     "summary": "Publish internal Discuss messages of monitored users to the "
                "Centrifugo proxy so an external Claude can listen and reply "
                "(mirror of the Telegram bridge, but for Odoo Discuss).",

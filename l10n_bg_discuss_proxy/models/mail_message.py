@@ -67,6 +67,12 @@ class MailMessage(models.Model):
         # CSV/space partner_id-та (напр. "2324"). Празно = изключено.
         bot_pids = {int(x) for x in (ICP.get_param("discuss_proxy.bot_partner_ids")
                     or "").replace(",", " ").split() if x.strip().isdigit()}
+        # Наблюдавани, чиито СОБСТВЕНИ съобщения ВСЕ ПАК се излъчват (изключва
+        # self-skip-а) — за да може наблюдаваният да пише от телефона и listener-ът
+        # да го вижда. Loop защитата остава през bot_partner_ids (отговорите на
+        # Claude са от бот-юзъра, не от наблюдавания). CSV partner_id-та.
+        publish_self_pids = {int(x) for x in (ICP.get_param("discuss_proxy.publish_self_partner_ids")
+                             or "").replace(",", " ").split() if x.strip().isdigit()}
         Users = self.env["res.users"].sudo()
         for m in self:
             # Само истински разговори в discuss.channel (не log notes, не др. модели).
@@ -91,7 +97,8 @@ class MailMessage(models.Model):
             for u in monitored:
                 # Echo guard: НЕ излъчваме собствените съобщения на наблюдавания
                 # (вкл. отговорите на Claude, които се пишат като него) — иначе loop.
-                if m.author_id and u.partner_id and m.author_id.id == u.partner_id.id:
+                if (m.author_id and u.partner_id and m.author_id.id == u.partner_id.id
+                        and u.partner_id.id not in publish_self_pids):
                     continue
                 self._cf_publish(base, key, _chan(tenant, u.login), {
                     "channel_id": channel.id,

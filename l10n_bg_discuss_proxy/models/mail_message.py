@@ -62,6 +62,11 @@ class MailMessage(models.Model):
         # Идентичност на стака (per-stack изолация). Default = db име.
         tenant = (ICP.get_param("discuss_proxy.tenant_code")
                   or self.env.cr.dbname or "").strip()
+        # Бот-автори (отговорите на Claude през отделен бот-юзър) — НИКОГА не се
+        # излъчват в никой канал → loop guard. discuss_proxy.bot_partner_ids =
+        # CSV/space partner_id-та (напр. "2324"). Празно = изключено.
+        bot_pids = {int(x) for x in (ICP.get_param("discuss_proxy.bot_partner_ids")
+                    or "").replace(",", " ").split() if x.strip().isdigit()}
         Users = self.env["res.users"].sudo()
         for m in self:
             # Само истински разговори в discuss.channel (не log notes, не др. модели).
@@ -74,6 +79,9 @@ class MailMessage(models.Model):
                 continue
             member_pids = channel.channel_partner_ids.ids
             if not member_pids:
+                continue
+            # BOT guard: отговор от бот-юзър (Claude) → не излъчвай в НИКОЙ канал.
+            if m.author_id and m.author_id.id in bot_pids:
                 continue
             # Наблюдавани потребители, които СА в този канал.
             monitored = Users.search([

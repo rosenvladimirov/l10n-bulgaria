@@ -9,21 +9,25 @@
         <!-- Maternity leave (чл. 163 КТ — 410 days) -->
         <record id="holiday_status_kt_maternity_410" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_maternity</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- Paternity leave (чл. 163, ал. 10 КТ — 15 days) -->
         <record id="holiday_status_kt_paternity" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_maternity</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- Childcare leave up to 2 years (чл. 164 КТ) -->
         <record id="holiday_status_kt_childcare_2y" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_maternity</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- Breastfeeding / baby care leave (чл. 166 КТ) -->
         <record id="holiday_status_kt_breastfeeding" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_maternity</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- ===================================================
@@ -34,16 +38,19 @@
         <!-- NSSI 01: Професионална болест -->
         <record id="holiday_status_nssi_01" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_work_accident</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- NSSI 02: Трудова злополука -->
         <record id="holiday_status_nssi_02" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_work_accident</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- NSSI 13: Реинтеграция след трудова злополука -->
         <record id="holiday_status_nssi_13" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_work_accident</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- ===================================================
@@ -54,51 +61,61 @@
         <!-- NSSI 03: Общо заболяване -->
         <record id="holiday_status_nssi_03" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_sick</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- NSSI 06: Карантина -->
         <record id="holiday_status_nssi_06" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_sick</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- NSSI 07: Придружаване на болен пълнолетен (КСО чл. 45, ал. 1, т. 2) -->
         <record id="holiday_status_nssi_07" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_sick</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- NSSI 08: Санаторно-курортно лечение -->
         <record id="holiday_status_nssi_08" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_sick</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- NSSI 09: Възстановяване след заболяване -->
         <record id="holiday_status_nssi_09" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_sick</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- NSSI 10: Епидемиологична изолация -->
         <record id="holiday_status_nssi_10" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_sick</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- NSSI 11: Медицински прегледи и изследвания -->
         <record id="holiday_status_nssi_11" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_sick</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- NSSI 12: Донорство на органи -->
         <record id="holiday_status_nssi_12" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_sick</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- NSSI 14: Трудоустрояване по медицински причини -->
         <record id="holiday_status_nssi_14" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_sick</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- NSSI 16: Ин-витро процедури (КСО чл. 40, ал. 3) -->
         <record id="holiday_status_nssi_16" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_sick</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- NSSI 17: премахнат (DEF-27 — няма го в П9) -->
@@ -106,11 +123,13 @@
         <!-- NSSI 18: Нетрудова (битова) злополука (КСО чл. 40, ал. 1) -->
         <record id="holiday_status_nssi_18" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_sick</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
         </record>
 
         <!-- NSSI 19: Гледане на болно дете до 18 г. (КСО чл. 45, ал. 1, т. 1) -->
         <record id="holiday_status_nssi_19" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_sick</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- ===================================================
@@ -120,16 +139,19 @@
         <!-- NSSI 04: Бременност и раждане (КСО чл. 50) -->
         <record id="holiday_status_nssi_04" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_maternity</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- NSSI 05: Гледане на болно дете до 2 г. (КСО чл. 53) -->
         <record id="holiday_status_nssi_05" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_maternity</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- NSSI 15: Осиновяване (КСО чл. 53в) -->
         <record id="holiday_status_nssi_15" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">nssi_maternity</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- ===================================================
@@ -139,6 +161,7 @@
 
         <record id="holiday_status_kt_unpaid" model="hr.work.entry.type">
             <field name="l10n_bg_doo_treatment">unpaid_no_doo</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
     </data>

@@ -79,6 +79,9 @@ class HRLeaveType(models.Model):
         ('nssi_sick', 'NSSI-funded sick leave (after 3 employer-paid days, BG Labor Code art. 162)'),
         ('nssi_work_accident', 'NSSI-funded work accident / occupational disease (90%, Social Security Code art. 41)'),
         ('unpaid_no_doo', 'Unpaid > 30 days/year — excluded from DOO base'),
+        ('unpaid_employee', 'Unpaid — ZO at employee expense (Health Insurance Act art. 40(1)(1)(b); own request, LC art. 160)'),
+        ('unpaid_employer', 'Unpaid — ZO at employer expense (child care LC art. 167a, official/creative leave LC art. 158/161)'),
+        ('unpaid_split', 'Unpaid — ZO split employer/employee (production necessity / idle time)'),
     ],
         string='DOO Treatment',
         default='normal',
@@ -92,7 +95,11 @@ class HRLeaveType(models.Model):
              'is 90% (BG Social Security Code art. 41) and no minimum insurance '
              'length is required (art. 40 par. 1). '
              '`unpaid_no_doo` — unpaid leave above 30 days/year per BG Labor Code '
-             'art. 160 par. 1 — excluded from DOO base entirely.'
+             'art. 160 par. 1 — excluded from DOO base entirely. '
+             '`unpaid_employee`/`unpaid_employer`/`unpaid_split` — unpaid leave with '
+             'health insurance due on ½ of the self-insured minimum income (Health '
+             'Insurance Act art. 40(1)(1)(b)), borne by the employee, the employer, '
+             'or split, depending on the reason for the leave.'
     )
 
     @api.depends('count_as')

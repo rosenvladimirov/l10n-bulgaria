@@ -155,12 +155,34 @@
         </record>
 
         <!-- ===================================================
-             Неплатен отпуск — над 30 раб. дни/год. извън ДОО база
-             (КТ чл. 160, КСО чл. 9, ал. 2, т. 3)
+             Неплатен отпуск — ЗО по платец (ЗЗО чл. 40, ал. 1, т. 1, б. „б").
+             ЗО (½ × МОД-СОЛ × 8%) се дължи за ВСЕКИ неплатен ден; прагът 30 раб.
+             дни/год. (КСО чл. 9, ал. 2, т. 3) важи САМО за осиг. СТАЖ, не за ЗО.
+             Платецът се определя от ОСНОВАНИЕТО: чл.160→лице; чл.167а/158/161→
+             работодател; производствена необходимост/престой→поделено.
              =================================================== -->
 
+        <!-- Неплатен по желание на работника (КТ чл. 160) — ЗО за сметка на лицето -->
         <record id="holiday_status_kt_unpaid" model="hr.work.entry.type">
-            <field name="l10n_bg_doo_treatment">unpaid_no_doo</field>
+            <field name="l10n_bg_doo_treatment">unpaid_employee</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
+        </record>
+
+        <!-- Служебен / творчески неплатен (КТ чл. 158/161) — ЗО за сметка на работодателя -->
+        <record id="holiday_status_kt_professional_unpaid" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">unpaid_employer</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
+        </record>
+
+        <!-- Неплатен за гледане на дете до 8 г. (КТ чл. 167а) — ЗО за сметка на работодателя -->
+        <record id="holiday_status_kt_childcare_8y" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">unpaid_employer</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
+        </record>
+
+        <!-- Производствена необходимост / престой (КТ чл. 267, ал. 3) — ЗО поделено работодател/лице -->
+        <record id="holiday_status_kt_production_necessity" model="hr.work.entry.type">
+            <field name="l10n_bg_doo_treatment">unpaid_split</field>
             <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 

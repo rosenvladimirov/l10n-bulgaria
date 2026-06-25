@@ -507,6 +507,23 @@
             <field name="sequence">303</field>
         </record>
 
+        <!-- Неплатен по производствена необходимост / престой по вина на
+             работника (КТ чл. 267, ал. 3) — неплатен в интерес на работодателя.
+             ЗО по ЗЗО чл. 40, ал. 1, т. 1, б. „б" се поделя работодател/лице
+             (решение ТРЗ 2026-06-24) → unpaid_split. -->
+        <record id="holiday_status_kt_production_necessity" model="hr.work.entry.type">
+            <field name="name">Unpaid Leave - Production Necessity / Idle Time</field>
+            <field name="l10n_bg_code">KT267</field>
+            <field name="code">KT267</field>
+            <field name="count_as">absence</field>
+            <field name="requires_allocation" eval="False"/>
+            <field name="unpaid">True</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="support_document">False</field>
+            <field name="color">2</field>
+            <field name="sequence">304</field>
+        </record>
+
         <!-- ============================================ -->
         <!-- КОДЕКС НА ТРУДА - ОТПУСКИ ЗА МАЙЧИНСТВО И БАЩИНСТВО -->
         <!-- ============================================ -->

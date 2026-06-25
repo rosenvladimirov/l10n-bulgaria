@@ -2,27 +2,26 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { patch } from "@web/core/utils/patch";
-import OrderPaymentValidation from "@point_of_sale/app/utils/order_payment_validation";
+import { PaymentScreen } from "@point_of_sale/app/screens/payment_screen/payment_screen";
 import { ErpNetFPPrinter } from "@l10n_bg_erp_net_fp/js/erp_net_fp_printer";
 
-console.log("[FiscalPayment] 🔧 Loading Fiscal Payment Extension (v19)...");
+console.log("[FiscalPayment] 🔧 Loading Fiscal Payment Extension (v18)...");
 
-// v19: validateOrder/finalizeValidation се преместиха от PaymentScreen.prototype
-// в нов клас OrderPaymentValidation (app/utils/order_payment_validation.js).
-// Hook-ваме публичния finalizeValidation (без `_` префикс — преименуван в v19).
-patch(OrderPaymentValidation.prototype, {
+// Odoo 18: order validation все още живее в PaymentScreen.prototype.validateOrder().
+// (OrderPaymentValidation.finalizeValidation е v19-only — затова hook-ваме validateOrder.)
+patch(PaymentScreen.prototype, {
 
-    async finalizeValidation() {
+    async validateOrder(isForceValidate) {
         console.log("[FiscalPayment] ═══════════════════════════════════════");
-        console.log("[FiscalPayment] 🎯 finalizeValidation() called");
+        console.log("[FiscalPayment] 🎯 validateOrder() called");
         console.log("[FiscalPayment] ═══════════════════════════════════════");
 
-        const order = this.order;
+        const order = this.currentOrder;
 
         // GUARD: ако този order вече е fiscalised в предишен failed опит, не печатай пак.
         if (order?.l10n_bg_is_fiscalized) {
             console.log("[FiscalPayment] ⏭ Order already fiscalised — skipping reprint, delegating to super");
-            return await super.finalizeValidation();
+            return await super.validateOrder(isForceValidate);
         }
 
         console.log("[FiscalPayment] Current order:", order);
@@ -38,7 +37,7 @@ patch(OrderPaymentValidation.prototype, {
         console.log("[FiscalPayment] Fiscal printer host:", fiscalPrinterHost);
         console.log("[FiscalPayment] Fiscal printer ID:", fiscalPrinterId);
 
-        const notification = this.pos.env?.services?.notification;
+        const notification = this.env?.services?.notification || this.pos.env?.services?.notification;
 
         if (fiscalPrinterHost && fiscalPrinterId && order) {
             console.log("[FiscalPayment] 🚀 Fiscal printer configured, checking order type...");
@@ -47,7 +46,7 @@ patch(OrderPaymentValidation.prototype, {
             console.log("[FiscalPayment] Is refund order:", refundInfo.isRefund);
 
             try {
-                const fiscalPrinter = new ErpNetFPPrinter(this.pos.env, {
+                const fiscalPrinter = new ErpNetFPPrinter(this.env, {
                     baseUrl: fiscalPrinterHost,
                     printerId: fiscalPrinterId,
                 });
@@ -202,8 +201,8 @@ patch(OrderPaymentValidation.prototype, {
             console.log("[FiscalPayment] Proceeding with normal validation...");
         }
 
-        console.log("[FiscalPayment] ✅ Proceeding to normal order finalization...");
-        const ret = await super.finalizeValidation();
+        console.log("[FiscalPayment] ✅ Proceeding to normal order validation...");
+        const ret = await super.validateOrder(isForceValidate);
 
         // SKIP ReceiptScreen — фискалното устройство вече произведе хартиен бон;
         // не ни трябва Odoo preview/print/email диалог. + email-ваме клиента
@@ -227,11 +226,11 @@ patch(OrderPaymentValidation.prototype, {
                 console.log("[FiscalPayment] ⏭ Skipping ReceiptScreen → ProductScreen");
                 order.set_screen_data?.({ name: "" });
                 this.pos.selectNextOrder?.();
-                // v19: pos.navigate е заменил pos.showScreen
-                if (typeof this.pos.navigate === "function") {
-                    this.pos.navigate("ProductScreen");
-                } else if (typeof this.pos.showScreen === "function") {
+                // v18: pos.showScreen; (v19 преименува на pos.navigate — пазим и двата)
+                if (typeof this.pos.showScreen === "function") {
                     this.pos.showScreen("ProductScreen");
+                } else if (typeof this.pos.navigate === "function") {
+                    this.pos.navigate("ProductScreen");
                 }
             } catch (e) {
                 console.warn("[FiscalPayment] ReceiptScreen skip failed:", e);
@@ -273,4 +272,5 @@ patch(OrderPaymentValidation.prototype, {
     }
 });
 
-console.log("[FiscalPayment] ✅ OrderPaymentValidation patched successfully (v19)");
+console.log("[FiscalPayment] ✅ PaymentScreen patched successfully (v18)");
+                                                                                                                                                                                                                                                                                           

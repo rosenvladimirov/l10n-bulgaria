@@ -15,8 +15,8 @@
  */
 
 import { _t } from "@web/core/l10n/translation";
-import { PaymentInterface } from "@point_of_sale/app/utils/payment/payment_interface";
-import { register_payment_method } from "@point_of_sale/app/services/pos_store";
+import { PaymentInterface } from "@point_of_sale/app/payment/payment_interface";
+import { register_payment_method } from "@point_of_sale/app/store/pos_store";
 
 // Колко чакаме клиента да пъхне картата + PIN (хостов round-trip + EMV).
 const PINPAD_TIMEOUT_MS = 90000;

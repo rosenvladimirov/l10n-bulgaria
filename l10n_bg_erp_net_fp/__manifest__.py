@@ -22,7 +22,7 @@ supported by ErpNet.FP server. Features include:
 * Bulgarian tax group mapping (А, Б, В, Г)
 * Dual connection mode: Direct (server) and Proxy (browser)
 """,
-    'version': '18.0.15.10.0',
+    'version': '18.0.15.10.1',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
@@ -141,8 +141,12 @@ supported by ErpNet.FP server. Features include:
             'l10n_bg_erp_net_fp/static/src/xml/printer_id_field.xml',
             'l10n_bg_erp_net_fp/static/src/js/pinpad_id_field.js',
             'l10n_bg_erp_net_fp/static/src/xml/pinpad_id_field.xml',
-            'l10n_bg_erp_net_fp/static/src/js/pinpad_provider_card.js',
-            'l10n_bg_erp_net_fp/static/src/xml/pinpad_provider_card.xml',
+            # v18: DatecsPay терминалът се избира през стандартния
+            # `use_payment_terminal` Selection dropdown, попълван от
+            # `_get_payment_terminal_selection()` в pos_payment_method_extensions.py.
+            # v19-only компонентът PosPaymentProviderCards (card-grid) няма аналог
+            # в Odoo 18, затова pinpad_provider_card.{js,xml} са премахнати тук —
+            # иначе несъществуващият import чупи web.assets_backend.
             'l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js',
             'l10n_bg_erp_net_fp/static/src/js/grafana_dashboard.js',
             'l10n_bg_erp_net_fp/static/src/xml/grafana_dashboard.xml',

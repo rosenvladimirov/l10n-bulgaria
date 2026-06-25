@@ -37,7 +37,7 @@ patch(PaymentScreen.prototype, {
         }
 
         const order = this.currentOrder;
-        const remaining = order.getDue();
+        const remaining = order.get_due();
         if (remaining <= 0) {
             // Нищо за таксуване — стандартно поведение.
             return await super.addNewPaymentLine(...arguments);
@@ -99,7 +99,7 @@ patch(PaymentScreen.prototype, {
         // за да попадне на бона и да стигне бекенда.
         const ok = await super.addNewPaymentLine(...arguments);
         const txid = result.rrn || result.authId || result.hostRrn || "";
-        const newLine = order.getSelectedPaymentline();
+        const newLine = order.get_selected_paymentline();
         if (newLine) {
             newLine.set_payment_status?.("done");
             if (txid) {

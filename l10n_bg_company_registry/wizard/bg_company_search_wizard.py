@@ -819,11 +819,17 @@ class BgCompanySearchWizard(models.TransientModel):
         # Prepare partner values
         vals = self._prepare_partner_vals_from_company_data(company_data)
 
-        # Update partner
-        self.partner_id.write(vals)
-        self.partner_id.update_field_translations('name', {
-            'en_US': self.display_name_en,
-        })
+        # Update partner. Данните от Търговския регистър са официална кирилица
+        # (BG primary). Пишем с lang='bg_BG' + update_lang=True, за да НЕ задействаме
+        # авто-транслитерацията на partner_multilang (тя иначе пълни en_US с латиница,
+        # а на bg_BG UI display-ът пада към латиница за name/street/city). Така
+        # кириличните стойности остават primary на bg_BG.
+        self.partner_id.with_context(lang='bg_BG', update_lang=True).write(vals)
+        # Официалното английско име (ТР раздел 4) се записва отделно на en_US.
+        if self.display_name_en:
+            self.partner_id.update_field_translations('name', {
+                'en_US': self.display_name_en,
+            })
 
         # Create or update a representative contact
         if company_data.get('managers') and len(company_data['managers']) > 0:

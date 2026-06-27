@@ -1,0 +1,114 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0\n"
+"Language: bg\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_picking__l10n_bg_account_move_ids
+msgid "Journal Entries"
+msgstr "Записи в дневника"
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_stock_input_account_id
+msgid "Stock Input Account"
+msgstr "Сметка вписване на стоки"
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_stock_input_account_id
+msgid "Transit account credited when goods are received (e.g. 301). "
+msgstr ""
+"Транзитна сметка, която се кредитира при получаване на стоките (напр. 301). "
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_stock_output_account_id
+msgid "Stock Output Account"
+msgstr "Сметка изписване на стоки"
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_stock_output_account_id
+msgid "COGS/expense account debited when goods are issued (e.g. 702.100)."
+msgstr ""
+"Сметка за разходи/себестойност, която се дебитира при изписване на стоките "
+"(напр. 702.100)."
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_stock_auto_post
+msgid "Auto-post stock accounting on validate"
+msgstr "Автоматично осчетоводяване на стоковата операция при потвърждаване"
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_stock_auto_post
+msgid ""
+"When enabled, a journal entry is created automatically when a receipt is "
+msgstr ""
+"Когато е активирано, счетоводен запис се създава автоматично при "
+"потвърждаване на получаване "
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_price_diff_account_id
+msgid "Price Difference Account (+)"
+msgstr "Сметка за ценова разлика (+)"
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_price_diff_account_id
+msgid ""
+"Clearing account used when the vendor invoice price is higher than the PO "
+"price. "
+msgstr ""
+"Разчетна сметка, която се използва, когато цената по фактурата на доставчика"
+" е по-висока от цената по поръчката. "
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_price_diff_income_account_id
+msgid "Price Difference Income (−)"
+msgstr "Приход от ценова разлика (−)"
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_price_diff_income_account_id
+msgid ""
+"Income account used when the vendor invoice price is lower than the PO "
+"price. "
+msgstr ""
+"Приходна сметка, която се използва, когато цената по фактурата на доставчика"
+" е по-ниска от цената по поръчката. "
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_stock_loss_account_id
+msgid "Stock Loss Account (брак/липси)"
+msgstr "Сметка за брак/липси"
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_stock_loss_account_id
+msgid "Expense account debited for scrap and negative inventory "
+msgstr "Разходна сметка, която се дебитира при брак и отрицателна наличност "
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_stock_gain_account_id
+msgid "Stock Gain Account (излишъци)"
+msgstr "Сметка за излишъци"
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_stock_gain_account_id
+msgid "Income account credited for positive inventory adjustments "
+msgstr ""
+"Приходна сметка, която се кредитира при положителни инвентаризационни "
+"корекции "
+
+#. module: l10n_bg_stock_account
+#: model:ir.ui.view,name:l10n_bg_stock_account.view_picking_form_l10n_bg_stock_account
+msgid "stock.picking.form.inherit.l10n_bg_stock_account"
+msgstr "stock.picking.form.inherit.l10n_bg_stock_account"
+
+#. module: l10n_bg_stock_account
+#: model:ir.ui.view,name:l10n_bg_stock_account.view_category_property_form_l10n_bg_flag
+msgid "product.category.form.inherit.l10n_bg_stock_account.flag"
+msgstr "product.category.form.inherit.l10n_bg_stock_account.flag"
+
+#. module: l10n_bg_stock_account
+#: model:ir.ui.view,name:l10n_bg_stock_account.view_category_property_form_l10n_bg
+msgid "product.category.form.inherit.l10n_bg_stock_account"
+msgstr "product.category.form.inherit.l10n_bg_stock_account"

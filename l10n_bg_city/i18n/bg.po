@@ -1,0 +1,119 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0\n"
+"Language: bg\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,help:l10n_bg_city.field_res_country_state__name
+msgid ""
+"Administrative divisions of a country. E.g. Fed. State, Departement, Canton"
+msgstr ""
+"Административни подразделения на държава. Напр. федерална щат, департамент, "
+"кантон"
+
+#. module: l10n_bg_city
+#: model:ir.model,name:l10n_bg_city.model_res_city
+msgid "City"
+msgstr "Град"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city__l10n_bg_city_hall_id
+msgid "City Hall"
+msgstr "Кметство"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city__l10n_bg_city_hall_code
+msgid "City hall code"
+msgstr "Код на кметство"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city__l10n_bg_structure_type
+msgid "Country Structure"
+msgstr "Структура на държавата"
+
+#. module: l10n_bg_city
+#: model:ir.model,name:l10n_bg_city.model_res_country_state
+msgid "Country state"
+msgstr "Държава"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types__create_uid
+msgid "Created by"
+msgstr "Създадено от"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types__create_date
+msgid "Created on"
+msgstr "Създадено на"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city__l10n_bg_has_tax_office
+msgid "Has Tax Office"
+msgstr "Има данъчна служба"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types__id
+msgid "ID"
+msgstr "Номер (ID)"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types__write_uid
+msgid "Last Updated by"
+msgstr "Последно актуализирано от"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types__write_date
+msgid "Last Updated on"
+msgstr "Последно актуализирано на"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields.selection,name:l10n_bg_city.selection__res_city__l10n_bg_structure_type__normal
+msgid "Settlement"
+msgstr "Населено място"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_country_state__name
+msgid "State Name"
+msgstr "Име на област"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,help:l10n_bg_city.field_res_city__l10n_bg_ecattu
+msgid ""
+"The unified classifier of administrative-territorial and territorial units"
+msgstr ""
+"Единен класификатор на административно-териториалните и териториалните "
+"единици"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types__code
+msgid "Type Code"
+msgstr "Код на типа"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city_types__name
+msgid "Type Name"
+msgstr "Име на типа"
+
+#. module: l10n_bg_city
+#: model:ir.model.fields,field_description:l10n_bg_city.field_res_city__l10n_bg_type_settlement_id
+msgid "Type of settlement"
+msgstr "Тип населено място"
+
+#. module: l10n_bg_city
+#: model:ir.model,name:l10n_bg_city.model_res_city_types
+msgid "Types of settlement"
+msgstr "Типове населени места"
+
+#. module: l10n_bg_city
+#: model:res.city.types,name:l10n_bg_city.village
+msgid "Village"
+msgstr "Село"

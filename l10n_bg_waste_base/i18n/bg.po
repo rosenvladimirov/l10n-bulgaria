@@ -1,0 +1,718 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0\n"
+"Language: bg\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_waste_base
+#: code:addons/l10n_bg_waste_base/waste_activity.py:66
+msgid "Activity code %s does not match the selected type %s."
+msgstr "Кодът на дейност %s не съответства на избрания тип %s."
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_l10n_bg_waste_activity__code
+msgid "Code"
+msgstr "Код"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,help:l10n_bg_waste_base.field_l10n_bg_waste_activity__code
+msgid "R1..R13 (recovery) or D1..D15 (disposal)."
+msgstr "R1..R13 (оползотворяване) или D1..D15 (обезвреждане)."
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_l10n_bg_waste_activity__name
+msgid "Name"
+msgstr "Име"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_res_company__waste_manager_id
+msgid "Waste Manager"
+msgstr "Отговорник по отпадъците"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,help:l10n_bg_waste_base.field_res_company__waste_manager_id
+msgid "User responsible for waste compliance at the company level. "
+msgstr "Потребител, отговорен за съответствието по отпадъците на ниво фирма. "
+
+#. module: l10n_bg_waste_base
+#: code:addons/l10n_bg_waste_base/waste_code.py:125
+msgid "Waste code %s has an invalid format. "
+msgstr "Кодът на отпадъка %s е в невалиден формат. "
+
+#. module: l10n_bg_waste_base
+#: code:addons/l10n_bg_waste_base/waste_code.py:135
+msgid "A waste code cannot be its own mirror counterpart."
+msgstr "Кодът на отпадъка не може да бъде свой собствен огледален аналог."
+
+#. module: l10n_bg_waste_base
+#: code:addons/l10n_bg_waste_base/waste_code.py:138
+msgid "Code %s is flagged as a mirror code but no counterpart is set."
+msgstr "Код %s е маркиран като огледален код, но не е зададен аналог."
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,help:l10n_bg_waste_base.field_l10n_bg_waste_code__code
+msgid "6-digit code in the official 'XX XX XX' format (with spaces). "
+msgstr "6-цифрен код в официалния формат 'XX XX XX' (с интервали). "
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_l10n_bg_waste_code__parent_id
+msgid "Section"
+msgstr "Секция"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,help:l10n_bg_waste_base.field_l10n_bg_waste_code__parent_id
+msgid "Parent section (e.g. '15 01' is the parent of '15 01 02'; "
+msgstr "Родителска секция (напр. '15 01' е родител на '15 01 02'; "
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_l10n_bg_waste_code__child_ids
+msgid "Children"
+msgstr "Подкодове"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_l10n_bg_waste_code__is_hazardous
+msgid "Hazardous"
+msgstr "Опасен"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,help:l10n_bg_waste_base.field_l10n_bg_waste_code__is_hazardous
+msgid "Codes marked with '*' in the regulation are hazardous waste "
+msgstr "Кодовете, маркирани с '*' в наредбата, са опасни отпадъци "
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_l10n_bg_waste_code__is_mirror
+msgid "Mirror Code"
+msgstr "Огледален код"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,help:l10n_bg_waste_base.field_l10n_bg_waste_code__is_mirror
+msgid "Has a paired hazardous/non-hazardous counterpart per "
+msgstr "Има сдвоен опасен/неопасен аналог съгласно "
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_l10n_bg_waste_code__mirror_code_id
+msgid "Mirror Counterpart"
+msgstr "Огледален аналог"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_l10n_bg_waste_code__default_uom_id
+msgid "Default UoM"
+msgstr "Мерна единица по подразбиране"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,help:l10n_bg_waste_base.field_l10n_bg_waste_code__default_uom_id
+msgid "Default unit of measure for accounting waste quantities. "
+msgstr "Мерна единица по подразбиране за отчитане на количествата отпадъци. "
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_l10n_bg_waste_code__description
+msgid "Notes"
+msgstr "Бележки"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_res_partner__is_waste_operator
+msgid "Waste Operator"
+msgstr "Оператор на отпадъци"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,help:l10n_bg_waste_base.field_res_partner__is_waste_operator
+msgid "The partner holds a Bulgarian waste treatment permit "
+msgstr "Партньорът притежава българско разрешение за третиране на отпадъци "
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_res_partner__waste_operator_role_ids
+msgid "Permitted Activities"
+msgstr "Разрешени дейности"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,help:l10n_bg_waste_base.field_res_partner__waste_operator_role_ids
+msgid "R/D activities that this partner is authorised to perform. "
+msgstr "R/D дейности, които този партньор е оправомощен да извършва. "
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_l10n_bg_waste_site__code
+msgid "Internal Code"
+msgstr "Вътрешен код"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_l10n_bg_waste_site__site_number
+msgid "Site Number"
+msgstr "Номер на площадка"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,help:l10n_bg_waste_base.field_l10n_bg_waste_site__site_number
+msgid "Site number as referenced in the operating permit."
+msgstr "Номер на площадката, посочен в разрешителното за дейност."
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_l10n_bg_waste_site__partner_id
+msgid "Address Contact"
+msgstr "Адресен контакт"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,help:l10n_bg_waste_base.field_l10n_bg_waste_site__partner_id
+msgid "Partner record holding the physical address of the site."
+msgstr "Партньорски запис, съдържащ физическия адрес на площадката."
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_l10n_bg_waste_site__municipality
+msgid "Municipality"
+msgstr "Община"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,help:l10n_bg_waste_base.field_l10n_bg_waste_site__municipality
+msgid "5-digit EKATTE code of the locality (used in regulatory reports)."
+msgstr ""
+"5-цифрен код по ЕКАТТЕ на населеното място (използван в регулаторните "
+"отчети)."
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_l10n_bg_waste_site__riosv_office
+msgid "RIOSV Office"
+msgstr "РИОСВ"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,help:l10n_bg_waste_base.field_l10n_bg_waste_site__riosv_office
+msgid "The regional environmental inspectorate (RIOSV) whose "
+msgstr "Регионалната инспекция по околната среда и водите (РИОСВ), чиято "
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,field_description:l10n_bg_waste_base.field_l10n_bg_waste_site__warehouse_ids
+msgid "Linked Warehouses"
+msgstr "Свързани складове"
+
+#. module: l10n_bg_waste_base
+#: model:ir.model.fields,help:l10n_bg_waste_base.field_l10n_bg_waste_site__warehouse_ids
+msgid "Stock pickings to/from the locations of these warehouses are "
+msgstr "Складовите движения към/от локациите на тези складове са "
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_01
+msgid ""
+"Wastes resulting from exploration, mining, quarrying, and physical and "
+"chemical treatment of minerals"
+msgstr ""
+"Отпадъци от проучване, добив, разработване на кариери и физическо и "
+"химическо обработване на полезни изкопаеми"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_02
+msgid ""
+"Wastes from agriculture, horticulture, aquaculture, forestry, hunting and "
+"fishing, food preparation and processing"
+msgstr ""
+"Отпадъци от земеделие, градинарство, аквакултури, горско стопанство, лов и "
+"риболов, приготвяне и преработка на храни"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_03
+msgid ""
+"Wastes from wood processing and the production of panels and furniture, "
+"pulp, paper and cardboard"
+msgstr ""
+"Отпадъци от обработка на дървесина и производство на плоскости и мебели, "
+"целулоза, хартия и картон"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_04
+msgid "Wastes from the leather, fur and textile industries"
+msgstr "Отпадъци от кожарската, кожухарската и текстилната промишленост"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_05
+msgid ""
+"Wastes from petroleum refining, natural gas purification and pyrolytic "
+"treatment of coal"
+msgstr ""
+"Отпадъци от рафиниране на нефт, пречистване на природен газ и пиролиза на "
+"въглища"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_06
+msgid "Wastes from inorganic chemical processes"
+msgstr "Отпадъци от неорганични химични процеси"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_07
+msgid "Wastes from organic chemical processes"
+msgstr "Отпадъци от органични химични процеси"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_08
+msgid ""
+"Wastes from the manufacture, formulation, supply and use of coatings, "
+"adhesives, sealants and printing inks"
+msgstr ""
+"Отпадъци от производство, формулиране, доставяне и употреба на покрития, "
+"лепила, уплътняващи материали и печатарски мастила"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_09
+msgid "Wastes from the photographic industry"
+msgstr "Отпадъци от фотографската промишленост"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_10
+msgid "Wastes from thermal processes"
+msgstr "Отпадъци от топлинни процеси"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_11
+msgid ""
+"Wastes from chemical surface treatment and coating of metals and other "
+"materials; non-ferrous hydrometallurgy"
+msgstr ""
+"Отпадъци от химично повърхностно обработване и нанасяне на покрития върху "
+"метали и други материали; хидрометалургия на цветни метали"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_12
+msgid ""
+"Wastes from shaping and physical and mechanical surface treatment of metals "
+"and plastics"
+msgstr ""
+"Отпадъци от формоване и физическо и механично повърхностно обработване на "
+"метали и пластмаси"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_13
+msgid "Oil wastes and wastes of liquid fuels (except edible oils)"
+msgstr ""
+"Отпадъци от масла и отпадъци от течни горива (с изключение на хранителни "
+"масла)"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_14
+msgid "Waste organic solvents, refrigerants and propellants"
+msgstr "Отпадъчни органични разтворители, охлаждащи течности и пропеланти"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_15
+msgid ""
+"Waste packaging; absorbents, wiping cloths, filter materials and protective "
+"clothing not otherwise specified"
+msgstr ""
+"Отпадъци от опаковки; абсорбенти, кърпи за изтриване, филтърни материали и "
+"предпазни облекла, неупоменати другаде"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_16
+msgid "Wastes not otherwise specified in the list"
+msgstr "Отпадъци, неупоменати другаде в списъка"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_17
+msgid ""
+"Construction and demolition wastes (including excavated soil from "
+"contaminated sites)"
+msgstr ""
+"Отпадъци от строителство и събаряне (включително изкопани земни маси от "
+"замърсени терени)"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_18
+msgid "Wastes from human or animal health care and/or related research"
+msgstr ""
+"Отпадъци от хуманното или ветеринарното здравеопазване и/или свързани с тях "
+"научни изследвания"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_19
+msgid ""
+"Wastes from waste management facilities, off-site waste water treatment "
+"plants and the preparation of water intended for human consumption"
+msgstr ""
+"Отпадъци от съоръжения за управление на отпадъци, от пречиствателни станции "
+"за отпадъчни води извън мястото на образуването им и от подготовка на вода "
+"за консумация от човека"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_20
+msgid ""
+"Municipal wastes (household waste and similar commercial, industrial and "
+"institutional wastes) including separately collected fractions"
+msgstr ""
+"Битови отпадъци (домакински отпадъци и подобни търговски, промишлени и "
+"институционални отпадъци), включително разделно събирани фракции"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_02_01
+msgid ""
+"Wastes from agriculture, horticulture, aquaculture, forestry, hunting and "
+"fishing"
+msgstr ""
+"Отпадъци от земеделие, градинарство, аквакултури, горско стопанство, лов и "
+"риболов"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_07_02
+msgid ""
+"Wastes from the manufacture, formulation, supply and use (MFSU) of plastics,"
+" synthetic rubber and man-made fibres"
+msgstr ""
+"Отпадъци от производство, формулиране, доставяне и употреба (ПФДУ) на "
+"пластмаси, синтетичен каучук и изкуствени влакна"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_15_01
+msgid "Packaging (including separately collected municipal packaging waste)"
+msgstr "Опаковки (включително разделно събирани битови отпадъци от опаковки)"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_16_01
+msgid ""
+"End-of-life vehicles from different means of transport (including off-road "
+"machinery) and wastes from dismantling of end-of-life vehicles and vehicle "
+"maintenance"
+msgstr ""
+"Излезли от употреба превозни средства от различни видове транспорт "
+"(включително извънпътна техника) и отпадъци от разкомплектуване на излезли "
+"от употреба превозни средства и от поддръжка на превозни средства"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_17_02
+msgid "Wood, glass and plastic"
+msgstr "Дървесина, стъкло и пластмаса"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_19_12
+msgid ""
+"Wastes from the mechanical treatment of waste (e.g. sorting, crushing, "
+"compacting, pelletising) not otherwise specified"
+msgstr ""
+"Отпадъци от механично обработване на отпадъци (напр. сортиране, трошене, "
+"уплътняване, гранулиране), неупоменати другаде"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_20_01
+msgid "Separately collected fractions (except 15 01)"
+msgstr "Разделно събирани фракции (с изключение на 15 01)"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_02_01_04
+msgid "Waste plastics (excluding packaging)"
+msgstr "Отпадъци от пластмаси (с изключение на опаковки)"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_07_02_13
+msgid "Waste plastic"
+msgstr "Отпадъци от пластмаси"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_12_01_05
+msgid "Plastic shavings and turnings"
+msgstr "Стърготини и стружки от пластмаси"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_15_01_02
+msgid "Plastic packaging"
+msgstr "Пластмасови опаковки"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,description:l10n_bg_waste_base.waste_code_15_01_02
+msgid ""
+"Primary code for plastic packaging waste — Polygroup's main input stream for"
+" R3 recycling."
+msgstr ""
+"Основен код за отпадъци от пластмасови опаковки — главният входящ поток на "
+"Полигруп за рециклиране R3."
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_16_01_19
+msgid "Plastic (from end-of-life vehicles)"
+msgstr "Пластмаса (от излезли от употреба превозни средства)"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_17_02_03
+msgid "Plastic (from construction and demolition)"
+msgstr "Пластмаса (от строителство и събаряне)"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_19_12_04
+msgid "Plastic and rubber (from mechanical treatment of waste)"
+msgstr "Пластмаса и каучук (от механично обработване на отпадъци)"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.code,name:l10n_bg_waste_base.waste_code_20_01_39
+msgid "Plastics (from municipal household waste)"
+msgstr "Пластмаси (от битови домакински отпадъци)"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_R1
+msgid "Use principally as a fuel or other means to generate energy"
+msgstr "Използване главно като гориво или друг начин за получаване на енергия"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_R2
+msgid "Solvent reclamation/regeneration"
+msgstr "Възстановяване/регенериране на разтворители"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_R3
+msgid ""
+"Recycling/reclamation of organic substances which are not used as solvents"
+msgstr ""
+"Рециклиране/възстановяване на органични вещества, които не са използвани "
+"като разтворители"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,description:l10n_bg_waste_base.waste_activity_R3
+msgid ""
+"Includes composting and other biological transformation processes. Plastic "
+"recycling falls here (relevant for code 15 01 02)."
+msgstr ""
+"Включва компостиране и други процеси на биологична трансформация. "
+"Рециклирането на пластмаси попада тук (относимо за код 15 01 02)."
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_R4
+msgid "Recycling/reclamation of metals and metal compounds"
+msgstr "Рециклиране/възстановяване на метали и метални съединения"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_R5
+msgid "Recycling/reclamation of other inorganic materials"
+msgstr "Рециклиране/възстановяване на други неорганични материали"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_R6
+msgid "Regeneration of acids or bases"
+msgstr "Регенериране на киселини или основи"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_R7
+msgid "Recovery of components used for pollution abatement"
+msgstr ""
+"Възстановяване на компоненти, използвани за намаляване на замърсяването"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_R8
+msgid "Recovery of components from catalysts"
+msgstr "Извличане на компоненти от катализатори"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_R9
+msgid "Oil re-refining or other reuses of oil"
+msgstr "Повторно рафиниране на масла или друго повторно използване на масла"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_R10
+msgid ""
+"Land treatment resulting in benefit to agriculture or ecological improvement"
+msgstr ""
+"Обработване на земната повърхност, водещо до подобрения за земеделието или "
+"околната среда"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_R11
+msgid "Use of wastes obtained from any of the operations R1 to R10"
+msgstr ""
+"Използване на отпадъци, получени при някоя от дейностите с кодове R1 — R10"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_R12
+msgid "Exchange of wastes for submission to any of the operations R1 to R11"
+msgstr ""
+"Размяна на отпадъци за подлагане на някоя от дейностите с кодове R1 — R11"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,description:l10n_bg_waste_base.waste_activity_R12
+msgid ""
+"Includes preliminary operations prior to recovery: dismantling, sorting, "
+"crushing, compacting, pelletising, repackaging, blending."
+msgstr ""
+"Включва предварителни операции преди оползотворяване: разглобяване, "
+"сортиране, раздробяване, уплътняване, пелетизиране, преопаковане, смесване."
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_R13
+msgid "Storage of wastes pending any of the operations R1 to R12"
+msgstr ""
+"Съхраняване на отпадъци до извършване на някоя от дейностите с кодове R1 — "
+"R12"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,description:l10n_bg_waste_base.waste_activity_R13
+msgid ""
+"Excluding temporary storage on the site of production, pending collection."
+msgstr ""
+"С изключение на временно съхраняване на отпадъците на площадката на "
+"образуване до събирането им."
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_D1
+msgid "Deposit into or onto land (e.g. landfill)"
+msgstr "Депониране във или върху земята (например депо за отпадъци)"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_D2
+msgid ""
+"Land treatment (e.g. biodegradation of liquid or sludgy discards in soils)"
+msgstr ""
+"Обработване на земната повърхност (например биоразграждане на течни или "
+"утаечни отпадъци в почви)"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_D3
+msgid "Deep injection"
+msgstr "Дълбочинно инжектиране"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_D4
+msgid "Surface impoundment"
+msgstr "Повърхностно депониране в басейни"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_D5
+msgid "Specially engineered landfill"
+msgstr "Специално изградени депа"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_D6
+msgid "Release into a water body except seas/oceans"
+msgstr "Изпускане във водни обекти с изключение на морета и океани"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_D7
+msgid "Release to seas/oceans including sea-bed insertion"
+msgstr "Изпускане в морета и океани, включително погребване в морското дъно"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_D8
+msgid ""
+"Biological treatment producing final compounds or mixtures discarded by "
+"D1–D12"
+msgstr ""
+"Биологично обработване, в резултат на което се получават крайни съединения "
+"или смеси, които се обезвреждат по някой от методите с кодове D1 — D12"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_D9
+msgid ""
+"Physico-chemical treatment producing final compounds or mixtures discarded "
+"by D1–D12"
+msgstr ""
+"Физико-химично обработване, в резултат на което се получават крайни "
+"съединения или смеси, които се обезвреждат по някой от методите с кодове D1 "
+"— D12"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_D10
+msgid "Incineration on land"
+msgstr "Изгаряне на сушата"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_D11
+msgid "Incineration at sea"
+msgstr "Изгаряне в морето"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_D12
+msgid "Permanent storage (e.g. emplacement of containers in a mine)"
+msgstr "Постоянно съхраняване (например складиране на контейнери в мина)"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_D13
+msgid ""
+"Blending or mixing prior to submission to any of the operations D1 to D12"
+msgstr ""
+"Смесване или разбъркване преди подлагане на някоя от дейностите с кодове D1 "
+"— D12"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_D14
+msgid "Repackaging prior to submission to any of the operations D1 to D13"
+msgstr "Преопаковане преди подлагане на някоя от дейностите с кодове D1 — D13"
+
+#. module: l10n_bg_waste_base
+#: model:l10n.bg.waste.activity,name:l10n_bg_waste_base.waste_activity_D15
+msgid "Storage pending any of the operations D1 to D14"
+msgstr "Съхраняване до извършване на някоя от дейностите с кодове D1 — D14"
+
+#. module: l10n_bg_waste_base
+#: model:ir.sequence,name:l10n_bg_waste_base.seq_waste_site
+msgid "Waste Treatment Site"
+msgstr "Площадка за третиране на отпадъци"
+
+#. module: l10n_bg_waste_base
+#: model:ir.ui.view,name:l10n_bg_waste_base.view_company_form_waste
+msgid "res.company.form.waste"
+msgstr "res.company.form.waste"
+
+#. module: l10n_bg_waste_base
+#: model:ir.ui.view,name:l10n_bg_waste_base.view_waste_code_search
+msgid "l10n.bg.waste.code.search"
+msgstr "l10n.bg.waste.code.search"
+
+#. module: l10n_bg_waste_base
+#: model:ir.ui.view,name:l10n_bg_waste_base.view_waste_code_list
+msgid "l10n.bg.waste.code.list"
+msgstr "l10n.bg.waste.code.list"
+
+#. module: l10n_bg_waste_base
+#: model:ir.ui.view,name:l10n_bg_waste_base.view_waste_code_form
+msgid "l10n.bg.waste.code.form"
+msgstr "l10n.bg.waste.code.form"
+
+#. module: l10n_bg_waste_base
+#: model:ir.actions.act_window,name:l10n_bg_waste_base.action_waste_code
+msgid "Waste Codes"
+msgstr "Кодове на отпадъци"
+
+#. module: l10n_bg_waste_base
+#: model:ir.ui.view,name:l10n_bg_waste_base.view_waste_site_list
+msgid "l10n.bg.waste.site.list"
+msgstr "l10n.bg.waste.site.list"
+
+#. module: l10n_bg_waste_base
+#: model:ir.ui.view,name:l10n_bg_waste_base.view_waste_site_form
+msgid "l10n.bg.waste.site.form"
+msgstr "l10n.bg.waste.site.form"
+
+#. module: l10n_bg_waste_base
+#: model:ir.actions.act_window,name:l10n_bg_waste_base.action_waste_site
+msgid "Waste Sites"
+msgstr "Площадки за отпадъци"
+
+#. module: l10n_bg_waste_base
+#: model:ir.ui.view,name:l10n_bg_waste_base.view_partner_form_waste
+msgid "res.partner.form.waste"
+msgstr "res.partner.form.waste"
+
+#. module: l10n_bg_waste_base
+#: model:ir.ui.view,name:l10n_bg_waste_base.view_waste_activity_list
+msgid "l10n.bg.waste.activity.list"
+msgstr "l10n.bg.waste.activity.list"
+
+#. module: l10n_bg_waste_base
+#: model:ir.ui.view,name:l10n_bg_waste_base.view_waste_activity_form
+msgid "l10n.bg.waste.activity.form"
+msgstr "l10n.bg.waste.activity.form"
+
+#. module: l10n_bg_waste_base
+#: model:ir.actions.act_window,name:l10n_bg_waste_base.action_waste_activity
+msgid "R/D Activities"
+msgstr "Дейности R/D"
+
+#. module: l10n_bg_waste_base
+#: model:res.groups,name:l10n_bg_waste_base.group_waste_user
+msgid "Bulgarian Waste Management / User"
+msgstr "Управление на отпадъци (България) / Потребител"
+
+#. module: l10n_bg_waste_base
+#: model:res.groups,name:l10n_bg_waste_base.group_waste_manager
+msgid "Bulgarian Waste Management / Manager"
+msgstr "Управление на отпадъци (България) / Мениджър"
+
+#. module: l10n_bg_waste_base
+#: model:res.groups,name:l10n_bg_waste_base.group_waste_admin
+msgid "Bulgarian Waste Management / Administrator"
+msgstr "Управление на отпадъци (България) / Администратор"
+
+#. module: l10n_bg_waste_base
+#: model:ir.rule,name:l10n_bg_waste_base.rule_waste_site_company
+msgid "Waste Site: multi-company"
+msgstr "Площадка за отпадъци: мултифирмено"

@@ -602,3 +602,33 @@ msgstr "Трудова злополука"
 #, fuzzy
 msgid "e.g. KT155, NSSI01"
 msgstr "напр. KT155, NSSI01"
+
+#. module: l10n_bg_hr_holidays
+#: model:hr.work.entry.type,name:l10n_bg_hr_holidays.holiday_status_kt_production_necessity
+msgid "Unpaid Leave - Production Necessity / Idle Time"
+msgstr "Неплатен отпуск - производствена необходимост / престой"
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields.selection,name:l10n_bg_hr_holidays.selection__hr_work_entry_type__l10n_bg_doo_treatment__unpaid_employee
+msgid ""
+"Unpaid — ZO at employee expense (Health Insurance Act art. 40(1)(1)(b); own "
+"request, LC art. 160)"
+msgstr ""
+"Неплатен — ЗО за сметка на работника (ЗЗО чл. 40, ал. 1, т. 1, буква „б\"; "
+"по собствено желание, чл. 160 КТ)"
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields.selection,name:l10n_bg_hr_holidays.selection__hr_work_entry_type__l10n_bg_doo_treatment__unpaid_employer
+msgid ""
+"Unpaid — ZO at employer expense (child care LC art. 167a, official/creative "
+"leave LC art. 158/161)"
+msgstr ""
+"Неплатен — ЗО за сметка на работодателя (отглеждане на дете чл. 167а КТ, "
+"служебен/творчески отпуск чл. 158/161 КТ)"
+
+#. module: l10n_bg_hr_holidays
+#: model:ir.model.fields.selection,name:l10n_bg_hr_holidays.selection__hr_work_entry_type__l10n_bg_doo_treatment__unpaid_split
+msgid "Unpaid — ZO split employer/employee (production necessity / idle time)"
+msgstr ""
+"Неплатен — ЗО разпределено работодател/работник (производствена необходимост"
+" / престой)"

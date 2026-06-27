@@ -1,0 +1,68 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Language: bg\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_ai_pipeline
+#: code:addons/l10n_bg_ai_pipeline/models/ai_skill.py
+msgid "All languages"
+msgstr "Всички езици"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.model.fields,field_description:l10n_bg_ai_pipeline.field_ai_pipeline_run__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_ai_pipeline
+#: code:addons/l10n_bg_ai_pipeline/models/ai_skill.py
+msgid "Embedding provider returned no vectors."
+msgstr "Доставчикът на ембединги не върна вектори."
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.model.fields,field_description:l10n_bg_ai_pipeline.field_ai_skill__pipeline_step_ids
+msgid "Injected Steps"
+msgstr "Инжектирани стъпки"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.model.fields,help:l10n_bg_ai_pipeline.field_ai_pipeline_step__model
+msgid "Odoo model holding the callable."
+msgstr "Odoo модел, съдържащ извикваемия обект."
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.actions.act_window,name:l10n_bg_ai_pipeline.action_ai_pipeline_run
+msgid "Pipeline Runs"
+msgstr "Изпълнения на конвейера"
+
+#. module: l10n_bg_ai_pipeline
+#: code:addons/l10n_bg_ai_pipeline/models/ai_skill.py
+msgid "Pipeline Steps"
+msgstr "Стъпки на конвейера"
+
+#. module: l10n_bg_ai_pipeline
+#: code:addons/l10n_bg_ai_pipeline/models/ai_skill.py
+msgid "Skill %s has no description for language %s."
+msgstr "Skill %s няма описание за език %s."
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.actions.act_window,name:l10n_bg_ai_pipeline.action_ai_skill
+msgid "Skills"
+msgstr "Skills"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.model.fields,help:l10n_bg_ai_pipeline.field_ai_pipeline_step__module
+msgid "Source module — set automatically from XML id."
+msgstr "Изходен модул — задава се автоматично от XML id."
+
+#. module: l10n_bg_ai_pipeline
+#: code:addons/l10n_bg_ai_pipeline/models/ai_pipeline_step.py
+msgid "Step %s: trigger_domain must be a list of tuples."
+msgstr "Стъпка %s: trigger_domain трябва да е списък от кортежи."
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.model.fields,help:l10n_bg_ai_pipeline.field_ai_skill__language
+msgid "Which user language this skill applies to. 'all' = any."
+msgstr "За кой потребителски език важи този skill. 'all' = всеки."

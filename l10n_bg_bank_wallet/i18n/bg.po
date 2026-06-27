@@ -1,0 +1,103 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Language: bg\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_bank_wallet
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_import_wizard.py
+msgid "Cannot decode the uploaded file."
+msgstr "Каченият файл не може да бъде декодиран."
+
+#. module: l10n_bg_bank_wallet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_bank_wallet.crypto_wallet_form_view
+msgid "Crypto Wallet"
+msgstr "Крипто портфел"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.actions.act_window,name:l10n_bg_bank_wallet.crypto_wallet_action
+msgid "Crypto Wallets"
+msgstr "Крипто портфели"
+
+#. module: l10n_bg_bank_wallet
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_export_wizard.py
+msgid "Export password is required."
+msgstr "Паролата за експорт е задължителна."
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__zip_filename
+msgid "Filename"
+msgstr "Име на файл"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.actions.act_window,name:l10n_bg_bank_wallet.action_crypto_wallet_import_wizard
+msgid "Import keys from ZIP"
+msgstr "Импортиране на ключове от ZIP"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__result_imported
+msgid "Imported"
+msgstr "Импортирани"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet__master_password
+msgid "Master password"
+msgstr "Главна парола"
+
+#. module: l10n_bg_bank_wallet
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_export_wizard.py
+msgid "No data to export."
+msgstr "Няма данни за експортиране."
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__overwrite
+msgid "Overwrite existing keys"
+msgstr "Презаписване на съществуващи ключове"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__zip_password
+msgid "Password used when the ZIP was created."
+msgstr "Парола, използвана при създаването на ZIP."
+
+#. module: l10n_bg_bank_wallet
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_import_wizard.py
+msgid "Please upload a ZIP file."
+msgstr "Моля, качете ZIP файл."
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__result_summary
+msgid "Summary"
+msgstr "Обобщение"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__use_user_password
+msgid "Use current user password"
+msgstr "Използване на паролата на текущия потребител"
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__wallet_id
+msgid "Wallet"
+msgstr "Портфел"
+
+#. module: l10n_bg_bank_wallet
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_import_wizard.py
+msgid "Wallet is required."
+msgstr "Портфелът е задължителен."
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,field_description:l10n_bg_bank_wallet.field_crypto_wallet_import_wizard__zip_file
+msgid "ZIP file"
+msgstr "ZIP файл"
+
+#. module: l10n_bg_bank_wallet
+#: code:addons/l10n_bg_bank_wallet/wizards/crypto_wallet_import_wizard.py
+msgid "ZIP password is required."
+msgstr "ZIP паролата е задължителна."
+
+#. module: l10n_bg_bank_wallet
+#: model:ir.model.fields,help:l10n_bg_bank_wallet.field_crypto_wallet_export_wizard__master_password
+msgid "Въведете главната парола за отключване на портфела"
+msgstr "Въведете главната парола за отключване на портфела"

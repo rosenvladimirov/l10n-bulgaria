@@ -1,0 +1,88 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Language: bg\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model_terms:ir.ui.view,arch_db:l10n_bg_erp_net_fp_fleet.view_erpnet_fp_proxy_form
+msgid "Devices"
+msgstr "Устройства"
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.module.category,name:l10n_bg_erp_net_fp_fleet.module_category_erpnet_fp_fleet
+msgid "ErpNet.FP Fleet"
+msgstr "ErpNet.FP Флота"
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.actions.server,name:l10n_bg_erp_net_fp_fleet.cron_expire_pairing_tokens_ir_actions_server
+msgid "ErpNet.FP Fleet — expire pairing tokens"
+msgstr "ErpNet.FP Fleet — изтичане на токени за сдвояване"
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp_fleet.action_erpnet_fp_proxy
+msgid "Fleet"
+msgstr "Флота"
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:res.groups,name:l10n_bg_erp_net_fp_fleet.group_fleet_manager
+msgid "Fleet Manager"
+msgstr "Мениджър на флота"
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:res.groups,name:l10n_bg_erp_net_fp_fleet.group_fleet_user
+msgid "Fleet Viewer"
+msgstr "Преглед на флота"
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_program_vat_wizard__rate_a
+msgid "Group А"
+msgstr "Група А"
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__host
+msgid "Hostname reported by the proxy in its last heartbeat."
+msgstr "Хост, докладван от проксито в последния му сигнал за живот."
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__name
+msgid "Human-readable identifier — e.g. 'sofia-shop-1'."
+msgstr "Четим идентификатор — напр. 'sofia-shop-1'."
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.module.category,description:l10n_bg_erp_net_fp_fleet.module_category_erpnet_fp_fleet
+msgid "Manage distributed ErpNet.FP fiscal-printer proxies."
+msgstr "Управление на разпределени ErpNet.FP прокси за фискални принтери."
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py
+msgid "Pairing token"
+msgstr "Токен за сдвояване"
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py
+msgid "Pairing token generated; expires in %(h)s hour(s)."
+msgstr "Генериран е токен за сдвояване; изтича след %(h)s час(а)."
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py
+msgid "Program VAT rates"
+msgstr "Програмиране на ДДС ставки"
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,field_description:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__url
+msgid "Proxy URL"
+msgstr "URL на проксито"
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__version
+msgid "Proxy semver, reported in heartbeat."
+msgstr "Semver версия на проксито, докладвана в сигнала за живот."
+
+#. module: l10n_bg_erp_net_fp_fleet
+#: model:ir.model.fields,help:l10n_bg_erp_net_fp_fleet.field_erpnet_fp_proxy__last_seen
+msgid "Timestamp of the last accepted heartbeat."
+msgstr "Времеви маркер на последния приет сигнал за живот."

@@ -1,0 +1,205 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Language: bg\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_waste_permit
+#: code:addons/l10n_bg_waste_permit/waste_permit_line.py:100
+msgid "Annual quota cannot be negative."
+msgstr "Годишната квота не може да бъде отрицателна."
+
+#. module: l10n_bg_waste_permit
+#: code:addons/l10n_bg_waste_permit/waste_permit_line.py:102
+msgid "On-site storage limit cannot be negative."
+msgstr "Лимитът за съхранение на площадката не може да бъде отрицателен."
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit_line__site_id
+msgid "Site"
+msgstr "Площадка"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit_line__waste_code_id
+msgid "Waste Code"
+msgstr "Код на отпадъка"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit_line__activity_id
+msgid "Activity"
+msgstr "Дейност"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit_line__annual_quota_kg
+msgid "Annual Quota (kg)"
+msgstr "Годишна квота (кг)"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,help:l10n_bg_waste_permit.field_l10n_bg_waste_permit_line__annual_quota_kg
+msgid "Maximum quantity allowed to be treated under this code × site × "
+msgstr ""
+"Максимално количество, разрешено за третиране по този код × площадка × "
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit_line__max_storage_kg
+msgid "Max On-Site Storage (kg)"
+msgstr "Максимално съхранение на площадката (кг)"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,help:l10n_bg_waste_permit.field_l10n_bg_waste_permit_line__max_storage_kg
+msgid "Maximum amount of this waste code allowed to be stored at the "
+msgstr ""
+"Максимално количество от този код отпадък, разрешено за съхранение на "
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit_line__quota_used_ytd_kg
+msgid "Used Year-to-Date (kg)"
+msgstr "Използвано от началото на годината (кг)"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,help:l10n_bg_waste_permit.field_l10n_bg_waste_permit_line__quota_used_ytd_kg
+msgid "Sum of accepted incoming waste pickings for this code × site, "
+msgstr ""
+"Сума на приетите входящи приемания на отпадъци за този код × площадка, "
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit_line__quota_remaining_kg
+msgid "Remaining (kg)"
+msgstr "Оставащо (кг)"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit_line__quota_percent_used
+msgid "Used (%)"
+msgstr "Използвано (%)"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,help:l10n_bg_waste_permit.field_l10n_bg_waste_permit_line__quota_percent_used
+msgid "quota_used_ytd_kg / annual_quota_kg × 100"
+msgstr "quota_used_ytd_kg / annual_quota_kg × 100"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit_line__current_storage_kg
+msgid "Currently On-Site (kg)"
+msgstr "Налично на площадката към момента (кг)"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,help:l10n_bg_waste_permit.field_l10n_bg_waste_permit_line__current_storage_kg
+msgid "Net of received minus delivered (or treated out) for the "
+msgstr "Нето на полученото минус доставеното (или третираното навън) за "
+
+#. module: l10n_bg_waste_permit
+#: code:addons/l10n_bg_waste_permit/waste_permit.py:105
+msgid "Permit %s: validity start date cannot be after the end date."
+msgstr ""
+"Разрешително %s: началната дата на валидност не може да е след крайната "
+"дата."
+
+#. module: l10n_bg_waste_permit
+#: code:addons/l10n_bg_waste_permit/waste_permit.py:113
+msgid "Cannot activate permit %s with no permitted activities defined."
+msgstr ""
+"Не може да се активира разрешително %s без дефинирани разрешени дейности."
+
+#. module: l10n_bg_waste_permit
+#: code:addons/l10n_bg_waste_permit/waste_permit.py:135
+msgid "Permit auto-marked as expired (valid_to=%s)."
+msgstr "Разрешителното е автоматично отбелязано като изтекло (valid_to=%s)."
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit__name
+msgid "Permit Number"
+msgstr "Номер на разрешителното"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,help:l10n_bg_waste_permit.field_l10n_bg_waste_permit__name
+msgid "The number on the permit as issued (e.g. 'RD-XX-NNN' or 'KR-NN')."
+msgstr ""
+"Номерът на разрешителното, както е издадено (напр. 'RD-XX-NNN' или 'KR-NN')."
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit__permit_type
+msgid "Permit Type"
+msgstr "Вид разрешително"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit__issuing_authority
+msgid "Issuing Authority"
+msgstr "Издаващ орган"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit__riosv_office
+msgid "RIOSV Office"
+msgstr "РИОСВ офис"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,help:l10n_bg_waste_permit.field_l10n_bg_waste_permit__riosv_office
+msgid "City of the regional inspectorate that issued the permit, "
+msgstr "Град на регионалната инспекция, издала разрешителното, "
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit__date_issued
+msgid "Date Issued"
+msgstr "Дата на издаване"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit__date_valid_from
+msgid "Valid From"
+msgstr "Валиден от"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit__date_valid_to
+msgid "Valid Until"
+msgstr "Валиден до"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit__line_ids
+msgid "Permitted Activities"
+msgstr "Разрешени дейности"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit__line_count
+msgid "# Quota Rows"
+msgstr "Брой редове с квоти"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.model.fields,field_description:l10n_bg_waste_permit.field_l10n_bg_waste_permit__attachment_ids
+msgid "Scanned Permit"
+msgstr "Сканирано разрешително"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.cron,name:l10n_bg_waste_permit.cron_waste_permit_expiry
+msgid "Waste Permits: auto-expire"
+msgstr "Отпадъчни разрешителни: авто-изтичане"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.ui.view,name:l10n_bg_waste_permit.view_waste_permit_search
+msgid "l10n.bg.waste.permit.search"
+msgstr "l10n.bg.waste.permit.search"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.ui.view,name:l10n_bg_waste_permit.view_waste_permit_list
+msgid "l10n.bg.waste.permit.list"
+msgstr "l10n.bg.waste.permit.list"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.ui.view,name:l10n_bg_waste_permit.view_waste_permit_form
+msgid "l10n.bg.waste.permit.form"
+msgstr "l10n.bg.waste.permit.form"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.actions.act_window,name:l10n_bg_waste_permit.action_waste_permit
+msgid "Waste Permits"
+msgstr "Разрешителни за отпадъци"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.ui.view,name:l10n_bg_waste_permit.view_waste_permit_line_list_overview
+msgid "l10n.bg.waste.permit.line.list.overview"
+msgstr "l10n.bg.waste.permit.line.list.overview"
+
+#. module: l10n_bg_waste_permit
+#: model:ir.actions.act_window,name:l10n_bg_waste_permit.action_waste_permit_line_overview
+msgid "Quota Overview"
+msgstr "Преглед на квотите"

@@ -1,0 +1,823 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Language: bg\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid ""
+"<strong>Text content</strong> – Filter indicating which records the value "
+"should be applied to (e.g., by IDs or codes)"
+msgstr ""
+"<strong>Text content</strong> – Филтър, указващ за кои записи да се приложи "
+"стойността (напр. по ID-та или кодове)"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "<strong>field</strong> – The field where the value will be written"
+msgstr "<strong>field</strong> – Полето, в което ще се запише стойността"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid ""
+"<strong>model</strong> – Odoo model where the records are located (e.g., "
+"<code>account.account.tag</code>)"
+msgstr ""
+"<strong>model</strong> – Odoo модел, в който се намират записите (напр. "
+"<code>account.account.tag</code>)"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "<strong>value</strong> – The value that will be written to the field"
+msgstr "<strong>value</strong> – Стойността, която ще се запише в полето"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "A localization or configuration module that automates the settings"
+msgstr "Модул за локализация или конфигурация, който автоматизира настройките"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid ""
+"A script that reads the XML and applies the values using Odoo ORM or XML-RPC"
+msgstr ""
+"Скрипт, който чете XML и прилага стойностите чрез Odoo ORM или XML-RPC"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "API key for external functionality"
+msgstr "API ключ за външна функционалност"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_account_chart_template
+msgid "Account Chart Template"
+msgstr "Проектен сметкоплан"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_account_account_tag
+msgid "Account Tag"
+msgstr "Данъчен етикет"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_vat_reports
+msgid ""
+"Add VAT reports  and exports files for Bulgaria base on EE report engine"
+msgstr ""
+"Добавя ДДС справки и експортни файлове за България на база EE report engine"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_assets
+msgid "Add rules for tax desperation base Bulgarian law (EE)"
+msgstr ""
+"Добавя правила за данъчна амортизация на база българското законодателство "
+"(EE)"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_report_vat
+msgid ""
+"Add tax reports and exports files for Bulgaria base on OCA report engine"
+msgstr ""
+"Добавя данъчни справки и експортни файлове за България на база OCA report "
+"engine"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_report_theme
+msgid "Add theme for Bulgaria reports"
+msgstr "Добавя тема за българските справки"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_address_extended
+msgid "Additional data in address"
+msgstr "Допълнителни данни в адреса"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_address_extended
+msgid "Additional data in address like "
+msgstr "Допълнителни данни в адреса като "
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__type
+msgid "Address Type"
+msgstr "Вид на адрес"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_tax_offices
+msgid ""
+"Address and department of NRA Bulgaria added like partners to use when make "
+"a payment ot taxes."
+msgstr ""
+"Адрес и отдел на НАП България, добавени като партньори, за използване при "
+"плащане на данъци."
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_company__is_l10n_bg_multilanguage
+msgid "Allows to set multilanguage in Bulgaria accounting"
+msgstr "Позволява задаване на многоезичност в българското счетоводство"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_company__is_l10n_bg_tax_report
+msgid "Allows to set tax report in Bulgaria accounting"
+msgstr "Позволява задаване на данъчна справка в българското счетоводство"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid ""
+"An installation process where field values are set based on predefined "
+"criteria"
+msgstr ""
+"Инсталационен процес, при който стойностите на полетата се задават по "
+"предварително зададени критерии"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_key
+msgid "Api Key"
+msgstr "API ключ"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "Application"
+msgstr "Приложение"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_egn
+msgid "BG Identification number"
+msgstr "ЕИК"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_non_eu
+msgid "BG Non EU Tax administration number"
+msgstr "Идентификационен номер на лицата извън ЕС"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_onnra
+msgid "BG Official number from the National Revenue Agency"
+msgstr "Служебен номер от НАП"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_pnf
+msgid "BG Personal number of a foreigner"
+msgstr "Личен номер на чужденец"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_uic
+msgid "BG Unified identification number (BULSTAT)"
+msgstr "ЕИК (БУЛСТАТ)"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_crauid
+msgid "BG Unique identification code under the CRA"
+msgstr "BG Уникален идентификационен код по ЗТР"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Bank - modules"
+msgstr "Банкови модули"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Bank currency download fix"
+msgstr "Корекция на изтеглянето на валутни курсове от банка"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Bank related Modules"
+msgstr "Модули, свързани с банки"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_reports_audit
+msgid "Bulgaria - Accounting TAX Audit reports"
+msgstr "България - Справки за данъчен одит"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_assets
+msgid "Bulgaria - Assets"
+msgstr "България - Дълготрайни активи"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_intrastat
+msgid "Bulgaria - Intrastat"
+msgstr "България - Интрастат"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_intrastat_product
+msgid "Bulgaria - Intrastat Product Declaration"
+msgstr "България - Интрастат декларация за стоки"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__is_l10n_bg_multilanguage
+msgid "Bulgaria - Multilanguage"
+msgstr "България - Многоезичност"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_report_theme
+msgid "Bulgaria - Report Theme"
+msgstr "България - Тема на справките"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__is_l10n_bg_tax_report
+msgid "Bulgaria - Tax Report"
+msgstr "България - Данъчна справка"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_report_vat
+msgid "Bulgaria - Tax Report  export files (OCA)"
+msgstr "България - Експортни файлове за данъчна справка (OCA)"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__is_l10n_bg_tax_report_with_vat
+msgid "Bulgaria - Tax Report with VAT"
+msgstr "България - Данъчна справка с ДДС"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__is_l10n_bg_record
+msgid "Bulgaria - Use Bulgaria Accounting"
+msgstr "България - Използване на българско счетоводство"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_vat_reports
+msgid "Bulgaria - VAT Reports export files (EE)"
+msgstr "България - Експортни файлове за ДДС справки (EE)"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Bulgaria Localization"
+msgstr "Българска локализация"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Bulgaria cites, melisipalies, states..."
+msgstr "Български градове, общини, области..."
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Bulgaria settings"
+msgstr "Настройки за България"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_move_form
+msgid "Bulgarian VAT"
+msgstr "Българско ДДС"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Bulgarian cites"
+msgstr "Български градове"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_uic_id_number
+msgid "Bulgarian multi register codes"
+msgstr "Български кодове за множествена регистрация"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_uic_id_number
+msgid "Bulgarian registration codes base on OCA module partner_identification"
+msgstr ""
+"Български регистрационни кодове на база OCA модул partner_identification"
+
+#. module: l10n_bg_config
+#: model:ir.actions.act_window,name:l10n_bg_config.action_account_account_settings_xml_file
+msgid "Bulk Edit Account Tags"
+msgstr "Групово редактиране на данъчни етикети"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_currency_rate_update_bg_bnb
+msgid "Central currency rates downloaded from National Bank of Bulgaria"
+msgstr "Централни валутни курсове, изтеглени от Българската народна банка"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_multilang
+msgid ""
+"Change to multilingual support for fields without native configurations"
+msgstr ""
+"Преминаване към многоезична поддръжка за полета без вградени конфигурации"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_company__l10n_bg_uic_type
+msgid "Choice type of Bulgaria UID."
+msgstr "Избор на вид български ЕИК."
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_preview_xml_file_form
+msgid "Close"
+msgstr "Затвори"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_res_company
+msgid "Companies"
+msgstr "Фирми"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__type__agent
+msgid "Company agent"
+msgstr "Представител на фирма"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__type__represent
+msgid "Company represent/manager"
+msgstr "Представляващ/управител на фирма"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_res_config_settings
+msgid "Config Settings"
+msgstr "Настройки"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_config_template
+msgid "Config Template"
+msgstr "Конфигурационен шаблон"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__l10n_bg_config_file
+msgid "Config xml File"
+msgstr "Конфигурационен xml файл"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Configuration file settings"
+msgstr "Настройки от конфигурационен файл"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_res_partner
+msgid "Contact"
+msgstr "Контакт"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_res_country
+msgid "Country"
+msgstr "Държава"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__create_uid
+msgid "Created by"
+msgstr "Създадено от"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__create_date
+msgid "Created on"
+msgstr "Създадено на"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_crypt_key
+msgid "Crypt Key"
+msgstr "Ключ за криптиране"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__l10n_bg_deal_date
+msgid "Date of deal"
+msgstr "Дата на сделката"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__l10n_bg_date
+msgid "Date of locale document"
+msgstr "Дата на местен документ"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_departament_code
+msgid "Departament code"
+msgstr "Код на отдел"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_account_tag__description
+msgid "Description"
+msgstr "Описание"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_country__title_format
+msgid ""
+"Display format to use for partner belonging to this country.\n"
+"\n"
+"You can use python-style string pattern with all the fields of the title (for example, use '%(title)s' to display the field 'title') plus\n"
+"%(partner)s: use the partner name\n"
+"%(academic_title_display)s: the code of the academic_title_display"
+msgstr ""
+"Формат на изобразяване за партньорите, принадлежащи към тази държава.\n"
+"\n"
+"Можете да използвате python-style шаблон за низ с всички полета на обръщението (например '%(title)s' за показване на полето 'title') плюс\n"
+"%(partner)s: използва името на партньора\n"
+"%(academic_title_display)s: кода на academic_title_display"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_currency_rate_update_bg_bnb
+msgid "Download currency rates from Bulgaria National Bank (OCA)"
+msgstr "Изтегляне на валутни курсове от Българската народна банка (OCA)"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__eu_vat
+msgid "EU Tax administration number"
+msgstr "ДДС номер в ЕС"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "Element Structure"
+msgstr "Структура на елемента"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"Enter API Key to use additional functionality related to the Bulgaria "
+"localization. For more information contact with developer."
+msgstr ""
+"Въведете API ключ, за да използвате допълнителна функционалност, свързана с "
+"българската локализация. За повече информация се свържете с разработчика."
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_partner__l10n_bg_crypt_key
+msgid ""
+"Enter the key to decrypt the data. If not entered, a random key will be "
+"generated."
+msgstr ""
+"Въведете ключа за декриптиране на данните. Ако не е въведен, ще се генерира "
+"случаен ключ."
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_company__l10n_bg_key
+msgid ""
+"Enter the key to encrypt the data. If not entered, a random key will be "
+"generated."
+msgstr ""
+"Въведете ключа за криптиране на данните. Ако не е въведен, ще се генерира "
+"случаен ключ."
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "Example XML"
+msgstr "Примерен XML"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Extend address"
+msgstr "Разширен адрес"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Extend address with Bulgaria localization."
+msgstr "Разширяване на адреса с българска локализация."
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Fix coefficient in Automatic Currency Rates (EE)"
+msgstr "Корекция на коефициента в Автоматични валутни курсове (EE)"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_intrastat
+msgid "Generate XML files for Bulgaria intrastat (EE)"
+msgstr "Генериране на XML файлове за Интрастат България (EE)"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__id
+msgid "ID"
+msgstr "Номер (ID)"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__is_l10n_bg_record
+msgid "Is Bulgaria Record"
+msgstr "Български запис"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__is_company_master
+msgid "Is Company Master"
+msgstr "Главна фирма"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_account_move
+msgid "Journal Entry"
+msgstr "Записи в Дневника"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__write_uid
+msgid "Last Updated by"
+msgstr "Последно актуализирано от"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__write_date
+msgid "Last Updated on"
+msgstr "Последно актуализирано на"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_country__title_format
+msgid "Layout in Name views"
+msgstr "Подредба в изгледи с име"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_currency_rate_live_fix
+msgid "Live Currency Rate Fix (EE)"
+msgstr "Корекция на валутния курс на живо (EE)"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_currency_rate_live_fix
+msgid "Live Currency Rate Fix for Bulgaria (EE) module"
+msgstr "Модул „Корекция на валутния курс на живо за България (EE)“"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_l10n_bg_config_mixin
+msgid "Mixin model for applying to any object that use Bulgarian Accounting"
+msgstr ""
+"Mixin модел за прилагане към всеки обект, който използва българско "
+"счетоводство"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_ir_module_module
+msgid "Module"
+msgstr "Модул"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Multilang cyrillic support"
+msgstr "Поддръжка на многоезичност с кирилица"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Multilang support for other fields"
+msgstr "Многоезична поддръжка за други полета"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Multilang support for partner names and more"
+msgstr "Многоезична поддръжка за имена на партньори и др."
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_tax_offices
+msgid "NRA Bulgaria, tax offices and departments"
+msgstr "НАП България, данъчни офиси и отдели"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "National Revenue Agency"
+msgstr "Национална агенция за приходите"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "National Revenue Agency departments, offices and head office."
+msgstr ""
+"Отдели, офиси и централно управление на Националната агенция за приходите."
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__l10n_bg_name
+msgid "Number of locale document"
+msgstr "Номер на местен документ"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Other multilang"
+msgstr "Друга многоезичност"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Partner multilang"
+msgstr "Многоезичност на партньор"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_partner_multilang
+msgid "Partner transliterate names"
+msgstr "Транслитериране на имена на партньори"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Partners & Addresses"
+msgstr "Партньори и адреси"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"Preview configuration setting uploaded in system by configuration files."
+msgstr ""
+"Преглед на конфигурационна настройка, качена в системата чрез "
+"конфигурационни файлове."
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Preview configuration settings"
+msgstr "Преглед на конфигурационните настройки"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Preview file settings"
+msgstr "Преглед на настройките на файла"
+
+#. module: l10n_bg_config
+#: model:ir.actions.act_window,name:l10n_bg_config.action_account_settings_xml_file
+msgid "Preview setting as XML"
+msgstr "Преглед на настройката като XML"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_account_settings_preview_xml_file
+msgid "Preview setting as xml file"
+msgstr "Преглед на настройката като xml файл"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_intrastat_product
+msgid "Provide Intrastat Product Declaration. (OCA)"
+msgstr "Предоставя декларация за стоки по Интрастат. (OCA)"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_reports_audit
+msgid "Provide base for Accounting TAX Audit reports for Bulgarian - NRA."
+msgstr ""
+"Предоставя база за справки за данъчен одит на счетоводството за България — "
+"НАП."
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Reform the reports forms support for Bulgaria"
+msgstr "Реформиране на поддръжката на формите на справките за България"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Report audit for tax administration base"
+msgstr "База за одитни справки за данъчната администрация"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Report forms"
+msgstr "Форми на справки"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Report printing forms"
+msgstr "Форми за печат на справки"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_represent_contact_id
+msgid "Representative"
+msgstr "Представител"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_preview_xml_file_form
+msgid "Save like XML"
+msgstr "Запис като XML"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Settings"
+msgstr "Настройки"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_multilang
+msgid "Switch on multilanguage support"
+msgstr "Включване на поддръжка на многоезичност"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__type__tax
+msgid "Tax agent"
+msgstr "Данъчен агент"
+
+#. module: l10n_bg_config
+#: code:addons/l10n_bg_config/static/src/views/form_view.js
+msgid "The API Key is: ${result}"
+msgstr "API ключът е: ${result}"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"The module provides files export for VAT reporting in compliance with "
+"Bulgarian legislation base on EE reports"
+msgstr ""
+"Модулът предоставя експорт на файлове за ДДС отчитане в съответствие с "
+"българското законодателство на база EE справки"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"The module provides files export for VAT reporting in compliance with "
+"Bulgarian legislation base on OCA reports"
+msgstr ""
+"Модулът предоставя експорт на файлове за ДДС отчитане в съответствие с "
+"българското законодателство на база OCA справки"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"The module provides support for financial and tax reporting in compliance "
+"with Bulgarian legislation."
+msgstr ""
+"Модулът предоставя поддръжка за финансово и данъчно отчитане в съответствие "
+"с българското законодателство."
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Theatrical section for settings"
+msgstr "Театрален раздел за настройки"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid ""
+"This XML file is used to mass apply values to specific fields in records of "
+"a given model in Odoo."
+msgstr ""
+"Този XML файл се използва за масово прилагане на стойности към определени "
+"полета в записи на даден модел в Odoo."
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "This file can be used by:"
+msgstr "Този файл може да се използва от:"
+
+#. module: l10n_bg_config
+#: code:addons/l10n_bg_config/hooks.py
+msgid "This module is only for Bulgaria"
+msgstr "Този модул е само за България"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_partner_multilang
+msgid "Transliterate partner, city, street names ISO9 and other"
+msgstr "Транслитериране на партньор, град, имена на улици ISO9 и други"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_uic_type
+msgid "Type of Bulgaria UID"
+msgstr "Тип на българския UIC"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_uic
+msgid "Unique identification code"
+msgstr "Единен идентификационен код"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_company__l10n_bg_uic
+msgid ""
+"Unique identification code for the Bulgaria received from trade registry"
+msgstr ""
+"Единен идентификационен код за България, получен от търговския регистър"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_city
+msgid "Upload Bulgaria city"
+msgstr "Качване на български град"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_city
+msgid "Upload cites, municipalities, states, villages and manastiries"
+msgstr "Качване на градове, общини, области, села и манастири"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "Upload config"
+msgstr "Качване на конфигурация"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Upload configuration file"
+msgstr "Качване на конфигурационен файл"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_account_settings_xml_file
+msgid "Upload setting xml file"
+msgstr "Качване на xml файл с настройки"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"Use configuration files to set up different Odoo parameters. For example, "
+"changing tags, their configuration. Adding new tags, etc."
+msgstr ""
+"Използвайте конфигурационни файлове за настройка на различни параметри на "
+"Odoo. Например промяна на тагове, тяхната конфигурация. Добавяне на нови "
+"тагове и др."
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "VAT Report for tax administration (EE)"
+msgstr "ДДС справка за данъчната администрация (EE)"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "VAT Report for tax administration (EE))"
+msgstr "ДДС справка за данъчната администрация (EE))"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "VAT Report for tax administration (OCA)"
+msgstr "ДДС справка за данъчната администрация (OCA)"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "VAT Report for tax administration (OCA))"
+msgstr "ДДС справка за данъчната администрация (OCA))"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"Will update daily from cron only if is checked Automatic Currency Rates "
+"(OCA) and you added a rate_provider"
+msgstr ""
+"Ще се актуализира ежедневно от cron само ако е отметнато Автоматични валутни"
+" курсове (OCA) и сте добавили rate_provider"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
+msgid "XML Configuration File for Odoo"
+msgstr "XML конфигурационен файл за Odoo"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__l10n_bg_config_file_preview
+msgid "XML Preview"
+msgstr "Преглед на XML"

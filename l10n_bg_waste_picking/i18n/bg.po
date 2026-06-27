@@ -1,0 +1,329 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Language: bg\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_waste_picking
+#: code:addons/l10n_bg_waste_picking/waste_code_wizard.py:97
+msgid "This shipment would exceed the annual quota. "
+msgstr "Тази пратка би надхвърлила годишната квота. "
+
+#. module: l10n_bg_waste_picking
+#: code:addons/l10n_bg_waste_picking/waste_code_wizard.py:103
+msgid "A justification note is required when accepting a shipment "
+msgstr "Изисква се обосновка при приемане на пратка "
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__line_ids
+msgid "Lines"
+msgstr "Редове"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__quota_breach_json
+msgid "Quota Breach (internal)"
+msgstr "Нарушение на квота (вътрешно)"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__quota_breach_json
+msgid "Internal payload populated by stock.picking. JSON-like list "
+msgstr "Вътрешни данни, попълвани от stock.picking. JSON-подобен списък "
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__quota_warning
+msgid "Quota Warning"
+msgstr "Предупреждение за квота"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__has_block
+msgid "Decision"
+msgstr "Решение"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__decision_note
+msgid "Justification"
+msgstr "Обосновка"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__decision_note
+msgid "Required when accepting a shipment that breaches the quota."
+msgstr "Изисква се при приемане на пратка, която нарушава квотата."
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard_line__wizard_id
+msgid "Waste Code"
+msgstr "Код на отпадъка"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_move_line__waste_quantity_kg
+msgid "Quantity (kg)"
+msgstr "Количество (кг)"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_move_line__waste_origin_partner_id
+msgid "Origin (Legal Entity)"
+msgstr "Произход (юридическо лице)"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_move_line__waste_origin_partner_id
+msgid "The legal entity that handed over this waste (sender of the "
+msgstr "Юридическото лице, предало този отпадък (изпращач на "
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_product_template__is_waste_product
+msgid "Waste Product"
+msgstr "Отпадъчен продукт"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_product_template__is_waste_product
+msgid "When set, stock pickings containing this product require a "
+msgstr ""
+"Когато е зададено, складовите операции, съдържащи този продукт, изискват "
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_product_template__default_waste_code_id
+msgid "Default Waste Code"
+msgstr "Код на отпадъка по подразбиране"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_product_template__default_waste_code_id
+msgid "Suggested code prefilled in the validation wizard. Users can "
+msgstr ""
+"Предложен код, предварително попълнен във визарда за валидиране. "
+"Потребителите могат "
+
+#. module: l10n_bg_waste_picking
+#: code:addons/l10n_bg_waste_picking/stock_picking.py:137
+msgid "Waste Code Entry"
+msgstr "Въвеждане на код на отпадъка"
+
+#. module: l10n_bg_waste_picking
+#: code:addons/l10n_bg_waste_picking/stock_picking.py:158
+msgid "Waste shipment accepted"
+msgstr "Отпадъчната пратка е приета"
+
+#. module: l10n_bg_waste_picking
+#: code:addons/l10n_bg_waste_picking/stock_picking.py:159
+msgid "(no waste lines)"
+msgstr "(няма редове с отпадъци)"
+
+#. module: l10n_bg_waste_picking
+#: code:addons/l10n_bg_waste_picking/stock_picking.py:162
+msgid "Override note"
+msgstr "Бележка за дерогация"
+
+#. module: l10n_bg_waste_picking
+#: code:addons/l10n_bg_waste_picking/stock_picking.py:172
+msgid "Quota exceeded at site %s"
+msgstr "Надхвърлена квота на обект %s"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking__is_waste_picking
+msgid "Waste Picking"
+msgstr "Складова операция с отпадъци"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_picking__is_waste_picking
+msgid "Computed: True if any move line targets a product flagged "
+msgstr ""
+"Изчислено: True, ако някой ред от движение е насочен към продукт, маркиран "
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking__waste_site_id
+msgid "Waste Site"
+msgstr "Обект за отпадъци"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_picking__waste_site_id
+msgid "Site to which this picking is attributed for regulatory "
+msgstr "Обект, към който е отнесена тази складова операция за регулаторни "
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking__waste_permit_id
+msgid "Permit"
+msgstr "Разрешително"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking__waste_transport_doc
+msgid "Transport / ID Document #"
+msgstr "Транспортен / идентификационен документ №"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_picking__waste_transport_doc
+msgid "Number of the freight or identification document (Annex 8 "
+msgstr ""
+"Номер на товарителницата или идентификационния документ (Приложение 8 "
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking__waste_vehicle_plate
+msgid "Vehicle Plate"
+msgstr "Регистрационен номер на МПС"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_picking__waste_vehicle_plate
+msgid "Required for hazardous waste transport per Art. 12 of "
+msgstr "Изисква се за транспорт на опасни отпадъци съгласно чл. 12 от "
+
+#. module: l10n_bg_waste_picking
+#: code:addons/l10n_bg_waste_picking/waste_id_document.py:23
+msgid "New"
+msgstr "Нов"
+
+#. module: l10n_bg_waste_picking
+#: code:addons/l10n_bg_waste_picking/waste_id_document.py:131
+msgid "Document %s must be marked Completed before sending to RIOSV."
+msgstr ""
+"Документ %s трябва да е маркиран като Завършен, преди да бъде изпратен до "
+"РИОСВ."
+
+#. module: l10n_bg_waste_picking
+#: code:addons/l10n_bg_waste_picking/waste_id_document.py:134
+msgid "Marked as sent to the territorial RIOSV office."
+msgstr "Маркиран като изпратен до териториалната дирекция на РИОСВ."
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__name
+msgid "Document #"
+msgstr "Документ №"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__date
+msgid "Date"
+msgstr "Дата"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__origin_description
+msgid "Origin (Technological Process)"
+msgstr "Произход (технологичен процес)"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__quantity_ton
+msgid "Quantity (ton)"
+msgstr "Количество (тон)"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__sender_partner_id
+msgid "Sender"
+msgstr "Подател"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__route
+msgid "Route"
+msgstr "Маршрут"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__delivery_date
+msgid "Delivery Date"
+msgstr "Дата на доставка"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking_type__waste_default_activity_id
+msgid "Default Waste Activity"
+msgstr "Дейност с отпадъци по подразбиране"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_picking_type__waste_default_activity_id
+msgid "The R/D activity preset on new pickings of this type. "
+msgstr ""
+"Дейността по оползотворяване/обезвреждане (R/D), зададена при нови складови "
+"операции от този тип. "
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking_type__is_waste_intake
+msgid "Waste Intake"
+msgstr "Приемане на отпадъци"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_picking_type__is_waste_intake
+msgid "When set, this picking type is for accepting incoming waste. "
+msgstr ""
+"Когато е зададено, този тип складова операция е за приемане на входящи "
+"отпадъци. "
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_lot__waste_code_id
+msgid "Code under which the material entered the inventory as "
+msgstr "Код, под който материалът е заведен в наличността като "
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_lot__waste_source_picking_ids
+msgid "Source Pickings"
+msgstr "Изходни складови операции"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_lot__waste_source_picking_ids
+msgid "Incoming waste pickings that have contributed to this lot. "
+msgstr "Входящи складови операции с отпадъци, допринесли за тази партида. "
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_lot__waste_input_kg
+msgid "Input Quantity (kg)"
+msgstr "Входящо количество (кг)"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_lot__waste_input_kg
+msgid "Sum of quantities (in kg) booked into this lot from the "
+msgstr "Сума на количествата (в кг), заведени в тази партида от "
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_lot__waste_consumed_kg
+msgid "Consumed (kg)"
+msgstr "Изразходвано (кг)"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_lot__waste_consumed_kg
+msgid "Sum of quantities (in kg) consumed from this lot by "
+msgstr "Сума на количествата (в кг), изразходвани от тази партида от "
+
+#. module: l10n_bg_waste_picking
+#: model:ir.sequence,name:l10n_bg_waste_picking.seq_waste_id_document
+msgid "Waste Annex 8 Identification Document"
+msgstr "Идентификационен документ за отпадъци по Приложение 8"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.ui.view,name:l10n_bg_waste_picking.view_waste_code_wizard_form
+msgid "l10n.bg.waste.code.wizard.form"
+msgstr "l10n.bg.waste.code.wizard.form"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.ui.view,name:l10n_bg_waste_picking.view_waste_id_document_list
+msgid "l10n.bg.waste.id.document.list"
+msgstr "l10n.bg.waste.id.document.list"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.ui.view,name:l10n_bg_waste_picking.view_waste_id_document_form
+msgid "l10n.bg.waste.id.document.form"
+msgstr "l10n.bg.waste.id.document.form"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.actions.act_window,name:l10n_bg_waste_picking.action_waste_id_document
+msgid "Annex 8 ID Documents"
+msgstr "Идентификационни документи по Приложение 8"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.ui.view,name:l10n_bg_waste_picking.view_move_line_operations_tree_waste
+msgid "stock.move.line.tree.waste"
+msgstr "stock.move.line.tree.waste"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.ui.view,name:l10n_bg_waste_picking.view_picking_form_waste
+msgid "stock.picking.form.waste"
+msgstr "stock.picking.form.waste"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.ui.view,name:l10n_bg_waste_picking.view_picking_type_form_waste
+msgid "stock.picking.type.form.waste"
+msgstr "stock.picking.type.form.waste"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.ui.view,name:l10n_bg_waste_picking.view_lot_form_waste
+msgid "stock.lot.form.waste"
+msgstr "stock.lot.form.waste"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.ui.view,name:l10n_bg_waste_picking.view_product_template_form_waste
+msgid "product.template.form.waste"
+msgstr "product.template.form.waste"

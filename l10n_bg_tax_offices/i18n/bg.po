@@ -1,0 +1,399 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Language: bg\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nsi
+msgid "National Statistical Institute (НСИ)"
+msgstr "Национален статистически институт (НСИ)"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nsi_tsb_northwest
+msgid "ТСБ Северозапад — Плевен (NSI Northwest)"
+msgstr "ТСБ Северозапад — Плевен"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nsi_tsb_north
+msgid "ТСБ Север — Русе (NSI North)"
+msgstr "ТСБ Север — Русе"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nsi_tsb_northeast
+msgid "ТСБ Североизток — Варна (NSI Northeast)"
+msgstr "ТСБ Североизток — Варна"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nsi_tsb_southeast
+msgid "ТСБ Югоизток — Бургас (NSI Southeast)"
+msgstr "ТСБ Югоизток — Бургас"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nsi_tsb_south
+msgid "ТСБ Юг — Пловдив (NSI South)"
+msgstr "ТСБ Юг — Пловдив"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nsi_tsb_southwest
+msgid "ТСБ Югозапад — София (NSI Southwest)"
+msgstr "ТСБ Югозапад — София"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra
+msgid "National Revenue Agency"
+msgstr "Национална агенция за приходите"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_manager
+msgid "Milena Krastanova"
+msgstr "Милена Кръстанова"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_central
+msgid "Central Office of the National Revenue Agency"
+msgstr "Централно управление на Националната агенция за приходите"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_partner_sofia_department
+msgid "TD NAP Sofia (ТД на НАП София)"
+msgstr "ТД на НАП София"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_sofia_department
+msgid "TD NAP Sofia (TD branch)"
+msgstr "ТД на НАП София (офис)"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_partner_sofia_big
+msgid "Directorate Large Taxpayers and Insurers (Дирекция ГДО)"
+msgstr "Дирекция „Големи данъкоплатци и осигурители\" (Дирекция ГДО)"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_big_department
+msgid "Directorate Large Taxpayers and Insurers (branch)"
+msgstr "Дирекция „Големи данъкоплатци и осигурители\" (офис)"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_partner_sofia_middle
+msgid "Directorate Medium Taxpayers and Insurers — Sofia (Дирекция СДО)"
+msgstr "Дирекция „Средни данъкоплатци и осигурители\" — София (Дирекция СДО)"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_middle_department
+msgid "Directorate Medium Taxpayers and Insurers — Sofia (branch)"
+msgstr "Дирекция „Средни данъкоплатци и осигурители\" — София (офис)"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_sdo_plovdiv
+msgid "Directorate Medium Taxpayers — Plovdiv (Дирекция СДО Пловдив)"
+msgstr "Дирекция „Средни данъкоплатци и осигурители\" — Пловдив"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_sdo_varna
+msgid "Directorate Medium Taxpayers — Varna (Дирекция СДО Варна)"
+msgstr "Дирекция „Средни данъкоплатци и осигурители\" — Варна"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_sdo_burgas
+msgid "Directorate Medium Taxpayers — Burgas (Дирекция СДО Бургас)"
+msgstr "Дирекция „Средни данъкоплатци и осигурители\" — Бургас"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_sdo_vtarnovo
+msgid ""
+"Directorate Medium Taxpayers — V. Tarnovo (Дирекция СДО Велико Търново)"
+msgstr "Дирекция „Средни данъкоплатци и осигурители\" — Велико Търново"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_td_plovdiv
+msgid "TD NAP Plovdiv (ТД на НАП Пловдив)"
+msgstr "ТД на НАП Пловдив"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_td_varna
+msgid "TD NAP Varna (ТД на НАП Варна)"
+msgstr "ТД на НАП Варна"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_td_burgas
+msgid "TD NAP Burgas (ТД на НАП Бургас)"
+msgstr "ТД на НАП Бургас"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_td_vtarnovo
+msgid "TD NAP Veliko Tarnovo (ТД на НАП Велико Търново)"
+msgstr "ТД на НАП Велико Търново"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_sofiaoblast
+msgid "NAP Office Sofia-Oblast (Офис София-област)"
+msgstr "Офис на НАП София-област"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_blagoevgrad
+msgid "NAP Office Blagoevgrad (Офис Благоевград)"
+msgstr "Офис на НАП Благоевград"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_kyustendil
+msgid "NAP Office Kyustendil (Офис Кюстендил)"
+msgstr "Офис на НАП Кюстендил"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_pernik
+msgid "NAP Office Pernik (Офис Перник)"
+msgstr "Офис на НАП Перник"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_kardzhali
+msgid "NAP Office Kardzhali (Офис Кърджали)"
+msgstr "Офис на НАП Кърджали"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_pazardzhik
+msgid "NAP Office Pazardzhik (Офис Пазарджик)"
+msgstr "Офис на НАП Пазарджик"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_smolyan
+msgid "NAP Office Smolyan (Офис Смолян)"
+msgstr "Офис на НАП Смолян"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_stzagora
+msgid "NAP Office Stara Zagora (Офис Стара Загора)"
+msgstr "Офис на НАП Стара Загора"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_haskovo
+msgid "NAP Office Haskovo (Офис Хасково)"
+msgstr "Офис на НАП Хасково"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_dobrich
+msgid "NAP Office Dobrich (Офис Добрич)"
+msgstr "Офис на НАП Добрич"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_razgrad
+msgid "NAP Office Razgrad (Офис Разград)"
+msgstr "Офис на НАП Разград"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_ruse
+msgid "NAP Office Ruse (Офис Русе)"
+msgstr "Офис на НАП Русе"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_silistra
+msgid "NAP Office Silistra (Офис Силистра)"
+msgstr "Офис на НАП Силистра"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_targovishte
+msgid "NAP Office Targovishte (Офис Търговище)"
+msgstr "Офис на НАП Търговище"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_shumen
+msgid "NAP Office Shumen (Офис Шумен)"
+msgstr "Офис на НАП Шумен"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_sliven
+msgid "NAP Office Sliven (Офис Сливен)"
+msgstr "Офис на НАП Сливен"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_yambol
+msgid "NAP Office Yambol (Офис Ямбол)"
+msgstr "Офис на НАП Ямбол"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_vidin
+msgid "NAP Office Vidin (Офис Видин)"
+msgstr "Офис на НАП Видин"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_vratsa
+msgid "NAP Office Vratsa (Офис Враца)"
+msgstr "Офис на НАП Враца"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_gabrovo
+msgid "NAP Office Gabrovo (Офис Габрово)"
+msgstr "Офис на НАП Габрово"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_lovech
+msgid "NAP Office Lovech (Офис Ловеч)"
+msgstr "Офис на НАП Ловеч"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_montana
+msgid "NAP Office Montana (Офис Монтана)"
+msgstr "Офис на НАП Монтана"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.nra_office_pleven
+msgid "NAP Office Pleven (Офис Плевен)"
+msgstr "Офис на НАП Плевен"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi
+msgid "National Social Security Institute (NSSI / НОИ)"
+msgstr "Национален осигурителен институт (НОИ)"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_manager
+msgid "Vesela Karaivanova-Nacheva"
+msgstr "Весела Караиванова-Начева"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_deputy
+msgid "Ivaylo Zdravkov"
+msgstr "Ивайло Здравков"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_blagoevgrad
+msgid "ТП на НОИ Благоевград (NSSI Blagoevgrad)"
+msgstr "ТП на НОИ Благоевград"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_burgas
+msgid "ТП на НОИ Бургас (NSSI Burgas)"
+msgstr "ТП на НОИ Бургас"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_varna
+msgid "ТП на НОИ Варна (NSSI Varna)"
+msgstr "ТП на НОИ Варна"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_vtarnovo
+msgid "ТП на НОИ Велико Търново (NSSI V. Tarnovo)"
+msgstr "ТП на НОИ Велико Търново"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_vidin
+msgid "ТП на НОИ Видин (NSSI Vidin)"
+msgstr "ТП на НОИ Видин"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_vratsa
+msgid "ТП на НОИ Враца (NSSI Vratsa)"
+msgstr "ТП на НОИ Враца"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_gabrovo
+msgid "ТП на НОИ Габрово (NSSI Gabrovo)"
+msgstr "ТП на НОИ Габрово"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_dobrich
+msgid "ТП на НОИ Добрич (NSSI Dobrich)"
+msgstr "ТП на НОИ Добрич"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_kardzhali
+msgid "ТП на НОИ Кърджали (NSSI Kardzhali)"
+msgstr "ТП на НОИ Кърджали"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_kyustendil
+msgid "ТП на НОИ Кюстендил (NSSI Kyustendil)"
+msgstr "ТП на НОИ Кюстендил"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_lovech
+msgid "ТП на НОИ Ловеч (NSSI Lovech)"
+msgstr "ТП на НОИ Ловеч"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_montana
+msgid "ТП на НОИ Монтана (NSSI Montana)"
+msgstr "ТП на НОИ Монтана"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_pazardzhik
+msgid "ТП на НОИ Пазарджик (NSSI Pazardzhik)"
+msgstr "ТП на НОИ Пазарджик"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_pernik
+msgid "ТП на НОИ Перник (NSSI Pernik)"
+msgstr "ТП на НОИ Перник"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_pleven
+msgid "ТП на НОИ Плевен (NSSI Pleven)"
+msgstr "ТП на НОИ Плевен"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_plovdiv
+msgid "ТП на НОИ Пловдив (NSSI Plovdiv)"
+msgstr "ТП на НОИ Пловдив"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_razgrad
+msgid "ТП на НОИ Разград (NSSI Razgrad)"
+msgstr "ТП на НОИ Разград"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_ruse
+msgid "ТП на НОИ Русе (NSSI Ruse)"
+msgstr "ТП на НОИ Русе"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_silistra
+msgid "ТП на НОИ Силистра (NSSI Silistra)"
+msgstr "ТП на НОИ Силистра"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_sliven
+msgid "ТП на НОИ Сливен (NSSI Sliven)"
+msgstr "ТП на НОИ Сливен"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_smolyan
+msgid "ТП на НОИ Смолян (NSSI Smolyan)"
+msgstr "ТП на НОИ Смолян"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_sofia_grad
+msgid "ТП на НОИ София-град (NSSI Sofia City)"
+msgstr "ТП на НОИ София-град"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_sofia_oblast
+msgid "ТП на НОИ София-област (NSSI Sofia-Oblast)"
+msgstr "ТП на НОИ София-област"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_stzagora
+msgid "ТП на НОИ Стара Загора (NSSI Stara Zagora)"
+msgstr "ТП на НОИ Стара Загора"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_targovishte
+msgid "ТП на НОИ Търговище (NSSI Targovishte)"
+msgstr "ТП на НОИ Търговище"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_haskovo
+msgid "ТП на НОИ Хасково (NSSI Haskovo)"
+msgstr "ТП на НОИ Хасково"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_shumen
+msgid "ТП на НОИ Шумен (NSSI Shumen)"
+msgstr "ТП на НОИ Шумен"
+
+#. module: l10n_bg_tax_offices
+#: model:res.partner,name:l10n_bg_tax_offices.noi_tp_yambol
+msgid "ТП на НОИ Ямбол (NSSI Yambol)"
+msgstr "ТП на НОИ Ямбол"

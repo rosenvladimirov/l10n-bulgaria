@@ -1,0 +1,99 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Language: bg\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: code:addons/l10n_bg_erp_net_fp_plugin_zebra/zebra_reader.py:89
+msgid "Imported: %s new reader(s)"
+msgstr "Импортирани: %s нов(и) четец(ци)"
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: code:addons/l10n_bg_erp_net_fp_plugin_zebra/zebra_reader.py:90
+msgid "Skipped (exists): %s"
+msgstr "Пропуснати (вече съществуват): %s"
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: code:addons/l10n_bg_erp_net_fp_plugin_zebra/zebra_reader.py:91
+msgid "Scanned: %s reader entries"
+msgstr "Сканирани: %s записа за четци"
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: code:addons/l10n_bg_erp_net_fp_plugin_zebra/zebra_reader.py:94
+msgid "No Zebra prefix match: %s"
+msgstr "Няма съвпадение с префикс Zebra: %s"
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: code:addons/l10n_bg_erp_net_fp_plugin_zebra/zebra_reader.py:102
+msgid "Import from Proxy"
+msgstr "Импортиране от прокси"
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: model:zebra.reader.template,name:l10n_bg_erp_net_fp_plugin_zebra.template_zb_ds2208
+msgid "Zebra DS2208"
+msgstr "Zebra DS2208"
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: model:zebra.reader.template,description:l10n_bg_erp_net_fp_plugin_zebra.template_zb_ds2208
+msgid "Desktop scanner."
+msgstr "Настолен скенер."
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: model:zebra.reader.template,name:l10n_bg_erp_net_fp_plugin_zebra.template_zb_ds3678
+msgid "Zebra DS3678"
+msgstr "Zebra DS3678"
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: model:zebra.reader.template,description:l10n_bg_erp_net_fp_plugin_zebra.template_zb_ds3678
+msgid "Wireless gun scanner."
+msgstr "Безжичен скенер-пистолет."
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: model:zebra.reader.template,name:l10n_bg_erp_net_fp_plugin_zebra.template_zb_ls2208
+msgid "Symbol LS2208"
+msgstr "Symbol LS2208"
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: model:zebra.reader.template,description:l10n_bg_erp_net_fp_plugin_zebra.template_zb_ls2208
+msgid "Legacy serial scanner (memory: feedback_symbol_zebra_linux_no_serial)."
+msgstr ""
+"Сериен скенер от стар тип (memory: feedback_symbol_zebra_linux_no_serial)."
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: model:ir.ui.view,name:l10n_bg_erp_net_fp_plugin_zebra.view_zebra_reader_template_list
+msgid "zebra.reader.template.list"
+msgstr "zebra.reader.template.list"
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: model:ir.ui.view,name:l10n_bg_erp_net_fp_plugin_zebra.view_zebra_reader_template_form
+msgid "zebra.reader.template.form"
+msgstr "zebra.reader.template.form"
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp_plugin_zebra.action_zebra_reader_template
+msgid "Zebra / Symbol Scanners Templates"
+msgstr "Шаблони за скенери Zebra / Symbol"
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: model:ir.ui.view,name:l10n_bg_erp_net_fp_plugin_zebra.view_zebra_reader_kanban
+msgid "zebra.reader.kanban"
+msgstr "zebra.reader.kanban"
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: model:ir.ui.view,name:l10n_bg_erp_net_fp_plugin_zebra.view_zebra_reader_list
+msgid "zebra.reader.list"
+msgstr "zebra.reader.list"
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: model:ir.ui.view,name:l10n_bg_erp_net_fp_plugin_zebra.view_zebra_reader_form
+msgid "zebra.reader.form"
+msgstr "zebra.reader.form"
+
+#. module: l10n_bg_erp_net_fp_plugin_zebra
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp_plugin_zebra.action_zebra_reader
+msgid "Zebra / Symbol Scanners"
+msgstr "Скенери Zebra / Symbol"

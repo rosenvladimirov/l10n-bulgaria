@@ -1,0 +1,228 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Language: bg\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: code:addons/l10n_bg_erp_net_fp_plugin_datecs/datecs_printer.py:98
+msgid "No Template"
+msgstr "Няма шаблон"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: code:addons/l10n_bg_erp_net_fp_plugin_datecs/datecs_printer.py:99
+msgid "Select a Model Template first."
+msgstr "Първо изберете шаблон на модел."
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: code:addons/l10n_bg_erp_net_fp_plugin_datecs/datecs_printer.py:118
+msgid "Match"
+msgstr "Съвпада"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: code:addons/l10n_bg_erp_net_fp_plugin_datecs/datecs_printer.py:119
+msgid "All template fields match current values "
+msgstr "Всички полета на шаблона съвпадат с текущите стойности "
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: code:addons/l10n_bg_erp_net_fp_plugin_datecs/datecs_printer.py:125
+msgid "Differences vs template \"%s\":"
+msgstr "Разлики спрямо шаблон \"%s\":"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: code:addons/l10n_bg_erp_net_fp_plugin_datecs/datecs_printer.py:127
+msgid "â¢ %s: current=%s | template=%s"
+msgstr "â¢ %s: текущо=%s | шаблон=%s"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: code:addons/l10n_bg_erp_net_fp_plugin_datecs/datecs_printer.py:133
+msgid "Template diff"
+msgstr "Разлики с шаблона"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: code:addons/l10n_bg_erp_net_fp_plugin_datecs/datecs_printer.py:210
+msgid "Imported: %s new printer(s)"
+msgstr "Импортирани: %s нови принтер(и)"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: code:addons/l10n_bg_erp_net_fp_plugin_datecs/datecs_printer.py:211
+msgid "Skipped: %s existing record(s)"
+msgstr "Пропуснати: %s съществуващ(и) запис(и)"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: code:addons/l10n_bg_erp_net_fp_plugin_datecs/datecs_printer.py:212
+msgid "Scanned: %s proxy device entries"
+msgstr "Сканирани: %s записа на устройства от прокси"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: code:addons/l10n_bg_erp_net_fp_plugin_datecs/datecs_printer.py:219
+msgid "Import from Proxy"
+msgstr "Импорт от прокси"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: code:addons/l10n_bg_erp_net_fp_plugin_datecs/datecs_pinpad.py:147
+msgid "Imported: %s new pinpad(s)"
+msgstr "Импортирани: %s нови пинпад(и)"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:datecs.pinpad.template,name:l10n_bg_erp_net_fp_plugin_datecs.template_bluepad55
+msgid "Datecs BluePad-55 (ДП50)"
+msgstr "Datecs BluePad-55 (ДП50)"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:datecs.pinpad.template,description:l10n_bg_erp_net_fp_plugin_datecs.template_bluepad55
+msgid ""
+"Pinpad terminal с BLE. NDA libdatecs_pinpad.so\n"
+"            driver. Default port /dev/ttyACM0 ако serial. BLE bridge към\n"
+"            PTY (memory: project_bluepad55_ble_bridge)."
+msgstr ""
+"Pinpad терминал с BLE. NDA libdatecs_pinpad.so\n"
+"            драйвер. Порт по подразбиране /dev/ttyACM0 ако е serial. BLE мост към\n"
+"            PTY (memory: project_bluepad55_ble_bridge)."
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:datecs.pinpad.template,name:l10n_bg_erp_net_fp_plugin_datecs.template_dp50_serial
+msgid "Datecs DP50 (Serial)"
+msgstr "Datecs DP50 (Serial)"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:datecs.pinpad.template,description:l10n_bg_erp_net_fp_plugin_datecs.template_dp50_serial
+msgid ""
+"Pinpad direct serial connection (без BLE\n"
+"            bridge). За кабелни setup-и."
+msgstr ""
+"Pinpad директна serial връзка (без BLE\n"
+"            мост). За кабелни setup-и."
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:datecs.printer.template,name:l10n_bg_erp_net_fp_plugin_datecs.template_dp150
+msgid "Datecs DP-150"
+msgstr "Datecs DP-150"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:datecs.printer.template,description:l10n_bg_erp_net_fp_plugin_datecs.template_dp150
+msgid ""
+"Entry-level fiscal printer (serial USB).\n"
+"            ISL protocol. Standard pricing model."
+msgstr ""
+"Начален фискален принтер (serial USB).\n"
+"            ISL протокол. Стандартен ценови модел."
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:datecs.printer.template,name:l10n_bg_erp_net_fp_plugin_datecs.template_fp700mx
+msgid "Datecs FP-700MX"
+msgstr "Datecs FP-700MX"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:datecs.printer.template,description:l10n_bg_erp_net_fp_plugin_datecs.template_fp700mx
+msgid ""
+"Fiscal printer със PLU-only mode\n"
+"            (host PLU push не работи — PM-only feature). Empirically\n"
+"            verified 11-slot PM mapping (memory: feedback_fp700mx_plu_only)."
+msgstr ""
+"Фискален принтер с PLU-only режим\n"
+"            (host PLU push не работи — PM-only функция). Емпирично\n"
+"            проверено 11-slot PM съответствие (memory: feedback_fp700mx_plu_only)."
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:datecs.printer.template,name:l10n_bg_erp_net_fp_plugin_datecs.template_bluecash50
+msgid "Datecs BlueCash-50"
+msgstr "Datecs BlueCash-50"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:datecs.printer.template,description:l10n_bg_erp_net_fp_plugin_datecs.template_bluecash50
+msgid ""
+"Mobile fiscal printer + barcode scanner.\n"
+"            BLE connectivity. 2-channel device (fiscal + scanner)."
+msgstr ""
+"Мобилен фискален принтер + баркод скенер.\n"
+"            BLE свързаност. 2-канално устройство (фискален + скенер)."
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:datecs.printer.template,name:l10n_bg_erp_net_fp_plugin_datecs.template_bluecash55
+msgid "Datecs BlueCash-55"
+msgstr "Datecs BlueCash-55"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:datecs.printer.template,description:l10n_bg_erp_net_fp_plugin_datecs.template_bluecash55
+msgid ""
+"Mobile fiscal printer + pinpad + scanner.\n"
+"            3-channel device (fiscal + pinpad + scanner). Service:\n"
+"            DA054852 е тест unit (memory: project_bluecash55_three_bridges)."
+msgstr ""
+"Мобилен фискален принтер + пинпад + скенер.\n"
+"            3-канално устройство (фискален + пинпад + скенер). Сервиз:\n"
+"            DA054852 е тестов unit (memory: project_bluecash55_three_bridges)."
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:ir.ui.view,name:l10n_bg_erp_net_fp_plugin_datecs.view_datecs_pinpad_kanban
+msgid "datecs.pinpad.kanban"
+msgstr "datecs.pinpad.kanban"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:ir.ui.view,name:l10n_bg_erp_net_fp_plugin_datecs.view_datecs_pinpad_list
+msgid "datecs.pinpad.list"
+msgstr "datecs.pinpad.list"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:ir.ui.view,name:l10n_bg_erp_net_fp_plugin_datecs.view_datecs_pinpad_form
+msgid "datecs.pinpad.form"
+msgstr "datecs.pinpad.form"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp_plugin_datecs.action_datecs_pinpad
+msgid "Datecs Pinpads"
+msgstr "Datecs Pinpads"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:ir.ui.view,name:l10n_bg_erp_net_fp_plugin_datecs.view_datecs_pinpad_template_list
+msgid "datecs.pinpad.template.list"
+msgstr "datecs.pinpad.template.list"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:ir.ui.view,name:l10n_bg_erp_net_fp_plugin_datecs.view_datecs_pinpad_template_form
+msgid "datecs.pinpad.template.form"
+msgstr "datecs.pinpad.template.form"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp_plugin_datecs.action_datecs_pinpad_template
+msgid "Datecs Pinpad Templates"
+msgstr "Datecs Pinpad Templates"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:ir.ui.view,name:l10n_bg_erp_net_fp_plugin_datecs.view_datecs_printer_template_list
+msgid "datecs.printer.template.list"
+msgstr "datecs.printer.template.list"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:ir.ui.view,name:l10n_bg_erp_net_fp_plugin_datecs.view_datecs_printer_template_form
+msgid "datecs.printer.template.form"
+msgstr "datecs.printer.template.form"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp_plugin_datecs.action_datecs_printer_template
+msgid "Datecs Printer Templates"
+msgstr "Datecs Printer Templates"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:ir.ui.view,name:l10n_bg_erp_net_fp_plugin_datecs.view_datecs_printer_kanban
+msgid "datecs.printer.kanban"
+msgstr "datecs.printer.kanban"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:ir.ui.view,name:l10n_bg_erp_net_fp_plugin_datecs.view_datecs_printer_list
+msgid "datecs.printer.list"
+msgstr "datecs.printer.list"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:ir.ui.view,name:l10n_bg_erp_net_fp_plugin_datecs.view_datecs_printer_form
+msgid "datecs.printer.form"
+msgstr "datecs.printer.form"
+
+#. module: l10n_bg_erp_net_fp_plugin_datecs
+#: model:ir.actions.act_window,name:l10n_bg_erp_net_fp_plugin_datecs.action_datecs_printer
+msgid "Datecs Printers"
+msgstr "Datecs Printers"

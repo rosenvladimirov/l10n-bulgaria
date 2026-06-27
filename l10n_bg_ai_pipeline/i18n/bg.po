@@ -1,0 +1,202 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Language: bg\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_ai_pipeline
+#: code:addons/l10n_bg_ai_pipeline/ai_skill.py:129
+msgid "All languages"
+msgstr "Всички езици"
+
+#. module: l10n_bg_ai_pipeline
+#: code:addons/l10n_bg_ai_pipeline/ai_skill.py:176
+msgid "Skill %s has no description for language %s."
+msgstr "Skill %s няма описание за език %s."
+
+#. module: l10n_bg_ai_pipeline
+#: code:addons/l10n_bg_ai_pipeline/ai_skill.py:181
+msgid "Embedding provider returned no vectors."
+msgstr "Доставчикът на ембединги не върна вектори."
+
+#. module: l10n_bg_ai_pipeline
+#: code:addons/l10n_bg_ai_pipeline/ai_skill.py:218
+msgid "Pipeline Steps"
+msgstr "Стъпки на конвейера"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.model.fields,field_description:l10n_bg_ai_pipeline.field_ai_skill__display_name_override
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.model.fields,help:l10n_bg_ai_pipeline.field_ai_skill__language
+msgid "Which user language this skill applies to. 'all' = any."
+msgstr "За кой потребителски език важи този skill. 'all' = всеки."
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.model.fields,field_description:l10n_bg_ai_pipeline.field_ai_skill__priority
+msgid "Injected Steps"
+msgstr "Инжектирани стъпки"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.model.fields,help:l10n_bg_ai_pipeline.field_ai_skill__priority
+msgid "Source module — set automatically from XML id."
+msgstr "Изходен модул — задава се автоматично от XML id."
+
+#. module: l10n_bg_ai_pipeline
+#: code:addons/l10n_bg_ai_pipeline/ai_pipeline_step.py:100
+msgid "Step %s: trigger_domain is not a valid Python "
+msgstr "Стъпка %s: trigger_domain не е валиден Python "
+
+#. module: l10n_bg_ai_pipeline
+#: code:addons/l10n_bg_ai_pipeline/ai_pipeline_step.py:105
+msgid "Step %s: trigger_domain must be a list of tuples."
+msgstr "Стъпка %s: trigger_domain трябва да е списък от кортежи."
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.model.fields,help:l10n_bg_ai_pipeline.field_ai_pipeline_step__sequence
+msgid "Odoo model holding the callable."
+msgstr "Odoo модел, съдържащ извикваемия обект."
+
+#. module: l10n_bg_ai_pipeline
+#: model:ai.pipeline.step,name:l10n_bg_ai_pipeline.step_tokenize_build_text
+msgid "build_text"
+msgstr "build_text"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ai.pipeline.step,name:l10n_bg_ai_pipeline.step_tokenize_embed
+msgid "embed"
+msgstr "embed"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ai.pipeline.step,name:l10n_bg_ai_pipeline.step_tokenize_upsert_qdrant
+msgid "upsert_qdrant"
+msgstr "upsert_qdrant"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ai.pipeline.step,name:l10n_bg_ai_pipeline.step_tokenize_skill_resolution
+msgid "skill_resolution"
+msgstr "skill_resolution"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ai.model,name:l10n_bg_ai_pipeline.ai_model_opus_4_8
+msgid "Claude Opus 4.8"
+msgstr "Claude Opus 4.8"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ai.model,name:l10n_bg_ai_pipeline.ai_model_sonnet_4_6
+msgid "Claude Sonnet 4.6"
+msgstr "Claude Sonnet 4.6"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ai.model,name:l10n_bg_ai_pipeline.ai_model_haiku_4_5
+msgid "Claude Haiku 4.5"
+msgstr "Claude Haiku 4.5"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ai.model,name:l10n_bg_ai_pipeline.ai_model_fable_5
+msgid "Fable 5"
+msgstr "Fable 5"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ai.skill,name:l10n_bg_ai_pipeline.skill_ask_about_record
+msgid "ask-about-record"
+msgstr "ask-about-record"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ai.skill,description:l10n_bg_ai_pipeline.skill_ask_about_record
+msgid ""
+"[en_US]\n"
+"Activate when the terminal is opened in ASK mode (ODOO_FOCUS=ask) from a\n"
+"specific Odoo record. The launch context provides ODOO_MODEL and\n"
+"ODOO_RES_ID. Use this skill to answer the user's free-form questions about\n"
+"that exact record.\n"
+"[/en_US]\n"
+"[bg_BG]\n"
+"Активира се когато терминалът е отворен в ASK режим (ODOO_FOCUS=ask) от\n"
+"конкретен Odoo запис. Контекстът подава ODOO_MODEL и ODOO_RES_ID. Ползвай\n"
+"този skill за да отговаряш на свободните въпроси на потребителя за точно\n"
+"този запис.\n"
+"[/bg_BG]"
+msgstr ""
+"[en_US]\n"
+"Activate when the terminal is opened in ASK mode (ODOO_FOCUS=ask) from a\n"
+"specific Odoo record. The launch context provides ODOO_MODEL and\n"
+"ODOO_RES_ID. Use this skill to answer the user's free-form questions about\n"
+"that exact record.\n"
+"[/en_US]\n"
+"[bg_BG]\n"
+"Активира се когато терминалът е отворен в ASK режим (ODOO_FOCUS=ask) от\n"
+"конкретен Odoo запис. Контекстът подава ODOO_MODEL и ODOO_RES_ID. Ползвай\n"
+"този skill за да отговаряш на свободните въпроси на потребителя за точно\n"
+"този запис.\n"
+"[/bg_BG]"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.ui.view,name:l10n_bg_ai_pipeline.view_ai_pipeline_run_list
+msgid "ai.pipeline.run.list"
+msgstr "ai.pipeline.run.list"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.ui.view,name:l10n_bg_ai_pipeline.view_ai_pipeline_run_form
+msgid "ai.pipeline.run.form"
+msgstr "ai.pipeline.run.form"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.actions.act_window,name:l10n_bg_ai_pipeline.action_ai_pipeline_run
+msgid "Pipeline Runs"
+msgstr "Изпълнения на конвейера"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.ui.view,name:l10n_bg_ai_pipeline.view_ai_model_list
+msgid "ai.model.list"
+msgstr "ai.model.list"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.ui.view,name:l10n_bg_ai_pipeline.view_ai_model_form
+msgid "ai.model.form"
+msgstr "ai.model.form"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.actions.act_window,name:l10n_bg_ai_pipeline.action_ai_model
+msgid "AI Models"
+msgstr "AI модели"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.ui.view,name:l10n_bg_ai_pipeline.view_ai_pipeline_step_list
+msgid "ai.pipeline.step.list"
+msgstr "ai.pipeline.step.list"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.ui.view,name:l10n_bg_ai_pipeline.view_ai_pipeline_step_form
+msgid "ai.pipeline.step.form"
+msgstr "ai.pipeline.step.form"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.ui.view,name:l10n_bg_ai_pipeline.view_ai_pipeline_step_search
+msgid "ai.pipeline.step.search"
+msgstr "ai.pipeline.step.search"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.ui.view,name:l10n_bg_ai_pipeline.view_ai_skill_list
+msgid "ai.skill.list"
+msgstr "ai.skill.list"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.ui.view,name:l10n_bg_ai_pipeline.view_ai_skill_form
+msgid "ai.skill.form"
+msgstr "ai.skill.form"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.ui.view,name:l10n_bg_ai_pipeline.view_ai_skill_search
+msgid "ai.skill.search"
+msgstr "ai.skill.search"
+
+#. module: l10n_bg_ai_pipeline
+#: model:ir.actions.act_window,name:l10n_bg_ai_pipeline.action_ai_skill
+msgid "Skills"
+msgstr "Skills"

@@ -1,0 +1,336 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Language: bg\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/l10n_bg_infopay_payment_mixin.py:89
+msgid "Bulk SEPA payments require 2-250 items; got %d."
+msgstr "Груповите SEPA плащания изискват 2-250 елемента; получени %d."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/l10n_bg_infopay_payment_mixin.py:135
+msgid "Unknown InfoPay provider method '%s'."
+msgstr "Непознат метод на доставчик InfoPay '%s'."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/res_company.py:119
+msgid "Both uniqueId and accessToken are required."
+msgstr "Изискват се както uniqueId, така и accessToken."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/res_company.py:155
+msgid "No InfoPay token owner configured on company '%s'.  "
+msgstr "Няма конфигуриран собственик на InfoPay токен за фирма '%s'.  "
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/res_company.py:166
+msgid "Crypto wallet not found for user '%s'."
+msgstr "Крипто портфейлът не е намерен за потребител '%s'."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/res_company.py:172
+msgid "InfoPay %s missing from owner's wallet â re-run the "
+msgstr "InfoPay %s липсва в портфейла на собственика — изпълнете отново "
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_res_company__l10n_bg_infopay_token_user_id
+msgid "InfoPay Token Owner"
+msgstr "Собственик на InfoPay токен"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_res_company__l10n_bg_infopay_token_user_id
+msgid "User whose crypto wallet stores the InfoPay credentials "
+msgstr ""
+"Потребител, в чийто крипто портфейл се съхраняват InfoPay идентификационните"
+" данни "
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_move.py:82
+msgid "Invoice %s cannot be issued via InfoPay (state=%s, "
+msgstr "Фактура %s не може да бъде издадена през InfoPay (състояние=%s, "
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_move.py:107
+msgid "InfoPay invoice issuance failed: %s"
+msgstr "Издаването на фактура през InfoPay е неуспешно: %s"
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_move.py:121
+msgid "Invoice issued via InfoPay.<br/>InfoPay ID: <code>%s</code>"
+msgstr "Фактурата е издадена през InfoPay.<br/>InfoPay ID: <code>%s</code>"
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_move.py:140
+msgid "Journal '%s' has no InfoPay number series configured."
+msgstr "Дневникът '%s' няма конфигурирана InfoPay серия за номериране."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_move.py:147
+msgid "InfoPay does not support currency %s â supported: %s."
+msgstr "InfoPay не поддържа валута %s — поддържани: %s."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_move.py:206
+msgid "Invoice %s has not been saved yet; cannot derive "
+msgstr "Фактура %s все още не е записана; не може да се изведе "
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_move.py:211
+msgid "Invoice id %s exceeds 10 digits â InfoPay number "
+msgstr "ID на фактура %s надвишава 10 цифри — InfoPay номерът "
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_move.py:226
+msgid "Derived InfoPay number %s for move %s does not match "
+msgstr "Изведеният InfoPay номер %s за вписване %s не съвпада с "
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_move.py:237
+msgid "Invoice %s has no customer set."
+msgstr "Фактура %s няма зададен клиент."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_move.py:251
+msgid "Customer %s has no identification number (EIK / ÐÐÐ / ÐÐÐ§ "
+msgstr "Клиент %s няма идентификационен номер (ЕИК / ЕГН / ЛНЧ "
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_move.py:268
+msgid "Customer %s is missing city or street â both are required "
+msgstr "Клиент %s няма град или улица — и двете са задължителни "
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_move.py:317
+msgid "ÐÑÐ²Ð¾Ð±Ð¾Ð´ÐµÐ½Ð° Ð´Ð¾ÑÑÐ°Ð²ÐºÐ° / 0%% VAT"
+msgstr "Освободена доставка / 0%% ДДС"
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_move.py:347
+msgid "Invoice %s has no product lines to send to InfoPay."
+msgstr "Фактура %s няма продуктови редове за изпращане към InfoPay."
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_move__l10n_bg_infopay_state
+msgid "InfoPay state"
+msgstr "Състояние в InfoPay"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_move__l10n_bg_infopay_invoice_id
+msgid "InfoPay Invoice ID"
+msgstr "InfoPay ID на фактура"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_move__l10n_bg_infopay_invoice_id
+msgid "GUID returned by POST /api/invoices.  Acts as the only handle "
+msgstr ""
+"GUID, върнат от POST /api/invoices.  Служи като единствен идентификатор "
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_move__l10n_bg_infopay_sent_at
+msgid "InfoPay Sent At"
+msgstr "Изпратено в InfoPay на"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_move__l10n_bg_infopay_error
+msgid "InfoPay Last Error"
+msgstr "Последна грешка от InfoPay"
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_journal.py:98
+msgid "Journal '%s' has no InfoPay Account ID configured."
+msgstr "Дневникът '%s' няма конфигуриран InfoPay Account ID."
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_journal__l10n_bg_infopay_account_id
+msgid "InfoPay Account ID"
+msgstr "InfoPay Account ID"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_journal__l10n_bg_infopay_account_id
+msgid "UUID of this bank account in InfoPay.  "
+msgstr "UUID на тази банкова сметка в InfoPay.  "
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_journal__l10n_bg_infopay_last_sync
+msgid "InfoPay Last Sync"
+msgstr "Последна синхронизация с InfoPay"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_journal__l10n_bg_infopay_last_sync
+msgid "Timestamp of the last successful transaction sync."
+msgstr "Времеви маркер на последната успешна синхронизация на транзакции."
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_journal__l10n_bg_infopay_invoice_enabled
+msgid "Issue invoices via InfoPay"
+msgstr "Издаване на фактури през InfoPay"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_journal__l10n_bg_infopay_invoice_enabled
+msgid "When enabled, posted customer invoices on this journal can be "
+msgstr ""
+"Когато е активирано, осчетоводените клиентски фактури в този дневник могат "
+"да бъдат "
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_journal__l10n_bg_infopay_number_series_id
+msgid "InfoPay Number Series"
+msgstr "InfoPay серия за номериране"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_journal__l10n_bg_infopay_number_series_id
+msgid "GUID of the invoice number series pre-created in the InfoPay "
+msgstr ""
+"GUID на серията за номериране на фактури, предварително създадена в InfoPay "
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_payment.py:70
+msgid "Journal '%s' is not configured for InfoPay."
+msgstr "Дневникът '%s' не е конфигуриран за InfoPay."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_payment.py:78
+msgid "Journal '%s' has no bank account number set."
+msgstr "Дневникът '%s' няма зададен номер на банкова сметка."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_payment.py:86
+msgid "Partner '%s' has no bank account configured."
+msgstr "Партньорът '%s' няма конфигурирана банкова сметка."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_payment.py:99
+msgid "InfoPay supports only EUR payments since 01.01.2026 "
+msgstr "InfoPay поддържа само плащания в EUR след 01.01.2026 "
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_payment.py:350
+msgid "Bulk payments require at least 2 items."
+msgstr "Груповите плащания изискват поне 2 елемента."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_payment.py:354
+msgid "Bulk payments allow at most 250 items."
+msgstr "Груповите плащания позволяват най-много 250 елемента."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_payment.py:360
+msgid "All bulk payments must use the same journal."
+msgstr "Всички групови плащания трябва да използват един и същ дневник."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_payment.py:373
+msgid "All bulk payments must use the same currency."
+msgstr "Всички групови плащания трябва да използват една и съща валута."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_payment.py:378
+msgid "InfoPay bulk payments support only EUR since 01.01.2026 "
+msgstr "Груповите InfoPay плащания поддържат само EUR след 01.01.2026 "
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/account_payment.py:392
+msgid "Partner '%s' has no bank account."
+msgstr "Партньорът '%s' няма банкова сметка."
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_payment__l10n_bg_infopay_payment_id
+msgid "InfoPay Payment ID"
+msgstr "InfoPay ID на плащане"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_payment__l10n_bg_infopay_sca_url
+msgid "InfoPay SCA URL"
+msgstr "InfoPay SCA URL"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_payment__l10n_bg_infopay_sca_url
+msgid "Redirect URL for Strong Customer Authentication at the bank."
+msgstr ""
+"URL за пренасочване към усилена идентификация на клиента (SCA) в банката."
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_payment__l10n_bg_infopay_status_url
+msgid "InfoPay Status URL"
+msgstr "InfoPay URL за състояние"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_payment__l10n_bg_infopay_status_url
+msgid "Линк, върнат от InfoPay (``Links.Status``) за проверка на "
+msgstr "Линк, върнат от InfoPay (``Links.Status``) за проверка на "
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_payment__l10n_bg_infopay_status
+msgid "InfoPay Status"
+msgstr "Състояние в InfoPay"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,field_description:l10n_bg_infopay.field_account_payment__l10n_bg_infopay_bulk
+msgid "InfoPay Bulk"
+msgstr "Групово в InfoPay"
+
+#. module: l10n_bg_infopay
+#: model:ir.model.fields,help:l10n_bg_infopay.field_account_payment__l10n_bg_infopay_bulk
+msgid "True if this payment was sent as part of a bulk payment."
+msgstr "Истина, ако това плащане е изпратено като част от групово плащане."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/infopay_provider.py:59
+msgid "InfoPay connection error: %s"
+msgstr "Грешка при връзка с InfoPay: %s"
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/infopay_provider.py:64
+msgid "InfoPay authentication failed. Check credentials."
+msgstr "Неуспешна автентикация в InfoPay. Проверете идентификационните данни."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/infopay_provider.py:68
+msgid "InfoPay access denied. Check subscription plan."
+msgstr "Достъпът до InfoPay е отказан. Проверете абонаментния план."
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/infopay_provider.py:75
+msgid "InfoPay API error (%(code)s): %(body)s"
+msgstr "Грешка от InfoPay API (%(code)s): %(body)s"
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/infopay_provider.py:103
+msgid "No InfoPay admin credentials configured on company "
+msgstr ""
+"Няма конфигурирани администраторски InfoPay идентификационни данни за фирма "
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/infopay_provider.py:111
+msgid "InfoPay credentials are not configured on company "
+msgstr "InfoPay идентификационните данни не са конфигурирани за фирма "
+
+#. module: l10n_bg_infopay
+#: code:addons/l10n_bg_infopay/infopay_provider.py:125
+msgid "InfoPay session creation failed: %s"
+msgstr "Създаването на InfoPay сесия е неуспешно: %s"
+
+#. module: l10n_bg_infopay
+#: model:account.payment.method,name:l10n_bg_infopay.account_payment_method_infopay_sepa_eur
+msgid "InfoPay SEPA (EUR)"
+msgstr "InfoPay SEPA (EUR)"
+
+#. module: l10n_bg_infopay
+#: model:account.payment.method,name:l10n_bg_infopay.account_payment_method_infopay_domestic_eur
+msgid "InfoPay Domestic (EUR)"
+msgstr "InfoPay Domestic (EUR)"
+
+#. module: l10n_bg_infopay
+#: model:ir.ui.view,name:l10n_bg_infopay.view_account_journal_form_infopay_invoice
+msgid "account.journal.form.infopay.invoice"
+msgstr "account.journal.form.infopay.invoice"
+
+#. module: l10n_bg_infopay
+#: model:ir.ui.view,name:l10n_bg_infopay.view_move_form_infopay_invoice
+msgid "account.move.form.infopay.invoice"
+msgstr "account.move.form.infopay.invoice"

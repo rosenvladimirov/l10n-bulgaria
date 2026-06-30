@@ -671,7 +671,7 @@ msgid "Tax agent"
 msgstr "Данъчен агент"
 
 #. module: l10n_bg_config
-#: code:addons/l10n_bg_config/static/src/views/form_view.js
+#: code:addons/l10n_bg_config/static/src/views/form_view.js:0
 msgid "The API Key is: ${result}"
 msgstr "API ключът е: ${result}"
 
@@ -722,7 +722,7 @@ msgid "This file can be used by:"
 msgstr "Този файл може да се използва от:"
 
 #. module: l10n_bg_config
-#: code:addons/l10n_bg_config/hooks.py
+#: code:addons/l10n_bg_config/hooks.py:0
 msgid "This module is only for Bulgaria"
 msgstr "Този модул е само за България"
 

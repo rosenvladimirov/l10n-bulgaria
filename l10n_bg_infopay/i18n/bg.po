@@ -8,42 +8,42 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/account_payment.py
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
 msgid "All bulk payments must use the same currency."
 msgstr "Всички групови плащания трябва да използват една и съща валута."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/account_payment.py
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
 msgid "All bulk payments must use the same journal."
 msgstr "Всички групови плащания трябва да използват един и същ дневник."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/res_company.py
+#: code:addons/l10n_bg_infopay/models/res_company.py:0
 msgid "Both uniqueId and accessToken are required."
 msgstr "Изискват се както uniqueId, така и accessToken."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/l10n_bg_infopay_payment_mixin.py
+#: code:addons/l10n_bg_infopay/models/l10n_bg_infopay_payment_mixin.py:0
 msgid "Bulk SEPA payments require 2-250 items; got %d."
 msgstr "Груповите SEPA плащания изискват 2-250 елемента; получени %d."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/account_payment.py
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
 msgid "Bulk payments allow at most 250 items."
 msgstr "Груповите плащания позволяват най-много 250 елемента."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/account_payment.py
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
 msgid "Bulk payments require at least 2 items."
 msgstr "Груповите плащания изискват поне 2 елемента."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/res_company.py
+#: code:addons/l10n_bg_infopay/models/res_company.py:0
 msgid "Crypto wallet not found for user '%s'."
 msgstr "Крипто портфейлът не е намерен за потребител '%s'."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/infopay_provider.py
+#: code:addons/l10n_bg_infopay/models/infopay_provider.py:0
 msgid "InfoPay API error (%(code)s): %(body)s"
 msgstr "Грешка от InfoPay API (%(code)s): %(body)s"
 
@@ -118,27 +118,27 @@ msgid "InfoPay Token Owner"
 msgstr "Собственик на InfoPay токен"
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/infopay_provider.py
+#: code:addons/l10n_bg_infopay/models/infopay_provider.py:0
 msgid "InfoPay access denied. Check subscription plan."
 msgstr "Достъпът до InfoPay е отказан. Проверете абонаментния план."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/infopay_provider.py
+#: code:addons/l10n_bg_infopay/models/infopay_provider.py:0
 msgid "InfoPay authentication failed. Check credentials."
 msgstr "Неуспешна автентикация в InfoPay. Проверете идентификационните данни."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/infopay_provider.py
+#: code:addons/l10n_bg_infopay/models/infopay_provider.py:0
 msgid "InfoPay connection error: %s"
 msgstr "Грешка при връзка с InfoPay: %s"
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/account_move.py
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
 msgid "InfoPay invoice issuance failed: %s"
 msgstr "Издаването на фактура през InfoPay е неуспешно: %s"
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/infopay_provider.py
+#: code:addons/l10n_bg_infopay/models/infopay_provider.py:0
 msgid "InfoPay session creation failed: %s"
 msgstr "Създаването на InfoPay сесия е неуспешно: %s"
 
@@ -148,17 +148,17 @@ msgid "InfoPay state"
 msgstr "Състояние в InfoPay"
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/account_move.py
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
 msgid "Invoice %s has no customer set."
 msgstr "Фактура %s няма зададен клиент."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/account_move.py
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
 msgid "Invoice %s has no product lines to send to InfoPay."
 msgstr "Фактура %s няма продуктови редове за изпращане към InfoPay."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/account_move.py
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
 msgid "Invoice issued via InfoPay.<br/>InfoPay ID: <code>%s</code>"
 msgstr "Фактурата е издадена през InfoPay.<br/>InfoPay ID: <code>%s</code>"
 
@@ -168,32 +168,32 @@ msgid "Issue invoices via InfoPay"
 msgstr "Издаване на фактури през InfoPay"
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/account_journal.py
+#: code:addons/l10n_bg_infopay/models/account_journal.py:0
 msgid "Journal '%s' has no InfoPay Account ID configured."
 msgstr "Дневникът '%s' няма конфигуриран InfoPay Account ID."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/account_move.py
+#: code:addons/l10n_bg_infopay/models/account_move.py:0
 msgid "Journal '%s' has no InfoPay number series configured."
 msgstr "Дневникът '%s' няма конфигурирана InfoPay серия за номериране."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/account_payment.py
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
 msgid "Journal '%s' has no bank account number set."
 msgstr "Дневникът '%s' няма зададен номер на банкова сметка."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/account_payment.py
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
 msgid "Journal '%s' is not configured for InfoPay."
 msgstr "Дневникът '%s' не е конфигуриран за InfoPay."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/account_payment.py
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
 msgid "Partner '%s' has no bank account configured."
 msgstr "Партньорът '%s' няма конфигурирана банкова сметка."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/account_payment.py
+#: code:addons/l10n_bg_infopay/models/account_payment.py:0
 msgid "Partner '%s' has no bank account."
 msgstr "Партньорът '%s' няма банкова сметка."
 
@@ -214,6 +214,6 @@ msgid "True if this payment was sent as part of a bulk payment."
 msgstr "Истина, ако това плащане е изпратено като част от групово плащане."
 
 #. module: l10n_bg_infopay
-#: code:addons/l10n_bg_infopay/models/l10n_bg_infopay_payment_mixin.py
+#: code:addons/l10n_bg_infopay/models/l10n_bg_infopay_payment_mixin.py:0
 msgid "Unknown InfoPay provider method '%s'."
 msgstr "Непознат метод на доставчик InfoPay '%s'."

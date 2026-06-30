@@ -8,12 +8,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
 msgid " (+%d more)"
 msgstr " (+%d още)"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py:0
 msgid "(preview)"
 msgstr "(преглед)"
 
@@ -33,17 +33,17 @@ msgid "All fiscal devices"
 msgstr "Всички фискални устройства"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/wizard/plu_allocate_wizard.py
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_allocate_wizard.py:0
 msgid "All selected products are already linked to PLU slots."
 msgstr "Всички избрани продукти вече са свързани с PLU слотове."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/wizard/plu_allocate_wizard.py
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_allocate_wizard.py:0
 msgid "Allocated PLU slots"
 msgstr "Заделени PLU слотове"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
 msgid "An X report can only be printed with an open session"
 msgstr "X отчет може да се отпечата само при отворена сесия"
 
@@ -53,7 +53,7 @@ msgid "Archive PLUs with no sales"
 msgstr "Архивиране на PLU без продажби"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
 msgid "Attention"
 msgstr "Внимание"
 
@@ -94,7 +94,7 @@ msgid "Cashier operator password"
 msgstr "Парола на оператор (касиер)"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_priters_status.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_priters_status.py:0
 msgid "Clear history"
 msgstr "Изчисти историята"
 
@@ -114,7 +114,7 @@ msgid "Compute sales velocity over this many days back from today."
 msgstr "Изчисляване на оборота за толкова дни назад от днес."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
 msgid "Connection Mode"
 msgstr "Режим на свързване"
 
@@ -161,7 +161,7 @@ msgid "Devices"
 msgstr "Устройства"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
 msgid "Disabling SSL verification for HTTPS connection is not recommended!"
 msgstr "Изключването на SSL проверката за HTTPS връзка не се препоръчва!"
 
@@ -181,7 +181,7 @@ msgid "Dry-run (preview only)"
 msgstr "Пробно изпълнение (само преглед)"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/wizard/x_report_wizard.py
+#: code:addons/l10n_bg_erp_net_fp/wizard/x_report_wizard.py:0
 msgid "Empty response from device."
 msgstr "Празен отговор от устройството."
 
@@ -191,7 +191,7 @@ msgid "ErpNet.FP Monitoring"
 msgstr "Мониторинг на ErpNet.FP"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
 msgid "Error"
 msgstr "Грешка"
 
@@ -201,12 +201,12 @@ msgid "External Fiscal Shifts"
 msgstr "Външни фискални смени"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py:0
 msgid "External POS mode is not enabled on this configuration."
 msgstr "Външният режим на POS не е активиран за тази конфигурация."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py:0
 msgid ""
 "External-mode close: %s\n"
 "%s"
@@ -220,7 +220,7 @@ msgid "External-mode payment kind"
 msgstr "Вид плащане във външен режим"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py:0
 msgid "External-mode push"
 msgstr "Изпращане във външен режим"
 
@@ -230,7 +230,7 @@ msgid "External-mode push status"
 msgstr "Състояние на изпращане във външен режим"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py:0
 msgid ""
 "External-mode push: %s\n"
 "%s"
@@ -279,13 +279,13 @@ msgid "Fiscal VAT Group"
 msgstr "Фискална ДДС група"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_extensions.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_extensions.py:0
 msgid "Fiscal device '%(name)s' sync failed: %(msg)s"
 msgstr ""
 "Синхронизацията на фискалното устройство '%(name)s' е неуспешна: %(msg)s"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_extensions.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_extensions.py:0
 msgid "Fiscal device not found."
 msgstr "Фискалното устройство не е намерено."
 
@@ -340,7 +340,7 @@ msgid "Fiscal sessions (Z-cycles)"
 msgstr "Фискални сесии (Z-цикли)"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py:0
 msgid "Force-close"
 msgstr "Принудително затваряне"
 
@@ -370,12 +370,12 @@ msgid "Inactive slots are skipped during PLU push."
 msgstr "Неактивните слотове се пропускат при изпращане на PLU."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
 msgid "Invalid host URL format"
 msgstr "Невалиден формат на хост URL"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
 msgid "Invalid host URL: %s"
 msgstr "Невалиден хост URL: %s"
 
@@ -416,7 +416,7 @@ msgid "Keep top N"
 msgstr "Запази топ N"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/wizard/plu_topn_wizard.py
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_topn_wizard.py:0
 msgid "Kept active: %(kept)s   Archived: %(dropped)s"
 msgstr "Запазени активни: %(kept)s   Архивирани: %(dropped)s"
 
@@ -436,7 +436,7 @@ msgid "Linked products"
 msgstr "Свързани продукти"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
 msgid "Local network address detected. Connection mode set to \"Browser Proxy\"."
 msgstr ""
 "Открит е локален мрежов адрес. Режимът на свързване е зададен на „Браузър "
@@ -448,7 +448,7 @@ msgid "Maps to the device's tax slots (А/Б/В/Г in БГ)."
 msgstr "Съответства на данъчните слотове на устройството (А/Б/В/Г в БГ)."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
 msgid "Minutes must be between 0 and 59"
 msgstr "Минутите трябва да са между 0 и 59"
 
@@ -458,32 +458,32 @@ msgid "Name"
 msgstr "Име"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py:0
 msgid "No PLUs match the selected scope on company %s."
 msgstr "Няма PLU, отговарящи на избрания обхват за фирма %s."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/wizard/plu_topn_wizard.py
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_topn_wizard.py:0
 msgid "No PLUs to rank."
 msgstr "Няма PLU за класиране."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_extensions.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_extensions.py:0
 msgid "No host configured."
 msgstr "Няма конфигуриран хост."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py:0
 msgid "No products linked to PLU."
 msgstr "Няма продукти, свързани с PLU."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py:0
 msgid "No source pricelist set."
 msgstr "Няма зададен изходен ценоразпис."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py:0
 msgid "Nothing to push after consistency check."
 msgstr "Няма какво да се изпрати след проверката за консистентност."
 
@@ -507,12 +507,12 @@ msgid "Number of fiscal receipts imported from the device on close."
 msgstr "Брой фискални бонове, импортирани от устройството при затваряне."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
 msgid "Officially introduced"
 msgstr "Официално въведен"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
 msgid "Officially removed"
 msgstr "Официално изваден"
 
@@ -542,7 +542,7 @@ msgid "PLU programmed"
 msgstr "Програмирани PLU"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/wizard/plu_topn_wizard.py
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_topn_wizard.py:0
 msgid "PLU velocity ranking"
 msgstr "Класиране на PLU по оборот"
 
@@ -552,12 +552,12 @@ msgid "PLUs"
 msgstr "PLU слотове"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/wizard/x_report_wizard.py
+#: code:addons/l10n_bg_erp_net_fp/wizard/x_report_wizard.py:0
 msgid "Pick a fiscal device first."
 msgstr "Първо изберете фискално устройство."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py:0
 msgid "Pick at least one target device."
 msgstr "Изберете поне едно целево устройство."
 
@@ -582,17 +582,17 @@ msgid "Printer Responses"
 msgstr "Отговори на принтера"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_priters_status.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_priters_status.py:0
 msgid "Printer is ready"
 msgstr "Принтерът е готов"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_priters_status.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_priters_status.py:0
 msgid "Printer status"
 msgstr "Състояние на принтера"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py:0
 msgid "Products in PLU have different pricelist prices: %s"
 msgstr "Продуктите в PLU имат различни цени по ценоразпис: %s"
 
@@ -602,17 +602,17 @@ msgid "Products to allocate"
 msgstr "Продукти за заделяне"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_extensions.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_printer_device_extensions.py:0
 msgid "Push PLUs to %s"
 msgstr "Изпрати PLU към %s"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py:0
 msgid "Push PLUs to device"
 msgstr "Изпрати PLU към устройство"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_push_wizard.py:0
 msgid "Push completed."
 msgstr "Изпращането завърши."
 
@@ -657,34 +657,34 @@ msgid "Sales window (days)"
 msgstr "Период на продажби (дни)"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
 msgid "Security Warning"
 msgstr "Предупреждение за сигурност"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py:0
 msgid "Session must be opened before pushing to the fiscal device."
 msgstr ""
 "Сесията трябва да бъде отворена, преди да се изпрати към фискалното "
 "устройство."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_shift.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_shift.py:0
 msgid "Shift cannot move to 'closed' from state %s."
 msgstr "Смяната не може да премине в 'closed' от състояние %s."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_shift.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_shift.py:0
 msgid "Shift cannot move to 'closing' from state %s."
 msgstr "Смяната не може да премине в 'closing' от състояние %s."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_shift.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_shift.py:0
 msgid "Shift cannot move to 'open' from state %s."
 msgstr "Смяната не може да премине в 'open' от състояние %s."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_shift.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_shift.py:0
 msgid "Shift cannot move to 'opening' from state %s."
 msgstr "Смяната не може да премине в 'opening' от състояние %s."
 
@@ -710,27 +710,27 @@ msgid "Status History"
 msgstr "История на състоянията"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_priters_status.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_priters_status.py:0
 msgid "Status history"
 msgstr "История на състоянията"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session_external.py:0
 msgid "Status: %s"
 msgstr "Състояние: %s"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
 msgid "Success"
 msgstr "Успех"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
 msgid "Successfully generated Z report"
 msgstr "Z отчетът е генериран успешно"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py
+#: code:addons/l10n_bg_erp_net_fp/models/fiscal_plu.py:0
 msgid "Synced from pricelist '%s'."
 msgstr "Синхронизирано от ценоразпис '%s'."
 
@@ -740,12 +740,12 @@ msgid "Target devices"
 msgstr "Целеви устройства"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
 msgid "The Z report has been generated successfully"
 msgstr "Z отчетът е генериран успешно"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
 msgid "The time must be between 0 and 23"
 msgstr "Часът трябва да е между 0 и 23"
 
@@ -755,17 +755,17 @@ msgid "The time of issuing the fiscal receipt"
 msgstr "Часът на издаване на фискалния бон"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
 msgid "There is no fiscal printer configured"
 msgstr "Няма конфигуриран фискален принтер"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py
+#: code:addons/l10n_bg_erp_net_fp/models/pos_session.py:0
 msgid "There is no fiscal printer configured for this POS session"
 msgstr "За тази POS сесия няма конфигуриран фискален принтер"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/wizard/plu_allocate_wizard.py
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_allocate_wizard.py:0
 msgid "These products are already linked to PLU slots: %s"
 msgstr "Тези продукти вече са свързани с PLU слотове: %s"
 
@@ -775,7 +775,7 @@ msgid "Timeout in seconds"
 msgstr "Изчакване в секунди"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/wizard/plu_topn_wizard.py
+#: code:addons/l10n_bg_erp_net_fp/wizard/plu_topn_wizard.py:0
 msgid "Top-N applied"
 msgstr "Приложен Top-N"
 
@@ -795,7 +795,7 @@ msgid "UNS prefix (2 letters)"
 msgstr "UNS префикс (2 букви)"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
 msgid "URL scheme must be http or https"
 msgstr "URL схемата трябва да е http или https"
 
@@ -820,12 +820,12 @@ msgid "Wire bytes for compliance — preserved verbatim."
 msgstr "Wire байтове за съответствие — запазени дословно."
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py
+#: code:addons/l10n_bg_erp_net_fp/models/erp_net_fp.py:0
 msgid "X report generated successfully"
 msgstr "X отчетът е генериран успешно"
 
 #. module: l10n_bg_erp_net_fp
-#: code:addons/l10n_bg_erp_net_fp/wizard/x_report_wizard.py
+#: code:addons/l10n_bg_erp_net_fp/wizard/x_report_wizard.py:0
 msgid "X-report"
 msgstr "Х-отчет"
 

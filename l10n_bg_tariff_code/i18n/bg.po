@@ -28,7 +28,7 @@ msgid "Combined Nomenclature code (8-10 digits)"
 msgstr "Код по Комбинирана номенклатура (8-10 цифри)"
 
 #. module: l10n_bg_tariff_code
-#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
 msgid ""
 "Could not identify required columns. Expected: CN Code, Country, Duty Rate"
 msgstr ""
@@ -102,27 +102,27 @@ msgid "Enable automatic TARIC lookup"
 msgstr "Активиране на автоматично TARIC търсене"
 
 #. module: l10n_bg_tariff_code
-#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
 msgid "Failed to download TARIC data from CIRCABC: %s"
 msgstr "Неуспешно изтегляне на данните TARIC от CIRCABC: %s"
 
 #. module: l10n_bg_tariff_code
-#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
 msgid "Failed to import TARIC data: %s"
 msgstr "Неуспешен импорт на данните TARIC: %s"
 
 #. module: l10n_bg_tariff_code
-#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
 msgid "Failed to read CSV file: %s"
 msgstr "Неуспешно четене на CSV файла: %s"
 
 #. module: l10n_bg_tariff_code
-#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
 msgid "Failed to read Excel file: %s"
 msgstr "Неуспешно четене на Excel файла: %s"
 
 #. module: l10n_bg_tariff_code
-#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
 msgid "File is empty"
 msgstr "Файлът е празен"
 
@@ -152,7 +152,7 @@ msgid "Import Method"
 msgstr "Метод на импорт"
 
 #. module: l10n_bg_tariff_code
-#: code:addons/l10n_bg_tariff_code/wizards/l10n_bg_taric_import_wizard.py
+#: code:addons/l10n_bg_tariff_code/wizards/l10n_bg_taric_import_wizard.py:0
 msgid "Import Successful"
 msgstr "Успешен импорт"
 
@@ -162,7 +162,7 @@ msgid "Import TARIC Data"
 msgstr "Импорт на данни TARIC"
 
 #. module: l10n_bg_tariff_code
-#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
 msgid ""
 "Import completed:\n"
 "- New records: %d\n"
@@ -175,7 +175,7 @@ msgstr ""
 "- Грешки: %d"
 
 #. module: l10n_bg_tariff_code
-#: code:addons/l10n_bg_tariff_code/wizards/l10n_bg_taric_import_wizard.py
+#: code:addons/l10n_bg_tariff_code/wizards/l10n_bg_taric_import_wizard.py:0
 msgid "Import failed: %s"
 msgstr "Импортът е неуспешен: %s"
 
@@ -229,17 +229,17 @@ msgid "Measure Type"
 msgstr "Тип на мярката"
 
 #. module: l10n_bg_tariff_code
-#: code:addons/l10n_bg_tariff_code/wizards/l10n_bg_taric_import_wizard.py
+#: code:addons/l10n_bg_tariff_code/wizards/l10n_bg_taric_import_wizard.py:0
 msgid "Please enter CIRCABC URL"
 msgstr "Моля, въведете CIRCABC URL"
 
 #. module: l10n_bg_tariff_code
-#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
 msgid "Please install 'openpyxl' or 'xlrd' package: pip install openpyxl"
 msgstr "Моля, инсталирайте пакет 'openpyxl' или 'xlrd': pip install openpyxl"
 
 #. module: l10n_bg_tariff_code
-#: code:addons/l10n_bg_tariff_code/wizards/l10n_bg_taric_import_wizard.py
+#: code:addons/l10n_bg_tariff_code/wizards/l10n_bg_taric_import_wizard.py:0
 msgid "Please upload a file"
 msgstr "Моля, качете файл"
 
@@ -269,7 +269,7 @@ msgid "TARIC code of the product (synchronized with HS Code)"
 msgstr "Код TARIC на продукта (синхронизиран с HS код)"
 
 #. module: l10n_bg_tariff_code
-#: code:addons/l10n_bg_tariff_code/wizards/l10n_bg_taric_import_wizard.py
+#: code:addons/l10n_bg_tariff_code/wizards/l10n_bg_taric_import_wizard.py:0
 msgid "TARIC data imported successfully"
 msgstr "Данните TARIC са импортирани успешно"
 
@@ -319,7 +319,7 @@ msgid "URL of the European TARIC API system"
 msgstr "URL на европейската система TARIC API"
 
 #. module: l10n_bg_tariff_code
-#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py
+#: code:addons/l10n_bg_tariff_code/models/l10n_bg_taric_cache.py:0
 msgid ""
 "Unsupported file format. Only Excel (.xlsx) and CSV files are supported."
 msgstr ""

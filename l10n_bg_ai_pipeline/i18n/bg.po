@@ -8,7 +8,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_bg_ai_pipeline
-#: code:addons/l10n_bg_ai_pipeline/models/ai_skill.py
+#: code:addons/l10n_bg_ai_pipeline/models/ai_skill.py:0
 msgid "All languages"
 msgstr "Всички езици"
 
@@ -18,7 +18,7 @@ msgid "Display Name"
 msgstr "Име за показване"
 
 #. module: l10n_bg_ai_pipeline
-#: code:addons/l10n_bg_ai_pipeline/models/ai_skill.py
+#: code:addons/l10n_bg_ai_pipeline/models/ai_skill.py:0
 msgid "Embedding provider returned no vectors."
 msgstr "Доставчикът на ембединги не върна вектори."
 
@@ -38,12 +38,12 @@ msgid "Pipeline Runs"
 msgstr "Изпълнения на конвейера"
 
 #. module: l10n_bg_ai_pipeline
-#: code:addons/l10n_bg_ai_pipeline/models/ai_skill.py
+#: code:addons/l10n_bg_ai_pipeline/models/ai_skill.py:0
 msgid "Pipeline Steps"
 msgstr "Стъпки на конвейера"
 
 #. module: l10n_bg_ai_pipeline
-#: code:addons/l10n_bg_ai_pipeline/models/ai_skill.py
+#: code:addons/l10n_bg_ai_pipeline/models/ai_skill.py:0
 msgid "Skill %s has no description for language %s."
 msgstr "Skill %s няма описание за език %s."
 
@@ -58,7 +58,7 @@ msgid "Source module — set automatically from XML id."
 msgstr "Изходен модул — задава се автоматично от XML id."
 
 #. module: l10n_bg_ai_pipeline
-#: code:addons/l10n_bg_ai_pipeline/models/ai_pipeline_step.py
+#: code:addons/l10n_bg_ai_pipeline/models/ai_pipeline_step.py:0
 msgid "Step %s: trigger_domain must be a list of tuples."
 msgstr "Стъпка %s: trigger_domain трябва да е списък от кортежи."
 

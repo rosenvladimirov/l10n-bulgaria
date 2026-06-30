@@ -58,17 +58,17 @@ msgid "Manage distributed ErpNet.FP fiscal-printer proxies."
 msgstr "Управление на разпределени ErpNet.FP прокси за фискални принтери."
 
 #. module: l10n_bg_erp_net_fp_fleet
-#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
 msgid "Pairing token"
 msgstr "Токен за сдвояване"
 
 #. module: l10n_bg_erp_net_fp_fleet
-#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
 msgid "Pairing token generated; expires in %(h)s hour(s)."
 msgstr "Генериран е токен за сдвояване; изтича след %(h)s час(а)."
 
 #. module: l10n_bg_erp_net_fp_fleet
-#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py
+#: code:addons/l10n_bg_erp_net_fp_fleet/models/erpnet_fp_proxy.py:0
 msgid "Program VAT rates"
 msgstr "Програмиране на ДДС ставки"
 

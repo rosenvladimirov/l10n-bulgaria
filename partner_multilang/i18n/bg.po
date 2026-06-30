@@ -1,0 +1,174 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_multilang
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e-20251208\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-18 21:16+0000\n"
+"PO-Revision-Date: 2026-05-18 21:16+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: partner_multilang
+#: model:ir.model.fields,help:partner_multilang.field_res_country_state__name
+msgid ""
+"Administrative divisions of a country. E.g. Fed. State, Departement, Canton"
+msgstr "Административни единици на държава. Напр. щат, департамент, кантон"
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__city
+#: model:ir.model.fields,field_description:partner_multilang.field_res_partner__city
+#: model:ir.model.fields,field_description:partner_multilang.field_res_users__city
+msgid "City"
+msgstr "Град"
+
+#. module: partner_multilang
+#: model:ir.model,name:partner_multilang.model_res_company
+msgid "Companies"
+msgstr "Фирми"
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__name
+#: model:ir.model.fields,field_description:partner_multilang.field_res_partner__company_name
+#: model:ir.model.fields,field_description:partner_multilang.field_res_users__company_name
+msgid "Company Name"
+msgstr "Име на фирмата"
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_partner__commercial_company_name
+#: model:ir.model.fields,field_description:partner_multilang.field_res_users__commercial_company_name
+msgid "Company Name Entity"
+msgstr "Юридическо лице"
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_partner__complete_name_multilanguage
+#: model:ir.model.fields,field_description:partner_multilang.field_res_users__complete_name_multilanguage
+msgid "Complete Name Multilanguage"
+msgstr "Пълно име (многоезично)"
+
+#. module: partner_multilang
+#: model:ir.model,name:partner_multilang.model_res_config_settings
+msgid "Config Settings"
+msgstr "Настройки"
+
+#. module: partner_multilang
+#: model:ir.model,name:partner_multilang.model_res_partner
+msgid "Contact"
+msgstr "Контакт"
+
+#. module: partner_multilang
+#: model:ir.model,name:partner_multilang.model_res_country_state
+msgid "Country state"
+msgstr "Област"
+
+#. module: partner_multilang
+#: model:ir.model.fields,help:partner_multilang.field_res_company__transliterate_names
+#: model:ir.model.fields,help:partner_multilang.field_res_config_settings__transliterate_names
+#: model_terms:ir.ui.view,arch_db:partner_multilang.res_config_settings_view_form_partner_multilang
+msgid "Enable automatic transliteration of partner and company names."
+msgstr ""
+"Активиране на автоматична транслитерация на имената на партньори и фирми."
+
+#. module: partner_multilang
+#: model:ir.model,name:partner_multilang.model_ir_binary
+msgid "File streaming helper model for controllers"
+msgstr "Помощен модел за поточно предаване на файлове за контролери"
+
+#. module: partner_multilang
+#: model:ir.model.fields,help:partner_multilang.field_res_company__lang
+msgid ""
+"If the selected language is loaded in the system, all documents related to "
+"this contact will be printed in this language. If not, it will be English."
+msgstr ""
+"Ако избраният език е зареден в системата, всички документи свързани с този "
+"контакт ще се отпечатват на този език. В противен случай — на английски."
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_partner__function
+#: model:ir.model.fields,field_description:partner_multilang.field_res_users__function
+msgid "Job Position"
+msgstr "Работна позиция"
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__lang
+msgid "Language"
+msgstr "Език"
+
+#. module: partner_multilang
+#: model:ir.model,name:partner_multilang.model_res_lang
+msgid "Languages"
+msgstr "Езици"
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_partner__name
+#: model:ir.model.fields,field_description:partner_multilang.field_res_users__name
+msgid "Name"
+msgstr "Име"
+
+#. module: partner_multilang
+#: model:ir.model,name:partner_multilang.model_res_transliterate_mixin
+msgid "Names transliterate mixin"
+msgstr "Mixin за транслитерация на имена"
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_country_state__name
+msgid "State Name"
+msgstr "Име на област"
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__street
+#: model:ir.model.fields,field_description:partner_multilang.field_res_partner__street
+#: model:ir.model.fields,field_description:partner_multilang.field_res_users__street
+msgid "Street"
+msgstr "Улица"
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__street2
+#: model:ir.model.fields,field_description:partner_multilang.field_res_partner__street2
+#: model:ir.model.fields,field_description:partner_multilang.field_res_users__street2
+msgid "Street2"
+msgstr "Улица 2"
+
+#. module: partner_multilang
+#: model:ir.model.fields,help:partner_multilang.field_res_company__transliterate_tracking
+#: model:ir.model.fields,help:partner_multilang.field_res_partner__transliterate_tracking
+#: model:ir.model.fields,help:partner_multilang.field_res_transliterate_mixin__transliterate_tracking
+#: model:ir.model.fields,help:partner_multilang.field_res_users__transliterate_tracking
+msgid ""
+"Technical field to track which fields have been transliterated. Format: "
+"{\"field_name\": True}"
+msgstr ""
+"Техническо поле за проследяване кои полета са транслитерирани. Формат: "
+"{\"field_name\": True}"
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_lang__transliterate
+msgid "Transliterate"
+msgstr "Транслитериране"
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__transliterate_names
+#: model:ir.model.fields,field_description:partner_multilang.field_res_config_settings__transliterate_names
+#: model_terms:ir.ui.view,arch_db:partner_multilang.res_config_settings_view_form_partner_multilang
+msgid "Transliterate names"
+msgstr "Транслитериране на имена"
+
+#. module: partner_multilang
+#: model_terms:ir.ui.view,arch_db:partner_multilang.res_config_settings_view_form_partner_multilang
+msgid "Transliteration"
+msgstr "Транслитерация"
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__transliterate_tracking
+#: model:ir.model.fields,field_description:partner_multilang.field_res_partner__transliterate_tracking
+#: model:ir.model.fields,field_description:partner_multilang.field_res_transliterate_mixin__transliterate_tracking
+#: model:ir.model.fields,field_description:partner_multilang.field_res_users__transliterate_tracking
+msgid "Transliteration Tracking"
+msgstr "Проследяване на транслитерация"

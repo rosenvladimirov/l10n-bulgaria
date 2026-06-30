@@ -88,7 +88,7 @@ msgid "EIK Changed"
 msgstr "ЕИК е променен"
 
 #. module: l10n_bg_company_registry
-#: code:addons/l10n_bg_company_registry/wizard/bg_company_search_wizard.py
+#: code:addons/l10n_bg_company_registry/wizard/bg_company_search_wizard.py:0
 msgid "Error reading data from registry: %s"
 msgstr "Грешка при четене на данни от регистъра: %s"
 
@@ -103,7 +103,7 @@ msgid "Indicates if data was successfully fetched"
 msgstr "Указва дали данните са изтеглени успешно"
 
 #. module: l10n_bg_company_registry
-#: code:addons/l10n_bg_company_registry/wizard/bg_company_search_wizard.py
+#: code:addons/l10n_bg_company_registry/wizard/bg_company_search_wizard.py:0
 msgid "Invalid UIC format. Please enter 9 or 13 digits."
 msgstr "Невалиден формат на ЕИК. Моля, въведете 9 или 13 цифри."
 
@@ -123,7 +123,7 @@ msgid "Main economic activity code"
 msgstr "Код на основна икономическа дейност"
 
 #. module: l10n_bg_company_registry
-#: code:addons/l10n_bg_company_registry/wizard/bg_company_search_wizard.py
+#: code:addons/l10n_bg_company_registry/wizard/bg_company_search_wizard.py:0
 msgid "No registry data saved. Please press \"Download Data\" again."
 msgstr ""
 "Няма запазени данни от регистъра. Моля, натиснете отново „Изтегли данни“."
@@ -149,7 +149,7 @@ msgid "Partner to populate with company data"
 msgstr "Партньор, който да се попълни с данните на дружеството"
 
 #. module: l10n_bg_company_registry
-#: code:addons/l10n_bg_company_registry/wizard/bg_company_search_wizard.py
+#: code:addons/l10n_bg_company_registry/wizard/bg_company_search_wizard.py:0
 msgid "Please enter the UIC number"
 msgstr "Моля, въведете ЕИК номер"
 

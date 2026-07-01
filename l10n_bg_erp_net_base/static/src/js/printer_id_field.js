@@ -28,7 +28,7 @@ import { CharField, charField } from "@web/views/fields/char/char_field";
 import { onWillStart, useState } from "@odoo/owl";
 
 export class PrinterIdSelectField extends CharField {
-    static template = "l10n_bg_erp_net_fp.PrinterIdSelectField";
+    static template = "l10n_bg_erp_net_base.PrinterIdSelectField";
 
     setup() {
         super.setup();

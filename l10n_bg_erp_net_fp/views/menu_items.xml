@@ -57,11 +57,12 @@
               sequence="20"
               groups="point_of_sale.group_pos_manager"/>
 
-    <!-- Debug-only: raw printer response audit -->
+    <!-- Debug-only: raw printer response audit.
+         Action е преместен в l10n_bg_erp_net_base (транспортен слой). -->
     <menuitem id="menu_fiscal_printer_response"
               name="Printer Responses"
               parent="menu_fiscal_printer_root"
-              action="action_fiscal_printer_response"
+              action="l10n_bg_erp_net_base.action_fiscal_printer_response"
               groups="base.group_system"
               sequence="99"/>
 

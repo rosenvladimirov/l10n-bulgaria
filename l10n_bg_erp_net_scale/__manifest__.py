@@ -9,7 +9,7 @@
 Weighing-scale consumer for the Odoo.ErpNet.FP hardware proxy.
 
 Provides the ``l10n_bg_erp_net_fp.scale`` frontend service, which reads the
-current weight ON DEMAND from the proxy:
+current weight ON DEMAND from the proxy::
 
     GET /scales                 -> { "<id>": {id, driver, port}, ... }
     GET /scales/<id>/weight     -> { ok, weightKg (alias weight_kg),

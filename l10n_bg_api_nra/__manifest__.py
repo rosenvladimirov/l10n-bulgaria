@@ -42,7 +42,7 @@ Technical Infrastructure
 * Automatic retry with exponential backoff on HTTP 429 (rate limit)
 * Structured error handling and logging
     """,
-    "version": "18.0.1.5.0",
+    "version": "18.0.1.5.1",
     "development_status": "Beta",
     "category": "Accounting/Localizations/Bulgaria",
     "application": True,

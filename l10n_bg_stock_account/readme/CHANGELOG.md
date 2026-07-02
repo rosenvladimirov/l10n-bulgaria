@@ -1,5 +1,21 @@
 # Changelog
 
+## 19.0.1.4.0
+
+- Landed Costs for BG auto-post products (GAP 1 fix): core `stock_landed_costs`
+  skips journal entries for products with `valuation != 'real_time'` while still
+  updating the move value — for auto_post (periodic) categories this left the GL
+  stock valuation account short by the landed cost amount and double-counted the
+  expense (once via the service vendor bill, once inside the higher issue value).
+- New override `stock.landed.cost.button_validate()`: after the core entry, posts
+  a separate BG journal entry for auto_post periodic products using the core
+  `_create_accounting_entries()` logic — Dr. stock valuation (302/303) /
+  Cr. cost line account (e.g. 301 GRNI), prorated by remaining quantity.
+  Plain periodic products (without the BG flag) keep standard behaviour.
+- New field `l10n_bg_account_move_id` on `stock.landed.cost` (idempotency +
+  traceability), shown on the form next to the standard Journal Entry.
+- New dependency: `stock_landed_costs`.
+
 ## 19.0.1.1.0
 
 - Added `l10n_bg_stock_input_account_id` (Stock Input Account) on `product.category`:

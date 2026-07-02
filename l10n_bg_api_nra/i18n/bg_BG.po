@@ -359,13 +359,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_bg_api_nra/models/nra_declaration.py:0
 msgid "Can only generate files for declarations in 'Draft' state."
-msgstr ""
+msgstr "Файлове могат да се генерират само за декларации в статус „Чернова“."
 
 #. module: l10n_bg_api_nra
 #. odoo-python
 #: code:addons/l10n_bg_api_nra/models/nra_declaration.py:0
 msgid "Can only submit declarations in 'Ready' or 'Error' state."
-msgstr ""
+msgstr "Могат да се подават само декларации в статус „Готова“ или „Грешка“."
 
 #. module: l10n_bg_api_nra
 #: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.nra_credentials_wizard_view_form
@@ -1228,7 +1228,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_bg_api_nra/models/nra_declaration.py:0
 msgid "No file content. Please generate the file first."
-msgstr ""
+msgstr "Липсва съдържание на файл. Моля, генерирайте файла първо."
 
 #. module: l10n_bg_api_nra
 #: model:ir.model.fields.selection,name:l10n_bg_api_nra.selection__nra_declaration__period_month__11

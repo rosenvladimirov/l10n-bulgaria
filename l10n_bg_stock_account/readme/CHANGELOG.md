@@ -1,5 +1,22 @@
 # Changelog
 
+## 19.4.1.3.0
+
+- Production-move guard in `stock.move._get_account_move_line_vals()` (lockstep
+  from 19.0.1.3.0): production consumption/output delegates to the standard
+  location-based mechanism (Cost of Production account), so finished goods
+  receipt posts Dr. 303 / Cr. 611 instead of Cr. 301 (GRNI), enabling
+  `l10n_bg_mrp_account` (601 transit → 611) on top.
+- Landed Costs for BG auto-post products (lockstep from 19.0.1.4.0): core
+  `stock_landed_costs` skips journal entries for `valuation != 'real_time'`
+  while still updating the move value. New `stock.landed.cost.button_validate()`
+  override posts a separate BG entry for auto_post periodic products via the
+  core `_create_accounting_entries()` — Dr. stock valuation (302/303) /
+  Cr. cost line account (e.g. 301 GRNI), prorated by remaining quantity.
+- New field `l10n_bg_account_move_id` on `stock.landed.cost` (idempotency +
+  traceability), shown on the form next to the standard Journal Entry.
+- New dependency: `stock_landed_costs`.
+
 ## 19.0.1.1.0
 
 - Added `l10n_bg_stock_input_account_id` (Stock Input Account) on `product.category`:

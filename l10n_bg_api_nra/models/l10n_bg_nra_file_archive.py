@@ -78,7 +78,7 @@ class L10nBgNraFileArchive(models.Model):
         readonly=True,
     )
     file_format = fields.Selection(
-        selection=[("txt", "TXT"), ("xml", "XML")],
+        selection=[("txt", "TXT"), ("xml", "XML"), ("docx", "DOCX")],
         string="File Format",
         required=True,
         readonly=True,

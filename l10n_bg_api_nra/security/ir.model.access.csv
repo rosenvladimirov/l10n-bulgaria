@@ -16,3 +16,5 @@ access_nra_declaration_h18_line_art_user,nra.declaration.h18.line.art.user,model
 access_nra_declaration_h18_line_art_manager,nra.declaration.h18.line.art.manager,model_nra_declaration_h18_line_art,group_nra_manager,1,1,1,1
 access_nra_declaration_h18_refund_user,nra.declaration.h18.refund.user,model_nra_declaration_h18_refund,group_nra_user,1,1,1,1
 access_nra_declaration_h18_refund_manager,nra.declaration.h18.refund.manager,model_nra_declaration_h18_refund,group_nra_manager,1,1,1,1
+access_l10n_bg_nra_file_archive_user,l10n_bg.nra.file.archive.user,model_l10n_bg_nra_file_archive,group_nra_user,1,1,1,0
+access_l10n_bg_nra_file_archive_manager,l10n_bg.nra.file.archive.manager,model_l10n_bg_nra_file_archive,group_nra_manager,1,1,1,1

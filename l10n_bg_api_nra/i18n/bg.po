@@ -1,0 +1,26 @@
+# Translation of Odoo Server.
+# BG превод.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_api_nra
+#: code:addons/l10n_bg_api_nra/nra_declaration.py:0
+msgid "Can only generate files for declarations in 'Draft' state."
+msgstr "Файлове могат да се генерират само за декларации в статус „Чернова“."
+
+#. module: l10n_bg_api_nra
+#: code:addons/l10n_bg_api_nra/nra_declaration.py:0
+msgid "Can only submit declarations in 'Ready' or 'Error' state."
+msgstr "Могат да се подават само декларации в статус „Готова“ или „Грешка“."
+
+#. module: l10n_bg_api_nra
+#: code:addons/l10n_bg_api_nra/nra_declaration.py:0
+msgid "No file content. Please generate the file first."
+msgstr "Липсва съдържание на файл. Моля, генерирайте файла първо."

@@ -125,6 +125,10 @@ class L10nBgAuditExtractor(models.AbstractModel):
 
         Returns the same list[dict] shape as ``extract()`` so callers
         can switch freely.
+
+        Чете материализираната релация ``l10n_bg_aml_account_tag_rel``
+        (полето aml.account_tag_ids) — СЪЩАТА, която ползва ORM пътят на
+        ``extract()``. (Фикс: преди сочеше core таблицата на tax_tag_ids.)
         """
         tags = self.env["account.account.tag"].search([
             ("l10n_bg_applicability", "=", l10n_bg_applicability),
@@ -147,9 +151,9 @@ class L10nBgAuditExtractor(models.AbstractModel):
                        COALESCE(SUM(aml.credit), 0.0),
                        COALESCE(SUM(aml.balance), 0.0)
                 FROM account_account_tag t
-                JOIN account_account_tag_account_move_line_rel rel
-                       ON rel.account_account_tag_id = t.id
-                JOIN account_move_line aml ON aml.id = rel.account_move_line_id
+                JOIN l10n_bg_aml_account_tag_rel rel
+                       ON rel.tag_id = t.id
+                JOIN account_move_line aml ON aml.id = rel.aml_id
                 WHERE t.id = ANY(%s)
                   AND aml.parent_state = 'posted'
                   AND aml.company_id = %s
@@ -168,9 +172,9 @@ class L10nBgAuditExtractor(models.AbstractModel):
                        COALESCE(SUM(aml.credit), 0.0),
                        COALESCE(SUM(aml.balance), 0.0)
                 FROM account_account_tag t
-                JOIN account_account_tag_account_move_line_rel rel
-                       ON rel.account_account_tag_id = t.id
-                JOIN account_move_line aml ON aml.id = rel.account_move_line_id
+                JOIN l10n_bg_aml_account_tag_rel rel
+                       ON rel.tag_id = t.id
+                JOIN account_move_line aml ON aml.id = rel.aml_id
                 WHERE t.id = ANY(%s)
                   AND aml.parent_state = 'posted'
                   AND aml.company_id = %s

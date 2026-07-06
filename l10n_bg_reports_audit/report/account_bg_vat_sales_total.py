@@ -28,7 +28,7 @@ class AccountBGTotalSalesLine(models.Model):
         related="company_id.currency_id", readonly=True
     )
     info_tag_3 = fields.Char(
-        string="[02-03] Sequential document number in the journal",
+        string="[02-03] Sequential number in the journal",
         readonly=True,
     )
     info_tag_5 = fields.Integer(

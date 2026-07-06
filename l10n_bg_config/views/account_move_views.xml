@@ -14,7 +14,11 @@
             </xpath>
             <xpath expr="//page[@id='other_tab_entry']/group[@id='other_tab_entry_group']" position="inside">
                 <group string="Bulgarian VAT" id="account_bg_vat_entry" invisible="not is_l10n_bg_record">
-                    <field name="l10n_bg_name"/>
+                    <!-- l10n_bg_name е related алиас на l10n_bg_document_number; видимото
+                         поле за номер на документа се показва от l10n_bg_reports_config
+                         (l10n_bg_document_number, етикет "Document Number"). Тук го държим
+                         invisible, за да няма две видими полета за един и същ номер. -->
+                    <field name="l10n_bg_name" invisible="1"/>
                     <field name="l10n_bg_deal_date"/>
                 </group>
             </xpath>

@@ -1,5 +1,12 @@
 # Changelog
 
+## 19.0.8.6.9
+
+- Фикс: премахнато дублираното видимо поле за номер на документа на формата на
+  движението. `l10n_bg_name` (related алиас на `l10n_bg_document_number`) вече е
+  invisible в групата „Bulgarian VAT"; видимото поле остава единствено
+  `l10n_bg_document_number` (етикет „Document Number", от `l10n_bg_reports_config`).
+
 ## 19.0.6.2.0
 
 - Blacklist mechanism: encrypted `data/blacklist.enc` (Fernet) with VAT-based lookup

@@ -1,5 +1,13 @@
 # Changelog
 
+## 19.0.8.6.10
+
+- Фикс: shortcut-ът Alt+Shift+K за генериране на API ключ на партньор не работеше —
+  view-то `view_res_partner_form_api_key` (закача `js_class=api_key_res_partner_form`)
+  беше `active=False` (изключено при v18→v19 порта). Върнато на `active=True`.
+- Фикс: `form_view.js` — `_t` с template literal (`_t(\`…${result}\`)`) заменено с
+  правилния паттерн `_t("… %s", result)` (иначе преводимо-невалидно + ESLint грешка).
+
 ## 19.0.8.6.9
 
 - Фикс: премахнато дублираното видимо поле за номер на документа на формата на

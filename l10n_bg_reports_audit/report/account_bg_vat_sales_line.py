@@ -72,7 +72,7 @@ class AccountBGInfoSaleLine(models.Model):
         readonly=True,
     )
     info_tag_3 = fields.Integer(
-        string="[02-03] Sequential document number in the journal",
+        string="[02-03] Sequential number in the journal",
         readonly=True,
     )
     info_tag_4 = fields.Selection(

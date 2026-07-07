@@ -86,6 +86,26 @@ class NraApiProvider(models.AbstractModel):
         return f"{submit_url}/{NRA_RESULT_SUFFIX}"
 
     # ------------------------------------------------------------------
+    # Document-type resolution — overridable seam for plug-in declaration
+    # types. The defaults read the module-level dicts (so existing types are
+    # unchanged); a plug-in that submits a NEW type overrides these instead of
+    # mutating the dicts (e.g. l10n_bg_api_nra_saft reads its codes from
+    # ir.config_parameter). Returning a falsy service doc type makes
+    # submit_declaration raise "not supported by the NRA API".
+    # ------------------------------------------------------------------
+    @api.model
+    def _get_service_doc_type(self, declaration_type):
+        return NRA_SERVICE_DOC_TYPES.get(declaration_type)
+
+    @api.model
+    def _get_file_doc_type(self, declaration_type):
+        return NRA_FILE_DOC_TYPES.get(declaration_type)
+
+    @api.model
+    def _get_file_type(self, declaration_type):
+        return NRA_FILE_TYPES.get(declaration_type)
+
+    # ------------------------------------------------------------------
     # OAuth 2.0 — client credentials grant
     # ------------------------------------------------------------------
 
@@ -447,7 +467,7 @@ class NraApiProvider(models.AbstractModel):
         :returns: dict with NRA response (entryNumber, entryDate, documentId)
         :raises UserError: on submission failure
         """
-        service_doc_type = NRA_SERVICE_DOC_TYPES.get(declaration_type)
+        service_doc_type = self._get_service_doc_type(declaration_type)
         if not service_doc_type:
             raise UserError(
                 _(
@@ -456,8 +476,8 @@ class NraApiProvider(models.AbstractModel):
                 )
             )
 
-        file_doc_type = NRA_FILE_DOC_TYPES.get(declaration_type)
-        file_type = NRA_FILE_TYPES.get(declaration_type)
+        file_doc_type = self._get_file_doc_type(declaration_type)
+        file_type = self._get_file_type(declaration_type)
 
         # Resolve user credentials
         if signer_cert_b64 and signer_pin:

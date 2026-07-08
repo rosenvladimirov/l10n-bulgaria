@@ -41,8 +41,10 @@
                 <field name="name" position="after">
                     <field name="l10n_bg_leave_reason_id"
                            options="{'no_create': True, 'no_create_edit': True}"/>
-                    <field name="l10n_bg_allow_paid_days" invisible="1"/>
-                    <field name="l10n_bg_allow_paid_days" optional="hide" column_invisible="not l10n_bg_allow_paid_days"/>
+                    <!-- Пламена 156424: дублирано поле + self-референтен
+                         column_invisible (колоната Е това поле → undefined в
+                         optional-columns eval) → EvalError. Едно optional поле. -->
+                    <field name="l10n_bg_allow_paid_days" optional="hide"/>
                 </field>
             </field>
         </record>

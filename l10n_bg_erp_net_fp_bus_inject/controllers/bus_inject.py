@@ -183,7 +183,21 @@ class BusInjectController(http.Controller):
         # the bus publish path: the live signal is the primary contract,
         # persistence is secondary. Each hook target is checked with
         # `in self.env` (model registry) so a missing addon is silent.
-        for hook_model in ("hr.rfid.event", "access.proxy.bridge"):
+        #
+        # The built-in targets cover access control; additional targets
+        # (e.g. `fleet.vehicle` for GPS `vehicle.position`) can be
+        # registered by any downstream addon via the config parameter
+        # `erpnet_fp.proxy_event_hooks` (comma-separated model names) —
+        # backward-compatible: with the param unset, only the built-ins
+        # fire, so existing deployments are unaffected.
+        hook_models = ["hr.rfid.event", "access.proxy.bridge"]
+        extra = (request.env["ir.config_parameter"].sudo()
+                 .get_param("erpnet_fp.proxy_event_hooks") or "")
+        for name in extra.split(","):
+            name = name.strip()
+            if name and name not in hook_models:
+                hook_models.append(name)
+        for hook_model in hook_models:
             try:
                 Model = request.env.get(hook_model)
                 if Model is None or not hasattr(Model, "_on_proxy_event"):

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
 
-    <t t-name="l10n_bg_erp_net_fp.PrinterIdSelectField">
+    <t t-name="l10n_bg_erp_net_base.PrinterIdSelectField">
         <div class="o_field_printer_id_select d-flex align-items-center gap-1 w-100">
             <t t-if="hasChoices">
                 <select class="o_input form-select form-select-sm w-auto flex-grow-1"

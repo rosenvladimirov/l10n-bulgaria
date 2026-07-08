@@ -66,6 +66,7 @@ class BarcodeRuleTarget(models.Model):
         "dispatcher).",
     )
 
+    # 18.0 backport: models.Constraint е 19-only → _sql_constraints
     _sql_constraints = [
         (
             "uniq_rule_target",

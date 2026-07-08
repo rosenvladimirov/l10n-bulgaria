@@ -1,13 +1,9 @@
 from . import erp_net_fp
-from . import fiscal_printer_response
-from . import fiscal_priters_status
-from . import fiscal_priters_status_history
 from . import pos_config
 from . import pos_order
 from . import account_tax_group
 from . import pos_printer
 from . import pos_session
-from . import erp_net_fp_exceptions
 from . import res_config_settings
 from . import res_users
 
@@ -32,13 +28,8 @@ from . import pos_session_external
 from . import fiscal_shift
 from . import fiscal_shift_receipt
 
-# Native iot.box / iot.device bridge AND packaging weight QC (Phase 3)
-# both moved to bridge module `l10n_bg_erp_net_fp_iot` (in l10n-bulgaria-ee,
-# auto_install=True) in 18.0.10.1.0 so the core stays Community-installable.
-# Packaging QC depends on iot.device for the scale read, so it ships
-# only on EE-bridge installs.
-from . import barcode_rule_extensions
-from . import barcode_rule_target
+# barcode.rule routing targets moved to `l10n_bg_erp_net_reader`
+# (in 19.0.16.0.0) заедно с reader сервиза — reader concern, POS-free.
 
 # BlueCash shift-close sync service — engine for upserting receipts /
 # refunds / cash movements. Driver-agnostic (called by shift_bridge_client

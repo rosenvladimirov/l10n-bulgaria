@@ -430,48 +430,8 @@ class FiscalPrinterDevice(models.Model):
         return True
 
     # ─── Discovery: list printers from the proxy ───────────────────
-    # Called by the printer_id_select JS widget at form-open time.
-    # Returns {ok, printers: [{id, label, uri, model}], message?}.
-    # Never raises — the widget falls back to a plain input on failure.
-    @api.model
-    def list_proxy_printers(self, host=None, ssl_verify=False, timeout=8):
-        import requests
-        if not host:
-            return {"ok": False, "message": _("No host configured."),
-                    "printers": []}
-        url = "%s/printers" % host.rstrip("/")
-        # Browser-like UA bypasses Cloudflare bot rules that 403 the
-        # default `python-requests/...` UA before the request reaches
-        # the proxy.
-        headers = {
-            "User-Agent": (
-                "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
-                "(KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 "
-                "OdooErpNetFP-Odoo/18.0"
-            ),
-            "Accept": "application/json",
-        }
-        try:
-            r = requests.get(url, timeout=timeout, verify=bool(ssl_verify),
-                             headers=headers)
-            r.raise_for_status()
-            data = r.json() or {}
-        except Exception as exc:
-            return {"ok": False, "message": str(exc)[:200], "printers": []}
-        printers = []
-        for pid, info in (data.items() if isinstance(data, dict) else []):
-            info = info or {}
-            label = "%s — %s" % (
-                pid,
-                info.get("model") or info.get("manufacturer") or "?",
-            )
-            printers.append({
-                "id": pid,
-                "label": label,
-                "uri": info.get("uri", ""),
-                "model": info.get("model", ""),
-            })
-        return {"ok": True, "printers": printers}
+    # `list_proxy_printers` е дефиниран в l10n_bg_erp_net_base (транспортен
+    # слой) и се наследява през MRO — не се дублира тук (19.0.16.0.0).
 
     # ─── Phase 3: pinpad charge (called by POS frontend via RPC) ───
     @api.model
@@ -500,12 +460,16 @@ class FiscalPrinterDevice(models.Model):
         try:
             result = device._make_request("POST", endpoint, data=payload)
         except Exception as exc:
+            # `error_code` е Integer (само числови кодове от устройството);
+            # free-text грешката отива в `error_message`, иначе create()
+            # гърми с ValueError и нарушаваме "Never raises".
+            # `summary` е computed (store=True) — не се подава при create.
             self.env["fiscal.frame.log"].sudo().create({
                 "device_id": device.id,
                 "direction": "out",
                 "endpoint": endpoint,
-                "summary": "PINPAD_FAIL",
-                "error_code": str(exc)[:64],
+                "state": "failed",
+                "error_message": str(exc),
                 "payload": str(payload)[:2000],
             })
             return {"ok": False, "message": str(exc)[:240]}
@@ -513,7 +477,6 @@ class FiscalPrinterDevice(models.Model):
             "device_id": device.id,
             "direction": "out",
             "endpoint": endpoint,
-            "summary": "PINPAD_OK",
             "payload": str(payload)[:2000],
         })
         return {

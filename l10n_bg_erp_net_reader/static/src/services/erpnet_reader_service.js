@@ -34,6 +34,7 @@
 
 import { EventBus } from "@odoo/owl";
 import { registry } from "@web/core/registry";
+import { resolveProxyHost } from "@l10n_bg_erp_net_base/services/proxy_host";
 
 
 const RECONNECT_MIN_MS = 1_000;
@@ -137,38 +138,14 @@ export const erpnetReaderService = {
 
     async start(env, { orm }) {
         // ─── host resolution ─────────────────────────────────────
-        // Single source of truth: `fiscal.printer.device.host`.
-        // The POS reads it via pos.config.l10n_bg_erp_net_fp_host
-        // (computed from the config's primary fiscal printer).
-        // The backend reads it via RPC directly off the model.
-        let host = "";
-        if (env.services && env.services.pos &&
-                env.services.pos.session &&
-                env.services.pos.session.l10n_bg_erp_net_fp_host) {
-            host = env.services.pos.session.l10n_bg_erp_net_fp_host;
-        }
-        if (!host) {
-            try {
-                const recs = await orm.searchRead(
-                    "fiscal.printer.device",
-                    [["active", "=", true],
-                     ["connection_mode", "=", "proxy"],
-                     ["host", "!=", false]],
-                    ["host"],
-                    { limit: 1, order: "id" },
-                );
-                if (recs && recs.length) host = recs[0].host;
-            } catch (e) {
-                console.warn("[ErpNetReaderService] "
-                             + "fiscal.printer.device lookup failed:", e);
-            }
-        }
-        if (!host) {
+        // Single source of truth is `fiscal.printer.device.host`, via the
+        // shared base helper (POS-session shortcut + backend RPC fallback).
+        const baseUrl = await resolveProxyHost(env, orm, "ErpNetReaderService");
+        if (!baseUrl) {
             console.warn("[ErpNetReaderService] no fiscal.printer.device "
                          + "host configured — readers disabled");
             return _disabledService();
         }
-        const baseUrl = host.replace(/\/+$/, "");
 
         const readers = new Map();   // id → ErpNetReader
         const globalBus = new EventBus();   // emits "scan" — fan-out

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fiscal_printer_device_base_user,fiscal.printer.device base user,model_fiscal_printer_device,base.group_user,1,0,0,0
+access_fiscal_printer_device_base_manager,fiscal.printer.device base manager,model_fiscal_printer_device,base.group_system,1,1,1,1
+access_fiscal_printer_status_base_user,fiscal.printer.status base user,model_fiscal_printer_status,base.group_user,1,0,0,0
+access_fiscal_printer_status_base_manager,fiscal.printer.status base manager,model_fiscal_printer_status,base.group_system,1,1,1,1
+access_fiscal_printer_response_user,fiscal.printer.response user,model_fiscal_printer_response,base.group_user,1,1,1,0
+access_fiscal_printer_response_manager,fiscal.printer.response manager,model_fiscal_printer_response,base.group_system,1,1,1,1

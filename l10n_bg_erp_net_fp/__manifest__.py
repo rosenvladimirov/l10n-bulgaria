@@ -22,7 +22,7 @@ supported by ErpNet.FP server. Features include:
 * Bulgarian tax group mapping (А, Б, В, Г)
 * Dual connection mode: Direct (server) and Proxy (browser)
 """,
-    'version': '18.0.15.10.1',
+    'version': '18.0.16.0.0',
     'license': 'LGPL-3',
     'author': 'Rosen Vladimirov,Odoo Community Association (OCA)',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
@@ -84,12 +84,15 @@ supported by ErpNet.FP server. Features include:
     #                 Grafana dashboard JSON (receipts/h, Z duration,
     #                 discrepancy histogram, top PLUs); README operator
     #                 guide in Bulgarian (setup + daily ops + troubleshoot).
+    #   18.0.16.0.0 → Split into l10n_bg_erp_net_base + l10n_bg_erp_net_reader (backport от 19.0).
     'depends': [
         'base',
         'bus',
         'mail',
         'point_of_sale',
         'account',
+        'l10n_bg_erp_net_base',
+        'l10n_bg_erp_net_reader',
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -106,7 +109,6 @@ supported by ErpNet.FP server. Features include:
         'views/pos_session_view.xml',
         'views/pos_order_view.xml',
         'views/account_tax_views.xml',
-        'views/fiscal_printer_response_views.xml',
         'views/product_template_proxy_views.xml',
         'views/pos_payment_method_proxy_views.xml',
         'views/res_config_settings_views.xml',
@@ -128,17 +130,15 @@ supported by ErpNet.FP server. Features include:
         'wizard/plu_topn_wizard_view.xml',
         'wizard/plu_verify_wizard_view.xml',
         'wizard/x_report_wizard_view.xml',
-        'views/barcode_rule_views.xml',
     ],
     'demo': [
     ],
     'assets': {
         # Backend assets (само за backend, БЕЗ POS зависимости)
         'web.assets_backend': [
-            'l10n_bg_erp_net_fp/static/src/js/fiscal_printer_service.js',
-            'l10n_bg_erp_net_fp/static/src/js/printer_status_updates.js',
-            'l10n_bg_erp_net_fp/static/src/js/printer_id_field.js',
-            'l10n_bg_erp_net_fp/static/src/xml/printer_id_field.xml',
+            # Транспортните assets (fiscal_printer_service, printer_status_updates,
+            # printer_id_field, fiscal_browser_proxy_action) са преместени в
+            # l10n_bg_erp_net_base (18.0.16.0.0) и се товарят оттам.
             'l10n_bg_erp_net_fp/static/src/js/pinpad_id_field.js',
             'l10n_bg_erp_net_fp/static/src/xml/pinpad_id_field.xml',
             # v18: DatecsPay терминалът се избира през стандартния
@@ -147,7 +147,6 @@ supported by ErpNet.FP server. Features include:
             # v19-only компонентът PosPaymentProviderCards (card-grid) няма аналог
             # в Odoo 18, затова pinpad_provider_card.{js,xml} са премахнати тук —
             # иначе несъществуващият import чупи web.assets_backend.
-            'l10n_bg_erp_net_fp/static/src/js/fiscal_browser_proxy_action.js',
             'l10n_bg_erp_net_fp/static/src/js/grafana_dashboard.js',
             'l10n_bg_erp_net_fp/static/src/xml/grafana_dashboard.xml',
             # Backend barcode bridge is handled by `l10n_bg_live_refresh`'s
@@ -205,7 +204,12 @@ supported by ErpNet.FP server. Features include:
             'l10n_bg_erp_net_fp/static/src/xml/external_pos_badge.xml',
             # 19.0.15.3.0 — Community alternative to Enterprise pos_iot:
             # WS subscription to /readers/<id>/ws → POS barcode_reader.
-            'l10n_bg_erp_net_fp/static/src/services/erpnet_reader_service.js',
+            # 18.0.16.0.0 — reader сервизът е преместен в l10n_bg_erp_net_reader.
+            # proxy_host.js е нужен тук: erpnet_reader_service.js го импортва,
+            # а base го регистрира само в web.assets_backend (който НЕ влиза
+            # в point_of_sale._assets_pos на Odoo 18).
+            'l10n_bg_erp_net_base/static/src/services/proxy_host.js',
+            'l10n_bg_erp_net_reader/static/src/services/erpnet_reader_service.js',
             'l10n_bg_erp_net_fp/static/src/js/pos_barcode_bridge.js',
         ],
     },

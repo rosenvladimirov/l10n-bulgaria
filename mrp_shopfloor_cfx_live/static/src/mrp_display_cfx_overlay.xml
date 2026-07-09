@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Rosen Vladimirov -->
+<!-- License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<!--
+  Ephemeral live CFX badge върху Shop Floor картата. Инжектира се веднага
+  след заглавието на картата; показва се само докато cfxLive.active е true
+  (задава се от bus събитие, БЕЗ DB round-trip — виж mrp_display_cfx_patch.js).
+-->
+<templates xml:space="preserve">
+    <t t-name="mrp_shopfloor_cfx_live.MrpDisplayRecordCfx"
+       t-inherit="mrp_workorder.MrpDisplayRecord"
+       t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o_mrp_display_record_title')]/h4" position="after">
+            <span t-if="cfxLive.active"
+                  class="o_cfx_live_badge badge rounded-pill text-bg-info ms-2 align-self-center text-nowrap"
+                  t-att-title="cfxLive.message">
+                <i class="fa fa-bolt me-1" role="img" aria-label="Live"/>
+                <t t-if="cfxLive.placed">Placed <t t-esc="cfxLive.placed"/></t>
+                <t t-elif="cfxLive.station">Station: <t t-esc="cfxLive.station"/></t>
+                <t t-else="">Live: <t t-esc="cfxLive.message"/></t>
+            </span>
+        </xpath>
+    </t>
+</templates>

@@ -1,0 +1,19 @@
+// Copyright 2026 Rosen Vladimirov
+// License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+//
+// Дискретен пулс за live CFX значката, за да се забелязва движение на
+// дъската без да е агресивно. Самостоятелен клас — не пипа темата.
+
+.o_cfx_live_badge {
+    animation: o_cfx_live_pulse 1.6s ease-in-out infinite;
+
+    .fa-bolt {
+        opacity: 0.9;
+    }
+}
+
+@keyframes o_cfx_live_pulse {
+    0%   { opacity: 1; }
+    50%  { opacity: 0.55; }
+    100% { opacity: 1; }
+}

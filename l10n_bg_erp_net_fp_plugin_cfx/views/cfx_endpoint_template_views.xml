@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cfx_endpoint_template_list" model="ir.ui.view">
+        <field name="name">cfx.endpoint.template.list</field>
+        <field name="model">cfx.endpoint.template</field>
+        <field name="arch" type="xml">
+            <list string="CFX Endpoint Templates">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="machine_kind"/>
+                <field name="default_transport"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cfx_endpoint_template_form" model="ir.ui.view">
+        <field name="name">cfx.endpoint.template.form</field>
+        <field name="model">cfx.endpoint.template</field>
+        <field name="arch" type="xml">
+            <form string="CFX Endpoint Template">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="machine_kind"/>
+                            <field name="default_transport"/>
+                            <field name="default_topics"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cfx_endpoint_template" model="ir.actions.act_window">
+        <field name="name">CFX Endpoint Templates</field>
+        <field name="res_model">cfx.endpoint.template</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

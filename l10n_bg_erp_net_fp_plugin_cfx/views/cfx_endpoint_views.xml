@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cfx_endpoint_list" model="ir.ui.view">
+        <field name="name">cfx.endpoint.list</field>
+        <field name="model">cfx.endpoint</field>
+        <field name="arch" type="xml">
+            <list string="CFX Endpoints">
+                <field name="name"/>
+                <field name="proxy_id"/>
+                <field name="machine_kind"/>
+                <field name="transport"/>
+                <field name="cfx_handle"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cfx_endpoint_form" model="ir.ui.view">
+        <field name="name">cfx.endpoint.form</field>
+        <field name="model">cfx.endpoint</field>
+        <field name="arch" type="xml">
+            <form string="CFX Endpoint">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="proxy_id"/>
+                            <field name="template_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="machine_kind"/>
+                            <field name="transport"/>
+                            <field name="cfx_handle"/>
+                            <field name="amqp_uri"/>
+                            <field name="topics"/>
+                        </group>
+                    </group>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cfx_endpoint_search" model="ir.ui.view">
+        <field name="name">cfx.endpoint.search</field>
+        <field name="model">cfx.endpoint</field>
+        <field name="arch" type="xml">
+            <search string="CFX Endpoints">
+                <field name="name"/>
+                <field name="proxy_id"/>
+                <field name="cfx_handle"/>
+                <filter name="active" string="Active" domain="[('active','=',True)]"/>
+                <filter name="gb_kind" string="Machine Kind" context="{'group_by':'machine_kind'}"/>
+                <filter name="gb_proxy" string="Proxy" context="{'group_by':'proxy_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cfx_endpoint" model="ir.actions.act_window">
+        <field name="name">CFX Endpoints</field>
+        <field name="res_model">cfx.endpoint</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_cfx_endpoint_search"/>
+    </record>
+</odoo>

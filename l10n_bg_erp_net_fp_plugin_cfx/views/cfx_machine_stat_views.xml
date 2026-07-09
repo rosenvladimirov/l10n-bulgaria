@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cfx_machine_stat_list" model="ir.ui.view">
+        <field name="name">cfx.machine.stat.list</field>
+        <field name="model">cfx.machine.stat</field>
+        <field name="arch" type="xml">
+            <list string="CFX Machine Statistics">
+                <field name="event_time"/>
+                <field name="machine_kind"/>
+                <field name="cfx_handle"/>
+                <field name="message_name"/>
+                <field name="workorder_ref"/>
+                <field name="quantity"/>
+                <field name="defect_count"/>
+                <field name="measured_value"/>
+                <field name="unit"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cfx_machine_stat_form" model="ir.ui.view">
+        <field name="name">cfx.machine.stat.form</field>
+        <field name="model">cfx.machine.stat</field>
+        <field name="arch" type="xml">
+            <form string="CFX Machine Statistic">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="proxy_id"/>
+                            <field name="endpoint_id"/>
+                            <field name="machine_kind"/>
+                            <field name="cfx_handle"/>
+                            <field name="message_name"/>
+                        </group>
+                        <group>
+                            <field name="event_time"/>
+                            <field name="transaction_id"/>
+                            <field name="workorder_ref"/>
+                            <field name="quantity"/>
+                            <field name="defect_count"/>
+                            <field name="measured_value"/>
+                            <field name="unit"/>
+                        </group>
+                    </group>
+                    <field name="payload_json"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cfx_machine_stat_search" model="ir.ui.view">
+        <field name="name">cfx.machine.stat.search</field>
+        <field name="model">cfx.machine.stat</field>
+        <field name="arch" type="xml">
+            <search string="CFX Machine Statistics">
+                <field name="cfx_handle"/>
+                <field name="workorder_ref"/>
+                <field name="transaction_id"/>
+                <filter name="gb_kind" string="Machine Kind" context="{'group_by':'machine_kind'}"/>
+                <filter name="gb_msg" string="Message" context="{'group_by':'message_name'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cfx_machine_stat" model="ir.actions.act_window">
+        <field name="name">CFX Machine Statistics</field>
+        <field name="res_model">cfx.machine.stat</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_cfx_machine_stat_search"/>
+    </record>
+</odoo>

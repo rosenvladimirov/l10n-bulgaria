@@ -67,6 +67,13 @@ const _TOAST_KIND = {
     "scale.weighed":   {kind: "info",   title: "⚖️ Scale"},
 };
 
+// Високо-честотни/шумни типове, които НЕ вдигат toast — те само обновяват
+// живо изгледа (напр. GPS позиция мести маркера на картата). Без този филтър
+// всяко движение на кола би заливало екрана със сини нотификации.
+const _SILENT_TOAST_TYPES = new Set([
+    "vehicle.position",
+]);
+
 function _formatProxyEvent(envelope) {
     const {type, source = {}, data = {}} = envelope || {};
     const meta = _TOAST_KIND[type] || {kind: "info", title: type};
@@ -161,12 +168,15 @@ const liveRefreshService = {
                 console.warn("typed event dispatch suppressed:", e);
             }
             try {
-                const t = _formatProxyEvent(payload);
-                notification.add(t.message, {
-                    title: t.title,
-                    type: t.kind,
-                    sticky: t.sticky,
-                });
+                // Тихите типове (GPS позиция) само местят маркера — без toast.
+                if (!_SILENT_TOAST_TYPES.has(payload && payload.type)) {
+                    const t = _formatProxyEvent(payload);
+                    notification.add(t.message, {
+                        title: t.title,
+                        type: t.kind,
+                        sticky: t.sticky,
+                    });
+                }
             } catch (e) {
                 console.warn("PROXY_EVENT toast suppressed:", e);
             }

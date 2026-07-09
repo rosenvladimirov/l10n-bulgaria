@@ -107,6 +107,10 @@ const liveRefreshService = {
         });
 
         // ─── Fleet updates (absorbs fleet_autorefresh.js) ───────
+        // erpnet_fp_fleet е custom broadcast канал (bus_inject/live_refresh
+        // праща с _sendone(канал, ...)), НЕ partner-канал → браузърът трябва
+        // ИЗРИЧНО да се абонира с addChannel, иначе subscribe сам не получава.
+        bus_service.addChannel("erpnet_fp_fleet");
         bus_service.subscribe("erpnet_fp_fleet", (payload) => {
             env.bus.trigger("FLEET_UPDATE", payload);
         });
@@ -133,6 +137,12 @@ const liveRefreshService = {
         // type→kind mapping (see _TOAST_KIND above). The visible toast
         // is independent of any open view — operators see live events
         // from every Odoo tab without opening a specific dashboard.
+        //
+        // ⚠️ erpnet_fp_proxy_events е custom broadcast канал (bus_inject
+        // праща с _sendone(PROXY_EVENTS_CHANNEL, ...)), НЕ partner-канал →
+        // както при "l10n-bulgaria" по-горе, addChannel е ЗАДЪЛЖИТЕЛЕН, иначе
+        // само subscribe НЕ получава нищо (картата не се обновява на живо).
+        bus_service.addChannel("erpnet_fp_proxy_events");
         bus_service.subscribe("erpnet_fp_proxy_events", (payload) => {
             env.bus.trigger("PROXY_EVENT", payload);
             // ─── dedicated convenience events ────────────────────

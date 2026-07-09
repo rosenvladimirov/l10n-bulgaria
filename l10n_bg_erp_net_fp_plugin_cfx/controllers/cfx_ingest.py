@@ -232,6 +232,14 @@ class CfxIngestController(http.Controller):
             "field": refresh_field,
             "mode": "field",
         }]
+        # Placed-component брой (само за MaterialsInstalled) — храни
+        # ephemeral overlay значката на Shop Floor картата
+        # (mrp_shopfloor_cfx_live). Additive; None ако не е приложимо.
+        placed = None
+        if msg_name == "MaterialsInstalled":
+            materials = data.get("materials") or data.get("installed") or []
+            if isinstance(materials, list):
+                placed = len(materials)
         envelope = {
             "v": 1,
             "type": ev_type,
@@ -244,10 +252,13 @@ class CfxIngestController(http.Controller):
             "id": str(event.get("id") or uuid.uuid4()),
             "data": {
                 "workorder": str(wo_name),
+                # Явен алиас за Shop Floor patch-а (чете workorder|wo_name).
+                "wo_name": str(wo_name),
                 "machine_kind": event.get("machine_kind"),
                 "message_name": msg_name,
                 # Пренасяме няколко разпознаваеми числови стойности за toast.
                 "qty": data.get("qty") or data.get("quantity"),
+                "placed": placed,
                 "state": data.get("state") or data.get("result"),
                 "_refresh": refresh_hints,
             },

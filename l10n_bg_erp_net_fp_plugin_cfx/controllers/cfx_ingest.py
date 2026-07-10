@@ -49,6 +49,8 @@ from datetime import datetime, timezone
 from odoo import http
 from odoo.http import request
 
+from ..models.cfx_extractors import extract
+
 _logger = logging.getLogger(__name__)
 
 # Публичен контракт — същият канал, който bus_inject/live_refresh ползват.
@@ -373,31 +375,64 @@ class CfxIngestController(http.Controller):
 
     # ─── Helpers ──────────────────────────────────────────────────
     def _write_generic_stat(self, env, proxy, event, kind):
-        """Запиши cfx.machine.stat ред за non-europlacer машина."""
+        """Запиши cfx.machine.stat ред за non-europlacer машина.
+
+        Ако има регистриран extractor за това CFX съобщение (напр. AOI/SPI
+        UnitsInspected), той вади реалните данни от `data` в структуриран
+        вид → summary полета + вложени cfx.inspection.* редове. Иначе
+        падаме на повърхностно best-effort извличане (заварено поведение).
+        """
         data = event.get("data") or {}
+        message_name = event.get("message_name") or ""
         endpoint = env["cfx.endpoint"].sudo().search([
             ("proxy_id", "=", proxy.id),
             ("cfx_handle", "=", event.get("cfx_handle") or ""),
         ], limit=1)
-        stat = env["cfx.machine.stat"].sudo().create({
+
+        vals = {
             "proxy_id": proxy.id,
             "endpoint_id": endpoint.id if endpoint else False,
             "machine_kind": kind,
             "cfx_handle": event.get("cfx_handle") or "",
-            "message_name": event.get("message_name") or "",
+            "message_name": message_name,
             "transaction_id": event.get("transaction_id") or "",
             "workorder_ref": self._wo_key(event) or "",
             "event_time": self._parse_dt(event.get("ts")) or False,
+            "payload_json": json.dumps(data, ensure_ascii=False),
+            # Заварени best-effort скалари (extractor-ът ги презаписва).
             "quantity": data.get("quantity") or data.get("qty") or 0.0,
             "defect_count": data.get("defects") or data.get("defect_count") or 0,
             "measured_value": data.get("value") or data.get("measured") or 0.0,
             "unit": data.get("unit") or "",
-            "payload_json": json.dumps(data, ensure_ascii=False),
-        })
+        }
+
+        # ── Extractor-плъг: реалните данни от CFX message-а ──
+        result = extract(message_name, data)
+        n_units = n_defects = n_meas = 0
+        if result is not None:
+            vals.update(result.summary)
+            unit_cmds = []
+            for u in result.units:
+                defects = u.pop("defects", [])
+                meas = u.pop("measurements", [])
+                n_defects += len(defects)
+                n_meas += len(meas)
+                unit_cmds.append((0, 0, {
+                    **u,
+                    "defect_ids": [(0, 0, d) for d in defects],
+                    "measurement_ids": [(0, 0, m) for m in meas],
+                }))
+            if unit_cmds:
+                vals["unit_ids"] = unit_cmds
+                n_units = len(unit_cmds)
+
+        stat = env["cfx.machine.stat"].sudo().create(vals)
         _logger.info(
-            "cfx/ingest %s: stat #%s (%s / %s)",
-            kind, stat.id, event.get("message_name"), event.get("cfx_handle"))
-        return {"persisted": True, "stat_id": stat.id}
+            "cfx/ingest %s: stat #%s (%s / %s) — units=%s defects=%s meas=%s",
+            kind, stat.id, message_name, event.get("cfx_handle"),
+            n_units, n_defects, n_meas)
+        return {"persisted": True, "stat_id": stat.id,
+                "units": n_units, "defects": n_defects, "measurements": n_meas}
 
     def _parse_dt(self, raw):
         """ISO-8601 → naive UTC datetime (Odoo-friendly), best-effort."""

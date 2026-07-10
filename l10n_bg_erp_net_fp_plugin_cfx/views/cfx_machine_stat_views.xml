@@ -42,7 +42,80 @@
                             <field name="unit"/>
                         </group>
                     </group>
-                    <field name="payload_json"/>
+                    <group string="Inspection Summary"
+                           invisible="not inspection_method and not station_state">
+                        <group>
+                            <field name="inspection_method"/>
+                            <field name="recipe_name"/>
+                            <field name="recipe_revision"/>
+                            <field name="operator_name"/>
+                            <field name="station_state"/>
+                        </group>
+                        <group>
+                            <field name="units_total"/>
+                            <field name="units_passed"/>
+                            <field name="units_failed"/>
+                            <field name="defects_total"/>
+                            <field name="measurements_total"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Inspected Units" name="units"
+                              invisible="not unit_ids">
+                            <field name="unit_ids">
+                                <list string="Inspected Units">
+                                    <field name="unit_identifier"/>
+                                    <field name="unit_position"/>
+                                    <field name="overall_result"
+                                           decoration-danger="overall_result == 'failed'"
+                                           decoration-success="overall_result == 'passed'"/>
+                                    <field name="is_panel"/>
+                                    <field name="inspection_count"/>
+                                    <field name="inspections_passed"/>
+                                    <field name="inspections_failed"/>
+                                    <field name="defect_count"/>
+                                    <field name="measurement_count"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Defects" name="defects"
+                              invisible="not defect_ids">
+                            <field name="defect_ids">
+                                <list string="Defects">
+                                    <field name="unit_identifier"/>
+                                    <field name="inspection_name"/>
+                                    <field name="defect_code"/>
+                                    <field name="defect_category"/>
+                                    <field name="description"/>
+                                    <field name="reference_designator"/>
+                                    <field name="part_number"/>
+                                    <field name="priority"/>
+                                    <field name="confidence_level"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Measurements" name="measurements"
+                              invisible="not measurement_ids">
+                            <field name="measurement_ids">
+                                <list string="Measurements">
+                                    <field name="inspection_name"/>
+                                    <field name="meas_type"/>
+                                    <field name="measurement_name"/>
+                                    <field name="crds"/>
+                                    <field name="result"/>
+                                    <field name="volume"/>
+                                    <field name="dev_x"/>
+                                    <field name="dev_y"/>
+                                    <field name="pos_x"/>
+                                    <field name="pos_y"/>
+                                    <field name="pos_z"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Raw Payload" name="raw">
+                            <field name="payload_json"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

@@ -45,6 +45,28 @@ class CfxMachineStat(models.Model):
         help='A single scalar measurement (e.g. peak temperature, offset).')
     unit = fields.Char(help='Unit for measured_value (°C, mm, %, ...).')
 
+    # ── Inspection summary (попълва се от cfx_extractors при AOI/SPI) ──
+    inspection_method = fields.Char(
+        string='Inspection Method',
+        help='CFX InspectionMethod (AOI, SPI, X-Ray, Human, ...).')
+    recipe_name = fields.Char(string='Recipe')
+    recipe_revision = fields.Char(string='Recipe Rev.')
+    operator_name = fields.Char(string='Operator')
+    station_state = fields.Char(string='Station State')
+    units_total = fields.Integer(string='Units')
+    units_passed = fields.Integer(string='Units Passed')
+    units_failed = fields.Integer(string='Units Failed')
+    defects_total = fields.Integer(string='Defects')
+    measurements_total = fields.Integer(string='Measurements')
+
+    # ── Детайлни редове (реалната информация от JSON-а) ──
+    unit_ids = fields.One2many(
+        'cfx.inspection.unit', 'stat_id', string='Inspected Units')
+    defect_ids = fields.One2many(
+        'cfx.inspection.defect', 'stat_id', string='Defects')
+    measurement_ids = fields.One2many(
+        'cfx.inspection.measurement', 'stat_id', string='Measurements')
+
     payload_json = fields.Text(
         string='Raw Payload',
         help='Full CFX event data dict as received (JSON).')

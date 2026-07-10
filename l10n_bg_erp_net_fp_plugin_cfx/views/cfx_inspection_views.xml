@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <!-- ═══ Inspected Units ═══ -->
+    <record id="view_cfx_inspection_unit_list" model="ir.ui.view">
+        <field name="name">cfx.inspection.unit.list</field>
+        <field name="model">cfx.inspection.unit</field>
+        <field name="arch" type="xml">
+            <list string="Inspected Units">
+                <field name="event_time"/>
+                <field name="machine_kind"/>
+                <field name="cfx_handle"/>
+                <field name="inspection_method"/>
+                <field name="unit_identifier"/>
+                <field name="unit_position"/>
+                <field name="overall_result"
+                       decoration-danger="overall_result == 'failed'"
+                       decoration-success="overall_result == 'passed'"/>
+                <field name="defect_count"/>
+                <field name="measurement_count"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cfx_inspection_unit_search" model="ir.ui.view">
+        <field name="name">cfx.inspection.unit.search</field>
+        <field name="model">cfx.inspection.unit</field>
+        <field name="arch" type="xml">
+            <search string="Inspected Units">
+                <field name="unit_identifier"/>
+                <field name="cfx_handle"/>
+                <filter name="failed" string="Failed"
+                        domain="[('overall_result','=','failed')]"/>
+                <filter name="gb_method" string="Method"
+                        context="{'group_by':'inspection_method'}"/>
+                <filter name="gb_result" string="Result"
+                        context="{'group_by':'overall_result'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cfx_inspection_unit" model="ir.actions.act_window">
+        <field name="name">Inspected Units</field>
+        <field name="res_model">cfx.inspection.unit</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_cfx_inspection_unit_search"/>
+    </record>
+
+    <!-- ═══ Defects ═══ -->
+    <record id="view_cfx_inspection_defect_list" model="ir.ui.view">
+        <field name="name">cfx.inspection.defect.list</field>
+        <field name="model">cfx.inspection.defect</field>
+        <field name="arch" type="xml">
+            <list string="Defects">
+                <field name="event_time"/>
+                <field name="cfx_handle"/>
+                <field name="unit_identifier"/>
+                <field name="inspection_name"/>
+                <field name="defect_code"/>
+                <field name="defect_category"/>
+                <field name="description"/>
+                <field name="reference_designator"/>
+                <field name="part_number"/>
+                <field name="priority"/>
+                <field name="confidence_level"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cfx_inspection_defect_search" model="ir.ui.view">
+        <field name="name">cfx.inspection.defect.search</field>
+        <field name="model">cfx.inspection.defect</field>
+        <field name="arch" type="xml">
+            <search string="Defects">
+                <field name="defect_code"/>
+                <field name="defect_category"/>
+                <field name="part_number"/>
+                <field name="reference_designator"/>
+                <filter name="gb_category" string="Category"
+                        context="{'group_by':'defect_category'}"/>
+                <filter name="gb_code" string="Defect Code"
+                        context="{'group_by':'defect_code'}"/>
+                <filter name="gb_handle" string="Machine"
+                        context="{'group_by':'cfx_handle'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cfx_inspection_defect" model="ir.actions.act_window">
+        <field name="name">Inspection Defects</field>
+        <field name="res_model">cfx.inspection.defect</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_cfx_inspection_defect_search"/>
+    </record>
+
+    <!-- ═══ Measurements ═══ -->
+    <record id="view_cfx_inspection_measurement_list" model="ir.ui.view">
+        <field name="name">cfx.inspection.measurement.list</field>
+        <field name="model">cfx.inspection.measurement</field>
+        <field name="arch" type="xml">
+            <list string="Measurements">
+                <field name="event_time"/>
+                <field name="inspection_name"/>
+                <field name="meas_type"/>
+                <field name="measurement_name"/>
+                <field name="crds"/>
+                <field name="result"
+                       decoration-danger="result == 'failed'"
+                       decoration-success="result == 'passed'"/>
+                <field name="volume"/>
+                <field name="dev_x"/>
+                <field name="dev_y"/>
+                <field name="pos_x"/>
+                <field name="pos_y"/>
+                <field name="pos_z"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_cfx_inspection_measurement" model="ir.actions.act_window">
+        <field name="name">Inspection Measurements</field>
+        <field name="res_model">cfx.inspection.measurement</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

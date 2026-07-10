@@ -5,6 +5,15 @@
               action="action_cfx_endpoint" sequence="10"/>
     <menuitem id="menu_cfx_stats" name="Machine Statistics" parent="menu_cfx_root"
               action="action_cfx_machine_stat" sequence="20"/>
+    <menuitem id="menu_cfx_inspection_units" name="Inspected Units"
+              parent="menu_cfx_root" action="action_cfx_inspection_unit"
+              sequence="30"/>
+    <menuitem id="menu_cfx_inspection_defects" name="Defects"
+              parent="menu_cfx_root" action="action_cfx_inspection_defect"
+              sequence="40"/>
+    <menuitem id="menu_cfx_inspection_measurements" name="Measurements"
+              parent="menu_cfx_root" action="action_cfx_inspection_measurement"
+              sequence="50"/>
     <menuitem id="menu_cfx_config" name="Configuration" parent="menu_cfx_root" sequence="90"/>
     <menuitem id="menu_cfx_templates" name="Endpoint Templates" parent="menu_cfx_config"
               action="action_cfx_endpoint_template" sequence="10"/>

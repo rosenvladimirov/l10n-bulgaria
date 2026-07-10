@@ -31,7 +31,7 @@ Live:
   the erpnet_fp_proxy_events bus channel + data._refresh hints
   (l10n_bg_live_refresh renders the frontend — zero new JS).
     """,
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.1.0',
     'author': 'Rosen Vladimirov',
     'license': 'AGPL-3',
     'category': 'Manufacturing/IoT',
@@ -43,6 +43,7 @@ Live:
         'views/cfx_endpoint_views.xml',
         'views/cfx_endpoint_template_views.xml',
         'views/cfx_machine_stat_views.xml',
+        'views/cfx_inspection_views.xml',
         'data/cfx_endpoint_templates.xml',
         'views/menu_items.xml',
     ],

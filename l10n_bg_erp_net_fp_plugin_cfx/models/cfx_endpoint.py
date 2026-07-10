@@ -146,14 +146,21 @@ class CfxEndpoint(models.Model):
         Consumed by erpnet.fp.proxy._collect_push_section('cfx') →
         push_config command drained by the proxy heartbeat. Wire format
         mirrors datecs.printer.get_config_payload(): a list[dict]."""
+        # sdk_path сочи къде е ipc-cfx SDK В КОНТЕЙНЕРА на проксито (не Odoo).
+        # Инфраструктурна настройка → system parameter `cfx.sdk_path`; празно =
+        # proxy-side default. За mec-19 SDK-то е на PVC `/app/data/ipc-cfx-sdk`.
+        sdk_path = self.env['ir.config_parameter'].sudo().get_param('cfx.sdk_path', '')
         entries = []
         for e in self.search([('active', '=', True)]):
-            entries.append({
+            entry = {
                 'id': (e.cfx_handle or e.name).lower().replace(' ', '_'),
                 'cfx_handle': e.cfx_handle or '',
                 'amqp_uri': e.amqp_uri or '',
                 'transport': e.transport,
                 'machine_kind': e.machine_kind,
                 'topics': _split_topics(e.topics),
-            })
+            }
+            if sdk_path:
+                entry['sdk_path'] = sdk_path
+            entries.append(entry)
         return entries

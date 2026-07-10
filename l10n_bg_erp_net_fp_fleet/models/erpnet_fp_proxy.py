@@ -466,6 +466,11 @@ class ErpNetFpProxy(models.Model):
         "biometric": ("biometric.verifier",  "hr_attendance_access_control"),
     }
 
+    # Минимален интервал (сек) между auto-rehydrate push_config команди за
+    # един и същ kind — предпазва от вечен drift-loop, когато проксито не
+    # рапортува приложената версия обратно (виж _auto_push_drifted_configs).
+    _AUTO_PUSH_THROTTLE_S = 300
+
     def _auto_push_drifted_configs(self, runtime_versions):
         """При heartbeat — за всеки kind с known source model,
         compare-ва runtime_version vs latest template push version.
@@ -499,15 +504,36 @@ class ErpNetFpProxy(models.Model):
             runtime_v = (runtime_versions or {}).get(kind)
             if runtime_v == tpl.last_pushed_version:
                 continue  # in sync
-            # Skip ако вече има pending push_config за тoзи kind
-            pending = Command.search([
+            # Throttle: skip ако вече има pending push_config за тoзи kind,
+            # ИЛИ ако е имало push_config за kind в последните
+            # _AUTO_PUSH_THROTTLE_S секунди. Без второто условие drift-ът
+            # loop-ва вечно, когато проксито не рапортува приложената версия
+            # обратно (напр. няколко active template-а за един kind →
+            # runtime_v никога не match-ва единичния tpl.last_pushed_version):
+            # командата се completed-ва за <1s, следващият heartbeat пак не
+            # вижда pending и enqueue-ва нова → 1 push/сек безкрайно.
+            throttle_since = fields.Datetime.now() - timedelta(
+                seconds=self._AUTO_PUSH_THROTTLE_S)
+            recent = Command.search([
                 ("proxy_id", "=", self.id),
                 ("kind", "=", "push_config"),
+                "|",
                 ("state", "in", ["pending", "sent"]),
-            ], limit=10)
-            already_queued = any(
-                (c.payload_json or "").find(f'"kind":"{kind}"') >= 0
-                for c in pending)
+                ("create_date", ">=", throttle_since),
+            ], order="id desc", limit=30)
+            # Сравняваме kind чрез JSON parse, НЕ substring find: payload-ът
+            # е json.dumps → `{"kind": "access", …}` (с интервал), докато
+            # старата проверка търсеше `"kind":"access"` (без интервал) и
+            # НИКОГА не match-ваше → already_queued вечно False → безкраен
+            # enqueue loop (1 push_config/сек). Това е реалният root cause.
+            already_queued = False
+            for c in recent:
+                try:
+                    if json.loads(c.payload_json or "{}").get("kind") == kind:
+                        already_queued = True
+                        break
+                except (ValueError, TypeError):
+                    continue
             if already_queued:
                 continue
             _logger.info(

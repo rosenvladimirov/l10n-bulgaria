@@ -10,264 +10,92 @@
    "cols": {},
    "merges": [],
    "cells": {
-    "A1": {
-     "content": "CFX Traffic Monitor"
-    },
-    "A3": {
-     "content": "Messages by Machine & Type"
-    },
-    "A4": {
-     "content": "=PIVOT(1)"
-    },
-    "A28": {
-     "content": "Throughput over Time (per day)"
-    },
-    "A29": {
-     "content": "=PIVOT(2)"
-    },
-    "A54": {
-     "content": "Latest CFX Messages"
-    },
-    "A55": {
-     "content": "=ODOO.LIST.HEADER(1,\"cfx_handle\")"
-    },
-    "B55": {
-     "content": "=ODOO.LIST.HEADER(1,\"message_name\")"
-    },
-    "C55": {
-     "content": "=ODOO.LIST.HEADER(1,\"workorder_ref\")"
-    },
-    "D55": {
-     "content": "=ODOO.LIST.HEADER(1,\"event_time\")"
-    },
-    "E55": {
-     "content": "=ODOO.LIST.HEADER(1,\"quantity\")"
-    },
-    "A56": {
-     "content": "=ODOO.LIST(1,1,\"cfx_handle\")"
-    },
-    "B56": {
-     "content": "=ODOO.LIST(1,1,\"message_name\")"
-    },
-    "C56": {
-     "content": "=ODOO.LIST(1,1,\"workorder_ref\")"
-    },
-    "D56": {
-     "content": "=ODOO.LIST(1,1,\"event_time\")"
-    },
-    "E56": {
-     "content": "=ODOO.LIST(1,1,\"quantity\")"
-    },
-    "A57": {
-     "content": "=ODOO.LIST(1,2,\"cfx_handle\")"
-    },
-    "B57": {
-     "content": "=ODOO.LIST(1,2,\"message_name\")"
-    },
-    "C57": {
-     "content": "=ODOO.LIST(1,2,\"workorder_ref\")"
-    },
-    "D57": {
-     "content": "=ODOO.LIST(1,2,\"event_time\")"
-    },
-    "E57": {
-     "content": "=ODOO.LIST(1,2,\"quantity\")"
-    },
-    "A58": {
-     "content": "=ODOO.LIST(1,3,\"cfx_handle\")"
-    },
-    "B58": {
-     "content": "=ODOO.LIST(1,3,\"message_name\")"
-    },
-    "C58": {
-     "content": "=ODOO.LIST(1,3,\"workorder_ref\")"
-    },
-    "D58": {
-     "content": "=ODOO.LIST(1,3,\"event_time\")"
-    },
-    "E58": {
-     "content": "=ODOO.LIST(1,3,\"quantity\")"
-    },
-    "A59": {
-     "content": "=ODOO.LIST(1,4,\"cfx_handle\")"
-    },
-    "B59": {
-     "content": "=ODOO.LIST(1,4,\"message_name\")"
-    },
-    "C59": {
-     "content": "=ODOO.LIST(1,4,\"workorder_ref\")"
-    },
-    "D59": {
-     "content": "=ODOO.LIST(1,4,\"event_time\")"
-    },
-    "E59": {
-     "content": "=ODOO.LIST(1,4,\"quantity\")"
-    },
-    "A60": {
-     "content": "=ODOO.LIST(1,5,\"cfx_handle\")"
-    },
-    "B60": {
-     "content": "=ODOO.LIST(1,5,\"message_name\")"
-    },
-    "C60": {
-     "content": "=ODOO.LIST(1,5,\"workorder_ref\")"
-    },
-    "D60": {
-     "content": "=ODOO.LIST(1,5,\"event_time\")"
-    },
-    "E60": {
-     "content": "=ODOO.LIST(1,5,\"quantity\")"
-    },
-    "A61": {
-     "content": "=ODOO.LIST(1,6,\"cfx_handle\")"
-    },
-    "B61": {
-     "content": "=ODOO.LIST(1,6,\"message_name\")"
-    },
-    "C61": {
-     "content": "=ODOO.LIST(1,6,\"workorder_ref\")"
-    },
-    "D61": {
-     "content": "=ODOO.LIST(1,6,\"event_time\")"
-    },
-    "E61": {
-     "content": "=ODOO.LIST(1,6,\"quantity\")"
-    },
-    "A62": {
-     "content": "=ODOO.LIST(1,7,\"cfx_handle\")"
-    },
-    "B62": {
-     "content": "=ODOO.LIST(1,7,\"message_name\")"
-    },
-    "C62": {
-     "content": "=ODOO.LIST(1,7,\"workorder_ref\")"
-    },
-    "D62": {
-     "content": "=ODOO.LIST(1,7,\"event_time\")"
-    },
-    "E62": {
-     "content": "=ODOO.LIST(1,7,\"quantity\")"
-    },
-    "A63": {
-     "content": "=ODOO.LIST(1,8,\"cfx_handle\")"
-    },
-    "B63": {
-     "content": "=ODOO.LIST(1,8,\"message_name\")"
-    },
-    "C63": {
-     "content": "=ODOO.LIST(1,8,\"workorder_ref\")"
-    },
-    "D63": {
-     "content": "=ODOO.LIST(1,8,\"event_time\")"
-    },
-    "E63": {
-     "content": "=ODOO.LIST(1,8,\"quantity\")"
-    },
-    "A64": {
-     "content": "=ODOO.LIST(1,9,\"cfx_handle\")"
-    },
-    "B64": {
-     "content": "=ODOO.LIST(1,9,\"message_name\")"
-    },
-    "C64": {
-     "content": "=ODOO.LIST(1,9,\"workorder_ref\")"
-    },
-    "D64": {
-     "content": "=ODOO.LIST(1,9,\"event_time\")"
-    },
-    "E64": {
-     "content": "=ODOO.LIST(1,9,\"quantity\")"
-    },
-    "A65": {
-     "content": "=ODOO.LIST(1,10,\"cfx_handle\")"
-    },
-    "B65": {
-     "content": "=ODOO.LIST(1,10,\"message_name\")"
-    },
-    "C65": {
-     "content": "=ODOO.LIST(1,10,\"workorder_ref\")"
-    },
-    "D65": {
-     "content": "=ODOO.LIST(1,10,\"event_time\")"
-    },
-    "E65": {
-     "content": "=ODOO.LIST(1,10,\"quantity\")"
-    },
-    "A66": {
-     "content": "=ODOO.LIST(1,11,\"cfx_handle\")"
-    },
-    "B66": {
-     "content": "=ODOO.LIST(1,11,\"message_name\")"
-    },
-    "C66": {
-     "content": "=ODOO.LIST(1,11,\"workorder_ref\")"
-    },
-    "D66": {
-     "content": "=ODOO.LIST(1,11,\"event_time\")"
-    },
-    "E66": {
-     "content": "=ODOO.LIST(1,11,\"quantity\")"
-    },
-    "A67": {
-     "content": "=ODOO.LIST(1,12,\"cfx_handle\")"
-    },
-    "B67": {
-     "content": "=ODOO.LIST(1,12,\"message_name\")"
-    },
-    "C67": {
-     "content": "=ODOO.LIST(1,12,\"workorder_ref\")"
-    },
-    "D67": {
-     "content": "=ODOO.LIST(1,12,\"event_time\")"
-    },
-    "E67": {
-     "content": "=ODOO.LIST(1,12,\"quantity\")"
-    },
-    "A68": {
-     "content": "=ODOO.LIST(1,13,\"cfx_handle\")"
-    },
-    "B68": {
-     "content": "=ODOO.LIST(1,13,\"message_name\")"
-    },
-    "C68": {
-     "content": "=ODOO.LIST(1,13,\"workorder_ref\")"
-    },
-    "D68": {
-     "content": "=ODOO.LIST(1,13,\"event_time\")"
-    },
-    "E68": {
-     "content": "=ODOO.LIST(1,13,\"quantity\")"
-    },
-    "A69": {
-     "content": "=ODOO.LIST(1,14,\"cfx_handle\")"
-    },
-    "B69": {
-     "content": "=ODOO.LIST(1,14,\"message_name\")"
-    },
-    "C69": {
-     "content": "=ODOO.LIST(1,14,\"workorder_ref\")"
-    },
-    "D69": {
-     "content": "=ODOO.LIST(1,14,\"event_time\")"
-    },
-    "E69": {
-     "content": "=ODOO.LIST(1,14,\"quantity\")"
-    },
-    "A70": {
-     "content": "=ODOO.LIST(1,15,\"cfx_handle\")"
-    },
-    "B70": {
-     "content": "=ODOO.LIST(1,15,\"message_name\")"
-    },
-    "C70": {
-     "content": "=ODOO.LIST(1,15,\"workorder_ref\")"
-    },
-    "D70": {
-     "content": "=ODOO.LIST(1,15,\"event_time\")"
-    },
-    "E70": {
-     "content": "=ODOO.LIST(1,15,\"quantity\")"
-    }
+    "A1": "CFX Traffic Monitor",
+    "A3": "Messages by Machine & Type",
+    "A4": "=PIVOT(1)",
+    "A28": "Throughput over Time (per day)",
+    "A29": "=PIVOT(2)",
+    "A54": "Latest CFX Messages",
+    "A55": "=ODOO.LIST.HEADER(1,\"cfx_handle\")",
+    "B55": "=ODOO.LIST.HEADER(1,\"message_name\")",
+    "C55": "=ODOO.LIST.HEADER(1,\"workorder_ref\")",
+    "D55": "=ODOO.LIST.HEADER(1,\"event_time\")",
+    "E55": "=ODOO.LIST.HEADER(1,\"quantity\")",
+    "A56": "=ODOO.LIST(1,1,\"cfx_handle\")",
+    "B56": "=ODOO.LIST(1,1,\"message_name\")",
+    "C56": "=ODOO.LIST(1,1,\"workorder_ref\")",
+    "D56": "=ODOO.LIST(1,1,\"event_time\")",
+    "E56": "=ODOO.LIST(1,1,\"quantity\")",
+    "A57": "=ODOO.LIST(1,2,\"cfx_handle\")",
+    "B57": "=ODOO.LIST(1,2,\"message_name\")",
+    "C57": "=ODOO.LIST(1,2,\"workorder_ref\")",
+    "D57": "=ODOO.LIST(1,2,\"event_time\")",
+    "E57": "=ODOO.LIST(1,2,\"quantity\")",
+    "A58": "=ODOO.LIST(1,3,\"cfx_handle\")",
+    "B58": "=ODOO.LIST(1,3,\"message_name\")",
+    "C58": "=ODOO.LIST(1,3,\"workorder_ref\")",
+    "D58": "=ODOO.LIST(1,3,\"event_time\")",
+    "E58": "=ODOO.LIST(1,3,\"quantity\")",
+    "A59": "=ODOO.LIST(1,4,\"cfx_handle\")",
+    "B59": "=ODOO.LIST(1,4,\"message_name\")",
+    "C59": "=ODOO.LIST(1,4,\"workorder_ref\")",
+    "D59": "=ODOO.LIST(1,4,\"event_time\")",
+    "E59": "=ODOO.LIST(1,4,\"quantity\")",
+    "A60": "=ODOO.LIST(1,5,\"cfx_handle\")",
+    "B60": "=ODOO.LIST(1,5,\"message_name\")",
+    "C60": "=ODOO.LIST(1,5,\"workorder_ref\")",
+    "D60": "=ODOO.LIST(1,5,\"event_time\")",
+    "E60": "=ODOO.LIST(1,5,\"quantity\")",
+    "A61": "=ODOO.LIST(1,6,\"cfx_handle\")",
+    "B61": "=ODOO.LIST(1,6,\"message_name\")",
+    "C61": "=ODOO.LIST(1,6,\"workorder_ref\")",
+    "D61": "=ODOO.LIST(1,6,\"event_time\")",
+    "E61": "=ODOO.LIST(1,6,\"quantity\")",
+    "A62": "=ODOO.LIST(1,7,\"cfx_handle\")",
+    "B62": "=ODOO.LIST(1,7,\"message_name\")",
+    "C62": "=ODOO.LIST(1,7,\"workorder_ref\")",
+    "D62": "=ODOO.LIST(1,7,\"event_time\")",
+    "E62": "=ODOO.LIST(1,7,\"quantity\")",
+    "A63": "=ODOO.LIST(1,8,\"cfx_handle\")",
+    "B63": "=ODOO.LIST(1,8,\"message_name\")",
+    "C63": "=ODOO.LIST(1,8,\"workorder_ref\")",
+    "D63": "=ODOO.LIST(1,8,\"event_time\")",
+    "E63": "=ODOO.LIST(1,8,\"quantity\")",
+    "A64": "=ODOO.LIST(1,9,\"cfx_handle\")",
+    "B64": "=ODOO.LIST(1,9,\"message_name\")",
+    "C64": "=ODOO.LIST(1,9,\"workorder_ref\")",
+    "D64": "=ODOO.LIST(1,9,\"event_time\")",
+    "E64": "=ODOO.LIST(1,9,\"quantity\")",
+    "A65": "=ODOO.LIST(1,10,\"cfx_handle\")",
+    "B65": "=ODOO.LIST(1,10,\"message_name\")",
+    "C65": "=ODOO.LIST(1,10,\"workorder_ref\")",
+    "D65": "=ODOO.LIST(1,10,\"event_time\")",
+    "E65": "=ODOO.LIST(1,10,\"quantity\")",
+    "A66": "=ODOO.LIST(1,11,\"cfx_handle\")",
+    "B66": "=ODOO.LIST(1,11,\"message_name\")",
+    "C66": "=ODOO.LIST(1,11,\"workorder_ref\")",
+    "D66": "=ODOO.LIST(1,11,\"event_time\")",
+    "E66": "=ODOO.LIST(1,11,\"quantity\")",
+    "A67": "=ODOO.LIST(1,12,\"cfx_handle\")",
+    "B67": "=ODOO.LIST(1,12,\"message_name\")",
+    "C67": "=ODOO.LIST(1,12,\"workorder_ref\")",
+    "D67": "=ODOO.LIST(1,12,\"event_time\")",
+    "E67": "=ODOO.LIST(1,12,\"quantity\")",
+    "A68": "=ODOO.LIST(1,13,\"cfx_handle\")",
+    "B68": "=ODOO.LIST(1,13,\"message_name\")",
+    "C68": "=ODOO.LIST(1,13,\"workorder_ref\")",
+    "D68": "=ODOO.LIST(1,13,\"event_time\")",
+    "E68": "=ODOO.LIST(1,13,\"quantity\")",
+    "A69": "=ODOO.LIST(1,14,\"cfx_handle\")",
+    "B69": "=ODOO.LIST(1,14,\"message_name\")",
+    "C69": "=ODOO.LIST(1,14,\"workorder_ref\")",
+    "D69": "=ODOO.LIST(1,14,\"event_time\")",
+    "E69": "=ODOO.LIST(1,14,\"quantity\")",
+    "A70": "=ODOO.LIST(1,15,\"cfx_handle\")",
+    "B70": "=ODOO.LIST(1,15,\"message_name\")",
+    "C70": "=ODOO.LIST(1,15,\"workorder_ref\")",
+    "D70": "=ODOO.LIST(1,15,\"event_time\")",
+    "E70": "=ODOO.LIST(1,15,\"quantity\")"
    },
    "styles": {},
    "formats": {},

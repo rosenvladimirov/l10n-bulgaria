@@ -1,0 +1,393 @@
+{
+ "version": "18.5.10",
+ "sheets": [
+  {
+   "id": "cfx_monitor",
+   "name": "CFX Monitor",
+   "colNumber": 26,
+   "rowNumber": 100,
+   "rows": {},
+   "cols": {},
+   "merges": [],
+   "cells": {
+    "A1": {
+     "content": "CFX Traffic Monitor"
+    },
+    "A3": {
+     "content": "Messages by Machine & Type"
+    },
+    "A4": {
+     "content": "=PIVOT(1)"
+    },
+    "A28": {
+     "content": "Throughput over Time (per day)"
+    },
+    "A29": {
+     "content": "=PIVOT(2)"
+    },
+    "A54": {
+     "content": "Latest CFX Messages"
+    },
+    "A55": {
+     "content": "=ODOO.LIST.HEADER(1,\"cfx_handle\")"
+    },
+    "B55": {
+     "content": "=ODOO.LIST.HEADER(1,\"message_name\")"
+    },
+    "C55": {
+     "content": "=ODOO.LIST.HEADER(1,\"workorder_ref\")"
+    },
+    "D55": {
+     "content": "=ODOO.LIST.HEADER(1,\"event_time\")"
+    },
+    "E55": {
+     "content": "=ODOO.LIST.HEADER(1,\"quantity\")"
+    },
+    "A56": {
+     "content": "=ODOO.LIST(1,1,\"cfx_handle\")"
+    },
+    "B56": {
+     "content": "=ODOO.LIST(1,1,\"message_name\")"
+    },
+    "C56": {
+     "content": "=ODOO.LIST(1,1,\"workorder_ref\")"
+    },
+    "D56": {
+     "content": "=ODOO.LIST(1,1,\"event_time\")"
+    },
+    "E56": {
+     "content": "=ODOO.LIST(1,1,\"quantity\")"
+    },
+    "A57": {
+     "content": "=ODOO.LIST(1,2,\"cfx_handle\")"
+    },
+    "B57": {
+     "content": "=ODOO.LIST(1,2,\"message_name\")"
+    },
+    "C57": {
+     "content": "=ODOO.LIST(1,2,\"workorder_ref\")"
+    },
+    "D57": {
+     "content": "=ODOO.LIST(1,2,\"event_time\")"
+    },
+    "E57": {
+     "content": "=ODOO.LIST(1,2,\"quantity\")"
+    },
+    "A58": {
+     "content": "=ODOO.LIST(1,3,\"cfx_handle\")"
+    },
+    "B58": {
+     "content": "=ODOO.LIST(1,3,\"message_name\")"
+    },
+    "C58": {
+     "content": "=ODOO.LIST(1,3,\"workorder_ref\")"
+    },
+    "D58": {
+     "content": "=ODOO.LIST(1,3,\"event_time\")"
+    },
+    "E58": {
+     "content": "=ODOO.LIST(1,3,\"quantity\")"
+    },
+    "A59": {
+     "content": "=ODOO.LIST(1,4,\"cfx_handle\")"
+    },
+    "B59": {
+     "content": "=ODOO.LIST(1,4,\"message_name\")"
+    },
+    "C59": {
+     "content": "=ODOO.LIST(1,4,\"workorder_ref\")"
+    },
+    "D59": {
+     "content": "=ODOO.LIST(1,4,\"event_time\")"
+    },
+    "E59": {
+     "content": "=ODOO.LIST(1,4,\"quantity\")"
+    },
+    "A60": {
+     "content": "=ODOO.LIST(1,5,\"cfx_handle\")"
+    },
+    "B60": {
+     "content": "=ODOO.LIST(1,5,\"message_name\")"
+    },
+    "C60": {
+     "content": "=ODOO.LIST(1,5,\"workorder_ref\")"
+    },
+    "D60": {
+     "content": "=ODOO.LIST(1,5,\"event_time\")"
+    },
+    "E60": {
+     "content": "=ODOO.LIST(1,5,\"quantity\")"
+    },
+    "A61": {
+     "content": "=ODOO.LIST(1,6,\"cfx_handle\")"
+    },
+    "B61": {
+     "content": "=ODOO.LIST(1,6,\"message_name\")"
+    },
+    "C61": {
+     "content": "=ODOO.LIST(1,6,\"workorder_ref\")"
+    },
+    "D61": {
+     "content": "=ODOO.LIST(1,6,\"event_time\")"
+    },
+    "E61": {
+     "content": "=ODOO.LIST(1,6,\"quantity\")"
+    },
+    "A62": {
+     "content": "=ODOO.LIST(1,7,\"cfx_handle\")"
+    },
+    "B62": {
+     "content": "=ODOO.LIST(1,7,\"message_name\")"
+    },
+    "C62": {
+     "content": "=ODOO.LIST(1,7,\"workorder_ref\")"
+    },
+    "D62": {
+     "content": "=ODOO.LIST(1,7,\"event_time\")"
+    },
+    "E62": {
+     "content": "=ODOO.LIST(1,7,\"quantity\")"
+    },
+    "A63": {
+     "content": "=ODOO.LIST(1,8,\"cfx_handle\")"
+    },
+    "B63": {
+     "content": "=ODOO.LIST(1,8,\"message_name\")"
+    },
+    "C63": {
+     "content": "=ODOO.LIST(1,8,\"workorder_ref\")"
+    },
+    "D63": {
+     "content": "=ODOO.LIST(1,8,\"event_time\")"
+    },
+    "E63": {
+     "content": "=ODOO.LIST(1,8,\"quantity\")"
+    },
+    "A64": {
+     "content": "=ODOO.LIST(1,9,\"cfx_handle\")"
+    },
+    "B64": {
+     "content": "=ODOO.LIST(1,9,\"message_name\")"
+    },
+    "C64": {
+     "content": "=ODOO.LIST(1,9,\"workorder_ref\")"
+    },
+    "D64": {
+     "content": "=ODOO.LIST(1,9,\"event_time\")"
+    },
+    "E64": {
+     "content": "=ODOO.LIST(1,9,\"quantity\")"
+    },
+    "A65": {
+     "content": "=ODOO.LIST(1,10,\"cfx_handle\")"
+    },
+    "B65": {
+     "content": "=ODOO.LIST(1,10,\"message_name\")"
+    },
+    "C65": {
+     "content": "=ODOO.LIST(1,10,\"workorder_ref\")"
+    },
+    "D65": {
+     "content": "=ODOO.LIST(1,10,\"event_time\")"
+    },
+    "E65": {
+     "content": "=ODOO.LIST(1,10,\"quantity\")"
+    },
+    "A66": {
+     "content": "=ODOO.LIST(1,11,\"cfx_handle\")"
+    },
+    "B66": {
+     "content": "=ODOO.LIST(1,11,\"message_name\")"
+    },
+    "C66": {
+     "content": "=ODOO.LIST(1,11,\"workorder_ref\")"
+    },
+    "D66": {
+     "content": "=ODOO.LIST(1,11,\"event_time\")"
+    },
+    "E66": {
+     "content": "=ODOO.LIST(1,11,\"quantity\")"
+    },
+    "A67": {
+     "content": "=ODOO.LIST(1,12,\"cfx_handle\")"
+    },
+    "B67": {
+     "content": "=ODOO.LIST(1,12,\"message_name\")"
+    },
+    "C67": {
+     "content": "=ODOO.LIST(1,12,\"workorder_ref\")"
+    },
+    "D67": {
+     "content": "=ODOO.LIST(1,12,\"event_time\")"
+    },
+    "E67": {
+     "content": "=ODOO.LIST(1,12,\"quantity\")"
+    },
+    "A68": {
+     "content": "=ODOO.LIST(1,13,\"cfx_handle\")"
+    },
+    "B68": {
+     "content": "=ODOO.LIST(1,13,\"message_name\")"
+    },
+    "C68": {
+     "content": "=ODOO.LIST(1,13,\"workorder_ref\")"
+    },
+    "D68": {
+     "content": "=ODOO.LIST(1,13,\"event_time\")"
+    },
+    "E68": {
+     "content": "=ODOO.LIST(1,13,\"quantity\")"
+    },
+    "A69": {
+     "content": "=ODOO.LIST(1,14,\"cfx_handle\")"
+    },
+    "B69": {
+     "content": "=ODOO.LIST(1,14,\"message_name\")"
+    },
+    "C69": {
+     "content": "=ODOO.LIST(1,14,\"workorder_ref\")"
+    },
+    "D69": {
+     "content": "=ODOO.LIST(1,14,\"event_time\")"
+    },
+    "E69": {
+     "content": "=ODOO.LIST(1,14,\"quantity\")"
+    },
+    "A70": {
+     "content": "=ODOO.LIST(1,15,\"cfx_handle\")"
+    },
+    "B70": {
+     "content": "=ODOO.LIST(1,15,\"message_name\")"
+    },
+    "C70": {
+     "content": "=ODOO.LIST(1,15,\"workorder_ref\")"
+    },
+    "D70": {
+     "content": "=ODOO.LIST(1,15,\"event_time\")"
+    },
+    "E70": {
+     "content": "=ODOO.LIST(1,15,\"quantity\")"
+    }
+   },
+   "styles": {},
+   "formats": {},
+   "borders": {},
+   "conditionalFormats": [],
+   "dataValidationRules": [],
+   "figures": [],
+   "tables": [],
+   "areGridLinesVisible": true,
+   "isVisible": true,
+   "headerGroups": [],
+   "comments": {}
+  }
+ ],
+ "styles": {},
+ "formats": {},
+ "borders": {},
+ "revisionId": "START_REVISION",
+ "uniqueFigureIds": true,
+ "settings": {
+  "locale": {
+   "name": "English (US)",
+   "code": "en_US",
+   "thousandsSeparator": ",",
+   "decimalSeparator": ".",
+   "dateFormat": "mm/dd/yyyy",
+   "timeFormat": "hh:mm:ss",
+   "formulaArgSeparator": ",",
+   "weekStart": 7
+  }
+ },
+ "pivots": {
+  "1": {
+   "type": "ODOO",
+   "id": "1",
+   "formulaId": "1",
+   "name": "Messages by Machine & Type",
+   "model": "cfx.machine.stat",
+   "domain": [],
+   "context": {},
+   "measures": [
+    {
+     "id": "__count",
+     "fieldName": "__count",
+     "userDefinedName": "Messages"
+    }
+   ],
+   "columns": [
+    {
+     "fieldName": "message_name"
+    }
+   ],
+   "rows": [
+    {
+     "fieldName": "machine_kind"
+    }
+   ],
+   "fieldMatching": {}
+  },
+  "2": {
+   "type": "ODOO",
+   "id": "2",
+   "formulaId": "2",
+   "name": "Throughput over Time",
+   "model": "cfx.machine.stat",
+   "domain": [],
+   "context": {},
+   "measures": [
+    {
+     "id": "quantity",
+     "fieldName": "quantity",
+     "userDefinedName": "Quantity"
+    },
+    {
+     "id": "defect_count",
+     "fieldName": "defect_count",
+     "userDefinedName": "Defects"
+    }
+   ],
+   "columns": [
+    {
+     "fieldName": "machine_kind"
+    }
+   ],
+   "rows": [
+    {
+     "fieldName": "event_time",
+     "granularity": "day",
+     "order": "asc"
+    }
+   ],
+   "fieldMatching": {}
+  }
+ },
+ "pivotNextId": 3,
+ "lists": {
+  "1": {
+   "id": "1",
+   "name": "Latest CFX Messages",
+   "model": "cfx.machine.stat",
+   "columns": [
+    "cfx_handle",
+    "message_name",
+    "workorder_ref",
+    "event_time",
+    "quantity"
+   ],
+   "domain": [],
+   "context": {},
+   "orderBy": [
+    {
+     "name": "event_time",
+     "asc": false
+    }
+   ],
+   "fieldMatching": {}
+  }
+ },
+ "listNextId": 2,
+ "customTableStyles": {},
+ "globalFilters": [],
+ "chartOdooMenusReferences": {}
+}

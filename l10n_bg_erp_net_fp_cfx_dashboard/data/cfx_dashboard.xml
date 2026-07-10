@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <!-- Група "CFX Monitoring" в списъка с дашборди -->
+    <record id="spreadsheet_dashboard_group_cfx" model="spreadsheet.dashboard.group">
+        <field name="name">CFX Monitoring</field>
+        <field name="sequence">450</field>
+    </record>
+
+    <!-- Дашбордът: pivot-и + списък над cfx.machine.stat. spreadsheet_data
+         се зарежда от предварително генериран o-spreadsheet JSON. -->
+    <record id="spreadsheet_dashboard_cfx_traffic" model="spreadsheet.dashboard">
+        <field name="name">CFX Traffic Monitor</field>
+        <field name="spreadsheet_binary_data" type="base64"
+                file="l10n_bg_erp_net_fp_cfx_dashboard/data/files/cfx_traffic_dashboard.json"/>
+        <field name="main_data_model_ids"
+                eval="[(4, ref('l10n_bg_erp_net_fp_plugin_cfx.model_cfx_machine_stat'))]"/>
+        <field name="dashboard_group_id" ref="spreadsheet_dashboard_group_cfx"/>
+        <field name="sequence">100</field>
+        <field name="is_published">True</field>
+    </record>
+
+</odoo>

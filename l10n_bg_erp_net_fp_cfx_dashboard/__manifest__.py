@@ -28,7 +28,7 @@ Dashboard content (group "CFX Monitoring", one published dashboard):
 - Pivot: quantity + defects by event_time (per day) x machine_kind.
 - List: latest CFX messages (handle, message, work order, time, quantity).
     """,
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.1.0',
     'author': 'Rosen Vladimirov',
     'license': 'AGPL-3',
     'category': 'Manufacturing/IoT',

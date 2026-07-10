@@ -69,6 +69,11 @@ class CfxEndpoint(models.Model):
     topics = fields.Char(
         help='CFX topics/queues to subscribe, space- or comma-separated. '
              'Empty = subscribe to the machine default topic.')
+    queue = fields.Char(
+        help='Broker queue to consume (e.g. mec.odoo). Broker transport only.')
+    exchange = fields.Char(
+        help='Broker exchange the queue is bound to (e.g. mec.fanout). '
+             'Broker transport only.')
 
     notes = fields.Html()
 
@@ -160,6 +165,10 @@ class CfxEndpoint(models.Model):
                 'machine_kind': e.machine_kind,
                 'topics': _split_topics(e.topics),
             }
+            if e.queue:
+                entry['queue'] = e.queue
+            if e.exchange:
+                entry['exchange'] = e.exchange
             if sdk_path:
                 entry['sdk_path'] = sdk_path
             entries.append(entry)

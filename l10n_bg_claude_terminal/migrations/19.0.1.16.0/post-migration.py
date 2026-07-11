@@ -1,5 +1,5 @@
 # Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 """Migrate AI Tokenizer config from res.users to res.company.
 
 Ran post-init защото новите полета на res.company трябва да съществуват.

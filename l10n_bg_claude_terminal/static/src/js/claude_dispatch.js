@@ -1,6 +1,6 @@
 /** @odoo-module **/
 // Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
-// License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+// License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 //
 // Генеричен AI dispatch грид — показва се от list/kanban „AI MCP" бутона на
 // ВСЕКИ модел. Винаги има Terminal + Ask me; модул-специфични skills се

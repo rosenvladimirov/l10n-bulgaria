@@ -1,6 +1,6 @@
 /** @odoo-module **/
 // Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
-// License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+// License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
 import { onWillStart, onMounted, onWillUnmount } from "@odoo/owl";
 import { KanbanController } from "@web/views/kanban/kanban_controller";

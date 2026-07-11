@@ -1,5 +1,5 @@
 # Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
     "name": "Live Refresh (generic bus-driven view refresh)",
     "version": "19.4.2.7.1",
@@ -30,7 +30,7 @@ input respectively. A conflict guard short-circuits when Enterprise
 """,
     "author": "Rosen Vladimirov",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "depends": ["web", "bus"],
     "assets": {
         "web.assets_backend": [

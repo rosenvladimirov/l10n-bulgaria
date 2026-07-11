@@ -31,7 +31,7 @@ Live:
   the erpnet_fp_proxy_events bus channel + data._refresh hints
   (l10n_bg_live_refresh renders the frontend — zero new JS).
     """,
-    'version': '19.0.1.1.0',
+    'version': '19.0.1.2.0',
     'author': 'Rosen Vladimirov',
     'license': 'AGPL-3',
     'category': 'Manufacturing/IoT',

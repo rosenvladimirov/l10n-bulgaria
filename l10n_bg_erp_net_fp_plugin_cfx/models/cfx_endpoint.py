@@ -24,6 +24,7 @@ MACHINE_KINDS = [
 TRANSPORTS = [
     ('broker', 'RabbitMQ broker (AMQP 1.0)'),
     ('p2p', 'AMQP 1.0 peer-to-peer'),
+    ('amqp091', 'RabbitMQ 3.x broker (AMQP 0-9-1 / pika)'),
 ]
 
 
@@ -69,6 +70,12 @@ class CfxEndpoint(models.Model):
     topics = fields.Char(
         help='CFX topics/queues to subscribe, space- or comma-separated. '
              'Empty = subscribe to the machine default topic.')
+    queue = fields.Char(
+        help='AMQP 0-9-1 / broker: queue to consume '
+             '(e.g. odoo.mec for the Europlacer RabbitMQ 3.x fanout copy).')
+    exchange = fields.Char(
+        help='AMQP 0-9-1 / broker: exchange to bind the queue to (fanout). '
+             'Empty = the queue is already bound broker-side.')
     queue = fields.Char(
         help='Broker queue to consume (e.g. mec.odoo). Broker transport only.')
     exchange = fields.Char(

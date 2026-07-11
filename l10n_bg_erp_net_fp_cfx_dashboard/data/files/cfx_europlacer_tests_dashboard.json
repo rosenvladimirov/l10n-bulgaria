@@ -1,0 +1,226 @@
+{
+ "version": "18.5.10",
+ "sheets": [
+  {
+   "id": "europlacer_tests",
+   "name": "Europlacer Tests",
+   "colNumber": 26,
+   "rowNumber": 100,
+   "rows": {},
+   "cols": {},
+   "merges": [],
+   "cells": {
+    "A1": "Europlacer SMT Placement — time series (per machine)"
+   },
+   "styles": {
+    "A1": 1
+   },
+   "formats": {},
+   "borders": {},
+   "conditionalFormats": [],
+   "dataValidationRules": [],
+   "figures": [
+    {
+     "id": "epi-boards-line",
+     "width": 1095,
+     "height": 340,
+     "tag": "chart",
+     "data": {
+      "title": {
+       "text": "Europlacer Boards by Day"
+      },
+      "background": "#FFFFFF",
+      "legendPosition": "top",
+      "metaData": {
+       "groupBy": [
+        "event_time:day"
+       ],
+       "measure": "units_total",
+       "order": null,
+       "resModel": "cfx.machine.stat",
+       "mode": "line",
+       "cumulatedStart": false
+      },
+      "searchParams": {
+       "comparison": null,
+       "context": {},
+       "domain": [
+        [
+         "machine_kind",
+         "=",
+         "europlacer"
+        ]
+       ],
+       "groupBy": [
+        "event_time:day"
+       ],
+       "orderBy": []
+      },
+      "type": "odoo_line",
+      "dataSets": [
+       {}
+      ],
+      "verticalAxisPosition": "left",
+      "stacked": false,
+      "cumulatedStart": false,
+      "axesDesign": {},
+      "fillArea": true,
+      "chartId": "epi-boards-line",
+      "fieldMatching": {}
+     },
+     "offset": {
+      "x": 0,
+      "y": 20
+     },
+     "col": 0,
+     "row": 0
+    },
+    {
+     "id": "epi-components-bar",
+     "width": 1095,
+     "height": 340,
+     "tag": "chart",
+     "data": {
+      "title": {
+       "text": "Europlacer Components Placed by Day (per machine)"
+      },
+      "background": "#FFFFFF",
+      "legendPosition": "top",
+      "metaData": {
+       "groupBy": [
+        "event_time:day",
+        "cfx_handle"
+       ],
+       "measure": "quantity",
+       "order": null,
+       "resModel": "cfx.machine.stat",
+       "mode": "bar",
+       "cumulatedStart": false
+      },
+      "searchParams": {
+       "comparison": null,
+       "context": {},
+       "domain": [
+        [
+         "machine_kind",
+         "=",
+         "europlacer"
+        ]
+       ],
+       "groupBy": [
+        "event_time:day",
+        "cfx_handle"
+       ],
+       "orderBy": []
+      },
+      "type": "odoo_bar",
+      "dataSets": [
+       {}
+      ],
+      "verticalAxisPosition": "left",
+      "stacked": true,
+      "cumulatedStart": false,
+      "axesDesign": {},
+      "fillArea": false,
+      "chartId": "epi-components-bar",
+      "fieldMatching": {}
+     },
+     "offset": {
+      "x": 0,
+      "y": 380
+     },
+     "col": 0,
+     "row": 0
+    },
+    {
+     "id": "epi-rejects-line",
+     "width": 1095,
+     "height": 340,
+     "tag": "chart",
+     "data": {
+      "title": {
+       "text": "Europlacer Rejects by Day"
+      },
+      "background": "#FFFFFF",
+      "legendPosition": "top",
+      "metaData": {
+       "groupBy": [
+        "event_time:day"
+       ],
+       "measure": "units_failed",
+       "order": null,
+       "resModel": "cfx.machine.stat",
+       "mode": "line",
+       "cumulatedStart": false
+      },
+      "searchParams": {
+       "comparison": null,
+       "context": {},
+       "domain": [
+        [
+         "machine_kind",
+         "=",
+         "europlacer"
+        ]
+       ],
+       "groupBy": [
+        "event_time:day"
+       ],
+       "orderBy": []
+      },
+      "type": "odoo_line",
+      "dataSets": [
+       {}
+      ],
+      "verticalAxisPosition": "left",
+      "stacked": false,
+      "cumulatedStart": false,
+      "axesDesign": {},
+      "fillArea": true,
+      "chartId": "epi-rejects-line",
+      "fieldMatching": {}
+     },
+     "offset": {
+      "x": 0,
+      "y": 740
+     },
+     "col": 0,
+     "row": 0
+    }
+   ],
+   "tables": [],
+   "areGridLinesVisible": false,
+   "isVisible": true,
+   "headerGroups": [],
+   "comments": {}
+  }
+ ],
+ "styles": {
+  "1": {
+   "bold": true,
+   "fontSize": 16
+  }
+ },
+ "formats": {},
+ "borders": {},
+ "revisionId": "epi-tests-init",
+ "uniqueFigureIds": true,
+ "settings": {
+  "locale": {
+   "name": "English (US)",
+   "code": "en_US",
+   "thousandsSeparator": ",",
+   "decimalSeparator": ".",
+   "weekStart": 7,
+   "dateFormat": "m/d/yyyy",
+   "timeFormat": "hh:mm:ss a"
+  }
+ },
+ "pivots": {},
+ "pivotNextId": 1,
+ "customTableStyles": {},
+ "globalFilters": [],
+ "lists": {},
+ "listNextId": 1,
+ "chartOdooMenusReferences": {}
+}

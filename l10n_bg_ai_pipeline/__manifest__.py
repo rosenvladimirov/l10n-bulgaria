@@ -1,5 +1,5 @@
 # Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
     "name": "AI Pipeline (Skills + Injection Engine)",
     "version": "18.0.1.2.0",
@@ -9,13 +9,13 @@
         "Pipeline stack with Anthropic-style Skills: progressive disclosure, "
         "semantic matching, dynamic step injection on top of AI Tokenizer."
     ),
-    "author": "Rosen Vladimirov, BL Consulting, Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "maintainers": ["rosen-vladimirov"],
     "website": (
         "https://github.com/rosenvladimirov/l10n-bulgaria/tree/18.0/"
         "l10n_bg_ai_pipeline"
     ),
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "depends": [
         "l10n_bg_claude_terminal",
     ],

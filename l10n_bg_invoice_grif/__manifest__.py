@@ -1,4 +1,4 @@
-# Copyright 2026 BL Consulting
+# Copyright 2026 Rosen Vladimirov / Terraros Commerce Ltd.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Bulgaria — Invoice Original / Copy Stamp",
@@ -6,7 +6,7 @@
     "version": "18.0.1.0.0",
     "category": "Accounting/Localizations",
     "website": "https://github.com/nichat-bg/l10n-bulgaria",
-    "author": "Rosen Vladimirov, BL Consulting, Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "maintainers": ["rosen-vladimirov"],
     "license": "AGPL-3",
     "application": False,

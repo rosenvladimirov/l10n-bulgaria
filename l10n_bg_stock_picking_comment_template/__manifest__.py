@@ -1,4 +1,4 @@
-# Copyright 2026 BL Consulting
+# Copyright 2026 Rosen Vladimirov / Terraros Commerce Ltd.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Bulgaria — Stock Picking Comment Template Positioning",
@@ -7,7 +7,7 @@
     "version": "18.0.1.0.0",
     "category": "Warehouse Management",
     "license": "AGPL-3",
-    "author": "Rosen Vladimirov, BL Consulting, "
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., "
               "Odoo Community Association (OCA)",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "maintainers": ["rosenvladimirov"],

@@ -1,14 +1,14 @@
 # Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
     "name": "Claude Terminal (Chatter & List View)",
     "version": "18.0.1.43.0",
     "category": "Technical",
     "summary": "Claude Code terminal + AI Tokenizer (Qdrant/Ollama) — MCP Docker stack",
-    "author": "Rosen Vladimirov, BL Consulting, Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "maintainers": ["rosen-vladimirov"],
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria/tree/18.0/l10n_bg_claude_terminal",
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "depends": ["mail", "web", "bus", "hr", "base_setup", "l10n_bg_live_refresh"],
     "excludes": ["mcp_terminal"],
     "external_dependencies": {"python": ["pyzipper"]},

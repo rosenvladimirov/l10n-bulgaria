@@ -278,10 +278,15 @@ class CfxIngestController(http.Controller):
         """
         Trac = env.get("europlacer.trac")
         if Trac is None:
+            # mrp_europlacer_trac го няма на този стек → все пак записваме
+            # cfx.machine.stat (generic), за да е ВИДИМ Europlacer в
+            # дашборда/RabbitMQ таба. Пълната trac материализация идва щом
+            # модулът се инсталира.
             _logger.info(
                 "cfx/ingest europlacer: mrp_europlacer_trac not installed "
-                "on this stack — skipping persist (proxy=%s)", proxy.name)
-            return {"persisted": False, "reason": "schema-absent"}
+                "(proxy=%s) — falling back to generic cfx.machine.stat",
+                proxy.name)
+            return self._write_generic_stat(env, proxy, event, "europlacer")
 
         Trac = Trac.sudo()
         Line = env["europlacer.trac.line"].sudo()

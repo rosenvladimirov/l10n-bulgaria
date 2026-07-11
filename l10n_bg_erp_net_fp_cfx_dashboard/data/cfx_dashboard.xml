@@ -22,4 +22,18 @@
         <field name="is_published">True</field>
     </record>
 
+    <!-- Отделен дашборд за инспекциите (AOI/SPI defects/units). o-spreadsheet
+         dashboard readonly НЕ показва sheet-табове, затова вторият лист е
+         самостоятелен dashboard запис вместо втори sheet. -->
+    <record id="spreadsheet_dashboard_cfx_inspection" model="spreadsheet.dashboard">
+        <field name="name">CFX Inspection Details</field>
+        <field name="spreadsheet_binary_data" type="base64"
+                file="l10n_bg_erp_net_fp_cfx_dashboard/data/files/cfx_inspection_dashboard.json"/>
+        <field name="main_data_model_ids"
+                eval="[(4, ref('l10n_bg_erp_net_fp_plugin_cfx.model_cfx_inspection_defect'))]"/>
+        <field name="dashboard_group_id" ref="spreadsheet_dashboard_group_cfx"/>
+        <field name="sequence">110</field>
+        <field name="is_published">True</field>
+    </record>
+
 </odoo>

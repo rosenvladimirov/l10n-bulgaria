@@ -1,5 +1,5 @@
 # Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
     "name": "Queue Poll (poll-until-condition via queue_job)",
     "version": "18.0.1.2.0",
@@ -27,7 +27,7 @@ this is shared infrastructure (first consumer: InfoPay payment status).
 """,
     "author": "Rosen Vladimirov",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "depends": ["queue_job", "l10n_bg_live_refresh"],
     "installable": True,
 }

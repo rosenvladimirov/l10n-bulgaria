@@ -28,8 +28,6 @@ All free and open-source. Production use does not require a paid license. Paid e
 - [`l10n_bg_tax_offices`](l10n_bg_tax_offices/) — NRA territorial directorate registry
 
 ### Accounting & Reports
-- [`l10n_bg_reports_audit`](l10n_bg_reports_audit/README.md) — SQL views + NRA tag framework (technical base)
-- [`l10n_bg_reports_config`](l10n_bg_reports_config/README.md) — configuration UI for accounting reports
 - [`l10n_bg_report_theme`](l10n_bg_report_theme/) — section-based professional report layout
 - [`l10n_bg_invoice_copy`](l10n_bg_invoice_copy/) — ОРИГИНАЛ/КОПИЕ watermark
 - [`l10n_bg_invoice_grif`](l10n_bg_invoice_grif/) — Гриф field on invoice reports
@@ -76,7 +74,6 @@ All free and open-source. Production use does not require a paid license. Paid e
 
 1. `l10n_bg_config`, `partner_multilang`, `l10n_bg_multilang`, `l10n_bg_address_extended`
 2. `l10n_bg_city`, `l10n_bg_tax_offices`
-3. `l10n_bg_report_theme`, `l10n_bg_reports_audit`, `l10n_bg_reports_config`
 4. `l10n_bg_bank_wallet`, `l10n_bg_account_statement_import_mt940`
 5. `l10n_bg_api_nra`, `l10n_bg_company_registry`, `l10n_bg_tariff_code`
 6. `l10n_bg_hr_holidays`, `l10n_bg_payroll_classifications`

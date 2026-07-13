@@ -1,6 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_nra_declaration_user,nra.declaration.user,model_nra_declaration,group_nra_user,1,1,1,0
-access_nra_declaration_manager,nra.declaration.manager,model_nra_declaration,group_nra_manager,1,1,1,1
-access_nra_credentials_wizard,nra.credentials.wizard,model_nra_credentials_wizard,group_nra_manager,1,1,1,1
-access_l10n_bg_nra_file_archive_user,l10n_bg.nra.file.archive.user,model_l10n_bg_nra_file_archive,group_nra_user,1,1,1,0
-access_l10n_bg_nra_file_archive_manager,l10n_bg.nra.file.archive.manager,model_l10n_bg_nra_file_archive,group_nra_manager,1,1,1,1

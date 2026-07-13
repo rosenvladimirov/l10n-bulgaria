@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_crypto_wallet_user,crypto.wallet.user,model_crypto_wallet,base.group_user,1,1,1,1
-access_crypto_wallet_add_key_wizard_user,crypto.wallet.add.key.wizard.user,model_crypto_wallet_add_key_wizard,base.group_user,1,1,1,1
-access_crypto_wallet_unlock_wizard_user,crypto.wallet.unlock.wizard.user,model_crypto_wallet_unlock_wizard,base.group_user,1,1,1,1
-access_crypto_wallet_change_password_wizard_user,crypto.wallet.change.password.wizard.user,model_crypto_wallet_change_password_wizard,base.group_user,1,1,1,1
-access_crypto_wallet_export_wizard_user,crypto.wallet.export.wizard.user,model_crypto_wallet_export_wizard,base.group_user,1,1,1,1
-access_crypto_wallet_import_wizard_user,crypto.wallet.import.wizard.user,model_crypto_wallet_import_wizard,base.group_user,1,1,1,1
-access_crypto_wallet_key_manager_user,crypto.wallet.key.manager.user,model_crypto_wallet_key_manager,base.group_user,1,1,1,1
-access_crypto_wallet_generate_keypair_wizard_user,crypto.wallet.generate.keypair.wizard.user,model_crypto_wallet_generate_keypair_wizard,base.group_user,1,1,1,1

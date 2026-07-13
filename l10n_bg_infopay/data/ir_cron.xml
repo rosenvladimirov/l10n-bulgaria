@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<odoo>
-    <!-- Cron jobs intentionally omitted.
-         Sync and pull are triggered from UI in a separate module. -->
-</odoo>

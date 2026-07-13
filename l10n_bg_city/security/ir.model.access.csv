@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_res_city_types_read,Read access on Types of settlement Units to everybody,model_res_city_types,,1,0,0,0
-access_res_city_types_read_write,Read access on Types of settlement Units to everybody,model_res_city_types,base.group_partner_manager,1,1,1,1

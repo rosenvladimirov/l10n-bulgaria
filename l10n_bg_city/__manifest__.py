@@ -1,12 +1,12 @@
 # Copyright 2023 Rosen Vladimirov
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
 {
     "name": "L10n Bg City",
     "summary": """
         This module adds to the database the nomenclature of localities from Bulgaria""",
-    "version": "16.0.1.0.0",
-    "license": "AGPL-3",
+    "version": "16.0.1.0.1",
+    "license": "LGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
     "depends": [
         "base_address_extended",

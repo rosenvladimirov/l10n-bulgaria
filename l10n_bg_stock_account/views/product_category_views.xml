@@ -10,7 +10,8 @@
         <field name="inherit_id" ref="stock_account.view_category_property_form_stock"/>
         <field name="arch" type="xml">
             <field name="property_valuation" position="after">
-                <field name="l10n_bg_stock_auto_post" string="BG Auto-post Accounting"/>
+                <field name="l10n_bg_stock_auto_post" string="BG Auto-post Accounting"
+                       groups="account.group_account_readonly"/>
             </field>
         </field>
     </record>
@@ -24,7 +25,8 @@
         <field name="inherit_id" ref="account.view_category_property_form"/>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='account_property']" position="inside">
-                <group name="l10n_bg_auto_post_accounts" string="BG Auto-post Accounts" invisible="not l10n_bg_stock_auto_post" col="2">
+                <group name="l10n_bg_auto_post_accounts" string="BG Auto-post Accounts" invisible="not l10n_bg_stock_auto_post" col="2"
+                       groups="account.group_account_readonly">
                     <!-- Stock journal за auto-post осчетоводяване -->
                     <field name="property_stock_journal"
                            string="Stock Journal"

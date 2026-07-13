@@ -1,5 +1,13 @@
 # Changelog
 
+## 19.0.1.5.0
+
+- Права фикс: полето „BG Auto-post Accounting" и групата „BG Auto-post Accounts"
+  на product.category вече са с `groups="account.group_account_readonly"` —
+  идентично с ограничението на стандартните „Account Properties". Преди се
+  виждаха на всеки (вкл. складови потребители без счетоводни права).
+  (Пренесено от feat/erpnet-split d65c632 при финализиране на split-а.)
+
 ## 19.0.1.4.0
 
 - Landed Costs for BG auto-post products (GAP 1 fix): core `stock_landed_costs`

@@ -4,7 +4,7 @@
 > municipalities, ~3000 city halls, 5000+ settlements — all carrying
 > their official ЕКАТТЕ codes.
 
-**Module:** `l10n_bg_city` | **Version:** 18.0.1.1.0 | **License:** AGPL-3 | **Category:** Localization
+**Module:** `l10n_bg_city` | **Version:** 18.0.1.1.1 | **License:** LGPL-3 | **Category:** Localization
 
 ## Overview
 
@@ -55,7 +55,7 @@ in both Bulgarian and English.
 
 Plus `res_city_types.xml` (taxonomy) and `res_country_data.xml`.
 
-## ЕКАТТЕ quarterly sync (since 18.0.1.1.0 — Phase 4.1)
+## ЕКАТТЕ quarterly sync (since 18.0.1.1.1 — Phase 4.1)
 
 `data/ir_cron_data.xml` ships an **inactive** quarterly cron driving
 the `l10n.bg.ekatte.sync` model. When enabled it:

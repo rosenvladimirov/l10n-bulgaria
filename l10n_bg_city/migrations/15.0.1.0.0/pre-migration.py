@@ -1,6 +1,6 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 # Copyright (C) 2022 NextERP Romania
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 import logging
 import sys
 

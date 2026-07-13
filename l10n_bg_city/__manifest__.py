@@ -1,13 +1,13 @@
 # Copyright 2023 Rosen Vladimirov
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
 {
     "name": "Bulgarian City's, villages and municipalities",
     "description": """
     This module adds the nomenclature of localities from Bulgaria
     """,
-    "version": "17.0.1.0.0",
-    "license": "AGPL-3",
+    "version": "17.0.1.0.1",
+    "license": "LGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-bulgaria",
     "depends": [

@@ -4,7 +4,7 @@
 > municipalities, ~3000 city halls, 5000+ settlements — all carrying
 > their official ЕКАТТЕ codes.
 
-**Module:** `l10n_bg_city` | **Version:** 18.0.1.1.0 | **License:** AGPL-3 | **Category:** Localization
+**Module:** `l10n_bg_city` | **Version:** 18.0.1.1.0 | **License:** LGPL-3 | **Category:** Localization
 
 ## Overview
 

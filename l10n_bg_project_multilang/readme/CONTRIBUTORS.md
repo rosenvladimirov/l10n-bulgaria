@@ -1,1 +1,0 @@
-- Rosen Vladimirov <rosenvladimirov@gmail.com> (https://github.com/rosenvladimirov)

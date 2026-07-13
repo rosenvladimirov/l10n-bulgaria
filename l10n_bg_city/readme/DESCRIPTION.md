@@ -1,1 +1,0 @@
-*l10n_bg_city* is a module for Odoo that provides preloaded data for cities and regions in Bulgaria. It automates and standardizes address entry by allowing selection from a list of accurate and up-to-date city and region names. This saves time, prevents errors, and ensures compliance with local requirements for documents, invoices, and reporting.

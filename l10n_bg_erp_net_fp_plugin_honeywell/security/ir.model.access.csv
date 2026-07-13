@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_honeywell_reader_user,honeywell.reader user,model_honeywell_reader,l10n_bg_erp_net_fp_fleet.group_fleet_user,1,0,0,0
-access_honeywell_reader_manager,honeywell.reader manager,model_honeywell_reader,l10n_bg_erp_net_fp_fleet.group_fleet_manager,1,1,1,1
-access_honeywell_reader_template_user,honeywell.reader.template user,model_honeywell_reader_template,l10n_bg_erp_net_fp_fleet.group_fleet_user,1,0,0,0
-access_honeywell_reader_template_manager,honeywell.reader.template manager,model_honeywell_reader_template,l10n_bg_erp_net_fp_fleet.group_fleet_manager,1,1,1,1

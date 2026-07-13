@@ -40,9 +40,6 @@
 ### Личен състав
 
 ### Фискални принтери
-- [`l10n_bg_erp_net_fp`](l10n_bg_erp_net_fp/) — ErpNet.FP интеграция
-- [`l10n_bg_erp_net_fp_fleet`](l10n_bg_erp_net_fp_fleet/) — централен fleet manager
-- [`l10n_bg_erp_net_fp_iot_oca`](l10n_bg_erp_net_fp_iot_oca/) — OCA iot_oca bridge
 
 ### AI / Pipeline
 - [`l10n_bg_ai_pipeline`](l10n_bg_ai_pipeline/) — pipeline стек със скилове (progressive disclosure)

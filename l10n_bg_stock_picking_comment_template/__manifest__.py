@@ -7,7 +7,7 @@
     "version": "19.0.1.0.0",
     "category": "Warehouse Management",
     "license": "AGPL-3",
-    "author": "Rosen Vladimirov, BL Consulting, "
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., "
               "Odoo Community Association (OCA)",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "maintainers": ["rosenvladimirov"],

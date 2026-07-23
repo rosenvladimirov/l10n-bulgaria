@@ -6,7 +6,7 @@
     "version": "19.0.1.0.0",
     "category": "Accounting/Localizations",
     "website": "https://github.com/nichat-bg/l10n-bulgaria",
-    "author": "Rosen Vladimirov, BL Consulting, Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "maintainers": ["rosen-vladimirov"],
     "license": "AGPL-3",
     "application": False,

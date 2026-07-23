@@ -19,7 +19,7 @@
         Works in combination with l10n_bg_stock_price_diff for price difference
         corrections between PO price and vendor invoice price.
     """,
-    'author': 'BLC',
+    'author': 'Rosen Vladimirov, Terraros Commerce Ltd.',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
     'license': 'LGPL-3',
     'depends': [

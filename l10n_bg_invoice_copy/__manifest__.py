@@ -3,6 +3,7 @@
 
 {
     'name': 'Bulgarian Invoice Copy',
+    'author': 'Rosen Vladimirov, Terraros Commerce Ltd.',
     'version': '19.0.1.0.0',
     'category': 'Accounting/Localizations',
     'summary': 'Add COPY watermark to Bulgarian invoice reports',

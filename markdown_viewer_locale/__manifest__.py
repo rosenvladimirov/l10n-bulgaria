@@ -4,7 +4,7 @@
     "license": "LGPL-3",
     "category": "Tools",
     "summary": "View localized Markdown files based on user language",
-    "author": "Your Company Name",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd.",
     "depends": ["web"],
     "data": [],
     "assets": {

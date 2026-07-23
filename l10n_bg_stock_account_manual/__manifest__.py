@@ -23,7 +23,7 @@ and is available in Bulgarian and English.
     "category": "Accounting/Localizations",
     "development_status": "Beta",
     "license": "LGPL-3",
-    'author': 'BLC, Rosen Vladimirov',
+    'author': 'Rosen Vladimirov, Terraros Commerce Ltd.',
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     'depends': [
         'l10n_bg_stock_account',

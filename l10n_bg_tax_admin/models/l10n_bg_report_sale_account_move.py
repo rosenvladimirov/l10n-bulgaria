@@ -26,9 +26,9 @@ class AccountMoveBgReportSale(models.Model):
         index=True,
     )
     date_creation = fields.Date(
-        "Created Date", required=True, default=fields.Date.today()
+        "Created Date", required=True, default=fields.Date.today
     )
-    report_date = fields.Date("Protocol date", copy=False, default=fields.Date.today())
+    report_date = fields.Date("Protocol date", copy=False, default=fields.Date.today)
     report_name = fields.Char(
         string="Report Number",
         compute="_compute_report_name",

@@ -46,6 +46,15 @@ def migrate_account_account_tag(env):
 
 
 def pre_init_hook(cr):
+    # Ensure l10n_bg_odoo_compatible column exists before ORM loads the model.
+    # This is only needed for upgrades from versions that did not have this field.
+    cr.execute("SELECT column_name FROM information_schema.columns "
+               "WHERE table_name = 'res_company' AND column_name = 'l10n_bg_odoo_compatible'")
+    if not cr.fetchone():
+        cr.execute('ALTER TABLE res_company '
+                   'ADD COLUMN l10n_bg_odoo_compatible boolean;')
+        cr.execute("UPDATE res_company SET l10n_bg_odoo_compatible = True;")
+
     env = api.Environment(cr, SUPERUSER_ID, {})
     modules = env["ir.module.module"].search([("state", "=", "installed")])
     for lang in ["base.lang_bg", "base.lang_en"]:

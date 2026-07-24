@@ -17,7 +17,7 @@ class AccountMove(models.Model):
     # ---------------
 
     l10n_bg_protocol_date = fields.Date(
-        "Technical Protocol date", copy=False, default=fields.Date.today()
+        "Technical Protocol date", copy=False, default=fields.Date.today
     )
     l10n_bg_protocol_invoice_id = fields.Many2one(
         "account.move.bg.protocol",
@@ -31,7 +31,7 @@ class AccountMove(models.Model):
     # ---------------
 
     l10n_bg_report_sale_date = fields.Date(
-        "Technical Report sale date", copy=False, default=fields.Date.today()
+        "Technical Report sale date", copy=False, default=fields.Date.today
     )
     l10n_bg_report_sale_id = fields.Many2one(
         "account.move.bg.protocol",
@@ -46,7 +46,7 @@ class AccountMove(models.Model):
     l10n_bg_private_vat_date = fields.Date(
         "Technical Self signed private VAT date",
         copy=False,
-        default=fields.Date.today(),
+        default=fields.Date.today,
     )
     l10n_bg_private_vat_id = fields.Many2one(
         "account.move.bg.protocol",
@@ -443,17 +443,18 @@ class AccountMove(models.Model):
                         ("id", "=", line.l10n_bg_report_sale_id.id),
                     ]
                 ).unlink()
-        super().button_draft()
+        return super().button_draft()
 
     def button_cancel(self):
         for line in self.filtered(lambda r: r.state != "posted"):
-            if self.l10n_bg_customs_invoice_id:
+            if line.l10n_bg_customs_invoice_id:
                 self.env["account.move"].search(
                     [
                         ("id", "=", line.l10n_bg_customs_invoice_id.id),
                         ("move_type", "=", "entry"),
                     ]
                 ).unlink()
+        return super().button_cancel()
 
     @api.model
     def _name_search(

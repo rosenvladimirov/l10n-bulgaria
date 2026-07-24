@@ -25,9 +25,9 @@ class AccountMoveBgCustoms(models.Model):
         index=True,
     )
     date_creation = fields.Date(
-        "Created Date", required=True, default=fields.Date.today()
+        "Created Date", required=True, default=fields.Date.today
     )
-    customs_date = fields.Date("Date", copy=False, default=fields.Date.today())
+    customs_date = fields.Date("Date", copy=False, default=fields.Date.today)
     customs_name = fields.Char(
         string="Customs Number",
         copy=False,

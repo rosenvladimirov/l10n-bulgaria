@@ -9,7 +9,7 @@
 
 **Community Bulgarian localization for Odoo 19.0 — the accounting, documents, payments, HR-data, waste-management and platform layer that Odoo's official `l10n_bg` modules leave out.**
 
-Odoo's official Bulgarian localization ships **4 modules**. This repository adds **36 installable community modules** on top of them, covering areas the standard localization does not touch: chart-of-accounts configuration by economic sector (КИД), legal invoice layouts, periodic/manual inventory-cost accounting, MT940 bank-statement import, card payments, multilingual documents with transliteration, statutory waste-management reporting, and the platform tooling the rest of the stack builds on. It is maintained by the maintainer of the [OCA/l10n-bulgaria](https://github.com/OCA/l10n-bulgaria) project.
+Odoo's official Bulgarian localization ships **4 modules**. This repository adds **35 installable community modules** on top of them, covering areas the standard localization does not touch: chart-of-accounts configuration by economic sector (КИД), legal invoice layouts, periodic/manual inventory-cost accounting, MT940 bank-statement import, card payments, multilingual documents with transliteration, statutory waste-management reporting, and the platform tooling the rest of the stack builds on. It is maintained by the maintainer of the [OCA/l10n-bulgaria](https://github.com/OCA/l10n-bulgaria) project.
 
 This repository is the **open-source community layer**. The regulatory reporting core — payroll, declarations to the National Revenue Agency (НАП) and the National Social Security Institute (НОИ), SAF-T, annual financial statements (ГФО) and Intrastat — is delivered as a separately licensed commercial extension (see [Commercial extension](#commercial-extension)).
 
@@ -113,7 +113,6 @@ All modules below are installable on the `19.0` branch. Each module declares its
 | `l10n_bg_ai_accounting_glue` | 19.0.1.0.0 | Bulgarian accounting / MRP AI skills (knowledge-only) for the pipeline — **OPL-1** |
 | `l10n_bg_discuss_proxy` | 19.0.1.3.0 | Publish internal Discuss messages to a Centrifugo proxy for external listeners |
 | `l10n_bg_telegram_agent` | 19.0.2.0.0 | Bridge Telegram chats into Odoo Discuss (Centrifugo consumer + AI responder) |
-| `mrp_shopfloor_cfx_live` | 19.0.1.0.0 | Real-time CFX-IPC machine progress injected into the Enterprise Shop Floor |
 
 ## Installation
 

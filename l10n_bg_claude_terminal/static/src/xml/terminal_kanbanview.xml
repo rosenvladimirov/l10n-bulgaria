@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+<!-- AI button next to New in kanban view -->
+<t t-inherit="web.KanbanView.Buttons" t-inherit-mode="extension">
+    <xpath expr="//button[hasclass('o-kanban-button-new')]" position="after">
+        <button type="button"
+                class="btn btn-secondary"
+                t-on-click="openClaudeTerminal">
+            AI
+        </button>
+    </xpath>
+</t>
+
+</templates>

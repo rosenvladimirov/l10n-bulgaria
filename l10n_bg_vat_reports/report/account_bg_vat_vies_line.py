@@ -1,0 +1,124 @@
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+import logging
+
+from psycopg2 import sql
+
+from odoo import api, fields, models, tools
+from odoo.addons.l10n_bg_vat_reports.report.l10n_bg_file_helper import (
+    l10n_bg_where,
+    l10n_bg_get_tag_negate_sql,
+)
+
+_logger = logging.getLogger(__name__)
+
+
+class AccountBGCalcViesLine(models.Model):
+    _name = "account.bg.calc.vies.line"
+    _description = "VIES line for Analysis in Bulgarian Localization"
+    _auto = False
+    _order = "company_id asc"
+
+    company_id = fields.Many2one("res.company", "Company", readonly=True)
+    company_currency_id = fields.Many2one(
+        related="company_id.currency_id", readonly=True
+    )
+    partner_id = fields.Many2one("res.partner", string="Partner", readonly=True)
+    state = fields.Selection(
+        [
+            ("draft", "Draft"),
+            ("posted", "Posted"),
+            ("cancel", "Cancelled"),
+        ],
+        string="Status",
+        readonly=True,
+    )
+
+    info_tag_vir_1 = fields.Char("[VDR-1] Main Record Section Code", readonly=True)
+    info_tag_vir_2 = fields.Integer(string="[k1] Row number", readonly=True)
+    info_tag_vir_3 = fields.Char(
+        "[k2] VAT ID of recipient/acquirer (incl. country code)",
+        readonly=True,
+    )
+    info_tag_vir_7 = fields.Char(
+        string="[k6] Tax period when tax became due (MM/YYYY) - only if different from the declaration period",
+        readonly=True,
+    )
+    account_tag_vir_4 = fields.Monetary(
+        string="[k3] Tax base of intra-Community supplies of goods (BGN)",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_vir_5 = fields.Monetary(
+        string="[k4] Tax base of supplies of goods as an intermediary in a triangular transaction (BGN)",
+        currency_field="company_currency_id",
+        readonly=True,
+    )
+    account_tag_vir_6 = fields.Monetary(
+        readonly=True,
+        string="[k5] Tax base of supplies of services under Art. 21(2) VAT Act with place of supply in another Member State (BGN)",
+        currency_field="company_currency_id",
+    )
+
+    def init(self):
+        tools.drop_view_if_exists(self.env.cr, self._table)
+        self.env.cr.execute(
+            sql.SQL(
+                f"""CREATE or REPLACE VIEW
+{self._table} as ({self._table_query})"""
+            )
+        )
+
+    @property
+    def _table_query(self):
+        return f"""SELECT {self._select()}
+    FROM {self._from()}
+    {self._where() and 'WHERE ' + self._where() or ''}
+    {self._group() and 'GROUP BY ' + self._group() or ''}"""
+
+    @api.model
+    def _select(self):
+        return """am.company_id AS company_id,
+    'VDR' AS info_tag_vir_1,
+    ROW_NUMBER() OVER (PARTITION BY am.company_id ORDER BY am.partner_shipping_id, am.date, am.state) AS info_tag_vir_2,
+    MAX(COALESCE(partner.vat, partner.l10n_bg_uic)) AS info_tag_vir_3,
+    to_char(am.date, 'YYYYMM') AS info_tag_vir_7,
+    am.partner_shipping_id AS partner_id,
+    am.state AS state,
+    COALESCE(SUM(CASE WHEN am.state = 'cancel' THEN 0.00 WHEN aat.tag_name = 15 AND aat.l10n_bg_applicability = 'sale' THEN aml.balance * (CASE WHEN aat.negate = true THEN -1.0 ELSE 1.0 END) ELSE 0.00 END), 0.00) AS account_tag_vir_4,
+    COALESCE(SUM(CASE WHEN am.state = 'cancel' THEN 0.00 WHEN aat.tag_name = 25 AND aat.l10n_bg_applicability = 'sale' THEN aml.balance * (CASE WHEN aat.negate = true THEN -1.0 ELSE 1.0 END) ELSE 0.00 END), 0.00) AS account_tag_vir_5,
+    COALESCE(SUM(CASE WHEN am.state = 'cancel' THEN 0.00 WHEN aat.tag_name = 17 AND aat.l10n_bg_applicability = 'sale' THEN aml.balance * (CASE WHEN aat.negate = true THEN -1.0 ELSE 1.0 END) ELSE 0.00 END), 0.00) AS account_tag_vir_6"""
+
+    @api.model
+    def _from(self):
+        tax_negate = l10n_bg_get_tag_negate_sql(table_alias="account_account_tag")
+        return f"""account_move_line AS aml
+    LEFT JOIN account_move AS am
+        ON aml.move_id = am.id
+    LEFT JOIN account_account_tag_account_move_line_rel AS tag_line_rel
+        ON tag_line_rel.account_move_line_id = aml.id
+    LEFT JOIN (SELECT id,
+                    NULLIF(REGEXP_REPLACE(account_account_tag.name#>>'{{en_US}}', '\\D','','g'), '')::numeric AS tag_name,
+                    {tax_negate},
+                    l10n_bg_applicability
+                    FROM account_account_tag
+                    WHERE applicability = 'taxes') AS aat
+        ON aat.id = tag_line_rel.account_account_tag_id
+    LEFT JOIN (SELECT imd.id, imd.res_id, imd.model, imd.module, imd.name
+                    FROM ir_model_data AS imd
+                    WHERE imd.module = 'l10n_bg' AND imd.model = 'account.account.tag') AS imd_tag_tax
+        ON imd_tag_tax.res_id = aat.id
+    LEFT JOIN res_partner AS partner
+        ON am.partner_shipping_id = partner.id"""
+
+    @api.model
+    def _group(self):
+        return """am.company_id, am.partner_shipping_id, am.state, am.date"""
+
+    @api.model
+    def _where(self):
+        if self._context.get("report_options"):
+            date_from, date_to, tax_period, tax_periods, company_id, state = l10n_bg_where(
+                self.env, self._context.get("report_options"), return_tax_periods=True
+            )
+            return f"""am.company_id = {company_id} AND am.state = ANY(ARRAY{state}) AND aat.l10n_bg_applicability = 'sale' AND aat.tag_name = ANY(ARRAY[15, 25, 17]) AND aml.balance != 0 AND am.date >= '{date_from}' AND am.date <= '{date_to}'"""
+        return """aat.l10n_bg_applicability = 'sale' AND aat.tag_name = ANY(ARRAY[15,25,17]) AND aml.balance != 0"""

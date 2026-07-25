@@ -1,0 +1,888 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_config
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-29 04:46+0000\n"
+"PO-Revision-Date: 2024-08-29 09:04+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\" role=\"img\" aria-label=\"Values set here are company-specific."
+"\" groups=\"base.group_multi_company\"/>"
+msgstr ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Стойностите, зададени тук, са "
+"специфични за компанията.\" role=\"img\" aria-label=\"Стойностите, зададени "
+"тук, са специфични за компанията.\" groups=\"base.group_multi_company\"/>"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"<span class=\"o_form_label\">Configure odoo tax report compatible:</span>"
+msgstr ""
+"<span class=\"o_form_label\">Използвай модела на odoo справката за ДДС:</"
+"span>"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"<span class=\"o_form_label\">Post Exchange difference entries in:</span>"
+msgstr "<span class=\"o_form_label\">Въведи сметка за валутни разлики:</span>"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"<span class=\"o_form_label\">The following default accounts are used with "
+"certain features.</span>"
+msgstr ""
+"<span class=\"o_form_label\">Следните сметки по подразбиране се използват с "
+"определени функции.</span>"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_account_account_tag__l10n_bg_code
+msgid "A technical field for tag code"
+msgstr "Техническо поле за код на етикета"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_account_account_tag
+msgid "Account Tag"
+msgstr "Етикет за сметка"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_account_financial_forms
+msgid "Account financial report base on tax administration forms for audit"
+msgstr "Справки за НАП"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Account financial report base on tax administration forms for audit."
+msgstr "Справки за НАП."
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Account financial reports for audit."
+msgstr "Справки за счетоводството."
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Accounting and Localizations"
+msgstr "Българско счетоводство"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_type_vat__standard
+#, python-format
+msgid "Accounting document"
+msgstr "Първичен счетоводен документ"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_assets
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Add rules for tax desperation base Bulgarian law"
+msgstr "Добави категория за амортизация съгласно ЗКПО"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_address_extended
+msgid "Additional data in address"
+msgstr "Допълнителни данни в адреса"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_address_extended
+msgid "Additional data in address like "
+msgstr "Допълнителни данни в адреса например "
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"Address and department of NRA Bulgaria added like partners\n"
+"                                        to use when make a payment ot taxes."
+msgstr ""
+"Адрсите на офисите и региналните представителсва на НАП като контрагенти\n"
+"                                        за да могат да се използват в "
+"начисляването и погасяването на задължения."
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_tax_offices
+msgid ""
+"Address and department of NRA Bulgaria added like partners to use when make "
+"a payment ot taxes."
+msgstr ""
+"Адресите на НАП добавени като контрагенти за да се използват при плащане на "
+"данъци."
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_delivery_type__51
+#, python-format
+msgid ""
+"Arrival of goods on the territory of the country under the regime of storage "
+"of goods until demand under Art. 15a of VAT"
+msgstr ""
+"Пристигане на стоки на територията на страната при режим складиране на "
+"стоките до поискване по чл. 15а от ЗДДС"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_type_vat__117_protocol
+#, python-format
+msgid "Art. 117 - Protocols"
+msgstr "Чл. 117 - Протокол"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_type_vat__119_report
+#, python-format
+msgid "Art. 119 - Report for sales"
+msgstr "Чл. 119 - Обобщена справка на продажбите"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/res_partner.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_egn
+#, python-format
+msgid "BG Identification number"
+msgstr "ЕИК"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/res_partner.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_non_eu
+#, python-format
+msgid "BG Non EU Tax administration number"
+msgstr "Идентификационен номер на лицата извън ЕС"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/res_partner.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_onnra
+#, python-format
+msgid "BG Official number from the National Revenue Agency"
+msgstr "Служебен номер от НАП"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/res_partner.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_pnf
+#, python-format
+msgid "BG Personal number of a foreigner"
+msgstr "Личен номер на чужденец"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/res_partner.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_uic
+#, python-format
+msgid "BG Unified identification number (BULSTAT)"
+msgstr "ЕИК (БУЛСТАТ)"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/res_partner.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__bg_crauid
+#, python-format
+msgid "BG Unique identification code under the CRA"
+msgstr "BG Уникален идентификационен код по ЗТР"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Base module for generate Bulgaria localizations."
+msgstr "Основен модул за управление на Българско счетоводство."
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Bulgaria"
+msgstr "България"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_vat_reports
+msgid "Bulgaria - Accounting VAT reports"
+msgstr "България - Справка-декларация за ДДС"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_tax_admin
+msgid "Bulgaria - Accounting tax"
+msgstr "България - данъци"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_coa_reports
+msgid "Bulgaria - Accounting tax reports"
+msgstr "България - счетоводни справки"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_assets
+msgid "Bulgaria - Assets"
+msgstr "България - ДМА"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_intrastat
+msgid "Bulgaria - Intrastat"
+msgstr "България - ИНТРАСТАТ"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_intrastat_product
+msgid "Bulgaria - Intrastat Product Declaration"
+msgstr "България - ИНТРАСТАТ декларация"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Bulgaria-Generates Intrastat XML report for declaration"
+msgstr "България-базова ИНТРАСТАТ xml справка за НАП"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_move_form
+msgid "Bulgarian VAT"
+msgstr "България - ДДС"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_uic_id_number
+msgid "Bulgarian multi register codes"
+msgstr "България - използване на множество идентификационни номера"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_uic_id_number
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Bulgarian registration codes base on OCA module partner_identification"
+msgstr ""
+"България - използване на множество идентификационни номера базирано на OCA "
+"модул partner_identification"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_currency_rate_update_bg_bnb
+msgid "Central currency rates downloaded from National Bank of Bulgaria"
+msgstr "Валутни курсове свалени от БНБ"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_multilang
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Change to multilingual support for fields without native configurations"
+msgstr "Премини към милти езичност на полетата без такава поддръжка"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_company__l10n_bg_uic_type
+#: model:ir.model.fields,help:l10n_bg_config.field_res_partner__l10n_bg_uic_type
+#: model:ir.model.fields,help:l10n_bg_config.field_res_users__l10n_bg_uic_type
+msgid "Choice type of Bulgaria UID."
+msgstr "Избери типа на българския идентификационен номер."
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_account_tag__l10n_bg_code
+msgid "Code"
+msgstr "Код"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_res_company
+msgid "Companies"
+msgstr "Фирми"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/res_partner.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_function__agent
+#, python-format
+msgid "Company agent"
+msgstr "Представител на фирма"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/res_partner.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_function__represent
+#, python-format
+msgid "Company represent/manager"
+msgstr "Представляващ/управител на фирма"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Complete also additional information in extended address for partners."
+msgstr ""
+"Завърши също и допълнителните данни в разширените адреси на контрагентите."
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_res_config_settings
+msgid "Config Settings"
+msgstr "Настройка"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_res_partner
+msgid "Contact"
+msgstr "Лице за контакт"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_res_country
+msgid "Country"
+msgstr "Страна"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__03
+#, python-format
+msgid "Credit note"
+msgstr "Кредитно известие"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__23
+#, python-format
+msgid "Credit note art. 126b"
+msgstr "Кредитно извести съгласно чл. 126б"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__13
+#, python-format
+msgid "Credit notice - cash statement"
+msgstr "Кредитно известие - касово извлечение"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__07
+#, python-format
+msgid "Customs declarations"
+msgstr "Митническа декларация"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__02
+#, python-format
+msgid "Debit note"
+msgstr "Дебитно известие"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__12
+#, python-format
+msgid "Debit notice - cash reporting"
+msgstr "Дебитно известие - касово извлечение"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_account_tag.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_account_tag__l10n_bg_applicability__declaration
+#, python-format
+msgid "Declaration"
+msgstr "Декларация"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Default Accounts"
+msgstr "Сметка по подразбиране"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_delivery_type__01
+#, python-format
+msgid "Delivery under Part I of Annex 2 of VAT"
+msgstr "Доставка по Част I от Приложение 2 от ЗДДС"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_delivery_type__02
+#, python-format
+msgid "Delivery under Part II of Annex 2 of VAT"
+msgstr "Доставка по част II от Приложение 2 от ЗДДС"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_departament_code
+msgid "Departament code"
+msgstr "Код на подразделението"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_account_tag__description
+msgid "Description"
+msgstr "Описание"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_country__title_format
+msgid ""
+"Display format to use for partner belonging to this country.\n"
+"\n"
+"You can use python-style string pattern with all the fields of the title "
+"(for example, use '%(title)s' to display the field 'title') plus\n"
+"%(partner)s: use the partner name\n"
+"%(academic_title_display)s: the code of the academic_title_display"
+msgstr ""
+"Формат на показване, който да се използва за партньор, принадлежащ към тази "
+"държава.\n"
+"\n"
+"Можете да използвате модел на низ в стил Python с всички полета на "
+"заглавието (например използвайте '%(title)s' за показване на полето 'title') "
+"плюс\n"
+"%(partner)s: използвайте името за контрагента\n"
+"%(academic_title_display)s: кодът на academic_title_display"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_currency_rate_update_bg_bnb
+msgid "Download currency rates from Bulgaria National Bank"
+msgstr "Свали валутни курсове от БНБ"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_type_vat__dropship
+#, python-format
+msgid "Dropship/Try party deal"
+msgstr "Директна доставка/Тристранна сделка"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/res_partner.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__res_partner__l10n_bg_uic_type__eu_vat
+#, python-format
+msgid "EU Tax administration number"
+msgstr "ДДС номер в ЕС"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_type_vat__out_customs
+#, python-format
+msgid "Export Customs declaration"
+msgstr "Митническа декларация за износ"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_function
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_function
+msgid "Function fo NRA"
+msgstr "Начин на представителство пред НАП"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Generate VAT declaration and export in csv file."
+msgstr "Създай ДДС СПРАВКА-Декларация и я запиши в csv формат."
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_intrastat
+msgid "Generate XML files for Bulgaria intrastat"
+msgstr "Създай XML файлове за ИНТРАСТАТ за деклариране в България"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "INTRASTAT Settings"
+msgstr "Настройки на ИНТРАСТАТ"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_type_vat__in_customs
+#, python-format
+msgid "Import Customs declaration"
+msgstr "Митническа декларация за внос"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_delivery_type__03
+#, python-format
+msgid "Import under Annex 3 of VAT"
+msgstr "Внос по глава III от ЗДДС"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Install BNB update rates"
+msgstr "Инсталирай автоматично актуализиране на валутни курсове от БНБ"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__01
+#, python-format
+msgid "Invoice"
+msgstr "Фактура"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__11
+#, python-format
+msgid "Invoice - cash reporting"
+msgstr "Опростена фактура - касов бон"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__is_l10n_bg_record
+msgid "Is L10N Bg Record"
+msgstr "Това е поле използващо l10n_bg"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Journal"
+msgstr "Дневник"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_account_move
+msgid "Journal Entry"
+msgstr "Счетоводен запис"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_country__title_format
+msgid "Layout in Name views"
+msgstr "Оформление в изгледи с имена"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_delivery_type__54
+#, python-format
+msgid "Marriage/absence/destruction of goods under Art. 15a, para. 10 of VAT"
+msgstr "Брак/липса/унищожаване на вещи по чл. 15а, ал. 10 от ЗДДС"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_tax_offices
+msgid "NRA Bulgaria, tax offices and departments"
+msgstr "НАП България, офиси и представителства"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__l10n_bg_narration
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__l10n_bg_narration
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_payment__l10n_bg_narration
+msgid "Narration for audit report"
+msgstr "Описани на сделка в справките за НАП"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__l10n_bg_name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__l10n_bg_name
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_payment__l10n_bg_name
+msgid "Number of locale document"
+msgstr "Номер на текущия документ"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_partner_multilang
+msgid "Partner transliterate names"
+msgstr "Транслитерирани имена на контрагентите"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Partners and Addresses"
+msgstr "Контрагенти и адреси"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__95
+#, python-format
+msgid "Protocol for free provision of foodstuffs"
+msgstr "Протокол за безплатно предоставяне на хранителни стоки"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__29
+#, python-format
+msgid "Protocol under Art. 126b"
+msgstr "Протокол по чл. 126б"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__91
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__93
+#, python-format
+msgid "Protocol under Art. 151c"
+msgstr "Протокол по чл. 151в"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__94
+#, python-format
+msgid "Protocol under Art. 151c, para. 7"
+msgstr "Протокол по чл.151в, ал. 7"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__92
+#, python-format
+msgid "Protocol under Art. 151g"
+msgstr "Протокол по чл. 151гр"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__50
+#, python-format
+msgid "Protocols fuel supplies"
+msgstr "Протоколи за доставки на гориво"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__09
+#, python-format
+msgid "Protocols or other"
+msgstr "Протоколи или други"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_intrastat_product
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Provide Intrastat Product Declaration."
+msgstr "Предоставете Интрастат продуктова декларация."
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_coa_reports
+msgid "Provide all COA reports for Bulgarian."
+msgstr "Предоставяне на всички отчети на ГФО за български език."
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_vat_reports
+msgid "Provide all VAT reports for Bulgarian - NRA."
+msgstr "Предоставяне на всички ДДС справки за България - НАП."
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_tax_admin
+msgid ""
+"Provide all needed functionality for Bulgarian.\n"
+"Accounting and law documents."
+msgstr ""
+"Осигурява цялата необходима функционалност на български език.\n"
+"Счетоводни документи съгласно закондателството."
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_account_tag.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_account_tag__l10n_bg_applicability__purchase
+#, python-format
+msgid "Purchase report"
+msgstr "Дневник на покупките"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_delivery_type__53
+#, python-format
+msgid ""
+"Replacement of the person for whom the goods were intended without "
+"termination of the contract under Art. 15a, para. 4 of VAT"
+msgstr ""
+"Замяна на лицето, за което е била предназначена стоката, без прекратяване на "
+"договора по чл. 15а, ал. 4 от ЗДДС"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_account_tag.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_account_tag__l10n_bg_applicability__sale
+#, python-format
+msgid "Sale report"
+msgstr "Дневник на продажбите"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__84
+#, python-format
+msgid "Sales of flour"
+msgstr "Продажба на брашно"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__81
+#, python-format
+msgid "Sales report - tickets"
+msgstr "Отчет за продажби - касов бон"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"Set up a functionality to use transliterate names of partners,\n"
+"                                        company, city, street ..."
+msgstr ""
+"Настройте функционалност за използване на транслитерирани имена на "
+"партньори,\n"
+"                                        фирми, градове, улици ..."
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__82
+#, python-format
+msgid "Special tax order"
+msgstr "Специален данъчен документ"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__05
+#, python-format
+msgid "Storeable goods receive from EU"
+msgstr "Стоките за съхранение се получават от ЕС"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__04
+#, python-format
+msgid "Storeable goods sent to EU"
+msgstr "Стоки за съхранение, изпратени до ЕС"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_delivery_type__07
+#, python-format
+msgid "Supply, import or IC acquisition of bread"
+msgstr "Доставка, внос или IC придобиване на хляб"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_delivery_type__08
+#, python-format
+msgid "Supply, import or IC acquisition of flour"
+msgstr "Доставка, внос или IC придобиване на брашно"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_multilang
+msgid "Switch on multilanguage support"
+msgstr "Включете многоезичната поддръжка"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_account_financial_forms
+msgid "TAX Audit forms"
+msgstr "ДДС форми за справки"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_odoo_compatible
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__l10n_bg_odoo_compatible
+msgid "TAX Odoo Compatible"
+msgstr "ДДС Odoo съвместимо"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_tax_contact_id
+msgid "TAX Report creator"
+msgstr "ДДС съставител на справката"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_delivery_type__58
+#, python-format
+msgid ""
+"Termination of the contract under the mode of storage of goods until "
+"requested under Art. 15a of VAT"
+msgstr ""
+"Прекратяване на договора при режим складиране на стоката до поискване по чл. "
+"15а от ЗДДС"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_partner_multilang
+msgid "Transliterate partner, city, street names ISO9 and other"
+msgstr "Транслитерация на партньор, град, имена на улици ISO9 и други"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_uic_type
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_uic_type
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_uic_type
+msgid "Type of Bulgaria UID"
+msgstr "Вид на български идентификационен номер"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__l10n_bg_type_vat
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__l10n_bg_type_vat
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_payment__l10n_bg_type_vat
+msgid "Type of numbering"
+msgstr "Начин на номериране"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_company__l10n_bg_uic
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_partner__l10n_bg_uic
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_users__l10n_bg_uic
+msgid "Unique identification code"
+msgstr "Единен идентификационен код"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_company__l10n_bg_uic
+#: model:ir.model.fields,help:l10n_bg_config.field_res_partner__l10n_bg_uic
+#: model:ir.model.fields,help:l10n_bg_config.field_res_users__l10n_bg_uic
+msgid ""
+"Unique identification code for the Bulgaria received from trade registry"
+msgstr ""
+"Единен идентификационен код за България получен от Агенцията по вписванията"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"Upload Bulgaria cites, municipalities, states,\n"
+"                                        villages and manastiries, so you can "
+"select them more easily."
+msgstr ""
+"Качи българските градове, общини, области,\n"
+"                                        села и манастири, за да можете да ги "
+"изберете по-лесно."
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_res_config_settings__module_l10n_bg_city
+msgid "Upload Bulgaria city"
+msgstr "Качи българските градове"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_res_config_settings__module_l10n_bg_city
+msgid "Upload cites, municipalities, states, villages and manastiries"
+msgstr "Качи градове, общини, области, села и манастири"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_account_tag__l10n_bg_applicability
+msgid "Use for"
+msgstr "Използва се за"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_account_tag.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_account_tag__l10n_bg_applicability__vies
+#, python-format
+msgid "VIES Report"
+msgstr "ВИЕС Справка"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__l10n_bg_delivery_type
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__l10n_bg_delivery_type
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_payment__l10n_bg_delivery_type
+msgid "Vat type delivery"
+msgstr "Тип на ДДС за доставка"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_bank_statement_line__l10n_bg_doc_type
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__l10n_bg_doc_type
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_payment__l10n_bg_doc_type
+msgid "Vat type document"
+msgstr "Тип на документа според ЗДДС"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid ""
+"Will update daily from cron only if is checked Automatic Currency Rates "
+"(OCA) and you added a rate_provider"
+msgstr ""
+"Ще се актуализира ежедневно от cron само ако е отметнато Автоматични валутни "
+"курсове (OCA) и сте добавили rate_provider"
+
+#. module: l10n_bg_config
+#. odoo-python
+#: code:addons/l10n_bg_config/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_bg_config.selection__account_move__l10n_bg_doc_type__83
+#, python-format
+msgid "sales of bread"
+msgstr "продажба на хляб"

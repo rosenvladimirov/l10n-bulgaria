@@ -1,30 +1,81 @@
-#  -*- coding: utf-8 -*-
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
+import logging
 
-from odoo import api, fields, models, _
+from odoo import fields, models
+
+from odoo.addons.l10n_bg_config.models.account_move import get_doc_type, get_type_vat
+
+from odoo.addons.l10n_bg_fix.models.chart_template import get_invoice_type
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountFiscalPosition(models.Model):
-    _inherit = 'account.fiscal.position'
+    _inherit = "account.fiscal.position"
 
-    purchase_type_vat = fields.Selection(selection=lambda self: self.env['account.move']._get_type_vat(),
-                                         string="Type of numbering",
-                                         default='standard')
-    sale_type_vat = fields.Selection(selection=lambda self: self.env['account.move']._get_type_vat(),
-                                     string="Type of numbering",
-                                     default='standard')
+    type_ids = fields.One2many(
+        "account.fiscal.position.type", "position_id", string="Type Mapping", copy=True
+    )
 
-    purchase_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_type_vat(),
-                                         string="Vat type doc for purchase")
-    sale_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_type_vat(),
-                                     string="Vat type doc for sale")
+    def _map_type_domain(self, invoice_id):
+        move_type = invoice_id and invoice_id.move_type or False
+        if invoice_id.debit_origin_id:
+            if invoice_id.is_sale_document:
+                move_type = "in_debit_note"
+            elif invoice_id.is_purchase_document:
+                move_type = "out_debit_note"
+        return [
+            ("position_id", "=", self.id),
+            ("invoice_type", "=", move_type),
+            # ('l10n_bg_type_vat', '=', invoice_id.l10n_bg_type_vat)
+        ]
 
-    purchase_refund_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_type_vat(),
-                                                string="Vat type doc for purchase refund")
-    sale_refund_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_type_vat(),
-                                            string="Vat type doc for sale refund")
+    def map_type(self, invoice_id):
+        # _logger.info(f"invoice id: {invoice_id}")
+        if not invoice_id:
+            return False
+        return self.env["account.fiscal.position.type"].search(
+            self._map_type_domain(invoice_id)
+        )
 
-    purchase_dn_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_type_vat(),
-                                            string="Vat type doc for purchase debit note")
-    sale_dn_doc_type = fields.Selection(selection=lambda self: self.env['account.move']._get_type_vat(),
-                                        string="Vat type doc for sale debit note")
+
+class AccountFiscalPositionType(models.Model):
+    _name = "account.fiscal.position.type"
+    _description = "Accounts Mapping of Fiscal Position"
+    _rec_name = "position_id"
+    _check_company_auto = True
+
+    position_id = fields.Many2one(
+        "account.fiscal.position",
+        string="Fiscal Position",
+        required=True,
+        ondelete="cascade",
+    )
+    position_dest_id = fields.Many2one(
+        "account.fiscal.position", string="Replacement fiscal position"
+    )
+    invoice_type = fields.Selection(
+        selection=get_invoice_type(), string="Invoice type", index=True, copy=False
+    )
+    l10n_bg_type_vat = fields.Selection(
+        selection=get_type_vat(),
+        string="Type of numbering",
+        default="standard",
+        copy=False,
+        index=True,
+    )
+    l10n_bg_doc_type = fields.Selection(
+        selection=get_doc_type(),
+        string="Vat type document",
+        default="01",
+        copy=False,
+        index=True,
+    )
+    l10n_bg_narration = fields.Char("Narration for audit report", translate=True)
+    account_id = fields.Many2one("account.account", string="Account")
+    factor_percent = fields.Float(
+        string="%",
+        default=100,
+        help="Factor to apply on the account move lines generated from this distribution line, in percents",
+    )
+    new_account_entry = fields.Boolean("Create new account entry")

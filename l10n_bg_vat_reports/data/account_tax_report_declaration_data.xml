@@ -1,0 +1,1266 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template
+        id="main_table_header_l10n_bg_vat_journal"
+        inherit_id="account_reports.main_table_header"
+        primary="True"
+    >
+        <xpath
+            expr="//thead[hasclass('o_account_reports_header_hierarchy')]"
+            position="attributes"
+        >
+            <attribute name="class" add=" l10n_bg_vat_journal_header" />
+        </xpath>
+    </template>
+
+    <template
+        id="main_table_header_l10n_bg_nra_tax_report_declaration"
+        inherit_id="account_reports.main_table_header"
+        primary="True"
+    >
+        <xpath
+            expr="//thead[hasclass('o_account_reports_header_hierarchy')]"
+            position="replace"
+        >
+
+        </xpath>
+    </template>
+
+    <template id="line_template">
+        <t t-foreach="lines" t-as="line">
+            <t
+                t-set="l10n_bg_vat_declaration"
+                t-value="line['l10n_bg_vat_declaration']"
+            />
+            <table
+                t-if="l10n_bg_vat_declaration"
+                class="o_account_reports_subtable table table-sm table-striped"
+                style="max-width: 1080px !important;"
+            >
+                <tbody>
+                    <tr>
+                        <table style="max-width: 1080px !important;">
+                            <tr>
+                                <td style="width: 60%;">
+                                    <h1>REPORT-DECLARATION</h1><br />
+                                    <h3>VALUE ADDED TAX</h3><br />
+                                </td>
+                                <td style="width: 30%;"><span
+                                    >Territorial department/office:</span></td>
+                                <td style="width: 10%;" />
+                            </tr>
+                            <tr>
+                                <td style="width: 60%;">
+                                    <h4>A. Data about the registered company</h4>
+                                </td>
+                                <td style="width: 30%;"><span>Incoming №:</span></td>
+                                <td style="width: 10%;"><span>/</span> <span
+                                    >г.</span></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" style="width: 60%;">
+                                    <p>
+                                        <span
+                                            t-att-class="l10n_bg_vat_declaration['info_tag_2']['class']"
+                                            t-out="l10n_bg_vat_declaration['info_tag_2']['name']"
+                                        /><br />
+                                        <span
+                                            t-att-class="l10n_bg_vat_declaration['company_address']['class']"
+                                            t-out="l10n_bg_vat_declaration['company_address']['name']"
+                                        />
+                                    </p>
+                                </td>
+                                <td style="width: 30%;"><span>Tax period:</span></td>
+                                <td style="width: 10%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['info_tag_3']['class']"
+                                        t-out="l10n_bg_vat_declaration['info_tag_3']['name']"
+                                    /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 30%;"><span
+                                    >VAT identification number: </span></td>
+                                <td style="width: 10%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['company_vat']['class']"
+                                        t-out="l10n_bg_vat_declaration['company_vat']['name']"
+                                    /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 30%;"><span
+                                    >Unique intensification number: </span></td>
+                                <td style="width: 10%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['info_tag_1']['class']"
+                                        t-out="l10n_bg_vat_declaration['info_tag_1']['name']"
+                                    /></td>
+                            </tr>
+                        </table>
+                    </tr>
+                    <tr>
+                        <table style="max-width: 1080px !important;">
+                            <!-- ==========================   SECTION A START   ============================ -->
+                            <tr>
+                                <td colspan="100" class="text-center"><h4
+                                    >SECTION A: Value Added Tax Charged Data</h4></td>
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >Total of tax bases for VAT taxation (amount from cell 11 to cell 16)</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_10']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_10']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >01</span></td>
+                                <td style="width: 2%;" />
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >All VAT charged (Amount from cell 21 to cell 24)</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_20']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_20']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >20</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="100"><span
+                                    >Base taxable at a rate 20%:</span></td>
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >- Base taxable supplies, including supplies under conditions of distance sales with a place of performance on the territory of the country</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_11']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_11']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >11</span></td>
+                                <td style="width: 2%;" />
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >VAT charged</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_21']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_21']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >21</span></td>
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >- Base of ICA and DO of received supplies under Art. 82, Para. 2-5 VATS</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_12']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_12']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >12</span></td>
+                                <td style="width: 2%;" />
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >Charged VAT for ICA and for received supplies under Art. 82, Para. 2-5 Law VAT</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_22']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_22']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >22</span></td>
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >Base the taxable supplies at rate 9%</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_13']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_13']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >13</span></td>
+                                <td style="width: 2%;" />
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >VAT charged 9%</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_24']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_24']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >24</span></td>
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >Charged tax for supplies of goods and services for personal needs****</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_23']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_23']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >23</span></td>
+                                <td style="width: 2%;" />
+                                <td style="width: 30%;" />
+                                <td style="width: 14%;" />
+                                <td style="width: 5%;" />
+                            </tr>
+                            <tr>
+                                <td colspan="100"><span
+                                    >Base taxable at a rate 0%:</span></td>
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >- Base of supplies under Chapter III of VAT</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_14']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_14']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >14</span></td>
+                                <td style="width: 2%;" />
+                                <td style="width: 30%;" />
+                                <td style="width: 14%;" />
+                                <td style="width: 5%;" />
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >- Base the ICA of goods</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_15']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_15']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >15</span></td>
+                                <td style="width: 2%;" />
+                                <td style="width: 30%;" />
+                                <td style="width: 14%;" />
+                                <td style="width: 5%;" />
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >- Base of supplies under Art. 140, 146 and Art. 173 VAT*</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_16']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_16']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >16</span></td>
+                                <td style="width: 2%;" />
+                                <td style="width: 30%;" />
+                                <td style="width: 14%;" />
+                                <td style="width: 5%;" />
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >- Base of supply of services under Art. 21, para. 2 with location of third party implementation of another member state</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_17']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_17']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >17</span></td>
+                                <td style="width: 2%;" />
+                                <td style="width: 30%;" />
+                                <td style="width: 14%;" />
+                                <td style="width: 5%;" />
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >- Base of supplies under Art. 69, para. 2 VAT, incl. deliveries under conditions of dist. sales place of performance in another country member, as well as supplies as an intermediary in trilateral operation**</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_18']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_18']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >18</span></td>
+                                <td style="width: 2%;" />
+                                <td style="width: 30%;" />
+                                <td style="width: 14%;" />
+                                <td style="width: 5%;" />
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >- Base the exempt supplies and the exempt ICA***</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_19']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_19']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >19</span></td>
+                                <td style="width: 2%;" />
+                                <td style="width: 30%;" />
+                                <td style="width: 14%;" />
+                                <td style="width: 5%;" />
+                            </tr>
+                            <!-- ==========================   SECTION A END   =============================== -->
+                            <!-- ==========================   SECTION B START   ============================= -->
+                            <tr>
+                                <td colspan="100" class="text-center"><h4
+                                    >Section B: Data on exercised right to tax credit</h4></td>
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >VAT and tax on received supplies, ICA, supplies received under Art. 82, para. 2-5 VAT and imports without the right to a tax credit or without tax</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_30']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_30']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >30</span></td>
+                                <td style="width: 2%;" />
+                                <td style="width: 30%;" />
+                                <td style="width: 14%;" />
+                                <td style="width: 5%;" />
+                            </tr>
+                            <tr>
+                                <td
+                                    colspan="3"
+                                    style="word-wrap: break-word; width: 49%;"
+                                ><span
+                                    >VAT and tax on the received supplies, ICA, the received supplies under Art. 82, para. 2-5 VAT and imports, as well as the VAT on the received supplies used to make supplies under Art. 69, para. 2 VATS:</span></td>
+                                <td style="width: 2%;" />
+                                <td colspan="3" style="width: 49%;" />
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >- entitled to a full tax credit</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_31']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_31']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >31</span></td>
+                                <td style="width: 2%;" />
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >VAT with the right to a full tax credit</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_41']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_41']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >41</span></td>
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >- entitled to a partial tax credit</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_32']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_32']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 30%;"><span
+                                    >32</span></td>
+                                <td style="width: 2%;" />
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >VAT with the right to a partial tax credit</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_42']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_42']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >42</span></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 30%;" />
+                                <td style="width: 14%;" />
+                                <td style="width: 5%;" />
+                                <td style="width: 2%;" />
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >Annual adjustment under Art. 73, Paragraph 8 (+/-)</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_43']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_43']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >43</span></td>
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >Coefficient under Art. 73, Para. 5 VAT</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_33']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_33']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >33</span></td>
+                                <td style="width: 2%;" />
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >Total tax credit (cell[41] + cell[42]xcell[33]+cell[43])</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_40']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_40']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >40</span></td>
+                            </tr>
+                            <!-- ==========================   SECTION B END   ============================ -->
+                            <!-- ==========================   SECTION C START   ============================ -->
+                            <tr>
+                                <td colspan="100" class="text-center"><h4
+                                    >Section C: Result for the period</h4></td>
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >VAT to pay <br
+                                        /> (cell[20] - cell[40]) >=0</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_50']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_50']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >50</span></td>
+                                <td style="width: 2%;" />
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >VAT recovery <br
+                                        /> (cell[20] - cell[40]) </span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_60']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_60']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >60</span></td>
+                            </tr>
+                            <!-- ==========================   SECTION C END   ============================ -->
+                            <!-- ==========================   SECTION D START   ============================ -->
+                            <tr>
+                                <td colspan="100" class="text-center"><h4
+                                    >Section D: Import VAT</h4></td>
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >Import tax from cell[50], deducted in accordance with art. 92, para. 1 VAT</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_70']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_70']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >70</span></td>
+                                <td style="width: 2%;" />
+                                <td style="word-wrap: break-word; width: 30%;"><span
+                                    >Import tax of cell[50], effectively imported</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_71']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_71']['name']"
+                                    /></td>
+                                <td style="border: 1px solid #C9CCD2; width: 5%;"><span
+                                    >71</span></td>
+                            </tr>
+                            <!-- ==========================   SECTION D END   ============================ -->
+                            <!-- ==========================   SECTION E START   ============================ -->
+                            <tr>
+                                <td colspan="100" class="text-center"><h4
+                                    >Section D: VAT refundable</h4></td>
+                            </tr>
+                        </table>
+                    </tr>
+                    <tr>
+                        <table style="max-width: 1080px !important;">
+                            <tr>
+                                <td style="word-wrap: break-word; width: 15%;"><span
+                                    >Pursuant to Art. 92, Para. 1 VAT within 30 days from the submission of this declaration</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_80']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_80']['name']"
+                                    /></td>
+                                <td
+                                    style="border: 1px solid #C9CCD2; width: 4,33%;"
+                                ><span>80</span></td>
+
+                                <td style="word-wrap: break-word; width: 15%;"><span
+                                    >Pursuant to Art. 92, Para. 3 VAT within 30 days from the submission of this declaration</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_81']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_81']['name']"
+                                    /></td>
+                                <td
+                                    style="border: 1px solid #C9CCD2; width: 4,33%;"
+                                ><span>81</span></td>
+
+                                <td style="word-wrap: break-word; width: 15%;"><span
+                                    > Pursuant to Art. 92, para. 4 VAT within 30 days from the submission of this declaration</span></td>
+                                <td style="border: 1px solid #C9CCD2; width: 14%;"><span
+                                        t-att-class="l10n_bg_vat_declaration['account_tag_82']['class']"
+                                        t-out="l10n_bg_vat_declaration['account_tag_82']['name']"
+                                    /></td>
+                                <td
+                                    style="border: 1px solid #C9CCD2; width: 4,33%;"
+                                ><span>82</span></td>
+                            </tr>
+                        </table>
+                    </tr>
+                    <!-- ==========================   SECTION E END   ============================ -->
+                </tbody>
+            </table>
+        </t>
+    </template>
+
+    <template
+        id="main_table_header_l10n_bg_nra_tax_report_vies"
+        inherit_id="account_reports.main_table_header"
+        primary="True"
+    >
+        <xpath
+            expr="//thead[hasclass('o_account_reports_header_hierarchy')]"
+            position="replace"
+        >
+
+        </xpath>
+    </template>
+    <template id="vies_line_template">
+        <t t-foreach="lines" t-as="line">
+            <t t-set="l10n_bg_vat_vies" t-value="line['l10n_bg_vat_vies']" />
+            <t t-set="info_tag_ttr" t-value="line['info_tag_ttr']" />
+            <table class="table table-condensed" style="background-color: white;">
+                <tbody class="invoice_tbody">
+                <tr>
+                    <td colspan="3" rowspan="3">
+                        <h1>VIES</h1>
+                        <h1>DECLARATION</h1>
+                    </td>
+                    <td colspan="3"><span>TA/office:</span></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><span>Incoming №:</span></td>
+                    <td><span>/</span> <span>г.</span></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><span>Tax period:</span></td>
+                    <td><span
+                                t-att-class="l10n_bg_vat_vies['info_tag_vhr_2']['class']"
+                                t-out="l10n_bg_vat_vies['info_tag_vhr_2']['name']"
+                            /></td>
+                </tr>
+                <tr>
+                    <td colspan="6"><h4>A. Details of the registered person</h4></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h5>VAT identification number BG</h5>
+                    </td>
+                    <td colspan="3"><span
+                                t-att-class="l10n_bg_vat_vies['info_tag_vtr_2']['class']"
+                                t-out="l10n_bg_vat_vies['info_tag_vtr_2']['name']"
+                            /></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h5>Title/Name</h5>
+                    </td>
+                    <td colspan="3"><span
+                                t-att-class="l10n_bg_vat_vies['info_tag_vtr_2']['class']"
+                                t-out="l10n_bg_vat_vies['info_tag_vtr_3']['name']"
+                            /></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h5>Mailing address</h5>
+                    </td>
+                    <td colspan="3"><span
+                                t-att-class="l10n_bg_vat_vies['info_tag_vtr_4']['class']"
+                                t-out="l10n_bg_vat_vies['info_tag_vtr_4']['name']"
+                            /></td>
+                </tr>
+                <tr>
+                    <td colspan="6"><h4
+                            >B. Details of the person submitting the declaration:</h4></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h5>Name</h5>
+                    </td>
+                    <td colspan="3"><span
+                                t-att-class="l10n_bg_vat_vies['info_tag_vdr_3']['class']"
+                                t-out="l10n_bg_vat_vies['info_tag_vdr_3']['name']"
+                            /></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h5
+                            >PIN/ICF/official number from the register of the National Revenue Agency</h5>
+                    </td>
+                    <td colspan="3"><span
+                                t-att-class="l10n_bg_vat_vies['info_tag_vdr_2']['class']"
+                                t-out="l10n_bg_vat_vies['info_tag_vdr_2']['name']"
+                            /></td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <h5>Mailing address:</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h5>Address (quarter, residential complex, street №)</h5>
+                    </td>
+                    <td colspan="3"><span
+                                t-att-class="l10n_bg_vat_vies['info_tag_vdr_6']['class']"
+                                t-out="l10n_bg_vat_vies['info_tag_vdr_6']['name']"
+                            /></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h5>Populated place (city/village)</h5>
+                    </td>
+                    <td colspan="3"><span
+                                t-att-class="l10n_bg_vat_vies['info_tag_vdr_4']['class']"
+                                t-out="l10n_bg_vat_vies['info_tag_vdr_4']['name']"
+                            /></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h5>ZIP code</h5>
+                    </td>
+                    <td colspan="3"><span
+                                t-att-class="l10n_bg_vat_vies['info_tag_vdr_5']['class']"
+                                t-out="l10n_bg_vat_vies['info_tag_vdr_5']['name']"
+                            /></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h5>As</h5>
+                    </td>
+                    <td colspan="3"><span
+                                t-att-class="l10n_bg_vat_vies['info_tag_vdr_7']['class']"
+                                t-out="l10n_bg_vat_vies['info_tag_vdr_7']['name']"
+                            /></td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <h5
+                            >C. Made intra-community supplies of goods, supplies of goods as an intermediary in a tripartite operation, as well as supply of services under Art. 21, para. 2 VAT with a place of performance in the territory of another member state, for which recipients are taxable persons registered for VAT purposes in another member state.</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h5>Tax base - total in BGN</h5>
+                    </td>
+                    <td colspan="3">
+                        <h5>01</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h5>(sum of columns k3 + k4 + k5),</h5>
+                    </td>
+                    <td colspan="3"><span
+                                t-att-class="l10n_bg_vat_vies['account_tag_ttr_2']['class']"
+                                t-out="l10n_bg_vat_vies['account_tag_ttr_2']['name']"
+                            /></td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <h5>including</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h5>Tax base of ICA</h5>
+                    </td>
+                    <td colspan="3">
+                        <h5>17</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h5>(sum of column k3)</h5>
+                    </td>
+                    <td colspan="3"><span
+                                t-att-class="l10n_bg_vat_vies['account_tag_ttr_3']['class']"
+                                t-out="l10n_bg_vat_vies['account_tag_ttr_3']['name']"
+                            /></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h4>Total number of lines in section "B" of the declaration</h4>
+                    </td>
+                    <td colspan="3"><h5>02</h5></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h5>(count of column k3)</h5>
+                    </td>
+                    <td colspan="3"><span
+                                t-att-class="l10n_bg_vat_vies['info_tag_vhr_3']['class']"
+                                t-out="l10n_bg_vat_vies['info_tag_vhr_3']['name']"
+                            /></td>
+                </tr>
+                <tr>
+                    <td rowspan="2" style="width: 5%;">Line No</td>
+                    <td
+                            rowspan="2"
+                            style="width: 15%;"
+                        >VAT number of the recipient/acquirer (including the sign)</td>
+                    <td colspan="3">Tax base in BGN</td>
+                    <td
+                            rowspan="2"
+                            style="width: 20%;"
+                        >Tax period during which the tax became due* (mm/yyyy)</td>
+                </tr>
+                <tr>
+                    <td
+                            colspan="1"
+                            style="width: 20%;"
+                        >Intra-Community supplies of goods</td>
+                    <td
+                            colspan="1"
+                            style="width: 20%;"
+                        >supplies of goods as an intermediary in a tripartite operation</td>
+                    <td
+                            colspan="1"
+                            style="width: 20%;"
+                        >delivery of services under Art. 21, para. 2 VAT with a place of performance on the territory of another member state</td>
+                </tr>
+                <tr>
+                    <td style="width: 5%;">k1</td>
+                    <td style="width: 15%;">k2</td>
+                    <td style="width: 20%;">k3</td>
+                    <td style="width: 20%;">k4</td>
+                    <td style="width: 20%;">k5</td>
+                    <td style="width: 20%;">k6</td>
+                </tr>
+                <t t-foreach="info_tag_ttr" t-as="line_detail">
+                    <tr>
+                        <td style="width: 15%;"><span
+                                    t-att-class="line_detail['info_tag_vir_2']['class']"
+                                    t-out="line_detail['info_tag_vir_2']['name']"
+                                /></td>
+                        <td style="width: 20%;"><span
+                                    t-att-class="line_detail['info_tag_vir_3']['class']"
+                                    t-out="line_detail['info_tag_vir_3']['name']"
+                                /></td>
+                        <td style="width: 20%;"><span
+                                    t-att-class="line_detail['account_tag_vir_4']['class']"
+                                    t-out="line_detail['account_tag_vir_4']['name']"
+                                /></td>
+                        <td style="width: 20%;"><span
+                                    t-att-class="line_detail['account_tag_vir_5']['class']"
+                                    t-out="line_detail['account_tag_vir_5']['name']"
+                                /></td>
+                        <td style="width: 20%;"><span
+                                    t-att-class="line_detail['account_tag_vir_6']['class']"
+                                    t-out="line_detail['account_tag_vir_6']['name']"
+                                /></td>
+                        <td style="width: 20%;"><span
+                                    t-att-class="line_detail['info_tag_vir_7']['class']"
+                                    t-out="line_detail['info_tag_vir_7']['name']"
+                                /></td>
+                    </tr>
+                </t>
+                </tbody>
+            </table>
+        </t>
+    </template>
+
+    <record id="l10n_bg_nra_tax_report_declaration" model="account.report">
+        <field name="name">Report-Declaration</field>
+        <field name="root_report_id" ref="account.generic_tax_report" />
+        <field name="country_id" ref="base.bg" />
+        <field name="filter_unreconciled" eval="False" />
+        <field name="filter_period_comparison" eval="False" />
+        <field name="filter_growth_comparison" eval="False" />
+        <field
+            name="main_table_header_template"
+        >l10n_bg_vat_reports.main_table_header_l10n_bg_nra_tax_report_declaration</field>
+        <field name="line_template">l10n_bg_vat_reports.line_template</field>
+        <field
+            name="custom_handler_model_id"
+            ref="model_bg_account_report_vat_declaration_custom_handler"
+        />
+        <field name="column_ids">
+            <record id="l10n_bg_declaration" model="account.report.column">
+                <field name="name">REPORT-DECLARATION</field>
+                <field name="expression_label">base_declaration</field>
+                <field name="figure_type">none</field>
+                <field name="sortable" eval="False" />
+            </record>
+        </field>
+    </record>
+    <record id="l10n_bg_nra_tax_report_purchases" model="account.report">
+        <field name="name">Report Purchases</field>
+        <field name="root_report_id" ref="account.generic_tax_report" />
+        <field name="country_id" ref="base.bg" />
+        <field name="filter_unreconciled" eval="False" />
+        <field name="filter_period_comparison" eval="False" />
+        <field name="filter_growth_comparison" eval="False" />
+        <field
+            name="main_table_header_template"
+        >l10n_bg_vat_reports.main_table_header_l10n_bg_vat_journal</field>
+        <field
+            name="custom_handler_model_id"
+            ref="model_bg_account_report_vat_purchase_custom_handler"
+        />
+        <field name="load_more_limit" eval="80" />
+        <field name="column_ids">
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_ident_number"
+                model="account.report.column"
+            >
+                <field
+                    name="name"
+                >[03-02] VAT identification number of the person
+                </field>
+                <field name="expression_label">info_tag_2</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_account_period"
+                model="account.report.column"
+            >
+                <field name="name">[03-01] Tax period</field>
+                <field name="expression_label">info_tag_1</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_branch"
+                model="account.report.column"
+            >
+                <field name="name">[03-03] Branch/separate unit</field>
+                <field name="expression_label">info_tag_3</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_counter"
+                model="account.report.column"
+            >
+                <field name="name">[03-04] Sequential document number in the</field>
+                <field name="expression_label">info_tag_4</field>
+                <field name="figure_type">integer</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_doc_type"
+                model="account.report.column"
+            >
+                <field name="name">[03-05] Document type</field>
+                <field name="expression_label">info_tag_5</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_number"
+                model="account.report.column"
+            >
+                <field name="name">[03-06] Document number</field>
+                <field name="expression_label">info_tag_6</field>
+                <field name="figure_type">none</field>
+                <field name="sortable">True</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_invoice_date"
+                model="account.report.column"
+            >
+                <field name="name">[03-07] Document date</field>
+                <field name="expression_label">info_tag_7</field>
+                <field name="figure_type">date</field>
+                <field name="sortable">True</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_partner_vat"
+                model="account.report.column"
+            >
+                <field
+                    name="name"
+                >[03-08] Counterparty (supplier) VAT ID
+                </field>
+                <field name="expression_label">info_tag_8</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_partner_name"
+                model="account.report.column"
+            >
+                <field name="name">[03-09] Counterparty (supplier) name</field>
+                <field name="expression_label">info_tag_9</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_narration"
+                model="account.report.column"
+            >
+                <field name="name">[03-10] Type of goods or scope</field>
+                <field name="expression_label">info_tag_10</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_tag_30"
+                model="account.report.column"
+            >
+                <field name="name">[03-30] Tax base and tax of</field>
+                <field name="expression_label">account_tag_30</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_tag_31"
+                model="account.report.column"
+            >
+                <field name="name">[03-31] Tax base of received supplies,</field>
+                <field name="expression_label">account_tag_31</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_tag_41"
+                model="account.report.column"
+            >
+                <field name="name">[03-41] VAT with full tax credit</field>
+                <field name="expression_label">account_tag_41</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_tag_32"
+                model="account.report.column"
+            >
+                <field name="name">[03-32] Tax base of received supplies,</field>
+                <field name="expression_label">account_tag_32</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_tag_42"
+                model="account.report.column"
+            >
+                <field name="name">[03-42] VAT with partial tax credit</field>
+                <field name="expression_label">account_tag_42</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_tag_43"
+                model="account.report.column"
+            >
+                <field
+                    name="name"
+                >[03-43] Annual adjustment under Art. 73(8) VAT Act
+                </field>
+                <field name="expression_label">account_tag_43</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_tag_44"
+                model="account.report.column"
+            >
+                <field name="name">[03-44] Tax base on acquisition of</field>
+                <field name="expression_label">account_tag_44</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record
+                id="l10n_bg_vat_purchases_book_report_column_tag_45"
+                model="account.report.column"
+            >
+                <field name="name">[03-45] Supply under Art. 163a or</field>
+                <field name="expression_label">info_tag_45</field>
+                <field name="figure_type">none</field>
+            </record>
+        </field>
+    </record>
+    <record id="l10n_bg_nra_tax_report_sales" model="account.report">
+        <field name="name">Report Sales</field>
+        <field name="root_report_id" ref="account.generic_tax_report" />
+        <field name="country_id" ref="base.bg" />
+        <field name="filter_unreconciled" eval="False" />
+        <field name="filter_period_comparison" eval="False" />
+        <field name="filter_growth_comparison" eval="False" />
+        <field
+            name="main_table_header_template"
+        >l10n_bg_vat_reports.main_table_header_l10n_bg_vat_journal</field>
+        <field
+            name="custom_handler_model_id"
+            ref="model_bg_account_report_vat_sales_custom_handler"
+        />
+        <field name="load_more_limit" eval="80" />
+        <field name="column_ids">
+            <record
+                id="l10n_bg_vat_sales_book_report_column_ident_number"
+                model="account.report.column"
+            >
+                <field
+                    name="name"
+                >[02-00] VAT identification number of the person
+                </field>
+                <field name="expression_label">info_tag_2</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_account_period"
+                model="account.report.column"
+            >
+                <field name="name">[02-01] Tax period</field>
+                <field name="expression_label">info_tag_1</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_branch"
+                model="account.report.column"
+            >
+                <field name="name">[02-02] Branch/separate unit</field>
+                <field name="expression_label">info_tag_2</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_counter"
+                model="account.report.column"
+            >
+                <field name="name">[02-03] Sequential document number in the</field>
+                <field name="expression_label">info_tag_3</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record
+                id="l10n_bg_vat_salse_book_report_column_doc_type"
+                model="account.report.column"
+            >
+                <field name="name">[02-04] Document type</field>
+                <field name="expression_label">info_tag_4</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_number"
+                model="account.report.column"
+            >
+                <field name="name">[02-05] Document number</field>
+                <field name="expression_label">info_tag_5</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_invoice_date"
+                model="account.report.column"
+            >
+                <field name="name">[02-06] Date</field>
+                <field name="expression_label">info_tag_6</field>
+                <field name="figure_type">date</field>
+                <field name="sortable">True</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_partner_vat"
+                model="account.report.column"
+            >
+                <field
+                    name="name"
+                >[02-07] Counterparty (recipient) VAT ID
+                </field>
+                <field name="expression_label">info_tag_7</field>
+                <!--                <field name="figure_type">none</field>-->
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_partner_name"
+                model="account.report.column"
+            >
+                <field name="name">[02-08] Counterparty (recipient) name</field>
+                <field name="expression_label">info_tag_8</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_narration"
+                model="account.report.column"
+            >
+                <field name="name">[02-09] Type of goods or scope</field>
+                <field name="expression_label">info_tag_9</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_10"
+                model="account.report.column"
+            >
+                <field
+                    name="name"
+                >[02-10] Total amount of tax bases subject to VAT
+                </field>
+                <field name="expression_label">account_tag_9</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_20"
+                model="account.report.column"
+            >
+                <field name="name">[02-20] Total VAT charged</field>
+                <field name="expression_label">account_tag_20</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_11"
+                model="account.report.column"
+            >
+                <field name="name">[02-11] Tax base of taxable supplies</field>
+                <field name="expression_label">account_tag_11</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_21"
+                model="account.report.column"
+            >
+                <field name="name">[02-21] VAT charged 20%</field>
+                <field name="expression_label">account_tag_21</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_12"
+                model="account.report.column"
+            >
+                <field name="name">[02-12] Tax base of ICAs</field>
+                <field name="expression_label">account_tag_12</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_26"
+                model="account.report.column"
+            >
+                <field
+                    name="name"
+                >[02-26] Tax base of received supplies under Art. 82(2)-(5) VAT Act
+                </field>
+                <field name="expression_label">account_tag_26</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_22"
+                model="account.report.column"
+            >
+                <field
+                    name="name"
+                >[02-22] VAT charged for ICAs and received supplies under Art. 82(2)-(5) VAT Act
+                </field>
+                <field name="expression_label">account_tag_22</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_23"
+                model="account.report.column"
+            >
+                <field
+                    name="name"
+                >[02-23] VAT charged for supplies of goods and services for personal needs
+                </field>
+                <field name="expression_label">account_tag_23</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_13"
+                model="account.report.column"
+            >
+                <field name="name">[02-13] Tax base of taxable supplies</field>
+                <field name="expression_label">account_tag_13</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_24"
+                model="account.report.column"
+            >
+                <field name="name">[02-24] VAT charged 9%</field>
+                <field name="expression_label">account_tag_24</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_14"
+                model="account.report.column"
+            >
+                <field
+                    name="name"
+                >[02-14] Tax base of supplies at 0% under Chapter Three of the VAT Act
+                </field>
+                <field name="expression_label">account_tag_14</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_15"
+                model="account.report.column"
+            >
+                <field
+                    name="name"
+                >[02-15] Tax base of supplies at 0% for intra-Community supply of goods
+                </field>
+                <field name="expression_label">account_tag_15</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_16"
+                model="account.report.column"
+            >
+                <field
+                    name="name"
+                >[02-16] Tax base of supplies at 0% under Art. 140, Art. 146(1), and Art. 173 VAT Act
+                </field>
+                <field name="expression_label">account_tag_16</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_17"
+                model="account.report.column"
+            >
+                <field
+                    name="name"
+                >[02-17] Tax base of supplies of services under Art. 21(2) VAT Act with place of supply in another Member State
+                </field>
+                <field name="expression_label">account_tag_17</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_18"
+                model="account.report.column"
+            >
+                <field
+                    name="name"
+                >[02-18] Tax base of supplies under Art. 69(2) VAT Act, including distance sales with place of supply in another Member State
+                </field>
+                <field name="expression_label">account_tag_18</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_19"
+                model="account.report.column"
+            >
+                <field
+                    name="name"
+                >[02-19] Tax base of exempt supplies and exempt ICAs
+                </field>
+                <field name="expression_label">account_tag_19</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record
+                id="l10n_bg_vat_sales_book_report_column_tag_25"
+                model="account.report.column"
+            >
+                <field
+                    name="name"
+                >[02-25] Tax base of supplies as an intermediary in triangular transactions
+                </field>
+                <field name="expression_label">account_tag_25</field>
+                <field name="figure_type">monetary</field>
+            </record>
+        </field>
+    </record>
+    <record id="l10n_bg_nra_tax_report_vies" model="account.report">
+        <field name="name">Report VIES</field>
+        <field name="root_report_id" ref="account.generic_tax_report" />
+        <field name="country_id" ref="base.bg" />
+        <field name="filter_unreconciled" eval="False" />
+        <field name="filter_period_comparison" eval="False" />
+        <field name="filter_growth_comparison" eval="False" />
+        <field
+            name="main_table_header_template"
+        >l10n_bg_vat_reports.main_table_header_l10n_bg_nra_tax_report_vies</field>
+        <field name="line_template">l10n_bg_vat_reports.vies_line_template</field>
+        <field
+            name="custom_handler_model_id"
+            ref="model_bg_account_report_vat_vies_custom_handler"
+        />
+        <field name="load_more_limit" eval="80" />
+        <field name="column_ids">
+            <record id="l10n_bg_vat_vies_book_report_column_info_tag_vir_2" model="account.report.column">
+                <field name="name">[k1] Row number</field>
+                <field name="expression_label">info_tag_vir_2</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record id="l10n_bg_vat_vies_book_report_column_info_tag_vir_3" model="account.report.column">
+                <field name="name">[k2] VAT ID of recipient/acquirer (incl.</field>
+                <field name="expression_label">info_tag_vir_3</field>
+                <field name="figure_type">none</field>
+            </record>
+            <record id="l10n_bg_vat_vies_book_report_column_account_tag_vir_4" model="account.report.column">
+                <field name="name">[k3] Tax base of intra-Community supplies</field>
+                <field name="expression_label">account_tag_vir_4</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record id="l10n_bg_vat_vies_book_report_column_account_tag_vir_5" model="account.report.column">
+                <field name="name">[k4] Tax base of supplies of</field>
+                <field name="expression_label">account_tag_vir_5</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record id="l10n_bg_vat_vies_book_report_column_account_tag_vir_6" model="account.report.column">
+                <field name="name">[k5] Tax base of supplies of</field>
+                <field name="expression_label">account_tag_vir_6</field>
+                <field name="figure_type">monetary</field>
+            </record>
+            <record id="l10n_bg_vat_vies_book_report_column_info_tag_vir_7" model="account.report.column">
+                <field name="name">[k6] Tax period when tax became</field>
+                <field name="expression_label">info_tag_vir_7</field>
+                <field name="figure_type">none</field>
+            </record>
+
+        </field>
+    </record>
+</odoo>

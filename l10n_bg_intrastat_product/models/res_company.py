@@ -3,16 +3,16 @@
 # @author Alexis de Lattre <alexis.delattre@akretion.com>
 # @author Luc de Meyer <info@noviat.com>
 
-from odoo import api, fields, models, _
+from odoo import fields, models
 
 
 class ResCompany(models.Model):
-    _inherit = 'res.company'
+    _inherit = "res.company"
 
     intrastat_origin_transport_id = fields.Many2one(
-        comodel_name='res.country',
-        string='Country of transport',
-        help='In which country the transport unit is registered'
+        comodel_name="res.country",
+        string="Country of transport",
+        help="In which country the transport unit is registered",
     )
     # l10n_bg_intrastat_reporting_level = fields.Selection(
     #     selection='_get_l10n_bg_intrastat_reporting_level',

@@ -1,0 +1,2033 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_vat_reports
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-29 06:24+0000\n"
+"PO-Revision-Date: 2024-08-29 06:24+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "(count of column k3)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "(sum of column k3)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "(sum of columns k3 + k4 + k5),"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "01"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "02"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "17"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid ""
+"<span> Pursuant to Art. 92, para. 4 VAT within 30 days from the submission "
+"of this declaration</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid ""
+"<span>- Base of ICA and DO of received supplies under Art. 82, Para. 2-5 "
+"VATS</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>- Base of supplies under Art. 140, 146 and Art. 173 VAT*</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid ""
+"<span>- Base of supplies under Art. 69, para. 2 VAT, incl. deliveries under "
+"conditions of dist. sales place of performance in another country member, as"
+" well as supplies as an intermediary in trilateral operation**</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>- Base of supplies under Chapter III of VAT</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid ""
+"<span>- Base of supply of services under Art. 21, para. 2 with location of "
+"third party implementation of another member state</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid ""
+"<span>- Base taxable supplies, including supplies under conditions of "
+"distance sales with a place of performance on the territory of the "
+"country</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>- Base the ICA of goods</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>- Base the exempt supplies and the exempt ICA***</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>- entitled to a full tax credit</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>- entitled to a partial tax credit</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "<span>/</span> <span>г.</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>01</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>11</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>12</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>13</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>14</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>15</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>16</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>17</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>18</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>19</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>20</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>21</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>22</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>23</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>24</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>30</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>31</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>32</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>33</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>40</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>41</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>42</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>43</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>50</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>60</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>70</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>71</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>80</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>81</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>82</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>All VAT charged (Amount from cell 21 to cell 24)</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>Annual adjustment under Art. 73, Paragraph 8 (+/-)</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>Base taxable at a rate 0%:</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>Base taxable at a rate 20%:</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>Base the taxable supplies at rate 9%</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid ""
+"<span>Charged VAT for ICA and for received supplies under Art. 82, Para. 2-5"
+" Law VAT</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid ""
+"<span>Charged tax for supplies of goods and services for personal "
+"needs****</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>Coefficient under Art. 73, Para. 5 VAT</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid ""
+"<span>Import tax from cell[50], deducted in accordance with art. 92, para. 1"
+" VAT</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>Import tax of cell[50], effectively imported</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "<span>Incoming №:</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid ""
+"<span>Pursuant to Art. 92, Para. 1 VAT within 30 days from the submission of"
+" this declaration</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid ""
+"<span>Pursuant to Art. 92, Para. 3 VAT within 30 days from the submission of"
+" this declaration</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "<span>TA/office:</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "<span>Tax period:</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>Territorial department/office:</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid ""
+"<span>Total of tax bases for VAT taxation (amount from cell 11 to cell "
+"16)</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>Total tax credit (cell[41] + cell[42]xcell[33]+cell[43])</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>Unique intensification number: </span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid ""
+"<span>VAT and tax on received supplies, ICA, supplies received under Art. "
+"82, para. 2-5 VAT and imports without the right to a tax credit or without "
+"tax</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid ""
+"<span>VAT and tax on the received supplies, ICA, the received supplies under"
+" Art. 82, para. 2-5 VAT and imports, as well as the VAT on the received "
+"supplies used to make supplies under Art. 69, para. 2 VATS:</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>VAT charged 9%</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>VAT charged</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>VAT identification number: </span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>VAT recovery <br/> (cell[20] - cell[40]) </span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>VAT to pay <br/> (cell[20] - cell[40]) &gt;=0</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>VAT with the right to a full tax credit</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "<span>VAT with the right to a partial tax credit</span>"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "A. Data about the registered company"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "A. Details of the registered person"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line__move_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__move_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_purchases_line__move_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__move_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_result_declar__move_id
+msgid "Account Move"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "Address (quarter, residential complex, street №)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "As"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "B. Details of the person submitting the declaration:"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,help:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_12
+#: model:ir.model.fields,help:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_12
+#: model:ir.model.fields,help:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_121
+#: model:ir.model.fields,help:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_122
+msgid ""
+"Base amount for ICD and tax basis of received supplies under Art. 82, para. "
+"2 - 5 VAT"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,help:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_11
+#: model:ir.model.fields,help:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_11
+msgid "Base amount from sales for domestic taxation (20%)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model,name:l10n_bg_vat_reports.model_bg_account_report_vat_declaration_custom_handler
+msgid "Bulgarian Tax Report Custom Handler (VAT Report-declaration)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid ""
+"C. Made intra-community supplies of goods, supplies of goods as an "
+"intermediary in a tripartite operation, as well as supply of services under "
+"Art. 21, para. 2 VAT with a place of performance in the territory of another"
+" member state, for which recipients are taxable persons registered for VAT "
+"purposes in another member state."
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields.selection,name:l10n_bg_vat_reports.selection__account_bg_calc_purchases_line__state__cancel
+#: model:ir.model.fields.selection,name:l10n_bg_vat_reports.selection__account_bg_calc_sales_line__state__cancel
+#: model:ir.model.fields.selection,name:l10n_bg_vat_reports.selection__account_bg_calc_vies_line__state__cancel
+#: model:ir.model.fields.selection,name:l10n_bg_vat_reports.selection__account_bg_info_sale_line__state__cancel
+#: model:ir.model.fields.selection,name:l10n_bg_vat_reports.selection__account_bg_vies_total_declar__state__cancel
+msgid "Cancelled"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_vies_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_purchases_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__company_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__company_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_info_declar__company_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_result_declar__company_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__company_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_total_declar__company_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_search
+msgid "Company"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__info_tag_vtr_2
+msgid "Company UIC"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_info_declar__company_address
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__info_tag_vtr_4
+msgid "Company address"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__info_tag_vtr_3
+msgid "Company name"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_vies_line__info_tag_vir_2
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__info_tag_3
+msgid "Counter"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__info_tag_6
+msgid "Counter purchases"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__info_tag_5
+msgid "Counter sales"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_vies_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_result_declar__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__company_currency_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_total_declar__company_currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line__partner_id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__partner_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_search
+msgid "Customer"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "DECLARATION"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line__date
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__date
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_search
+msgid "Date"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_search
+msgid "Date: Last month"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__info_tag_27
+msgid "Delivery according to Art. 163a or import under Art. 167a of the VAT"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_vies_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_purchases_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__display_name
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_info_declar__display_name
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_result_declar__display_name
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__display_name
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_total_declar__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__date
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__info_tag_6
+msgid "Document date"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__info_tag_5
+msgid "Document number"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields.selection,name:l10n_bg_vat_reports.selection__account_bg_calc_purchases_line__state__draft
+#: model:ir.model.fields.selection,name:l10n_bg_vat_reports.selection__account_bg_calc_sales_line__state__draft
+#: model:ir.model.fields.selection,name:l10n_bg_vat_reports.selection__account_bg_calc_vies_line__state__draft
+#: model:ir.model.fields.selection,name:l10n_bg_vat_reports.selection__account_bg_info_sale_line__state__draft
+#: model:ir.model.fields.selection,name:l10n_bg_vat_reports.selection__account_bg_vies_total_declar__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model,name:l10n_bg_vat_reports.model_bg_account_report_vat_purchase_custom_handler
+msgid "Generic Tax Report Custom Handler (VAT Purchase report)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model,name:l10n_bg_vat_reports.model_bg_account_report_vat_sales_custom_handler
+msgid "Generic Tax Report Custom Handler (VAT Sales report)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model,name:l10n_bg_vat_reports.model_bg_account_report_vat_vies_custom_handler
+msgid "Generic Tax Report Custom Handler (VIES report)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_search
+msgid "Group By..."
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line__id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_vies_line__id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_purchases_line__id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_info_declar__id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_result_declar__id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__id
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_total_declar__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "Intra-Community supplies of goods"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line____last_update
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line____last_update
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_vies_line____last_update
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_purchases_line____last_update
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line____last_update
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line____last_update
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line____last_update
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar____last_update
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_info_declar____last_update
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_result_declar____last_update
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar____last_update
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_total_declar____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "Line No"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "Mailing address"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "Mailing address:"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "Name"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__info_tag_9
+msgid "Narration for audit report"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,help:l10n_bg_vat_reports.field_account_bg_calc_vies_line__info_tag_vir_3
+msgid "Number of the foreign counterparty incl. the sign of the Member State"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__info_tag_2
+msgid "Office"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Open"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#. odoo-python
+#: code:addons/l10n_bg_vat_reports/models/l10n_bg_vat_book.py:0
+#, python-format
+msgid "Open Journal Entry"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Open journal entry"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid ""
+"PIN/ICF/official number from the register of the National Revenue Agency"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_vies_line__partner_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_search
+msgid "Partner"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__info_tag_7
+msgid "Partner TIN"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__info_tag_8
+msgid "Partner name"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_search
+msgid "Period"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "Populated place (city/village)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields.selection,name:l10n_bg_vat_reports.selection__account_bg_calc_purchases_line__state__posted
+#: model:ir.model.fields.selection,name:l10n_bg_vat_reports.selection__account_bg_calc_sales_line__state__posted
+#: model:ir.model.fields.selection,name:l10n_bg_vat_reports.selection__account_bg_calc_vies_line__state__posted
+#: model:ir.model.fields.selection,name:l10n_bg_vat_reports.selection__account_bg_info_sale_line__state__posted
+#: model:ir.model.fields.selection,name:l10n_bg_vat_reports.selection__account_bg_vies_total_declar__state__posted
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_search
+msgid "Posted"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_search
+msgid "Posted Journal Items"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_tree
+msgid "Purchases"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_declaration
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "REPORT-DECLARATION"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report,name:l10n_bg_vat_reports.l10n_bg_nra_tax_report_purchases
+msgid "Report Purchases"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report,name:l10n_bg_vat_reports.l10n_bg_nra_tax_report_sales
+msgid "Report Sales"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report,name:l10n_bg_vat_reports.l10n_bg_nra_tax_report_vies
+msgid "Report VIES"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report,name:l10n_bg_vat_reports.l10n_bg_nra_tax_report_declaration
+msgid "Report-Declaration"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "SECTION A: Value Added Tax Charged Data"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Sales"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "Section B: Data on exercised right to tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "Section C: Result for the period"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "Section D: Import VAT"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "Section D: VAT refundable"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line__state
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__state
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_vies_line__state
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__state
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_total_declar__state
+msgid "Status"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__info_tag_0
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_info_declar__info_tag_1
+msgid "TIN"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#. odoo-python
+#: code:addons/l10n_bg_vat_reports/models/l10n_bg_vat_book.py:0
+#, python-format
+msgid "TOTAL"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "Tax base - total in BGN"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "Tax base in BGN"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "Tax base of ICA"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "Tax period during which the tax became due* (mm/yyyy)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "Title/Name"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__move_id
+msgid "Total"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Total 02-11"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Total 02-12"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Total 02-121"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Total 02-122"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Total 02-14"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Total 02-15"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Total 02-16"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Total 02-17"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Total 02-18"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Total 02-19"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Total 02-21"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Total 02-22"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Total 02-23"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Total 02-24"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Total 02-25"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_sales_line_tree
+msgid "Total 02-26"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-30"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-31"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-32"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-41"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-42"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.view_account_bg_calc_purchases_line_tree
+msgid "Total 03-43"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,help:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_10
+#: model:ir.model.fields,help:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_10
+msgid "Total amount of base"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "Total number of lines in section \"B\" of the declaration"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_info_declar__company_vat
+msgid "UIC"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,help:l10n_bg_vat_reports.field_account_bg_vies_info_declar__info_tag_vdr_2
+msgid ""
+"UIN/UINF/service number from the NRA register of the person submitting the "
+"declaration"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.line_template
+msgid "VALUE ADDED TAX"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#. odoo-python
+#: code:addons/l10n_bg_vat_reports/models/l10n_bg_vat_book.py:0
+#, python-format
+msgid "VAT Book (ZIP)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model,name:l10n_bg_vat_reports.model_account_bg_vat_result_declar
+msgid "VAT Declarations for result for period in Bulgarian Localization"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.actions.act_window,name:l10n_bg_vat_reports.action_account_bg_calc_purchases_line
+#: model:ir.ui.menu,name:l10n_bg_vat_reports.menu_current_account_vat_purchase_report
+msgid "VAT Purchases BG"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.actions.act_window,name:l10n_bg_vat_reports.action_account_bg_calc_sales_line_line
+#: model:ir.ui.menu,name:l10n_bg_vat_reports.menu_current_account_vat_report
+msgid "VAT Sales BG"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model,name:l10n_bg_vat_reports.model_account_bg_vat_info_declar
+msgid "VAT declaration for Analysis in Bulgarian Localization"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "VAT identification number BG"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model,name:l10n_bg_vat_reports.model_account_bg_total_purchases_line
+msgid "VAT line Total for Purchase total in Bulgarian Localization"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model,name:l10n_bg_vat_reports.model_account_bg_calc_sales_line
+#: model:ir.model,name:l10n_bg_vat_reports.model_account_bg_total_sales_line
+#: model:ir.model,name:l10n_bg_vat_reports.model_account_bg_vat_calc_declar
+msgid "VAT line for Analysis in Bulgarian Localization"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model,name:l10n_bg_vat_reports.model_account_bg_calc_purchases_line
+msgid "VAT line for Calculation Purchase in Bulgarian Localization"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model,name:l10n_bg_vat_reports.model_account_bg_info_purchases_line
+#: model:ir.model,name:l10n_bg_vat_reports.model_account_bg_info_sale_line
+msgid "VAT line information for Analysis in Bulgarian Localization"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "VAT number of the recipient/acquirer (including the sign)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "VIES"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model,name:l10n_bg_vat_reports.model_account_bg_vies_info_declar
+#: model:ir.model,name:l10n_bg_vat_reports.model_account_bg_vies_total_declar
+msgid "VIES Declaration for Analysis in Bulgarian Localization"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model,name:l10n_bg_vat_reports.model_account_bg_calc_vies_line
+msgid "VIES line for Analysis in Bulgarian Localization"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__info_tag_4
+msgid "Vat type document"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#. odoo-python
+#: code:addons/l10n_bg_vat_reports/models/l10n_bg_vat_book.py:0
+#, python-format
+msgid "ZIP"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "ZIP code"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_info_declar__info_tag_2
+msgid "[00-02] Name of the Legal Entity"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__info_tag_3
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_info_declar__info_tag_3
+msgid "[00-03] Tax period"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_info_declar__info_tag_4
+msgid "[00-04] Person submitting the data (TIN/name)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_info_declar__info_tag_5
+msgid "[00-05] Number of documents in the sales journal"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_info_declar__info_tag_6
+msgid "[00-06] Number of documents in the purchase journal"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_10
+msgid "[01-10] Total amount of base"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_11
+msgid "[01-11] Base for domestic taxation (20%)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_121
+msgid "[01-12-1] Base for ICA"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_122
+msgid "[01-12-2] Base for ICA"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_12
+msgid "[01-12] Base for ICA"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_13
+msgid "[01-13] Base travel services 9%"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_14
+msgid "[01-14] Base from export"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_15
+msgid "[01-15] Base for ICD"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_16
+msgid "[01-16] Base for Art.140, 146, 173 (21)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_17
+msgid "[01-17] Base for Art.21"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_18
+msgid "[01-18] Base Art.62(2) on the territory of EU"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_19
+msgid "[01-19] Base sales exempt ICD"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_20
+msgid "[01-20] Total VAT"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_21
+msgid "[01-21] VAT taxation 20%"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_22
+msgid "[01-22] VAT ICA Art.82, ал.2-3"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_23
+msgid "[01-23] VAT Private usage"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_24
+msgid "[01-24] VAT travel services 9%"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_30
+msgid "[01-30] Base for not entitled to a tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_31
+msgid "[01-31] Base for full tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_32
+msgid "[01-32] Base partly tax credit (~%)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_33
+msgid "[01-33] Coefficient Art.73,ал.5"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_40
+msgid "[01-40] VAT Total of tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_41
+msgid "[01-41] VAT for full tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_42
+msgid "[01-42] VAT partly tax credit (~%)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_43
+msgid "[01-43] Correction of Art.73, para. 8"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_44
+msgid ""
+"[01-44] Base when acquiring goods from an intermediary in a tripartite "
+"operation"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_50
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_result_declar__account_tag_50
+msgid "[01-50] VAT to pay"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_60
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_result_declar__account_tag_60
+msgid "[01-60] VAT recovery"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_result_declar__account_tag_70
+msgid ""
+"[01-70] Tax for pay from cell[50], deducted in accordance with art. 92, "
+"para. 1 VAT"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_70
+msgid "[01-70] VAT deducted art.92, para. 1"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_result_declar__account_tag_71
+msgid "[01-71] Tax for pay of cell[50], effectively imported"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_71
+msgid "[01-71] VAT payed effectively"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_result_declar__account_tag_80
+msgid ""
+"[01-80] Pursuant to Art. 92, Para. 1 VAT within 30 days from the submission "
+"of this declaration"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_80
+msgid "[01-80] VAT reimbursement Art.92, para. 1"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_result_declar__account_tag_81
+msgid ""
+"[01-81] Pursuant to Art. 92, Para. 3 VAT within 30 days from the submission "
+"of this declaration"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_81
+msgid "[01-81] VAT reimbursement Art.92, para. 2"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_result_declar__account_tag_82
+msgid ""
+"[01-82] Pursuant to Art. 92, para. 4 VAT within 30 days from the submission "
+"of this declaration"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vat_calc_declar__account_tag_82
+msgid "[01-82] VAT reimbursement Art.92, para. 3"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_ident_number
+msgid "[02-00] VAT identification number of the person"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_account_period
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__info_tag_1
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_vies_line__info_tag_vir_7
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_purchases_line__info_tag_1
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_sale_line__info_tag_1
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__info_tag_1
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_total_declar__info_tag_vir_7
+msgid "[02-01] Tax period"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_branch
+msgid "[02-02] Branch"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_purchases_line__info_tag_2
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__info_tag_2
+msgid "[02-02] TIN"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_counter
+msgid "[02-03] Counter"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_purchases_line__info_tag_3
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__info_tag_3
+msgid "[02-03] Office"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__info_tag_3
+msgid "[02-03] Tax period"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_purchases_line__info_tag_4
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__info_tag_4
+msgid "[02-04] Counter"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__info_tag_5
+msgid "[02-05] Counter sales"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_number
+msgid "[02-05] Document number"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_purchases_line__info_tag_5
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__info_tag_5
+msgid "[02-05] Vat type document"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__info_tag_6
+msgid "[02-06] Counter purchases"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_invoice_date
+msgid "[02-06] Date"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_purchases_line__info_tag_6
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__info_tag_6
+msgid "[02-06] Document number"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_purchases_line__info_tag_7
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__info_tag_7
+msgid "[02-07] Document date"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_purchases_line__info_tag_8
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__info_tag_8
+msgid "[02-08] Partner VAT"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_purchases_line__info_tag_9
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__info_tag_9
+msgid "[02-09] Partner name"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_purchases_line__info_tag_10
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__info_tag_10
+msgid "[02-10] Narration for audit report"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_10
+msgid "[02-10] Total amount of base"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_11
+msgid "[02-11] Base for domestic taxation (20%)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_11
+msgid "[02-11] Base for taxation with 20%"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_121
+msgid "[02-12-1] Base ICA (1)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_122
+msgid "[02-12-2] Base ICA (2)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_12
+msgid "[02-12] Base ICA"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_12
+msgid "[02-12] Base for ICA"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_13
+msgid "[02-13] Base travel services 9%"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_14
+msgid "[02-14] Base export 0%"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_14
+msgid "[02-14] Base from export"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_15
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_vies_line__account_tag_vir_4
+msgid "[02-15] Base ICD of goods 0%"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_15
+msgid "[02-15] Base for ICD"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_16
+msgid "[02-16] Base 0% under Art. 140, par, 1 and Art. 173"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_16
+msgid "[02-16] Base for Art.140, 146, 173 (21)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_17
+msgid "[02-17] Base for Art.21"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_17
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_vies_line__account_tag_vir_6
+msgid "[02-17] Base under Art. 21 on the territory of the EU"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_18
+msgid "[02-18] Base Art.62(2) on the territory of EU"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_18
+msgid "[02-18] Base under Art. 69, paragraph 2 on the territory of the EU"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_19
+msgid "[02-19] Base educated and ICA"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_19
+msgid "[02-19] Base sales exempt ICD"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_20
+msgid "[02-20] All VAT charged"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_20
+msgid "[02-20] Total VAT"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_21
+msgid "[02-21] VAT 20%"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_21
+msgid "[02-21] VAT taxation 20%"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_22
+msgid "[02-22] VAT ICA Art.82, ал.2-3"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_22
+msgid "[02-22] VAT ICA and art. 82, par. 2-5"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_23
+msgid "[02-23] VAT Private usage"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_23
+msgid "[02-23] VAT-personal needs"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_sales_line__account_tag_24
+msgid "[02-24] VAT travel services 9%"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_24
+msgid "[02-24] VAT-tourist services 9%"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_25
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_vies_line__account_tag_vir_5
+msgid "[02-25] TO-trilateral operations"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_sales_line__account_tag_26
+msgid "[02-26] Base art. 82, paragraphs 2-5"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__account_tag_30
+msgid "[02-30] Base for not entitled to a tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__account_tag_31
+msgid "[02-31] Base for full tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__account_tag_32
+msgid "[02-32] Base partly tax credit (~%)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__account_tag_41
+msgid "[02-41] VAT for full tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__account_tag_42
+msgid "[02-42] VAT partly tax credit (~%)"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__account_tag_43
+msgid "[02-43] Correction of Art.73, para. 8"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_info_purchases_line__info_tag_45
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_total_purchases_line__info_tag_45
+msgid "[02-45] Vat type delivery"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_salse_book_report_column_doc_type
+msgid "[02–04] Type of document"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_partner_vat
+msgid "[02–07] Identification number of the counterparty"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_partner_name
+msgid "[02–08] Name of counterparty"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_narration
+msgid "[02–09] Narration"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_tag_10
+msgid "[02–10] Total amount of tax bases for VAT taxation"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_tag_12
+msgid "[02–12] Base ICA"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_tag_13
+msgid "[02–13] Base the taxable supplies at rate 9 %"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_tag_14
+msgid "[02–14] Base supplies at a rate of 0% under chapter three of VAT %"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_tag_15
+msgid "[02–15] Base deliveries with a rate of 0% of VAT on goods %"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_tag_16
+msgid ""
+"[02–16] Base deliveries at a rate of 0% under Art. 140, Art. 146, para. 1 "
+"and Art. 173 VAT"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_tag_17
+msgid ""
+"[02–17] Tax base of supplies of services under Art. 21, para. 2 VAT, with a "
+"place of performance on the territory of another member state"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_tag_18
+msgid ""
+"[02–18] Tax basis of supplies under Art. 69, para. 2 VAT, incl. tax basis of"
+" supplies under the conditions of distance sales, with a place of "
+"performance in the territory of another member state"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_tag_19
+msgid ""
+"[02–19] Tax basis of supplies under Art. 69, para. 2 VAT, incl. tax basis of"
+" supplies under the conditions of distance sales, with a place of "
+"performance in the territory of another member state"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_tag_20
+msgid "[02–20] All VAT charged"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_tag_21
+msgid "[02–21] Charged VAT 20%"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_tag_22
+msgid "[02–22] Base on the received deliveries under Art. 82, para. 2 - 5 VAT"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_tag_23
+msgid ""
+"[02–23] Charged tax for supplies of goods and services for personal needs"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_tag_24
+msgid "[02–24] VAT charged 9 %"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_tag_25
+msgid "[02–25] Base of supplies as an intermediary in tripartite operations"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_sales_book_report_column_tag_26
+msgid "[02–26] Base on the received deliveries under Art. 82, para. 2 - 5 VAT"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_ident_number
+msgid "[03-00] VAT identification number of the person"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_account_period
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line__info_tag_1
+msgid "[03-01] Tax period"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_branch
+msgid "[03-02] Branch"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_counter
+msgid "[03-03] Counter"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_number
+msgid "[03-05] Document number"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_invoice_date
+msgid "[03-06] Date"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line__account_tag_30
+msgid "[03-30] Base without tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line__account_tag_31
+msgid "[03-31] Base full tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line__account_tag_32
+msgid "[03-32] Base partly tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_tag_32
+msgid "[03-32] DO-partial tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line__account_tag_41
+msgid "[03-41] VAT full tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_tag_41
+msgid "[03-41] VAT-full tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line__account_tag_42
+msgid "[03-42] VAT partly tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_tag_42
+msgid "[03-42] VAT-partial tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_tag_43
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line__account_tag_43
+msgid "[03-43] Annual adjustment - art. 73, paragraph 8"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_purchases_line__account_tag_44
+msgid ""
+"[03-44] Base when acquiring goods from an intermediary in a tripartite "
+"operation"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_tag_45
+msgid "[03-45] DO-art. 163a"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_doc_type
+msgid "[03–04] Type of document"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_partner_vat
+msgid "[03–07] Identification number of the counterparty"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_partner_name
+msgid "[03–08] Name of counterparty"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_narration
+msgid "[03–10] Narration"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_tag_30
+msgid "[03–30] DO-no tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_tag_31
+msgid "[03–31] TO-full tax credit"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:account.report.column,name:l10n_bg_vat_reports.l10n_bg_vat_purchases_book_report_column_tag_44
+msgid "[03–44] TO-trilateral operations"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__account_tag_ttr_3
+msgid "[TTR-2] Base for ICD"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__account_tag_ttr_2
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_total_declar__account_tag_ttr_2
+msgid "[TTR-2] Base for ICD total [01-15]"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_total_declar__account_tag_ttr_3
+msgid "[TTR-3] Base for ICD"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_vies_line__info_tag_vir_1
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__info_tag_ttr_1
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__info_tag_vdr_1
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__info_tag_vtr_1
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_total_declar__info_tag_ttr_1
+msgid "[VDR-1] Main Record Section Code"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_calc_vies_line__info_tag_vir_3
+msgid "[VDR-1] VIN "
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__info_tag_vdr_2
+msgid "[VDR-2] Represented person UIN"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__info_tag_vdr_3
+msgid "[VDR-3] Represented person name"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__info_tag_vdr_4
+msgid "[VDR-4] Represented person city"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__info_tag_vdr_5
+msgid "[VDR-5] Represented person ZIP"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__info_tag_vdr_6
+msgid "[VDR-6] Represented person address"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__info_tag_vdr_7
+msgid "[VDR-7] Represented person function"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__info_tag_vhr_1
+msgid "[VHR-1] Main Record Section Code"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__info_tag_vhr_2
+msgid "[VHR-2] Tax period"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_info_declar__info_tag_vhr_3
+#: model:ir.model.fields,field_description:l10n_bg_vat_reports.field_account_bg_vies_total_declar__info_tag_vhr_3
+msgid "[VHR-3] Number of documents in the vies journal"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid ""
+"delivery of services under Art. 21, para. 2 VAT with a place of performance "
+"on the territory of another member state"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "including"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "k1"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "k2"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "k3"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "k4"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "k5"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "k6"
+msgstr ""
+
+#. module: l10n_bg_vat_reports
+#: model_terms:ir.ui.view,arch_db:l10n_bg_vat_reports.vies_line_template
+msgid "supplies of goods as an intermediary in a tripartite operation"
+msgstr ""

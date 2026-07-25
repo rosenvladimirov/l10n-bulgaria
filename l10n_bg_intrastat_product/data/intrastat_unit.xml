@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="0">
 <!--     Extracted from the Official Journal of the European Union-->
     <record id="intrastat_product.intrastat_unit_none" model="intrastat.unit">

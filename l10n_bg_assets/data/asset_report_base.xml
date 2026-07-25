@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="l10n_bg_assets_search_template" inherit_id="account_reports.search_template" primary="True">
+        <xpath expr="//div[@id='extra_options_dropdown']/t" position="replace">
+            <t t-call="l10n_bg_assets.l10n_bg_assets_search_template_extra_options"/>
+        </xpath>
+    </template>
+
+    <template id="l10n_bg_assets_search_template_extra_options" inherit_id="account_reports.search_template_extra_options" primary="True">
+        <xpath expr="//div[@role='menu']" position="inside">
+            <a role="menuitem"
+               class="dropdown-item js_account_report_bool_filter"
+               title="Group By Model"
+               data-filter="assets_groupby_tax_profile"
+            >Group By Account</a>
+        </xpath>
+    </template>
+
+    <template id="l10n_bg_main_template_assets" inherit_id="account_reports.main_template" primary="True">
+        <xpath expr="//div[hasclass('o_account_reports_page')]" position="attributes">
+            <attribute name="class" add="o_account_assets_report" separator=" "/>
+        </xpath>
+        <xpath expr="//table[hasclass('o_account_reports_table')]" position="inside">
+            <colgroup>
+                <col span="5"/>
+                <col class="o_account_asset_column_contrast"/>
+                <col/>
+                <col class="o_account_asset_column_contrast"/>
+                <col/>
+                <col class="o_account_asset_column_contrast"/>
+                <col/>
+                <col class="o_account_asset_column_contrast"/>
+                <col/>
+                <col class="o_account_asset_column_contrast"/>
+            </colgroup>
+        </xpath>
+    </template>
+
+    <template id="l10n_bg_main_table_header_assets" inherit_id="account_reports.main_table_header" primary="True">
+        <xpath expr="//tr[contains(@t-if, 'column_headers_render_data')]" position="attributes">
+            <attribute name="class">o_account_asset_report_top_header_row</attribute>
+        </xpath>
+    </template>
+</odoo>

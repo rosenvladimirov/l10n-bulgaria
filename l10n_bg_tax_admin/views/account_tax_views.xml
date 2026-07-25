@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_tax_form" model="ir.ui.view">
+            <field name="name">account.tax.form</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='advanced_booleans']" position="inside">
+                    <field name="l10n_bg_reverse_charge_vat"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_tax_group_tree" model="ir.ui.view">
+            <field name="name">account.tax.group.tree</field>
+            <field name="model">account.tax.group</field>
+            <field name="inherit_id" ref="account.view_tax_group_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='property_advance_tax_payment_account_id']" position="after">
+                    <field name="tax_tag_ids" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_tax_group_form" model="ir.ui.view">
+            <field name="name">account.tax.group.form</field>
+            <field name="model">account.tax.group</field>
+            <field name="inherit_id" ref="account.view_tax_group_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='property_advance_tax_payment_account_id']" position="after">
+                    <field name="tax_tag_ids" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

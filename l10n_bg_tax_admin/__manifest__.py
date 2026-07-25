@@ -2,7 +2,7 @@
 {
     "name": "Bulgaria - Accounting - Tax Administration rules",
     "icon": "/l10n_bg/static/description/icon.png",
-    "version": "16.0.3.0.0",
+    "version": "16.0.3.1.0",
     "category": "Accounting/Localizations/Account Charts",
     "author": "Rosen Vladimirov <vladimirov.rosen@gmail.com>,Odoo Community Association (OCA)",
     "description": """

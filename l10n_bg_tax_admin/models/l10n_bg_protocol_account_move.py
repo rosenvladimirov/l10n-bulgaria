@@ -147,6 +147,34 @@ class AccountMoveBgProtocol(models.Model):
         # _logger.info(f"DOMAIN {where_string}::{param}")
         return where_string, param
 
+    def _get_starting_sequence(self):
+        # Протоколните номера са ВИНАГИ 10-цифрени (реш. Росен 25.07.2026) →
+        # първият протокол на празна серия почва от „0000000001".
+        self.ensure_one()
+        return "0" * 10
+
+    def _get_last_sequence(self, relaxed=False, with_prefix=None, lock=True):
+        # Протоколните номера са ВИНАГИ 10-цифрени. Core _sequence_fixed_regex
+        # хваща seq до 9 цифри, затова 10-цифреният низ се представя като
+        # „0"-префикс + 9-цифрен seq (напр. „0000000116") — коректно 10-символно
+        # число. zfill САМО за чисто числен резултат (легаси 8-цифрено
+        # „00000115" → „0000000115" → следващ „0000000116", непрекъснато);
+        # slice (не replace-all) пази вътрешните нули; не-числен резултат не се
+        # пипа. Историята НЕ се мигрира — само новите излизат 10-цифрени.
+        res = super()._get_last_sequence(
+            relaxed=relaxed, with_prefix=with_prefix, lock=lock
+        )
+        if not res:
+            return res
+        if with_prefix:
+            tail = res[len(with_prefix):]
+            return with_prefix + (
+                tail.zfill(max(0, 10 - len(with_prefix)))
+                if tail.isdigit()
+                else tail
+            )
+        return res.zfill(10) if res.isdigit() else res
+
     def _protocol_vals(self, move_id):
         return {
             "move_id": move_id.id,

@@ -34,11 +34,55 @@ class AccountMoveBgCustoms(models.Model):
         tracking=True,
         index="trigram",
     )
+    mrn = fields.Char(
+        string="MRN",
+        size=20,
+        copy=False,
+        tracking=True,
+        index="trigram",
+        help="Movement Reference Number from the customs declaration "
+        "(20 characters). Entered manually from the real document.",
+    )
+
+    _sql_constraints = [
+        (
+            "mrn_unique",
+            "unique(mrn)",
+            "MRN (Movement Reference Number) must be unique!",
+        ),
+    ]
 
     @api.onchange("customs_name")
     def _onchange_customs_name(self):
         if self.customs_name:
             self.move_id.l10n_bg_name = self.customs_name
+
+    @api.onchange("mrn")
+    def _onchange_mrn(self):
+        # UI feedback; същинската нормализация е в create/write (виж по-долу).
+        if self.mrn:
+            self.mrn = self.mrn.upper().replace(" ", "") or False
+
+    @api.model
+    def _normalize_mrn_vals(self, vals):
+        # Нормализирай MRN към главни букви без интервали на ВСЕКИ път (create/
+        # write през RPC/import, не само UI onchange). Празен/whitespace резултат
+        # → False (NULL): Postgres третира NULL като различни, но два „" се
+        # сблъскват в unique(mrn). Кейс-нормализацията пази дедупа реален.
+        if "mrn" in vals:
+            cleaned = (vals["mrn"] or "").upper().replace(" ", "")
+            vals["mrn"] = cleaned or False
+        return vals
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            self._normalize_mrn_vals(vals)
+        return super().create(vals_list)
+
+    def write(self, vals):
+        self._normalize_mrn_vals(vals)
+        return super().write(vals)
 
     def _customs_aml(self, invoice_id, new_entry_id, map_id):
         # Create new account moves

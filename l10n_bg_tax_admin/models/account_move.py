@@ -22,6 +22,7 @@ class AccountMove(models.Model):
     l10n_bg_protocol_invoice_id = fields.Many2one(
         "account.move.bg.protocol",
         "Protocol",
+        copy=False,
         readonly=True,
         states={"draft": [("readonly", False)]},
     )
@@ -312,6 +313,22 @@ class AccountMove(models.Model):
             "invoice_line_ids": [Command.clear()],
         }
 
+    def _l10n_bg_line_narration(self, default_narration):
+        # БГ наратив: сглоби описанието от продуктовите редове на фактурата
+        # (имената им, слети с „, "). Ако сглобеното е непразно и е ≤50 символа
+        # — ползвай него; иначе падни към дефолтния наратив от фискалния мапер.
+        # (Порт от O19 _sync_invoice; краткото описание на стоката е по-полезно
+        # в ДДС дневника от генеричния текст на мапера.)
+        self.ensure_one()
+        desc = ", ".join(
+            self.invoice_line_ids.filtered(
+                lambda line: line.display_type == "product" and line.name
+            ).mapped("name")
+        )
+        if desc and len(desc) <= 50:
+            return desc
+        return default_narration
+
     def _post(self, soft=True):
         nra_id = self.env.ref("l10n_bg_tax_admin.nra", raise_if_not_found=False)
         to_post = super()._post(soft=soft)
@@ -323,9 +340,24 @@ class AccountMove(models.Model):
                     {
                         "l10n_bg_type_vat": map_id.l10n_bg_type_vat,
                         "l10n_bg_doc_type": map_id.l10n_bg_doc_type,
-                        "l10n_bg_narration": map_id.l10n_bg_narration,
+                        "l10n_bg_narration": move._l10n_bg_line_narration(
+                            map_id.l10n_bg_narration
+                        ),
                     }
                 )
+                # Ако при (пре)публикуване типът вече НЕ е протокол по чл.117
+                # (напр. смяна на фискална позиция при repost), почисти
+                # осиротелия protocol wrapper. P5-A спря триенето му в
+                # button_draft (за да пази номера при reuse на СЪЩИЯ протокол),
+                # но при смяна на типа закаченият wrapper иначе остава да държи
+                # консумиран номер и _inverse_protocol_name продължава да пише
+                # протоколен номер върху вече не-протоколна фактура.
+                if (
+                    map_id.l10n_bg_type_vat != "117_protocol"
+                    and move.l10n_bg_protocol_invoice_id
+                ):
+                    move.l10n_bg_protocol_invoice_id.unlink()
+                    move.l10n_bg_protocol_invoice_id = False
             if map_id.new_account_entry:
                 if map_id and not map_id.position_dest_id:
                     raise UserError(
@@ -430,12 +462,11 @@ class AccountMove(models.Model):
                     customs_move_id.button_draft()
                 customs_move_id.unlink()
 
-            if line.l10n_bg_protocol_invoice_id:
-                self.env["account.move.bg.protocol"].search(
-                    [
-                        ("id", "=", line.l10n_bg_protocol_invoice_id.id),
-                    ]
-                ).unlink()
+            # БГ правило: анулиран/върнат в чернова протокол по чл.117 ПАЗИ
+            # номера си (не се преизползва → без дупки/дубликати в номерацията).
+            # Затова НЕ трием protocol wrapper-а тук — при повторно публикуване
+            # guard-ът `not move.l10n_bg_protocol_invoice_id` в _post остава
+            # falsy → не се създава нов wrapper → не се консумира нов номер.
 
             if line.l10n_bg_report_sale_id:
                 self.env["account.move.bg.report.sale"].search(

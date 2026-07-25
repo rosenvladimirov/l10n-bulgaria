@@ -1,0 +1,160 @@
+# Синхронизира избрани модули към rosenvladimirov/l10n_bg_odoo_preview —
+# частното репо, което Odoo S.A. преглежда.
+#
+# СПУСЪК: push, чийто ЗАГЛАВЕН ред на комита съдържа „SYN".
+# Така минава само обявеното за стабилно, не всеки междинен комит.
+#
+# Обхват: САМО модулите от .github/preview-modules.txt на съответния клон.
+# Останалите модули в превюто идват от l10n-bulgaria-expert и -erpnet (след
+# юлските split-ове) и НЕ се пипат оттук.
+name: sync-preview
+
+on:
+  push:
+    branches: ["16.0", "17.0", "18.0", "19.0", "20.0"]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Само покажи какво би се синхронизирало, без push"
+        type: boolean
+        default: true
+
+concurrency:
+  group: sync-preview-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    # Груб филтър: ръчното пускане минава винаги, push-ът — само ако някъде в
+    # съобщението има SYN. Точната проверка (само заглавния ред) е долу.
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      contains(github.event.head_commit.message, 'SYN')
+    steps:
+      # Съобщението на комита се подава през променлива на средата, НЕ се
+      # интерполира в шела — иначе съдържанието му би се изпълнило като код.
+      - name: Провери маркера SYN в заглавния ред
+        if: github.event_name == 'push'
+        env:
+          MSG: ${{ github.event.head_commit.message }}
+        run: |
+          header="$(printf '%s' "$MSG" | head -1)"
+          echo "Заглавен ред: $header"
+          if printf '%s' "$header" | grep -q 'SYN'; then
+            echo "SYN е в заглавния ред — синхронизирам."
+          else
+            echo "::notice::SYN не е в заглавния ред (само в тялото) — пропускам."
+            echo "skip=true" >> "$GITHUB_ENV"
+          fi
+
+      - name: Изтегли изходния код
+        if: env.skip != 'true'
+        uses: actions/checkout@v4
+
+      - name: Настрой SSH ключа за превю репото
+        if: env.skip != 'true'
+        env:
+          KEY: ${{ secrets.PREVIEW_DEPLOY_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/preview_key
+          chmod 600 ~/.ssh/preview_key
+          ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Провери обявените модули (наличност + лиценз)
+        if: env.skip != 'true'
+        run: |
+          set -euo pipefail
+          LIST=.github/preview-modules.txt
+          if [[ ! -f "$LIST" ]]; then
+            echo "::error::Липсва $LIST на този клон — няма какво да синхронизирам."
+            exit 1
+          fi
+          mapfile -t MODULES < <(grep -vE '^\s*(#|$)' "$LIST" | tr -d '\r' | awk '{print $1}')
+          if [[ ${#MODULES[@]} -eq 0 ]]; then
+            echo "::error::$LIST е празен."
+            exit 1
+          fi
+          echo "Обявени модули: ${#MODULES[@]}"
+
+          missing=()
+          for m in "${MODULES[@]}"; do
+            [[ -f "$m/__manifest__.py" ]] || missing+=("$m")
+          done
+          if [[ ${#missing[@]} -gt 0 ]]; then
+            echo "::error::Обявени, но липсващи в този клон: ${missing[*]}"
+            exit 1
+          fi
+
+          # Правило №0: превюто е за Odoo S.A. — вътре НЕ влиза платен/собственически
+          # лиценз. По-добре паднал билд, отколкото OPL-1 модул пред рецензента.
+          for m in "${MODULES[@]}"; do
+            lic="$(python3 -c "import ast,sys;print(ast.literal_eval(open(sys.argv[1]).read().strip()).get('license',''))" "$m/__manifest__.py")"
+            case "$lic" in
+              LGPL-3|AGPL-3|GPL-3) echo "  $m — $lic" ;;
+              *) echo "::error::$m е с лиценз '$lic' — в превюто влизат само свободни лицензи."; exit 1 ;;
+            esac
+          done
+
+      - name: Синхронизирай към превюто
+        if: env.skip != 'true'
+        env:
+          GIT_SSH_COMMAND: "ssh -i ~/.ssh/preview_key -o IdentitiesOnly=yes"
+          BRANCH: ${{ github.ref_name }}
+          DRY: ${{ github.event.inputs.dry_run }}
+          ACTOR: ${{ github.actor }}
+          SRC_URL: ${{ github.server_url }}/${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mapfile -t MODULES < <(grep -vE '^\s*(#|$)' .github/preview-modules.txt | tr -d '\r' | awk '{print $1}')
+
+          git clone --quiet git@github.com:rosenvladimirov/l10n_bg_odoo_preview.git ../preview
+          cd ../preview
+
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            git checkout --quiet "$BRANCH"
+            echo "Превюто вече има клон $BRANCH."
+          else
+            # НЕ разклоняваме от друг клон: 18.0 модули в клон 19.0 биха били тиха
+            # лъжа пред рецензента. Празен (orphan) клон само с нашето.
+            git checkout --quiet --orphan "$BRANCH"
+            git rm -rfq --cached . >/dev/null 2>&1 || true
+            find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+            echo "Създавам нов празен клон $BRANCH в превюто."
+          fi
+
+          for m in "${MODULES[@]}"; do
+            rm -rf "./$m"
+            rsync -a --exclude '__pycache__' --exclude '*.pyc' --exclude '*.bak-*' \
+                  "$GITHUB_WORKSPACE/$m/" "./$m/"
+          done
+          if [[ -f "$GITHUB_WORKSPACE/LICENSE" ]]; then
+            cp "$GITHUB_WORKSPACE/LICENSE" ./LICENSE
+          fi
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "::notice::Няма разлика — превюто вече е в това състояние."
+            exit 0
+          fi
+
+          echo "--- какво се променя ---"
+          git diff --cached --stat
+
+          if [[ "${DRY:-false}" == "true" ]]; then
+            echo "::notice::Пробно пускане (dry_run) — не пушвам."
+            exit 0
+          fi
+
+          git config user.name  "$ACTOR"
+          git config user.email "$ACTOR@users.noreply.github.com"
+          {
+            printf 'sync from l10n-bulgaria@%s %s\n\n' "$BRANCH" "${GITHUB_SHA:0:8}"
+            printf 'Автоматична синхронизация (маркер SYN в заглавния ред на комита).\n'
+            printf 'Източник: %s/commit/%s\n' "$SRC_URL" "$GITHUB_SHA"
+            printf 'Модули (%s): %s\n' "${#MODULES[@]}" "${MODULES[*]}"
+          } > /tmp/syncmsg
+          git commit --quiet -F /tmp/syncmsg
+          git push --quiet origin "$BRANCH"
+          echo "::notice::Синхронизирани ${#MODULES[@]} модула към превюто, клон $BRANCH."

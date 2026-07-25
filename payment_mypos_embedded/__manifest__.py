@@ -24,7 +24,7 @@ the myPOS payment provider.
     "version": "19.0.1.0.0",
     "category": "Accounting/Payment Providers",
     "license": "LGPL-3",
-    "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-bulgaria",
     "depends": [
         "payment_mypos",

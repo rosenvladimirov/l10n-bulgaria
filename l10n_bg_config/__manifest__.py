@@ -165,7 +165,7 @@ backbone for the entire Bulgarian localization ecosystem.
     "development_status": 'Beta',
     "category": 'Localization',
     "license": "LGPL-3",
-    "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "depends": [
         "base",

@@ -3,7 +3,7 @@
     "version": "19.0.1.0.0",
     "license": "AGPL-3",
     "category": "Technical",
-    "author": "Rosen Vladimirov, Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/partner-contact",
     "summary": "Monkey-patch dict with all public str methods for translated JSONB fields.",
     "description": """

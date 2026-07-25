@@ -45,7 +45,7 @@ Reference
     "development_status": "Mature",
     "category": "Localization",
     "license": "LGPL-3",
-    "author": "Rosen Vladimirov",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd.",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "depends": [
         "l10n_bg_payroll_classifications",

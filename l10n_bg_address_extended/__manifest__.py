@@ -3,7 +3,7 @@
 {
     "name": "Bulgaria - Base address extended",
     "version": "19.0.1.0.1",
-    "author": "Rosen Vladimirov",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd.",
     "category": "Localization",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "description": """

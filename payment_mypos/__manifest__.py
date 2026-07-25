@@ -15,7 +15,7 @@ Designed for use in 30+ EU countries where myPOS operates.
     "version": "19.0.2.0.0",
     "category": "Accounting/Payment Providers",
     "license": "LGPL-3",
-    "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-bulgaria",
     "depends": [
         "payment",

@@ -36,7 +36,7 @@ Ordinance 2/2014 (waste classification) and the Waste Management Act.
 * `l10n_bg_waste_picking` — stock.picking, move.line, lot integration
 * `l10n_bg_waste_report`  — Annex 4 (monthly) and Annex 18 (annual) XLSX
 """,
-    "author": "Rosen Vladimirov, Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "category": "Localization/Bulgaria",
     "license": "AGPL-3",

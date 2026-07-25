@@ -9,7 +9,7 @@
     "development_status": "Alpha",
     "category": "Accounting/Localizations",
     "license": "OPL-1",
-    "author": "Rosen Vladimirov",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd.",
     "website": (
         "https://github.com/rosenvladimirov/l10n-bulgaria/tree/19.0/"
         "l10n_bg_ai_accounting_glue"

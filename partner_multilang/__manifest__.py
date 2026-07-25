@@ -3,7 +3,7 @@
     "version": '19.0.2.0.2',
     "license": "AGPL-3",
     "category": "Localization",
-    "author": "Rosen Vladimirov, Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/partner-contact",
     "summary": """
             Automatic multilingual partner names with intelligent

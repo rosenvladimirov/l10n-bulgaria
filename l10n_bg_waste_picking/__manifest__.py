@@ -44,7 +44,7 @@ Captures the three sections (sender / carrier / receiver) and links to
 the underlying picking. PDF rendering is shipped by the companion
 `l10n_bg_waste_report` module.
 """,
-    "author": "Rosen Vladimirov, Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "category": "Localization/Bulgaria",
     "license": "AGPL-3",

@@ -6,7 +6,7 @@
     "summary": "Publish internal Discuss messages of monitored users to the "
                "Centrifugo proxy so an external Claude can listen and reply "
                "(mirror of the Telegram bridge, but for Odoo Discuss).",
-    "author": "Rosen Vladimirov",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd.",
     "website": "https://github.com/rosenvladimirov",
     "license": "AGPL-3",
     "category": "Discuss",

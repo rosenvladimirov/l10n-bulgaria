@@ -6,7 +6,7 @@
     "summary": "Show sale order line description on pickings and delivery slips",
     "version": "19.0.1.0.0",
     "license": "AGPL-3",
-    "author": "Rosen Vladimirov",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd.",
     "depends": [
         "stock",
         "sale_stock",

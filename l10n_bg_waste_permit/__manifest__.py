@@ -43,7 +43,7 @@ compute degrades gracefully and returns zeros.
   aggregates (required for non-zero usage values)
 * `l10n_bg_waste_report`  — XLSX exports per Annex 4 / 18
 """,
-    "author": "Rosen Vladimirov, Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "category": "Localization/Bulgaria",
     "license": "AGPL-3",

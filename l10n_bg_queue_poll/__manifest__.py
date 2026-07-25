@@ -25,7 +25,7 @@ The job owns the refresh: the consumer only declares *what* to refresh
 (model / res_ids / mode / fields), not *when*.  No business logic here;
 this is shared infrastructure (first consumer: InfoPay payment status).
 """,
-    "author": "Rosen Vladimirov",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd.",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "license": "LGPL-3",
     "depends": ["queue_job", "l10n_bg_live_refresh"],

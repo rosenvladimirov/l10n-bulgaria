@@ -17,7 +17,7 @@ This module extends the HR Version functionality with:
 * Working time management
 * Leave days calculations
     """,
-    'author': 'Rosen Vladimirov',
+    'author': 'Rosen Vladimirov, Terraros Commerce Ltd.',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
     'license': 'LGPL-3',
     'depends': [

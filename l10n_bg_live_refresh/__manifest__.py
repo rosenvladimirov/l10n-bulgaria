@@ -28,7 +28,7 @@ they dispatch into Odoo's core barcode service and active number
 input respectively. A conflict guard short-circuits when Enterprise
 ``iot`` is installed so we don't double-dispatch each scan / weight.
 """,
-    "author": "Rosen Vladimirov",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd.",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "license": "LGPL-3",
     "depends": ["web", "bus"],

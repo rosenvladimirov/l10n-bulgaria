@@ -5,7 +5,7 @@
     "version": "19.0.2.0.0",
     "summary": "Bridge Telegram chats into Odoo Discuss — v2: Centrifugo "
                "consumer (variant A) + Anthropic merchant AI responder (auto mode).",
-    "author": "Rosen Vladimirov",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd.",
     "website": "https://github.com/rosenvladimirov",
     "license": "AGPL-3",
     "category": "Discuss",

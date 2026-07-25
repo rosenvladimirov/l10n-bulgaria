@@ -3,7 +3,7 @@
     "version": "19.0.1.0.0",
     "license": "AGPL-3",
     "category": "Human Resources",
-    "author": "Rosen Vladimirov",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd.",
     "website": "https://github.com/OCA/l10n-bulgaria",
     "summary": "Resolve translatable JSONB employee names to plain strings "
                "before the hr_org_chart widget renders them.",

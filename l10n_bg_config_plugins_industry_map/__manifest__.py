@@ -29,7 +29,7 @@ covered by the national chart of accounts.
     "development_status": "Beta",
     "category": "Accounting/Localizations",
     "license": "LGPL-3",
-    "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "depends": [
         "account",

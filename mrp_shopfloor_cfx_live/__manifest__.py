@@ -35,7 +35,7 @@ No fork/edit of ``mrp_workorder`` or ``l10n_bg_live_refresh`` — everything is
 done via ``@web/core/utils/patch`` and template ``t-inherit``.
     """,
     'version': '19.0.1.0.0',
-    'author': 'Rosen Vladimirov',
+    'author': 'Rosen Vladimirov, Terraros Commerce Ltd.',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
     'license': 'AGPL-3',
     'category': 'Manufacturing',

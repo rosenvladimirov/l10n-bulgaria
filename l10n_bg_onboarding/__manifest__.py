@@ -18,7 +18,7 @@ business logic duplicated.
 """,
     "category": "Localization",
     "license": "LGPL-3",
-    "author": "Rosen Vladimirov, Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "depends": ["l10n_bg_config", "web"],
     "auto_install": ["l10n_bg_config"],

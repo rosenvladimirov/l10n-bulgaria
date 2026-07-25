@@ -28,7 +28,7 @@ Regulatory reports for the Bulgarian waste management stack:
 
 XLSX reports use OCA `report_xlsx` from the `reporting-engine` repo.
 """,
-    "author": "Rosen Vladimirov, Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "category": "Localization/Bulgaria",
     "license": "AGPL-3",

@@ -5,7 +5,7 @@
     "name": "Account Statement Import Mt940",
     "version": "19.0.1.0.0",
     "license": "AGPL-3",
-    "author": "Rosen Vladimirov,Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/bank-statement-import",
     "depends": ["account_statement_import_file"],
     "data": [

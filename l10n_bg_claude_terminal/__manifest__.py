@@ -5,7 +5,7 @@
     "version": "16.0.1.35.0",
     "category": "Technical",
     "summary": "Claude Code terminal + AI Tokenizer (Qdrant/Ollama) — MCP Docker stack",
-    "author": "Rosen Vladimirov, BL Consulting, Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "maintainers": ["rosen-vladimirov"],
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria/tree/16.0/l10n_bg_claude_terminal",
     "license": "AGPL-3",

@@ -1,0 +1,21 @@
+# Модули, които този клон изпраща към rosenvladimirov/l10n_bg_odoo_preview
+# (частното репо, което Odoo S.A. преглежда).
+#
+# Едно име на ред; редове с # са коментар. Синхронизацията тръгва при push,
+# чийто ЗАГЛАВЕН ред на комита съдържа „SYN".
+#
+# 🚨 Тук влизат САМО свободни лицензи (LGPL-3 / AGPL-3 / GPL-3). Workflow-ът
+# проверява и пада с грешка при платен лиценз — превюто е пред рецензент.
+#
+# Останалите модули в превюто идват от l10n-bulgaria-expert (16 бр.) и
+# l10n-bulgaria-erpnet (1 бр.) след split-овете от юли 2026 — те НЕ се пипат
+# оттук. Ако трябва да се обновяват, същият workflow се слага и там.
+
+l10n_bg_account_statement_import_mt940
+l10n_bg_address_extended
+l10n_bg_config
+l10n_bg_invoice_copy
+l10n_bg_report_stock
+l10n_bg_stock_sale_line_description
+markdown_viewer_locale
+partner_multilang

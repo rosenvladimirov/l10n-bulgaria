@@ -16,7 +16,6 @@
         "l10n_bg",
         "l10n_bg_fix",
         "l10n_bg_config",
-        # 'account_financial_forms', moved in l10n_bg_account_financial_forms
     ],
     "data": [
         "security/ir.model.access.csv",

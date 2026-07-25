@@ -9,7 +9,7 @@
         "Pipeline stack with Anthropic-style Skills: progressive disclosure, "
         "semantic matching, dynamic step injection on top of AI Tokenizer."
     ),
-    "author": "Rosen Vladimirov, BL Consulting, Odoo Community Association (OCA)",
+    "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "maintainers": ["rosen-vladimirov"],
     "website": (
         "https://github.com/rosenvladimirov/l10n-bulgaria/tree/19.0/"

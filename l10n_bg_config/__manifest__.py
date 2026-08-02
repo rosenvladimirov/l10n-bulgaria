@@ -160,7 +160,7 @@ This module is essential for:
 automatically installs it if not present. It serves as the configuration
 backbone for the entire Bulgarian localization ecosystem.
     """,
-    "version": "19.0.8.6.10",
+    "version": "19.0.8.6.11",
     # OCA Metadata
     "development_status": 'Beta',
     "category": 'Localization',
@@ -169,6 +169,7 @@ backbone for the entire Bulgarian localization ecosystem.
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "depends": [
         "base",
+        "web",
         "bus",
         "mail",
         "account",

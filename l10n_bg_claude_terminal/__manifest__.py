@@ -1,5 +1,5 @@
 # Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
     "name": "Claude Terminal (Chatter & List View)",
     "version": "19.4.1.40.0",
@@ -8,7 +8,7 @@
     "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",
     "maintainers": ["rosen-vladimirov"],
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria/tree/19.0/l10n_bg_claude_terminal",
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "depends": ["mail", "web", "bus", "base_setup", "l10n_bg_live_refresh"],
     "excludes": ["mcp_terminal"],
     "external_dependencies": {"python": ["pyzipper"]},

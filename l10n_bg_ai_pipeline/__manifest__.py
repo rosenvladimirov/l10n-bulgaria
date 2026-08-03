@@ -1,5 +1,5 @@
 # Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
     "name": "AI Pipeline (Skills + Injection Engine)",
     "version": "19.4.1.2.0",
@@ -15,7 +15,7 @@
         "https://github.com/rosenvladimirov/l10n-bulgaria/tree/19.0/"
         "l10n_bg_ai_pipeline"
     ),
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "depends": [
         "l10n_bg_claude_terminal",
     ],

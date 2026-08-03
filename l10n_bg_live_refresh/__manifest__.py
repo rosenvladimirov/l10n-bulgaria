@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
     "name": "Live Refresh (generic bus-driven view refresh)",
-    "version": "19.0.2.7.1",
+    "version": "19.0.2.8.0",
     "category": "Technical",
     "summary": "Generic bus channel + OWL patches that live-reload and flash "
                "backend Form/List views when the server changes records",
@@ -27,6 +27,23 @@ electronic scale) that come over the proxy bus_inject channel —
 they dispatch into Odoo's core barcode service and active number
 input respectively. A conflict guard short-circuits when Enterprise
 ``iot`` is installed so we don't double-dispatch each scan / weight.
+
+Toast muting
+------------
+
+Proxy events on ``erpnet_fp_proxy_events`` also raise a toast
+notification. High-frequency machine feeds (CFX, MQTT) share that
+channel with operator-facing events but arrive at tens of events per
+second, and their toast body is indistinguishable because the machine
+payload carries none of the formatted fields. Set the system parameter::
+
+    l10n_bg_live_refresh.toast_mute_prefixes = cfx.,mqtt.
+
+to suppress the toast for those type prefixes. Empty by default, so
+existing databases keep their current behaviour. Muting affects the
+toast only — the bus events keep flowing, so dashboards, Shop Floor
+and the typed ``BARCODE_SCANNED`` / ``SCALE_READ`` events are
+unaffected.
 """,
     "author": "Rosen Vladimirov, Terraros Commerce Ltd.",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",

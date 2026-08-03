@@ -3,6 +3,7 @@
 // License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
 import { registry } from "@web/core/registry";
+import { session } from "@web/session";
 
 /**
  * Central live-refresh + proxy-event hub.  One service that absorbs:
@@ -67,8 +68,28 @@ const _TOAST_KIND = {
     "scale.weighed":   {kind: "info",   title: "⚖️ Scale"},
 };
 
+// Muted event-type prefixes, from `ir.config_parameter`
+// `l10n_bg_live_refresh.toast_mute_prefixes` (see models/ir_http.py).
+// Machine feeds (CFX, MQTT) travel on the same proxy bus channel as
+// operator-facing events but at tens of events per second, and their
+// toast body is indistinguishable (`proxy · device`) because the
+// machine payload carries none of the fields formatted below. Muting
+// suppresses only the toast — the bus events themselves keep flowing,
+// so dashboards and Shop Floor are unaffected.
+// Empty by default: existing databases keep their current behaviour.
+function _mutedPrefixes() {
+    const raw = session.l10n_bg_live_refresh_toast_mute;
+    return Array.isArray(raw) ? raw : [];
+}
+
+function _isToastMuted(type) {
+    if (!type) return false;
+    return _mutedPrefixes().some((prefix) => String(type).startsWith(prefix));
+}
+
 function _formatProxyEvent(envelope) {
     const {type, source = {}, data = {}} = envelope || {};
+    if (_isToastMuted(type)) return null;
     const meta = _TOAST_KIND[type] || {kind: "info", title: type};
     const parts = [];
     if (source.proxy) parts.push(source.proxy);
@@ -152,11 +173,13 @@ const liveRefreshService = {
             }
             try {
                 const t = _formatProxyEvent(payload);
-                notification.add(t.message, {
-                    title: t.title,
-                    type: t.kind,
-                    sticky: t.sticky,
-                });
+                if (t) {
+                    notification.add(t.message, {
+                        title: t.title,
+                        type: t.kind,
+                        sticky: t.sticky,
+                    });
+                }
             } catch (e) {
                 console.warn("PROXY_EVENT toast suppressed:", e);
             }

@@ -327,11 +327,21 @@ class L10nBGHrVersionAmendment(models.Model):
         self.ensure_one()
         if self.state != 'to_approve':
             raise ValidationError(_("Only amendments pending approval can be approved."))
-        self.write({
+        vals = {
             'state': 'approved',
             'approved_by_id': self.env.user.id,
             'approved_date': fields.Datetime.now(),
+        }
+        # Щампова „предишната стойност" при одобрението. onchange-ът лови
+        # само пътя през интерфейса — при импорт или RPC old_* оставаха
+        # празни и бланката излизаше без предишната стойност. Пълним само
+        # незаетите, за да не се презапише ръчно въведена стойност.
+        vals.update({
+            field_name: value
+            for field_name, value in self._snapshot_old_values().items()
+            if not self[field_name]
         })
+        self.write(vals)
 
     def action_activate(self):
         self.ensure_one()
@@ -446,19 +456,34 @@ class L10nBGHrVersionAmendment(models.Model):
     # ONCHANGE
     # =========================================================================
 
+    def _snapshot_old_values(self):
+        """Текущите стойности на свързаната версия като vals за old_* полетата.
+
+        Ползва се и от onchange-а (UI), и от одобрението (импорт/RPC) —
+        иначе историята на ДС-то остава без „предишна стойност", а точно
+        тя се печата в бланката."""
+        self.ensure_one()
+        v = self.version_id
+        if not v:
+            return {}
+        return {
+            'old_wage': v.wage,
+            'old_position_id': v.l10n_bg_qualification_group.id,
+            'old_economic_activity_id': v.l10n_bg_economic_activity_id.id,
+            'old_working_time_type': v.l10n_bg_working_time_type,
+            'old_daily_hours': v.l10n_bg_daily_hours,
+            'old_weekly_hours': (v.l10n_bg_weekly_hours
+                                 if 'l10n_bg_weekly_hours' in v._fields else 40.0),
+            'old_work_location': v.work_location or '',
+            'old_leave_days': v.l10n_bg_total_leave_days,
+        }
+
     @api.onchange('version_id')
     def _onchange_version_id(self):
         """Load current values from the linked version."""
         if self.version_id:
-            v = self.version_id
-            self.old_wage = v.wage
-            self.old_position_id = v.l10n_bg_qualification_group
-            self.old_economic_activity_id = v.l10n_bg_economic_activity_id
-            self.old_working_time_type = v.l10n_bg_working_time_type
-            self.old_daily_hours = v.l10n_bg_daily_hours
-            self.old_weekly_hours = v.l10n_bg_weekly_hours if 'l10n_bg_weekly_hours' in v._fields else 40.0
-            self.old_work_location = v.work_location or ''
-            self.old_leave_days = v.l10n_bg_total_leave_days
+            for field_name, value in self._snapshot_old_values().items():
+                self[field_name] = value
 
     @api.onchange('amendment_type')
     def _onchange_amendment_type(self):

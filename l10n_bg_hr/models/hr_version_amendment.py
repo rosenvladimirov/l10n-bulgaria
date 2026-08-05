@@ -351,8 +351,19 @@ class L10nBGHrVersionAmendment(models.Model):
     # =========================================================================
 
     def _apply_version_changes(self):
-        """Apply amendment changes to the linked version."""
+        """Apply amendment changes as a NEW version starting on the effective date."""
         self.ensure_one()
+
+        # Срочните ДС искат и обратен ход при изтичане, а
+        # cron_expire_temporary_amendments още пише върху текущата версия.
+        # Докато изходът не е решен, не ги пускаме по новия път — иначе
+        # входът създава версия, а изходът презаписва, и остава наполовина.
+        if self.is_temporary or self.is_temporary_assignment:
+            raise ValidationError(_(
+                "Activating temporary amendments is not supported yet: the "
+                "expiry path still writes back onto the current version. "
+                "Please contact your administrator."))
+
         vals = {}
 
         if self.new_wage:
@@ -370,12 +381,24 @@ class L10nBGHrVersionAmendment(models.Model):
         if self.new_weekly_hours and 'l10n_bg_weekly_hours' in self.version_id._fields:
             vals['l10n_bg_weekly_hours'] = self.new_weekly_hours
 
-        if vals:
-            self.version_id.write(vals)
-            self.version_id.message_post(
-                body=_('Updated by amendment %s') % self.amendment_number,
-                subject=_('Contract Amendment Applied'),
-            )
+        if not vals:
+            return
+
+        # Промяната ражда НОВА версия от датата на влизане в сила, вместо да
+        # презаписва текущата. Иначе увеличение с бъдеща дата важи и назад, а
+        # преизчисляване на минал период (Д1 корекция, УП-2, регенерация на
+        # регистъра) чете новата стойност като валидна открай време.
+        employee = self.version_id.employee_id
+        new_version = employee.create_version(
+            dict(vals, date_version=self.date_effective))
+        # 🚨 create_version излиза рано и НЕ прилага стойностите, когато вече
+        # съществува версия с тази дата — тогава връща нея непокътната. Без
+        # изричния write ДС-то минава в „в сила", а заплатата не се сменя, тихо.
+        new_version.write(vals)
+        new_version.message_post(
+            body=_('Created by amendment %s') % self.amendment_number,
+            subject=_('Contract Amendment Applied'),
+        )
 
     @api.model
     def cron_expire_temporary_amendments(self):

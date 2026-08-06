@@ -402,9 +402,24 @@ class L10nBGHrVersionAmendment(models.Model):
         # презаписва текущата. Иначе увеличение с бъдеща дата важи и назад, а
         # преизчисляване на минал период (Д1 корекция, УП-2, регенерация на
         # регистъра) чете новата стойност като валидна открай време.
+        # 🚨 Полета с copy=False се губят: create_version стъпва на copy_data().
+        # `copy=False` е предвидено за ДУБЛИРАНЕ на версия (нов договор), но при
+        # допълнително споразумение договорът е СЪЩИЯТ — стажът и номерът му
+        # продължават. Без това новата версия тръгва с нулев клас: наблюдавано
+        # на plm_acc (v939 class_period 15:09:06 → v1116 00:00:00, class_years
+        # 15 → 0), тоест ДТВ-то за втория сегмент падаше на нула.
+        carried = {}
+        for field_name in ('l10n_bg_current_class_period',
+                           'l10n_bg_unrecognized_company_is_manual',
+                           'l10n_bg_contract_number'):
+            if field_name in self.version_id._fields:
+                carried[field_name] = self.version_id[field_name]
+
         employee = self.version_id.employee_id
         new_version = employee.create_version(
             dict(vals, date_version=self.date_effective))
+        if carried:
+            new_version.write(carried)
         # 🚨 create_version излиза рано и НЕ прилага стойностите, когато вече
         # съществува версия с тази дата — тогава връща нея непокътната. Без
         # изричния write ДС-то минава в „в сила", а заплатата не се сменя, тихо.

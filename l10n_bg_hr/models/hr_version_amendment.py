@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+
+_logger = logging.getLogger(__name__)
 
 
 class L10nBGHrVersionAmendment(models.Model):
@@ -409,6 +413,36 @@ class L10nBGHrVersionAmendment(models.Model):
             body=_('Created by amendment %s') % self.amendment_number,
             subject=_('Contract Amendment Applied'),
         )
+
+    @api.model
+    def cron_activate_due_amendments(self):
+        """Активира одобрените ДС, чиято дата на влизане в сила е настъпила.
+
+        Активирането беше само ръчен бутон. ДС се подписва предварително, с
+        бъдеща дата, и между одобрението и датата минават седмици — пропусне
+        ли се натискането, фишът излиза със старата заплата и мълчи.
+        Симетрично на cron_expire_temporary_amendments: ако изтичането върви,
+        а активирането не, срочните ДС ще изтичат, без изобщо да са влизали
+        в сила.
+        """
+        today = fields.Date.today()
+        due = self.search([
+            ('state', '=', 'approved'),
+            ('date_effective', '<=', today),
+        ])
+        for amendment in due:
+            # Грешка от едно ДС не спира партидата — остава в „Одобрено"
+            # с бележка в чата, за да се види от кого се чака намеса.
+            try:
+                with self.env.cr.savepoint():
+                    amendment.action_activate()
+            except Exception as exc:  # noqa: BLE001 — логваме и продължаваме
+                _logger.warning(
+                    "Автоматичното активиране на ДС %s пропадна: %s",
+                    amendment.amendment_number, exc)
+                amendment.message_post(body=_(
+                    "Automatic activation failed: %s. The amendment stays "
+                    "approved and needs manual review.", exc))
 
     @api.model
     def cron_expire_temporary_amendments(self):

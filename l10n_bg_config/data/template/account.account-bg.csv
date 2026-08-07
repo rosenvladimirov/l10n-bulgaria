@@ -16,3 +16,4 @@
 "l10n_bg_7051","Cost amount of fixed assets sold","705.100","expense","","False","","Отчетна стойност на продадените дълготрайни активи"
 "l10n_bg_7091","Revenues from sales of materials","709.100","income","","False","","Други приходи от продаба на материали"
 "l10n_bg_70912","Cost amount of fixed materials sold","709.200","expense","","False","","Отчетна стойност на продадените материали"
+"l10n_bg_491","Trustees","491","liability_non_current","","True","","Доверители"

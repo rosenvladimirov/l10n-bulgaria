@@ -60,21 +60,28 @@ class ResCompany(models.Model):
         related="partner_id.l10n_bg_uic",
         readonly=True,
     )
-    # Праг „незначителна стойност" (ЗДДС, §1 от ДР) — разделя мостра/рекламен
-    # материал (под прага, не е доставка по чл. 6, ал. 4) от дарение (над
-    # прага — приравнена доставка със самоначисляване). Единична пазарна
-    # стойност на артикул. 0 = не е конфигуриран → всичко безвъзмездно се
-    # третира консервативно като дарение.
+    # Праг „незначителна стойност" — ЗДДС §1, т. 9 ДР: „пазарна цена ПОД
+    # 30 лв." (текстът не е преизчислен изрично в евро; по служебното
+    # превалутиране ЗВЕРБ чл. 12–13 / Регламент 1103/97: 30/1,95583 →
+    # 15,34 €). СТРОГО под прага, per единична стока; второто кумулативно
+    # условие („да не е част от серия доставки към същото лице") е
+    # операторска преценка. Верифицирано срещу lex.bg към 08.2026
+    # (консолидиран текст с ДВ бр. 115/2025).
     l10n_bg_insignificant_value_threshold = fields.Monetary(
         string="Insignificant Value Threshold",
         currency_field="currency_id",
-        default=0.0,
-        help="Unit market value threshold below which a free-of-charge good "
-             "counts as an advertising item / sample (not a supply under the "
-             "VAT Act) instead of a donation. Set per the current legal "
-             "definition of 'goods of insignificant value' (VAT Act, "
-             "Additional Provisions). 0 disables the split — every "
-             "free-of-charge supply is treated as a donation.",
+        default=15.34,
+        help="Unit market value threshold of 'goods of insignificant value' "
+             "(VAT Act, §1 item 9 of the Additional Provisions: 'market "
+             "price BELOW BGN 30' — 15.34 EUR as of 01.01.2026 by the "
+             "statutory conversion). An advertising good STRICTLY below the "
+             "threshold, not part of a series of supplies to the same "
+             "person, is not a VAT supply (Art. 6(4)(2)); at or above it — "
+             "a donation (deemed supply under Art. 6(3)(2) when input VAT "
+             "was deducted, self-charge protocol under Art. 117(1)(3) "
+             "within 15 days). Samples have NO value cap (separate "
+             "hypothesis; CJEU C-581/08). 0 treats every free supply as a "
+             "donation.",
     )
     l10n_bg_represent_contact_id = fields.Many2one(
         "res.partner",

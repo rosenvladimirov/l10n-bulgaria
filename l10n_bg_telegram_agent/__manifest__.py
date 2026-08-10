@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Telegram Agent — Discuss bridge",
-    "version": "19.0.2.0.0",
+    "version": "19.0.2.0.1",
     "summary": "Bridge Telegram chats into Odoo Discuss — v2: Centrifugo "
                "consumer (variant A) + Anthropic merchant AI responder (auto mode).",
     "author": "Rosen Vladimirov, Terraros Commerce Ltd.",

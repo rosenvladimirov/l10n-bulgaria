@@ -10,8 +10,6 @@
         <field name="code">model._cron_poll_centrifugo()</field>
         <field name="interval_number">1</field>
         <field name="interval_type">minutes</field>
-        <field name="numbercall">-1</field>
         <field name="active" eval="False"/>
-        <field name="doall" eval="False"/>
     </record>
 </odoo>

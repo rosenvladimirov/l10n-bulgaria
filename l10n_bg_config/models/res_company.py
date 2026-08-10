@@ -60,6 +60,22 @@ class ResCompany(models.Model):
         related="partner_id.l10n_bg_uic",
         readonly=True,
     )
+    # Праг „незначителна стойност" (ЗДДС, §1 от ДР) — разделя мостра/рекламен
+    # материал (под прага, не е доставка по чл. 6, ал. 4) от дарение (над
+    # прага — приравнена доставка със самоначисляване). Единична пазарна
+    # стойност на артикул. 0 = не е конфигуриран → всичко безвъзмездно се
+    # третира консервативно като дарение.
+    l10n_bg_insignificant_value_threshold = fields.Monetary(
+        string="Insignificant Value Threshold",
+        currency_field="currency_id",
+        default=0.0,
+        help="Unit market value threshold below which a free-of-charge good "
+             "counts as an advertising item / sample (not a supply under the "
+             "VAT Act) instead of a donation. Set per the current legal "
+             "definition of 'goods of insignificant value' (VAT Act, "
+             "Additional Provisions). 0 disables the split — every "
+             "free-of-charge supply is treated as a donation.",
+    )
     l10n_bg_represent_contact_id = fields.Many2one(
         "res.partner",
         string="Representative",

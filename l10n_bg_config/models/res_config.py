@@ -12,6 +12,10 @@ class ResConfigSettings(models.TransientModel):
     is_l10n_bg_record = fields.Boolean(
         related="company_id.is_l10n_bg_record", readonly=False
     )
+    l10n_bg_insignificant_value_threshold = fields.Monetary(
+        related="company_id.l10n_bg_insignificant_value_threshold",
+        readonly=False,
+    )
     is_l10n_bg_multilanguage = fields.Json(
         related="company_id.is_l10n_bg_multilanguage", readonly=False
     )

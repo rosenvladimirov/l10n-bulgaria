@@ -214,6 +214,16 @@
                             <field name="module_l10n_bg_vat_reports" widget="upgrade_boolean" />
                         </setting>
                     </block>
+                    <block title="Free-of-charge supplies (VAT)" name="l10n_bg_free_supply">
+                        <setting
+                            id="l10n_bg_insignificant_value_threshold_setting"
+                            title="Insignificant Value Threshold"
+                            string="Insignificant value threshold"
+                            help="Unit market value below which a free-of-charge good is an advertising item / sample (not a VAT supply) instead of a donation. 0 treats every free supply as a donation."
+                        >
+                            <field name="l10n_bg_insignificant_value_threshold"/>
+                        </setting>
+                    </block>
                     <block title="Bank - modules" name="l10n_bg_bank">
                         <setting
                             id="l10n_bg_oca_bank_modules"

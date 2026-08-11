@@ -1,0 +1,22 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_invoice_copy
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-11 09:44+0000\n"
+"PO-Revision-Date: 2026-08-11 12:57+0200\n"
+"Last-Translator: Rosen Vladimirov <vladimirov.rosen@gmail.com>\n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_invoice_copy
+#: model_terms:ir.ui.view,arch_db:l10n_bg_invoice_copy.report_invoice_copy
+msgid "COPY"
+msgstr "КОПИЕ"

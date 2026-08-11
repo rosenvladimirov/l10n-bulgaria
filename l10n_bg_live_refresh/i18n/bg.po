@@ -1,0 +1,46 @@
+#  Translation of Odoo Server.
+#  This file contains the translation of the following modules:
+#  	* l10n_bg_live_refresh
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e-20260730\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-11 08:06+0000\n"
+"PO-Revision-Date: 2026-08-11 12:00+0300\n"
+"Last-Translator: Rosen Vladimirov <vladimirov.rosen@gmail.com>\n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_live_refresh
+#: model:ir.model.fields,field_description:l10n_bg_live_refresh.field_ir_http__display_name
+#: model:ir.model.fields,field_description:l10n_bg_live_refresh.field_live_refresh__display_name
+#: model:ir.model.fields,field_description:l10n_bg_live_refresh.field_live_refresh_mixin__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_live_refresh
+#: model:ir.model,name:l10n_bg_live_refresh.model_ir_http
+msgid "HTTP Routing"
+msgstr "HTTP Маршрутизиране"
+
+#. module: l10n_bg_live_refresh
+#: model:ir.model.fields,field_description:l10n_bg_live_refresh.field_ir_http__id
+#: model:ir.model.fields,field_description:l10n_bg_live_refresh.field_live_refresh__id
+#: model:ir.model.fields,field_description:l10n_bg_live_refresh.field_live_refresh_mixin__id
+msgid "ID"
+msgstr "Номер (ID)"
+
+#. module: l10n_bg_live_refresh
+#: model:ir.model,name:l10n_bg_live_refresh.model_live_refresh
+msgid "Live Refresh Dispatcher"
+msgstr "Диспечер за живо опресняване"
+
+#. module: l10n_bg_live_refresh
+#: model:ir.model,name:l10n_bg_live_refresh.model_live_refresh_mixin
+msgid "Live Refresh Mixin"
+msgstr "Mixin за живо опресняване"

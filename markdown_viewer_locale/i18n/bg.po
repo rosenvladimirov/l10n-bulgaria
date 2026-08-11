@@ -1,0 +1,23 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* markdown_viewer_locale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-11 09:45+0000\n"
+"PO-Revision-Date: 2026-08-11 00:00+0200\n"
+"Last-Translator: Rosen Vladimirov <vladimirov.rosen@gmail.com>\n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: markdown_viewer_locale
+#. odoo-javascript
+#: code:addons/markdown_viewer_locale/static/src/xml/form_controller.xml:0
+msgid "Open Markdown Documentation"
+msgstr "Отваряне на Markdown документацията"

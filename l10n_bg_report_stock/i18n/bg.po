@@ -1,0 +1,156 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_report_stock
+#: model:ir.actions.report,print_report_name:l10n_bg_report_stock.action_report_accepted__delivery
+msgid ""
+"'Accepted delivery report - %s - %s' % (object.partner_id.name or '', "
+"object.name)"
+msgstr ""
+"'Приемо-предавателен протокол – %s – %s' % (object.partner_id.name or '', "
+"object.name)"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<span><strong>Delivery Address:</strong></span>"
+msgstr "<span><strong>Адрес на доставка/продажба:</strong></span>"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<span>Remaining quantities not yet delivered:</span>"
+msgstr "<span>Оставащи количества, които все още не са доставени:</span>"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Customer Address</strong>"
+msgstr "<strong>Адрес на клиента</strong>"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Order</strong>"
+msgstr "<strong>Поръчка</strong>"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Product</strong>"
+msgstr "<strong>Продукт</strong>"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Quantity</strong>"
+msgstr "<strong>Количество</strong>"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Shipping Date</strong>"
+msgstr "<strong>Дата на експедиция</strong>"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Signature</strong>"
+msgstr "<strong>Подпис</strong>"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Vendor Address</strong>"
+msgstr "<strong>Адрес на доставчика</strong>"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Warehouse Address</strong>"
+msgstr "<strong>Адрес на склада</strong>"
+
+#. module: l10n_bg_report_stock
+#: model:ir.actions.report,name:l10n_bg_report_stock.action_report_accepted__delivery
+msgid "Accepted delivery report"
+msgstr "Стокова разписка"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Accepted delivery report #"
+msgstr "Приемо-предавателен протокол #"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Customizable Desk"
+msgstr "Персонализирано бюро"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Delivered"
+msgstr "Доставен"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Delivery slip #"
+msgstr "Доставна бележка №"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Description on transfer"
+msgstr "Описание на трансфера"
+
+#. module: l10n_bg_report_stock
+#: model:ir.model.fields,field_description:l10n_bg_report_stock.field_stock_move_line__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_report_stock
+#: model:ir.model.fields,field_description:l10n_bg_report_stock.field_stock_move_line__id
+msgid "ID"
+msgstr "Номер (ID)"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "John Doe"
+msgstr "Иван Иванов"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Lot/Serial Number"
+msgstr "Партиден/сериен номер"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Office Chair"
+msgstr "Офис стол"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Ordered"
+msgstr "Поръчани"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Product"
+msgstr "Продукт"
+
+#. module: l10n_bg_report_stock
+#: model:ir.model,name:l10n_bg_report_stock.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Движения на продукти (ред за преместване на запаси)"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "S0001"
+msgstr "S0001"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "WH/OUT/0001"
+msgstr "WH/OUT/0001"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "units"
+msgstr "единици"

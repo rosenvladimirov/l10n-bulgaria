@@ -1,0 +1,191 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_config_plugins_industry_map
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-11 08:06+0000\n"
+"PO-Revision-Date: 2026-08-11 08:06+0000\n"
+"Last-Translator: Rosen Vladimirov <vladimirov.rosen@gmail.com>\n"
+"Language-Team: \n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.kid.rule,note:l10n_bg_config_plugins_industry_map.kidrule_456
+msgid "Акцизи (ЗАДС) — акцизни стоки: C, D, G"
+msgstr "Акцизи (ЗАДС) — акцизни стоки: C, D, G"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_A_271
+msgid "Гори — биологични активи (СС 41)"
+msgstr "Гори — биологични активи (СС 41)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.kid.rule,note:l10n_bg_config_plugins_industry_map.kidrule_271
+msgid "Гори — дългосрочни биологични активи (СС 41)"
+msgstr "Гори — дългосрочни биологични активи (СС 41)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_S_713
+msgid "Дарения и финансирания (СС 9)"
+msgstr "Дарения и финансирания (СС 9)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.kid.rule,note:l10n_bg_config_plugins_industry_map.kidrule_713
+msgid "Дарения и финансирания — нестопански (СС 9)"
+msgstr "Дарения и финансирания — нестопански (СС 9)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_A_274
+#: model:l10n.bg.account.kid.rule,note:l10n_bg_config_plugins_industry_map.kidrule_274
+msgid "Животни в основни стада (СС 41)"
+msgstr "Животни в основни стада (СС 41)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_A_311
+#: model:l10n.bg.account.kid.rule,note:l10n_bg_config_plugins_industry_map.kidrule_311
+msgid "Краткотрайни биологични активи (СС 41)"
+msgstr "Краткотрайни биологични активи (СС 41)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.kid.rule,note:l10n_bg_config_plugins_industry_map.kidrule_457
+msgid "Митнически вземания (внос/износ извън ЕС): G, C, H"
+msgstr "Митнически вземания (внос/износ извън ЕС): G, C, H"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.kid.rule,note:l10n_bg_config_plugins_industry_map.kidrule_305
+msgid "Незавършено производство (СС 2 / СС 11)"
+msgstr "Незавършено производство (СС 2 / СС 11)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_F_611
+msgid "Незавършено производство по СС 11"
+msgstr "Незавършено производство по СС 11"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_G_701
+msgid "Няма продажби на продукция"
+msgstr "Няма продажби на продукция"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_F_703
+msgid "Приходи от СМР услуги (НСИ)"
+msgstr "Приходи от СМР услуги (НСИ)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_L_704
+msgid "Приходи от наеми (СС 40, НСИ)"
+msgstr "Приходи от наеми (СС 40, НСИ)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_C_701
+msgid "Приходи от продажби на продукция (НСИ)"
+msgstr "Приходи от продажби на продукция (НСИ)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_G_702
+msgid "Приходи от продажби на стоки (НСИ)"
+msgstr "Приходи от продажби на стоки (НСИ)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_A_701
+msgid "Приходи от продукция (НСИ)"
+msgstr "Приходи от продукция (НСИ)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.kid.rule,note:l10n_bg_config_plugins_industry_map.kidrule_711
+msgid "Приходи от регламентирана нестопанска дейност (СС 9)"
+msgstr "Приходи от регламентирана нестопанска дейност (СС 9)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_H_703
+msgid "Приходи от транспортни услуги (НСИ)"
+msgstr "Приходи от транспортни услуги (НСИ)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_J_703
+msgid "Приходи от услуги (НСИ)"
+msgstr "Приходи от услуги (НСИ)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_M_703
+msgid "Приходи от услуги (СС 18, НСИ)"
+msgstr "Приходи от услуги (СС 18, НСИ)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_I_703
+msgid "Приходи от услуги настаняване/храна (НСИ)"
+msgstr "Приходи от услуги настаняване/храна (НСИ)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_C_303
+msgid "Продукция (СС 2)"
+msgstr "Продукция (СС 2)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.kid.rule,note:l10n_bg_config_plugins_industry_map.kidrule_303
+msgid "Продукция — само производство/земеделие (СС 2)"
+msgstr "Продукция — само производство/земеделие (СС 2)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_C_601
+msgid "Разходи за материали"
+msgstr "Разходи за материали"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_C_611
+msgid "Разходи за основна дейност"
+msgstr "Разходи за основна дейност"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_G_615
+msgid "Разходи за продажби"
+msgstr "Разходи за продажби"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_S_711
+msgid "Регламентирана нестопанска дейност (СС 9)"
+msgstr "Регламентирана нестопанска дейност (СС 9)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_G_304
+msgid "Стоки (СС 2)"
+msgstr "Стоки (СС 2)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_I_702
+msgid "Стоки (търговия с храни/напитки)"
+msgstr "Стоки (търговия с храни/напитки)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_A_272
+#: model:l10n.bg.account.kid.rule,note:l10n_bg_config_plugins_industry_map.kidrule_272
+msgid "Трайни насаждения (СС 41)"
+msgstr "Трайни насаждения (СС 41)"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_G_303
+msgid "Търговец не води продукция"
+msgstr "Търговец не води продукция"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_M_303
+msgid "Услуга — без продукция"
+msgstr "Услуга — без продукция"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_M_304
+msgid "Услуга — без стоки"
+msgstr "Услуга — без стоки"
+
+#. module: l10n_bg_config_plugins_industry_map
+#: model:l10n.bg.account.industry.map,note:l10n_bg_config_plugins_industry_map.map_S_712
+#: model:l10n.bg.account.kid.rule,note:l10n_bg_config_plugins_industry_map.kidrule_712
+msgid "Членски внос (СС 9)"
+msgstr "Членски внос (СС 9)"

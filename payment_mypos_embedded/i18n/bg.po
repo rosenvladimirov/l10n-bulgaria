@@ -1,0 +1,63 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* payment_mypos_embedded
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-11 09:46+0000\n"
+"PO-Revision-Date: 2026-08-11 00:00+0200\n"
+"Last-Translator: Rosen Vladimirov <vladimirov.rosen@gmail.com>\n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: payment_mypos_embedded
+#: model:ir.model.fields,field_description:payment_mypos_embedded.field_payment_provider__display_name
+#: model:ir.model.fields,field_description:payment_mypos_embedded.field_payment_transaction__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: payment_mypos_embedded
+#: model:ir.model.fields.selection,name:payment_mypos_embedded.selection__payment_provider__mypos_flow__embedded
+msgid "Embedded iFrame (on-site)"
+msgstr "Вграден iFrame (на сайта)"
+
+#. module: payment_mypos_embedded
+#: model:ir.model.fields.selection,name:payment_mypos_embedded.selection__payment_provider__mypos_flow__redirect
+msgid "Hosted Redirect (default)"
+msgstr "Пренасочване към хоствана страница (по подразбиране)"
+
+#. module: payment_mypos_embedded
+#: model:ir.model.fields,field_description:payment_mypos_embedded.field_payment_provider__id
+#: model:ir.model.fields,field_description:payment_mypos_embedded.field_payment_transaction__id
+msgid "ID"
+msgstr "Номер (ID)"
+
+#. module: payment_mypos_embedded
+#: model:ir.model,name:payment_mypos_embedded.model_payment_provider
+msgid "Payment Provider"
+msgstr "Доставчик на плащания"
+
+#. module: payment_mypos_embedded
+#: model:ir.model,name:payment_mypos_embedded.model_payment_transaction
+msgid "Payment Transaction"
+msgstr "Платежна транзакция"
+
+#. module: payment_mypos_embedded
+#: model:ir.model.fields,help:payment_mypos_embedded.field_payment_provider__mypos_flow
+msgid ""
+"Redirect: shopper goes to the myPOS hosted page (RSA-signed IPCPurchase).\n"
+"Embedded: the myPOS SDK mounts a branded iFrame in the Odoo checkout — no client-side signature; security is the signed server-to-server urlNotify callback. Visa/Mastercard/Maestro only (no Apple/Google Pay)."
+msgstr ""
+"Пренасочване: купувачът отива на хостваната страница на myPOS (IPCPurchase с RSA подпис).\n"
+"Вградено: myPOS SDK монтира брандиран iFrame в Odoo checkout — без подпис от страна на клиента; сигурността е подписаният сървър-към-сървър urlNotify callback. Само Visa/Mastercard/Maestro (без Apple/Google Pay)."
+
+#. module: payment_mypos_embedded
+#: model:ir.model.fields,field_description:payment_mypos_embedded.field_payment_provider__mypos_flow
+msgid "myPOS Checkout Flow"
+msgstr "myPOS процес на плащане"

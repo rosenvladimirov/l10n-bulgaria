@@ -1,0 +1,2551 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_claude_terminal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-11 09:42+0000\n"
+"PO-Revision-Date: 2026-08-11 12:00+0200\n"
+"Last-Translator: Rosen Vladimirov <vladimirov.rosen@gmail.com>\n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "   Полета: %s"
+msgstr "   Полета: %s"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid ""
+"   ℹ Всеки потребител трябва сам да генерира Odoo API Key от своя профил "
+"(Account Security → New API Key) и да го пейства в Odoo RPC Connector → API "
+"Key."
+msgstr ""
+"   ℹ Всеки потребител трябва сам да генерира Odoo API Key от своя профил "
+"(Account Security → New API Key) и да го пейства в Odoo RPC Connector → API "
+"Key."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "   ⚠ Anthropic ключ липсва — НЕ е презаписан."
+msgstr "   ⚠ Anthropic ключ липсва — НЕ е презаписан."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "(uses company default)"
+msgstr "(използва фирменото по подразбиране)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__state__provision
+msgid "0. Нова инстанция (опционално)"
+msgstr "0. Нова инстанция (опционално)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__state__upload
+msgid "1. Качете конфигурация"
+msgstr "1. Качете конфигурация"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__state__review
+msgid "2. Прегледайте ключовете"
+msgstr "2. Прегледайте ключовете"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__state__users
+msgid "3. Изберете потребители"
+msgstr "3. Изберете потребители"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__state__apply
+msgid "4. Прилагане"
+msgstr "4. Прилагане"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__state__test
+msgid "5. Тестване"
+msgstr "5. Тестване"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid ""
+"<code>claude_terminal.provisioning_api_key</code> — API ключ от админа на v3"
+msgstr ""
+"<code>claude_terminal.provisioning_api_key</code> — API ключ от админа на v3"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid ""
+"<code>claude_terminal.provisioning_v3_url</code> — URL на v3 server (напр. "
+"<code>https://v3.mcpworks.net</code>)"
+msgstr ""
+"<code>claude_terminal.provisioning_v3_url</code> — URL на v3 сървъра (напр. "
+"<code>https://v3.mcpworks.net</code>)"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-exclamation-triangle me-2\"/>\n"
+"                                <b>Keys need rotation.</b>\n"
+"                                Rotate API keys in their upstream consoles\n"
+"                                (Anthropic / Qdrant / Voyage / OpenAI / MCP),\n"
+"                                paste the new values above, then click the\n"
+"                                button below."
+msgstr ""
+"<i class=\"fa fa-exclamation-triangle me-2\"/>\n"
+"                                <b>Ключовете се нуждаят от ротация.</b>\n"
+"                                Ротирайте API ключовете в конзолите на доставчиците\n"
+"                                (Anthropic / Qdrant / Voyage / OpenAI / MCP),\n"
+"                                поставете новите стойности по-горе и натиснете\n"
+"                                бутона по-долу."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-info-circle me-2\"/>\n"
+"                                No Anthropic key synced yet. Configure the MCP Server URL and Token above,\n"
+"                                then click <b>Reload from MCP</b>."
+msgstr ""
+"<i class=\"fa fa-info-circle me-2\"/>\n"
+"                                Все още няма синхронизиран Anthropic ключ. Конфигурирайте URL и токена на MCP сървъра по-горе,\n"
+"                                след което натиснете <b>Презареди от MCP</b>."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-info-circle me-2\"/>\n"
+"                                Алтернатива на ръчното попълване — wizard в 5 стъпки:\n"
+"                                качи ZIP, прегледай ключове, избери потребители, приложи, тествай."
+msgstr ""
+"<i class=\"fa fa-info-circle me-2\"/>\n"
+"                                Алтернатива на ръчното попълване — wizard в 5 стъпки:\n"
+"                                качи ZIP, прегледай ключове, избери потребители, приложи, тествай."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid ""
+"<strong>Company-level ключове</strong> (MCP, Qdrant, Ollama, Embeddings)\n"
+"                                се записват веднъж на фирмата.<br/>\n"
+"                                <strong>Per-user полетата</strong> (Claude Terminal URL/тема, Anthropic ключ,\n"
+"                                Odoo URL/db/протокол) се записват на всеки избран потребител."
+msgstr ""
+"<strong>Фирмените ключове</strong> (MCP, Qdrant, Ollama, Embeddings)\n"
+"                                се записват веднъж на фирмата.<br/>\n"
+"                                <strong>Полетата на потребител</strong> (Claude Terminal URL/тема, Anthropic ключ,\n"
+"                                Odoo URL/db/протокол) се записват на всеки избран потребител."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid ""
+"<strong>⚠ Конфигурация липсва.</strong>\n"
+"                            Settings → Technical → Parameters → System Parameters:"
+msgstr ""
+"<strong>⚠ Конфигурация липсва.</strong>\n"
+"                            Settings → Technical → Parameters → System Parameters:"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid ""
+"<strong>⚠ Фирмата няма ДДС номер.</strong>\n"
+"                            Tenant id-то се извлича от ДДС номера. Попълнете го в\n"
+"                            Settings → Companies → <em>{вашата фирма}</em> → ДДС номер,\n"
+"                            след това отворете wizard-а наново."
+msgstr ""
+"<strong>⚠ Фирмата няма ДДС номер.</strong>\n"
+"                            Tenant id-то се извлича от ДДС номера. Попълнете го в\n"
+"                            Settings → Companies → <em>{вашата фирма}</em> → ДДС номер,\n"
+"                            след това отворете wizard-а наново."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.constraint,message:l10n_bg_claude_terminal.constraint_ai_composite_document_uniq_doc
+msgid "A composite document already exists for this registry/record."
+msgstr "Вече съществува композитен документ за този регистър/запис."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__claude_keys_rotated_at
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__claude_keys_rotated_at
+msgid "AI Keys Last Rotated At"
+msgstr "Последна ротация на AI ключовете"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/terminal_kanbanview.xml:0
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/terminal_listview.xml:0
+msgid "AI MCP"
+msgstr "AI MCP"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.ui.menu,name:l10n_bg_claude_terminal.menu_ai_tokenizer_root
+msgid "AI Tokenizer"
+msgstr "AI токенизатор"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "AI Tokenizer (Qdrant + Ollama)"
+msgstr "AI токенизатор (Qdrant + Ollama)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model,name:l10n_bg_claude_terminal.model_ai_composite_document
+msgid "AI Tokenizer — Composite Document"
+msgstr "AI токенизатор — Композитен документ"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model,name:l10n_bg_claude_terminal.model_ai_document_builder
+msgid "AI Tokenizer — Composite Document Builder"
+msgstr "AI токенизатор — Изграждане на композитни документи"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model,name:l10n_bg_claude_terminal.model_ai_embedding_provider
+msgid "AI Tokenizer — Embedding Provider"
+msgstr "AI токенизатор — Доставчик на embeddings"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model,name:l10n_bg_claude_terminal.model_ai_qdrant_client
+msgid "AI Tokenizer — Qdrant REST Client"
+msgstr "AI токенизатор — Qdrant REST клиент"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model,name:l10n_bg_claude_terminal.model_ai_view_parser
+msgid "AI Tokenizer — View Arch Parser"
+msgstr "AI токенизатор — Парсер на архитектурата на изгледи"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model,name:l10n_bg_claude_terminal.model_ai_view_registry
+msgid "AI Tokenizer — View Registry"
+msgstr "AI токенизатор — Регистър на изгледи"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.actions.server,name:l10n_bg_claude_terminal.ir_cron_ai_tokenizer_reindex_ir_actions_server
+msgid "AI Tokenizer — re-index stale documents"
+msgstr "AI токенизатор — преиндексиране на остарели документи"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.actions.act_window,name:l10n_bg_claude_terminal.action_ai_view_registry
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_view_registry_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_view_registry_list
+msgid "AI View Registry"
+msgstr "AI регистър на изгледи"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_company.py:0
+msgid "AI keys marked rotated"
+msgstr "AI ключовете са отбелязани като ротирани"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_company.py:0
+msgid "ANTHROPIC_API_KEY saved from MCP server for: %s"
+msgstr "ANTHROPIC_API_KEY записан от MCP сървъра за: %s"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_telegram_api_hash
+msgid "API Hash"
+msgstr "API Hash"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_telegram_api_id
+msgid "API ID"
+msgstr "API ID"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_api_key
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "API Key"
+msgstr "API ключ"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__provision_api_key_set
+msgid "API Key Configured"
+msgstr "API ключът е конфигуриран"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "API Key Rotation"
+msgstr "Ротация на API ключове"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "API Token"
+msgstr "API токен"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_odoo_api_key
+msgid "API key for Odoo RPC authentication (Settings → Users → API Keys)."
+msgstr "API ключ за Odoo RPC автентикация (Settings → Users → API Keys)."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "API key for paid provider"
+msgstr "API ключ за платен доставчик"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_company__claude_mcp_token
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_config_settings__claude_mcp_token
+msgid ""
+"API token for MCP server (X-Api-Token header). Visible only to "
+"administrators."
+msgstr ""
+"API токен за MCP сървъра (хедър X-Api-Token). Видим само за администратори."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/claude_dispatch.xml:0
+msgid "Action failed"
+msgstr "Действието е неуспешно"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__active
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_view_registry_search
+msgid "Active"
+msgstr "Активно"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__provision_v3_url
+msgid ""
+"Address of the v3 provisioning server. Configured via System Parameter "
+"`claude_terminal.provisioning_v3_url`."
+msgstr ""
+"Адрес на v3 provisioning сървъра. Конфигурира се чрез системен параметър "
+"`claude_terminal.provisioning_v3_url`."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__provision_email
+msgid "Administrator email (for audit on the v3 server)."
+msgstr "Имейл на администратора (за одит на v3 сървъра)."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid ""
+"Advisory nag — keys older than 90 days flag the banner. Click after you "
+"rotate secrets upstream."
+msgstr ""
+"Съветващо напомняне — ключове, по-стари от 90 дни, показват банера. "
+"Натиснете, след като ротирате тайните при доставчиците."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "Age (days)"
+msgstr "Възраст (дни)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_company__claude_mcp_api_key
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_config_settings__claude_mcp_api_key
+msgid ""
+"Alternative API key for MCP server (optional). Visible only to "
+"administrators."
+msgstr ""
+"Алтернативен API ключ за MCP сървъра (по избор). Видим само за "
+"администратори."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__ai_view_registry__embedding_provider__anthropic
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__cfg_embedding_provider__anthropic
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_company__claude_embedding_provider__anthropic
+msgid "Anthropic"
+msgstr "Anthropic"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Anthropic (for users)"
+msgstr "Anthropic (за потребители)"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "Anthropic API Key"
+msgstr "Anthropic API ключ"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__claude_anthropic_api_key
+msgid "Anthropic API Key (Company)"
+msgstr "Anthropic API ключ (фирма)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_anthropic_api_key
+msgid "Anthropic API Key (for users)"
+msgstr "Anthropic API ключ (за потребители)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__claude_anthropic_api_key_display
+msgid "Anthropic API Key (stored)"
+msgstr "Anthropic API ключ (съхранен)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__claude_anthropic_key_synced_at
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__claude_anthropic_key_synced_at
+msgid "Anthropic Key Last Synced"
+msgstr "Последна синхронизация на Anthropic ключа"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_company.py:0
+msgid "Anthropic key synced"
+msgstr "Anthropic ключът е синхронизиран"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__applied_company
+msgid "Applied Company"
+msgstr "Приложено към фирма"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__applied_user_count
+msgid "Applied User Count"
+msgstr "Брой приложени потребители"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__apply_log
+msgid "Apply Log"
+msgstr "Журнал на прилагането"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_view_registry_search
+msgid "Archived"
+msgstr "Архивирано"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/claude_dispatch.xml:0
+msgid "Ask me"
+msgstr "Попитай ме"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "At least 8 characters — keep it safe"
+msgstr "Поне 8 символа — пазете я"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__atom
+msgid "Atom"
+msgstr "Atom"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_company__claude_embedding_api_key
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_config_settings__claude_embedding_api_key
+msgid ""
+"Auth token sent as 'Authorization: Bearer ...' to the embedding endpoint. "
+"Required for paid providers (OpenAI/Voyage/Anthropic). Also used for proxied"
+" Ollama (e.g. MCP server at https://mcp.odoo-shell.space/ollama — set this "
+"to the MCP_SECRET_TOKEN). Leave empty for direct Ollama without auth. "
+"Visible only to administrators."
+msgstr ""
+"Токен за автентикация, изпращан като 'Authorization: Bearer ...' към "
+"embedding крайната точка. Задължителен за платените доставчици "
+"(OpenAI/Voyage/Anthropic). Използва се и за проксиран Ollama (напр. MCP "
+"сървър на https://mcp.odoo-shell.space/ollama — задайте MCP_SECRET_TOKEN). "
+"Оставете празно за директен Ollama без автентикация. Видим само за "
+"администратори."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "Authenticated — UID %s"
+msgstr "Автентикиран — UID %s"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "Authentication failed — check DB, login or API key"
+msgstr "Неуспешна автентикация — проверете БД, логин или API ключ"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/claude_dispatch.xml:0
+msgid "Back"
+msgstr "Назад"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_company__claude_embedding_provider
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_config_settings__claude_embedding_provider
+msgid "Backend used to generate vector embeddings."
+msgstr "Бекенд за генериране на векторни embeddings."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_viber_bot_name
+msgid "Bot Name"
+msgstr "Име на бота"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_viber_bot_token
+msgid "Bot Token"
+msgstr "Токен на бота"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_ai_view_registry__field_spec
+msgid "Cached parsed arch — list of field paths with types and depth."
+msgstr ""
+"Кеширана парсната архитектура — списък от пътища на полета с типове и "
+"дълбочина."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Cancel"
+msgstr "Отказ"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/terminal_chatter.xml:0
+msgid "Cannot connect to terminal server."
+msgstr "Няма връзка с терминалния сървър."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_company.py:0
+msgid "Cannot reach MCP server at %s: %s"
+msgstr "MCP сървърът на %s е недостъпен: %s"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/terminal_chatter.xml:0
+msgid "Check that Docker is running:"
+msgstr "Проверете дали Docker работи:"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/terminal_chatter.xml:0
+msgid "Claude"
+msgstr "Claude"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "Claude Terminal"
+msgstr "Claude Terminal"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Claude Terminal (per-user)"
+msgstr "Claude Terminal (на потребител)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model,name:l10n_bg_claude_terminal.model_claude_terminal_setup_wizard
+msgid "Claude Terminal Setup Wizard (6 steps)"
+msgstr "Помощник за настройка на Claude Terminal (6 стъпки)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_terminal_url
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_terminal_url
+msgid "Claude Terminal URL"
+msgstr "Claude Terminal URL"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Claude Terminal — Setup"
+msgstr "Claude Terminal — Настройка"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/claude_dispatch.xml:0
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/terminal_listview.xml:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Close"
+msgstr "Затвори"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "Collection Prefix"
+msgstr "Префикс на колекциите"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_theme
+msgid "Color theme for the Claude Terminal."
+msgstr "Цветова тема за Claude Terminal."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model,name:l10n_bg_claude_terminal.model_res_company
+msgid "Companies"
+msgstr "Фирми"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__company_id
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__company_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_composite_document_search
+msgid "Company"
+msgstr "Фирма"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__provision_company_vat
+msgid "Company VAT Number"
+msgstr "ДДС номер на фирмата"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_company__claude_anthropic_api_key
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_config_settings__claude_anthropic_api_key_display
+msgid ""
+"Company-wide Anthropic API key for the Claude terminal. If set, every user's"
+" terminal uses it (1st choice); otherwise the user's own key "
+"(res.users.claude_api_key, 2nd choice) is used, and if that is empty the "
+"terminal login flow runs at startup. Synced from the MCP server via "
+"'Reload'. Administrators only."
+msgstr ""
+"Фирмен Anthropic API ключ за Claude терминала. Ако е зададен, терминалът на "
+"всеки потребител го използва (1-ви избор); иначе се използва собственият "
+"ключ на потребителя (res.users.claude_api_key, 2-ри избор), а ако и той е "
+"празен, при стартиране се изпълнява процедурата за вход в терминала. "
+"Синхронизира се от MCP сървъра чрез 'Презареди'. Само за администратори."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid ""
+"Company-wide MCP server. Users without individual overrides will use these "
+"settings."
+msgstr ""
+"Фирмен MCP сървър. Потребителите без индивидуални настройки ще използват "
+"тези."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/claude_dispatch.xml:0
+msgid "Completed successfully"
+msgstr "Завършено успешно"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_composite_document_form
+msgid "Composite Document"
+msgstr "Композитен документ"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.actions.act_window,name:l10n_bg_claude_terminal.action_ai_composite_document
+#: model:ir.ui.menu,name:l10n_bg_claude_terminal.menu_ai_composite_document
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_composite_document_list
+msgid "Composite Documents"
+msgstr "Композитни документи"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/ai_view_registry.py:0
+msgid "Composite Documents — %s"
+msgstr "Композитни документи — %s"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model,name:l10n_bg_claude_terminal.model_res_config_settings
+msgid "Config Settings"
+msgstr "Настройки"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__config_file
+msgid "Configuration ZIP File"
+msgstr "Конфигурационен ZIP файл"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid ""
+"Configure Qdrant vector DB and Ollama embeddings for AI tokenization of Odoo"
+" records."
+msgstr ""
+"Конфигурирайте Qdrant векторна БД и Ollama embeddings за AI токенизация на "
+"Odoo записи."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/terminal_chatter.xml:0
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/terminal_listview.xml:0
+msgid "Configure terminal URL in Settings → Preferences → Claude Terminal"
+msgstr ""
+"Конфигурирайте URL на терминала в Settings → Preferences → Claude Terminal"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/terminal_chatter.xml:0
+msgid "Connected"
+msgstr "Свързан"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "Connected but model '%s' not pulled. Run: ollama pull %s"
+msgstr "Свързан, но моделът '%s' не е изтеглен. Изпълнете: ollama pull %s"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "Connected — %s available"
+msgstr "Свързан — %s наличен"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "Connected — %s collection(s)"
+msgstr "Свързан — %s колекция(и)"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "Connected — UID %s, Odoo %s"
+msgstr "Свързан — UID %s, Odoo %s"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/terminal_chatter.xml:0
+msgid "Connecting..."
+msgstr "Свързване..."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__create_new_instance
+msgid "Create New MCP Instance"
+msgstr "Създай нова MCP инстанция"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__create_uid
+msgid "Created by"
+msgstr "Създадено от"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__create_date
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__create_date
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__create_date
+msgid "Created on"
+msgstr "Създадено на"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__db_name
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_odoo_db
+msgid "Database"
+msgstr "База данни"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_web_db
+msgid ""
+"Database name for web session (e.g. openerp). Leave empty to auto-detect."
+msgstr ""
+"Име на базата данни за уеб сесия (напр. openerp). Оставете празно за "
+"автоматично откриване."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__claude_keys_age_days
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__claude_keys_age_days
+msgid "Days Since Rotation"
+msgstr "Дни от ротацията"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_company__claude_mcp_url
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_config_settings__claude_mcp_url
+msgid ""
+"Default MCP server for all users of this company. Individual users can "
+"override in their preferences."
+msgstr ""
+"MCP сървър по подразбиране за всички потребители на тази фирма. Отделните "
+"потребители могат да го променят в предпочитанията си."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_odoo_verify_ssl
+msgid "Disable only for self-signed certificates in the dev environment."
+msgstr "Изключвайте само при самоподписани сертификати в dev среда."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/terminal_chatter.xml:0
+msgid "Disconnected"
+msgstr "Прекъсната връзка"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__display_name
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_document_builder__display_name
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_embedding_provider__display_name
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_qdrant_client__display_name
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_parser__display_name
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__display_name
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ir_model__display_name
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__display_name
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__document_text
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_composite_document_form
+msgid "Document Text"
+msgstr "Текст на документа"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__document_count
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_view_registry_form
+msgid "Documents"
+msgstr "Документи"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__config_file
+msgid "Downloaded from MCP server with temporary password."
+msgstr "Изтеглен от MCP сървъра с временна парола."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__cfg_terminal_theme__dracula
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__dracula
+msgid "Dracula"
+msgstr "Dracula"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__ai_composite_document__state__draft
+msgid "Draft"
+msgstr "Чернова"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.actions.act_window,help:l10n_bg_claude_terminal.action_ai_view_registry
+msgid ""
+"Each registry entry defines which model and view should be\n"
+"                captured as a composite document and indexed to Qdrant."
+msgstr ""
+"Всеки запис в регистъра определя кой модел и изглед да бъдат\n"
+"                обхванати като композитен документ и индексирани в Qdrant."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__user_ids
+msgid ""
+"Each selected user receives: Claude Terminal URL/theme, Anthropic ключ, Odoo"
+" URL/db/протокол. ОСТАВА им да генерират сами Odoo API Key (Account Security"
+" → New API Key) и да го поставят в Odoo RPC Connector → API Key."
+msgstr ""
+"Всеки избран потребител получава: Claude Terminal URL/тема, Anthropic ключ, "
+"Odoo URL/db/протокол. ОСТАВА им да генерират сами Odoo API Key (Account "
+"Security → New API Key) и да го поставят в Odoo RPC Connector → API Key."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__provision_email
+msgid "Email (for audit)"
+msgstr "Имейл (за одит)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_embedding_api_key
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__claude_embedding_api_key
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__claude_embedding_api_key
+msgid "Embedding API Key"
+msgstr "Embedding API ключ"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__claude_ollama_model
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__claude_ollama_model
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "Embedding Model"
+msgstr "Embedding модел"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__embedding_provider
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__claude_embedding_provider
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__claude_embedding_provider
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "Embedding Provider"
+msgstr "Доставчик на embeddings"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_embedding_provider
+msgid "Embedding provider"
+msgstr "Доставчик на embeddings"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Embeddings"
+msgstr "Embeddings"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__ai_composite_document__state__error
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_composite_document_form
+msgid "Error"
+msgstr "Грешка"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_composite_document_search
+msgid "Errors"
+msgstr "Грешки"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__external_odoo_url
+msgid "External Odoo URL"
+msgstr "Външен Odoo URL"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__external_odoo_url
+msgid ""
+"External URL of this Odoo instance, used by the MCP server за RPC връзка "
+"обратно към нас. По подразбиране от web.base.url."
+msgstr ""
+"Външен URL на тази Odoo инстанция, използван от MCP сървъра за RPC връзка "
+"обратно към нас. По подразбиране от web.base.url."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__parsed_payload
+msgid "Extracted JSON"
+msgstr "Извлечен JSON"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__provision_company_vat
+msgid ""
+"Extracted from res.company.vat. Used as tenant id — името на client стака, "
+"контейнерите и hostname-а ще бъдат нормализирани от него (напр. BG123456789 "
+"→ bg123456789, hostname mcp-bg123456789.mcpworks.net)."
+msgstr ""
+"Извлича се от res.company.vat. Използва се като tenant id — името на "
+"клиентския стак, контейнерите и hostname-а ще бъдат нормализирани от него "
+"(напр. BG123456789 → bg123456789, hostname mcp-bg123456789.mcpworks.net)."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__field_spec
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_view_registry_form
+msgid "Field Spec (JSON)"
+msgstr "Спецификация на полетата (JSON)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__config_filename
+msgid "Filename"
+msgstr "Име на файл"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__ai_view_registry__view_type__form
+msgid "Form"
+msgstr "Форма"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/ai_view_registry.py:0
+msgid "Form View Grabber"
+msgstr "Събиране на формулярни изгледи"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/ai_view_registry.py:0
+msgid ""
+"Form view grabber finished:\n"
+"  • Created %(c)s new entries (inactive)\n"
+"  • Skipped %(e)s already registered\n"
+"  • Skipped %(b)s blacklisted/technical/transient"
+msgstr ""
+"Събирането на формулярни изгледи завърши:\n"
+"  • Създадени %(c)s нови записа (неактивни)\n"
+"  • Пропуснати %(e)s вече регистрирани\n"
+"  • Пропуснати %(b)s в черен списък/технически/временни"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "General Settings"
+msgstr "Общи настройки"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__cfg_terminal_theme__github
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__github
+msgid "GitHub (Light)"
+msgstr "GitHub (светла)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__cfg_terminal_theme__gruvbox-dark
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__gruvbox-dark
+msgid "Gruvbox Dark"
+msgstr "Gruvbox Dark"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "HTTP %s"
+msgstr "HTTP %s"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "HTTP %s — %s"
+msgstr "HTTP %s — %s"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "HTTP %s — check MCP token"
+msgstr "HTTP %s — проверете MCP токена"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "HTTP %s — check Qdrant api-key"
+msgstr "HTTP %s — проверете Qdrant api-key"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "I rotated the keys"
+msgstr "Ротирах ключовете"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__id
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_document_builder__id
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_embedding_provider__id
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_qdrant_client__id
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_parser__id
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__id
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ir_model__id
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__id
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__id
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__id
+msgid "ID"
+msgstr "Номер (ID)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__ai_composite_document__state__indexed
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_composite_document_search
+msgid "Indexed"
+msgstr "Индексиран"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__cfg_odoo_protocol__jsonrpc
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_odoo_protocol__jsonrpc
+msgid "JSON-RPC"
+msgstr "JSON-RPC"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__ai_view_registry__view_type__kanban
+msgid "Kanban"
+msgstr "Канбан"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__claude_keys_needs_rotation
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__claude_keys_needs_rotation
+msgid "Keys Need Rotation"
+msgstr "Ключовете се нуждаят от ротация"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__last_parsed
+msgid "Last Arch Parse"
+msgstr "Последен парс на архитектурата"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__error_message
+msgid "Last Error"
+msgstr "Последна грешка"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Последно актуализирано от"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__write_date
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__write_date
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__write_date
+msgid "Last Updated on"
+msgstr "Последно актуализирано на"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "Last rotated"
+msgstr "Последна ротация"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "Last synced"
+msgstr "Последна синхронизация"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "Launch setup wizard →"
+msgstr "Стартирай помощника за настройка →"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "Leave blank to inherit MCP settings from"
+msgstr "Оставете празно за наследяване на MCP настройките от"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_ai_view_registry__view_id
+msgid "Leave empty to use the default view for this model/type."
+msgstr ""
+"Оставете празно, за да се използва изгледът по подразбиране за този "
+"модел/тип."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__ai_view_registry__view_type__list
+msgid "List"
+msgstr "Списък"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_web_login
+msgid "Login (email) for web session authentication."
+msgstr "Логин (имейл) за автентикация на уеб сесията."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_ai_view_registry__priority
+msgid ""
+"Lower = higher priority. Tokenization cron processes low-priority first."
+msgstr ""
+"По-ниско = по-висок приоритет. Cron задачата за токенизация обработва първо "
+"ниските стойности."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_mcp_api_key
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__claude_mcp_api_key
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__claude_mcp_api_key
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_mcp_api_key
+msgid "MCP API Key"
+msgstr "MCP API ключ"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__claude_mcp_token
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__claude_mcp_token
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_mcp_token
+msgid "MCP API Token"
+msgstr "MCP API токен"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_company.py:0
+msgid "MCP API Token is not configured for this company."
+msgstr "MCP API токенът не е конфигуриран за тази фирма."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_mcp_client_id
+msgid "MCP Client ID"
+msgstr "MCP Client ID"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__claude_mcp_client_id
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__claude_mcp_client_id
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_mcp_client_id
+msgid "MCP OAuth Client ID"
+msgstr "MCP OAuth Client ID"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "MCP Server"
+msgstr "MCP сървър"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "MCP Server Connection"
+msgstr "Връзка с MCP сървър"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__claude_mcp_url
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__claude_mcp_url
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_mcp_url
+msgid "MCP Server URL"
+msgstr "URL на MCP сървъра"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_company.py:0
+msgid "MCP Server URL is not configured for this company."
+msgstr "URL на MCP сървъра не е конфигуриран за тази фирма."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "MCP Server URL is not configured."
+msgstr "URL на MCP сървъра не е конфигуриран."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "MCP Server URL not configured"
+msgstr "URL на MCP сървъра не е конфигуриран"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_mcp_token
+msgid "MCP Token"
+msgstr "MCP токен"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_mcp_url
+msgid "MCP URL"
+msgstr "MCP URL"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "MCP save failed: %s"
+msgstr "Неуспешен запис към MCP: %s"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "MCP secret token"
+msgstr "MCP секретен токен"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "MCP server"
+msgstr "MCP сървър"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_company.py:0
+msgid ""
+"MCP server returned an empty Anthropic API key. Set ANTHROPIC_API_KEY in the"
+" MCP server environment first."
+msgstr ""
+"MCP сървърът върна празен Anthropic API ключ. Първо задайте "
+"ANTHROPIC_API_KEY в средата на MCP сървъра."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_composite_document_form
+msgid "Mark Stale"
+msgstr "Отбележи като остарял"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__create_new_instance
+msgid ""
+"Mark if you do not have an existing MCP instance. The wizard ще се свърже с "
+"v3 provisioning сървъра, ще създаде нова инстанция за вашата фирма и ще "
+"получи готов конфигурационен ZIP."
+msgstr ""
+"Отбележете, ако нямате съществуваща MCP инстанция. Помощникът ще се свърже с"
+" v3 provisioning сървъра, ще създаде нова инстанция за вашата фирма и ще "
+"получи готов конфигурационен ZIP."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__material-dark
+msgid "Material Dark"
+msgstr "Material Dark"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__material-light
+msgid "Material Light"
+msgstr "Material Light"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__model_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_composite_document_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_view_registry_search
+msgid "Model"
+msgstr "Модел"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model,name:l10n_bg_claude_terminal.model_ir_model
+msgid "Models"
+msgstr "Модели"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__cfg_terminal_theme__monokai
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__monokai
+msgid "Monokai"
+msgstr "Monokai"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "My Bot"
+msgstr "Моят бот"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__name
+msgid "Name"
+msgstr "Име"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_company.py:0
+msgid "Next rotation reminder in %s days."
+msgstr "Следващо напомняне за ротация след %s дни."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Next →"
+msgstr "Напред →"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__novel
+msgid "Novel"
+msgstr "Novel"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_company__claude_mcp_client_id
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_config_settings__claude_mcp_client_id
+msgid "OAuth 2.0 client ID for MCP server (optional)."
+msgstr "OAuth 2.0 client ID за MCP сървъра (по избор)."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "OAuth Client ID"
+msgstr "OAuth Client ID"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_odoo_api_key
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "Odoo API Key"
+msgstr "Odoo API ключ"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "Odoo RPC Connector"
+msgstr "Odoo RPC конектор"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Odoo RPC Connector (per-user)"
+msgstr "Odoo RPC конектор (на потребител)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_odoo_protocol
+msgid "Odoo RPC Protocol"
+msgstr "Odoo RPC протокол"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_odoo_url
+msgid "Odoo URL"
+msgstr "Odoo URL"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_odoo_db
+msgid "Odoo database name for RPC connector"
+msgstr "Име на Odoo базата данни за RPC конектора"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_odoo_url
+msgid "Odoo instance URL for RPC connector (e.g. http://localhost:8069)"
+msgstr ""
+"URL на Odoo инстанцията за RPC конектора (напр. http://localhost:8069)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__ai_view_registry__embedding_provider__ollama
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__cfg_embedding_provider__ollama
+msgid "Ollama"
+msgstr "Ollama"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_company__claude_embedding_provider__ollama
+msgid "Ollama (local)"
+msgstr "Ollama (локален)"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "Ollama / Embeddings"
+msgstr "Ollama / Embeddings"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_ollama_url
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__claude_ollama_url
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__claude_ollama_url
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "Ollama URL"
+msgstr "Ollama URL"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "Ollama URL not configured"
+msgstr "Ollama URL не е конфигуриран"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_company__claude_ollama_url
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_config_settings__claude_ollama_url
+msgid "Ollama endpoint for local embeddings (e.g. http://localhost:11434)."
+msgstr ""
+"Ollama крайна точка за локални embeddings (напр. http://localhost:11434)."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_ollama_model
+msgid "Ollama model"
+msgstr "Ollama модел"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_company__claude_ollama_model
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_config_settings__claude_ollama_model
+msgid ""
+"Ollama model for embeddings. Common: nomic-embed-text (768d), mxbai-embed-"
+"large (1024d)."
+msgstr ""
+"Ollama модел за embeddings. Често използвани: nomic-embed-text (768d), "
+"mxbai-embed-large (1024d)."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__one-half-dark
+msgid "One Half Dark"
+msgstr "One Half Dark"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__one-half-light
+msgid "One Half Light"
+msgstr "One Half Light"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "Only administrators can read Claude MCP configuration."
+msgstr "Само администратори могат да четат Claude MCP конфигурацията."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/claude_dispatch.xml:0
+msgid "Open Claude AI chat session"
+msgstr "Отвори Claude AI чат сесия"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_composite_document_form
+msgid "Open Source Record"
+msgstr "Отвори записа източник"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/terminal_chatter.xml:0
+msgid "Open in new tab"
+msgstr "Отвори в нов раздел"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/claude_dispatch.xml:0
+msgid "Open the terminal in ask mode — answers about this record"
+msgstr "Отвори терминала в режим на въпроси — отговаря за този запис"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__ai_view_registry__embedding_provider__openai
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__cfg_embedding_provider__openai
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_company__claude_embedding_provider__openai
+msgid "OpenAI"
+msgstr "OpenAI"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "Optional"
+msgstr "Опция"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_company__claude_qdrant_api_key
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_config_settings__claude_qdrant_api_key
+msgid ""
+"Optional API key for Qdrant (if running with QDRANT__SERVICE__API_KEY). "
+"Visible only to administrators."
+msgstr ""
+"Незадължителен API ключ за Qdrant (ако работи с QDRANT__SERVICE__API_KEY). "
+"Видим само за администратори."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_mcp_api_key
+msgid "Override company MCP API key. Leave empty to use company default."
+msgstr ""
+"Замества фирмения MCP API ключ. Оставете празно за фирмения по подразбиране."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_mcp_url
+msgid ""
+"Override company MCP URL for this user. Leave empty to use company default."
+msgstr ""
+"Замества фирмения MCP URL за този потребител. Оставете празно за фирмения по"
+" подразбиране."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_mcp_token
+msgid ""
+"Override company MCP token for this user. Leave empty to use company "
+"default."
+msgstr ""
+"Замества фирмения MCP токен за този потребител. Оставете празно за фирмения "
+"по подразбиране."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_mcp_client_id
+msgid "Override company OAuth Client ID. Leave empty to use company default."
+msgstr ""
+"Замества фирмения OAuth Client ID. Оставете празно за фирмения по "
+"подразбиране."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_ai_view_registry__embedding_provider
+msgid "Override the user's default embedding provider for this entry."
+msgstr ""
+"Замества подразбирания доставчик на embeddings на потребителя за този запис."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__provision_password
+msgid "Password for New Instance"
+msgstr "Парола за новата инстанция"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_web_password
+msgid "Password for web session authentication."
+msgstr "Парола за автентикация на уеб сесията."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__pencil-dark
+msgid "Pencil Dark"
+msgstr "Pencil Dark"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__pencil-light
+msgid "Pencil Light"
+msgstr "Pencil Light"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_composite_document_search
+msgid "Pending"
+msgstr "Чакащ"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_telegram_phone
+msgid "Phone"
+msgstr "Телефон"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_telegram_phone
+msgid "Phone number with country code (e.g. +359...)"
+msgstr "Телефонен номер с код на държавата (напр. +359...)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__piatto-light
+msgid "Piatto Light"
+msgstr "Piatto Light"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_company__claude_qdrant_collection_prefix
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_config_settings__claude_qdrant_collection_prefix
+msgid "Prefix for per-database collections. Final name: <prefix><db_name>."
+msgstr "Префикс за колекциите по база данни. Крайно име: <prefix><db_name>."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__priority
+msgid "Priority"
+msgstr "Приоритет"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_odoo_protocol
+msgid "Protocol"
+msgstr "Протокол"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_view_registry_search
+msgid "Provider"
+msgstr "Доставчик"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "Provider=%s — Ollama not used"
+msgstr "Доставчик=%s — Ollama не се използва"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__provision_log
+msgid "Provisioning Log"
+msgstr "Журнал на provisioning"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_viber_webhook_url
+msgid ""
+"Public HTTPS URL for Viber webhook (e.g. "
+"https://yourdomain.com/viber/webhook)"
+msgstr ""
+"Публичен HTTPS URL за Viber webhook (напр. "
+"https://yourdomain.com/viber/webhook)"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "Qdrant (AI Tokenizer)"
+msgstr "Qdrant (AI токенизатор)"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Qdrant (vector DB for tokenisation)"
+msgstr "Qdrant (векторна БД за токенизация)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_qdrant_api_key
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__claude_qdrant_api_key
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__claude_qdrant_api_key
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "Qdrant API Key"
+msgstr "Qdrant API ключ"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__claude_qdrant_collection_prefix
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__claude_qdrant_collection_prefix
+msgid "Qdrant Collection Prefix"
+msgstr "Qdrant префикс на колекциите"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__qdrant_point_id
+msgid "Qdrant Point UUID"
+msgstr "Qdrant Point UUID"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_qdrant_url
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_company__claude_qdrant_url
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_config_settings__claude_qdrant_url
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "Qdrant URL"
+msgstr "Qdrant URL"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "Qdrant URL not configured — AI tokenization disabled"
+msgstr "Qdrant URL не е конфигуриран — AI токенизацията е изключена"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_qdrant_collection_prefix
+msgid "Qdrant collection prefix"
+msgstr "Qdrant префикс на колекциите"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_company__claude_qdrant_url
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_config_settings__claude_qdrant_url
+msgid ""
+"Qdrant vector DB endpoint (e.g. http://localhost:6333). Leave empty to "
+"disable AI tokenization."
+msgstr ""
+"Qdrant крайна точка на векторната БД (напр. http://localhost:6333). Оставете"
+" празно за изключване на AI токенизацията."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Raw JSON (read-only)"
+msgstr "Суров JSON (само за четене)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__parsed_payload
+msgid "Raw JSON structure from the ZIP (read-only)."
+msgstr "Сурова JSON структура от ZIP архива (само за четене)."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_view_registry_form
+msgid "Re-parse Arch"
+msgstr "Парсни архитектурата наново"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__provisioned_client_id
+msgid "Received Client ID"
+msgstr "Получен Client ID"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__provisioned_mcp_url
+msgid "Received MCP URL"
+msgstr "Получен MCP URL"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__res_id
+msgid "Record ID"
+msgstr "ИН на запис"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.actions.act_window,help:l10n_bg_claude_terminal.action_ai_view_registry
+msgid "Register a model/view pair for AI tokenization."
+msgstr "Регистрирайте двойка модел/изглед за AI токенизация."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__registry_id
+msgid "Registry Entry"
+msgstr "Запис в регистъра"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.constraint,message:l10n_bg_claude_terminal.constraint_ai_view_registry_uniq_model_view
+msgid "Registry entry already exists for this model / view type / view."
+msgstr ""
+"Вече съществува запис в регистъра за този модел / тип изглед / изглед."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/terminal_chatter.xml:0
+msgid "Reload"
+msgstr "Презаредете"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "Reload from MCP"
+msgstr "Презареди от MCP"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__apply_to_company
+msgid "Save Company Settings"
+msgstr "Запази фирмените настройки"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "Save to MCP"
+msgstr "Запази в MCP"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "Saved %s connection(s) to MCP server."
+msgstr "Записани %s връзка(и) към MCP сървъра."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_view_registry_list
+msgid "Scan Form Views"
+msgstr "Сканирай формулярните изгледи"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.actions.server,name:l10n_bg_claude_terminal.action_server_scan_form_views
+msgid "Scan Form Views (AI Tokenizer)"
+msgstr "Сканирай формулярните изгледи (AI токенизатор)"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_view_registry_list
+msgid ""
+"Scan all form views in the database and create inactive registry entries for"
+" new (model, form) combinations? Existing entries are skipped."
+msgstr ""
+"Да се сканират ли всички формулярни изгледи в базата и да се създадат "
+"неактивни записи в регистъра за нови комбинации (модел, формуляр)? "
+"Съществуващите записи се пропускат."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Select users to activate"
+msgstr "Изберете потребители за активиране"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "Server URL"
+msgstr "URL на сървъра"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_telegram_session
+msgid "Session Name"
+msgstr "Име на сесията"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_company__claude_keys_rotated_at
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_config_settings__claude_keys_rotated_at
+msgid ""
+"Set when an administrator confirms all AI/integration secrets (Qdrant, "
+"embedding provider, MCP token, Viber, Telegram hashes) were just rotated. "
+"Use the 'I rotated the keys' button in Settings after you actually updated "
+"them in their respective consoles."
+msgstr ""
+"Задава се, когато администратор потвърди, че всички AI/интеграционни тайни "
+"(Qdrant, embedding доставчик, MCP токен, Viber, Telegram хешове) са току-що "
+"ротирани. Използвайте бутона 'Ротирах ключовете' в Настройки, след като "
+"реално сте ги обновили в съответните конзоли."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__solarized-dark
+msgid "Solarized Dark"
+msgstr "Solarized Dark"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__cfg_terminal_theme__solarized-light
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__solarized-light
+msgid "Solarized Light"
+msgstr "Solarized Light"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__source_write_date
+msgid "Source write_date"
+msgstr "write_date на източника"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__view_id
+msgid "Specific View"
+msgstr "Конкретен изглед"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__ai_composite_document__state__stale
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_composite_document_search
+msgid "Stale"
+msgstr "Остарял"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__state
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__state
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_composite_document_search
+msgid "State"
+msgstr "Област"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "Stored key"
+msgstr "Съхранен ключ"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__apply_to_company
+msgid "Stores keys in res.company (shared across all users)."
+msgstr ""
+"Съхранява ключовете в res.company (споделени между всички потребители)."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid ""
+"Sync the ANTHROPIC_API_KEY from the MCP server. Use 'Reload' after changing "
+"the key on the MCP server."
+msgstr ""
+"Синхронизирайте ANTHROPIC_API_KEY от MCP сървъра. Използвайте 'Презареди' "
+"след смяна на ключа на MCP сървъра."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid ""
+"System Parameter `claude_terminal.provisioning_api_key` не е конфигуриран. "
+"Получете ключ от администратора на v3 сървъра."
+msgstr ""
+"System Parameter `claude_terminal.provisioning_api_key` не е конфигуриран. "
+"Получете ключ от администратора на v3 сървъра."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid ""
+"System Parameter `claude_terminal.provisioning_v3_url` не е конфигуриран. "
+"Settings → Technical → Parameters → System Parameters."
+msgstr ""
+"System Parameter `claude_terminal.provisioning_v3_url` не е конфигуриран. "
+"Settings → Technical → Parameters → System Parameters."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__model_name
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__model_name
+msgid "Technical Name"
+msgstr "Техническо име"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_telegram_api_hash
+msgid "Telegram API Hash from my.telegram.org"
+msgstr "Telegram API Hash от my.telegram.org"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_telegram_api_id
+msgid "Telegram API ID from my.telegram.org"
+msgstr "Telegram API ID от my.telegram.org"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "Telegram MCP"
+msgstr "Telegram MCP"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_telegram_session
+msgid "Telegram session name (default: claude_session)"
+msgstr "Име на Telegram сесията (по подразбиране: claude_session)"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Temporary password from MCP server"
+msgstr "Временна парола от MCP сървъра"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__zip_password
+msgid "Temporary password shown by MCP server at download."
+msgstr "Временна парола, показана от MCP сървъра при изтегляне."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid ""
+"Tenant id will be normalised from the VAT number, e.g. BG123456789 → "
+"bg123456789"
+msgstr ""
+"Tenant id ще бъде нормализиран от ДДС номера, напр. BG123456789 → "
+"bg123456789"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/claude_dispatch.xml:0
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/terminal_chatter.xml:0
+msgid "Terminal"
+msgstr "Терминал"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_terminal_theme
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_theme
+msgid "Terminal Theme"
+msgstr "Тема на терминала"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Test Again"
+msgstr "Тествай отново"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__test_anthropic_ok
+msgid "Test Anthropic Ok"
+msgstr "Anthropic тест ОК"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "Test Connections"
+msgstr "Тествай връзките"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__test_mcp_ok
+msgid "Test Mcp Ok"
+msgstr "MCP тест ОК"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__test_qdrant_ok
+msgid "Test Qdrant Ok"
+msgstr "Qdrant тест ОК"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__test_log
+msgid "Test Results"
+msgstr "Резултати от теста"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__provision_password
+msgid ""
+"This password will be used to encrypt the ZIP file. Запазете я — ще ви "
+"трябва ако решите да re-provision-нете същата инстанция (idempotent retry)."
+msgstr ""
+"Тази парола ще се използва за криптиране на ZIP файла. Запазете я — ще ви "
+"трябва, ако решите да re-provision-нете същата инстанция (idempotent retry)."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_composite_document_form
+msgid "Tokenize & Index"
+msgstr "Токенизирай и индексирай"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_view_registry_form
+msgid "Tokenize All"
+msgstr "Токенизирай всички"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/ai_tokenizer_status.xml:0
+msgid "Tokenize Now"
+msgstr "Токенизирай сега"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_view_registry_form
+msgid "Tokenize every record of this model? This can take a long time."
+msgstr ""
+"Да се токенизира ли всеки запис на този модел? Това може да отнеме дълго "
+"време."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__ai_composite_document__state__tokenized
+msgid "Tokenized"
+msgstr "Токенизиран"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/ai_tokenizer_status.xml:0
+msgid "Tokenizing…"
+msgstr "Токенизиране…"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__token_count
+msgid "Tokens (est.)"
+msgstr "Токени (прибл.)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__tomorrow
+msgid "Tomorrow"
+msgstr "Утре"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__cfg_terminal_theme__tomorrow-night
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__tomorrow-night
+msgid "Tomorrow Night"
+msgstr "Tomorrow Night"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__provision_api_key_set
+msgid ""
+"True if System Parameter `claude_terminal.provisioning_api_key` е попълнен."
+msgstr ""
+"True, ако системният параметър `claude_terminal.provisioning_api_key` е "
+"попълнен."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_web_url
+msgid "URL for web session authentication (e.g. https://www.odoo.com)"
+msgstr "URL за автентикация на уеб сесията (напр. https://www.odoo.com)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_terminal_url
+msgid "URL of the terminal-control-mcp web UI (e.g. http://localhost:8080)"
+msgstr ""
+"URL на terminal-control-mcp уеб интерфейса (напр. http://localhost:8080)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_terminal_url
+msgid ""
+"URL of the terminal-control-mcp web UI (e.g. https://terminal.mcp.odoo-"
+"shell.space)."
+msgstr ""
+"URL на terminal-control-mcp уеб интерфейса (напр. https://terminal.mcp.odoo-"
+"shell.space)."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "URL or API key not configured"
+msgstr "URL или API ключ не са конфигурирани"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+msgid "URL, login or password not configured"
+msgstr "URL, логин или парола не са конфигурирани"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid ""
+"Upload a password-protected ZIP config file downloaded from the MCP server "
+"(mcp_terminal_get_config tool) and apply the company + user keys in 5 steps."
+msgstr ""
+"Качете защитен с парола конфигурационен ZIP файл, изтеглен от MCP сървъра "
+"(mcp_terminal_get_config tool), и приложете фирмените + потребителските "
+"ключове в 5 стъпки."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_use_external_terminal
+msgid "Use External Terminal"
+msgstr "Използвай външен терминал"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__ai_view_registry__embedding_provider__user
+msgid "Use user settings"
+msgstr "Използвай потребителските настройки"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model,name:l10n_bg_claude_terminal.model_res_users
+msgid "User"
+msgstr "Потребител"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__user_ids
+msgid "Users to Activate"
+msgstr "Потребители за активиране"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "Vector Database"
+msgstr "Векторна база данни"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__cfg_odoo_verify_ssl
+msgid "Verify SSL (Odoo)"
+msgstr "Проверка на SSL (Odoo)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_odoo_verify_ssl
+msgid "Verify SSL Certificate"
+msgstr "Проверка на SSL сертификата"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_viber_bot_token
+msgid "Viber Bot API token from partners.viber.com"
+msgstr "Viber Bot API токен от partners.viber.com"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "Viber MCP"
+msgstr "Viber MCP"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_viber_bot_name
+msgid "Viber bot display name"
+msgstr "Показвано име на Viber бота"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.ui.menu,name:l10n_bg_claude_terminal.menu_ai_view_registry
+msgid "View Registry"
+msgstr "Регистър на изгледи"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_composite_document__view_type
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_ai_view_registry__view_type
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_ai_view_registry_search
+msgid "View Type"
+msgstr "Вид изглед"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__violet-dark
+msgid "Violet Dark"
+msgstr "Violet Dark"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_theme__violet-light
+msgid "Violet Light"
+msgstr "Violet Light"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__ai_view_registry__embedding_provider__voyage
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__cfg_embedding_provider__voyage
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_company__claude_embedding_provider__voyage
+msgid "Voyage AI"
+msgstr "Voyage AI"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/models/res_users.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "Web Session"
+msgstr "Уеб сесия"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_web_db
+msgid "Web Session DB"
+msgstr "БД на уеб сесията"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_web_login
+msgid "Web Session Login"
+msgstr "Логин на уеб сесията"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_web_password
+msgid "Web Session Password"
+msgstr "Парола на уеб сесията"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_web_url
+msgid "Web Session URL"
+msgstr "URL на уеб сесията"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_viber_webhook_url
+msgid "Webhook URL"
+msgstr "Webhook URL"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_odoo_verify_ssl
+msgid ""
+"When enabled (default), the MCP server verifies the Odoo HTTPS certificate "
+"against system CA roots. Disable this to allow self-signed certificates — "
+"MCP will fetch the peer cert on first connect, pin it under "
+"/data/ssl_certs/<alias>.pem, and verify against that pinned cert on "
+"subsequent calls (trust-on-first-use)."
+msgstr ""
+"Когато е включено (по подразбиране), MCP сървърът проверява Odoo HTTPS "
+"сертификата спрямо системните CA корени. Изключете, за да разрешите "
+"самоподписани сертификати — MCP ще изтегли сертификата на отсрещната страна "
+"при първото свързване, ще го фиксира (pin) в /data/ssl_certs/<alias>.pem и "
+"ще проверява спрямо него при следващите извиквания (trust-on-first-use)."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_use_external_terminal
+msgid ""
+"When enabled, opens the terminal in a new browser tab with API key "
+"authentication instead of the embedded iframe."
+msgstr ""
+"Когато е включено, отваря терминала в нов раздел на браузъра с автентикация "
+"чрез API ключ вместо вградения iframe."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_company__claude_anthropic_key_synced_at
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_config_settings__claude_anthropic_key_synced_at
+msgid "When the ANTHROPIC_API_KEY was last pulled from the MCP server."
+msgstr "Кога ANTHROPIC_API_KEY е бил последно изтеглен от MCP сървъра."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__res_users__claude_odoo_protocol__xmlrpc
+msgid "XML-RPC"
+msgstr "XML-RPC"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_odoo_protocol
+msgid "XML-RPC (Odoo 8+) or JSON-RPC (Odoo 14+)"
+msgstr "XML-RPC (Odoo 8+) или JSON-RPC (Odoo 14+)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields.selection,name:l10n_bg_claude_terminal.selection__claude_terminal_setup_wizard__cfg_odoo_protocol__xmlrpc
+msgid "XML-RPC (порт 8069/443)"
+msgstr "XML-RPC (порт 8069/443)"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_api_key
+msgid ""
+"Your Odoo API key for external terminal authentication and for MCP server "
+"unified-auth (Authorization: Bearer <key>). The MCP middleware validates "
+"this key via XMLRPC against the current Odoo instance on each tool call, so "
+"rotating the key in Settings → Users → API Keys takes effect within the "
+"cache TTL (default 5 min) without reconfiguring the terminal."
+msgstr ""
+"Вашият Odoo API ключ за автентикация на външния терминал и за обединената "
+"автентикация на MCP сървъра (Authorization: Bearer <key>). MCP middleware-ът"
+" валидира този ключ чрез XMLRPC спрямо текущата Odoo инстанция при всяко "
+"извикване на tool, така че ротирането на ключа в Settings → Users → API Keys"
+" влиза в сила в рамките на кеш TTL (по подразбиране 5 мин) без "
+"преконфигуриране на терминала."
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__zip_password
+msgid "ZIP Password"
+msgstr "Парола на ZIP"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "ZIP configuration"
+msgstr "ZIP конфигурация"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "ZIP файлът е празен."
+msgstr "ZIP файлът е празен."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "admin@company.bg"
+msgstr "admin@company.bg"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "claude_session"
+msgstr "claude_session"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/terminal_chatter.xml:0
+msgid "docker compose up -d"
+msgstr "docker compose up -d"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "http://localhost:11434"
+msgstr "http://localhost:11434"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "http://localhost:6333"
+msgstr "http://localhost:6333"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "http://localhost:8069"
+msgstr "http://localhost:8069"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "http://localhost:8080"
+msgstr "http://localhost:8080"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_config_settings_view_form
+msgid "https://mcp.odoo-shell.space"
+msgstr "https://mcp.odoo-shell.space"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "https://terminal.mcp.odoo-shell.space"
+msgstr "https://terminal.mcp.odoo-shell.space"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "https://www.odoo.com"
+msgstr "https://www.odoo.com"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "https://yourdomain.com/viber/webhook"
+msgstr "https://yourdomain.com/viber/webhook"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "openerp (auto-detect if empty)"
+msgstr "openerp (автоматично откриване, ако е празно)"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-javascript
+#: code:addons/l10n_bg_claude_terminal/static/src/xml/ai_tokenizer_status.xml:0
+msgid "t"
+msgstr "t"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.res_users_preferences_claude_terminal
+msgid "user@example.com"
+msgstr "user@example.com"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_claude_terminal_setup_wizard__provision_v3_url
+msgid "v3 Provisioning URL"
+msgstr "v3 Provisioning URL"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "v3 provisioning неуспешно (HTTP %d): %s"
+msgstr "v3 provisioning неуспешно (HTTP %d): %s"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "v3 server не отговаря: %s"
+msgstr "v3 server не отговаря: %s"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.model.fields,help:l10n_bg_claude_terminal.field_ai_composite_document__source_write_date
+msgid "write_date of source record at last tokenization time."
+msgstr "write_date на записа източник към момента на последната токенизация."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid ""
+"Ако вече имате конфигурационен ZIP от съществуваща MCP\n"
+"                                инстанция — оставете чекбокса празен и натиснете\n"
+"                                <strong>Напред</strong> за да преминете към качване."
+msgstr ""
+"Ако вече имате конфигурационен ZIP от съществуваща MCP\n"
+"                                инстанция — оставете чекбокса празен и натиснете\n"
+"                                <strong>Напред</strong> за да преминете към качване."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid ""
+"Ако нямате инстанция — маркирайте <strong>\"Създай нова MCP инстанция\"</strong>,\n"
+"                                въведете парола (мин. 8 символа) и wizard-ът автоматично ще:"
+msgstr ""
+"Ако нямате инстанция — маркирайте <strong>\"Създай нова MCP инстанция\"</strong>,\n"
+"                                въведете парола (мин. 8 символа) и wizard-ът автоматично ще:"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "Въведете паролата на ZIP файла."
+msgstr "Въведете паролата на ZIP файла."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "Грешка при декодиране на файла: %s"
+msgstr "Грешка при декодиране на файла: %s"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid ""
+"Извлечените стойности от конфигурацията. Можете да ги\n"
+"                                редактирате преди прилагане. Празните полета НЕ заместват съществуващи стойности."
+msgstr ""
+"Извлечените стойности от конфигурацията. Можете да ги\n"
+"                                редактирате преди прилагане. Празните полета НЕ заместват съществуващи стойности."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Извършва се ping към MCP, Anthropic API и Qdrant."
+msgstr "Извършва се ping към MCP, Anthropic API и Qdrant."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid ""
+"Изтеглете ZIP файла от MCP сървъра (<code>mcp_terminal_get_config</code> tool)\n"
+"                                с временна парола. Качете го тук и въведете показаната парола."
+msgstr ""
+"Изтеглете ZIP файла от MCP сървъра (<code>mcp_terminal_get_config</code> tool)\n"
+"                                с временна парола. Качете го тук и въведете показаната парола."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "Качете ZIP файл преди да продължите."
+msgstr "Качете ZIP файл преди да продължите."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "Конфигурацията не е валиден JSON: %s"
+msgstr "Конфигурацията не е валиден JSON: %s"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "Конфигурацията трябва да е JSON обект."
+msgstr "Конфигурацията трябва да е JSON обект."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid ""
+"Липсва Python библиотеката `pyzipper` — нужна е за разкриптиране на AES-"
+"encrypted ZIP файлове. Инсталирайте: pip install pyzipper"
+msgstr ""
+"Липсва Python библиотеката `pyzipper` — нужна е за разкриптиране на AES-"
+"encrypted ZIP файлове. Инсталирайте: pip install pyzipper"
+
+#. module: l10n_bg_claude_terminal
+#: model:ir.actions.act_window,name:l10n_bg_claude_terminal.action_claude_terminal_setup_wizard
+msgid "Настройка на Claude Terminal"
+msgstr "Настройка на Claude Terminal"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "Невалидна парола или повреден ZIP файл: %s"
+msgstr "Невалидна парола или повреден ZIP файл: %s"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid ""
+"Нищо не е приложено — не сте маркирали company и не сте избрали потребители."
+msgstr ""
+"Нищо не е приложено — не сте маркирали company и не сте избрали потребители."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "Паролата трябва да е поне 8 символа."
+msgstr "Паролата трябва да е поне 8 символа."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Стъпка 0 от 5: Нова MCP инстанция (опционално)"
+msgstr "Стъпка 0 от 5: Нова MCP инстанция (опционално)"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Стъпка 1 от 5: Качете конфигурационен файл"
+msgstr "Стъпка 1 от 5: Качете конфигурационен файл"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Стъпка 2 от 5: Прегледайте ключовете"
+msgstr "Стъпка 2 от 5: Прегледайте ключовете"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Стъпка 3 от 5: Изберете потребители"
+msgstr "Стъпка 3 от 5: Изберете потребители"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Стъпка 4 от 5: Нищо не е приложено"
+msgstr "Стъпка 4 от 5: Нищо не е приложено"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Стъпка 4 от 5: Прилагане завършено"
+msgstr "Стъпка 4 от 5: Прилагане завършено"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "Стъпка 5 от 5: Тестване на връзките"
+msgstr "Стъпка 5 от 5: Тестване на връзките"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "Файлът не е валиден ZIP архив."
+msgstr "Файлът не е валиден ZIP архив."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid ""
+"Фирмата '%s' няма попълнен ДДС номер. Tenant id-то на новата MCP инстанция "
+"се извлича от ДДС номера. Settings → Companies → %s → ДДС номер."
+msgstr ""
+"Фирмата '%s' няма попълнен ДДС номер. Tenant id-то на новата MCP инстанция "
+"се извлича от ДДС номера. Settings → Companies → %s → ДДС номер."
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "генерира AES-encrypted ZIP с вашата парола"
+msgstr "генерира AES-encrypted ZIP с вашата парола"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "премине автоматично към стъпка 2 (преглед)"
+msgstr "премине автоматично към стъпка 2 (преглед)"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "се свърже с v3 provisioning сървъра ("
+msgstr "се свърже с v3 provisioning сървъра ("
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "създаде ваша MCP инстанция (Docker stack + DNS)"
+msgstr "създаде ваша MCP инстанция (Docker stack + DNS)"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid "← Back"
+msgstr "← Назад"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "⊘ Anthropic тест пропуснат (липсва ключ)"
+msgstr "⊘ Anthropic тест пропуснат (липсва ключ)"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "⊘ MCP тест пропуснат (липсва URL или token)"
+msgstr "⊘ MCP тест пропуснат (липсва URL или token)"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "⊘ Qdrant тест пропуснат (липсва URL)"
+msgstr "⊘ Qdrant тест пропуснат (липсва URL)"
+
+#. module: l10n_bg_claude_terminal
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_terminal.view_claude_terminal_setup_wizard_form
+msgid ""
+"⚠ <strong>Odoo API Key остава празен</strong> — всеки потребител трябва\n"
+"                                сам да го генерира (в собствения си профил → <em>Account Security → New\n"
+"                                API Key</em>) и да го пейства в полето <em>Odoo RPC Connector → API Key</em>.\n"
+"                                Това е защита срещу credential leak."
+msgstr ""
+"⚠ <strong>Odoo API Key остава празен</strong> — всеки потребител трябва\n"
+"                                сам да го генерира (в собствения си профил → <em>Account Security → New\n"
+"                                API Key</em>) и да го пейства в полето <em>Odoo RPC Connector → API Key</em>.\n"
+"                                Това е защита срещу credential leak."
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "✓ Anthropic API: ключът работи"
+msgstr "✓ Anthropic API: ключът работи"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "✓ MCP сървър: достъпен (%s)"
+msgstr "✓ MCP сървър: достъпен (%s)"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "✓ Qdrant: достъпен (%s)"
+msgstr "✓ Qdrant: достъпен (%s)"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "✓ Записани %d полета на фирма %s"
+msgstr "✓ Записани %d полета на фирма %s"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "✓ Конфигурирани %d потребител(и): %s"
+msgstr "✓ Конфигурирани %d потребител(и): %s"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "✗ Anthropic API върна HTTP %d: %s"
+msgstr "✗ Anthropic API върна HTTP %d: %s"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "✗ Anthropic API недостъпен: %s"
+msgstr "✗ Anthropic API недостъпен: %s"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "✗ MCP сървър върна HTTP %d: %s"
+msgstr "✗ MCP сървър върна HTTP %d: %s"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "✗ MCP сървър недостъпен: %s"
+msgstr "✗ MCP сървър недостъпен: %s"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "✗ Qdrant върна HTTP %d"
+msgstr "✗ Qdrant върна HTTP %d"
+
+#. module: l10n_bg_claude_terminal
+#. odoo-python
+#: code:addons/l10n_bg_claude_terminal/wizards/claude_terminal_setup_wizard.py:0
+msgid "✗ Qdrant недостъпен: %s"
+msgstr "✗ Qdrant недостъпен: %s"

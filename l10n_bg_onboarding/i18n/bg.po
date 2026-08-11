@@ -1,0 +1,186 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_onboarding
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e-20260730\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-11 09:45+0000\n"
+"PO-Revision-Date: 2026-08-11 09:45+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid ""
+"% of chapters done. You can\n"
+"                    re-open the installer anytime from Settings →\n"
+"                    Localization Installer."
+msgstr ""
+"% от главите са завършени. Можете да\n"
+"                    отворите инсталатора отново по всяко време от Настройки →\n"
+"                    Инсталатор на локализация."
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid ", properly."
+msgstr ", както трябва."
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid ""
+"A guided, chapter-by-chapter installation —\n"
+"                        from the chart of accounts to the Revenue\n"
+"                        Agency."
+msgstr ""
+"Инсталация с напътствия, глава по глава —\n"
+"                        от сметкоплана до\n"
+"                        НАП."
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "Begin the setup"
+msgstr "Започнете настройката"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "Bulgarian Localization"
+msgstr "Българска локализация"
+
+#. module: l10n_bg_onboarding
+#: model:ir.actions.client,name:l10n_bg_onboarding.action_l10n_bg_onboarding
+msgid "Bulgarian Localization Onboarding"
+msgstr "Въвеждане в българската локализация"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid ""
+"Complete the required steps to unlock the\n"
+"                            next chapter — optional ones don't block."
+msgstr ""
+"Завършете задължителните стъпки, за да отключите\n"
+"                            следващата глава — незадължителните не блокират."
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "Enter Odoo"
+msgstr "Влезте в Odoo"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "Fetch from Trade Register"
+msgstr "Изтегляне от Търговския регистър"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "Install"
+msgstr "Инсталирайте"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "Let's set up"
+msgstr "Да настроим"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "Mark done"
+msgstr "Отбележи като готово"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "Open / Info"
+msgstr "Отваряне / Инфо"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "Preparing your Bulgarian setup…"
+msgstr "Подготвяне на българската ви настройка…"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "Reset"
+msgstr "Нулиране"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "Setup complete"
+msgstr "Настройката е завършена"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "Skip"
+msgstr "Пропуснете"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "Skip to Odoo"
+msgstr "Пропусни към Odoo"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "VAT BG… or UIC (9/13 digits)"
+msgstr "ДДС номер BG… или ЕИК (9/13 цифри)"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "Your localization"
+msgstr "Вашата локализация"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid ""
+"chapters. You stay\n"
+"                        in control of every step."
+msgstr ""
+"глави. Вие запазвате\n"
+"                        контрол върху всяка стъпка."
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "is alive."
+msgstr "е жива."
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "optional"
+msgstr "незадължително"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "your books"
+msgstr "счетоводството ви"
+
+#. module: l10n_bg_onboarding
+#. odoo-javascript
+#: code:addons/l10n_bg_onboarding/static/src/onboarding/onboarding_action.xml:0
+msgid "‹ Back"
+msgstr "‹ Назад"

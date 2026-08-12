@@ -142,7 +142,14 @@
                                     product + description + uom combinations
                                 2. If any packages are assigned => split products up by package (or non-package) and then apply use case 1 -->
                             <!-- If has destination packages => create sections of corresponding products -->
-                            <t t-if="o.has_packages" name="has_packages">
+                            <!-- 🚨 `has_packages` е поле от 16.0 и в 19.0 го НЯМА:
+                                 заменено е с `packages_count`
+                                 (stock/report/report_deliveryslip.xml:132).
+                                 Ядрото пази същото name="has_packages" на
+                                 възела, затова портът мина незабелязано —
+                                 xpath-ът съвпада, изразът не. Гърми чак при
+                                 РЕНДЕР, не при инсталация. -->
+                            <t t-if="o.packages_count" name="has_packages">
                                 <t t-set="packages" t-value="o.move_line_ids.mapped('result_package_id')"/>
                                 <t t-foreach="packages" t-as="package">
                                     <t t-call="stock.stock_report_delivery_package_section_line"/>

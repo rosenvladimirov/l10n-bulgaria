@@ -1,8 +1,36 @@
+import logging
+
 from odoo import models
+
+_logger = logging.getLogger(__name__)
 
 
 class StockMove(models.Model):
     _inherit = 'stock.move'
+
+    def _l10n_bg_has_valuation(self):
+        """False при движение с количество, но БЕЗ стойност.
+
+        Нулевата стойност идва от липсваща себестойност (напр. готова
+        продукция при cost_method='standard' с непопълнена нормативна цена —
+        ядрото зарязва изчисленото в _cal_price). Статия с нулеви пера няма
+        счетоводен смисъл, а мълчаливо скрива проблема: салдото по
+        транзитната/производствената сметка остава необслужено, а справките
+        показват нулева себестойност на продажбата. Затова НЕ се създава
+        запис — вместо това пикингът/поръчката алармират в изгледа.
+        """
+        self.ensure_one()
+        currency = self.company_id.currency_id or self.env.company.currency_id
+        if self.product_uom.is_zero(self.quantity):
+            return True  # нулево количество — стандартните проверки решават
+        if not currency.is_zero(self.value):
+            return True
+        _logger.info(
+            "l10n_bg_stock_account: движение %s (%s, %s бр) е без стойност — "
+            "счетоводна статия НЕ се създава",
+            self.id, self.product_id.display_name, self.quantity,
+        )
+        return False
 
     def _should_create_account_move(self):
         """Разширява стандартното условие: ако категорията има l10n_bg_stock_auto_post=True,
@@ -10,11 +38,14 @@ class StockMove(models.Model):
 
         Стандартното условие изисква valuation == 'real_time'. Ние го заобикаляме само за
         incoming moves (is_in или is_dropship) с auto_post категория.
+
+        И в двата пътя движение без стойност не поражда статия (виж
+        ``_l10n_bg_has_valuation``).
         """
         self.ensure_one()
         # Стандартна проверка — real_time продуктите минават по нормалния път
         if super()._should_create_account_move():
-            return True
+            return self._l10n_bg_has_valuation()
 
         # BG auto-post: само за incoming moves на storable продукти с auto_post категория
         categ = self.product_id.categ_id.sudo()
@@ -26,6 +57,7 @@ class StockMove(models.Model):
             self.product_id.is_storable
             and self.is_valued
             and (self.is_in or self.is_dropship or self.is_out)
+            and self._l10n_bg_has_valuation()
         )
 
     def _get_account_move_line_vals(self):

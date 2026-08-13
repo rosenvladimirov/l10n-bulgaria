@@ -6,6 +6,24 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
+            <!-- Стандартното място за предупреждения: най-горе в sheet-а,
+                 преди заглавието — там Odoo показва своите alert банери. -->
+            <xpath expr="//sheet" position="inside">
+                <div class="alert alert-warning mb-0" role="alert"
+                     invisible="not l10n_bg_unvalued_warning">
+                    <i class="fa fa-exclamation-triangle me-1"/>
+                    <strong>No cost price</strong> — the following products have
+                    no valuation, so the stock movement will be recorded
+                    <strong>without value</strong> and no journal entry will be
+                    created:
+                    <field name="l10n_bg_unvalued_warning" class="fw-bold" readonly="1" nolabel="1"/>
+                    <div class="small mt-1">
+                        Set the cost price on the product, or use
+                        <em>Compute Price from BOM</em> for manufactured goods,
+                        before validating.
+                    </div>
+                </div>
+            </xpath>
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button name="l10n_bg_action_view_account_moves"
                         type="object"

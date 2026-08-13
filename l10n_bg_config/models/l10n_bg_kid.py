@@ -35,6 +35,10 @@ class L10nBgKid(models.Model):
     _description = "Bulgarian Classification of Economic Activities (КИД)"
     _order = "code"
     _rec_name = "display_name"
+    # Търсене по КОД и по име. _rec_name е computed display_name (non-stored),
+    # затова стандартният name_search гърми при търсене по него — _rec_names_search
+    # пренасочва search-а към реалните колони code+name (ползвачите пишат кода).
+    _rec_names_search = ["code", "name"]
 
     name = fields.Char(string="Activity name", required=True, translate=True)
     code = fields.Char(string="КИД code", required=True, index=True)

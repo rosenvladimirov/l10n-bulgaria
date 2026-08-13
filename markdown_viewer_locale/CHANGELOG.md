@@ -4,6 +4,19 @@ All notable changes to the markdown_viewer_locale module will be documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [18.0.3.0.9] - 2026-07-05
+
+### Changed
+- Re-enabled the XML asset entry (`form_controller.xml`) and the JS `markdown_popup.js` FormController patch in `__manifest__.py` — both were disabled since 18.0.3.0.8.
+
+### Why
+- No follow-up entry in this changelog ever confirmed that 18.0.3.0.8 (both disabled) actually fixed the Knowledge Share `VList.mount` breakage on teo-engineering — the isolation test was left undocumented/unresolved.
+- The same `form_controller.xml` + `markdown_popup.js` (functionally identical, this repo's copy is cleaner: lazy-loaded libs, no debug logs) is active and working without issue on other deployments (e.g. Solid 55, 19.0).
+- New `*_manual` help modules (sale_manual, purchase_manual, inventory_manual) need the popup button to actually surface their registered documentation in the UI.
+
+### If Knowledge Share breaks again
+- Re-disable only the XML line first (matches the 18.0.3.0.7 isolation step) and retest — don't assume this module is the cause without repeating the isolation steps below it in this changelog.
+
 ## [18.0.3.0.8] - 2026-04-30
 
 ### Changed

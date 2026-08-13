@@ -103,17 +103,27 @@ class WastePermitLine(models.Model):
 
     # --- Compute (SQL aggregation) ----------------------------------------
     def _compute_usage(self):
-        # Defensive default: ако picking модулът не е installed,
-        # `stock.move.line.waste_code_id` не съществува → връщаме 0.
-        if not self.ids:
+        # Odoo изисква compute да присвои стойност на ВСЕКИ запис от
+        # recordset-а — включително новите (NewId), които клиентът праща при
+        # onchange. Старият ранен `return` при празен self.ids ги оставяше
+        # непопълнени и Odoo хвърляше „Compute method failed to assign".
+        # Затова: първо нули на всички, после презапис само за записаните.
+        for rec in self:
+            rec.quota_used_ytd_kg = 0.0
+            rec.current_storage_kg = 0.0
+            rec.quota_remaining_kg = rec.annual_quota_kg or 0.0
+            rec.quota_percent_used = 0.0
+
+        # Само записаните редове имат id за SQL агрегацията. Смесен recordset
+        # (нови + записани) също минава коректно — новите пазят нулите.
+        real = self.filtered(lambda r: isinstance(r.id, int))
+        if not real:
             return
+
+        # Ако picking модулът не е installed, `stock.move.line.waste_code_id`
+        # не съществува → остават нулите отгоре.
         sml_fields = self.env["stock.move.line"]._fields if "stock.move.line" in self.env else {}
         if "waste_code_id" not in sml_fields:
-            for rec in self:
-                rec.quota_used_ytd_kg = 0.0
-                rec.current_storage_kg = 0.0
-                rec.quota_remaining_kg = rec.annual_quota_kg or 0.0
-                rec.quota_percent_used = 0.0
             return
 
         # Реална агрегация: количеството в килограми (waste_quantity_kg) от
@@ -125,10 +135,10 @@ class WastePermitLine(models.Model):
                 SELECT
                     pl.id AS line_id,
                     COALESCE(SUM(sml.waste_quantity_kg)
-                        FILTER (WHERE p.picking_type_code = 'incoming'), 0.0)
+                        FILTER (WHERE pt.code = 'incoming'), 0.0)
                         AS used_in_kg,
                     COALESCE(SUM(sml.waste_quantity_kg)
-                        FILTER (WHERE p.picking_type_code = 'outgoing'), 0.0)
+                        FILTER (WHERE pt.code = 'outgoing'), 0.0)
                         AS delivered_kg
                 FROM l10n_bg_waste_permit_line pl
                 LEFT JOIN stock_move_line sml
@@ -138,6 +148,8 @@ class WastePermitLine(models.Model):
                        ON p.id = sml.picking_id
                       AND p.date_done >= date_trunc('year', CURRENT_DATE)
                       AND p.date_done <  date_trunc('year', CURRENT_DATE) + INTERVAL '1 year'
+                LEFT JOIN stock_picking_type pt
+                       ON pt.id = p.picking_type_id
                 LEFT JOIN l10n_bg_waste_site_warehouse_rel swr
                        ON swr.site_id = pl.site_id
                 LEFT JOIN stock_location loc
@@ -148,10 +160,10 @@ class WastePermitLine(models.Model):
             )
             SELECT line_id, used_in_kg, delivered_kg FROM agg
             """,
-            (tuple(self.ids),),
+            (tuple(real.ids),),
         )
         rows = {r[0]: (r[1] or 0.0, r[2] or 0.0) for r in self.env.cr.fetchall()}
-        for rec in self:
+        for rec in real:
             used_in, delivered = rows.get(rec.id, (0.0, 0.0))
             rec.quota_used_ytd_kg = used_in
             rec.current_storage_kg = used_in - delivered

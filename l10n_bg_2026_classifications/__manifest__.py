@@ -1,11 +1,11 @@
 {
     "name": "Bulgaria 2026 - Payroll Classifications (МОД EUR + НКПД changes)",
-    "summary": "2026: МОД stъvnostъm в EUR (÷1.95583) + audit на НКПД промени",
+    "summary": "2026: МОД стойности в EUR (÷1.95583) + audit на НКПД промени",
     "description": """
 Bulgaria 2026 — Payroll Classifications
 ========================================
 
-Year-stamped data module — мигрира МОД stoinostite по икономическа
+Year-stamped data module — мигрира МОД стойностите по икономическа
 дейност от лева (2025) към евро (2026), без да губи историческите
 records.
 

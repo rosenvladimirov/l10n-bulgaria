@@ -8,8 +8,19 @@
         <!-- resource_id=False + calendar_id=False → глобален прaздник    -->
         <!-- (важи за всички работни календари във всички компании).      -->
         <!--                                                              -->
-        <!-- date_from = 00:00:00 на деня (БГ time) — 22:00 UTC ден преди -->
-        <!-- date_to   = 23:59:59 на деня (БГ time) — 21:59:59 UTC същия  -->
+        <!-- date_from = 00:00:00 на деня (БГ time), date_to = 23:59:59       -->
+        <!--                                                                  -->
+        <!-- 🚨 DEF-140 — офсетът НЕ е константен. България е EET (+2) зимно  -->
+        <!-- и EEST (+3) лятно време, а полетата се пазят в UTC:              -->
+        <!--   зимно: 22:00:00 ден преди · 21:59:59 същия ден                 -->
+        <!--   лятно: 21:00:00 ден преди · 20:59:59 същия ден                 -->
+        <!-- Досега всичките 14 записа бяха с +2. Деветте в лятното време     -->
+        <!-- (10-13.04, 01.05, 06.05, 24.05, 06.09, 22.09) свършваха в        -->
+        <!-- 00:59:59 местно на СЛЕДВАЩИЯ ден ⇒ всеки от тях се четеше като   -->
+        <!-- ДВА почивни дни. Измерено от Пламена 14.08.2026: числителят на   -->
+        <!-- пода 18 вместо 17 (8,65 EUR надвнесени) и ден мигрира от „НОИ    -->
+        <!-- работен" в „НОИ неработен" в болничния сплит.                    -->
+        <!-- Границите тук са пресметнати през Europe/Sofia, не наум.         -->
         <!--                                                              -->
         <!-- Православният Великден 2026 г. — 12 април                     -->
         <!-- ============================================================ -->
@@ -38,8 +49,8 @@
 
         <record id="bg_holiday_2026_good_friday" model="resource.calendar.leaves">
             <field name="name">Велики петък</field>
-            <field name="date_from">2026-04-09 22:00:00</field>
-            <field name="date_to">2026-04-10 21:59:59</field>
+            <field name="date_from">2026-04-09 21:00:00</field>
+            <field name="date_to">2026-04-10 20:59:59</field>
             <field name="resource_id" eval="False"/>
             <field name="calendar_id" eval="False"/>
             <field name="time_type">leave</field>
@@ -47,8 +58,8 @@
 
         <record id="bg_holiday_2026_holy_saturday" model="resource.calendar.leaves">
             <field name="name">Велика събота</field>
-            <field name="date_from">2026-04-10 22:00:00</field>
-            <field name="date_to">2026-04-11 21:59:59</field>
+            <field name="date_from">2026-04-10 21:00:00</field>
+            <field name="date_to">2026-04-11 20:59:59</field>
             <field name="resource_id" eval="False"/>
             <field name="calendar_id" eval="False"/>
             <field name="time_type">leave</field>
@@ -56,8 +67,8 @@
 
         <record id="bg_holiday_2026_easter_sunday" model="resource.calendar.leaves">
             <field name="name">Великден (Възкресение Христово)</field>
-            <field name="date_from">2026-04-11 22:00:00</field>
-            <field name="date_to">2026-04-12 21:59:59</field>
+            <field name="date_from">2026-04-11 21:00:00</field>
+            <field name="date_to">2026-04-12 20:59:59</field>
             <field name="resource_id" eval="False"/>
             <field name="calendar_id" eval="False"/>
             <field name="time_type">leave</field>
@@ -65,8 +76,8 @@
 
         <record id="bg_holiday_2026_easter_monday" model="resource.calendar.leaves">
             <field name="name">Светъл понеделник (Втори ден на Великден)</field>
-            <field name="date_from">2026-04-12 22:00:00</field>
-            <field name="date_to">2026-04-13 21:59:59</field>
+            <field name="date_from">2026-04-12 21:00:00</field>
+            <field name="date_to">2026-04-13 20:59:59</field>
             <field name="resource_id" eval="False"/>
             <field name="calendar_id" eval="False"/>
             <field name="time_type">leave</field>
@@ -76,8 +87,8 @@
 
         <record id="bg_holiday_2026_labour_day" model="resource.calendar.leaves">
             <field name="name">Ден на труда и на международната работническа солидарност</field>
-            <field name="date_from">2026-04-30 22:00:00</field>
-            <field name="date_to">2026-05-01 21:59:59</field>
+            <field name="date_from">2026-04-30 21:00:00</field>
+            <field name="date_to">2026-05-01 20:59:59</field>
             <field name="resource_id" eval="False"/>
             <field name="calendar_id" eval="False"/>
             <field name="time_type">leave</field>
@@ -85,8 +96,8 @@
 
         <record id="bg_holiday_2026_st_george" model="resource.calendar.leaves">
             <field name="name">Гергьовден — Ден на храбростта и Българската армия</field>
-            <field name="date_from">2026-05-05 22:00:00</field>
-            <field name="date_to">2026-05-06 21:59:59</field>
+            <field name="date_from">2026-05-05 21:00:00</field>
+            <field name="date_to">2026-05-06 20:59:59</field>
             <field name="resource_id" eval="False"/>
             <field name="calendar_id" eval="False"/>
             <field name="time_type">leave</field>
@@ -94,8 +105,8 @@
 
         <record id="bg_holiday_2026_education_culture" model="resource.calendar.leaves">
             <field name="name">Ден на българската просвета и култура и на славянската писменост</field>
-            <field name="date_from">2026-05-23 22:00:00</field>
-            <field name="date_to">2026-05-24 21:59:59</field>
+            <field name="date_from">2026-05-23 21:00:00</field>
+            <field name="date_to">2026-05-24 20:59:59</field>
             <field name="resource_id" eval="False"/>
             <field name="calendar_id" eval="False"/>
             <field name="time_type">leave</field>
@@ -103,8 +114,8 @@
 
         <record id="bg_holiday_2026_unification_day" model="resource.calendar.leaves">
             <field name="name">Ден на Съединението</field>
-            <field name="date_from">2026-09-05 22:00:00</field>
-            <field name="date_to">2026-09-06 21:59:59</field>
+            <field name="date_from">2026-09-05 21:00:00</field>
+            <field name="date_to">2026-09-06 20:59:59</field>
             <field name="resource_id" eval="False"/>
             <field name="calendar_id" eval="False"/>
             <field name="time_type">leave</field>
@@ -112,8 +123,8 @@
 
         <record id="bg_holiday_2026_independence_day" model="resource.calendar.leaves">
             <field name="name">Ден на Независимостта на България</field>
-            <field name="date_from">2026-09-21 22:00:00</field>
-            <field name="date_to">2026-09-22 21:59:59</field>
+            <field name="date_from">2026-09-21 21:00:00</field>
+            <field name="date_to">2026-09-22 20:59:59</field>
             <field name="resource_id" eval="False"/>
             <field name="calendar_id" eval="False"/>
             <field name="time_type">leave</field>

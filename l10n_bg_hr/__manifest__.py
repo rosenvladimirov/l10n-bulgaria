@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'HR Version Extension',
-    'version': '19.0.2.0.4',
+    'version': '19.0.2.0.8',
     'category': 'Human Resources',
     'summary': 'Extension for HR Version with work location address and contract amendments',
     'description': """
@@ -17,7 +17,7 @@ This module extends the HR Version functionality with:
 * Working time management
 * Leave days calculations
     """,
-    'author': 'Rosen Vladimirov',
+    'author': 'Rosen Vladimirov, Terraros Commerce Ltd.',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
     'license': 'LGPL-3',
     'depends': [

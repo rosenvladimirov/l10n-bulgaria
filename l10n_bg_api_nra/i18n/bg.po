@@ -21,3 +21,18 @@ msgstr "НАП декларации (брой)"
 #: model_terms:ir.ui.view,arch_db:l10n_bg_api_nra.hr_employee_view_form_inherit_nra
 msgid "NRA Declarations"
 msgstr "НАП декларации"
+
+#. module: l10n_bg_api_nra
+#: code:addons/l10n_bg_api_nra/nra_declaration.py:0
+msgid "Can only generate files for declarations in 'Draft' state."
+msgstr "Файлове могат да се генерират само за декларации в статус „Чернова“."
+
+#. module: l10n_bg_api_nra
+#: code:addons/l10n_bg_api_nra/nra_declaration.py:0
+msgid "Can only submit declarations in 'Ready' or 'Error' state."
+msgstr "Могат да се подават само декларации в статус „Готова“ или „Грешка“."
+
+#. module: l10n_bg_api_nra
+#: code:addons/l10n_bg_api_nra/nra_declaration.py:0
+msgid "No file content. Please generate the file first."
+msgstr "Липсва съдържание на файл. Моля, генерирайте файла първо."

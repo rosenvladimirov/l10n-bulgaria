@@ -8,6 +8,9 @@ class BGNCOPClassification(models.Model):
     _name = 'bg.hr.payroll.ncop.classification'
     _description = 'Bulgarian NCOP Classification 2011'
     _order = 'code'
+    # Търсене по КОД и по име (НКПД има 6107 позиции — ползвачите търсят по код).
+    # Стандартният name_search гледа само _rec_name (name) → 0 резултата за код.
+    _rec_names_search = ['code', 'name']
 
     name = fields.Char(string='Position Name', required=True, translate=True)
     code = fields.Char(string='NCOP Code', required=True, index=True,

@@ -42,7 +42,9 @@ _EE_MODULES_SQL = """
             OR name = 'l10n_bg_config_plugins_payroll'
         ), FALSE) AS ee_payroll
     FROM ir_module_module
-    WHERE state = 'installed'
+    -- 'to upgrade' се включва, защото пингът се прави и в post-migrate, когато
+    -- съседните модули са в преход (state='to upgrade') при общ -u.
+    WHERE state IN ('installed', 'to upgrade')
 """
 
 
@@ -117,9 +119,11 @@ class ResCompanyRegistration(models.Model):
                     if Reg is not None:
                         Reg._record_push({**payload, "instance": dbname})
                     # Cross-instance push към лицензния сървър (ако е зададен URL).
+                    # Bootstrap provisioning: първият push е без токен → сървърът
+                    # връща per-client токен, който запазваме за следващите push-ове.
                     if server_url:
                         try:
-                            requests.post(
+                            resp = requests.post(
                                 server_url.rstrip("/") + "/l10n_bg/register",
                                 json={
                                     "jsonrpc": "2.0",
@@ -132,6 +136,11 @@ class ResCompanyRegistration(models.Model):
                                 },
                                 timeout=8,
                             )
+                            result = (resp.json() or {}).get("result") or {}
+                            new_token = result.get("token")
+                            if new_token and new_token != token:
+                                ICP.set_param(_PARAM_TOKEN, new_token)
+                                token = new_token
                         except Exception:
                             pass
                 except Exception:

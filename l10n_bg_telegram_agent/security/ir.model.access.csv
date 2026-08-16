@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_telegram_account_mgr,telegram.account.manager,model_telegram_account,group_telegram_agent_manager,1,1,1,1
+access_telegram_channel_mgr,telegram.channel.manager,model_telegram_channel,group_telegram_agent_manager,1,1,1,1
+access_telegram_account_user,telegram.account.user,model_telegram_account,base.group_user,1,0,0,0
+access_telegram_channel_user,telegram.channel.user,model_telegram_channel,base.group_user,1,0,0,0

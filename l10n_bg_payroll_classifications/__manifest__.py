@@ -1,7 +1,7 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Bulgarian HR Payroll Classifications',
-    'version': '19.0.6.1.1',
+    'version': '19.0.6.3.0',
     'category': 'Human Resources/Localization',
     'summary': 'Bulgarian localization for HR payroll with NKPD and Economic Activity classifications',
     'description': """
@@ -33,7 +33,7 @@
     and properly classify employees according to Bulgarian standards.
         """,
     'author': 'Rosen Vladimirov',
-    'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
+    'website': 'https://github.com/rosenvladimirov/l10n-bulgaria-expert',
     'license': 'LGPL-3',
     'depends': [
         'base',

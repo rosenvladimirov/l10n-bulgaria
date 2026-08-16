@@ -5,3 +5,5 @@ access_bg_ncop_classification_hr_manager,bg.hr.payroll.ncop.classification.hr.ma
 access_bg_mod_economic_activity_user,bg.hr.payroll.mod.economic.activity.user,model_bg_hr_payroll_economic_activity,base.group_user,1,0,0,0
 access_bg_mod_economic_activity_hr_user,bg.hr.payroll.mod.economic.activity.hr.user,model_bg_hr_payroll_economic_activity,hr.group_hr_user,1,1,1,0
 access_bg_mod_economic_activity_hr_manager,bg.hr.payroll.mod.economic.activity.hr.manager,model_bg_hr_payroll_economic_activity,hr.group_hr_manager,1,1,1,1
+access_bg_mod_value_user,bg.hr.payroll.mod.value.user,model_bg_hr_payroll_mod_value,base.group_user,1,0,0,0
+access_bg_mod_value_hr_manager,bg.hr.payroll.mod.value.manager,model_bg_hr_payroll_mod_value,hr.group_hr_manager,1,1,1,1

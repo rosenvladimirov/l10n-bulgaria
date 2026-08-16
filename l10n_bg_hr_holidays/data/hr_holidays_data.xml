@@ -7,6 +7,7 @@
         <record id="holiday_status_nssi_01" model="hr.leave.type">
             <field name="name">Occupational Disease</field>
             <field name="l10n_bg_code">01</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_01"/>
@@ -15,13 +16,14 @@
             <field name="color">3</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">10</field>
-            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- Work accident -->
         <record id="holiday_status_nssi_02" model="hr.leave.type">
             <field name="name">Work Accident</field>
             <field name="l10n_bg_code">02</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_02"/>
@@ -30,13 +32,14 @@
             <field name="color">1</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">11</field>
-            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- Common illness -->
         <record id="holiday_status_nssi_03" model="hr.leave.type">
             <field name="name">Common Illness</field>
             <field name="l10n_bg_code">03</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_03"/>
@@ -52,6 +55,7 @@
         <record id="holiday_status_nssi_04" model="hr.leave.type">
             <field name="name">Maternity - Pregnancy and Childbirth</field>
             <field name="l10n_bg_code">04</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_04"/>
@@ -67,6 +71,7 @@
         <record id="holiday_status_nssi_05" model="hr.leave.type">
             <field name="name">Caring for Sick Child (under 2, on sick leave)</field>
             <field name="l10n_bg_code">05</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_05"/>
@@ -81,6 +86,7 @@
         <record id="holiday_status_nssi_06" model="hr.leave.type">
             <field name="name">Quarantine</field>
             <field name="l10n_bg_code">06</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_06"/>
@@ -97,6 +103,7 @@
         <record id="holiday_status_nssi_07" model="hr.leave.type">
             <field name="name">Accompanying a Sick Family Member (Adult, 18+)</field>
             <field name="l10n_bg_code">07</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_07"/>
@@ -105,13 +112,14 @@
             <field name="color">5</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">16</field>
-            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- Sanatorium or spa treatment -->
         <record id="holiday_status_nssi_08" model="hr.leave.type">
             <field name="name">Sanatorium or Spa Treatment</field>
             <field name="l10n_bg_code">08</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_08"/>
@@ -126,6 +134,7 @@
         <record id="holiday_status_nssi_09" model="hr.leave.type">
             <field name="name">Recovery after Illness</field>
             <field name="l10n_bg_code">09</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_09"/>
@@ -141,6 +150,7 @@
         <record id="holiday_status_nssi_10" model="hr.leave.type">
             <field name="name">Epidemiological Isolation</field>
             <field name="l10n_bg_code">10</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_10"/>
@@ -156,6 +166,7 @@
         <record id="holiday_status_nssi_11" model="hr.leave.type">
             <field name="name">Medical Examinations and Tests</field>
             <field name="l10n_bg_code">11</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_11"/>
@@ -170,6 +181,7 @@
         <record id="holiday_status_nssi_12" model="hr.leave.type">
             <field name="name">Organ Donation</field>
             <field name="l10n_bg_code">12</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_12"/>
@@ -185,6 +197,7 @@
         <record id="holiday_status_nssi_13" model="hr.leave.type">
             <field name="name">Reintegration after Work Accident</field>
             <field name="l10n_bg_code">13</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_13"/>
@@ -193,13 +206,14 @@
             <field name="color">8</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">22</field>
-            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- Temporary reassignment for medical reasons -->
         <record id="holiday_status_nssi_14" model="hr.leave.type">
             <field name="name">Temporary Reassignment for Medical Reasons</field>
             <field name="l10n_bg_code">14</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_14"/>
@@ -208,13 +222,14 @@
             <field name="color">3</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">23</field>
-            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- Adoption leave -->
         <record id="holiday_status_nssi_15" model="hr.leave.type">
             <field name="name">Adoption Leave</field>
             <field name="l10n_bg_code">15</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_15"/>
@@ -229,6 +244,7 @@
         <record id="holiday_status_nssi_16" model="hr.leave.type">
             <field name="name">In-vitro Procedures</field>
             <field name="l10n_bg_code">16</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_16"/>
@@ -250,6 +266,7 @@
         <record id="holiday_status_nssi_18" model="hr.leave.type">
             <field name="name">Non-work (Domestic) Accident</field>
             <field name="l10n_bg_code">18</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_18"/>
@@ -266,6 +283,7 @@
         <record id="holiday_status_nssi_19" model="hr.leave.type">
             <field name="name">Caring for a Sick Child (under 18)</field>
             <field name="l10n_bg_code">19</field>
+            <field name="include_public_holidays_in_duration" eval="True"/>
             <field name="requires_allocation" eval="False"/>
             <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_sick"/>
             <field name="l10n_bg_leave_reason_id" ref="l10n_bg_hr_holidays.l10n_bg_nssi_19"/>
@@ -274,7 +292,7 @@
             <field name="color">5</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">28</field>
-            <field name="l10n_bg_paid_days_unpaid_leave">2</field>
+            <field name="l10n_bg_paid_days_unpaid_leave">0</field>
         </record>
 
         <!-- ============================================ -->
@@ -512,6 +530,24 @@
             <field name="color">2</field>
             <field name="company_id" eval="False"/>
             <field name="sequence">303</field>
+        </record>
+
+        <!-- Неплатен по производствена необходимост / престой по вина на
+             работника (КТ чл. 267, ал. 3) — неплатен по инициатива/в интерес
+             на работодателя. ЗО по ЗЗО чл. 40, ал. 1, т. 1, б. „б" се поделя
+             между работодател и лице (решение ТРЗ 2026-06-24) → unpaid_split. -->
+        <record id="holiday_status_kt_production_necessity" model="hr.leave.type">
+            <field name="name">Unpaid Leave - Production Necessity / Idle Time</field>
+            <field name="l10n_bg_code">KT267</field>
+            <field name="requires_allocation" eval="False"/>
+            <field name="unpaid">True</field>
+            <field name="leave_notif_subtype_id" ref="hr_holidays.mt_leave_allocation"/>
+            <field name="responsible_ids" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="support_document">False</field>
+            <field name="icon_id" ref="hr_holidays.icon_1"/>
+            <field name="color">2</field>
+            <field name="company_id" eval="False"/>
+            <field name="sequence">304</field>
         </record>
 
         <!-- ============================================ -->

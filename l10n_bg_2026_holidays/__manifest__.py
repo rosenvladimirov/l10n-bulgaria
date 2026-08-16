@@ -53,12 +53,12 @@ NOT included
 * Заместени дни по чл. 154а КТ (РМС-обявени за връзка с уикенди) — не
   са предвидими, добавят се ръчно при обявяване.
     """,
-    "version": "19.0.1.0.1",
+    "version": "19.0.1.0.2",
     "development_status": "Mature",
     "category": "Localization",
     "license": "LGPL-3",
     "author": "Rosen Vladimirov",
-    "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
+    "website": "https://github.com/rosenvladimirov/l10n-bulgaria-expert",
     "depends": [
         "resource",
     ],

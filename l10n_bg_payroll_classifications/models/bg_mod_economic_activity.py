@@ -92,21 +92,46 @@ class BGModEconomicActivity(models.Model):
             fields = ['name', 'code', 'level', 'active']
         return super().search_read(domain, fields, offset, limit, order)
 
-    def get_effective_mod(self, qualification_group):
-        """Get effective MOD for a given qualification group.
+    mod_value_ids = fields.One2many(
+        'bg.hr.payroll.mod.value', 'activity_id', string='MSSI by Period',
+        help='Dated MSSI amounts. The flat mod_* columns below are the legacy '
+             'single-period source and are used only as a fallback.')
 
-        Traverses up the КИД hierarchy via ``parent_id`` if the current
-        record has 0.0 for the requested qualification group. This
-        handles the common case where MOD values are configured on the
-        КИД division (e.g. 10) but the employee is assigned to a child
-        class (e.g. 10.39).
+    def get_effective_mod(self, qualification_group, date=None):
+        """МОД за квалификационна група, в сила на ``date``.
+
+        🚨 ДАТАТА е незадължителна САМО за обратна съвместимост. Без нея се
+        връща стойността „както е днес" — точно каквото правеше методът преди
+        датирането. Всеки нов повикващ ТРЯБВА да подава дата: стойността е
+        периодична и от 01.08.2026 се мени за 744 от 753 ключа на НАП
+        (медиана +20 %, максимум +70 %).
+
+        Обхождането нагоре по КИД се запазва — МОД-ът често е конфигуриран на
+        дивизията (напр. 10), а лицето е на клас (напр. 10.39) — но с ЕДНА
+        смяна на семантиката, която датираните редове правят възможна:
+
+          · НЯМА ред за периода  → „тук не е казано нищо" ⇒ продължава нагоре;
+          · ред със сума ``0.0`` → „тук ИЗРИЧНО няма праг" ⇒ обхождането СПИРА.
+
+        Плоските колони ``mod_*`` не могат да изразят второто: нулата в тях
+        значи „наследи нагоре". Затова те остават само като РЕЗЕРВА за дейност
+        без нито един датиран ред — при заварена база миграцията ги пренася и
+        резервата не се стига.
         """
         self.ensure_one()
+        Value = self.env['bg.hr.payroll.mod.value']
+        when = date or fields.Date.context_today(self)
         attr = "mod_%s" % qualification_group
         activity = self
         # КИД parent chain max depth is 4 (section→division→group→class);
         # cap traversal to guard against accidental loops in seed data.
         for _depth in range(6):
+            amount = Value._l10n_bg_amount_at(activity, qualification_group, when)
+            if amount is not None:
+                # Изричното „няма праг" (0.0) СПИРА обхождането — това е
+                # разликата спрямо плоските колони.
+                return amount
+            # Резерва: дейност без датирани редове изобщо.
             value = getattr(activity, attr, 0.0) or 0.0
             if value:
                 return value

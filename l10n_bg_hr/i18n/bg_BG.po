@@ -1,0 +1,383 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_hr
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e-20260711\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-05 17:44+0000\n"
+"PO-Revision-Date: 2026-08-05 17:44+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_amendment_group
+msgid "<span>Contract Amendments</span>"
+msgstr "<span>Допълнителни споразумения</span>"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__state__active
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Active"
+msgstr "В сила"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__amendment_type__additional_duties
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment_wizard__amendment_type__additional_duties
+msgid "Additional Duties"
+msgstr "Възлагане на допълнителни задължения"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__description
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Amendment Details"
+msgstr "Съдържание"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__amendment_number
+msgid "Amendment Number"
+msgstr "Номер на споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__amendment_type
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__amendment_type
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Amendment Type"
+msgstr "Вид на споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__approved_date
+msgid "Approval Date"
+msgstr "Дата на одобрение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__state__approved
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Approved"
+msgstr "Одобрено"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__approved_by_id
+msgid "Approved by"
+msgstr "Одобрено от"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__assignment_compensation
+msgid "Assignment Compensation"
+msgstr "Възнаграждение при преместване"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__assignment_duration_months
+msgid "Assignment Duration (months)"
+msgstr "Срок на преместването (месеци)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__assignment_location
+msgid "Assignment Location"
+msgstr "Място на преместването"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__temporary_assignment_reason
+msgid "Assignment Reason"
+msgstr "Основание за преместването"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__state__cancel
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Cancelled"
+msgstr "Отказано"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__company_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_job_form_bg_kid
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Company"
+msgstr "Фирма"
+
+#. module: l10n_bg_hr
+#: model:ir.actions.act_window,name:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+#: model:ir.actions.act_window,name:l10n_bg_hr.action_l10n_bg_hr_contract_amendment_from_contract
+#: model:ir.actions.act_window,name:l10n_bg_hr.action_l10n_bg_hr_contract_amendment_from_employee
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_amendment_ids
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_version__l10n_bg_amendment_ids
+#: model:ir.ui.menu,name:l10n_bg_hr.menu_l10n_bg_hr_contract_amendment
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_amendment_tab
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_calendar
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_list
+msgid "Contract Amendments"
+msgstr "Допълнителни споразумения"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__amendment_type__contract_extension
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment_wizard__amendment_type__contract_extension
+msgid "Contract Extension"
+msgstr "Удължаване на срока"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__version_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__version_id
+msgid "Contract Version"
+msgstr "Версия на договора"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__currency_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__currency_id
+msgid "Currency"
+msgstr "Валута"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__date_signed
+msgid "Date Signed"
+msgstr "Дата на подписване"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__state__draft
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Draft"
+msgstr "Чернова"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__date_effective
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__date_effective
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Effective Date"
+msgstr "Дата на влизане в сила"
+
+#. module: l10n_bg_hr
+#: model:ir.model,name:l10n_bg_hr.model_hr_employee
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__employee_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__employee_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Employee"
+msgstr "Служител"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__temporary_assignment_reason__employee_replacement
+msgid "Employee Replacement"
+msgstr "Заместване на работник"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__date_end
+msgid "End Date"
+msgstr "Дата на изтичане"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__state__expired
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Expired"
+msgstr "Изтекло"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__notes
+msgid "Internal Notes"
+msgstr "Вътрешни бележки"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__amendment_type__leave_change
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment_wizard__amendment_type__leave_change
+msgid "Leave Days Change"
+msgstr "Промяна на размера на отпуска"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__legal_basis
+msgid "Legal Basis"
+msgstr "Правно основание"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__temporary_assignment_reason__natural_disaster
+msgid "Natural Disaster"
+msgstr "Природно бедствие"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_daily_hours
+msgid "New Daily Hours"
+msgstr "Нови часове дневно"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_economic_activity_id
+msgid "New Economic Activity"
+msgstr "Нова икономическа дейност (КИД)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_leave_days
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__new_leave_days
+msgid "New Leave Days"
+msgstr "Нов размер на платения отпуск"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_position_id
+msgid "New NKPD Position"
+msgstr "Нова длъжност по НКПД"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_wage
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__new_wage
+msgid "New Wage"
+msgstr "Ново основно възнаграждение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_weekly_hours
+msgid "New Weekly Hours"
+msgstr "Нови часове седмично"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_work_location
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__new_work_location
+msgid "New Work Location"
+msgstr "Ново място на работа"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_working_time_type
+msgid "New Working Time Type"
+msgstr "Нов вид работно време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__amendment_type__other
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment_wizard__amendment_type__other
+msgid "Other Amendment"
+msgstr "Друго изменение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__temporary_assignment_reason__other_emergency
+msgid "Other Emergency"
+msgstr "Друго извънредно обстоятелство"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__amendment_type__position_change
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment_wizard__amendment_type__position_change
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_version_amendment_wizard_form
+msgid "Position Change"
+msgstr "Промяна на длъжността"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__old_daily_hours
+msgid "Previous Daily Hours"
+msgstr "Досегашни часове дневно"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__old_economic_activity_id
+msgid "Previous Economic Activity"
+msgstr "Досегашна икономическа дейност (КИД)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__old_leave_days
+msgid "Previous Leave Days"
+msgstr "Досегашен размер на платения отпуск"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__old_position_id
+msgid "Previous NKPD Position"
+msgstr "Досегашна длъжност по НКПД"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__old_wage
+msgid "Previous Wage"
+msgstr "Досегашно основно възнаграждение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__old_weekly_hours
+msgid "Previous Weekly Hours"
+msgstr "Досегашни часове седмично"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__old_work_location
+msgid "Previous Work Location"
+msgstr "Досегашно място на работа"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__old_working_time_type
+msgid "Previous Working Time Type"
+msgstr "Досегашен вид работно време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__temporary_assignment_reason__production_necessity
+msgid "Production Necessity"
+msgstr "Производствена необходимост"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__signed_by_employee
+msgid "Signed by Employee"
+msgstr "Подписано от работника"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__signed_by_employer
+msgid "Signed by Employer"
+msgstr "Подписано от работодателя"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__state
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Status"
+msgstr "Състояние"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__subject
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__subject
+msgid "Subject"
+msgstr "Предмет"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__is_temporary
+msgid "Temporary Amendment"
+msgstr "Срочно споразумение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__is_temporary_assignment
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__amendment_type__temporary_assignment
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment_wizard__amendment_type__temporary_assignment
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Temporary Assignment"
+msgstr "Временно преместване"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__state__to_approve
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "To Approve"
+msgstr "За одобрение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__temporary_assignment_reason__urgent_work
+msgid "Urgent Work"
+msgstr "Неотложна работа"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__amendment_type__wage_change
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment_wizard__amendment_type__wage_change
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_version_amendment_wizard_form
+msgid "Wage Change"
+msgstr "Промяна на възнаграждението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__wage_change_reason
+msgid "Wage Change Reason"
+msgstr "Основание за промяната"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__wage_difference
+msgid "Wage Difference"
+msgstr "Разлика"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__is_wage_increase
+msgid "Wage Increase"
+msgstr "Увеличение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__amendment_type__working_time_change
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment_wizard__amendment_type__working_time_change
+msgid "Working Time Change"
+msgstr "Промяна на работното време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__amendment_type__workplace_change
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment_wizard__amendment_type__workplace_change
+msgid "Workplace Change"
+msgstr "Промяна на мястото на работа"
+

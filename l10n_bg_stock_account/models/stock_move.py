@@ -40,6 +40,20 @@ class StockMove(models.Model):
         """
         self.ensure_one()
 
+        # Производствени движения (консумация в / получаване от производствена
+        # локация) се осчетоводяват по стандартния Odoo 19 location-based
+        # механизъм — през сметката на производствената локация (Cost of
+        # Production), а НЕ през продажбената category output/input сметка
+        # (напр. 709.200 'отчетна стойност на продадени материали', която е
+        # за реализация, не за влагане). Така вложените в производство
+        # материали отиват в производствената сметка и се позволява
+        # надграждане от l10n_bg_mrp_account (транзит 601 → 611).
+        if (
+            self.location_id.usage == 'production'
+            or self.location_dest_id.usage == 'production'
+        ):
+            return super()._get_account_move_line_vals()
+
         # Стандартен path за real_time продукти + BG scrap корекция
         if self.product_id.valuation == 'real_time':
             vals = super()._get_account_move_line_vals()

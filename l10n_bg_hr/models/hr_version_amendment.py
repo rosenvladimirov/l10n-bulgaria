@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+
+_logger = logging.getLogger(__name__)
 
 
 class L10nBGHrVersionAmendment(models.Model):
@@ -327,11 +331,21 @@ class L10nBGHrVersionAmendment(models.Model):
         self.ensure_one()
         if self.state != 'to_approve':
             raise ValidationError(_("Only amendments pending approval can be approved."))
-        self.write({
+        vals = {
             'state': 'approved',
             'approved_by_id': self.env.user.id,
             'approved_date': fields.Datetime.now(),
+        }
+        # Щампова „предишната стойност" при одобрението. onchange-ът лови
+        # само пътя през интерфейса — при импорт или RPC old_* оставаха
+        # празни и бланката излизаше без предишната стойност. Пълним само
+        # незаетите, за да не се презапише ръчно въведена стойност.
+        vals.update({
+            field_name: value
+            for field_name, value in self._snapshot_old_values().items()
+            if not self[field_name]
         })
+        self.write(vals)
 
     def action_activate(self):
         self.ensure_one()
@@ -351,8 +365,19 @@ class L10nBGHrVersionAmendment(models.Model):
     # =========================================================================
 
     def _apply_version_changes(self):
-        """Apply amendment changes to the linked version."""
+        """Apply amendment changes as a NEW version starting on the effective date."""
         self.ensure_one()
+
+        # Срочните ДС искат и обратен ход при изтичане, а
+        # cron_expire_temporary_amendments още пише върху текущата версия.
+        # Докато изходът не е решен, не ги пускаме по новия път — иначе
+        # входът създава версия, а изходът презаписва, и остава наполовина.
+        if self.is_temporary or self.is_temporary_assignment:
+            raise ValidationError(_(
+                "Activating temporary amendments is not supported yet: the "
+                "expiry path still writes back onto the current version. "
+                "Please contact your administrator."))
+
         vals = {}
 
         if self.new_wage:
@@ -370,12 +395,69 @@ class L10nBGHrVersionAmendment(models.Model):
         if self.new_weekly_hours and 'l10n_bg_weekly_hours' in self.version_id._fields:
             vals['l10n_bg_weekly_hours'] = self.new_weekly_hours
 
-        if vals:
-            self.version_id.write(vals)
-            self.version_id.message_post(
-                body=_('Updated by amendment %s') % self.amendment_number,
-                subject=_('Contract Amendment Applied'),
-            )
+        if not vals:
+            return
+
+        # Промяната ражда НОВА версия от датата на влизане в сила, вместо да
+        # презаписва текущата. Иначе увеличение с бъдеща дата важи и назад, а
+        # преизчисляване на минал период (Д1 корекция, УП-2, регенерация на
+        # регистъра) чете новата стойност като валидна открай време.
+        # 🚨 Полета с copy=False се губят: create_version стъпва на copy_data().
+        # `copy=False` е предвидено за ДУБЛИРАНЕ на версия (нов договор), но при
+        # допълнително споразумение договорът е СЪЩИЯТ — стажът и номерът му
+        # продължават. Без това новата версия тръгва с нулев клас: наблюдавано
+        # на plm_acc (v939 class_period 15:09:06 → v1116 00:00:00, class_years
+        # 15 → 0), тоест ДТВ-то за втория сегмент падаше на нула.
+        carried = {}
+        for field_name in ('l10n_bg_current_class_period',
+                           'l10n_bg_unrecognized_company_is_manual',
+                           'l10n_bg_contract_number'):
+            if field_name in self.version_id._fields:
+                carried[field_name] = self.version_id[field_name]
+
+        employee = self.version_id.employee_id
+        new_version = employee.create_version(
+            dict(vals, date_version=self.date_effective))
+        if carried:
+            new_version.write(carried)
+        # 🚨 create_version излиза рано и НЕ прилага стойностите, когато вече
+        # съществува версия с тази дата — тогава връща нея непокътната. Без
+        # изричния write ДС-то минава в „в сила", а заплатата не се сменя, тихо.
+        new_version.write(vals)
+        new_version.message_post(
+            body=_('Created by amendment %s') % self.amendment_number,
+            subject=_('Contract Amendment Applied'),
+        )
+
+    @api.model
+    def cron_activate_due_amendments(self):
+        """Активира одобрените ДС, чиято дата на влизане в сила е настъпила.
+
+        Активирането беше само ръчен бутон. ДС се подписва предварително, с
+        бъдеща дата, и между одобрението и датата минават седмици — пропусне
+        ли се натискането, фишът излиза със старата заплата и мълчи.
+        Симетрично на cron_expire_temporary_amendments: ако изтичането върви,
+        а активирането не, срочните ДС ще изтичат, без изобщо да са влизали
+        в сила.
+        """
+        today = fields.Date.today()
+        due = self.search([
+            ('state', '=', 'approved'),
+            ('date_effective', '<=', today),
+        ])
+        for amendment in due:
+            # Грешка от едно ДС не спира партидата — остава в „Одобрено"
+            # с бележка в чата, за да се види от кого се чака намеса.
+            try:
+                with self.env.cr.savepoint():
+                    amendment.action_activate()
+            except Exception as exc:  # noqa: BLE001 — логваме и продължаваме
+                _logger.warning(
+                    "Автоматичното активиране на ДС %s пропадна: %s",
+                    amendment.amendment_number, exc)
+                amendment.message_post(body=_(
+                    "Automatic activation failed: %s. The amendment stays "
+                    "approved and needs manual review.", exc))
 
     @api.model
     def cron_expire_temporary_amendments(self):
@@ -423,19 +505,34 @@ class L10nBGHrVersionAmendment(models.Model):
     # ONCHANGE
     # =========================================================================
 
+    def _snapshot_old_values(self):
+        """Текущите стойности на свързаната версия като vals за old_* полетата.
+
+        Ползва се и от onchange-а (UI), и от одобрението (импорт/RPC) —
+        иначе историята на ДС-то остава без „предишна стойност", а точно
+        тя се печата в бланката."""
+        self.ensure_one()
+        v = self.version_id
+        if not v:
+            return {}
+        return {
+            'old_wage': v.wage,
+            'old_position_id': v.l10n_bg_qualification_group.id,
+            'old_economic_activity_id': v.l10n_bg_economic_activity_id.id,
+            'old_working_time_type': v.l10n_bg_working_time_type,
+            'old_daily_hours': v.l10n_bg_daily_hours,
+            'old_weekly_hours': (v.l10n_bg_weekly_hours
+                                 if 'l10n_bg_weekly_hours' in v._fields else 40.0),
+            'old_work_location': v.work_location or '',
+            'old_leave_days': v.l10n_bg_total_leave_days,
+        }
+
     @api.onchange('version_id')
     def _onchange_version_id(self):
         """Load current values from the linked version."""
         if self.version_id:
-            v = self.version_id
-            self.old_wage = v.wage
-            self.old_position_id = v.l10n_bg_qualification_group
-            self.old_economic_activity_id = v.l10n_bg_economic_activity_id
-            self.old_working_time_type = v.l10n_bg_working_time_type
-            self.old_daily_hours = v.l10n_bg_daily_hours
-            self.old_weekly_hours = v.l10n_bg_weekly_hours if 'l10n_bg_weekly_hours' in v._fields else 40.0
-            self.old_work_location = v.work_location or ''
-            self.old_leave_days = v.l10n_bg_total_leave_days
+            for field_name, value in self._snapshot_old_values().items():
+                self[field_name] = value
 
     @api.onchange('amendment_type')
     def _onchange_amendment_type(self):

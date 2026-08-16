@@ -17,3 +17,4 @@ from . import publisher_warranty
 from . import res_country
 from . import account_account_tag
 from . import res_bank
+from . import l10n_bg_work_calendar_mixin

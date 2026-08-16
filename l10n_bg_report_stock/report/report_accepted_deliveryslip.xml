@@ -4,6 +4,16 @@
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
                 <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())" />
+                <!-- 🚨 Задължително ПРЕДИ извикванията на подшаблоните от `stock`:
+                     `stock.stock_report_delivery_has_serial_move_line` и
+                     `..._aggregated_move_lines` ползват `format_number`, но НЕ го
+                     дефинират — стандартните отчети го въвеждат в СВОЯ шаблон
+                     (report_deliveryslip.xml:70). Без този ред разписката гърми с
+                     `KeyError: 'format_number'` за всеки документ, който носи
+                     партиден или сериен номер — тоест за почти всяко медицинско
+                     изделие. Мерено 16.08.2026: падаше при 4 от 5 пикинга, минаваше
+                     само този с нула партиди. -->
+                <t t-set="format_number" t-value="lambda x: int(x) if x == int(x) else x"/>
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
                 <t  t-if="o.picking_type_id.code=='outgoing' and partner and partner != partner.commercial_partner_id">
                     <t t-set="recipient" t-value="o.partner_id.commercial_partner_id or (o.move_ids and o.move_ids[0].partner_id.commercial_partner_id) or False"/>

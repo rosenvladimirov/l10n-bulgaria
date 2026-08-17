@@ -87,6 +87,18 @@ class HrVersionAmendmentWizard(models.TransientModel):
         compute='_compute_old_values', store=True, readonly=True)
     new_work_location = fields.Char(string='New Work Location')
 
+    # DEF-116: досега уизардът можеше да смени ЕТИКЕТА на работното време, но
+    # нямаше къде да се въведат часовете — а те определят и календара, и
+    # прората на МОД. Без тях „непълно работно време" е дума без число.
+    old_weekly_hours = fields.Float(string='Current Weekly Hours',
+        compute='_compute_old_values', store=True, readonly=True)
+    new_weekly_hours = fields.Float(string='New Weekly Hours',
+        help='Contracted weekly hours. Determines the working time calendar '
+             'and the pro-rated minimum insurance income.')
+    old_daily_hours = fields.Float(string='Current Daily Hours',
+        compute='_compute_old_values', store=True, readonly=True)
+    new_daily_hours = fields.Float(string='New Daily Hours')
+
     @api.onchange('employee_id')
     def _onchange_employee_id(self):
         if self.employee_id and self.employee_id.version_id:
@@ -105,6 +117,10 @@ class HrVersionAmendmentWizard(models.TransientModel):
             wiz.old_working_time_type = v.l10n_bg_working_time_type if v else False
             wiz.old_leave_days = v.l10n_bg_total_leave_days if v else 0
             wiz.old_work_location = (v.work_location or '') if v else ''
+            wiz.old_daily_hours = v.l10n_bg_daily_hours if v else 0.0
+            wiz.old_weekly_hours = (
+                v.l10n_bg_weekly_hours
+                if v and 'l10n_bg_weekly_hours' in v._fields else 0.0)
 
     def action_create_amendment(self):
         self.ensure_one()
@@ -133,6 +149,10 @@ class HrVersionAmendmentWizard(models.TransientModel):
             vals['new_leave_days'] = self.new_leave_days
         if self.new_work_location:
             vals['new_work_location'] = self.new_work_location
+        if self.new_weekly_hours:
+            vals['new_weekly_hours'] = self.new_weekly_hours
+        if self.new_daily_hours:
+            vals['new_daily_hours'] = self.new_daily_hours
 
         amendment = self.env['l10n_bg.hr.version.amendment'].create(vals)
         return {

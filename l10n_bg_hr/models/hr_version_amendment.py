@@ -364,6 +364,72 @@ class L10nBGHrVersionAmendment(models.Model):
     # BUSINESS LOGIC
     # =========================================================================
 
+    def _l10n_bg_changes_working_time(self):
+        """Мени ли това ДС договореното работно време (DEF-116)."""
+        self.ensure_one()
+        if self.amendment_type == 'working_time_change':
+            return True
+        return bool(
+            (self.new_working_time_type
+             and self.new_working_time_type != self.old_working_time_type)
+            or (self.new_weekly_hours
+                and self.new_weekly_hours != self.old_weekly_hours)
+            or (self.new_daily_hours
+                and self.new_daily_hours != self.old_daily_hours)
+        )
+
+    def _l10n_bg_required_calendar(self):
+        """Календарът, който отговаря на договореното време — или отказ.
+
+        Прората на МОД се смята от КАЛЕНДАРА, не от етикета. Затова ДС за
+        работно време без съответен календар е недовършено: етикетът казва
+        „непълно", а осигуряването остава пълно.
+
+        🚨 Съответствието иска календарът да е ВЪТРЕШНО НЕПРОТИВОРЕЧИВ —
+        часовете на ден да се връзват с присъствията. В базата има календар
+        „График непълно раб.време - 4ч." с ``hours_per_day = 4`` при
+        присъствия 08:00–17:00; изборът по едно поле би го хванал, а Пламена
+        изрично предупреди да не се стъпва на него (фишът дели 168 ÷ 4 и дава
+        42 отработени дни в месец с 21). Затова се сверява и сборът на
+        присъствията.
+
+        Няма ли такъв календар, ДС-то ОТКАЗВА да се активира и казва какъв да
+        се създаде — по-добре явен отказ, отколкото версия, чието осигуряване
+        е двойно.
+        """
+        self.ensure_one()
+        weekly = self.new_weekly_hours or self.old_weekly_hours or 0.0
+        daily = self.new_daily_hours or (weekly / 5.0 if weekly else 0.0)
+        if not weekly and not daily:
+            raise ValidationError(_(
+                "Amendment %(ref)s changes the working time but does not state "
+                "the hours. Fill in the new weekly (and daily) hours — they "
+                "determine both the working time calendar and the pro-rated "
+                "minimum insurance income.",
+                ref=self.amendment_number or self.id))
+
+        company = self.version_id.company_id
+        candidates = self.env['resource.calendar'].search([
+            '|', ('company_id', '=', company.id), ('company_id', '=', False),
+        ])
+        for calendar in candidates:
+            attendance_hours = sum(
+                a.hour_to - a.hour_from for a in calendar.attendance_ids)
+            if not attendance_hours:
+                continue
+            if (abs(calendar.hours_per_day - daily) < 0.01
+                    and abs(attendance_hours - weekly) < 0.01):
+                return calendar
+
+        raise ValidationError(_(
+            "Amendment %(ref)s sets %(weekly).2f weekly / %(daily).2f daily "
+            "hours, but no consistent working time calendar exists for "
+            "%(company)s. Create one whose daily hours and attendance lines "
+            "both match, then activate the amendment again. Without it the "
+            "minimum insurance income would stay at the full-time amount.",
+            ref=self.amendment_number or self.id,
+            weekly=weekly, daily=daily, company=company.display_name))
+
     def _apply_version_changes(self):
         """Apply amendment changes as a NEW version starting on the effective date."""
         self.ensure_one()
@@ -394,6 +460,21 @@ class L10nBGHrVersionAmendment(models.Model):
             vals['l10n_bg_basic_leave_days'] = self.new_leave_days
         if self.new_weekly_hours and 'l10n_bg_weekly_hours' in self.version_id._fields:
             vals['l10n_bg_weekly_hours'] = self.new_weekly_hours
+        if self.new_daily_hours and 'l10n_bg_daily_hours' in self.version_id._fields:
+            vals['l10n_bg_daily_hours'] = self.new_daily_hours
+
+        # DEF-116: ДС за работно време СМЕНЯ и календара, или отказва.
+        #
+        # Досега се пренасяше само ЕТИКЕТЪТ (`l10n_bg_working_time_type`) и
+        # часовете, а `resource_calendar_id` оставаше пълният 8-часов. Оттам
+        # прората на МОД не пали — тя гледа календара — и минималният
+        # осигурителен доход излиза ЦЯЛ.
+        #
+        # Мерено в plm_acc: две версии носят „непълно работно време" с 20
+        # седмични часа при 8-часов календар и дават МОД 620,20 вместо 310,10.
+        # Двойно, и то мълчаливо.
+        if self._l10n_bg_changes_working_time():
+            vals['resource_calendar_id'] = self._l10n_bg_required_calendar().id
 
         if not vals:
             return

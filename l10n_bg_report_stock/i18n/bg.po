@@ -73,7 +73,7 @@ msgstr "<strong>Адрес на склада</strong>"
 #. module: l10n_bg_report_stock
 #: model:ir.actions.report,name:l10n_bg_report_stock.action_report_accepted__delivery
 msgid "Accepted delivery report"
-msgstr "Стокова разписка"
+msgstr "Приемо-предавателен протокол"
 
 #. module: l10n_bg_report_stock
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
@@ -93,7 +93,7 @@ msgstr "Доставен"
 #. module: l10n_bg_report_stock
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
 msgid "Delivery slip #"
-msgstr "Доставна бележка №"
+msgstr "Приемо-предавателен протокол №"
 
 #. module: l10n_bg_report_stock
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document

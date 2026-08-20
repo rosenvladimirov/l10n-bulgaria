@@ -381,7 +381,22 @@ def _grant_admin_full_access(env):
         "base.module_category_hidden", raise_if_not_found=False
     )
     if hidden_cat:
-        domain.append(("category_id", "!=", hidden_cat.id))
+        # 🚨 19.0 махна `res.groups.category_id` — категорията вече виси на
+        # ПРИВИЛЕГИЯТА (`res.groups.privilege.category_id`).
+        # Пътят `("privilege_id.category_id", "!=", hidden_cat.id)` НЕ е
+        # еквивалент: той изхвърля и групите БЕЗ привилегия, а те не са
+        # технически — просто нямат привилегия. Мерено на erp3: 75 от 136
+        # групи са без привилегия, тоест този път би отрязал повече от
+        # половината, тихо.
+        # Затова се вадят изрично привилегиите в скритата категория. `not in`
+        # с непразен списък включва празните (мерено: 3 in + 133 not in = 136).
+        hidden_privileges = (
+            env["res.groups.privilege"].sudo().search(
+                [("category_id", "=", hidden_cat.id)]
+            )
+        )
+        if hidden_privileges:
+            domain.append(("privilege_id", "not in", hidden_privileges.ids))
     candidates = Group.search(domain)
     blocked = ("portal", "public", "share", "external")
     safe = candidates.filtered(
@@ -390,11 +405,12 @@ def _grant_admin_full_access(env):
         )
     )
     # Изключи и групите, които вече има (за чисти logs)
-    existing = set(admin.groups_id.ids)
+    # `res.users.groups_id` е преименувано на `group_ids` в 19.0.
+    existing = set(admin.group_ids.ids)
     new_ids = [gid for gid in safe.ids if gid not in existing]
     if new_ids:
         admin.sudo().write(
-            {"groups_id": [(4, gid) for gid in new_ids]}
+            {"group_ids": [(4, gid) for gid in new_ids]}
         )
     return len(new_ids)
 

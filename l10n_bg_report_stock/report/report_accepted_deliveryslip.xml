@@ -181,7 +181,7 @@
                                     <!-- If not printing lots/serial numbers => merge lines with same product+description+uom -->
                                     <t t-else="">
                                         <t t-set="aggregated_lines" t-value="package_move_lines._get_aggregated_product_quantities(strict=True)"/>
-                                        <t t-call="stock.stock_report_delivery_aggregated_move_lines"/>
+                                        <t t-call="l10n_bg_report_stock.stock_report_delivery_aggregated_move_lines"/>
                                     </t>
                                 </t>
                                 <!-- Make sure we do another section for package-less products if they exist -->
@@ -195,7 +195,7 @@
                                         </tr>
                                     </t>
                                     <t t-elif="aggregated_lines">
-                                        <t t-call="stock.stock_report_delivery_aggregated_move_lines"/>
+                                        <t t-call="l10n_bg_report_stock.stock_report_delivery_aggregated_move_lines"/>
                                     </t>
                                 </t>
                             </t>
@@ -212,7 +212,7 @@
                                 <!-- If not printing lots/serial numbers => merge lines with same product -->
                                 <t t-else="" name="aggregated_move_lines">
                                     <t t-set="aggregated_lines" t-value="o.move_line_ids._get_aggregated_product_quantities()"/>
-                                    <t t-call="stock.stock_report_delivery_aggregated_move_lines"/>
+                                    <t t-call="l10n_bg_report_stock.stock_report_delivery_aggregated_move_lines"/>
                                 </t>
                             </t>
                         </tbody>
@@ -266,7 +266,16 @@
             </t>
          </t>
     </template>
-    <template id="stock_report_delivery_aggregated_move_lines" inherit_id="stock.stock_report_delivery_aggregated_move_lines">
+    <!-- 🚨 `primary="True"` НЕ е украса. Без него това е разширение върху
+         ЯДРЕНИЯ шаблон и `position="replace"` на целия `tr` изяжда реда за
+         ВСЕКИ негов консуматор — включително стандартната Delivery Slip:
+         пада условната клетка `td t-if="has_multi_level_packages"` (ядро 19.0,
+         report_deliveryslip.xml:275), падат и подредовете за пакетирането, и
+         колоната `hs_code` на `stock_delivery`. Хедърът остава с четири
+         заглавия, тялото с три, и колоните се разминават.
+         Като primary шаблонът е наш собствен: центрираните три колони важат за
+         българския протокол, а ядрената товарителница си остава ядрена. -->
+    <template id="stock_report_delivery_aggregated_move_lines" primary="True" inherit_id="stock.stock_report_delivery_aggregated_move_lines">
         <xpath expr="//tr[@t-foreach='aggregated_lines']" position="replace">
             <t t-foreach="aggregated_lines" t-as="line">
                 <tr name="tr_aggregated_move_lines">

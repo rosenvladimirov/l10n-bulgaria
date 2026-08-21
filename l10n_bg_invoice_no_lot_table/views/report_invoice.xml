@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+  <!-- Табличката Продукт / Количество / SN/LN идва от ядрото
+       (`stock_account`) и единственият ѝ гард е групата
+       `stock_account.group_lot_on_invoice`. Групата е глобална за базата, а
+       фирмите тук са в три държави — затова гасенето минава по ДЪРЖАВАТА на
+       фирмата-издател.
+
+       🔑 Условието се слага на обвиващия `<t>`, не на самата таблица: тя вече
+       носи `t-else` (за случая без партиди), а `t-if` и `t-else` не стоят на
+       един и същ елемент. Обвивката гаси и празния `oe_structure` div,
+       та при българска фирма да не остава и празнина. -->
+  <template id="invoice_hide_snln_for_bg"
+            inherit_id="stock_account.stock_account_report_invoice_document">
+    <xpath expr="//table[@name='invoice_snln_table']/parent::t"
+           position="attributes">
+      <attribute name="t-if">o.company_id.country_id.code != 'BG'</attribute>
+    </xpath>
+  </template>
+
+</odoo>

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 
 class HrVersionAmendmentWizard(models.TransientModel):
@@ -99,6 +100,17 @@ class HrVersionAmendmentWizard(models.TransientModel):
         compute='_compute_old_values', store=True, readonly=True)
     new_daily_hours = fields.Float(string='New Daily Hours')
 
+    # 🔑 Без крайна дата срочното ДС ражда ПОСТОЯННА версия: изтичащият крон
+    # търси `date_end`, не го намира и командироването не свършва никога.
+    # Дотук визардът изобщо не пълнеше нито датата, нито флаговете — тоест
+    # един и същ бизнес факт минаваше през формата и през визарда с РАЗЛИЧЕН
+    # изход.
+    date_end = fields.Date(
+        string='End Date',
+        help="When a temporary assignment stops being in force. Required for "
+             "temporary assignments — the expiry cron looks for it.",
+    )
+
     @api.onchange('employee_id')
     def _onchange_employee_id(self):
         if self.employee_id and self.employee_id.version_id:
@@ -153,6 +165,20 @@ class HrVersionAmendmentWizard(models.TransientModel):
             vals['new_weekly_hours'] = self.new_weekly_hours
         if self.new_daily_hours:
             vals['new_daily_hours'] = self.new_daily_hours
+
+        if self.amendment_type == 'temporary_assignment':
+            if not self.date_end:
+                raise ValidationError(_(
+                    "A temporary assignment needs an end date. Without it the "
+                    "change would stay in force forever."))
+            # Флаговете НЕ идват от onchange: той не се изпълнява при create
+            # през RPC или импорт, а гардът и изтичащият крон стъпват точно
+            # на тях.
+            vals.update({
+                'is_temporary': True,
+                'is_temporary_assignment': True,
+                'date_end': self.date_end,
+            })
 
         amendment = self.env['l10n_bg.hr.version.amendment'].create(vals)
         return {

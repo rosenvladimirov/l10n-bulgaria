@@ -46,8 +46,14 @@
                             groups="hr.group_hr_manager"/>
                     <button name="action_activate" string="Activate"
                             type="object" class="oe_highlight"
-                            invisible="state != 'approved'"
+                            invisible="state != 'approved' or l10n_bg_effective_in_future"
                             groups="hr.group_hr_manager"/>
+                    <button name="action_activate_early" string="Activate Early"
+                            type="object"
+                            confirm="The effective date has not arrived yet. Activating now is recorded in the chatter. Continue?"
+                            invisible="state != 'approved' or not l10n_bg_effective_in_future"
+                            groups="hr.group_hr_manager"/>
+                    <field name="l10n_bg_effective_in_future" invisible="1"/>
                     <button name="action_cancel" string="Cancel"
                             type="object"
                             invisible="state in ('active', 'expired')"

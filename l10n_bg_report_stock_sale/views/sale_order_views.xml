@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+  <!-- Двете полета не се съхраняват тук — пишат в трансферите на поръчката.
+       Показват се само след потвърждаване, защото преди това трансфер няма и
+       записът няма къде да отиде. -->
+  <record id="view_order_form_protocol" model="ir.ui.view">
+    <field name="name">sale.order.form.protocol</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='commitment_date']" position="after">
+        <field name="l10n_bg_protocol_date"
+               invisible="state not in ('sale', 'done')"/>
+        <field name="l10n_bg_prepared_by_id"
+               invisible="state not in ('sale', 'done')"/>
+      </xpath>
+    </field>
+  </record>
+
+</odoo>

@@ -4,7 +4,7 @@
 {
     "name": "L10n Bg Report Stock",
     "summary": """Bulgaria - Accepted delivery documents in stock picking""",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     # OCA Metadata
     "development_status": 'Beta',
     "license": "AGPL-3",
@@ -16,7 +16,8 @@
     ],
     "data": [
         "report/report_accepted_deliveryslip.xml",
-        "report/stock_report_views.xml"
+        "report/stock_report_views.xml",
+        "views/stock_picking_views.xml"
     ],
     "demo": [],
     'images': [

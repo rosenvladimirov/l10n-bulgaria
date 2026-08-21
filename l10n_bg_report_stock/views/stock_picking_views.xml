@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+  <!-- Датата на протокола и съставилият го стоят до планираната дата, защото
+       точно с нея се сравняват: празно поле значи „вземи датата на трансфера". -->
+  <record id="view_picking_form_protocol" model="ir.ui.view">
+    <field name="name">stock.picking.form.protocol</field>
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='scheduled_date']" position="after">
+        <field name="l10n_bg_protocol_date"/>
+        <field name="l10n_bg_prepared_by_id"/>
+      </xpath>
+    </field>
+  </record>
+
+</odoo>

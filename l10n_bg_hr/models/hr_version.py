@@ -148,16 +148,27 @@ class HrVersion(models.Model):
     # WORKING TIME
     # =========================================================================
 
+    # 🔑 ЕДНА селекция за целия стек. Дотук базовият модул носеше '1'..'6', а
+    # ведомостта ПРЕЗАПИСВАШЕ полето с несъвместими стойности — тъй че версии,
+    # записани преди инсталирането на ведомостта, оставаха с код, който новата
+    # селекция не признава, и клонът за непълно работно време не палеше НИКОГА.
+    #
+    # ⚖️ „Намалено" (чл. 137 КТ) и „непълно" (чл. 138 КТ) са РАЗЛИЧНИ и цената
+    # е парична: при намалено работникът запазва възнаграждението и правата по
+    # осигурителното законодателство, тоест МОД НЕ се проратира; при непълно
+    # МОД е пропорционален на времето. Затова има отделна клетка за намалено.
     l10n_bg_working_time_type = fields.Selection([
-        ('1', 'Normal Working Time'),
-        ('2', 'Reduced Working Time'),
-        ('3', 'Part-Time'),
-        ('4', 'Flexible Working Time'),
-        ('5', 'Shift Work'),
-        ('6', 'Summarized Working Time'),
+        ('full_time', 'Full Time'),
+        ('reduced', 'Reduced Working Time (Art. 137 LC)'),
+        ('part_time', 'Part Time (Art. 138 LC)'),
+        ('flexible', 'Flexible Hours'),
+        ('shift', 'Shift Work'),
+        ('summarized', 'Summarized Calculation'),
     ], string='Working Time Type',
-        default='1',
-        help='Type of working time organization')
+        default='full_time',
+        help='Type of working time organization. Reduced working time keeps '
+             'full pay and full social security rights; part-time is '
+             'proportional.')
 
     l10n_bg_daily_hours = fields.Float(
         string='Daily Hours',

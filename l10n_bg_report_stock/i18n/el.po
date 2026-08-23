@@ -6,9 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-23 00:00+0000\n"
-"PO-Revision-Date: 2026-08-23 00:00+0000\n"
-"Last-Translator: Rosen Vladimirov <vladimirov.rosen@gmail.com>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
@@ -16,17 +14,123 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-# 🚨 msgid-ът на `model_terms` носи И МАРКИРОВКАТА — целият вграден елемент,
-# заедно с интервала преди затварящия таг. Без точно съвпадение преводът мълчи.
-#
-# ⚠️ Двата гръцки термина са СТАНДАРТНИ административни, но не са потвърдени от
-# гръцкия екип. Изпратени за проверка на Стаматис, 23.08.2026.
+#. от официалния гръцки на Odoo (addons/stock/i18n/el.po)
 #. module: l10n_bg_report_stock
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
-msgid "<span>Acceptance Protocol # </span>"
-msgstr "<span>Πρωτόκολλο Παραλαβής # </span>"
+msgid "<span><strong>Delivery Address:</strong></span>"
+msgstr "<span><strong>Διεύθυνση Παράδοσης:</strong></span>"
 
+#. от официалния гръцки на Odoo
 #. module: l10n_bg_report_stock
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
-msgid "<strong>Protocol Date</strong>"
-msgstr "<strong>Ημερομηνία Πρωτοκόλλου</strong>"
+msgid "<span>Remaining quantities not yet delivered:</span>"
+msgstr "<span>Υπόλοιπες ποσότητες που δεν έχουν παραδοθεί:</span>"
+
+#. ⚠️ НЕ е в ядрото — сглобено по модела на „Διεύθυνση Αποθήκης“. ЧАКА ПОТВЪРЖДЕНИЕ.
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Customer Address</strong>"
+msgstr "<strong>Διεύθυνση Πελάτη</strong>"
+
+#. от официалния гръцки на Odoo
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Order</strong>"
+msgstr "<strong>Παραγγελία</strong>"
+
+#. ⚠️ НЕ е в ядрото. ЧАКА ПОТВЪРЖДЕНИЕ от гръцкия екип.
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Prepared By</strong>"
+msgstr "<strong>Συντάχθηκε από</strong>"
+
+#. от официалния гръцки на Odoo
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Product</strong>"
+msgstr "<strong>Είδος</strong>"
+
+#. от официалния гръцки на Odoo
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Quantity</strong>"
+msgstr "<strong>Ποσότητα</strong>"
+
+#. от официалния гръцки на Odoo
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Signature</strong>"
+msgstr "<strong>Υπογραφή</strong>"
+
+#. ⚠️ НЕ е в ядрото. ЧАКА ПОТВЪРЖДЕНИЕ.
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Vendor Address</strong>"
+msgstr "<strong>Διεύθυνση Προμηθευτή</strong>"
+
+#. от официалния гръцки на Odoo
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Warehouse Address</strong>"
+msgstr "<strong>Διεύθυνση Αποθήκης</strong>"
+
+#. Стаматис, 23.08.2026: изпращане от нашия склад към контрагент.
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Acceptance Protocol #"
+msgstr "Δελτίο Αποστολής #"
+
+#. от официалния гръцки на Odoo
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Delivered"
+msgstr "Παραδόθηκαν"
+
+#. от официалния гръцки на Odoo
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Description on transfer"
+msgstr "Περιγραφή μεταφοράς"
+
+#. от официалния гръцки на Odoo
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Lot/Serial Number"
+msgstr "Παρτίδα / Σειριακός"
+
+#. от официалния гръцки на Odoo
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Ordered"
+msgstr "Παραγγέλθηκε"
+
+#. от официалния гръцки на Odoo
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Product"
+msgstr "Είδος"
+
+#. Стаматис, 23.08.2026: датата при ИЗПРАЩАНЕ.
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Protocol Date"
+msgstr "Ημερομηνία Αποστολής"
+
+#. Стаматис, 23.08.2026: датата при ВРЪЩАНЕ.
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Return Date"
+msgstr "Ημερομηνία Επιστροφής"
+
+#. Стаматис, 23.08.2026: връщане от контрагента към нашия склад.
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Return Protocol #"
+msgstr "Δελτίο Επιστροφής #"
+
+#. от официалния гръцки на Odoo
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "units"
+msgstr "μονάδες"
+

@@ -34,16 +34,11 @@
                     <t t-set="sender" t-value="o.picking_type_id.warehouse_id.partner_id"/>
                 </t>
 
-                <t t-if="o.state == 'done'">
-                    <t t-set="name_label">
-                        Accepted delivery report #
-                    </t>
-                </t>
-                <t t-else="">
-                    <t t-set="name_label">
-                        Delivery slip #
-                    </t>
-                </t>
+                <!-- `name_label` отпадна: задаваше се тук и не се четеше
+                     никъде (проверено срещу СГЛОБЕНИЯ arch с трите наследяващи
+                     изгледа). Заглавието минава през `layout_document_title`
+                     по-долу. Двата мъртви низа стояха в каталога и пращаха
+                     преводача да превежда текст, който не се печата. -->
                 <t t-set="name" t-value="o.name"/>
                 <!-- 🔑 Датата на ПРОТОКОЛА, не на движението: ръчната, ако е
                      сложена, иначе датата на трансфера. -->

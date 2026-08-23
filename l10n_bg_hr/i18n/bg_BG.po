@@ -381,3 +381,680 @@ msgstr "Промяна на работното време"
 msgid "Workplace Change"
 msgstr "Промяна на мястото на работа"
 
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_job__l10n_bg_ncop_code
+msgid "8-digit NCOP code"
+msgstr "8-цифрен код по НКПД"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.hr_contract_template_form_view_extended
+msgid "<span>NKPD / KID</span>"
+msgstr "<span>НКПД / КИД</span>"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "<strong>Legal Note:</strong>\\n                                Temporary assignments are regulated by Articles 106-114\\n                                of the Bulgarian Labor Code. Maximum duration is\\n                                12 months without employee consent."
+msgstr "<strong>Правна бележка:</strong>\\n                                Временното преместване се урежда от чл. 106-114\\n                                от Кодекса на труда. Максималната продължителност е\\n                                12 месеца без съгласие на работника."
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/wizard/hr_version_amendment_wizard.py:0
+msgid "A temporary assignment needs an end date. Without it the change would stay in force forever."
+msgstr "Срочното преместване иска крайна дата. Без нея промяната остава в сила завинаги."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Activate"
+msgstr "Активирай"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Activate Early"
+msgstr "Активирай предсрочно"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Activated early on %(today)s, before the agreed effective date %(effective)s."
+msgstr "Активирано предсрочно на %(today)s, преди уговорената дата на влизане в сила %(effective)s."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_additional_leave_days
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_additional_leave_days
+msgid "Additional annual leave days beyond basic entitlement"
+msgstr "Дни допълнителен платен годишен отпуск над основния (чл. 156 КТ)"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Amendment %(ref)s changes the working time but does not state the hours. Fill in the new weekly (and daily) hours — they determine both the working time calendar and the pro-rated minimum insurance income."
+msgstr "Споразумение %(ref)s мени работното време, но не посочва часовете. Попълнете новите часове седмично (и дневно) — те определят и календара на работното време, и проратирания минимален осигурителен доход."
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Amendment %(ref)s does not change anything on the contract. Fill in at least one new value — wage, job position, work location, working time or leave days — or cancel it. An amendment cannot take effect without a change."
+msgstr "Споразумение %(ref)s не променя нищо по договора. Попълнете поне една нова стойност — заплата, длъжност, работно място, работно време или дни отпуск — или го откажете. Споразумение не може да влезе в сила без промяна."
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Amendment %(ref)s is already in force; %(fields)s can no longer be changed. Editing it would make the signed document differ from the contract version it produced. Create a new amendment instead."
+msgstr "Споразумение %(ref)s вече е в сила; %(fields)s не може да се променя. Редакцията би направила подписания документ различен от версията на договора, която е родил. Създайте ново споразумение."
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Amendment %(ref)s is temporary but has no end date. Without it the change would stay in force forever — the expiry cron looks for the end date."
+msgstr "Споразумение %(ref)s е срочно, но няма крайна дата. Без нея промяната остава в сила завинаги — кронът за изтичане търси крайната дата."
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Amendment %(ref)s sets %(weekly).2f weekly / %(daily).2f daily hours, but no consistent working time calendar exists for %(company)s. Create one whose daily hours and attendance lines both match, then activate the amendment again. Without it the minimum insurance income would stay at the full-time amount."
+msgstr "Споразумение %(ref)s задава %(weekly).2f часа седмично / %(daily).2f дневно, но за %(company)s няма съгласуван календар на работното време. Създайте такъв, чиито часове на ден и присъствия съвпадат, и активирайте споразумението наново. Без него минималният осигурителен доход остава на размера за пълно работно време."
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Amendment %(ref)s takes effect on %(effective)s, which has not arrived yet. It will be activated automatically on that day. If it must take effect now, use 'Activate Early' — that action is recorded in the chatter."
+msgstr "Споразумение %(ref)s влиза в сила на %(effective)s, а тя още не е настъпила. Ще бъде активирано автоматично на този ден. Ако трябва да влезе в сила сега, ползвайте „Активирай предсрочно“ — това действие се записва в чата."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Amendment Subject"
+msgstr "Предмет на споразумението"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Annual Leave"
+msgstr "Платен годишен отпуск"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__applied_version_id
+msgid "Applied Version"
+msgstr "Приложена версия"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Approval"
+msgstr "Одобрение"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Approve"
+msgstr "Одобри"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Assignment Details"
+msgstr "Данни за преместването"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Automatic activation failed: %s. The amendment stays approved and needs manual review."
+msgstr "Автоматичното активиране пропадна: %s. Споразумението остава одобрено и иска ръчен преглед."
+
+#. module: l10n_bg_hr
+#: model:ir.actions.server,name:l10n_bg_hr.cron_activate_due_amendments_ir_actions_server
+msgid "BG: Activate Due Contract Amendments"
+msgstr "БГ: Активиране на настъпили допълнителни споразумения"
+
+#. module: l10n_bg_hr
+#: model:ir.actions.server,name:l10n_bg_hr.cron_expire_temporary_amendments_ir_actions_server
+msgid "BG: Expire Temporary Contract Amendments"
+msgstr "БГ: Изтичане на срочни допълнителни споразумения"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_version_amendment_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Cancel"
+msgstr "Откажи"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Cannot cancel active or expired amendments."
+msgstr "Не може да се откаже споразумение, което е в сила или изтекло."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Change Justification"
+msgstr "Основание за промяната"
+
+#. module: l10n_bg_hr
+#: model:ir.model,name:l10n_bg_hr.model_l10n_bg_hr_version_amendment
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Contract Amendment"
+msgstr "Допълнително споразумение"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Contract Amendment Applied"
+msgstr "Приложено допълнително споразумение"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_pivot
+msgid "Contract Amendments Analysis"
+msgstr "Анализ на допълнителните споразумения"
+
+#. module: l10n_bg_hr
+#: model:ir.model,name:l10n_bg_hr.model_hr_contract_type
+msgid "Contract Type"
+msgstr "Вид на договора"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__new_weekly_hours
+msgid "Contracted weekly hours. Determines the working time calendar and the pro-rated minimum insurance income."
+msgstr "Договорени часове седмично. Определят календара на работното време и проратирания минимален осигурителен доход."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_version_amendment_wizard_form
+msgid "Create Amendment"
+msgstr "Създай споразумение"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+msgid "Create your first Contract Amendment!"
+msgstr "Създайте първото си допълнително споразумение!"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Created by amendment %s"
+msgstr "Създадена от споразумение %s"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__old_daily_hours
+msgid "Current Daily Hours"
+msgstr "Текущи часове дневно"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__old_leave_days
+msgid "Current Leave Days"
+msgstr "Текущи дни отпуск"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__old_position_id
+msgid "Current Position"
+msgstr "Текуща длъжност по НКПД"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__old_wage
+msgid "Current Wage"
+msgstr "Текуща заплата"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__old_weekly_hours
+msgid "Current Weekly Hours"
+msgstr "Текущи часове седмично"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__old_work_location
+msgid "Current Work Location"
+msgstr "Текущо работно място"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__old_working_time_type
+msgid "Current Working Time"
+msgstr "Текущо работно време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_res_company__l10n_bg_economic_activity_id
+msgid "Default economic activity code (KID 2008) for this company"
+msgstr "Икономическа дейност по подразбиране (КИД 2008) за тази фирма"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract_type__l10n_bg_contract_duration_type
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_contract_duration_type
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_contract_duration_type
+msgid "Duration type as required by Art. 68 of Bulgarian Labor Code"
+msgstr "Вид на срока съгласно чл. 68 от Кодекса на труда"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Economic Activity"
+msgstr "Икономическа дейност"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_economic_activity_id
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_economic_activity_id
+msgid "Economic activity according to KID 2008. Auto-populated from the selected job or company but can be overridden."
+msgstr "Икономическа дейност по КИД 2008. Попълва се автоматично от длъжността или фирмата, но може да се промени."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_job__l10n_bg_economic_activity_id
+msgid "Economic activity code (KID 2008) for this position"
+msgstr "Код на икономическата дейност (КИД 2008) за тази длъжност"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_economic_activity_code
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_economic_activity_code
+msgid "Economic activity code according to KID 2008"
+msgstr "Код на икономическата дейност по КИД 2008"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_job__l10n_bg_education_level
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_job_form_bg_kid
+msgid "Education Level"
+msgstr "Образователна степен"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__l10n_bg_effective_in_future
+msgid "Effective Date Not Reached"
+msgstr "Датата на влизане в сила не е настъпила"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Effective date must be before end date."
+msgstr "Датата на влизане в сила трябва да е преди крайната дата."
+
+#. module: l10n_bg_hr
+#: model:ir.model,name:l10n_bg_hr.model_hr_version
+msgid "Employee Contract"
+msgstr "Трудов договор на служителя"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Enter amendment details"
+msgstr "Опишете съдържанието на споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_egn
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_egn
+msgid "Enter the employee's National Identification Number issued by the government (e.g., Aadhaar, SIN, NIN). This is used for official records and statutory compliance."
+msgstr "Единен граждански номер (ЕГН) или личен номер на чужденец (ЛНЧ) на служителя. Ползва се за официални документи и подавани декларации."
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Expired on %(date)s; version %(version)s restores the previous terms."
+msgstr "Изтекло на %(date)s; версия %(version)s връща предишните условия."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract_type__l10n_bg_contract_duration_type__fixed_term
+msgid "Fixed Term"
+msgstr "Срочен"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_version__l10n_bg_working_time_type__flexible
+msgid "Flexible Hours"
+msgstr "Гъвкаво работно време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_version__l10n_bg_working_time_type__full_time
+msgid "Full Time"
+msgstr "Пълно работно време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract_type__l10n_bg_contract_duration_type__indefinite
+msgid "Indefinite Period"
+msgstr "Безсрочен"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Internal notes about this amendment..."
+msgstr "Вътрешни бележки по споразумението..."
+
+#. module: l10n_bg_hr
+#: model:ir.model,name:l10n_bg_hr.model_hr_job
+msgid "Job Position"
+msgstr "Длъжност"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_version_amendment_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Leave Days"
+msgstr "Дни отпуск"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Leave Days: %d → %d"
+msgstr "Дни отпуск: %d → %d"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Legal basis (e.g. Art. 118 of Labor Code)"
+msgstr "Правно основание (напр. чл. 118 от Кодекса на труда)"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Location: %s → %s"
+msgstr "Работно място: %s → %s"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_basic_leave_days
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_basic_leave_days
+msgid "Minimum annual leave days according to Bulgarian Labor Code"
+msgstr "Минимален размер на платения годишен отпуск съгласно Кодекса на труда"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_job__l10n_bg_education_level
+msgid "Minimum required education level for this position"
+msgstr "Минимална образователна степен за длъжността"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_economic_activity_id
+msgid "NACE"
+msgstr "НАСЕ"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_qualification_group
+msgid "NCOP"
+msgstr "НКПД"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_job_form_bg_kid
+msgid "NCOP Position"
+msgstr "Длъжност по НКПД"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_job__l10n_bg_ncop_code
+msgid "NKPD Code"
+msgstr "Код по НКПД"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "NKPD Position"
+msgstr "Длъжност по НКПД"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "New"
+msgstr "Нов"
+
+#. module: l10n_bg_hr
+#: model:ir.actions.act_window,name:l10n_bg_hr.action_hr_version_amendment_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_version_amendment_wizard_form
+msgid "New Contract Amendment"
+msgstr "Ново допълнително споразумение"
+
+#. module: l10n_bg_hr
+#: model:ir.model,name:l10n_bg_hr.model_l10n_bg_hr_version_amendment_wizard
+msgid "New Contract Amendment Wizard"
+msgstr "Помощник за ново допълнително споразумение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_job_id
+msgid "New Job Position"
+msgstr "Нова длъжност"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__new_position_id
+msgid "New Position"
+msgstr "Нова длъжност по НКПД"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_work_location_id
+msgid "New Work Location Record"
+msgstr "Ново работно място (запис)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__new_working_time_type
+msgid "New Working Time"
+msgstr "Ново работно време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_daily_hours
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_daily_hours
+msgid "Normal daily working hours"
+msgstr "Нормални часове дневно"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Only amendments pending approval can be approved."
+msgstr "Одобряват се само споразумения, чакащи одобрение."
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Only approved amendments can be activated."
+msgstr "Активират се само одобрени споразумения."
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Only draft amendments can be submitted."
+msgstr "За одобрение се изпращат само споразумения в чернова."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_version__l10n_bg_working_time_type__part_time
+msgid "Part Time (Art. 138 LC)"
+msgstr "Непълно работно време (чл. 138 КТ)"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Position Changes"
+msgstr "Промени в длъжността"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Position: %s → %s"
+msgstr "Длъжност: %s → %s"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__old_job_id
+msgid "Previous Job Position"
+msgstr "Предишна длъжност"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__old_work_location_id
+msgid "Previous Work Location Record"
+msgstr "Предишно работно място (запис)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_qualification_group
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_qualification_group
+msgid "Professional qualification according to NKPD nomenclature. Auto-populated from the selected job position (hr.job.l10n_bg_ncop_position_id) but can be manually overridden."
+msgstr "Професионална квалификация по номенклатурата НКПД. Попълва се автоматично от избраната длъжност, но може да се промени ръчно."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_job__l10n_bg_qualification_group
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_job_form_bg_kid
+msgid "Qualification Group"
+msgstr "Квалификационна група"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_job__l10n_bg_qualification_group
+msgid "Qualification group for MOD calculation based on NCOP class"
+msgstr "Квалификационна група за определяне на МОД според класа по НКПД"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_version__l10n_bg_working_time_type__reduced
+msgid "Reduced Working Time (Art. 137 LC)"
+msgstr "Намалено работно време (чл. 137 КТ)"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.hr_contract_template_form_view_extended
+msgid "Refresh from Job Position"
+msgstr "Опресни от длъжността"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_job_form_bg_kid
+msgid "Related Records"
+msgstr "Свързани записи"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract_type__l10n_bg_contract_duration_type__replacement
+msgid "Replacement"
+msgstr "Заместване"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Search Contract Amendments"
+msgstr "Търсене на допълнителни споразумения"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_version__l10n_bg_working_time_type__shift
+msgid "Shift Work"
+msgstr "Работа на смени"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Signature date cannot be after effective date."
+msgstr "Датата на подписване не може да е след датата на влизане в сила."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Signatures"
+msgstr "Подписи"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Signatures & Approval"
+msgstr "Подписи и одобрение"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Submit for Approval"
+msgstr "Изпрати за одобрение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_version__l10n_bg_working_time_type__summarized
+msgid "Summarized Calculation"
+msgstr "Сумирано изчисляване на работното време"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Temporary"
+msgstr "Срочно"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Temporary Assignment Ended"
+msgstr "Срочното преместване приключи"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Temporary amendment %s expired"
+msgstr "Срочно споразумение %s изтече"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Temporary assignment cannot exceed 12 months per Labor Code."
+msgstr "Временното преместване не може да надхвърля 12 месеца съгласно Кодекса на труда."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_version_amendment__applied_version_id
+msgid "The contract version this amendment produced when activated. Reports and declarations must read this one, not the version the amendment started from."
+msgstr "Версията на договора, която споразумението е родило при активиране. Справките и декларациите четат нея, а не версията, от която споразумението е тръгнало."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "The effective date has not arrived yet. Activating now is recorded in the chatter. Continue?"
+msgstr "Датата на влизане в сила още не е настъпила. Предсрочното активиране се записва в чата. Да продължим ли?"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_job_id
+msgid "The job position itself. NKPD code, KID and qualification group are derived from it — do not set them separately."
+msgstr "Самата длъжност. НКПД кодът, КИД и квалификационната група следват от нея — не се задават поотделно."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_work_location_id
+msgid "The work location record. Its address and the EKATTE code of the settlement follow from it."
+msgstr "Записът за работното място. Адресът и ЕКАТТЕ кодът на населеното място следват от него."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_total_leave_days
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_total_leave_days
+msgid "Total annual leave days (basic + additional)"
+msgstr "Общ размер на платения годишен отпуск (основен + допълнителен)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_working_time_type
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_working_time_type
+msgid "Type of working time organization. Reduced working time keeps full pay and full social security rights; part-time is proportional."
+msgstr "Вид на организацията на работното време. При намалено работно време възнаграждението и осигурителните права се запазват изцяло; при непълно са пропорционални."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_uic
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_uic
+msgid "Unique identification code for the Bulgaria received from trade registry"
+msgstr "ЕИК по Търговския регистър"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_contract_number
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_contract_number
+msgid "Unique labor contract number. Auto-filled from ir.sequence 'l10n_bg.contract.number' on create if empty. Used in the ETZ XML <contractno> element (cell 11)."
+msgstr "Уникален номер на трудовия договор. Попълва се автоматично от номератора при създаване, ако е празен. Ползва се в елемента <contractno> на ЕТЗ (клетка 11)."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract_type__l10n_bg_contract_duration_type__specific_work
+msgid "Until Completion of Specific Work"
+msgstr "До завършване на определена работа"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Wage Changes"
+msgstr "Промени в заплатата"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Wage Modification"
+msgstr "Промяна на заплатата"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Wage: %.2f → %.2f"
+msgstr "Заплата: %.2f → %.2f"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__date_end
+msgid "When a temporary assignment stops being in force. Required for temporary assignments — the expiry cron looks for it."
+msgstr "Кога срочното преместване спира да е в сила. Задължителна при срочни споразумения — кронът за изтичане търси нея."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Work Location"
+msgstr "Работно място"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Working Hours"
+msgstr "Работни часове"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_version_amendment_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Working Time"
+msgstr "Работно време"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Working Time: %s → %s"
+msgstr "Работно време: %s → %s"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_version_amendment_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Workplace"
+msgstr "Работно място"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_workplace_code
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_workplace_code
+msgid "Workplace location code according to EKATTE"
+msgstr "Код на работното място по ЕКАТТЕ"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_version_amendment_wizard_form
+msgid "e.g. Wage Change"
+msgstr "напр. Промяна на заплатата"
+

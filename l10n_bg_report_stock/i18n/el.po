@@ -1,0 +1,32 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_report_stock
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-23 00:00+0000\n"
+"PO-Revision-Date: 2026-08-23 00:00+0000\n"
+"Last-Translator: Rosen Vladimirov <vladimirov.rosen@gmail.com>\n"
+"Language-Team: \n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# 🚨 msgid-ът на `model_terms` носи И МАРКИРОВКАТА — целият вграден елемент,
+# заедно с интервала преди затварящия таг. Без точно съвпадение преводът мълчи.
+#
+# ⚠️ Двата гръцки термина са СТАНДАРТНИ административни, но не са потвърдени от
+# гръцкия екип. Изпратени за проверка на Стаматис, 23.08.2026.
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<span>Acceptance Protocol # </span>"
+msgstr "<span>Πρωτόκολλο Παραλαβής # </span>"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Protocol Date</strong>"
+msgstr "<strong>Ημερομηνία Πρωτοκόλλου</strong>"

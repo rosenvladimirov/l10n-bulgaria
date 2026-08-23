@@ -88,9 +88,19 @@
                     </div>
                 </t>
                 <div class="page">
-                    <h2>
+                    <!-- 🔑 Заглавието минава през ОФОРМЛЕНИЕТО, не през тялото.
+                         Дотук стоеше `<h2>` вътре в страницата и излизаше ПОД
+                         таблицата с партньорите, докато при офертата и
+                         фактурата е веднага под бланката. Причината: темата
+                         рисува заглавието си преди адресния блок и чете
+                         `layout_document_title`.
+                         `t-set` в тялото на `t-call` стига до извикания
+                         шаблон — така го прави и ядрото
+                         (`sale/report/ir_actions_report_templates.xml:39`). -->
+                    <t t-set="layout_document_title">
+                        <span>Acceptance Protocol # </span>
                         <span t-field="o.name">WH/OUT/0001</span>
-                    </h2>
+                    </t>
                     <div class="oe_structure"></div>
                     <div id="informations" class="report-wrapping-flexbox clearfix row mb-4">
                         <div t-if="o.origin" class="col col-3 mw-100 mb-2" name="div_origin">

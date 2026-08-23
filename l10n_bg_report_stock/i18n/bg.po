@@ -154,3 +154,8 @@ msgstr "WH/OUT/0001"
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
 msgid "units"
 msgstr "единици"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "Acceptance Protocol #"
+msgstr "Приемо-предавателен протокол №"

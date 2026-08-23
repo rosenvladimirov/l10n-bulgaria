@@ -99,7 +99,11 @@
                          (`sale/report/ir_actions_report_templates.xml:39`). -->
                     <t t-set="layout_document_title">
                         <span>Acceptance Protocol # </span>
-                        <span t-field="o.name">WH/OUT/0001</span>
+                        <!-- 🚨 `t-out`, НЕ `t-field`. Вътре в тяло на `t-set`
+                             полевият рендер няма запис, върху който да стъпи, и
+                             излиза ПРАЗНО — заглавието се показа като
+                             „Acceptance Protocol #" без номер. -->
+                        <span t-out="o.name">WH/OUT/0001</span>
                     </t>
                     <div class="oe_structure"></div>
                     <div id="informations" class="report-wrapping-flexbox clearfix row mb-4">

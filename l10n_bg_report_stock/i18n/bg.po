@@ -155,7 +155,15 @@ msgstr "WH/OUT/0001"
 msgid "units"
 msgstr "единици"
 
+# 🚨 msgid-ът на `model_terms` носи И МАРКИРОВКАТА. Odoo извлича целия вграден
+# елемент, не голия текст: `<span>Acceptance Protocol # </span>`, с интервала
+# преди затварящия таг. Без него редът не съвпада и преводът мълчи.
 #. module: l10n_bg_report_stock
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
-msgid "Acceptance Protocol #"
-msgstr "Приемо-предавателен протокол №"
+msgid "<span>Acceptance Protocol # </span>"
+msgstr "<span>Приемо-предавателен протокол № </span>"
+
+#. module: l10n_bg_report_stock
+#: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
+msgid "<strong>Protocol Date</strong>"
+msgstr "<strong>Дата на протокола</strong>"

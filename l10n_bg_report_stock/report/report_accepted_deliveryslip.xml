@@ -98,7 +98,15 @@
                          шаблон — така го прави и ядрото
                          (`sale/report/ir_actions_report_templates.xml:39`). -->
                     <t t-set="layout_document_title">
-                        <span>Acceptance Protocol # </span>
+                        <!-- 🔑 Гърците имат ДВА документа, не един (Стаматис,
+                             23.08.2026): изпращане от нашия склад е
+                             `Δελτίο Αποστολής`, връщане от контрагента —
+                             `Δελτίο Επιστροφής`. Един msgid носи една стойност,
+                             тъй че посоката трябва да е в ИЗХОДНИЯ низ. Иначе
+                             2899 входящи гръцки трансфера излизат с надпис
+                             „изпращане". Вътрешните вървят с изпращането. -->
+                        <span t-if="o.picking_type_code == 'incoming'">Return Protocol # </span>
+                        <span t-else="">Acceptance Protocol # </span>
                         <!-- 🚨 `t-out`, НЕ `t-field`. Вътре в тяло на `t-set`
                              полевият рендер няма запис, върху който да стъпи, и
                              излиза ПРАЗНО — заглавието се показа като
@@ -112,7 +120,10 @@
                             <div t-field="o.origin" class="m-0">S0001</div>
                         </div>
                         <div t-if="o.state" class="col col-3 mw-100 mb-2" name="div_sched_date">
-                            <strong>Protocol Date</strong>
+                            <!-- Датата също се казва различно по посока:
+                                 Ημερομηνία Αποστολής срещу Ημερομηνία Επιστροφής. -->
+                            <strong t-if="o.picking_type_code == 'incoming'">Return Date</strong>
+                            <strong t-else="">Protocol Date</strong>
                             <div t-out="protocol_date" t-options='{"widget": "date"}' class="m-0"/>
                         </div>
                     </div>

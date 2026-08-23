@@ -99,17 +99,17 @@ msgstr "Продукт"
 msgid "Protocol Date"
 msgstr "Дата на протокола"
 
-#. Съзнателно СЪЩИЯТ текст като „Protocol Date“: на български един
 #  приемо-предавателен протокол обслужва и двете посоки. Разделено е само
 #  защото ГРЪЦКИЯТ иска два различни надписа (Стаматис, 23.08.2026).
 #. module: l10n_bg_report_stock
+#. Съзнателно СЪЩИЯТ текст като „Protocol Date“: на български един
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
 msgid "Return Date"
 msgstr "Дата на протокола"
 
-#. Съзнателно СЪЩИЯТ текст като „Acceptance Protocol #“ — виж по-горе.
 #  Ако Росен реши, че връщането иска отделно българско име, се сменя ТУК.
 #. module: l10n_bg_report_stock
+#. Съзнателно СЪЩИЯТ текст като „Acceptance Protocol #“ — виж по-горе.
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
 msgid "Return Protocol #"
 msgstr "Приемо-предавателен протокол №"
@@ -118,4 +118,3 @@ msgstr "Приемо-предавателен протокол №"
 #: model_terms:ir.ui.view,arch_db:l10n_bg_report_stock.report_accepted_delivery_document
 msgid "units"
 msgstr "бр."
-

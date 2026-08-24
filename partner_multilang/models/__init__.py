@@ -8,3 +8,4 @@ from . import res_country
 from . import mail_thread
 from . import ir_binary
 from . import res_config_settings
+from . import search_collation_patch

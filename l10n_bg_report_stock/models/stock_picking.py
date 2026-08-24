@@ -25,8 +25,14 @@ class StockPicking(models.Model):
     )
 
     def _l10n_bg_protocol_date(self):
-        """Датата за печат: ръчната, ако е сложена, иначе тази на трансфера."""
+        """Датата за печат: ръчната, ако е сложена, иначе тази на трансфера.
+
+        🔑 Връща ДАТА, не datetime. `date_done`/`scheduled_date` са Datetime;
+        подадени на `widget: date` в печата даваха счупен изход (`4l_сл.Хр.R`),
+        защото конверторът очаква date. `.date()` изрязва часа.
+        """
         self.ensure_one()
         if self.l10n_bg_protocol_date:
             return self.l10n_bg_protocol_date
-        return self.date_done if self.state == "done" else self.scheduled_date
+        value = self.date_done if self.state == "done" else self.scheduled_date
+        return value.date() if value else False

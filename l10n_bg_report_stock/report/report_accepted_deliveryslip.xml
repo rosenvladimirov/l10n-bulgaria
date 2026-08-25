@@ -43,7 +43,7 @@
                 <!-- 🔑 Датата на ПРОТОКОЛА, не на движението: ръчната, ако е
                      сложена, иначе датата на трансфера. -->
                 <t t-set="protocol_date" t-value="o._l10n_bg_protocol_date()"/>
-                <t t-set="name_date" t-value="format_date(protocol_date, 'medium', o.partner_id.lang)"/>
+                <t t-set="name_date" t-value="format_date(protocol_date, lang_code=o.partner_id.lang, date_format='medium')"/>
                 <t t-set="has_serial_number" t-value="False"/>
                 <t t-set="has_serial_number" t-value="o.move_line_ids.mapped('lot_id')" groups="stock.group_lot_on_delivery_slip"/>
 

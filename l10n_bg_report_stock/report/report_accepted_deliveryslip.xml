@@ -67,6 +67,21 @@
                     <div class="row">
                         <div class="col-7" name="div_incoming_address">
                             <t t-set="show_partner" t-value="False" />
+                            <!-- 🚨 Кого да рисуваме. При ВХОД държим юридическото
+                                 лице: доставчикът се идентифицира по него, а
+                                 складът, от който е тръгнала стоката, не носи
+                                 реквизити. При ИЗХОД обаче блокът се показва
+                                 ИМЕННО когато доставният адрес е различен от
+                                 юридическото лице — и дотук го подменяше точно
+                                 с него, тъй че заглавието „Адрес на клиента"
+                                 стоеше над седалището на фирмата.
+                                 Измерено на WH/OUT/01084: пикингът сочи УМБАЛ
+                                 „СОФИЯМЕД" (София), а протоколът печаташе
+                                 Булфарма ООД (Пещера) — тоест шофьорът четеше
+                                 град, в който няма какво да достави.
+                                 Юридическите реквизити не се губят: таблицата
+                                 ПОЛУЧАТЕЛ по-долу ги вади от `recipient`. -->
+                            <t t-set="header_partner" t-value="partner.commercial_partner_id"/>
                             <div name="vendor_address" t-if="o.picking_type_id.code=='incoming' and partner">
                                 <strong>Vendor Address</strong>
                                 <t t-set="show_partner" t-value="True" />
@@ -74,9 +89,10 @@
                             <div name="customer_address" t-if="o.picking_type_id.code=='outgoing' and partner and partner != partner.commercial_partner_id">
                                 <strong>Customer Address</strong>
                                 <t t-set="show_partner" t-value="True" />
+                                <t t-set="header_partner" t-value="partner"/>
                             </div>
                             <div t-if="show_partner" name="partner_header">
-                                <div t-field="partner.commercial_partner_id"
+                                <div t-out="header_partner"
                                      t-options='{"widget": "contact", "fields": ["address", "name", "phone", "vat"], "no_marker": True, "phone_icons": True}'/>
                             </div>
                         </div>

@@ -213,8 +213,9 @@ msgstr "Нов размер на платения отпуск"
 
 #. module: l10n_bg_hr
 #: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_position_id
-msgid "New NKPD Position"
-msgstr "Нова длъжност по НКПД"
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__new_position_id
+msgid "New NKPD Code"
+msgstr "Нов шифър по НКПД"
 
 #. module: l10n_bg_hr
 #: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_wage
@@ -273,8 +274,8 @@ msgstr "Досегашен размер на платения отпуск"
 
 #. module: l10n_bg_hr
 #: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__old_position_id
-msgid "Previous NKPD Position"
-msgstr "Досегашна длъжност по НКПД"
+msgid "Previous NKPD Code"
+msgstr "Досегашен шифър по НКПД"
 
 #. module: l10n_bg_hr
 #: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__old_wage
@@ -578,8 +579,8 @@ msgstr "Текущи дни отпуск"
 
 #. module: l10n_bg_hr
 #: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__old_position_id
-msgid "Current Position"
-msgstr "Текуща длъжност по НКПД"
+msgid "Current NKPD Code"
+msgstr "Текущ шифър по НКПД"
 
 #. module: l10n_bg_hr
 #: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__old_wage
@@ -701,6 +702,8 @@ msgstr "Вътрешни бележки по споразумението..."
 
 #. module: l10n_bg_hr
 #: model:ir.model,name:l10n_bg_hr.model_hr_job
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_version_amendment_wizard_form
 msgid "Job Position"
 msgstr "Длъжност"
 
@@ -782,13 +785,9 @@ msgstr "Помощник за ново допълнително споразум
 
 #. module: l10n_bg_hr
 #: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_job_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__new_job_id
 msgid "New Job Position"
 msgstr "Нова длъжност"
-
-#. module: l10n_bg_hr
-#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__new_position_id
-msgid "New Position"
-msgstr "Нова длъжност по НКПД"
 
 #. module: l10n_bg_hr
 #: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_work_location_id
@@ -834,12 +833,6 @@ msgstr "Непълно работно време (чл. 138 КТ)"
 #: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
 msgid "Position Changes"
 msgstr "Промени в длъжността"
-
-#. module: l10n_bg_hr
-#. odoo-python
-#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
-msgid "Position: %s → %s"
-msgstr "Длъжност: %s → %s"
 
 #. module: l10n_bg_hr
 #: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__old_job_id
@@ -1058,3 +1051,50 @@ msgstr "Код на работното място по ЕКАТТЕ"
 msgid "e.g. Wage Change"
 msgstr "напр. Промяна на заплатата"
 
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__old_job_id
+msgid "Current Job Position"
+msgstr "Текуща длъжност"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_version_amendment_wizard_form
+msgid "NKPD Code (derived from the job position)"
+msgstr "Шифър по НКПД (произтича от длъжността)"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+#: code:addons/l10n_bg_hr/wizard/hr_version_amendment_wizard.py:0
+msgid "NKPD code without a job position"
+msgstr "Шифър по НКПД без длъжност"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "This amendment changes only the NKPD code, not the job position. The code is derived from the job position, so the next refresh will silently restore it — together with the minimum insurance income, which is read as 'row = KID, column = qualification group'. Set the job position instead and let the code follow."
+msgstr "Това споразумение сменя само шифъра по НКПД, не самата длъжност. Шифърът произтича от длъжността, тъй че първото опресняване ще го върне тихо — заедно с минималния осигурителен доход, който се чете „ред = КИД, колона = квалификационна група“. Задайте длъжността и оставете шифъра да я следва."
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/wizard/hr_version_amendment_wizard.py:0
+msgid "This amendment changes only the NKPD code, not the job position. The code is derived from the job position, so the next refresh will silently restore it — together with the minimum insurance income. Set the job position instead and let the code follow."
+msgstr "Това споразумение сменя само шифъра по НКПД, не самата длъжност. Шифърът произтича от длъжността, тъй че първото опресняване ще го върне тихо — заедно с минималния осигурителен доход. Задайте длъжността и оставете шифъра да я следва."
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "This amendment changed only the NKPD code to %(code)s. The job position stays %(job)s, and the code is derived from it — the next refresh will restore %(old)s together with the minimum insurance income. Set the job position instead."
+msgstr "Това споразумение смени само шифъра по НКПД на %(code)s. Длъжността остава %(job)s, а шифърът произтича от нея — първото опресняване ще върне %(old)s заедно с минималния осигурителен доход. Задайте длъжността вместо това."
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Job Position: %s → %s"
+msgstr "Длъжност: %s → %s"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "NKPD Code: %s → %s"
+msgstr "Шифър по НКПД: %s → %s"

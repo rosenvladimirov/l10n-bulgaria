@@ -175,13 +175,13 @@ class L10nBGHrVersionAmendment(models.Model):
 
     old_position_id = fields.Many2one(
         'bg.hr.payroll.ncop.classification',
-        string='Previous NKPD Position',
+        string='Previous NKPD Code',
         readonly=True,
     )
 
     new_position_id = fields.Many2one(
         'bg.hr.payroll.ncop.classification',
-        string='New NKPD Position',
+        string='New NKPD Code',
     )
 
     # 🔑 Длъжността в Odoo е `hr.job`; НКПД и КИД СЛЕДВАТ от нея през компютите
@@ -628,6 +628,26 @@ class L10nBGHrVersionAmendment(models.Model):
             # Заварен път: ДС само с НКПД класификация, без длъжност. Пази се
             # за старите записи, но новите минават през `new_job_id`.
             vals['l10n_bg_qualification_group'] = self.new_position_id.id
+            # 🚨 Записът е ОБРЕЧЕН: групата е computed+stored по `job_id`, тъй
+            # че първото опресняване я връща. Досега това ставаше тихо — сега
+            # остава следа там, където човекът я търси. Не се вдига грешка:
+            # заварените ДС-та трябва да могат да се активират.
+            _logger.warning(
+                "Amendment %s changes only the NKPD code (%s); job position "
+                "stays %s. The code is derived from the job and will be "
+                "restored on the next refresh.",
+                self.amendment_number or self.id,
+                self.new_position_id.display_name,
+                self.version_id.job_id.display_name or '-')
+            self.message_post(body=_(
+                "This amendment changed only the NKPD code to %(code)s. The "
+                "job position stays %(job)s, and the code is derived from it "
+                "— the next refresh will restore %(old)s together with the "
+                "minimum insurance income. Set the job position instead.",
+                code=self.new_position_id.display_name,
+                job=self.version_id.job_id.display_name or '-',
+                old=(self.version_id.job_id.l10n_bg_ncop_position_id
+                     .display_name or '-')))
         if self.new_economic_activity_id:
             vals['l10n_bg_economic_activity_id'] = self.new_economic_activity_id.id
         if self.new_working_time_type:
@@ -831,8 +851,14 @@ class L10nBGHrVersionAmendment(models.Model):
         changes = []
         if self.old_wage and self.new_wage:
             changes.append(_('Wage: %.2f → %.2f') % (self.old_wage, self.new_wage))
+        # Длъжността е носителят и върви ПРЕДИ шифъра — резюмето се чете и
+        # в бланката, където редът на двете определя кое човекът приема за
+        # същинската промяна.
+        if self.new_job_id and self.old_job_id != self.new_job_id:
+            changes.append(_('Job Position: %s → %s') % (
+                self.old_job_id.name or '-', self.new_job_id.name))
         if self.old_position_id and self.new_position_id:
-            changes.append(_('Position: %s → %s') % (
+            changes.append(_('NKPD Code: %s → %s') % (
                 self.old_position_id.name, self.new_position_id.name))
         if self.old_work_location and self.new_work_location:
             changes.append(_('Location: %s → %s') % (
@@ -879,6 +905,41 @@ class L10nBGHrVersionAmendment(models.Model):
         if self.version_id:
             for field_name, value in self._snapshot_old_values().items():
                 self[field_name] = value
+
+    @api.onchange('new_job_id')
+    def _onchange_new_job_id_preview_nkpd(self):
+        """Показва шифъра, който ЩЕ произтече от длъжността.
+
+        Огледало на `hr.version._compute_l10n_bg_qualification_group`: пише се
+        само когато длъжността носи НКПД — иначе версията също няма да смени
+        нищо и празно поле би обещало промяна, която не идва.
+        """
+        if self.new_job_id and self.new_job_id.l10n_bg_ncop_position_id:
+            self.new_position_id = self.new_job_id.l10n_bg_ncop_position_id
+        if self.new_job_id and self.new_job_id.l10n_bg_economic_activity_id:
+            # КИД идва по същия път; МОД се вади „ред = КИД, колона = група",
+            # тъй че показването само на едното крие половината от ефекта.
+            self.new_economic_activity_id = (
+                self.new_job_id.l10n_bg_economic_activity_id)
+
+    @api.onchange('new_position_id')
+    def _onchange_new_position_id_warn_code_only(self):
+        """ДС само с шифър пипа производното, не носителя.
+
+        Предупреждение, не забрана: заварената пътека остава проходима за
+        старите записи и за импорта.
+        """
+        if self.new_position_id and not self.new_job_id:
+            return {'warning': {
+                'title': _("NKPD code without a job position"),
+                'message': _(
+                    "This amendment changes only the NKPD code, not the job "
+                    "position. The code is derived from the job position, so "
+                    "the next refresh will silently restore it — together "
+                    "with the minimum insurance income, which is read as "
+                    "'row = KID, column = qualification group'. Set the job "
+                    "position instead and let the code follow."),
+            }}
 
     @api.onchange('amendment_type')
     def _onchange_amendment_type(self):

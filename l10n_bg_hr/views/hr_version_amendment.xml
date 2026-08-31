@@ -126,10 +126,20 @@
                         <!-- Position Changes -->
                         <page string="Position Changes" name="position_changes"
                               invisible="amendment_type not in ('position_change', 'other')">
-                            <group string="NKPD Position">
+                            <!-- Длъжността е НОСИТЕЛЯТ и стои първа. НКПД и
+                                 КИД се произвеждат от нея през компютите на
+                                 версията; показани са под нея, за четене. -->
+                            <group string="Job Position">
+                                <group>
+                                    <field name="old_job_id" readonly="1"/>
+                                    <field name="new_job_id"/>
+                                </group>
+                            </group>
+                            <group string="NKPD Code (derived from the job position)">
                                 <group>
                                     <field name="old_position_id" readonly="1"/>
-                                    <field name="new_position_id"/>
+                                    <field name="new_position_id"
+                                           readonly="new_job_id"/>
                                 </group>
                             </group>
                             <group string="Economic Activity">

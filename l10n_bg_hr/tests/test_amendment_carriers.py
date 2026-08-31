@@ -10,10 +10,20 @@
 щом полето е попълнено ⇒ уведомлението по чл. 62, ал. 5 КТ тръгваше със
 старото населено място.
 
+DEF-107 (30.08.2026, Пламена): механизмът беше приет, но НИТО ЕДИН изглед не
+предлагаше `new_job_id` — нула срещания по `*.xml` в целия стек, а визардният
+модел изобщо нямаше полето. Тоест работещ механизъм без носител: през
+интерфейса се стигаше само до шифъра, който после се връща тихо.
+
 Мутационни проверки (21.08.2026):
 · без `vals['job_id']` → `test_job_change_moves_the_carrier` пада;
 · без `vals['l10n_bg_workplace_code'] = False` → `test_workplace_change_...`
   пада с наследения код.
+Мутационни проверки (31.08.2026):
+· махни `new_job_id` от кой да е от двата изгледа → `test_both_views_offer_...`
+  пада (точно състоянието отпреди поправката);
+· махни преноса от `action_create_amendment` → `test_wizard_carries_the_job...`
+  пада.
 """
 from datetime import date
 
@@ -149,3 +159,60 @@ class TestAmendmentCarriers(TransactionCase):
             self.version.l10n_bg_workplace_code, "56784",
             "текстът е занулил ЕКАТТЕ кода — зануляването принадлежи само на "
             "смяната през записа")
+
+    # =========================================================================
+    # DEF-107 — НОСИТЕЛЯТ В ИНТЕРФЕЙСА
+    # =========================================================================
+
+    def test_both_views_offer_the_job_carrier(self):
+        """Механизъм без носител в изгледа е механизъм, до който не се стига.
+
+        Мери се СГЛОБЕНИЯТ arch през `get_view`, не изходният XML: така
+        проверката хваща и счупен xpath от наследник, който би махнал полето
+        мълчаливо.
+        """
+        for model, view in (
+                ("l10n_bg.hr.version.amendment",
+                 "l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form"),
+                ("l10n_bg.hr.version.amendment.wizard",
+                 "l10n_bg_hr.view_hr_version_amendment_wizard_form")):
+            arch = self.env[model].get_view(self.env.ref(view).id, "form")["arch"]
+            self.assertIn(
+                "new_job_id", arch,
+                "%s не предлага длъжността — през този изглед се стига само "
+                "до шифъра по НКПД, който първото опресняване връща тихо"
+                % view)
+
+    def test_wizard_carries_the_job_to_the_amendment(self):
+        """Визардът пренася длъжността, не само производния ѝ шифър."""
+        wiz = self.env["l10n_bg.hr.version.amendment.wizard"].create({
+            "employee_id": self.employee.id,
+            "version_id": self.version.id,
+            "amendment_type": "position_change",
+            "subject": "Тест визард",
+            "date_effective": date(2026, 3, 1),
+            "new_job_id": self.job_novo.id,
+        })
+        amd = self.env["l10n_bg.hr.version.amendment"].browse(
+            wiz.action_create_amendment()["res_id"])
+        self.assertEqual(
+            amd.new_job_id, self.job_novo,
+            "визардът е изгубил длъжността по пътя към ДС-то")
+        self.assertEqual(
+            amd.old_job_id, self.job_staro,
+            "визардът не е щампувал предишната длъжност")
+
+    def test_code_only_amendment_leaves_a_trace(self):
+        """Заварената пътека остава проходима, но вече не мълчи."""
+        shifar = self.env["bg.hr.payroll.ncop.classification"].search([], limit=1)
+        if not shifar:
+            self.skipTest("няма зареден НКПД класификатор")
+        amd = self._activate({
+            "amendment_type": "position_change",
+            "new_position_id": shifar.id,
+        })
+        telata = amd.message_ids.mapped("body")
+        self.assertTrue(
+            any("NKPD" in t or "НКПД" in t for t in telata),
+            "ДС само с шифър мина без следа в чатъра — точно тишината, "
+            "заради която дефектът стигна до живи записи")

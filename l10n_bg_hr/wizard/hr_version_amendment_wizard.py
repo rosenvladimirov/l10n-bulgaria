@@ -63,14 +63,29 @@ class HrVersionAmendmentWizard(models.TransientModel):
         currency_field='currency_id',
     )
 
+    # DEF-107: визардът изобщо нямаше поле за ДЛЪЖНОСТ — носеше само НКПД
+    # класификацията и раждаше ДС, което пипа производното, но не носителя.
+    # Длъжността е първа; шифърът и КИД следват от нея.
+    old_job_id = fields.Many2one(
+        'hr.job',
+        string='Current Job Position',
+        compute='_compute_old_values', store=True, readonly=True,
+    )
+    new_job_id = fields.Many2one(
+        'hr.job',
+        string='New Job Position',
+        help="The job position itself. NKPD code, KID and qualification group "
+             "are derived from it — do not set them separately.",
+    )
+
     old_position_id = fields.Many2one(
         'bg.hr.payroll.ncop.classification',
-        string='Current Position',
+        string='Current NKPD Code',
         compute='_compute_old_values', store=True, readonly=True,
     )
     new_position_id = fields.Many2one(
         'bg.hr.payroll.ncop.classification',
-        string='New Position',
+        string='New NKPD Code',
     )
 
     old_working_time_type = fields.Selection(selection=lambda self: self.env['hr.version'].fields_get(
@@ -116,6 +131,26 @@ class HrVersionAmendmentWizard(models.TransientModel):
         if self.employee_id and self.employee_id.version_id:
             self.version_id = self.employee_id.version_id
 
+    @api.onchange('new_job_id')
+    def _onchange_new_job_id_preview_nkpd(self):
+        """Огледало на компютите на версията — шифърът и КИД се показват."""
+        if self.new_job_id and self.new_job_id.l10n_bg_ncop_position_id:
+            self.new_position_id = self.new_job_id.l10n_bg_ncop_position_id
+
+    @api.onchange('new_position_id')
+    def _onchange_new_position_id_warn_code_only(self):
+        """Шифър без длъжност доживява до първото опресняване."""
+        if self.new_position_id and not self.new_job_id:
+            return {'warning': {
+                'title': _("NKPD code without a job position"),
+                'message': _(
+                    "This amendment changes only the NKPD code, not the job "
+                    "position. The code is derived from the job position, so "
+                    "the next refresh will silently restore it — together "
+                    "with the minimum insurance income. Set the job position "
+                    "instead and let the code follow."),
+            }}
+
     @api.depends('version_id')
     def _compute_old_values(self):
         # DEF-21: попълваме old_* server-side през compute(store=True), за да
@@ -125,6 +160,7 @@ class HrVersionAmendmentWizard(models.TransientModel):
         for wiz in self:
             v = wiz.version_id
             wiz.old_wage = v.wage if v else 0.0
+            wiz.old_job_id = v.job_id if v else False
             wiz.old_position_id = v.l10n_bg_qualification_group if v else False
             wiz.old_working_time_type = v.l10n_bg_working_time_type if v else False
             wiz.old_leave_days = v.l10n_bg_total_leave_days if v else 0
@@ -143,6 +179,7 @@ class HrVersionAmendmentWizard(models.TransientModel):
             'date_effective': self.date_effective,
             'date_signed': fields.Date.today(),
             'old_wage': self.old_wage,
+            'old_job_id': self.old_job_id.id if self.old_job_id else False,
             'old_position_id': self.old_position_id.id if self.old_position_id else False,
             'old_working_time_type': self.old_working_time_type,
             'old_leave_days': self.old_leave_days,
@@ -153,6 +190,8 @@ class HrVersionAmendmentWizard(models.TransientModel):
         }
         if self.new_wage:
             vals['new_wage'] = self.new_wage
+        if self.new_job_id:
+            vals['new_job_id'] = self.new_job_id.id
         if self.new_position_id:
             vals['new_position_id'] = self.new_position_id.id
         if self.new_working_time_type:

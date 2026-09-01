@@ -229,11 +229,34 @@ class L10nBGHrVersionAmendment(models.Model):
     new_working_time_type = fields.Selection(selection=lambda self: self.env['hr.version'].fields_get(
             ['l10n_bg_working_time_type'])['l10n_bg_working_time_type']['selection'], string='New Working Time Type')
 
-    old_daily_hours = fields.Float(string='Previous Daily Hours', readonly=True)
-    new_daily_hours = fields.Float(string='New Daily Hours')
+    # 🔑 DEF-116/1б: ГРАФИКЪТ е носителят, часовете следват от него.
+    #
+    # Дотук ДС-то приемаше две числа и САМО намираше календар — първия запис с
+    # две съвпадащи стойности. Измерено от Пламена: за 40/8 връщаше кал. 1
+    # (0 версии) вместо кал. 22 (297 версии). Днес двата са идентични, тъй че
+    # щета няма — но изборът стъпва на съвпадение на два скалара, докато
+    # работните дни, часовата зона, двуседмичността и общокалендарните
+    # отсъствия остават извън сравнението.
+    old_resource_calendar_id = fields.Many2one(
+        'resource.calendar',
+        string='Previous Working Schedule',
+        readonly=True,
+    )
 
+    new_resource_calendar_id = fields.Many2one(
+        'resource.calendar',
+        string='New Working Schedule',
+        help="The working time schedule itself. Daily and weekly hours are "
+             "derived from it — do not state them separately. The pro-rated "
+             "minimum insurance income is computed from this schedule.",
+    )
+
+    # Снимките на часовете ОСТАВАТ: те са историята на подписания документ.
+    # Календарът е запис и може да бъде редактиран после; числата, щамповани
+    # при одобрението, казват какво е било уговорено ТОГАВА. Същият довод като
+    # при `l10n_bg_job_id` върху фишовия ред (ADR-0008).
+    old_daily_hours = fields.Float(string='Previous Daily Hours', readonly=True)
     old_weekly_hours = fields.Float(string='Previous Weekly Hours', readonly=True)
-    new_weekly_hours = fields.Float(string='New Weekly Hours')
 
     # =========================================================================
     # ПРОМЕНИ — РАБОТНО МЯСТО
@@ -386,8 +409,8 @@ class L10nBGHrVersionAmendment(models.Model):
     _L10N_BG_LOCKED_AFTER_ACTIVATION = (
         'version_id', 'amendment_type', 'date_signed', 'date_effective',
         'date_end', 'new_wage', 'new_job_id', 'new_position_id',
-        'new_economic_activity_id', 'new_working_time_type', 'new_daily_hours',
-        'new_weekly_hours', 'new_work_location', 'new_work_location_id',
+        'new_economic_activity_id', 'new_working_time_type',
+        'new_resource_calendar_id', 'new_work_location', 'new_work_location_id',
         'new_leave_days',
     )
 
@@ -522,83 +545,63 @@ class L10nBGHrVersionAmendment(models.Model):
         return bool(
             (self.new_working_time_type
              and self.new_working_time_type != self.old_working_time_type)
-            or (self.new_weekly_hours
-                and self.new_weekly_hours != self.old_weekly_hours)
-            or (self.new_daily_hours
-                and self.new_daily_hours != self.old_daily_hours)
+            or (self.new_resource_calendar_id
+                and self.new_resource_calendar_id != self.old_resource_calendar_id)
         )
 
-    def _l10n_bg_required_calendar(self):
-        """Календарът, който отговаря на договореното време — или отказ.
+    def _l10n_bg_validate_calendar(self):
+        """Избраният график вътрешно непротиворечив ли е — или отказ.
 
-        Прората на МОД се смята от КАЛЕНДАРА, не от етикета. Затова ДС за
-        работно време без съответен календар е недовършено: етикетът казва
-        „непълно", а осигуряването остава пълно.
+        DEF-116/1б: методът вече НЕ избира. Дотук намираше първия календар с
+        две съвпадащи числа; сега ДС-то носи графика си изрично и тук остава
+        само проверката, заради която търсенето беше двойно.
 
-        🚨 Съответствието иска календарът да е ВЪТРЕШНО НЕПРОТИВОРЕЧИВ —
-        часовете на ден да се връзват с присъствията. В базата има календар
-        „График непълно раб.време - 4ч." с ``hours_per_day = 4`` при
-        присъствия 08:00–17:00; изборът по едно поле би го хванал, а Пламена
-        изрично предупреди да не се стъпва на него (фишът дели 168 ÷ 4 и дава
-        42 отработени дни в месец с 21). Затова се сверява и сборът на
-        присъствията.
+        🚨 Календар, чиито дневни часове не се връзват с присъствията му, е
+        капан: „График непълно раб.време - 4ч." носи `hours_per_day = 4` при
+        присъствия 08:00–17:00, а фишът дели 168 ÷ 4 и дава 42 отработени дни
+        в месец с 21. Пламена изрично предупреди да не се стъпва на едното
+        число.
 
-        Няма ли такъв календар, ДС-то ОТКАЗВА да се активира и казва какъв да
-        се създаде — по-добре явен отказ, отколкото версия, чието осигуряване
-        е двойно.
+        🔑 Сборът минава през ядрените помощници, НЕ през суров
+        `hour_to - hour_from`: `_get_global_attendances()` изхвърля редовете с
+        `day_period = 'lunch'`. Стоковият календар носи пет обедни реда
+        12:00–13:00 и суровият сбор дава 45 при договорени 40.
         """
         self.ensure_one()
-        # 🔑 Не се пада на СТАРИТЕ часове: ДС за работно време, чиито нови
-        # часове не са попълнени, трябва да се откаже, а не да „потвърди"
-        # заварените и да смени календара с еквивалентен на текущия.
-        weekly = self.new_weekly_hours or 0.0
-        daily = self.new_daily_hours or 0.0
-        if not weekly and not daily:
+        calendar = self.new_resource_calendar_id
+        if not calendar:
             raise ValidationError(_(
-                "Amendment %(ref)s changes the working time but does not state "
-                "the hours. Fill in the new weekly (and daily) hours — they "
-                "determine both the working time calendar and the pro-rated "
-                "minimum insurance income.",
+                "Amendment %(ref)s changes the working time but states no "
+                "schedule. Pick the new working schedule — it determines both "
+                "the working time calendar and the pro-rated minimum "
+                "insurance income.",
                 ref=self.amendment_number or self.id))
 
-        # 🔲 Петдневната седмица е зашита тук. Норма с друг брой работни дни
-        # иска решение, не догадка — засега се извежда само когато липсва.
-        if not daily and weekly:
-            daily = weekly / 5.0
+        # Гъвкавият календар няма фиксирани присъствия и ядрото НЕ му
+        # компютира часовете — проверката за съгласуваност е безсмислена.
+        if calendar.flexible_hours:
+            return calendar
 
-        company = self.version_id.company_id
-        candidates = self.env['resource.calendar'].search([
-            '|', ('company_id', '=', company.id), ('company_id', '=', False),
-        ])
-        for calendar in candidates:
-            # 🚨 Гъвкавият календар няма фиксирани присъствия и ядрото НЕ му
-            # компютира часовете — сравнението с договорени часове е безсмислено.
-            if calendar.flexible_hours:
-                continue
-            # 🚨 Сборът минава през ядрените помощници, а НЕ през суров
-            # `hour_to - hour_from`: `_get_global_attendances()` изхвърля
-            # редовете с `day_period = 'lunch'`. Стоковият календар носи пет
-            # обедни реда 12:00–13:00, тъй че суровият сбор дава 45 при
-            # договорени 40 и ДС-то за пълно работно време се ОТКАЗВАШЕ —
-            # а текстът на отказа тласкаше ТРЗ-то да трие обедните редове.
-            sedmichni = calendar._get_hours_per_week()
-            if not sedmichni:
-                continue
-            # Двойната проверка остава нарочно: календар, чиито дневни часове
-            # не се връзват с присъствията му (напр. 4 ч/ден при 08:00–17:00),
-            # не бива да мине само защото едното число съвпада.
-            if (abs(calendar._get_hours_per_day() - daily) < 0.01
-                    and abs(sedmichni - weekly) < 0.01):
-                return calendar
+        dnevni = calendar._get_hours_per_day()
+        sedmichni = calendar._get_hours_per_week()
+        if not dnevni or not sedmichni:
+            raise ValidationError(_(
+                "Schedule %(cal)s states no working hours. The pro-rated "
+                "minimum insurance income cannot be computed from it.",
+                cal=calendar.display_name))
 
-        raise ValidationError(_(
-            "Amendment %(ref)s sets %(weekly).2f weekly / %(daily).2f daily "
-            "hours, but no consistent working time calendar exists for "
-            "%(company)s. Create one whose daily hours and attendance lines "
-            "both match, then activate the amendment again. Without it the "
-            "minimum insurance income would stay at the full-time amount.",
-            ref=self.amendment_number or self.id,
-            weekly=weekly, daily=daily, company=company.display_name))
+        # Пет работни дни е допускането, при което двете числа трябва да се
+        # връзват. 🔲 Норма с друг брой работни дни иска решение, не догадка —
+        # затова тук се ОТКАЗВА явно, вместо да се приеме мълчаливо.
+        if abs(sedmichni - dnevni * 5.0) > 0.01:
+            raise ValidationError(_(
+                "Schedule %(cal)s is internally inconsistent: %(daily).2f "
+                "hours per day do not match its %(weekly).2f weekly "
+                "attendance hours. A payslip dividing by the daily figure "
+                "would report more worked days than the month has. Fix the "
+                "schedule, then activate the amendment again.",
+                cal=calendar.display_name, daily=dnevni, weekly=sedmichni))
+        return calendar
 
     def _apply_version_changes(self):
         """Apply amendment changes as a NEW version starting on the effective date."""
@@ -674,10 +677,6 @@ class L10nBGHrVersionAmendment(models.Model):
                 self.amendment_number, self.new_work_location)
         if self.new_leave_days:
             vals['l10n_bg_basic_leave_days'] = self.new_leave_days
-        if self.new_weekly_hours and 'l10n_bg_weekly_hours' in self.version_id._fields:
-            vals['l10n_bg_weekly_hours'] = self.new_weekly_hours
-        if self.new_daily_hours and 'l10n_bg_daily_hours' in self.version_id._fields:
-            vals['l10n_bg_daily_hours'] = self.new_daily_hours
 
         # DEF-116: ДС за работно време СМЕНЯ и календара, или отказва.
         #
@@ -690,7 +689,21 @@ class L10nBGHrVersionAmendment(models.Model):
         # седмични часа при 8-часов календар и дават МОД 620,20 вместо 310,10.
         # Двойно, и то мълчаливо.
         if self._l10n_bg_changes_working_time():
-            vals['resource_calendar_id'] = self._l10n_bg_required_calendar().id
+            calendar = self._l10n_bg_validate_calendar()
+            vals['resource_calendar_id'] = calendar.id
+            # 🚨 Часовете на версията се ИЗВЕЖДАТ от графика, не се наследяват.
+            #
+            # Без този блок новата версия копира `l10n_bg_weekly_hours` от
+            # старата: календарът казва 20 ч, а полето — 40. Парите оцеляват,
+            # защото клон 1 на `_l10n_bg_mod_prorata` гледа календара — но ние
+            # сами раждаме противоречието в данните, което клон 2 е построен
+            # да ЛОВИ, и го предаваме на `hr_seniority_period` (прагът на
+            # стажа) и на `@api.constrains` върху двете полета.
+            if not calendar.flexible_hours:
+                if 'l10n_bg_daily_hours' in self.version_id._fields:
+                    vals['l10n_bg_daily_hours'] = calendar._get_hours_per_day()
+                if 'l10n_bg_weekly_hours' in self.version_id._fields:
+                    vals['l10n_bg_weekly_hours'] = calendar._get_hours_per_week()
 
         if not vals:
             # 🚨 Дотук се излизаше ТИХО, а извикващият вдигаше състоянието на
@@ -892,6 +905,7 @@ class L10nBGHrVersionAmendment(models.Model):
             'old_position_id': v.l10n_bg_qualification_group.id,
             'old_economic_activity_id': v.l10n_bg_economic_activity_id.id,
             'old_working_time_type': v.l10n_bg_working_time_type,
+            'old_resource_calendar_id': v.resource_calendar_id.id,
             'old_daily_hours': v.l10n_bg_daily_hours,
             'old_weekly_hours': (v.l10n_bg_weekly_hours
                                  if 'l10n_bg_weekly_hours' in v._fields else 40.0),

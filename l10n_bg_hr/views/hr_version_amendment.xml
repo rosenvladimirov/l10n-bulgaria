@@ -161,12 +161,15 @@
                             </group>
                             <group string="Working Hours">
                                 <group>
+                                    <field name="old_resource_calendar_id" readonly="1"/>
                                     <field name="old_daily_hours" readonly="1"/>
-                                    <field name="new_daily_hours"/>
+                                    <field name="company_id" invisible="1"/>
+                                    <field name="new_resource_calendar_id"
+                                           options="{'no_create': True}"
+                                           domain="[('company_id', 'in', [False, company_id])]"/>
                                 </group>
                                 <group>
                                     <field name="old_weekly_hours" readonly="1"/>
-                                    <field name="new_weekly_hours"/>
                                 </group>
                             </group>
                         </page>

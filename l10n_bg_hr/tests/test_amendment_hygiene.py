@@ -5,6 +5,12 @@
 че сборът излизаше 45 при договорени 40 и ДС за ПЪЛНО работно време се
 ОТКАЗВАШЕ — а текстът на отказа тласкаше ТРЗ-то да трие обедните редове.
 
+🆕 DEF-116/1б (01.09.2026): ДС-то вече не ОТГАТВА календар по две числа —
+носи `new_resource_calendar_id` изрично. Тестовете тук минаха от „познава ли
+верния календар" към „прилага ли избрания и извежда ли часовете от него".
+Обедните редове остават във фикстурата, защото проверката за съгласуваност
+още стъпва на `_get_hours_per_week()`.
+
 П2: ДС без нито една промяна излизаше тихо и въпреки това ставаше „в сила";
 приложено ДС можеше да се редактира и документът да се разминe с версията,
 която е родил.
@@ -62,7 +68,7 @@ class TestAmendmentHygiene(TransactionCase):
     # ---------------- П3 ----------------
 
     def test_lunch_rows_do_not_block_full_time(self):
-        """Календар с обедни редове трябва да пасне на 40ч/8ч, не да отказва."""
+        """Обедните редове не бива да провалят проверката за съгласуваност."""
         self.assertAlmostEqual(
             sum(a.hour_to - a.hour_from
                 for a in self.kalendar_40.attendance_ids), 45.0, places=2,
@@ -73,19 +79,51 @@ class TestAmendmentHygiene(TransactionCase):
         amd = self._approve(self._amendment({
             "amendment_type": "working_time_change",
             "new_working_time_type": "full_time",
-            "new_weekly_hours": 40.0,
-            "new_daily_hours": 8.0,
+            "new_resource_calendar_id": self.kalendar_40.id,
         }))
         amd.action_activate()  # не бива да хвърля
-        izbran = amd.applied_version_id.resource_calendar_id
-        self.assertTrue(izbran, "не е избран никакъв календар")
-        # Кой точно запис е избран не е важно — може да има повече от един
-        # подходящ. Важно е часовете му да са ДОГОВОРЕНИТЕ.
-        self.assertAlmostEqual(izbran._get_hours_per_week(), 40.0, places=2)
-        self.assertAlmostEqual(izbran._get_hours_per_day(), 8.0, places=2)
+        self.assertEqual(
+            amd.applied_version_id.resource_calendar_id, self.kalendar_40,
+            "приложен е друг график, не избраният")
 
-    def test_working_time_change_without_hours_is_refused(self):
-        """Без нови часове ДС-то се отказва, вместо да потвърди заварените."""
+    def test_version_hours_follow_the_chosen_schedule(self):
+        """Часовете на версията се ИЗВЕЖДАТ от графика, не се наследяват.
+
+        Без този блок новата версия копира 40 ч от старата, докато графикът
+        ѝ казва 20 — точно противоречието, което вторият клон на
+        `_l10n_bg_mod_prorata` е построен да ЛОВИ. Мутация: махни блока в
+        `_apply_version_changes` → пада.
+        """
+        redove = []
+        for den in range(5):
+            redove.append((0, 0, {
+                "name": "Половин ден", "dayofweek": str(den),
+                "hour_from": 8.0, "hour_to": 12.0, "day_period": "morning"}))
+        kalendar_20 = self.env["resource.calendar"].create({
+            "name": "Тест непълно 20ч", "hours_per_day": 4.0,
+            "attendance_ids": redove,
+        })
+        self.version.write({"l10n_bg_weekly_hours": 40.0,
+                            "l10n_bg_daily_hours": 8.0})
+        amd = self._approve(self._amendment({
+            "amendment_type": "working_time_change",
+            "new_working_time_type": "part_time",
+            "new_resource_calendar_id": kalendar_20.id,
+        }))
+        amd.action_activate()
+        nova = amd.applied_version_id
+        self.assertEqual(nova.resource_calendar_id, kalendar_20)
+        self.assertAlmostEqual(
+            nova.l10n_bg_daily_hours, 4.0, places=2,
+            msg="дневните часове са наследени от старата версия, а не "
+                "изведени от графика")
+        self.assertAlmostEqual(
+            nova.l10n_bg_weekly_hours, 20.0, places=2,
+            msg="седмичните часове застояха на 40 при график от 20 — това е "
+                "противоречието, което прората после трябва да лови")
+
+    def test_working_time_change_without_schedule_is_refused(self):
+        """Без избран график ДС-то се отказва, вместо да гадае."""
         amd = self._approve(self._amendment({
             "amendment_type": "working_time_change",
             "new_working_time_type": "part_time",
@@ -93,23 +131,41 @@ class TestAmendmentHygiene(TransactionCase):
         with self.assertRaises(ValidationError):
             amd.action_activate()
 
-    def test_flexible_calendar_is_not_picked(self):
-        """Гъвкав календар няма съпоставими часове — не се избира."""
-        self.env["resource.calendar"].create({
-            "name": "Тест гъвкав",
-            "flexible_hours": True,
-            "hours_per_day": 8.0,
+    def test_internally_inconsistent_schedule_is_refused(self):
+        """4 ч/ден при присъствия 08:00–17:00 е капан, не график.
+
+        Фишът дели 168 ÷ 4 и дава 42 отработени дни в месец с 21. Изборът по
+        едно число би го пропуснал — затова се сверява и сборът.
+        """
+        redove = []
+        for den in range(5):
+            redove.append((0, 0, {
+                "name": "Цял ден", "dayofweek": str(den),
+                "hour_from": 8.0, "hour_to": 17.0, "day_period": "morning"}))
+        kapan = self.env["resource.calendar"].create({
+            "name": "График непълно раб.време - 4ч.", "hours_per_day": 4.0,
+            "attendance_ids": redove,
         })
         amd = self._approve(self._amendment({
             "amendment_type": "working_time_change",
-            "new_working_time_type": "full_time",
-            "new_weekly_hours": 40.0,
-            "new_daily_hours": 8.0,
+            "new_working_time_type": "part_time",
+            "new_resource_calendar_id": kapan.id,
         }))
-        amd.action_activate()
-        self.assertFalse(
-            amd.applied_version_id.resource_calendar_id.flexible_hours,
-            "избран е гъвкав календар")
+        with self.assertRaises(ValidationError):
+            amd.action_activate()
+
+    def test_flexible_schedule_is_accepted_without_deriving_hours(self):
+        """Гъвкавият график няма присъствия — приема се, но не дава часове."""
+        gavkav = self.env["resource.calendar"].create({
+            "name": "Тест гъвкав", "flexible_hours": True, "hours_per_day": 8.0,
+        })
+        amd = self._approve(self._amendment({
+            "amendment_type": "working_time_change",
+            "new_working_time_type": "flexible",
+            "new_resource_calendar_id": gavkav.id,
+        }))
+        amd.action_activate()  # не бива да хвърля
+        self.assertEqual(amd.applied_version_id.resource_calendar_id, gavkav)
 
     # ---------------- П2 ----------------
 

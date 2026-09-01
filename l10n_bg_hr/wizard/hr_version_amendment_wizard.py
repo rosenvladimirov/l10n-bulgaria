@@ -103,17 +103,26 @@ class HrVersionAmendmentWizard(models.TransientModel):
         compute='_compute_old_values', store=True, readonly=True)
     new_work_location = fields.Char(string='New Work Location')
 
-    # DEF-116: досега уизардът можеше да смени ЕТИКЕТА на работното време, но
-    # нямаше къде да се въведат часовете — а те определят и календара, и
-    # прората на МОД. Без тях „непълно работно време" е дума без число.
+    # Домейнът на графика стъпва на фирмата на версията — календарите са
+    # фирмени, а визардът иначе би предложил чуждите.
+    company_id = fields.Many2one(
+        'res.company', related='version_id.company_id', readonly=True)
+
+    # DEF-116/1б: графикът е носителят. Дотук визардът приемаше две числа и
+    # ДС-то САМО намираше календар по тях; сега се избира самият график, а
+    # часовете се извеждат от него.
+    old_resource_calendar_id = fields.Many2one(
+        'resource.calendar', string='Current Working Schedule',
+        compute='_compute_old_values', store=True, readonly=True)
+    new_resource_calendar_id = fields.Many2one(
+        'resource.calendar', string='New Working Schedule',
+        help='The working time schedule itself. Daily and weekly hours are '
+             'derived from it — do not state them separately.')
+
     old_weekly_hours = fields.Float(string='Current Weekly Hours',
         compute='_compute_old_values', store=True, readonly=True)
-    new_weekly_hours = fields.Float(string='New Weekly Hours',
-        help='Contracted weekly hours. Determines the working time calendar '
-             'and the pro-rated minimum insurance income.')
     old_daily_hours = fields.Float(string='Current Daily Hours',
         compute='_compute_old_values', store=True, readonly=True)
-    new_daily_hours = fields.Float(string='New Daily Hours')
 
     # DEF-116/1в: „Друго изменение" и „Допълнителни задължения" нямаха НИТО
     # едно поле за съдържание — визардът раждаше ДС с празно тяло. Описанието
@@ -174,6 +183,7 @@ class HrVersionAmendmentWizard(models.TransientModel):
             wiz.old_working_time_type = v.l10n_bg_working_time_type if v else False
             wiz.old_leave_days = v.l10n_bg_total_leave_days if v else 0
             wiz.old_work_location = (v.work_location or '') if v else ''
+            wiz.old_resource_calendar_id = v.resource_calendar_id if v else False
             wiz.old_daily_hours = v.l10n_bg_daily_hours if v else 0.0
             wiz.old_weekly_hours = (
                 v.l10n_bg_weekly_hours
@@ -194,6 +204,7 @@ class HrVersionAmendmentWizard(models.TransientModel):
             'old_leave_days': self.old_leave_days,
             'old_work_location': self.old_work_location,
             'old_economic_activity_id': self.version_id.l10n_bg_economic_activity_id.id if self.version_id.l10n_bg_economic_activity_id else False,
+            'old_resource_calendar_id': self.version_id.resource_calendar_id.id,
             'old_daily_hours': self.version_id.l10n_bg_daily_hours,
             'old_weekly_hours': self.version_id.l10n_bg_weekly_hours if 'l10n_bg_weekly_hours' in self.version_id._fields else 40.0,
         }
@@ -211,10 +222,8 @@ class HrVersionAmendmentWizard(models.TransientModel):
             vals['new_leave_days'] = self.new_leave_days
         if self.new_work_location:
             vals['new_work_location'] = self.new_work_location
-        if self.new_weekly_hours:
-            vals['new_weekly_hours'] = self.new_weekly_hours
-        if self.new_daily_hours:
-            vals['new_daily_hours'] = self.new_daily_hours
+        if self.new_resource_calendar_id:
+            vals['new_resource_calendar_id'] = self.new_resource_calendar_id.id
 
         if self.amendment_type == 'temporary_assignment':
             if not self.date_end:

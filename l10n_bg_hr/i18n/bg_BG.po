@@ -428,12 +428,6 @@ msgstr "Дни допълнителен платен годишен отпуск
 #. module: l10n_bg_hr
 #. odoo-python
 #: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
-msgid "Amendment %(ref)s changes the working time but does not state the hours. Fill in the new weekly (and daily) hours — they determine both the working time calendar and the pro-rated minimum insurance income."
-msgstr "Споразумение %(ref)s мени работното време, но не посочва часовете. Попълнете новите часове седмично (и дневно) — те определят и календара на работното време, и проратирания минимален осигурителен доход."
-
-#. module: l10n_bg_hr
-#. odoo-python
-#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
 msgid "Amendment %(ref)s does not change anything on the contract. Fill in at least one new value — wage, job position, work location, working time or leave days — or cancel it. An amendment cannot take effect without a change."
 msgstr "Споразумение %(ref)s не променя нищо по договора. Попълнете поне една нова стойност — заплата, длъжност, работно място, работно време или дни отпуск — или го откажете. Споразумение не може да влезе в сила без промяна."
 
@@ -448,12 +442,6 @@ msgstr "Споразумение %(ref)s вече е в сила; %(fields)s н�
 #: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
 msgid "Amendment %(ref)s is temporary but has no end date. Without it the change would stay in force forever — the expiry cron looks for the end date."
 msgstr "Споразумение %(ref)s е срочно, но няма крайна дата. Без нея промяната остава в сила завинаги — кронът за изтичане търси крайната дата."
-
-#. module: l10n_bg_hr
-#. odoo-python
-#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
-msgid "Amendment %(ref)s sets %(weekly).2f weekly / %(daily).2f daily hours, but no consistent working time calendar exists for %(company)s. Create one whose daily hours and attendance lines both match, then activate the amendment again. Without it the minimum insurance income would stay at the full-time amount."
-msgstr "Споразумение %(ref)s задава %(weekly).2f часа седмично / %(daily).2f дневно, но за %(company)s няма съгласуван календар на работното време. Създайте такъв, чиито часове на ден и присъствия съвпадат, и активирайте споразумението наново. Без него минималният осигурителен доход остава на размера за пълно работно време."
 
 #. module: l10n_bg_hr
 #. odoo-python
@@ -1114,3 +1102,54 @@ msgstr "Свободен текст на споразумението. Полз�
 #: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_version_amendment_wizard_form
 msgid "What does this amendment agree?"
 msgstr "Какво уговаря това споразумение?"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_resource_calendar_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__new_resource_calendar_id
+msgid "New Working Schedule"
+msgstr "Нов график на работното време"
+
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__old_resource_calendar_id
+msgid "Previous Working Schedule"
+msgstr "Досегашен график на работното време"
+
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__old_resource_calendar_id
+msgid "Current Working Schedule"
+msgstr "Текущ график на работното време"
+
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_version_amendment__new_resource_calendar_id
+msgid "The working time schedule itself. Daily and weekly hours are derived from it — do not state them separately. The pro-rated minimum insurance income is computed from this schedule."
+msgstr "Самият график на работното време. Дневните и седмичните часове се извеждат от него — не се задават отделно. Проратираният минимален осигурителен доход се смята по този график."
+
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__new_resource_calendar_id
+msgid "The working time schedule itself. Daily and weekly hours are derived from it — do not state them separately."
+msgstr "Самият график на работното време. Дневните и седмичните часове се извеждат от него — не се задават отделно."
+
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Amendment %(ref)s changes the working time but states no schedule. Pick the new working schedule — it determines both the working time calendar and the pro-rated minimum insurance income."
+msgstr "Споразумение %(ref)s мени работното време, но не сочи график. Изберете новия график — той определя и календара на работното време, и проратирания минимален осигурителен доход."
+
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Schedule %(cal)s states no working hours. The pro-rated minimum insurance income cannot be computed from it."
+msgstr "График %(cal)s не сочи работни часове. Проратираният минимален осигурителен доход не може да се смята по него."
+
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "Schedule %(cal)s is internally inconsistent: %(daily).2f hours per day do not match its %(weekly).2f weekly attendance hours. A payslip dividing by the daily figure would report more worked days than the month has. Fix the schedule, then activate the amendment again."
+msgstr "График %(cal)s е вътрешно противоречив: %(daily).2f часа на ден не се връзват с %(weekly).2f седмични часа присъствия. Фиш, който дели на дневното число, ще отчете повече отработени дни, отколкото има месецът. Поправете графика и активирайте споразумението наново."

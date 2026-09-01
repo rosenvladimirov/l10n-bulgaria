@@ -1153,3 +1153,53 @@ msgstr "График %(cal)s не сочи работни часове. Прор
 #: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
 msgid "Schedule %(cal)s is internally inconsistent: %(daily).2f hours per day do not match its %(weekly).2f weekly attendance hours. A payslip dividing by the daily figure would report more worked days than the month has. Fix the schedule, then activate the amendment again."
 msgstr "График %(cal)s е вътрешно противоречив: %(daily).2f часа на ден не се връзват с %(weekly).2f седмични часа присъствия. Фиш, който дели на дневното число, ще отчете повече отработени дни, отколкото има месецът. Поправете графика и активирайте споразумението наново."
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version.py:0
+msgid "it will continue as %(ground)s from the next day"
+msgstr "продължава като %(ground)s от следващия ден"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version.py:0
+msgid "it will be TERMINATED on that date — no ground is set for what follows"
+msgstr "ще бъде ПРЕКРАТЕН на тази дата — не е зададено основание за след срока"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version.py:0
+msgid "Fixed term ends on %(date)s: %(outcome)s. File the NRA notification under Art. 62(5) LC in time — once five working days pass with the employee still at work and no written objection, Art. 69 LC converts the contract by law and the choice is no longer yours."
+msgstr "Срокът на договора изтича на %(date)s: %(outcome)s. Подайте уведомлението до НАП по чл. 62, ал. 5 КТ навреме — минат ли пет работни дни, през които работникът продължава да работи без писмено възражение, чл. 69 КТ превръща договора по силата на закона и изборът вече не е ваш."
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version.py:0
+msgid "The fixed term lapsed on %(date)s and five working days passed. The contract is closed on that date and version %(new)s continues from the next day under %(ground)s."
+msgstr "Срокът изтече на %(date)s и петте работни дни минаха. Договорът е закрит на тази дата, а версия %(new)s продължава от следващия ден на основание %(ground)s."
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version.py:0
+msgid "The fixed term lapsed on %(date)s and five working days passed with no ground set for what follows. The contract is terminated on the term date."
+msgstr "Срокът изтече на %(date)s и петте работни дни минаха, без да е зададено основание за след срока. Договорът е прекратен на датата на срока."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_version__l10n_bg_fixed_term_end
+msgid "Fixed Term End"
+msgstr "Срок на срочния договор"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_version__l10n_bg_after_term_contract_type_id
+msgid "Contract After the Term"
+msgstr "Договор след срока"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_fixed_term_end
+msgid "The agreed end of a fixed-term contract (Art. 68 LC). This is NOT the termination date: the term may lapse without anyone terminating, and then Art. 69 LC converts the contract. Leave empty for open-ended contracts."
+msgstr "Уговореният край на срочния договор (чл. 68 КТ). Това НЕ е датата на прекратяване: срокът може да изтече, без някой да прекрати, и тогава чл. 69 КТ превръща договора. Оставете празно при безсрочен."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_after_term_contract_type_id
+msgid "What the employment becomes once the fixed term lapses. Filled in — a new version is born on the next day under this ground. Left EMPTY — the contract is terminated on the term date."
+msgstr "В какво преминава правоотношението след изтичане на срока. Попълнено — ражда се нова версия от следващия ден на това основание. ПРАЗНО — договорът се прекратява на датата на срока."

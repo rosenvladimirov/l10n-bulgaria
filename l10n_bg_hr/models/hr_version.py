@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 
+import logging
+from datetime import datetime, time, timedelta
+
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from dateutil.relativedelta import relativedelta
+
+_logger = logging.getLogger(__name__)
 
 
 class HrVersion(models.Model):
@@ -53,6 +58,63 @@ class HrVersion(models.Model):
         readonly=True,
         store=True
     )
+
+    # =========================================================================
+    # СРОЧНИЯТ ДОГОВОР — СРОКЪТ НЕ Е ПРЕКРАТЯВАНЕТО
+    # =========================================================================
+    # ⚖️ Днес двете се събират в едно поле. Ядреният `contract_date_end` е
+    # ПРЕКРАТЯВАНЕТО — денят, в който правоотношението свършва. Срочният
+    # договор обаче има УГОВОРЕН СРОК, който може да изтече, без някой да
+    # прекрати; тогава чл. 69, ал. 1 КТ действа сам: продължи ли работникът
+    # пет или повече работни дни след срока без писмено възражение от
+    # работодателя, договорът се смята за променен в БЕЗСРОЧЕН.
+    #
+    # Затова срокът е СОБСТВЕНО поле. То не прекратява нищо — то е датата, до
+    # която важи основанието по чл. 68 КТ.
+
+    # Колко дни ПРЕДИ срока да се предупреди. Седем, колкото е срокът по
+    # чл. 62, ал. 5 КТ за уведомлението до НАП — така ТРЗ-то има целия
+    # законов прозорец, а не остатъка от него.
+    _L10N_BG_FIXED_TERM_LEAD_DAYS = 7
+
+    l10n_bg_fixed_term_end = fields.Date(
+        string='Fixed Term End',
+        groups='hr.group_hr_user',
+        help="The agreed end of a fixed-term contract (Art. 68 LC). This is "
+             "NOT the termination date: the term may lapse without anyone "
+             "terminating, and then Art. 69 LC converts the contract. Leave "
+             "empty for open-ended contracts.",
+    )
+
+    l10n_bg_after_term_contract_type_id = fields.Many2one(
+        'hr.contract.type',
+        string='Contract After the Term',
+        groups='hr.group_hr_user',
+        help="What the employment becomes once the fixed term lapses. Filled "
+             "in — a new version is born on the next day under this ground. "
+             "Left EMPTY — the contract is terminated on the term date.",
+    )
+
+    def _l10n_bg_fixed_term_deadline(self):
+        """Срокът плюс петте работни дни на чл. 69, ал. 1 КТ.
+
+        🔑 РАБОТНИ, не календарни — затова минава през календара на версията,
+        а не през `timedelta(5)`. Празници и почивни дни местят границата.
+        """
+        self.ensure_one()
+        if not self.l10n_bg_fixed_term_end:
+            return False
+        calendar = (self.resource_calendar_id
+                    or self.company_id.resource_calendar_id)
+        nachalo = datetime.combine(self.l10n_bg_fixed_term_end, time.min)
+        if not calendar:
+            # Без календар не може да се броят работни дни. По-честно е да се
+            # падне на календарни, отколкото да се пропусне срокът мълчаливо.
+            _logger.warning(
+                "Версия %s няма календар — петте работни дни по чл. 69 се "
+                "броят като календарни.", self.id)
+            return self.l10n_bg_fixed_term_end + timedelta(days=5)
+        return calendar.plan_days(5, nachalo, compute_leaves=True).date()
 
     # =========================================================================
     # PROFESSIONAL QUALIFICATIONS
@@ -261,3 +323,120 @@ class HrVersion(models.Model):
             'views': [(False, 'form')],
             'target': 'current',
         }
+
+    # =========================================================================
+    # КРОНОВЕ ПО СРОЧНИЯ ДОГОВОР
+    # =========================================================================
+
+    @api.model
+    def cron_l10n_bg_notify_expiring_fixed_terms(self):
+        """Предупреждава ПРЕДИ срока — заради уведомлението до НАП.
+
+        ⚖️ Това е същинската работа. Прекратяването по чл. 62, ал. 5 КТ се
+        уведомява в НАП, а уведомлението иска подготовка; стигне ли се до
+        срока неподготвено, изборът вече не е свободен — чл. 69 действа сам.
+        Затова кронът долу е ПОСЛЕДНАТА мрежа, а този е нормалният път.
+        """
+        dnes = fields.Date.today()
+        prag = dnes + timedelta(days=self._L10N_BG_FIXED_TERM_LEAD_DAYS)
+        versii = self.search([
+            ('l10n_bg_fixed_term_end', '!=', False),
+            ('l10n_bg_fixed_term_end', '<=', prag),
+            ('l10n_bg_fixed_term_end', '>=', dnes),
+            ('contract_date_end', '=', False),
+            ('l10n_bg_contract_duration_type', '!=', 'indefinite'),
+        ])
+        for version in versii:
+            if version.l10n_bg_after_term_contract_type_id:
+                iztod = _(
+                    "it will continue as %(ground)s from the next day",
+                    ground=version.l10n_bg_after_term_contract_type_id.display_name)
+            else:
+                iztod = _("it will be TERMINATED on that date — no ground is "
+                          "set for what follows")
+            version.message_post(body=_(
+                "Fixed term ends on %(date)s: %(outcome)s. File the NRA "
+                "notification under Art. 62(5) LC in time — once five working "
+                "days pass with the employee still at work and no written "
+                "objection, Art. 69 LC converts the contract by law and the "
+                "choice is no longer yours.",
+                date=version.l10n_bg_fixed_term_end, outcome=iztod))
+        if versii:
+            _logger.info(
+                "Срочни договори с изтичащ срок до %s: %s", prag, len(versii))
+        return len(versii)
+
+    @api.model
+    def cron_l10n_bg_close_overdue_fixed_terms(self):
+        """Последната мрежа: срокът е минал и петте работни дни също.
+
+        🚨 Кронът пише по ТРУДОВИ ПРАВООТНОШЕНИЯ без човек в стаята. Затова:
+        · пали се само след петте работни дни по чл. 69, ал. 1 — дотогава
+          човекът още може да действа и мрежата не пречи;
+        · пропуска всяка версия с попълнено `contract_date_end` — прекратено е,
+          няма какво да се довършва;
+        · оставя следа в чатъра за ВСЯКО свое действие.
+
+        ⚖️ Празното „договор след срока" значи ПРЕКРАТЯВАНЕ на датата на срока
+        (решение на Росен, 01.09.2026). Попълненото ражда нова версия със
+        своето основание.
+
+        ⚖️ Чл. 69, ал. 2 КТ изключва от превръщането договорите по чл. 68,
+        ал. 1, т. 2 — „до завършване на определена работа". Те се разпознават
+        машинно по `l10n_bg_contract_duration_type == 'specific_work'`, тъй
+        че за тях петте дни не са законов прозорец, а само отсрочка: срокът им
+        свършва, когато работата е завършена, и автоматично превръщане няма.
+        Изчакването се пази еднакво за всички по решение на Росен („винаги е
+        5 дни"), защото по-рано действие би отнело на човека времето да
+        реагира.
+
+        🔑 Новата версия започва от `срок + 1`, не от самата дата на срока —
+        конвенцията на модула (изходът от срочно ДС също ражда версия от
+        `date_end + 1`). Две версии върху ЕДИН ден биха дали припокриващи се
+        подпериоди в т. 14/15 на Д1.
+        """
+        dnes = fields.Date.today()
+        versii = self.search([
+            ('l10n_bg_fixed_term_end', '!=', False),
+            ('l10n_bg_fixed_term_end', '<', dnes),
+            ('contract_date_end', '=', False),
+            ('l10n_bg_contract_duration_type', '!=', 'indefinite'),
+        ])
+        pipnati = 0
+        for version in versii:
+            deadline = version._l10n_bg_fixed_term_deadline()
+            if not deadline or dnes <= deadline:
+                # Прозорецът на чл. 69 още тече — човекът има думата.
+                continue
+            srok = version.l10n_bg_fixed_term_end
+            version.contract_date_end = srok
+            osnovanie = version.l10n_bg_after_term_contract_type_id
+            if osnovanie:
+                nova = version.copy({
+                    'date_version': srok + timedelta(days=1),
+                    'contract_date_start': srok + timedelta(days=1),
+                    'contract_date_end': False,
+                    'contract_type_id': osnovanie.id,
+                    'l10n_bg_fixed_term_end': False,
+                    'l10n_bg_after_term_contract_type_id': False,
+                })
+                version.message_post(body=_(
+                    "The fixed term lapsed on %(date)s and five working days "
+                    "passed. The contract is closed on that date and version "
+                    "%(new)s continues from the next day under %(ground)s.",
+                    date=srok, new=nova.display_name,
+                    ground=osnovanie.display_name))
+                _logger.info(
+                    "Срочен договор на версия %s затворен на %s; нова версия "
+                    "%s с основание %s.", version.id, srok, nova.id,
+                    osnovanie.display_name)
+            else:
+                version.message_post(body=_(
+                    "The fixed term lapsed on %(date)s and five working days "
+                    "passed with no ground set for what follows. The contract "
+                    "is terminated on the term date.", date=srok))
+                _logger.info(
+                    "Срочен договор на версия %s прекратен на %s (няма "
+                    "договор след срока).", version.id, srok)
+            pipnati += 1
+        return pipnati

@@ -14,13 +14,19 @@
                         <field name="amendment_type"/>
                         <field name="subject" placeholder="e.g. Wage Change"/>
                         <field name="date_effective"/>
+                        <!-- DEF-116/1в: полето беше на МОДЕЛА, но не и тук —
+                             „Временно преместване" отказваше с „иска крайна
+                             дата", а нямаше къде да бъде въведена. -->
+                        <field name="date_end"
+                               invisible="amendment_type not in ('temporary_assignment', 'contract_extension')"
+                               required="amendment_type == 'temporary_assignment'"/>
                     </group>
                 </group>
 
                 <notebook>
                     <!-- Wage -->
                     <page string="Wage Change" name="wage"
-                          invisible="amendment_type not in ('wage_change', 'other')">
+                          invisible="amendment_type != 'wage_change'">
                         <group>
                             <group>
                                 <field name="old_wage" readonly="1"/>
@@ -34,7 +40,7 @@
 
                     <!-- Position -->
                     <page string="Position Change" name="position"
-                          invisible="amendment_type not in ('position_change', 'other')">
+                          invisible="amendment_type != 'position_change'">
                         <!-- Длъжността е носителят и стои първа; шифърът по
                              НКПД се произвежда от нея и е под нея, за четене. -->
                         <group string="Job Position">
@@ -58,7 +64,7 @@
 
                     <!-- Working Time -->
                     <page string="Working Time" name="working_time"
-                          invisible="amendment_type not in ('working_time_change', 'other')">
+                          invisible="amendment_type != 'working_time_change'">
                         <group>
                             <group>
                                 <field name="old_working_time_type" readonly="1"/>
@@ -75,7 +81,7 @@
 
                     <!-- Leave Days -->
                     <page string="Leave Days" name="leave"
-                          invisible="amendment_type not in ('leave_change', 'other')">
+                          invisible="amendment_type != 'leave_change'">
                         <group>
                             <group>
                                 <field name="old_leave_days" readonly="1"/>
@@ -88,7 +94,7 @@
 
                     <!-- Workplace -->
                     <page string="Workplace" name="workplace"
-                          invisible="amendment_type not in ('workplace_change', 'temporary_assignment', 'other')">
+                          invisible="amendment_type not in ('workplace_change', 'temporary_assignment')">
                         <group>
                             <group>
                                 <field name="old_work_location" readonly="1"/>
@@ -97,6 +103,13 @@
                                 <field name="new_work_location"/>
                             </group>
                         </group>
+                    </page>
+                    <!-- Типовете без собствено поле за съдържание получават
+                         едно място, вместо да отварят чуждите табове. -->
+                    <page string="Description" name="description"
+                          invisible="amendment_type not in ('other', 'additional_duties', 'contract_extension')">
+                        <field name="description" nolabel="1"
+                               placeholder="What does this amendment agree?"/>
                     </page>
                 </notebook>
 

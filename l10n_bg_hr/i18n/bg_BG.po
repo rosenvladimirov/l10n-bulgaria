@@ -1098,3 +1098,19 @@ msgstr "Длъжност: %s → %s"
 #: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
 msgid "NKPD Code: %s → %s"
 msgstr "Шифър по НКПД: %s → %s"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__description
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__description
+msgid "Description"
+msgstr "Описание"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__description
+msgid "Free-text content of the amendment. Used by the types that do not change a contract field on their own."
+msgstr "Свободен текст на споразумението. Ползва се от типовете, които сами по себе си не менят поле по договора."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_version_amendment_wizard_form
+msgid "What does this amendment agree?"
+msgstr "Какво уговаря това споразумение?"

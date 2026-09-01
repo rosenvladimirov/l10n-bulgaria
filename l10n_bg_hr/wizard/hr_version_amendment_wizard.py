@@ -115,6 +115,15 @@ class HrVersionAmendmentWizard(models.TransientModel):
         compute='_compute_old_values', store=True, readonly=True)
     new_daily_hours = fields.Float(string='New Daily Hours')
 
+    # DEF-116/1в: „Друго изменение" и „Допълнителни задължения" нямаха НИТО
+    # едно поле за съдържание — визардът раждаше ДС с празно тяло. Описанието
+    # вече стои на модела; тук му се дава вход.
+    description = fields.Html(
+        string='Description',
+        help="Free-text content of the amendment. Used by the types that do "
+             "not change a contract field on their own.",
+    )
+
     # 🔑 Без крайна дата срочното ДС ражда ПОСТОЯННА версия: изтичащият крон
     # търси `date_end`, не го намира и командироването не свършва никога.
     # Дотук визардът изобщо не пълнеше нито датата, нито флаговете — тоест
@@ -188,6 +197,8 @@ class HrVersionAmendmentWizard(models.TransientModel):
             'old_daily_hours': self.version_id.l10n_bg_daily_hours,
             'old_weekly_hours': self.version_id.l10n_bg_weekly_hours if 'l10n_bg_weekly_hours' in self.version_id._fields else 40.0,
         }
+        if self.description:
+            vals['description'] = self.description
         if self.new_wage:
             vals['new_wage'] = self.new_wage
         if self.new_job_id:

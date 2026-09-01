@@ -216,3 +216,51 @@ class TestAmendmentCarriers(TransactionCase):
             any("NKPD" in t or "НКПД" in t for t in telata),
             "ДС само с шифър мина без следа в чатъра — точно тишината, "
             "заради която дефектът стигна до живи записи")
+
+    # =========================================================================
+    # DEF-116/1в — ВИЗАРДЪТ ПОКРИВА ТИПОВЕТЕ, КОИТО ПРЕДЛАГА
+    # =========================================================================
+
+    def test_wizard_offers_the_end_date_it_demands(self):
+        """Отказ, който няма къде да бъде удовлетворен, е задънена улица.
+
+        `action_create_amendment` отказва „Временно преместване" без крайна
+        дата, а полето беше само на модела — в изгледа нула срещания.
+        Мутация: махни `date_end` от изгледа → пада.
+        """
+        arch = self.env["l10n_bg.hr.version.amendment.wizard"].get_view(
+            self.env.ref("l10n_bg_hr.view_hr_version_amendment_wizard_form").id,
+            "form")["arch"]
+        self.assertIn(
+            'name="date_end"', arch,
+            "визардът иска крайна дата, но не я предлага — „Временно "
+            "преместване“ не може да бъде създадено през интерфейса")
+
+    def test_other_does_not_open_every_tab(self):
+        """„Друго изменение" отваряше ВСИЧКИТЕ пет таба наведнъж."""
+        arch = self.env["l10n_bg.hr.version.amendment.wizard"].get_view(
+            self.env.ref("l10n_bg_hr.view_hr_version_amendment_wizard_form").id,
+            "form")["arch"]
+        self.assertNotIn(
+            "'wage_change', 'other'", arch,
+            "табът за заплата още се отваря от „Друго“")
+        self.assertIn(
+            'name="description"', arch,
+            "„Друго“ няма нито едно поле за съдържание")
+
+    def test_wizard_carries_the_description(self):
+        """Свободният текст стига до ДС-то, не спира във визарда."""
+        wiz = self.env["l10n_bg.hr.version.amendment.wizard"].create({
+            "employee_id": self.employee.id,
+            "version_id": self.version.id,
+            "amendment_type": "other",
+            "subject": "Тест описание",
+            "date_effective": date(2026, 3, 1),
+            "description": "<p>Уговорка на свободен текст</p>",
+        })
+        amd = self.env["l10n_bg.hr.version.amendment"].browse(
+            wiz.action_create_amendment()["res_id"])
+        self.assertIn(
+            "свободен текст", (amd.description or ""),
+            "описанието не е пренесено — ДС-то излиза с празно тяло")
+

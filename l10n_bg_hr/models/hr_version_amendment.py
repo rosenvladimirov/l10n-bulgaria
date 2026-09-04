@@ -748,18 +748,34 @@ class L10nBGHrVersionAmendment(models.Model):
         # регистъра) чете новата стойност като валидна открай време.
         # 🚨 Полета с copy=False се губят: create_version стъпва на copy_data().
         # `copy=False` е предвидено за ДУБЛИРАНЕ на версия (нов договор), но при
-        # допълнително споразумение договорът е СЪЩИЯТ — стажът и номерът му
-        # продължават. Без това новата версия тръгва с нулев клас: наблюдавано
-        # на plm_acc (v939 class_period 15:09:06 → v1116 00:00:00, class_years
-        # 15 → 0), тоест ДТВ-то за втория сегмент падаше на нула.
-        carried = {}
-        for field_name in ('l10n_bg_current_class_period',
-                           'l10n_bg_unrecognized_company_is_manual',
-                           'l10n_bg_contract_number'):
-            if field_name in self.version_id._fields:
-                carried[field_name] = self.version_id[field_name]
-
+        # допълнително споразумение договорът е СЪЩИЯТ — номерът му продължава.
+        #
+        # 🚨 DEF-122 т.1 — пренасяше се от ПОСОЧЕНАТА версия, а фактът стои в
+        # онази, в която пада ДАТАТА. ТРЗ мисли в дати, не във версии: визардът
+        # слага `employee.version_id` по подразбиране и се сменя само датата.
+        #
+        # Мерено от Пламена, служител 1087 с версии 1120 (01.09–14.09),
+        # 1121 (01.10–12.11) и 1122 (13.11–):
+        #   · ДС 343 сочи 1121, дата 15.09 → пада в 1120, ражда се 1239 —
+        #     но класовият период излиза 29:06:05, стойността на 1121;
+        #   · ДС 356 сочи 1120, дата 01.10 → пада в 1121, прилага се вярно —
+        #     и carried пренася периода на 1120 ВЪРХУ 1121. Двете средни
+        #     версии на този служител вече са разменени.
+        #
+        # Класовият период ОТПАДА оттук изцяло: `hr.version.create` в слоя с
+        # ведомостта вече го решава по дата (`_l10n_bg_inherited_class_period`)
+        # и дава верния отговор — `carried` само минаваше отгоре. Останалите две
+        # нямат резолвер и не могат просто да отпаднат, защото са `copy=False`;
+        # затова се четат от версията, в която пада датата.
         employee = self.version_id.employee_id
+        iztochnik = (employee._get_version(self.date_effective)
+                     if self.date_effective else False) or self.version_id
+        carried = {}
+        for field_name in ('l10n_bg_unrecognized_company_is_manual',
+                           'l10n_bg_contract_number'):
+            if field_name in iztochnik._fields:
+                carried[field_name] = iztochnik[field_name]
+
         new_version = employee.create_version(
             dict(vals, date_version=self.date_effective))
         if carried:

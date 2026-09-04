@@ -241,6 +241,14 @@
                         >
                             <field name="module_currency_rate_live_fix" widget="upgrade_boolean" />
                         </setting>
+                        <setting
+                            id="l10n_bg_customs_currency_rate_modules"
+                            title="Customs Agency currency rates (OCA)"
+                            string="Customs Agency currency rates (OCA)"
+                            help="Adds the Bulgarian Customs Agency as a rate provider, for the monthly rate used in the customs value of imports"
+                        >
+                            <field name="module_l10n_bg_customs_currency_rate_live" />
+                        </setting>
                     </block>
                     <block
                         title="Partners &amp; Addresses"

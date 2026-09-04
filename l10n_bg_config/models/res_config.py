@@ -38,6 +38,11 @@ class ResConfigSettings(models.TransientModel):
         "Live Currency Rate Fix (EE)",
         help="Live Currency Rate Fix for Bulgaria (EE) module",
     )
+    module_l10n_bg_customs_currency_rate_live = fields.Boolean(
+        "Customs Agency currency rates (OCA)",
+        help="Download the monthly customs exchange rates published by the "
+        "Bulgarian Customs Agency, used for the customs value of imports.",
+    )
     module_l10n_bg_city = fields.Boolean(
         "Upload Bulgaria city",
         help="Upload cites, municipalities, states, villages and manastiries",

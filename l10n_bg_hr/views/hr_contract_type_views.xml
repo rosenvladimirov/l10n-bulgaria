@@ -9,4 +9,30 @@
             </xpath>
         </field>
     </record>
+
+    <!--
+      DEF-172е — полето беше добавено само във ФОРМАТА, а тя никога не се
+      отваря. Ядреното действие „Видове заетост" е с `view_mode = list`, а
+      списъкът е `editable="bottom"` и показва само наименованието: кликът
+      редактира на място и формата не се стига.
+
+      Следствие: номенклатурата не може да се попълни от екрана — нито от ТРЗ,
+      нито от QA. А тя е ключът към цялата срочна линия (DEF-173а): докато
+      режимът стои `indefinite`, двата крона не намират нищо, а полетата „Край
+      на срока" и „Договор след срока" на версията са скрити с
+      `invisible="… == 'indefinite'"` и не се показват никога.
+
+      Колоната в списъка е достатъчна и е по-евтина от смяна на `view_mode`:
+      списъкът вече е редактируем на място, тъй че стойността се въвежда
+      направо оттам.
+    -->
+    <record id="hr_contract_type_view_tree" model="ir.ui.view">
+        <field name="model">hr.contract.type</field>
+        <field name="inherit_id" ref="hr.hr_contract_type_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='country_id']" position="before">
+                <field name="l10n_bg_contract_duration_type"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>

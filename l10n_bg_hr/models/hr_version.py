@@ -95,6 +95,39 @@ class HrVersion(models.Model):
              "Left EMPTY — the contract is terminated on the term date.",
     )
 
+    @api.constrains('contract_type_id', 'l10n_bg_fixed_term_end')
+    def _l10n_bg_check_fixed_term_end(self):
+        """DEF-173б — срочен договор без срок е запис, който кронът не вижда.
+
+        ``l10n_bg_fixed_term_end`` нямаше нито ``required``, нито проверка. И
+        двата крона за срочните договори режат по ``!= False`` върху него, тъй
+        че договор с режим „определен срок" и празен срок е валиден запис, който
+        няма да бъде хванат НИКОГА — нито за предупреждение, нито за
+        превръщането по чл. 69, ал. 1 КТ.
+
+        ⚖️ Само при ``fixed_term``. Другите два срочни режима нямат календарна
+        дата по своята природа: „до завършване на определена работа" (чл. 68,
+        ал. 1, т. 2) свършва със самата работа, а заместването (т. 3) — с
+        връщането на замествания. Изискването на дата там би принудило ТРЗ да
+        измисля число.
+
+        🔑 Проверката виси на ``contract_type_id``, не на related-а
+        ``l10n_bg_contract_duration_type``: източникът е стореният, и само той
+        задейства проверката надеждно при смяна на вида.
+        """
+        for version in self:
+            vid = version.contract_type_id
+            if not vid or vid.l10n_bg_contract_duration_type != 'fixed_term':
+                continue
+            if version.l10n_bg_fixed_term_end:
+                continue
+            raise ValidationError(_(
+                "Contract type %(type)s is a fixed-term ground (Art. 68, "
+                "para. 1 LC), so the agreed end of the term is required. "
+                "Without it the contract is invisible to the expiry and "
+                "conversion crons, and Art. 69 LC can never be applied.",
+                type=vid.display_name))
+
     def _l10n_bg_fixed_term_deadline(self):
         """Срокът плюс петте работни дни на чл. 69, ал. 1 КТ.
 

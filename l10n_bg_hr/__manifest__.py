@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'HR Version Extension',
-    'version': '19.0.2.3.3',
+    'version': '19.0.2.4.0',
     'category': 'Human Resources',
     'summary': 'Extension for HR Version with work location address and contract amendments',
     'description': """
@@ -30,6 +30,7 @@ This module extends the HR Version functionality with:
         'security/ir.model.access.csv',
         'security/ir_rules.xml',
         'data/hr.contract.type.csv',
+        'data/hr_contract_type_duration_data.xml',
         'data/ir_sequence_data.xml',
         'data/ir_cron_data.xml',
         'wizard/hr_version_amendment_wizard_views.xml',

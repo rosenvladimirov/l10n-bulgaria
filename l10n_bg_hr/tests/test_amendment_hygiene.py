@@ -264,3 +264,63 @@ class TestAmendmentHygiene(TransactionCase):
             vikana, [amd.id],
             "куката не е извикана — слоят с ведомостта няма да може да откаже "
             "връщане назад в затворен период")
+
+    # =========================================================================
+    # DEF-175 — ГАРДЪТ ГЪРМИ ТАМ, КЪДЕТО ОЩЕ МОЖЕ ДА СЕ ПОПРАВИ
+    # =========================================================================
+
+    def test_missing_schedule_is_refused_before_approval(self):
+        """Отказът идва при ПОДАВАНЕТО, не три състояния по-късно.
+
+        Дотук проверката се викаше само от `_apply_version_changes`. Човекът
+        минаваше чернова → за одобрение → одобрено → в сила и получаваше
+        отказа накрая, когато документът вече е подписан — а връщане назад по
+        машината на състоянията няма.
+
+        Мутация: махни викането от `action_submit_for_approval` → пада,
+        защото подаването минава без възражение.
+        """
+        amd = self._amendment({
+            "amendment_type": "working_time_change",
+            "new_working_time_type": "part_time",
+        })
+        with self.assertRaises(ValidationError):
+            amd.action_submit_for_approval()
+        self.assertEqual(
+            amd.state, "draft",
+            "ДС-то е сменило състояние въпреки отказа — точно капанът, от "
+            "който няма връщане")
+
+    def test_inconsistent_schedule_is_refused_before_approval(self):
+        """Противоречивият график също се хваща рано."""
+        redove = []
+        for den in range(5):
+            redove.append((0, 0, {
+                "name": "Цял ден", "dayofweek": str(den),
+                "hour_from": 8.0, "hour_to": 17.0, "day_period": "morning"}))
+        kapan = self.env["resource.calendar"].create({
+            "name": "График непълно раб.време - 4ч.", "hours_per_day": 4.0,
+            "attendance_ids": redove,
+        })
+        amd = self._amendment({
+            "amendment_type": "working_time_change",
+            "new_working_time_type": "part_time",
+            "new_resource_calendar_id": kapan.id,
+        })
+        with self.assertRaises(ValidationError):
+            amd.action_submit_for_approval()
+
+    def test_late_guard_still_stands(self):
+        """Ранната проверка НЕ заменя късната.
+
+        Импортът и RPC не минават през бутона за подаване; гардът в
+        прилагането остава последната преграда.
+        """
+        amd = self._approve(self._amendment({
+            "amendment_type": "wage_change", "new_wage": 1200.0,
+        }))
+        # тип работно време се сменя ПОСЛЕ, заобикаляйки ранната проверка
+        amd.new_working_time_type = "part_time"
+        with self.assertRaises(ValidationError):
+            amd.action_activate()
+

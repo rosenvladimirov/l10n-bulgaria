@@ -240,6 +240,14 @@ class HrVersionAmendmentWizard(models.TransientModel):
             })
 
         amendment = self.env['l10n_bg.hr.version.amendment'].create(vals)
+        # 🚨 DEF-175: визардът не бива да ражда ДС, за което ВЕЧЕ се знае, че
+        # ще откаже. Дотук той само пренасяше графика и не проверяваше нищо;
+        # отказът идваше три състояния по-късно, при активирането.
+        #
+        # 🔑 Проверката е СЛЕД create, за да ползва същия метод, който пази и
+        # останалите пътища — вместо втора реализация, която утре ще се
+        # разминe с първата. Транзакцията се връща от изключението.
+        amendment._l10n_bg_check_before_approval()
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'l10n_bg.hr.version.amendment',

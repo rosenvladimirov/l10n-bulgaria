@@ -445,7 +445,31 @@ class L10nBGHrVersionAmendment(models.Model):
         self.ensure_one()
         if self.state != 'draft':
             raise ValidationError(_("Only draft amendments can be submitted."))
+        # 🚨 DEF-175: проверката минава ТУК, а не чак при активирането.
+        #
+        # Дотук `_l10n_bg_validate_calendar` се викаше само от
+        # `_apply_version_changes`, тоест на последната стъпка. Човекът минава
+        # чернова → за одобрение → одобрено → в сила и получава отказа накрая,
+        # когато документът вече е подписан и одобрен — а връщане назад по
+        # машината на състоянията няма.
+        #
+        # 🔑 Ранната проверка не заменя късната: импортът и RPC не минават през
+        # този бутон, тъй че гардът в прилагането ОСТАВА. Тук той само се
+        # премества там, където още може да бъде поправен.
+        self._l10n_bg_check_before_approval()
         self.state = 'to_approve'
+
+    def _l10n_bg_check_before_approval(self):
+        """Каквото може да се провери ПРЕДИ подписа — проверява се тук.
+
+        Правилото: гард, който отказва на последната стъпка, спира законна
+        работа без изход. Всичко, което зависи само от съдържанието на ДС-то
+        (а не от състоянието на версията в мига на прилагане), принадлежи на
+        тази проверка.
+        """
+        self.ensure_one()
+        if self._l10n_bg_changes_working_time():
+            self._l10n_bg_validate_calendar()
 
     def action_approve(self):
         self.ensure_one()

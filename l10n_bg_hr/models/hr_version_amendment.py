@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from datetime import timedelta
+from datetime import date, timedelta
 
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
@@ -300,20 +300,57 @@ class L10nBGHrVersionAmendment(models.Model):
 
     is_temporary_assignment = fields.Boolean(string='Temporary Assignment')
 
+    # ⚖️ DEF-174 — табът не беше сверен с чл. 120 КТ.
+    #
+    # Дословният текст на ал. 1: работодателят може при производствена
+    # необходимост, КАКТО И ПРИ ПРЕСТОЙ, да възлага без съгласие друга работа
+    # „в същото или в друго предприятие, но в същото населено място или
+    # местност за срок до 45 КАЛЕНДАРНИ ДНИ през една календарна година, а в
+    # случаи на престой — докато той продължава".
+    #
+    # Оттам следват три неща, които липсваха: престоят като основание, мярката
+    # в календарни дни с таван 45 за ГОДИНА (не 12 месеца), и проверка за
+    # населеното място.
     temporary_assignment_reason = fields.Selection([
-        ('production_necessity', 'Production Necessity'),
-        ('employee_replacement', 'Employee Replacement'),
+        ('production_necessity', 'Production Necessity (Art. 120, para. 1 LC)'),
+        ('idle_time', 'Idle Time (Art. 120, para. 1 LC)'),
         ('urgent_work', 'Urgent Work'),
         ('natural_disaster', 'Natural Disaster'),
+        ('force_majeure', 'Compelling Reasons (Art. 120, para. 3 LC)'),
+        ('employee_replacement', 'Employee Replacement'),
         ('other_emergency', 'Other Emergency'),
-    ], string='Assignment Reason')
+    ], string='Assignment Reason',
+        help="The ground under Art. 120 LC. Idle time is the only one without "
+             "a 45-day limit: the assignment lasts as long as the idle time "
+             "does.")
 
-    assignment_duration_months = fields.Integer(string='Assignment Duration (months)')
-    assignment_location = fields.Char(string='Assignment Location')
+    # 🔲 Заварено, БЕЗ консуматор. Не се трие (данни по стари ДС-та), но не е
+    # носител: мярката на чл. 120 е в календарни дни, не в месеци.
+    assignment_duration_months = fields.Integer(
+        string='Assignment Duration (months, legacy)', readonly=True,
+        help="Legacy. Art. 120 LC measures the assignment in calendar days; "
+             "see Assignment Days.")
+
+    l10n_bg_assignment_days = fields.Integer(
+        string='Assignment Days',
+        compute='_compute_l10n_bg_assignment_days', store=True,
+        help="Calendar days of this assignment, derived from the effective and "
+             "end dates. Art. 120, para. 1 LC caps them at 45 per calendar "
+             "year, except during idle time.")
+
+    # 🔲 Заварено. Носителят на мястото е `new_work_location_id` — само той
+    # стига до версията и носи адреса, от който излиза ЕКАТТЕ кодът.
+    assignment_location = fields.Char(
+        string='Assignment Location (legacy text)', readonly=True,
+        help="Legacy free text. The carrier is New Work Location.")
+
     assignment_compensation = fields.Monetary(
         string='Assignment Compensation',
         currency_field='currency_id',
-    )
+        help="Remuneration for the work actually performed during the "
+             "assignment (Art. 267, para. 3 LC). It may not be lower than the "
+             "gross remuneration for the main job. Left empty — the wage does "
+             "not change.")
 
     # =========================================================================
     # СТАТУС И ОДОБРЕНИЯ
@@ -390,12 +427,111 @@ class L10nBGHrVersionAmendment(models.Model):
                 raise ValidationError(
                     _("Effective date must be before end date."))
 
-    @api.constrains('assignment_duration_months')
-    def _check_assignment_duration(self):
+    # Чл. 120, ал. 1 КТ — 45 календарни дни през една календарна година.
+    _L10N_BG_ART120_DAYS_PER_YEAR = 45
+
+    @api.depends('date_effective', 'date_end', 'is_temporary_assignment')
+    def _compute_l10n_bg_assignment_days(self):
+        """Календарните дни на преместването — от датите, не от второ поле."""
         for rec in self:
-            if rec.is_temporary_assignment and rec.assignment_duration_months and rec.assignment_duration_months > 12:
-                raise ValidationError(
-                    _("Temporary assignment cannot exceed 12 months per Labor Code."))
+            if (rec.is_temporary_assignment and rec.date_effective
+                    and rec.date_end and rec.date_end >= rec.date_effective):
+                rec.l10n_bg_assignment_days = (
+                    rec.date_end - rec.date_effective).days + 1
+            else:
+                rec.l10n_bg_assignment_days = 0
+
+    @api.constrains('l10n_bg_assignment_days', 'temporary_assignment_reason',
+                    'is_temporary_assignment', 'date_effective')
+    def _check_assignment_duration(self):
+        """Чл. 120, ал. 1 КТ — 45 КАЛЕНДАРНИ ДНИ за календарна година.
+
+        🚨 DEF-174 — дотук се проверяваха 12 МЕСЕЦА, а бележката в таба цитираше
+        чл. 106-114. Чл. 110 и чл. 111 са допълнителен труд по ОТДЕЛЕН трудов
+        договор, не изменение на съществуващото правоотношение; те не са
+        основанието на този таб.
+
+        ⚖️ Таванът е за ГОДИНАТА, не за преместването — затова се сумират
+        всичките в сила през същата календарна година. Инак три премествания по
+        трийсет дни минаваха поединично и даваха деветдесет.
+
+        При ПРЕСТОЙ таван няма: ал. 1 казва „докато той продължава".
+        """
+        for rec in self:
+            if not rec.is_temporary_assignment or not rec.date_effective:
+                continue
+            if rec.temporary_assignment_reason == 'idle_time':
+                continue
+            if not rec.l10n_bg_assignment_days:
+                continue
+            godina = rec.date_effective.year
+            drugi = self.search([
+                ('id', '!=', rec.id or 0),
+                ('employee_id', '=', rec.employee_id.id),
+                ('is_temporary_assignment', '=', True),
+                ('state', 'in', ('approved', 'active', 'expired')),
+                ('temporary_assignment_reason', '!=', 'idle_time'),
+                ('date_effective', '>=', date(godina, 1, 1)),
+                ('date_effective', '<=', date(godina, 12, 31)),
+            ])
+            sbor = rec.l10n_bg_assignment_days + sum(
+                drugi.mapped('l10n_bg_assignment_days'))
+            if sbor > self._L10N_BG_ART120_DAYS_PER_YEAR:
+                raise ValidationError(_(
+                    "Temporary assignments for %(emp)s in %(year)s would total "
+                    "%(total)d calendar days. Art. 120, para. 1 LC allows 45 "
+                    "per calendar year, except during idle time.",
+                    emp=rec.employee_id.display_name, year=godina, total=sbor))
+
+    @api.constrains('new_work_location_id', 'old_work_location_id',
+                    'is_temporary_assignment')
+    def _check_assignment_settlement(self):
+        """Чл. 120, ал. 1 КТ — „в същото населено място или местност".
+
+        Преместването без съгласие е допустимо в друго предприятие, но НЕ в
+        друго населено място. Нищо не проверяваше това.
+
+        🔑 Проверява се само когато и двете места са известни и носят населено
+        място. Липсващо населено място не е доказателство за нарушение — там
+        отказът би спрял законна работа заради непопълнен адрес.
+        """
+        for rec in self:
+            if not rec.is_temporary_assignment or not rec.new_work_location_id:
+                continue
+            staro = (rec.old_work_location_id.address_id.city or '').strip()
+            novo = (rec.new_work_location_id.address_id.city or '').strip()
+            if not staro or not novo:
+                continue
+            if staro.casefold() == novo.casefold():
+                continue
+            raise ValidationError(_(
+                "Art. 120, para. 1 LC allows a temporary assignment without "
+                "the employee's consent only within the same settlement or "
+                "locality. %(old)s and %(new)s are different settlements. Use "
+                "a regular amendment with the employee's consent instead.",
+                old=staro, new=novo))
+
+    @api.constrains('assignment_compensation', 'old_wage',
+                    'is_temporary_assignment')
+    def _check_assignment_compensation(self):
+        """Чл. 267, ал. 3 КТ — не по-малко от брутното за основната работа.
+
+        Полето стоеше като Monetary без нито един четец, макар да изглежда
+        точно като възнаграждението по чл. 267, ал. 3. Сега има консуматор:
+        проверява се тук и се прилага при активирането.
+        """
+        for rec in self:
+            if not rec.is_temporary_assignment or not rec.assignment_compensation:
+                continue
+            if not rec.old_wage:
+                continue
+            if float_compare(rec.assignment_compensation, rec.old_wage,
+                             precision_digits=2) < 0:
+                raise ValidationError(_(
+                    "Assignment compensation %(new).2f is lower than the gross "
+                    "remuneration for the main job %(old).2f. Art. 267, "
+                    "para. 3 LC does not allow that.",
+                    new=rec.assignment_compensation, old=rec.old_wage))
 
     # =========================================================================
     # ORM
@@ -773,6 +909,30 @@ class L10nBGHrVersionAmendment(models.Model):
                 self.amendment_number, self.new_work_location)
         if self.new_leave_days:
             vals['l10n_bg_basic_leave_days'] = self.new_leave_days
+
+        # ⚖️ DEF-174 — възнаграждението по чл. 267, ал. 3 КТ вече стига до
+        # версията. Дотук полето беше Monetary без нито един четец, макар да
+        # изглежда точно като него.
+        #
+        # Правото е на възнаграждението за ИЗПЪЛНЯВАНАТА работа, но не по-малко
+        # от брутното за основната. Обвързано е с периода: щом преместването
+        # изтече, отпада и основанието — връщането го поема
+        # (`_l10n_bg_revert_temporary`).
+        #
+        # 🚨 Два източника за една стойност се отказват явно. Заплатата се пише
+        # или от „Ново възнаграждение", или от възнаграждението при
+        # преместване; кажат ли и двете нещо различно, изборът не е наш.
+        if self.is_temporary_assignment and self.assignment_compensation:
+            if (self.new_wage and float_compare(
+                    self.new_wage, self.assignment_compensation,
+                    precision_digits=2) != 0):
+                raise ValidationError(_(
+                    "Amendment %(ref)s states both a new wage (%(wage).2f) and "
+                    "an assignment compensation (%(comp).2f). They disagree — "
+                    "fill in only one.",
+                    ref=self.amendment_number or self.id,
+                    wage=self.new_wage, comp=self.assignment_compensation))
+            vals['wage'] = self.assignment_compensation
 
         # 🚨 DEF-116 т.1в — „Удължаване на срока" приемаше дата и не удължаваше
         # нищо. Грепнат целият модел: нито `contract_date_end`, нито

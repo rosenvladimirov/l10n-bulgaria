@@ -240,19 +240,36 @@
                             <group string="Assignment Details">
                                 <group>
                                     <field name="temporary_assignment_reason"/>
-                                    <field name="assignment_duration_months"/>
+                                    <field name="l10n_bg_assignment_days"/>
+                                    <field name="assignment_compensation"/>
                                 </group>
                                 <group>
-                                    <field name="assignment_location"/>
-                                    <field name="assignment_compensation"/>
+                                    <!-- Заварени, без консуматор: мярката на
+                                         чл. 120 е в календарни дни, а носителят
+                                         на мястото е „Ново работно място". -->
+                                    <field name="assignment_duration_months"
+                                           invisible="not assignment_duration_months"/>
+                                    <field name="assignment_location"
+                                           invisible="not assignment_location"/>
                                 </group>
                             </group>
                             <div class="alert alert-info" role="alert"
                                  style="margin: 16px 0;">
                                 <strong>Legal Note:</strong>
-                                Temporary assignments are regulated by Articles 106-114
-                                of the Bulgarian Labor Code. Maximum duration is
-                                12 months without employee consent.
+                                Art. 120, para. 1 LC: on production necessity or
+                                idle time the employer may assign other work
+                                without the employee's consent — in the same or
+                                another undertaking, but
+                                <strong>within the same settlement or locality</strong>,
+                                for up to <strong>45 calendar days per calendar
+                                year</strong>. During idle time the assignment
+                                lasts as long as the idle time does.
+                                Para. 2 requires the work to match the employee's
+                                qualification and health; para. 3 allows work of
+                                a different character only for compelling reasons.
+                                Art. 267, para. 3 LC: the remuneration is that of
+                                the work performed, but not lower than the gross
+                                remuneration for the main job.
                             </div>
                         </page>
 

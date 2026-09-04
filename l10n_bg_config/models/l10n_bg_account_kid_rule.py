@@ -41,6 +41,11 @@ class L10nBgAccountKidRule(models.Model):
     _description = "Account-code КИД classification rule"
     _order = "classification, account_code"
     _rec_name = "display_name"
+    # Търсене по КОДА на сметката и по описанието. _rec_name е display_name,
+    # което тук се преизчислява без да е декларирано като поле — тоест остава
+    # наследеното от base computed non-stored и стандартният name_search гърми.
+    # _rec_names_search пренасочва search-а към реалните колони.
+    _rec_names_search = ["account_code", "note"]
 
     account_code = fields.Char(
         string="Account code",

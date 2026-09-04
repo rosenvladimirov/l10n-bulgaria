@@ -159,7 +159,7 @@ This module is essential for:
 automatically installs it if not present. It serves as the configuration
 backbone for the entire Bulgarian localization ecosystem.
     """,
-    "version": "18.0.8.6.4",
+    "version": "18.0.8.6.14",
     # OCA Metadata
     "development_status": 'Production/Stable',
     "category": 'Localization',
@@ -168,6 +168,7 @@ backbone for the entire Bulgarian localization ecosystem.
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",
     "depends": [
         "base",
+        "web",
         "bus",
         "mail",
         "account",
@@ -183,6 +184,7 @@ backbone for the entire Bulgarian localization ecosystem.
         "data/res_lang_data.xml",
         "security/ir.model.access.csv",
         "data/l10n.bg.kid.csv",
+        "data/l10n_bg_registration_data.xml",
         "data/l10n_bg_vertical_data.xml",
         "wizards/account_account_tag_bulk_edit_wizard.xml",
         "wizards/account_settings_preview_xml_file.xml",

@@ -4,6 +4,54 @@ All notable changes to the l10n_bg_config module will be documented in this file
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [18.0.8.6.14] - 2026-09-04
+
+Lockstep port of l10n_bg_config 19.0.8.6.5 → 19.0.8.6.14 (registration
+hardening + small fixes). The insignificant-value threshold (19.0 8.7.x) and
+the DEF-154 work-calendar mixin (19.0 8.8.0) are deliberately NOT ported yet:
+their consumers (l10n_bg_tax_admin stock_picking, payroll-ee) are not on 18.0.
+
+### Added
+- `data/l10n_bg_registration_data.xml` (noupdate): seeds
+  `l10n_bg.register_server_url` = https://www.odoo-shell.dev and
+  `l10n_bg.register_enabled` = 1. Without it `server_url` was empty on every
+  18.0 install, so the registration push never left the instance (bus +
+  local record only). The per-client token is NOT in data (public repo); it
+  is provisioned by the server on the first push (see Fixed).
+- Migrations `18.0.8.6.5` / `18.0.8.6.6` / `18.0.8.6.7` (post-migrate):
+  registration ping on upgrade (`post_init_hook` runs only on a fresh
+  install), force-set server URL + enabled on already-installed databases,
+  re-ping with the corrected EE detection. Verbose logging.
+- Migration `18.0.8.6.14`: account 491 „Доверители" → `reconcile = True` on
+  existing databases (matching template row added for new installs).
+- `_rec_names_search` on `l10n.bg.kid` (`code`, `name`) and
+  `l10n.bg.account.kid.rule` (`account_code`, `note`): `_rec_name` is a
+  computed non-stored `display_name`, so the stock `name_search` could not
+  find records by code.
+
+### Fixed
+- Registration: bootstrap token provisioning. The first push goes without a
+  token; the server answers with a per-client token which is stored in
+  `l10n_bg.register_token` for subsequent pushes (19.0 b10a1f4).
+- Registration: EE-module detection counts `state IN ('installed',
+  'to upgrade')`, so the ping issued from post-migrate during a combined `-u`
+  still sees the sibling EE modules (19.0 78101cd).
+- Duplicate visible document-number field on the move form: `l10n_bg_name`
+  (related alias of `l10n_bg_document_number`) is now invisible; the visible
+  field stays `l10n_bg_document_number` from `l10n_bg_reports_config`.
+- Alt+Shift+K API-key generation on the partner form: view
+  `view_res_partner_form_api_key` (`js_class=api_key_res_partner_form`) had
+  been `active=False` since 2026-03-25 (slipped in with an unrelated
+  l10n_bg_api_nra commit); back to `active=True`. `form_view.js`: `_t` with a
+  template literal replaced by `_t("… %s", result)`.
+- Chart template: account 491 „Доверители" (`l10n_bg_491`) defined as
+  reconcilable. It holds money kept by third parties on our behalf (COD
+  couriers, fulfillment partners, intermediaries) and must be matched against
+  their settlements.
+
+### Changed
+- Explicit `web` dependency (backend assets live in `web.assets_backend`).
+
 ## [18.0.8.3.1] - 2026-05-16
 
 ### Fixed

@@ -58,7 +58,7 @@ export class ApiKeyPartnerFormController extends FormController {
         console.log(result);
         // Retrieve the value from the result
         if (result) {
-            const message = _t(`The API Key is: ${result}`);
+            const message = _t("The API Key is: %s", result);
             this.notification.add(message, { type: "info" });
             // Update the model and focus the field in DOM
             if (this.model?.root) {

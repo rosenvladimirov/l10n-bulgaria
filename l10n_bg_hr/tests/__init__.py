@@ -6,3 +6,4 @@ from . import test_temporary_assignment
 from . import test_fixed_term
 from . import test_fixed_term_amendment_revert
 from . import test_contract_type_nomenclature
+from . import test_amendment_way_back

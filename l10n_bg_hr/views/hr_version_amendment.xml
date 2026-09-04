@@ -54,9 +54,18 @@
                             invisible="state != 'approved' or not l10n_bg_effective_in_future"
                             groups="hr.group_hr_manager"/>
                     <field name="l10n_bg_effective_in_future" invisible="1"/>
+                    <!-- DEF-175б: изход от гарда. Без него всяка засечка иска
+                         НОВО ДС с нов номер по същия подписан документ, а
+                         `ir.sequence` не се връща. Няма го за „в сила" и
+                         „изтекло" — там гардът в `write` правилно забранява
+                         промяна на заключените полета. -->
+                    <button name="action_draft" string="Reset to Draft"
+                            type="object"
+                            invisible="state not in ('to_approve', 'approved', 'cancel')"
+                            groups="hr.group_hr_manager"/>
                     <button name="action_cancel" string="Cancel"
                             type="object"
-                            invisible="state in ('active', 'expired')"
+                            invisible="state in ('active', 'expired', 'cancel')"
                             groups="hr.group_hr_manager"/>
                     <field name="state" widget="statusbar"
                            statusbar_visible="draft,to_approve,approved,active"/>

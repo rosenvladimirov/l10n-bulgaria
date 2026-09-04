@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'HR Version Extension',
-    'version': '19.0.2.4.0',
+    'version': '19.0.2.4.1',
     'category': 'Human Resources',
     'summary': 'Extension for HR Version with work location address and contract amendments',
     'description': """

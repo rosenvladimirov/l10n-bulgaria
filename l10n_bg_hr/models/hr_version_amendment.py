@@ -558,6 +558,46 @@ class L10nBGHrVersionAmendment(models.Model):
             raise ValidationError(_("Cannot cancel active or expired amendments."))
         self.state = 'cancel'
 
+    # Състоянията, от които има връщане назад (DEF-175б).
+    #
+    # „В сила" и „изтекло" НЕ са между тях, и това не е пропуск: гардът в
+    # ``write`` правилно забранява промяна на заключените полета там, защото
+    # подписаният документ би се разминал с версията, която е родил.
+    _L10N_BG_STATES_WITH_A_WAY_BACK = ('draft', 'to_approve', 'approved',
+                                       'cancel')
+
+    def action_draft(self):
+        """DEF-175б — от гардовете имаше отказ, но нямаше връщане.
+
+        Състоянията са чернова → за одобрение → одобрено → в сила или изтекло,
+        плюс отказано. Действие за връщане в чернова нямаше, нито бутон.
+
+        Изиграно от Пламена: ДС 345 е създадено без график, подадено, одобрено —
+        и чак при активирането отказа. После графикът е попълнен, активирането
+        пак пада, този път по друга причина, и остава само отказът. Всяка
+        засечка значи НОВО ДС с нов номер по същия подписан документ, а
+        ``ir.sequence`` не се връща.
+
+        🔑 Затова връщането не е удобство, а изход. Гардовете вече отказват
+        рано (DEF-175а); без път назад ранният отказ само мести задънената улица
+        по-напред.
+        """
+        self.ensure_one()
+        if self.state not in self._L10N_BG_STATES_WITH_A_WAY_BACK:
+            raise ValidationError(_(
+                "Amendment %(ref)s is %(state)s and cannot go back to draft. "
+                "The signed document would differ from the contract version it "
+                "produced. Create a new amendment instead.",
+                ref=self.amendment_number or self.id,
+                state=dict(self._fields['state'].selection).get(self.state)))
+        if self.state == 'draft':
+            return
+        predi = self.state
+        self.state = 'draft'
+        self.message_post(body=_(
+            "Reset to draft from %(state)s.",
+            state=dict(self._fields['state'].selection).get(predi)))
+
     # =========================================================================
     # BUSINESS LOGIC
     # =========================================================================
@@ -776,8 +816,28 @@ class L10nBGHrVersionAmendment(models.Model):
             if field_name in iztochnik._fields:
                 carried[field_name] = iztochnik[field_name]
 
+        # 🚨 DEF-175в — смяната на графика влачеше ЦЯЛАТА история на отпуските.
+        #
+        # `hr_holidays` преизчислява отпуските при смяна на календара, а взима
+        # прозореца на ДОГОВОРА (`contract_date_start` / `contract_date_end`),
+        # не на версията. Оттам ядреният `_check_date_state` отказва всяка
+        # промяна по отпуск в състояние „одобрен" и ДС-то пада.
+        #
+        # Носител на Пламена: служител 902 има отпуск 341 за 18–30.12.2025 в
+        # състояние „validate"; ДС за септември 2026 беше отказано заради него.
+        # На същата база 261 от 311 активни служители имат поне един одобрен
+        # отпуск — тоест на практика цялата ведомост.
+        #
+        # ⚖️ Ключът `leave_skip_state_check` на ядрото само ЗАГЛУШАВА проверката;
+        # декемврийският отпуск пак щеше да се преизчисли по нов календар, който
+        # тогава не е действал. Затова стесняваме прозореца: изменение, действащо
+        # от дадена дата, няма работа с отпуск отпреди нея.
+        ctx = {'l10n_bg_amendment_window': (
+            self.date_effective, self.date_end or False)}
+        employee = employee.with_context(**ctx)
         new_version = employee.create_version(
             dict(vals, date_version=self.date_effective))
+        new_version = new_version.with_context(**ctx)
         if carried:
             new_version.write(carried)
         # 🚨 create_version излиза рано и НЕ прилага стойностите, когато вече

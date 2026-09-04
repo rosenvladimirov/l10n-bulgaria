@@ -5,6 +5,7 @@ from datetime import timedelta
 
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+from odoo.tools import float_compare
 
 _logger = logging.getLogger(__name__)
 
@@ -836,8 +837,44 @@ class L10nBGHrVersionAmendment(models.Model):
         ])
         for rec in expired:
             rec.state = 'expired'
-            if rec.is_temporary_assignment:
-                rec._l10n_bg_revert_temporary()
+            # 🚨 DEF-104Б А.2 — гардът беше на ГРЕШНИЯ флаг. Търсенето отгоре
+            # вече реже по `is_temporary` (срочност), а тук се питаше
+            # `is_temporary_assignment` (ТИП — временно преместване). Срочно ДС
+            # по чл. 119, ал. 1 КТ има срочност, но няма тип, тъй че кронът го
+            # обявяваше за изтекло и не връщаше НИЩО.
+            #
+            # ⚖️ Чл. 119, ал. 1 КТ говори за изменение „за определено време",
+            # чл. 120 — за „временно". И в двата случая изтичането трябва да
+            # върне предишното; типът не е признакът, срочността е.
+            rec._l10n_bg_revert_temporary()
+
+    def _l10n_bg_wage_still_ours(self):
+        """Заплатата днес още ли е онази, която ТОВА ДС е поставило.
+
+        Връщането при изтичане е валидно само докато ефектът на споразумението
+        стои. Ако междувременно друго ДС е вдигнало заплатата, връщането към
+        `old_wage` би било мълчаливо намаление на възнаграждение, за което има
+        подписан документ.
+
+        Празно `new_wage` значи, че това ДС изобщо не е пипало заплатата —
+        тогава няма какво да се връща.
+        """
+        self.ensure_one()
+        if not self.new_wage:
+            return False
+        # Въпросът е „към момента на ИЗТИЧАНЕТО", не „днес": кронът може да
+        # хване ДС дни по-късно, а дотогава да е влязла съвсем друга версия.
+        employee = self.version_id.employee_id
+        v_sila = employee._get_version(self.date_end) if self.date_end else employee.version_id
+        tekushta = (v_sila or employee.version_id).wage
+        if float_compare(tekushta, self.new_wage, precision_digits=2) == 0:
+            return True
+        self.message_post(body=_(
+            "Wage not restored on expiry: it is now %(current).2f, while this "
+            "amendment set %(ours).2f. A later change is in force; restoring "
+            "%(previous).2f would silently cut it.",
+            current=tekushta, ours=self.new_wage, previous=self.old_wage))
+        return False
 
     def _l10n_bg_revert_temporary(self):
         """Изтичането ражда НОВА версия от `date_end + 1` с върнатите стойности.
@@ -849,11 +886,30 @@ class L10nBGHrVersionAmendment(models.Model):
 
         ⚖️ Връщат се СЪЩИТЕ носители, които прилагането е сменило: длъжността
         (или заварената квалификационна група), работното място с адреса и
-        ЕКАТТЕ, икономическата дейност. Заплатата НЕ се връща — при временно
-        преместване тя е предмет на отделна уговорка.
+        ЕКАТТЕ, икономическата дейност — и ЗАПЛАТАТА.
+
+        🚨 DEF-104Б А.2: дотук заплатата не се връщаше, а `old_wage` стоеше
+        неизползвано. Обосновката беше „при временно преместване тя е предмет
+        на отделна уговорка". Не е: чл. 267, ал. 3 КТ казва, че при друга
+        работа поради производствена необходимост се плаща възнаграждението за
+        изпълняваната работа, но не по-малко от брутното за основната. Това е
+        последица от закона, обвързана с ПЕРИОДА — свърши ли периодът, отпада и
+        основанието. Мерено: служител 902, ДС 342 — заплатата остана 1000,00
+        вместо да се върне на 613,56.
+
+        🔑 Заплатата се връща само ако още стои онова, което ТОВА ДС я е
+        направило. Смени ли я по-късно друго ДС, връщането би било мълчаливо
+        намаление; тогава не се пипа и причината влиза в чатъра.
+
+        🔲 Същата фигура важи и за длъжността, мястото и дейността — там
+        връщането е безусловно от самото начало. Не се пипа в тази промяна:
+        поведението е заварено, няма измерен носител и разширяването би
+        излязло извън искането. Докладвано отделно.
         """
         self.ensure_one()
         revert = {}
+        if self.old_wage and self._l10n_bg_wage_still_ours():
+            revert['wage'] = self.old_wage
         if self.old_job_id:
             revert['job_id'] = self.old_job_id.id
         elif self.old_position_id:

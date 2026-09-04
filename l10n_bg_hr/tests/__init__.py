@@ -4,3 +4,4 @@ from . import test_amendment_carriers
 from . import test_amendment_hygiene
 from . import test_temporary_assignment
 from . import test_fixed_term
+from . import test_fixed_term_amendment_revert

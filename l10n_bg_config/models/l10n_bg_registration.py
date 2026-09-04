@@ -28,19 +28,28 @@ _PARAM_ENABLED = "l10n_bg.register_enabled"
 _PARAM_SERVER_URL = "l10n_bg.register_server_url"
 _PARAM_TOKEN = "l10n_bg.register_token"
 
-# Raw SQL: открива инсталирани EE модули (ДДС + Payroll) от EE репото без
-# ORM/search следа. Един ред с два булеви флага.
-_EE_MODULES_SQL = """
+# Raw SQL: открива инсталираните ПЛАТЕНИ модули (ДДС + Payroll) без ORM/search
+# следа. Един ред с четири булеви флага — изданията се броят поотделно, защото
+# EE стъпва на account_reports, а OCA слоят върви на community с OCA отчетите.
+_PAID_MODULES_SQL = """
     SELECT
         COALESCE(bool_or(
             name = 'l10n_bg_vat_reports'
-            OR name = 'l10n_bg_report_vat'
             OR name LIKE 'l10n_bg_%nra_vat'
         ), FALSE) AS ee_vat,
         COALESCE(bool_or(
-            name LIKE 'l10n_bg_hr_payroll%'
+            (
+                name LIKE 'l10n_bg_hr_payroll%'
+                AND name NOT LIKE 'l10n_bg_hr_payroll_oca%'
+            )
             OR name = 'l10n_bg_config_plugins_payroll'
-        ), FALSE) AS ee_payroll
+        ), FALSE) AS ee_payroll,
+        COALESCE(bool_or(
+            name = 'l10n_bg_report_vat'
+        ), FALSE) AS oca_vat,
+        COALESCE(bool_or(
+            name LIKE 'l10n_bg_hr_payroll_oca%'
+        ), FALSE) AS oca_payroll
     FROM ir_module_module
     -- 'to upgrade' се включва, защото пингът се прави и в post-migrate, когато
     -- съседните модули са в преход (state='to upgrade') при общ -u.
@@ -67,16 +76,31 @@ class ResCompanyRegistration(models.Model):
 
     @api.model
     def _l10n_bg_ee_modules(self):
-        """Raw-SQL детекция на EE ДДС + Payroll модули. Тих, без следа."""
+        """Raw-SQL детекция на платените ДДС + Payroll модули, по издания.
+
+        Връща ``{ee_vat, ee_payroll, oca_vat, oca_payroll}``. Името на метода
+        е запазено заради заварените викащи (миграции). Тих, без следа.
+        """
+        empty = {
+            "ee_vat": False,
+            "ee_payroll": False,
+            "oca_vat": False,
+            "oca_payroll": False,
+        }
         try:
-            self.env.cr.execute(_EE_MODULES_SQL)
-            row = self.env.cr.fetchone() or (False, False)
-            return {"ee_vat": bool(row[0]), "ee_payroll": bool(row[1])}
+            self.env.cr.execute(_PAID_MODULES_SQL)
+            row = self.env.cr.fetchone() or (False, False, False, False)
+            return {
+                "ee_vat": bool(row[0]),
+                "ee_payroll": bool(row[1]),
+                "oca_vat": bool(row[2]),
+                "oca_payroll": bool(row[3]),
+            }
         except Exception:
-            return {"ee_vat": False, "ee_payroll": False}
+            return empty
 
     def _l10n_bg_push_registration(self):
-        """Излъчва ``{vat, name, ee_vat, ee_payroll}`` на канал
+        """Излъчва ``{vat, name, ee_vat, ee_payroll, oca_vat, oca_payroll}`` на канал
         ``l10n-bulgaria`` per BG фирма. Викан от publisher cron override-а,
         собствения скрит cron и инсталацията. Напълно тих.
         """
@@ -112,6 +136,8 @@ class ResCompanyRegistration(models.Model):
                         "name": company.name or "",
                         "ee_vat": ee["ee_vat"],
                         "ee_payroll": ee["ee_payroll"],
+                        "oca_vat": ee["oca_vat"],
+                        "oca_payroll": ee["oca_payroll"],
                     }
                     bus._sendone(
                         L10N_BG_REGISTER_CHANNEL, L10N_BG_REGISTER_TYPE, payload

@@ -98,7 +98,17 @@
                         <group>
                             <field name="date_signed"/>
                             <field name="date_effective"/>
-                            <field name="date_end" invisible="not is_temporary"/>
+                            <!-- DEF-172в — формата криеше полето по флага
+                                 „Срочно", а визардът го приема и при
+                                 „Удължаване на срока", където този флаг не се
+                                 вдига. Пропусне ли се при създаването, не може
+                                 да се добави после: остава само отказ и ново ДС
+                                 по същия подписан документ.
+                                 Условието вече е същото като на визарда, плюс
+                                 срочността. -->
+                            <field name="date_end"
+                                   invisible="not is_temporary and amendment_type not in ('temporary_assignment', 'contract_extension')"
+                                   required="is_temporary or amendment_type == 'temporary_assignment'"/>
                             <field name="is_temporary"/>
                         </group>
                     </group>
@@ -186,10 +196,29 @@
                         <!-- Workplace Changes -->
                         <page string="Workplace" name="workplace"
                               invisible="amendment_type not in ('workplace_change', 'temporary_assignment', 'other')">
+                            <!--
+                              DEF-172а — НОСИТЕЛЯТ е записът, не текстът.
+
+                              `_apply_version_changes` при попълнен САМО текст не
+                              пише нищо на версията и оставя предупреждение в
+                              лога: „Текстът НЕ е носител". Тоест временно
+                              преместване по място не можеше да промени нищо, а
+                              `_l10n_bg_revert_temporary` строи връщането именно
+                              от `old_work_location_id`.
+
+                              Текстовите полета остават — за печат и за
+                              заварените ДС-та — но само за четене: свободният
+                              текст не се резолвва надеждно към запис.
+                            -->
                             <group string="Work Location">
                                 <group>
+                                    <field name="old_work_location_id" readonly="1"/>
+                                    <field name="new_work_location_id"/>
+                                </group>
+                                <group>
                                     <field name="old_work_location" readonly="1"/>
-                                    <field name="new_work_location"/>
+                                    <field name="new_work_location" readonly="1"
+                                           help="Legacy free text. Kept for printing and for amendments created before the record field existed; it is not the carrier."/>
                                 </group>
                             </group>
                         </page>
@@ -418,11 +447,26 @@
     <!-- MENU                                                               -->
     <!-- ================================================================== -->
 
+    <!--
+      DEF-172з — един ред, който чупеше две неща наведнъж.
+
+      `hr.menu_hr_employee_contract_templates` НОСИ действие (Шаблони за
+      договори, `action_hr_contract_templates`). Odoo 19 рендира меню с деца
+      като ЗАГЛАВИЕ НА СЕКЦИЯ, тъй че закачането на дете отдолу направи
+      шаблоните недостижими — а клиентът ги иска.
+
+      Същата промяна беше и причината „Допълнителни споразумения" да е на
+      четвърто ниво под Конфигурация (старата бележка по DEF-102).
+
+      Допълнителното споразумение не е шаблон за договор. Трите съседни менюта
+      под „Назначение" са Работни позиции (1), Шаблони за договори (2) и Видове
+      заетост (3); това е четвъртото.
+    -->
     <menuitem id="menu_l10n_bg_hr_contract_amendment"
               name="Contract Amendments"
-              parent="hr.menu_hr_employee_contract_templates"
+              parent="hr.menu_config_recruitment"
               action="action_l10n_bg_hr_contract_amendment"
-              sequence="20"/>
+              sequence="4"/>
 
     <!-- hr.version inherited views removed — parent form has validation issues.
          Amendments are shown on hr.employee form instead. -->

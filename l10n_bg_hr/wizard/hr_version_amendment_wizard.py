@@ -99,9 +99,23 @@ class HrVersionAmendmentWizard(models.TransientModel):
         compute='_compute_old_values', store=True, readonly=True)
     new_leave_days = fields.Integer(string='New Leave Days')
 
-    old_work_location = fields.Char(string='Current Work Location',
+    # 🔑 DEF-172а — НОСИТЕЛЯТ е записът, не текстът. `_apply_version_changes`
+    # при попълнен само текст не пише нищо на версията, а `_l10n_bg_revert_temporary`
+    # строи връщането от `old_work_location_id`. Визардът предлагаше само текста,
+    # тъй че временно преместване по МЯСТО не можеше да промени нищо.
+    old_work_location_id = fields.Many2one(
+        'hr.work.location', string='Current Work Location',
         compute='_compute_old_values', store=True, readonly=True)
-    new_work_location = fields.Char(string='New Work Location')
+    new_work_location_id = fields.Many2one(
+        'hr.work.location', string='New Work Location',
+        help="The work location record. Its address and the EKATTE code of the "
+             "settlement follow from it.")
+
+    # Заварените текстови полета — за печат и за старите ДС-та, само за четене.
+    old_work_location = fields.Char(string='Current Work Location (text)',
+        compute='_compute_old_values', store=True, readonly=True)
+    new_work_location = fields.Char(string='New Work Location (text)',
+        readonly=True)
 
     # Домейнът на графика стъпва на фирмата на версията — календарите са
     # фирмени, а визардът иначе би предложил чуждите.
@@ -183,6 +197,7 @@ class HrVersionAmendmentWizard(models.TransientModel):
             wiz.old_working_time_type = v.l10n_bg_working_time_type if v else False
             wiz.old_leave_days = v.l10n_bg_total_leave_days if v else 0
             wiz.old_work_location = (v.work_location or '') if v else ''
+            wiz.old_work_location_id = v.work_location_id if v else False
             wiz.old_resource_calendar_id = v.resource_calendar_id if v else False
             wiz.old_daily_hours = v.l10n_bg_daily_hours if v else 0.0
             wiz.old_weekly_hours = (
@@ -203,6 +218,7 @@ class HrVersionAmendmentWizard(models.TransientModel):
             'old_working_time_type': self.old_working_time_type,
             'old_leave_days': self.old_leave_days,
             'old_work_location': self.old_work_location,
+            'old_work_location_id': self.old_work_location_id.id or False,
             'old_economic_activity_id': self.version_id.l10n_bg_economic_activity_id.id if self.version_id.l10n_bg_economic_activity_id else False,
             'old_resource_calendar_id': self.version_id.resource_calendar_id.id,
             'old_daily_hours': self.version_id.l10n_bg_daily_hours,
@@ -220,8 +236,8 @@ class HrVersionAmendmentWizard(models.TransientModel):
             vals['new_working_time_type'] = self.new_working_time_type
         if self.new_leave_days:
             vals['new_leave_days'] = self.new_leave_days
-        if self.new_work_location:
-            vals['new_work_location'] = self.new_work_location
+        if self.new_work_location_id:
+            vals['new_work_location_id'] = self.new_work_location_id.id
         if self.new_resource_calendar_id:
             vals['new_resource_calendar_id'] = self.new_resource_calendar_id.id
 

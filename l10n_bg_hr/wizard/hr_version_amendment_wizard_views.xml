@@ -98,12 +98,16 @@
                     <!-- Workplace -->
                     <page string="Workplace" name="workplace"
                           invisible="amendment_type not in ('workplace_change', 'temporary_assignment')">
+                        <!-- DEF-172а: носителят е ЗАПИСЪТ. Текстът остава само
+                             за четене — не се резолвва надеждно към запис. -->
                         <group>
                             <group>
+                                <field name="old_work_location_id" readonly="1"/>
                                 <field name="old_work_location" readonly="1"/>
                             </group>
                             <group>
-                                <field name="new_work_location"/>
+                                <field name="new_work_location_id"/>
+                                <field name="new_work_location" readonly="1"/>
                             </group>
                         </group>
                     </page>

@@ -668,6 +668,37 @@ class L10nBGHrVersionAmendment(models.Model):
                 cal=calendar.display_name, daily=dnevni, weekly=sedmichni))
         return calendar
 
+    # Типовете, чието съдържание е ТЕКСТ, а не величина по договора.
+    # За тях `vals` е празен по конструкция и това не е дефект.
+    _L10N_BG_TEXTUAL_TYPES = ('other', 'additional_duties')
+
+    def _l10n_bg_is_textual(self):
+        """Договореното при този тип е описание, не стойност по договора."""
+        self.ensure_one()
+        return (self.amendment_type in self._L10N_BG_TEXTUAL_TYPES
+                and bool(self.description))
+
+    def _l10n_bg_apply_textual(self):
+        """Текстово споразумение: следа върху действащата версия, без нова.
+
+        Раждането на версия без нито една променена стойност би описало промяна,
+        каквато няма — и би разцепило месеца във фиша за нищо. Затова тук се
+        записва само следата, а `applied_version_id` сочи версията, действала на
+        датата на влизане в сила.
+        """
+        self.ensure_one()
+        employee = self.version_id.employee_id
+        version = (employee._get_version(self.date_effective)
+                   if self.date_effective else False) or self.version_id
+        version.message_post(
+            body=_("Amendment %(ref)s in force from %(date)s: %(text)s",
+                   ref=self.amendment_number or self.id,
+                   date=self.date_effective,
+                   text=self.description),
+            subject=_("Contract Amendment"))
+        self.applied_version_id = version
+        return version
+
     def _apply_version_changes(self):
         """Apply amendment changes as a NEW version starting on the effective date."""
         self.ensure_one()
@@ -743,6 +774,18 @@ class L10nBGHrVersionAmendment(models.Model):
         if self.new_leave_days:
             vals['l10n_bg_basic_leave_days'] = self.new_leave_days
 
+        # 🚨 DEF-116 т.1в — „Удължаване на срока" приемаше дата и не удължаваше
+        # нищо. Грепнат целият модел: нито `contract_date_end`, нито
+        # `l10n_bg_fixed_term_end` се срещаха при прилагането.
+        #
+        # ⚖️ Записва се СРОКЪТ, не прекратяването (ADR-0017). Чл. 68 КТ дава
+        # уговорен срок, който може да изтече, без някой да прекрати; тогава
+        # чл. 69, ал. 1 действа сам. `contract_date_end` е прекратяването и не
+        # се пипа оттук.
+        if (self.amendment_type == 'contract_extension' and self.date_end
+                and 'l10n_bg_fixed_term_end' in self.version_id._fields):
+            vals['l10n_bg_fixed_term_end'] = self.date_end
+
         # DEF-116: ДС за работно време СМЕНЯ и календара, или отказва.
         #
         # Досега се пренасяше само ЕТИКЕТЪТ (`l10n_bg_working_time_type`) и
@@ -769,6 +812,18 @@ class L10nBGHrVersionAmendment(models.Model):
                     vals['l10n_bg_daily_hours'] = calendar._get_hours_per_day()
                 if 'l10n_bg_weekly_hours' in self.version_id._fields:
                     vals['l10n_bg_weekly_hours'] = calendar._get_hours_per_week()
+
+        if not vals and self._l10n_bg_is_textual():
+            # 🚨 DEF-116 т.1в — „Друго" и „Допълнителни задължения" НЯМАТ
+            # собствено поле, което да мени версията. `vals` при тях е празен по
+            # конструкция, тъй че отказът по-долу ги правеше неприложими при
+            # каквито и да е обстоятелства. Изиграно с ДС 354.
+            #
+            # ⚖️ Договореното е текст, не величина: допълнителни задължения без
+            # промяна на възнаграждението са редовно споразумение по чл. 119 КТ.
+            # Затова НЕ се ражда версия — раждането ѝ би описало промяна, каквато
+            # няма. Следата отива в чатъра на версията, действала на датата.
+            return self._l10n_bg_apply_textual()
 
         if not vals:
             # 🚨 Дотук се излизаше ТИХО, а извикващият вдигаше състоянието на
@@ -1015,29 +1070,77 @@ class L10nBGHrVersionAmendment(models.Model):
         return nova
 
     def get_amendment_summary(self):
-        """Human-readable summary of changes."""
+        """Какво мени това ДС — на човешки език (DEF-116 т.1г).
+
+        Резюмето се чете на два екрана и на хартия: полето „Промени" на картона
+        на служителя и бланката на самото споразумение. Три неща не бяха наред.
+
+        🚨 **Графикът липсваше.** ``new_resource_calendar_id`` слезе на
+        01.09.2026 по DEF-116 т.1б и стана НОСИТЕЛЯТ на работното време, но
+        резюмето изброяваше шест величини без него. Мерено от Пламена: ДС 348 и
+        346 менят само графика и дават резюме '' — празно, и на екрана, и на
+        хартията.
+
+        🚨 **Нямаше проверка за равенство.** ДС 344 с еднакви стари и нови
+        стойности пишеше „Заплата: 1517.60 → 1517.60", тоест отчиташе промяна
+        там, където няма.
+
+        🚨 **Списъчните полета печатаха технически стойности** — „Работно време:
+        full_time → part_time" вместо етикетите. Етикетът минава през превод,
+        техническата стойност — не; на хартията излизаше английски идентификатор.
+
+        🔑 И работното място вече се чете от ЗАПИСА, когато го има. Текстовите
+        полета са заварени (DEF-172а) и не са носител.
+        """
         self.ensure_one()
         changes = []
-        if self.old_wage and self.new_wage:
-            changes.append(_('Wage: %.2f → %.2f') % (self.old_wage, self.new_wage))
+
+        def _etiket(ime_na_pole, stoynost):
+            """Етикетът на списъчна стойност, преведен — не суровият код."""
+            if not stoynost:
+                return stoynost
+            izbor = dict(self._fields[ime_na_pole]._description_selection(self.env))
+            return izbor.get(stoynost, stoynost)
+
+        if self.new_wage and self.old_wage != self.new_wage:
+            changes.append(_('Wage: %(old).2f → %(new).2f',
+                             old=self.old_wage, new=self.new_wage))
         # Длъжността е носителят и върви ПРЕДИ шифъра — резюмето се чете и
         # в бланката, където редът на двете определя кое човекът приема за
         # същинската промяна.
         if self.new_job_id and self.old_job_id != self.new_job_id:
-            changes.append(_('Job Position: %s → %s') % (
-                self.old_job_id.name or '-', self.new_job_id.name))
-        if self.old_position_id and self.new_position_id:
-            changes.append(_('NKPD Code: %s → %s') % (
-                self.old_position_id.name, self.new_position_id.name))
-        if self.old_work_location and self.new_work_location:
-            changes.append(_('Location: %s → %s') % (
-                self.old_work_location, self.new_work_location))
-        if self.old_working_time_type and self.new_working_time_type:
-            changes.append(_('Working Time: %s → %s') % (
-                self.old_working_time_type, self.new_working_time_type))
-        if self.old_leave_days and self.new_leave_days:
-            changes.append(_('Leave Days: %d → %d') % (
-                self.old_leave_days, self.new_leave_days))
+            changes.append(_('Job Position: %(old)s → %(new)s',
+                             old=self.old_job_id.name or '-',
+                             new=self.new_job_id.name))
+        if self.new_position_id and self.old_position_id != self.new_position_id:
+            changes.append(_('NKPD Code: %(old)s → %(new)s',
+                             old=self.old_position_id.name or '-',
+                             new=self.new_position_id.name))
+        if (self.new_work_location_id
+                and self.old_work_location_id != self.new_work_location_id):
+            changes.append(_('Work Location: %(old)s → %(new)s',
+                             old=self.old_work_location_id.display_name or '-',
+                             new=self.new_work_location_id.display_name))
+        elif (self.new_work_location
+                and self.old_work_location != self.new_work_location):
+            changes.append(_('Work Location: %(old)s → %(new)s',
+                             old=self.old_work_location or '-',
+                             new=self.new_work_location))
+        if (self.new_working_time_type
+                and self.old_working_time_type != self.new_working_time_type):
+            changes.append(_('Working Time: %(old)s → %(new)s',
+                             old=_etiket('old_working_time_type',
+                                         self.old_working_time_type) or '-',
+                             new=_etiket('new_working_time_type',
+                                         self.new_working_time_type)))
+        if (self.new_resource_calendar_id
+                and self.old_resource_calendar_id != self.new_resource_calendar_id):
+            changes.append(_('Working Schedule: %(old)s → %(new)s',
+                             old=self.old_resource_calendar_id.display_name or '-',
+                             new=self.new_resource_calendar_id.display_name))
+        if self.new_leave_days and self.old_leave_days != self.new_leave_days:
+            changes.append(_('Leave Days: %(old)d → %(new)d',
+                             old=self.old_leave_days, new=self.new_leave_days))
         return '\n'.join(changes)
 
     # =========================================================================

@@ -8,3 +8,4 @@ from . import test_fixed_term_amendment_revert
 from . import test_contract_type_nomenclature
 from . import test_amendment_way_back
 from . import test_carriers_are_reachable
+from . import test_amendment_summary_and_empty_types

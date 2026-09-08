@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import _, api, fields, models
 
 
 class HrEmployee(models.Model):
@@ -132,3 +132,61 @@ class HrEmployee(models.Model):
             ).sorted('date_effective', reverse=True)[:1]
             employee.l10n_bg_last_amendment_date = last.date_effective if last else False
             employee.l10n_bg_last_amendment_summary = last.get_amendment_summary() if last else ''
+
+    # =========================================================================
+    # РЕШЕНИЯ НА ТЕЛК/НЕЛК
+    # =========================================================================
+    #
+    # Моделът е пренесен от `-v20` (виж `telk_decision.py`). Тук стоят само
+    # връзката и бързият достъп; резолвирането по дата НЕ се преписва —
+    # ползва се `decision_at` / `latest_for` на самия модел, за да има ЕДИН
+    # отговор на въпроса „кое решение важи".
+
+    l10n_bg_telk_decision_ids = fields.One2many(
+        'l10n_bg.telk.decision', 'employee_id',
+        string='TELK/NELK Decisions', groups='hr.group_hr_user')
+    l10n_bg_telk_decision_count = fields.Integer(
+        string='Decisions', compute='_compute_l10n_bg_telk_decision_count')
+    l10n_bg_telk_current_id = fields.Many2one(
+        'l10n_bg.telk.decision', string='Decision in Force',
+        compute='_compute_l10n_bg_telk_current_id', groups='hr.group_hr_user',
+        help="The decision in force today. History is kept in full — a new "
+             "decision does not overwrite the previous one.")
+    l10n_bg_telk_expired = fields.Boolean(
+        string='Decision Expired', compute='_compute_l10n_bg_telk_current_id',
+        help="There is a decision on file, but none of them is in force today "
+             "— which is a different situation from having no decision at all.")
+
+    @api.depends('l10n_bg_telk_decision_ids')
+    def _compute_l10n_bg_telk_decision_count(self):
+        for employee in self:
+            employee.l10n_bg_telk_decision_count = len(
+                employee.l10n_bg_telk_decision_ids)
+
+    @api.depends('l10n_bg_telk_decision_ids.date_from',
+                 'l10n_bg_telk_decision_ids.date_to')
+    def _compute_l10n_bg_telk_current_id(self):
+        """🔑 „Няма решение" и „решението е изтекло" са РАЗЛИЧНИ положения.
+
+        Първото иска да се подаде документ, второто — преосвидетелстване.
+        Затова се четат и двата метода на модела, не само действащото.
+        """
+        Decision = self.env['l10n_bg.telk.decision']
+        dnes = fields.Date.context_today(self)
+        for employee in self:
+            deystvashto = Decision.decision_at(employee, dnes)
+            employee.l10n_bg_telk_current_id = deystvashto
+            employee.l10n_bg_telk_expired = bool(
+                not deystvashto and Decision.latest_for(employee))
+
+    def action_l10n_bg_open_telk_decisions(self):
+        """Отваря решенията на този служител — от бутона на формата."""
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('TELK/NELK Decisions'),
+            'res_model': 'l10n_bg.telk.decision',
+            'view_mode': 'list,form',
+            'domain': [('employee_id', '=', self.id)],
+            'context': {'default_employee_id': self.id},
+        }

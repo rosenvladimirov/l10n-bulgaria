@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_l10n_bg_telk_decision_list" model="ir.ui.view">
+        <field name="name">l10n_bg.telk.decision.list</field>
+        <field name="model">l10n_bg.telk.decision</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="employee_id"/>
+                <field name="issuing_body"/>
+                <field name="number"/>
+                <field name="date_decision" optional="hide"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="percent"/>
+                <field name="diagnosis" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_l10n_bg_telk_decision_form" model="ir.ui.view">
+        <field name="name">l10n_bg.telk.decision.form</field>
+        <field name="model">l10n_bg.telk.decision</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="number"/>
+                        <h1><field name="number" placeholder="e.g. 1234/2026"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="issuing_body"/>
+                            <field name="date_decision"/>
+                            <field name="diagnosis" placeholder="Optional"/>
+                        </group>
+                        <group>
+                            <field name="percent"/>
+                            <field name="date_from"/>
+                            <field name="date_to" placeholder="Empty = no expiry"/>
+                                        <field name="active" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="status"
+                         invisible="percent &lt; 50">
+                        At or above 50%: the monthly tax relief under Art. 18(2)
+                        PITA applies, and the basic annual leave is at least 26
+                        working days under Art. 319 LC.
+                    </div>
+                    <notebook>
+                        <page string="Notes" name="notes">
+                            <field name="note" placeholder="Anything the payroll officer needs to know about this decision."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_l10n_bg_telk_decision_search" model="ir.ui.view">
+        <field name="name">l10n_bg.telk.decision.search</field>
+        <field name="model">l10n_bg.telk.decision</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_id"/>
+                <field name="number"/>
+                <!-- Филтрите питат ДАТИТЕ: пренесеният модел не носи изчислено
+                     състояние, за да има един източник на истината.
+                     🚨 Групиращите филтри стоят ДИРЕКТНО в search — обвивката
+                     `<group expand="0">` е невалидна в 19.0 (схемата очаква в
+                     нея `field`, а `expand` е премахнат) и събаря целия
+                     регистър, не само изгледа. Мерено 08.09.2026. -->
+                <filter name="in_force" string="In force"
+                        domain="[('date_from', '&lt;=', context_today().strftime('%Y-%m-%d')), '|', ('date_to', '=', False), ('date_to', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="expired" string="Expired"
+                        domain="[('date_to', '!=', False), ('date_to', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <filter name="over_threshold" string="At or over 50%"
+                        domain="[('percent', '&gt;=', 50)]"/>
+                <separator/>
+                <filter name="group_by_employee" string="Employee"
+                        context="{'group_by': 'employee_id'}"/>
+                <filter name="group_by_from" string="In force from"
+                        context="{'group_by': 'date_from'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_l10n_bg_telk_decision" model="ir.actions.act_window">
+        <field name="name">TELK/NELK Decisions</field>
+        <field name="res_model">l10n_bg.telk.decision</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_in_force': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Record a TELK or NELK decision</p>
+            <p>History is kept in full: a new decision does not overwrite the
+               previous one, so past payroll periods keep the percentage they
+               were calculated with.</p>
+        </field>
+    </record>
+
+    <!-- Бутонът на формата на служителя: брой решения + бърз достъп -->
+    <record id="view_employee_form_l10n_bg_telk" model="ir.ui.view">
+        <field name="name">hr.employee.form.l10n_bg.telk</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_l10n_bg_open_telk_decisions"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-wheelchair"
+                        groups="hr.group_hr_user"
+                        invisible="l10n_bg_telk_decision_count == 0">
+                    <field name="l10n_bg_telk_decision_count" widget="statinfo"
+                           string="TELK/NELK"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Менюто застава при „Допълнителни споразумения" — същият родител,
+         сверен в живата база 08.09.2026: `hr.menu_config_recruitment`. -->
+    <menuitem id="menu_l10n_bg_telk_decision"
+              name="TELK/NELK Decisions"
+              parent="hr.menu_config_recruitment"
+              action="action_l10n_bg_telk_decision"
+              sequence="5"/>
+
+</odoo>

@@ -30,6 +30,7 @@ class TestTypesWithoutContent(TransactionCase):
         cls.employee = cls.env["hr.employee"].create({
             "name": "Тест Празни Типове",
             "company_id": cls.env.company.id,
+            "date_version": "2026-01-01",
         })
         cls.version = cls.employee.version_id
         cls.version.write({"wage": 1000.0})
@@ -115,6 +116,7 @@ class TestAmendmentSummary(TransactionCase):
         cls.employee = cls.env["hr.employee"].create({
             "name": "Тест Резюме",
             "company_id": cls.env.company.id,
+            "date_version": "2026-01-01",
         })
         cls.version = cls.employee.version_id
         cls.version.write({"wage": 1517.60})

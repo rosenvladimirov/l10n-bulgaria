@@ -430,6 +430,14 @@ class L10nBGHrVersionAmendment(models.Model):
     # Чл. 120, ал. 1 КТ — 45 календарни дни през една календарна година.
     _L10N_BG_ART120_DAYS_PER_YEAR = 45
 
+    # Основанията, при които работодателят възлага БЕЗ съгласие и затова е
+    # обвързан с тавана. Останалите („заместване", „друго") се уговарят по
+    # чл. 119, ал. 1 и не се ограничават от чл. 120.
+    _L10N_BG_ART120_GROUNDS = (
+        'production_necessity', 'idle_time', 'urgent_work',
+        'natural_disaster', 'force_majeure',
+    )
+
     @api.depends('date_effective', 'date_end', 'is_temporary_assignment')
     def _compute_l10n_bg_assignment_days(self):
         """Календарните дни на преместването — от датите, не от второ поле."""
@@ -460,6 +468,17 @@ class L10nBGHrVersionAmendment(models.Model):
         for rec in self:
             if not rec.is_temporary_assignment or not rec.date_effective:
                 continue
+            # 🚨 Таванът е на ЧЛ. 120, а чл. 120 урежда възлагане БЕЗ съгласието
+            # на работника — едностранна заповед. Допълнителното споразумение е
+            # подписано съгласие по чл. 119, ал. 1, и там таван няма: страните
+            # могат да уговорят каквото решат, за колкото решат.
+            #
+            # Затова таванът важи само за основанията, които СА по чл. 120.
+            # Слагането му върху всяко „Временно преместване" спираше законни
+            # тримесечни договорки — видя се веднага в заварените тестове.
+            if rec.temporary_assignment_reason not in self._L10N_BG_ART120_GROUNDS:
+                continue
+            # Ал. 1: „а в случаи на престой — докато той продължава".
             if rec.temporary_assignment_reason == 'idle_time':
                 continue
             if not rec.l10n_bg_assignment_days:
@@ -470,7 +489,10 @@ class L10nBGHrVersionAmendment(models.Model):
                 ('employee_id', '=', rec.employee_id.id),
                 ('is_temporary_assignment', '=', True),
                 ('state', 'in', ('approved', 'active', 'expired')),
-                ('temporary_assignment_reason', '!=', 'idle_time'),
+                # Търсим САМО другите премествания по чл. 120 — тези по
+                # чл. 119 не влизат в неговия таван.
+                ('temporary_assignment_reason', 'in',
+                 [g for g in self._L10N_BG_ART120_GROUNDS if g != 'idle_time']),
                 ('date_effective', '>=', date(godina, 1, 1)),
                 ('date_effective', '<=', date(godina, 12, 31)),
             ])
@@ -1050,8 +1072,24 @@ class L10nBGHrVersionAmendment(models.Model):
         ctx = {'l10n_bg_amendment_window': (
             self.date_effective, self.date_end or False)}
         employee = employee.with_context(**ctx)
+        # 🚨 Календарът НЕ се подава на раждането, а слиза заедно с типа в
+        # записа по-долу.
+        #
+        # Ядрото ражда версията на две стъпки: копира заварената с
+        # `resource_calendar_id` от подадените стойности, а всичко останало
+        # записва СЛЕД това. Дадем ли календара при копирането, между двете
+        # стъпки версията носи НОВИЯ календар и СТАРИЯ тип работно време — тоест
+        # „пълно работно време" при четиричасов график. Проверката за
+        # съвместимост (DEF-116 т.1д) вижда точно това междинно състояние и
+        # отказва законна промяна.
+        #
+        # Копието остава със стария календар за един миг, после записът слага
+        # календара и типа ЗАЕДНО. Куката на отпуските се задейства при записа
+        # вместо при копирането — същият ход, само по-късно с една стъпка.
+        vals_bez_kalendar = {k: v for k, v in vals.items()
+                             if k != 'resource_calendar_id'}
         new_version = employee.create_version(
-            dict(vals, date_version=self.date_effective))
+            dict(vals_bez_kalendar, date_version=self.date_effective))
         new_version = new_version.with_context(**ctx)
         if carried:
             new_version.write(carried)

@@ -30,6 +30,7 @@ class TestArticle120(TransactionCase):
         cls.employee = cls.env["hr.employee"].create({
             "name": "Тест Чл. 120",
             "company_id": cls.env.company.id,
+            "date_version": "2026-01-01",
         })
         cls.version = cls.employee.version_id
         cls.version.write({"wage": 1000.0})
@@ -111,8 +112,13 @@ class TestArticle120(TransactionCase):
 
     def test_an_unknown_settlement_does_not_block(self):
         """🚨 Регресия: непопълнен адрес не е доказателство за нарушение."""
+        # `address_id` е задължителен в ядрото — „без населено място“ значи
+        # адрес БЕЗ град, не липсващ адрес.
+        bez_grad_partner = self.env["res.partner"].create({
+            "name": "Адрес без град", "city": False})
         bez_grad = self.env["hr.work.location"].create({
-            "name": "Обект без адрес", "company_id": self.env.company.id})
+            "name": "Обект без адрес", "company_id": self.env.company.id,
+            "address_id": bez_grad_partner.id})
         amd = self._premestvane(
             old_work_location_id=self.mesto_tuk.id,
             new_work_location_id=bez_grad.id)

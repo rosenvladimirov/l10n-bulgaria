@@ -1203,3 +1203,208 @@ msgstr "Уговореният край на срочния договор (чл
 #: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_after_term_contract_type_id
 msgid "What the employment becomes once the fixed term lapses. Filled in — a new version is born on the next day under this ground. Left EMPTY — the contract is terminated on the term date."
 msgstr "В какво преминава правоотношението след изтичане на срока. Попълнено — ражда се нова версия от следващия ден на това основание. ПРАЗНО — договорът се прекратява на датата на срока."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_id_card_number
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_version__l10n_bg_id_card_number
+msgid "ID Card No"
+msgstr "Лична карта №"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_id_card_expiry
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_version__l10n_bg_id_card_expiry
+msgid "ID Card Expires On"
+msgstr "Лична карта — валидна до"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_id_card_number
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_id_card_number
+msgid "Bulgarian identity card, or the residence document of a third-country national."
+msgstr "Българска лична карта или документът за пребиваване на гражданин на трета държава."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_protection_status
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_version__l10n_bg_protection_status
+msgid "Protection Status"
+msgstr "Закрила"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_protection_status
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_protection_status
+msgid "Ground of residence under the Asylum and Refugees Act."
+msgstr "Основание за пребиваване по Закона за убежището и бежанците."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_version__l10n_bg_protection_status__refugee
+msgid "Refugee Status"
+msgstr "Статут на бежанец"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_version__l10n_bg_protection_status__humanitarian
+msgid "Humanitarian Status"
+msgstr "Хуманитарен статут"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_version__l10n_bg_protection_status__temporary
+msgid "Temporary Protection"
+msgstr "Временна закрила"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_version__l10n_bg_protection_status__other
+msgid "Other Ground"
+msgstr "Друго основание"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_protection_expiry
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_version__l10n_bg_protection_expiry
+msgid "Protection Expires On"
+msgstr "Закрилата изтича на"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_personal_doctor
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_version__l10n_bg_personal_doctor
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_personal_documents
+msgid "Personal Doctor"
+msgstr "Личен лекар"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_personal_doctor
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_personal_doctor
+msgid "General practitioner, as declared by the employee."
+msgstr "Общопрактикуващ лекар, деклариран от служителя."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_personal_doctor_phone
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_version__l10n_bg_personal_doctor_phone
+msgid "Doctor Phone"
+msgstr "Телефон на лекаря"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_personal_doctor_address
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_version__l10n_bg_personal_doctor_address
+msgid "Doctor Address"
+msgstr "Адрес на лекаря"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_disability_expiry
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_version__l10n_bg_disability_expiry
+msgid "Disability Decision Expires On"
+msgstr "Срок на решението на ТЕЛК/НЕЛК"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_disability_expiry
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_disability_expiry
+msgid "Expiry of the TELK/NELK decision. When it lapses, both the monthly PIT relief and the Art. 319 LC leave floor stop applying."
+msgstr "Срок на решението на ТЕЛК/НЕЛК. С изтичането му отпадат и месечното данъчно облекчение, и подът на отпуска по чл. 319 КТ."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_tax_number
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_version__l10n_bg_tax_number
+msgid "Foreign Tax Number"
+msgstr "Данъчен номер (чужд)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_tax_number
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_version__l10n_bg_tax_number
+msgid "Tax identification number issued by the state of birth or citizenship of a foreign employee. Bulgarian citizens are identified by their EGN in Identification No."
+msgstr "Данъчен идентификационен номер, издаден от държавата по раждане или гражданство на чуждестранен служител. Българските граждани се идентифицират с ЕГН в „Идентификационен №“."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_work_nkpd
+msgid "NKPD Position"
+msgstr "НКПД"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_personal_documents
+msgid "Expires on"
+msgstr "Изтича на"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_personal_documents
+msgid "Diploma"
+msgstr "Диплома"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:0
+msgid "No formal education"
+msgstr "Без образование"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:0
+msgid "Primary (Grades I-IV)"
+msgstr "Начално (I–IV клас)"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:0
+msgid "Basic education (Art. 24 (1) 1 PSEA)"
+msgstr "Основно образование (чл. 24, ал. 1, т. 1 ЗПУО)"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:0
+msgid "Secondary education (Art. 24 (1) 2 PSEA)"
+msgstr "Средно образование (чл. 24, ал. 1, т. 2 ЗПУО)"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:0
+msgid "Professional Bachelor (Art. 42 (1) 1 HEA)"
+msgstr "Професионален бакалавър (чл. 42, ал. 1, т. 1 ЗВО)"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:0
+msgid "Bachelor"
+msgstr "Бакалавър"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:0
+msgid "Master"
+msgstr "Магистър"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:0
+msgid "Doctor"
+msgstr "Доктор"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:0
+msgid "Doctor of Sciences"
+msgstr "Доктор на науките"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_version.py:0
+msgid "ID card"
+msgstr "Лична карта"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_version.py:0
+msgid "Passport"
+msgstr "Паспорт"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_version.py:0
+msgid "Protection status"
+msgstr "Закрила"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_version.py:0
+msgid "Work permit"
+msgstr "Разрешение за работа"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_version.py:0
+msgid "Visa"
+msgstr "Виза"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_version.py:0
+msgid "Disability decision (TELK/NELK)"
+msgstr "Решение на ТЕЛК/НЕЛК"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_version.py:0
+msgid "%(doc)s expires on %(date)s"
+msgstr "%(doc)s изтича на %(date)s"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_version.py:0
+msgid "Document expiring in less than %(days)d days: %(doc)s, valid until %(date)s. Arrange the renewal and update the employee record."
+msgstr "Документ с изтичащ срок след по-малко от %(days)d дни: %(doc)s, валиден до %(date)s. Организирайте подновяването и обновете картона на служителя."

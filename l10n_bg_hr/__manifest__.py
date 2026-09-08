@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'HR Version Extension',
-    'version': '19.0.2.7.0',
+    'version': '19.0.2.8.0',
     'category': 'Human Resources',
     'summary': 'Extension for HR Version with work location address and contract amendments',
     'description': """
@@ -16,6 +16,7 @@ This module extends the HR Version functionality with:
 * Professional qualifications (NKPD)
 * Working time management
 * Leave days calculations
+* Bulgarian education degrees, personal documents with expiry notification, personal doctor, foreign tax number
     """,
     'author': 'Rosen Vladimirov, Terraros Commerce Ltd.',
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',

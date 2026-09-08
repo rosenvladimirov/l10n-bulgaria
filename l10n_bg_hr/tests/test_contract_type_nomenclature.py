@@ -90,6 +90,7 @@ class TestFixedTermEndRequired(TransactionCase):
         cls.employee = cls.env["hr.employee"].create({
             "name": "Тест Срок Задължителен",
             "company_id": cls.env.company.id,
+            "date_version": "2026-01-01",
         })
         cls.vid_srochen = cls.env.ref("l10n_bg_hr.l10n_bg_002")
         cls.vid_rabota = cls.env.ref("l10n_bg_hr.l10n_bg_003")

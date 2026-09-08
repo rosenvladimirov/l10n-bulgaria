@@ -80,4 +80,65 @@
         </field>
     </record>
 
+    <!-- ================================================================== -->
+    <!-- Заявка Полигруп 28.08.2026 — полетата, които кодът носи, излизат   -->
+    <!-- на картона на служителя                                            -->
+    <!-- ================================================================== -->
+
+    <!-- Работа: НКПД до „Работна позиция" — полето е на версията, идва от
+         длъжността, тук е само за четене -->
+    <record id="view_employee_form_l10n_bg_work_nkpd" model="ir.ui.view">
+        <field name="name">hr.employee.form.l10n_bg.work.nkpd</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='work_information']//field[@name='job_id']" position="after">
+                <field name="l10n_bg_qualification_group" string="NKPD Position"
+                       readonly="1" options="{'no_create': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Личен: документите със сроковете им, данъчният номер, личният лекар,
+         „Диплома" -->
+    <record id="view_employee_form_l10n_bg_personal_documents" model="ir.ui.view">
+        <field name="name">hr.employee.form.l10n_bg.personal.documents</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <!-- Гражданство: данъчният номер до осигурителния (ssnid остава
+                 непипнат — решение на Росен, 04.09.2026) -->
+            <field name="ssnid" position="after">
+                <field name="l10n_bg_tax_number"/>
+            </field>
+            <!-- Личната карта под паспорта, със същата подредба „номер + срок" -->
+            <xpath expr="//field[@name='passport_expiration_date']/.." position="after">
+                <label for="l10n_bg_id_card_number"/>
+                <div class="o_wrap_label d-flex flex-row gap-3 align-items-baseline">
+                    <field name="l10n_bg_id_card_number"/>
+                    <label for="l10n_bg_id_card_expiry" class="flex-shrink-0"
+                           invisible="not l10n_bg_id_card_number" string="Expires on"/>
+                    <field name="l10n_bg_id_card_expiry" invisible="not l10n_bg_id_card_number"/>
+                </div>
+            </xpath>
+            <!-- Виза и разрешение за работа: закрилата е отделно основание -->
+            <field name="has_work_permit" position="after">
+                <field name="l10n_bg_protection_status"/>
+                <field name="l10n_bg_protection_expiry" invisible="not l10n_bg_protection_status"/>
+            </field>
+            <!-- Личен лекар: отделна група след спешния контакт -->
+            <xpath expr="//field[@name='emergency_phone']/.." position="after">
+                <group string="Personal Doctor" name="l10n_bg_doctor_group">
+                    <field name="l10n_bg_personal_doctor"/>
+                    <field name="l10n_bg_personal_doctor_phone" widget="phone"/>
+                    <field name="l10n_bg_personal_doctor_address"/>
+                </group>
+            </xpath>
+            <!-- Образование: „Ниво на сертификат" → „Диплома" -->
+            <field name="certificate" position="attributes">
+                <attribute name="string">Diploma</attribute>
+            </field>
+        </field>
+    </record>
+
 </odoo>

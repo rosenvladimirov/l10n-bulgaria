@@ -76,6 +76,10 @@ class HrVersion(models.Model):
     # чл. 62, ал. 5 КТ за уведомлението до НАП — така ТРЗ-то има целия
     # законов прозорец, а не остатъка от него.
     _L10N_BG_FIXED_TERM_LEAD_DAYS = 7
+    # Заявка Полигруп, 28.08.2026: „уведомление 3 месеца по-рано за всички
+    # документи". Три месеца = 90 дни; един срок за всички, за да не се
+    # разминават.
+    _L10N_BG_DOCUMENT_LEAD_DAYS = 90
 
     l10n_bg_fixed_term_end = fields.Date(
         string='Fixed Term End',
@@ -284,6 +288,91 @@ class HrVersion(models.Model):
     )
 
     # =========================================================================
+    # ЛИЧНИ ДОКУМЕНТИ И СРОКОВЕТЕ ИМ
+    # =========================================================================
+    #
+    # Заявка Полигруп, 28.08.2026. Ядрото носи паспорта със срока му на
+    # версията (`passport_id`, `passport_expiration_date`), а разрешението за
+    # работа и визата със сроковете им — на служителя
+    # (`work_permit_expiration_date`, `visa_expire`). Няма обаче лична карта,
+    # нито закрила — а личната карта е документът на ВСЕКИ български работник.
+    # 🔑 Нищо от ядрото не се дублира: уведомлението три месеца по-рано
+    # (`cron_l10n_bg_notify_expiring_documents`) чете и ядрените, и нашите
+    # срокове от ЕДИН списък — `_l10n_bg_document_expiries`.
+
+    l10n_bg_id_card_number = fields.Char(
+        string='ID Card No', groups='hr.group_hr_user', tracking=True,
+        help="Bulgarian identity card, or the residence document of a "
+             "third-country national.")
+    l10n_bg_id_card_expiry = fields.Date(
+        string='ID Card Expires On', groups='hr.group_hr_user', tracking=True)
+
+    # ⚖️ Закрилата е самостоятелно основание за пребиваване по ЗУБ, различно от
+    # разрешението за работа: носителят ѝ работи без разрешение, но срокът ѝ
+    # тече отделно и изтичането му спира правото да се полага труд.
+    l10n_bg_protection_status = fields.Selection([
+        ('refugee', 'Refugee Status'),
+        ('humanitarian', 'Humanitarian Status'),
+        ('temporary', 'Temporary Protection'),
+        ('other', 'Other Ground'),
+    ], string='Protection Status', groups='hr.group_hr_user', tracking=True,
+        help="Ground of residence under the Asylum and Refugees Act.")
+    l10n_bg_protection_expiry = fields.Date(
+        string='Protection Expires On', groups='hr.group_hr_user', tracking=True)
+
+    # =========================================================================
+    # ЛИЧЕН ЛЕКАР
+    # =========================================================================
+
+    l10n_bg_personal_doctor = fields.Char(
+        string='Personal Doctor', groups='hr.group_hr_user',
+        help="General practitioner, as declared by the employee.")
+    l10n_bg_personal_doctor_phone = fields.Char(
+        string='Doctor Phone', groups='hr.group_hr_user')
+    l10n_bg_personal_doctor_address = fields.Char(
+        string='Doctor Address', groups='hr.group_hr_user')
+
+    # =========================================================================
+    # СРОК НА ТЕЛК РЕШЕНИЕТО
+    # =========================================================================
+    #
+    # 🔑 Процентът намалена работоспособност се пази в слоя с ведомостта, но
+    # СРОКЪТ му е кадрови факт: щом изтече, отпадат и данъчното облекчение, и
+    # подът на отпуска по чл. 319 КТ. Затова живее тук, до другите срокове, и
+    # влиза в същото уведомление.
+
+    l10n_bg_disability_expiry = fields.Date(
+        string='Disability Decision Expires On', groups='hr.group_hr_user',
+        tracking=True,
+        help="Expiry of the TELK/NELK decision. When it lapses, both the "
+             "monthly PIT relief and the Art. 319 LC leave floor stop "
+             "applying.")
+
+    # =========================================================================
+    # ДАНЪЧЕН НОМЕР ОТ ДРУГА ДЪРЖАВА
+    # =========================================================================
+    #
+    # Заявка Полигруп, 28.08.2026: „Социално-осигурителен номер → Данъчен
+    # номер". Решение на Росен, 04.09.2026: `ssnid` НЕ се преименува — то носи
+    # осигурителния номер, даден от държавата по раждане/гражданство, и не е
+    # наш. Данъчният номер от същата държава е ОТДЕЛЕН факт и получава отделно
+    # поле. За българските граждани данъчният идентификатор е ЕГН и стои в
+    # `identification_id`; това поле е за чуждестранните лица.
+
+    l10n_bg_tax_number = fields.Char(
+        string='Foreign Tax Number', groups='hr.group_hr_user', tracking=True,
+        help="Tax identification number issued by the state of birth or "
+             "citizenship of a foreign employee. Bulgarian citizens are "
+             "identified by their EGN in Identification No.")
+
+    # Заявка Полигруп, 28.08.2026: „Citizenship — автоматично да излиза
+    # България". Подразбирането е държавата на ФИРМАТА, не твърдо „BG" — така
+    # полето е вярно и за работодател извън България. Само подразбирането се
+    # сменя; всичко друго по полето остава от ядрото.
+    country_id = fields.Many2one(
+        default=lambda self: self.env.company.country_id)
+
+    # =========================================================================
     # LEAVE DAYS
     # =========================================================================
 
@@ -371,6 +460,85 @@ class HrVersion(models.Model):
     # =========================================================================
     # КРОНОВЕ ПО СРОЧНИЯ ДОГОВОР
     # =========================================================================
+
+    # =========================================================================
+    # СРОКОВЕТЕ НА ДОКУМЕНТИТЕ — ЕДНО УВЕДОМЛЕНИЕ ЗА ВСИЧКИ
+    # =========================================================================
+
+    def _l10n_bg_document_expiries(self):
+        """Всички срокове на документи на тази версия — [(етикет, дата)].
+
+        Един списък, един крон: заявката (Полигруп, 28.08.2026) иска
+        уведомление три месеца по-рано „за всички документи", а не по едно за
+        всеки. Част от сроковете живеят в ядрото — паспортът на версията,
+        визата и разрешението за работа на служителя — и влизат тук наравно с
+        нашите, за да няма два механизма, които се разминават.
+        """
+        self.ensure_one()
+        emp = self.employee_id
+        return [
+            (_("ID card"), self.l10n_bg_id_card_expiry),
+            (_("Passport"), self.passport_expiration_date),
+            (_("Protection status"), self.l10n_bg_protection_expiry),
+            (_("Work permit"), emp.work_permit_expiration_date),
+            (_("Visa"), emp.visa_expire),
+            (_("Disability decision (TELK/NELK)"),
+             self.l10n_bg_disability_expiry),
+        ]
+
+    @api.model
+    def cron_l10n_bg_notify_expiring_documents(self):
+        """Три месеца преди срока: дейност върху служителя, не мейл.
+
+        🔑 Дейността е носителят. Базата на клиента може да е с изключени
+        мейли (neutralized), а дейността се вижда в самия картон и в списъка
+        на отговорния. Дедупликацията е по резюмето: същият документ със
+        същия срок ражда ЕДНА отворена дейност, колкото и пъти да мине
+        кронът; подновен документ = нов срок = ново резюме.
+
+        ⚠️ Приключената дейност изчезва от `mail.activity`. Ако ТРЗ я
+        приключи, без да обнови срока, кронът я ражда пак — нарочно: срокът
+        все още тече и документът все още изтича.
+
+        Гледат се ТЕКУЩИТЕ версии на активните служители — старите версии
+        носят стари документи и не бива да будят никого.
+        """
+        dnes = fields.Date.today()
+        prag = dnes + timedelta(days=self._L10N_BG_DOCUMENT_LEAD_DAYS)
+        Activity = self.env['mail.activity']
+        model_emp = self.env['ir.model']._get_id('hr.employee')
+        admin = self.env.ref('base.user_admin', raise_if_not_found=False)
+        broi = 0
+        for emp in self.env['hr.employee'].search([('active', '=', True)]):
+            version = emp.version_id
+            if not version:
+                continue
+            for etiket, srok in version._l10n_bg_document_expiries():
+                if not srok or srok < dnes or srok > prag:
+                    continue
+                rezyume = _("%(doc)s expires on %(date)s", doc=etiket, date=srok)
+                if Activity.search_count([
+                    ('res_model_id', '=', model_emp),
+                    ('res_id', '=', emp.id),
+                    ('summary', '=', rezyume),
+                ]):
+                    continue
+                otgovornik = version.hr_responsible_id or admin or self.env.user
+                emp.activity_schedule(
+                    act_type_xmlid='mail.mail_activity_data_todo',
+                    date_deadline=srok,
+                    summary=rezyume,
+                    note=_("Document expiring in less than %(days)d days: "
+                           "%(doc)s, valid until %(date)s. Arrange the renewal "
+                           "and update the employee record.",
+                           days=self._L10N_BG_DOCUMENT_LEAD_DAYS,
+                           doc=etiket, date=srok),
+                    user_id=otgovornik.id)
+                broi += 1
+        if broi:
+            _logger.info(
+                "Изтичащи документи до %s: %d нови дейности", prag, broi)
+        return broi
 
     @api.model
     def cron_l10n_bg_notify_expiring_fixed_terms(self):

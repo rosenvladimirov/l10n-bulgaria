@@ -10,3 +10,4 @@ from . import test_amendment_way_back
 from . import test_carriers_are_reachable
 from . import test_amendment_summary_and_empty_types
 from . import test_article_120
+from . import test_sheet_28_08_documents

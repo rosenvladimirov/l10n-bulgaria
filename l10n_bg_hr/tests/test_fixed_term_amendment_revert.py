@@ -26,9 +26,17 @@ class TestFixedTermAmendmentRevert(TransactionCase):
         super().setUpClass()
         cls.job_staro = cls.env["hr.job"].create({"name": "Специалист DEF104"})
         cls.job_novo = cls.env["hr.job"].create({"name": "Ръководител DEF104"})
+        # 🚨 `date_version` е ЗАДЪЛЖИТЕЛНО тук. Без него първата версия пада на
+        # ДНЕС, а тестът работи с дати през 2026 г.: оригиналната версия
+        # застава СЛЕД върнатата и всяко четене „към 10.09" попада на нея.
+        #
+        # Заради това `test_..._reverts_the_job` минаваше ПО СЛУЧАЙНОСТ —
+        # оригиналът носи старата длъжност, която тестът очаква, тъй че зелено
+        # се получаваше без връщането изобщо да е работило.
         cls.employee = cls.env["hr.employee"].create({
             "name": "Тест Срочно ДС",
             "company_id": cls.env.company.id,
+            "date_version": "2026-01-01",
         })
         cls.version = cls.employee.version_id
         cls.version.write({"wage": 613.56, "job_id": cls.job_staro.id})
@@ -101,10 +109,26 @@ class TestFixedTermAmendmentRevert(TransactionCase):
         """
         amd = self._srochno_ds()
         # Второ ДС вдига заплатата ВЪТРЕ в периода на първото.
-        self.employee.create_version({
+        po_kasna = self.employee.create_version({
             "date_version": date(2026, 8, 20),
             "wage": 1400.0,
         })
+        # Междинни твърдения: без тях провалът казва само „накрая е грешно",
+        # а не КЪДЕ се къса веригата.
+        self.assertAlmostEqual(
+            po_kasna.wage, 1400.0, places=2,
+            msg="по-късната версия не носи новата заплата")
+        self.assertAlmostEqual(
+            self.employee._get_version(amd.date_end).wage, 1400.0, places=2,
+            msg="към края на ДС-то в сила е друга заплата, не по-късната")
+        self.assertAlmostEqual(
+            amd.new_wage, 1000.0, places=2,
+            msg="ДС-то не помни какво е поставило")
+        # 🔑 Питаме гарда ПРЯКО. Инак провалът казва само „накрая е грешно",
+        # а не дали гардът е решил вярно и после нещо друго е прегазило.
+        self.assertFalse(
+            amd._l10n_bg_wage_still_ours(),
+            "гардът смята, че заплатата още е неговата, а тя е сменена")
         self._izteche()
         sled = self.employee._get_version(date(2026, 9, 10))
         self.assertAlmostEqual(

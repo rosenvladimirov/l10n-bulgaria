@@ -123,13 +123,18 @@ class TestAmendmentHygiene(TransactionCase):
                 "противоречието, което прората после трябва да лови")
 
     def test_working_time_change_without_schedule_is_refused(self):
-        """Без избран график ДС-то се отказва, вместо да гадае."""
-        amd = self._approve(self._amendment({
+        """Без избран график ДС-то се отказва, вместо да гадае.
+
+        🔑 Отказът идва при ПОДАВАНЕТО, не при активирането (DEF-175а). Дотук
+        проверката се викаше чак от прилагането, тъй че потребителят минаваше
+        три състояния и се удряше в стената без път назад.
+        """
+        amd = self._amendment({
             "amendment_type": "working_time_change",
             "new_working_time_type": "part_time",
-        }))
+        })
         with self.assertRaises(ValidationError):
-            amd.action_activate()
+            amd.action_submit_for_approval()
 
     def test_internally_inconsistent_schedule_is_refused(self):
         """4 ч/ден при присъствия 08:00–17:00 е капан, не график.
@@ -143,9 +148,21 @@ class TestAmendmentHygiene(TransactionCase):
                 "name": "Цял ден", "dayofweek": str(den),
                 "hour_from": 8.0, "hour_to": 17.0, "day_period": "morning"}))
         kapan = self.env["resource.calendar"].create({
-            "name": "График непълно раб.време - 4ч.", "hours_per_day": 4.0,
+            "name": "График непълно раб.време - 4ч.",
             "attendance_ids": redove,
         })
+        # 🚨 `hours_per_day` е STORED COMPUTE от присъствията
+        # (`_compute_hours_per_day` зависи от `attendance_ids`). Подаден при
+        # СЪЗДАВАНЕТО, той се презаписва — 4,00 става 9,00, календарът излиза
+        # вътрешно СЪГЛАСУВАН и гардът правилно мълчи. Тоест капанът не ловеше
+        # и тестът не проверяваше нищо.
+        #
+        # Полето е `readonly=False`, тъй че отделен запис СЛЕД създаването се
+        # задържа: присъствията не се менят, компютът не се преизчислява.
+        kapan.hours_per_day = 4.0
+        self.assertAlmostEqual(
+            kapan.hours_per_day, 4.0, places=2,
+            msg="капанът пак се нормализира — тестът не проверява нищо")
         amd = self._approve(self._amendment({
             "amendment_type": "working_time_change",
             "new_working_time_type": "part_time",
@@ -224,8 +241,11 @@ class TestAmendmentHygiene(TransactionCase):
         amd.action_activate_early()
         self.assertEqual(amd.state, "active")
         telata = " ".join(amd.message_ids.mapped("body") or [])
+        # 🔑 Търси се ДАТАТА, не английска дума: съобщението минава през превод
+        # и на българска база думата „early" я няма. Тестът падаше не защото
+        # следата липсва, а защото е на друг език.
         self.assertIn(
-            "early", telata.lower(),
+            str(amd.date_effective), telata,
             "предсрочното активиране не е оставило следа в чатъра")
 
     def test_activation_on_or_after_effective_date_passes(self):
@@ -299,9 +319,21 @@ class TestAmendmentHygiene(TransactionCase):
                 "name": "Цял ден", "dayofweek": str(den),
                 "hour_from": 8.0, "hour_to": 17.0, "day_period": "morning"}))
         kapan = self.env["resource.calendar"].create({
-            "name": "График непълно раб.време - 4ч.", "hours_per_day": 4.0,
+            "name": "График непълно раб.време - 4ч.",
             "attendance_ids": redove,
         })
+        # 🚨 `hours_per_day` е STORED COMPUTE от присъствията
+        # (`_compute_hours_per_day` зависи от `attendance_ids`). Подаден при
+        # СЪЗДАВАНЕТО, той се презаписва — 4,00 става 9,00, календарът излиза
+        # вътрешно СЪГЛАСУВАН и гардът правилно мълчи. Тоест капанът не ловеше
+        # и тестът не проверяваше нищо.
+        #
+        # Полето е `readonly=False`, тъй че отделен запис СЛЕД създаването се
+        # задържа: присъствията не се менят, компютът не се преизчислява.
+        kapan.hours_per_day = 4.0
+        self.assertAlmostEqual(
+            kapan.hours_per_day, 4.0, places=2,
+            msg="капанът пак се нормализира — тестът не проверява нищо")
         amd = self._amendment({
             "amendment_type": "working_time_change",
             "new_working_time_type": "part_time",

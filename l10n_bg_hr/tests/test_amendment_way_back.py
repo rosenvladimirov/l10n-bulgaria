@@ -24,6 +24,7 @@ class TestAmendmentWayBack(TransactionCase):
         cls.employee = cls.env["hr.employee"].create({
             "name": "Тест Връщане В Чернова",
             "company_id": cls.env.company.id,
+            "date_version": "2026-01-01",
         })
         cls.version = cls.employee.version_id
         cls.version.write({"wage": 1000.0})
@@ -31,7 +32,7 @@ class TestAmendmentWayBack(TransactionCase):
     def _ds(self):
         return self.env["l10n_bg.hr.version.amendment"].create({
             "version_id": self.version.id,
-            "amendment_type": "salary_change",
+            "amendment_type": "wage_change",
             "date_signed": date(2026, 8, 1),
             "date_effective": date(2026, 9, 1),
             "subject": "Тест връщане",

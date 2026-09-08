@@ -31,6 +31,56 @@ class HrEmployee(models.Model):
         groups="hr.group_hr_user",
     )
 
+    # =========================================================================
+    # СТЕПЕНИ НА ОБРАЗОВАНИЕ ПО БЪЛГАРСКОТО ЗАКОНОДАТЕЛСТВО
+    # =========================================================================
+    #
+    # ⚖️ Ядреното `certificate` предлага graduate / bachelor / master / doctor /
+    # other — англосаксонската стълбица. Липсват основното и средното, а точно
+    # те са степените по чл. 24, ал. 1 ЗПУО, и точно тях иска ТРЗ (заявка
+    # Полигруп, 28.08.2026: „Ниво на сертификат → Диплома; да се добави
+    # Основно / Средно").
+    #
+    # Стълбицата тук е нормативна, не клиентска:
+    #   ЗПУО чл. 24, ал. 1 — степените на училищното образование са ОСНОВНО и
+    #   СРЕДНО. „Начално" е ЕТАП по чл. 25, не степен, но ТРЗ го записва, тъй че
+    #   присъства с изрична бележка.
+    #   ЗВО чл. 42, ал. 1 — образователно-квалификационните степени са
+    #   „професионален бакалавър по …", „бакалавър" и „магистър"; т. 3 добавя
+    #   образователната и научна степен „доктор".
+    #
+    # 🚨 Ядрените ключове НЕ се пипат. `graduate` и `other` остават: по тях има
+    # данни в заварените бази и смяната на ключ би ги обезсмислила мълчаливо.
+    # Затова се ДОБАВЯ, не се замества.
+
+    @api.model
+    def _get_certificate_selection(self):
+        """Българската стълбица, подредена от най-ниската степен към най-високата.
+
+        Редът има значение: падащото меню се чете отгоре надолу и ТРЗ избира по
+        възходящ ред, не по азбучен.
+        """
+        yadro = dict(super()._get_certificate_selection())
+        stalbica = [
+            ('l10n_bg_none', self.env._('No formal education')),
+            # Етап по чл. 25 ЗПУО, не степен — но се записва в практиката.
+            ('l10n_bg_primary', self.env._('Primary (Grades I-IV)')),
+            ('l10n_bg_basic', self.env._('Basic education (Art. 24 (1) 1 PSEA)')),
+            ('l10n_bg_secondary', self.env._('Secondary education (Art. 24 (1) 2 PSEA)')),
+            ('l10n_bg_vocational_bachelor',
+             self.env._('Professional Bachelor (Art. 42 (1) 1 HEA)')),
+            ('bachelor', yadro.get('bachelor', self.env._('Bachelor'))),
+            ('master', yadro.get('master', self.env._('Master'))),
+            ('doctor', yadro.get('doctor', self.env._('Doctor'))),
+            ('l10n_bg_doctor_of_science', self.env._('Doctor of Sciences')),
+        ]
+        # Заварените ключове, които стълбицата не покрива — на края, за да не
+        # изчезнат стойности от заварени записи.
+        pokriti = {k for k, _v in stalbica}
+        ostatak = [(k, v) for k, v in super()._get_certificate_selection()
+                   if k not in pokriti]
+        return stalbica + ostatak
+
     def action_refresh_nkpd_kid(self):
         """Refresh НКПД and КИД from current job position."""
         for employee in self:

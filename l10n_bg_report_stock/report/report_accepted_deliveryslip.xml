@@ -81,7 +81,11 @@
                                  град, в който няма какво да достави.
                                  Юридическите реквизити не се губят: таблицата
                                  ПОЛУЧАТЕЛ по-долу ги вади от `recipient`. -->
-                            <t t-set="header_partner" t-value="partner.commercial_partner_id"/>
+                            <!-- 🚨 Без гард протоколът ГЪРМИ за пикинг без партньор
+                                 (вътрешен трансфер): `partner` е False и
+                                 `.commercial_partner_id` пада с AttributeError при
+                                 рендер. Хванато 05.09.2026 при проверка на партидите. -->
+                            <t t-set="header_partner" t-value="partner and partner.commercial_partner_id"/>
                             <div name="vendor_address" t-if="o.picking_type_id.code=='incoming' and partner">
                                 <strong>Vendor Address</strong>
                                 <t t-set="show_partner" t-value="True" />
@@ -155,6 +159,30 @@
                                     <p t-if="move.description_picking and move.description_picking != move.product_id.name and move.description_picking != move.product_id.display_name">
                                         <span t-field="move.description_picking">Description on transfer</span>
                                     </p>
+                                    <!-- 🔑 Партидите ПРЕДИ валидация. Таблицата по движения не
+                                         ги носеше: протоколът, който болницата подписва на
+                                         място, се печата ПРЕДИ приключване, а за медицинско
+                                         изделие партидата е реквизит. Взимат се запазените
+                                         редове на движението — при вход още няма `lot_id`, а
+                                         само `lot_name`. Условието е същото като при
+                                         приключената таблица: групата „партиди на
+                                         разписките". Остава ВЪТРЕ в клетката на продукта, за
+                                         да не се променя `tr[@t-foreach='lines']` — по него
+                                         се закачат чужди модули. -->
+                                    <t t-set="move_lots" t-value="False"/>
+                                    <t t-set="move_lots" t-value="move.move_line_ids.filtered(lambda l: l.lot_id or l.lot_name)" groups="stock.group_lot_on_delivery_slip"/>
+                                    <div t-if="move_lots" name="move_lots" class="small">
+                                        <!-- Етикетът е САМОСТОЯТЕЛЕН блок: в един ред със
+                                             спановете QWeb ги извлича като един преводим низ
+                                             с таговете вътре и преводът на „Lot/Serial Number"
+                                             от заглавието на приключената таблица не хваща. -->
+                                        <div class="fw-bold">Lot/Serial Number</div>
+                                        <t t-foreach="move_lots" t-as="ml">
+                                            <span t-out="ml.lot_id.name or ml.lot_name">LOT0001</span>
+                                            (<span t-out="ml.quantity" t-options="{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}">1.00</span>
+                                            <span t-out="ml.product_uom_id.name" groups="uom.group_uom">units</span>)<t t-if="not ml_last">,</t>
+                                        </t>
+                                    </div>
                                 </td>
                                 <td class="text-end">
                                     <span t-field="move.product_uom_qty">3.00</span>

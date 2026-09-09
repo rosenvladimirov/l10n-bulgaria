@@ -1408,3 +1408,146 @@ msgstr "%(doc)s изтича на %(date)s"
 #: code:addons/l10n_bg_hr/models/hr_version.py:0
 msgid "Document expiring in less than %(days)d days: %(doc)s, valid until %(date)s. Arrange the renewal and update the employee record."
 msgstr "Документ с изтичащ срок след по-малко от %(days)d дни: %(doc)s, валиден до %(date)s. Организирайте подновяването и обновете картона на служителя."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "Anything the payroll officer needs to know about this decision."
+msgstr "Каквото ТРЗ трябва да знае за това решение."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_search
+msgid "At or over 50%"
+msgstr "50 % и над"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/telk_decision.py:0
+msgid "Decision %s stops applying before it starts."
+msgstr "Решение %s изтича, преди да влезе в сила."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_telk_expired
+msgid "Decision Expired"
+msgstr "Решението е изтекло"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_telk_current_id
+msgid "Decision in Force"
+msgstr "Действащо решение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__number
+msgid "Decision number as issued."
+msgstr "Номерът на решението, както е издадено."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_telk_decision_count
+msgid "Decisions"
+msgstr "Решения"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__diagnosis
+msgid "Diagnosis"
+msgstr "Диагноза"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "Empty = no expiry"
+msgstr "Празно = безсрочно"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_search
+msgid "In force"
+msgstr "Действащи"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__date_from
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_search
+msgid "In force from"
+msgstr "В сила от"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__date_to
+msgid "In force until"
+msgstr "В сила до"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__date_decision
+msgid "Issued on"
+msgstr "Дата на решението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__issuing_body
+msgid "Issuing Body"
+msgstr "Издаващ орган"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__note
+msgid "Note"
+msgstr "Бележка"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "Notes"
+msgstr "Бележки"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__number
+msgid "Number"
+msgstr "Номер"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "Optional"
+msgstr "Незадължително"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_telk_decision
+msgid "Record a TELK or NELK decision"
+msgstr "Въведете решение на ТЕЛК или НЕЛК"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__percent
+msgid "Reduced Working Capacity (%)"
+msgstr "Трайно намалена работоспособност (%)"
+
+#. module: l10n_bg_hr
+#: model:ir.model,name:l10n_bg_hr.model_l10n_bg_telk_decision
+msgid "TELK Decision"
+msgstr "Решение на ТЕЛК"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_telk
+msgid "TELK/NELK"
+msgstr "ТЕЛК/НЕЛК"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_employee.py:0
+#: model:ir.actions.act_window,name:l10n_bg_hr.action_l10n_bg_telk_decision
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_telk_decision_ids
+#: model:ir.ui.menu,name:l10n_bg_hr.menu_l10n_bg_telk_decision
+msgid "TELK/NELK Decisions"
+msgstr "Решения на ТЕЛК/НЕЛК"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__issuing_body
+msgid "The TELK or NELK panel that issued the decision."
+msgstr "Съставът на ТЕЛК или НЕЛК, издал решението."
+
+#. module: l10n_bg_hr
+#: model:ir.model.constraint,message:l10n_bg_hr.constraint_l10n_bg_telk_decision_number_employee_uniq
+msgid "The same decision cannot be recorded twice for one employee."
+msgstr "Едно и също решение не може да се въведе два пъти за един служител."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "e.g. 1234/2026"
+msgstr "напр. 1234/2026"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/telk_decision.py:0
+msgid "for life"
+msgstr "пожизнено"

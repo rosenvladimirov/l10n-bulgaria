@@ -122,3 +122,36 @@ class TestTelkDecisionHistory(TransactionCase):
         self._reshenie('2024-01-01', None, 50, 'J/2024')
         self._reshenie('2024-01-01', None, 50, 'J/2024', employee=self.drug)
         self.assertEqual(len(self.drug.l10n_bg_telk_decision_ids), 1)
+
+
+@tagged('post_install', '-at_install', 'l10n_bg_telk')
+class TestTelkDecisionChatter(TransactionCase):
+    """Изгледът носи `<chatter/>`; моделът трябва да може да го обслужи.
+
+    🚨 Без mail.thread отварянето на формата гърмеше с
+    `_get_thread_with_access` (poligroup-v19, 08.09.2026) — а грешката идваше
+    от web клиента, не от нашия код, тоест нито един наш тест не я хващаше.
+    """
+
+    def test_the_model_can_serve_a_chatter(self):
+        employee = self.env["hr.employee"].create({"name": "ТЕЛК Chatter Test"})
+        decision = self.env["l10n_bg.telk.decision"].create(
+            {
+                "employee_id": employee.id,
+                "number": "TEST-CHATTER-1",
+                "percent": 60,
+                "date_from": "2026-01-01",
+            }
+        )
+        # точно това вика web клиентът при отваряне на формата
+        self.assertTrue(hasattr(decision, "_get_thread_with_access"))
+        self.assertIn("message_ids", decision._fields)
+        self.assertIn("activity_ids", decision._fields)
+
+    def test_the_fields_that_move_rights_are_tracked(self):
+        fields_ = self.env["l10n_bg.telk.decision"]._fields
+        for name in ("number", "percent", "date_from", "date_to"):
+            self.assertTrue(
+                fields_[name].tracking,
+                f"{name} changes the rights hanging on the decision and must be tracked",
+            )

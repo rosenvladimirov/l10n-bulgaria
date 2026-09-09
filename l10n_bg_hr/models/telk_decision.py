@@ -29,25 +29,41 @@ from odoo.exceptions import ValidationError
 
 
 class L10nBgTelkDecision(models.Model):
+    # 🚨 Изгледът носи `<chatter/>` от първия ден (cd65304). Без mail.thread
+    # отварянето на формата гърмеше с
+    #   AttributeError: 'l10n_bg.telk.decision' object has no attribute
+    #   '_get_thread_with_access'
+    # защото web клиентът иска mail данните на записа. Прецедентът в същия
+    # модул е `hr.version.amendment` — документ, който носи права, се следи.
     _name = 'l10n_bg.telk.decision'
     _description = 'TELK Decision'
-    _order = 'date_from desc, id desc'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    # 🔑 По ДАТА НА ИЗДАВАНЕ (Росен, 09.09.2026), не по началото на срока.
+    # Двете се разминават: преосвидетелстване, издадено през декември, може да
+    # тече от януари. Подредено по `date_from`, по-старото решение излиза
+    # отгоре, докато новото „чака" — а ТРЗ чете списъка като хронология на
+    # издаденото. `date_from` остава втори ключ за решенията, издадени в един
+    # ден.
+    _order = 'date_decision desc, date_from desc, id desc'
     _rec_name = 'display_name'
 
     employee_id = fields.Many2one(
         'hr.employee', required=True, ondelete='cascade', index=True)
-    number = fields.Char(required=True, help="Decision number as issued.")
+    number = fields.Char(
+        required=True, tracking=True,
+        help="Decision number as issued.")
     issuing_body = fields.Char(
         help="The TELK or NELK panel that issued the decision.")
     percent = fields.Integer(
-        string='Reduced Working Capacity (%)', required=True,
+        string='Reduced Working Capacity (%)', required=True, tracking=True,
         help="Whole per cent, from 1 to 100 — not a fraction. A decision "
              "recorded as 0.51 instead of 51 passes every 'is there a "
              "disability' test and fails every 'fifty or more' test.")
     date_decision = fields.Date(string='Issued on')
-    date_from = fields.Date(string='In force from', required=True, index=True)
+    date_from = fields.Date(
+        string='In force from', required=True, index=True, tracking=True)
     date_to = fields.Date(
-        string='In force until',
+        string='In force until', tracking=True,
         help="Empty means the decision is for life. Otherwise the rights that "
              "hang on it end with it.")
     diagnosis = fields.Char()
@@ -104,9 +120,11 @@ class L10nBgTelkDecision(models.Model):
         """
         if not employee:
             return self.browse()
+        # Най-новото по ИЗДАВАНЕ — това е решението, което ТРЗ смята за
+        # актуално, дори когато срокът му още не е започнал. Виж `_order`.
         return self.search(
             [('employee_id', '=', employee.id)],
-            order='date_from desc, id desc', limit=1)
+            order='date_decision desc, date_from desc, id desc', limit=1)
 
     @api.model
     def decision_at(self, employee, date):

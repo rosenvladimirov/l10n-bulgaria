@@ -159,15 +159,20 @@ class TestAmendmentHygiene(TransactionCase):
         #
         # Полето е `readonly=False`, тъй че отделен запис СЛЕД създаването се
         # задържа: присъствията не се менят, компютът не се преизчислява.
-        kapan.hours_per_day = 4.0
-        self.assertAlmostEqual(
-            kapan.hours_per_day, 4.0, places=2,
-            msg="капанът пак се нормализира — тестът не проверява нищо")
+        # 🔑 DEF-175: ДС-то стига до одобрено с ЗДРАВ календар, и чак после
+        # някой разваля графика. Инак ранната преграда (при подаването) го
+        # хваща първа и тази проверка не мери нищо — тя пази ДРУГО: анекс,
+        # стигнал до одобрен без бутона (импорт, RPC), както казва и
+        # `test_late_guard_still_stands`.
         amd = self._approve(self._amendment({
             "amendment_type": "working_time_change",
             "new_working_time_type": "part_time",
             "new_resource_calendar_id": kapan.id,
         }))
+        kapan.hours_per_day = 4.0
+        self.assertAlmostEqual(
+            kapan.hours_per_day, 4.0, places=2,
+            msg="капанът пак се нормализира — тестът не проверява нищо")
         with self.assertRaises(ValidationError):
             amd.action_activate()
 

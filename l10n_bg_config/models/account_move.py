@@ -52,8 +52,24 @@ class AccountMove(models.Model):
                     move.l10n_bg_name_value != formatted_name
                 ):
                     move.l10n_bg_document_number = move.l10n_bg_name_value
-                else:
+                elif move._l10n_bg_allow_ref_fallback():
                     move.l10n_bg_document_number = formatted_ref or formatted_name
+                else:
+                    # Документът няма СВОЙ локален номер: този на контрагента
+                    # живее в `ref`, а `name` е нашата вътрешна номерация.
+                    # Нито едното не е „номер на локален документ", затова
+                    # полето остава празно вместо да преписва чужд номер.
+                    move.l10n_bg_document_number = False
+
+    def _l10n_bg_allow_ref_fallback(self):
+        """Може ли `l10n_bg_document_number` да падне на `ref`/`name`.
+
+        Тук — винаги да: ядрото не знае кои документи носят СВОЙ локален
+        номер. Слоевете, които знаят (протоколи по чл. 117, митнически
+        декларации), стесняват това през override.
+        """
+        self.ensure_one()
+        return True
 
     def _inverse_l10n_bg_document_number(self):
         for move in self:

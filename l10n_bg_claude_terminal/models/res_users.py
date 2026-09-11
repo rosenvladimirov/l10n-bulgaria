@@ -120,7 +120,7 @@ class ResUsers(models.Model):
         help="Telegram API Hash from my.telegram.org",
     )
     claude_telegram_phone = fields.Char(
-        "Phone",
+        "Telegram Phone",
         help="Phone number with country code (e.g. +359...)",
     )
     claude_telegram_session = fields.Char(

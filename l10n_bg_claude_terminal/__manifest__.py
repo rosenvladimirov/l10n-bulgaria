@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
     "name": "Claude Terminal (Chatter & List View)",
-    "version": "19.0.1.40.0",
+    "version": "19.0.1.40.1",
     "category": "Technical",
     "summary": "Claude Code terminal + AI Tokenizer (Qdrant/Ollama) — MCP Docker stack",
     "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",

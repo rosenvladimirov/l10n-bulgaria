@@ -1481,8 +1481,8 @@ msgstr "Чакащ"
 
 #. module: l10n_bg_claude_terminal
 #: model:ir.model.fields,field_description:l10n_bg_claude_terminal.field_res_users__claude_telegram_phone
-msgid "Phone"
-msgstr "Телефон"
+msgid "Telegram Phone"
+msgstr "Телефон за Telegram"
 
 #. module: l10n_bg_claude_terminal
 #: model:ir.model.fields,help:l10n_bg_claude_terminal.field_res_users__claude_telegram_phone

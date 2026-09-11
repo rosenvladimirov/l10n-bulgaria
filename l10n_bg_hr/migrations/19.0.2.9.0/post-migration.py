@@ -17,6 +17,11 @@
 
 🚨 Не се пренасят нулите: процент 0 значи „няма решение", а не „решение с
 нула на сто". Не се пренася и вече пренесеното — миграцията е идемпотентна.
+
+🚨 Източникът може изобщо да го няма. `l10n_bg_disability_percent` е махнат
+от кода заедно с този рефакторинг, а бази, които никога не са го носили,
+стигат дотук без колоната. Затова тя се проверява, преди да се чете — инак
+първото четене сваля целия ъпгрейд с „column does not exist".
 """
 import logging
 
@@ -37,10 +42,22 @@ def migrate(cr, version):
         return
 
     cr.execute("""
+        SELECT 1 FROM information_schema.columns
+         WHERE table_name = 'hr_version'
+           AND column_name = 'l10n_bg_disability_percent'
+    """)
+    if not cr.fetchone():
+        _logger.info(
+            "ТЕЛК: `l10n_bg_disability_percent` го няма в тази база — "
+            "няма заварени проценти за пренасяне")
+        return
+
+    cr.execute("""
         SELECT v.employee_id, v.id, v.date_version, v.l10n_bg_disability_percent
         FROM hr_version v
         WHERE COALESCE(v.l10n_bg_disability_percent, 0) <> 0
           AND v.employee_id IS NOT NULL
+          AND v.date_version IS NOT NULL
         ORDER BY v.employee_id, v.date_version, v.id
     """)
     redove = cr.fetchall()
@@ -59,21 +76,36 @@ def migrate(cr, version):
         po_sluzhitel.setdefault(emp_id, []).append((data, procent))
 
     sazdadeni = 0
+    otpadnali = 0
     for emp_id, zapisi in po_sluzhitel.items():
         # всяка ПРОМЯНА на процента е ново решение
         etapi = []
         for data, procent in zapisi:
-            chislo = procent_kato_chislo(procent)
-            if etapi and abs(etapi[-1][1] - chislo) < 0.005:
+            chislo = int(round(procent_kato_chislo(procent)))
+            # Гардът на модела иска 1..100. Стойност, която се закръгля под
+            # единица, не е решение — минава за нула и записът пада на
+            # първото отваряне на формата.
+            if not 1 <= chislo <= 100:
+                otpadnali += 1
+                continue
+            if etapi and etapi[-1][1] == chislo:
                 continue
             etapi.append((data, chislo))
 
+        # Номерът е част от unique(employee_id, number). Две версии в един и
+        # същи ден с различен процент дават два етапа с еднаква дата — без
+        # брояча вторият INSERT сваля целия ъпгрейд.
+        vidyani = {}
         for i, (ot, chislo) in enumerate(etapi):
             do = None
             if i + 1 < len(etapi):
                 sledvashto = etapi[i + 1][0]
                 if sledvashto and ot and sledvashto > ot:
                     do = sledvashto - timedelta(days=1)
+            nomer = "(пренесено %s)" % (ot or "?")
+            vidyani[nomer] = vidyani.get(nomer, 0) + 1
+            if vidyani[nomer] > 1:
+                nomer = "%s #%s" % (nomer, vidyani[nomer])
             cr.execute("""
                 INSERT INTO l10n_bg_telk_decision
                     (employee_id, company_id, number, issuing_body,
@@ -83,14 +115,20 @@ def migrate(cr, version):
                        NOW(), NOW()
                 FROM hr_employee e WHERE e.id = %s
             """, (emp_id,
-                  "(пренесено %s)" % (ot or "?"),
+                  nomer,
                   "(неизвестен)",
-                  ot, do, int(round(chislo)),
+                  ot, do, chislo,
                   "Пренесено от процента върху версията на договора при "
                   "въвеждането на историята на решенията. Номерът, органът и "
                   "датата на решението не са били налични — попълват се ръчно.",
                   emp_id))
             sazdadeni += cr.rowcount
+
+    if otpadnali:
+        _logger.warning(
+            "ТЕЛК: %s записа отпаднаха — процентът им се закръгля извън "
+            "1..100. Прегледай ги: стойността е или повредена, или в единица, "
+            "която пренасянето не разпознава.", otpadnali)
 
     _logger.info("ТЕЛК: пренесени %s решения за %s служители "
                  "(%s вече имаха история)",

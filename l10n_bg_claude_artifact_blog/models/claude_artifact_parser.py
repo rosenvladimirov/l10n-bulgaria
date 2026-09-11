@@ -51,6 +51,11 @@ CALLOUT_CLASS_RE = re.compile(
     r"(?i)\b(alert|callout|warning|danger|notice|admonition|caution|tip|note|info-box)\b"
 )
 
+# Клас, с който артефактът номерира секциите си: <h2><span class="num">01</span>
+# Заглавие</h2>. Номерът е дизайн, не съдържание — в блога оглавлението си има
+# свой ред, а слепен той дава „01Какво се иска" в заглавие, откъс и ключови думи.
+HEADING_NUMBER_CLASS_RE = re.compile(r"(?i)\b(num|number|idx|index|counter|step|ord)\b")
+
 # Клас, която издава показател (голямо число) в артефакта
 KPI_CLASS_RE = re.compile(r"(?i)\b(kpi|kpis|metric|metrics|stat|stats|big-?number|counter|score|figures)\b")
 
@@ -237,6 +242,7 @@ class ClaudeArtifactParser(models.AbstractModel):
     # ------------------------------------------------------------------
     @api.model
     def _build_heading(self, node, tag):
+        self._drop_heading_number(node)
         text = self._plain_text(node)
         if not text:
             return None
@@ -248,6 +254,28 @@ class ClaudeArtifactParser(models.AbstractModel):
             level=level,
             anchor=self._slugify(text),
         )
+
+    @api.model
+    def _drop_heading_number(self, node):
+        """Маха водещия номер на секцията от заглавието.
+
+        Артефактите пишат <h2><span class="num">01</span>Заглавие</h2>; без
+        това текстът излиза „01Заглавие" — слепен, защото между двата възела
+        няма интервал — и тръгва така в статията, в откъса и в ключовите думи.
+        """
+        children = [child for child in node if isinstance(child.tag, str)]
+        if not children:
+            return
+        first = children[0]
+        if (node.text or "").strip():
+            return
+        if not HEADING_NUMBER_CLASS_RE.search(first.get("class") or ""):
+            return
+        if not re.fullmatch(r"[\s\d.)\-–—]{1,8}", first.text_content() or ""):
+            return
+        tail = first.tail or ""
+        node.remove(first)
+        node.text = ((node.text or "") + tail).lstrip(" .)-–—")
 
     @api.model
     def _build_paragraph(self, node, tag):

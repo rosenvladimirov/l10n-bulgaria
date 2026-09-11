@@ -104,6 +104,16 @@ class TestArtifactParser(TransactionCase):
         svg = [block for block in self.blocks if block["kind"] == "svg"][0]
         self.assertNotIn("<style", svg["html"])
 
+    def test_section_number_is_not_glued_to_the_heading(self):
+        """Артефактите номерират секциите с <span class="num">01</span>.
+        Между двата възела няма интервал, тъй че текстът излиза „01Какво беше
+        измерено" — и тръгва така в заглавието, откъса и ключовите думи."""
+        headings = [block for block in self.blocks
+                    if block["kind"] == "heading" and block["level"] == 2]
+        self.assertTrue(headings)
+        self.assertEqual(headings[0]["text"], "Какво беше измерено")
+        self.assertNotIn("01", headings[0]["html"])
+
     def test_code_keeps_language_and_body(self):
         codes = [block for block in self.blocks if block["kind"] == "code"]
         self.assertEqual(len(codes), 1)
@@ -145,6 +155,11 @@ class TestArtifactParser(TransactionCase):
             if not isinstance(element.tag, str):
                 continue
             if [child for child in element if isinstance(child.tag, str)]:
+                continue
+            # Номерът на секцията се маха НАРОЧНО (виж
+            # test_section_number_is_not_glued_to_the_heading). Изхвърленото
+            # по решение не е изгубено и няма място в този тест.
+            if "num" in (element.get("class") or "").split():
                 continue
             words = set(WORD_RE.findall(element.text_content().lower()))
             if words and not words.issubset(carried):

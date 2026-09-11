@@ -61,6 +61,36 @@ class TestArtifactCollect(TransactionCase):
         self.assertEqual(len(report), 1)
         self.assertEqual(report[0]["name"], "D")
 
+    def test_script_rendered_artifact_is_refused_with_a_diagnosis(self):
+        """Артефакт, който се рисува от скрипт: <body> носи празен <div>, а
+        целият текст е вътре в <script>. Парсерът изхвърля скриптовете и
+        остава с нищо. Такъв запис не бива да ляга тихо с нула блока —
+        намерено при качването на specs: два артефакта по 2,4 MB."""
+        payload = (
+            "<html><head><title>Клиентски рендер</title></head><body>"
+            "<div id=\"root\"></div>"
+            "<script>var DATA=[%s];</script>"
+            "</body></html>" % ",".join('"дума%d"' % i for i in range(400))
+        )
+        with self.assertRaises(UserError) as caught:
+            self.artifacts.collect({"title": "Клиентски рендер", "content": payload})
+        self.assertIn("scripts", str(caught.exception))
+
+    def test_coverage_separates_dropped_from_lost(self):
+        """h1 става заглавие, standfirst — подзаглавие, а надзаглавието се
+        изхвърля нарочно (блогът си показва датата). Ако отчетът брои и трите
+        за липса, гърми при всеки артефакт — а гард, който гърми винаги, е шум."""
+        result = self.artifacts.collect({
+            "content": ARTIFACT_HTML.replace("склада", "килера"), "build": True,
+        })
+        artifact = self.artifacts.browse(result["id"])
+        report = artifact._coverage_report()
+        self.assertGreaterEqual(report["coverage"], 99.0, report)
+        missing = (report["sample"] or "").lower()
+        self.assertNotIn("работен", missing, "надзаглавието не е загуба")
+        self.assertNotIn("разчетът", missing, "заглавието не е загуба")
+        self.assertGreater(report["dropped_words"], 0, "надзаглавието се отчита отделно")
+
     # ------------------------------------------------------------------
     def test_blog_post_is_created_as_a_draft(self):
         result = self.artifacts.collect({
@@ -74,6 +104,25 @@ class TestArtifactCollect(TransactionCase):
         self.assertFalse(post.website_published, "нищо не тръгва към сайта само")
         self.assertEqual(post.blog_id, self.blog)
         self.assertIn("s_title", post.content)
+
+    def test_post_carries_its_seo_fields_and_a_readable_teaser(self):
+        """Без мета полетата страницата тръгва с „Page title not set", а
+        автоматичният откъс взема ОГЛАВЛЕНИЕТО — то стои първо в съдържанието
+        и дава „01Какво се иска 02Заварено състояние"."""
+        result = self.artifacts.collect({
+            "title": "Разчетът на склада",
+            "content": ARTIFACT_HTML.replace("склада", "тавана2"),
+            "blog_id": self.blog.id, "build": True,
+        })
+        artifact = self.artifacts.browse(result["id"])
+        artifact.action_publish_draft()
+        post = artifact.blog_post_id
+        self.assertEqual(post.website_meta_title, "Разчетът на склада")
+        self.assertTrue(post.website_meta_description)
+        self.assertIn("Кратък водещ абзац", post.website_meta_description)
+        self.assertTrue(post.teaser_manual)
+        self.assertNotIn("01", post.teaser_manual[:4], "откъсът не е оглавлението")
+        self.assertIn("Какво беше измерено", post.website_meta_keywords)
 
     def test_publishing_twice_updates_the_same_post(self):
         result = self.artifacts.collect({

@@ -38,7 +38,7 @@ ARTIFACT_HTML = """<!DOCTYPE html>
       </dl>
     </section>
     <section>
-      <h2>Какво беше измерено</h2>
+      <h2><span class="num">01</span>Какво беше измерено</h2>
       <p>Първи абзац от раздела с <b>подчертана</b> дума и
          <a href="https://example.org/doc">препратка</a>.</p>
       <div class="kpi">

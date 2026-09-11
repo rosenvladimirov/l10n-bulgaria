@@ -212,6 +212,8 @@ class ClaudeArtifact(models.Model):
                     subtitle = block["text"][:255]
                 vals.append(dict(blocks_model._vals_from_parsed(block),
                                  artifact_id=artifact.id))
+            if not vals:
+                raise UserError(artifact._nothing_to_parse_message())
             blocks_model.create(vals)
             artifact.write({
                 "name": artifact.name if artifact.name != _("Untitled artifact")
@@ -416,6 +418,7 @@ class ClaudeArtifact(models.Model):
                 )
             if not artifact.built_content:
                 artifact.action_build()
+            summary = artifact._summary_text()
             vals = {
                 "name": artifact.name,
                 "subtitle": artifact.subtitle or "",
@@ -423,6 +426,13 @@ class ClaudeArtifact(models.Model):
                 "author_id": artifact.author_id.id or self.env.user.partner_id.id,
                 "content": artifact.built_content,
                 "tag_ids": [(6, 0, artifact.tag_ids.ids)],
+                # Без тези полета страницата тръгва с „Page title not set",
+                # а автоматичният откъс взема ОГЛАВЛЕНИЕТО — то стои първо в
+                # съдържанието и дава „01Какво се иска 02Заварено състояние".
+                "teaser_manual": summary,
+                "website_meta_title": artifact.name,
+                "website_meta_description": summary,
+                "website_meta_keywords": artifact._meta_keywords(),
             }
             if artifact.blog_post_id:
                 artifact.blog_post_id.write(vals)
@@ -437,6 +447,36 @@ class ClaudeArtifact(models.Model):
                        id=post.id, count=artifact.block_count)
             )
         return True
+
+    def _summary_text(self, limit=160):
+        """Резюмето за откъса и за мета описанието.
+
+        Взема водещия абзац, а ако няма — първия истински текстов блок.
+        Оглавлението и надзаглавието се прескачат: те не описват статията.
+        """
+        self.ensure_one()
+        if self.subtitle:
+            return self.subtitle[:limit]
+        for block in self.block_ids.sorted(lambda b: (b.sequence, b.id)):
+            if block.excluded or block.kind not in ("standfirst", "paragraph"):
+                continue
+            text = (block.text or "").strip()
+            if len(text) > 40:
+                return text[:limit]
+        return (self.name or "")[:limit]
+
+    def _meta_keywords(self, count=8):
+        """Ключовите думи са заглавията на секциите — те са реалните теми.
+
+        По-добре празно, отколкото измислени: ако артефактът няма секции,
+        полето остава празно.
+        """
+        self.ensure_one()
+        headings = self.block_ids.filtered(
+            lambda block: block.kind == "heading" and block.level == 2
+            and not block.excluded)
+        words = [heading.text.strip() for heading in headings if heading.text]
+        return ", ".join(words[:count])
 
     def action_open_post(self):
         self.ensure_one()
@@ -475,16 +515,45 @@ class ClaudeArtifact(models.Model):
             report = artifact._coverage_report()
             artifact.message_post(body=Markup(
                 _("<p>Coverage: <b>%(pct).1f%%</b> — source %(src)s words, "
-                  "article %(got)s words, missing %(lost)s.</p>%(sample)s")
+                  "article %(got)s words, missing %(lost)s, "
+                  "dropped on purpose %(dropped)s.</p>%(sample)s")
             ) % {
                 "pct": report["coverage"],
                 "src": report["source_words"],
                 "got": report["built_words"],
                 "lost": report["missing_words"],
+                "dropped": report["dropped_words"],
                 "sample": Markup("<p>%s</p>") % report["sample"]
                           if report["sample"] else Markup(""),
             })
         return True
+
+    def _nothing_to_parse_message(self):
+        """Диагнозата, когато артефактът не дава нито един блок.
+
+        Най-честата причина е артефакт, който се рисува от скрипт: <body>
+        носи празен <div> и няколко <script>, а целият текст живее вътре в
+        скрипта. Парсерът изхвърля скриптовете нарочно — те не бива да влизат
+        в блога — и остава с нищо. Такъв артефакт иска изпълнен JavaScript,
+        а не разбор на разметка.
+        """
+        self.ensure_one()
+        parser = self.env["claude.artifact.parser"]
+        visible = len(parser._plain_text_of_html(self.raw_source).split())
+        raw_words = len((self.raw_source or "").split())
+        if raw_words and visible * 20 < raw_words:
+            return _(
+                "The artifact %(name)s carries no readable markup: its text "
+                "lives inside its scripts, not in the document. Such an "
+                "artifact has to be rendered by a browser first — export it "
+                "as plain HTML or Markdown and collect that instead.",
+                name=self.name,
+            )
+        return _(
+            "The artifact %(name)s produced no blocks. Check that it really "
+            "is an HTML or Markdown document.",
+            name=self.name,
+        )
 
     def _coverage_report(self):
         self.ensure_one()
@@ -493,13 +562,29 @@ class ClaudeArtifact(models.Model):
             parser._plain_text_of_html(self.raw_source)
             if self.source_format == "html" else self.raw_source
         )
-        built_words = self._word_counter(
-            parser._plain_text_of_html(self.built_content or "")
-        )
+        # Изхвърленото нарочно не е изгубено. Надзаглавието („технически
+        # разчет · 11.09.2026") е метаред, който блогът и без това показва
+        # със собствената си дата; изключените блокове са избор на човека.
+        # Без това разграничение числото гърми при всеки артефакт с kicker.
+        dropped = self.block_ids.filtered(
+            lambda block: block.excluded or block.kind == "kicker")
+        for block in dropped:
+            source_words -= self._word_counter(block.text)
+        # Заглавието и подзаглавието НЕ се губят: те стават name и subtitle
+        # на статията. Без тях отчетът показва липса при всеки артефакт с
+        # надзаглавие — а гард, който гърми винаги, е шум.
+        built_words = self._word_counter(" ".join([
+            parser._plain_text_of_html(self.built_content or ""),
+            self.name or "",
+            self.subtitle or "",
+        ]))
         missing = source_words - built_words
         total = sum(source_words.values())
+        dropped_words = sum(self._word_counter(block.text).total()
+                            for block in dropped)
         return {
             "source_words": total,
+            "dropped_words": dropped_words,
             "built_words": sum(built_words.values()),
             "missing_words": sum(missing.values()),
             "coverage": 100.0 * sum(built_words.values()) / (total or 1),

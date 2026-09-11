@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="claude_artifact_block_view_list" model="ir.ui.view">
+        <field name="name">claude.artifact.block.list</field>
+        <field name="model">claude.artifact.block</field>
+        <field name="arch" type="xml">
+            <list string="Blocks" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="artifact_id" optional="hide"/>
+                <field name="kind"/>
+                <field name="level"/>
+                <field name="snippet_key" string="Snippet"/>
+                <field name="text"/>
+                <field name="excluded" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="claude_artifact_block_view_form" model="ir.ui.view">
+        <field name="name">claude.artifact.block.form</field>
+        <field name="model">claude.artifact.block</field>
+        <field name="arch" type="xml">
+            <form string="Block">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="artifact_id"/>
+                            <field name="sequence"/>
+                            <field name="kind"/>
+                            <field name="level"/>
+                            <field name="lang"/>
+                        </group>
+                        <group>
+                            <field name="rule_id"/>
+                            <field name="snippet_key"/>
+                            <field name="anchor"/>
+                            <field name="excluded"/>
+                        </group>
+                    </group>
+                    <group string="Text">
+                        <field name="text" nolabel="1"/>
+                    </group>
+                    <group string="Block HTML">
+                        <field name="body_html" nolabel="1"/>
+                    </group>
+                    <group string="Metadata" groups="base.group_no_one">
+                        <field name="meta_json" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

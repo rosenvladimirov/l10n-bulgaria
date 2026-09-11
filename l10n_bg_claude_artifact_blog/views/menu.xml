@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_claude_artifact_root"
+              name="Claude Artifacts"
+              parent="website.menu_website_configuration"
+              sequence="90"/>
+    <menuitem id="menu_claude_artifact"
+              name="Artifacts"
+              parent="menu_claude_artifact_root"
+              action="claude_artifact_action"
+              sequence="10"/>
+    <menuitem id="menu_claude_artifact_import"
+              name="Import Artifact"
+              parent="menu_claude_artifact_root"
+              action="claude_artifact_import_wizard_action"
+              sequence="20"/>
+    <menuitem id="menu_claude_snippet_rule"
+              name="Snippet Rules"
+              parent="menu_claude_artifact_root"
+              action="claude_snippet_rule_action"
+              sequence="30"
+              groups="base.group_system"/>
+</odoo>

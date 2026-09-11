@@ -1,0 +1,34 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Claude Artifacts to Blog</h2>
+        <h3 class="oe_slogan">Artifacts become blog posts built from native Odoo snippets</h3>
+        <div class="oe_span12">
+            <p class="oe_mt32">
+                An artifact is a self-contained HTML page with its own CSS and its own
+                diagrams. Pasted into a blog post it looks right and cannot be edited:
+                the website editor recognises nothing in it. This module takes it apart
+                and puts it back together with the snippets Odoo already knows.
+            </p>
+        </div>
+    </div>
+    <div class="oe_row oe_spaced">
+        <div class="oe_span6">
+            <h3>What it maps</h3>
+            <ul>
+                <li>Headings to <code>s_title</code> with table-of-content anchors</li>
+                <li>Callouts to <code>s_alert</code>, level taken from the marker</li>
+                <li>Figures to <code>s_big_number</code> and column boards</li>
+                <li>Tables into their own scroller, diagrams with their colours kept</li>
+                <li><code>&lt;details&gt;</code> to <code>s_accordion</code></li>
+            </ul>
+        </div>
+        <div class="oe_span6">
+            <h3>What it never does</h3>
+            <ul>
+                <li>Publish on its own — the blog post is always a draft</li>
+                <li>Let the artifact CSS or scripts reach the page</li>
+                <li>Call a language model: the parser is deterministic</li>
+            </ul>
+        </div>
+    </div>
+</section>

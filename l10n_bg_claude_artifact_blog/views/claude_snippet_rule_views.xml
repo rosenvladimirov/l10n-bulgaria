@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="claude_snippet_rule_view_list" model="ir.ui.view">
+        <field name="name">claude.snippet.rule.list</field>
+        <field name="model">claude.snippet.rule</field>
+        <field name="arch" type="xml">
+            <list string="Snippet Rules" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="block_kind"/>
+                <field name="heading_level"/>
+                <field name="snippet_key"/>
+                <field name="template_key"/>
+                <field name="standalone" widget="boolean_toggle"/>
+                <field name="starts_section" widget="boolean_toggle"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="claude_snippet_rule_action" model="ir.actions.act_window">
+        <field name="name">Snippet Rules</field>
+        <field name="res_model">claude.snippet.rule</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

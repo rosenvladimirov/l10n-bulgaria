@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Всеки темплейт емитва markup-а на РЕАЛНИЯ снипет от Odoo 19, за да го
+     разпознае website редакторът. Сверено срещу
+     odoo/addons/website/views/snippets/*.xml на 19.0 -->
+<odoo>
+
+    <!-- Текстова секция: заглавия 3+, абзаци, списъци, код, таблици, подписи -->
+    <template id="snippet_text_block" name="Artifact: text section">
+        <section class="s_text_block pt16 pb16" data-snippet="s_text_block" data-name="Section">
+            <div class="container s_allow_columns">
+                <t t-out="body"/>
+            </div>
+        </section>
+    </template>
+
+    <!-- Заглавие на секция (h2). anchor-ът служи и на оглавлението -->
+    <template id="snippet_title" name="Artifact: section title">
+        <section class="s_title pt32 pb16" data-snippet="s_title" data-name="Title">
+            <div class="container s_allow_columns">
+                <h2 class="h2-fs" t-att-id="anchor" data-anchor="true" t-out="markup"/>
+            </div>
+        </section>
+    </template>
+
+    <!-- Водещ абзац -->
+    <template id="snippet_standfirst" name="Artifact: standfirst">
+        <section class="s_text_block pt16 pb16" data-snippet="s_text_block" data-name="Lead">
+            <div class="container s_allow_columns">
+                <p class="lead" t-out="markup"/>
+            </div>
+        </section>
+    </template>
+
+    <!-- Предупреждение / бележка: 🚨 ⚠️ ✅ ℹ️ от артефакта -->
+    <template id="snippet_alert" name="Artifact: alert">
+        <section class="s_text_block pt8 pb8" data-snippet="s_text_block" data-name="Section">
+            <div class="container s_allow_columns">
+                <div t-attf-class="s_alert s_alert_md alert alert-#{level} w-100 clearfix"
+                     role="alert" data-snippet="s_alert" data-name="Alert" data-vcss="001">
+                    <i t-attf-class="fa fa-lg fa-#{icon} fa-stack d-flex align-items-center justify-content-center me-3 p-2 rounded-1 s_alert_icon"/>
+                    <div class="s_alert_content">
+                        <t t-out="body"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- Цитат -->
+    <template id="snippet_blockquote" name="Artifact: blockquote">
+        <section class="s_text_block pt16 pb16" data-snippet="s_text_block" data-name="Section">
+            <div class="container s_allow_columns">
+                <blockquote class="s_blockquote s_blockquote_with_line o_cc o_cc2 position-relative d-flex flex-column gap-4 w-100 mx-auto p-4 fst-normal"
+                            data-snippet="s_blockquote" data-name="Blockquote" data-vcss="001">
+                    <div class="s_blockquote_line_elt position-absolute top-0 start-0 bottom-0 bg-o-color-1"/>
+                    <p class="s_blockquote_quote my-auto" t-out="markup"/>
+                    <div t-if="cite" class="s_blockquote_infos d-flex gap-2 flex-row align-items-start justify-content-start w-100 text-start">
+                        <div class="s_blockquote_author">
+                            <span class="o_small"><strong t-out="cite"/></span>
+                        </div>
+                    </div>
+                </blockquote>
+            </div>
+        </section>
+    </template>
+
+    <!-- Един показател -->
+    <template id="snippet_big_number" name="Artifact: single figure">
+        <section class="s_big_number o_cc o_cc2 pt32 pb32" data-snippet="s_big_number" data-name="Big number">
+            <div class="container">
+                <div class="row s_nb_column_fixed">
+                    <h2 style="text-align: center;">
+                        <span style="font-size: 4.5rem;" t-out="number"/>
+                    </h2>
+                    <p t-if="label" style="text-align: center;">
+                        <span style="font-size: 1.25rem;" t-out="label"/>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- Табло от показатели: dl.stat от артефакта -->
+    <template id="snippet_figures_board" name="Artifact: figures board">
+        <section class="s_text_block pt24 pb24" data-snippet="s_text_block" data-name="Figures">
+            <div class="container">
+                <div class="row s_nb_column_fixed">
+                    <div t-foreach="pairs" t-as="pair" t-attf-class="col-lg-#{column_width} col-md-6 pb24"
+                         data-name="Figure">
+                        <h3 class="display-5 mb-1" t-out="pair['value']"/>
+                        <p class="mb-0 fw-bold" t-out="pair['label']"/>
+                        <p t-if="pair['note']" class="o_small text-muted mb-0" t-out="pair['note']"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- Код: Odoo 19 няма кодов снипет, затова pre/code в текстова секция -->
+    <template id="snippet_code" name="Artifact: code">
+        <section class="s_text_block o_artifact_code pt8 pb8" data-snippet="s_text_block" data-name="Code">
+            <div class="container s_allow_columns">
+                <pre t-attf-class="o_artifact_pre#{lang and ' language-' + lang or ''}"><code t-out="code"/></pre>
+                <p t-if="lang" class="o_small text-muted mt-1 mb-0" t-out="lang"/>
+            </div>
+        </section>
+    </template>
+
+    <!-- Таблица: винаги в собствен скрол, иначе широката таблица вади статията -->
+    <template id="snippet_table" name="Artifact: table">
+        <section class="s_text_block pt16 pb16" data-snippet="s_text_block" data-name="Table">
+            <div class="container s_allow_columns">
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover align-middle">
+                        <t t-out="rows"/>
+                    </table>
+                </div>
+                <p t-if="caption" class="o_small text-muted mt-1 mb-0" t-out="caption"/>
+            </div>
+        </section>
+    </template>
+
+    <!-- Диаграма: SVG-то на артефакта остава вътре, то е носителят на числата -->
+    <template id="snippet_svg" name="Artifact: inline diagram">
+        <section class="s_text_block pt16 pb16" data-snippet="s_text_block" data-name="Diagram">
+            <div class="container s_allow_columns">
+                <figure class="o_artifact_figure mb-0">
+                    <t t-out="svg"/>
+                    <figcaption t-if="caption" class="o_small text-muted mt-2" t-out="caption"/>
+                </figure>
+            </div>
+        </section>
+    </template>
+
+    <!-- Картинка -->
+    <template id="snippet_image" name="Artifact: image">
+        <section class="s_text_block pt16 pb16" data-snippet="s_text_block" data-name="Image">
+            <div class="container s_allow_columns">
+                <figure class="mb-0">
+                    <img t-att-src="src" t-att-alt="alt" class="img img-fluid mx-auto d-block"/>
+                    <figcaption t-if="caption" class="o_small text-muted mt-2" t-out="caption"/>
+                </figure>
+            </div>
+        </section>
+    </template>
+
+    <!-- Сгъваемо: <details> от артефакта -->
+    <template id="snippet_accordion" name="Artifact: accordion">
+        <section class="s_text_block pt8 pb8" data-snippet="s_text_block" data-name="Section">
+            <div class="container s_allow_columns">
+                <div class="s_accordion" data-snippet="s_accordion" data-name="Accordion">
+                    <div t-att-id="group_id" class="accordion accordion-flush">
+                        <div class="accordion-item position-relative z-1" data-name="Accordion Item">
+                            <button type="button" t-att-id="button_id"
+                                    class="accordion-header accordion-button collapsed justify-content-between gap-2 bg-transparent h6-fs fw-bold text-decoration-none text-reset transition-none"
+                                    t-attf-data-bs-target="##{panel_id}" t-att-aria-controls="panel_id"
+                                    data-bs-toggle="collapse" aria-expanded="false">
+                                <span class="flex-grow-1" t-out="summary"/>
+                            </button>
+                            <div t-att-id="panel_id" class="accordion-collapse collapse"
+                                 t-attf-data-bs-parent="##{group_id}" role="region"
+                                 t-att-aria-labelledby="button_id">
+                                <div class="accordion-body">
+                                    <t t-out="body"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- Разделител -->
+    <template id="snippet_separator" name="Artifact: separator">
+        <div class="s_hr pt24 pb24" data-snippet="s_hr" data-name="Separator">
+            <hr class="w-100 mx-auto"/>
+        </div>
+    </template>
+
+    <!-- Оглавление: обвивка за дълга статия. Секциите влизат в главната колона -->
+    <template id="snippet_table_of_content" name="Artifact: table of content">
+        <section class="s_table_of_content pt24 pb24 o_cc o_cc1"
+                 data-snippet="s_table_of_content" data-name="Table of Content">
+            <div class="container">
+                <div class="row s_nb_column_fixed">
+                    <div class="col-lg-3 s_table_of_content_navbar_wrap s_table_of_content_navbar_sticky s_table_of_content_vertical_navbar d-print-none d-none d-lg-block o_not_editable o_cc o_cc1"
+                         data-name="Navbar">
+                        <div class="s_table_of_content_navbar list-group o_no_link_popover"
+                             style="top: 76px; max-height: calc(100vh - 96px);">
+                            <a t-foreach="entries" t-as="entry" t-attf-href="##{entry['anchor']}"
+                               t-attf-class="table_of_content_link list-group-item list-group-item-action py-2 border-0 rounded-0#{entry_first and ' active' or ''}"
+                               t-out="entry['label']"/>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 s_table_of_content_main oe_structure oe_empty" data-name="Content">
+                        <t t-out="body"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+</odoo>

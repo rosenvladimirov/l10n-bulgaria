@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="claude_artifact_publish_wizard_view_form" model="ir.ui.view">
+        <field name="name">claude.artifact.publish.wizard.form</field>
+        <field name="model">claude.artifact.publish.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Publish as Blog Drafts">
+                <sheet>
+                    <group>
+                        <field name="artifact_ids" widget="many2many_tags"/>
+                        <field name="blog_id"/>
+                        <field name="author_id"/>
+                        <field name="tag_ids" widget="many2many_tags"/>
+                        <field name="rebuild"/>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        Blog posts are always created unpublished. Review them in the
+                        website editor before making them visible.
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="action_publish" type="object"
+                            string="Create Drafts" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="claude_artifact_publish_wizard_action" model="ir.actions.act_window">
+        <field name="name">Publish as Blog Drafts</field>
+        <field name="res_model">claude.artifact.publish.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_claude_artifact"/>
+        <field name="binding_view_types">list</field>
+        <field name="context">{'default_artifact_ids': active_ids}</field>
+    </record>
+
+</odoo>

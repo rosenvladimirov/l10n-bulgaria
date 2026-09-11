@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_claude_artifact_designer,claude.artifact designer,model_claude_artifact,website.group_website_designer,1,1,1,1
+access_claude_artifact_block_designer,claude.artifact.block designer,model_claude_artifact_block,website.group_website_designer,1,1,1,1
+access_claude_snippet_rule_designer,claude.snippet.rule designer,model_claude_snippet_rule,website.group_website_designer,1,0,0,0
+access_claude_snippet_rule_admin,claude.snippet.rule admin,model_claude_snippet_rule,base.group_system,1,1,1,1
+access_claude_artifact_import_wizard,claude.artifact.import.wizard,model_claude_artifact_import_wizard,website.group_website_designer,1,1,1,1
+access_claude_artifact_publish_wizard,claude.artifact.publish.wizard,model_claude_artifact_publish_wizard,website.group_website_designer,1,1,1,1

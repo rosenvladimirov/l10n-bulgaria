@@ -1,0 +1,399 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_claude_artifact_blog
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-11 06:37+0000\n"
+"PO-Revision-Date: 2026-09-11 06:37+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+msgid "<span class=\"o_stat_text\">Blog Post</span>"
+msgstr "<span class=\"o_stat_text\">Блог статия</span>"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__accordion
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__accordion
+msgid "Accordion"
+msgstr "Сгъваем блок"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact__use_table_of_content__always
+msgid "Always"
+msgstr "Винаги"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+msgid "Article title"
+msgstr "Заглавие на статията"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.ui.menu,name:l10n_bg_claude_artifact_blog.menu_claude_artifact
+msgid "Artifacts"
+msgstr "Артефакти"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact__use_table_of_content__auto
+msgid "Automatic"
+msgstr "Автоматично"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_block_view_form
+msgid "Block"
+msgstr "Блок"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_block_view_form
+msgid "Block HTML"
+msgstr "HTML на блока"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_block_view_list
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_list
+msgid "Blocks"
+msgstr "Блокове"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_search
+msgid "Blog"
+msgstr "Блог"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_publish_wizard_view_form
+msgid ""
+"Blog posts are always created unpublished. Review them in the\n"
+"                        website editor before making them visible."
+msgstr ""
+"Статиите в блога се създават винаги непубликувани. Прегледайте ги в\n"
+"                        редактора на сайта, преди да ги направите видими."
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+msgid "Build Snippets"
+msgstr "Сглоби снипетите"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact__state__built
+msgid "Built"
+msgstr "Сглобен"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+msgid "Built Article"
+msgstr "Сглобена статия"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__callout
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__callout
+msgid "Callout / alert"
+msgstr "Предупреждение"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_import_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_publish_wizard_view_form
+msgid "Cancel"
+msgstr "Отказ"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__caption
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__caption
+msgid "Caption"
+msgstr "Подпис"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+msgid "Check Coverage"
+msgstr "Провери покритието"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model,name:l10n_bg_claude_artifact_blog.model_claude_artifact
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+msgid "Claude Artifact"
+msgstr "Артефакт от Claude"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model,name:l10n_bg_claude_artifact_blog.model_claude_artifact_block
+msgid "Claude Artifact Block"
+msgstr "Блок от артефакт"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model,name:l10n_bg_claude_artifact_blog.model_claude_artifact_parser
+msgid "Claude Artifact Parser (HTML to blocks)"
+msgstr "Парсер на артефакти (HTML към блокове)"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model,name:l10n_bg_claude_artifact_blog.model_claude_snippet_rule
+msgid "Claude Artifact to Odoo Snippet Rule"
+msgstr "Правило артефакт към снипет на Odoo"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.actions.act_window,name:l10n_bg_claude_artifact_blog.claude_artifact_action
+#: model:ir.ui.menu,name:l10n_bg_claude_artifact_blog.menu_claude_artifact_root
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_list
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_search
+msgid "Claude Artifacts"
+msgstr "Артефакти от Claude"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__code
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__code
+msgid "Code"
+msgstr "Код"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.actions.act_window,help:l10n_bg_claude_artifact_blog.claude_artifact_action
+msgid "Collect your first artifact"
+msgstr "Съберете първия си артефакт"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact__state__collected
+msgid "Collected"
+msgstr "Събран"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+msgid ""
+"Compares the words of the artifact with the words of the built article."
+msgstr "Сравнява думите на артефакта с думите на сглобената статия."
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+msgid "Create Blog Draft"
+msgstr "Създай чернова в блога"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_publish_wizard_view_form
+msgid "Create Drafts"
+msgstr "Създай чернови"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__definitions
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__definitions
+msgid "Definition list"
+msgstr "Списък с определения"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__kpi_group
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__kpi_group
+msgid "Figures board"
+msgstr "Табло с числа"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact__source_format__html
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_import_wizard__source_format__html
+msgid "HTML"
+msgstr "HTML"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__heading
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__heading
+msgid "Heading"
+msgstr "Заглавие"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__image
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__image
+msgid "Image"
+msgstr "Картинка"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_import_wizard_view_form
+msgid "Import"
+msgstr "Внеси"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.actions.act_window,name:l10n_bg_claude_artifact_blog.claude_artifact_import_wizard_action
+#: model:ir.ui.menu,name:l10n_bg_claude_artifact_blog.menu_claude_artifact_import
+msgid "Import Artifact"
+msgstr "Внеси артефакт"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model,name:l10n_bg_claude_artifact_blog.model_claude_artifact_import_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_import_wizard_view_form
+msgid "Import Claude Artifact"
+msgstr "Внасяне на артефакт от Claude"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__svg
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__svg
+msgid "Inline SVG"
+msgstr "Вградена диаграма"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__kicker
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__kicker
+msgid "Kicker (overline)"
+msgstr "Надзаглавие"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__list
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__list
+msgid "List"
+msgstr "Списък"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_block_view_form
+msgid "Metadata"
+msgstr "Метаданни"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_search
+msgid "My Artifacts"
+msgstr "Моите артефакти"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_search
+msgid "Not Published"
+msgstr "Непубликувани"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+msgid "Notes"
+msgstr "Бележки"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_import_wizard_view_form
+msgid "Or paste the source"
+msgstr "Или поставете източника"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__paragraph
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__paragraph
+msgid "Paragraph"
+msgstr "Абзац"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+msgid "Parse"
+msgstr "Парсвай"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact__state__parsed
+msgid "Parsed"
+msgstr "Парснат"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_import_wizard_view_form
+msgid "Paste the artifact HTML or Markdown here."
+msgstr "Поставете тук HTML или Markdown на артефакта."
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model,name:l10n_bg_claude_artifact_blog.model_claude_artifact_publish_wizard
+msgid "Publish Claude Artifacts as Blog Drafts"
+msgstr "Публикуване на артефакти като чернови в блога"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.actions.act_window,name:l10n_bg_claude_artifact_blog.claude_artifact_publish_wizard_action
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_publish_wizard_view_form
+msgid "Publish as Blog Drafts"
+msgstr "Публикувай като чернови"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_search
+msgid "Published"
+msgstr "Публикуван"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__quote
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__quote
+msgid "Quote"
+msgstr "Цитат"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+msgid "Raw Source"
+msgstr "Източник"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__separator
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__separator
+msgid "Separator"
+msgstr "Разделител"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_search
+msgid "Session"
+msgstr "Сесия"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__kpi
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__kpi
+msgid "Single figure"
+msgstr "Едно число"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_block_view_list
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+msgid "Snippet"
+msgstr "Снипет"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.actions.act_window,name:l10n_bg_claude_artifact_blog.claude_snippet_rule_action
+#: model:ir.ui.menu,name:l10n_bg_claude_artifact_blog.menu_claude_snippet_rule
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_snippet_rule_view_list
+msgid "Snippet Rules"
+msgstr "Правила за снипети"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_import_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+msgid "Source"
+msgstr "Източник"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__standfirst
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__standfirst
+msgid "Standfirst (lead paragraph)"
+msgstr "Водещ абзац"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_search
+msgid "Status"
+msgstr "Състояние"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+msgid "Subtitle"
+msgstr "Подзаглавие"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_import_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+msgid "Target"
+msgstr "Цел"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_block_view_form
+msgid "Text"
+msgstr "Текст"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.constraint,message:l10n_bg_claude_artifact_blog.constraint_claude_artifact_checksum_uniq
+msgid "This artifact has already been collected."
+msgstr "Този артефакт вече е събран."
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.actions.act_window,help:l10n_bg_claude_artifact_blog.claude_artifact_action
+msgid ""
+"Upload the artifact HTML, or let a Claude session push it in with\n"
+"               the <code>collect</code> method. Blocks are parsed, mapped to real\n"
+"               Odoo snippets, and the blog post is always created as a draft."
+msgstr ""
+"Качете HTML на артефакта или оставете Claude сесия да го подаде през\n"
+"               метода collect. Блоковете се парсват, мапват се към истински\n"
+"               снипети на Odoo, а статията се създава винаги като чернова."
+
+#. module: l10n_bg_claude_artifact_blog
+#: model_terms:ir.ui.view,arch_db:l10n_bg_claude_artifact_blog.claude_artifact_view_form
+msgid "Why this artifact, what to watch."
+msgstr "Защо този артефакт и какво да се следи."

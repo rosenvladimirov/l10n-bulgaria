@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Мапването артефакт -> снипет. Редактируемо от екрана: снипетите на Odoo
+     се сменят между сериите, а решението „кое къде" не е алгоритъм. -->
+<odoo>
+    <data noupdate="1">
+
+        <!-- Заглавие от второ ниво отваря секция и става котва на оглавлението -->
+        <record id="rule_heading_2" model="claude.snippet.rule">
+            <field name="name">Heading level 2 to Title snippet</field>
+            <field name="sequence">10</field>
+            <field name="block_kind">heading</field>
+            <field name="heading_level">2</field>
+            <field name="snippet_key">s_title</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_title</field>
+            <field name="standalone" eval="True"/>
+            <field name="starts_section" eval="True"/>
+        </record>
+
+        <!-- Заглавие от първо ниво: заглавието на статията се рендира от блога,
+             но ако артефактът има втори h1, той трябва да се вижда -->
+        <record id="rule_heading_1" model="claude.snippet.rule">
+            <field name="name">Heading level 1 to Title snippet</field>
+            <field name="sequence">15</field>
+            <field name="block_kind">heading</field>
+            <field name="heading_level">1</field>
+            <field name="snippet_key">s_title</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_title</field>
+            <field name="standalone" eval="True"/>
+            <field name="starts_section" eval="True"/>
+        </record>
+
+        <!-- Заглавия от трето ниво надолу остават в текущата текстова секция -->
+        <record id="rule_heading_deep" model="claude.snippet.rule">
+            <field name="name">Heading level 3+ inside the text section</field>
+            <field name="sequence">20</field>
+            <field name="block_kind">heading</field>
+            <field name="snippet_key">s_text_block</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_text_block</field>
+            <field name="standalone" eval="False"/>
+        </record>
+
+        <record id="rule_paragraph" model="claude.snippet.rule">
+            <field name="name">Paragraph</field>
+            <field name="sequence">30</field>
+            <field name="block_kind">paragraph</field>
+            <field name="snippet_key">s_text_block</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_text_block</field>
+            <field name="standalone" eval="False"/>
+        </record>
+
+        <record id="rule_list" model="claude.snippet.rule">
+            <field name="name">List</field>
+            <field name="sequence">40</field>
+            <field name="block_kind">list</field>
+            <field name="snippet_key">s_text_block</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_text_block</field>
+            <field name="standalone" eval="False"/>
+        </record>
+
+        <record id="rule_caption" model="claude.snippet.rule">
+            <field name="name">Caption</field>
+            <field name="sequence">45</field>
+            <field name="block_kind">caption</field>
+            <field name="snippet_key">s_text_block</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_text_block</field>
+            <field name="standalone" eval="False"/>
+        </record>
+
+        <record id="rule_standfirst" model="claude.snippet.rule">
+            <field name="name">Standfirst to lead paragraph</field>
+            <field name="sequence">50</field>
+            <field name="block_kind">standfirst</field>
+            <field name="snippet_key">s_text_block</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_standfirst</field>
+            <field name="standalone" eval="True"/>
+        </record>
+
+        <record id="rule_callout" model="claude.snippet.rule">
+            <field name="name">Callout to Alert snippet</field>
+            <field name="sequence">60</field>
+            <field name="block_kind">callout</field>
+            <field name="snippet_key">s_alert</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_alert</field>
+            <field name="standalone" eval="True"/>
+        </record>
+
+        <record id="rule_quote" model="claude.snippet.rule">
+            <field name="name">Quote to Blockquote snippet</field>
+            <field name="sequence">70</field>
+            <field name="block_kind">quote</field>
+            <field name="snippet_key">s_blockquote</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_blockquote</field>
+            <field name="standalone" eval="True"/>
+        </record>
+
+        <record id="rule_kpi" model="claude.snippet.rule">
+            <field name="name">Single figure to Big Number snippet</field>
+            <field name="sequence">80</field>
+            <field name="block_kind">kpi</field>
+            <field name="snippet_key">s_big_number</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_big_number</field>
+            <field name="standalone" eval="True"/>
+        </record>
+
+        <record id="rule_kpi_group" model="claude.snippet.rule">
+            <field name="name">Figures board to columns</field>
+            <field name="sequence">90</field>
+            <field name="block_kind">kpi_group</field>
+            <field name="snippet_key">s_text_block</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_figures_board</field>
+            <field name="standalone" eval="True"/>
+        </record>
+
+        <record id="rule_definitions" model="claude.snippet.rule">
+            <field name="name">Definition list to columns</field>
+            <field name="sequence">95</field>
+            <field name="block_kind">definitions</field>
+            <field name="snippet_key">s_text_block</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_figures_board</field>
+            <field name="standalone" eval="True"/>
+        </record>
+
+        <record id="rule_code" model="claude.snippet.rule">
+            <field name="name">Code block</field>
+            <field name="sequence">100</field>
+            <field name="block_kind">code</field>
+            <field name="snippet_key">s_text_block</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_code</field>
+            <field name="standalone" eval="True"/>
+        </record>
+
+        <record id="rule_table" model="claude.snippet.rule">
+            <field name="name">Table</field>
+            <field name="sequence">110</field>
+            <field name="block_kind">table</field>
+            <field name="snippet_key">s_text_block</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_table</field>
+            <field name="standalone" eval="True"/>
+        </record>
+
+        <record id="rule_svg" model="claude.snippet.rule">
+            <field name="name">Inline diagram</field>
+            <field name="sequence">120</field>
+            <field name="block_kind">svg</field>
+            <field name="snippet_key">s_text_block</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_svg</field>
+            <field name="standalone" eval="True"/>
+        </record>
+
+        <record id="rule_image" model="claude.snippet.rule">
+            <field name="name">Image</field>
+            <field name="sequence">130</field>
+            <field name="block_kind">image</field>
+            <field name="snippet_key">s_image</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_image</field>
+            <field name="standalone" eval="True"/>
+        </record>
+
+        <record id="rule_accordion" model="claude.snippet.rule">
+            <field name="name">Accordion</field>
+            <field name="sequence">140</field>
+            <field name="block_kind">accordion</field>
+            <field name="snippet_key">s_accordion</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_accordion</field>
+            <field name="standalone" eval="True"/>
+        </record>
+
+        <record id="rule_separator" model="claude.snippet.rule">
+            <field name="name">Separator</field>
+            <field name="sequence">150</field>
+            <field name="block_kind">separator</field>
+            <field name="snippet_key">s_hr</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_separator</field>
+            <field name="standalone" eval="True"/>
+        </record>
+
+        <!-- Kicker-ът не става блок: той е надзаглавие, място му е в подзаглавието -->
+        <record id="rule_kicker" model="claude.snippet.rule">
+            <field name="name">Kicker (not rendered as a block)</field>
+            <field name="sequence">160</field>
+            <field name="block_kind">kicker</field>
+            <field name="snippet_key">-</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_text_block</field>
+            <field name="standalone" eval="False"/>
+            <field name="note">Kickers are skipped by the builder and only feed the subtitle.</field>
+        </record>
+
+    </data>
+</odoo>

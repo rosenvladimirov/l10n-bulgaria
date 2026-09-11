@@ -1,0 +1,30 @@
+// Odoo 19 няма кодов снипет, а артефактите са пълни с код. Това е минимумът,
+// с който <pre> в блог статия остава четим и не вади страницата настрани.
+.o_artifact_code {
+    .o_artifact_pre {
+        padding: map-get($spacers, 3);
+        border-radius: $border-radius;
+        background-color: $gray-100;
+        border: $border-width solid $border-color;
+        overflow-x: auto;
+        font-size: 0.875em;
+        line-height: 1.5;
+        white-space: pre;
+        tab-size: 4;
+
+        code {
+            color: inherit;
+            background: none;
+            padding: 0;
+            font-size: inherit;
+        }
+    }
+}
+
+// Диаграмата на артефакта е SVG с фиксиран viewBox — да се свива с колоната
+.o_artifact_figure {
+    svg {
+        max-width: 100%;
+        height: auto;
+    }
+}

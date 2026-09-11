@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="claude_artifact_view_list" model="ir.ui.view">
+        <field name="name">claude.artifact.list</field>
+        <field name="model">claude.artifact</field>
+        <field name="arch" type="xml">
+            <list string="Claude Artifacts">
+                <field name="captured_date"/>
+                <field name="name"/>
+                <field name="source_format"/>
+                <field name="block_count" string="Blocks"/>
+                <field name="blog_id"/>
+                <field name="blog_post_id"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'parsed'"
+                       decoration-warning="state == 'built'"
+                       decoration-success="state == 'published'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="claude_artifact_view_form" model="ir.ui.view">
+        <field name="name">claude.artifact.form</field>
+        <field name="model">claude.artifact</field>
+        <field name="arch" type="xml">
+            <form string="Claude Artifact">
+                <header>
+                    <button name="action_parse" type="object" string="Parse"
+                            class="btn-secondary"/>
+                    <button name="action_build" type="object" string="Build Snippets"
+                            class="btn-primary"/>
+                    <button name="action_check_coverage" type="object"
+                            string="Check Coverage" class="btn-secondary"
+                            help="Compares the words of the artifact with the words of the built article."/>
+                    <button name="action_publish_draft" type="object"
+                            string="Create Blog Draft" class="btn-primary"
+                            invisible="not blog_id"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="collected,parsed,built,published"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_blocks" type="object"
+                                class="oe_stat_button" icon="fa-th-list">
+                            <field name="block_count" widget="statinfo" string="Blocks"/>
+                        </button>
+                        <button name="action_open_post" type="object"
+                                class="oe_stat_button" icon="fa-newspaper-o"
+                                invisible="not blog_post_id">
+                            <span class="o_stat_text">Blog Post</span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Article title"/></h1>
+                        <h3><field name="subtitle" placeholder="Subtitle"/></h3>
+                    </div>
+                    <group>
+                        <group string="Source">
+                            <field name="source_format"/>
+                            <field name="source_url" widget="url"/>
+                            <field name="artifact_uid"/>
+                            <field name="session_ref"/>
+                            <field name="captured_date"/>
+                            <field name="checksum" groups="base.group_no_one"/>
+                        </group>
+                        <group string="Target">
+                            <field name="blog_id"/>
+                            <field name="author_id"/>
+                            <field name="tag_ids" widget="many2many_tags"/>
+                            <field name="use_table_of_content"/>
+                            <field name="blog_post_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Blocks" name="blocks">
+                            <field name="block_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="kind"/>
+                                    <field name="level"/>
+                                    <field name="snippet_key" string="Snippet"/>
+                                    <field name="rule_id" optional="hide"/>
+                                    <field name="text"/>
+                                    <field name="lang" optional="hide"/>
+                                    <field name="excluded" widget="boolean_toggle"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Built Article" name="built">
+                            <field name="built_content" widget="html"
+                                   options="{'sanitize': false}" readonly="1"/>
+                        </page>
+                        <page string="Raw Source" name="raw">
+                            <field name="raw_source" widget="text"/>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="note" placeholder="Why this artifact, what to watch."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="claude_artifact_view_search" model="ir.ui.view">
+        <field name="name">claude.artifact.search</field>
+        <field name="model">claude.artifact</field>
+        <field name="arch" type="xml">
+            <search string="Claude Artifacts">
+                <field name="name"/>
+                <field name="session_ref"/>
+                <field name="artifact_uid"/>
+                <field name="blog_id"/>
+                <filter name="not_published" string="Not Published"
+                        domain="[('state', '!=', 'published')]"/>
+                <filter name="published" string="Published"
+                        domain="[('state', '=', 'published')]"/>
+                <separator/>
+                <filter name="mine" string="My Artifacts"
+                        domain="[('create_uid', '=', uid)]"/>
+                <group>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_blog" string="Blog" context="{'group_by': 'blog_id'}"/>
+                    <filter name="group_session" string="Session"
+                            context="{'group_by': 'session_ref'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="claude_artifact_action" model="ir.actions.act_window">
+        <field name="name">Claude Artifacts</field>
+        <field name="res_model">claude.artifact</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Collect your first artifact</p>
+            <p>Upload the artifact HTML, or let a Claude session push it in with
+               the <code>collect</code> method. Blocks are parsed, mapped to real
+               Odoo snippets, and the blog post is always created as a draft.</p>
+        </field>
+    </record>
+
+</odoo>

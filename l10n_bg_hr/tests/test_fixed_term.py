@@ -43,14 +43,40 @@ class TestFixedTerm(TransactionCase):
         })
 
     def _version(self, srok, sled=None, vid=None):
+        """Версия със срок `srok`, започнала ПРЕДИ него.
+
+        🚨 `hr.employee.create()` не задържа подадената `date_version` —
+        версията се ражда с ДНЕШНАТА дата (поведение на ядрото). Тестовете тук
+        работят с изтекли срокове, тъй че без изрично закотвяне гардът отказва
+        със „Start date (днес) must be earlier than contract end date (минала
+        дата)" и проверката не стига до крона изобщо.
+        """
         emp = self.env["hr.employee"].create({"name": "Тест срок"})
         v = emp.version_id
-        v.write({
+        # закотвяме НАЧАЛОТО преди срока — един ден стига, но взимаме запас,
+        # за да не зависи тестът от границата на самия гард
+        nachalo = srok - timedelta(days=30)
+        vals = {
             "wage": 1000.0,
             "contract_type_id": (vid or self.vid_srochen).id,
+            "contract_date_start": nachalo,
             "l10n_bg_fixed_term_end": srok,
             "l10n_bg_after_term_contract_type_id": sled and sled.id or False,
-        })
+        }
+        # Гардовете са верижни: сключване ≤ начало ≤ срок. Закотвим ли само
+        # едното, следващият в редицата отказва.
+        if "l10n_bg_contract_date" in v._fields:
+            vals["l10n_bg_contract_date"] = nachalo
+        v.write(vals)
+        # 🔑 Гардът сверява `contract_date_start`, не `date_version` — двете са
+        # различни полета и закотвянето само на второто не помага. Записват се
+        # ОТДЕЛНО след създаването: подадени в `create`, и двете се прегазват.
+        v.date_version = nachalo
+        self.assertEqual(
+            v.contract_date_start, nachalo,
+            "договорът пак почва на днешна дата — кронът ще падне на гарда "
+            "„Start date must be earlier than contract end date\" вместо да "
+            "затвори срока")
         return v
 
     # ------------------------------------------------------------------

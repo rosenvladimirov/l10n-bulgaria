@@ -25,7 +25,7 @@ DEF-107 (30.08.2026, Пламена): механизмът беше приет, 
 · махни преноса от `action_create_amendment` → `test_wizard_carries_the_job...`
   пада.
 """
-from datetime import date
+from datetime import date, timedelta
 
 from odoo.exceptions import ValidationError
 from odoo.tests import TransactionCase, tagged
@@ -190,7 +190,12 @@ class TestAmendmentCarriers(TransactionCase):
             "version_id": self.version.id,
             "amendment_type": "position_change",
             "subject": "Тест визард",
-            "date_effective": date(2026, 3, 1),
+            # 🚨 Визардът ЗАШИВА `date_signed = today()` (виж
+            # `hr_version_amendment_wizard.py`), тъй че дата на влизане
+            # в сила в МИНАЛОТО минава за „подписано след влизането" и
+            # гардът отказва. Тук датата е вход на визарда, не носител —
+            # взима се в бъдещето и относително, за да не изгние догодина.
+            "date_effective": date.today() + timedelta(days=30),
             "new_job_id": self.job_novo.id,
         })
         amd = self.env["l10n_bg.hr.version.amendment"].browse(
@@ -255,7 +260,9 @@ class TestAmendmentCarriers(TransactionCase):
             "version_id": self.version.id,
             "amendment_type": "other",
             "subject": "Тест описание",
-            "date_effective": date(2026, 3, 1),
+            # същото като в горния визард-тест: `date_signed` е зашито на
+            # днес, тъй че миналата дата не минава гарда
+            "date_effective": date.today() + timedelta(days=30),
             "description": "<p>Уговорка на свободен текст</p>",
         })
         amd = self.env["l10n_bg.hr.version.amendment"].browse(

@@ -267,7 +267,7 @@ class L10nBGHrVersionAmendment(models.Model):
     # Снимките на часовете ОСТАВАТ: те са историята на подписания документ.
     # Календарът е запис и може да бъде редактиран после; числата, щамповани
     # при одобрението, казват какво е било уговорено ТОГАВА. Същият довод като
-    # при `l10n_bg_job_id` върху фишовия ред (ADR-0008).
+    # при `l10n_bg_job_id` върху фишовия ред (ADR l10n-bg-ds-amendment/0008).
     old_daily_hours = fields.Float(string='Previous Daily Hours', readonly=True)
     old_weekly_hours = fields.Float(string='Previous Weekly Hours', readonly=True)
 
@@ -720,7 +720,7 @@ class L10nBGHrVersionAmendment(models.Model):
         🔑 Базовият модул НЕ зависи от ведомостта (`depends`: hr, mail,
         l10n_bg_config, l10n_bg_payroll_classifications), тъй че тук няма как
         да се знае кое е затворено. Слоят с ведомостта override-ва този метод
-        и отказва при валидиран фиш за периода. Виж ADR-0006.
+        и отказва при валидиран фиш за периода. Виж ADR l10n-bg-ds-amendment/0006.
 
         Корекция назад е нормална работа на ТРЗ и НЕ се забранява по принцип —
         отказът принадлежи само там, където нещо вече е излязло навън.

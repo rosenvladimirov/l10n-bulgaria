@@ -220,7 +220,7 @@ class TestAmendmentHygiene(TransactionCase):
         amd.write({"description": "<p>бележка след прилагането</p>"})
         self.assertIn("бележка", amd.description)
 
-    # ---------------- ADR-0006: кога може да се активира ----------------
+    # ---------------- ADR l10n-bg-ds-amendment/0006: кога може да се активира ----------------
 
     def test_activation_before_effective_date_is_refused(self):
         """Обикновеното активиране чака датата."""
@@ -268,7 +268,7 @@ class TestAmendmentHygiene(TransactionCase):
         """Куката за затворен период се вика при всяко активиране.
 
         Тук се проверява само ДОГОВОРЪТ — самата проверка живее в слоя с
-        ведомостта (ADR-0006), който базовият модул не познава.
+        ведомостта (ADR l10n-bg-ds-amendment/0006), който базовият модул не познава.
         """
         amd = self._approve(self._amendment({
             "amendment_type": "wage_change", "new_wage": 2000.0,

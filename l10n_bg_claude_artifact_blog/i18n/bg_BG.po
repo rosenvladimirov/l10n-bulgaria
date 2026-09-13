@@ -192,6 +192,18 @@ msgid "Figures board"
 msgstr "Табло с числа"
 
 #. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__cards
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__cards
+msgid "Cards"
+msgstr "Карти"
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__steps
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__steps
+msgid "Steps"
+msgstr "Стъпки"
+
+#. module: l10n_bg_claude_artifact_blog
 #: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact__source_format__html
 #: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_import_wizard__source_format__html
 msgid "HTML"

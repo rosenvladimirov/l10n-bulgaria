@@ -54,19 +54,32 @@ upload the `.html`/`.md` file or paste the source.
 | In the artifact | Becomes | Rendered as |
 |---|---|---|
 | `<h2>` | section heading | `s_title` + table-of-content anchor |
+| number + `<h2>` + subtitle in one wrapper | section heading + section lead | the number is dropped on purpose; the subtitle is a quiet lead |
 | `<h3>`…`<h6>` | in-section heading | inside the current `s_text_block` |
-| `<p>`, `<ul>`, `<ol>` | text | `s_text_block` |
+| `<p>`, `<ul>`, `<ol>`, an inline-only `<div>` | text | `s_text_block` |
 | `<p class="eyebrow">` | kicker | feeds the subtitle, not the body |
-| `<p class="standfirst">` | lead paragraph | `s_text_block` with `.lead` |
+| `<p class="standfirst">` | lead paragraph | the post subtitle — not repeated in the body |
 | `<pre><code>` | code | `<pre>` with the module's own styling |
-| `<table>` | table | `s_text_block` + `.table-responsive` |
+| `<table>` | table | `s_text_block` + `.table-responsive`; header rows, `colspan` and numeric alignment kept |
 | `<blockquote>` | quote | `s_blockquote` |
-| `🚨 ⚠️ ✅ ℹ️` or `.alert`/`.warning` | callout | `s_alert`, level from the marker |
-| `<dl class="stat">` | figures board | columns with the numbers |
-| `.kpi` with a number | single figure | `s_big_number` |
-| `<details><summary>` | accordion | `s_accordion` |
+| `🚨 ⚠️ ✅ ℹ️` or `.alert`/`.warning`/`.note`/`.trap` | callout | `s_alert` with a tone bar, level from the marker or the class |
+| `.note.key`, `.verdict` | conclusion | `s_text_highlight` |
+| `<dl class="stat">`, repeated value + label pairs | figures board | `s_numbers` with large numerals; long values become ledger rows |
+| `.kpi`, a number next to its explanation | single figure | `s_big_number` |
+| repeated items with a title, chips and text | cards | ledger rows: title and chips on the left, text on the right |
+| repeated numbered items, or `.step`/`.chain` | steps | a numbered sequence with a connecting line |
+| `.chip`, `.tag`, `.pill`, `.scale` | chip | `s_badge`, coloured by the tone class (`ok`, `bad`, `warn`) |
+| `span.m`, `.ref`, `.path` | name of a model or a file | `<code>` |
+| consecutive `<details><summary>` | accordion | one `s_accordion` |
 | `<svg>` | diagram | inline, with the artifact colours preserved |
 | `<figure><figcaption>` | figure | image or diagram with its caption |
+
+Groups are recognised by their **shape**, not by class names: a container
+whose children all repeat the same form (a short value and a label; a title,
+chips and text; a number and a step) becomes one block. Classes are read only
+for tone and role. The module styles live under `.o_artifact` and use only
+the theme tokens (`--o-color-*`, `--bs-*`), so another theme repaints the
+article in its own colours.
 
 The mapping lives in `claude.snippet.rule` records, not in code — snippets change
 between Odoo series, and "a table goes into a scroller" is a decision, not an

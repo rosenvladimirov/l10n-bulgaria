@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
     "name": "Claude Artifacts to Blog (Odoo Snippets)",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "development_status": "Alpha",
     "category": "Website/Website",
     "summary": (

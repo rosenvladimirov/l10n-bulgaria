@@ -106,7 +106,7 @@
             <field name="name">Figures board to columns</field>
             <field name="sequence">90</field>
             <field name="block_kind">kpi_group</field>
-            <field name="snippet_key">s_text_block</field>
+            <field name="snippet_key">s_numbers</field>
             <field name="template_key">l10n_bg_claude_artifact_blog.snippet_figures_board</field>
             <field name="standalone" eval="True"/>
         </record>
@@ -120,6 +120,24 @@
             <field name="standalone" eval="True"/>
         </record>
 
+        <!-- Повтарящи се елементи със заглавие и текст: редове от тефтер -->
+        <record id="rule_cards" model="claude.snippet.rule">
+            <field name="name">Repeated titled items to cards</field>
+            <field name="sequence">96</field>
+            <field name="block_kind">cards</field>
+            <field name="snippet_key">s_text_block</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_cards</field>
+            <field name="standalone" eval="True"/>
+        </record>
+        <!-- Номерирани елементи: последователност, стъпка по стъпка -->
+        <record id="rule_steps" model="claude.snippet.rule">
+            <field name="name">Numbered items to steps</field>
+            <field name="sequence">97</field>
+            <field name="block_kind">steps</field>
+            <field name="snippet_key">s_text_block</field>
+            <field name="template_key">l10n_bg_claude_artifact_blog.snippet_steps</field>
+            <field name="standalone" eval="True"/>
+        </record>
         <record id="rule_code" model="claude.snippet.rule">
             <field name="name">Code block</field>
             <field name="sequence">100</field>

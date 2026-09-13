@@ -355,6 +355,18 @@ msgid "Figures board"
 msgstr ""
 
 #. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__cards
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__cards
+msgid "Cards"
+msgstr ""
+
+#. module: l10n_bg_claude_artifact_blog
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_artifact_block__kind__steps
+#: model:ir.model.fields.selection,name:l10n_bg_claude_artifact_blog.selection__claude_snippet_rule__block_kind__steps
+msgid "Steps"
+msgstr ""
+
+#. module: l10n_bg_claude_artifact_blog
 #: model:ir.model.fields,help:l10n_bg_claude_artifact_blog.field_claude_artifact__subtitle
 msgid "Filled from the artifact standfirst when present."
 msgstr ""

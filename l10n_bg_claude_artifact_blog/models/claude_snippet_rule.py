@@ -18,6 +18,8 @@ BLOCK_KINDS = [
     ("definitions", "Definition list"),
     ("kpi", "Single figure"),
     ("kpi_group", "Figures board"),
+    ("cards", "Cards"),
+    ("steps", "Steps"),
     ("code", "Code"),
     ("table", "Table"),
     ("callout", "Callout / alert"),

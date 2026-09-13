@@ -1,11 +1,288 @@
+// Статията, сглобена от артефакт (ADR-0004).
+// Цветовете идват САМО от темата: --o-color-* и тоновете на Bootstrap. Името
+// на тона се сглобява с $prefix — Odoo 19 го изпразва (--danger, не
+// --bs-danger), а твърдо изписан --bs-* там просто не съществува.
+// Линиите и приглушеният текст се смесват от currentColor: следват цвета на
+// текста, каквато и да е темата. Всичко стои под .o_artifact — блогът и
+// сайтът извън статията не се пипат.
+
+.o_artifact {
+    --o-artifact-rule: color-mix(in srgb, currentColor 16%, transparent);
+    --o-artifact-muted: color-mix(in srgb, currentColor 70%, transparent);
+    --o-artifact-tone: currentColor;
+    --o-artifact-tone-text: currentColor;
+
+    // Тонът е оценката от артефакта („fig bad", „card ok"): смисъл, не украса
+    .o_artifact_tone_danger {
+        --o-artifact-tone: var(--#{$prefix}danger);
+        --o-artifact-tone-text: var(--#{$prefix}danger-text-emphasis, var(--#{$prefix}danger));
+    }
+    .o_artifact_tone_warning {
+        --o-artifact-tone: var(--#{$prefix}warning);
+        --o-artifact-tone-text: var(--#{$prefix}warning-text-emphasis, var(--#{$prefix}warning));
+    }
+    .o_artifact_tone_success {
+        --o-artifact-tone: var(--#{$prefix}success);
+        --o-artifact-tone-text: var(--#{$prefix}success-text-emphasis, var(--#{$prefix}success));
+    }
+
+    // Заглавието на раздел: кратка черта в акцента на темата отбелязва
+    // началото — в дълъг текст окото търси къде почва следващото
+    &.s_title h2::before {
+        content: "";
+        display: block;
+        width: 2rem;
+        height: 3px;
+        margin-bottom: .9rem;
+        background-color: var(--o-color-1);
+    }
+    .o_artifact_sec_sub {
+        color: var(--o-artifact-muted);
+        font-size: 1.05rem;
+        line-height: 1.5;
+    }
+
+    // Кодът в текста: мастилото на темата вместо розовото на Bootstrap
+    :not(pre) > code {
+        padding: .1em .35em;
+        border-radius: $border-radius-sm;
+        background-color: var(--o-color-3);
+        color: inherit;
+        font-size: .85em;
+        overflow-wrap: anywhere;
+    }
+    .o_artifact_mono {
+        font-family: $font-family-monospace;
+        font-size: .85em;
+    }
+
+    // Чипът: тих етикет до текста; тонът само го оцветява
+    // Без .badge (виж _chip_class) — формата на хапчето е тук
+    .o_artifact_chip {
+        display: inline-block;
+        margin: 0 .3em .2em 0;
+        border-radius: 50rem;
+        padding: .35em .7em;
+        border: 1px solid color-mix(in srgb, var(--o-artifact-tone) 30%, transparent);
+        background-color: color-mix(in srgb, var(--o-artifact-tone) 8%, transparent);
+        color: var(--o-artifact-tone-text);
+        font-size: .72em;
+        font-weight: 600;
+        line-height: 1.2;
+        white-space: normal;
+        text-align: start;
+        vertical-align: .12em;
+    }
+
+    // В заглавие чипът е етикет до него, не второ заглавие: .72em от h2
+    // даваше хапче колкото думите в заглавието
+    :is(h1, h2, h3) .o_artifact_chip {
+        margin-inline-start: .4em;
+        font-family: $font-family-base;
+        font-size: .8rem;
+        vertical-align: middle;
+    }
+
+    // Табло: едрата цифра е единственото шумно нещо в статията
+    .o_artifact_fig {
+        padding: .85rem 1rem 1.1rem 0;
+        border-top: 1px solid var(--o-artifact-rule);
+        &[class*="o_artifact_tone_"] {
+            border-top: 2px solid var(--o-artifact-tone);
+        }
+    }
+    .o_artifact_fig_value {
+        margin-bottom: .35rem;
+        font-family: $headings-font-family;
+        font-size: 2.25rem;
+        font-variant-numeric: lining-nums tabular-nums;
+        line-height: 1.05;
+        color: var(--o-artifact-tone-text);
+        overflow-wrap: anywhere;
+        &.o_artifact_fig_long {
+            font-size: 1.375rem;
+            line-height: 1.2;
+        }
+    }
+    .o_artifact_fig_label {
+        font-size: .875rem;
+        line-height: 1.4;
+    }
+    .o_artifact_fig_note {
+        margin-top: .15rem;
+        color: var(--o-artifact-muted);
+        font-size: .8rem;
+        line-height: 1.35;
+    }
+
+    // Тефтер: карти и определения, ред под ред, разделени с тънка линия
+    .o_artifact_ledger_row {
+        padding-block: 1rem;
+        border-top: 1px solid var(--o-artifact-rule);
+        &:last-child {
+            border-bottom: 1px solid var(--o-artifact-rule);
+        }
+        &[class*="o_artifact_tone_"] .o_artifact_ledger_title::before {
+            content: "";
+            display: inline-block;
+            width: .5em;
+            height: .5em;
+            margin-inline-end: .5em;
+            border-radius: 50%;
+            background-color: var(--o-artifact-tone);
+            vertical-align: .1em;
+        }
+    }
+    .o_artifact_ledger_head {
+        margin-bottom: .5rem;
+        .o_artifact_chip {
+            margin-top: .35rem;
+        }
+    }
+    .o_artifact_ledger_title {
+        font-family: $font-family-base;
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.35;
+    }
+    .o_artifact_card_number {
+        margin-inline-end: .45em;
+        color: var(--o-color-1);
+        font-variant-numeric: tabular-nums;
+    }
+    .o_artifact_ledger_body > :last-child {
+        margin-bottom: 0;
+    }
+
+    // Стъпки: номер в кръг и линия към следващия — редът е реален
+    .o_artifact_step {
+        position: relative;
+        padding-bottom: 1.75rem;
+        &:last-child {
+            padding-bottom: 0;
+        }
+        &:not(:last-child)::before {
+            content: "";
+            position: absolute;
+            top: 2.75rem;
+            bottom: .5rem;
+            inset-inline-start: calc(1.25rem - .5px);
+            border-inline-start: 1px solid var(--o-artifact-rule);
+        }
+    }
+    .o_artifact_step_number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border: 1px solid var(--o-color-1);
+        border-radius: 50%;
+        color: var(--o-color-1);
+        font-family: $headings-font-family;
+        font-size: 1.15rem;
+        font-variant-numeric: lining-nums;
+        line-height: 1;
+    }
+    .o_artifact_step_title {
+        margin: .45rem 0 .4rem;
+        font-family: $font-family-base;
+        font-size: 1.05rem;
+        font-weight: 600;
+    }
+    .o_artifact_step_content > :last-child {
+        margin-bottom: 0;
+    }
+
+    // Предупреждение: цветна лента вляво вместо плътна кутия — в статия с
+    // шест бележки плътните кутии крещяха по-силно от текста. Свойствата
+    // се задават пряко: Odoo 19 не носи --bs-alert-* на всички теми
+    .o_artifact_callout.s_alert {
+        --o-artifact-tone: var(--o-color-5);
+        margin-block: .25rem;
+        padding: 1rem 1.25rem;
+        border: 0;
+        border-inline-start: 3px solid var(--o-artifact-tone);
+        border-radius: 0 $border-radius $border-radius 0;
+        background-color: color-mix(in srgb, var(--o-artifact-tone) 6%, transparent);
+        color: inherit;
+        &.alert-danger {
+            --o-artifact-tone: var(--#{$prefix}danger);
+        }
+        &.alert-warning {
+            --o-artifact-tone: var(--#{$prefix}warning);
+        }
+        &.alert-success {
+            --o-artifact-tone: var(--#{$prefix}success);
+        }
+        .s_alert_icon {
+            width: auto;
+            height: auto;
+            margin: .2rem .8rem 0 0 !important;
+            padding: 0 !important;
+            background: none !important;
+            color: var(--o-artifact-tone);
+            font-size: 1.05rem;
+        }
+        .s_alert_content > :last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    // Изводът: акцент в самия текст, не тревога
+    .o_artifact_key.s_text_highlight {
+        padding: .15rem 0 .15rem 1.25rem;
+        border-inline-start: 3px solid var(--o-color-1);
+        border-radius: 0;
+        background: none;
+        font-size: 1.125em;
+        line-height: 1.55;
+        text-align: start;
+    }
+
+    // Един показател: числото вляво, обяснението до него
+    .o_artifact_big {
+        font-family: $headings-font-family;
+        font-size: 3.5rem;
+        font-variant-numeric: lining-nums;
+        line-height: 1;
+        color: var(--o-color-1);
+    }
+    [class*="o_artifact_tone_"] > * > .o_artifact_big {
+        color: var(--o-artifact-tone-text);
+    }
+    .o_artifact_big_label {
+        font-size: 1.05rem;
+        line-height: 1.45;
+    }
+
+    // Таблица: тънки линии, числата се четат по разряди
+    .table {
+        --#{$prefix}table-bg: transparent;
+        --#{$prefix}table-hover-bg: color-mix(in srgb, currentColor 4%, transparent);
+        font-size: .875em;
+        > thead > tr > * {
+            border-bottom: 2px solid currentColor;
+            font-weight: 600;
+            vertical-align: bottom;
+        }
+        > :not(caption) > * > * {
+            border-bottom-color: var(--o-artifact-rule);
+        }
+        .text-end,
+        .text-center {
+            font-variant-numeric: tabular-nums;
+        }
+    }
+}
+
 // Odoo 19 няма кодов снипет, а артефактите са пълни с код. Това е минимумът,
 // с който <pre> в блог статия остава четим и не вади страницата настрани.
 .o_artifact_code {
     .o_artifact_pre {
         padding: map-get($spacers, 3);
         border-radius: $border-radius;
-        background-color: $gray-100;
-        border: $border-width solid $border-color;
+        background-color: var(--o-color-3);
         overflow-x: auto;
         font-size: 0.875em;
         line-height: 1.5;
@@ -19,6 +296,17 @@
             font-size: inherit;
         }
     }
+}
+
+// Доказателство или изход в карта: по редове, както е в артефакта
+.o_artifact_pre_inline {
+    margin: 0 0 .75rem;
+    padding: .6rem .85rem;
+    border-radius: $border-radius-sm;
+    background-color: var(--o-color-3);
+    font-size: .8em;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
 }
 
 // Диаграмата на артефакта е SVG с фиксиран viewBox — да се свива с колоната

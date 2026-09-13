@@ -100,7 +100,7 @@ class TestArtifactBuilder(TransactionCase):
         board = self.tree.xpath("//section[@data-name='Figures']")
         self.assertTrue(board)
         values = [node.text_content().strip()
-                  for node in board[0].xpath(".//h3")]
+                  for node in board[0].xpath(".//*[contains(@class, 'o_artifact_fig_value')]")]
         self.assertEqual(values, ["18", "935", "5"])
 
     def test_accordion_ids_are_unique_and_wired(self):

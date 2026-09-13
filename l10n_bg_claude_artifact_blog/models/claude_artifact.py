@@ -17,6 +17,8 @@ from markupsafe import Markup
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
+from .claude_artifact_parser import FIGURE_VALUE_MAX
+
 _logger = logging.getLogger(__name__)
 
 # Икона на предупреждението по ниво — Odoo рендира FontAwesome в s_alert
@@ -208,7 +210,9 @@ class ClaudeArtifact(models.Model):
             vals = []
             subtitle = artifact.subtitle
             for block in blocks:
-                if block["kind"] == "standfirst" and not subtitle:
+                # Подзаглавието на РАЗДЕЛ не е подзаглавие на статията
+                if (block["kind"] == "standfirst" and not subtitle
+                        and not block["meta"].get("section")):
                     subtitle = block["text"][:255]
                 vals.append(dict(blocks_model._vals_from_parsed(block),
                                  artifact_id=artifact.id))
@@ -245,10 +249,13 @@ class ClaudeArtifact(models.Model):
         """Сглобява content-а: снипет по снипет, в реда на блоковете."""
         self.ensure_one()
         rules = self.env["claude.snippet.rule"]
+        parser = self.env["claude.artifact.parser"]
         sections = []          # готови парчета HTML
         toc_entries = []       # (anchor, label) за оглавлението
         buffer = []            # непълни (нестандартни) блокове, чакащи текстова секция
+        accordions = []        # поредни сгъваеми блокове — стават ЕДИН акордеон
         heading_index = 0
+        lead_skipped = False
 
         def flush():
             if not buffer:
@@ -258,10 +265,33 @@ class ClaudeArtifact(models.Model):
                 "l10n_bg_claude_artifact_blog.snippet_text_block", {"body": body}))
             buffer.clear()
 
+        def flush_accordions():
+            # Шест поредни <details> бяха шест отделни акордеона с отстъп
+            # между всеки; в статията те са един списък от въпроси
+            if not accordions:
+                return
+            rule, first = accordions[0]
+            sections.append(self._render_template(rule.template_key, {
+                "group_id": "acc_artifact%d_%d" % (self.id, first.id),
+                "items": [self._accordion_item(block) for _rule, block in accordions],
+            }))
+            accordions.clear()
+
         for block in self.block_ids.sorted(lambda b: (b.sequence, b.id)):
             if block.excluded or block.kind == "kicker":
                 continue
+            if (not lead_skipped and block.kind == "standfirst" and self.subtitle
+                    and parser._same_text(block.text, self.subtitle)):
+                # Водещият абзац вече стои под заглавието на поста — той е
+                # подзаглавието му. Втори път в тялото е повторение, не текст.
+                lead_skipped = True
+                continue
             rule = block.rule_id or rules._rule_for(block)
+            if rule and rule.standalone and rule.snippet_key == "s_accordion":
+                flush()
+                accordions.append((rule, block))
+                continue
+            flush_accordions()
             if not rule:
                 _logger.warning("No snippet rule for block %s (%s); kept as text",
                                 block.id, block.kind)
@@ -284,6 +314,7 @@ class ClaudeArtifact(models.Model):
             sections.append(self._render_template(
                 rule.template_key, self._template_values(block)))
         flush()
+        flush_accordions()
 
         body = Markup("").join(sections)
         if self._wants_toc(toc_entries):
@@ -366,12 +397,34 @@ class ClaudeArtifact(models.Model):
         if kind == "quote":
             return {"markup": Markup(block.body_html or ""), "cite": meta.get("cite") or ""}
         if kind == "kpi":
-            return {"number": meta.get("number") or "", "label": meta.get("label") or ""}
+            return {"number": meta.get("number") or "", "label": meta.get("label") or "",
+                    "tone": meta.get("tone") or ""}
         if kind in ("kpi_group", "definitions"):
-            pairs = meta.get("pairs") or []
+            pairs = [dict(pair, long=len(pair.get("value") or "") > 8)
+                     for pair in meta.get("pairs") or []]
             return {
                 "pairs": pairs,
                 "column_width": 4 if len(pairs) % 3 == 0 or len(pairs) > 4 else 6,
+                # Таблото е за къси стойности. Дълга стойност е определение и
+                # се чете като ред от тефтер, не като едра цифра
+                "compact": all(len(pair.get("value") or "") <= FIGURE_VALUE_MAX
+                               for pair in pairs),
+            }
+        if kind in ("cards", "steps"):
+            items = []
+            for index, item in enumerate(meta.get("items") or [], start=1):
+                # Стъпката винаги има номер — редът е информация. Картата
+                # показва номер само ако артефактът го е написал
+                fallback = str(index) if kind == "steps" else ""
+                items.append(dict(
+                    item,
+                    number=item.get("number") or fallback,
+                    body=Markup(self._wrap_tables(item.get("body") or "")),
+                ))
+            return {
+                "items": items,
+                # Кратките заглавия стоят вляво от текста; дългите — над него
+                "ledger": all(len(item.get("title") or "") <= 40 for item in items),
             }
         if kind == "code":
             return {"code": block.text or "", "lang": block.lang or ""}
@@ -392,19 +445,27 @@ class ClaudeArtifact(models.Model):
                 "caption": meta.get("caption") or "",
             }
         if kind == "accordion":
-            token = "artifact%d_%d" % (self.id, block.id)
             return {
-                "summary": meta.get("summary") or block.text or "",
-                "body": Markup(self._wrap_tables(block.body_html or "")),
-                "group_id": "acc_%s" % token,
-                "button_id": "accbtn_%s" % token,
-                "panel_id": "accpanel_%s" % token,
+                "group_id": "acc_artifact%d_%d" % (self.id, block.id),
+                "items": [self._accordion_item(block)],
             }
         if kind == "standfirst":
-            return {"markup": Markup(self._heading_inner(block) or block.text or "")}
+            return {
+                "markup": Markup(self._heading_inner(block) or block.text or ""),
+                "section": bool(meta.get("section")),
+            }
         if kind == "separator":
             return {}
         return {"body": Markup(block.body_html or "")}
+
+    def _accordion_item(self, block):
+        token = "artifact%d_%d" % (self.id, block.id)
+        return {
+            "summary": block.meta.get("summary") or block.text or "",
+            "body": Markup(self._wrap_tables(block.body_html or "")),
+            "button_id": "accbtn_%s" % token,
+            "panel_id": "accpanel_%s" % token,
+        }
 
     # ------------------------------------------------------------------
     # Публикуване

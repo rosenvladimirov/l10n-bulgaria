@@ -122,3 +122,88 @@ def total(lines):
 
 Заключителен абзац.
 """
+
+# Втората фикстура носи СТРУКТУРИТЕ, които парсерът разтваряше до абзаци
+# (ADR-0004). Формите са свалени от истинските артефакти, съдържанието е
+# измислено:
+#   * табло <div class="mm"><span>етикет</span><b>стойност</b></div>
+#   * табло <div class="fig bad"><span class="n">24</span><span>…</span></div>
+#   * число с обяснение <div class="deadline"><span class="num">30</span><p/></div>
+#   * глава на секция <div class="sec-head"><div class="sec-num">02</div>
+#     <h2/><p class="sec-sub"/></div>
+#   * карти <div class="axis"><div class="an"/><span class="scale"/><p/></div>
+#   * карта със значка в заглавието <h4><span class="pill ok"/>…</h4>
+#   * въпроси <div class="q"><div><b>…</b><span>…</span></div></div>
+#   * стъпки <div class="step"><div class="sn">0</div><h4/><p class="cost"/>
+#     <div class="body"/></div>
+#   * бележки note key / note trap, чипове, span.m, поредни <details>
+#   * таблица с colspan, два заглавни реда и числови колони
+RICH_ARTIFACT_HTML = """<!DOCTYPE html>
+<html lang="bg">
+<head><meta charset="utf-8"/><title>Одитът на склада</title></head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">одит · 12.09.2026</p>
+    <h1>Одитът на склада</h1>
+    <p class="dek">Какво се мени между двете версии и колко струва преходът.</p>
+    <div class="mast-meta">
+      <div class="mm"><span>версия днес</span><b>19.4-alpha</b></div>
+      <div class="mm"><span>измерени модула</span><b>296 от ~662</b></div>
+      <div class="mm"><span>чупещи промени</span><b>50</b></div>
+    </div>
+    <div class="deadline"><span class="num">30</span><p><strong>дни до
+      замразяването</strong>, след което API-то спира да мърда.</p></div>
+  </header>
+  <section>
+    <div class="sec-head"><div class="sec-num">01</div><h2>Присъдите по осите</h2>
+      <p class="sec-sub">Всяка ос с оценка и едно изречение защо.</p></div>
+    <div class="figures">
+      <div class="fig bad"><span class="n">24</span><span class="l">души с достъп</span></div>
+      <div class="fig good"><span class="n">0</span><span class="l">с права admin</span></div>
+    </div>
+    <div class="axes">
+      <div class="axis"><div class="an">Сигурност</div><span class="scale s-rw">пренаписване</span>
+        <p>Два модела стават един: <code>ir.model.access</code> и <span class="m">ir.rule</span>.</p></div>
+      <div class="axis"><div class="an">Склад</div><span class="scale">еволюция</span>
+        <p>Скелетът остава, сменя се <span class="chip ok">uom_id</span>.</p></div>
+    </div>
+    <div class="note key"><b>Изводът:</b> това не е следваща версия, а друга платформа.</div>
+    <div class="note trap"><b>Капанът:</b> търсенето е по равенство, не по „става ли".</div>
+  </section>
+  <section>
+    <div class="sec-head"><div class="sec-num">02</div><h2>Поправеното</h2></div>
+    <div class="cards">
+      <div class="card ok"><h4><span class="pill ok">затворено</span> Резисторите влязоха</h4>
+        <p>Нов ред в спецификацията.</p><div class="proof">R003 R016 R017</div></div>
+      <div class="card ok"><h4><span class="pill ok">затворено</span> Количеството стана 6</h4>
+        <p>Сверено срещу схемата.</p></div>
+    </div>
+    <div class="qs">
+      <div class="q"><div><b>Обхват</b><span>Влизат ли модулите извън анализа в новата версия?</span></div></div>
+      <div class="q"><div><b>Срок</b><span>Кога тръгва изравняването на линията?</span></div></div>
+    </div>
+  </section>
+  <section>
+    <h2>Ред на действие</h2>
+    <div class="steps">
+      <div class="step"><div class="sn">0</div><h4>Пресен еталон</h4><p class="cost cheap">евтино · часове</p>
+        <div class="body"><p>Изтегляне на четирите дървета.</p><p><strong>Защо:</strong> еталонът е стар.</p></div></div>
+      <div class="step"><div class="sn">1</div><h4>Решение по обхвата</h4><p class="cost">решение</p>
+        <div class="body"><p>Влизат ли модулите извън анализа.</p></div></div>
+    </div>
+    <details><summary>Първи въпрос</summary><p>Първи отговор.</p></details>
+    <details><summary>Втори въпрос</summary><p>Втори отговор.</p></details>
+    <details><summary>Трети въпрос</summary><p>Трети отговор.</p></details>
+    <table>
+      <thead>
+        <tr><th>ос</th><th colspan="2">попадения</th></tr>
+        <tr><th>модел</th><th class="num">CE</th><th class="num">EE</th></tr>
+      </thead>
+      <tbody><tr><td class="m">ir.rule</td><td class="num">237</td><td class="num">1 094</td></tr></tbody>
+    </table>
+  </section>
+</div>
+</body>
+</html>
+"""

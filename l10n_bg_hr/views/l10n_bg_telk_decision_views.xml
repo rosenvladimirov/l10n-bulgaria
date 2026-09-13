@@ -127,8 +127,8 @@
          сверен в живата база 08.09.2026: `hr.menu_config_recruitment`. -->
     <menuitem id="menu_l10n_bg_telk_decision" groups="hr.group_hr_manager"
               name="TELK/NELK Decisions"
-              parent="hr.menu_config_recruitment"
+              parent="l10n_bg_hr.menu_l10n_bg_hr_labor_documents"
               action="action_l10n_bg_telk_decision"
-              sequence="5"/>
+              sequence="20"/>
 
 </odoo>

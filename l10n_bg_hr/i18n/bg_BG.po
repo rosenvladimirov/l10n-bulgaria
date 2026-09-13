@@ -1571,3 +1571,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
 msgid "The signature date is after the effective date — check that it is correct."
 msgstr "Датата на подписване е след датата на влизане в сила — проверете дали е вярна."
+
+#. module: l10n_bg_hr
+#: model:ir.ui.menu,name:l10n_bg_hr.menu_l10n_bg_hr_labor_documents
+msgid "Labor Documents"
+msgstr "Трудови документи"

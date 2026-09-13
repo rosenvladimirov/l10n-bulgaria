@@ -487,11 +487,21 @@
       под „Назначение" са Работни позиции (1), Шаблони за договори (2) и Видове
       заетост (3); това е четвъртото.
     -->
+    <!-- М6 (13.09.2026): допълнителните споразумения и решенията на ТЕЛК/НЕЛК
+         са ежедневна работа на ЧР, не настройка — отделен раздел вместо
+         Configuration ▸ Recruitment. Не под „Employees“: то носи действие и
+         дете би го направило недостижимо (структурният тест, test_03). -->
+    <menuitem id="menu_l10n_bg_hr_labor_documents"
+              name="Labor Documents"
+              parent="hr.menu_hr_root"
+              groups="hr.group_hr_manager"
+              sequence="20"/>
+
     <menuitem id="menu_l10n_bg_hr_contract_amendment" groups="hr.group_hr_manager"
               name="Contract Amendments"
-              parent="hr.menu_config_recruitment"
+              parent="menu_l10n_bg_hr_labor_documents"
               action="action_l10n_bg_hr_contract_amendment"
-              sequence="4"/>
+              sequence="10"/>
 
     <!-- hr.version inherited views removed — parent form has validation issues.
          Amendments are shown on hr.employee form instead. -->

@@ -311,7 +311,7 @@ class ClaudeArtifactParser(models.AbstractModel):
         return builder(node, tag)
 
     # ------------------------------------------------------------------
-    # Структури: контейнер, чиято форма носи смисъл (ADR-0004)
+    # Структури: контейнер, чиято форма носи смисъл (ADR l10n-bg-claude-artifact-blog/0004)
     # ------------------------------------------------------------------
     @api.model
     def _walk_structure(self, node, blocks):

@@ -12,3 +12,4 @@ from . import test_amendment_summary_and_empty_types
 from . import test_article_120
 from . import test_sheet_28_08_documents
 from . import test_telk_decision_history
+from . import test_amendment_signed_after_effective

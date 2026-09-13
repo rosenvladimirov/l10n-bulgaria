@@ -14,6 +14,7 @@
                         <field name="version_id"/>
                         <field name="amendment_type"/>
                         <field name="subject" placeholder="e.g. Wage Change"/>
+                        <field name="date_signed"/>
                         <field name="date_effective"/>
                         <!-- DEF-116/1в: полето беше на МОДЕЛА, но не и тук —
                              „Временно преместване" отказваше с „иска крайна

@@ -88,6 +88,14 @@
                         <h2><field name="subject" placeholder="Amendment Subject"/></h2>
                     </div>
 
+                    <!-- Подписано след влизането в сила: допустимо, само предупреждение
+                         (решение 13.09.2026). Дотук ограничението отказваше. -->
+                    <field name="l10n_bg_signed_after_effective" invisible="1"/>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="not l10n_bg_signed_after_effective">
+                        The signature date is after the effective date — check that it is correct.
+                    </div>
+
                     <group>
                         <group>
                             <field name="version_id" options="{'no_create': True}"/>

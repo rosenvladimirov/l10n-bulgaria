@@ -41,6 +41,14 @@ class HrVersionAmendmentWizard(models.TransientModel):
         required=True,
     )
 
+    # Датата на подписване е ВХОД, не днешният ден (решение 13.09.2026). Дотук
+    # беше зашита на `today()`, тъй че ДС, подписано днес с действие от първо
+    # число, можеше да се запише само с излъгана дата — а тя отива в ЕТЗ.
+    date_signed = fields.Date(
+        string='Date Signed',
+        required=True,
+        default=fields.Date.today,
+    )
     date_effective = fields.Date(
         string='Effective Date',
         required=True,
@@ -211,7 +219,7 @@ class HrVersionAmendmentWizard(models.TransientModel):
             'amendment_type': self.amendment_type,
             'subject': self.subject,
             'date_effective': self.date_effective,
-            'date_signed': fields.Date.today(),
+            'date_signed': self.date_signed,
             'old_wage': self.old_wage,
             'old_job_id': self.old_job_id.id if self.old_job_id else False,
             'old_position_id': self.old_position_id.id if self.old_position_id else False,

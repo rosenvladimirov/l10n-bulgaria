@@ -133,6 +133,7 @@ msgstr "Валута"
 
 #. module: l10n_bg_hr
 #: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__date_signed
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__date_signed
 msgid "Date Signed"
 msgstr "Дата на подписване"
 
@@ -1551,3 +1552,22 @@ msgstr "напр. 1234/2026"
 #: code:addons/l10n_bg_hr/models/telk_decision.py:0
 msgid "for life"
 msgstr "пожизнено"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__l10n_bg_signed_after_effective
+msgid "Signed After Effective Date"
+msgstr "Подписано след влизането в сила"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_version_amendment__l10n_bg_signed_after_effective
+msgid ""
+"The amendment was signed after the date it takes effect. This is allowed; "
+"the form only asks to check that the date is right."
+msgstr ""
+"Споразумението е подписано след датата, от която действа. Това е допустимо; "
+"формата само напомня да се провери датата."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "The signature date is after the effective date — check that it is correct."
+msgstr "Датата на подписване е след датата на влизане в сила — проверете дали е вярна."

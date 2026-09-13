@@ -99,6 +99,18 @@ class L10nBGHrVersionAmendment(models.Model):
         default=fields.Date.today,
         tracking=True,
     )
+    # Подписано след влизането в сила — ДОПУСТИМО (Пламена, 13.09.2026;
+    # решение на Росен). Обичайният случай е споразумение, подписано днес с
+    # действие от първо число. Отказът принуждаваше НЕВЯРНА дата на подписване,
+    # а тя не е козметична: отива в уведомлението по чл. 62 КТ (ЕТЗ) и в
+    # годишната номерация на регистъра на споразуменията. Затова вместо отказ —
+    # предупреждение на формата.
+    l10n_bg_signed_after_effective = fields.Boolean(
+        string='Signed After Effective Date',
+        compute='_compute_l10n_bg_signed_after_effective',
+        help='The amendment was signed after the date it takes effect. This is '
+             'allowed; the form only asks to check that the date is right.',
+    )
 
     date_effective = fields.Date(
         string='Effective Date',
@@ -413,12 +425,17 @@ class L10nBGHrVersionAmendment(models.Model):
     # CONSTRAINTS
     # =========================================================================
 
-    @api.constrains('date_signed', 'date_effective')
-    def _check_dates(self):
+    @api.depends('date_signed', 'date_effective')
+    def _compute_l10n_bg_signed_after_effective(self):
+        """Подписано след влизането в сила — предупреждение, не отказ.
+
+        Дотук тук стоеше ограничение, което отказваше ДС с обратна дата още при
+        създаването. Виж коментара при полето.
+        """
         for rec in self:
-            if rec.date_signed and rec.date_effective and rec.date_signed > rec.date_effective:
-                raise ValidationError(
-                    _("Signature date cannot be after effective date."))
+            rec.l10n_bg_signed_after_effective = bool(
+                rec.date_signed and rec.date_effective
+                and rec.date_signed > rec.date_effective)
 
     @api.constrains('date_effective', 'date_end')
     def _check_effective_dates(self):

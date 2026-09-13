@@ -22,13 +22,10 @@ msgstr ""
 msgid ""
 "<code>&lt;configuration&gt;\n"
 "    &lt;settings&gt;\n"
-"        &lt;setting model=\"account.account.tag\" "
-"field=\"l10n_bg_applicability\" value=\"sale\"&gt;\n"
-"            11,12_1,12_1,12_2,13,14,15,16,"
-"16,17,18,19,21,22,23,24\n"
+"        &lt;setting model=\"account.account.tag\" field=\"l10n_bg_applicability\" value=\"sale\"&gt;\n"
+"            11,12_1,12_1,12_2,13,14,15,16,16,17,18,19,21,22,23,24\n"
 "        &lt;/setting&gt;\n"
-"        &lt;setting model=\"account.account.tag\" "
-"field=\"l10n_bg_applicability\" value=\"purchase\"&gt;\n"
+"        &lt;setting model=\"account.account.tag\" field=\"l10n_bg_applicability\" value=\"purchase\"&gt;\n"
 "            30,31,32,41,41,42\n"
 "        &lt;/setting&gt;\n"
 "    &lt;/settings&gt;\n"
@@ -42,8 +39,8 @@ msgid ""
 "<strong>Text content</strong> – Filter indicating which records the value "
 "should be applied to (e.g., by IDs or codes)"
 msgstr ""
-"<strong>Текстово съдържание</strong> - Филтър, указващ към кои записи "
-"трябва да се приложи стойността (напр. по идентификатори или кодове)"
+"<strong>Текстово съдържание</strong> - Филтър, указващ към кои записи трябва"
+" да се приложи стойността (напр. по идентификатори или кодове)"
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
@@ -480,17 +477,13 @@ msgstr "Име за показване"
 msgid ""
 "Display format to use for partner belonging to this country.\n"
 "\n"
-"You can use python-style string pattern with all the fields of the title "
-"(for example, use '%(title)s' to display the field 'title') plus\n"
+"You can use python-style string pattern with all the fields of the title (for example, use '%(title)s' to display the field 'title') plus\n"
 "%(partner)s: use the partner name\n"
 "%(academic_title_display)s: the code of the academic_title_display"
 msgstr ""
-"Формат на показване, който да се използва за партньор, принадлежащ към тази "
-"държава.\n"
+"Формат на показване, който да се използва за партньор, принадлежащ към тази държава.\n"
 "\n"
-"Можете да използвате модел на низ в стил Python с всички полета на "
-"заглавието (например използвайте '%(title)s', за да покажете полето "
-"\"title\") плюс\n"
+"Можете да използвате модел на низ в стил Python с всички полета на заглавието (например използвайте '%(title)s', за да покажете полето \"title\") плюс\n"
 "%(partner)s: използвайте името на партньора\n"
 "%(academic_title_display)s: краткото име за визуализация на академична титла"
 
@@ -515,9 +508,8 @@ msgid ""
 "Enter API Key to use additional functionality related to the Bulgaria "
 "localization. For more information contact with developer."
 msgstr ""
-"Въведете API ключ, за да използвате допълнителни функционалности, свързани "
-"с локализацията на България. За повече информация се свържете с "
-"разработчика."
+"Въведете API ключ, за да използвате допълнителни функционалности, свързани с"
+" локализацията на България. За повече информация се свържете с разработчика."
 
 #. module: l10n_bg_config
 #: model:ir.model.fields,help:l10n_bg_config.field_res_partner__l10n_bg_crypt_key
@@ -538,8 +530,8 @@ msgid ""
 "Enter the key to encrypt the data. If not entered, a random key will be "
 "generated."
 msgstr ""
-"Въведете ключа за криптиране на данните. Ако не е въведен, ще бъде "
-"генериран случаен ключ."
+"Въведете ключа за криптиране на данните. Ако не е въведен, ще бъде генериран"
+" случаен ключ."
 
 #. module: l10n_bg_config
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_xml_file_form
@@ -1013,8 +1005,8 @@ msgid ""
 "Will update daily from cron only if is checked Automatic Currency Rates "
 "(OCA) and you added a rate_provider"
 msgstr ""
-"Ще се актуализира ежедневно от cron само ако е маркирано Автоматични "
-"валутни курсове (OCA) и сте добавили rate_provider"
+"Ще се актуализира ежедневно от cron само ако е маркирано Автоматични валутни"
+" курсове (OCA) и сте добавили rate_provider"
 
 #. module: l10n_bg_config
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_plugins_wizard_line__wizard_id
@@ -1035,3 +1027,74 @@ msgstr "XML конфигурационен файл за Odoo"
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__l10n_bg_config_file_preview
 msgid "XML Preview"
 msgstr "Предварителен преглед на XML"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_l10n_bg_kid_compute_wizard_form
+msgid "Compute"
+msgstr "Изчисли"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_company_form
+msgid "Derive from revenue"
+msgstr "Изведи от приходите"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_account_settings_preview_xml_file_form
+msgid "Download XML"
+msgstr "Изтегляне на XML"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
+msgid "Fetch from Trade Register"
+msgstr "Изтегляне от Търговския регистър"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
+msgid "Finish"
+msgstr "Завърши"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
+msgid "Mark done"
+msgstr "Отбележи като готово"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
+msgid "Next ›"
+msgstr "Напред ›"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
+msgid "Open / Info"
+msgstr "Отваряне / Инфо"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+msgid "Open Localization Installer"
+msgstr "Отвори инсталатора на локализацията"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
+msgid "Refresh"
+msgstr "Обнови"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
+msgid "Reset"
+msgstr "Нулиране"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.view_company_form
+msgid "Resolve from codes"
+msgstr "Определи по кодовете"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
+msgid "Skip"
+msgstr "Пропуснете"
+
+#. module: l10n_bg_config
+#: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
+msgid "‹ Back"
+msgstr "‹ Назад"

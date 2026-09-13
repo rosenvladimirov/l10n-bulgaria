@@ -487,7 +487,7 @@
       под „Назначение" са Работни позиции (1), Шаблони за договори (2) и Видове
       заетост (3); това е четвъртото.
     -->
-    <menuitem id="menu_l10n_bg_hr_contract_amendment"
+    <menuitem id="menu_l10n_bg_hr_contract_amendment" groups="hr.group_hr_manager"
               name="Contract Amendments"
               parent="hr.menu_config_recruitment"
               action="action_l10n_bg_hr_contract_amendment"

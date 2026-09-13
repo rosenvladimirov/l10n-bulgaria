@@ -21,6 +21,10 @@ class TestSheet2808Documents(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        # 🔑 Езикът се заковава: резюмето на дейността идва от крона през `_()`
+        # и на българска база излиза преведено („ID card“ ⇒ „Лична карта“) —
+        # изчерпателната сверка от 13.09.2026 (tools/test_prevodimi_literali.py).
+        cls.env = cls.env(context=dict(cls.env.context, lang='en_US'))
         cls.employee = cls.env['hr.employee'].create({
             'name': 'Тест Документи',
             'company_id': cls.env.company.id,

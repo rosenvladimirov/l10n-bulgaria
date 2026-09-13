@@ -53,6 +53,9 @@ class TestCarriersAreReachable(TransactionCase):
         Родителят НОСИ действие (Шаблони за договори). Odoo 19 рендира меню с
         деца като заглавие на секция, тъй че шаблоните станаха недостижими — а
         клиентът ги иска.
+
+        13.09.2026 (решение М6): споразуменията се преместиха в собствения раздел
+        „Трудови документи“ в Служители — очакването следва решението.
         """
         menu = self.env.ref("l10n_bg_hr.menu_l10n_bg_hr_contract_amendment")
         shabloni = self.env.ref("hr.menu_hr_employee_contract_templates")
@@ -61,8 +64,8 @@ class TestCarriersAreReachable(TransactionCase):
             "споразуменията още висят под „Шаблони за договори“ и го правят "
             "заглавие на секция")
         self.assertEqual(
-            menu.parent_id, self.env.ref("hr.menu_config_recruitment"),
-            "менюто не е сестра на Работни позиции, Шаблони и Видове заетост")
+            menu.parent_id, self.env.ref("l10n_bg_hr.menu_l10n_bg_hr_labor_documents"),
+            "менюто не е в раздела „Трудови документи“ (решение М6)")
         self.assertFalse(
             shabloni.child_id,
             "„Шаблони за договори“ пак има деца — действието му е недостижимо")

@@ -17,6 +17,9 @@ class TestArtifactCollect(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        # 🔑 Езикът се заковава: отказът се сверява по английска дума, а
+        # низът има превод в bg_BG.po — на българска база би излязъл преведен.
+        cls.env = cls.env(context=dict(cls.env.context, lang="en_US"))
         cls.artifacts = cls.env["claude.artifact"]
         cls.blog = cls.env["blog.blog"].create({"name": "Test Blog"})
 

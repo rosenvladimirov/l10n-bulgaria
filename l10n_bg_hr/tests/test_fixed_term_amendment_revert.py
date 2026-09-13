@@ -24,6 +24,9 @@ class TestFixedTermAmendmentRevert(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        # 🔑 Езикът се заковава: обяснението в чатъра се сверява по английския
+        # си текст, а на българска база излиза преведено (13.09.2026).
+        cls.env = cls.env(context=dict(cls.env.context, lang="en_US"))
         cls.job_staro = cls.env["hr.job"].create({"name": "Специалист DEF104"})
         cls.job_novo = cls.env["hr.job"].create({"name": "Ръководител DEF104"})
         # 🚨 `date_version` е ЗАДЪЛЖИТЕЛНО тук. Без него първата версия пада на

@@ -1785,3 +1785,18 @@ msgstr "Пренастройте за чернова"
 #: model_terms:ir.ui.view,arch_db:l10n_bg_hr.hr_version_employee_record_form_view
 msgid "Employee Record"
 msgstr "Запис на служител"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.hr_version_employee_record_form_view
+msgid "Contract"
+msgstr "Договор"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.hr_version_employee_record_form_view
+msgid "to"
+msgstr "до"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.hr_version_employee_record_form_view
+msgid "Indefinite"
+msgstr "Безсрочен"

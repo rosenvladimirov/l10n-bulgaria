@@ -36,8 +36,14 @@
             <xpath expr="//group[@name='top_info_left']/field[@name='job_id']" position="before">
                 <field name="l10n_bg_contract_number"/>
                 <field name="date_version" string="Effective Date" readonly="1"/>
-                <field name="contract_date_start"/>
-                <field name="contract_date_end"/>
+                <!-- Началото и краят на един ред — както в картата на служителя (ядрото). -->
+                <label for="contract_date_start" string="Contract"/>
+                <div class="o_row" name="contract_dates">
+                    <field name="contract_date_start" class="o_hr_narrow_field me-3"/>
+                    <span invisible="not contract_date_start">to</span>
+                    <field name="contract_date_end" placeholder="Indefinite"
+                           class="o_hr_narrow_field ms-3" invisible="not contract_date_start"/>
+                </div>
                 <field name="trial_date_end"/>
             </xpath>
         </field>

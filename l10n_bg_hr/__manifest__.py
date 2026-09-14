@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'HR Version Extension',
-    'version': '19.0.2.9.6',
+    'version': '19.0.2.9.7',
     'category': 'Human Resources',
     'summary': 'Extension for HR Version with work location address and contract amendments',
     'description': """
@@ -39,6 +39,7 @@ This module extends the HR Version functionality with:
         'views/l10n_bg_telk_decision_views.xml',
         'views/hr_employee_views.xml',
         'views/hr_contract_template_view.xml',
+        'views/hr_version_form_view.xml',
         'views/hr_contract_type_views.xml',
         'views/res_company_views.xml',
         'views/hr_job_views.xml',

@@ -447,15 +447,33 @@ class HrVersion(models.Model):
                     vals['l10n_bg_contract_number'] = next_no
         return super().create(vals_list)
 
+    def _l10n_bg_version_form_view_id(self):
+        """Формата за версия на служител — собствената, не шаблонната на ядрото
+        (ADR l10n-bg-contract-amendments/0005). Шаблон (без служител) остава в
+        шаблонната: False = формата по подразбиране."""
+        self.ensure_one()
+        if not self.employee_id:
+            return False
+        return self.env.ref('l10n_bg_hr.hr_version_employee_record_form_view').id
+
     def action_open_version(self):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'hr.version',
             'res_id': self.id,
-            'views': [(False, 'form')],
+            'views': [(self._l10n_bg_version_form_view_id(), 'form')],
             'target': 'current',
         }
+
+    def action_open_version_form_view(self):
+        # Бутонът „View“ в „History“ (режим за разработчици): ядрото е закачило
+        # шаблонната форма; версия на служител отива в собствената.
+        res = super().action_open_version_form_view()
+        view_id = self._l10n_bg_version_form_view_id()
+        if view_id:
+            res['views'] = [[view_id, 'form']]
+        return res
 
     # =========================================================================
     # КРОНОВЕ ПО СРОЧНИЯ ДОГОВОР

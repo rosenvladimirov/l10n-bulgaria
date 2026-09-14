@@ -146,6 +146,7 @@ msgstr "Чернова"
 #. module: l10n_bg_hr
 #: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__date_effective
 #: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__date_effective
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.hr_version_employee_record_form_view
 #: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
 msgid "Effective Date"
 msgstr "Дата на влизане в сила"
@@ -1779,3 +1780,8 @@ msgstr "Трудови документи"
 #: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
 msgid "Reset to Draft"
 msgstr "Пренастройте за чернова"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.hr_version_employee_record_form_view
+msgid "Employee Record"
+msgstr "Запис на служител"

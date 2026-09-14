@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ADR l10n-bg-contract-amendments/0005 (14.09.2026, решение на Росен): версията
+         на служителя се отваря в СОБСТВЕНА форма, не в шаблонната „Contract Template“
+         на ядрото — там заглавието е задължителното „Template Name“, чуждо на версия.
+         Основен наследник на hr.hr_contract_template_form_view: носи всички нейни
+         разширения (l10n_bg_hr, l10n_bg_hr_payroll, мостовете, hr_payroll), а сменя
+         само заглавието и горната част. priority 32 — шаблонната (16) остава формата по
+         подразбиране за шаблоните. Отваря се от action_open_version („History“) и от
+         action_open_version_form_view (бутонът „View“ в режим за разработчици). -->
+    <record id="hr_version_employee_record_form_view" model="ir.ui.view">
+        <field name="name">hr.version.employee.record.form</field>
+        <field name="model">hr.version</field>
+        <field name="inherit_id" ref="hr.hr_contract_template_form_view"/>
+        <field name="mode">primary</field>
+        <field name="priority">32</field>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="string">Employee Record</attribute>
+            </xpath>
+
+            <!-- Името на шаблон не важи за версия на служител: скрито и незадължително.
+                 Остава в изгледа (не се маха), за да не увиснат чужди разширения. -->
+            <field name="name" position="attributes">
+                <attribute name="required">0</attribute>
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="name" position="after">
+                <field name="employee_id" readonly="1" class="text-truncate"/>
+            </field>
+
+            <!-- Датата на версията е самоличността ѝ в „History“ — само за четене; мени се
+                 през допълнително споразумение. Датите на договора — както във формата
+                 на служителя. -->
+            <xpath expr="//group[@name='top_info_left']/field[@name='job_id']" position="before">
+                <field name="date_version" string="Effective Date" readonly="1"/>
+                <field name="contract_date_start"/>
+                <field name="contract_date_end"/>
+                <field name="trial_date_end"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

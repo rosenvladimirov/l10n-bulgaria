@@ -190,3 +190,10 @@ class HrEmployee(models.Model):
             'domain': [('employee_id', '=', self.id)],
             'context': {'default_employee_id': self.id},
         }
+
+    def action_l10n_bg_open_labor_contract(self):
+        """Бутонът до номера на трудовия договор в картата: отваря ПОКАЗАНАТА
+        версия (version_id следва контекста на формата) в собствената форма на
+        версията, в същия прозорец (ADR l10n-bg-contract-amendments/0005)."""
+        self.ensure_one()
+        return self.version_id.action_open_version()

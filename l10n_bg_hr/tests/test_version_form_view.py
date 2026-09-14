@@ -24,6 +24,14 @@ class TestVersionFormView(TransactionCase):
         self.assertEqual(act['views'], [(self.view.id, 'form')],
                          'ред от „History“ не отваря собствената форма на версията')
 
+    def test_employee_contract_button_opens_the_shown_version(self):
+        # Бутонът до номера на ТД в картата — показаната версия, в същия прозорец.
+        act = self.employee.with_context(version_id=self.version.id) \
+            .action_l10n_bg_open_labor_contract()
+        self.assertEqual((act['res_model'], act['res_id'], act['target']),
+                         ('hr.version', self.version.id, 'current'))
+        self.assertEqual(act['views'], [(self.view.id, 'form')])
+
     def test_debug_view_button_opens_our_form(self):
         act = self.version.action_open_version_form_view()
         self.assertEqual(act['views'][0][0], self.view.id,

@@ -1,0 +1,56 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_hr_skills_certification
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-14 12:00+0000\n"
+"PO-Revision-Date: 2026-09-14 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_hr_skills_certification
+#: model:hr.skill.type,name:l10n_bg_hr_skills_certification.skill_type_electrical_safety
+msgid "Electrical Safety"
+msgstr ""
+
+#. module: l10n_bg_hr_skills_certification
+#: model:hr.skill,name:l10n_bg_hr_skills_certification.skill_electrical_group_1000v
+msgid "Electrical Safety Qualification Group (up to 1000 V)"
+msgstr ""
+
+#. module: l10n_bg_hr_skills_certification
+#: model:hr.skill.type,name:l10n_bg_hr_skills_certification.skill_type_forklift
+msgid "Forklift Trucks"
+msgstr ""
+
+#. module: l10n_bg_hr_skills_certification
+#: model:hr.skill,name:l10n_bg_hr_skills_certification.skill_forklift_competence_n1
+msgid "Forklift Operator Competence Certificate (Ordinance No. 1/2006)"
+msgstr ""
+
+#. module: l10n_bg_hr_skills_certification
+#: model:hr.skill.type,name:l10n_bg_hr_skills_certification.skill_type_welding
+msgid "Welding"
+msgstr ""
+
+#. module: l10n_bg_hr_skills_certification
+#: model:hr.skill,name:l10n_bg_hr_skills_certification.skill_welding_competence_n7
+msgid "Welding Competence Certificate (Ordinance No. 7/2002)"
+msgstr ""
+
+#. module: l10n_bg_hr_skills_certification
+#: model:hr.skill,name:l10n_bg_hr_skills_certification.skill_welder_iso_9606_1
+msgid "Welder Qualification BDS EN ISO 9606-1 (steel)"
+msgstr ""
+
+#. module: l10n_bg_hr_skills_certification
+#: model:hr.skill,name:l10n_bg_hr_skills_certification.skill_welder_iso_9606_2
+msgid "Welder Qualification BDS EN ISO 9606-2 (aluminium)"
+msgstr ""

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Сертификатите и правоспособностите, поискани от Полигруп на 14.09.2026. Без вид
+         с отметка „Сертификат“ бутонът „Нов“ в Служители › Обучение › Сертификати пише
+         ред без умение и базата го отказва (hr_skills, open_hr_employee_skill_modal
+         взима първия вид с is_certification). Източниците са в README.
+
+         noupdate: видовете са настройка на фирмата — -u не бива да връща нейни промени.
+         Три отделни вида, защото нивото е задължително и е общо за целия вид.
+         Имената на нивата са на български: hr.skill.level.name НЕ е преводимо поле в
+         19.0, а това са термините от самите наредби. Имената на видовете и уменията са
+         преводими — английски тук, български в i18n/bg.po. -->
+    <data noupdate="1">
+
+        <!-- Електробезопасност — Правилник за БЗР при работа по електрообзавеждането с
+             напрежение до 1000 V (ДВ бр. 21/2005): пет групи (чл. 11); изпитът се
+             повтаря в срок до 2 г. за изпълнителите и 3 г. за ръководителите (чл. 27, т. 4). -->
+        <record id="skill_type_electrical_safety" model="hr.skill.type">
+            <field name="name">Electrical Safety</field>
+            <field name="is_certification" eval="True"/>
+            <field name="sequence">100</field>
+        </record>
+        <record id="skill_electrical_group_1000v" model="hr.skill">
+            <field name="name">Electrical Safety Qualification Group (up to 1000 V)</field>
+            <field name="skill_type_id" ref="skill_type_electrical_safety"/>
+        </record>
+        <record id="level_electrical_group_1" model="hr.skill.level">
+            <field name="name">I група</field>
+            <field name="skill_type_id" ref="skill_type_electrical_safety"/>
+            <field name="level_progress">20</field>
+            <field name="default_level" eval="True"/>
+        </record>
+        <record id="level_electrical_group_2" model="hr.skill.level">
+            <field name="name">II група</field>
+            <field name="skill_type_id" ref="skill_type_electrical_safety"/>
+            <field name="level_progress">40</field>
+        </record>
+        <record id="level_electrical_group_3" model="hr.skill.level">
+            <field name="name">III група</field>
+            <field name="skill_type_id" ref="skill_type_electrical_safety"/>
+            <field name="level_progress">60</field>
+        </record>
+        <record id="level_electrical_group_4" model="hr.skill.level">
+            <field name="name">IV група</field>
+            <field name="skill_type_id" ref="skill_type_electrical_safety"/>
+            <field name="level_progress">80</field>
+        </record>
+        <record id="level_electrical_group_5" model="hr.skill.level">
+            <field name="name">V група</field>
+            <field name="skill_type_id" ref="skill_type_electrical_safety"/>
+            <field name="level_progress">100</field>
+        </record>
+
+        <!-- Заваряване — Наредба № 7 от 11.10.2002 г.: три степени във възходящ ред,
+             всяка следваща след предходната (чл. 4). Сертификатът по БДС EN ISO 9606 се
+             издава от орган, акредитиран от ИА „БСА“, само на притежател на
+             свидетелство (чл. 5, ал. 3–4). -->
+        <record id="skill_type_welding" model="hr.skill.type">
+            <field name="name">Welding</field>
+            <field name="is_certification" eval="True"/>
+            <field name="sequence">110</field>
+        </record>
+        <record id="skill_welding_competence_n7" model="hr.skill">
+            <field name="name">Welding Competence Certificate (Ordinance No. 7/2002)</field>
+            <field name="skill_type_id" ref="skill_type_welding"/>
+            <field name="sequence">10</field>
+        </record>
+        <record id="skill_welder_iso_9606_1" model="hr.skill">
+            <field name="name">Welder Qualification BDS EN ISO 9606-1 (steel)</field>
+            <field name="skill_type_id" ref="skill_type_welding"/>
+            <field name="sequence">20</field>
+        </record>
+        <record id="skill_welder_iso_9606_2" model="hr.skill">
+            <field name="name">Welder Qualification BDS EN ISO 9606-2 (aluminium)</field>
+            <field name="skill_type_id" ref="skill_type_welding"/>
+            <field name="sequence">30</field>
+        </record>
+        <record id="level_welding_fillet" model="hr.skill.level">
+            <field name="name">Заварчик на ъглови шевове</field>
+            <field name="skill_type_id" ref="skill_type_welding"/>
+            <field name="level_progress">33</field>
+            <field name="default_level" eval="True"/>
+        </record>
+        <record id="level_welding_plate" model="hr.skill.level">
+            <field name="name">Заварчик на листов материал</field>
+            <field name="skill_type_id" ref="skill_type_welding"/>
+            <field name="level_progress">67</field>
+        </record>
+        <record id="level_welding_pipe" model="hr.skill.level">
+            <field name="name">Заварчик на тръби</field>
+            <field name="skill_type_id" ref="skill_type_welding"/>
+            <field name="level_progress">100</field>
+        </record>
+
+        <!-- Кари — Наредба № 1 от 10.04.2006 г.: три групи (приложение № 1);
+             свидетелството е безсрочно, опреснително обучение на всеки 5 години. -->
+        <record id="skill_type_forklift" model="hr.skill.type">
+            <field name="name">Forklift Trucks</field>
+            <field name="is_certification" eval="True"/>
+            <field name="sequence">120</field>
+        </record>
+        <record id="skill_forklift_competence_n1" model="hr.skill">
+            <field name="name">Forklift Operator Competence Certificate (Ordinance No. 1/2006)</field>
+            <field name="skill_type_id" ref="skill_type_forklift"/>
+        </record>
+        <record id="level_forklift_group_1" model="hr.skill.level">
+            <field name="name">I група – платформени, влекачи, нископовдигачи</field>
+            <field name="skill_type_id" ref="skill_type_forklift"/>
+            <field name="level_progress">33</field>
+            <field name="default_level" eval="True"/>
+        </record>
+        <record id="level_forklift_group_2" model="hr.skill.level">
+            <field name="name">II група – универсални и специализирани високоповдигачи</field>
+            <field name="skill_type_id" ref="skill_type_forklift"/>
+            <field name="level_progress">67</field>
+        </record>
+        <record id="level_forklift_group_3" model="hr.skill.level">
+            <field name="name">III група – високоповдигачи над 10 т с кормилно управление</field>
+            <field name="skill_type_id" ref="skill_type_forklift"/>
+            <field name="level_progress">100</field>
+        </record>
+
+    </data>
+</odoo>

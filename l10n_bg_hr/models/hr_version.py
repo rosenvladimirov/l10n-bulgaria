@@ -447,6 +447,24 @@ class HrVersion(models.Model):
                     vals['l10n_bg_contract_number'] = next_no
         return super().create(vals_list)
 
+    @api.model
+    def _get_whitelist_fields_from_template(self):
+        """Полетата, които шаблонът за договор прехвърля в договора
+        (ADR l10n-bg-contract-amendments/0006). Ядрото копира САМО белия списък —
+        и в create, и в „Load a Template“, и в onchange на картата. Тук са
+        условията на длъжността и договора; личните данни на лицето (номер и дата
+        на договора, ЕГН, инвалидност, стаж, подписи, прекратяване) и изчисляемите
+        полета НЕ се прехвърлят."""
+        res = super()._get_whitelist_fields_from_template()
+        return res + [f for f in (
+            'l10n_bg_basic_leave_days',
+            'l10n_bg_additional_leave_days',
+            'l10n_bg_after_term_contract_type_id',
+            'l10n_bg_workplace_code',
+            'l10n_bg_qualification_group',
+            'l10n_bg_economic_activity_id',
+        ) if f in self._fields]
+
     def _l10n_bg_version_form_view_id(self):
         """Формата за версия на служител — собствената, не шаблонната на ядрото
         (ADR l10n-bg-contract-amendments/0005). Шаблон (без служител) остава в

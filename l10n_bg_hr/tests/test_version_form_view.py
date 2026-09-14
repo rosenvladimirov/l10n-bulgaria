@@ -49,6 +49,8 @@ class TestVersionFormView(TransactionCase):
                          '„Template Name“ още е видимо или задължително')
         self.assertTrue(arch.xpath("//div[@name='title']//field[@name='employee_id']"),
                         'служителят липсва от заглавието')
+        self.assertTrue(arch.xpath("//field[@name='l10n_bg_contract_number']"),
+                        'номерът на трудовия договор липсва от формата')
         # Основният наследник носи и разширенията на шаблонната форма (НКПД/КИД на l10n_bg_hr).
         self.assertTrue(arch.xpath("//field[@name='l10n_bg_workplace_code']"),
                         'разширенията на шаблонната форма не стигат до новата')

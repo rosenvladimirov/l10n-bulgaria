@@ -29,10 +29,12 @@
                 <field name="employee_id" readonly="1" class="text-truncate"/>
             </field>
 
-            <!-- Датата на версията е самоличността ѝ в „History“ — само за четене; мени се
-                 през допълнително споразумение. Датите на договора — както във формата
-                 на служителя. -->
+            <!-- Номерът на трудовия договор (попълва се от поредицата при създаване, отива
+                 в ЕТЗ, клетка 11) — първият реквизит на договора. Датата на версията е
+                 самоличността ѝ в „History“ — само за четене; мени се през допълнително
+                 споразумение. Датите на договора — както във формата на служителя. -->
             <xpath expr="//group[@name='top_info_left']/field[@name='job_id']" position="before">
+                <field name="l10n_bg_contract_number"/>
                 <field name="date_version" string="Effective Date" readonly="1"/>
                 <field name="contract_date_start"/>
                 <field name="contract_date_end"/>

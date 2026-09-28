@@ -1,13 +1,20 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import json
 import logging
+import re
 
 from lxml import etree
 
 from odoo import api, fields, models
 from odoo.fields import Domain
+from odoo.tools import SQL
+
+from .collation import ensure_order_index, fold, has_fold
 
 _NEGATIVE_TERM_OPERATORS = ('!=', '<>', 'not in', 'not like', 'not ilike')
+# Полетата, по които се сортират списъците — индекс за сортиране по всеки активен език.
+_ORDER_INDEX_FIELDS = ('complete_name_multilanguage', 'name')
 
 _logger = logging.getLogger(__name__)
 
@@ -15,6 +22,10 @@ _logger = logging.getLogger(__name__)
 class Partner(models.Model):
     _inherit = ['res.partner', 'res.transliterate.mixin']
     _name = "res.partner"
+    # Ядрото сортира по complete_name — то се смята винаги на en_US (латиница).
+    # Сортираме по преводимото пълно име на езика на потребителя; ICU колацията
+    # и индексът за нея идват от base.py / collation.py.
+    _order = "complete_name_multilanguage ASC, id DESC"
 
     name = fields.Char(translate=True, index='trigram')
     street = fields.Char(translate=True)
@@ -23,10 +34,12 @@ class Partner(models.Model):
     function = fields.Char(translate=True)
     company_name = fields.Char(translate=True)
     commercial_company_name = fields.Char(translate=True)
+    # index=True се игнорира от ядрото за преводимо поле (приема само trigram) —
+    # досега полето, по което търсим, нямаше никакъв индекс.
     complete_name_multilanguage = fields.Char(
         compute='_compute_complete_name_multilanguage',
         store=True,
-        index=True,
+        index='trigram',
         translate=True,
     )
 
@@ -43,6 +56,16 @@ class Partner(models.Model):
             'ALTER TABLE "res_partner" '
             'ADD COLUMN IF NOT EXISTS complete_name_multilanguage jsonb'
         )
+        self._pm_ensure_order_indexes()
+
+    @api.model
+    def _pm_ensure_order_indexes(self, lang_codes=None):
+        """Btree индекс за ORDER BY <поле> COLLATE <ICU> по всеки активен език."""
+        if lang_codes is None:
+            lang_codes = [code for code, _name in self.env['res.lang'].get_installed()]
+        for lang in lang_codes:
+            for fname in _ORDER_INDEX_FIELDS:
+                ensure_order_index(self.env, self, fname, lang)
 
     @api.model
     def get_view(self, view_id=None, view_type='form', **options):
@@ -126,26 +149,100 @@ class Partner(models.Model):
                 if fname not in search_fnames:
                     search_fnames.append(fname)
 
-        lang_codes = self._get_active_lang_codes()
-        if not lang_codes:
+        # Само собствени съхранени колони: по тях строим SQL върху всички преводи.
+        fields_ = [
+            self._fields[fname] for fname in dict.fromkeys(search_fnames)
+            if fname in self._fields and self._resolve_translatable_field(fname)
+            and self._fields[fname].store and not self._fields[fname].inherited
+        ]
+        if not fields_:
             return domain
 
-        search_fields = [fname for fname in search_fnames if self._resolve_translatable_field(fname)]
-        if not search_fields:
-            return domain
-
-        ids = self._get_translatable_search_domains(
-            operator,
-            value,
-            search_fields,
-            lang_codes,
+        query = self.with_context(active_test=False)._search([])
+        condition = self._pm_any_translation_condition(
+            query.table, fields_, self._positive_search_operator(operator), value,
         )
-        if not ids:
+        if condition is None:
             return domain
+        query.add_where(condition)
 
         if operator in _NEGATIVE_TERM_OPERATORS:
-            return Domain.AND([domain, [('id', 'not in', list(ids))]])
-        return Domain.OR([domain, [('id', 'in', list(ids))]])
+            return Domain.AND([domain, [('id', 'not in', query)]])
+        return Domain.OR([domain, [('id', 'in', query)]])
+
+    @api.model
+    def _pm_any_translation_condition(self, alias, fields_, operator, value):
+        """SQL условие „съвпада в който и да е превод“ — една заявка, по индекса.
+
+        Досега търсенето правеше по едно ``search()`` за всяко поле и всеки език
+        (N×M заявки) и слагаше резултата в огромен ``id IN (...)``. Тук всички
+        преводи се четат наведнъж през ``jsonb_path_query_array(поле, '$.*')`` —
+        същия израз, върху който е trigram индексът.
+
+        * ``ilike``: сгънат израз (``collation.fold``) → сгънатия индекс;
+        * ``like``: без сгъване → индекса на ядрото;
+        * ``=``/``in``: предфилтър по индекса + точна проверка по всеки превод;
+        * ``=like``/``=ilike``: точна проверка по всеки превод (без индекс).
+
+        Връща None за неподдържан оператор/стойност — тогава остава домейнът на ядрото.
+        """
+        registry = self.env.registry
+        folding = has_fold(self.env)
+        values = [value] if isinstance(value, str) else value
+        if not values or not all(isinstance(v, str) for v in values):
+            return None
+
+        def all_langs(fname):
+            return SQL("jsonb_path_query_array(%s, '$.*')::text", SQL.identifier(alias, fname))
+
+        def json_pattern(text, exact=False):
+            # Стойностите в масива са JSON-екранирани („ → \"), затова екранираме
+            # и шаблона — както value_to_translated_trigram_pattern в ядрото.
+            escaped = re.sub(r'(_|%|\\)', r'\\\1', json.dumps(text, ensure_ascii=False)[1:-1])
+            return f'%"{escaped}"%' if exact else f'%{escaped}%'
+
+        def ci(left, right):
+            # Case-insensitive сравнение по индекса, ако има ICU; иначе ILIKE на ядрото.
+            if folding:
+                return SQL("%s LIKE %s", fold(registry, left), fold(registry, SQL("%s", right)))
+            return SQL("%s ILIKE %s", registry.unaccent(left), registry.unaccent(SQL("%s", right)))
+
+        conditions = []
+        for field in fields_:
+            column = SQL.identifier(alias, field.name)
+            if operator == 'ilike':
+                conditions.append(ci(all_langs(field.name), json_pattern(values[0])))
+            elif operator == 'like':
+                conditions.append(SQL(
+                    "%s LIKE %s", registry.unaccent(all_langs(field.name)),
+                    registry.unaccent(SQL("%s", json_pattern(values[0]))),
+                ))
+            elif operator in ('=', 'in'):
+                # unaccent и в двете страни — за да съвпадне с индекса на ядрото;
+                # точната проверка след това отсява излишното.
+                prefilter = SQL(" OR ").join(
+                    SQL(
+                        "%s LIKE %s", registry.unaccent(all_langs(field.name)),
+                        registry.unaccent(SQL("%s", json_pattern(v, exact=True))),
+                    )
+                    for v in values
+                )
+                conditions.append(SQL(
+                    "((%s) AND EXISTS (SELECT 1 FROM jsonb_each_text(%s) t WHERE t.value IN %s))",
+                    prefilter, column, tuple(values),
+                ))
+            elif operator in ('=ilike', '=like'):
+                cmp_op = SQL("ILIKE") if operator == '=ilike' else SQL("LIKE")
+                if operator == '=ilike' and folding:
+                    cmp = SQL("%s LIKE %s", fold(registry, SQL("t.value")), fold(registry, SQL("%s", values[0])))
+                else:
+                    cmp = SQL("t.value %s %s", cmp_op, values[0])
+                conditions.append(SQL(
+                    "EXISTS (SELECT 1 FROM jsonb_each_text(%s) t WHERE %s)", column, cmp,
+                ))
+            else:
+                return None
+        return SQL("(%s)", SQL(" OR ").join(conditions))
 
     @api.model
     def _get_translatable_search_fields(self):
@@ -207,24 +304,6 @@ class Partner(models.Model):
             return cleaned
 
         return _strip(domain)
-
-    @api.model
-    def _get_translatable_search_domains(self, operator, value, field_list, lang_codes, limit=None):
-        ids = set()
-        positive_operator = self._positive_search_operator(operator)
-        for field_name in field_list:
-            field = self._fields.get(field_name)
-            if not field or not field.translate:
-                continue
-
-            for lang_code in lang_codes:
-                records = self.with_context(lang=lang_code).search(
-                    [(field_name, positive_operator, value)],
-                    limit=limit,
-                )
-                ids.update(records.ids)
-
-        return ids
 
     @api.model
     def _positive_search_operator(self, operator):

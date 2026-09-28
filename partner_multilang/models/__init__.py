@@ -1,5 +1,7 @@
 #  Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from . import collation
+from . import base
 from . import res_transliterate
 from . import res_lang
 from . import res_partner

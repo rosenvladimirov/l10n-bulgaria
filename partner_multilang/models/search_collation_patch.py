@@ -34,14 +34,20 @@
 Guard: колацията ``und-x-icu`` (ICU) съществува от PostgreSQL 10+ с ICU. Ако
 липсва, оставяме поведението на ядрото (по-добре case-sensitive, отколкото
 счупено търсене).
+
+🚨 28.09.2026: ``COLLATE`` сам по себе си е коректен, но УБИВА индекса —
+колацията в заявката не съвпада с тази на trigram индекса на ядрото и
+PostgreSQL минава на пълно сканиране (240 ms на 200 000 реда). Затова
+сгъваме с ``lower(<unaccent>(x) COLLATE "und-x-icu")`` — същият израз, по
+който ``collation.ensure_fold_trigram_index`` строи индекса (0,84 ms).
 """
 import logging
 
 from odoo.tools import SQL
 
-_logger = logging.getLogger(__name__)
+from .collation import FOLD_COLLATION as _ICU_COLLATION
 
-_ICU_COLLATION = "und-x-icu"
+_logger = logging.getLogger(__name__)
 
 
 def _install():
@@ -89,10 +95,11 @@ def _install():
         original_unaccent = registry.unaccent
 
         def _collated(sql):
-            # Колацията се слага ВЪРХУ резултата на unaccent (или на самата
-            # стойност, ако unaccent е изключен). Двете страни на ilike
-            # получават една и съща колация → PostgreSQL я ползва за сгъването.
-            return SQL('%s COLLATE "%s"', original_unaccent(sql), SQL(_ICU_COLLATION))
+            # Сгъваме двете страни на ilike с един и същ израз:
+            # lower(unaccent(x) COLLATE "und-x-icu"). Той е огледален на
+            # сгънатия trigram индекс (collation.ensure_fold_trigram_index),
+            # затова предфилтърът върви по индекса, а не с пълно сканиране.
+            return SQL('lower(%s COLLATE "%s")', original_unaccent(sql), SQL(_ICU_COLLATION))
 
         registry.unaccent = _collated
         try:

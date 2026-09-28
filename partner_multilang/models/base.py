@@ -1,76 +1,59 @@
-# partner_multilang/models/base_model.py
 # -*- coding: utf-8 -*-
-import logging
-from odoo import api, models
-from odoo.tools.sql import SQL
+"""Индексите и сортирането на преводимите полета — за всички модели.
 
-_logger = logging.getLogger(__name__)
+1. ``init()``: за всяко преводимо поле с ``index='trigram'`` създава сгънат
+   trigram индекс, огледален на предфилтъра от ``search_collation_patch``.
+   Без него сгънатото търсене е коректно, но минава с пълно сканиране.
+2. ``_order_field_to_sql()``: ``ORDER BY`` на преводимо текстово поле получава
+   ICU колацията на езика на потребителя. Ядрото сортира по колацията на базата
+   (``C``) — по кодова точка, т.е. „асими“ след „Бяла“, „Ä“ след „z“.
+
+Заменя предишния ``base.py``, който не беше вписан в ``models/__init__.py``
+и никога не се зареждаше.
+"""
+from odoo import api, models
+from odoo.tools import SQL
+
+from .collation import ensure_fold_trigram_index, order_collation
 
 
 class Base(models.AbstractModel):
-    _inherit = 'base'
+    _inherit = "base"
+
+    @api.private
+    def init(self):
+        super().init()
+        if self._abstract or not self._auto or self._table_query:
+            return
+        for field in self._fields.values():
+            if (
+                field.translate
+                and field.store
+                and field.index == "trigram"
+                and field.column_type
+                and not field.inherited
+            ):
+                ensure_fold_trigram_index(self.env, self, field)
 
     @api.model
-    def _order_to_sql(self, order, query, alias=None, reverse=False):
-        """
-        Override ORDER BY to use current user language for translate fields.
-
-        Wraps translate field ordering with COALESCE to handle:
-        1. Current user language (e.g., 'bg_BG')
-        2. Fallback to 'en_US'
-        3. Fallback to varchar cast (if column is not jsonb)
-        """
-        sql_order = super()._order_to_sql(order, query, alias, reverse)
-
-        if not sql_order:
-            return sql_order
-
-        # Get current language
-        lang = self.env.context.get('lang') or self.env.user.lang or 'en_US'
-
-        # Quick check - if no ->> in result, nothing to modify
-        sql_str = str(sql_order)
-        if '->>' not in sql_str:
-            return sql_order
-
-        # Check which fields in order are translate fields
-        translate_fields = []
-        for part in order.split(','):
-            field_name = part.strip().split()[0]
-            if field_name in self._fields:
-                field_obj = self._fields[field_name]
-                if getattr(field_obj, 'translate', False) and field_obj.type == 'char':
-                    translate_fields.append(field_name)
-
-        if not translate_fields:
-            return sql_order
-
-        # Modify SQL for each translate field
-        import re
-        modified_sql = sql_str
-        table_alias = alias or self._table
-
-        for field_name in translate_fields:
-            # Pattern: "alias"."field"->>'any_lang'
-            # We need to capture the full field reference
-            pattern = rf'("{re.escape(table_alias)}"\."{re.escape(field_name)}")->>\'[^\']+\''
-
-            def build_coalesce(match):
-                field_ref = match.group(1)  # "table"."field"
-                return (
-                    f"COALESCE("
-                    f"{field_ref}->>\'{lang}\', "
-                    f"{field_ref}->>\'en_US\', "
-                    f"{field_ref}::text"
-                    f")"
+    def _order_field_to_sql(self, alias, field_name, direction, nulls, query):
+        field = self._fields.get(field_name)  # само прости имена, без „x.y“
+        if (
+            field is not None
+            and field.translate
+            and field.type in ("char", "text")
+            and field.store
+            and field.column_type
+            and not self.env.context.get("prefetch_langs")
+        ):
+            collation = order_collation(self.env, self.env.lang or "en_US")
+            if collation:
+                sql_field = SQL(
+                    '%s COLLATE "%s"',
+                    self._field_to_sql(alias, field_name, query),
+                    SQL(collation),
                 )
-
-            modified_sql = re.sub(pattern, build_coalesce, modified_sql)
-
-        if modified_sql != sql_str:
-            _logger.debug(
-                f"ORDER BY modified for {self._name}: using language '{lang}'"
-            )
-            return SQL(modified_sql)
-
-        return sql_order
+                # Същият израз и в GROUP BY/DISTINCT — иначе PostgreSQL отказва.
+                query._order_groupby.append(sql_field)
+                return SQL("%s %s %s", sql_field, direction, nulls)
+        return super()._order_field_to_sql(alias, field_name, direction, nulls, query)

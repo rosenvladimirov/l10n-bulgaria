@@ -136,3 +136,33 @@ class TestTelegramBot(TelegramBotCommon):
             if c.args[0].endswith("/setMyCommands")
         )
         self.assertEqual([c["command"] for c in commands], ["start", "help"])
+
+    def test_callback_query_dispatches_and_answers(self):
+        calls = []
+        bot_class = type(self.bot)
+        bot_class._callback_ping = lambda bot, tg_user, arg: calls.append(
+            (tg_user, arg)
+        )
+        self.addCleanup(delattr, bot_class, "_callback_ping")
+        update = {
+            "update_id": 20,
+            "callback_query": {
+                "id": "cb-1",
+                "from": self.make_update(0, "")["message"]["from"],
+                "message": {"chat": {"id": 987654321012}},
+                "data": "ping:42",
+            },
+        }
+        with self.mock_telegram() as post:
+            self.bot._handle_update(update)
+        self.assertEqual(len(calls), 1)
+        self.assertEqual(calls[0][1], "42")
+        answered = [
+            c for c in post.call_args_list if c.args[0].endswith("/answerCallbackQuery")
+        ]
+        self.assertEqual(answered[0].kwargs["json"], {"callback_query_id": "cb-1"})
+
+    def test_unsafe_names_are_not_dispatched(self):
+        with self.mock_telegram() as post:
+            self.bot._handle_update(self.make_update(21, "/start.__class__"))
+        self.assertIn("Unknown command", self.sent_texts(post)[0])

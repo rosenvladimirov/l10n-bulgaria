@@ -18,6 +18,8 @@ API_TIMEOUT = 15
 WEBHOOK_ROUTE = "/l10n_bg_telegram/webhook"
 # Update типовете, които ботът приема; останалите Telegram не ги праща изобщо
 ALLOWED_UPDATES = ["message", "callback_query"]
+# Името на команда/бутон отива в getattr ⇒ само това, което Telegram допуска
+SAFE_NAME = re.compile(r"[a-z0-9_]{1,32}")
 
 
 class L10nBgTelegramBot(models.Model):
@@ -201,6 +203,8 @@ class L10nBgTelegramBot(models.Model):
             )
 
     def _process_update(self, update):
+        if update.get("callback_query"):
+            return self._process_callback_query(update["callback_query"])
         message = update.get("message")
         if not message or not message.get("from") or message["from"].get("is_bot"):
             return
@@ -213,8 +217,34 @@ class L10nBgTelegramBot(models.Model):
             command = command.split("@", 1)[0].lower()
             self._dispatch_command(tg_user, command, args.strip())
 
+    def _process_callback_query(self, query):
+        """Натиснат бутон под съобщение (inline keyboard).
+
+        `data` е „<префикс>:<аргумент>“ и отива към `_callback_<префикс>`.
+        Telegram чака answerCallbackQuery, иначе бутонът „върти“ ~15 секунди.
+        """
+        message = query.get("message") or {}
+        if not message.get("chat") or query.get("from", {}).get("is_bot"):
+            return
+        tg_user = self.env["l10n.bg.telegram.user"]._from_telegram(
+            self, {"from": query["from"], "chat": message["chat"]}
+        )
+        prefix, _sep, arg = (query.get("data") or "").partition(":")
+        handler = (
+            getattr(self, f"_callback_{prefix}", None)
+            if SAFE_NAME.fullmatch(prefix)
+            else None
+        )
+        try:
+            if handler is not None:
+                handler(tg_user, arg)
+        finally:
+            self._api_call("answerCallbackQuery", {"callback_query_id": query["id"]})
+
     def _dispatch_command(self, tg_user, command, args):
         """Вика `_command_<име>`; модулите отгоре добавят команди така."""
+        if not SAFE_NAME.fullmatch(command):
+            return self._command_unknown(tg_user, command, args)
         handler = getattr(self, f"_command_{command}", None)
         if handler is None:
             return self._command_unknown(tg_user, command, args)
@@ -254,7 +284,7 @@ class L10nBgTelegramBotCommand(models.Model):
     def _check_command(self):
         # Правилото на Telegram: 1–32 знака, само a–z, 0–9 и _
         for record in self:
-            if not re.fullmatch(r"[a-z0-9_]{1,32}", record.command or ""):
+            if not SAFE_NAME.fullmatch(record.command or ""):
                 raise ValidationError(
                     self.env._(
                         "Command %s: use 1-32 lowercase letters, digits or underscores.",  # noqa: E501

@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
     "name": "Live Refresh (generic bus-driven view refresh)",
-    "version": "19.0.2.8.0",
+    "version": "19.0.2.9.0",
     "category": "Technical",
     "summary": "Generic bus channel + OWL patches that live-reload and flash "
                "backend Form/List views when the server changes records",
@@ -22,11 +22,15 @@ This module carries no business logic of its own.  It is meant to be a shared
 dependency for any module that needs server-driven live UI refresh
 (claude terminal, InfoPay payment status, ErpNet.FP fleet, ...).
 
-Also includes opt-in handlers for POS hardware feeds (barcode reader,
-electronic scale) that come over the proxy bus_inject channel —
-they dispatch into Odoo's core barcode service and active number
-input respectively. A conflict guard short-circuits when Enterprise
-``iot`` is installed so we don't double-dispatch each scan / weight.
+Also includes an opt-in handler for the barcode reader feed that comes
+over the proxy bus_inject channel — it dispatches into Odoo's core
+barcode service. A conflict guard short-circuits when Enterprise
+``iot`` is installed so we don't double-dispatch each scan.
+
+Scale readings are deliberately NOT written anywhere by this module.
+The former scale handler filled whatever numeric input had focus, in
+any window of any user. A reading belongs to the card of the work
+station the scale stands at — see ``l10n_bg_erp_net_scale_mrp``.
 
 Toast muting
 ------------
@@ -55,7 +59,6 @@ unaffected.
             "l10n_bg_live_refresh/static/src/js/live_refresh_service.js",
             "l10n_bg_live_refresh/static/src/js/live_refresh_controllers.js",
             "l10n_bg_live_refresh/static/src/js/barcode_handler.js",
-            "l10n_bg_live_refresh/static/src/js/scale_handler.js",
         ],
     },
     "installable": True,

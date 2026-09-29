@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_l10n_bg_telegram_bot_system,l10n.bg.telegram.bot system,model_l10n_bg_telegram_bot,base.group_system,1,1,1,1
+access_l10n_bg_telegram_bot_command_system,l10n.bg.telegram.bot.command system,model_l10n_bg_telegram_bot_command,base.group_system,1,1,1,1
+access_l10n_bg_telegram_user_system,l10n.bg.telegram.user system,model_l10n_bg_telegram_user,base.group_system,1,1,1,1
+access_l10n_bg_telegram_update_system,l10n.bg.telegram.update system,model_l10n_bg_telegram_update,base.group_system,1,0,0,1

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="l10n_bg_telegram_user_view_list" model="ir.ui.view">
+        <field name="name">l10n.bg.telegram.user.list</field>
+        <field name="model">l10n.bg.telegram.user</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="display_label"/>
+                <field name="partner_id"/>
+                <field name="language_code"/>
+                <field name="bot_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="l10n_bg_telegram_user_view_form" model="ir.ui.view">
+        <field name="name">l10n.bg.telegram.user.form</field>
+        <field name="model">l10n.bg.telegram.user</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="display_label"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="bot_id"/>
+                        </group>
+                        <group>
+                            <field name="username"/>
+                            <field name="first_name"/>
+                            <field name="last_name"/>
+                            <field name="language_code"/>
+                            <field name="telegram_id"/>
+                            <field name="chat_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="l10n_bg_telegram_user_view_search" model="ir.ui.view">
+        <field name="name">l10n.bg.telegram.user.search</field>
+        <field name="model">l10n.bg.telegram.user</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="display_label"/>
+                <field name="partner_id"/>
+                <field name="bot_id"/>
+                <filter name="no_partner" string="Without Contact"
+                        domain="[('partner_id', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="l10n_bg_telegram_user_action" model="ir.actions.act_window">
+        <field name="name">Telegram Users</field>
+        <field name="res_model">l10n.bg.telegram.user</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

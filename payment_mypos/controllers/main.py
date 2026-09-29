@@ -35,7 +35,7 @@ class MyPosController(http.Controller):
     def mypos_return(self, **data):
         _logger.info("myPOS return: %s", pprint.pformat(_redact_for_log(data)))
         if data:
-            request.env["payment.transaction"].sudo()._handle_notification_data("mypos", data)
+            request.env["payment.transaction"].sudo()._process("mypos", data)
         return request.redirect("/payment/status")
 
     @http.route(_cancel_url, type="http", auth="public", methods=["GET", "POST"], csrf=False, save_session=False)
@@ -43,15 +43,15 @@ class MyPosController(http.Controller):
         # NB: do NOT inject Status="cancel" here — that mutation would break
         # signature verification downstream. The gateway already signs a
         # Status field on cancel callbacks; if it's absent we let
-        # _process_notification_data flag the missing-signature/status error
+        # _apply_updates flag the missing-signature/status error
         # instead of fabricating one.
         _logger.info("myPOS cancel: %s", pprint.pformat(_redact_for_log(data)))
         if data:
-            request.env["payment.transaction"].sudo()._handle_notification_data("mypos", data)
+            request.env["payment.transaction"].sudo()._process("mypos", data)
         return request.redirect("/payment/status")
 
     @http.route(_notify_url, type="http", auth="public", methods=["POST"], csrf=False, save_session=False)
     def mypos_notify(self, **data):
         _logger.info("myPOS notify: %s", pprint.pformat(_redact_for_log(data)))
-        request.env["payment.transaction"].sudo()._handle_notification_data("mypos", data)
+        request.env["payment.transaction"].sudo()._process("mypos", data)
         return "OK"

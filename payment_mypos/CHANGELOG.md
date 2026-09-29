@@ -6,6 +6,23 @@ branches share the same feature line; version numbers differ only by
 the Odoo series prefix, and v19 carries one extra entry (1.4.0) for the
 Odoo 19 hook port that has no v18 equivalent.
 
+## [2.0.1] — 2026-09-29
+
+### Fixed
+- **Returns and notifications crashed on Odoo 19.** The controller still
+  called `_handle_notification_data`, which Odoo 19 removed — every
+  `/payment/mypos/ok|cancel|notify` request ended in HTTP 500. It now
+  calls `_process`.
+- **Amount check raised `KeyError: 'amount'`.** Added
+  `_extract_amount_data` (Amount/Currency from the notification; `None`
+  when the callback carries no Amount, e.g. a cancel).
+- **Customer was never redirected to myPOS.** The provider record had no
+  `redirect_form_view_id`; linked in data and, because the record is
+  `noupdate`, by the `19.0.2.0.1` post-migration for existing databases.
+- `tests/test_process_flow.py` — 7 tests through `_process` and the HTTP
+  routes (the older tests call `_apply_updates` directly and could not
+  see these defects).
+
 ## [2.0.0] — 2026-05-15
 
 ### Added

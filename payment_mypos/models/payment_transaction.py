@@ -123,7 +123,7 @@ class PaymentTransaction(models.Model):
     #
     #   _process(provider_code, payment_data)         — entry; routes to:
     #     _search_by_reference()  → uses _extract_reference (we override)
-    #     _validate_amount()      → uses _extract_amount_data (default OK)
+    #     _validate_amount()      → uses _extract_amount_data (we override)
     #     _apply_updates()        → vendor hook (we override)
     #     _tokenize()             → only when self.tokenize is set
     #
@@ -144,6 +144,24 @@ class PaymentTransaction(models.Model):
             or payment_data.get("reference")
             or ""
         )
+
+    def _extract_amount_data(self, payment_data):
+        """Сумата и валутата от известието на myPOS.
+
+        Подразбиращият се метод на ядрото връща `{}`, а `_validate_amount` чете
+        `amount_data["amount"]` ⇒ KeyError при всяко известие. Връщаме None
+        (без проверка на сумата), когато известието не носи Amount — така е
+        при отказ от плащане (URL_Cancel).
+        """
+        if self.provider_code != "mypos":
+            return super()._extract_amount_data(payment_data)
+        amount = payment_data.get("Amount")
+        if not amount:
+            return None
+        return {
+            "amount": float(amount),
+            "currency_code": payment_data.get("Currency"),
+        }
 
     def _apply_updates(self, payment_data):
         """myPOS state machine: verify signature, capture IPC_Trnref, transition state.

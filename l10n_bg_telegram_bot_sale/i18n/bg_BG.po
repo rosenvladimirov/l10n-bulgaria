@@ -1,0 +1,215 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_telegram_bot_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-29 18:04+0000\n"
+"PO-Revision-Date: 2026-09-29 18:04+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "%(wallet)s: %(amount)s"
+msgstr "%(wallet)s: %(amount)s"
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__bot_id
+msgid "Bot"
+msgstr "Бот"
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,help:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__name
+msgid "Button text, e.g. 10 hours — €470."
+msgstr "Текст на бутона, напр. 10 часа — 470 €."
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "Choose a package:"
+msgstr "Изберете пакет:"
+
+#. module: l10n_bg_telegram_bot_sale
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_bot_sale.l10n_bg_telegram_bot_view_form
+msgid ""
+"Commands handled by this module: buy, voucher, balance, orders.\n"
+"                        Add them on the Commands tab to show them in Telegram."
+msgstr ""
+"Команди от този модул: buy, voucher, balance, orders.\n"
+"                        Добавете ги в раздела „Команди“, за да се виждат в Telegram."
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__create_uid
+msgid "Created by"
+msgstr "Създадено от"
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__create_date
+msgid "Created on"
+msgstr "Създадено на"
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_bot__display_name
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__display_name
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_sale_order__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_bot__id
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__id
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_sale_order__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__write_uid
+msgid "Last Updated by"
+msgstr "Последно обновено от"
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__write_date
+msgid "Last Updated on"
+msgstr "Последно обновено на"
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__name
+msgid "Name"
+msgstr "Име"
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "Nothing is on sale yet."
+msgstr "Все още няма нищо за продажба."
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid ""
+"Order %(order)s: %(package)s, total %(total)s.\n"
+"Pay in the shop; you can add a voucher with /voucher CODE first."
+msgstr ""
+"Поръчка %(order)s: %(package)s, общо %(total)s.\n"
+"Платете в магазина; преди това можете да добавите ваучер с /voucher КОД."
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_bot__package_ids
+msgid "Packages"
+msgstr "Пакети"
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "Pay %s"
+msgstr "Плати %s"
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "Prepaid hours: %(left)s left (bought %(bought)s, used %(used)s)."
+msgstr ""
+"Предплатени часове: остават %(left)s (купени %(bought)s, използвани "
+"%(used)s)."
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__product_id
+msgid "Product"
+msgstr "Продукт"
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__quantity
+msgid "Quantity"
+msgstr "Количество"
+
+#. module: l10n_bg_telegram_bot_sale
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_bot_sale.l10n_bg_telegram_bot_view_form
+msgid "Sales"
+msgstr "Продажби"
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model,name:l10n_bg_telegram_bot_sale.model_sale_order
+msgid "Sales Order"
+msgstr "Поръчка за продажба"
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "Send /start first."
+msgstr "Първо изпратете /start."
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "Send the code like this: /voucher CODE"
+msgstr "Изпратете кода така: /voucher КОД"
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__sequence
+msgid "Sequence"
+msgstr "Последователност"
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,help:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_bot__website_id
+msgid "Shop where orders from the bot are created and paid."
+msgstr "Магазинът, в който се създават и плащат поръчките от бота."
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model,name:l10n_bg_telegram_bot_sale.model_l10n_bg_telegram_bot
+msgid "Telegram Bot"
+msgstr "Telegram бот"
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model,name:l10n_bg_telegram_bot_sale.model_l10n_bg_telegram_package
+msgid "Telegram Bot Package"
+msgstr "Пакет на Telegram бот"
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_sale_order__l10n_bg_telegram_user_id
+msgid "Telegram User"
+msgstr "Потребител на Telegram"
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "The code is accepted; choose the reward in the shop."
+msgstr "Кодът е приет; изберете наградата в магазина."
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "There is no unpaid order to apply it to. Use /buy first."
+msgstr ""
+"Няма неплатена поръчка, към която да се приложи. Първо използвайте /buy."
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "This package is no longer available."
+msgstr "Този пакет вече не е наличен."
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "Voucher applied to %(order)s. New total: %(total)s."
+msgstr "Ваучерът е приложен към %(order)s. Нова сума: %(total)s."
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_bot__website_id
+msgid "Website"
+msgstr "Уебсайт"
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "You have no orders yet."
+msgstr "Все още нямате поръчки."

@@ -1,0 +1,207 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_telegram_bot_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-29 18:04+0000\n"
+"PO-Revision-Date: 2026-09-29 18:04+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "%(wallet)s: %(amount)s"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__bot_id
+msgid "Bot"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,help:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__name
+msgid "Button text, e.g. 10 hours — €470."
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "Choose a package:"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_bot_sale.l10n_bg_telegram_bot_view_form
+msgid ""
+"Commands handled by this module: buy, voucher, balance, orders.\n"
+"                        Add them on the Commands tab to show them in Telegram."
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_bot__display_name
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__display_name
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_sale_order__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_bot__id
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__id
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_sale_order__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__name
+msgid "Name"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "Nothing is on sale yet."
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid ""
+"Order %(order)s: %(package)s, total %(total)s.\n"
+"Pay in the shop; you can add a voucher with /voucher CODE first."
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_bot__package_ids
+msgid "Packages"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "Pay %s"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "Prepaid hours: %(left)s left (bought %(bought)s, used %(used)s)."
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__product_id
+msgid "Product"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__quantity
+msgid "Quantity"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_bot_sale.l10n_bg_telegram_bot_view_form
+msgid "Sales"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model,name:l10n_bg_telegram_bot_sale.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "Send /start first."
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "Send the code like this: /voucher CODE"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_package__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,help:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_bot__website_id
+msgid "Shop where orders from the bot are created and paid."
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model,name:l10n_bg_telegram_bot_sale.model_l10n_bg_telegram_bot
+msgid "Telegram Bot"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model,name:l10n_bg_telegram_bot_sale.model_l10n_bg_telegram_package
+msgid "Telegram Bot Package"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_sale_order__l10n_bg_telegram_user_id
+msgid "Telegram User"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "The code is accepted; choose the reward in the shop."
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "There is no unpaid order to apply it to. Use /buy first."
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "This package is no longer available."
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "Voucher applied to %(order)s. New total: %(total)s."
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot_sale.field_l10n_bg_telegram_bot__website_id
+msgid "Website"
+msgstr ""
+
+#. module: l10n_bg_telegram_bot_sale
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot_sale/models/l10n_bg_telegram_bot.py:0
+msgid "You have no orders yet."
+msgstr ""

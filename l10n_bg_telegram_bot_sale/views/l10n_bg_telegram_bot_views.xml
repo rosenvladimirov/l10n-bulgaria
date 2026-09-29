@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="l10n_bg_telegram_bot_view_form" model="ir.ui.view">
+        <field name="name">l10n.bg.telegram.bot.form.sale</field>
+        <field name="model">l10n.bg.telegram.bot</field>
+        <field name="inherit_id" ref="l10n_bg_telegram_bot.l10n_bg_telegram_bot_view_form"/>
+        <field name="arch" type="xml">
+            <page name="commands" position="after">
+                <page string="Sales" name="sales">
+                    <group>
+                        <field name="website_id"/>
+                    </group>
+                    <field name="package_ids">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="product_id"/>
+                            <field name="quantity"/>
+                        </list>
+                    </field>
+                    <div class="text-muted">
+                        Commands handled by this module: buy, voucher, balance, orders.
+                        Add them on the Commands tab to show them in Telegram.
+                    </div>
+                </page>
+            </page>
+        </field>
+    </record>
+
+</odoo>

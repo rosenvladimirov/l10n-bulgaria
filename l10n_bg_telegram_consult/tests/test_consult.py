@@ -130,3 +130,28 @@ class TestTelegramConsult(TelegramSaleCommon):
         self._paid_hours()
         post = self._consult(38, "/consult @anna")
         self.assertIn("Describe the topic", self.sent_texts(post)[0])
+
+    def test_notifications_follow_each_recipient_language(self):
+        self.env["res.lang"]._activate_lang("bg_BG")
+        self.client.partner_id.lang = "bg_BG"
+        self.manager._ensure_partner()
+        self.manager.partner_id.lang = "en_US"
+        self._paid_hours()
+        seen = []
+        user_class = type(self.env["l10n.bg.telegram.user"])
+        original = user_class._reply
+
+        def _reply(user, text, **kwargs):
+            seen.append((user, user.env.lang))
+            return original(user, text, **kwargs)
+
+        user_class._reply = _reply
+        self.addCleanup(setattr, user_class, "_reply", original)
+        self._consult(40, "/consult ДДС")
+        self.assertEqual(seen, [(self.client, "bg_BG"), (self.manager, "en_US")])
+        request = self.env["l10n.bg.telegram.consult.request"].search([])
+        seen.clear()
+        # Одобрение от Odoo, от потребител на английски — клиентът пак е на български
+        with self.mock_telegram():
+            request.with_context(lang="en_US").action_approve()
+        self.assertEqual(seen, [(self.client, "bg_BG")])

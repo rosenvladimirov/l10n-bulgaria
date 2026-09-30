@@ -62,6 +62,34 @@ class L10nBgTelegramUser(models.Model):
             {"bot_id": bot.id, "telegram_id": str(sender["id"]), **values}
         )
 
+    def _get_lang(self):
+        """Езикът на отговорите към този потребител.
+
+        Първо езикът на контакта (може да е сменен ръчно в Odoo), после
+        езикът на приложението му в Telegram (`bg`, `en`, `pt-br` …) срещу
+        инсталираните езици, накрая езикът по подразбиране на бота.
+        """
+        self.ensure_one()
+        installed = [code for code, _name in self.env["res.lang"].get_installed()]
+        if self.partner_id.lang in installed:
+            return self.partner_id.lang
+        telegram = (self.language_code or "").replace("-", "_").lower()
+        if telegram:
+            for code in installed:
+                if code.lower() == telegram:
+                    return code
+            prefix = telegram.split("_")[0]
+            for code in installed:
+                if code.split("_")[0].lower() == prefix:
+                    return code
+        return self.bot_id._default_profile_lang()
+
+    def _in_own_language(self):
+        """Потребителят с контекст на неговия език — за съобщения, които не са
+        отговор на негово съобщение (известия, действия от Odoo)."""
+        self.ensure_one()
+        return self.with_context(lang=self._get_lang())
+
     def _ensure_partner(self):
         """Връзва партньор при /start; съществуващата връзка не се пипа."""
         for user in self.filtered(lambda u: not u.partner_id):
@@ -70,6 +98,7 @@ class L10nBgTelegramUser(models.Model):
                 {
                     "name": name or user.username or user.telegram_id,
                     "company_id": user.company_id.id,
+                    "lang": user._get_lang(),
                     "comment": f"Telegram @{user.username}" if user.username else False,
                 }
             )

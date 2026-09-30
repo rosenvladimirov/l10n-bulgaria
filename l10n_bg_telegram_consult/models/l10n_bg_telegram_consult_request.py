@@ -73,8 +73,10 @@ class L10nBgTelegramConsultRequest(models.Model):
         self._check_state("new")
         self.state = "approved"
         for request in self:
-            request.tg_user_id._reply(
-                self.env._(
+            # Действието може да е от Odoo ⇒ езикът е на клиента, не на потребителя
+            client = request.tg_user_id._in_own_language()
+            client._reply(
+                client.env._(
                     "%(request)s is approved. You will get an invitation to the "
                     "consultation group shortly.",
                     request=request.name,
@@ -86,8 +88,11 @@ class L10nBgTelegramConsultRequest(models.Model):
         self._check_state("new", "approved")
         self.state = "rejected"
         for request in self:
-            request.tg_user_id._reply(
-                self.env._("%s was not accepted. Contact us for details.", request.name)
+            client = request.tg_user_id._in_own_language()
+            client._reply(
+                client.env._(
+                    "%s was not accepted. Contact us for details.", request.name
+                )
             )
         return True
 
@@ -111,15 +116,16 @@ class L10nBgTelegramConsultRequest(models.Model):
                 "state": "group",
             }
         )
-        text = self.env._("The group for %s is ready.", self.name)
+        client = self.tg_user_id._in_own_language()
+        text = client.env._("The group for %s is ready.", self.name)
         kwargs = {}
         if invite_link:
             kwargs["reply_markup"] = {
                 "inline_keyboard": [
-                    [{"text": self.env._("Join the group"), "url": invite_link}]
+                    [{"text": client.env._("Join the group"), "url": invite_link}]
                 ]
             }
-        self.tg_user_id._reply(text, **kwargs)
+        client._reply(text, **kwargs)
         return True
 
     def _consult_payload(self):

@@ -2,7 +2,7 @@
 
 A @BotFather bot driven by Odoo — the base for selling consultations over Telegram.
 
-**Module:** `l10n_bg_telegram_bot` | **Version:** 19.0.1.0.0 | **License:** LGPL-3 | **Depends:** `mail`
+**Module:** `l10n_bg_telegram_bot` | **Version:** 19.0.1.1.0 | **License:** LGPL-3 | **Depends:** `mail`
 
 - `l10n.bg.telegram.bot`: token, webhook secret, descriptions, commands; *Sync with Telegram*
   (getMe, setMyDescription, setMyShortDescription, setMyCommands) and *Set Webhook*
@@ -15,3 +15,7 @@ A @BotFather bot driven by Odoo — the base for selling consultations over Tele
 - Commands `/start`, `/help`; modules on top add `_command_<name>` methods to the bot.
 
 Menu: Settings → Technical → Telegram (administrators only).
+
+Replies follow each client's language (contact language, else the Telegram app language
+matched to installed languages, else English); *Sync with Telegram* pushes descriptions and
+commands per installed language (`language_code`) plus a default.

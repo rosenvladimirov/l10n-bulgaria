@@ -7,4 +7,4 @@ in the Odoo form. After approval, the MCP tool `telegram_create_group` reads
 `l10n_bg_consult_payload()`, creates the group from the human's account and calls
 `l10n_bg_set_group(chat_id, invite_link)`; the bot sends the invitation to the client.
 
-**Module:** `l10n_bg_telegram_consult` | **Version:** 19.0.1.0.0 | **License:** LGPL-3
+**Module:** `l10n_bg_telegram_consult` | **Version:** 19.0.1.1.0 | **License:** LGPL-3

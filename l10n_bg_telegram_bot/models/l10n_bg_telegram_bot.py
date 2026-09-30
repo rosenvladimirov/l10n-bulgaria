@@ -122,25 +122,64 @@ class L10nBgTelegramBot(models.Model):
             "sendMessage", {"chat_id": chat_id, "text": text, **kwargs}
         )
 
+    def _profile_languages(self):
+        """Двойки (код в Odoo, ISO 639-1 за Telegram) за инсталираните езици.
+
+        Telegram приема само двубуквен `language_code`; при два езика с еднакъв
+        ISO (pt_BR/pt_PT) остава първият по име.
+        """
+        pairs, seen = [], set()
+        Lang = self.env["res.lang"]
+        for code, _name in Lang.get_installed():
+            iso = (Lang._lang_get(code).iso_code or code)[:2].lower()
+            if iso not in seen:
+                seen.add(iso)
+                pairs.append((code, iso))
+        return pairs
+
+    def _default_profile_lang(self):
+        """Езикът за хората, чийто език не е сред инсталираните."""
+        installed = [code for code, _name in self.env["res.lang"].get_installed()]
+        for code in ("en_US", self.company_id.partner_id.lang):
+            if code in installed:
+                return code
+        return installed[0] if installed else "en_US"
+
+    def _push_profile(self, language_code=None):
+        """Описанията и командите на езика от контекста; без код — по подразбиране."""
+        self.ensure_one()
+        scope = {"language_code": language_code} if language_code else {}
+        self._api_call(
+            "setMyDescription", {"description": self.description or "", **scope}
+        )
+        self._api_call(
+            "setMyShortDescription",
+            {"short_description": self.short_description or "", **scope},
+        )
+        self._api_call(
+            "setMyCommands",
+            {
+                "commands": [
+                    {"command": c.command, "description": c.description}
+                    for c in self.command_ids
+                ],
+                **scope,
+            },
+        )
+
     def action_sync_profile(self):
-        """Чете името на бота и записва описанията и командите в Telegram."""
+        """Чете името на бота и записва описанията и командите в Telegram.
+
+        Всеки инсталиран език получава свой превод (Telegram показва на
+        потребителя тези на езика на приложението му), плюс вариант по
+        подразбиране за всички останали.
+        """
         for bot in self:
             me = bot._api_call("getMe")
             bot.username = me.get("username")
-            bot._api_call("setMyDescription", {"description": bot.description or ""})
-            bot._api_call(
-                "setMyShortDescription",
-                {"short_description": bot.short_description or ""},
-            )
-            bot._api_call(
-                "setMyCommands",
-                {
-                    "commands": [
-                        {"command": c.command, "description": c.description}
-                        for c in bot.command_ids
-                    ]
-                },
-            )
+            bot.with_context(lang=bot._default_profile_lang())._push_profile()
+            for code, iso in bot._profile_languages():
+                bot.with_context(lang=code)._push_profile(iso)
         return True
 
     def action_set_webhook(self):
@@ -209,13 +248,23 @@ class L10nBgTelegramBot(models.Model):
         if not message or not message.get("from") or message["from"].get("is_bot"):
             return
         tg_user = self.env["l10n.bg.telegram.user"]._from_telegram(self, message)
+        bot, tg_user = self._in_user_language(tg_user)
         text = (message.get("text") or "").strip()
         tg_user._log_incoming(text)
         if text.startswith("/"):
             command, _sep, args = text[1:].partition(" ")
             # „/start@ИмеНаБота“ в група — махаме суфикса
             command = command.split("@", 1)[0].lower()
-            self._dispatch_command(tg_user, command, args.strip())
+            bot._dispatch_command(tg_user, command, args.strip())
+
+    def _in_user_language(self, tg_user):
+        """Ботът и потребителят в езика на клиента.
+
+        Webhook-ът върви като публичния потребител ⇒ без това всеки отговор
+        (и всеки превеждаем текст на бота) излиза на неговия език.
+        """
+        lang = tg_user._get_lang()
+        return self.with_context(lang=lang), tg_user.with_context(lang=lang)
 
     def _process_callback_query(self, query):
         """Натиснат бутон под съобщение (inline keyboard).
@@ -229,9 +278,10 @@ class L10nBgTelegramBot(models.Model):
         tg_user = self.env["l10n.bg.telegram.user"]._from_telegram(
             self, {"from": query["from"], "chat": message["chat"]}
         )
+        bot, tg_user = self._in_user_language(tg_user)
         prefix, _sep, arg = (query.get("data") or "").partition(":")
         handler = (
-            getattr(self, f"_callback_{prefix}", None)
+            getattr(bot, f"_callback_{prefix}", None)
             if SAFE_NAME.fullmatch(prefix)
             else None
         )

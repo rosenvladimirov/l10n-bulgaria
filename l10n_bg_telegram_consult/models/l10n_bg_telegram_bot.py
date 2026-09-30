@@ -57,11 +57,12 @@ class L10nBgTelegramBot(models.Model):
         return request
 
     def _notify_consult_manager(self, request):
-        manager = self.consult_manager_id
-        if not manager:
+        if not self.consult_manager_id:
             return
+        # Известието е на езика на отговорника, не на клиента, който е писал
+        manager = self.consult_manager_id._in_own_language()
         manager._reply(
-            self.env._(
+            manager.env._(
                 "New consultation %(request)s from %(client)s:\n%(topic)s\n"
                 "Participants: %(participants)s",
                 request=request.name,
@@ -73,11 +74,11 @@ class L10nBgTelegramBot(models.Model):
                 "inline_keyboard": [
                     [
                         {
-                            "text": self.env._("Approve"),
+                            "text": manager.env._("Approve"),
                             "callback_data": f"cok:{request.id}",
                         },
                         {
-                            "text": self.env._("Reject"),
+                            "text": manager.env._("Reject"),
                             "callback_data": f"cno:{request.id}",
                         },
                     ]

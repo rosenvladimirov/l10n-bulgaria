@@ -1,6 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import base64
 import logging
+import re
 import random
 import secrets
 from difflib import Differ
@@ -124,32 +125,84 @@ class L10nBGConfigMixin(models.AbstractModel):
         result = super().get_view(view_id=view_id, view_type=view_type, **options)
         if self.env.company._check_is_l10n_bg_record():
             return result
-
         doc = etree.fromstring(result["arch"])
-        if view_type == "list":
-            for field in doc.xpath('//field[contains(@name,"l10n_bg")]'):
-                if field.attrib.get("name") == "is_l10n_bg_record":
-                    continue
-                field.set("column_invisible", "True")
-            result["arch"] = etree.tostring(doc)
-
-        if view_type == "form":
-            for field in doc.xpath('//field[contains(@name,"l10n_bg")]'):
-                if field.attrib.get("name") == "is_l10n_bg_record":
-                    continue
-                field.set("invisible", "True")
-
-            for field in doc.xpath('//group[contains(@id,"l10n_bg")]'):
-                field.set("invisible", "True")
-
-            result["arch"] = etree.tostring(doc)
-
-        if view_type == "search":
-            # Hide filters
-            for field in doc.xpath('//filter[contains(@domain,"l10n_bg")]'):
-                field.set("invisible", "True")
-            # Hide groups by
-            for field in doc.xpath('//filter[contains(@context,"l10n_bg")]'):
-                field.set("invisible", "True")
+        if self._l10n_bg_hide_marked(doc, view_type):
             result["arch"] = etree.tostring(doc)
         return result
+
+    # ------------------------------------------------------------------
+    # Скриване по име. Маркер = стойност, която ЗАПОЧВА с l10n_bg:
+    #   поле — по името му; всеки друг елемент (group, page, div, setting,
+    #   block, app, button, separator, …) — по id или name.
+    # Задължителните полета (required) НЕ се скриват, нито контейнерът,
+    # в който има такова — иначе записът гърми за стойност, която не се вижда.
+    # ------------------------------------------------------------------
+
+    _l10n_bg_marker = "l10n_bg"
+
+    def _l10n_bg_is_marked(self, value):
+        return bool(value) and value.startswith(self._l10n_bg_marker)
+
+    def _l10n_bg_node_model(self, node):
+        """Моделът, към който принадлежи <field> възелът (вложените списъци на o2m са на comodel)."""
+        chain = [
+            anc.get("name")
+            for anc in reversed(list(node.iterancestors()))
+            if anc.tag == "field" and anc.get("name")
+        ]
+        model = self._name
+        for name in chain:
+            field = self.env[model]._fields.get(name)
+            if not field or not field.comodel_name:
+                return None
+            model = field.comodel_name
+        return model
+
+    def _l10n_bg_field_required(self, node):
+        if node.get("required") in ("1", "True", "true"):
+            return True
+        model = self._l10n_bg_node_model(node)
+        field = model and self.env[model]._fields.get(node.get("name"))
+        return bool(field and field.required)
+
+    def _l10n_bg_in_list(self, node, view_type):
+        return view_type == "list" or any(anc.tag == "list" for anc in node.iterancestors())
+
+    def _l10n_bg_hide_marked(self, doc, view_type):
+        """Скрива маркираните възли в doc; връща True, ако нещо е променено."""
+        changed = False
+        if view_type == "search":
+            token = re.compile(r"""['"]%s""" % self._l10n_bg_marker)
+            for node in doc.iter("field", "filter"):
+                if (
+                    self._l10n_bg_is_marked(node.get("name"))
+                    or token.search(node.get("domain") or "")
+                    or token.search(node.get("context") or "")
+                ):
+                    node.set("invisible", "True")
+                    changed = True
+            return changed
+
+        hidden_fields = set()
+        for node in doc.iter():
+            if not isinstance(node.tag, str) or node is doc:
+                continue
+            if node.tag == "field":
+                if not self._l10n_bg_is_marked(node.get("name")) or self._l10n_bg_field_required(node):
+                    continue
+                in_list = self._l10n_bg_in_list(node, view_type)
+                node.set("column_invisible" if in_list else "invisible", "True")
+                hidden_fields.add(node.get("name"))
+                changed = True
+            elif node.tag != "label" and (
+                self._l10n_bg_is_marked(node.get("id")) or self._l10n_bg_is_marked(node.get("name"))
+            ):
+                if any(self._l10n_bg_field_required(f) for f in node.iter("field")):
+                    continue
+                node.set("invisible", "True")
+                changed = True
+        for label in doc.iter("label"):
+            if label.get("for") in hidden_fields:
+                label.set("invisible", "True")
+                changed = True
+        return changed

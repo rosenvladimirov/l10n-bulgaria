@@ -69,7 +69,7 @@
                                 class="content-group"
                                 name="l10n_bg_config_is_l10n_bg_setting_api_container"
                             >
-                                <div class="mt8">
+                                <div name="l10n_bg_key_div" class="mt8">
                                     <label for="l10n_bg_key" class="o_light_label" />
                                     <field name="l10n_bg_key" class="w-75" />
                                 </div>
@@ -130,11 +130,11 @@
                                 class="content-group"
                                 name="l10n_bg_config_is_l10n_bg_setting_kid_codes_container"
                             >
-                                <div class="mt8">
+                                <div name="l10n_bg_kid_codes_div" class="mt8">
                                     <label for="l10n_bg_kid_codes" class="o_light_label" />
                                     <field name="l10n_bg_kid_codes" class="w-75" />
                                 </div>
-                                <div class="mt16">
+                                <div name="l10n_bg_kid_ids_div" class="mt16">
                                     <field name="l10n_bg_kid_ids"
                                            widget="many2many_tags"
                                            readonly="1"

@@ -37,7 +37,7 @@
                     <li>A localization or configuration module that automates the settings</li>
                     <li>An installation process where field values are set based on predefined criteria</li>
                 </ul>
-                <group>
+                <group name="l10n_bg_config_file_group">
                     <field name="l10n_bg_config_file"/>
                 </group>
                 <footer>

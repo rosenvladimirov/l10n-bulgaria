@@ -14,7 +14,7 @@
             <page name="job_description_page" position="inside">
                 <separator string="Related Records"/>
                 <group>
-                    <group>
+                    <group name="l10n_bg_ncop_position_id_group">
                         <field name="l10n_bg_ncop_position_id" string="NCOP Position"
                                readonly="1" options="{'no_open': False}"/>
                         <field name="l10n_bg_economic_activity_id" string="Economic Activity (KID)"

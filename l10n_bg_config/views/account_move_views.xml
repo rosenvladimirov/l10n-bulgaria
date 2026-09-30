@@ -13,7 +13,7 @@
                 <field name="l10n_bg_deal_date"/>
             </xpath>
             <xpath expr="//page[@id='other_tab_entry']/group[@id='other_tab_entry_group']" position="inside">
-                <group string="Bulgarian VAT" id="account_bg_vat_entry" invisible="not is_l10n_bg_record">
+                <group string="Bulgarian VAT" id="l10n_bg_account_vat_entry" invisible="not is_l10n_bg_record">
                     <!-- l10n_bg_name е related алиас на l10n_bg_document_number; видимото
                          поле за номер на документа се показва от l10n_bg_reports_config
                          (l10n_bg_document_number, етикет "Document Number"). Тук го държим

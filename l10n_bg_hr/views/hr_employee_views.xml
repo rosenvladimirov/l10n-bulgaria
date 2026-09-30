@@ -55,7 +55,7 @@
         <field name="active" eval="True"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='payroll_information']" position="after">
-                <page string="Contract Amendments" name="amendments"
+                <page string="Contract Amendments" name="l10n_bg_amendments"
                       groups="hr.group_hr_manager">
                     <field name="l10n_bg_amendment_ids" readonly="1">
                         <list>
@@ -114,7 +114,7 @@
             <!-- Личната карта под паспорта, със същата подредба „номер + срок" -->
             <xpath expr="//field[@name='passport_expiration_date']/.." position="after">
                 <label for="l10n_bg_id_card_number"/>
-                <div class="o_wrap_label d-flex flex-row gap-3 align-items-baseline">
+                <div name="l10n_bg_id_card_number_div" class="o_wrap_label d-flex flex-row gap-3 align-items-baseline">
                     <field name="l10n_bg_id_card_number"/>
                     <label for="l10n_bg_id_card_expiry" class="flex-shrink-0"
                            invisible="not l10n_bg_id_card_number" string="Expires on"/>

@@ -4,9 +4,9 @@
     <!-- Следи дежурствата: предупреждение 15 мин преди края, спиране при изчерпване -->
     <record id="ir_cron_consult_duty_watch" model="ir.cron">
         <field name="name">Telegram consultations: duty time watch</field>
-        <field name="model_id" ref="model_l10n_bg_telegram_consult_request"/>
+        <field name="model_id" ref="sale.model_sale_order"/>
         <field name="state">code</field>
-        <field name="code">model._cron_duty_watch()</field>
+        <field name="code">model._cron_l10n_bg_duty_watch()</field>
         <field name="interval_number">5</field>
         <field name="interval_type">minutes</field>
     </record>

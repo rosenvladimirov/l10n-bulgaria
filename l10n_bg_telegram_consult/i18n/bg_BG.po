@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-30 17:02+0000\n"
-"PO-Revision-Date: 2026-09-30 17:02+0000\n"
+"POT-Creation-Date: 2026-09-30 18:46+0000\n"
+"PO-Revision-Date: 2026-09-30 18:46+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: bg\n"
@@ -15,6 +15,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/sale_order.py:0
+msgid "%(order)s: consultation on duty %(start)s – %(end)s UTC (%(reason)s)"
+msgstr ""
+"%(order)s: дежурство по консултация %(start)s – %(end)s UTC (%(reason)s)"
 
 #. module: l10n_bg_telegram_consult
 #. odoo-python
@@ -44,28 +51,34 @@ msgstr ""
 
 #. module: l10n_bg_telegram_consult
 #. odoo-python
-#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_duty.py:0
-msgid "%(request)s: consultation on duty %(start)s – %(end)s UTC (%(reason)s)"
-msgstr ""
-"%(request)s: дежурство по консултация %(start)s – %(end)s UTC (%(reason)s)"
-
-#. module: l10n_bg_telegram_consult
-#. odoo-python
 #: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
 msgid "%s approved."
 msgstr "%s е одобрена."
 
 #. module: l10n_bg_telegram_consult
 #. odoo-python
-#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_duty.py:0
+#: code:addons/l10n_bg_telegram_consult/models/sale_order.py:0
+msgid "%s has no Telegram group yet."
+msgstr "%s още няма група в Telegram."
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/sale_order.py:0
 msgid "%s has no prepaid hours left."
 msgstr "%s няма оставащи предплатени часове."
 
 #. module: l10n_bg_telegram_consult
 #. odoo-python
-#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_duty.py:0
-msgid "%s is not on duty."
-msgstr "%s не е на дежурство."
+#: code:addons/l10n_bg_telegram_consult/models/sale_order.py:0
+msgid "%s has no task for the prepaid hours to log time on."
+msgstr ""
+"%s няма задача към предплатените часове, по която да се записва времето."
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/sale_order.py:0
+msgid "%s is not a confirmed order."
+msgstr "%s не е потвърдена поръчка."
 
 #. module: l10n_bg_telegram_consult
 #. odoo-python
@@ -81,31 +94,23 @@ msgstr "%s не беше приета. Свържете се с нас за по
 
 #. module: l10n_bg_telegram_consult
 #. odoo-python
-#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_duty.py:0
+#: code:addons/l10n_bg_telegram_consult/models/sale_order.py:0
 msgid "%s: prepaid hours used up, duty stopped."
 msgstr "%s: предплатените часове свършиха, дежурството е спряно."
 
 #. module: l10n_bg_telegram_consult
 #. odoo-python
-#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
-msgid "(non-text message)"
-msgstr "(съобщение без текст)"
-
-#. module: l10n_bg_telegram_consult
-#. odoo-python
-#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_duty.py:0
-msgid "About %(minutes)s minutes of prepaid time are left for %(request)s."
-msgstr "Остават около %(minutes)s минути предплатено време за %(request)s."
+#: code:addons/l10n_bg_telegram_consult/models/sale_order.py:0
+msgid ""
+"About %(minutes)s minutes of prepaid consultation time are left for "
+"%(order)s."
+msgstr ""
+"Остават около %(minutes)s минути предплатена консултация по %(order)s."
 
 #. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_needaction
 msgid "Action Needed"
 msgstr "Нужно е действие"
-
-#. module: l10n_bg_telegram_consult
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__reply_to_id
-msgid "Answers"
-msgstr "Отговор на"
 
 #. module: l10n_bg_telegram_consult
 #. odoo-python
@@ -125,12 +130,6 @@ msgid "Attachment Count"
 msgstr "Брой прикачени файлове"
 
 #. module: l10n_bg_telegram_consult
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__author
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__tg_user_id
-msgid "Author"
-msgstr "Автор"
-
-#. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__bot_id
 msgid "Bot"
 msgstr "Бот"
@@ -144,6 +143,11 @@ msgstr "Фирма"
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_bot__consult_employee_id
 msgid "Consultant Employee"
 msgstr "Служител-консултант"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_sale_order__l10n_bg_duty_state
+msgid "Consultation Duty"
+msgstr "Дежурство по консултация"
 
 #. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_bot__consult_manager_id
@@ -166,21 +170,14 @@ msgid "Contact"
 msgstr "Контакт"
 
 #. module: l10n_bg_telegram_consult
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__create_uid
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__create_uid
 msgid "Created by"
 msgstr "Създадено от"
 
 #. module: l10n_bg_telegram_consult
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__create_date
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__create_date
 msgid "Created on"
 msgstr "Създадено на"
-
-#. module: l10n_bg_telegram_consult
-#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_view_form
-msgid "Date"
-msgstr "Дата"
 
 #. module: l10n_bg_telegram_consult
 #. odoo-python
@@ -189,20 +186,9 @@ msgid "Describe the topic: /consult topic @colleague1 @colleague2"
 msgstr "Опишете темата: /consult тема @колега1 @колега2"
 
 #. module: l10n_bg_telegram_consult
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__direction
-msgid "Direction"
-msgstr "Посока"
-
-#. module: l10n_bg_telegram_consult
-#. odoo-python
-#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
-msgid "Discard"
-msgstr "Откажи"
-
-#. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_bot__display_name
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__display_name
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__display_name
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_sale_order__display_name
 msgid "Display Name"
 msgstr "Име за показване"
 
@@ -212,29 +198,12 @@ msgid "Done"
 msgstr "Приключена"
 
 #. module: l10n_bg_telegram_consult
-#. odoo-python
-#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
-msgid "Draft discarded."
-msgstr "Черновата е отказана."
-
-#. module: l10n_bg_telegram_consult
-#. odoo-python
-#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
-msgid "Draft reply for %s"
-msgstr "Чернова на отговор за %s"
-
-#. module: l10n_bg_telegram_consult
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__duty_started
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_sale_order__l10n_bg_duty_started
 msgid "Duty Started"
 msgstr "Начало на дежурството"
 
 #. module: l10n_bg_telegram_consult
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__duty_state
-msgid "Duty State"
-msgstr "Дежурство"
-
-#. module: l10n_bg_telegram_consult
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__duty_warned
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_sale_order__l10n_bg_duty_warned
 msgid "Duty Warned"
 msgstr "Предупреден"
 
@@ -255,11 +224,6 @@ msgid "Followers (Partners)"
 msgstr "Последователи (партньори)"
 
 #. module: l10n_bg_telegram_consult
-#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_message__direction__in
-msgid "From the group"
-msgstr "От групата"
-
-#. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__task_id
 msgid "Generated Task"
 msgstr "Създадена задача"
@@ -276,6 +240,7 @@ msgstr "Групата е създадена"
 
 #. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__group_invite_link
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_sale_order__l10n_bg_telegram_group_link
 msgid "Group Invite Link"
 msgstr "Линк за покана в групата"
 
@@ -286,15 +251,10 @@ msgstr "Има съобщение"
 
 #. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_bot__id
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__id
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__id
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_sale_order__id
 msgid "ID"
 msgstr "ID"
-
-#. module: l10n_bg_telegram_consult
-#: model:ir.model.fields,help:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__telegram_message_id
-msgid "Id of the message in the group (reply target for answers)."
-msgstr "Номер на съобщението в групата (към него се отговаря)."
 
 #. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,help:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_needaction
@@ -315,17 +275,16 @@ msgstr "Е последовател"
 #. module: l10n_bg_telegram_consult
 #. odoo-python
 #: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_request.py:0
+#: code:addons/l10n_bg_telegram_consult/models/sale_order.py:0
 msgid "Join the group"
 msgstr "Влез в групата"
 
 #. module: l10n_bg_telegram_consult
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__write_uid
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__write_uid
 msgid "Last Updated by"
 msgstr "Последно обновено от"
 
 #. module: l10n_bg_telegram_consult
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__write_date
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__write_date
 msgid "Last Updated on"
 msgstr "Последно обновено на"
@@ -341,9 +300,7 @@ msgid "Message Delivery error"
 msgstr "Грешка при доставка на съобщение"
 
 #. module: l10n_bg_telegram_consult
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__consult_message_ids
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_ids
-#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_view_form
 msgid "Messages"
 msgstr "Съобщения"
 
@@ -390,12 +347,12 @@ msgid "Number of messages with delivery error"
 msgstr "Брой съобщения с грешка при доставката"
 
 #. module: l10n_bg_telegram_consult
-#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_request__duty_state__off
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__sale_order__l10n_bg_duty_state__off
 msgid "Off"
 msgstr "Не"
 
 #. module: l10n_bg_telegram_consult
-#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_request__duty_state__on
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__sale_order__l10n_bg_duty_state__on
 msgid "On Duty"
 msgstr "На дежурство"
 
@@ -422,14 +379,14 @@ msgid "Prepaid Hours"
 msgstr "Предплатени часове"
 
 #. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_sale_order__l10n_bg_duty_remaining_hours
+msgid "Prepaid Hours Left"
+msgstr "Оставащи предплатени часове"
+
+#. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__rating_ids
 msgid "Ratings"
 msgstr "Оценки"
-
-#. module: l10n_bg_telegram_consult
-#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_message__state__received
-msgid "Received"
-msgstr "Получено"
 
 #. module: l10n_bg_telegram_consult
 #. odoo-python
@@ -439,20 +396,9 @@ msgid "Reject"
 msgstr "Откажи"
 
 #. module: l10n_bg_telegram_consult
-#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_message__state__rejected
 #: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_request__state__rejected
 msgid "Rejected"
 msgstr "Отказана"
-
-#. module: l10n_bg_telegram_consult
-#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_message__direction__out
-msgid "Reply"
-msgstr "Отговор"
-
-#. module: l10n_bg_telegram_consult
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__request_id
-msgid "Request"
-msgstr "Заявка"
 
 #. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__tg_user_id
@@ -465,10 +411,9 @@ msgid "SMS Delivery error"
 msgstr "Грешка при доставка на SMS"
 
 #. module: l10n_bg_telegram_consult
-#. odoo-python
-#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
-msgid "Send"
-msgstr "Изпрати"
+#: model:ir.model,name:l10n_bg_telegram_consult.model_sale_order
+msgid "Sales Order"
+msgstr "Поръчка за продажба"
 
 #. module: l10n_bg_telegram_consult
 #. odoo-python
@@ -477,30 +422,13 @@ msgid "Send /start first."
 msgstr "Първо изпратете /start."
 
 #. module: l10n_bg_telegram_consult
-#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_message__state__sent
-msgid "Sent"
-msgstr "Изпратено"
-
-#. module: l10n_bg_telegram_consult
 #. odoo-python
-#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
-msgid "Sent to %s."
-msgstr "Изпратено в %s."
+#: code:addons/l10n_bg_telegram_consult/models/sale_order.py:0
+msgid "Set the consultant employee on the Telegram bot to log the time."
+msgstr ""
+"Задайте служител-консултант на Telegram бота, за да се записва времето."
 
 #. module: l10n_bg_telegram_consult
-#. odoo-python
-#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_duty.py:0
-msgid "Set the consultant employee on bot %s to log the time."
-msgstr "Задайте служител-консултант на бота %s, за да се записва времето."
-
-#. module: l10n_bg_telegram_consult
-#. odoo-python
-#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
-msgid "Set the consultation manager on bot %s first."
-msgstr "Първо задайте отговорник за консултациите на бота %s."
-
-#. module: l10n_bg_telegram_consult
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__state
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__state
 msgid "State"
 msgstr "Състояние"
@@ -511,7 +439,7 @@ msgid "Status"
 msgstr "Статус"
 
 #. module: l10n_bg_telegram_consult
-#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.view_order_form
 msgid "Stop Duty"
 msgstr "Спри дежурството"
 
@@ -521,9 +449,9 @@ msgid "Telegram Bot"
 msgstr "Telegram бот"
 
 #. module: l10n_bg_telegram_consult
-#: model:ir.model,name:l10n_bg_telegram_consult.model_l10n_bg_telegram_consult_message
-msgid "Telegram Consultation Message"
-msgstr "Съобщение по консултация от Telegram"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.view_order_form
+msgid "Telegram Consultation"
+msgstr "Консултация в Telegram"
 
 #. module: l10n_bg_telegram_consult
 #: model:ir.model,name:l10n_bg_telegram_consult.model_l10n_bg_telegram_consult_request
@@ -531,14 +459,19 @@ msgid "Telegram Consultation Request"
 msgstr "Заявка за консултация от Telegram"
 
 #. module: l10n_bg_telegram_consult
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__telegram_message_id
-msgid "Telegram Message"
-msgstr "Съобщение в Telegram"
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_sale_order__l10n_bg_telegram_group_chat_id
+msgid "Telegram Group"
+msgstr "Група в Telegram"
 
 #. module: l10n_bg_telegram_consult
 #: model:ir.actions.server,name:l10n_bg_telegram_consult.ir_cron_consult_duty_watch_ir_actions_server
 msgid "Telegram consultations: duty time watch"
 msgstr "Консултации от Telegram: следене на времето"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,help:l10n_bg_telegram_consult.field_sale_order__l10n_bg_telegram_group_chat_id
+msgid "Telegram group of the consultant and the client for this order."
+msgstr "Групата в Telegram на консултанта и клиента по тази поръчка."
 
 #. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,help:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__group_chat_id
@@ -561,9 +494,10 @@ msgstr ""
 "Потребителски имена в Telegram за добавяне в групата, разделени с интервал."
 
 #. module: l10n_bg_telegram_consult
-#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__text
-msgid "Text"
-msgstr "Текст"
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/sale_order.py:0
+msgid "The consultation group for %s is ready."
+msgstr "Групата за консултацията по %s е готова."
 
 #. module: l10n_bg_telegram_consult
 #. odoo-python
@@ -573,13 +507,10 @@ msgstr "Групата за %s е готова."
 
 #. module: l10n_bg_telegram_consult
 #. odoo-python
-#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_duty.py:0
-msgid ""
-"The prepaid hours for %s are used up. Buy more with /buy in the bot to "
-"continue."
+#: code:addons/l10n_bg_telegram_consult/models/sale_order.py:0
+msgid "The prepaid hours for %s are used up. Buy more with /buy to continue."
 msgstr ""
-"Предплатените часове за %s свършиха. Купете още с /buy в бота, за да "
-"продължим."
+"Предплатените часове по %s свършиха. Купете още с /buy, за да продължим."
 
 #. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__remaining_hours
@@ -591,11 +522,6 @@ msgstr "Оставащо време по поръчката"
 #: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_view_form
 msgid "Topic"
 msgstr "Тема"
-
-#. module: l10n_bg_telegram_consult
-#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_message__state__draft
-msgid "Waiting for Approval"
-msgstr "Чака одобрение"
 
 #. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__website_message_ids

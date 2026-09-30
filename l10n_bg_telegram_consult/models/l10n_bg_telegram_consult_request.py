@@ -137,7 +137,8 @@ class L10nBgTelegramConsultRequest(models.Model):
             "title": " — ".join(
                 [self.name, self.partner_id.name or self.tg_user_id.display_label]
             ),
-            "bot_username": self.bot_id.username,
+            # Групата е човекът и клиентът — ботът не участва (Росен, 30.09)
+            "bot_username": "",
             "members": [
                 p.lstrip("@") for p in (self.participants or "").split() if p.strip("@")
             ]

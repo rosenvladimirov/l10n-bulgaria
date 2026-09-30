@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
     "name": "Telegram Bot: Consultations",
-    "version": "19.0.1.3.0",
+    "version": "19.0.1.4.0",
     "category": "Services",
     "summary": "Consultation requests from Telegram on prepaid hours, human-approved",
     "author": "Rosen Vladimirov, Terraros Commerce Ltd., "
@@ -18,6 +18,7 @@
         "data/ir_cron_data.xml",
         "views/l10n_bg_telegram_consult_request_views.xml",
         "views/l10n_bg_telegram_bot_views.xml",
+        "views/sale_order_views.xml",
     ],
     "installable": True,
     "application": False,

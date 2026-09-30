@@ -1,3 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_l10n_bg_telegram_consult_request_system,l10n.bg.telegram.consult.request system,model_l10n_bg_telegram_consult_request,base.group_system,1,1,1,1
-access_l10n_bg_telegram_consult_message_system,l10n.bg.telegram.consult.message system,model_l10n_bg_telegram_consult_message,base.group_system,1,1,1,1

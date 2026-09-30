@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">sale.order.form.l10n_bg_telegram_consult</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="l10n_bg_duty_stop" type="object" string="Stop Duty"
+                        invisible="l10n_bg_duty_state != 'on'"
+                        groups="base.group_system"/>
+            </xpath>
+            <xpath expr="//page[@name='other_information']" position="inside">
+                <group string="Telegram Consultation" name="l10n_bg_telegram_consult"
+                       groups="base.group_system">
+                    <field name="l10n_bg_telegram_group_chat_id"/>
+                    <field name="l10n_bg_telegram_group_link" widget="url"/>
+                    <field name="l10n_bg_duty_state" widget="badge"
+                           decoration-success="l10n_bg_duty_state == 'on'"/>
+                    <field name="l10n_bg_duty_started"
+                           invisible="l10n_bg_duty_state != 'on'"/>
+                    <field name="l10n_bg_duty_remaining_hours" widget="float_time"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

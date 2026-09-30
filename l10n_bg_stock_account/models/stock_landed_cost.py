@@ -2,7 +2,8 @@ from odoo import fields, models
 
 
 class StockLandedCost(models.Model):
-    _inherit = 'stock.landed.cost'
+    _inherit = ['stock.landed.cost', "l10n.bg.config.mixin"]
+    _name = "stock.landed.cost"
 
     # Отделен BG запис за auto_post продукти — core-ът създава
     # account_move_id само за real_time редовете; тук допълваме

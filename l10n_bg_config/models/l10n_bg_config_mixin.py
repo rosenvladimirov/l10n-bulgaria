@@ -197,7 +197,13 @@ class L10nBGConfigMixin(models.AbstractModel):
             elif node.tag != "label" and (
                 self._l10n_bg_is_marked(node.get("id")) or self._l10n_bg_is_marked(node.get("name"))
             ):
-                if any(self._l10n_bg_field_required(f) for f in node.iter("field")):
+                # само задължително поле на СЪЩИЯ модел пази контейнера; задължителното
+                # във вложен списък (o2m) не пречи на записа на този запис
+                if any(
+                    not any(anc.tag == "field" for anc in f.iterancestors())
+                    and self._l10n_bg_field_required(f)
+                    for f in node.iter("field")
+                ):
                     continue
                 node.set("invisible", "True")
                 changed = True

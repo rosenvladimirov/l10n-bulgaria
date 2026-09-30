@@ -1,6 +1,6 @@
 {
     'name': 'Bulgaria - Stock Auto Accounting',
-    'version': '19.0.1.6.1',
+    'version': '19.0.1.6.2',
     'category': 'Accounting/Localizations',
     'summary': 'Auto-post journal entries at picking validation for manual/periodic costing',
     'description': """
@@ -23,6 +23,7 @@
     'website': 'https://github.com/rosenvladimirov/l10n-bulgaria',
     'license': 'LGPL-3',
     'depends': [
+        "l10n_bg_config",
         'stock_account',
         'stock_landed_costs',
     ],

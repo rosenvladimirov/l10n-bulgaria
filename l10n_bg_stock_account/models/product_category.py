@@ -2,7 +2,8 @@ from odoo import fields, models
 
 
 class ProductCategory(models.Model):
-    _inherit = 'product.category'
+    _inherit = ['product.category', "l10n.bg.config.mixin"]
+    _name = "product.category"
 
     # Транзитна сметка (напр. 301) — кредитира се при приход на стоката.
     # Dr. stock_valuation (302) / Cr. l10n_bg_stock_input_account_id (301)

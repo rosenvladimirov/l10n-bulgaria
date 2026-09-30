@@ -48,6 +48,16 @@ class TestL10nBgHideMarked(TransactionCase):
         )
         self.assertIsNone(doc.find("page").get("invisible"))
 
+    def test_required_in_nested_list_does_not_keep_the_page(self):
+        # задължително поле на реда в o2m не пази таба на родителя
+        self.patch(self.env["res.partner"]._fields["l10n_bg_uic"], "required", True)
+        doc = self._hide(
+            '<form><page name="l10n_bg_children"><field name="child_ids"><list>'
+            '<field name="l10n_bg_uic"/></list></field></page></form>'
+        )
+        self.assertEqual(doc.find("page").get("invisible"), "True")
+        self.assertIsNone(doc.find(".//list/field").get("column_invisible"))
+
     def test_nested_list_column_uses_column_invisible(self):
         doc = self._hide(
             '<form><field name="child_ids"><list>'

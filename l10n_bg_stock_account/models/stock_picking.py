@@ -2,7 +2,8 @@ from odoo import api, fields, models
 
 
 class StockPicking(models.Model):
-    _inherit = 'stock.picking'
+    _inherit = ['stock.picking', "l10n.bg.config.mixin"]
+    _name = "stock.picking"
 
     l10n_bg_account_move_ids = fields.Many2many(
         'account.move',

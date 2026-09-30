@@ -136,11 +136,25 @@ class L10nBgTelegramBot(models.Model):
 
     # --- /balance ------------------------------------------------------------
 
-    def _prepaid_lines(self, partner):
+    def _customer_orders(self, tg_user):
+        """Поръчките на клиента: вързаните с неговия Telegram потребител и тези
+        на контакта му.
+
+        Магазинът сменя партньора на количката, когато клиентът влезе като
+        потребител (website_sale, `_get_and_cache_current_cart`) ⇒ платената
+        поръчка може да е на друг контакт, но връзката с Telegram остава.
+        """
+        domain = [("l10n_bg_telegram_user_id", "=", tg_user.id)]
+        if tg_user.partner_id:
+            commercial = tg_user.partner_id.commercial_partner_id
+            domain = ["|", *domain, ("partner_id", "child_of", commercial.id)]
+        return self.env["sale.order"].search(domain, order="id desc")
+
+    def _prepaid_lines(self, tg_user):
         # ordered_prepaid = фактуриране по поръчка + отчитане с таймшийт
         return self.env["sale.order.line"].search(
             [
-                ("order_id.partner_id", "child_of", partner.commercial_partner_id.id),
+                ("order_id", "in", self._customer_orders(tg_user).ids),
                 ("state", "=", "sale"),
                 ("product_id.type", "=", "service"),
                 ("product_id.invoice_policy", "=", "order"),
@@ -152,7 +166,8 @@ class L10nBgTelegramBot(models.Model):
         partner = tg_user.partner_id
         if not partner:
             return tg_user._reply(self.env._("Send /start first."))
-        lines = self._prepaid_lines(partner)
+        orders = self._customer_orders(tg_user)
+        lines = self._prepaid_lines(tg_user)
         bought = sum(lines.mapped("product_uom_qty"))
         used = sum(lines.mapped("qty_delivered"))
         text = [
@@ -165,7 +180,7 @@ class L10nBgTelegramBot(models.Model):
         ]
         wallets = self.env["loyalty.card"].search(
             [
-                ("partner_id", "=", partner.id),
+                ("partner_id", "in", (partner | orders.partner_id).ids),
                 ("program_id.program_type", "=", "ewallet"),
             ]
         )
@@ -182,10 +197,7 @@ class L10nBgTelegramBot(models.Model):
     # --- /orders -------------------------------------------------------------
 
     def _command_orders(self, tg_user, args):
-        partner = tg_user.partner_id
-        orders = partner and self.env["sale.order"].search(
-            [("partner_id", "=", partner.id)], order="id desc", limit=ORDERS_SHOWN
-        )
+        orders = self._customer_orders(tg_user)[:ORDERS_SHOWN]
         if not orders:
             return tg_user._reply(self.env._("You have no orders yet."))
         states = dict(orders._fields["state"]._description_selection(self.env))

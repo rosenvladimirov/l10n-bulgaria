@@ -150,3 +150,20 @@ class TestTelegramSaleCommands(TelegramSaleCommon):
         buttons = self.sent_markups(post)[0]["inline_keyboard"]
         self.assertEqual(len(buttons), 1)
         self.assertIn(unpaid.name, buttons[0][0]["text"])
+
+    def test_order_moved_to_logged_in_contact_still_counts(self):
+        # Клиентът плаща като потребител ⇒ магазинът сменя партньора на количката
+        tg_user = self.start_user()
+        self.buy()
+        order = self.env["sale.order"].search(
+            [("l10n_bg_telegram_user_id", "=", tg_user.id)]
+        )
+        other = self.env["res.partner"].create({"name": "Ivan Petrov (shop login)"})
+        order.partner_id = other
+        order.action_confirm()
+        with self.mock_telegram() as post:
+            self.bot._handle_update(self.make_update(17, "/balance"))
+            self.bot._handle_update(self.make_update(18, "/orders"))
+        texts = self.sent_texts(post)
+        self.assertIn("10.00 left", texts[0])
+        self.assertIn(order.name, texts[1])

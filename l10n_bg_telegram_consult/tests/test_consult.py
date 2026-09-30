@@ -155,3 +155,10 @@ class TestTelegramConsult(TelegramSaleCommon):
         with self.mock_telegram():
             request.with_context(lang="en_US").action_approve()
         self.assertEqual(seen, [(self.client, "bg_BG")])
+
+    def test_consult_uses_hours_of_order_moved_to_another_contact(self):
+        order = self._paid_hours()
+        order.partner_id = self.env["res.partner"].create({"name": "Shop login"})
+        self._consult(41, "/consult Accounting")
+        request = self.env["l10n.bg.telegram.consult.request"].search([])
+        self.assertEqual(request.sale_line_id, order.order_line)

@@ -28,7 +28,7 @@ class L10nBgTelegramBot(models.Model):
                 self.env._("Describe the topic: /consult topic @colleague1 @colleague2")
             )
         line = (
-            self._prepaid_lines(partner)
+            self._prepaid_lines(tg_user)
             .filtered(lambda l: l.remaining_hours > 0)
             .sorted("id")[:1]
         )

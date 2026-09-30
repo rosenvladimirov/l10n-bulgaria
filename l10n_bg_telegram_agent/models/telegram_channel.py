@@ -56,10 +56,11 @@ class TelegramChannel(models.Model):
     persona = fields.Text(help="Scenario / persona for the AI responder.")
     last_message_date = fields.Datetime(readonly=True)
 
-    _sql_constraints = [
-        ("uniq_account_chat", "unique(account_id, chat_id)",
-         "This chat is already bound for that account."),
-    ]
+    # o19 игнорира `_sql_constraints` ⇒ уникалността не се пазеше изобщо
+    _uniq_account_chat = models.Constraint(
+        "unique(account_id, chat_id)",
+        "This chat is already bound for that account.",
+    )
 
     # ── lookup / provisioning ──────────────────────────────────────────
     @api.model

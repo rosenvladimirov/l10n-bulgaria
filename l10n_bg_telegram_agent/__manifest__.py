@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Telegram Agent — Discuss bridge",
-    "version": "19.0.2.0.1",
+    "version": "19.0.2.1.0",
     "summary": "Bridge Telegram chats into Odoo Discuss — v2: Centrifugo "
                "consumer (variant A) + Anthropic merchant AI responder (auto mode).",
     "author": "Rosen Vladimirov, Terraros Commerce Ltd.",
@@ -12,6 +12,9 @@
     "depends": [
         "mail",      # discuss.channel = вътрешния чат / контекстна сесия
         "bus",       # bus.bus инжекция (websocket доставка)
+        # Общото меню „Telegram“ (LGPL-3 ⇒ AGPL модулът може да стъпи отгоре;
+        # обратната посока — ботът да зависи от агента — не е позволена)
+        "l10n_bg_telegram_bot",
     ],
     # Меки интеграции (НЕ са твърди depends — модулът работи и без тях):
     #   * l10n_bg_claude_terminal → ai.qdrant.client + Anthropic ключ (AI отговор)

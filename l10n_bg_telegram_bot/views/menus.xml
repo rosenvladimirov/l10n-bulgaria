@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Само за администратора: заявките и клиентите вижда само Росен -->
+    <!-- Общото приложение „Telegram“: ботът и (ако е инсталиран) агентът
+         l10n_bg_telegram_agent слагат менютата си тук. Подменютата на бота са
+         само за администратора — заявките и клиентите вижда само Росен. -->
     <menuitem id="l10n_bg_telegram_menu_root" name="Telegram"
-              parent="base.menu_custom" sequence="90" groups="base.group_system"/>
+              web_icon="mail,static/description/icon.png"
+              sequence="90" groups="base.group_system"/>
     <menuitem id="l10n_bg_telegram_bot_menu" name="Bots"
               parent="l10n_bg_telegram_menu_root" action="l10n_bg_telegram_bot_action"
-              sequence="10"/>
+              sequence="10" groups="base.group_system"/>
     <menuitem id="l10n_bg_telegram_user_menu" name="Users"
               parent="l10n_bg_telegram_menu_root" action="l10n_bg_telegram_user_action"
-              sequence="20"/>
+              sequence="20" groups="base.group_system"/>
 
 </odoo>

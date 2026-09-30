@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="menu_telegram_agent_root" name="Telegram Agent"
-              groups="group_telegram_agent_manager"
-              web_icon="mail,static/description/icon.png"/>
+    <!-- Под общото приложение „Telegram“ от l10n_bg_telegram_bot. Групата на
+         агента вижда корена; менютата на бота остават само за администратора. -->
+    <record id="l10n_bg_telegram_bot.l10n_bg_telegram_menu_root" model="ir.ui.menu">
+        <field name="group_ids" eval="[Command.link(ref('group_telegram_agent_manager'))]"/>
+    </record>
     <menuitem id="menu_telegram_sessions" name="Sessions"
-              parent="menu_telegram_agent_root"
-              action="action_telegram_channel" sequence="10"/>
+              parent="l10n_bg_telegram_bot.l10n_bg_telegram_menu_root"
+              action="action_telegram_channel" sequence="30"
+              groups="group_telegram_agent_manager"/>
     <menuitem id="menu_telegram_accounts" name="Accounts"
-              parent="menu_telegram_agent_root"
-              action="action_telegram_account" sequence="20"/>
+              parent="l10n_bg_telegram_bot.l10n_bg_telegram_menu_root"
+              action="action_telegram_account" sequence="40"
+              groups="group_telegram_agent_manager"/>
 </odoo>

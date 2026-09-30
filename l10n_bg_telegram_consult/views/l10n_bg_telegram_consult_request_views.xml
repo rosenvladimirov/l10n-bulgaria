@@ -78,6 +78,7 @@
 
     <menuitem id="l10n_bg_telegram_consult_request_menu" name="Consultations"
               parent="l10n_bg_telegram_bot.l10n_bg_telegram_menu_root"
-              action="l10n_bg_telegram_consult_request_action" sequence="5"/>
+              action="l10n_bg_telegram_consult_request_action" sequence="5"
+              groups="base.group_system"/>
 
 </odoo>

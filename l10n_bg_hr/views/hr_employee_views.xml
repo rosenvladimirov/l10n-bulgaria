@@ -55,7 +55,7 @@
         <field name="active" eval="True"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='payroll_information']" position="after">
-                <page string="Contract Amendments" name="l10n_bg_amendments"
+                <page string="Contract Amendments" name="amendments" id="l10n_bg_amendments"
                       groups="hr.group_hr_manager">
                     <field name="l10n_bg_amendment_ids" readonly="1">
                         <list>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="l10n_bg_telegram_consult_request_view_list" model="ir.ui.view">
+        <field name="name">l10n.bg.telegram.consult.request.list</field>
+        <field name="model">l10n.bg.telegram.consult.request</field>
+        <field name="arch" type="xml">
+            <list decoration-info="state == 'new'" decoration-muted="state in ('done', 'rejected')">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="topic"/>
+                <field name="remaining_hours" widget="float_time"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="l10n_bg_telegram_consult_request_view_form" model="ir.ui.view">
+        <field name="name">l10n.bg.telegram.consult.request.form</field>
+        <field name="model">l10n.bg.telegram.consult.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_approve" type="object" string="Approve"
+                            class="btn-primary" invisible="state != 'new'"/>
+                    <button name="action_reject" type="object" string="Reject"
+                            invisible="state not in ('new', 'approved')"/>
+                    <button name="action_done" type="object" string="Mark as Done"
+                            invisible="state != 'group'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="new,approved,group,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="tg_user_id"/>
+                            <field name="participants"/>
+                            <field name="bot_id"/>
+                        </group>
+                        <group>
+                            <field name="sale_line_id"/>
+                            <field name="task_id"/>
+                            <field name="remaining_hours" widget="float_time"/>
+                            <field name="group_chat_id"/>
+                            <field name="group_invite_link" widget="url"/>
+                        </group>
+                    </group>
+                    <field name="topic" placeholder="Topic"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="l10n_bg_telegram_consult_request_view_search" model="ir.ui.view">
+        <field name="name">l10n.bg.telegram.consult.request.search</field>
+        <field name="model">l10n.bg.telegram.consult.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="topic"/>
+                <filter name="open" string="Open" domain="[('state', 'in', ('new', 'approved', 'group'))]"/>
+                <filter name="state" string="Status" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="l10n_bg_telegram_consult_request_action" model="ir.actions.act_window">
+        <field name="name">Consultation Requests</field>
+        <field name="res_model">l10n.bg.telegram.consult.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_open': 1}</field>
+    </record>
+
+    <menuitem id="l10n_bg_telegram_consult_request_menu" name="Consultations"
+              parent="l10n_bg_telegram_bot.l10n_bg_telegram_menu_root"
+              action="l10n_bg_telegram_consult_request_action" sequence="5"/>
+
+</odoo>

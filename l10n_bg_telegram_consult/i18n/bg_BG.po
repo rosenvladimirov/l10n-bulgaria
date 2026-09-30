@@ -1,0 +1,398 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_telegram_consult
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-29 18:16+0000\n"
+"PO-Revision-Date: 2026-09-29 18:16+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_request.py:0
+msgid "%(request)s is %(state)s; this step is not possible."
+msgstr "%(request)s е в състояние „%(state)s“; тази стъпка не е възможна."
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_request.py:0
+msgid ""
+"%(request)s is approved. You will get an invitation to the consultation "
+"group shortly."
+msgstr ""
+"%(request)s е одобрена. Скоро ще получите покана за групата на "
+"консултацията."
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
+msgid ""
+"%(request)s is registered (%(hours)s prepaid hours left). You will be "
+"notified when it is approved."
+msgstr ""
+"%(request)s е регистрирана (остават %(hours)s предплатени часа). Ще ви "
+"уведомим, когато бъде одобрена."
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
+msgid "%s approved."
+msgstr "%s е одобрена."
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
+msgid "%s rejected."
+msgstr "%s е отказана."
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_request.py:0
+msgid "%s was not accepted. Contact us for details."
+msgstr "%s не беше приета. Свържете се с нас за подробности."
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_needaction
+msgid "Action Needed"
+msgstr "Нужно е действие"
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_view_form
+msgid "Approve"
+msgstr "Одобри"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_request__state__approved
+msgid "Approved"
+msgstr "Одобрена"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_attachment_count
+msgid "Attachment Count"
+msgstr "Брой прикачени файлове"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__bot_id
+msgid "Bot"
+msgstr "Бот"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__company_id
+msgid "Company"
+msgstr "Фирма"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_bot__consult_manager_id
+msgid "Consultation Manager"
+msgstr "Отговорник за консултациите"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.actions.act_window,name:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_action
+msgid "Consultation Requests"
+msgstr "Заявки за консултация"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.ui.menu,name:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_menu
+msgid "Consultations"
+msgstr "Консултации"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__partner_id
+msgid "Contact"
+msgstr "Контакт"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__create_uid
+msgid "Created by"
+msgstr "Създадено от"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__create_date
+msgid "Created on"
+msgstr "Създадено на"
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
+msgid "Describe the topic: /consult topic @colleague1 @colleague2"
+msgstr "Опишете темата: /consult тема @колега1 @колега2"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_bot__display_name
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_request__state__done
+msgid "Done"
+msgstr "Приключена"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_follower_ids
+msgid "Followers"
+msgstr "Последователи"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Последователи (партньори)"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__task_id
+msgid "Generated Task"
+msgstr "Създадена задача"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__group_chat_id
+msgid "Group Chat"
+msgstr "Чат на групата"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_request__state__group
+msgid "Group Created"
+msgstr "Групата е създадена"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__group_invite_link
+msgid "Group Invite Link"
+msgstr "Линк за покана в групата"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__has_message
+msgid "Has Message"
+msgstr "Има съобщение"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_bot__id
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,help:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Ако е отметнато, новите съобщения изискват вниманието ви."
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,help:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_has_error
+#: model:ir.model.fields,help:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Ако е отметнато, някои съобщения имат грешка при доставката."
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_is_follower
+msgid "Is Follower"
+msgstr "Е последовател"
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_request.py:0
+msgid "Join the group"
+msgstr "Влез в групата"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__write_uid
+msgid "Last Updated by"
+msgstr "Последно обновено от"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__write_date
+msgid "Last Updated on"
+msgstr "Последно обновено на"
+
+#. module: l10n_bg_telegram_consult
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_view_form
+msgid "Mark as Done"
+msgstr "Приключи"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_has_error
+msgid "Message Delivery error"
+msgstr "Грешка при доставка на съобщение"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_ids
+msgid "Messages"
+msgstr "Съобщения"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__name
+msgid "Name"
+msgstr "Име"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_request__state__new
+msgid "New"
+msgstr "Нова"
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
+msgid ""
+"New consultation %(request)s from %(client)s:\n"
+"%(topic)s\n"
+"Participants: %(participants)s"
+msgstr ""
+"Нова консултация %(request)s от %(client)s:\n"
+"%(topic)s\n"
+"Участници: %(participants)s"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Брой действия"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_has_error_counter
+msgid "Number of errors"
+msgstr "Брой грешки"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,help:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Брой съобщения, изискващи действие"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,help:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Брой съобщения с грешка при доставката"
+
+#. module: l10n_bg_telegram_consult
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_view_search
+msgid "Open"
+msgstr "Отворени"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,help:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__sale_line_id
+msgid "Order line whose prepaid hours are consumed by this consultation."
+msgstr ""
+"Редът от поръчката, чиито предплатени часове се изразходват от тази "
+"консултация."
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__participants
+msgid "Participants"
+msgstr "Участници"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__sale_line_id
+msgid "Prepaid Hours"
+msgstr "Предплатени часове"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__rating_ids
+msgid "Ratings"
+msgstr "Оценки"
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_view_form
+msgid "Reject"
+msgstr "Откажи"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_request__state__rejected
+msgid "Rejected"
+msgstr "Отказана"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__tg_user_id
+msgid "Requested by"
+msgstr "Заявена от"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Грешка при доставка на SMS"
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
+msgid "Send /start first."
+msgstr "Първо изпратете /start."
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__state
+msgid "State"
+msgstr "Състояние"
+
+#. module: l10n_bg_telegram_consult
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_view_search
+msgid "Status"
+msgstr "Статус"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model,name:l10n_bg_telegram_consult.model_l10n_bg_telegram_bot
+msgid "Telegram Bot"
+msgstr "Telegram бот"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model,name:l10n_bg_telegram_consult.model_l10n_bg_telegram_consult_request
+msgid "Telegram Consultation Request"
+msgstr "Заявка за консултация от Telegram"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,help:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__group_chat_id
+msgid "Telegram group of the consultation."
+msgstr "Групата в Telegram за консултацията."
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,help:l10n_bg_telegram_consult.field_l10n_bg_telegram_bot__consult_manager_id
+msgid ""
+"Telegram user (who has sent /start to the bot) notified about new "
+"consultation requests; only this user can approve them from Telegram."
+msgstr ""
+"Потребителят на Telegram (изпратил /start на бота), който получава известия "
+"за нови заявки; само той може да ги одобрява от Telegram."
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,help:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__participants
+msgid "Telegram usernames to add to the group, separated by spaces."
+msgstr ""
+"Потребителски имена в Telegram за добавяне в групата, разделени с интервал."
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_request.py:0
+msgid "The group for %s is ready."
+msgstr "Групата за %s е готова."
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__remaining_hours
+msgid "Time Remaining on SO"
+msgstr "Оставащо време по поръчката"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__topic
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_view_form
+msgid "Topic"
+msgstr "Тема"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__website_message_ids
+msgid "Website Messages"
+msgstr "Съобщения от уебсайта"
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,help:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__website_message_ids
+msgid "Website communication history"
+msgstr "История на комуникацията в уебсайта"
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
+msgid "You have no prepaid hours left. Buy a package with /buy."
+msgstr "Нямате оставащи предплатени часове. Купете пакет с /buy."

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="seq_l10n_bg_telegram_consult_request" model="ir.sequence">
+        <field name="name">Telegram Consultation Request</field>
+        <field name="code">l10n.bg.telegram.consult.request</field>
+        <field name="prefix">TGC/%(year)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

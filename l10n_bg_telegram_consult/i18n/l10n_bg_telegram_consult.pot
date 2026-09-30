@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 18:16+0000\n"
-"PO-Revision-Date: 2026-09-29 18:16+0000\n"
+"POT-Creation-Date: 2026-09-30 17:02+0000\n"
+"PO-Revision-Date: 2026-09-30 17:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -39,8 +39,26 @@ msgstr ""
 
 #. module: l10n_bg_telegram_consult
 #. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_duty.py:0
+msgid "%(request)s: consultation on duty %(start)s – %(end)s UTC (%(reason)s)"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
 #: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
 msgid "%s approved."
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_duty.py:0
+msgid "%s has no prepaid hours left."
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_duty.py:0
+msgid "%s is not on duty."
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
@@ -56,8 +74,31 @@ msgid "%s was not accepted. Contact us for details."
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_duty.py:0
+msgid "%s: prepaid hours used up, duty stopped."
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
+msgid "(non-text message)"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_duty.py:0
+msgid "About %(minutes)s minutes of prepaid time are left for %(request)s."
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_needaction
 msgid "Action Needed"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__reply_to_id
+msgid "Answers"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
@@ -78,6 +119,12 @@ msgid "Attachment Count"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__author
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__tg_user_id
+msgid "Author"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__bot_id
 msgid "Bot"
 msgstr ""
@@ -85,6 +132,11 @@ msgstr ""
 #. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__company_id
 msgid "Company"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_bot__consult_employee_id
+msgid "Consultant Employee"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
@@ -108,13 +160,20 @@ msgid "Contact"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__create_uid
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__create_date
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__create_date
 msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_view_form
+msgid "Date"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
@@ -124,7 +183,19 @@ msgid "Describe the topic: /consult topic @colleague1 @colleague2"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__direction
+msgid "Direction"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
+msgid "Discard"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_bot__display_name
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__display_name
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__display_name
 msgid "Display Name"
 msgstr ""
@@ -135,6 +206,39 @@ msgid "Done"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
+msgid "Draft discarded."
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
+msgid "Draft reply for %s"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__duty_started
+msgid "Duty Started"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__duty_state
+msgid "Duty State"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__duty_warned
+msgid "Duty Warned"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,help:l10n_bg_telegram_consult.field_l10n_bg_telegram_bot__consult_employee_id
+msgid ""
+"Employee whose timesheet receives the time logged by consultation duty."
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_follower_ids
 msgid "Followers"
 msgstr ""
@@ -142,6 +246,11 @@ msgstr ""
 #. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_partner_ids
 msgid "Followers (Partners)"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_message__direction__in
+msgid "From the group"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
@@ -171,8 +280,14 @@ msgstr ""
 
 #. module: l10n_bg_telegram_consult
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_bot__id
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__id
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__id
 msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,help:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__telegram_message_id
+msgid "Id of the message in the group (reply target for answers)."
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
@@ -198,11 +313,13 @@ msgid "Join the group"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__write_uid
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__write_date
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__write_date
 msgid "Last Updated on"
 msgstr ""
@@ -218,7 +335,9 @@ msgid "Message Delivery error"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__consult_message_ids
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__message_ids
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_view_form
 msgid "Messages"
 msgstr ""
 
@@ -262,6 +381,16 @@ msgid "Number of messages with delivery error"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_request__duty_state__off
+msgid "Off"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_request__duty_state__on
+msgid "On Duty"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
 #: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_view_search
 msgid "Open"
 msgstr ""
@@ -287,6 +416,11 @@ msgid "Ratings"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_message__state__received
+msgid "Received"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
 #. odoo-python
 #: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
 #: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_view_form
@@ -294,8 +428,19 @@ msgid "Reject"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_message__state__rejected
 #: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_request__state__rejected
 msgid "Rejected"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_message__direction__out
+msgid "Reply"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__request_id
+msgid "Request"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
@@ -311,10 +456,40 @@ msgstr ""
 #. module: l10n_bg_telegram_consult
 #. odoo-python
 #: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
+msgid "Send"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
 msgid "Send /start first."
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_message__state__sent
+msgid "Sent"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
+msgid "Sent to %s."
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_duty.py:0
+msgid "Set the consultant employee on bot %s to log the time."
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_bot.py:0
+msgid "Set the consultation manager on bot %s first."
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__state
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__state
 msgid "State"
 msgstr ""
@@ -325,13 +500,33 @@ msgid "Status"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_view_form
+msgid "Stop Duty"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
 #: model:ir.model,name:l10n_bg_telegram_consult.model_l10n_bg_telegram_bot
 msgid "Telegram Bot"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
+#: model:ir.model,name:l10n_bg_telegram_consult.model_l10n_bg_telegram_consult_message
+msgid "Telegram Consultation Message"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
 #: model:ir.model,name:l10n_bg_telegram_consult.model_l10n_bg_telegram_consult_request
 msgid "Telegram Consultation Request"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__telegram_message_id
+msgid "Telegram Message"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.actions.server,name:l10n_bg_telegram_consult.ir_cron_consult_duty_watch_ir_actions_server
+msgid "Telegram consultations: duty time watch"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
@@ -352,9 +547,22 @@ msgid "Telegram usernames to add to the group, separated by spaces."
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
+#: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_message__text
+msgid "Text"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
 #. odoo-python
 #: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_request.py:0
 msgid "The group for %s is ready."
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#. odoo-python
+#: code:addons/l10n_bg_telegram_consult/models/l10n_bg_telegram_consult_duty.py:0
+msgid ""
+"The prepaid hours for %s are used up. Buy more with /buy in the bot to "
+"continue."
 msgstr ""
 
 #. module: l10n_bg_telegram_consult
@@ -366,6 +574,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_telegram_consult.field_l10n_bg_telegram_consult_request__topic
 #: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_consult.l10n_bg_telegram_consult_request_view_form
 msgid "Topic"
+msgstr ""
+
+#. module: l10n_bg_telegram_consult
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_consult.selection__l10n_bg_telegram_consult_message__state__draft
+msgid "Waiting for Approval"
 msgstr ""
 
 #. module: l10n_bg_telegram_consult

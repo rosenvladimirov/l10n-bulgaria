@@ -1,7 +1,11 @@
 # Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
+import logging
+
 from odoo import api, fields, models
+
+_logger = logging.getLogger(__name__)
 
 
 class L10nBgTelegramUser(models.Model):
@@ -43,12 +47,16 @@ class L10nBgTelegramUser(models.Model):
         """Намира или създава потребителя по `from` на съобщението; обновява данните."""
         sender = message["from"]
         values = {
-            "chat_id": str(message["chat"]["id"]),
             "username": sender.get("username"),
             "first_name": sender.get("first_name"),
             "last_name": sender.get("last_name"),
             "language_code": sender.get("language_code"),
         }
+        chat = message.get("chat") or {}
+        if chat.get("type", "private") == "private":
+            # Личният чат идва само от лично съобщение: съобщение в група иначе
+            # записва ГРУПАТА и следващият отговор до човека отива там
+            values["chat_id"] = str(chat["id"])
         user = self.search(
             [("bot_id", "=", bot.id), ("telegram_id", "=", str(sender["id"]))], limit=1
         )
@@ -111,6 +119,10 @@ class L10nBgTelegramUser(models.Model):
     def _reply(self, text, **kwargs):
         """Отговаря в личния чат и записва отговора в историята."""
         self.ensure_one()
+        if not self.chat_id:
+            # Пише само в група и не е пускал /start ⇒ ботът няма личен чат с него
+            _logger.info("Telegram user %s has no private chat; reply skipped", self.id)
+            return False
         result = self.bot_id.send_message(self.chat_id, text, **kwargs)
         self.message_post(body=text, subtype_xmlid="mail.mt_note")
         return result

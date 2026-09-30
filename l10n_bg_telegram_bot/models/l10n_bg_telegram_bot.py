@@ -249,6 +249,8 @@ class L10nBgTelegramBot(models.Model):
             return
         tg_user = self.env["l10n.bg.telegram.user"]._from_telegram(self, message)
         bot, tg_user = self._in_user_language(tg_user)
+        if (message.get("chat") or {}).get("type", "private") != "private":
+            return bot._process_group_message(tg_user, message)
         text = (message.get("text") or "").strip()
         tg_user._log_incoming(text)
         if text.startswith("/"):
@@ -256,6 +258,14 @@ class L10nBgTelegramBot(models.Model):
             # „/start@ИмеНаБота“ в група — махаме суфикса
             command = command.split("@", 1)[0].lower()
             bot._dispatch_command(tg_user, command, args.strip())
+
+    def _process_group_message(self, tg_user, message):
+        """Съобщение в група, където ботът членува.
+
+        Основата не отговаря в групи (командите и отговорите са в личния чат);
+        модулите отгоре (консултациите) записват съобщенията от своите групи.
+        """
+        return False
 
     def _in_user_language(self, tg_user):
         """Ботът и потребителят в езика на клиента.

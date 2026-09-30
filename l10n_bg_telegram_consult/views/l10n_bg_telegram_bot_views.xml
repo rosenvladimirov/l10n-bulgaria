@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <field name="website_id" position="after">
                 <field name="consult_manager_id"/>
+                <field name="consult_employee_id"/>
             </field>
         </field>
     </record>

@@ -26,7 +26,9 @@
                     <button name="action_reject" type="object" string="Reject"
                             invisible="state not in ('new', 'approved')"/>
                     <button name="action_done" type="object" string="Mark as Done"
-                            invisible="state != 'group'"/>
+                            invisible="state != 'group' or duty_state == 'on'"/>
+                    <button name="l10n_bg_duty_stop" type="object" string="Stop Duty"
+                            invisible="duty_state != 'on'"/>
                     <field name="state" widget="statusbar" statusbar_visible="new,approved,group,done"/>
                 </header>
                 <sheet>
@@ -46,9 +48,28 @@
                             <field name="remaining_hours" widget="float_time"/>
                             <field name="group_chat_id"/>
                             <field name="group_invite_link" widget="url"/>
+                            <field name="duty_state" widget="badge"
+                                   decoration-success="duty_state == 'on'"/>
+                            <field name="duty_started" invisible="duty_state != 'on'"/>
                         </group>
                     </group>
-                    <field name="topic" placeholder="Topic"/>
+                    <notebook>
+                        <page string="Topic" name="topic">
+                            <field name="topic" placeholder="Topic"/>
+                        </page>
+                        <page string="Messages" name="messages">
+                            <field name="consult_message_ids">
+                                <list decoration-muted="state == 'rejected'"
+                                      decoration-info="state == 'draft'">
+                                    <field name="create_date" string="Date"/>
+                                    <field name="direction"/>
+                                    <field name="author"/>
+                                    <field name="text"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
                 <chatter/>
             </form>

@@ -166,3 +166,13 @@ class TestTelegramBot(TelegramBotCommon):
         with self.mock_telegram() as post:
             self.bot._handle_update(self.make_update(21, "/start.__class__"))
         self.assertIn("Unknown command", self.sent_texts(post)[0])
+
+    def test_group_message_keeps_private_chat_and_gets_no_reply(self):
+        with self.mock_telegram():
+            self.bot._handle_update(self.make_update(30, "/start"))
+        update = self.make_update(31, "/help", chat_id=-100777)
+        update["message"]["chat"]["type"] = "supergroup"
+        with self.mock_telegram() as post:
+            self.bot._handle_update(update)
+        self.assertEqual(self.bot.user_ids.chat_id, "987654321012")
+        post.assert_not_called()

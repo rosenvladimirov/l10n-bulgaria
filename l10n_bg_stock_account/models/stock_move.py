@@ -117,12 +117,16 @@ class StockMove(models.Model):
 
         # Изходящ move: Dr. output_account (702.100) / Cr. stock_valuation (302)
         # При scrap/loss → Dr. loss_account (669.xxx) с fallback към output_account.
+        # Сметка на насрещната виртуална локация (напр. „Мостри за клиенти“
+        # с Loss Account 615) — бие output/input сметката на категорията.
+        location_acc = self._l10n_bg_counterpart_location_account()
+
         if self.is_out:
             output_acc = (
                 categ.l10n_bg_stock_loss_account_id
                 if is_loss
                 else False
-            ) or categ.l10n_bg_stock_output_account_id
+            ) or location_acc or categ.l10n_bg_stock_output_account_id
             if not output_acc:
                 return []
             return [
@@ -148,6 +152,7 @@ class StockMove(models.Model):
         is_gain = self.is_inventory and self.is_in
         input_acc = (
             (categ.l10n_bg_stock_gain_account_id if is_gain else False)
+            or location_acc
             or categ.l10n_bg_stock_input_account_id
             or accounts.get('stock_variation')
         )
@@ -172,6 +177,22 @@ class StockMove(models.Model):
                 'product_id': self.product_id.id,
             },
         ]
+
+    def _l10n_bg_counterpart_location_account(self):
+        """Сметката (``valuation_account_id``) на насрещната виртуална локация.
+
+        Само за обикновени движения към/от локация тип ``inventory`` (напр.
+        мостри, представителни, вътрешно потребление). Брак и инвентаризация
+        остават на loss/gain сметките на категорията; без сметка на локацията
+        — поведението е както досега.
+        """
+        self.ensure_one()
+        if self.scrap_id or self.is_inventory:
+            return False
+        location = self.location_dest_id if self.is_out else self.location_id
+        if location.usage != 'inventory':
+            return False
+        return location.valuation_account_id
 
     def _l10n_bg_substitute_scrap_account(self, vals):
         """Замени COGS account със loss account при scrap.

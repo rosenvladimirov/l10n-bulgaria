@@ -162,6 +162,12 @@ class ResPartner(models.Model):
 
         return True
 
+    def _avatar_get_placeholder_path(self):
+        # представляващият/управителят има своя иконка (лице с вратовръзка)
+        if not self.is_company and self.type == "represent":
+            return "l10n_bg_config/static/img/represent.png"
+        return super()._avatar_get_placeholder_path()
+
     def _compute_l10n_bg_represent_contact_id(self):
         for record in self:
             l10n_bg_represent_contact_id = record.child_ids.filtered(

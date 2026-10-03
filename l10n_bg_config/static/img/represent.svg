@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <g stroke="#374874" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- сако: раменете и тялото -->
+    <path d="M40 236 L40 196 C40 168 62 152 92 146 L164 146 C194 152 216 168 216 196 L216 236 Z" fill="#C1DBF6"/>
+    <!-- риза: V под врата -->
+    <path d="M104 146 L128 196 L152 146 Z" fill="#FFFFFF"/>
+    <!-- ревери -->
+    <path d="M92 146 L128 214 L104 146" fill="#FBDBD0"/>
+    <path d="M164 146 L128 214 L152 146" fill="#FBDBD0"/>
+    <!-- вратовръзка -->
+    <path d="M121 152 L135 152 L131 164 L139 200 L128 214 L117 200 L125 164 Z" fill="#374874"/>
+    <!-- врат -->
+    <path d="M110 120 L110 146 L146 146 L146 120" fill="#FBDBD0"/>
+    <!-- глава -->
+    <ellipse cx="128" cy="82" rx="40" ry="48" fill="#FFFFFF"/>
+    <path d="M150 44 C170 60 172 104 152 124 C164 100 164 66 150 44 Z" fill="#FBDBD0" stroke="none"/>
+  </g>
+</svg>

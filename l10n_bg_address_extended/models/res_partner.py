@@ -29,25 +29,49 @@ class Partner(models.Model):
         store=True,
     )
 
+    def _l10n_bg_compose_street(self):
+        """Улицата от под-полетата — едно място за двата inverse-а."""
+        self.ensure_one()
+        street = ((self.street_name or "") + " " + (self.street_number or "")).strip()
+        if self.street_sector_number:
+            street = _("Sector: ") + self.street_sector_number + ", " + street
+        if self.street_building_number:
+            street = street + _(", building: ") + self.street_building_number
+        if self.street_floor_number:
+            street = street + _(", Floor: ") + self.street_floor_number
+            # етаж без апартамент: street_number2 е False — без него
+            if self.street_number2:
+                street = street + ", " + self.street_number2
+        elif self.street_number2:
+            # без етаж — апартаментът както в base_address_extended
+            street = street + " - " + self.street_number2
+        return street
+
+    def _l10n_bg_set_street(self, street):
+        """Пише street само при промяна.
+
+        Inverse-ите се викат и преди всички под-полета да са в кеша (напр.
+        при запис заедно с country_id) и съставят празна улица. Празна
+        стойност върху празно преводимо поле (partner_multilang) се записва
+        във ВСИЧКИ езици, а следващият запис обновява само текущия език —
+        така en_US оставаше празно. Непроменена стойност не се пише.
+        """
+        self.ensure_one()
+        if street != (self.street or ""):
+            self.street = street
+
+    def _inverse_street_data(self):
+        # форматът на base_address_extended, само с пазача срещу празния запис
+        for partner in self:
+            street = ((partner.street_name or "") + " " + (partner.street_number or "")).strip()
+            if partner.street_number2:
+                street = street + " - " + partner.street_number2
+            partner._l10n_bg_set_street(street)
+
     def _inverse_l10n_bg_street_data(self):
         """update self.street based on street_name, street_number and street_number2"""
         for partner in self:
-            street = (
-                (partner.street_name or "") + " " + (partner.street_number or "")
-            ).strip()
-            if partner.street_sector_number:
-                street = _("Sector: ") + partner.street_sector_number + ", " + street
-            if partner.street_building_number:
-                street = street + _(", building: ") + partner.street_building_number
-            if partner.street_floor_number:
-                street = (
-                    street
-                    + _(", Floor: ")
-                    + partner.street_floor_number
-                    + ", "
-                    + partner.street_number2
-                )
-            partner.street = street
+            partner._l10n_bg_set_street(partner._l10n_bg_compose_street())
 
     @api.depends("street")
     def _compute_l10n_bg_street_data(self):

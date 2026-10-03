@@ -1,3 +1,16 @@
+**Version 19.0.2.1.1**
+
+- Installation on a large database fits in one HTTP request: the post-install
+  transliteration and `complete_name_multilanguage` are written by SQL in
+  batches instead of one ORM write per partner (26 371 partners: 89 s instead of
+  more than 15 minutes — the odoo.sh request limit).
+- The post-install hook writes `bg_BG` = the Cyrillic name and `en_US` = its
+  transliteration directly. Through `write`, a Bulgarian company with
+  transliteration off copied the written value to every language, so the Latin
+  name also landed in `bg_BG`.
+- No intermediate commit in the pre-install hook: an interrupted installation
+  no longer leaves `project_task` columns converted to jsonb.
+
 **Version 19.0.2.1.0**
 
 - Search by partner name uses the trigram index: the case-folded expression

@@ -80,8 +80,9 @@ def _ensure_project_task_translated_columns_are_jsonb(env):
                 """
             )
             continue
-
-    env.cr.commit()
+    # Без commit: инсталацията е една транзакция. Междинен commit оставяше
+    # колоните jsonb при неинсталиран модул, ако инсталацията бъде прекъсната
+    # (Пакит, 03.10.2026: odoo.sh убива HTTP заявката на 15-ата минута).
 
 
 def _ensure_complete_name_multilanguage_column(env):
@@ -106,18 +107,58 @@ def _ensure_complete_name_multilanguage_column(env):
     )
 
 
-def _backfill_complete_name_multilanguage(env, batch_size=500):
+def _backfill_complete_name_multilanguage(env):
+    """complete_name_multilanguage за всички контрагенти с една SQL заявка.
+
+    Същото като ``_get_complete_name_multilang`` по език: името в езика (с
+    резерва en_US); лице с родител — „<име на родителя>, <име>“. ORM обхождане
+    по контрагент (update_field_translations за всеки) не се побира в 15-те
+    минути на HTTP заявка в odoo.sh при 26 хил. записа. Само контрагентите с
+    празно име и тип адрес (там етикетът на типа е преведен) минават през ORM —
+    те са малко.
+    """
     _ensure_complete_name_multilanguage_column(env)
     Partner = env["res.partner"].with_context(active_test=False)
-    last_id = 0
-    while True:
-        partners = Partner.search([("id", ">", last_id)], order="id", limit=batch_size)
-        if not partners:
-            break
-        last_id = partners[-1].id
-
-        partners._update_complete_name_multilanguage()
-        env.cr.commit()
+    lang_codes = Partner._get_partner_name_lang_codes()
+    parts = []
+    params = []
+    for code in lang_codes:
+        own = "COALESCE(NULLIF(p.name->>%s, ''), p.name->>'en_US', '')"
+        par = "COALESCE(NULLIF(pp.name->>%s, ''), pp.name->>'en_US', '')"
+        parts.append(
+            "%s, btrim(CASE WHEN NOT COALESCE(p.is_company, false) AND pp.id IS NOT NULL "
+            f"AND {par} <> '' THEN {par} || ', ' || {own} ELSE {own} END)"
+        )
+        # ключът, родителят ×2, собственото име ×2
+        params += [code] * 5
+    displayed = tuple(Partner._complete_name_displayed_types)
+    env.cr.execute(
+        f"""
+        UPDATE res_partner p
+           SET complete_name_multilanguage = jsonb_build_object({', '.join(parts)})
+          FROM res_partner p2
+          LEFT JOIN res_partner pp ON pp.id = p2.parent_id
+         WHERE p2.id = p.id
+           AND NOT (COALESCE(p.name->>'en_US', '') = ''
+                    AND (p.parent_id IS NOT NULL OR p.company_name IS NOT NULL)
+                    AND p.type IN %s)
+        """,
+        params + [displayed],
+    )
+    _logger.info("complete_name_multilanguage: %s partners by SQL", env.cr.rowcount)
+    env.cr.execute(
+        """
+        SELECT id FROM res_partner
+         WHERE COALESCE(name->>'en_US', '') = ''
+           AND (parent_id IS NOT NULL OR company_name IS NOT NULL)
+           AND type IN %s
+        """,
+        [displayed],
+    )
+    rest = Partner.browse([row[0] for row in env.cr.fetchall()])
+    if rest:
+        rest._update_complete_name_multilanguage()
+        _logger.info("complete_name_multilanguage: %s address partners by ORM", len(rest))
 
 
 def _backup_partner_names(env):
@@ -165,35 +206,49 @@ def post_init_hook(env):
                        """)
         env.cr.execute("DROP TABLE backup_res_partner_names")
 
-    # Транслитерация към en_US, запазвайки българските имена.
-    partners = env["res.partner"].with_context(active_test=False).search([])
-    for partner in partners.filtered(lambda r: r.name):
-        value = partner.name
-        bg_text = None
-
-        if isinstance(value, dict):
-            bg_text = value.get("bg_BG")
-            if not bg_text:
-                for val in value.values():
-                    if isinstance(val, str) and cyrillic_re.search(val):
-                        bg_text = val
-                        break
-        else:
-            if isinstance(value, str) and cyrillic_re.search(value):
-                bg_text = value
-
-        if not bg_text:
-            continue
-
-        if not (isinstance(value, dict) and value.get("bg_BG")):
-            partner.with_context(lang="bg_BG").name = bg_text
-
-        en_value = value.get("en_US") if isinstance(value, dict) else None
-        if not en_value:
-            transliterated = partner_name_translate(bg_text, "bg", True)
-            partner.with_context(lang="en_US").name = transliterated
-
+    _transliterate_partner_names(env)
     _backfill_complete_name_multilanguage(env)
+
+
+def _transliterate_partner_names(env, batch_size=5000):
+    """bg_BG = кирилицата, en_US = транслитерацията — за всяко кирилско име.
+
+    Направо в SQL, не през ``write``: при българска фирма с изключена
+    транслитерация (подразбирането при инсталация) ``_force_multilanguage``
+    копира записаната стойност на ВСИЧКИ езици, т.е. записът на en_US
+    слагаше латиницата и в bg_BG (решение на Росен 03.10.2026: кирилица в
+    bg, латиница в en). Транслитерацията е същата функция в Python;
+    записът е на партиди с UPDATE … FROM (VALUES …), без commit.
+    """
+    cr = env.cr
+    cr.execute(
+        """
+        SELECT id, COALESCE(NULLIF(name->>'bg_BG', ''), name->>'en_US')
+          FROM res_partner
+         WHERE name IS NOT NULL
+        """
+    )
+    rows = [(pid, text) for pid, text in cr.fetchall() if text and cyrillic_re.search(text)]
+    done = 0
+    for start in range(0, len(rows), batch_size):
+        batch = rows[start:start + batch_size]
+        values = [(pid, bg, partner_name_translate(bg, "bg", True)) for pid, bg in batch]
+        placeholders = ", ".join(["(%s, %s, %s)"] * len(values))
+        cr.execute(
+            f"""
+            UPDATE res_partner p
+               SET name = COALESCE(p.name, '{{}}'::jsonb)
+                          || jsonb_build_object('bg_BG', v.bg, 'en_US', v.en),
+                   transliterate_tracking = COALESCE(p.transliterate_tracking, '{{}}'::jsonb)
+                          || '{{"name": true}}'::jsonb
+              FROM (VALUES {placeholders}) AS v(id, bg, en)
+             WHERE p.id = v.id
+            """,
+            [item for triple in values for item in triple],
+        )
+        done += cr.rowcount
+    _logger.info("Transliterated %s partner names (bg_BG kept, en_US latin)", done)
+    env["res.partner"].invalidate_model(["name", "transliterate_tracking"])
 
 
 def uninstall_hook(env):

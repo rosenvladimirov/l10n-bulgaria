@@ -1,0 +1,31 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_autocomplete_translation_button
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-03 00:00+0000\n"
+"PO-Revision-Date: 2026-10-03 00:00+0300\n"
+"Last-Translator: Rosen Vladimirov <vladimirov.rosen@gmail.com>\n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: partner_autocomplete_translation_button
+#: model:ir.module.module,shortdesc:base.module_partner_autocomplete_translation_button
+msgid "Partner Autocomplete — Translation Button"
+msgstr "Автоматично довършване на партньори — бутон за превод"
+
+#. module: partner_autocomplete_translation_button
+#: model:ir.module.module,summary:base.module_partner_autocomplete_translation_button
+msgid ""
+"Show the translation button on translatable fields that use the partner "
+"autocomplete widget."
+msgstr ""
+"Показва бутона за превод в преводимите полета, които ползват уиджета за "
+"автоматично довършване на партньори."

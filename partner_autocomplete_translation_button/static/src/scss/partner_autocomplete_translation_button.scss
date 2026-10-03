@@ -1,0 +1,25 @@
+// DOM на клона с автодовършване:
+//   .o_field_widget.o_field_field_partner_autocomplete
+//     > .o-autocomplete > input.o-autocomplete--input
+//     > .o_field_input_buttons > .btn.o_field_translate
+// Правилото на ядрото (.o_field_widget:has(.o_input + .o_field_input_buttons))
+// не хваща този DOM, защото входът е вътре в .o-autocomplete, а не съсед на
+// бутоните. Затова повтаряме същите три неща за нашата структура.
+
+// 1) Опорна точка за абсолютно позиционираните бутони.
+.o_field_widget:has(> .o-autocomplete + .o_field_input_buttons) {
+    position: relative;
+}
+
+// 2) Вертикално центриране — в ядрото е само за .o_field_char, а обвивката
+// тук е .o_field_field_partner_autocomplete.
+.o_field_field_partner_autocomplete > .o_field_input_buttons {
+    align-items: center;
+}
+
+// 3) Място за бутона вдясно, за да не се пише текст под него. Входът носи
+// bootstrap утилитата pe-3 (padding-right с !important), затова и тук трябва
+// !important; стойността е тази на ядрото за преводимо поле.
+.o_field_widget > .o-autocomplete:has(+ .o_field_input_buttons) .o-autocomplete--input {
+    padding-right: $o-field-translate-padding !important;
+}

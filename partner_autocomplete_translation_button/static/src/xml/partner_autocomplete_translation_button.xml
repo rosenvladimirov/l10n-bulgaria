@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!--
+        Шаблонът partner_autocomplete.PartnerAutoCompleteCharField вмъква клон
+        t-elif с <PartnerAutoComplete> ПРЕДИ t-else на web.CharField, а бутонът
+        за превод (TranslationButton) живее само в t-else. Затова при фирма
+        (и винаги при res.company) бутонът изчезва, макар полето да е преводимо.
+        Тук го връщаме в клона с автодовършването — същата обвивка
+        o_field_input_buttons и същите props, както в web.CharField.
+        TranslationButton вече е в components на PartnerAutoCompleteCharField
+        (наследен от CharField), а isTranslatable е getter на CharField.
+    -->
+    <t t-inherit="partner_autocomplete.PartnerAutoCompleteCharField" t-inherit-mode="extension">
+        <xpath expr="//PartnerAutoComplete" position="after">
+            <div t-if="isTranslatable" class="o_field_input_buttons">
+                <TranslationButton
+                    fieldName="props.name"
+                    record="props.record"
+                />
+            </div>
+        </xpath>
+    </t>
+
+</templates>

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-04 08:24+0000\n"
+"POT-Creation-Date: 2026-10-04 08:34+0000\n"
 "PO-Revision-Date: 2026-10-04 00:00+0300\n"
 "Last-Translator: Rosen Vladimirov <vladimirov.rosen@gmail.com>\n"
 "Language-Team: \n"
@@ -184,6 +184,12 @@ msgstr "Изходен текст"
 #: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__field_name
 msgid "Technical Field Name"
 msgstr "Техническо име на полето"
+
+#. module: website_sale_product_page_translate
+#. odoo-python
+#: code:addons/website_sale_product_page_translate/wizard/product_page_translate_wizard.py:0
+msgid "Template"
+msgstr "Шаблон"
 
 #. module: website_sale_product_page_translate
 #: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard__line_ids

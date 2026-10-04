@@ -233,15 +233,20 @@ class ProductPageTranslateWizard(models.TransientModel):
             key=lambda t: (term_order[t["source"]], lang_order[t["lang"]])
         )
         record_label = self._record_label(record)
-        field_label = field._description_string(self.env)
+        if record._name == "ir.ui.view":
+            # „Arch Blob“ е техническото име на arch_db — нищо не казва.
+            field_label = self.env._("Template")
+        else:
+            field_label = field._description_string(self.env)
         vals_list = []
         for translation in translations:
             source = translation["source"]
             if not source:
                 continue
-            if is_term and not any(char.isalpha() for char in source):
-                # Термини само от пунктуация („:“, „,“) нямат какво да се
-                # превежда, а задръстват списъка.
+            if not any(char.isalpha() for char in source):
+                # Текст без нито една буква (пунктуация в шаблоните, размери
+                # като „180×100×50“) няма какво да се превежда, а задръства
+                # списъка.
                 continue
             lang = translation["lang"]
             value = translation["value"] or ""

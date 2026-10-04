@@ -211,6 +211,7 @@ class TestProductPageTranslate(TransactionCase):
         self.assertNotIn("Other shop banner", page_sources)
 
         line = self._line(wizard, specific, "arch_db", "Free shipping over 50 EUR")
+        self.assertEqual(line.field_label, "Template")
         line.value = "Безплатна доставка над 50 EUR"
         wizard.action_save()
         self.assertIn(
@@ -299,3 +300,16 @@ class TestProductPageTranslate(TransactionCase):
         self.assertIn("За износ.", en.description_ecommerce)
         self.assertIn("Петслоен.", bg.description_ecommerce)
         self.assertNotIn("Five-ply.", bg.description_ecommerce)
+
+    def test_12_values_without_letters_are_skipped(self):
+        size = self.env["product.attribute.value"].create(
+            {"name": "180×100×50", "attribute_id": self.attribute.id}
+        )
+        self.product.attribute_line_ids.value_ids = [Command.link(size.id)]
+        wizard = self._open()
+        self.assertFalse(
+            wizard.line_ids.filtered(
+                lambda line: line.res_model == size._name and line.res_id == size.id
+            )
+        )
+        self._line(wizard, self.attribute.value_ids[0], "name", "Red")

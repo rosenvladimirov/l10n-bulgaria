@@ -19,7 +19,8 @@ collects:
   For each template the copy of the selected website is used when one exists
   (copy-on-write), i.e. the view the website actually renders. The site-wide
   layout (header, footer, menu) is not part of the product page and is left
-  out. Terms made only of punctuation are skipped.
+  out. Texts without a single letter (punctuation, sizes such as "180×100×50")
+  are skipped.
 
 HTML fields and views are split into terms; plain fields are translated as a
 whole. Saving goes through the standard `update_field_translations`, so no

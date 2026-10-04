@@ -29,7 +29,8 @@
                         type="object"
                         class="oe_stat_button"
                         icon="fa-book"
-                        invisible="l10n_bg_account_move_count == 0">
+                        invisible="l10n_bg_account_move_count == 0"
+                        groups="account.group_account_readonly">
                     <div name="l10n_bg_account_move_count_div" class="o_stat_info">
                         <field name="l10n_bg_account_move_count" class="o_stat_value"/>
                         <span class="o_stat_text">Journal Entries</span>

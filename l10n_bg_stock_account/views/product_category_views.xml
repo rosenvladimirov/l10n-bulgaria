@@ -40,6 +40,12 @@
                            string="Stock Output Account"
                            options="{'no_create': True}"
                            required="l10n_bg_stock_auto_post"/>
+                    <!-- Брак и инвентаризация с минус (669.x) / инвентаризация с плюс (709.x).
+                         Празно → брак/липса падат на Stock Output, излишък — на Stock Input. -->
+                    <field name="l10n_bg_stock_loss_account_id"
+                           options="{'no_create': True}"/>
+                    <field name="l10n_bg_stock_gain_account_id"
+                           options="{'no_create': True}"/>
                     <!-- Сметка за ценова разлика (+): clearing при invoice > PO -->
                     <field name="l10n_bg_price_diff_account_id"
                            string="Price Difference Account (+)"

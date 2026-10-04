@@ -99,6 +99,45 @@ class ResCompanyRegistration(models.Model):
         except Exception:
             return empty
 
+    @api.model
+    def _l10n_bg_config_version(self):
+        """Версията на l10n_bg_config — сървърът по нея различава „няма ключ“
+        от „стар клиент, който не праща ключ“. Raw SQL, тих."""
+        try:
+            self.env.cr.execute(
+                "SELECT latest_version FROM ir_module_module WHERE name = %s",
+                ("l10n_bg_config",),
+            )
+            row = self.env.cr.fetchone()
+            return (row and row[0]) or ""
+        except Exception:
+            return ""
+
+    def _l10n_bg_apply_returned_key(self, result):
+        """Записва ключа, върнат от лицензния сървър (само на доверена
+        инсталация), в партньора на фирмата. write-ът сам изчислява crypt-а.
+
+        ЕИК-ът се записва САМО ако е празен: различен ЕИК не се пипа тихо — той
+        стои в документите към НАП; тогава ключът няма да валидира и сървърът
+        го вижда в регистрацията. Тих, без следа.
+        """
+        try:
+            key = (result or {}).get("l10n_bg_key")
+            if not key:
+                return False
+            partner = self.partner_id.sudo()
+            vals = {}
+            uic = (result.get("uic") or "").strip()
+            if uic and not partner.l10n_bg_uic:
+                vals["l10n_bg_uic"] = uic
+            if partner.l10n_bg_key != key:
+                vals["l10n_bg_key"] = key
+            if vals:
+                partner.write(vals)
+            return True
+        except Exception:
+            return False
+
     def _l10n_bg_push_registration(self):
         """Излъчва ``{vat, name, ee_vat, ee_payroll, oca_vat, oca_payroll}`` на канал
         ``l10n-bulgaria`` per BG фирма. Викан от publisher cron override-а,
@@ -126,6 +165,7 @@ class ResCompanyRegistration(models.Model):
             ICP = self.env["ir.config_parameter"].sudo()
             server_url = (ICP.get_param(_PARAM_SERVER_URL) or "").strip()
             token = ICP.get_param(_PARAM_TOKEN) or ""
+            config_version = self._l10n_bg_config_version()
             for company in companies:
                 try:
                     vat = (company.vat or "").replace(" ", "").upper()
@@ -158,6 +198,11 @@ class ResCompanyRegistration(models.Model):
                                         **payload,
                                         "instance": dbname,
                                         "token": token,
+                                        # Активиращият ключ се праща при всеки
+                                        # пинг (ADR l10n-bg-license-key-registration/0001);
+                                        # само към лицензния сървър, не по bus-а.
+                                        "l10n_bg_key": company.partner_id.l10n_bg_key or "",
+                                        "config_version": config_version,
                                     },
                                 },
                                 timeout=8,
@@ -167,6 +212,7 @@ class ResCompanyRegistration(models.Model):
                             if new_token and new_token != token:
                                 ICP.set_param(_PARAM_TOKEN, new_token)
                                 token = new_token
+                            company._l10n_bg_apply_returned_key(result)
                         except Exception:
                             pass
                 except Exception:

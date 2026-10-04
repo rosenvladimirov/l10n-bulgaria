@@ -117,8 +117,10 @@ company forms.
 
 On installation this module registers the installation for **license validation**:
 a minimal record is sent to the vendor server — the **UIC (ЕИК) and name of the MAIN
-company**, a database identifier, and which paid (Enterprise) modules are installed.
-This is used solely to verify license entitlements for the paid modules. Additional
-companies in a multi-company database are NOT sent.
+company**, a database identifier, which paid (Enterprise) modules are installed, the
+version of this module and, when filled in, the **activation key** of the main company.
+This is used solely to verify license entitlements for the paid modules. When the vendor
+server holds a confirmed key for this installation, it returns it and the module stores
+it on the main company. Additional companies in a multi-company database are NOT sent.
 
 Opt-out: system parameter `l10n_bg.register_enabled = 0`.

@@ -17,8 +17,25 @@
         </xpath>
     </template>
 
-    <!-- ЕИК до ДДС номера във формата за адрес за фактура -->
+    <!-- Във формата за адрес: „Искам фактура“ над фирмата, ДДС номера и ЕИК -->
     <template id="address_form_fields_uic" inherit_id="website_sale.address_form_fields">
+        <xpath expr="//t[@name='b2b_fields']" position="before">
+            <div t-if="is_used_as_billing and website_sale_order" class="col-12 mb-2">
+                <input type="hidden" name="l10n_bg_invoice_request_form" value="1"/>
+                <div class="form-check form-switch">
+                    <input
+                        type="checkbox"
+                        id="o_l10n_bg_invoice_requested"
+                        name="l10n_bg_invoice_requested"
+                        class="form-check-input"
+                        t-att-checked="website_sale_order.l10n_bg_invoice_requested"
+                    />
+                    <label class="form-check-label" for="o_l10n_bg_invoice_requested">
+                        I want an invoice
+                    </label>
+                </div>
+            </div>
+        </xpath>
         <xpath expr="//div[@id='div_vat']" position="after">
             <div id="div_l10n_bg_uic" class="col-lg-6 mb-2">
                 <label class="col-form-label fw-normal label-optional" for="o_l10n_bg_uic">

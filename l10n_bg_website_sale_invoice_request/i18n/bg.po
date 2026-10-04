@@ -70,3 +70,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.address_form_fields_uic
 msgid "UIC (EIK / BULSTAT)"
 msgstr "ЕИК / БУЛСТАТ"
+
+#. module: l10n_bg_website_sale_invoice_request
+#. odoo-python
+#: code:addons/l10n_bg_website_sale_invoice_request/controllers/main.py:0
+msgid "An invoice needs the UIC (EIK) or the VAT number."
+msgstr "За фактура е нужен ЕИК или ДДС номер."
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.address_form_fields_uic
+msgid "I want an invoice"
+msgstr "Искам фактура"

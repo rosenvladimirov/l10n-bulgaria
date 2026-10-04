@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Случаен клиент: контрагентът на отчета за продажбите по чл. 119 ЗДДС.
+         ИН = 15 деветки (НАП отхвърля 12 — Tri-Wall, 202601); в l10n_bg_uic,
+         без ДДС номер, за да не го пренапише валидацията на l10n_bg_config. -->
+    <record id="partner_random_customer" model="res.partner">
+        <field name="name">Случаен клиент</field>
+        <field name="is_company" eval="False"/>
+        <field name="country_id" ref="base.bg"/>
+        <field name="l10n_bg_uic">999999999999999</field>
+        <field name="comment">Partner of the POS sales reports (Art. 119 VAT Act, document type 81).</field>
+    </record>
+</odoo>

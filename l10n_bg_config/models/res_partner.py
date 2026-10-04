@@ -248,6 +248,9 @@ class ResPartner(models.Model):
         if l10n_bg_crypt_key:
             values['l10n_bg_crypt_key'] = l10n_bg_crypt_key
 
+        # ДДС номерата преди записа — ЕИК се преизчислява само при реална промяна
+        old_vats = {r.id: (r.vat or "") for r in self} if "vat" in values else {}
+
         res = super().write(values)
 
         # Актуализиране на представител
@@ -262,7 +265,13 @@ class ResPartner(models.Model):
 
         # Валидация на UIC след записване
         if "vat" in values and not self.env.context.get('block_validate', False):
+            # Само записите с променен ДДС номер: формите (и сайтът) пращат vat при
+            # всеки запис — празен и непроменен ДДС не бива да трие ЕИК
+            changed = self.filtered(lambda r: old_vats.get(r.id, "") != (r.vat or ""))
+            if "l10n_bg_uic" in values:
+                # ЕИК, подаден в същия запис, не се трие от празен ДДС номер
+                changed = changed.filtered("vat")
             # Използваме нов контекст за да избегнем рекурсия
-            self.with_context(block_validate=True)._validate_l10n_bg_uic()
+            changed.with_context(block_validate=True)._validate_l10n_bg_uic()
 
         return res

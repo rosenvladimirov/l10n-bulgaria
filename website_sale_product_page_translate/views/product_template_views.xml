@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Rosen Vladimirov, Terraros Commerce Ltd.
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.form.page.translate</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button
+                    name="action_open_page_translation"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-language"
+                    string="Translate Page"
+                    invisible="not sale_ok"
+                    groups="website.group_website_restricted_editor"
+                />
+            </div>
+        </field>
+    </record>
+</odoo>

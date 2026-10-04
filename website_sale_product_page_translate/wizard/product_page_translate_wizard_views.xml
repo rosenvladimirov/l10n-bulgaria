@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Rosen Vladimirov, Terraros Commerce Ltd.
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="product_page_translate_wizard_view_form" model="ir.ui.view">
+        <field name="name">product.page.translate.wizard.form</field>
+        <field name="model">product.page.translate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Translate Product Page">
+                <group>
+                    <group>
+                        <field name="product_tmpl_id" />
+                        <field name="website_id" options="{'no_create': True}" />
+                        <field
+                            name="lang_ids"
+                            widget="many2many_tags"
+                            options="{'no_create': True}"
+                        />
+                        <field name="only_missing" />
+                    </group>
+                    <group string="Elements">
+                        <field name="with_product" />
+                        <field name="with_attributes" />
+                        <field name="with_categories" />
+                        <field name="with_page" />
+                    </group>
+                </group>
+                <!-- Филтрите не действат, докато термините не се заредят отново. -->
+                <button
+                    name="action_load"
+                    type="object"
+                    string="Reload Terms"
+                    icon="fa-refresh"
+                    class="btn-secondary mb-2"
+                />
+                <field name="line_ids" nolabel="1">
+                    <list
+                        editable="bottom"
+                        create="0"
+                        delete="0"
+                        decoration-muted="not value"
+                    >
+                        <field name="section" optional="show" />
+                        <field name="record_name" />
+                        <field name="field_label" optional="show" />
+                        <field name="lang_id" options="{'no_open': True}" />
+                        <field name="source" widget="text" />
+                        <field name="value" widget="text" />
+                    </list>
+                </field>
+                <footer>
+                    <button
+                        name="action_save"
+                        type="object"
+                        string="Save"
+                        class="btn-primary"
+                        data-hotkey="q"
+                    />
+                    <button special="cancel" string="Close" data-hotkey="x" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

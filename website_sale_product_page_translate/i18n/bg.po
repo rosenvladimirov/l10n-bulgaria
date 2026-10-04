@@ -1,0 +1,236 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_product_page_translate
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-04 08:24+0000\n"
+"PO-Revision-Date: 2026-10-04 00:00+0300\n"
+"Last-Translator: Rosen Vladimirov <vladimirov.rosen@gmail.com>\n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: website_sale_product_page_translate
+#. odoo-python
+#: code:addons/website_sale_product_page_translate/wizard/product_page_translate_wizard.py:0
+msgid "All websites"
+msgstr "Всички уебсайтове"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard__with_attributes
+#: model:ir.model.fields.selection,name:website_sale_product_page_translate.selection__product_page_translate_wizard_line__section__attribute
+msgid "Attributes"
+msgstr "Атрибути"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard__with_categories
+#: model:ir.model.fields.selection,name:website_sale_product_page_translate.selection__product_page_translate_wizard_line__section__category
+msgid "Categories and Tags"
+msgstr "Категории и етикети"
+
+#. module: website_sale_product_page_translate
+#: model_terms:ir.ui.view,arch_db:website_sale_product_page_translate.product_page_translate_wizard_view_form
+msgid "Close"
+msgstr "Затвори"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard__create_uid
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__create_uid
+msgid "Created by"
+msgstr "Създадено от"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard__create_date
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__create_date
+msgid "Created on"
+msgstr "Създадено на"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard__display_name
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__display_name
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_template__display_name
+msgid "Display Name"
+msgstr "Показвано име"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__record_name
+msgid "Element"
+msgstr "Елемент"
+
+#. module: website_sale_product_page_translate
+#: model_terms:ir.ui.view,arch_db:website_sale_product_page_translate.product_page_translate_wizard_view_form
+msgid "Elements"
+msgstr "Елементи"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__field_label
+msgid "Field"
+msgstr "Поле"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard__id
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__id
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_template__id
+msgid "ID"
+msgstr "ID"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__is_term
+msgid "Is Term"
+msgstr "Термин"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__lang_id
+msgid "Language"
+msgstr "Език"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard__lang_ids
+msgid "Languages"
+msgstr "Езици"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard__write_uid
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__write_uid
+msgid "Last Updated by"
+msgstr "Последно обновено от"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard__write_date
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__write_date
+msgid "Last Updated on"
+msgstr "Последно обновено на"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__res_model
+msgid "Model"
+msgstr "Модел"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard__only_missing
+msgid "Only Untranslated"
+msgstr "Само непреведените"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__original_value
+msgid "Original Value"
+msgstr "Първоначална стойност"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard__with_page
+#: model:ir.model.fields.selection,name:website_sale_product_page_translate.selection__product_page_translate_wizard_line__section__page
+msgid "Page Layout"
+msgstr "Оформление на страницата"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model,name:website_sale_product_page_translate.model_product_template
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard__product_tmpl_id
+#: model:ir.model.fields.selection,name:website_sale_product_page_translate.selection__product_page_translate_wizard_line__section__product
+msgid "Product"
+msgstr "Продукт"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard__with_product
+msgid "Product Fields"
+msgstr "Полета на продукта"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model,name:website_sale_product_page_translate.model_product_page_translate_wizard_line
+msgid "Product Page Translation Term"
+msgstr "Термин за превод на продуктовата страница"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model,name:website_sale_product_page_translate.model_product_page_translate_wizard
+msgid "Product Page Translation Wizard"
+msgstr "Съветник за превод на продуктовата страница"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__res_id
+msgid "Record ID"
+msgstr "ID на запис"
+
+#. module: website_sale_product_page_translate
+#: model_terms:ir.ui.view,arch_db:website_sale_product_page_translate.product_page_translate_wizard_view_form
+msgid "Reload Terms"
+msgstr "Зареди термините отново"
+
+#. module: website_sale_product_page_translate
+#: model_terms:ir.ui.view,arch_db:website_sale_product_page_translate.product_page_translate_wizard_view_form
+msgid "Save"
+msgstr "Запази"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__section
+msgid "Section"
+msgstr "Раздел"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__sequence
+msgid "Sequence"
+msgstr "Последователност"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__source
+msgid "Source"
+msgstr "Изходен текст"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__field_name
+msgid "Technical Field Name"
+msgstr "Техническо име на полето"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard__line_ids
+msgid "Terms"
+msgstr "Термини"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,help:website_sale_product_page_translate.field_product_page_translate_wizard__with_page
+msgid ""
+"Terms of every template the product page is rendered from, including the "
+"page options and the blocks dropped with the website editor. The site-wide "
+"header and footer are not included."
+msgstr ""
+"Термините от всички шаблони, от които се изгражда продуктовата страница, "
+"включително опциите на страницата и блоковете, пуснати с уеб редактора. "
+"Общите за сайта хедър и футър не влизат."
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,help:website_sale_product_page_translate.field_product_page_translate_wizard__website_id
+msgid "The page layout terms are taken from the views of this website."
+msgstr ""
+"Термините от оформлението на страницата се взимат от изгледите на този "
+"уебсайт."
+
+#. module: website_sale_product_page_translate
+#: model_terms:ir.ui.view,arch_db:website_sale_product_page_translate.product_template_form_view
+msgid "Translate Page"
+msgstr "Преведи страницата"
+
+#. module: website_sale_product_page_translate
+#. odoo-python
+#: code:addons/website_sale_product_page_translate/wizard/product_page_translate_wizard.py:0
+#: model_terms:ir.ui.view,arch_db:website_sale_product_page_translate.product_page_translate_wizard_view_form
+msgid "Translate Product Page"
+msgstr "Превод на продуктовата страница"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__value
+msgid "Translation"
+msgstr "Превод"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard__website_id
+msgid "Website"
+msgstr "Уебсайт"
+
+#. module: website_sale_product_page_translate
+#: model:ir.model.fields,field_description:website_sale_product_page_translate.field_product_page_translate_wizard_line__wizard_id
+msgid "Wizard"
+msgstr "Съветник"

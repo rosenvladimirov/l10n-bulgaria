@@ -11,7 +11,7 @@ class TestPosSalesReport(TestPoSCommon):
     def setUpClass(cls):
         super().setUpClass()
         cls.env.company.country_id = cls.env.ref("base.bg")
-        cls.random_customer = cls.env.ref("l10n_bg_pos_sales_report.partner_random_customer")
+        cls.random_customer = cls.env.ref("l10n_bg_config.partner_random_customer")
 
     def setUp(self):
         super().setUp()

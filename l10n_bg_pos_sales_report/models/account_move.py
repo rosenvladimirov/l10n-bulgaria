@@ -18,7 +18,7 @@ class AccountMove(models.Model):
         journal_id = self.env.context.get("l10n_bg_pos_sales_report_journal")
         if journal_id:
             partner = self.env.ref(
-                "l10n_bg_pos_sales_report.partner_random_customer", raise_if_not_found=False)
+                "l10n_bg_config.partner_random_customer", raise_if_not_found=False)
             for vals in vals_list:
                 if vals.get("journal_id") != journal_id or vals.get("move_type", "entry") != "entry":
                     continue

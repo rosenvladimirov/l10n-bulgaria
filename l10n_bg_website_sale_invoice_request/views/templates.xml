@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Отметката „Искам фактура“ над адреса за фактура в checkout -->
+    <template id="billing_address_list_invoice_request" inherit_id="website_sale.billing_address_list">
+        <xpath expr="//div[@id='billing_address_list']" position="before">
+            <div class="form-check form-switch mb-2">
+                <label id="l10n_bg_invoice_requested_label">
+                    <input
+                        type="checkbox"
+                        id="l10n_bg_invoice_requested"
+                        class="form-check-input"
+                        t-att-checked="order.l10n_bg_invoice_requested"
+                    />
+                    <span>I want an invoice</span>
+                </label>
+            </div>
+        </xpath>
+    </template>
+</odoo>

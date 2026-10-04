@@ -160,7 +160,7 @@ This module is essential for:
 automatically installs it if not present. It serves as the configuration
 backbone for the entire Bulgarian localization ecosystem.
     """,
-    "version": "19.0.8.12.3",
+    "version": "19.0.8.13.0",
     # OCA Metadata
     "development_status": 'Beta',
     "category": 'Localization',
@@ -186,6 +186,7 @@ backbone for the entire Bulgarian localization ecosystem.
         "data/l10n.bg.kid.csv",
         "data/l10n_bg_registration_data.xml",
         "data/l10n_bg_vertical_data.xml",
+        "data/res_partner_random_customer.xml",
         "wizards/account_account_tag_bulk_edit_wizard.xml",
         "wizards/account_settings_preview_xml_file.xml",
         "wizards/account_chart_template_plugins.xml",

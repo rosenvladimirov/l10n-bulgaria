@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Месечната фактура към „Случаен клиент“ (вид 81) — на 1-во число за предходния месец -->
+    <record id="ir_cron_invoice_random_customer" model="ir.cron">
+        <field name="name">Bulgaria: monthly sales report for the random customer</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_l10n_bg_invoice_random_customer()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="nextcall" eval="(DateTime.now().replace(day=1, hour=1, minute=0, second=0) + relativedelta(months=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+    </record>
+</odoo>

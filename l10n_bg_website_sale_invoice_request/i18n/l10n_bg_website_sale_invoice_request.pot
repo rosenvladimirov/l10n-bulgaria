@@ -1,0 +1,54 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_website_sale_invoice_request
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-04 16:39+0000\n"
+"PO-Revision-Date: 2026-10-04 16:39+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.billing_address_list_invoice_request
+msgid "<span>I want an invoice</span>"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model:ir.actions.server,name:l10n_bg_website_sale_invoice_request.ir_cron_invoice_random_customer_ir_actions_server
+msgid "Bulgaria: monthly sales report for the random customer"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model:ir.model.fields,field_description:l10n_bg_website_sale_invoice_request.field_sale_order__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model:ir.model.fields,field_description:l10n_bg_website_sale_invoice_request.field_sale_order__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model:ir.model.fields,field_description:l10n_bg_website_sale_invoice_request.field_sale_order__l10n_bg_invoice_requested
+msgid "Invoice Requested"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model:ir.model,name:l10n_bg_website_sale_invoice_request.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model:ir.model.fields,help:l10n_bg_website_sale_invoice_request.field_sale_order__l10n_bg_invoice_requested
+msgid ""
+"The customer asked for an invoice on checkout. Website orders without it are"
+" invoiced at the end of the month to the random customer as a sales report "
+"(Art. 119 VAT Act, document type 81)."
+msgstr ""

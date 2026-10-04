@@ -66,3 +66,7 @@ class TestInvoiceRequest(TestSaleCommon):
         self.assertEqual(moves.amount_untaxed, 4 * self.product.list_price)
         self.assertFalse(requested.invoice_ids, "orders with an invoice request stay out")
         self.assertFalse(current.invoice_ids, "orders of the current month wait for the next run")
+
+    def test_uic_writable_from_website(self):
+        # ЕИК се приема от формата за адрес на сайта (фирма без ДДС регистрация)
+        self.assertIn("l10n_bg_uic", self.env["res.partner"]._get_frontend_writable_fields())

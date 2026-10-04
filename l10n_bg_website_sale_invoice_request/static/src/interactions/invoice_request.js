@@ -10,7 +10,13 @@ export class InvoiceRequest extends Interaction {
     };
 
     async onChange() {
-        await this.waitFor(rpc('/shop/l10n_bg/invoice_request', { requested: this.el.checked }));
+        const result = await this.waitFor(
+            rpc('/shop/l10n_bg/invoice_request', { requested: this.el.checked })
+        );
+        // поискана фактура ⇒ веднага формата за адреса за фактура (фирма, ДДС, ЕИК)
+        if (this.el.checked && result && result.billing_url) {
+            window.location = result.billing_url;
+        }
     }
 }
 

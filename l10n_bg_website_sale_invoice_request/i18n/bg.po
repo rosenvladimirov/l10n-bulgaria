@@ -55,3 +55,18 @@ msgstr ""
 "Клиентът е поискал фактура в поръчката. Уеб поръчките без нея се фактурират "
 "в края на месеца към случаен клиент като отчет за продажбите (чл. 119 ЗДДС, "
 "вид документ 81)."
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model:ir.model,name:l10n_bg_website_sale_invoice_request.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model:ir.model,website_form_label:l10n_bg_website_sale_invoice_request.model_res_partner
+msgid "Create a Customer"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.address_form_fields_uic
+msgid "UIC (EIK / BULSTAT)"
+msgstr "ЕИК / БУЛСТАТ"

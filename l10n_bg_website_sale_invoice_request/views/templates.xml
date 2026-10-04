@@ -16,4 +16,23 @@
             </div>
         </xpath>
     </template>
+
+    <!-- ЕИК до ДДС номера във формата за адрес за фактура -->
+    <template id="address_form_fields_uic" inherit_id="website_sale.address_form_fields">
+        <xpath expr="//div[@id='div_vat']" position="after">
+            <div id="div_l10n_bg_uic" class="col-lg-6 mb-2">
+                <label class="col-form-label fw-normal label-optional" for="o_l10n_bg_uic">
+                    UIC (EIK / BULSTAT)
+                </label>
+                <input
+                    type="text"
+                    id="o_l10n_bg_uic"
+                    name="l10n_bg_uic"
+                    t-att-value="current_partner.l10n_bg_uic"
+                    t-att-readonly="'1' if not is_commercial_address else None"
+                    class="form-control"
+                />
+            </div>
+        </xpath>
+    </template>
 </odoo>

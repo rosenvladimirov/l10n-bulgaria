@@ -67,6 +67,63 @@ class TestInvoiceRequest(TestSaleCommon):
         self.assertFalse(requested.invoice_ids, "orders with an invoice request stay out")
         self.assertFalse(current.invoice_ids, "orders of the current month wait for the next run")
 
-    def test_uic_writable_from_website(self):
-        # ЕИК се приема от формата за адрес на сайта (фирма без ДДС регистрация)
-        self.assertIn("l10n_bg_uic", self.env["res.partner"]._get_frontend_writable_fields())
+    def _person_order(self):
+        person = self.env["res.partner"].create({
+            "name": "Иван Купувач", "email": "ivan@example.com", "street": "Плиска 23",
+            "city": "Разград", "country_id": self.env.ref("base.bg").id,
+        })
+        return person, self.env["sale.order"].create({
+            "partner_id": person.id, "website_id": self.website.id,
+            "order_line": [(0, 0, {"product_id": self.product.id, "product_uom_qty": 1})],
+        })
+
+    def test_invoice_company_becomes_customer(self):
+        # „Искам фактура“: клиентът е фирмата, лицето — неин адрес за доставка
+        person, order = self._person_order()
+        company = order._l10n_bg_set_invoice_company({
+            "name": "Тест Фирма ЕООД", "l10n_bg_uic": "202588745", "vat": "",
+            "street": "Бул. България 1", "city": "София", "zip": "1000",
+            "country_id": self.env.ref("base.bg").id,
+        })
+        self.assertTrue(company.is_company)
+        self.assertEqual(company.l10n_bg_uic, "202588745")
+        self.assertEqual(company.email, "ivan@example.com")
+        self.assertEqual(person.parent_id, company)
+        self.assertEqual(person.type, "delivery")
+        self.assertEqual(order.partner_id, company)
+        self.assertEqual(order.partner_invoice_id, company)
+        self.assertEqual(order.partner_shipping_id, person)
+        self.assertTrue(order.l10n_bg_invoice_requested)
+        order.action_confirm()
+        self.assertEqual(order.partner_invoice_id, company, "no random customer for a requested invoice")
+
+    def test_existing_company_reused_not_overwritten(self):
+        # фирма от Търговския регистър: същата, данните ѝ не се презаписват
+        existing = self.env["res.partner"].create({
+            "name": "Заварена ООД", "is_company": True, "l10n_bg_uic": "131468980",
+            "street": "Адрес от ТР", "city": "Пловдив",
+        })
+        person, order = self._person_order()
+        company = order._l10n_bg_set_invoice_company({
+            "name": "Друго име", "l10n_bg_uic": "131468980", "vat": "",
+            "street": "Друг адрес", "city": "Варна", "zip": "9000",
+            "country_id": self.env.ref("base.bg").id,
+        })
+        self.assertEqual(company, existing)
+        self.assertEqual(existing.name, "Заварена ООД")
+        self.assertEqual(existing.street, "Адрес от ТР")
+        self.assertEqual(existing.zip, "9000", "empty fields are filled")
+        self.assertEqual(person.parent_id, existing)
+
+    def test_unset_returns_to_person(self):
+        person, order = self._person_order()
+        order._l10n_bg_set_invoice_company({
+            "name": "Тест Фирма ЕООД", "l10n_bg_uic": "202588745", "vat": "",
+            "street": "Бул. България 1", "city": "София", "zip": "",
+            "country_id": self.env.ref("base.bg").id,
+        })
+        order._l10n_bg_unset_invoice_company()
+        self.assertEqual(order.partner_id, person)
+        self.assertFalse(order.l10n_bg_invoice_requested)
+        order.action_confirm()
+        self.assertEqual(order.partner_invoice_id, self.random_customer)

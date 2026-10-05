@@ -40,6 +40,83 @@ class SaleOrder(models.Model):
                 order.partner_invoice_id = random_customer
         return super().action_confirm()
 
+    # --- „Искам фактура“: клиентът на поръчката става фирмата (Росен, 05.10.2026) ---
+
+    def _l10n_bg_delivery_person(self):
+        self.ensure_one()
+        return self.partner_shipping_id if self.partner_id.is_company else self.partner_id
+
+    def _l10n_bg_invoice_company(self):
+        """Фирмата за фактура: клиентът, ако вече е фирма с ЕИК или ДДС, иначе нищо."""
+        self.ensure_one()
+        commercial = self.partner_id.commercial_partner_id
+        if commercial.is_company and (commercial.l10n_bg_uic or commercial.vat):
+            return commercial
+        return self.env["res.partner"]
+
+    def _l10n_bg_find_company(self, uic, vat):
+        Partner = self.env["res.partner"].sudo().with_context(active_test=False)
+        domain = [("is_company", "=", True), ("parent_id", "=", False)]
+        if uic:
+            found = Partner.search(domain + [("l10n_bg_uic", "=", uic)], limit=1)
+            if found:
+                return found
+        if vat:
+            return Partner.search(domain + [("vat", "=", vat)], limit=1)
+        return Partner
+
+    def _l10n_bg_set_invoice_company(self, values):
+        """Фирмата от формата „Фирма за фактура“: заварена по ЕИК/ДДС или нова.
+        Заварените данни не се презаписват — допълват се само празните полета."""
+        self.ensure_one()
+        person = self._l10n_bg_delivery_person()
+        uic, vat = values.get("l10n_bg_uic"), values.get("vat")
+        company = self._l10n_bg_find_company(uic, vat)
+        data = {
+            "name": values["name"],
+            "is_company": True,
+            "l10n_bg_uic": uic or False,
+            "l10n_bg_uic_type": "bg_uic" if uic and uic.isdigit() and len(uic) in (9, 13) else False,
+            "vat": vat or False,
+            "street": values.get("street") or False,
+            "city": values.get("city") or False,
+            "zip": values.get("zip") or False,
+            "country_id": values.get("country_id") or False,
+            # имейлът е задължителен за адреса за фактура в магазина
+            "email": person.email or False,
+            "phone": person.phone or False,
+        }
+        if company:
+            company.write({k: v for k, v in data.items() if v and not company[k]})
+        else:
+            company = self.env["res.partner"].sudo().with_context(no_vat_validation=True).create(data)
+        self._l10n_bg_bind_invoice_company(company)
+        return company
+
+    def _l10n_bg_bind_invoice_company(self, company):
+        """Клиентът става фирмата, лицето — неин адрес за доставка, фактурата — към фирмата."""
+        self.ensure_one()
+        person = self._l10n_bg_delivery_person()
+        if person != company and person.parent_id != company:
+            person.sudo().write({"parent_id": company.id, "type": "delivery"})
+        self.write({
+            "partner_id": company.id,
+            "partner_invoice_id": company.id,
+            "partner_shipping_id": person.id,
+            "l10n_bg_invoice_requested": True,
+        })
+
+    def _l10n_bg_unset_invoice_company(self):
+        """Без фактура: поръчката се връща към лицето (фирмата остава в базата)."""
+        self.ensure_one()
+        person = self._l10n_bg_delivery_person()
+        self.write({
+            "partner_id": person.id,
+            "partner_invoice_id": person.id,
+            "partner_shipping_id": person.id,
+            "l10n_bg_invoice_requested": False,
+        })
+
     @api.model
     def _cron_l10n_bg_invoice_random_customer(self):
         # Месечната фактура към „Случаен клиент“: всички потвърдени поръчки до

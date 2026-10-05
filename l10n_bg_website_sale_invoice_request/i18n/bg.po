@@ -1,6 +1,3 @@
-# Translation of Odoo Server.
-# This file contains the translation of the following modules:
-# 	* l10n_bg_website_sale_invoice_request
 #
 msgid ""
 msgstr ""
@@ -21,14 +18,50 @@ msgid "<span>I want an invoice</span>"
 msgstr "<span>Искам фактура</span>"
 
 #. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.billing_address_list_invoice_request
+msgid "<span>Invoice to company:</span>"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#. odoo-python
+#: code:addons/l10n_bg_website_sale_invoice_request/controllers/main.py:0
+msgid "An invoice needs the UIC (EIK) or the VAT number."
+msgstr "За фактура е нужен ЕИК или ДДС номер."
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "Back to checkout"
+msgstr "Обратно към поръчката"
+
+#. module: l10n_bg_website_sale_invoice_request
 #: model:ir.actions.server,name:l10n_bg_website_sale_invoice_request.ir_cron_invoice_random_customer_ir_actions_server
 msgid "Bulgaria: monthly sales report for the random customer"
 msgstr "България: месечен отчет за продажбите към случаен клиент"
 
 #. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "City *"
+msgstr "Град *"
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "Company name *"
+msgstr "Име на фирмата *"
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "Country"
+msgstr "Държава"
+
+#. module: l10n_bg_website_sale_invoice_request
 #: model:ir.model.fields,field_description:l10n_bg_website_sale_invoice_request.field_sale_order__display_name
 msgid "Display Name"
 msgstr "Име за показване"
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.billing_address_list_invoice_request
+msgid "Edit company"
+msgstr "Редактирай фирмата"
 
 #. module: l10n_bg_website_sale_invoice_request
 #: model:ir.model.fields,field_description:l10n_bg_website_sale_invoice_request.field_sale_order__id
@@ -41,9 +74,30 @@ msgid "Invoice Requested"
 msgstr "Поискана фактура"
 
 #. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "Invoice company"
+msgstr "Фирма за фактура"
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "Registered address *"
+msgstr "Адрес на регистрация *"
+
+#. module: l10n_bg_website_sale_invoice_request
+#. odoo-python
+#: code:addons/l10n_bg_website_sale_invoice_request/controllers/main.py:0
+msgid "Required"
+msgstr "Задължително"
+
+#. module: l10n_bg_website_sale_invoice_request
 #: model:ir.model,name:l10n_bg_website_sale_invoice_request.model_sale_order
 msgid "Sales Order"
 msgstr "Поръчка"
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "Save"
+msgstr "Запази"
 
 #. module: l10n_bg_website_sale_invoice_request
 #: model:ir.model.fields,help:l10n_bg_website_sale_invoice_request.field_sale_order__l10n_bg_invoice_requested
@@ -57,27 +111,34 @@ msgstr ""
 "вид документ 81)."
 
 #. module: l10n_bg_website_sale_invoice_request
-#: model:ir.model,name:l10n_bg_website_sale_invoice_request.model_res_partner
-msgid "Contact"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid ""
+"The invoice is issued to this company; the person stays as the delivery "
+"address."
 msgstr ""
+"Фактурата се издава на тази фирма; лицето остава като адрес за доставка."
 
 #. module: l10n_bg_website_sale_invoice_request
-#: model:ir.model,website_form_label:l10n_bg_website_sale_invoice_request.model_res_partner
-msgid "Create a Customer"
-msgstr ""
-
-#. module: l10n_bg_website_sale_invoice_request
-#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.address_form_fields_uic
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
 msgid "UIC (EIK / BULSTAT)"
 msgstr "ЕИК / БУЛСТАТ"
 
 #. module: l10n_bg_website_sale_invoice_request
-#. odoo-python
-#: code:addons/l10n_bg_website_sale_invoice_request/controllers/main.py:0
-msgid "An invoice needs the UIC (EIK) or the VAT number."
-msgstr "За фактура е нужен ЕИК или ДДС номер."
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "VAT number"
+msgstr "ДДС номер"
 
 #. module: l10n_bg_website_sale_invoice_request
-#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.address_form_fields_uic
-msgid "I want an invoice"
-msgstr "Искам фактура"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "Zip"
+msgstr "Пощенски код"
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.billing_address_list_invoice_request
+msgid "· UIC"
+msgstr "· ЕИК"
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.billing_address_list_invoice_request
+msgid "· VAT"
+msgstr "· ДДС"

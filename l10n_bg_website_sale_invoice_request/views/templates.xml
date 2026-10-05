@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Отметката „Искам фактура“ над адреса за фактура в checkout -->
+    <!-- „Искам фактура“ над адреса за фактура в checkout; при поискана фактура — фирмата -->
     <template id="billing_address_list_invoice_request" inherit_id="website_sale.billing_address_list">
         <xpath expr="//div[@id='billing_address_list']" position="before">
             <div class="form-check form-switch mb-2">
@@ -14,42 +14,67 @@
                     <span>I want an invoice</span>
                 </label>
             </div>
+            <div t-if="order.l10n_bg_invoice_requested and order.partner_id.is_company" class="mb-2">
+                <span>Invoice to company:</span>
+                <strong t-out="order.partner_id.name"/>
+                <span t-if="order.partner_id.l10n_bg_uic">· UIC <t t-out="order.partner_id.l10n_bg_uic"/></span>
+                <span t-if="order.partner_id.vat">· VAT <t t-out="order.partner_id.vat"/></span>
+                <a href="/shop/l10n_bg/invoice_company" class="ms-2">Edit company</a>
+            </div>
         </xpath>
     </template>
 
-    <!-- Във формата за адрес: „Искам фактура“ над фирмата, ДДС номера и ЕИК -->
-    <template id="address_form_fields_uic" inherit_id="website_sale.address_form_fields">
-        <xpath expr="//t[@name='b2b_fields']" position="before">
-            <div t-if="is_used_as_billing and website_sale_order" class="col-12 mb-2">
-                <input type="hidden" name="l10n_bg_invoice_request_form" value="1"/>
-                <div class="form-check form-switch">
-                    <input
-                        type="checkbox"
-                        id="o_l10n_bg_invoice_requested"
-                        name="l10n_bg_invoice_requested"
-                        class="form-check-input"
-                        t-att-checked="website_sale_order.l10n_bg_invoice_requested"
-                    />
-                    <label class="form-check-label" for="o_l10n_bg_invoice_requested">
-                        I want an invoice
-                    </label>
-                </div>
+    <!-- Отделната форма „Фирма за фактура“ -->
+    <template id="invoice_company_form" name="Invoice Company">
+        <t t-call="website.layout">
+            <div class="container py-4" style="max-width: 720px;">
+                <h3>Invoice company</h3>
+                <p class="text-muted">The invoice is issued to this company; the person stays as the delivery address.</p>
+                <form action="/shop/l10n_bg/invoice_company" method="post">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <label class="col-form-label" for="l10n_bg_ic_name">Company name *</label>
+                            <input id="l10n_bg_ic_name" name="name" required="required"
+                                   t-att-value="values['name']" t-attf-class="form-control #{'is-invalid' if errors.get('name') else ''}"/>
+                        </div>
+                        <div class="col-lg-6 mb-2">
+                            <label class="col-form-label" for="l10n_bg_ic_uic">UIC (EIK / BULSTAT)</label>
+                            <input id="l10n_bg_ic_uic" name="l10n_bg_uic" t-att-value="values['l10n_bg_uic']"
+                                   t-attf-class="form-control #{'is-invalid' if errors.get('l10n_bg_uic') else ''}"/>
+                        </div>
+                        <div class="col-lg-6 mb-2">
+                            <label class="col-form-label" for="l10n_bg_ic_vat">VAT number</label>
+                            <input id="l10n_bg_ic_vat" name="vat" class="form-control" t-att-value="values['vat']"/>
+                        </div>
+                        <div t-if="errors.get('l10n_bg_uic')" class="col-12 text-danger mb-2" t-out="errors['l10n_bg_uic']"/>
+                        <div class="col-12 mb-2">
+                            <label class="col-form-label" for="l10n_bg_ic_street">Registered address *</label>
+                            <input id="l10n_bg_ic_street" name="street" required="required" t-att-value="values['street']"
+                                   t-attf-class="form-control #{'is-invalid' if errors.get('street') else ''}"/>
+                        </div>
+                        <div class="col-lg-6 mb-2">
+                            <label class="col-form-label" for="l10n_bg_ic_city">City *</label>
+                            <input id="l10n_bg_ic_city" name="city" required="required" t-att-value="values['city']"
+                                   t-attf-class="form-control #{'is-invalid' if errors.get('city') else ''}"/>
+                        </div>
+                        <div class="col-lg-6 mb-2">
+                            <label class="col-form-label" for="l10n_bg_ic_zip">Zip</label>
+                            <input id="l10n_bg_ic_zip" name="zip" class="form-control" t-att-value="values['zip']"/>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="col-form-label" for="l10n_bg_ic_country">Country</label>
+                            <select id="l10n_bg_ic_country" name="country_id" class="form-select">
+                                <t t-foreach="countries" t-as="c">
+                                    <option t-att-value="c.id" t-att-selected="c.id == values['country_id']" t-out="c.name"/>
+                                </t>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="/shop/checkout" class="btn btn-link">Back to checkout</a>
+                </form>
             </div>
-        </xpath>
-        <xpath expr="//div[@id='div_vat']" position="after">
-            <div id="div_l10n_bg_uic" class="col-lg-6 mb-2">
-                <label class="col-form-label fw-normal label-optional" for="o_l10n_bg_uic">
-                    UIC (EIK / BULSTAT)
-                </label>
-                <input
-                    type="text"
-                    id="o_l10n_bg_uic"
-                    name="l10n_bg_uic"
-                    t-att-value="current_partner.l10n_bg_uic"
-                    t-att-readonly="'1' if not is_commercial_address else None"
-                    class="form-control"
-                />
-            </div>
-        </xpath>
+        </t>
     </template>
 </odoo>

@@ -5,11 +5,7 @@ from odoo.http import request, route
 
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 
-EIK_LENGTHS = (9, 13)
-# маркерът казва, че формата носи отметката — без него липсващата отметка
-# не значи „не искам фактура“ (например формата за доставка)
-FORM_MARKER = "l10n_bg_invoice_request_form"
-FORM_FIELD = "l10n_bg_invoice_requested"
+COMPANY_FIELDS = ("name", "l10n_bg_uic", "vat", "street", "city", "zip", "country_id")
 
 
 class WebsiteSaleInvoiceRequest(WebsiteSale):
@@ -19,54 +15,63 @@ class WebsiteSaleInvoiceRequest(WebsiteSale):
         order_sudo = request.cart
         if not order_sudo:
             return False
-        order_sudo.l10n_bg_invoice_requested = bool(requested)
-        invoice_partner = order_sudo.partner_invoice_id
-        has_company = bool(
-            invoice_partner.commercial_company_name
-            and (invoice_partner.vat or invoice_partner.l10n_bg_uic)
-        )
-        return {
-            "requested": order_sudo.l10n_bg_invoice_requested,
-            # фирмата липсва ⇒ формата за адреса за фактура, иначе остава в checkout
-            "billing_url": (
-                False if has_company
-                else "/shop/address?partner_id=%s&address_type=billing" % invoice_partner.id
-            ),
+        if not requested:
+            order_sudo._l10n_bg_unset_invoice_company()
+            return {"requested": False}
+        order_sudo.l10n_bg_invoice_requested = True
+        company = order_sudo._l10n_bg_invoice_company()
+        if company:
+            order_sudo._l10n_bg_bind_invoice_company(company)
+            return {"requested": True}
+        # фирмата още липсва ⇒ отделната форма „Фирма за фактура“
+        return {"requested": True, "form_url": "/shop/l10n_bg/invoice_company"}
+
+    @route(
+        "/shop/l10n_bg/invoice_company", type="http", auth="public", website=True,
+        methods=["GET", "POST"], sitemap=False,
+    )
+    def l10n_bg_invoice_company(self, **post):
+        order_sudo = request.cart
+        if not order_sudo:
+            return request.redirect("/shop/cart")
+        if order_sudo._is_anonymous_cart():
+            return request.redirect("/shop/address")
+        company = order_sudo._l10n_bg_invoice_company()
+        person = order_sudo._l10n_bg_delivery_person()
+        values = {
+            "name": company.name or "",
+            "l10n_bg_uic": company.l10n_bg_uic or "",
+            "vat": company.vat or "",
+            "street": company.street or person.street or "",
+            "city": company.city or person.city or "",
+            "zip": company.zip or person.zip or "",
+            "country_id": (company.country_id or person.country_id or request.env.ref("base.bg")).id,
         }
+        errors = {}
+        if request.httprequest.method == "POST":
+            for field in COMPANY_FIELDS:
+                values[field] = (post.get(field) or "").strip()
+            values["l10n_bg_uic"] = values["l10n_bg_uic"].replace(" ", "")
+            values["vat"] = values["vat"].replace(" ", "").upper()
+            values["country_id"] = int(values["country_id"] or 0) or request.env.ref("base.bg").id
+            for field in ("name", "street", "city"):
+                if not values[field]:
+                    errors[field] = _("Required")
+            if not (values["l10n_bg_uic"] or values["vat"]):
+                errors["l10n_bg_uic"] = _("An invoice needs the UIC (EIK) or the VAT number.")
+            if not errors:
+                order_sudo._l10n_bg_set_invoice_company(values)
+                return request.redirect("/shop/checkout")
+        return request.render("l10n_bg_website_sale_invoice_request.invoice_company_form", {
+            "website_sale_order": order_sudo,
+            "values": values,
+            "errors": errors,
+            "countries": request.env["res.country"].sudo().search([]),
+        })
 
     def _prepare_address_form_values(self, *args, order_sudo=False, **kwargs):
         values = super()._prepare_address_form_values(*args, order_sudo=order_sudo, **kwargs)
-        # фирмените полета се рендират винаги; видимостта им следва отметката (JS)
+        # адресът на сайта е само за доставка — фирмата е в „Фирма за фактура“
         if order_sudo:
-            values["display_b2b_fields"] = True
+            values["display_b2b_fields"] = False
         return values
-
-    def _parse_form_data(self, form_data):
-        address_values, extra_form_data = super()._parse_form_data(form_data)
-        uic = (address_values.get("l10n_bg_uic") or "").replace(" ", "")
-        if uic:
-            address_values["l10n_bg_uic"] = uic
-            if uic.isdigit() and len(uic) in EIK_LENGTHS:
-                address_values["l10n_bg_uic_type"] = "bg_uic"
-        if form_data.get(FORM_MARKER) and request.cart:
-            request.cart.l10n_bg_invoice_requested = bool(form_data.get(FORM_FIELD))
-        return address_values, extra_form_data
-
-    def _validate_address_values(
-        self, address_values, partner_sudo, address_type, use_delivery_as_billing,
-        required_fields, **kwargs,
-    ):
-        invalid_fields, missing_fields, error_messages = super()._validate_address_values(
-            address_values, partner_sudo, address_type, use_delivery_as_billing,
-            required_fields, **kwargs,
-        )
-        # поискана фактура ⇒ фирма и ЕИК или ДДС номер, без тях фактура не става
-        if kwargs.get(FORM_FIELD) and (address_type == "billing" or use_delivery_as_billing):
-            if "company_name" in address_values and not address_values.get("company_name"):
-                missing_fields.add("company_name")
-            if (
-                "vat" in address_values or "l10n_bg_uic" in address_values
-            ) and not (address_values.get("vat") or address_values.get("l10n_bg_uic")):
-                missing_fields.update({"vat", "l10n_bg_uic"})
-                error_messages.append(_("An invoice needs the UIC (EIK) or the VAT number."))
-        return invalid_fields, missing_fields, error_messages

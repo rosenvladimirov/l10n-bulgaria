@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-04 19:16+0000\n"
-"PO-Revision-Date: 2026-10-04 19:16+0000\n"
+"POT-Creation-Date: 2026-10-05 09:04+0000\n"
+"PO-Revision-Date: 2026-10-05 09:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,9 +21,19 @@ msgid "<span>I want an invoice</span>"
 msgstr ""
 
 #. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.billing_address_list_invoice_request
+msgid "<span>Invoice to company:</span>"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
 #. odoo-python
 #: code:addons/l10n_bg_website_sale_invoice_request/controllers/main.py:0
 msgid "An invoice needs the UIC (EIK) or the VAT number."
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "Back to checkout"
 msgstr ""
 
 #. module: l10n_bg_website_sale_invoice_request
@@ -32,28 +42,31 @@ msgid "Bulgaria: monthly sales report for the random customer"
 msgstr ""
 
 #. module: l10n_bg_website_sale_invoice_request
-#: model:ir.model,name:l10n_bg_website_sale_invoice_request.model_res_partner
-msgid "Contact"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "City *"
 msgstr ""
 
 #. module: l10n_bg_website_sale_invoice_request
-#: model:ir.model,website_form_label:l10n_bg_website_sale_invoice_request.model_res_partner
-msgid "Create a Customer"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "Company name *"
 msgstr ""
 
 #. module: l10n_bg_website_sale_invoice_request
-#: model:ir.model.fields,field_description:l10n_bg_website_sale_invoice_request.field_res_partner__display_name
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "Country"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
 #: model:ir.model.fields,field_description:l10n_bg_website_sale_invoice_request.field_sale_order__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: l10n_bg_website_sale_invoice_request
-#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.address_form_fields_uic
-msgid "I want an invoice"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.billing_address_list_invoice_request
+msgid "Edit company"
 msgstr ""
 
 #. module: l10n_bg_website_sale_invoice_request
-#: model:ir.model.fields,field_description:l10n_bg_website_sale_invoice_request.field_res_partner__id
 #: model:ir.model.fields,field_description:l10n_bg_website_sale_invoice_request.field_sale_order__id
 msgid "ID"
 msgstr ""
@@ -64,8 +77,29 @@ msgid "Invoice Requested"
 msgstr ""
 
 #. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "Invoice company"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "Registered address *"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#. odoo-python
+#: code:addons/l10n_bg_website_sale_invoice_request/controllers/main.py:0
+msgid "Required"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
 #: model:ir.model,name:l10n_bg_website_sale_invoice_request.model_sale_order
 msgid "Sales Order"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "Save"
 msgstr ""
 
 #. module: l10n_bg_website_sale_invoice_request
@@ -77,6 +111,33 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_website_sale_invoice_request
-#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.address_form_fields_uic
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid ""
+"The invoice is issued to this company; the person stays as the delivery "
+"address."
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
 msgid "UIC (EIK / BULSTAT)"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "VAT number"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.invoice_company_form
+msgid "Zip"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.billing_address_list_invoice_request
+msgid "· UIC"
+msgstr ""
+
+#. module: l10n_bg_website_sale_invoice_request
+#: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.billing_address_list_invoice_request
+msgid "· VAT"
 msgstr ""

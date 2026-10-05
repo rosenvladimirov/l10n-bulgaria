@@ -20,7 +20,7 @@ msgstr "<span>Искам фактура</span>"
 #. module: l10n_bg_website_sale_invoice_request
 #: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.billing_address_list_invoice_request
 msgid "<span>Invoice to company:</span>"
-msgstr ""
+msgstr "<span>Фактура към фирма:</span>"
 
 #. module: l10n_bg_website_sale_invoice_request
 #. odoo-python

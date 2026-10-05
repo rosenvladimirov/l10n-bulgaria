@@ -4,7 +4,7 @@
     "name": "Bulgaria - eShop invoice request and monthly sales report",
     "summary": "'I want an invoice' on checkout; orders without it are invoiced "
     "monthly to the random customer as a sales report (document type 81)",
-    "version": "19.0.2.0.0",
+    "version": "19.0.2.0.1",
     "category": "Website/Website",
     "author": "Rosen Vladimirov, Terraros Commerce Ltd.",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",

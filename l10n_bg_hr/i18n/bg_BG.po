@@ -1,0 +1,2477 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_hr
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-05 12:00+0000\n"
+"PO-Revision-Date: 2026-10-05 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:233
+#, python-format
+msgid "%(doc)s expires on %(date)s"
+msgstr "%(doc)s изтича на %(date)s"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_kanban
+msgid "<span class=\"badge badge-warning\">Temporary</span>"
+msgstr "<span class=\"badge badge-warning\">Временно</span>"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_personal_documents
+msgid "<span invisible=\"not l10n_bg_id_card_number\">Expires on</span>"
+msgstr "<span invisible=\"not l10n_bg_id_card_number\">Валидна до</span>"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_work_nkpd
+msgid "<span>NKPD / KID</span>"
+msgstr "<span>НКПД / КИД</span>"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_kanban
+msgid "<strong>Effective:</strong>"
+msgstr "<strong>В сила от:</strong>"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid ""
+"<strong>Legal Note:</strong>\n"
+"                                Art. 120, para. 1 LC: on production necessity or idle time the\n"
+"                                employer may assign other work without the employee's consent — in\n"
+"                                the same or another undertaking, but\n"
+"                                <strong>within the same settlement or locality</strong>, for up to\n"
+"                                <strong>45 calendar days per calendar year</strong>. During idle time\n"
+"                                the assignment lasts as long as the idle time does.\n"
+"                                Art. 267, para. 3 LC: the remuneration is that of the work performed,\n"
+"                                but not lower than the gross remuneration for the main job."
+msgstr ""
+"<strong>Правна бележка:</strong> Чл. 120, ал. 1 КТ: при производствена "
+"необходимост или престой работодателят може да възложи друга работа без "
+"съгласието на служителя — в същото или в друго предприятие, но <strong>в "
+"същото населено място или местност</strong>, за срок до <strong>45 "
+"календарни дни в една календарна година</strong>. При престой — докато той "
+"трае. Чл. 267, ал. 3 КТ: възнаграждението е за изпълняваната работа, но не "
+"по-малко от брутното за основната работа."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_kanban
+msgid "<strong>Type:</strong>"
+msgstr "<strong>Вид:</strong>"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_kanban
+msgid "<strong>Wage Change:</strong>"
+msgstr "<strong>Промяна на заплатата:</strong>"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_needaction
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_needaction
+msgid "Action Needed"
+msgstr "Необходимо е действие"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Activate"
+msgstr "Активирай"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Activate Early"
+msgstr "Активирай предсрочно"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:755
+#, python-format
+msgid ""
+"Activated early on %(today)s, before the agreed effective date "
+"%(effective)s. The new terms are on the contract from today."
+msgstr ""
+"Активирано предсрочно на %(today)s, преди уговорената дата на влизане в сила"
+" %(effective)s. Новите условия са по договора от днес."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__active
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__state__active
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Active"
+msgstr "Активно"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_ids
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_ids
+msgid "Activities"
+msgstr "Дейности"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_exception_decoration
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Декорация за изключение на дейност"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_state
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_state
+msgid "Activity State"
+msgstr "Състояние"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_type_icon
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Икона на типа действие"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_018
+msgid ""
+"Additional agreement in the cases of Art. 121a, para. 1, item 1 of the Labor"
+" Code"
+msgstr "Допълнително споразумение по чл. 121а, ал. 1, т. 1 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_019
+msgid ""
+"Additional agreement under Art. 119, para. 1 of the Labor Code or order "
+"under Art. 118, para. 3 of the Labor Code for amendment of the basic "
+"remuneration"
+msgstr ""
+"Допълнително споразумение по чл. 119, ал. 1 / заповед по чл. 118, ал. 3 от "
+"КТ за изменение на основното трудово възнаграждение"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_020
+msgid ""
+"Additional agreement under Art. 119, para. 1 of the Labor Code or order "
+"under Art. 138a, para. 1 or 2 of the Labor Code for amendment of working "
+"time duration"
+msgstr ""
+"Допълнително споразумение по чл. 119, ал. 1 / заповед по чл. 138а, ал. 1 или"
+" 2 от КТ за изменение на работното време"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_021
+msgid ""
+"Additional agreement under Art. 119, para. 1 of the Labor Code, which amends"
+" the term of the employment contract or the position of the employee or the "
+"amount of agreed paid annual leave and/or the workplace"
+msgstr ""
+"Допълнително споразумение по чл. 119, ал. 1 от КТ за изменение на срока, "
+"длъжността, платения годишен отпуск и/или работното място"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_amendment_ids
+msgid ""
+"Additional agreements to the main contract according to Bulgarian Labor Code"
+msgstr ""
+"Допълнителни споразумения към основния договор съгласно Българския Кодекс на"
+" труда"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__additional_duties
+msgid "Additional Duties"
+msgstr "Допълнителни задължения"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_010
+msgid "Additional employment contract under Art. 110 of the Labor Code"
+msgstr "Допълнителен трудов договор по чл. 110 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_011
+msgid "Additional employment contract under Art. 111 of the Labor Code"
+msgstr "Допълнителен трудов договор по чл. 111 от КТ"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_additional_leave_days
+msgid "Additional Leave Days"
+msgstr "Допълнителен отпуск (дни)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_additional_leave_days
+msgid "Additional leave days for specific conditions"
+msgstr "Допълнителни дни отпуск при специфични условия"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_008
+msgid ""
+"Agreement under Art. 107 of the Labor Code in connection with Art. 83 of the"
+" Labor Code"
+msgstr "Споразумение по чл. 107 във връзка с чл. 83 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_009
+msgid ""
+"Agreement under Art. 107 of the Labor Code in connection with Art. 89 of the"
+" Labor Code"
+msgstr "Споразумение по чл. 107 във връзка с чл. 89 от КТ"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:897
+#, python-format
+msgid ""
+"Amendment %(ref)s does not change anything on the contract. Fill in at least"
+" one new value — wage, NKPD position, economic activity, work location, "
+"working time or leave days — or cancel it. An amendment cannot take effect "
+"without a change."
+msgstr ""
+"Споразумение %(ref)s не променя нищо по договора. Попълнете поне една нова "
+"стойност — заплата, длъжност по НКПД, икономическа дейност, работно място, "
+"работно време или отпуск — или го анулирайте. Споразумение без промяна не "
+"може да влезе в сила."
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:888
+#, python-format
+msgid "Amendment %(ref)s in force from %(date)s: %(text)s"
+msgstr "Споразумение %(ref)s в сила от %(date)s: %(text)s"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:799
+#, python-format
+msgid ""
+"Amendment %(ref)s is %(state)s and cannot go back to draft. The signed "
+"document would differ from what was written on the contract. Create a new "
+"amendment instead."
+msgstr ""
+"Споразумение %(ref)s е в състояние „%(state)s“ и не може да се върне в "
+"чернова. Подписаният документ би се разминал със записаното по договора. "
+"Създайте ново споразумение."
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:686
+#, python-format
+msgid ""
+"Amendment %(ref)s is already in force; %(fields)s can no longer be changed. "
+"Editing it would make the signed document differ from what was written on "
+"the contract. Create a new amendment instead."
+msgstr ""
+"Споразумение %(ref)s вече е в сила; %(fields)s не могат да се променят. "
+"Промяната би разминала подписания документ със записаното по договора. "
+"Създайте ново споразумение."
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:867
+#, python-format
+msgid ""
+"Amendment %(ref)s is temporary but has no end date. Without it the change "
+"would stay in force forever — the expiry cron looks for the end date."
+msgstr ""
+"Споразумение %(ref)s е срочно, но няма крайна дата. Без нея промяната остава"
+" в сила завинаги — кронът за изтичане търси крайната дата."
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:851
+#, python-format
+msgid ""
+"Amendment %(ref)s states both a new wage (%(wage).2f) and an assignment "
+"compensation (%(comp).2f). They disagree — fill in only one."
+msgstr ""
+"Споразумение %(ref)s посочва и нова заплата (%(wage).2f), и възнаграждение "
+"при преместване (%(comp).2f). Те се разминават — попълнете само едното."
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:736
+#, python-format
+msgid ""
+"Amendment %(ref)s takes effect on %(effective)s, which has not arrived yet. "
+"It will be activated automatically on that day. If it must take effect now, "
+"use 'Activate Early' — that action is recorded in the chatter."
+msgstr ""
+"Споразумение %(ref)s влиза в сила на %(effective)s, а тя още не е настъпила."
+" Ще бъде активирано автоматично на този ден. Ако трябва да влезе в сила "
+"сега, ползвайте „Активирай предсрочно“ — това действие се записва в чата."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_amendment_count
+msgid "Amendment Count"
+msgstr "Брой допълнителни споразумения"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__description
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Amendment Details"
+msgstr "Съдържание на споразумението"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:552
+msgid "Amendment effective date must be before end date."
+msgstr "Датата на влизане в сила трябва да е преди крайната дата."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__amendment_number
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Amendment Number"
+msgstr "Номер на споразумението"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:564
+msgid "Amendment number must be unique per contract."
+msgstr "Номерът на споразумението трябва да е уникален в рамките на договора."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Amendment Subject"
+msgstr "Предмет на споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__amendment_type
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Amendment Type"
+msgstr "Вид на споразумението"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_amendment_button
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_amendment_tab
+msgid "Amendments"
+msgstr "Допълнителни споразумения"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_l10n_bg_hr
+msgid "Annual Leave (Art. 66 LC)"
+msgstr "Годишен отпуск (чл. 66 КТ)"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "Anything the payroll officer needs to know about this decision."
+msgstr "Каквото ТРЗ трябва да знае за това решение."
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_016
+msgid "Apprenticeship contract under Art. 233b of the Labor Code"
+msgstr "Договор за чиракуване по чл. 233б от КТ"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Approval"
+msgstr "Одобрение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__approved_date
+msgid "Approval Date"
+msgstr "Дата на одобрение"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Approve"
+msgstr "Одобри"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__state__approved
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Approved"
+msgstr "Одобрено"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__approved_by_id
+msgid "Approved by"
+msgstr "Одобрено от"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:621
+#, python-format
+msgid ""
+"Art. 120, para. 1 LC allows a temporary assignment without the employee's "
+"consent only within the same settlement or locality. %(old)s and %(new)s are"
+" different settlements. Use a regular amendment with the employee's consent "
+"instead."
+msgstr ""
+"Чл. 120, ал. 1 КТ допуска преместване без съгласието на служителя само в "
+"същото населено място или местност. %(old)s и %(new)s са различни населени "
+"места. Използвайте обикновено споразумение със съгласието на служителя."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__assignment_compensation
+msgid "Assignment Compensation"
+msgstr "Възнаграждение при преместването"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:639
+#, python-format
+msgid ""
+"Assignment compensation %(new).2f is lower than the gross remuneration for "
+"the main job %(old).2f. Art. 267, para. 3 LC does not allow that."
+msgstr ""
+"Възнаграждението при преместването %(new).2f е по-ниско от брутното за "
+"основната работа %(old).2f. Чл. 267, ал. 3 КТ не го допуска."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__l10n_bg_assignment_days
+msgid "Assignment Days"
+msgstr "Дни на преместването"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Assignment Details"
+msgstr "Данни за преместването"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__assignment_duration_months
+msgid "Assignment Duration (months, legacy)"
+msgstr "Продължителност на преместването (месеци, заварено)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__assignment_location
+msgid "Assignment Location"
+msgstr "Място на преместването"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__temporary_assignment_reason
+msgid "Assignment Reason"
+msgstr "Основание за преместването"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid ""
+"At or above 50%: the monthly tax relief under Art. 18(2)\n"
+"                        PITA applies, and the basic annual leave is at least 26\n"
+"                        working days under Art. 319 LC."
+msgstr ""
+"При 50 % и над: прилага се месечното данъчно облекчение по чл. 18, ал. 2 "
+"ЗДДФЛ, а основният годишен отпуск е поне 26 работни дни по чл. 319 КТ."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_search
+msgid "At or over 50%"
+msgstr "50 % и над"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_attachment_count
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_attachment_count
+msgid "Attachment Count"
+msgstr "Брой прикачени файлове"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_l10n_bg_hr
+msgid "Auto-generated: ТД-00001"
+msgstr "Попълва се автоматично: ТД-00001"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:932
+#, python-format
+msgid ""
+"Automatic activation failed: %s. The amendment stays approved and needs "
+"manual review."
+msgstr ""
+"Автоматичното активиране пропадна: %s. Споразумението остава одобрено и иска"
+" ръчен преглед."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Basic Annual Leave"
+msgstr "Основен годишен отпуск"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_basic_leave_days
+msgid "Basic Annual Leave (days)"
+msgstr "Основен годишен отпуск (дни)"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:283
+msgid ""
+"Basic annual leave cannot be less than 20 working days according to Labor "
+"Code."
+msgstr ""
+"Основният годишен отпуск не може да бъде по-малък от 20 работни дни съгласно"
+" Кодекса на труда."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_leave_days
+msgid "Basic annual leave days after this amendment"
+msgstr "Дни основен годишен отпуск след споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_leave_days
+msgid "Basic annual leave of the contract when the amendment was created"
+msgstr ""
+"Основният годишен отпуск по договора при създаването на споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_basic_leave_days
+msgid "Basic paid annual leave in working days (min. 20 days per Labor Code)"
+msgstr ""
+"Основен платен годишен отпуск в работни дни (мин. 20 дни според Кодекса на "
+"труда)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_contract_duration_type
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract_type__l10n_bg_contract_duration_type
+msgid "BG Contract Duration Type"
+msgstr "Вид на договора по срочност"
+
+#. module: l10n_bg_hr
+#: model:ir.actions.server,name:l10n_bg_hr.cron_activate_due_amendments_ir_actions_server
+msgid "BG: Activate Due Contract Amendments"
+msgstr "БГ: Активиране на настъпили допълнителни споразумения"
+
+#. module: l10n_bg_hr
+#: model:ir.actions.server,name:l10n_bg_hr.cron_expire_temporary_amendments_ir_actions_server
+msgid "BG: Expire Temporary Contract Amendments"
+msgstr "БГ: Изтичане на срочни допълнителни споразумения"
+
+#. module: l10n_bg_hr
+#: model:ir.actions.server,name:l10n_bg_hr.cron_close_overdue_fixed_terms_ir_actions_server
+msgid "BG: Flag Overdue Fixed-Term Contracts"
+msgstr "БГ: Маркиране на срочни договори след срока"
+
+#. module: l10n_bg_hr
+#: model:ir.actions.server,name:l10n_bg_hr.cron_notify_expiring_documents_ir_actions_server
+msgid "BG: Notify Expiring Employee Documents"
+msgstr "БГ: Напомняне за изтичащи документи на служители"
+
+#. module: l10n_bg_hr
+#: model:ir.actions.server,name:l10n_bg_hr.cron_notify_expiring_fixed_terms_ir_actions_server
+msgid "BG: Notify Expiring Fixed-Term Contracts"
+msgstr "БГ: Напомняне за изтичащи срочни договори"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__subject
+msgid "Brief description of the amendment subject"
+msgstr "Кратко описание на предмета на споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model,name:l10n_bg_hr.model_l10n_bg_hr_contract_amendment
+msgid "Bulgarian Contract Amendment"
+msgstr "Допълнително споразумение (КТ)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_id_card_number
+msgid ""
+"Bulgarian identity card, or the residence document of a third-country "
+"national."
+msgstr ""
+"Българска лична карта или документът за пребиваване на гражданин на трета "
+"държава."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_l10n_bg_hr
+msgid "Bulgarian Labor Code"
+msgstr "Кодекс на труда"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__l10n_bg_assignment_days
+msgid ""
+"Calendar days of this assignment, derived from the effective and end dates. "
+"Art. 120, para. 1 LC caps them at 45 per calendar year, except during idle "
+"time."
+msgstr ""
+"Календарните дни на преместването, изведени от датата на влизане в сила и "
+"крайната дата. Чл. 120, ал. 1 КТ ги ограничава до 45 за календарна година, "
+"освен при престой."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Cancel"
+msgstr "Анулирай"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__state__cancel
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Cancelled"
+msgstr "Анулирано"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:782
+msgid "Cannot cancel active or expired amendments."
+msgstr "Споразумение в сила или изтекло не може да се анулира."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Change Justification"
+msgstr "Обосновка на промяната"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_job_description
+msgid "Character of work as required by Art. 66 of Labor Code"
+msgstr ""
+"Характер на работата съгласно изискванията на чл. 66 от Кодекса на труда"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__is_temporary
+msgid "Check if this amendment is temporary (e.g., temporary transfer)"
+msgstr "Отбележете, ако споразумението е срочно (напр. временно преместване)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__company_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__company_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Company"
+msgstr "Фирма"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__temporary_assignment_reason__force_majeure
+msgid "Compelling Reasons (Art. 120, para. 3 LC)"
+msgstr "Наложителни причини (чл. 120, ал. 3 КТ)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__work_location
+msgid "Complete address of work location for contract display"
+msgstr "Пълен адрес на работното място за показване на договора"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Contract"
+msgstr "Договор"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_after_term_contract_type_id
+msgid "Contract After the Term"
+msgstr "Договор след срока"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:892
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Contract Amendment"
+msgstr "Допълнително споразумение"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:907
+msgid "Contract Amendment Applied"
+msgstr "Приложено допълнително споразумение"
+
+#. module: l10n_bg_hr
+#: model:ir.actions.act_window,name:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+#: model:ir.actions.act_window,name:l10n_bg_hr.action_l10n_bg_hr_contract_amendment_from_contract
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_amendment_ids
+#: model:ir.ui.menu,name:l10n_bg_hr.menu_l10n_bg_hr_contract_amendment
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_calendar
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_list
+msgid "Contract Amendments"
+msgstr "Допълнителни споразумения"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_pivot
+msgid "Contract Amendments Analysis"
+msgstr "Анализ на допълнителните споразумения"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+msgid "Contract amendments are used for:"
+msgstr "Допълнителните споразумения се ползват за:"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_contract_date
+msgid "Contract Conclusion Date"
+msgstr "Дата на сключване на договора"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:302
+msgid "Contract conclusion date cannot be after the start date."
+msgstr "Датата на сключване на договора не може да бъде след началната дата."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__contract_extension
+msgid "Contract Extension"
+msgstr "Удължаване на срока на договора"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__contract_suspension
+msgid "Contract Suspension"
+msgstr "Спиране на договора"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_l10n_bg_hr
+msgid "Contract Terms"
+msgstr "Условия на договора"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:321
+#, python-format
+msgid ""
+"Contract type %(type)s is a fixed-term ground (Art. 68, para. 1 LC), so the "
+"agreed end of the term is required. Without it the contract is invisible to "
+"the expiry reminders, and Art. 69 LC can never be applied."
+msgstr ""
+"Видът договор %(type)s е срочно основание (чл. 68, ал. 1 КТ), затова "
+"уговореният край на срока е задължителен. Без него договорът не се вижда от "
+"напомнянията за изтичане и чл. 69 КТ не може да се приложи."
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:906
+#, python-format
+msgid "Contract updated by amendment %s"
+msgstr "Договорът е променен с допълнително споразумение %s"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_work_nkpd
+msgid ""
+"Copy NCOP position (and KID, when set on the job) from the job position to "
+"the active contract"
+msgstr ""
+"Копира длъжността по НКПД (и КИД, ако е посочен на позицията) от работната "
+"позиция в активния договор"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+msgid "Create your first Contract Amendment!"
+msgstr "Създайте първото допълнително споразумение!"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__create_uid
+msgid "Created by"
+msgstr "Създадено от"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__create_date
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__create_date
+msgid "Created on"
+msgstr "Създадено на"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__currency_id
+msgid "Currency"
+msgstr "Валута"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_daily_hours
+msgid "Daily hours of the contract when the amendment was created"
+msgstr "Дневните часове по договора при създаването на споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_daily_hours
+msgid "Daily Working Hours"
+msgstr "Дневно работно време (часове)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_termination_order_date
+msgid ""
+"Date of the termination order (заповед за прекратяване); visible once the "
+"contract end date is set"
+msgstr ""
+"Дата на заповедта за прекратяване; показва се, след като е попълнена "
+"крайната дата на договора"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__date_signed
+msgid "Date Signed"
+msgstr "Дата на подписване"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__approved_date
+msgid "Date when amendment was approved"
+msgstr "Дата на одобрение на споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_contract_date
+msgid "Date when contract was concluded as required by Art. 66 KT"
+msgstr "Дата на сключване на договора съгласно изискванията на чл. 66 КТ"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__date_effective
+msgid "Date when the amendment becomes effective"
+msgstr "Дата, от която споразумението влиза в сила"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__date_signed
+msgid "Date when the amendment was signed by both parties"
+msgstr "Дата на подписване от двете страни"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/telk_decision.py:83
+#, python-format
+msgid "Decision %s stops applying before it starts."
+msgstr "Решение %s изтича, преди да влезе в сила."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_telk_expired
+msgid "Decision Expired"
+msgstr "Решението е изтекло"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_telk_current_id
+msgid "Decision in Force"
+msgstr "Действащо решение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__number
+msgid "Decision number as issued."
+msgstr "Номерът на решението, както е издадено."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_telk_decision_count
+msgid "Decisions"
+msgstr "Решения"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_013
+msgid "Decree under Art. 405a of the Labor Code"
+msgstr "Постановление по чл. 405а от КТ"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_res_company__l10n_bg_economic_activity_id
+msgid "Default economic activity code (KID 2008) for this company"
+msgstr "Икономическа дейност по подразбиране (КИД 2008) за тази фирма"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__description
+msgid "Detailed description of changes made by this amendment"
+msgstr "Подробно описание на промените по споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__diagnosis
+msgid "Diagnosis"
+msgstr "Диагноза"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__wage_difference
+msgid "Difference between new and old wage"
+msgstr "Разлика между нова и стара заплата"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:214
+msgid "Disability decision (TELK/NELK)"
+msgstr "Решение на ТЕЛК/НЕЛК"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_disability_expiry
+msgid "Disability Decision Expires On"
+msgstr "Срок на решението на ТЕЛК/НЕЛК"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__display_name
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_personal_doctor_address
+msgid "Doctor Address"
+msgstr "Адрес на лекаря"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_personal_doctor_phone
+msgid "Doctor Phone"
+msgstr "Телефон на лекаря"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:246
+#, python-format
+msgid ""
+"Document expiring in less than %(days)d days: %(doc)s, valid until %(date)s."
+" Arrange the renewal and update the employee record."
+msgstr ""
+"Документ с изтичащ срок след по-малко от %(days)d дни: %(doc)s, валиден до "
+"%(date)s. Организирайте подновяването и обновете картона на служителя."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__state__draft
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Draft"
+msgstr "Чернова"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_l10n_bg_hr
+msgid "Duration & Termination"
+msgstr "Срок и прекратяване"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_contract_duration_type
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract_type__l10n_bg_contract_duration_type
+msgid "Duration type as required by Art. 68 of Bulgarian Labor Code"
+msgstr "Вид на срочността съгласно чл. 68 от Кодекса на труда"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "e.g. 1234/2026"
+msgstr "напр. 1234/2026"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Economic Activity"
+msgstr "Икономическа дейност"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_job__l10n_bg_economic_activity_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_res_company__l10n_bg_economic_activity_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_work_nkpd
+msgid "Economic Activity (KID)"
+msgstr "Икономическа дейност (КИД)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_economic_activity_id
+msgid "Economic Activity (NACE)"
+msgstr "Икономическа дейност (КИД)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_economic_activity_id
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_economic_activity_id
+msgid ""
+"Economic activity according to Bulgarian KID classification for MOD "
+"calculation"
+msgstr ""
+"Икономическа дейност съгласно българската класификация по КИД за изчисляване"
+" на МОД"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_economic_activity_id
+msgid "Economic activity after this amendment"
+msgstr "Икономическа дейност след споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_economic_activity_code
+msgid "Economic Activity Code"
+msgstr "Код на икономическа дейност"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_job__l10n_bg_economic_activity_id
+msgid "Economic activity code (KID 2008) for this position"
+msgstr "Код на икономическата дейност (КИД 2008) за тази длъжност"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_economic_activity_code
+msgid "Economic activity code according to KID 2008"
+msgstr "Код на икономическата дейност по КИД 2008"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_economic_activity_id
+msgid "Economic activity of the contract when the amendment was created"
+msgstr "Икономическата дейност по договора при създаването на споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_job__l10n_bg_education_level
+msgid "Education Level"
+msgstr "Образователна степен"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__date_effective
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Effective Date"
+msgstr "Дата на влизане в сила"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__l10n_bg_effective_in_future
+msgid "Effective Date Not Reached"
+msgstr "Датата на влизане в сила не е настъпила"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__employee_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__employee_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_search
+msgid "Employee"
+msgstr "Служител"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_signed_by_employee
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__signed_by_employee
+msgid "Employee has signed the amendment"
+msgstr "Служителят е подписал споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__temporary_assignment_reason__employee_replacement
+msgid "Employee Replacement"
+msgstr "Заместване на служител"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_signed_by_employer
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__signed_by_employer
+msgid "Employer representative has signed the amendment"
+msgstr "Представителят на работодателя е подписал споразумението"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_015
+msgid ""
+"Employment contract for internal replacement under Art. 259 of the Labor "
+"Code"
+msgstr "Трудов договор за вътрешно заместване по чл. 259 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_014
+msgid ""
+"Employment contract for on-the-job training under Art. 230 of the Labor Code"
+msgstr "Трудов договор за стажуване по чл. 230 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_012
+msgid "Employment contract under Art. 114, para. 1 of the Labor Code"
+msgstr "Трудов договор по чл. 114, ал. 1 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_003
+msgid "Employment contract under Art. 68, para. 1, item 2 of the Labor Code"
+msgstr "Трудов договор по чл. 68, ал. 1, т. 2 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_017
+msgid ""
+"Employment contract under Art. 68, para. 1, item 2 or 3 in connection with "
+"Art. 121a, para. 2, item 1 of the Labor Code"
+msgstr ""
+"Трудов договор по чл. 68, ал. 1, т. 2 или 3 във връзка с чл. 121а, ал. 2, т."
+" 1 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_004
+msgid "Employment contract under Art. 68, para. 1, item 3 of the Labor Code"
+msgstr "Трудов договор по чл. 68, ал. 1, т. 3 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_005
+msgid "Employment contract under Art. 68, para. 1, item 4 of the Labor Code"
+msgstr "Трудов договор по чл. 68, ал. 1, т. 4 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_006
+msgid "Employment contract under Art. 68, para. 1, item 5 of the Labor Code"
+msgstr "Трудов договор по чл. 68, ал. 1, т. 5 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_007
+msgid ""
+"Employment contract with probation period under Art. 70 of the Labor Code"
+msgstr "Трудов договор със срок за изпитване по чл. 70 от КТ"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "Empty = no expiry"
+msgstr "Празно = безсрочно"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__date_to
+msgid ""
+"Empty means the decision is for life. Otherwise the rights that hang on it "
+"end with it."
+msgstr ""
+"Празно означава пожизнено. Иначе правата, които зависят от решението, "
+"отпадат с него."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__date_end
+msgid "End Date"
+msgstr "Крайна дата"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__date_end
+msgid "End date for temporary amendments (e.g., temporary assignments)"
+msgstr "Крайна дата на срочните споразумения (напр. временно преместване)"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Enter amendment details"
+msgstr "Въведете съдържанието на споразумението"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Enter legal basis from Bulgarian law"
+msgstr "Въведете правно основание от българското законодателство"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__state__expired
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_search
+msgid "Expired"
+msgstr "Изтекло"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_disability_expiry
+msgid ""
+"Expiry of the TELK/NELK decision. When it lapses, both the monthly PIT "
+"relief and the Art. 319 LC leave floor stop applying."
+msgstr ""
+"Срок на решението на ТЕЛК/НЕЛК. С изтичането му отпадат и месечното данъчно "
+"облекчение, и подът на отпуска по чл. 319 КТ."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_extended_leave_days
+msgid "Extended Annual Leave (days)"
+msgstr "Удължен годишен отпуск (дни)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_extended_leave_days
+msgid "Extended annual leave days if applicable"
+msgstr "Дни удължен годишен отпуск, ако е приложимо"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract_type__l10n_bg_contract_duration_type__fixed_term
+msgid "Fixed Term"
+msgstr "За определен срок"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_fixed_term_end
+msgid "Fixed Term End"
+msgstr "Край на уговорения срок"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:424
+#, python-format
+msgid ""
+"Fixed term ends on %(date)s: %(outcome)s. File the NRA notification under "
+"Art. 62(5) LC in time — once five working days pass with the employee still "
+"at work and no written objection, Art. 69 LC converts the contract by law "
+"and the choice is no longer yours."
+msgstr ""
+"Срокът на договора изтича на %(date)s: %(outcome)s. Подайте уведомлението до"
+" НАП по чл. 62, ал. 5 КТ навреме — минат ли пет работни дни, през които "
+"работникът продължава да работи без писмено възражение, чл. 69 КТ превръща "
+"договора по силата на закона и изборът вече не е ваш."
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:419
+#, python-format
+msgid "Fixed term of %(employee)s ends on %(date)s"
+msgstr "Срокът по договора на %(employee)s изтича на %(date)s"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:461
+#, python-format
+msgid "Fixed term of %(employee)s lapsed on %(date)s"
+msgstr "Срокът по договора на %(employee)s е изтекъл на %(date)s"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_fixed_term_reason
+msgid "Fixed Term Reason"
+msgstr "Основание за срочност"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_002
+msgid ""
+"Fixed-term employment contract under Art. 68, para. 1, item 1 of the Labor "
+"Code"
+msgstr "Срочен трудов договор по чл. 68, ал. 1, т. 1 от КТ"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract__l10n_bg_working_time_type__flexible
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__new_working_time_type__flexible
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__old_working_time_type__flexible
+msgid "Flexible Hours"
+msgstr "Гъвкаво работно време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_follower_ids
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_follower_ids
+msgid "Followers"
+msgstr "Последователи"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_partner_ids
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Последователи (Партньори)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_type_icon
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Икона, примерно fa-tasks"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/telk_decision.py:62
+msgid "for life"
+msgstr "пожизнено"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_tax_number
+msgid "Foreign Tax Number"
+msgstr "Данъчен номер (чужд)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract__l10n_bg_working_time_type__full_time
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__new_working_time_type__full_time
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__old_working_time_type__full_time
+msgid "Full Time"
+msgstr "Пълно работно време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_personal_doctor
+msgid "General practitioner, as declared by the employee."
+msgstr "Общопрактикуващ лекар, деклариран от служителя."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_protection_status
+msgid "Ground of residence under the Asylum and Refugees Act."
+msgstr "Основание за пребиваване по Закона за убежището и бежанците."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_search
+msgid "Group By"
+msgstr "Групирай по"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__has_message
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__has_message
+msgid "Has Message"
+msgstr "Има съобщение"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_telk_decision
+msgid ""
+"History is kept in full: a new decision does not overwrite the\n"
+"               previous one, so past payroll periods keep the percentage they\n"
+"               were calculated with."
+msgstr ""
+"Историята се пази изцяло: новото решение не презаписва предишното, затова "
+"минали периоди на ведомостта запазват процента, с който са изчислени."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_employee__l10n_bg_protection_status__humanitarian
+msgid "Humanitarian Status"
+msgstr "Хуманитарен статут"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_exception_icon
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_exception_icon
+msgid "Icon"
+msgstr "Икона"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_exception_icon
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Икона за индикация на грешка в дейност."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:210
+msgid "ID card"
+msgstr "Лична карта"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_id_card_expiry
+msgid "ID Card Expires On"
+msgstr "Лична карта — валидна до"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_id_card_number
+msgid "ID Card No"
+msgstr "Лична карта №"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__temporary_assignment_reason__idle_time
+msgid "Idle Time (Art. 120, para. 1 LC)"
+msgstr "Престой (чл. 120, ал. 1 КТ)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_needaction
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Ако е отметнато, новите съобщения изискват вниманието ви."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_has_error
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_has_sms_error
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__message_has_error
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Ако е отметнато, някои съобщения имат грешка при доставка."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_search
+msgid "In force"
+msgstr "Действащи"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__date_from
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_search
+msgid "In force from"
+msgstr "В сила от"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__date_to
+msgid "In force until"
+msgstr "В сила до"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_001
+msgid ""
+"Indefinite employment contract under Art. 67, para. 1, item 1 of the Labor "
+"Code"
+msgstr "Безсрочен трудов договор по чл. 67, ал. 1, т. 1 от КТ"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract_type__l10n_bg_contract_duration_type__indefinite
+msgid "Indefinite Period"
+msgstr "За неопределено време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__notes
+msgid "Internal Notes"
+msgstr "Вътрешни бележки"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__notes
+msgid "Internal notes about this amendment"
+msgstr "Вътрешни бележки по споразумението"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Internal notes about this amendment..."
+msgstr "Вътрешни бележки по споразумението..."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_is_follower
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_is_follower
+msgid "Is Follower"
+msgstr "Е последовател"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__date_decision
+msgid "Issued on"
+msgstr "Дата на решението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__issuing_body
+msgid "Issuing Body"
+msgstr "Издаващ орган"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:389
+#, python-format
+msgid ""
+"it is expected to continue as %(ground)s — a new contract has to be "
+"concluded for that"
+msgstr ""
+"очаква се да продължи като %(ground)s — за това трябва да се сключи нов "
+"договор"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:392
+msgid ""
+"it is to be TERMINATED on that date — no ground is set for what follows"
+msgstr ""
+"той следва да бъде ПРЕКРАТЕН на тази дата — не е посочено какво следва"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_job_description
+msgid "Job Description"
+msgstr "Характер на работата"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_contract_number
+msgid "Labor Contract Number"
+msgstr "Номер на трудов договор"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__write_uid
+msgid "Last Updated by"
+msgstr "Последна промяна от"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__write_date
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__write_date
+msgid "Last Updated on"
+msgstr "Последна промяна на"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Leave Days"
+msgstr "Отпуск"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__leave_change
+msgid "Leave Days Change"
+msgstr "Промяна на размера на отпуска"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:1045
+#, python-format
+msgid "Leave Days: %(old)d → %(new)d"
+msgstr "Отпуск (дни): %(old)d → %(new)d"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__leave_extension
+msgid "Leave Extension"
+msgstr "Удължаване на отпуска"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__assignment_location
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_work_location
+msgid "Legacy free text. The carrier is the New Work Location Record."
+msgstr "Заварен свободен текст. Носителят е „Ново работно място (запис)“."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__assignment_duration_months
+msgid ""
+"Legacy. Art. 120 LC measures the assignment in calendar days; see Assignment"
+" Days."
+msgstr ""
+"Заварено. Чл. 120 КТ мери преместването в календарни дни — виж „Дни на "
+"преместването“."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_legal_basis
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__legal_basis
+msgid "Legal articles from Bulgarian Labor Code justifying this amendment"
+msgstr "Разпоредби от Кодекса на труда, на които се основава споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_legal_basis
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__legal_basis
+msgid "Legal Basis"
+msgstr "Правно основание"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_fixed_term_reason
+msgid "Legal reason for fixed term contract according to Art. 68 KT"
+msgstr "Правно основание за срочен договор съгласно чл. 68 КТ"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__contract_id
+msgid "Main Contract"
+msgstr "Трудов договор"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_has_error
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_has_error
+msgid "Message Delivery error"
+msgstr "Грешка при доставка на съобщение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_ids
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_ids
+msgid "Messages"
+msgstr "Съобщения"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__my_activity_date_deadline
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Краен срок за моята дейност"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_economic_activity_id
+msgid "NACE"
+msgstr "КИД"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__temporary_assignment_reason__natural_disaster
+msgid "Natural Disaster"
+msgstr "Природно бедствие"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_qualification_group
+msgid "NCOP"
+msgstr "НКПД"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_ncop_position_id
+msgid "NCOP Position"
+msgstr "Длъжност по НКПД"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:73
+msgid "NCOP position refreshed from job position."
+msgstr "Длъжността по НКПД е опреснена от работната позиция."
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:480
+msgid "New Amendment"
+msgstr "Ново споразумение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_daily_hours
+msgid "New Daily Hours"
+msgstr "Нови дневни часове"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_economic_activity_id
+msgid "New Economic Activity"
+msgstr "Нова икономическа дейност"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_leave_days
+msgid "New Leave Days"
+msgstr "Нов основен отпуск (дни)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_position_id
+msgid "New NKPD Position"
+msgstr "Нова длъжност по НКПД"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_wage
+msgid "New Wage"
+msgstr "Нова заплата"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_weekly_hours
+msgid "New Weekly Hours"
+msgstr "Нови седмични часове"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_work_location
+msgid "New Work Location"
+msgstr "Ново работно място"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_work_location_id
+msgid "New Work Location Record"
+msgstr "Ново работно място (запис)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_working_time_type
+msgid "New Working Time Type"
+msgstr "Нов вид работно време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_calendar_event_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Следващо събитие в календара"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_date_deadline
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Краен срок за следващата дейност"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_summary
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_summary
+msgid "Next Activity Summary"
+msgstr "Резюме на следващата дейност"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_type_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_type_id
+msgid "Next Activity Type"
+msgstr "Вид на следваща дейност"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_job__l10n_bg_ncop_code
+msgid "NKPD Code"
+msgstr "Код по НКПД"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_ncop_position_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_work_nkpd
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "NKPD Position"
+msgstr "Длъжност по НКПД"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_position_id
+msgid "NKPD position after this amendment"
+msgstr "Длъжност по НКПД след споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_position_id
+msgid "NKPD position of the contract when the amendment was created"
+msgstr "Длъжността по НКПД по договора при създаването на споразумението"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:1025
+#, python-format
+msgid "NKPD Position: %(old)s → %(new)s"
+msgstr "Длъжност по НКПД: %(old)s → %(new)s"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_daily_hours
+msgid "Normal daily working hours"
+msgstr "Нормална продължителност на работния ден (часове)"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:995
+#, python-format
+msgid ""
+"Not restored on expiry: %(fields)s. A later change is in force on the "
+"contract; restoring the previous value would silently undo it."
+msgstr ""
+"Не са възстановени при изтичането: %(fields)s. По договора е в сила по-късна"
+" промяна; връщането на предишната стойност би я отменило тихо."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__note
+msgid "Note"
+msgstr "Бележка"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "Notes"
+msgstr "Бележки"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_notice_period_days
+msgid "Notice Period (days)"
+msgstr "Срок на предизвестие (дни)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_notice_period_days
+msgid ""
+"Notice period for contract termination (30-90 days for indefinite contracts)"
+msgstr ""
+"Срок на предизвестие за прекратяване на договора (30-90 дни за безсрочни "
+"договори)"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:290
+msgid "Notice period for indefinite contracts must be between 30 and 90 days."
+msgstr ""
+"Срокът на предизвестие за безсрочни договори трябва да бъде между 30 и 90 "
+"дни."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__number
+msgid "Number"
+msgstr "Номер"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_needaction_counter
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Брой действия"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_has_error_counter
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_has_error_counter
+msgid "Number of errors"
+msgstr "Брой грешки"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_needaction_counter
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Брой съобщения, изискващи действие"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_has_error_counter
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Брой съобщения с грешка при доставка"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:712
+msgid "Only amendments pending approval can be approved."
+msgstr "Одобряват се само споразумения, които чакат одобрение."
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:731
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:750
+msgid "Only approved amendments can be activated."
+msgstr "Активират се само одобрени споразумения."
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:703
+msgid "Only draft amendments can be submitted for approval."
+msgstr "За одобрение се подават само споразумения в чернова."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "Optional"
+msgstr "Незадължително"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__other
+msgid "Other Amendment"
+msgstr "Друго изменение"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+msgid "Other contractual changes"
+msgstr "Други договорни промени"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__temporary_assignment_reason__other_emergency
+msgid "Other Emergency"
+msgstr "Друг неотложен случай"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_employee__l10n_bg_protection_status__other
+msgid "Other Ground"
+msgstr "Друго основание"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract__l10n_bg_working_time_type__part_time
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__new_working_time_type__part_time
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__old_working_time_type__part_time
+msgid "Part Time"
+msgstr "Непълно работно време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_personal_doctor
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_personal_documents
+msgid "Personal Doctor"
+msgstr "Личен лекар"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_ncop_position_id
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_ncop_position_id
+msgid ""
+"Position according to NCOP-2011 classification as required by Art. 66 KT"
+msgstr ""
+"Длъжност съгласно класификацията НКПД-2011, както се изисква от чл. 66 КТ"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+msgid "Position and job role changes"
+msgstr "Промени в длъжността"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__position_change
+msgid "Position Change"
+msgstr "Промяна на длъжността"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Position Changes"
+msgstr "Промени в длъжността"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_l10n_bg_hr
+msgid "Position Information (Art. 66 LC)"
+msgstr "Длъжност (чл. 66 КТ)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_daily_hours
+msgid "Previous Daily Hours"
+msgstr "Предишни дневни часове"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_economic_activity_id
+msgid "Previous Economic Activity"
+msgstr "Предишна икономическа дейност"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_leave_days
+msgid "Previous Leave Days"
+msgstr "Досегашен основен отпуск (дни)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_position_id
+msgid "Previous NKPD Position"
+msgstr "Предишна длъжност по НКПД"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_wage
+msgid "Previous Wage"
+msgstr "Предишна заплата"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_weekly_hours
+msgid "Previous Weekly Hours"
+msgstr "Предишни седмични часове"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_work_location
+msgid "Previous Work Location"
+msgstr "Предишно работно място"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_work_location_id
+msgid "Previous Work Location Record"
+msgstr "Предишно работно място (запис)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_working_time_type
+msgid "Previous Working Time Type"
+msgstr "Досегашен вид работно време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_probation_period_days
+msgid "Probation Period (days)"
+msgstr "Изпитателен срок (дни)"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:296
+msgid "Probation period cannot exceed 180 days (6 months)."
+msgstr "Изпитателният срок не може да надвишава 180 дни (6 месеца)."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_probation_period_days
+msgid "Probation period in days (max 6 months according to KT)"
+msgstr "Изпитателен срок в дни (най-много 6 месеца по КТ)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__temporary_assignment_reason__production_necessity
+msgid "Production Necessity (Art. 120, para. 1 LC)"
+msgstr "Производствена необходимост (чл. 120, ал. 1 КТ)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_protection_expiry
+msgid "Protection Expires On"
+msgstr "Закрилата изтича на"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:211
+msgid "Protection status"
+msgstr "Закрила"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_protection_status
+msgid "Protection Status"
+msgstr "Закрила"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_qualification_group
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_job__l10n_bg_qualification_group
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_work_nkpd
+msgid "Qualification Group"
+msgstr "Квалификационна група"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_qualification_group
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_qualification_group
+msgid "Qualification group from NKPD position"
+msgstr "Квалификационна група от длъжността по НКПД"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__rating_ids
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__rating_ids
+msgid "Ratings"
+msgstr "Рейтинги"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__wage_change_reason
+msgid "Reason for wage modification"
+msgstr "Причина за промяна на заплатата"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_telk_decision
+msgid "Record a TELK or NELK decision"
+msgstr "Въведете решение на ТЕЛК или НЕЛК"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__percent
+msgid "Reduced Working Capacity (%)"
+msgstr "Трайно намалена работоспособност (%)"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_work_nkpd
+msgid "Refresh from Job Position"
+msgstr "Опресни от длъжността"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:72
+msgid "Refreshed"
+msgstr "Опреснено"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_employee__l10n_bg_protection_status__refugee
+msgid "Refugee Status"
+msgstr "Статут на бежанец"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__assignment_compensation
+msgid ""
+"Remuneration for the work actually performed during the assignment (Art. "
+"267, para. 3 LC). It may not be lower than the gross remuneration for the "
+"main job. Left empty — the wage does not change."
+msgstr ""
+"Възнаграждението за действително изпълняваната работа през преместването "
+"(чл. 267, ал. 3 КТ). Не може да е по-ниско от брутното за основната работа. "
+"Ако е празно — заплатата не се променя."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract_type__l10n_bg_contract_duration_type__replacement
+msgid "Replacement"
+msgstr "Заместване"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_education_level
+msgid "Required Education Level"
+msgstr "Изисквано ниво на образование"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_education_level
+msgid "Required education level for this position"
+msgstr "Минимално изисквано ниво на образование за тази позиция"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Reset to Draft"
+msgstr "Върни в чернова"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:809
+#, python-format
+msgid "Reset to draft from %(state)s."
+msgstr "Върнато в чернова от „%(state)s“."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_user_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_user_id
+msgid "Responsible User"
+msgstr "Отговорен потребител"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Search Contract Amendments"
+msgstr "Търсене на допълнителни споразумения"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__sequence_number
+msgid "Sequence Number"
+msgstr "Пореден номер"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__sequence_prefix
+msgid "Sequence Prefix"
+msgstr "Префикс на номерацията"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__amendment_number
+msgid "Sequential number of amendment (e.g., 1/2024)"
+msgstr "Пореден номер на споразумението (напр. 1/2024)"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Signatures"
+msgstr "Подписи"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Signatures & Approval"
+msgstr "Подписи и одобрение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__l10n_bg_signed_after_effective
+msgid "Signed After Effective Date"
+msgstr "Подписано след влизането в сила"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_signed_by_employee
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__signed_by_employee
+msgid "Signed by Employee"
+msgstr "Подписано от служителя"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_signed_by_employer
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__signed_by_employer
+msgid "Signed by Employer"
+msgstr "Подписано от работодателя"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_has_sms_error
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Грешка при доставяне на SMS"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__work_location_id
+msgid "Specific work location as required by Art. 66 of Labor Code"
+msgstr ""
+"Специфично работно място съгласно изискванията на чл. 66 от Кодекса на труда"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__state
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Status"
+msgstr "Състояние"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_state
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Състояние въз основа на дейности\n"
+"Просрочия: падеж днес вече е минала\n"
+"Днес: е планирана дейност\n"
+"Планиран: бъдещи действия."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__subject
+msgid "Subject"
+msgstr "Тема"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Submit for Approval"
+msgstr "Подай за одобрение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract__l10n_bg_working_time_type__summarized
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__new_working_time_type__summarized
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__old_working_time_type__summarized
+msgid "Summarized Calculation"
+msgstr "Сумирано изчисляване на работното време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_tax_number
+msgid ""
+"Tax identification number issued by the state of birth or citizenship of a "
+"foreign employee. Bulgarian citizens are identified by their EGN in "
+"Identification No."
+msgstr ""
+"Данъчен идентификационен номер, издаден от държавата по раждане или "
+"гражданство на чуждестранен служител. Българските граждани се идентифицират "
+"с ЕГН в „Идентификационен №“."
+
+#. module: l10n_bg_hr
+#: model:ir.model,name:l10n_bg_hr.model_l10n_bg_telk_decision
+msgid "TELK Decision"
+msgstr "Решение на ТЕЛК"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_telk
+msgid "TELK/NELK"
+msgstr "ТЕЛК/НЕЛК"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "TELK/NELK Decision"
+msgstr "Решение на ТЕЛК/НЕЛК"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:192
+#: model:ir.actions.act_window,name:l10n_bg_hr.action_l10n_bg_telk_decision
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_telk_decision_ids
+#: model:ir.ui.menu,name:l10n_bg_hr.menu_l10n_bg_telk_decision
+msgid "TELK/NELK Decisions"
+msgstr "Решения на ТЕЛК/НЕЛК"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Temporary"
+msgstr "Временно"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__is_temporary
+msgid "Temporary Amendment"
+msgstr "Срочно споразумение"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:1003
+#, python-format
+msgid "Temporary amendment %s expired; the previous terms are restored."
+msgstr "Срочното споразумение %s изтече; предишните условия са възстановени."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__is_temporary_assignment
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__temporary_assignment
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Temporary Assignment"
+msgstr "Временно преместване"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:1005
+msgid "Temporary Assignment Ended"
+msgstr "Временното преместване приключи"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__is_temporary_assignment
+msgid "Temporary assignment to other work under Art. 120 LC"
+msgstr "Временно възлагане на друга работа по чл. 120 КТ"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Temporary Assignments"
+msgstr "Временни премествания"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+msgid "Temporary assignments and relocations"
+msgstr "Временни премествания"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:598
+#, python-format
+msgid ""
+"Temporary assignments for %(emp)s in %(year)s would total %(total)d calendar"
+" days. Art. 120, para. 1 LC allows 45 per calendar year, except during idle "
+"time."
+msgstr ""
+"Временните премествания на %(emp)s през %(year)s биха станали общо %(total)d"
+" календарни дни. Чл. 120, ал. 1 КТ допуска 45 за календарна година, освен "
+"при престой."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_employee__l10n_bg_protection_status__temporary
+msgid "Temporary Protection"
+msgstr "Временна закрила"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_termination_order_date
+msgid "Termination Order Date"
+msgstr "Дата на заповедта за прекратяване"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_fixed_term_end
+msgid ""
+"The agreed end of a fixed-term contract (Art. 68 LC). This is NOT the "
+"termination date: the term may lapse without anyone terminating, and then "
+"Art. 69 LC converts the contract. Leave empty for open-ended contracts."
+msgstr ""
+"Уговореният край на срочния договор (чл. 68 КТ). Това НЕ е датата на "
+"прекратяване: срокът може да изтече, без някой да прекрати, и тогава чл. 69 "
+"КТ превръща договора. Оставете празно при безсрочен."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__l10n_bg_signed_after_effective
+msgid ""
+"The amendment was signed after the date it takes effect. This is allowed; "
+"the form only asks to check that the date is right."
+msgstr ""
+"Споразумението е подписано след датата, от която действа. Това е допустимо; "
+"формата само напомня да се провери датата."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_telk_current_id
+msgid ""
+"The decision in force today. History is kept in full — a new decision does "
+"not overwrite the previous one."
+msgstr ""
+"Решението, действащо днес. Историята се пази изцяло — новото решение не "
+"презаписва предишното."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid ""
+"The effective date has not arrived yet. Activating now writes the new terms "
+"on the contract from today and is recorded in the chatter. Continue?"
+msgstr ""
+"Датата на влизане в сила още не е настъпила. Активирането сега записва "
+"новите условия по договора от днес и остава следа в чатъра. Продължаване?"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:466
+#, python-format
+msgid ""
+"The fixed term lapsed on %(date)s and five working days have passed with no "
+"end date on the contract. Under Art. 69(1) LC the contract may already be "
+"converted into an open-ended one. Expected outcome: %(outcome)s. Nothing was"
+" changed automatically — terminate the contract or conclude the new one."
+msgstr ""
+"Срокът е изтекъл на %(date)s и са минали пет работни дни, без договорът да "
+"има крайна дата. По чл. 69, ал. 1 КТ договорът може вече да се е превърнал в"
+" безсрочен. Очакван изход: %(outcome)s. Нищо не е променено автоматично — "
+"прекратете договора или сключете новия."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__temporary_assignment_reason
+msgid ""
+"The ground under Art. 120 LC. Idle time is the only one without a 45-day "
+"limit: the assignment lasts as long as the idle time does."
+msgstr ""
+"Основанието по чл. 120 КТ. Престоят е единственото без 45-дневен таван: "
+"преместването трае, докато трае престоят."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__contract_id
+msgid "The main employment contract this amendment relates to"
+msgstr "Трудовият договор, към който е споразумението"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:880
+#, python-format
+msgid ""
+"The new work location is given only as text (%(text)s). It is not written on"
+" the contract — set the New Work Location Record instead."
+msgstr ""
+"Новото работно място е посочено само като текст (%(text)s). Не се записва по"
+" договора — посочете „Ново работно място (запис)“."
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/telk_decision.py:71
+#, python-format
+msgid ""
+"The reduced working capacity on decision %(number)s is %(percent)s. It must "
+"be a whole per cent between 1 and 100 — a fraction such as 0.51 instead of "
+"51 passes every 'is there a disability' test and fails every 'fifty or more'"
+" one."
+msgstr ""
+"Намалената работоспособност по решение %(number)s е %(percent)s. Трябва да е"
+" цял процент между 1 и 100 — дроб като 0,51 вместо 51 минава всяка проверка "
+"„има ли намалена работоспособност“ и пада на всяка „50 и над“."
+
+#. module: l10n_bg_hr
+#: model:ir.model.constraint,message:l10n_bg_hr.constraint_l10n_bg_telk_decision_number_employee_uniq
+msgid "The same decision cannot be recorded twice for one employee."
+msgstr "Едно и също решение не може да се въведе два пъти за един служител."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid ""
+"The signature date is after the effective date — check that it is correct."
+msgstr ""
+"Датата на подписване е след датата на влизане в сила — проверете дали е "
+"вярна."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__issuing_body
+msgid "The TELK or NELK panel that issued the decision."
+msgstr "Съставът на ТЕЛК или НЕЛК, издал решението."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_work_location_id
+msgid ""
+"The work location record written on the contract when the amendment takes "
+"effect."
+msgstr ""
+"Работното място, което се записва по договора при влизането в сила на "
+"споразумението."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_telk_expired
+msgid ""
+"There is a decision on file, but none of them is in force today — which is a"
+" different situation from having no decision at all."
+msgstr ""
+"Има решение в досието, но днес никое не е в сила — това е различно положение"
+" от липсата на решение."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "This Month"
+msgstr "Този месец"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "This Year"
+msgstr "Тази година"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__state__to_approve
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "To Approve"
+msgstr "За одобрение"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_total_leave_days
+msgid "Total Annual Leave Days"
+msgstr "Общо годишен отпуск (дни)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_total_leave_days
+msgid "Total annual leave days (basic + extended + additional)"
+msgstr "Общо дни годишен отпуск (основен + удължен + допълнителен)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__is_wage_increase
+msgid "True if new wage is higher than old wage"
+msgstr "Отметнато, ако новата заплата е по-висока от предишната"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__amendment_type
+msgid "Type of contract amendment according to Bulgarian Labor Code"
+msgstr "Вид на допълнителното споразумение по Кодекса на труда"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_exception_decoration
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Вид на изключителната дейност по записа."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_working_time_type
+msgid "Type of working time as required by Art. 66 KT"
+msgstr "Вид работно време съгласно изискванията на чл. 66 КТ"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_contract_number
+msgid ""
+"Unique labor contract number. Auto-filled from ir.sequence "
+"'l10n_bg.contract.number' on create if empty. Used in the ETZ XML "
+"<contractno> element (cell 11)."
+msgstr ""
+"Уникален номер на трудовия договор. Попълва се автоматично от номератора при"
+" създаване, ако е празен. Ползва се в елемента <contractno> на ЕТЗ (клетка "
+"11)."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract_type__l10n_bg_contract_duration_type__specific_work
+msgid "Until Completion of Specific Work"
+msgstr "До приключване на конкретната работа"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__temporary_assignment_reason__urgent_work
+msgid "Urgent Work"
+msgstr "Неотложна работа"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__approved_by_id
+msgid "User who approved this amendment"
+msgstr "Потребителят, одобрил споразумението"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:213
+msgid "Visa"
+msgstr "Виза"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_wage
+msgid "Wage after this amendment"
+msgstr "Заплата след споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__wage_change
+msgid "Wage Change"
+msgstr "Промяна на заплатата"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__wage_change_reason
+msgid "Wage Change Reason"
+msgstr "Причина за промяна на заплатата"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Wage Changes"
+msgstr "Промени в заплатата"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+msgid "Wage changes and adjustments"
+msgstr "Промени и корекции на заплатата"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__wage_difference
+msgid "Wage Difference"
+msgstr "Разлика в заплатата"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__is_wage_increase
+msgid "Wage Increase"
+msgstr "Увеличение на заплатата"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Wage Modification"
+msgstr "Промяна на заплатата"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_wage
+msgid "Wage of the contract when the amendment was created"
+msgstr "Заплатата по договора при създаването на споразумението"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:1022
+#, python-format
+msgid "Wage: %(old).2f → %(new).2f"
+msgstr "Заплата: %(old).2f → %(new).2f"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__website_message_ids
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__website_message_ids
+msgid "Website communication history"
+msgstr "История на комуникацията от уебсайта"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__website_message_ids
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__website_message_ids
+msgid "Website Messages"
+msgstr "Съобщения от уебсайт"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_weekly_hours
+msgid "Weekly hours of the contract when the amendment was created"
+msgstr "Седмичните часове по договора при създаването на споразумението"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_after_term_contract_type_id
+msgid ""
+"What the employment is expected to become once the fixed term lapses. It is "
+"only shown in the reminders — a new contract is never created automatically."
+" Left empty — the reminder says the contract is to be terminated on the term"
+" date."
+msgstr ""
+"Какво се очаква да стане правоотношението след изтичане на срока. Показва се"
+" само в напомнянията — нов договор не се създава автоматично. Ако е празно —"
+" напомнянето казва, че договорът се прекратява на датата на срока."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__percent
+msgid ""
+"Whole per cent, from 1 to 100 — not a fraction. A decision recorded as 0.51 "
+"instead of 51 passes every 'is there a disability' test and fails every "
+"'fifty or more' test."
+msgstr ""
+"Цял процент от 1 до 100 — не дроб. Решение, записано като 0,51 вместо 51, "
+"минава всяка проверка „има ли намалена работоспособност“ и пада на всяка „50"
+" и над“."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__work_location_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Work Location"
+msgstr "Работно място"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__work_location
+msgid "Work Location Address"
+msgstr "Адрес на работното място"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_work_location
+msgid "Work location address of the contract when the amendment was created"
+msgstr ""
+"Адресът на работното място по договора при създаването на споразумението"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:1030
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:1034
+#, python-format
+msgid "Work Location: %(old)s → %(new)s"
+msgstr "Работно място: %(old)s → %(new)s"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:212
+msgid "Work permit"
+msgstr "Разрешение за работа"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Working Hours"
+msgstr "Работни часове"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Working Time"
+msgstr "Работно време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__working_time_change
+msgid "Working Time Change"
+msgstr "Промяна на работното време"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+msgid "Working time modifications"
+msgstr "Промени в работното време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_working_time_type
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Working Time Type"
+msgstr "Вид работно време"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:1039
+#, python-format
+msgid "Working Time: %(old)s → %(new)s"
+msgstr "Работно време: %(old)s → %(new)s"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Workplace"
+msgstr "Работно място"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__workplace_change
+msgid "Workplace Change"
+msgstr "Промяна на работното място"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_workplace_code
+msgid "Workplace Code (EKATTE)"
+msgstr "Код на работно място (ЕКАТТЕ)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_workplace_code
+msgid "Workplace location code according to EKATTE"
+msgstr "Код на работното място по ЕКАТТЕ"

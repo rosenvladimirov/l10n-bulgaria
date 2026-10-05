@@ -1,0 +1,2337 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_hr
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-05 12:00+0000\n"
+"PO-Revision-Date: 2026-10-05 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:233
+#, python-format
+msgid "%(doc)s expires on %(date)s"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_kanban
+msgid "<span class=\"badge badge-warning\">Temporary</span>"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_personal_documents
+msgid "<span invisible=\"not l10n_bg_id_card_number\">Expires on</span>"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_work_nkpd
+msgid "<span>NKPD / KID</span>"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_kanban
+msgid "<strong>Effective:</strong>"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid ""
+"<strong>Legal Note:</strong>\n"
+"                                Art. 120, para. 1 LC: on production necessity or idle time the\n"
+"                                employer may assign other work without the employee's consent — in\n"
+"                                the same or another undertaking, but\n"
+"                                <strong>within the same settlement or locality</strong>, for up to\n"
+"                                <strong>45 calendar days per calendar year</strong>. During idle time\n"
+"                                the assignment lasts as long as the idle time does.\n"
+"                                Art. 267, para. 3 LC: the remuneration is that of the work performed,\n"
+"                                but not lower than the gross remuneration for the main job."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_kanban
+msgid "<strong>Type:</strong>"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_kanban
+msgid "<strong>Wage Change:</strong>"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_needaction
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Activate"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Activate Early"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:755
+#, python-format
+msgid ""
+"Activated early on %(today)s, before the agreed effective date "
+"%(effective)s. The new terms are on the contract from today."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__active
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__state__active
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Active"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_ids
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_exception_decoration
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_state
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_type_icon
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_018
+msgid ""
+"Additional agreement in the cases of Art. 121a, para. 1, item 1 of the Labor"
+" Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_019
+msgid ""
+"Additional agreement under Art. 119, para. 1 of the Labor Code or order "
+"under Art. 118, para. 3 of the Labor Code for amendment of the basic "
+"remuneration"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_020
+msgid ""
+"Additional agreement under Art. 119, para. 1 of the Labor Code or order "
+"under Art. 138a, para. 1 or 2 of the Labor Code for amendment of working "
+"time duration"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_021
+msgid ""
+"Additional agreement under Art. 119, para. 1 of the Labor Code, which amends"
+" the term of the employment contract or the position of the employee or the "
+"amount of agreed paid annual leave and/or the workplace"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_amendment_ids
+msgid ""
+"Additional agreements to the main contract according to Bulgarian Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__additional_duties
+msgid "Additional Duties"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_010
+msgid "Additional employment contract under Art. 110 of the Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_011
+msgid "Additional employment contract under Art. 111 of the Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_additional_leave_days
+msgid "Additional Leave Days"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_additional_leave_days
+msgid "Additional leave days for specific conditions"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_008
+msgid ""
+"Agreement under Art. 107 of the Labor Code in connection with Art. 83 of the"
+" Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_009
+msgid ""
+"Agreement under Art. 107 of the Labor Code in connection with Art. 89 of the"
+" Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:897
+#, python-format
+msgid ""
+"Amendment %(ref)s does not change anything on the contract. Fill in at least"
+" one new value — wage, NKPD position, economic activity, work location, "
+"working time or leave days — or cancel it. An amendment cannot take effect "
+"without a change."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:888
+#, python-format
+msgid "Amendment %(ref)s in force from %(date)s: %(text)s"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:799
+#, python-format
+msgid ""
+"Amendment %(ref)s is %(state)s and cannot go back to draft. The signed "
+"document would differ from what was written on the contract. Create a new "
+"amendment instead."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:686
+#, python-format
+msgid ""
+"Amendment %(ref)s is already in force; %(fields)s can no longer be changed. "
+"Editing it would make the signed document differ from what was written on "
+"the contract. Create a new amendment instead."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:867
+#, python-format
+msgid ""
+"Amendment %(ref)s is temporary but has no end date. Without it the change "
+"would stay in force forever — the expiry cron looks for the end date."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:851
+#, python-format
+msgid ""
+"Amendment %(ref)s states both a new wage (%(wage).2f) and an assignment "
+"compensation (%(comp).2f). They disagree — fill in only one."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:736
+#, python-format
+msgid ""
+"Amendment %(ref)s takes effect on %(effective)s, which has not arrived yet. "
+"It will be activated automatically on that day. If it must take effect now, "
+"use 'Activate Early' — that action is recorded in the chatter."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_amendment_count
+msgid "Amendment Count"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__description
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Amendment Details"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:552
+msgid "Amendment effective date must be before end date."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__amendment_number
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Amendment Number"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:564
+msgid "Amendment number must be unique per contract."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Amendment Subject"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__amendment_type
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Amendment Type"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_amendment_button
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_amendment_tab
+msgid "Amendments"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_l10n_bg_hr
+msgid "Annual Leave (Art. 66 LC)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "Anything the payroll officer needs to know about this decision."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_016
+msgid "Apprenticeship contract under Art. 233b of the Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Approval"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__approved_date
+msgid "Approval Date"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Approve"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__state__approved
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Approved"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__approved_by_id
+msgid "Approved by"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:621
+#, python-format
+msgid ""
+"Art. 120, para. 1 LC allows a temporary assignment without the employee's "
+"consent only within the same settlement or locality. %(old)s and %(new)s are"
+" different settlements. Use a regular amendment with the employee's consent "
+"instead."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__assignment_compensation
+msgid "Assignment Compensation"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:639
+#, python-format
+msgid ""
+"Assignment compensation %(new).2f is lower than the gross remuneration for "
+"the main job %(old).2f. Art. 267, para. 3 LC does not allow that."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__l10n_bg_assignment_days
+msgid "Assignment Days"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Assignment Details"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__assignment_duration_months
+msgid "Assignment Duration (months, legacy)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__assignment_location
+msgid "Assignment Location"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__temporary_assignment_reason
+msgid "Assignment Reason"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid ""
+"At or above 50%: the monthly tax relief under Art. 18(2)\n"
+"                        PITA applies, and the basic annual leave is at least 26\n"
+"                        working days under Art. 319 LC."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_search
+msgid "At or over 50%"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_attachment_count
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_l10n_bg_hr
+msgid "Auto-generated: ТД-00001"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:932
+#, python-format
+msgid ""
+"Automatic activation failed: %s. The amendment stays approved and needs "
+"manual review."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Basic Annual Leave"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_basic_leave_days
+msgid "Basic Annual Leave (days)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:283
+msgid ""
+"Basic annual leave cannot be less than 20 working days according to Labor "
+"Code."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_leave_days
+msgid "Basic annual leave days after this amendment"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_leave_days
+msgid "Basic annual leave of the contract when the amendment was created"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_basic_leave_days
+msgid "Basic paid annual leave in working days (min. 20 days per Labor Code)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_contract_duration_type
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract_type__l10n_bg_contract_duration_type
+msgid "BG Contract Duration Type"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.actions.server,name:l10n_bg_hr.cron_activate_due_amendments_ir_actions_server
+msgid "BG: Activate Due Contract Amendments"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.actions.server,name:l10n_bg_hr.cron_expire_temporary_amendments_ir_actions_server
+msgid "BG: Expire Temporary Contract Amendments"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.actions.server,name:l10n_bg_hr.cron_close_overdue_fixed_terms_ir_actions_server
+msgid "BG: Flag Overdue Fixed-Term Contracts"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.actions.server,name:l10n_bg_hr.cron_notify_expiring_documents_ir_actions_server
+msgid "BG: Notify Expiring Employee Documents"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.actions.server,name:l10n_bg_hr.cron_notify_expiring_fixed_terms_ir_actions_server
+msgid "BG: Notify Expiring Fixed-Term Contracts"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__subject
+msgid "Brief description of the amendment subject"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model,name:l10n_bg_hr.model_l10n_bg_hr_contract_amendment
+msgid "Bulgarian Contract Amendment"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_id_card_number
+msgid ""
+"Bulgarian identity card, or the residence document of a third-country "
+"national."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_l10n_bg_hr
+msgid "Bulgarian Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__l10n_bg_assignment_days
+msgid ""
+"Calendar days of this assignment, derived from the effective and end dates. "
+"Art. 120, para. 1 LC caps them at 45 per calendar year, except during idle "
+"time."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Cancel"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__state__cancel
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Cancelled"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:782
+msgid "Cannot cancel active or expired amendments."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Change Justification"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_job_description
+msgid "Character of work as required by Art. 66 of Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__is_temporary
+msgid "Check if this amendment is temporary (e.g., temporary transfer)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__company_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__company_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Company"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__temporary_assignment_reason__force_majeure
+msgid "Compelling Reasons (Art. 120, para. 3 LC)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__work_location
+msgid "Complete address of work location for contract display"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Contract"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_after_term_contract_type_id
+msgid "Contract After the Term"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:892
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Contract Amendment"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:907
+msgid "Contract Amendment Applied"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.actions.act_window,name:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+#: model:ir.actions.act_window,name:l10n_bg_hr.action_l10n_bg_hr_contract_amendment_from_contract
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_amendment_ids
+#: model:ir.ui.menu,name:l10n_bg_hr.menu_l10n_bg_hr_contract_amendment
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_calendar
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_list
+msgid "Contract Amendments"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_pivot
+msgid "Contract Amendments Analysis"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+msgid "Contract amendments are used for:"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_contract_date
+msgid "Contract Conclusion Date"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:302
+msgid "Contract conclusion date cannot be after the start date."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__contract_extension
+msgid "Contract Extension"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__contract_suspension
+msgid "Contract Suspension"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_l10n_bg_hr
+msgid "Contract Terms"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:321
+#, python-format
+msgid ""
+"Contract type %(type)s is a fixed-term ground (Art. 68, para. 1 LC), so the "
+"agreed end of the term is required. Without it the contract is invisible to "
+"the expiry reminders, and Art. 69 LC can never be applied."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:906
+#, python-format
+msgid "Contract updated by amendment %s"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_work_nkpd
+msgid ""
+"Copy NCOP position (and KID, when set on the job) from the job position to "
+"the active contract"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+msgid "Create your first Contract Amendment!"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__create_date
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_daily_hours
+msgid "Daily hours of the contract when the amendment was created"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_daily_hours
+msgid "Daily Working Hours"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_termination_order_date
+msgid ""
+"Date of the termination order (заповед за прекратяване); visible once the "
+"contract end date is set"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__date_signed
+msgid "Date Signed"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__approved_date
+msgid "Date when amendment was approved"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_contract_date
+msgid "Date when contract was concluded as required by Art. 66 KT"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__date_effective
+msgid "Date when the amendment becomes effective"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__date_signed
+msgid "Date when the amendment was signed by both parties"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/telk_decision.py:83
+#, python-format
+msgid "Decision %s stops applying before it starts."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_telk_expired
+msgid "Decision Expired"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_telk_current_id
+msgid "Decision in Force"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__number
+msgid "Decision number as issued."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_telk_decision_count
+msgid "Decisions"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_013
+msgid "Decree under Art. 405a of the Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_res_company__l10n_bg_economic_activity_id
+msgid "Default economic activity code (KID 2008) for this company"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__description
+msgid "Detailed description of changes made by this amendment"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__diagnosis
+msgid "Diagnosis"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__wage_difference
+msgid "Difference between new and old wage"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:214
+msgid "Disability decision (TELK/NELK)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_disability_expiry
+msgid "Disability Decision Expires On"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__display_name
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_personal_doctor_address
+msgid "Doctor Address"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_personal_doctor_phone
+msgid "Doctor Phone"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:246
+#, python-format
+msgid ""
+"Document expiring in less than %(days)d days: %(doc)s, valid until %(date)s."
+" Arrange the renewal and update the employee record."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__state__draft
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Draft"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_l10n_bg_hr
+msgid "Duration & Termination"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_contract_duration_type
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract_type__l10n_bg_contract_duration_type
+msgid "Duration type as required by Art. 68 of Bulgarian Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "e.g. 1234/2026"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Economic Activity"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_job__l10n_bg_economic_activity_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_res_company__l10n_bg_economic_activity_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_work_nkpd
+msgid "Economic Activity (KID)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_economic_activity_id
+msgid "Economic Activity (NACE)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_economic_activity_id
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_economic_activity_id
+msgid ""
+"Economic activity according to Bulgarian KID classification for MOD "
+"calculation"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_economic_activity_id
+msgid "Economic activity after this amendment"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_economic_activity_code
+msgid "Economic Activity Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_job__l10n_bg_economic_activity_id
+msgid "Economic activity code (KID 2008) for this position"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_economic_activity_code
+msgid "Economic activity code according to KID 2008"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_economic_activity_id
+msgid "Economic activity of the contract when the amendment was created"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_job__l10n_bg_education_level
+msgid "Education Level"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__date_effective
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Effective Date"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__l10n_bg_effective_in_future
+msgid "Effective Date Not Reached"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__employee_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__employee_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_search
+msgid "Employee"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_signed_by_employee
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__signed_by_employee
+msgid "Employee has signed the amendment"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__temporary_assignment_reason__employee_replacement
+msgid "Employee Replacement"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_signed_by_employer
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__signed_by_employer
+msgid "Employer representative has signed the amendment"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_015
+msgid ""
+"Employment contract for internal replacement under Art. 259 of the Labor "
+"Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_014
+msgid ""
+"Employment contract for on-the-job training under Art. 230 of the Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_012
+msgid "Employment contract under Art. 114, para. 1 of the Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_003
+msgid "Employment contract under Art. 68, para. 1, item 2 of the Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_017
+msgid ""
+"Employment contract under Art. 68, para. 1, item 2 or 3 in connection with "
+"Art. 121a, para. 2, item 1 of the Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_004
+msgid "Employment contract under Art. 68, para. 1, item 3 of the Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_005
+msgid "Employment contract under Art. 68, para. 1, item 4 of the Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_006
+msgid "Employment contract under Art. 68, para. 1, item 5 of the Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_007
+msgid ""
+"Employment contract with probation period under Art. 70 of the Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "Empty = no expiry"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__date_to
+msgid ""
+"Empty means the decision is for life. Otherwise the rights that hang on it "
+"end with it."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__date_end
+msgid "End Date"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__date_end
+msgid "End date for temporary amendments (e.g., temporary assignments)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Enter amendment details"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Enter legal basis from Bulgarian law"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__state__expired
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_search
+msgid "Expired"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_disability_expiry
+msgid ""
+"Expiry of the TELK/NELK decision. When it lapses, both the monthly PIT "
+"relief and the Art. 319 LC leave floor stop applying."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_extended_leave_days
+msgid "Extended Annual Leave (days)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_extended_leave_days
+msgid "Extended annual leave days if applicable"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract_type__l10n_bg_contract_duration_type__fixed_term
+msgid "Fixed Term"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_fixed_term_end
+msgid "Fixed Term End"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:424
+#, python-format
+msgid ""
+"Fixed term ends on %(date)s: %(outcome)s. File the NRA notification under "
+"Art. 62(5) LC in time — once five working days pass with the employee still "
+"at work and no written objection, Art. 69 LC converts the contract by law "
+"and the choice is no longer yours."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:419
+#, python-format
+msgid "Fixed term of %(employee)s ends on %(date)s"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:461
+#, python-format
+msgid "Fixed term of %(employee)s lapsed on %(date)s"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_fixed_term_reason
+msgid "Fixed Term Reason"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_002
+msgid ""
+"Fixed-term employment contract under Art. 68, para. 1, item 1 of the Labor "
+"Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract__l10n_bg_working_time_type__flexible
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__new_working_time_type__flexible
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__old_working_time_type__flexible
+msgid "Flexible Hours"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_follower_ids
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_partner_ids
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_type_icon
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/telk_decision.py:62
+msgid "for life"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_tax_number
+msgid "Foreign Tax Number"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract__l10n_bg_working_time_type__full_time
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__new_working_time_type__full_time
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__old_working_time_type__full_time
+msgid "Full Time"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_personal_doctor
+msgid "General practitioner, as declared by the employee."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_protection_status
+msgid "Ground of residence under the Asylum and Refugees Act."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_search
+msgid "Group By"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__has_message
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_telk_decision
+msgid ""
+"History is kept in full: a new decision does not overwrite the\n"
+"               previous one, so past payroll periods keep the percentage they\n"
+"               were calculated with."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_employee__l10n_bg_protection_status__humanitarian
+msgid "Humanitarian Status"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_exception_icon
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_exception_icon
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:210
+msgid "ID card"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_id_card_expiry
+msgid "ID Card Expires On"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_id_card_number
+msgid "ID Card No"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__temporary_assignment_reason__idle_time
+msgid "Idle Time (Art. 120, para. 1 LC)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_needaction
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_has_error
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_has_sms_error
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__message_has_error
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_search
+msgid "In force"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__date_from
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_search
+msgid "In force from"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__date_to
+msgid "In force until"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_001
+msgid ""
+"Indefinite employment contract under Art. 67, para. 1, item 1 of the Labor "
+"Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract_type__l10n_bg_contract_duration_type__indefinite
+msgid "Indefinite Period"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__notes
+msgid "Internal Notes"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__notes
+msgid "Internal notes about this amendment"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Internal notes about this amendment..."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_is_follower
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__date_decision
+msgid "Issued on"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__issuing_body
+msgid "Issuing Body"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:389
+#, python-format
+msgid ""
+"it is expected to continue as %(ground)s — a new contract has to be "
+"concluded for that"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:392
+msgid ""
+"it is to be TERMINATED on that date — no ground is set for what follows"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_job_description
+msgid "Job Description"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_contract_number
+msgid "Labor Contract Number"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__write_date
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Leave Days"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__leave_change
+msgid "Leave Days Change"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:1045
+#, python-format
+msgid "Leave Days: %(old)d → %(new)d"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__leave_extension
+msgid "Leave Extension"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__assignment_location
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_work_location
+msgid "Legacy free text. The carrier is the New Work Location Record."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__assignment_duration_months
+msgid ""
+"Legacy. Art. 120 LC measures the assignment in calendar days; see Assignment"
+" Days."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_legal_basis
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__legal_basis
+msgid "Legal articles from Bulgarian Labor Code justifying this amendment"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_legal_basis
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__legal_basis
+msgid "Legal Basis"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_fixed_term_reason
+msgid "Legal reason for fixed term contract according to Art. 68 KT"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__contract_id
+msgid "Main Contract"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_has_error
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_ids
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__my_activity_date_deadline
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_economic_activity_id
+msgid "NACE"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__temporary_assignment_reason__natural_disaster
+msgid "Natural Disaster"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_qualification_group
+msgid "NCOP"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_ncop_position_id
+msgid "NCOP Position"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:73
+msgid "NCOP position refreshed from job position."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:480
+msgid "New Amendment"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_daily_hours
+msgid "New Daily Hours"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_economic_activity_id
+msgid "New Economic Activity"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_leave_days
+msgid "New Leave Days"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_position_id
+msgid "New NKPD Position"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_wage
+msgid "New Wage"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_weekly_hours
+msgid "New Weekly Hours"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_work_location
+msgid "New Work Location"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_work_location_id
+msgid "New Work Location Record"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_working_time_type
+msgid "New Working Time Type"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_calendar_event_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_date_deadline
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_summary
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_type_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_job__l10n_bg_ncop_code
+msgid "NKPD Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_ncop_position_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_work_nkpd
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "NKPD Position"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_position_id
+msgid "NKPD position after this amendment"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_position_id
+msgid "NKPD position of the contract when the amendment was created"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:1025
+#, python-format
+msgid "NKPD Position: %(old)s → %(new)s"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_daily_hours
+msgid "Normal daily working hours"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:995
+#, python-format
+msgid ""
+"Not restored on expiry: %(fields)s. A later change is in force on the "
+"contract; restoring the previous value would silently undo it."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__note
+msgid "Note"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "Notes"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_notice_period_days
+msgid "Notice Period (days)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_notice_period_days
+msgid ""
+"Notice period for contract termination (30-90 days for indefinite contracts)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:290
+msgid "Notice period for indefinite contracts must be between 30 and 90 days."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__number
+msgid "Number"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_needaction_counter
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_has_error_counter
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_needaction_counter
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_has_error_counter
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:712
+msgid "Only amendments pending approval can be approved."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:731
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:750
+msgid "Only approved amendments can be activated."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:703
+msgid "Only draft amendments can be submitted for approval."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "Optional"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__other
+msgid "Other Amendment"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+msgid "Other contractual changes"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__temporary_assignment_reason__other_emergency
+msgid "Other Emergency"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_employee__l10n_bg_protection_status__other
+msgid "Other Ground"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract__l10n_bg_working_time_type__part_time
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__new_working_time_type__part_time
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__old_working_time_type__part_time
+msgid "Part Time"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_personal_doctor
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_personal_documents
+msgid "Personal Doctor"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_ncop_position_id
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_ncop_position_id
+msgid ""
+"Position according to NCOP-2011 classification as required by Art. 66 KT"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+msgid "Position and job role changes"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__position_change
+msgid "Position Change"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Position Changes"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_l10n_bg_hr
+msgid "Position Information (Art. 66 LC)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_daily_hours
+msgid "Previous Daily Hours"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_economic_activity_id
+msgid "Previous Economic Activity"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_leave_days
+msgid "Previous Leave Days"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_position_id
+msgid "Previous NKPD Position"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_wage
+msgid "Previous Wage"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_weekly_hours
+msgid "Previous Weekly Hours"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_work_location
+msgid "Previous Work Location"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_work_location_id
+msgid "Previous Work Location Record"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_working_time_type
+msgid "Previous Working Time Type"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_probation_period_days
+msgid "Probation Period (days)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:296
+msgid "Probation period cannot exceed 180 days (6 months)."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_probation_period_days
+msgid "Probation period in days (max 6 months according to KT)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__temporary_assignment_reason__production_necessity
+msgid "Production Necessity (Art. 120, para. 1 LC)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_protection_expiry
+msgid "Protection Expires On"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:211
+msgid "Protection status"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_protection_status
+msgid "Protection Status"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_qualification_group
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_job__l10n_bg_qualification_group
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_work_nkpd
+msgid "Qualification Group"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_qualification_group
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_qualification_group
+msgid "Qualification group from NKPD position"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__rating_ids
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__wage_change_reason
+msgid "Reason for wage modification"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_telk_decision
+msgid "Record a TELK or NELK decision"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__percent
+msgid "Reduced Working Capacity (%)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_work_nkpd
+msgid "Refresh from Job Position"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:72
+msgid "Refreshed"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_employee__l10n_bg_protection_status__refugee
+msgid "Refugee Status"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__assignment_compensation
+msgid ""
+"Remuneration for the work actually performed during the assignment (Art. "
+"267, para. 3 LC). It may not be lower than the gross remuneration for the "
+"main job. Left empty — the wage does not change."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract_type__l10n_bg_contract_duration_type__replacement
+msgid "Replacement"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_education_level
+msgid "Required Education Level"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_education_level
+msgid "Required education level for this position"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Reset to Draft"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:809
+#, python-format
+msgid "Reset to draft from %(state)s."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_user_id
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Search Contract Amendments"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__sequence_number
+msgid "Sequence Number"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__sequence_prefix
+msgid "Sequence Prefix"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__amendment_number
+msgid "Sequential number of amendment (e.g., 1/2024)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Signatures"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Signatures & Approval"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__l10n_bg_signed_after_effective
+msgid "Signed After Effective Date"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_signed_by_employee
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__signed_by_employee
+msgid "Signed by Employee"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_signed_by_employer
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__signed_by_employer
+msgid "Signed by Employer"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__message_has_sms_error
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__work_location_id
+msgid "Specific work location as required by Art. 66 of Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__state
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Status"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_state
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__subject
+msgid "Subject"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Submit for Approval"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract__l10n_bg_working_time_type__summarized
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__new_working_time_type__summarized
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__old_working_time_type__summarized
+msgid "Summarized Calculation"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_tax_number
+msgid ""
+"Tax identification number issued by the state of birth or citizenship of a "
+"foreign employee. Bulgarian citizens are identified by their EGN in "
+"Identification No."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model,name:l10n_bg_hr.model_l10n_bg_telk_decision
+msgid "TELK Decision"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_telk
+msgid "TELK/NELK"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_telk_decision_form
+msgid "TELK/NELK Decision"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:192
+#: model:ir.actions.act_window,name:l10n_bg_hr.action_l10n_bg_telk_decision
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_telk_decision_ids
+#: model:ir.ui.menu,name:l10n_bg_hr.menu_l10n_bg_telk_decision
+msgid "TELK/NELK Decisions"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Temporary"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__is_temporary
+msgid "Temporary Amendment"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:1003
+#, python-format
+msgid "Temporary amendment %s expired; the previous terms are restored."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__is_temporary_assignment
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__temporary_assignment
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Temporary Assignment"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:1005
+msgid "Temporary Assignment Ended"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__is_temporary_assignment
+msgid "Temporary assignment to other work under Art. 120 LC"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Temporary Assignments"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+msgid "Temporary assignments and relocations"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:598
+#, python-format
+msgid ""
+"Temporary assignments for %(emp)s in %(year)s would total %(total)d calendar"
+" days. Art. 120, para. 1 LC allows 45 per calendar year, except during idle "
+"time."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_employee__l10n_bg_protection_status__temporary
+msgid "Temporary Protection"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_termination_order_date
+msgid "Termination Order Date"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_fixed_term_end
+msgid ""
+"The agreed end of a fixed-term contract (Art. 68 LC). This is NOT the "
+"termination date: the term may lapse without anyone terminating, and then "
+"Art. 69 LC converts the contract. Leave empty for open-ended contracts."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__l10n_bg_signed_after_effective
+msgid ""
+"The amendment was signed after the date it takes effect. This is allowed; "
+"the form only asks to check that the date is right."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_telk_current_id
+msgid ""
+"The decision in force today. History is kept in full — a new decision does "
+"not overwrite the previous one."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid ""
+"The effective date has not arrived yet. Activating now writes the new terms "
+"on the contract from today and is recorded in the chatter. Continue?"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract.py:466
+#, python-format
+msgid ""
+"The fixed term lapsed on %(date)s and five working days have passed with no "
+"end date on the contract. Under Art. 69(1) LC the contract may already be "
+"converted into an open-ended one. Expected outcome: %(outcome)s. Nothing was"
+" changed automatically — terminate the contract or conclude the new one."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__temporary_assignment_reason
+msgid ""
+"The ground under Art. 120 LC. Idle time is the only one without a 45-day "
+"limit: the assignment lasts as long as the idle time does."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__contract_id
+msgid "The main employment contract this amendment relates to"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:880
+#, python-format
+msgid ""
+"The new work location is given only as text (%(text)s). It is not written on"
+" the contract — set the New Work Location Record instead."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/telk_decision.py:71
+#, python-format
+msgid ""
+"The reduced working capacity on decision %(number)s is %(percent)s. It must "
+"be a whole per cent between 1 and 100 — a fraction such as 0.51 instead of "
+"51 passes every 'is there a disability' test and fails every 'fifty or more'"
+" one."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.constraint,message:l10n_bg_hr.constraint_l10n_bg_telk_decision_number_employee_uniq
+msgid "The same decision cannot be recorded twice for one employee."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid ""
+"The signature date is after the effective date — check that it is correct."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__issuing_body
+msgid "The TELK or NELK panel that issued the decision."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_work_location_id
+msgid ""
+"The work location record written on the contract when the amendment takes "
+"effect."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_telk_expired
+msgid ""
+"There is a decision on file, but none of them is in force today — which is a"
+" different situation from having no decision at all."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "This Month"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "This Year"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__state__to_approve
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "To Approve"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_total_leave_days
+msgid "Total Annual Leave Days"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_total_leave_days
+msgid "Total annual leave days (basic + extended + additional)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__is_wage_increase
+msgid "True if new wage is higher than old wage"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__amendment_type
+msgid "Type of contract amendment according to Bulgarian Labor Code"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__activity_exception_decoration
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_working_time_type
+msgid "Type of working time as required by Art. 66 KT"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_contract_number
+msgid ""
+"Unique labor contract number. Auto-filled from ir.sequence "
+"'l10n_bg.contract.number' on create if empty. Used in the ETZ XML "
+"<contractno> element (cell 11)."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract_type__l10n_bg_contract_duration_type__specific_work
+msgid "Until Completion of Specific Work"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__temporary_assignment_reason__urgent_work
+msgid "Urgent Work"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__approved_by_id
+msgid "User who approved this amendment"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:213
+msgid "Visa"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__new_wage
+msgid "Wage after this amendment"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__wage_change
+msgid "Wage Change"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__wage_change_reason
+msgid "Wage Change Reason"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_search
+msgid "Wage Changes"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+msgid "Wage changes and adjustments"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__wage_difference
+msgid "Wage Difference"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__is_wage_increase
+msgid "Wage Increase"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Wage Modification"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_wage
+msgid "Wage of the contract when the amendment was created"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:1022
+#, python-format
+msgid "Wage: %(old).2f → %(new).2f"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__website_message_ids
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__website_message_ids
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_telk_decision__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_weekly_hours
+msgid "Weekly hours of the contract when the amendment was created"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract__l10n_bg_after_term_contract_type_id
+msgid ""
+"What the employment is expected to become once the fixed term lapses. It is "
+"only shown in the reminders — a new contract is never created automatically."
+" Left empty — the reminder says the contract is to be terminated on the term"
+" date."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_telk_decision__percent
+msgid ""
+"Whole per cent, from 1 to 100 — not a fraction. A decision recorded as 0.51 "
+"instead of 51 passes every 'is there a disability' test and fails every "
+"'fifty or more' test."
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__work_location_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Work Location"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__work_location
+msgid "Work Location Address"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_contract_amendment__old_work_location
+msgid "Work location address of the contract when the amendment was created"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:1030
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:1034
+#, python-format
+msgid "Work Location: %(old)s → %(new)s"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_employee.py:212
+msgid "Work permit"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Working Hours"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_contract_form_l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Working Time"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__working_time_change
+msgid "Working Time Change"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.actions.act_window,help:l10n_bg_hr.action_l10n_bg_hr_contract_amendment
+msgid "Working time modifications"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract__l10n_bg_working_time_type
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Working Time Type"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: code:addons/l10n_bg_hr/models/hr_contract_amendment.py:1039
+#, python-format
+msgid "Working Time: %(old)s → %(new)s"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+msgid "Workplace"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_contract_amendment__amendment_type__workplace_change
+msgid "Workplace Change"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_employee__l10n_bg_workplace_code
+msgid "Workplace Code (EKATTE)"
+msgstr ""
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_employee__l10n_bg_workplace_code
+msgid "Workplace location code according to EKATTE"
+msgstr ""

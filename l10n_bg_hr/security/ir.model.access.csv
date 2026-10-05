@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_l10n_bg_hr_contract_amendment_user,l10n_bg.hr.contract.amendment.user,model_l10n_bg_hr_contract_amendment,base.group_user,1,0,0,0
+access_l10n_bg_hr_contract_amendment_hr_user,l10n_bg.hr.contract.amendment.hr.user,model_l10n_bg_hr_contract_amendment,hr_contract.group_hr_contract_employee_manager,1,1,1,0
+access_l10n_bg_hr_contract_amendment_hr_manager,l10n_bg.hr.contract.amendment.hr.manager,model_l10n_bg_hr_contract_amendment,hr_contract.group_hr_contract_employee_manager,1,1,1,1
+access_l10n_bg_hr_contract_amendment_hr_officer,l10n_bg.hr.contract.amendment.hr.officer,model_l10n_bg_hr_contract_amendment,hr_contract.group_hr_contract_manager,1,1,1,1
+access_l10n_bg_telk_decision_user,l10n_bg.telk.decision user,model_l10n_bg_telk_decision,hr.group_hr_user,1,1,1,0
+access_l10n_bg_telk_decision_manager,l10n_bg.telk.decision manager,model_l10n_bg_telk_decision,hr.group_hr_manager,1,1,1,1

@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================== -->
+    <!-- CONTRACT AMENDMENTS VIEWS                                          -->
+    <!-- Изнесени от l10n_bg_hr_payroll със СЪЩИТЕ xmlid-и (pre_init_hook    -->
+    <!-- ги прехвърля). Наследяват ги: l10n_bg_hr_payroll_nra_etz и          -->
+    <!-- l10n_bg_hr_contract_sign — затова `button_box` и `approved_by_id`   -->
+    <!-- остават във формата.                                                -->
+    <!-- ================================================================== -->
+
+    <!-- Amendment Tree View -->
+    <record id="view_l10n_bg_hr_contract_amendment_list" model="ir.ui.view">
+        <field name="name">l10n_bg.hr.contract.amendment.list</field>
+        <field name="model">l10n_bg.hr.contract.amendment</field>
+        <field name="arch" type="xml">
+            <list string="Contract Amendments" create="1" multi_edit="1">
+                <field name="amendment_number"/>
+                <field name="employee_id"/>
+                <field name="contract_id" optional="hide"/>
+                <field name="amendment_type"/>
+                <field name="date_signed"/>
+                <field name="date_effective"/>
+                <field name="date_end" optional="hide"/>
+                <field name="state" decoration-info="state == 'draft'"
+                       decoration-warning="state == 'to_approve'"
+                       decoration-success="state in ('approved', 'active')"
+                       decoration-muted="state in ('expired', 'cancel')"
+                       widget="badge"/>
+                <field name="is_temporary" widget="boolean_toggle"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Amendment Form View -->
+    <record id="view_l10n_bg_hr_contract_amendment_form" model="ir.ui.view">
+        <field name="name">l10n_bg.hr.contract.amendment.form</field>
+        <field name="model">l10n_bg.hr.contract.amendment</field>
+        <field name="arch" type="xml">
+            <form string="Contract Amendment">
+                <header>
+                    <button name="action_submit_for_approval" string="Submit for Approval"
+                            type="object" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_approve" string="Approve"
+                            type="object" class="oe_highlight"
+                            invisible="state != 'to_approve'"
+                            groups="hr.group_hr_manager"/>
+                    <button name="action_activate" string="Activate"
+                            type="object" class="oe_highlight"
+                            invisible="state != 'approved' or l10n_bg_effective_in_future"
+                            groups="hr.group_hr_manager"/>
+                    <button name="action_activate_early" string="Activate Early"
+                            type="object"
+                            confirm="The effective date has not arrived yet. Activating now writes the new terms on the contract from today and is recorded in the chatter. Continue?"
+                            invisible="state != 'approved' or not l10n_bg_effective_in_future"
+                            groups="hr.group_hr_manager"/>
+                    <field name="l10n_bg_effective_in_future" invisible="1"/>
+                    <!-- Изход от гардовете без нов номер. Няма го за „в сила“
+                         и „изтекло“ — там договорът вече носи записаното. -->
+                    <button name="action_draft" string="Reset to Draft"
+                            type="object"
+                            invisible="state not in ('to_approve', 'approved', 'cancel')"
+                            groups="hr.group_hr_manager"/>
+                    <button name="action_cancel" string="Cancel"
+                            type="object"
+                            invisible="state in ('active', 'expired', 'cancel')"
+                            groups="hr.group_hr_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,to_approve,approved,active"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+
+                    <widget name="web_ribbon" title="Expired" bg_color="text-bg-danger" invisible="state != 'expired'"/>
+                    <widget name="web_ribbon" title="Cancelled" bg_color="text-bg-warning" invisible="state != 'cancel'"/>
+                    <widget name="web_ribbon" title="Temporary" bg_color="text-bg-info" invisible="not is_temporary"/>
+
+                    <div class="oe_title">
+                        <label for="amendment_number" class="oe_edit_only"/>
+                        <h1><field name="amendment_number" placeholder="Amendment Number"/></h1>
+                        <h2><field name="subject" placeholder="Amendment Subject"/></h2>
+                    </div>
+
+                    <!-- Подписано след влизането в сила: допустимо, само предупреждение. -->
+                    <field name="l10n_bg_signed_after_effective" invisible="1"/>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="not l10n_bg_signed_after_effective">
+                        The signature date is after the effective date — check that it is correct.
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="contract_id" options="{'no_create': True}"
+                                   readonly="state not in ('draft',)"/>
+                            <field name="employee_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="amendment_type"/>
+                        </group>
+                        <group>
+                            <field name="date_signed"/>
+                            <field name="date_effective"/>
+                            <field name="date_end"
+                                   invisible="not is_temporary and amendment_type not in ('temporary_assignment', 'contract_extension')"
+                                   required="is_temporary or amendment_type == 'temporary_assignment'"/>
+                            <field name="is_temporary"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <!-- Amendment Details Tab -->
+                        <page string="Amendment Details" name="details">
+                            <field name="description" nolabel="1" placeholder="Enter amendment details"/>
+                            <group>
+                                <field name="legal_basis" placeholder="Enter legal basis from Bulgarian law"/>
+                            </group>
+                        </page>
+
+                        <!-- Wage Changes Tab -->
+                        <page string="Wage Changes" name="wage_changes" invisible="amendment_type not in ('wage_change', 'other')">
+                            <group string="Wage Modification">
+                                <group>
+                                    <field name="old_wage" readonly="1"/>
+                                    <field name="new_wage"/>
+                                    <field name="wage_difference" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="is_wage_increase" readonly="1" widget="boolean_toggle"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </group>
+                            </group>
+                            <group string="Change Justification">
+                                <field name="wage_change_reason" nolabel="1"/>
+                            </group>
+                        </page>
+
+                        <!-- Position Changes Tab -->
+                        <page string="Position Changes" name="position_changes" invisible="amendment_type not in ('position_change', 'other')">
+                            <group string="NKPD Position">
+                                <group>
+                                    <field name="old_position_id" readonly="1"/>
+                                    <field name="new_position_id"/>
+                                </group>
+                            </group>
+                            <group string="Economic Activity">
+                                <group>
+                                    <field name="old_economic_activity_id" readonly="1"/>
+                                    <field name="new_economic_activity_id"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <!-- Working Time Changes Tab -->
+                        <page string="Working Time" name="working_time" invisible="amendment_type not in ('working_time_change', 'other')">
+                            <group string="Working Time Type">
+                                <group>
+                                    <field name="old_working_time_type" readonly="1"/>
+                                    <field name="new_working_time_type"/>
+                                </group>
+                            </group>
+                            <group string="Working Hours">
+                                <group>
+                                    <field name="old_daily_hours" readonly="1"/>
+                                    <field name="new_daily_hours"/>
+                                </group>
+                                <group>
+                                    <field name="old_weekly_hours" readonly="1"/>
+                                    <field name="new_weekly_hours"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <!-- Workplace Changes Tab -->
+                        <page string="Workplace" name="workplace" invisible="amendment_type not in ('workplace_change', 'temporary_assignment', 'other')">
+                            <group string="Work Location">
+                                <group>
+                                    <field name="old_work_location_id" readonly="1"/>
+                                    <field name="new_work_location_id"/>
+                                </group>
+                                <group>
+                                    <field name="old_work_location" readonly="1"/>
+                                    <field name="new_work_location"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <!-- Leave Days Tab -->
+                        <page string="Leave Days" name="leave_days" invisible="amendment_type not in ('leave_change', 'leave_extension', 'other')">
+                            <group string="Basic Annual Leave">
+                                <group>
+                                    <field name="old_leave_days" readonly="1"/>
+                                    <field name="new_leave_days"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <!-- Temporary Assignment Tab -->
+                        <page string="Temporary Assignment" name="temp_assignment" invisible="not is_temporary_assignment">
+                            <group string="Assignment Details">
+                                <group>
+                                    <field name="temporary_assignment_reason"/>
+                                    <field name="l10n_bg_assignment_days"/>
+                                    <field name="assignment_compensation"/>
+                                </group>
+                                <group>
+                                    <!-- Заварени: мярката на чл. 120 е в календарни
+                                         дни, а носителят на мястото е записът. -->
+                                    <field name="assignment_duration_months"
+                                           invisible="not assignment_duration_months"/>
+                                    <field name="assignment_location"/>
+                                </group>
+                            </group>
+                            <div class="alert alert-info" role="alert" style="margin: 16px 0;">
+                                <strong>Legal Note:</strong>
+                                Art. 120, para. 1 LC: on production necessity or idle time the
+                                employer may assign other work without the employee's consent — in
+                                the same or another undertaking, but
+                                <strong>within the same settlement or locality</strong>, for up to
+                                <strong>45 calendar days per calendar year</strong>. During idle time
+                                the assignment lasts as long as the idle time does.
+                                Art. 267, para. 3 LC: the remuneration is that of the work performed,
+                                but not lower than the gross remuneration for the main job.
+                            </div>
+                        </page>
+
+                        <!-- Signatures Tab -->
+                        <page string="Signatures &amp; Approval" name="signatures">
+                            <group string="Signatures">
+                                <group>
+                                    <field name="signed_by_employee" widget="boolean_toggle"/>
+                                    <field name="signed_by_employer" widget="boolean_toggle"/>
+                                </group>
+                            </group>
+                            <group string="Approval">
+                                <group>
+                                    <field name="approved_by_id" readonly="1"/>
+                                    <field name="approved_date" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <!-- Notes Tab -->
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Internal notes about this amendment..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter groups="hr_contract.group_hr_contract_manager"/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Amendment Search View -->
+    <record id="view_l10n_bg_hr_contract_amendment_search" model="ir.ui.view">
+        <field name="name">l10n_bg.hr.contract.amendment.search</field>
+        <field name="model">l10n_bg.hr.contract.amendment</field>
+        <field name="arch" type="xml">
+            <search string="Search Contract Amendments">
+                <field name="amendment_number" string="Amendment Number"/>
+                <field name="employee_id" string="Employee"/>
+                <field name="contract_id" string="Contract"/>
+                <field name="amendment_type"/>
+                <field name="subject"/>
+                <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="To Approve" name="to_approve" domain="[('state','=','to_approve')]"/>
+                <filter string="Approved" name="approved" domain="[('state','=','approved')]"/>
+                <filter string="Active" name="active" domain="[('state','=','active')]"/>
+                <filter string="Expired" name="expired" domain="[('state','=','expired')]"/>
+                <separator/>
+                <filter string="Temporary" name="temporary" domain="[('is_temporary','=',True)]"/>
+                <filter string="Temporary Assignments" name="temp_assignments" domain="[('is_temporary_assignment','=',True)]"/>
+                <filter string="Wage Changes" name="wage_changes" domain="[('amendment_type','=','wage_change')]"/>
+                <filter string="Position Changes" name="position_changes" domain="[('amendment_type','=','position_change')]"/>
+                <separator/>
+                <filter string="This Month" name="this_month"
+                        domain="[('date_signed','&gt;=', (context_today() - relativedelta(day=1)).strftime('%Y-%m-%d')),
+                                 ('date_signed','&lt;', (context_today() + relativedelta(day=31)).strftime('%Y-%m-%d'))]"/>
+                <filter string="This Year" name="this_year"
+                        domain="[('date_signed','&gt;=', context_today().strftime('%Y-01-01')),
+                                 ('date_signed','&lt;=', context_today().strftime('%Y-12-31'))]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Employee" name="employee" context="{'group_by': 'employee_id'}"/>
+                    <filter string="Amendment Type" name="amendment_type" context="{'group_by': 'amendment_type'}"/>
+                    <filter string="Status" name="state" context="{'group_by': 'state'}"/>
+                    <filter string="Company" name="company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                    <filter string="Effective Date" name="effective_date" context="{'group_by': 'date_effective:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Amendment Kanban View -->
+    <record id="view_l10n_bg_hr_contract_amendment_kanban" model="ir.ui.view">
+        <field name="name">l10n_bg.hr.contract.amendment.kanban</field>
+        <field name="model">l10n_bg.hr.contract.amendment</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" default_group_by="state">
+                <field name="amendment_number"/>
+                <field name="employee_id"/>
+                <field name="amendment_type"/>
+                <field name="date_signed"/>
+                <field name="date_effective"/>
+                <field name="state"/>
+                <field name="is_temporary"/>
+                <field name="wage_difference"/>
+                <templates>
+                    <t t-name="card">
+                        <div t-attf-class="oe_kanban_global_click #{record.is_temporary.raw_value ? 'o_kanban_color_5' : ''}">
+                            <div class="oe_kanban_details">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="amendment_number"/>
+                                        </strong>
+                                        <span class="o_kanban_record_subtitle text-muted">
+                                            <field name="employee_id"/>
+                                        </span>
+                                    </div>
+                                    <span class="badge badge-pill" t-attf-class="badge-#{record.state.raw_value == 'active' ? 'success' : 'secondary'}">
+                                        <field name="state"/>
+                                    </span>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <ul>
+                                        <li><strong>Type:</strong> <field name="amendment_type"/></li>
+                                        <li><strong>Effective:</strong> <field name="date_effective"/></li>
+                                        <li t-if="record.wage_difference.raw_value != 0">
+                                            <strong>Wage Change:</strong>
+                                            <span t-attf-class="#{record.wage_difference.raw_value > 0 ? 'text-success' : 'text-danger'}">
+                                                <field name="wage_difference"/>
+                                            </span>
+                                        </li>
+                                        <li t-if="record.is_temporary.raw_value">
+                                            <span class="badge badge-warning">Temporary</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Amendment Calendar View -->
+    <record id="view_l10n_bg_hr_contract_amendment_calendar" model="ir.ui.view">
+        <field name="name">l10n_bg.hr.contract.amendment.calendar</field>
+        <field name="model">l10n_bg.hr.contract.amendment</field>
+        <field name="arch" type="xml">
+            <calendar string="Contract Amendments" date_start="date_effective" date_stop="date_end" color="state" event_open_popup="1">
+                <field name="amendment_number"/>
+                <field name="employee_id"/>
+                <field name="amendment_type"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Amendment Pivot View -->
+    <record id="view_l10n_bg_hr_contract_amendment_pivot" model="ir.ui.view">
+        <field name="name">l10n_bg.hr.contract.amendment.pivot</field>
+        <field name="model">l10n_bg.hr.contract.amendment</field>
+        <field name="arch" type="xml">
+            <pivot string="Contract Amendments Analysis">
+                <field name="amendment_type" type="row"/>
+                <field name="date_effective" interval="month" type="col"/>
+                <field name="wage_difference" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Amendment Action -->
+    <record id="action_l10n_bg_hr_contract_amendment" model="ir.actions.act_window">
+        <field name="name">Contract Amendments</field>
+        <field name="res_model">l10n_bg.hr.contract.amendment</field>
+        <field name="view_mode">list,kanban,form,calendar,pivot</field>
+        <field name="view_id" ref="view_l10n_bg_hr_contract_amendment_list"/>
+        <field name="search_view_id" ref="view_l10n_bg_hr_contract_amendment_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Contract Amendment!
+            </p>
+            <p>
+                Contract amendments are used for:
+            </p>
+            <ul>
+                <li>Wage changes and adjustments</li>
+                <li>Position and job role changes</li>
+                <li>Temporary assignments and relocations</li>
+                <li>Working time modifications</li>
+                <li>Other contractual changes</li>
+            </ul>
+        </field>
+    </record>
+
+    <!-- Amendment Action for Specific Contract -->
+    <record id="action_l10n_bg_hr_contract_amendment_from_contract" model="ir.actions.act_window">
+        <field name="name">Contract Amendments</field>
+        <field name="res_model">l10n_bg.hr.contract.amendment</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_l10n_bg_hr_contract_amendment_list"/>
+        <field name="context">{'default_contract_id': active_id, 'search_default_contract_id': active_id}</field>
+        <field name="domain">[('contract_id', '=', active_id)]</field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_l10n_bg_hr_contract_amendment"
+              name="Contract Amendments"
+              parent="hr.menu_config_recruitment"
+              action="action_l10n_bg_hr_contract_amendment"
+              sequence="4"/>
+
+    <!-- Add Smart Button to Contract Form -->
+    <record id="view_hr_contract_form_amendment_button" model="ir.ui.view">
+        <field name="name">hr.contract.form.amendment.button</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="action"
+                        name="%(action_l10n_bg_hr_contract_amendment_from_contract)d"
+                        icon="fa-file-text-o">
+                    <field string="Amendments" name="l10n_bg_amendment_count" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <!-- Add Amendments Tab to Contract Form -->
+    <record id="view_hr_contract_form_amendment_tab" model="ir.ui.view">
+        <field name="name">hr.contract.form.amendment.tab</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Amendments" name="amendments">
+                    <field name="l10n_bg_amendment_ids" readonly="1"
+                           context="{'default_contract_id': id, 'list_view_ref': 'l10n_bg_hr.view_l10n_bg_hr_contract_amendment_list'}">
+                        <list>
+                            <field name="amendment_number"/>
+                            <field name="subject"/>
+                            <field name="amendment_type"/>
+                            <field name="date_signed"/>
+                            <field name="date_effective"/>
+                            <field name="state" decoration-info="state == 'draft'"
+                                   decoration-success="state == 'active'"
+                                   widget="badge"/>
+                        </list>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>

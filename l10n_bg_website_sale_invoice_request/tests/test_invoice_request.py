@@ -127,3 +127,20 @@ class TestInvoiceRequest(TestSaleCommon):
         self.assertFalse(order.l10n_bg_invoice_requested)
         order.action_confirm()
         self.assertEqual(order.partner_invoice_id, self.random_customer)
+
+    def test_other_contacts_hidden(self):
+        # втори купувач със същия ЕИК не вижда и не пипа адреса на първия
+        company_values = {
+            "name": "Обща Фирма ЕООД", "l10n_bg_uic": "205000001", "vat": "",
+            "street": "Бул. България 1", "city": "София", "zip": "1000",
+            "country_id": self.env.ref("base.bg").id,
+        }
+        first, order1 = self._person_order()
+        order1._l10n_bg_set_invoice_company(company_values)
+        second, order2 = self._person_order()
+        order2._l10n_bg_set_invoice_company(company_values)
+        self.assertEqual(order1.partner_id, order2.partner_id)
+        visible = order2._l10n_bg_visible_partners()
+        self.assertIn(second, visible)
+        self.assertNotIn(first, visible)
+        self.assertFalse(first._can_be_edited_by_current_customer(order_sudo=order2))

@@ -124,7 +124,7 @@ msgstr "Пощенски код"
 #. module: l10n_bg_website_sale_invoice_request
 #: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.billing_address_list_invoice_request
 msgid "— stays as a delivery contact of the company."
-msgstr ""
+msgstr "— остава като контакт за доставка към фирмата."
 
 #. module: l10n_bg_website_sale_invoice_request
 #: model_terms:ir.ui.view,arch_db:l10n_bg_website_sale_invoice_request.billing_address_list_invoice_request

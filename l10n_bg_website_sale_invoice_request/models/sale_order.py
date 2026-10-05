@@ -54,6 +54,16 @@ class SaleOrder(models.Model):
             return commercial
         return self.env["res.partner"]
 
+    def _l10n_bg_visible_partners(self):
+        """При поръчка към фирма купувачът вижда само фирмата, себе си и своите
+        адреси — не и другите контакти на фирмата (Росен, 05.10.2026)."""
+        self.ensure_one()
+        if not (self.l10n_bg_invoice_requested and self.partner_id.is_company):
+            return False
+        person = self._l10n_bg_delivery_person()
+        own = self.env["res.partner"].sudo().search([("id", "child_of", person.id)])
+        return self.partner_id | person | own
+
     def _l10n_bg_find_company(self, uic, vat):
         Partner = self.env["res.partner"].sudo().with_context(active_test=False)
         domain = [("is_company", "=", True), ("parent_id", "=", False)]

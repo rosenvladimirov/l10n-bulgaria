@@ -1,6 +1,8 @@
 # Copyright 2026 Rosen Vladimirov, Terraros Commerce Ltd.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 from odoo import _
+from werkzeug.exceptions import Forbidden
+
 from odoo.http import request, route
 
 from odoo.addons.website_sale.controllers.main import WebsiteSale
@@ -48,6 +50,12 @@ class WebsiteSaleInvoiceRequest(WebsiteSale):
 
     def _prepare_checkout_page_values(self, order_sudo, **kwargs):
         values = super()._prepare_checkout_page_values(order_sudo, **kwargs)
+        visible = order_sudo._l10n_bg_visible_partners()
+        if visible:
+            # другите контакти на фирмата не се показват на купувача
+            for key in ("delivery_addresses", "billing_addresses"):
+                if key in values:
+                    values[key] = values[key].filtered(lambda p: p in visible)
         company = order_sudo._l10n_bg_invoice_company()
         person = order_sudo._l10n_bg_delivery_person()
         values.update({
@@ -65,6 +73,14 @@ class WebsiteSaleInvoiceRequest(WebsiteSale):
             "l10n_bg_countries": request.env["res.country"].sudo().search([]),
         })
         return values
+
+    @route()
+    def shop_update_address(self, partner_id, address_type="billing", **kw):
+        order_sudo = request.cart
+        visible = order_sudo and order_sudo._l10n_bg_visible_partners()
+        if visible and int(partner_id) not in visible.ids:
+            raise Forbidden()
+        return super().shop_update_address(partner_id, address_type=address_type, **kw)
 
     def _prepare_address_form_values(self, *args, order_sudo=False, **kwargs):
         values = super()._prepare_address_form_values(*args, order_sudo=order_sudo, **kwargs)

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+
+    <!-- Изнесено от l10n_bg_hr_payroll (същото xmlid, прехвърлено от
+         pre_init_hook). Без глобално правило всички споразумения се виждат
+         през фирмите. -->
+    <record id="rule_l10n_bg_hr_contract_amendment_multi_company" model="ir.rule">
+        <field name="name">Contract Amendment: multi-company</field>
+        <field name="model_id" ref="model_l10n_bg_hr_contract_amendment"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="global" eval="True"/>
+    </record>
+
+    <!-- Решенията на ТЕЛК носят фирма; правилото е огледално на ДС. -->
+    <record id="rule_l10n_bg_telk_decision_multi_company" model="ir.rule">
+        <field name="name">TELK Decision: multi-company</field>
+        <field name="model_id" ref="model_l10n_bg_telk_decision"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="global" eval="True"/>
+    </record>
+
+</odoo>

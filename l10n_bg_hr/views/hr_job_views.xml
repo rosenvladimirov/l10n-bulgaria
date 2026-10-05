@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- КИД на длъжността + обобщение от НКПД (от 19). Котвите са на
+         l10n_bg_payroll_classifications 18 (view_hr_job_form_bg_ncop):
+         полето НКПД след отдела и страницата `ncop_info_page`.
+         ⚠️ Страницата `job_description_page` на ядрото 18 е invisible —
+         затова обобщението отива в `ncop_info_page`, не там (както в 19). -->
+    <record id="view_hr_job_form_bg_kid" model="ir.ui.view">
+        <field name="name">hr.job.form.inherit.l10n_bg_hr</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="l10n_bg_payroll_classifications.view_hr_job_form_bg_ncop"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='department_id']/following-sibling::field[@name='l10n_bg_ncop_position_id']" position="after">
+                <field name="l10n_bg_economic_activity_id" options="{'no_create_edit': True}"/>
+            </xpath>
+            <xpath expr="//group[@name='ncop_basic_info']" position="inside">
+                <field name="l10n_bg_ncop_code"/>
+                <field name="l10n_bg_qualification_group"/>
+                <field name="l10n_bg_education_level"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

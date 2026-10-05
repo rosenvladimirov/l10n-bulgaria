@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Работа: НКПД / КИД на активния договор + код на работното място.
+         ТРЗ (l10n_bg_hr_payroll) има своя група на таба за заплатата с МОД —
+         тази тук е частта по КТ и стои в „Работна информация“. -->
+    <record id="view_employee_form_l10n_bg_work_nkpd" model="ir.ui.view">
+        <field name="name">hr.employee.form.l10n_bg.work.nkpd</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='public']//field[@name='work_location_id']/.." position="after">
+                <group name="l10n_bg_nkpd_kid" groups="hr.group_hr_user">
+                    <div colspan="2"
+                         class="col-lg-6 w-100 mt-4 mb-3 o_horizontal_separator text-uppercase fw-bolder small d-flex">
+                        <span>NKPD / KID</span>
+                        <button name="action_refresh_nkpd_kid"
+                                type="object"
+                                string="Refresh from Job Position"
+                                help="Copy NCOP position (and KID, when set on the job) from the job position to the active contract"
+                                class="btn btn-link ms-auto text-end lh-1 h-100 p-0"/>
+                    </div>
+                    <field name="l10n_bg_ncop_position_id" string="NKPD Position"/>
+                    <field name="l10n_bg_qualification_group" string="Qualification Group"/>
+                    <field name="l10n_bg_economic_activity_id" string="Economic Activity (KID)"/>
+                    <field name="l10n_bg_economic_activity_code"/>
+                    <field name="l10n_bg_workplace_code"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Личен: документите със сроковете им, данъчният номер, личният лекар. -->
+    <record id="view_employee_form_l10n_bg_personal_documents" model="ir.ui.view">
+        <field name="name">hr.employee.form.l10n_bg.personal.documents</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <!-- Гражданство: данъчният номер до осигурителния (ssnid не се пипа). -->
+            <field name="ssnid" position="after">
+                <field name="l10n_bg_tax_number"/>
+            </field>
+            <!-- Личната карта под паспорта (в 18 паспортът е без срок). -->
+            <field name="passport_id" position="after">
+                <label for="l10n_bg_id_card_number"/>
+                <div name="l10n_bg_id_card_number_div" class="o_row">
+                    <field name="l10n_bg_id_card_number"/>
+                    <span invisible="not l10n_bg_id_card_number">Expires on</span>
+                    <field name="l10n_bg_id_card_expiry" invisible="not l10n_bg_id_card_number"/>
+                </div>
+            </field>
+            <!-- Разрешение за работа: закрилата е отделно основание. -->
+            <field name="has_work_permit" position="after">
+                <field name="l10n_bg_protection_status"/>
+                <field name="l10n_bg_protection_expiry" invisible="not l10n_bg_protection_status"/>
+                <field name="l10n_bg_disability_expiry"/>
+            </field>
+            <!-- Личен лекар: отделна група след спешния контакт. -->
+            <xpath expr="//group[@name='emergency']" position="after">
+                <group string="Personal Doctor" name="l10n_bg_doctor_group">
+                    <field name="l10n_bg_personal_doctor"/>
+                    <field name="l10n_bg_personal_doctor_phone" widget="phone"/>
+                    <field name="l10n_bg_personal_doctor_address"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

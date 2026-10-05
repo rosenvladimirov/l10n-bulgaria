@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ЛС полетата на договора — изнесени от
+         l10n_bg_hr_payroll.view_hr_contract_form_extended.
+
+         🚨 priority 10 — ПО-НИСЪК от ТРЗ изгледа (16 по подразбиране), за да се
+         прилага ПРЕДИ него (Odoo нарежда наследниците по priority, после по id).
+         ТРЗ изгледът остава под старото си име и само ДОБАВЯ своите групи в
+         страницата `bg_labor_code`; неговите наследници (management_contract,
+         chl_114, cooperator, nra_etz) търсят l10n_bg_basic_leave_days,
+         l10n_bg_notice_period_days и т.н. в комбинирания изглед — там ги има.
+
+         Имената на групите (`bg_position_economic`, `bg_terms_duration`,
+         `bg_working_time`, `bg_annual_leave`) са котвите на ТРЗ — не се
+         преименуват. -->
+    <record id="view_hr_contract_form_l10n_bg_hr" model="ir.ui.view">
+        <field name="name">hr.contract.form.l10n_bg_hr</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='date_end']" position="after">
+                <field name="l10n_bg_contract_number" placeholder="Auto-generated: ТД-00001"/>
+                <field name="l10n_bg_contract_date"/>
+            </xpath>
+
+            <xpath expr="//group[@name='top_info_right']" position="inside">
+                <field name="work_location_id" readonly="0" groups="!hr_contract.group_hr_contract_manager" options="{'no_open': True, 'no_create': True}"/>
+                <field name="work_location_id" readonly="0" groups="hr_contract.group_hr_contract_manager"/>
+                <field name="work_location" readonly="1"/>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Bulgarian Labor Code" name="bg_labor_code">
+                    <group name="bg_position_economic">
+                        <group string="Position Information (Art. 66 LC)" name="bg_position">
+                            <field name="l10n_bg_ncop_position_id" options="{'no_create_edit': True}" domain="[('level', '=', 'occupation')]"/>
+                            <field name="l10n_bg_qualification_group" readonly="1"/>
+                            <field name="l10n_bg_education_level" readonly="1"/>
+                            <field name="l10n_bg_job_description"/>
+                        </group>
+                        <group string="Economic Activity" name="bg_economic_activity">
+                            <field name="l10n_bg_economic_activity_id" options="{'no_create_edit': True}"/>
+                        </group>
+                    </group>
+
+                    <group string="Contract Terms" name="bg_contract_terms">
+                        <group string="Duration &amp; Termination" name="bg_terms_duration">
+                            <field name="l10n_bg_contract_duration_type" readonly="1" force_save="1"/>
+                            <field name="l10n_bg_fixed_term_reason" invisible="l10n_bg_contract_duration_type != 'fixed_term'"/>
+                            <field name="l10n_bg_fixed_term_end"
+                                   invisible="l10n_bg_contract_duration_type in (False, 'indefinite')"/>
+                            <field name="l10n_bg_after_term_contract_type_id"
+                                   invisible="l10n_bg_contract_duration_type in (False, 'indefinite')"
+                                   options="{'no_create': True}"/>
+                            <field name="l10n_bg_notice_period_days"/>
+                            <field name="l10n_bg_probation_period_days"/>
+                            <!-- Дата на заповедта за прекратяване — видима само
+                                 след попълнена дата на края на договора. -->
+                            <field name="date_end" invisible="1"/>
+                            <field name="l10n_bg_termination_order_date"
+                                   invisible="not date_end"/>
+                        </group>
+                        <group string="Working Time" name="bg_working_time">
+                            <field name="l10n_bg_working_time_type"/>
+                            <field name="l10n_bg_daily_hours"/>
+                        </group>
+                    </group>
+
+                    <group string="Annual Leave (Art. 66 LC)" name="bg_annual_leave">
+                        <group>
+                            <field name="l10n_bg_basic_leave_days"/>
+                            <field name="l10n_bg_extended_leave_days"/>
+                        </group>
+                        <group>
+                            <field name="l10n_bg_additional_leave_days"/>
+                            <field name="l10n_bg_total_leave_days"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

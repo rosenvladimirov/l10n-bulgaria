@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Изнесено от l10n_bg_hr_payroll без промяна. 🚨 noupdate: при
+         заварена база pre_init_hook прехвърля xmlid-а и записът НЕ се пипа —
+         броячът продължава. Без прехвърлянето щеше да се роди втора
+         последователност със същия код и номерацията да тръгне от 00001. -->
+    <data noupdate="1">
+        <record id="seq_l10n_bg_contract_number" model="ir.sequence">
+            <field name="name">BG Labor Contract Number</field>
+            <field name="code">l10n_bg.contract.number</field>
+            <field name="prefix">ТД-</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <!-- 🚨 БЕЗ number_next. При ИНСТАЛИРАНЕ ядрото пише стойностите от XML
+                 и върху noupdate записи (models.py _load_records: update=False ⇒
+                 „not (update and noupdate)“ е истина). Прехвърленият от ТРЗ запис
+                 щеше да получи number_next=1 ⇒ броячът тръгва отначало и номерата
+                 на трудовите договори се дублират (мерено на копие на прода:
+                 следващ 4 → 1). Подразбиращото се за нова база и без това е 1. -->
+            <field name="company_id" eval="False"/>
+            <field name="implementation">no_gap</field>
+        </record>
+    </data>
+</odoo>

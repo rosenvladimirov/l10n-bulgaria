@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Активиране и изтичане вървят заедно и с еднаква периодичност:
+             ако едното работи, а другото не, срочните ДС ще изтичат, без
+             изобщо да са влизали в сила. В 18 кронът за изтичане съществуваше
+             като метод, но НЕ беше регистриран. -->
+        <record id="cron_activate_due_amendments" model="ir.cron">
+            <field name="name">BG: Activate Due Contract Amendments</field>
+            <field name="model_id" ref="model_l10n_bg_hr_contract_amendment"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_activate_due_amendments()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="cron_expire_temporary_amendments" model="ir.cron">
+            <field name="name">BG: Expire Temporary Contract Amendments</field>
+            <field name="model_id" ref="model_l10n_bg_hr_contract_amendment"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_expire_temporary_amendments()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <!-- Нормалният път: предупреждава ПРЕДИ срока, за да има време за
+             уведомлението до НАП по чл. 62, ал. 5 КТ. -->
+        <record id="cron_notify_expiring_fixed_terms" model="ir.cron">
+            <field name="name">BG: Notify Expiring Fixed-Term Contracts</field>
+            <field name="model_id" ref="hr_contract.model_hr_contract"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_l10n_bg_notify_expiring_fixed_terms()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <!-- След петте работни дни по чл. 69, ал. 1 КТ: само маркира договора
+             и оставя дейност. НЕ прекратява и НЕ ражда договор — в 18 новият
+             договор е ново правоотношение и го решава човек. -->
+        <record id="cron_close_overdue_fixed_terms" model="ir.cron">
+            <field name="name">BG: Flag Overdue Fixed-Term Contracts</field>
+            <field name="model_id" ref="hr_contract.model_hr_contract"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_l10n_bg_close_overdue_fixed_terms()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <!-- Три месеца преди срока — за всички документи наведнъж (лична
+             карта, закрила, разрешение за работа, виза, решение на ТЕЛК).
+             Ражда дейност, не мейл. -->
+        <record id="cron_notify_expiring_documents" model="ir.cron">
+            <field name="name">BG: Notify Expiring Employee Documents</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_l10n_bg_notify_expiring_documents()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+</odoo>

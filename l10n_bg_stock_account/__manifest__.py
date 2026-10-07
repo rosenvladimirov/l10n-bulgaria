@@ -1,6 +1,6 @@
 {
     'name': 'Bulgaria - Stock Auto Accounting',
-    'version': '19.0.1.6.3',
+    'version': '19.0.1.7.0',
     'category': 'Accounting/Localizations',
     'summary': 'Auto-post journal entries at picking validation for manual/periodic costing',
     'description': """
@@ -30,6 +30,7 @@
     'data': [
         'views/product_category_views.xml',
         'views/stock_picking_views.xml',
+        'views/stock_scrap_views.xml',
         'views/stock_landed_cost_views.xml',
     ],
     'installable': True,

@@ -130,6 +130,30 @@ class L10nBGConfigMixin(models.AbstractModel):
             result["arch"] = etree.tostring(doc)
         return result
 
+    @api.model
+    def fields_get(self, allfields=None, attributes=None):
+        """Справките на не-българска фирма не предлагат маркираните полета.
+
+        „Групиране по → собствено“, полето в „Добави филтър“ и мерките на
+        pivot/graph идват от fields_get, не от изгледа — get_view не ги
+        стига. Полетата остават в отговора (формите и списъците ги искат),
+        само им се свалят флаговете, по които клиентът ги предлага.
+        """
+        result = super().fields_get(allfields=allfields, attributes=attributes)
+        if not self.env.company._check_is_l10n_bg_record():
+            self._l10n_bg_unoffer_marked(result)
+        return result
+
+    def _l10n_bg_unoffer_marked(self, descriptions):
+        for name, desc in descriptions.items():
+            if not self._l10n_bg_is_marked(name):
+                continue
+            for flag in ("groupable", "searchable"):
+                if flag in desc:
+                    desc[flag] = False
+            if "aggregator" in desc:
+                desc["aggregator"] = None
+
     # ------------------------------------------------------------------
     # Скриване по име. Маркер = стойност, която ЗАПОЧВА с l10n_bg:
     #   поле — по името му; всеки друг елемент (group, page, div, setting,

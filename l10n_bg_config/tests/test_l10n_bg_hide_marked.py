@@ -115,3 +115,21 @@ class TestL10nBgHideMarked(TransactionCase):
         for field in marked:
             if not partner._l10n_bg_field_required(field):
                 self.assertTrue(field.get("invisible") == "True" or field.get("column_invisible") == "True", field.get("name"))
+
+    def test_fields_get_unoffers_marked_outside_bg(self):
+        # справките (групиране, филтър, мерки) четат fields_get, не изгледа
+        foreign = self.env["res.company"].create({"name": "GR test", "country_id": self.env.ref("base.gr").id})
+        partner = self.env["res.partner"].with_company(foreign).with_context(allowed_company_ids=[foreign.id])
+        desc = partner.fields_get(["l10n_bg_uic", "name"], ["groupable", "searchable", "aggregator"])
+        self.assertIs(desc["l10n_bg_uic"]["groupable"], False)
+        self.assertIs(desc["l10n_bg_uic"]["searchable"], False)
+        self.assertIsNone(desc["l10n_bg_uic"]["aggregator"])
+        # немаркираното не се пипа
+        self.assertTrue(desc["name"]["searchable"])
+        # полето остава в описанието — формите и списъците го искат
+        self.assertIn("l10n_bg_uic", partner.fields_get())
+
+    def test_fields_get_untouched_for_bg_company(self):
+        self.patch(type(self.env["res.company"]), "_check_is_l10n_bg_record", lambda self: True)
+        desc = self.env["res.partner"].fields_get(["l10n_bg_uic"], ["searchable"])
+        self.assertTrue(desc["l10n_bg_uic"]["searchable"])

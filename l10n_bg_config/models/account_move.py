@@ -53,7 +53,12 @@ class AccountMove(models.Model):
                 ):
                     move.l10n_bg_document_number = move.l10n_bg_name_value
                 elif move._l10n_bg_allow_ref_fallback():
-                    move.l10n_bg_document_number = formatted_ref or formatted_name
+                    # Продажбата носи НАШИЯ номер; `ref` е на клиента (поръчката му,
+                    # договор…) и не е номер на нашия документ (Велимира, 08.10.2026).
+                    if move.is_sale_document(include_receipts=True):
+                        move.l10n_bg_document_number = formatted_name
+                    else:
+                        move.l10n_bg_document_number = formatted_ref or formatted_name
                 else:
                     # Документът няма СВОЙ локален номер: този на контрагента
                     # живее в `ref`, а `name` е нашата вътрешна номерация.

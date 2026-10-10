@@ -2972,3 +2972,20 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_bg_config.l10n_bg_vertical_wizard_form
 msgid "‹ Back"
 msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_print_signer_mixin
+msgid "Document issuer for printed reports"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__print_signer_id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_print_signer_mixin__print_signer_id
+msgid "Issuer"
+msgstr ""
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_account_move__print_signer_id
+#: model:ir.model.fields,help:l10n_bg_config.field_print_signer_mixin__print_signer_id
+msgid "Person whose name, signature and company stamp are printed as the issuer of this document. Leave empty to use the print settings or the person printing."
+msgstr ""

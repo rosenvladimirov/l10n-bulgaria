@@ -821,3 +821,20 @@ msgstr "XML конфигурационен файл за Odoo"
 #: model:ir.model.fields,field_description:l10n_bg_config.field_account_settings_preview_xml_file__l10n_bg_config_file_preview
 msgid "XML Preview"
 msgstr "Преглед на XML"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_print_signer_mixin
+msgid "Document issuer for printed reports"
+msgstr "Издател на документа при печат"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__print_signer_id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_print_signer_mixin__print_signer_id
+msgid "Issuer"
+msgstr "Издател"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_account_move__print_signer_id
+#: model:ir.model.fields,help:l10n_bg_config.field_print_signer_mixin__print_signer_id
+msgid "Person whose name, signature and company stamp are printed as the issuer of this document. Leave empty to use the print settings or the person printing."
+msgstr "Човекът, чиито име, подпис и печат на фирмата се отпечатват като издател на документа. Оставете празно, за да се вземе от настройките за печат или този, който печата."

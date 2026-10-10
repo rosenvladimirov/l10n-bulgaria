@@ -1,0 +1,29 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_config
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_config
+#: model:ir.model,name:l10n_bg_config.model_print_signer_mixin
+msgid "Document issuer for printed reports"
+msgstr "Εκδότης εγγράφου στην εκτύπωση"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,field_description:l10n_bg_config.field_account_move__print_signer_id
+#: model:ir.model.fields,field_description:l10n_bg_config.field_print_signer_mixin__print_signer_id
+msgid "Issuer"
+msgstr "Εκδότης"
+
+#. module: l10n_bg_config
+#: model:ir.model.fields,help:l10n_bg_config.field_account_move__print_signer_id
+#: model:ir.model.fields,help:l10n_bg_config.field_print_signer_mixin__print_signer_id
+msgid "Person whose name, signature and company stamp are printed as the issuer of this document. Leave empty to use the print settings or the person printing."
+msgstr "Το πρόσωπο του οποίου το όνομα, η υπογραφή και η σφραγίδα της εταιρείας εκτυπώνονται ως εκδότης του εγγράφου. Αφήστε κενό για χρήση των ρυθμίσεων εκτύπωσης ή του χρήστη που εκτυπώνει."

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Уизард за импорт на КН за година -->
+<odoo>
+    <record id="view_l10n_bg_cn_code_import_form" model="ir.ui.view">
+        <field name="name">l10n.bg.cn.code.import.form</field>
+        <field name="model">l10n.bg.cn.code.import</field>
+        <field name="arch" type="xml">
+            <form string="Import Combined Nomenclature">
+                <p class="text-muted">
+                    CSV or XLSX: the NC8_TARIC sheet of the NRA (SAF-T Appendix 2) or the
+                    CN file of the NSI. The 8-digit codes are detected automatically;
+                    chapter, heading and TARIC rows are skipped.
+                </p>
+                <group>
+                    <group>
+                        <field name="file" filename="filename"/>
+                        <field name="filename" invisible="1"/>
+                        <field name="year"/>
+                    </group>
+                    <group>
+                        <field name="sheet_name" placeholder="NC8_TARIC"/>
+                        <field name="description_lang"/>
+                        <field name="archive_missing"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_import" type="object" string="Import" class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_l10n_bg_cn_code_import" model="ir.actions.act_window">
+        <field name="name">Import Combined Nomenclature</field>
+        <field name="res_model">l10n.bg.cn.code.import</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

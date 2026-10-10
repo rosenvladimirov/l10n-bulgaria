@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Меню: Склад → Конфигурация → Комбинирана номенклатура -->
+<odoo>
+    <menuitem id="menu_l10n_bg_commodity_root"
+              name="Combined Nomenclature"
+              parent="stock.menu_stock_config_settings"
+              groups="stock.group_stock_manager,account.group_account_manager"
+              sequence="45"/>
+    <menuitem id="menu_l10n_bg_cn_code"
+              name="CN Codes by Year"
+              parent="menu_l10n_bg_commodity_root"
+              action="action_l10n_bg_cn_code"
+              sequence="10"/>
+    <menuitem id="menu_l10n_bg_cn_code_import"
+              name="Import Combined Nomenclature"
+              parent="menu_l10n_bg_commodity_root"
+              action="action_l10n_bg_cn_code_import"
+              sequence="20"/>
+    <menuitem id="menu_l10n_bg_cn_suggest"
+              name="Suggest CN from Product Names"
+              parent="menu_l10n_bg_commodity_root"
+              action="action_l10n_bg_cn_suggest"
+              sequence="30"/>
+    <!-- Същото и под Счетоводство → Конфигурация (за счетоводителя) -->
+    <menuitem id="menu_l10n_bg_commodity_root_account"
+              name="Combined Nomenclature"
+              parent="account.menu_finance_configuration"
+              groups="account.group_account_manager"
+              sequence="90"/>
+    <menuitem id="menu_l10n_bg_cn_code_account"
+              name="CN Codes by Year"
+              parent="menu_l10n_bg_commodity_root_account"
+              action="action_l10n_bg_cn_code"
+              sequence="10"/>
+    <menuitem id="menu_l10n_bg_cn_code_import_account"
+              name="Import Combined Nomenclature"
+              parent="menu_l10n_bg_commodity_root_account"
+              action="action_l10n_bg_cn_code_import"
+              sequence="20"/>
+</odoo>

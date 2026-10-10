@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Кодът по КН във формата на шаблона/варианта, в списъците и във филтрите -->
+<odoo>
+    <!-- Шаблон (и пълната форма на варианта, която наследява формата на шаблона) -->
+    <record id="product_template_form_view_l10n_bg_commodity" model="ir.ui.view">
+        <field name="name">product.template.form.l10n_bg_commodity_code</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock_delivery.product_template_hs_code"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_lots_and_weight']" position="after">
+                <group string="Commodity codes (CN / TARIC)" name="l10n_bg_commodity_codes"
+                       invisible="type == 'service'">
+                    <field name="l10n_bg_commodity_code" placeholder="e.g. 48171000 or 4817100000"/>
+                    <div colspan="2" class="text-muted small"
+                         invisible="product_variant_count &lt;= 1 or is_product_variant">
+                        The product has several variants: a code entered here is written to all of them.
+                        Leave it empty to keep a different code per variant.
+                    </div>
+                    <field name="l10n_bg_cn8"/>
+                    <field name="l10n_bg_hs6"/>
+                    <field name="l10n_bg_taric10" invisible="not l10n_bg_taric10"/>
+                    <field name="l10n_bg_commodity_state" widget="badge"
+                           decoration-success="l10n_bg_commodity_state == 'ok'"
+                           decoration-warning="l10n_bg_commodity_state in ('missing', 'not_in_nomenclature')"
+                           decoration-danger="l10n_bg_commodity_state == 'invalid_format'"
+                           decoration-muted="l10n_bg_commodity_state == 'service'"/>
+                </group>
+            </xpath>
+            <!-- hs_code на ядрото носи КН8 и се поддържа от кода на вариантите -->
+            <xpath expr="//field[@name='hs_code']" position="attributes">
+                <attribute name="string">HS Code (CN8)</attribute>
+                <attribute name="help">Kept equal to the CN8 code of the variants (empty when the variants differ). Prefer the field "Commodity Code (CN/TARIC)".</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Бързата форма на варианта -->
+    <record id="product_variant_easy_edit_view_l10n_bg_commodity" model="ir.ui.view">
+        <field name="name">product.product.easy.form.l10n_bg_commodity_code</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='codes']" position="inside">
+                <field name="l10n_bg_commodity_code" invisible="type == 'service'"
+                       placeholder="e.g. 48171000 or 4817100000"/>
+                <field name="l10n_bg_cn8" invisible="type == 'service'"/>
+                <field name="l10n_bg_taric10" invisible="not l10n_bg_taric10"/>
+                <field name="l10n_bg_commodity_state" widget="badge"
+                       decoration-success="l10n_bg_commodity_state == 'ok'"
+                       decoration-warning="l10n_bg_commodity_state in ('missing', 'not_in_nomenclature')"
+                       decoration-danger="l10n_bg_commodity_state == 'invalid_format'"
+                       decoration-muted="l10n_bg_commodity_state == 'service'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Списъци: колона по желание (групово попълване по категории) -->
+    <record id="product_product_tree_view_l10n_bg_commodity" model="ir.ui.view">
+        <field name="name">product.product.list.l10n_bg_commodity_code</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="l10n_bg_commodity_code" optional="hide"/>
+                <field name="l10n_bg_cn8" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_tree_view_l10n_bg_commodity" model="ir.ui.view">
+        <field name="name">product.template.list.l10n_bg_commodity_code</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="l10n_bg_commodity_code" optional="hide"
+                       readonly="product_variant_count != 1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Филтри: търсенето на варианта наследява търсенето на шаблона -->
+    <record id="product_template_search_view_l10n_bg_commodity" model="ir.ui.view">
+        <field name="name">product.template.search.l10n_bg_commodity_code</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='combo']" position="after">
+                <separator/>
+                <filter string="Missing commodity code" name="l10n_bg_commodity_missing"
+                        domain="[('l10n_bg_commodity_state', '=', 'missing')]"/>
+                <filter string="Invalid commodity code" name="l10n_bg_commodity_invalid"
+                        domain="[('l10n_bg_commodity_state', 'in', ('invalid_format', 'not_in_nomenclature'))]"/>
+            </xpath>
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="l10n_bg_commodity_code"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Действие „Предложи КН от името“ — от списъка на вариантите/шаблоните -->
+    <record id="action_l10n_bg_cn_suggest_product" model="ir.actions.act_window">
+        <field name="name">Suggest CN from product name</field>
+        <field name="res_model">l10n.bg.cn.suggest.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="product.model_product_product"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+    <record id="action_l10n_bg_cn_suggest_template" model="ir.actions.act_window">
+        <field name="name">Suggest CN from product name</field>
+        <field name="res_model">l10n.bg.cn.suggest.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+</odoo>

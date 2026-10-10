@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_l10n_bg_cn_code_user,l10n.bg.cn.code user,model_l10n_bg_cn_code,base.group_user,1,0,0,0
+access_l10n_bg_cn_code_manager,l10n.bg.cn.code manager,model_l10n_bg_cn_code,stock.group_stock_manager,1,1,1,1
+access_l10n_bg_cn_code_import_manager,l10n.bg.cn.code.import manager,model_l10n_bg_cn_code_import,stock.group_stock_manager,1,1,1,1
+access_l10n_bg_cn_suggest_wizard_user,l10n.bg.cn.suggest.wizard user,model_l10n_bg_cn_suggest_wizard,base.group_user,1,1,1,1
+access_l10n_bg_cn_suggest_line_user,l10n.bg.cn.suggest.line user,model_l10n_bg_cn_suggest_line,base.group_user,1,1,1,1
+access_l10n_bg_cn_code_account_manager,l10n.bg.cn.code account manager,model_l10n_bg_cn_code,account.group_account_manager,1,1,1,1
+access_l10n_bg_cn_code_import_account_manager,l10n.bg.cn.code.import account manager,model_l10n_bg_cn_code_import,account.group_account_manager,1,1,1,1

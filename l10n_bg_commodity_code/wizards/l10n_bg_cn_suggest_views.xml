@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Уизард „Предложи КН от името“: записва само отметнатите редове -->
+<odoo>
+    <record id="view_l10n_bg_cn_suggest_wizard_form" model="ir.ui.view">
+        <field name="name">l10n.bg.cn.suggest.wizard.form</field>
+        <field name="model">l10n.bg.cn.suggest.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Suggest CN from product name">
+                <p class="text-muted">
+                    Codes found at the beginning of the product name (e.g. "48171000_…").
+                    Nothing is written until you apply: only the checked lines are saved.
+                    Lines where the product already has a different code are unchecked —
+                    review them first.
+                </p>
+                <p invisible="line_count">No suggestion was found in the product names.</p>
+                <field name="line_count" invisible="1"/>
+                <field name="line_ids" invisible="not line_count">
+                    <list editable="bottom" create="false" delete="true"
+                          decoration-warning="differs">
+                        <field name="apply" widget="boolean_toggle"/>
+                        <field name="product_id" readonly="1" force_save="1"/>
+                        <field name="current_code"/>
+                        <field name="suggested_code" force_save="1"/>
+                        <field name="differs" readonly="1" force_save="1"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_apply" type="object" string="Apply Selected"
+                            class="btn-primary" invisible="not line_count"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_l10n_bg_cn_suggest" model="ir.actions.act_window">
+        <field name="name">Suggest CN from Product Names</field>
+        <field name="res_model">l10n.bg.cn.suggest.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

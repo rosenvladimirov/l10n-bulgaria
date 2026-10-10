@@ -1,0 +1,644 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_commodity_code
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-10 09:56+0000\n"
+"PO-Revision-Date: 2026-10-10 09:56+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_suggest.py:0
+msgid "%s commodity code(s) applied."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.constraint,message:l10n_bg_commodity_code.constraint_l10n_bg_cn_code_code_year_unique
+msgid "A CN8 code can appear only once per year."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__active
+msgid "Active"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__apply
+msgid "Apply"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_suggest_wizard_form
+msgid "Apply Selected"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__archive_missing
+msgid "Archive Codes Missing from the File"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__archive_missing
+msgid ""
+"Archive the codes of this year that are not present in the file (use when "
+"the file is the complete nomenclature)."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_search
+msgid "Archived"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_code_import.py:0
+msgid ""
+"CN %(year)s: %(created)s created, %(updated)s updated, %(archived)s "
+"archived, %(skipped)s row(s) skipped."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.ui.menu,name:l10n_bg_commodity_code.menu_l10n_bg_cn_code
+#: model:ir.ui.menu,name:l10n_bg_commodity_code.menu_l10n_bg_cn_code_account
+msgid "CN Codes by Year"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_product__l10n_bg_cn_code_id
+msgid "CN Nomenclature Entry"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_product__l10n_bg_cn8
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_template__l10n_bg_cn8
+msgid "CN8 Code"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_import_form
+msgid ""
+"CSV or XLSX: the NC8_TARIC sheet of the NRA (SAF-T Appendix 2) or the\n"
+"                    CN file of the NSI. The 8-digit codes are detected automatically;\n"
+"                    chapter, heading and TARIC rows are skipped."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_import_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_suggest_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_suggest_wizard_form
+msgid ""
+"Codes found at the beginning of the product name (e.g. \"48171000_…\").\n"
+"                    Nothing is written until you apply: only the checked lines are saved.\n"
+"                    Lines where the product already has a different code are unchecked —\n"
+"                    review them first."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.actions.act_window,name:l10n_bg_commodity_code.action_l10n_bg_cn_code
+#: model:ir.ui.menu,name:l10n_bg_commodity_code.menu_l10n_bg_commodity_root
+#: model:ir.ui.menu,name:l10n_bg_commodity_code.menu_l10n_bg_commodity_root_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_list
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_search
+msgid "Combined Nomenclature"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_form
+msgid "Combined Nomenclature Code"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model,name:l10n_bg_commodity_code.model_l10n_bg_cn_code
+msgid "Combined Nomenclature Code (CN8) by Year"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_product_product__l10n_bg_cn8
+msgid ""
+"Combined Nomenclature code (first 8 digits). Used for SAF-T and Intrastat."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_code_import.py:0
+msgid "Combined Nomenclature imported"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_product__l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_template__l10n_bg_commodity_code
+msgid "Commodity Code (CN/TARIC)"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_product__l10n_bg_commodity_state
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_template__l10n_bg_commodity_state
+msgid "Commodity Code Status"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model,name:l10n_bg_commodity_code.model_l10n_bg_cn_suggest_line
+msgid "Commodity Code Suggestion"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/hooks.py:0
+msgid ""
+"Commodity code not migrated: the legacy TARIC code %(taric)s and HS code "
+"%(hs)s differ in the CN8 part. Set the code manually after review."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_suggest.py:0
+msgid ""
+"Commodity code of %(product)s set to %(code)s from the product name "
+"(suggestion reviewed by %(user)s)."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_suggest.py:0
+msgid "Commodity codes"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.product_template_form_view_l10n_bg_commodity
+msgid "Commodity codes (CN / TARIC)"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__create_date
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__create_date
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__create_date
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__current_code
+msgid "Current Code"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__name
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_form
+msgid "Description"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__description_lang
+msgid "Description Language"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__differs
+msgid "Differs from Current"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__display_name
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__display_name
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_product__display_name
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_template__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_code__code
+msgid "Eight-digit Combined Nomenclature code, digits only."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_product_product__l10n_bg_cn_code_id
+msgid ""
+"Entry of the CN8 code in the nomenclature of the current year, if the "
+"nomenclature for the year is loaded."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__file
+msgid "File"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__filename
+msgid "File Name"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.product_template_form_view_l10n_bg_commodity
+msgid "HS Code (CN8)"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_search
+msgid "HS6"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__hs6
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_product__l10n_bg_hs6
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_template__l10n_bg_hs6
+msgid "HS6 Code"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_product_product__l10n_bg_hs6
+msgid ""
+"Harmonized System code (first 6 digits). Used on courier and shipping "
+"documents."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__id
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__id
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__id
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_product__id
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_template__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_import_form
+msgid "Import"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.actions.act_window,name:l10n_bg_commodity_code.action_l10n_bg_cn_code_import
+#: model:ir.ui.menu,name:l10n_bg_commodity_code.menu_l10n_bg_cn_code_import
+#: model:ir.ui.menu,name:l10n_bg_commodity_code.menu_l10n_bg_cn_code_import_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_import_form
+msgid "Import Combined Nomenclature"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model,name:l10n_bg_commodity_code.model_l10n_bg_cn_code_import
+msgid "Import Combined Nomenclature Codes"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_product_product__l10n_bg_taric10
+msgid ""
+"Integrated EU tariff code (10 digits). Filled only when the commodity code "
+"itself has 10 digits — never padded with zeros."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.product_template_search_view_l10n_bg_commodity
+msgid "Invalid commodity code"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_product__l10n_bg_commodity_state__invalid_format
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_template__l10n_bg_commodity_state__invalid_format
+msgid "Invalid format"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.product_template_form_view_l10n_bg_commodity
+msgid ""
+"Kept equal to the CN8 code of the variants (empty when the variants differ)."
+" Prefer the field \"Commodity Code (CN/TARIC)\"."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__description_lang
+msgid "Language in which the descriptions of the file are written."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__write_date
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__write_date
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__write_date
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_wizard__line_count
+msgid "Line Count"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.actions.act_window,help:l10n_bg_commodity_code.action_l10n_bg_cn_code
+msgid "Load the Combined Nomenclature of the year"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_product__l10n_bg_commodity_state__missing
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_template__l10n_bg_commodity_state__missing
+msgid "Missing"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.product_template_search_view_l10n_bg_commodity
+msgid "Missing commodity code"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_import_form
+msgid "NC8_TARIC"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_code_import.py:0
+msgid ""
+"No 8-digit CN code was found in the file. Check the expected format in the "
+"module README."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/models/product_product.py:0
+msgid "No commodity code (CN8/TARIC10) is set."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_suggest_wizard_form
+msgid "No suggestion was found in the product names."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_product__l10n_bg_commodity_state__not_in_nomenclature
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_template__l10n_bg_commodity_state__not_in_nomenclature
+msgid "Not in nomenclature"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_product__l10n_bg_commodity_state__ok
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_template__l10n_bg_commodity_state__ok
+msgid "OK"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_product_product__l10n_bg_commodity_state
+msgid ""
+"OK: valid code (and present in the nomenclature of the current year when that nomenclature is loaded).\n"
+"Missing: goods without a commodity code.\n"
+"Invalid format: the code is not 8 or 10 digits.\n"
+"Not in nomenclature: the CN8 code does not exist in the nomenclature of the current year.\n"
+"Service: services need no code (SAF-T uses 00000000)."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_suggest.py:0
+msgid "Previous code: %s"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model,name:l10n_bg_commodity_code.model_product_template
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__product_id
+msgid "Product"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model,name:l10n_bg_commodity_code.model_product_product
+msgid "Product Variant"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_code_import.py:0
+msgid ""
+"Reading XLSX files requires the Python library openpyxl. Install it or save "
+"the sheet as CSV and import the CSV."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_suggest.py:0
+msgid "Select at least one suggestion to apply."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_product__l10n_bg_commodity_state__service
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_template__l10n_bg_commodity_state__service
+msgid "Service"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__sheet_name
+msgid "Sheet"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_code_import.py:0
+msgid "Sheet '%(sheet)s' not found. Available sheets: %(sheets)s"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__current_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_product_product__l10n_bg_commodity_code
+msgid ""
+"Source of truth for the product's commodity code: the 10-digit TARIC code "
+"when known (e.g. from an import customs declaration), otherwise the 8-digit "
+"Combined Nomenclature (CN8) code. Digits only. HS6, CN8 and TARIC10 are "
+"derived from it."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.actions.act_window,name:l10n_bg_commodity_code.action_l10n_bg_cn_suggest
+#: model:ir.ui.menu,name:l10n_bg_commodity_code.menu_l10n_bg_cn_suggest
+msgid "Suggest CN from Product Names"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.actions.act_window,name:l10n_bg_commodity_code.action_l10n_bg_cn_suggest_product
+#: model:ir.actions.act_window,name:l10n_bg_commodity_code.action_l10n_bg_cn_suggest_template
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_suggest_wizard_form
+msgid "Suggest CN from product name"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model,name:l10n_bg_commodity_code.model_l10n_bg_cn_suggest_wizard
+msgid "Suggest Commodity Codes from Product Names"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__suggested_code
+msgid "Suggested Code"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_wizard__line_ids
+msgid "Suggestions"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__supplementary_unit
+msgid "Supplementary Unit"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_code__supplementary_unit
+msgid ""
+"Supplementary unit foreseen by the CN for this code (e.g. p/st, m2, l, kg "
+"…). Empty when only the net mass is declared."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_product__l10n_bg_taric10
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_template__l10n_bg_taric10
+msgid "TARIC10 Code"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_product_template__l10n_bg_commodity_code
+msgid ""
+"TARIC10 when known, otherwise CN8; digits only. With a single variant this "
+"is the variant's code. With several variants it shows the common code (empty"
+" when the variants differ); setting it here writes the code to ALL variants."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/models/product_product.py:0
+msgid ""
+"The CN8 code %(code)s does not exist in the Combined Nomenclature for "
+"%(year)s."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/models/l10n_bg_cn_code.py:0
+msgid "The CN8 code '%s' must contain exactly 8 digits."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_code_import.py:0
+msgid "The XLSX file cannot be read: %s"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/models/product_product.py:0
+msgid ""
+"The commodity code '%(code)s' of product '%(product)s' must contain only "
+"digits and be exactly 8 (CN8) or 10 (TARIC10) digits long."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/models/product_product.py:0
+msgid ""
+"The commodity code '%s' must contain only digits and be 8 or 10 digits long."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_code_import.py:0
+msgid "The file is empty."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__differs
+msgid ""
+"The product already has a different commodity code — review before applying."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.product_template_form_view_l10n_bg_commodity
+msgid ""
+"The product has several variants: a code entered here is written to all of them.\n"
+"                        Leave it empty to keep a different code per variant."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_suggest.py:0
+msgid "The suggested code '%(code)s' for '%(product)s' is not 8 or 10 digits."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/models/l10n_bg_cn_code.py:0
+msgid "The year %s is not a valid Combined Nomenclature year."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.actions.act_window,help:l10n_bg_commodity_code.action_l10n_bg_cn_code
+msgid ""
+"Use \"Import Combined Nomenclature\" with the NC8_TARIC sheet\n"
+"                of the NRA or the CN file of the NSI. While the nomenclature\n"
+"                of a year is empty, only the format of the codes is checked."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_search
+msgid "With Supplementary Unit"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__sheet_name
+msgid ""
+"XLSX only: name of the sheet to read. When empty, a sheet named like "
+"NC8_TARIC or CN_<year> is preferred, otherwise the first sheet."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__year
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__year
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_search
+msgid "Year"
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_code__year
+msgid "Year in which this version of the Combined Nomenclature is in force."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__year
+msgid "Year of the Combined Nomenclature contained in the file."
+msgstr ""
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.product_template_form_view_l10n_bg_commodity
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.product_variant_easy_edit_view_l10n_bg_commodity
+msgid "e.g. 48171000 or 4817100000"
+msgstr ""

@@ -1,0 +1,692 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_suggest.py:0
+msgid "%s commodity code(s) applied."
+msgstr "Приложени кодове по КН: %s."
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.constraint,message:l10n_bg_commodity_code.constraint_l10n_bg_cn_code_code_year_unique
+msgid "A CN8 code can appear only once per year."
+msgstr "Код по КН8 може да се среща само веднъж за година."
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__active
+msgid "Active"
+msgstr "Активен"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__apply
+msgid "Apply"
+msgstr "Приложи"
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_suggest_wizard_form
+msgid "Apply Selected"
+msgstr "Приложи избраните"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__archive_missing
+msgid "Archive Codes Missing from the File"
+msgstr "Архивирай кодовете, които липсват във файла"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__archive_missing
+msgid ""
+"Archive the codes of this year that are not present in the file (use when "
+"the file is the complete nomenclature)."
+msgstr ""
+"Архивира кодовете за годината, които не са във файла (когато файлът е "
+"пълната номенклатура)."
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_search
+msgid "Archived"
+msgstr "Архивирани"
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_code_import.py:0
+msgid ""
+"CN %(year)s: %(created)s created, %(updated)s updated, %(archived)s "
+"archived, %(skipped)s row(s) skipped."
+msgstr ""
+"КН %(year)s: създадени %(created)s, обновени %(updated)s, архивирани "
+"%(archived)s, пропуснати редове %(skipped)s."
+
+#. module: l10n_bg_commodity_code
+#: model:ir.ui.menu,name:l10n_bg_commodity_code.menu_l10n_bg_cn_code
+#: model:ir.ui.menu,name:l10n_bg_commodity_code.menu_l10n_bg_cn_code_account
+msgid "CN Codes by Year"
+msgstr "Кодове по КН по години"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_product__l10n_bg_cn_code_id
+msgid "CN Nomenclature Entry"
+msgstr "Запис в номенклатурата (КН)"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_product__l10n_bg_cn8
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_template__l10n_bg_cn8
+msgid "CN8 Code"
+msgstr "Код по КН8"
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_import_form
+msgid ""
+"CSV or XLSX: the NC8_TARIC sheet of the NRA (SAF-T Appendix 2) or the\n"
+"                    CN file of the NSI. The 8-digit codes are detected automatically;\n"
+"                    chapter, heading and TARIC rows are skipped."
+msgstr ""
+"CSV или XLSX: листът NC8_TARIC на НАП (Приложение 2 към SAF-T) или файлът с "
+"КН на НСИ. Осемцифрените кодове се разпознават автоматично; редовете за "
+"глави, позиции и TARIC се пропускат."
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_import_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_suggest_wizard_form
+msgid "Cancel"
+msgstr "Отказ"
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_suggest_wizard_form
+msgid ""
+"Codes found at the beginning of the product name (e.g. \"48171000_…\").\n"
+"                    Nothing is written until you apply: only the checked lines are saved.\n"
+"                    Lines where the product already has a different code are unchecked —\n"
+"                    review them first."
+msgstr ""
+"Кодове, намерени в началото на името на артикула (напр. „48171000_…“). Нищо "
+"не се записва, докато не приложите: записват се само отметнатите редове. "
+"Редовете, при които артикулът вече има различен код, са неотметнати — "
+"прегледайте ги първо."
+
+#. module: l10n_bg_commodity_code
+#: model:ir.actions.act_window,name:l10n_bg_commodity_code.action_l10n_bg_cn_code
+#: model:ir.ui.menu,name:l10n_bg_commodity_code.menu_l10n_bg_commodity_root
+#: model:ir.ui.menu,name:l10n_bg_commodity_code.menu_l10n_bg_commodity_root_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_list
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_search
+msgid "Combined Nomenclature"
+msgstr "Комбинирана номенклатура"
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_form
+msgid "Combined Nomenclature Code"
+msgstr "Код по Комбинираната номенклатура"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model,name:l10n_bg_commodity_code.model_l10n_bg_cn_code
+msgid "Combined Nomenclature Code (CN8) by Year"
+msgstr "Код по Комбинираната номенклатура (КН8) по години"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_product_product__l10n_bg_cn8
+msgid ""
+"Combined Nomenclature code (first 8 digits). Used for SAF-T and Intrastat."
+msgstr ""
+"Код по Комбинираната номенклатура (първите 8 цифри). Ползва се за SAF-T и "
+"Интрастат."
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_code_import.py:0
+msgid "Combined Nomenclature imported"
+msgstr "Комбинираната номенклатура е заредена"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_product__l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_template__l10n_bg_commodity_code
+msgid "Commodity Code (CN/TARIC)"
+msgstr "Код по КН/TARIC"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_product__l10n_bg_commodity_state
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_template__l10n_bg_commodity_state
+msgid "Commodity Code Status"
+msgstr "Състояние на кода по КН"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model,name:l10n_bg_commodity_code.model_l10n_bg_cn_suggest_line
+msgid "Commodity Code Suggestion"
+msgstr "Предложение за код по КН"
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/hooks.py:0
+msgid ""
+"Commodity code not migrated: the legacy TARIC code %(taric)s and HS code "
+"%(hs)s differ in the CN8 part. Set the code manually after review."
+msgstr ""
+"Кодът по КН не е прехвърлен: заварените TARIC код %(taric)s и код по ХС "
+"%(hs)s се различават в частта КН8. Задайте кода ръчно след преглед."
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_suggest.py:0
+msgid ""
+"Commodity code of %(product)s set to %(code)s from the product name "
+"(suggestion reviewed by %(user)s)."
+msgstr ""
+"Кодът по КН на %(product)s е зададен на %(code)s от името на артикула "
+"(предложението е прегледано от %(user)s)."
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_suggest.py:0
+msgid "Commodity codes"
+msgstr "Кодове по КН"
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.product_template_form_view_l10n_bg_commodity
+msgid "Commodity codes (CN / TARIC)"
+msgstr "Кодове по КН / TARIC"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_wizard__create_uid
+msgid "Created by"
+msgstr "Създаден от"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__create_date
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__create_date
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__create_date
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_wizard__create_date
+msgid "Created on"
+msgstr "Създаден на"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__current_code
+msgid "Current Code"
+msgstr "Текущ код"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__name
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_form
+msgid "Description"
+msgstr "Описание"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__description_lang
+msgid "Description Language"
+msgstr "Език на описанията"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__differs
+msgid "Differs from Current"
+msgstr "Различен от текущия"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__display_name
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__display_name
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_product__display_name
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_template__display_name
+msgid "Display Name"
+msgstr "Показвано име"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_code__code
+msgid "Eight-digit Combined Nomenclature code, digits only."
+msgstr "Осемцифрен код по Комбинираната номенклатура, само цифри."
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_product_product__l10n_bg_cn_code_id
+msgid ""
+"Entry of the CN8 code in the nomenclature of the current year, if the "
+"nomenclature for the year is loaded."
+msgstr ""
+"Записът на кода по КН8 в номенклатурата за текущата година, ако "
+"номенклатурата за годината е заредена."
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__file
+msgid "File"
+msgstr "Файл"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__filename
+msgid "File Name"
+msgstr "Име на файла"
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.product_template_form_view_l10n_bg_commodity
+msgid "HS Code (CN8)"
+msgstr "Код по ХС (КН8)"
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_search
+msgid "HS6"
+msgstr "ХС6"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__hs6
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_product__l10n_bg_hs6
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_template__l10n_bg_hs6
+msgid "HS6 Code"
+msgstr "Код по ХС6"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_product_product__l10n_bg_hs6
+msgid ""
+"Harmonized System code (first 6 digits). Used on courier and shipping "
+"documents."
+msgstr ""
+"Код по Хармонизираната система (първите 6 цифри). Ползва се в куриерски и "
+"експедиционни документи."
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__id
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__id
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__id
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_product__id
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_template__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_import_form
+msgid "Import"
+msgstr "Внос"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.actions.act_window,name:l10n_bg_commodity_code.action_l10n_bg_cn_code_import
+#: model:ir.ui.menu,name:l10n_bg_commodity_code.menu_l10n_bg_cn_code_import
+#: model:ir.ui.menu,name:l10n_bg_commodity_code.menu_l10n_bg_cn_code_import_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_import_form
+msgid "Import Combined Nomenclature"
+msgstr "Внос на Комбинираната номенклатура"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model,name:l10n_bg_commodity_code.model_l10n_bg_cn_code_import
+msgid "Import Combined Nomenclature Codes"
+msgstr "Внос на кодове по Комбинираната номенклатура"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_product_product__l10n_bg_taric10
+msgid ""
+"Integrated EU tariff code (10 digits). Filled only when the commodity code "
+"itself has 10 digits — never padded with zeros."
+msgstr ""
+"Интегрираната тарифа на ЕС (10 цифри). Попълва се само когато самият код е "
+"10 цифри — никога не се допълва с нули."
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.product_template_search_view_l10n_bg_commodity
+msgid "Invalid commodity code"
+msgstr "Невалиден код по КН"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_product__l10n_bg_commodity_state__invalid_format
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_template__l10n_bg_commodity_state__invalid_format
+msgid "Invalid format"
+msgstr "Невалиден формат"
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.product_template_form_view_l10n_bg_commodity
+msgid ""
+"Kept equal to the CN8 code of the variants (empty when the variants differ)."
+" Prefer the field \"Commodity Code (CN/TARIC)\"."
+msgstr ""
+"Поддържа се равен на кода по КН8 на вариантите (празен, когато вариантите се"
+" различават). Ползвайте полето „Код по КН/TARIC“."
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__description_lang
+msgid "Language in which the descriptions of the file are written."
+msgstr "Езикът, на който са описанията във файла."
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Последно обновен от"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__write_date
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__write_date
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__write_date
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_wizard__write_date
+msgid "Last Updated on"
+msgstr "Последно обновен на"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_wizard__line_count
+msgid "Line Count"
+msgstr "Брой редове"
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.actions.act_window,help:l10n_bg_commodity_code.action_l10n_bg_cn_code
+msgid "Load the Combined Nomenclature of the year"
+msgstr "Заредете Комбинираната номенклатура за годината"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_product__l10n_bg_commodity_state__missing
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_template__l10n_bg_commodity_state__missing
+msgid "Missing"
+msgstr "Липсва"
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.product_template_search_view_l10n_bg_commodity
+msgid "Missing commodity code"
+msgstr "Липсващ код по КН"
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_import_form
+msgid "NC8_TARIC"
+msgstr "NC8_TARIC"
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_code_import.py:0
+msgid ""
+"No 8-digit CN code was found in the file. Check the expected format in the "
+"module README."
+msgstr ""
+"Във файла не е намерен осемцифрен код по КН. Проверете очаквания формат в "
+"README на модула."
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/models/product_product.py:0
+msgid "No commodity code (CN8/TARIC10) is set."
+msgstr "Няма зададен код по КН8/TARIC10."
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_suggest_wizard_form
+msgid "No suggestion was found in the product names."
+msgstr "В имената на артикулите не са намерени предложения."
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_product__l10n_bg_commodity_state__not_in_nomenclature
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_template__l10n_bg_commodity_state__not_in_nomenclature
+msgid "Not in nomenclature"
+msgstr "Липсва в номенклатурата"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_product__l10n_bg_commodity_state__ok
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_template__l10n_bg_commodity_state__ok
+msgid "OK"
+msgstr "Наред"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_product_product__l10n_bg_commodity_state
+msgid ""
+"OK: valid code (and present in the nomenclature of the current year when that nomenclature is loaded).\n"
+"Missing: goods without a commodity code.\n"
+"Invalid format: the code is not 8 or 10 digits.\n"
+"Not in nomenclature: the CN8 code does not exist in the nomenclature of the current year.\n"
+"Service: services need no code (SAF-T uses 00000000)."
+msgstr ""
+"Наред: валиден код (и съществува в номенклатурата за текущата година, когато тя е заредена).\n"
+"Липсва: стока без код по КН.\n"
+"Невалиден формат: кодът не е 8 или 10 цифри.\n"
+"Липсва в номенклатурата: кодът по КН8 го няма в номенклатурата за текущата година.\n"
+"Услуга: услугите нямат код (в SAF-T отива 00000000)."
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_suggest.py:0
+msgid "Previous code: %s"
+msgstr "Предишен код: %s"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model,name:l10n_bg_commodity_code.model_product_template
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__product_id
+msgid "Product"
+msgstr "Артикул"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model,name:l10n_bg_commodity_code.model_product_product
+msgid "Product Variant"
+msgstr "Вариант на артикул"
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_code_import.py:0
+msgid ""
+"Reading XLSX files requires the Python library openpyxl. Install it or save "
+"the sheet as CSV and import the CSV."
+msgstr ""
+"Четенето на XLSX изисква Python библиотеката openpyxl. Инсталирайте я или "
+"запишете листа като CSV и внесете CSV файла."
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_suggest.py:0
+msgid "Select at least one suggestion to apply."
+msgstr "Изберете поне едно предложение."
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_product__l10n_bg_commodity_state__service
+#: model:ir.model.fields.selection,name:l10n_bg_commodity_code.selection__product_template__l10n_bg_commodity_state__service
+msgid "Service"
+msgstr "Услуга"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__sheet_name
+msgid "Sheet"
+msgstr "Лист"
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_code_import.py:0
+msgid "Sheet '%(sheet)s' not found. Available sheets: %(sheets)s"
+msgstr "Листът „%(sheet)s“ не е намерен. Налични листове: %(sheets)s"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__current_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_product_product__l10n_bg_commodity_code
+msgid ""
+"Source of truth for the product's commodity code: the 10-digit TARIC code "
+"when known (e.g. from an import customs declaration), otherwise the 8-digit "
+"Combined Nomenclature (CN8) code. Digits only. HS6, CN8 and TARIC10 are "
+"derived from it."
+msgstr ""
+"Източникът на кода по КН на артикула: десетцифреният код по TARIC, когато е "
+"известен (напр. от митническа декларация при внос), иначе осемцифреният код "
+"по Комбинираната номенклатура (КН8). Само цифри. ХС6, КН8 и TARIC10 се "
+"изчисляват от него."
+
+#. module: l10n_bg_commodity_code
+#: model:ir.actions.act_window,name:l10n_bg_commodity_code.action_l10n_bg_cn_suggest
+#: model:ir.ui.menu,name:l10n_bg_commodity_code.menu_l10n_bg_cn_suggest
+msgid "Suggest CN from Product Names"
+msgstr "Предложи КН от имената на артикулите"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.actions.act_window,name:l10n_bg_commodity_code.action_l10n_bg_cn_suggest_product
+#: model:ir.actions.act_window,name:l10n_bg_commodity_code.action_l10n_bg_cn_suggest_template
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_suggest_wizard_form
+msgid "Suggest CN from product name"
+msgstr "Предложи КН от името"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model,name:l10n_bg_commodity_code.model_l10n_bg_cn_suggest_wizard
+msgid "Suggest Commodity Codes from Product Names"
+msgstr "Предложения за кодове по КН от имената на артикулите"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__suggested_code
+msgid "Suggested Code"
+msgstr "Предложен код"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_wizard__line_ids
+msgid "Suggestions"
+msgstr "Предложения"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__supplementary_unit
+msgid "Supplementary Unit"
+msgstr "Допълнителна мярка"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_code__supplementary_unit
+msgid ""
+"Supplementary unit foreseen by the CN for this code (e.g. p/st, m2, l, kg "
+"…). Empty when only the net mass is declared."
+msgstr ""
+"Допълнителната мярка, предвидена в КН за кода (напр. p/st, m2, l, kg …). "
+"Празна, когато се декларира само нетното тегло."
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_product__l10n_bg_taric10
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_product_template__l10n_bg_taric10
+msgid "TARIC10 Code"
+msgstr "Код по TARIC10"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_product_template__l10n_bg_commodity_code
+msgid ""
+"TARIC10 when known, otherwise CN8; digits only. With a single variant this "
+"is the variant's code. With several variants it shows the common code (empty"
+" when the variants differ); setting it here writes the code to ALL variants."
+msgstr ""
+"TARIC10, когато е известен, иначе КН8; само цифри. При един вариант това е "
+"кодът на варианта. При няколко варианта показва общия код (празен, когато "
+"вариантите се различават); запис тук пише кода във ВСИЧКИ варианти."
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/models/product_product.py:0
+msgid ""
+"The CN8 code %(code)s does not exist in the Combined Nomenclature for "
+"%(year)s."
+msgstr ""
+"Кодът по КН8 %(code)s не съществува в Комбинираната номенклатура за %(year)s"
+" г."
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/models/l10n_bg_cn_code.py:0
+msgid "The CN8 code '%s' must contain exactly 8 digits."
+msgstr "Кодът по КН8 „%s“ трябва да съдържа точно 8 цифри."
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_code_import.py:0
+msgid "The XLSX file cannot be read: %s"
+msgstr "XLSX файлът не може да се прочете: %s"
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/models/product_product.py:0
+msgid ""
+"The commodity code '%(code)s' of product '%(product)s' must contain only "
+"digits and be exactly 8 (CN8) or 10 (TARIC10) digits long."
+msgstr ""
+"Кодът по КН „%(code)s“ на артикула „%(product)s“ трябва да съдържа само "
+"цифри и да е точно 8 (КН8) или 10 (TARIC10) цифри."
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/models/product_product.py:0
+msgid ""
+"The commodity code '%s' must contain only digits and be 8 or 10 digits long."
+msgstr "Кодът по КН „%s“ трябва да съдържа само цифри и да е 8 или 10 цифри."
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_code_import.py:0
+msgid "The file is empty."
+msgstr "Файлът е празен."
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__differs
+msgid ""
+"The product already has a different commodity code — review before applying."
+msgstr ""
+"Артикулът вече има различен код по КН — прегледайте преди да приложите."
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.product_template_form_view_l10n_bg_commodity
+msgid ""
+"The product has several variants: a code entered here is written to all of them.\n"
+"                        Leave it empty to keep a different code per variant."
+msgstr ""
+"Артикулът има няколко варианта: код, въведен тук, се записва във всички. "
+"Оставете празно, за да пазите различен код за всеки вариант."
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/wizards/l10n_bg_cn_suggest.py:0
+msgid "The suggested code '%(code)s' for '%(product)s' is not 8 or 10 digits."
+msgstr "Предложеният код „%(code)s“ за „%(product)s“ не е 8 или 10 цифри."
+
+#. module: l10n_bg_commodity_code
+#. odoo-python
+#: code:addons/l10n_bg_commodity_code/models/l10n_bg_cn_code.py:0
+msgid "The year %s is not a valid Combined Nomenclature year."
+msgstr "Годината %s не е валидна година на Комбинираната номенклатура."
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.actions.act_window,help:l10n_bg_commodity_code.action_l10n_bg_cn_code
+msgid ""
+"Use \"Import Combined Nomenclature\" with the NC8_TARIC sheet\n"
+"                of the NRA or the CN file of the NSI. While the nomenclature\n"
+"                of a year is empty, only the format of the codes is checked."
+msgstr ""
+"Ползвайте „Внос на Комбинираната номенклатура“ с листа NC8_TARIC на НАП или "
+"файла с КН на НСИ. Докато номенклатурата за годината е празна, се проверява "
+"само форматът на кодовете."
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_search
+msgid "With Supplementary Unit"
+msgstr "С допълнителна мярка"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_suggest_line__wizard_id
+msgid "Wizard"
+msgstr "Съветник"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__sheet_name
+msgid ""
+"XLSX only: name of the sheet to read. When empty, a sheet named like "
+"NC8_TARIC or CN_<year> is preferred, otherwise the first sheet."
+msgstr ""
+"Само за XLSX: името на листа за четене. Ако е празно, се предпочита лист с "
+"име като NC8_TARIC или CN_<година>, иначе първият лист."
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code__year
+#: model:ir.model.fields,field_description:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__year
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.view_l10n_bg_cn_code_search
+msgid "Year"
+msgstr "Година"
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_code__year
+msgid "Year in which this version of the Combined Nomenclature is in force."
+msgstr "Годината, в която тази версия на Комбинираната номенклатура е в сила."
+
+#. module: l10n_bg_commodity_code
+#: model:ir.model.fields,help:l10n_bg_commodity_code.field_l10n_bg_cn_code_import__year
+msgid "Year of the Combined Nomenclature contained in the file."
+msgstr "Годината на Комбинираната номенклатура във файла."
+
+#. module: l10n_bg_commodity_code
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.product_template_form_view_l10n_bg_commodity
+#: model_terms:ir.ui.view,arch_db:l10n_bg_commodity_code.product_variant_easy_edit_view_l10n_bg_commodity
+msgid "e.g. 48171000 or 4817100000"
+msgstr "напр. 48171000 или 4817100000"

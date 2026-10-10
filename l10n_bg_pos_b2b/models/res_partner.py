@@ -291,3 +291,15 @@ class ResPartner(models.Model):
         return super(ResPartner, self.with_company(company))._load_pos_data_read(
             records.with_company(company), config
         )
+
+    @api.model
+    def get_new_partner(self, config_id, domain, offset):
+        # B2B купувачите НЕ се зареждат предварително (26 000+ в реална база
+        # блокират касата при отваряне) — търсят се на сървъра. Ядрото търси
+        # по ДДС номер; тук добавяме и ЕИК към същия израз (котвата §9).
+        domain = list(domain or [])
+        for leaf in list(domain):
+            if isinstance(leaf, (list, tuple)) and len(leaf) == 3 and leaf[0] == "vat":
+                domain = ["|", ("l10n_bg_uic", leaf[1], leaf[2])] + domain
+                break
+        return super().get_new_partner(config_id, domain, offset)

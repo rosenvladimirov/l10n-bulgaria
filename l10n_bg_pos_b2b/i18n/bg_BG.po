@@ -535,8 +535,8 @@ msgstr "Продажби „по сметка“ над кредитния ли�
 #. module: l10n_bg_pos_b2b
 #. odoo-javascript
 #: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
-msgid "Select customer"
-msgstr "Изберете клиент"
+msgid "Choose the customer with the Customer button"
+msgstr "Изберете клиента с бутона „Клиент“"
 
 #. module: l10n_bg_pos_b2b
 #. odoo-javascript

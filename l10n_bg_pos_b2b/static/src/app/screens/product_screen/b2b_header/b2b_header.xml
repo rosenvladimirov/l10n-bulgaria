@@ -4,15 +4,8 @@
         <div class="o_l10n_bg_b2b_header border-bottom px-2 py-2 bg-view">
             <div class="d-flex align-items-center gap-2">
                 <span class="badge text-bg-primary">Wholesale</span>
-                <t t-if="partner">
-                    <button class="btn btn-link p-0 fw-bold text-truncate o_l10n_bg_b2b_partner"
-                            t-on-click="selectPartner" t-esc="partner.name"/>
-                </t>
-                <t t-else="">
-                    <button class="btn btn-primary btn-sm o_l10n_bg_b2b_select_partner" t-on-click="selectPartner">
-                        <i class="fa fa-user me-1"/>Select customer
-                    </button>
-                </t>
+                <span t-if="partner" class="fw-bold text-truncate o_l10n_bg_b2b_partner" t-esc="partner.name"/>
+                <span t-else="" class="text-muted small o_l10n_bg_b2b_no_partner">Choose the customer with the Customer button</span>
             </div>
             <t t-if="partner">
                 <div class="small mt-1 d-flex flex-wrap column-gap-3">

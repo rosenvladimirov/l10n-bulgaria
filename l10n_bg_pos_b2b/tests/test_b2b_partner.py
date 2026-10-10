@@ -114,14 +114,20 @@ class TestB2bPartner(B2bPosCommon):
                      "l10n_bg_b2b_route", "l10n_bg_pos_total_due"):
             self.assertIn(name, fields_list)
 
-    # Т-B2B-13: мултифирма — B2B купувач на друга фирма не се зарежда
-    def test_b2b13_partner_loading_by_company(self):
-        other_company = self.env["res.company"].create({"name": "Other BG Co"})
-        foreign_b2b = self.env["res.partner"].create({
-            "name": "Other company buyer",
-            "is_company": True,
-            "company_id": other_company.id,
-        })
+    # Т-B2B-13: B2B купувачите НЕ се зареждат наведнъж (26 000+ в реална
+    # база блокираха касата) — намират се с търсене на сървъра, и по ЕИК
+    def test_b2b13_buyers_not_preloaded_but_searchable_by_uic(self):
+        Partner = self.env["res.partner"]
+        bulk = Partner.create([
+            {"name": f"Bulk buyer {i}", "is_company": True,
+             "vat": f"BG{100000000 + i}"}
+            for i in range(150)
+        ])
         loaded = {row[0] for row in self.config.get_limited_partners_loading()}
-        self.assertIn(self.b2b_company.id, loaded)
-        self.assertNotIn(foreign_b2b.id, loaded)
+        self.assertFalse(set(bulk.ids) <= loaded)
+        # ядрото търси по ДДС с „<текст>%“; ЕИК без префикса BG
+        domain = ["|", ("name", "ilike", "175074752%"),
+                  ("vat", "ilike", "175074752%")]
+        found = Partner.get_new_partner(self.config.id, domain, 0)
+        ids = {row["id"] for row in found["res.partner"]}
+        self.assertIn(self.b2b_company.id, ids)

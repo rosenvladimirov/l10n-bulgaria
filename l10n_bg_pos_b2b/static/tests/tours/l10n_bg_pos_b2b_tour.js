@@ -43,7 +43,7 @@ registry.category("web_tour.tours").add("l10n_bg_pos_b2b_wholesale_invoice", {
             Chrome.startPoS(),
             Dialog.confirm("Open Register"),
             clickWholesale(),
-            headerShows("Select customer"),
+            headerShows("Choose the customer with the Customer button"),
             ProductScreen.addOrderline("Desk Pad", "1"),
             ProductScreen.clickPartnerButton(),
             ProductScreen.clickCustomer(SOLE_TRADER),

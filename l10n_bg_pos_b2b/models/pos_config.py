@@ -106,20 +106,3 @@ class PosConfig(models.Model):
                     "needs an invoice journal.", config.name,
                 ))
         return super()._check_before_creating_new_session()
-
-    def get_limited_partners_loading(self, offset=0):
-        # Офлайн касата трябва да има всички B2B купувачи на фирмата, не само
-        # най-честите 100 (котвата §9). Добавят се само при първото
-        # зареждане, за да не се повтарят при страницирането.
-        res = super().get_limited_partners_loading(offset)
-        if offset:
-            return res
-        loaded = {row[0] for row in res}
-        b2b = self.env["res.partner"].search([
-            ("l10n_bg_is_b2b_buyer", "=", True),
-            ("parent_id", "=", False),
-            ("company_id", "in", [False, self.company_id.id]),
-        ])
-        res = list(res)
-        res.extend((pid,) for pid in b2b.ids if pid not in loaded)
-        return res

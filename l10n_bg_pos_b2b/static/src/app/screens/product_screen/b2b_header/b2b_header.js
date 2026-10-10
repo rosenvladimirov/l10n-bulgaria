@@ -50,10 +50,6 @@ export class L10nBgB2bHeader extends Component {
         return this.env.utils.formatCurrency(amount || 0);
     }
 
-    selectPartner() {
-        this.pos.selectPartner();
-    }
-
     onChangeReference(ev) {
         this.order.client_order_ref = ev.target.value || false;
     }

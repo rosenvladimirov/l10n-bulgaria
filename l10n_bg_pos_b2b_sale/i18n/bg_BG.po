@@ -1,0 +1,117 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-10 19:59+0000\n"
+"PO-Revision-Date: 2026-10-10 19:59+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_pos_b2b_sale
+#. odoo-python
+#: code:addons/l10n_bg_pos_b2b_sale/models/pos_config.py:0
+msgid "Add at least one product before saving the quotation."
+msgstr "Добавете поне един продукт, преди да запазите офертата."
+
+#. module: l10n_bg_pos_b2b_sale
+#. odoo-python
+#: code:addons/l10n_bg_pos_b2b_sale/models/pos_config.py:0
+msgid "Choose the customer before saving the quotation."
+msgstr "Изберете клиента, преди да запазите офертата."
+
+#. module: l10n_bg_pos_b2b_sale
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b_sale/static/src/app/report_viewer/report_viewer.xml:0
+msgid "Close"
+msgstr "Затвори"
+
+#. module: l10n_bg_pos_b2b_sale
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b_sale.field_pos_config__display_name
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b_sale.field_pos_order__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_pos_b2b_sale
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b_sale.field_pos_config__id
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b_sale.field_pos_order__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_bg_pos_b2b_sale
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b_sale/static/src/app/quotation/quotation.xml:0
+msgid "Not saved as a quotation yet"
+msgstr "Още не е запазена като оферта"
+
+#. module: l10n_bg_pos_b2b_sale
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b_sale/static/src/app/quotation/quotation.xml:0
+msgid "Offline: quotations need a connection"
+msgstr "Офлайн: офертите искат връзка"
+
+#. module: l10n_bg_pos_b2b_sale
+#: model:ir.model,name:l10n_bg_pos_b2b_sale.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "Настройки на касата"
+
+#. module: l10n_bg_pos_b2b_sale
+#: model:ir.model,name:l10n_bg_pos_b2b_sale.model_pos_order
+msgid "Point of Sale Orders"
+msgstr "Поръчки от касата"
+
+#. module: l10n_bg_pos_b2b_sale
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b_sale/static/src/app/quotation/quotation.xml:0
+msgid "Pro-forma"
+msgstr "Проформа"
+
+#. module: l10n_bg_pos_b2b_sale
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b_sale/static/src/app/quotation/quotation.js:0
+msgid "Pro-forma invoice"
+msgstr "Проформа фактура"
+
+#. module: l10n_bg_pos_b2b_sale
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b_sale/static/src/app/quotation/quotation.js:0
+#: code:addons/l10n_bg_pos_b2b_sale/static/src/app/quotation/quotation.xml:0
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b_sale.field_pos_order__l10n_bg_sale_order_id
+msgid "Quotation"
+msgstr "Оферта"
+
+#. module: l10n_bg_pos_b2b_sale
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b_sale/static/src/app/quotation/quotation.js:0
+msgid "Quotation %s saved."
+msgstr "Офертата %s е запазена."
+
+#. module: l10n_bg_pos_b2b_sale
+#: model:ir.model.fields,help:l10n_bg_pos_b2b_sale.field_pos_order__l10n_bg_sale_order_id
+msgid "Quotation saved from the wholesale form of the Point of Sale."
+msgstr "Оферта, запазена от формата за едро в касата."
+
+#. module: l10n_bg_pos_b2b_sale
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b_sale/static/src/app/quotation/quotation.xml:0
+msgid "Save as quotation"
+msgstr "Запази като оферта"
+
+#. module: l10n_bg_pos_b2b_sale
+#. odoo-python
+#: code:addons/l10n_bg_pos_b2b_sale/models/pos_config.py:0
+msgid ""
+"The quotation %s is already confirmed and cannot be changed from the Point "
+"of Sale."
+msgstr "Офертата %s вече е потвърдена и не може да се променя от касата."
+
+#. module: l10n_bg_pos_b2b_sale
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b_sale/static/src/app/quotation/quotation.xml:0
+msgid "Update quotation"
+msgstr "Обнови офертата"

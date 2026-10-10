@@ -26,11 +26,12 @@
         margin-top: 0.25rem;
     }
 }
-// Прозорец „Редове“: редовете влизат отдясно; бутоните — по-големи
-.leftpane:has(.o_l10n_bg_b2b_tabs[data-pane="lines"]) {
-    > .o_l10n_bg_b2b_tabs + * {
-        animation: o_l10n_bg_b2b_from_right 0.2s ease-out;
-    }
+// Прозорец „Редове“: редовете влизат отдясно
+.leftpane:has(.o_l10n_bg_b2b_tabs[data-pane="lines"]) > .o_l10n_bg_b2b_tabs + * {
+    animation: o_l10n_bg_b2b_from_right 0.2s ease-out;
+}
+// Бутоните при едро — винаги долу, по-големи, два реда по три
+.leftpane:has(.o_l10n_bg_b2b_tabs) {
     .control-buttons {
         flex-wrap: wrap;
         > .btn {

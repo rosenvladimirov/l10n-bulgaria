@@ -11,11 +11,12 @@
             <L10nBgB2bTabs t-if="currentOrder?.l10n_bg_wholesale"/>
             <L10nBgB2bHeader t-if="currentOrder?.l10n_bg_wholesale and currentOrder.l10nBgPanel === 'header'"/>
         </xpath>
-        <!-- „Данни на поръчката“ е на цялата височина: без редовете и бутоните -->
+        <!-- „Данни на поръчката“: без редовете, цифровия панел и Payment;
+             бутоните (Клиент, Wholesale, Отстъпка...) остават долу -->
         <xpath expr="//OrderSummary" position="attributes">
             <attribute name="t-if">!(currentOrder?.l10n_bg_wholesale and currentOrder.l10nBgPanel === 'header')</attribute>
         </xpath>
-        <xpath expr="//div[hasclass('pads')]" position="attributes">
+        <xpath expr="//div[hasclass('subpads')]" position="attributes">
             <attribute name="t-att-class">{'d-none': currentOrder?.l10n_bg_wholesale and currentOrder.l10nBgPanel === 'header'}</attribute>
         </xpath>
     </t>

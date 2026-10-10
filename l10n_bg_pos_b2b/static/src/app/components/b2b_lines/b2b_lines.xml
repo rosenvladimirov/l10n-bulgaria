@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- Поръчка на едро: „Subtotal“ (без ДДС) над „Taxes“ и „Total“,
+         както в продажбата (ADR specs/pos-b2b-wholesale/0002) -->
+    <t t-name="l10n_bg_pos_b2b.OrderDisplay" t-inherit="point_of_sale.OrderDisplay" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('order-summary')]/div[1]" position="attributes">
+            <attribute name="t-if">order.l10n_bg_wholesale or (this.order.config_id.iface_tax_included != 'total' and order.prices.taxDetails.has_tax_groups)</attribute>
+        </xpath>
+    </t>
+</templates>

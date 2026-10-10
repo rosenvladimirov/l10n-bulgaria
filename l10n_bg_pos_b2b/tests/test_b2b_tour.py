@@ -63,6 +63,11 @@ class TestB2bTour(TestPointOfSaleHttpCommon):
         self.assertEqual(move.delivery_date, local)
         self.assertFalse(any("Invoice forced" in (m.body or "") for m in order.message_ids),
                          "the front end must mark the invoice itself, not the server")
+        # обща отстъпка от формата → на всеки ред и във фактурата
+        self.assertEqual(order.lines.mapped("discount"), [10.0])
+        self.assertEqual(move.invoice_line_ids.filtered("product_id").mapped("discount"), [10.0])
+        # подразбиращите се стойности на формата (склад на касата) са дошли
+        self.assertEqual(order.l10n_bg_warehouse_id, self.main_pos_config.warehouse_id)
 
     # TOUR-W5: Retail + B2B купувач → фактура и пак само една
     def test_tour_retail_b2b_buyer_invoiced(self):

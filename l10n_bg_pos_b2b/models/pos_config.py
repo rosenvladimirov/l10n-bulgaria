@@ -106,3 +106,61 @@ class PosConfig(models.Model):
                     "needs an invoice journal.", config.name,
                 ))
         return super()._check_before_creating_new_session()
+
+    def l10n_bg_b2b_form_options(self, partner_id=False):
+        """Изборите на формата за едро (като в продажбата) за касата.
+
+        Вика се от касата при избор на клиент; офлайн касата остава с
+        подразбиращите се стойности на клиента. Списъците са само име и id.
+        """
+        self.ensure_one()
+        company = self.company_id
+        Partner = self.env["res.partner"]
+        commercial = Partner.browse(partner_id).exists().commercial_partner_id if partner_id else Partner
+
+        def _addresses(kind):
+            if not commercial:
+                return []
+            records = commercial | Partner.search([
+                ("id", "child_of", commercial.id),
+                ("type", "=", kind),
+            ])
+            return [{
+                "id": record.id,
+                "name": record.name or record.display_name,
+                "address": ", ".join(filter(None, [
+                    record.street, record.street2, record.city,
+                    record.zip, record.country_id.name,
+                ])),
+            } for record in records]
+
+        def _names(records):
+            return [{"id": record.id, "name": record.display_name} for record in records]
+
+        terms = self.env["account.payment.term"].search([
+            ("company_id", "in", [False, company.id]),
+        ])
+        users = self.env["res.users"].sudo().search([
+            ("share", "=", False),
+            ("company_ids", "in", company.id),
+        ])
+        warehouses = self.env["stock.warehouse"].sudo().search([
+            ("company_id", "=", company.id),
+        ])
+        commercial_c = commercial.with_company(company)
+        validity_days = getattr(company, "quotation_validity_days", 0) or 0
+        return {
+            "invoice_addresses": _addresses("invoice"),
+            "delivery_addresses": _addresses("delivery"),
+            "payment_terms": _names(terms),
+            "salespersons": _names(users),
+            "warehouses": _names(warehouses),
+            "defaults": {
+                "invoice_partner_id": commercial.address_get(["invoice"])["invoice"] if commercial else False,
+                "shipping_partner_id": commercial.address_get(["delivery"])["delivery"] if commercial else False,
+                "payment_term_id": commercial_c.property_payment_term_id.id or False,
+                "salesperson_id": commercial.user_id.id or self.env.user.id,
+                "warehouse_id": self.warehouse_id.id or False,
+                "validity_days": validity_days,
+            },
+        }

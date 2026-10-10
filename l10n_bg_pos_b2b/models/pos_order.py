@@ -57,6 +57,48 @@ class PosOrder(models.Model):
         help="Delivery address chosen by the cashier. Empty: the default "
         "delivery address of the customer is used on the invoice.",
     )
+    # Полетата като в продажбата (SO). Касата ги праща в
+    # l10n_bg_b2b_form; сървърът ги проверява и разпакетира при sync
+    # (ADR specs/pos-b2b-wholesale/0002).
+    l10n_bg_b2b_form = fields.Json(
+        string="Wholesale Form Data",
+        copy=False,
+        help="Values of the wholesale form as sent by the Point of Sale.",
+    )
+    l10n_bg_invoice_partner_id = fields.Many2one(
+        comodel_name="res.partner",
+        string="Invoice Address",
+        copy=False,
+        help="Invoice address chosen by the cashier. Empty: the default "
+        "invoice address of the customer is used.",
+    )
+    l10n_bg_payment_term_id = fields.Many2one(
+        comodel_name="account.payment.term",
+        string="Payment Terms",
+        copy=False,
+    )
+    l10n_bg_salesperson_id = fields.Many2one(
+        comodel_name="res.users",
+        string="Salesperson",
+        copy=False,
+    )
+    l10n_bg_warehouse_id = fields.Many2one(
+        comodel_name="stock.warehouse",
+        string="Warehouse",
+        copy=False,
+        help="Warehouse the goods are delivered from. Empty: the warehouse "
+        "of the Point of Sale.",
+    )
+    l10n_bg_validity_date = fields.Date(
+        string="Expiration",
+        copy=False,
+        help="Validity of the offer printed for the customer.",
+    )
+    l10n_bg_b2b_note = fields.Text(
+        string="Terms and Conditions",
+        copy=False,
+        help="Note printed on the invoice.",
+    )
     client_order_ref = fields.Char(
         string="Customer Reference",
         copy=False,
@@ -93,6 +135,7 @@ class PosOrder(models.Model):
         бележка в chatter-а. UserError тук би оставил платената поръчка
         завинаги в буфера на касата (§10.1).
         """
+        self._l10n_bg_b2b_unpack_form(order)
         forced = self._l10n_bg_b2b_prepare_order(order)
         paid = order.get("state") != "draft"
         pos_order_id = super()._process_order(order, existing_order)
@@ -119,6 +162,70 @@ class PosOrder(models.Model):
             order["to_invoice"] = True
             return True
         return False
+
+    @api.model
+    def _l10n_bg_b2b_unpack_form(self, order):
+        """Формата за едро от касата → полетата на поръчката.
+
+        Касата праща избора като JSON; тук всяка стойност се проверява
+        (адресът е на същата фирма, складът е на фирмата на касата...).
+        Невалидна стойност се изпуска с запис в лога — грешка тук би
+        оставила платената поръчка завинаги в буфера на касата (§10.1).
+        """
+        form = order.get("l10n_bg_b2b_form")
+        if not isinstance(form, dict):
+            return
+        partner = self.env["res.partner"]
+        if order.get("partner_id"):
+            partner = partner.browse(order["partner_id"]).exists()
+        commercial = partner.commercial_partner_id
+        company = self.env["pos.session"].browse(order.get("session_id")).exists().config_id.company_id
+        company = company or self.env.company
+
+        def _int(key):
+            value = form.get(key)
+            return value if isinstance(value, int) and value > 0 else False
+
+        vals = {}
+        for key, field in (
+            ("invoice_partner_id", "l10n_bg_invoice_partner_id"),
+            ("shipping_partner_id", "l10n_bg_shipping_partner_id"),
+        ):
+            address_id = _int(key)
+            if address_id and commercial and self.env["res.partner"].search_count([
+                ("id", "=", address_id), ("id", "child_of", commercial.id),
+            ]):
+                vals[field] = address_id
+        term_id = _int("payment_term_id")
+        if term_id and self.env["account.payment.term"].search_count([
+            ("id", "=", term_id), ("company_id", "in", [False, company.id]),
+        ]):
+            vals["l10n_bg_payment_term_id"] = term_id
+        user_id = _int("salesperson_id")
+        if user_id and self.env["res.users"].sudo().search_count([
+            ("id", "=", user_id), ("share", "=", False),
+        ]):
+            vals["l10n_bg_salesperson_id"] = user_id
+        warehouse_id = _int("warehouse_id")
+        if warehouse_id and self.env["stock.warehouse"].sudo().search_count([
+            ("id", "=", warehouse_id), ("company_id", "=", company.id),
+        ]):
+            vals["l10n_bg_warehouse_id"] = warehouse_id
+        validity = form.get("validity_date")
+        if validity:
+            try:
+                vals["l10n_bg_validity_date"] = fields.Date.to_date(validity)
+            except (TypeError, ValueError):
+                _logger.warning("Wholesale form: invalid expiration %r", validity)
+        if isinstance(form.get("note"), str):
+            vals["l10n_bg_b2b_note"] = form["note"].strip() or False
+        dropped = set(form) - {
+            "invoice_partner_id", "shipping_partner_id", "payment_term_id",
+            "salesperson_id", "warehouse_id", "validity_date", "note",
+        }
+        if dropped:
+            _logger.debug("Wholesale form: unknown keys %s", sorted(dropped))
+        order.update(vals)
 
     @api.model
     def _l10n_bg_may_force_invoice(self, order):
@@ -231,4 +338,45 @@ class PosOrder(models.Model):
             vals["partner_shipping_id"] = self.l10n_bg_shipping_partner_id.id
         if self.client_order_ref and not vals.get("reversed_entry_id"):
             vals["ref"] = self.client_order_ref
+        # Полетата като в продажбата (ADR specs/pos-b2b-wholesale/0002).
+        # Срокът на плащане важи винаги, както в SO, а не само при „на
+        # сметка“ (ядрото).
+        if self.l10n_bg_invoice_partner_id:
+            vals["partner_id"] = self.l10n_bg_invoice_partner_id.id
+        if self.l10n_bg_payment_term_id:
+            vals["invoice_payment_term_id"] = self.l10n_bg_payment_term_id.id
+        if self.l10n_bg_salesperson_id:
+            vals["invoice_user_id"] = self.l10n_bg_salesperson_id.id
+        if self.l10n_bg_b2b_note:
+            vals["narration"] = "\n".join(
+                filter(None, [vals.get("narration"), self.l10n_bg_b2b_note])
+            )
         return vals
+
+    # ------------------------------------------------------------------
+    # Доставката: склад и адрес от формата за едро
+    # ------------------------------------------------------------------
+
+    def _force_create_picking_real_time(self):
+        # Склад, различен от склада на касата: доставката се прави веднага,
+        # иначе сборната доставка при затваряне на сесията го губи.
+        return super()._force_create_picking_real_time() or bool(
+            self.l10n_bg_is_b2b
+            and self.l10n_bg_warehouse_id
+            and self.l10n_bg_warehouse_id != self.config_id.warehouse_id
+        )
+
+
+class PosOrderLine(models.Model):
+    _inherit = "pos.order.line"
+
+    def _prepare_procurement_values(self):
+        # „Ship later“: складът и адресът за доставка от формата за едро.
+        values = super()._prepare_procurement_values()
+        order = self.order_id
+        if order.l10n_bg_is_b2b:
+            if order.l10n_bg_warehouse_id:
+                values["warehouse_id"] = order.l10n_bg_warehouse_id
+            if order.l10n_bg_shipping_partner_id:
+                values["partner_id"] = order.l10n_bg_shipping_partner_id.id
+        return values

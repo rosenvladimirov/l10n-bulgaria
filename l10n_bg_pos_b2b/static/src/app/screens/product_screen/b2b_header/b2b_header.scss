@@ -1,0 +1,17 @@
+// Формата за едро — компактна, за да останат видими редовете
+.o_l10n_bg_b2b_header {
+    .o_l10n_bg_b2b_form {
+        max-height: 40vh;
+        overflow-y: auto;
+    }
+    .o_l10n_bg_b2b_label {
+        font-size: 0.7rem;
+        line-height: 1.1;
+    }
+    .form-select-sm,
+    .form-control-sm {
+        padding-top: 0.1rem;
+        padding-bottom: 0.1rem;
+        font-size: 0.8rem;
+    }
+}

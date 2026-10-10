@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-10 16:51+0000\n"
-"PO-Revision-Date: 2026-10-10 16:51+0000\n"
+"POT-Creation-Date: 2026-10-10 18:32+0000\n"
+"PO-Revision-Date: 2026-10-10 18:32+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_partner__l10n_bg_force_invoice
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_users__l10n_bg_force_invoice
 msgid "Always Invoice"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "Apply"
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
@@ -81,6 +87,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/l10n_bg_pos_b2b/static/src/app/screens/payment_screen_b2b.js:0
 msgid "Business customers are always invoiced."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "Choose the customer with the Customer button"
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
@@ -164,6 +176,8 @@ msgid "Credit:"
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__client_order_ref
 msgid "Customer Reference"
 msgstr ""
@@ -189,8 +203,16 @@ msgid "Customer required"
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_shipping_partner_id
 msgid "Delivery Address"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "Delivery Date"
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
@@ -201,11 +223,26 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "Discount (%)"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_config__display_name
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__display_name
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order_line__display_name
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_partner__display_name
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_stock_picking__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_validity_date
+msgid "Expiration"
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
@@ -241,8 +278,10 @@ msgstr ""
 #. module: l10n_bg_pos_b2b
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_config__id
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__id
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order_line__id
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_config_settings__id
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_partner__id
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_stock_picking__id
 msgid "ID"
 msgstr ""
 
@@ -256,6 +295,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
 msgid "Incomplete invoice details: %s."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_invoice_partner_id
+msgid "Invoice Address"
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
@@ -274,6 +320,13 @@ msgstr ""
 #. module: l10n_bg_pos_b2b
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_invoice_ref_on_receipt
 msgid "Invoice Reference on Receipt"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_order__l10n_bg_invoice_partner_id
+msgid ""
+"Invoice address chosen by the cashier. Empty: the default invoice address of"
+" the customer is used."
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
@@ -348,6 +401,11 @@ msgstr ""
 #. module: l10n_bg_pos_b2b
 #: model_terms:ir.actions.act_window,help:l10n_bg_pos_b2b.action_pos_order_b2b_no_invoice
 msgid "No wholesale order is waiting for an invoice."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_order__l10n_bg_b2b_note
+msgid "Note printed on the invoice."
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
@@ -442,6 +500,13 @@ msgid "Part of the open receivable that is past its due date."
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_payment_term_id
+msgid "Payment Terms"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_partner__l10n_bg_pos_payment_term
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_users__l10n_bg_pos_payment_term
 msgid "Payment Terms Name"
@@ -458,6 +523,11 @@ msgid "Point of Sale Configuration"
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
+#: model:ir.model,name:l10n_bg_pos_b2b.model_pos_order_line
+msgid "Point of Sale Order Lines"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
 #: model:ir.model,name:l10n_bg_pos_b2b.model_pos_order
 msgid "Point of Sale Orders"
 msgstr ""
@@ -465,6 +535,12 @@ msgstr ""
 #. module: l10n_bg_pos_b2b
 #: model_terms:ir.ui.view,arch_db:l10n_bg_pos_b2b.res_config_settings_view_form
 msgid "Policy"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "Pricelist"
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
@@ -512,7 +588,8 @@ msgstr ""
 #. module: l10n_bg_pos_b2b
 #. odoo-javascript
 #: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
-msgid "Choose the customer with the Customer button"
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_salesperson_id
+msgid "Salesperson"
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
@@ -548,7 +625,8 @@ msgstr ""
 #. module: l10n_bg_pos_b2b
 #. odoo-javascript
 #: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
-msgid "Terms:"
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_b2b_note
+msgid "Terms and Conditions"
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
@@ -618,6 +696,11 @@ msgid ""
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
+#: model:ir.model,name:l10n_bg_pos_b2b.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
 #: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_partner__l10n_bg_force_invoice
 #: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_users__l10n_bg_force_invoice
 msgid ""
@@ -635,6 +718,30 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
 msgid "VAT:"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_order__l10n_bg_validity_date
+msgid "Validity of the offer printed for the customer."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_order__l10n_bg_b2b_form
+msgid "Values of the wholesale form as sent by the Point of Sale."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_warehouse_id
+msgid "Warehouse"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_order__l10n_bg_warehouse_id
+msgid ""
+"Warehouse the goods are delivered from. Empty: the warehouse of the Point of"
+" Sale."
 msgstr ""
 
 #. module: l10n_bg_pos_b2b
@@ -699,6 +806,11 @@ msgstr ""
 #. module: l10n_bg_pos_b2b
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_config__l10n_bg_b2b_user_allowed
 msgid "Wholesale Allowed for Current User"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_b2b_form
+msgid "Wholesale Form Data"
 msgstr ""
 
 #. module: l10n_bg_pos_b2b

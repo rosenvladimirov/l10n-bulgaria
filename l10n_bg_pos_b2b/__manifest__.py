@@ -4,7 +4,7 @@
     "name": "Bulgaria - Wholesale (B2B) sales in the Point of Sale",
     "summary": "Wholesale mode in the POS: business customers are always "
     "invoiced, invoice data and credit are checked before payment",
-    "version": "19.0.1.0.1",
+    "version": "19.0.1.0.2",
     "category": "Sales/Point of Sale",
     "author": "Rosen Vladimirov, Terraros Commerce Ltd.",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",

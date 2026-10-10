@@ -16,6 +16,10 @@ patch(PosOrder.prototype, {
         if (previous?.id !== partner?.id) {
             // Адресите и срокът са на клиента — новият клиент ги сменя.
             this.l10nBgSetForm(Object.fromEntries(L10N_BG_PARTNER_KEYS.map((k) => [k, false])));
+            if (partner && this.uiState) {
+                // нов клиент — отваря данните на поръчката (акордеона)
+                this.uiState.l10nBgPanel = "header";
+            }
         }
         if (partner?.l10n_bg_is_b2b_buyer) {
             this.setToInvoice(true);
@@ -56,5 +60,18 @@ patch(PosOrder.prototype, {
                 line.setDiscount(value);
             }
         }
+    },
+});
+
+patch(PosOrder.prototype, {
+    /**
+     * Акордеонът за едро: „header“ (данните на поръчката) или „lines“.
+     * Без избор: данните, докато няма редове, после редовете.
+     */
+    get l10nBgPanel() {
+        return this.uiState.l10nBgPanel || (this.lines.length ? "lines" : "header");
+    },
+    set l10nBgPanel(value) {
+        this.uiState.l10nBgPanel = value;
     },
 });

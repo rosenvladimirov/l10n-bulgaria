@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-10 18:32+0000\n"
-"PO-Revision-Date: 2026-10-10 18:32+0000\n"
+"POT-Creation-Date: 2026-10-10 18:52+0000\n"
+"PO-Revision-Date: 2026-10-10 18:52+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: bg_BG\n"
@@ -34,12 +34,6 @@ msgstr "(офлайн: към последното зареждане)"
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_users__l10n_bg_force_invoice
 msgid "Always Invoice"
 msgstr "Винаги фактура"
-
-#. module: l10n_bg_pos_b2b
-#. odoo-javascript
-#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
-msgid "Apply"
-msgstr "Приложи"
 
 #. module: l10n_bg_pos_b2b
 #: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_config__l10n_bg_b2b_mode__auto_on_company
@@ -232,9 +226,15 @@ msgstr ""
 
 #. module: l10n_bg_pos_b2b
 #. odoo-javascript
-#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
-msgid "Discount (%)"
-msgstr "Отстъпка (%)"
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/product_screen_b2b.xml:0
+msgid "Discount %"
+msgstr "Отстъпка %"
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/product_screen_b2b.js:0
+msgid "Discount for all lines (%)"
+msgstr "Отстъпка за всички редове (%)"
 
 #. module: l10n_bg_pos_b2b
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_config__display_name
@@ -478,6 +478,18 @@ msgstr "Отворено вземане от търговския партньо
 
 #. module: l10n_bg_pos_b2b
 #. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_lines_bar/b2b_lines_bar.xml:0
+msgid "Order Lines"
+msgstr "Редове"
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "Order details"
+msgstr "Данни на поръчката"
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
 #: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
 msgid "Overdue:"
 msgstr "Просрочено:"
@@ -564,12 +576,6 @@ msgstr "Политика"
 #: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
 msgid "Pricelist"
 msgstr "Ценова листа"
-
-#. module: l10n_bg_pos_b2b
-#. odoo-javascript
-#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
-msgid "Pricelist:"
-msgstr "Ценова листа:"
 
 #. module: l10n_bg_pos_b2b
 #: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_order__l10n_bg_receipt_kind__items
@@ -732,6 +738,12 @@ msgstr ""
 msgid ""
 "This customer must be invoiced from the back office (intra-EU / export)."
 msgstr "Този клиент трябва да се фактурира от бекофиса (ВОД / износ)."
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_lines_bar/b2b_lines_bar.xml:0
+msgid "Total:"
+msgstr "Общо:"
 
 #. module: l10n_bg_pos_b2b
 #: model:ir.model,name:l10n_bg_pos_b2b.model_stock_picking

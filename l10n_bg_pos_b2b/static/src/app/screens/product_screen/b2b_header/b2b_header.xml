@@ -4,24 +4,22 @@
          (ADR specs/pos-b2b-wholesale/0002) -->
     <t t-name="l10n_bg_pos_b2b.B2bHeader">
         <div class="o_l10n_bg_b2b_header border-bottom px-2 py-2 bg-view small">
-            <div class="d-flex align-items-center gap-2">
+            <div class="d-flex align-items-center gap-2 o_l10n_bg_b2b_toggle" role="button" t-on-click="toggleExpanded">
                 <span class="badge text-bg-primary">Wholesale</span>
                 <span t-if="partner" class="fw-bold text-truncate o_l10n_bg_b2b_partner" t-esc="partner.name"/>
                 <span t-else="" class="text-muted o_l10n_bg_b2b_no_partner">Choose the customer with the Customer button</span>
-                <button t-if="partner" class="btn btn-link btn-sm ms-auto p-0 o_l10n_bg_b2b_toggle" t-on-click="toggleExpanded">
-                    <i t-attf-class="fa {{ state.expanded ? 'fa-chevron-up' : 'fa-chevron-down' }}"/>
-                </button>
+                <span class="ms-auto text-muted text-nowrap">Order details <i t-attf-class="fa {{ expanded ? 'fa-chevron-up' : 'fa-chevron-down' }}"/></span>
             </div>
             <t t-if="partner">
-                <div class="mt-1 d-flex flex-wrap column-gap-3">
+                <div t-if="expanded" class="mt-1 d-flex flex-wrap column-gap-3">
                     <span t-if="partner.l10n_bg_uic">UIC: <t t-esc="partner.l10n_bg_uic"/></span>
                     <span t-if="partner.vat">VAT: <t t-esc="partner.vat"/></span>
                     <span t-if="partner.l10n_bg_pos_represent_name">Representative: <t t-esc="partner.l10n_bg_pos_represent_name"/></span>
                 </div>
-                <div t-if="state.expanded" class="o_l10n_bg_b2b_form mt-1 row g-1">
+                <div t-if="expanded" class="o_l10n_bg_b2b_form mt-1 row g-1">
                     <div class="col-6">
                         <div class="text-muted o_l10n_bg_b2b_label">Invoice Address</div>
-                        <select class="form-select form-select-sm o_l10n_bg_b2b_invoice_address" t-on-change="(ev) => this.onChangeForm('invoice_partner_id', ev)">
+                        <select class="form-select o_l10n_bg_b2b_invoice_address" t-on-change="(ev) => this.onChangeForm('invoice_partner_id', ev)">
                             <t t-foreach="addresses('invoice_addresses')" t-as="address" t-key="address.id">
                                 <option t-att-value="address.id" t-att-selected="address.id === form.invoice_partner_id" t-esc="address.address ? address.name + ' — ' + address.address : address.name"/>
                             </t>
@@ -29,7 +27,7 @@
                     </div>
                     <div class="col-6">
                         <div class="text-muted o_l10n_bg_b2b_label">Delivery Address</div>
-                        <select class="form-select form-select-sm o_l10n_bg_b2b_delivery_address" t-on-change="(ev) => this.onChangeForm('shipping_partner_id', ev)">
+                        <select class="form-select o_l10n_bg_b2b_delivery_address" t-on-change="(ev) => this.onChangeForm('shipping_partner_id', ev)">
                             <t t-foreach="addresses('delivery_addresses')" t-as="address" t-key="address.id">
                                 <option t-att-value="address.id" t-att-selected="address.id === form.shipping_partner_id" t-esc="address.address ? address.name + ' — ' + address.address : address.name"/>
                             </t>
@@ -37,7 +35,7 @@
                     </div>
                     <div class="col-6">
                         <div class="text-muted o_l10n_bg_b2b_label">Pricelist</div>
-                        <select class="form-select form-select-sm o_l10n_bg_b2b_pricelist" t-on-change="onChangePricelist">
+                        <select class="form-select o_l10n_bg_b2b_pricelist" t-on-change="onChangePricelist">
                             <t t-foreach="pricelists" t-as="pricelist" t-key="pricelist.id">
                                 <option t-att-value="pricelist.id" t-att-selected="pricelist.id === order.pricelist_id?.id" t-esc="pricelist.display_name or pricelist.name"/>
                             </t>
@@ -45,7 +43,7 @@
                     </div>
                     <div class="col-6">
                         <div class="text-muted o_l10n_bg_b2b_label">Payment Terms</div>
-                        <select class="form-select form-select-sm o_l10n_bg_b2b_payment_term" t-att-disabled="!options.payment_terms" t-on-change="(ev) => this.onChangeForm('payment_term_id', ev)">
+                        <select class="form-select o_l10n_bg_b2b_payment_term" t-att-disabled="!options.payment_terms" t-on-change="(ev) => this.onChangeForm('payment_term_id', ev)">
                             <option value="" t-att-selected="!form.payment_term_id" t-esc="options.payment_terms ? '' : (partner.l10n_bg_pos_payment_term or '')"/>
                             <t t-foreach="options.payment_terms or []" t-as="term" t-key="term.id">
                                 <option t-att-value="term.id" t-att-selected="term.id === form.payment_term_id" t-esc="term.name"/>
@@ -54,15 +52,15 @@
                     </div>
                     <div class="col-6">
                         <div class="text-muted o_l10n_bg_b2b_label">Expiration</div>
-                        <input type="date" class="form-control form-control-sm o_l10n_bg_b2b_validity" t-att-value="form.validity_date or ''" t-on-change="(ev) => this.onChangeForm('validity_date', ev, false)"/>
+                        <input type="date" class="form-control o_l10n_bg_b2b_validity" t-att-value="form.validity_date or ''" t-on-change="(ev) => this.onChangeForm('validity_date', ev, false)"/>
                     </div>
                     <div class="col-6">
                         <div class="text-muted o_l10n_bg_b2b_label">Delivery Date</div>
-                        <input type="date" class="form-control form-control-sm o_l10n_bg_b2b_delivery_date" t-att-value="shippingDate" t-on-change="onChangeShippingDate"/>
+                        <input type="date" class="form-control o_l10n_bg_b2b_delivery_date" t-att-value="shippingDate" t-on-change="onChangeShippingDate"/>
                     </div>
                     <div class="col-6">
                         <div class="text-muted o_l10n_bg_b2b_label">Salesperson</div>
-                        <select class="form-select form-select-sm o_l10n_bg_b2b_salesperson" t-att-disabled="!options.salespersons" t-on-change="(ev) => this.onChangeForm('salesperson_id', ev)">
+                        <select class="form-select o_l10n_bg_b2b_salesperson" t-att-disabled="!options.salespersons" t-on-change="(ev) => this.onChangeForm('salesperson_id', ev)">
                             <option value="" t-att-selected="!form.salesperson_id"/>
                             <t t-foreach="options.salespersons or []" t-as="user" t-key="user.id">
                                 <option t-att-value="user.id" t-att-selected="user.id === form.salesperson_id" t-esc="user.name"/>
@@ -71,34 +69,26 @@
                     </div>
                     <div class="col-6">
                         <div class="text-muted o_l10n_bg_b2b_label">Warehouse</div>
-                        <select class="form-select form-select-sm o_l10n_bg_b2b_warehouse" t-att-disabled="!options.warehouses" t-on-change="(ev) => this.onChangeForm('warehouse_id', ev)">
+                        <select class="form-select o_l10n_bg_b2b_warehouse" t-att-disabled="!options.warehouses" t-on-change="(ev) => this.onChangeForm('warehouse_id', ev)">
                             <option value="" t-att-selected="!form.warehouse_id"/>
                             <t t-foreach="options.warehouses or []" t-as="warehouse" t-key="warehouse.id">
                                 <option t-att-value="warehouse.id" t-att-selected="warehouse.id === form.warehouse_id" t-esc="warehouse.name"/>
                             </t>
                         </select>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12">
                         <div class="text-muted o_l10n_bg_b2b_label">Customer Reference</div>
-                        <input type="text" class="form-control form-control-sm o_l10n_bg_b2b_ref"
+                        <input type="text" class="form-control o_l10n_bg_b2b_ref"
                                t-att-value="order.client_order_ref or ''"
                                t-on-change="onChangeReference"/>
                     </div>
-                    <div class="col-6">
-                        <div class="text-muted o_l10n_bg_b2b_label">Discount (%)</div>
-                        <div class="d-flex gap-1">
-                        <input type="number" min="0" max="100" step="0.01" class="form-control form-control-sm o_l10n_bg_b2b_discount" t-model="state.discount"/>
-                        <button class="btn btn-secondary btn-sm text-nowrap o_l10n_bg_b2b_discount_apply" t-att-disabled="!order.lines.length" t-on-click="applyDiscount">Apply</button>
-                        </div>
-                    </div>
                     <div class="col-12">
                         <div class="text-muted o_l10n_bg_b2b_label">Terms and Conditions</div>
-                        <textarea rows="1" class="form-control form-control-sm o_l10n_bg_b2b_note" t-att-value="form.note or ''" t-on-change="(ev) => this.onChangeForm('note', ev, false)"/>
+                        <textarea rows="1" class="form-control o_l10n_bg_b2b_note" t-att-value="form.note or ''" t-on-change="(ev) => this.onChangeForm('note', ev, false)"/>
                     </div>
                 </div>
-                <div t-else="" class="text-muted text-truncate">
-                    <t t-if="order.pricelist_id">Pricelist: <t t-esc="order.pricelist_id.display_name or order.pricelist_id.name"/></t>
-                    <t t-if="order.client_order_ref"> · <t t-esc="order.client_order_ref"/></t>
+                <div t-else="" class="text-muted text-truncate o_l10n_bg_b2b_summary">
+                    <t t-esc="summary"/>
                 </div>
                 <div class="o_l10n_bg_b2b_credit" t-if="credit and credit.limit" t-att-class="creditClass">
                     Credit: <t t-esc="formatCurrency(credit.used)"/> / <t t-esc="formatCurrency(credit.limit)"/>
@@ -112,7 +102,7 @@
                     <i class="fa fa-ban me-1"/>Invoice this customer from the back office (intra-EU / export).
                 </div>
             </t>
-            <input t-else="" type="text" class="form-control form-control-sm mt-1 o_l10n_bg_b2b_ref"
+            <input t-else="" type="text" class="form-control mt-1 o_l10n_bg_b2b_ref"
                    placeholder="Customer reference (PO number)"
                    t-att-value="order.client_order_ref or ''"
                    t-on-change="onChangeReference"/>

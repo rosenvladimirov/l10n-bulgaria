@@ -1,17 +1,23 @@
-// Формата за едро — компактна, за да останат видими редовете
+// Формата за едро — за тъч екран: контроли поне 44px
 .o_l10n_bg_b2b_header {
+    .o_l10n_bg_b2b_toggle {
+        min-height: 2.75rem;
+    }
     .o_l10n_bg_b2b_form {
-        max-height: 40vh;
+        max-height: 60vh;
         overflow-y: auto;
+        .form-select,
+        .form-control,
+        .btn {
+            min-height: 2.75rem;
+        }
     }
     .o_l10n_bg_b2b_label {
-        font-size: 0.7rem;
-        line-height: 1.1;
+        font-size: 0.75rem;
+        line-height: 1.2;
+        margin-top: 0.15rem;
     }
-    .form-select-sm,
-    .form-control-sm {
-        padding-top: 0.1rem;
-        padding-bottom: 0.1rem;
-        font-size: 0.8rem;
-    }
+}
+.o_l10n_bg_b2b_lines_bar {
+    min-height: 2.75rem;
 }

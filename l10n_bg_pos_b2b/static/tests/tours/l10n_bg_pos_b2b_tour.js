@@ -21,24 +21,38 @@ function clickWholesale() {
     };
 }
 
-// Формата като в продажбата (ADR specs/pos-b2b-wholesale/0002): обща
-// отстъпка 10 % на всички редове.
+// Формата като в продажбата (ADR specs/pos-b2b-wholesale/0002), акордеонът
+// и бутонът за обща отстъпка до „Wholesale“.
 function applyFormDiscount(percent) {
     return [
         {
-            content: "the wholesale form is shown",
+            content: "a new customer opens the order details (accordion)",
             trigger: ".o_l10n_bg_b2b_form .o_l10n_bg_b2b_warehouse",
         },
         {
-            content: `discount ${percent} %`,
-            trigger: ".o_l10n_bg_b2b_form .o_l10n_bg_b2b_discount",
-            run: `edit ${percent}`,
+            content: "the order lines are folded meanwhile",
+            trigger: ".o_l10n_bg_b2b_lines_bar:not(:has(.fa-chevron-up))",
         },
         {
-            content: "apply the discount to all lines",
-            trigger: ".o_l10n_bg_b2b_form .o_l10n_bg_b2b_discount_apply",
+            content: "open the order lines",
+            trigger: ".o_l10n_bg_b2b_lines_bar",
             run: "click",
         },
+        {
+            content: "the order details are folded",
+            trigger: ".o_l10n_bg_b2b_header:not(:has(.o_l10n_bg_b2b_form))",
+        },
+        {
+            content: "the discount button is next to Wholesale",
+            trigger: ".control-buttons .o_l10n_bg_b2b_discount_button",
+            run: "click",
+        },
+        ...String(percent).split("").map((key) => ({
+            content: `discount key ${key}`,
+            trigger: `.o_dialog div.numpad button:contains(/^${key}$/)`,
+            run: "click",
+        })),
+        Dialog.confirm(),
         {
             content: "the line carries the discount",
             trigger: `.orderline .price-per-unit:contains("${percent}%")`,

@@ -19,7 +19,7 @@ export class L10nBgB2bHeader extends Component {
 
     setup() {
         this.pos = usePos();
-        this.state = useState({ options: null, expanded: true, discount: "" });
+        this.state = useState({ options: null });
         useEffect(
             (partnerId) => {
                 this.loadOptions(partnerId);
@@ -102,6 +102,21 @@ export class L10nBgB2bHeader extends Component {
         }
     }
 
+    /** Свитият блок: ценова листа · срок · дата на доставка · референция. */
+    get summary() {
+        const order = this.order;
+        const form = this.form;
+        const term = (this.options.payment_terms || []).find((t) => t.id === form.payment_term_id);
+        return [
+            order.pricelist_id?.display_name || order.pricelist_id?.name,
+            term?.name || this.partner?.l10n_bg_pos_payment_term,
+            this.shippingDate,
+            order.client_order_ref,
+        ]
+            .filter(Boolean)
+            .join(" · ");
+    }
+
     get missing() {
         return l10nBgMissingLabels(this.partner);
     }
@@ -137,8 +152,13 @@ export class L10nBgB2bHeader extends Component {
         return this.env.utils.formatCurrency(amount || 0);
     }
 
+    /** Акордеон: отворени са или данните на поръчката, или редовете. */
+    get expanded() {
+        return this.order?.l10nBgPanel === "header";
+    }
+
     toggleExpanded() {
-        this.state.expanded = !this.state.expanded;
+        this.order.l10nBgPanel = this.expanded ? "lines" : "header";
     }
 
     onChangeForm(key, ev, numeric = true) {
@@ -159,9 +179,5 @@ export class L10nBgB2bHeader extends Component {
 
     onChangeReference(ev) {
         this.order.client_order_ref = ev.target.value || false;
-    }
-
-    applyDiscount() {
-        this.order.l10nBgApplyDiscount(this.state.discount);
     }
 }

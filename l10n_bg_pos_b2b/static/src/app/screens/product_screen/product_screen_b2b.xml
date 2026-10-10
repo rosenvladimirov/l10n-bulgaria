@@ -2,17 +2,21 @@
 <templates id="template" xml:space="preserve">
     <!-- B2B блокът — над редовете на ядрото, само в режим „Wholesale“ -->
     <t t-name="l10n_bg_pos_b2b.ProductScreen" t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension">
+        <!-- Плъзгане наляво/надясно между двата прозореца -->
+        <xpath expr="//div[hasclass('leftpane')]" position="attributes">
+            <attribute name="t-on-touchstart">l10nBgTouchStart</attribute>
+            <attribute name="t-on-touchend">l10nBgTouchEnd</attribute>
+        </xpath>
         <xpath expr="//OrderSummary" position="before">
-            <L10nBgB2bHeader t-if="currentOrder?.l10n_bg_wholesale"/>
-            <L10nBgB2bLinesBar t-if="currentOrder?.l10n_bg_wholesale"/>
+            <L10nBgB2bTabs t-if="currentOrder?.l10n_bg_wholesale"/>
+            <L10nBgB2bHeader t-if="currentOrder?.l10n_bg_wholesale and currentOrder.l10nBgPanel === 'header'"/>
         </xpath>
-        <!-- Акордеон: при отворени данни на поръчката редовете са свити -->
-        <!-- свитите редове не бива да вдигат бутоните нагоре -->
-        <xpath expr="//OrderSummary" position="after">
-            <div t-if="currentOrder?.l10n_bg_wholesale and currentOrder.l10nBgPanel === 'header'" class="flex-grow-1"/>
-        </xpath>
+        <!-- „Данни на поръчката“ е на цялата височина: без редовете и бутоните -->
         <xpath expr="//OrderSummary" position="attributes">
             <attribute name="t-if">!(currentOrder?.l10n_bg_wholesale and currentOrder.l10nBgPanel === 'header')</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('pads')]" position="attributes">
+            <attribute name="t-att-class">{'d-none': currentOrder?.l10n_bg_wholesale and currentOrder.l10nBgPanel === 'header'}</attribute>
         </xpath>
     </t>
 

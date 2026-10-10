@@ -30,17 +30,13 @@ function applyFormDiscount(percent) {
             trigger: ".o_l10n_bg_b2b_form .o_l10n_bg_b2b_warehouse",
         },
         {
-            content: "the order lines are folded meanwhile",
-            trigger: ".o_l10n_bg_b2b_lines_bar:not(:has(.fa-chevron-up))",
+            content: "the order lines are hidden meanwhile, the details take the whole height",
+            trigger: ".o_l10n_bg_b2b_tabs[data-pane=header]",
         },
+        openLines(),
         {
-            content: "open the order lines",
-            trigger: ".o_l10n_bg_b2b_lines_bar",
-            run: "click",
-        },
-        {
-            content: "the order details are folded",
-            trigger: ".o_l10n_bg_b2b_header:not(:has(.o_l10n_bg_b2b_form))",
+            content: "the order details are hidden",
+            trigger: "body:not(:has(.o_l10n_bg_b2b_form))",
         },
         {
             content: "the discount button is next to Wholesale",
@@ -62,6 +58,14 @@ function applyFormDiscount(percent) {
             trigger: ".order-summary .subtotal",
         },
     ];
+}
+
+function openLines() {
+    return {
+        content: "open the order lines",
+        trigger: ".o_l10n_bg_b2b_tab_lines",
+        run: "click",
+    };
 }
 
 function headerShows(text) {
@@ -86,7 +90,7 @@ registry.category("web_tour.tours").add("l10n_bg_pos_b2b_wholesale_invoice", {
             Chrome.startPoS(),
             Dialog.confirm("Open Register"),
             clickWholesale(),
-            headerShows("Choose the customer with the Customer button"),
+            headerShows("Choose the customer"),
             ProductScreen.addOrderline("Desk Pad", "1"),
             ProductScreen.clickPartnerButton(),
             ProductScreen.clickCustomer(SOLE_TRADER),
@@ -135,6 +139,7 @@ registry.category("web_tour.tours").add("l10n_bg_pos_b2b_foreign_buyer_blocked",
             ProductScreen.clickPartnerButton(),
             ProductScreen.clickCustomer(FOREIGN_BUYER),
             headerShows("back office"),
+            openLines(),
             ProductScreen.clickPayButton(),
             PaymentScreen.clickPaymentMethod("Cash"),
             PaymentScreen.clickValidate(),

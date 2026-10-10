@@ -1,22 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-    <!-- Горната част на продажбата (SO) над редовете на касата
-         (ADR specs/pos-b2b-wholesale/0002) -->
+    <!-- Прозорец „Данни на поръчката“: горната част на продажбата (SO) на
+         цялата височина на лявата колона (ADR specs/pos-b2b-wholesale/0002) -->
     <t t-name="l10n_bg_pos_b2b.B2bHeader">
-        <div class="o_l10n_bg_b2b_header border-bottom px-2 py-2 bg-view small">
-            <div class="d-flex align-items-center gap-2 o_l10n_bg_b2b_toggle" role="button" t-on-click="toggleExpanded">
-                <span class="badge text-bg-primary">Wholesale</span>
+        <div class="o_l10n_bg_b2b_header o_l10n_bg_b2b_slide_from_left flex-grow-1 overflow-auto px-2 py-2 bg-view">
+            <div class="text-muted o_l10n_bg_b2b_label">Customer</div>
+            <button class="btn btn-light border w-100 text-start d-flex align-items-center gap-2 o_l10n_bg_b2b_customer" t-on-click="selectPartner">
+                <i class="fa fa-user"/>
                 <span t-if="partner" class="fw-bold text-truncate o_l10n_bg_b2b_partner" t-esc="partner.name"/>
-                <span t-else="" class="text-muted o_l10n_bg_b2b_no_partner">Choose the customer with the Customer button</span>
-                <span class="ms-auto text-muted text-nowrap">Order details <i t-attf-class="fa {{ expanded ? 'fa-chevron-up' : 'fa-chevron-down' }}"/></span>
-            </div>
+                <span t-else="" class="text-muted o_l10n_bg_b2b_no_partner">Choose the customer</span>
+                <i class="fa fa-caret-down ms-auto"/>
+            </button>
             <t t-if="partner">
-                <div t-if="expanded" class="mt-1 d-flex flex-wrap column-gap-3">
+                <div class="mt-1 small d-flex flex-wrap column-gap-3">
                     <span t-if="partner.l10n_bg_uic">UIC: <t t-esc="partner.l10n_bg_uic"/></span>
                     <span t-if="partner.vat">VAT: <t t-esc="partner.vat"/></span>
                     <span t-if="partner.l10n_bg_pos_represent_name">Representative: <t t-esc="partner.l10n_bg_pos_represent_name"/></span>
                 </div>
-                <div t-if="expanded" class="o_l10n_bg_b2b_form mt-1 row g-1">
+                <div class="small o_l10n_bg_b2b_credit" t-if="credit and credit.limit" t-att-class="creditClass">
+                    Credit: <t t-esc="formatCurrency(credit.used)"/> / <t t-esc="formatCurrency(credit.limit)"/>
+                    <span t-if="credit.overdue" class="text-danger ms-2">Overdue: <t t-esc="formatCurrency(credit.overdue)"/></span>
+                    <span t-if="isOffline" class="text-muted ms-2">(offline: as of the last loading)</span>
+                </div>
+                <div class="small text-danger o_l10n_bg_b2b_missing" t-if="missing.length">
+                    <i class="fa fa-exclamation-triangle me-1"/>Missing for the invoice: <t t-esc="missing.join(', ')"/>
+                </div>
+                <div class="small text-danger o_l10n_bg_b2b_backoffice" t-if="partner.l10n_bg_b2b_route === 'backoffice'">
+                    <i class="fa fa-ban me-1"/>Invoice this customer from the back office (intra-EU / export).
+                </div>
+                <div class="o_l10n_bg_b2b_form mt-1 row g-2">
                     <div class="col-6">
                         <div class="text-muted o_l10n_bg_b2b_label">Invoice Address</div>
                         <select class="form-select o_l10n_bg_b2b_invoice_address" t-on-change="(ev) => this.onChangeForm('invoice_partner_id', ev)">
@@ -87,25 +99,14 @@
                         <textarea rows="1" class="form-control o_l10n_bg_b2b_note" t-att-value="form.note or ''" t-on-change="(ev) => this.onChangeForm('note', ev, false)"/>
                     </div>
                 </div>
-                <div t-else="" class="text-muted text-truncate o_l10n_bg_b2b_summary">
-                    <t t-esc="summary"/>
-                </div>
-                <div class="o_l10n_bg_b2b_credit" t-if="credit and credit.limit" t-att-class="creditClass">
-                    Credit: <t t-esc="formatCurrency(credit.used)"/> / <t t-esc="formatCurrency(credit.limit)"/>
-                    <span t-if="credit.overdue" class="text-danger ms-2">Overdue: <t t-esc="formatCurrency(credit.overdue)"/></span>
-                    <span t-if="isOffline" class="text-muted ms-2">(offline: as of the last loading)</span>
-                </div>
-                <div class="text-danger o_l10n_bg_b2b_missing" t-if="missing.length">
-                    <i class="fa fa-exclamation-triangle me-1"/>Missing for the invoice: <t t-esc="missing.join(', ')"/>
-                </div>
-                <div class="text-danger o_l10n_bg_b2b_backoffice" t-if="partner.l10n_bg_b2b_route === 'backoffice'">
-                    <i class="fa fa-ban me-1"/>Invoice this customer from the back office (intra-EU / export).
-                </div>
             </t>
-            <input t-else="" type="text" class="form-control mt-1 o_l10n_bg_b2b_ref"
-                   placeholder="Customer reference (PO number)"
-                   t-att-value="order.client_order_ref or ''"
-                   t-on-change="onChangeReference"/>
+            <t t-else="">
+                <div class="text-muted o_l10n_bg_b2b_label mt-2">Customer Reference</div>
+                <input type="text" class="form-control o_l10n_bg_b2b_ref"
+                       placeholder="Customer reference (PO number)"
+                       t-att-value="order.client_order_ref or ''"
+                       t-on-change="onChangeReference"/>
+            </t>
         </div>
     </t>
 </templates>

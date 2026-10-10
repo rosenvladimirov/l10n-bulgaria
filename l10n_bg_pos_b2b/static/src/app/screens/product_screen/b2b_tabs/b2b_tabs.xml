@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- Табовете на двата прозореца при едро -->
+    <t t-name="l10n_bg_pos_b2b.B2bTabs">
+        <div class="o_l10n_bg_b2b_tabs d-flex border-bottom bg-view" t-att-data-pane="panel">
+            <button class="btn flex-fill rounded-0 d-flex flex-column justify-content-center lh-sm o_l10n_bg_b2b_tab_header"
+                    t-att-class="panel === 'header' ? 'btn-primary' : 'btn-light'"
+                    t-on-click="() => this.show('header')">
+                <span class="fw-bold"><i class="fa fa-file-text-o me-1"/>Order details</span>
+                <small class="text-truncate" t-esc="partnerName"/>
+            </button>
+            <button class="btn flex-fill rounded-0 d-flex flex-column justify-content-center lh-sm o_l10n_bg_b2b_tab_lines"
+                    t-att-class="panel === 'lines' ? 'btn-primary' : 'btn-light'"
+                    t-on-click="() => this.show('lines')">
+                <span class="fw-bold"><i class="fa fa-list me-1"/>Order Lines <span class="badge text-bg-secondary" t-esc="order.lines.length"/></span>
+                <small t-esc="total"/>
+            </button>
+        </div>
+    </t>
+</templates>

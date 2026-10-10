@@ -4,10 +4,33 @@ import { NumberPopup } from "@point_of_sale/app/components/popups/number_popup/n
 import { ProductScreen } from "@point_of_sale/app/screens/product_screen/product_screen";
 import { ControlButtons } from "@point_of_sale/app/screens/product_screen/control_buttons/control_buttons";
 import { L10nBgB2bHeader } from "./b2b_header/b2b_header";
-import { L10nBgB2bLinesBar } from "./b2b_lines_bar/b2b_lines_bar";
+import { L10nBgB2bTabs } from "./b2b_tabs/b2b_tabs";
 
 patch(ProductScreen, {
-    components: { ...ProductScreen.components, L10nBgB2bHeader, L10nBgB2bLinesBar },
+    components: { ...ProductScreen.components, L10nBgB2bHeader, L10nBgB2bTabs },
+});
+
+patch(ProductScreen.prototype, {
+    /** Плъзгане с пръст наляво/надясно сменя двата прозореца при едро. */
+    l10nBgTouchStart(ev) {
+        const touch = ev.touches?.[0];
+        this._l10nBgTouch = touch ? { x: touch.clientX, y: touch.clientY } : null;
+    },
+    l10nBgTouchEnd(ev) {
+        const start = this._l10nBgTouch;
+        const touch = ev.changedTouches?.[0];
+        const order = this.currentOrder;
+        this._l10nBgTouch = null;
+        if (!start || !touch || !order?.l10n_bg_wholesale) {
+            return;
+        }
+        const dx = touch.clientX - start.x;
+        const dy = touch.clientY - start.y;
+        if (Math.abs(dx) < 60 || Math.abs(dx) < 1.5 * Math.abs(dy)) {
+            return;
+        }
+        order.l10nBgPanel = dx < 0 ? "lines" : "header";
+    },
 });
 
 patch(ControlButtons.prototype, {

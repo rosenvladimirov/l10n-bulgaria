@@ -102,21 +102,6 @@ export class L10nBgB2bHeader extends Component {
         }
     }
 
-    /** Свитият блок: ценова листа · срок · дата на доставка · референция. */
-    get summary() {
-        const order = this.order;
-        const form = this.form;
-        const term = (this.options.payment_terms || []).find((t) => t.id === form.payment_term_id);
-        return [
-            order.pricelist_id?.display_name || order.pricelist_id?.name,
-            term?.name || this.partner?.l10n_bg_pos_payment_term,
-            this.shippingDate,
-            order.client_order_ref,
-        ]
-            .filter(Boolean)
-            .join(" · ");
-    }
-
     get missing() {
         return l10nBgMissingLabels(this.partner);
     }
@@ -152,13 +137,9 @@ export class L10nBgB2bHeader extends Component {
         return this.env.utils.formatCurrency(amount || 0);
     }
 
-    /** Акордеон: отворени са или данните на поръчката, или редовете. */
-    get expanded() {
-        return this.order?.l10nBgPanel === "header";
-    }
-
-    toggleExpanded() {
-        this.order.l10nBgPanel = this.expanded ? "lines" : "header";
+    /** В прозореца с данните бутоните на ядрото са скрити — клиентът се избира тук. */
+    selectPartner() {
+        this.pos.selectPartner();
     }
 
     onChangeForm(key, ev, numeric = true) {

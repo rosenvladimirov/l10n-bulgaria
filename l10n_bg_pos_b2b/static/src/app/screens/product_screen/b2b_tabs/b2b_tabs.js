@@ -2,11 +2,12 @@ import { Component, useEffect } from "@odoo/owl";
 import { usePos } from "@point_of_sale/app/hooks/pos_hook";
 
 /**
- * Втората секция на акордеона за едро: „Редове“. Отворени са или данните
- * на поръчката, или редовете; нов ред отваря редовете сам.
+ * Двата прозореца на лявата колона при едро: „Данни на поръчката“ и
+ * „Редове“, всеки на цялата височина. Сменят се с табовете или с плъзгане
+ * наляво/надясно; нов ред отваря редовете, нов клиент — данните.
  */
-export class L10nBgB2bLinesBar extends Component {
-    static template = "l10n_bg_pos_b2b.B2bLinesBar";
+export class L10nBgB2bTabs extends Component {
+    static template = "l10n_bg_pos_b2b.B2bTabs";
     static props = {};
 
     setup() {
@@ -27,15 +28,19 @@ export class L10nBgB2bLinesBar extends Component {
         return this.pos.getOrder();
     }
 
-    get expanded() {
-        return this.order?.l10nBgPanel !== "header";
+    get panel() {
+        return this.order?.l10nBgPanel || "header";
+    }
+
+    get partnerName() {
+        return this.order?.getPartner()?.name || "";
     }
 
     get total() {
         return this.order ? this.order.currencyDisplayPriceIncl : "";
     }
 
-    toggle() {
-        this.order.l10nBgPanel = this.expanded ? "header" : "lines";
+    show(panel) {
+        this.order.l10nBgPanel = panel;
     }
 }

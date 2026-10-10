@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_pos_form" model="ir.ui.view">
+        <field name="name">pos.order.form.inherit.l10n_bg_pos_b2b</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='extra']/group/group[@name='other_information']" position="after">
+                <group string="Wholesale (B2B)" name="l10n_bg_b2b" invisible="not l10n_bg_is_b2b">
+                    <field name="l10n_bg_is_b2b" readonly="1"/>
+                    <field name="l10n_bg_wholesale" readonly="1"/>
+                    <field name="l10n_bg_doc_mode" readonly="1"/>
+                    <field name="l10n_bg_receipt_kind" readonly="1"/>
+                    <field name="l10n_bg_invoice_ref_on_receipt" readonly="1"/>
+                    <field name="client_order_ref" readonly="state != 'draft'"/>
+                    <field name="l10n_bg_shipping_partner_id" readonly="state != 'draft'"/>
+                    <field name="l10n_bg_guard_ack" readonly="1" invisible="not l10n_bg_guard_ack"/>
+                    <field name="l10n_bg_credit_override_by" readonly="1" invisible="not l10n_bg_credit_override_by"/>
+                    <field name="l10n_bg_credit_override_reason" readonly="1" invisible="not l10n_bg_credit_override_by"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_pos_order_filter" model="ir.ui.view">
+        <field name="name">pos.order.select.inherit.l10n_bg_pos_b2b</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='invoiced']" position="after">
+                <filter string="Wholesale (B2B)" name="l10n_bg_b2b" domain="[('l10n_bg_is_b2b', '=', True)]"/>
+                <filter string="Wholesale without Invoice" name="l10n_bg_b2b_no_invoice"
+                        domain="[('l10n_bg_is_b2b', '=', True), ('account_move', '=', False), ('state', 'in', ('paid', 'done'))]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Справката „B2B без фактура“ (котвата §13, §18): платени B2B поръчки,
+         за които фактурата не е създадена при синхронизацията. -->
+    <record id="action_pos_order_b2b_no_invoice" model="ir.actions.act_window">
+        <field name="name">Wholesale Orders without Invoice</field>
+        <field name="res_model">pos.order</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('l10n_bg_is_b2b', '=', True), ('account_move', '=', False), ('state', 'in', ('paid', 'done'))]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No wholesale order is waiting for an invoice.</p>
+            <p>Paid wholesale orders whose invoice could not be created during synchronisation appear here.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_pos_order_b2b_no_invoice"
+              parent="point_of_sale.menu_point_of_sale"
+              action="action_pos_order_b2b_no_invoice"
+              sequence="3"
+              groups="point_of_sale.group_pos_manager"/>
+</odoo>

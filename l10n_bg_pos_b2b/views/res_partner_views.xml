@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.l10n_bg_pos_b2b</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Ръчният признак „винаги фактура“ стои до ДДС номера -->
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="l10n_bg_force_invoice" invisible="parent_id"/>
+                <field name="l10n_bg_is_b2b_buyer" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

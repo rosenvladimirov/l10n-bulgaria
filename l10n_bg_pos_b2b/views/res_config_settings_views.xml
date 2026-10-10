@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.l10n_bg_pos_b2b</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Настройките на едро — в същата pos.config (решение В19) -->
+            <xpath expr="//block[@id='pos_accounting_section']" position="after">
+                <block title="Wholesale (B2B)" id="l10n_bg_pos_b2b_section">
+                    <setting id="l10n_bg_b2b_mode" string="Wholesale Mode"
+                             help="Wholesale block above the products; business customers are always invoiced">
+                        <field name="pos_l10n_bg_b2b_mode"/>
+                    </setting>
+                    <setting id="l10n_bg_b2b_doc_mode" string="Invoice Document"
+                             help="Odoo invoice plus a fiscal receipt for cash and card payments">
+                        <field name="pos_l10n_bg_b2b_default_doc_mode" readonly="1"/>
+                    </setting>
+                    <setting id="l10n_bg_b2b_guard_mode" string="Invoice Data Check"
+                             help="Missing name, address or company ID of a business customer">
+                        <field name="pos_l10n_bg_b2b_guard_mode"/>
+                    </setting>
+                    <setting id="l10n_bg_b2b_credit" string="Credit Limit"
+                             help="Sales on account above the credit limit of the customer">
+                        <div class="content-group">
+                            <div class="row mt8">
+                                <label string="Policy" for="pos_l10n_bg_b2b_credit_policy" class="col-lg-4 o_light_label"/>
+                                <field name="pos_l10n_bg_b2b_credit_policy"/>
+                            </div>
+                            <div class="row">
+                                <label string="Offline cap" for="pos_l10n_bg_b2b_offline_order_cap" class="col-lg-4 o_light_label"/>
+                                <field name="pos_l10n_bg_b2b_offline_order_cap"/>
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

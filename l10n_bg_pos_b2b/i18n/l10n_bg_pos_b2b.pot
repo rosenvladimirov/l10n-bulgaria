@@ -1,0 +1,773 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_pos_b2b
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-10 16:51+0000\n"
+"PO-Revision-Date: 2026-10-10 16:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid ""
+"%s is a business customer and must receive an invoice. Mark the order for "
+"invoicing."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "(offline: as of the last loading)"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_partner__l10n_bg_force_invoice
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_users__l10n_bg_force_invoice
+msgid "Always Invoice"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_config__l10n_bg_b2b_mode__auto_on_company
+msgid "Automatic for business customers"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/order_payment_validation_b2b.js:0
+msgid "Back"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__res_partner__l10n_bg_b2b_route__backoffice
+msgid "Back office"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid "Back office invoice"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_config__l10n_bg_b2b_credit_policy__block
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_config__l10n_bg_b2b_guard_mode__block
+msgid "Block"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_partner__l10n_bg_is_b2b_buyer
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_users__l10n_bg_is_b2b_buyer
+msgid "Business Buyer (B2B)"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_partner__l10n_bg_is_b2b_buyer
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_users__l10n_bg_is_b2b_buyer
+msgid ""
+"Business buyers (companies, sole traders, legal entities) must always "
+"receive an invoice (VAT Act, Art. 113, para. 1)."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/payment_screen_b2b.js:0
+msgid "Business customers are always invoiced."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model,name:l10n_bg_pos_b2b.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_guard_ack
+msgid "Confirmed Warnings"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/order_payment_validation_b2b.js:0
+msgid ""
+"Confirmed at the cash register: limit %(limit)s, used %(used)s, order "
+"%(amount)s"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model,name:l10n_bg_pos_b2b.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/order_payment_validation_b2b.js:0
+msgid "Continue"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model_terms:ir.ui.view,arch_db:l10n_bg_pos_b2b.res_config_settings_view_form
+msgid "Credit Limit"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_credit_override_by
+msgid "Credit Limit Overridden By"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_credit_override_reason
+msgid "Credit Limit Override Reason"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_config__l10n_bg_b2b_credit_policy
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_config_settings__pos_l10n_bg_b2b_credit_policy
+msgid "Credit Limit Policy"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid "Credit limit %(limit)s exceeded: used %(used)s, this order %(amount)s."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid "Credit limit exceeded"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-python
+#: code:addons/l10n_bg_pos_b2b/models/pos_order.py:0
+msgid "Credit limit exceeded, confirmed by %(user)s: %(reason)s"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_partner__l10n_bg_pos_credit_limit
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_users__l10n_bg_pos_credit_limit
+msgid "Credit limit of the commercial partner (0 = no limit)."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "Credit:"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__client_order_ref
+msgid "Customer Reference"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_partner__l10n_bg_pos_orders_amount_due
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_users__l10n_bg_pos_orders_amount_due
+msgid ""
+"Customer account payments of orders in open sessions that are not invoiced "
+"yet."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "Customer reference (PO number)"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid "Customer required"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_shipping_partner_id
+msgid "Delivery Address"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_order__l10n_bg_shipping_partner_id
+msgid ""
+"Delivery address chosen by the cashier. Empty: the default delivery address "
+"of the customer is used on the invoice."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_config__display_name
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__display_name
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_receipt_kind
+msgid "Fiscal Receipt Kind"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_order__l10n_bg_doc_mode__fd_invoice
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_order__l10n_bg_receipt_kind__fd_invoice
+msgid "Fiscal device invoice"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_config__l10n_bg_b2b_default_doc_mode__fd_invoice
+msgid "Fiscal device invoice (locked)"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid "Foreign currency"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_partner__l10n_bg_b2b_route
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_users__l10n_bg_b2b_route
+msgid ""
+"Foreign customers (intra-EU supplies, exports) are invoiced from the back "
+"office, not from the Point of Sale."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_config__id
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__id
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_config_settings__id
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid "Incomplete invoice details"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid "Incomplete invoice details: %s."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_config__l10n_bg_b2b_guard_mode
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_config_settings__pos_l10n_bg_b2b_guard_mode
+#: model_terms:ir.ui.view,arch_db:l10n_bg_pos_b2b.res_config_settings_view_form
+msgid "Invoice Data Check"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_doc_mode
+#: model_terms:ir.ui.view,arch_db:l10n_bg_pos_b2b.res_config_settings_view_form
+msgid "Invoice Document"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_invoice_ref_on_receipt
+msgid "Invoice Reference on Receipt"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-python
+#: code:addons/l10n_bg_pos_b2b/models/pos_order.py:0
+msgid ""
+"Invoice forced by the wholesale (B2B) check: the customer is a business "
+"buyer and the order was not marked for invoicing."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_order__l10n_bg_invoice_ref_on_receipt
+msgid "Invoice number and date as printed on the fiscal receipt."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid "Invoice required"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "Invoice this customer from the back office (intra-EU / export)."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-python
+#: code:addons/l10n_bg_pos_b2b/models/pos_config.py:0
+msgid ""
+"Invoices issued by the fiscal device are not available yet. Wholesale sales "
+"are invoiced in Odoo."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_partner__l10n_bg_b2b_route
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_users__l10n_bg_b2b_route
+msgid "Invoicing Channel"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_config__l10n_bg_b2b_offline_order_cap
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_config_settings__pos_l10n_bg_b2b_offline_order_cap
+msgid ""
+"Maximum amount on account for one wholesale order while the Point of Sale is"
+" offline (0 = no cap)."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_partner__l10n_bg_invoice_missing
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_users__l10n_bg_invoice_missing
+msgid "Missing Invoice Data"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "Missing for the invoice:"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model_terms:ir.ui.view,arch_db:l10n_bg_pos_b2b.res_config_settings_view_form
+msgid "Missing name, address or company ID of a business customer"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_order__l10n_bg_receipt_kind__none
+msgid "No fiscal receipt"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model_terms:ir.actions.act_window,help:l10n_bg_pos_b2b.action_pos_order_b2b_no_invoice
+msgid "No wholesale order is waiting for an invoice."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_config__l10n_bg_b2b_default_doc_mode__odoo_invoice
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_order__l10n_bg_doc_mode__odoo_invoice
+msgid "Odoo invoice + fiscal receipt"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model_terms:ir.ui.view,arch_db:l10n_bg_pos_b2b.res_config_settings_view_form
+msgid "Odoo invoice plus a fiscal receipt for cash and card payments"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_config__l10n_bg_b2b_mode__off
+msgid "Off"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_config__l10n_bg_b2b_mode
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_config_settings__pos_l10n_bg_b2b_mode
+msgid ""
+"Off: no wholesale block in this Point of Sale (business customers are still always invoiced).\n"
+"Wholesale button: the cashier switches between Retail and Wholesale.\n"
+"Automatic: selecting a business customer switches to Wholesale."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_config__l10n_bg_b2b_offline_order_cap
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_config_settings__pos_l10n_bg_b2b_offline_order_cap
+msgid "Offline Credit Cap"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model_terms:ir.ui.view,arch_db:l10n_bg_pos_b2b.res_config_settings_view_form
+msgid "Offline cap"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid "Offline credit cap"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_partner__l10n_bg_pos_total_due
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_users__l10n_bg_pos_total_due
+msgid "Open receivable of the commercial partner in the company."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "Overdue:"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_partner__l10n_bg_pos_credit_limit
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_users__l10n_bg_pos_credit_limit
+msgid "POS Credit Limit"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_partner__l10n_bg_pos_orders_amount_due
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_users__l10n_bg_pos_orders_amount_due
+msgid "POS Orders on Account"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_partner__l10n_bg_pos_overdue
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_users__l10n_bg_pos_overdue
+msgid "POS Overdue"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_partner__l10n_bg_pos_total_due
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_users__l10n_bg_pos_total_due
+msgid "POS Total Due"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model_terms:ir.actions.act_window,help:l10n_bg_pos_b2b.action_pos_order_b2b_no_invoice
+msgid ""
+"Paid wholesale orders whose invoice could not be created during "
+"synchronisation appear here."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_partner__l10n_bg_pos_overdue
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_users__l10n_bg_pos_overdue
+msgid "Part of the open receivable that is past its due date."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_partner__l10n_bg_pos_payment_term
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_users__l10n_bg_pos_payment_term
+msgid "Payment Terms Name"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__res_partner__l10n_bg_b2b_route__pos
+msgid "Point of Sale"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model,name:l10n_bg_pos_b2b.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model,name:l10n_bg_pos_b2b.model_pos_order
+msgid "Point of Sale Orders"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model_terms:ir.ui.view,arch_db:l10n_bg_pos_b2b.res_config_settings_view_form
+msgid "Policy"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "Pricelist:"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_order__l10n_bg_receipt_kind__items
+msgid "Receipt with items"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_order__client_order_ref
+msgid ""
+"Reference given by the customer (purchase order number); it becomes the "
+"reference of the invoice."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_partner__l10n_bg_pos_represent_name
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_users__l10n_bg_pos_represent_name
+msgid "Representative Name"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "Representative:"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_order__l10n_bg_is_b2b
+msgid ""
+"Sale in Wholesale mode or to a business buyer. Such a sale is always "
+"invoiced."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model_terms:ir.ui.view,arch_db:l10n_bg_pos_b2b.res_config_settings_view_form
+msgid "Sales on account above the credit limit of the customer"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "Select customer"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid "Select the business customer before payment in Wholesale mode."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-python
+#: code:addons/l10n_bg_pos_b2b/models/pos_order.py:0
+msgid "Some orders are already being invoiced. Please try again later."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_order__l10n_bg_receipt_kind__summary
+msgid "Summary receipt"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_partner__l10n_bg_invoice_missing
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_users__l10n_bg_invoice_missing
+msgid ""
+"Technical: comma-separated codes of the invoice details required by Art. 114"
+" of the VAT Act that are missing."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_config__l10n_bg_b2b_user_allowed
+msgid "Technical: the current user may use the Wholesale button."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "Terms:"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-python
+#: code:addons/l10n_bg_pos_b2b/models/pos_config.py:0
+msgid ""
+"The Point of Sale '%s' cannot be opened: wholesale mode needs an invoice "
+"journal."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid ""
+"The Point of Sale is offline: at most %s can be sold on account in one "
+"order."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid ""
+"The credit limit of %(partner)s is %(limit)s; already used %(used)s. This "
+"order adds %(amount)s on account."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-python
+#: code:addons/l10n_bg_pos_b2b/models/pos_order.py:0
+msgid ""
+"The invoice could not be created during synchronisation; the order stays "
+"paid without an invoice. Reason: %s"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid "The invoice details of %(partner)s are incomplete: %(missing)s."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_config__l10n_bg_b2b_default_doc_mode
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_config_settings__pos_l10n_bg_b2b_default_doc_mode
+msgid ""
+"The invoice of a wholesale sale is always the Odoo invoice. Invoices issued "
+"by the fiscal device are not available yet."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_order__l10n_bg_wholesale
+msgid "The order was made in the Wholesale mode of the Point of Sale."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid ""
+"The pricelist %(pricelist)s is in %(currency)s. Wholesale sales in the Point"
+" of Sale are only possible in %(company_currency)s."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid ""
+"This customer must be invoiced from the back office (intra-EU / export)."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_partner__l10n_bg_force_invoice
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_users__l10n_bg_force_invoice
+msgid ""
+"Treat this customer as a business buyer: every sale in the Point of Sale is "
+"invoiced, even if the customer is not a company and has no VAT number."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "UIC:"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+msgid "VAT:"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_config__l10n_bg_b2b_credit_policy__warn
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_config__l10n_bg_b2b_guard_mode__warn
+msgid "Warn"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-python
+#: code:addons/l10n_bg_pos_b2b/models/pos_order.py:0
+msgid "Warnings confirmed by the cashier before payment: %s"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_order__l10n_bg_guard_ack
+msgid ""
+"Warnings of the wholesale checks that the cashier confirmed before payment."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_config__l10n_bg_b2b_credit_policy
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_config_settings__pos_l10n_bg_b2b_credit_policy
+msgid ""
+"What happens when a sale on account exceeds the credit limit of the "
+"customer: the cashier confirms (Warn) or the sale is stopped (Block)."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_config__l10n_bg_b2b_guard_mode
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_res_config_settings__pos_l10n_bg_b2b_guard_mode
+msgid ""
+"What happens when the invoice details of a business customer are incomplete "
+"(name, address, company ID): the cashier confirms (Warn) or the sale is "
+"stopped (Block)."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,help:l10n_bg_pos_b2b.field_pos_order__l10n_bg_receipt_kind
+msgid "What was actually printed by the fiscal device for this order."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/b2b_header/b2b_header.xml:0
+#: code:addons/l10n_bg_pos_b2b/static/src/app/screens/product_screen/product_screen_b2b.xml:0
+msgid "Wholesale"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model_terms:ir.ui.view,arch_db:l10n_bg_pos_b2b.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_pos_b2b.view_pos_order_filter
+#: model_terms:ir.ui.view,arch_db:l10n_bg_pos_b2b.view_pos_pos_form
+msgid "Wholesale (B2B)"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_is_b2b
+msgid "Wholesale (B2B) Sale"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_config__l10n_bg_b2b_user_allowed
+msgid "Wholesale Allowed for Current User"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_config__l10n_bg_b2b_default_doc_mode
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_config_settings__pos_l10n_bg_b2b_default_doc_mode
+msgid "Wholesale Invoice Document"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_config__l10n_bg_b2b_mode
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_pos_order__l10n_bg_wholesale
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b.field_res_config_settings__pos_l10n_bg_b2b_mode
+#: model_terms:ir.ui.view,arch_db:l10n_bg_pos_b2b.res_config_settings_view_form
+msgid "Wholesale Mode"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.actions.act_window,name:l10n_bg_pos_b2b.action_pos_order_b2b_no_invoice
+#: model:ir.ui.menu,name:l10n_bg_pos_b2b.menu_pos_order_b2b_no_invoice
+msgid "Wholesale Orders without Invoice"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model_terms:ir.ui.view,arch_db:l10n_bg_pos_b2b.res_config_settings_view_form
+msgid ""
+"Wholesale block above the products; business customers are always invoiced"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:ir.model.fields.selection,name:l10n_bg_pos_b2b.selection__pos_config__l10n_bg_b2b_mode__button
+msgid "Wholesale button"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/order_payment_validation_b2b.js:0
+msgid "Wholesale check"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model:res.groups,name:l10n_bg_pos_b2b.group_pos_b2b
+msgid "Wholesale in Point of Sale"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-python
+#: code:addons/l10n_bg_pos_b2b/models/pos_config.py:0
+msgid "Wholesale mode needs an invoice journal on the Point of Sale '%s'."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#: model_terms:ir.ui.view,arch_db:l10n_bg_pos_b2b.view_pos_order_filter
+msgid "Wholesale without Invoice"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid "address (street, city, country)"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid "company ID (UIC) or VAT number"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b/static/src/app/utils/b2b_checks.js:0
+msgid "name"
+msgstr ""

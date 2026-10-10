@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Правото да се вижда бутонът „Wholesale“ на касата (котвата §21).
+         Гардът „фирма без фактура“ важи за всички, със и без групата. -->
+    <record id="group_pos_b2b" model="res.groups">
+        <field name="name">Wholesale in Point of Sale</field>
+        <field name="implied_ids" eval="[(4, ref('point_of_sale.group_pos_user'))]"/>
+    </record>
+    <!-- Мениджърът на касата продава и на едро. -->
+    <record id="point_of_sale.group_pos_manager" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('group_pos_b2b'))]"/>
+    </record>
+</odoo>

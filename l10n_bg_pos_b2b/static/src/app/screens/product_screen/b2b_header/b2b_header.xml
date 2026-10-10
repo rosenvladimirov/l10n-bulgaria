@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="l10n_bg_pos_b2b.B2bHeader">
+        <div class="o_l10n_bg_b2b_header border-bottom px-2 py-2 bg-view">
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge text-bg-primary">Wholesale</span>
+                <t t-if="partner">
+                    <button class="btn btn-link p-0 fw-bold text-truncate o_l10n_bg_b2b_partner"
+                            t-on-click="selectPartner" t-esc="partner.name"/>
+                </t>
+                <t t-else="">
+                    <button class="btn btn-primary btn-sm o_l10n_bg_b2b_select_partner" t-on-click="selectPartner">
+                        <i class="fa fa-user me-1"/>Select customer
+                    </button>
+                </t>
+            </div>
+            <t t-if="partner">
+                <div class="small mt-1 d-flex flex-wrap column-gap-3">
+                    <span t-if="partner.l10n_bg_uic">UIC: <t t-esc="partner.l10n_bg_uic"/></span>
+                    <span t-if="partner.vat">VAT: <t t-esc="partner.vat"/></span>
+                    <span t-if="partner.l10n_bg_pos_represent_name">Representative: <t t-esc="partner.l10n_bg_pos_represent_name"/></span>
+                </div>
+                <div class="small text-muted text-truncate" t-if="partner.pos_contact_address" t-esc="partner.pos_contact_address"/>
+                <div class="small d-flex flex-wrap column-gap-3">
+                    <span t-if="order.pricelist_id">Pricelist: <t t-esc="order.pricelist_id.display_name or order.pricelist_id.name"/></span>
+                    <span t-if="partner.l10n_bg_pos_payment_term">Terms: <t t-esc="partner.l10n_bg_pos_payment_term"/></span>
+                </div>
+                <div class="small o_l10n_bg_b2b_credit" t-if="credit and credit.limit" t-att-class="creditClass">
+                    Credit: <t t-esc="formatCurrency(credit.used)"/> / <t t-esc="formatCurrency(credit.limit)"/>
+                    <span t-if="credit.overdue" class="text-danger ms-2">Overdue: <t t-esc="formatCurrency(credit.overdue)"/></span>
+                    <span t-if="isOffline" class="text-muted ms-2">(offline: as of the last loading)</span>
+                </div>
+                <div class="small text-danger o_l10n_bg_b2b_missing" t-if="missing.length">
+                    <i class="fa fa-exclamation-triangle me-1"/>Missing for the invoice: <t t-esc="missing.join(', ')"/>
+                </div>
+                <div class="small text-danger o_l10n_bg_b2b_backoffice" t-if="partner.l10n_bg_b2b_route === 'backoffice'">
+                    <i class="fa fa-ban me-1"/>Invoice this customer from the back office (intra-EU / export).
+                </div>
+            </t>
+            <input type="text" class="form-control form-control-sm mt-1 o_l10n_bg_b2b_ref"
+                   placeholder="Customer reference (PO number)"
+                   t-att-value="order.client_order_ref or ''"
+                   t-on-change="onChangeReference"/>
+        </div>
+    </t>
+</templates>

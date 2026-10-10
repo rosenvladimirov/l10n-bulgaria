@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- B2B блокът — над редовете на ядрото, само в режим „Wholesale“ -->
+    <t t-name="l10n_bg_pos_b2b.ProductScreen" t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension">
+        <xpath expr="//OrderSummary" position="before">
+            <L10nBgB2bHeader t-if="currentOrder?.l10n_bg_wholesale"/>
+        </xpath>
+    </t>
+
+    <t t-name="l10n_bg_pos_b2b.ControlButtons" t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
+        <xpath expr="//SelectPartnerButton" position="after">
+            <button t-if="!props.showRemainingButtons and l10nBgShowWholesaleButton"
+                    class="btn btn-lg o_l10n_bg_wholesale_button text-truncate"
+                    t-att-class="currentOrder?.l10n_bg_wholesale ? 'btn-primary active' : 'btn-secondary'"
+                    t-on-click="() => this.l10nBgToggleWholesale()">
+                <i t-attf-class="fa {{ currentOrder?.l10n_bg_wholesale ? 'fa-check-square-o' : 'fa-building-o' }} me-1"/>Wholesale
+            </button>
+        </xpath>
+        <!-- Малък екран: бутонът е в диалога „Actions“ -->
+        <xpath expr="//t[@t-if='props.showRemainingButtons']/div/button[hasclass('o_pricelist_button')]" position="before">
+            <button t-if="this.pos.isSmallProductScreen and l10nBgShowWholesaleButton"
+                    class="o_l10n_bg_wholesale_button"
+                    t-att-class="buttonClass"
+                    t-on-click="() => this.l10nBgToggleWholesale()">
+                <i t-attf-class="fa {{ currentOrder?.l10n_bg_wholesale ? 'fa-check-square-o' : 'fa-building-o' }} me-1"/>Wholesale
+            </button>
+        </xpath>
+    </t>
+</templates>

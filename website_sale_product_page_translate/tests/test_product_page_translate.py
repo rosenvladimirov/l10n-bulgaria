@@ -313,3 +313,18 @@ class TestProductPageTranslate(TransactionCase):
             )
         )
         self._line(wizard, self.attribute.value_ids[0], "name", "Red")
+
+    def test_30_variant_opens_the_template_page(self):
+        """Бутонът, натиснат от варианта, отваря страницата на шаблона.
+
+        МУТАЦИЯ: махни `action_open_page_translation` от product_product.py —
+        AttributeError, а формата на варианта не минава валидиране.
+        """
+        variant = self.product.product_variant_ids[:1]
+        action = variant.action_open_page_translation()
+        wizard = self.env[action["res_model"]].browse(action["res_id"])
+        self.assertEqual(wizard.product_tmpl_id, self.product)
+
+    def test_31_variant_form_validates(self):
+        """Формата на варианта (наследява бутона на шаблона) е валидна."""
+        self.env.ref("product.product_normal_form_view")._check_xml()

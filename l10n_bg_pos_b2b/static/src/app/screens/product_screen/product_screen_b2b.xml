@@ -7,6 +7,10 @@
             <L10nBgB2bLinesBar t-if="currentOrder?.l10n_bg_wholesale"/>
         </xpath>
         <!-- Акордеон: при отворени данни на поръчката редовете са свити -->
+        <!-- свитите редове не бива да вдигат бутоните нагоре -->
+        <xpath expr="//OrderSummary" position="after">
+            <div t-if="currentOrder?.l10n_bg_wholesale and currentOrder.l10nBgPanel === 'header'" class="flex-grow-1"/>
+        </xpath>
         <xpath expr="//OrderSummary" position="attributes">
             <attribute name="t-if">!(currentOrder?.l10n_bg_wholesale and currentOrder.l10nBgPanel === 'header')</attribute>
         </xpath>

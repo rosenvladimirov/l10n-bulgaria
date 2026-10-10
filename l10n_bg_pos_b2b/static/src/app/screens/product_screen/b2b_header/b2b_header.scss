@@ -21,3 +21,11 @@
 .o_l10n_bg_b2b_lines_bar {
     min-height: 2.75rem;
 }
+// Бутоните при едро: два реда по три, за да се четат и да са за пръст
+.control-buttons:has(.o_l10n_bg_b2b_discount_button) {
+    flex-wrap: wrap;
+    > .btn {
+        flex: 1 1 30%;
+        min-width: 0;
+    }
+}

@@ -80,7 +80,7 @@ The heart of the module. Any model that inherits it gains:
 
 | Odoo core | Bulgarian-localization |
 |---|---|
-| `account`, `base_vat` | `l10n_bg`, `l10n_bg_ledger`, `l10n_bg_tariff_code` |
+| `account`, `base_vat`, `account_debit_note` | `l10n_bg`, `l10n_bg_ledger`, `l10n_bg_tariff_code` |
 
 **External Python:** `xmltodict`, `cryptography` (Fernet).
 
@@ -100,6 +100,24 @@ Any field a localization module adds to an Odoo core model
 prefixed `l10n_bg_`. The mixin's view rewriting depends on this prefix
 to find and hide fields — non-prefixed fields will leak into non-BG
 company forms.
+
+## Intra-Community acquisition tax (since 19.0.8.17.0)
+
+The module no longer overrides `l10n_bg_purchase_vat_20_ptc_ica` (EU B2B,
+20 % partial tax credit). The tax from the official `l10n_bg` applies:
+base tags `12_1` and `32`, +100 % to 4531 with tag `42`, −100 % to 4532
+with tag `22`; no clearing through 430. Self-assessed VAT on an
+intra-Community acquisition is reported in cell 22 of the VAT return
+(PPZDDS, Appendix 13), not in cell 21 as the old group did.
+
+The `19.0.8.17.0` post-migration restores the tax in existing companies
+(`hooks.fix_ica_ptc_group`) and archives the old children
+`l10n_bg_sale_vat_20_ica` / `l10n_bg_purchase_vat_20_ica_ptc`. Posted
+journal items are not modified: entries posted before the upgrade keep
+tag `21` and need a separate decision if earlier returns must be corrected.
+
+`account_debit_note` is a dependency so that a debit note carries
+`debit_origin_id` and gets document type 02 from `l10n_bg_ledger`.
 
 ## Known limitations
 

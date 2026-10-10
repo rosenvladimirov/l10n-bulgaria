@@ -4,3 +4,4 @@ from . import test_registration_returned_key
 from . import test_partner_uic_kept
 from . import test_document_number_sale
 from . import test_print_signer
+from . import test_ica_ptc_tax

@@ -160,7 +160,7 @@ This module is essential for:
 automatically installs it if not present. It serves as the configuration
 backbone for the entire Bulgarian localization ecosystem.
     """,
-    "version": "19.0.8.16.0",
+    "version": "19.0.8.17.0",
     # OCA Metadata
     "development_status": 'Beta',
     "category": 'Localization',
@@ -174,6 +174,8 @@ backbone for the entire Bulgarian localization ecosystem.
         "mail",
         "account",
         "base_vat",
+        # дебитното известие (debit_origin_id) — l10n_bg_ledger му дава вид 02
+        "account_debit_note",
         "l10n_bg",
         "l10n_bg_ledger",
     ],

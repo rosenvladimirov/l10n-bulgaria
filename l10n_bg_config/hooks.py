@@ -5,7 +5,7 @@ import logging
 from odoo.exceptions import UserError
 from odoo.tools.safe_eval import safe_eval
 from odoo.tools.translate import load_language
-from odoo import _
+from odoo import Command, _
 
 _logger = logging.getLogger(__name__)
 
@@ -121,3 +121,137 @@ def uninstall_hook(env):
 # Upgrade-time setup (cron wiring) lives in migrations/<version>/post-migrate.py
 # — stock Odoo does not honor a 'post_migrate_hook' manifest key, only
 # OpenUpgrade does. post_init_hook runs only on fresh install.
+
+
+# ---------------------------------------------------------------------------
+# ВОП с частичен данъчен кредит: връщане към данъка от ядрото l10n_bg
+# ---------------------------------------------------------------------------
+
+# Данъкът за ВОП с ЧДК от официалния l10n_bg, който модулът до 19.0.8.16.0
+# презаписваше в data/template/account.tax-bg.csv като група.
+ICA_PTC_TAX = 'l10n_bg_purchase_vat_20_ptc_ica'
+# Децата на старата група. Не се трият — по тях може да има осчетоводени редове.
+ICA_PTC_OLD_CHILDREN = ('l10n_bg_sale_vat_20_ica', 'l10n_bg_purchase_vat_20_ica_ptc')
+
+
+def _core_ica_ptc_template(env):
+    """Редът на данъка от CSV-то на ядрото l10n_bg, с таговете вече като id-та.
+
+    Четем директно файла на l10n_bg (а не слетите данни на шаблона), за да не
+    влязат в миграцията промени на плъгините l10n_bg_config_plugins_*.
+    """
+    chart = env['account.chart.template']
+    data = chart._parse_csv('bg', 'account.tax', module='l10n_bg')
+    tax_vals = data.get(ICA_PTC_TAX)
+    if not tax_vals:
+        return None
+    chart._deref_account_tags('bg', {ICA_PTC_TAX: tax_vals})
+    return tax_vals
+
+
+def fix_ica_ptc_group(env, companies=None):
+    """Връща ``l10n_bg_purchase_vat_20_ptc_ica`` към данъка от ядрото ``l10n_bg``.
+
+    До 19.0.8.16.0 модулът презаписваше данъка като група от две деца
+    (``l10n_bg_sale_vat_20_ica`` и ``l10n_bg_purchase_vat_20_ica_ptc``) с
+    клиринг през сметка 430, като начисленият ДДС отиваше с таг 21. По
+    справка-декларацията (ППЗДДС, Приложение № 13 към чл. 116, ал. 1) кл. 21 е
+    „Начислен ДДС“ по облагаемите доставки 20 %, а начисленият ДДС за ВОП е в
+    кл. 22 („Начислен ДДС за ВОП и за получени доставки по чл. 82, ал. 2 - 6“);
+    основата е в кл. 12. Данъкът при ВОП е изискуем от придобиващия (ЗДДС,
+    чл. 84), а кредитът е по чл. 69, ал. 1, т. 3 / чл. 73 срещу протокол по
+    чл. 117, ал. 1, т. 1 (чл. 71, т. 5). Данъкът в ядрото прави точно това:
+    основа 12_1 и 32, +100 % по 4531 с таг 42, -100 % по 4532 с таг 22.
+
+    За всяка фирма с шаблон ``bg``, при която данъкът още е група:
+
+    * групата става ``percent`` 20 % с разпределението от ядрото (старите
+      редове на разпределение се трият, новите се създават);
+    * описанието и етикетът върху фактурата се връщат към тези от ядрото;
+    * старите деца се архивират (``active=False``), не се трият.
+
+    Осчетоводените редове не се пипат. Повторното пускане не прави нищо.
+    Ако по редовете на разпределение на самата група има осчетоводени
+    редове (не би трябвало — групата не носи свои данъчни редове), фирмата се
+    пропуска с предупреждение в лога.
+
+    :return: поправените данъци (``account.tax``)
+    """
+    Tax = env['account.tax'].with_context(active_test=False)
+    fixed = Tax.browse()
+    if companies is None:
+        companies = env['res.company'].search([('chart_template', '=', 'bg')])
+    if not companies:
+        return fixed
+    core = _core_ica_ptc_template(env)
+    if not core:
+        _logger.warning("l10n_bg_config: %s is missing in l10n_bg; nothing to fix", ICA_PTC_TAX)
+        return fixed
+
+    for company in companies:
+        chart = env['account.chart.template'].with_company(company)
+        tax = chart.ref(ICA_PTC_TAX, raise_if_not_found=False)
+        if not tax or tax.amount_type != 'group':
+            continue
+
+        old_lines = tax.repartition_line_ids
+        if old_lines and env['account.move.line'].sudo().search_count(
+            [('tax_repartition_line_id', 'in', old_lines.ids)], limit=1,
+        ):
+            _logger.warning(
+                "l10n_bg_config: company %s: the repartition lines of %s are used by journal items; "
+                "the tax was left unchanged, fix it manually", company.id, ICA_PTC_TAX)
+            continue
+
+        # Новото разпределение — по реда на CSV-то на ядрото; сметките са xml id
+        new_lines = []
+        missing_account = False
+        for command in core.get('repartition_line_ids', []):
+            vals = dict(command[2])
+            if vals.get('account_id'):
+                account = chart.ref(vals['account_id'], raise_if_not_found=False)
+                if not account:
+                    missing_account = vals['account_id']
+                    break
+                vals['account_id'] = account.id
+            new_lines.append(Command.create(vals))
+        if missing_account:
+            _logger.warning(
+                "l10n_bg_config: company %s: account %s not found; %s was left unchanged",
+                company.id, missing_account, ICA_PTC_TAX)
+            continue
+
+        children = tax.children_tax_ids
+        tax.write({
+            'amount_type': core.get('amount_type', 'percent'),
+            'amount': core.get('amount', 20.0),
+            'children_tax_ids': [Command.clear()],
+            'repartition_line_ids': [Command.delete(line.id) for line in old_lines] + new_lines,
+        })
+        # Текстовете от ядрото; старият превод на описанието („0% ДДС - ВОП“) е грешен
+        texts = {f: core[f] for f in ('description', 'invoice_label') if core.get(f)}
+        if texts:
+            tax.with_context(lang='en_US').write(texts)
+        if 'description' in texts:
+            # Описанието е html_translate; при запис на en_US старият превод
+            # оцелява по термини. Ядрото няма превод на това описание, затова
+            # оставяме само en_US и другите езици падат към него. Първо
+            # flush — иначе отложеният запис на ORM връща старите езици.
+            tax.flush_recordset(['description'])
+            env.cr.execute(
+                "UPDATE account_tax SET description = jsonb_build_object('en_US', description->'en_US')"
+                " WHERE id = %s AND description IS NOT NULL",
+                (tax.id,),
+            )
+            tax.invalidate_recordset(['description'])
+
+        old_children = children
+        for xmlid in ICA_PTC_OLD_CHILDREN:
+            old_children |= chart.ref(xmlid, raise_if_not_found=False) or Tax.browse()
+        old_children.filtered('active').write({'active': False})
+
+        fixed |= tax
+        _logger.info(
+            "l10n_bg_config: company %s: %s restored from l10n_bg; archived %s",
+            company.id, ICA_PTC_TAX, old_children.ids)
+    return fixed

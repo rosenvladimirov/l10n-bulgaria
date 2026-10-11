@@ -40,7 +40,7 @@ registry.category("web_tour.tours").add("l10n_bg_pos_b2b_sale_quotation", {
             },
             {
                 content: "the quotation is shown in the right pane, not in a new window",
-                trigger: ".rightpane .o_l10n_bg_report_viewer iframe[src*='sale.report_saleorder']",
+                trigger: ".rightpane .o_l10n_bg_report_viewer iframe[src*='pdfjs'][data-report*='sale.report_saleorder']",
             },
             {
                 content: "close the print",

@@ -9,7 +9,7 @@
                     <i class="fa fa-times me-1"/>Close
                 </button>
             </div>
-            <iframe class="flex-grow-1 w-100 border-0 o_l10n_bg_report_frame" t-att-src="report.url"/>
+            <iframe class="flex-grow-1 w-100 border-0 o_l10n_bg_report_frame" t-att-src="viewerUrl" t-att-data-report="report.url"/>
         </div>
     </t>
 

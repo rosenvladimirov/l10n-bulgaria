@@ -20,6 +20,19 @@ export class L10nBgReportViewer extends Component {
         return this.pos.l10nBgReport;
     }
 
+    /**
+     * PDF-ът през визуализатора pdf.js на Odoo — както прегледа на файлове
+     * в бекофиса (web/core/file_viewer/file_model.js). Вграден направо,
+     * PDF-ът зависи от визуализатора на браузъра: Firefox с „свали PDF“ и
+     * таблетите показват празна рамка.
+     */
+    get viewerUrl() {
+        const url = this.report?.url;
+        return url
+            ? `/web/static/lib/pdfjs/web/viewer.html?file=${encodeURIComponent(url)}#pagemode=none`
+            : "";
+    }
+
     close() {
         this.pos.l10nBgReport = null;
     }

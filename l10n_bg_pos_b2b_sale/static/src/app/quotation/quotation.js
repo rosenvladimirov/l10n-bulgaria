@@ -25,28 +25,6 @@ patch(L10nBgB2bHeader.prototype, {
         return Boolean(this.partner && this.order?.lines.length && !this.isOffline && !this.state.saving);
     },
 
-    _l10nBgQuotationPayload() {
-        const order = this.order;
-        return {
-            sale_order_id: this.form.sale_order_id || false,
-            partner_id: this.partner.id,
-            pricelist_id: order.pricelist_id?.id || false,
-            client_order_ref: order.client_order_ref || false,
-            shipping_date: this.shippingDate || false,
-            pos_reference: order.pos_reference || order.name || false,
-            form: this.form,
-            lines: order.lines
-                .filter((line) => !line.combo_parent_id)
-                .map((line) => ({
-                    uuid: line.uuid,
-                    product_id: line.product_id.id,
-                    qty: line.qty,
-                    price_unit: line.price_unit,
-                    discount: line.discount || 0,
-                })),
-        };
-    },
-
     async l10nBgSaveQuotation() {
         if (!this.canSaveQuotation) {
             return;
@@ -56,14 +34,9 @@ patch(L10nBgB2bHeader.prototype, {
         try {
             const result = await this.pos.data.call("pos.config", "l10n_bg_b2b_save_quotation", [
                 [this.pos.config.id],
-                this._l10nBgQuotationPayload(),
+                order.l10nBgQuotationPayload(),
             ]);
-            order.l10nBgSetForm({
-                sale_order_id: result.id,
-                sale_order_name: result.name,
-                sale_order_state_label: result.state_label,
-                sale_order_reports: result.reports,
-            });
+            order.l10nBgApplyQuotation(result);
             this.notification.add(_t("Quotation %s saved.", result.name), { type: "success" });
         } catch (error) {
             this.notification.add(error?.data?.message || error?.message || String(error), {

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-10 19:59+0000\n"
-"PO-Revision-Date: 2026-10-10 19:59+0000\n"
+"POT-Creation-Date: 2026-10-11 08:00+0000\n"
+"PO-Revision-Date: 2026-10-11 08:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,19 +36,22 @@ msgstr ""
 #. module: l10n_bg_pos_b2b_sale
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b_sale.field_pos_config__display_name
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b_sale.field_pos_order__display_name
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b_sale.field_sale_order_line__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: l10n_bg_pos_b2b_sale
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b_sale.field_pos_config__id
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b_sale.field_pos_order__id
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b_sale.field_sale_order_line__id
 msgid "ID"
 msgstr ""
 
 #. module: l10n_bg_pos_b2b_sale
-#. odoo-javascript
-#: code:addons/l10n_bg_pos_b2b_sale/static/src/app/quotation/quotation.xml:0
-msgid "Not saved as a quotation yet"
+#: model:ir.model.fields,help:l10n_bg_pos_b2b_sale.field_sale_order_line__l10n_bg_pos_line_uuid
+msgid ""
+"Line of the wholesale order in the Point of Sale this quotation line was "
+"saved from."
 msgstr ""
 
 #. module: l10n_bg_pos_b2b_sale
@@ -60,6 +63,11 @@ msgstr ""
 #. module: l10n_bg_pos_b2b_sale
 #: model:ir.model,name:l10n_bg_pos_b2b_sale.model_pos_config
 msgid "Point of Sale Configuration"
+msgstr ""
+
+#. module: l10n_bg_pos_b2b_sale
+#: model:ir.model.fields,field_description:l10n_bg_pos_b2b_sale.field_sale_order_line__l10n_bg_pos_line_uuid
+msgid "Point of Sale Line"
 msgstr ""
 
 #. module: l10n_bg_pos_b2b_sale
@@ -81,6 +89,7 @@ msgstr ""
 
 #. module: l10n_bg_pos_b2b_sale
 #. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b_sale/static/src/app/navbar/navbar_quotation.js:0
 #: code:addons/l10n_bg_pos_b2b_sale/static/src/app/quotation/quotation.js:0
 #: code:addons/l10n_bg_pos_b2b_sale/static/src/app/quotation/quotation.xml:0
 #: model:ir.model.fields,field_description:l10n_bg_pos_b2b_sale.field_pos_order__l10n_bg_sale_order_id
@@ -96,6 +105,11 @@ msgstr ""
 #. module: l10n_bg_pos_b2b_sale
 #: model:ir.model.fields,help:l10n_bg_pos_b2b_sale.field_pos_order__l10n_bg_sale_order_id
 msgid "Quotation saved from the wholesale form of the Point of Sale."
+msgstr ""
+
+#. module: l10n_bg_pos_b2b_sale
+#: model:ir.model,name:l10n_bg_pos_b2b_sale.model_sale_order_line
+msgid "Sales Order Line"
 msgstr ""
 
 #. module: l10n_bg_pos_b2b_sale

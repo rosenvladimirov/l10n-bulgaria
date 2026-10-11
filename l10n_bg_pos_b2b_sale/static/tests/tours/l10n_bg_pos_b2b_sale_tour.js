@@ -21,8 +21,8 @@ registry.category("web_tour.tours").add("l10n_bg_pos_b2b_sale_quotation", {
             ProductScreen.clickPartnerButton(),
             ProductScreen.clickCustomer("ET Petrov Trade"),
             {
-                content: "not saved yet",
-                trigger: ".o_l10n_bg_b2b_quotation:not(:has(.o_l10n_bg_b2b_quotation_name))",
+                content: "not saved yet: no quotation number at the top",
+                trigger: ".o_l10n_bg_b2b_quotation:not(:has(.o_l10n_bg_navbar_quotation))",
             },
             {
                 content: "save as quotation",
@@ -30,8 +30,8 @@ registry.category("web_tour.tours").add("l10n_bg_pos_b2b_sale_quotation", {
                 run: "click",
             },
             {
-                content: "the sale order number is shown",
-                trigger: ".o_l10n_bg_b2b_quotation_name:contains(S0)",
+                content: "the sale order number is at the top, next to Orders",
+                trigger: ".pos-topheader .o_l10n_bg_navbar_quotation:contains(S0)",
             },
             {
                 content: "print the quotation",
@@ -50,6 +50,20 @@ registry.category("web_tour.tours").add("l10n_bg_pos_b2b_sale_quotation", {
             {
                 content: "the products are back",
                 trigger: ".rightpane:not(:has(.o_l10n_bg_report_viewer))",
+            },
+            {
+                content: "the quotation number at the top opens the quotation too",
+                trigger: ".pos-topheader .o_l10n_bg_navbar_quotation",
+                run: "click",
+            },
+            {
+                content: "the quotation is shown again",
+                trigger: ".rightpane .o_l10n_bg_report_viewer iframe",
+            },
+            {
+                content: "close it",
+                trigger: ".o_l10n_bg_report_close",
+                run: "click",
             },
         ].flat(),
 });

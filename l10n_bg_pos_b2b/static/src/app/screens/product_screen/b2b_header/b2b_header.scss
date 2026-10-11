@@ -11,19 +11,21 @@
     min-height: 3.75rem;
 }
 .o_l10n_bg_b2b_header {
+    // скролира, когато екранът е по-нисък от формата
+    min-height: 0;
     &.o_l10n_bg_b2b_slide_from_left {
         animation: o_l10n_bg_b2b_from_left 0.2s ease-out;
     }
     .o_l10n_bg_b2b_customer,
     .form-select,
     .form-control {
-        min-height: 3rem;
-        font-size: 1rem;
+        min-height: 3.25rem;
+        font-size: 1.05rem;
     }
     .o_l10n_bg_b2b_label {
-        font-size: 0.8rem;
-        line-height: 1.2;
-        margin-top: 0.25rem;
+        font-size: 0.85rem;
+        line-height: 1.25;
+        margin-top: 0.35rem;
     }
 }
 // Прозорец „Редове“: редовете влизат отдясно

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="l10n_bg_pos_b2b_sale.Navbar" t-inherit="point_of_sale.Navbar" t-inherit-mode="extension">
+        <xpath expr="//OrderTabs" position="after">
+            <button t-if="l10nBgQuotation" class="btn btn-lg btn-light lh-lg ms-2 text-nowrap o_l10n_bg_navbar_quotation"
+                    t-on-click="() => this.l10nBgOpenQuotation()">
+                <i class="fa fa-file-text-o me-1"/>
+                <span class="fw-bold" t-esc="l10nBgQuotation.name"/>
+                <span class="badge text-bg-info ms-1" t-esc="l10nBgQuotation.state"/>
+            </button>
+        </xpath>
+    </t>
+</templates>

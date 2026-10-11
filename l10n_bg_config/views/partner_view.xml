@@ -7,9 +7,12 @@
         <field name="inherit_id" ref="account.view_partner_property_form" />
         <field name="arch" type="xml">
             <xpath expr="//page[@name='accounting']//group[@name='credit_limits']" position="after">
+                <!-- Лице с роля в декларациите (представляващ, пълномощник/съставител,
+                     данъчен представител) въвежда своя ЕГН/ЛНЧ тук — не идва от ДДС
+                     номера на фирмата -->
                 <group name="l10n_bg_identification" string="Bulgarian Identification">
-                    <field name="l10n_bg_uic_type" readonly="parent_id" />
-                    <field name="l10n_bg_uic" readonly="parent_id" />
+                    <field name="l10n_bg_uic_type" readonly="parent_id and type not in ('represent', 'agent', 'tax')" />
+                    <field name="l10n_bg_uic" readonly="parent_id and type not in ('represent', 'agent', 'tax')" />
                     <field name="l10n_bg_represent_contact_id" readonly="parent_id" invisible="not is_company" />
                 </group>
             </xpath>

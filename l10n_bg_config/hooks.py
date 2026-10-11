@@ -102,12 +102,42 @@ def _setup_registration_cron(env):
     _hide_cron_from_menu(env, own, hide=True)
 
 
+# Етикети на ядрото с подвеждащ или липсващ български превод: (модел, поле) →
+# (сгрешените стойности, които се подменят, верният превод). Ръчно сменен
+# превод (друга стойност) не се пипа.
+L10N_BG_CORE_LABELS = {
+    ("account.tax", "include_base_amount"): (
+        ("Affect Base of Subsequent Taxes",), "Засяга основата на следващите данъци"),
+    ("res.partner", "property_account_payable_id"): (
+        ("Плащания към клиенти", "Account Payable"), "Сметка за задължения"),
+    ("res.users", "property_account_payable_id"): (
+        ("Плащания към клиенти", "Account Payable"), "Сметка за задължения"),
+}
+
+
+def _l10n_bg_fix_core_labels(env):
+    """Поправя българските етикети на изброените полета на ядрото."""
+    if not env["res.lang"]._lang_get("bg_BG"):
+        return 0
+    fixed = 0
+    for (model, name), (wrong, right) in L10N_BG_CORE_LABELS.items():
+        field = env["ir.model.fields"]._get(model, name)
+        if not field:
+            continue
+        current = field.with_context(lang="bg_BG").field_description
+        if current in wrong:
+            field.update_field_translations("field_description", {"bg_BG": right})
+            fixed += 1
+    return fixed
+
+
 def post_init_hook(env):
     env.company._inverse_is_l10n_bg_multilanguage()
     _init_blacklist_key(env)
     _setup_registration_cron(env)
     # Самата инсталация инжектира {vat, name} на bus канал l10n-bulgaria.
     env.company._l10n_bg_push_registration()
+    _l10n_bg_fix_core_labels(env)
 
 
 def uninstall_hook(env):

@@ -5,6 +5,7 @@ import logging
 from odoo import Command, _, api, fields, models
 from odoo.addons.l10n_bg_config.models.l10n_bg_config_mixin import generate_key2, generate_encryption_keys
 from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError as OdooValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -19,6 +20,12 @@ try:
     )
 except ImportError:
     _logger.debug("Cannot `import external dependency python stdnum package`.")
+
+
+# Ролите на лицата в декларациите (представляващ, пълномощник/съставител,
+# данъчен представител): идентификаторът им е ЛИЧЕН (ЕГН/ЛНЧ) и не идва от ДДС
+# номера на фирмата, който ядрото синхронизира към дъщерните контакти.
+L10N_BG_REPORTING_ROLES = ("represent", "agent", "tax")
 
 
 def _l10n_bg_uic_type():
@@ -162,6 +169,29 @@ class ResPartner(models.Model):
 
         return True
 
+    def _l10n_bg_has_own_identifier(self):
+        """Контакт под фирма с роля в декларациите — идентификаторът му е личен."""
+        self.ensure_one()
+        return bool(self.parent_id) and self.type in L10N_BG_REPORTING_ROLES
+
+    @api.constrains("l10n_bg_uic", "l10n_bg_uic_type")
+    def _check_l10n_bg_personal_uic(self):
+        """ЕГН и ЛНЧ, въведени на ръка, се проверяват по контролната сума —
+        те влизат в DEKLAR 00-04 и VIES VDR, където НАП ги сверява."""
+        modules = {"bg_egn": "egn", "bg_pnf": "pnf"}
+        for record in self:
+            module = modules.get(record.l10n_bg_uic_type)
+            if not module or not record.l10n_bg_uic:
+                continue
+            if not stdnum.get_cc_module("bg", module).is_valid(record.l10n_bg_uic):
+                raise OdooValidationError(_(
+                    "%(number)s is not a valid %(kind)s for %(partner)s.",
+                    number=record.l10n_bg_uic,
+                    kind=dict(record._fields["l10n_bg_uic_type"]._description_selection(record.env)).get(
+                        record.l10n_bg_uic_type),
+                    partner=record.display_name,
+                ))
+
     def _avatar_get_placeholder_path(self):
         # представляващият/управителят има своя иконка (лице с вратовръзка)
         if not self.is_company and self.type == "represent":
@@ -272,6 +302,10 @@ class ResPartner(models.Model):
                 # ЕИК, подаден в същия запис, не се трие от празен ДДС номер
                 changed = changed.filtered("vat")
             # Използваме нов контекст за да избегнем рекурсия
+            # Лице с роля (представляващ, пълномощник, данъчен представител) под
+            # фирма пази своя ЕГН/ЛНЧ: синхронизираният ДДС номер на фирмата не
+            # го презаписва с ЕИК на фирмата
+            changed = changed.filtered(lambda r: not r._l10n_bg_has_own_identifier())
             changed.with_context(block_validate=True)._validate_l10n_bg_uic()
 
         return res

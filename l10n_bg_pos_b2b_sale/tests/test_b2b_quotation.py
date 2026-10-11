@@ -38,6 +38,7 @@ class TestB2bQuotation(B2bPosCommon):
                 "note": "Delivery by truck",
             },
             "lines": [{
+                "uuid": "line-1",
                 "product_id": self.product1.id,
                 "qty": 3,
                 "price_unit": 12.5,
@@ -70,13 +71,37 @@ class TestB2bQuotation(B2bPosCommon):
     def test_save_again_updates_the_same_quotation(self):
         self.open_new_session()
         first = self.config.l10n_bg_b2b_save_quotation(self._payload())
+        line_id = first["lines"]["line-1"]["id"]
+        product2 = self.create_product("Product 2", self.categ_basic, 4.0, 1)
         second = self.config.l10n_bg_b2b_save_quotation(self._payload(
             sale_order_id=first["id"],
-            lines=[{"product_id": self.product1.id, "qty": 7, "price_unit": 10, "discount": 0}],
+            lines=[
+                {"uuid": "line-1", "product_id": self.product1.id, "qty": 7, "price_unit": 10, "discount": 0},
+                {"uuid": "line-2", "product_id": product2.id, "qty": 1, "price_unit": 4, "discount": 0},
+            ],
         ))
         self.assertEqual(first["id"], second["id"])
         order = self.env["sale.order"].browse(second["id"])
-        self.assertEqual(order.order_line.product_uom_qty, 7)
+        # редът е обновен НА МЯСТО (същият id) — закаченото за него остава
+        self.assertEqual(second["lines"]["line-1"]["id"], line_id)
+        self.assertEqual(order.order_line.filtered(lambda l: l.id == line_id).product_uom_qty, 7)
+        self.assertEqual(len(order.order_line), 2)
+        # ред, изтрит в касата, се трие и в офертата
+        third = self.config.l10n_bg_b2b_save_quotation(self._payload(
+            sale_order_id=first["id"],
+            lines=[{"uuid": "line-2", "product_id": product2.id, "qty": 2, "price_unit": 4, "discount": 0}],
+        ))
+        self.assertEqual(list(third["lines"]), ["line-2"])
+        self.assertEqual(len(order.order_line), 1)
+        # ред, добавен в Продажби (без връзка към касата), не се трие
+        manual = self.env["sale.order.line"].create({
+            "order_id": order.id, "product_id": self.product1.id, "product_uom_qty": 1,
+        })
+        self.config.l10n_bg_b2b_save_quotation(self._payload(
+            sale_order_id=first["id"],
+            lines=[{"uuid": "line-2", "product_id": product2.id, "qty": 3, "price_unit": 4, "discount": 0}],
+        ))
+        self.assertIn(manual, order.order_line)
 
     def test_confirmed_quotation_is_not_changed(self):
         self.open_new_session()

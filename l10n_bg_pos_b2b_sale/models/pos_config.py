@@ -65,9 +65,6 @@ class PosConfig(models.Model):
             "origin": payload.get("pos_reference") or False,
             "company_id": self.company_id.id,
             "team_id": self.crm_team_id.id or False,
-            "order_line": [Command.clear()] + [
-                Command.create(self._l10n_bg_b2b_quotation_line(line)) for line in lines
-            ],
         }
         pricelist = self.env["product.pricelist"].browse(payload.get("pricelist_id") or []).exists()
         if pricelist:
@@ -84,6 +81,7 @@ class PosConfig(models.Model):
             local = self.env.tz.localize(datetime.combine(day, time(12, 0)))
             vals["commitment_date"] = local.astimezone(pytz.UTC).replace(tzinfo=None)
 
+        vals["order_line"] = self._l10n_bg_b2b_quotation_line_commands(order, lines)
         if order:
             order.write(vals)
         else:
@@ -97,13 +95,55 @@ class PosConfig(models.Model):
                 key: f"/report/pdf/{report}/{order.id}"
                 for key, report in L10N_BG_B2B_REPORTS.items()
             },
+            "lines": {
+                line.l10n_bg_pos_line_uuid: {
+                    "id": line.id,
+                    "price_unit": line.price_unit,
+                    "discount": line.discount,
+                }
+                for line in order.order_line
+                if line.l10n_bg_pos_line_uuid
+            },
         }
 
-    def _l10n_bg_b2b_quotation_line(self, line):
+    def _l10n_bg_b2b_quotation_line_commands(self, order, lines):
+        """Редовете на офертата се обновяват НА МЯСТО по реда в касата.
+
+        Връзката е `l10n_bg_pos_line_uuid`: съществуващ ред се обновява,
+        нов се създава, изтритият в касата се трие. Пълна подмяна би
+        загубила всичко, закачено за реда (напр. конфигурация POC).
+        """
+        existing = {
+            line.l10n_bg_pos_line_uuid: line
+            for line in order.order_line
+            if line.l10n_bg_pos_line_uuid
+        }
+        commands = []
+        seen = set()
+        for line in lines:
+            uuid = line.get("uuid")
+            so_line = existing.get(uuid) if uuid else None
+            vals = self._l10n_bg_b2b_quotation_line(line, so_line)
+            if so_line:
+                commands.append(Command.update(so_line.id, vals))
+                seen.add(uuid)
+            else:
+                commands.append(Command.create(vals))
+        # трият се само редовете, дошли от касата; добавените в Продажби
+        # (без връзка към касата) остават
+        for line in order.order_line:
+            if line.l10n_bg_pos_line_uuid and line.l10n_bg_pos_line_uuid not in seen:
+                commands.append(Command.delete(line.id))
+        return commands
+
+    def _l10n_bg_b2b_quotation_line(self, line, so_line=None):
+        """Стойностите на реда от касата. `so_line` — заварен ред или None."""
         vals = {
-            "product_id": line["product_id"],
             "product_uom_qty": line.get("qty") or 0.0,
             "price_unit": line.get("price_unit") or 0.0,
             "discount": line.get("discount") or 0.0,
+            "l10n_bg_pos_line_uuid": line.get("uuid") or False,
         }
+        if not so_line or so_line.product_id.id != line["product_id"]:
+            vals["product_id"] = line["product_id"]
         return vals

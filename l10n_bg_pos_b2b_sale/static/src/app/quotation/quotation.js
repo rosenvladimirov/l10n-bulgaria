@@ -38,6 +38,7 @@ patch(L10nBgB2bHeader.prototype, {
             lines: order.lines
                 .filter((line) => !line.combo_parent_id)
                 .map((line) => ({
+                    uuid: line.uuid,
                     product_id: line.product_id.id,
                     qty: line.qty,
                     price_unit: line.price_unit,

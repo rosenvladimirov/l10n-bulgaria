@@ -15,6 +15,15 @@ SKILL_XMLIDS = [
     "l10n_bg_ai_accounting_glue.skill_bg_erp_correction_safety",
     "l10n_bg_ai_accounting_glue.skill_bg_intercompany_transit_cogs",
     "l10n_bg_ai_accounting_glue.skill_bg_so_phantom_qty_delivered",
+    # ДДС и елементите на локализацията (19.0.1.1.0)
+    "l10n_bg_ai_accounting_glue.skill_bg_l10n_accounting_map",
+    "l10n_bg_ai_accounting_glue.skill_bg_vat_tax_repartition_tags",
+    "l10n_bg_ai_accounting_glue.skill_bg_vat_document_type_protocols",
+    "l10n_bg_ai_accounting_glue.skill_bg_vat_customs_import_base",
+    "l10n_bg_ai_accounting_glue.skill_bg_vat_private_mixed_use",
+    "l10n_bg_ai_accounting_glue.skill_bg_vat_ica_deferred_credit",
+    "l10n_bg_ai_accounting_glue.skill_bg_vat_ledgers_closing",
+    "l10n_bg_ai_accounting_glue.skill_bg_cita_expense_tax",
 ]
 # ai.view.registry записи (form view-та на таргет документите).
 REGISTRY_XMLIDS = [

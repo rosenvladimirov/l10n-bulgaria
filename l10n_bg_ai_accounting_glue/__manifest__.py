@@ -2,10 +2,10 @@
 {
     "name": "Bulgaria AI Accounting Skills",
     "summary": (
-        "General Bulgarian accounting / MRP AI skills (knowledge-only) "
-        "for the l10n_bg_ai_pipeline skills engine."
+        "General Bulgarian accounting, VAT localization and MRP AI skills "
+        "(knowledge-only) for the l10n_bg_ai_pipeline skills engine."
     ),
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "development_status": "Alpha",
     "category": "Accounting/Localizations",
     "license": "OPL-1",
@@ -24,6 +24,7 @@
     ],
     "data": [
         "data/skills.xml",
+        "data/skills_vat_localization.xml",
         "data/view_registry.xml",
     ],
     # Токенизация структура: post_init индексира L1 description-ите на

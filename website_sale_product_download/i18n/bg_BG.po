@@ -1,0 +1,123 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#       * website_sale_product_download
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-12 14:17+0000\n"
+"PO-Revision-Date: 2026-10-12 14:17+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: bg\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: website_sale_product_download
+msgid ""
+"<i class=\"fa fa-download me-2\"/>\n"
+"                    Download"
+msgstr ""
+"<i class=\"fa fa-download me-2\"/>\n"
+"                    Свали"
+
+#. module: website_sale_product_download
+msgid "Created by"
+msgstr "Създаден от"
+
+#. module: website_sale_product_download
+msgid "Customer"
+msgstr "Клиент"
+
+#. module: website_sale_product_download
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: website_sale_product_download
+msgid "Document"
+msgstr "Документ"
+
+#. module: website_sale_product_download
+msgid "Downloaded on"
+msgstr "Свален на"
+
+#. module: website_sale_product_download
+msgid "Downloads"
+msgstr "Сваляния"
+
+#. module: website_sale_product_download
+msgid "File Name"
+msgstr "Име на файла"
+
+#. module: website_sale_product_download
+msgid "Free Download"
+msgstr "Безплатно сваляне"
+
+#. module: website_sale_product_download
+msgid "ID"
+msgstr "ID"
+
+#. module: website_sale_product_download
+msgid "Last Updated by"
+msgstr "Последно обновен от"
+
+#. module: website_sale_product_download
+msgid "Last Updated on"
+msgstr "Последно обновен на"
+
+#. module: website_sale_product_download
+msgid ""
+"Mark a free product as Free Download: its Download button appears on the "
+"product page."
+msgstr ""
+"Отбележете безплатен продукт като „Безплатно сваляне“: на страницата му се "
+"появява бутон „Свали“."
+
+#. module: website_sale_product_download
+msgid "No downloads yet"
+msgstr "Още няма сваляния"
+
+#. module: website_sale_product_download
+msgid "Product"
+msgstr "Продукт"
+
+#. module: website_sale_product_download
+msgid "Product Template"
+msgstr "Шаблон на продукт"
+
+#. module: website_sale_product_download
+msgid ""
+"Show a Download button on the product page instead of Add to Cart. It "
+"downloads the document of the selected variant that is visible on confirmed"
+" orders. Only for products with a zero sales price."
+msgstr ""
+"Показва бутон „Свали“ на страницата на продукта вместо „Добави в "
+"количката“. Сваля документа на избрания вариант, който е видим при "
+"потвърдени поръчки. Само за продукти с нулева продажна цена."
+
+#. module: website_sale_product_download
+#. odoo-python
+#: code:addons/website_sale_product_download/models/product_template.py
+#, python-format
+msgid ""
+"The product %s has a sales price: only free products can be downloaded from"
+" the website."
+msgstr ""
+"Продуктът %s има продажна цена: от сайта могат да се свалят само безплатни "
+"продукти."
+
+#. module: website_sale_product_download
+msgid "User"
+msgstr "Потребител"
+
+#. module: website_sale_product_download
+msgid "Website"
+msgstr "Уебсайт"
+
+#. module: website_sale_product_download
+msgid "Website Product Download"
+msgstr "Сваляне на продукт от сайта"
+

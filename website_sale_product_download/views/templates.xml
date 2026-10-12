@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Rosen Vladimirov
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <!-- Безплатен продукт за сваляне: бутон „Свали“ вместо „Добави в количката“.
+         Бутонът изпраща формата на продукта към /shop/download, а скритото поле
+         product_id вече държи избрания вариант. -->
+    <template id="cta_wrapper" inherit_id="website_sale.cta_wrapper">
+        <xpath expr="//div[@id='add_to_cart_wrap']" position="attributes">
+            <attribute name="t-if">not (product and product._name == 'product.template' and product.website_download)</attribute>
+        </xpath>
+        <xpath expr="//div[@id='add_to_cart_wrap']" position="after">
+            <div
+                t-if="product and product._name == 'product.template' and product.website_download"
+                id="o_wsale_download_wrap"
+                t-attf-class="d-flex flex-grow-1 flex-lg-grow-0 flex-wrap align-items-center gap-2 {{'' if is_50_pc else ' w-100'}}"
+            >
+                <button
+                    type="submit"
+                    id="o_wsale_download"
+                    formaction="/shop/download"
+                    formmethod="get"
+                    formnovalidate="formnovalidate"
+                    class="btn btn-primary flex-grow-1"
+                >
+                    <i class="fa fa-download me-2"/>
+                    Download
+                </button>
+                <span
+                    t-if="product.sudo().website_download_count"
+                    class="text-muted small"
+                    title="Downloads"
+                >
+                    <i class="fa fa-download me-1"/>
+                    <t t-out="product.sudo().website_download_count"/>
+                </span>
+            </div>
+        </xpath>
+    </template>
+</odoo>

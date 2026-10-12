@@ -13,7 +13,7 @@ Add to Cart. The button downloads the file of the selected variant
 confirmed orders. The visitor signs in first; every download is logged
 with the customer and counted on the product.
 """,
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "category": "Website/Website",
     "license": "LGPL-3",
     "author": "Rosen Vladimirov,Odoo Community Association (OCA)",

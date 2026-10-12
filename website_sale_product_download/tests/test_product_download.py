@@ -71,11 +71,13 @@ class TestProductDownload(HttpCase):
 
     def _download(self, product):
         return self.url_open(
-            f"/shop/download?product_id={product.id}", allow_redirects=False
+            f"/shop/download/file?product_id={product.id}", allow_redirects=False
         )
 
     def test_public_visitor_signs_in_first(self):
-        response = self._download(self.linux)
+        response = self.url_open(
+            f"/shop/download?product_id={self.linux.id}", allow_redirects=False
+        )
         self.assertEqual(response.status_code, 303)
         location = urlparse(response.headers["Location"])
         self.assertEqual(location.path, "/web/login")
@@ -160,3 +162,23 @@ class TestProductDownload(HttpCase):
         page = self.url_open(self.template.website_url).text
         self.assertNotIn('id="o_wsale_download"', page)
         self.assertIn('id="add_to_cart"', page)
+
+    def test_after_sign_in_a_page_starts_the_download(self):
+        # Страница, а не файл: иначе формата за вход остава да се върти
+        self.authenticate("downloader", "downloader")
+        response = self.url_open(f"/shop/download?product_id={self.linux.id}")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("text/html", response.headers["Content-Type"])
+        file_url = f"/shop/download/file?product_id={self.linux.id}"
+        self.assertIn(f'content="1;url={file_url}"', response.text)
+        self.assertIn(f'href="{file_url}"', response.text)
+        self.assertIn("app-x86_64.AppImage", response.text)
+        # Страницата само показва; записва се свалянето на файла
+        self.assertFalse(self.env["website.product.download"].search([]))
+        self.assertEqual(self.url_open(file_url).content, b"LINUX APPIMAGE")
+        self.assertEqual(len(self.env["website.product.download"].search([])), 1)
+
+    def test_public_visitor_cannot_get_the_file_directly(self):
+        response = self._download(self.windows)
+        self.assertEqual(response.status_code, 303)
+        self.assertIn("/web/login", response.headers["Location"])

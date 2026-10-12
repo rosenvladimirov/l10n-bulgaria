@@ -320,6 +320,12 @@ class ResTransliterate(models.AbstractModel):
             if self._should_copy_all_languages():
                 tracking = dict(self.transliterate_tracking or {})
                 lang_codes = self._get_active_lang_codes()
+                # Имената преди записа (по език), подадени от write. Език, който е
+                # имал собствено, различно име (напр. официалната латиница от
+                # регистъра), не се презаписва — копира се само там, където
+                # името е било същото като на редактирания език.
+                old_names = self.env.context.get('_pm_old_names') or {}
+                written_lang = self.env.context.get('lang') or self.env.user.lang or 'en_US'
                 for field_name in fields_to_process:
                     if field_name != "name":
                         continue
@@ -327,6 +333,9 @@ class ResTransliterate(models.AbstractModel):
                     if not value:
                         continue
                     for lang_code in lang_codes:
+                        if (old_names and lang_code != written_lang
+                                and old_names.get(lang_code) != old_names.get(written_lang)):
+                            continue
                         self.with_context(lang=lang_code, update_lang=True).write({field_name: value})
                     tracking.pop(field_name, None)
                 if tracking != (self.transliterate_tracking or {}):
@@ -403,9 +412,20 @@ class ResTransliterate(models.AbstractModel):
 
     def write(self, vals):
         """Override write за да обнови многоезични стойности"""
-        res = super().write(vals)
         # Избягваме безкраен цикъл с update_lang флаг
-        if not self.env.context.get('update_lang', False):
+        if self.env.context.get('update_lang', False):
+            return super().write(vals)
+        # Името на всеки език преди записа — за да не се презапише език със
+        # собствено име при копирането във всички езици (_force_multilanguage)
+        old_names = {}
+        if 'name' in vals and 'name' in self._fields and self._fields['name'].translate:
+            lang_codes = self._get_active_lang_codes()
             for record in self:
-                record._force_multilanguage(vals, new_record=False)
+                old_names[record.id] = {
+                    code: record.with_context(lang=code).name for code in lang_codes
+                }
+        res = super().write(vals)
+        for record in self:
+            record.with_context(_pm_old_names=old_names.get(record.id))._force_multilanguage(
+                vals, new_record=False)
         return res

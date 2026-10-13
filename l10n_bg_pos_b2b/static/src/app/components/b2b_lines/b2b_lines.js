@@ -16,8 +16,9 @@ patch(Orderline.prototype, {
             !line.combo_parent_id &&
             line.price_unit
         ) {
+            // Мерната на РЕДА — при пакет (напр. pos_variant_uom) цената е за кашон.
             vals.displayPriceUnit = `${line.currencyDisplayPriceUnit} / ${
-                line.product_id?.uom_id?.name || ""
+                line.getUnit?.()?.name || line.product_id?.uom_id?.name || ""
             }`;
         }
         return vals;

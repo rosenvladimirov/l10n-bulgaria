@@ -31,6 +31,9 @@ patch(PosOrder.prototype, {
                     uuid: line.uuid,
                     product_id: line.product_id.id,
                     qty: line.qty,
+                    // Мерната на реда: при пакет (напр. pos_variant_uom) `qty` е в
+                    // кашони, а цената — за кашон; офертата трябва да е в същата мерна.
+                    product_uom_id: line.getUnit?.()?.id || false,
                     price_unit: line.price_unit,
                     discount: line.discount || 0,
                 })),

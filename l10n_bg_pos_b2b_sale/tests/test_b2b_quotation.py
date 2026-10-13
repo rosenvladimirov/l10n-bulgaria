@@ -139,3 +139,30 @@ class TestB2bQuotation(B2bPosCommon):
             },
         ))
         self.assertEqual(order.l10n_bg_sale_order_id.id, result["id"])
+
+    def test_quotation_line_keeps_the_packaging(self):
+        """Ред в кашон в касата ⇒ редът в офертата е в кашон, на цена за кашон.
+
+        Пакетът на реда идва от модул като pos_variant_uom (ADR
+        packit-pricelist-packaging/0005); тук мерната се подава в тялото
+        направо. Мутация: `product_uom_id` не се пише във `vals` ⇒ редът в
+        офертата остава в бройки.
+        """
+        carton = self.env["uom.uom"].create({
+            "name": "TEST Carton of 300",
+            "relative_uom_id": self.product1.uom_id.id,
+            "relative_factor": 300.0,
+        })
+        self.product1.product_tmpl_id.uom_ids = [(4, carton.id)]
+        self.open_new_session()
+        result = self.config.l10n_bg_b2b_save_quotation(self._payload(lines=[{
+            "uuid": "line-1",
+            "product_id": self.product1.id,
+            "product_uom_id": carton.id,
+            "qty": 2,
+            "price_unit": 54.0,
+            "discount": 0,
+        }]))
+        line = self.env["sale.order"].browse(result["id"]).order_line
+        self.assertEqual(line.product_uom_id, carton)
+        self.assertEqual((line.product_uom_qty, line.price_unit), (2, 54.0))

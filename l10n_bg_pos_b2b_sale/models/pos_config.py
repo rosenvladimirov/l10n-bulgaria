@@ -146,4 +146,9 @@ class PosConfig(models.Model):
         }
         if not so_line or so_line.product_id.id != line["product_id"]:
             vals["product_id"] = line["product_id"]
+        # Мерната на реда в касата: при пакет количеството и цената са за
+        # кашон. Без нея редът в офертата остава в мерната на артикула и
+        # „2 кашона по 54,00“ става „2 бройки по 54,00“.
+        if line.get("product_uom_id"):
+            vals["product_uom_id"] = line["product_uom_id"]
         return vals

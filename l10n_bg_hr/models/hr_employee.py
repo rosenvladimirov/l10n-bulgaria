@@ -102,21 +102,25 @@ class HrEmployee(models.Model):
         'l10n_bg.hr.version.amendment',
         'employee_id',
         string='Contract Amendments',
+        groups="hr.group_hr_user",
     )
 
     l10n_bg_amendment_count = fields.Integer(
         string='Amendment Count',
         compute='_compute_amendment_count',
+        groups="hr.group_hr_user",
     )
 
     l10n_bg_last_amendment_date = fields.Date(
         string='Last Amendment Date',
         compute='_compute_last_amendment',
+        groups="hr.group_hr_user",
     )
 
     l10n_bg_last_amendment_summary = fields.Char(
         string='Last Amendment Changes',
         compute='_compute_last_amendment',
+        groups="hr.group_hr_user",
     )
 
     @api.depends('l10n_bg_amendment_ids')
@@ -146,7 +150,7 @@ class HrEmployee(models.Model):
         'l10n_bg.telk.decision', 'employee_id',
         string='TELK/NELK Decisions', groups='hr.group_hr_user')
     l10n_bg_telk_decision_count = fields.Integer(
-        string='Decisions', compute='_compute_l10n_bg_telk_decision_count')
+        string='Decisions', compute='_compute_l10n_bg_telk_decision_count', groups="hr.group_hr_user")
     l10n_bg_telk_current_id = fields.Many2one(
         'l10n_bg.telk.decision', string='Decision in Force',
         compute='_compute_l10n_bg_telk_current_id', groups='hr.group_hr_user',
@@ -155,7 +159,7 @@ class HrEmployee(models.Model):
     l10n_bg_telk_expired = fields.Boolean(
         string='Decision Expired', compute='_compute_l10n_bg_telk_current_id',
         help="There is a decision on file, but none of them is in force today "
-             "— which is a different situation from having no decision at all.")
+             "— which is a different situation from having no decision at all.", groups="hr.group_hr_user")
 
     @api.depends('l10n_bg_telk_decision_ids')
     def _compute_l10n_bg_telk_decision_count(self):

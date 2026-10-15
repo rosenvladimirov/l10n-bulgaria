@@ -104,17 +104,17 @@ class TestTelegramBot(TelegramBotCommon):
             self.bot.command_ids = [(0, 0, {"command": "Buy-Now", "description": "x"})]
 
     def test_set_webhook_requires_https(self):
-        self.env["ir.config_parameter"].sudo().set_param(
-            "web.base.url", "http://odoo.local"
-        )
+        # get_base_url, не web.base.url: с инсталиран website адресът идва от
+        # домейна на сайта и параметърът се пренебрегва (копие на прода)
+        self.patch(type(self.bot), "get_base_url", lambda bot: "http://odoo.local")
         with self.mock_telegram() as post, self.assertRaises(UserError):
             self.bot.action_set_webhook()
         post.assert_not_called()
 
     def test_set_webhook_sends_secret_and_updates(self):
-        self.env["ir.config_parameter"].sudo().set_param(
-            "web.base.url", "https://www.example.com"
-        )
+        # get_base_url, не web.base.url: с инсталиран website адресът идва от
+        # домейна на сайта и параметърът се пренебрегва (копие на прода)
+        self.patch(type(self.bot), "get_base_url", lambda bot: "https://www.example.com")
         with self.mock_telegram() as post:
             self.bot.action_set_webhook()
         payload = post.call_args.kwargs["json"]
@@ -164,7 +164,10 @@ class TestTelegramBot(TelegramBotCommon):
 
     def test_unsafe_names_are_not_dispatched(self):
         with self.mock_telegram() as post:
-            self.bot._handle_update(self.make_update(21, "/start.__class__"))
+            update = self.make_update(21, "/start.__class__")
+            # английски изрично: с инсталиран bg_BG отговорът е на български
+            update["message"]["from"]["language_code"] = "en"
+            self.bot._handle_update(update)
         self.assertIn("Unknown command", self.sent_texts(post)[0])
 
     def test_group_message_keeps_private_chat_and_gets_no_reply(self):

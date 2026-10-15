@@ -1,0 +1,492 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_telegram_bot
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-29 17:28+0000\n"
+"PO-Revision-Date: 2026-09-29 17:28+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_bg_telegram_bot
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot/models/l10n_bg_telegram_user.py:0
+msgid "(non-text message)"
+msgstr "(съобщение без текст)"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.constraint,message:l10n_bg_telegram_bot.constraint_l10n_bg_telegram_user_telegram_id_unique
+msgid "A Telegram user is registered once per bot."
+msgstr "Потребител на Telegram се регистрира по веднъж за бот."
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.constraint,message:l10n_bg_telegram_bot.constraint_l10n_bg_telegram_bot_command_command_unique
+msgid "A command can be defined only once per bot."
+msgstr "Команда се задава само веднъж за бот."
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__message_needaction
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__message_needaction
+msgid "Action Needed"
+msgstr "Нужно е действие"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__active
+msgid "Active"
+msgstr "Активен"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.constraint,message:l10n_bg_telegram_bot.constraint_l10n_bg_telegram_update_update_unique
+msgid "An update is processed only once."
+msgstr "Всяко обновление се обработва само веднъж."
+
+#. module: l10n_bg_telegram_bot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_bot.l10n_bg_telegram_bot_view_form
+msgid "Archived"
+msgstr "Архивиран"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__message_attachment_count
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__message_attachment_count
+msgid "Attachment Count"
+msgstr "Брой прикачени файлове"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot_command__bot_id
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_update__bot_id
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__bot_id
+msgid "Bot"
+msgstr "Бот"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__token
+msgid "Bot Token"
+msgstr "Токен на бота"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,help:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__username
+msgid "Bot username, read from Telegram (getMe)."
+msgstr "Потребителско име на бота, прочетено от Telegram (getMe)."
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.ui.menu,name:l10n_bg_telegram_bot.l10n_bg_telegram_bot_menu
+msgid "Bots"
+msgstr "Ботове"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__chat_id
+msgid "Chat"
+msgstr "Чат"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot_command__command
+msgid "Command"
+msgstr "Команда"
+
+#. module: l10n_bg_telegram_bot
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot/models/l10n_bg_telegram_bot.py:0
+msgid "Command %s: use 1-32 lowercase letters, digits or underscores."
+msgstr ""
+"Команда %s: използвайте 1–32 малки латински букви, цифри или долна черта."
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__command_ids
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_bot.l10n_bg_telegram_bot_view_form
+msgid "Commands"
+msgstr "Команди"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__company_id
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__company_id
+msgid "Company"
+msgstr "Фирма"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__partner_id
+msgid "Contact"
+msgstr "Контакт"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot_command__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__create_uid
+msgid "Created by"
+msgstr "Създадено от"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__create_date
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot_command__create_date
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__create_date
+msgid "Created on"
+msgstr "Създадено на"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__description
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot_command__description
+msgid "Description"
+msgstr "Описание"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__display_label
+msgid "Display Label"
+msgstr "Етикет"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__display_name
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot_command__display_name
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_update__display_name
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__first_name
+msgid "First Name"
+msgstr "Име"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__message_follower_ids
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__message_follower_ids
+msgid "Followers"
+msgstr "Последователи"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__message_partner_ids
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Последователи (партньори)"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__has_message
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__has_message
+msgid "Has Message"
+msgstr "Има съобщение"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__id
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot_command__id
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_update__id
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,help:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__message_needaction
+#: model:ir.model.fields,help:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Ако е отметнато, новите съобщения изискват вниманието ви."
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,help:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__message_has_error
+#: model:ir.model.fields,help:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Ако е отметнато, някои съобщения имат грешка при доставката."
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__message_is_follower
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__message_is_follower
+msgid "Is Follower"
+msgstr "Е последовател"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__language_code
+msgid "Language Code"
+msgstr "Код на езика"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__last_name
+msgid "Last Name"
+msgstr "Фамилия"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot_command__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__write_uid
+msgid "Last Updated by"
+msgstr "Последно обновено от"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__write_date
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot_command__write_date
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__write_date
+msgid "Last Updated on"
+msgstr "Последно обновено на"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__message_has_error
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__message_has_error
+msgid "Message Delivery error"
+msgstr "Грешка при доставка на съобщение"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__message_ids
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__message_ids
+msgid "Messages"
+msgstr "Съобщения"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__name
+msgid "Name"
+msgstr "Име"
+
+#. module: l10n_bg_telegram_bot
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot/models/l10n_bg_telegram_bot.py:0
+msgid "No commands."
+msgstr "Няма команди."
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_bot.selection__l10n_bg_telegram_bot__webhook_state__none
+msgid "Not set"
+msgstr "Не е зададен"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__message_needaction_counter
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Брой действия"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__message_has_error_counter
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__message_has_error_counter
+msgid "Number of errors"
+msgstr "Брой грешки"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,help:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__message_needaction_counter
+#: model:ir.model.fields,help:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Брой съобщения, изискващи действие"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,help:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__message_has_error_counter
+#: model:ir.model.fields,help:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Брой съобщения с грешка при доставката"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,help:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__chat_id
+msgid "Private chat with the bot, used for replies."
+msgstr "Личният чат с бота, в който се отговаря."
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_update__received
+msgid "Received"
+msgstr "Получено"
+
+#. module: l10n_bg_telegram_bot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_bot.l10n_bg_telegram_bot_view_form
+msgid "Remove Webhook"
+msgstr "Премахни webhook"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,help:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__welcome_message
+msgid "Reply to /start."
+msgstr "Отговор на /start."
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,help:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__webhook_secret
+msgid ""
+"Sent by Telegram in the X-Telegram-Bot-Api-Secret-Token header and checked "
+"on every update."
+msgstr ""
+"Telegram го праща в заглавката X-Telegram-Bot-Api-Secret-Token; проверява се"
+" при всяко обновление."
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot_command__sequence
+msgid "Sequence"
+msgstr "Последователност"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields.selection,name:l10n_bg_telegram_bot.selection__l10n_bg_telegram_bot__webhook_state__set
+msgid "Set"
+msgstr "Зададен"
+
+#. module: l10n_bg_telegram_bot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_bot.l10n_bg_telegram_bot_view_form
+msgid "Set Webhook"
+msgstr "Задай webhook"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__short_description
+msgid "Short Description"
+msgstr "Кратко описание"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,help:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__description
+msgid "Shown in an empty chat before the user presses Start (max 512 chars)."
+msgstr ""
+"Показва се в празен чат, преди потребителят да натисне Start (до 512 знака)."
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,help:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__short_description
+msgid "Shown on the bot profile page (max 120 chars)."
+msgstr "Показва се в профила на бота (до 120 знака)."
+
+#. module: l10n_bg_telegram_bot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_bot.l10n_bg_telegram_bot_view_form
+msgid "Sync with Telegram"
+msgstr "Синхронизирай с Telegram"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.ui.menu,name:l10n_bg_telegram_bot.l10n_bg_telegram_menu_root
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_bot.l10n_bg_telegram_bot_view_form
+msgid "Telegram"
+msgstr "Telegram"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model,name:l10n_bg_telegram_bot.model_l10n_bg_telegram_bot
+msgid "Telegram Bot"
+msgstr "Telegram бот"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model,name:l10n_bg_telegram_bot.model_l10n_bg_telegram_bot_command
+msgid "Telegram Bot Command"
+msgstr "Команда на Telegram бот"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.actions.act_window,name:l10n_bg_telegram_bot.l10n_bg_telegram_bot_action
+msgid "Telegram Bots"
+msgstr "Telegram ботове"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__telegram_id
+msgid "Telegram ID"
+msgstr "Telegram ID"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model,name:l10n_bg_telegram_bot.model_l10n_bg_telegram_update
+msgid "Telegram Update (deduplication)"
+msgstr "Обновление от Telegram (дедупликация)"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model,name:l10n_bg_telegram_bot.model_l10n_bg_telegram_user
+msgid "Telegram User"
+msgstr "Потребител на Telegram"
+
+#. module: l10n_bg_telegram_bot
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot/models/l10n_bg_telegram_bot.py:0
+#: model:ir.actions.act_window,name:l10n_bg_telegram_bot.l10n_bg_telegram_user_action
+msgid "Telegram Users"
+msgstr "Потребители на Telegram"
+
+#. module: l10n_bg_telegram_bot
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot/models/l10n_bg_telegram_bot.py:0
+msgid "Telegram is not reachable (%s)."
+msgstr "Telegram не е достъпен (%s)."
+
+#. module: l10n_bg_telegram_bot
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot/models/l10n_bg_telegram_bot.py:0
+msgid "Telegram needs an HTTPS webhook; the base URL is %s."
+msgstr "Telegram изисква HTTPS webhook; базовият адрес е %s."
+
+#. module: l10n_bg_telegram_bot
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot/models/l10n_bg_telegram_bot.py:0
+msgid "Telegram rejected %(method)s: %(error)s"
+msgstr "Telegram отказа %(method)s: %(error)s"
+
+#. module: l10n_bg_telegram_bot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_bot.l10n_bg_telegram_bot_view_form
+msgid "Texts"
+msgstr "Текстове"
+
+#. module: l10n_bg_telegram_bot
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot/models/l10n_bg_telegram_bot.py:0
+msgid "The bot %s has no token."
+msgstr "Ботът %s няма токен."
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,help:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__token
+msgid "Token issued by @BotFather. Keep it secret."
+msgstr "Токенът, издаден от @BotFather. Пазете го в тайна."
+
+#. module: l10n_bg_telegram_bot
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot/models/l10n_bg_telegram_bot.py:0
+msgid "Unknown command /%s. Send /help for the list."
+msgstr "Непозната команда /%s. Изпратете /help за списъка."
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_update__update_id
+msgid "Update"
+msgstr "Обновление"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__user_count
+msgid "User Count"
+msgstr "Брой потребители"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__username
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_user__username
+msgid "Username"
+msgstr "Потребителско име"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__user_ids
+#: model:ir.ui.menu,name:l10n_bg_telegram_bot.l10n_bg_telegram_user_menu
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_bot.l10n_bg_telegram_bot_view_form
+msgid "Users"
+msgstr "Потребители"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__webhook_secret
+msgid "Webhook Secret"
+msgstr "Таен ключ на webhook"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__webhook_state
+msgid "Webhook State"
+msgstr "Състояние на webhook"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__webhook_url
+msgid "Webhook Url"
+msgstr "Адрес на webhook"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,field_description:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot__welcome_message
+msgid "Welcome Message"
+msgstr "Приветствие"
+
+#. module: l10n_bg_telegram_bot
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot/models/l10n_bg_telegram_bot.py:0
+msgid "Welcome!"
+msgstr "Добре дошли!"
+
+#. module: l10n_bg_telegram_bot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_bot.l10n_bg_telegram_user_view_search
+msgid "Without Contact"
+msgstr "Без контакт"
+
+#. module: l10n_bg_telegram_bot
+#: model:ir.model.fields,help:l10n_bg_telegram_bot.field_l10n_bg_telegram_bot_command__command
+msgid "Without the slash, lowercase, e.g. buy (1-32 chars)."
+msgstr "Без наклонената черта, с малки букви, напр. buy (1–32 знака)."
+
+#. module: l10n_bg_telegram_bot
+#. odoo-python
+#: code:addons/l10n_bg_telegram_bot/models/l10n_bg_telegram_bot.py:0
+msgid "bot_id"
+msgstr "bot_id"
+
+#. module: l10n_bg_telegram_bot
+#: model_terms:ir.ui.view,arch_db:l10n_bg_telegram_bot.l10n_bg_telegram_bot_view_form
+msgid "e.g. Odoo Consulting Bot"
+msgstr "напр. Бот за консултации по Odoo"

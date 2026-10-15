@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="l10n_bg_telegram_bot_view_list" model="ir.ui.view">
+        <field name="name">l10n.bg.telegram.bot.list</field>
+        <field name="model">l10n.bg.telegram.bot</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="username"/>
+                <field name="webhook_state"/>
+                <field name="user_count"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="l10n_bg_telegram_bot_view_form" model="ir.ui.view">
+        <field name="name">l10n.bg.telegram.bot.form</field>
+        <field name="model">l10n.bg.telegram.bot</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_sync_profile" type="object" string="Sync with Telegram"
+                            class="btn-primary"/>
+                    <button name="action_set_webhook" type="object" string="Set Webhook"
+                            invisible="webhook_state == 'set'"/>
+                    <button name="action_delete_webhook" type="object" string="Remove Webhook"
+                            invisible="webhook_state != 'set'"/>
+                    <field name="webhook_state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_users" type="object" class="oe_stat_button"
+                                icon="fa-users">
+                            <field name="user_count" widget="statinfo" string="Users"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="e.g. Odoo Consulting Bot"/></h1>
+                    </div>
+                    <group>
+                        <group string="Telegram">
+                            <field name="token" password="True"/>
+                            <field name="username"/>
+                            <field name="webhook_url" widget="CopyClipboardChar"/>
+                            <field name="webhook_secret" password="True"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Texts" name="texts">
+                            <group>
+                                <field name="short_description"/>
+                                <field name="description"/>
+                                <field name="welcome_message"/>
+                            </group>
+                        </page>
+                        <page string="Commands" name="commands">
+                            <field name="command_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="command"/>
+                                    <field name="description"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="l10n_bg_telegram_bot_action" model="ir.actions.act_window">
+        <field name="name">Telegram Bots</field>
+        <field name="res_model">l10n.bg.telegram.bot</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

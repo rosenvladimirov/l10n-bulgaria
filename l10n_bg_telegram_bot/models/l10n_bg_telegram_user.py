@@ -1,0 +1,129 @@
+# Copyright 2026 Rosen Vladimirov <vladimirov.rosen@gmail.com>
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+
+import logging
+
+from odoo import api, fields, models
+
+_logger = logging.getLogger(__name__)
+
+
+class L10nBgTelegramUser(models.Model):
+    _name = "l10n.bg.telegram.user"
+    _description = "Telegram User"
+    _inherit = "mail.thread"
+    _rec_name = "display_label"
+
+    bot_id = fields.Many2one(
+        "l10n.bg.telegram.bot", required=True, ondelete="cascade", index=True
+    )
+    company_id = fields.Many2one(related="bot_id.company_id", store=True)
+    # Telegram id-тата са до 52 бита — Integer в Odoo е 32-битов ⇒ низ
+    telegram_id = fields.Char(string="Telegram ID", required=True, readonly=True)
+    chat_id = fields.Char(
+        readonly=True, help="Private chat with the bot, used for replies."
+    )
+    username = fields.Char(readonly=True)
+    first_name = fields.Char(readonly=True)
+    last_name = fields.Char(readonly=True)
+    language_code = fields.Char(readonly=True)
+    partner_id = fields.Many2one("res.partner", string="Contact", tracking=True)
+    display_label = fields.Char(compute="_compute_display_label", store=True)
+
+    # 18.0: _sql_constraints (models.Constraint е само от 19.0)
+    _sql_constraints = [
+        ("telegram_id_unique", "UNIQUE(bot_id, telegram_id)", "A Telegram user is registered once per bot."),
+    ]
+
+    @api.depends("username", "first_name", "last_name", "telegram_id")
+    def _compute_display_label(self):
+        for user in self:
+            name = " ".join(filter(None, [user.first_name, user.last_name]))
+            if user.username:
+                name = f"{name} (@{user.username})" if name else f"@{user.username}"
+            user.display_label = name or user.telegram_id
+
+    @api.model
+    def _from_telegram(self, bot, message):
+        """Намира или създава потребителя по `from` на съобщението; обновява данните."""
+        sender = message["from"]
+        values = {
+            "username": sender.get("username"),
+            "first_name": sender.get("first_name"),
+            "last_name": sender.get("last_name"),
+            "language_code": sender.get("language_code"),
+        }
+        chat = message.get("chat") or {}
+        if chat.get("type", "private") == "private":
+            # Личният чат идва само от лично съобщение: съобщение в група иначе
+            # записва ГРУПАТА и следващият отговор до човека отива там
+            values["chat_id"] = str(chat["id"])
+        user = self.search(
+            [("bot_id", "=", bot.id), ("telegram_id", "=", str(sender["id"]))], limit=1
+        )
+        if user:
+            # Пишем само промененото — иначе всяко съобщение прави запис
+            changed = {k: v for k, v in values.items() if user[k] != (v or False)}
+            if changed:
+                user.write(changed)
+            return user
+        return self.create(
+            {"bot_id": bot.id, "telegram_id": str(sender["id"]), **values}
+        )
+
+    def _get_lang(self):
+        """Езикът на отговорите към този потребител.
+
+        Първо езикът на контакта (може да е сменен ръчно в Odoo), после
+        езикът на приложението му в Telegram (`bg`, `en`, `pt-br` …) срещу
+        инсталираните езици, накрая езикът по подразбиране на бота.
+        """
+        self.ensure_one()
+        installed = [code for code, _name in self.env["res.lang"].get_installed()]
+        if self.partner_id.lang in installed:
+            return self.partner_id.lang
+        telegram = (self.language_code or "").replace("-", "_").lower()
+        if telegram:
+            for code in installed:
+                if code.lower() == telegram:
+                    return code
+            prefix = telegram.split("_")[0]
+            for code in installed:
+                if code.split("_")[0].lower() == prefix:
+                    return code
+        return self.bot_id._default_profile_lang()
+
+    def _in_own_language(self):
+        """Потребителят с контекст на неговия език — за съобщения, които не са
+        отговор на негово съобщение (известия, действия от Odoo)."""
+        self.ensure_one()
+        return self.with_context(lang=self._get_lang())
+
+    def _ensure_partner(self):
+        """Връзва партньор при /start; съществуващата връзка не се пипа."""
+        for user in self.filtered(lambda u: not u.partner_id):
+            name = " ".join(filter(None, [user.first_name, user.last_name]))
+            user.partner_id = self.env["res.partner"].create(
+                {
+                    "name": name or user.username or user.telegram_id,
+                    "company_id": user.company_id.id,
+                    "lang": user._get_lang(),
+                    "comment": f"Telegram @{user.username}" if user.username else False,
+                }
+            )
+        return self.partner_id
+
+    def _log_incoming(self, text):
+        self.ensure_one()
+        self.message_post(body=text or self.env._("(non-text message)"))
+
+    def _reply(self, text, **kwargs):
+        """Отговаря в личния чат и записва отговора в историята."""
+        self.ensure_one()
+        if not self.chat_id:
+            # Пише само в група и не е пускал /start ⇒ ботът няма личен чат с него
+            _logger.info("Telegram user %s has no private chat; reply skipped", self.id)
+            return False
+        result = self.bot_id.send_message(self.chat_id, text, **kwargs)
+        self.message_post(body=text, subtype_xmlid="mail.mt_note")
+        return result

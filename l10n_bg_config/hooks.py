@@ -207,6 +207,11 @@ def fix_ica_ptc_group(env, companies=None):
 
     :return: поправените данъци (``account.tax``)
     """
+    # Без проследяване: при ползван данък ядрото сравнява старото и новото
+    # разпределение по преведени ключове (_message_log_repartition_lines), а
+    # тук двете се смятат на различни езици (езикът на потребителя и en_US) —
+    # KeyError: 'Сметка' в test-marina, 16.10.2026. Промяната се вижда в лога.
+    env = env(context=dict(env.context, tracking_disable=True))
     Tax = env['account.tax'].with_context(active_test=False)
     fixed = Tax.browse()
     if companies is None:

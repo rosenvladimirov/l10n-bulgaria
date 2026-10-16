@@ -1,3 +1,10 @@
+**Version 19.0.2.1.3**
+
+- Updating a module that extends `res.company` or `res.partner` no longer fails
+  with a lock timeout while another transaction reads the table: `init()` adds
+  the technical jsonb columns only when they are missing (`ALTER TABLE` takes an
+  exclusive lock even with `IF NOT EXISTS`).
+
 **Version 19.0.2.1.1**
 
 - Installation on a large database fits in one HTTP request: the post-install

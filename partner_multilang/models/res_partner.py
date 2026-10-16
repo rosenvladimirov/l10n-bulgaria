@@ -8,7 +8,7 @@ from lxml import etree
 
 from odoo import api, fields, models
 from odoo.fields import Domain
-from odoo.tools import SQL
+from odoo.tools import SQL, sql
 
 from .collation import ensure_order_index, fold, has_fold
 
@@ -52,10 +52,13 @@ class Partner(models.Model):
         super().init()
         # Ensure the technical JSONB column exists without module upgrade.
         # Odoo 19: self._cr е deprecated → използваме self.env.cr.
-        self.env.cr.execute(
-            'ALTER TABLE "res_partner" '
-            'ADD COLUMN IF NOT EXISTS complete_name_multilanguage jsonb'
-        )
+        # Само ако липсва: ALTER TABLE иска ACCESS EXCLUSIVE ключалка и при дълга
+        # транзакция върху res_partner обновяването пада (16.10.2026).
+        if not sql.column_exists(self.env.cr, "res_partner", "complete_name_multilanguage"):
+            self.env.cr.execute(
+                'ALTER TABLE "res_partner" '
+                'ADD COLUMN IF NOT EXISTS complete_name_multilanguage jsonb'
+            )
         self._pm_ensure_order_indexes()
 
     @api.model

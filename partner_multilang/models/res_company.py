@@ -3,6 +3,7 @@ import logging
 # from lxml import etree
 
 from odoo import api, fields, models
+from odoo.tools import sql
 
 _logger = logging.getLogger(__name__)
 
@@ -30,9 +31,12 @@ class Company(models.Model):
 
     def init(self):
         _logger.info("Data res.transliterate.mixin: %s", self._table)
-        # Run for each concrete model that inherits this mixin.
-        self.env.cr.execute(
-            f'ALTER TABLE "{self._table}" '
-            "ADD COLUMN IF NOT EXISTS transliterate_tracking jsonb"
-        )
+        # ALTER TABLE иска ACCESS EXCLUSIVE ключалка дори когато колоната вече я
+        # има — при дълга транзакция върху res_company обновяването падаше с
+        # lock timeout (erp3, 16.10.2026). Колоната се добавя само ако липсва.
+        if not sql.column_exists(self.env.cr, self._table, "transliterate_tracking"):
+            self.env.cr.execute(
+                f'ALTER TABLE "{self._table}" '
+                "ADD COLUMN IF NOT EXISTS transliterate_tracking jsonb"
+            )
         super().init()

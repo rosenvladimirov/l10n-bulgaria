@@ -133,3 +133,35 @@ class TestFixedTermEndRequired(TransactionCase):
             "l10n_bg_fixed_term_end": False,
         })
         self.assertFalse(self.employee.version_id.l10n_bg_fixed_term_end)
+
+
+@tagged("post_install", "-at_install")
+class TestContractTypeOfferedOnHiring(TransactionCase):
+    """DEF-209 т. 2 — при назначаване само основанията по т. 12 на НВРЗ.
+
+    007 („с изпитателен срок по чл. 70“) не съществува в наредбата —
+    изпитателният срок е клауза. 018–021 са основания за изменение (ДС).
+    """
+
+    SAMO_ZA_DS = ("007", "018", "019", "020", "021")
+
+    def _offered(self, field_name):
+        domain = self.env["hr.version"]._fields[field_name].domain
+        return self.env["hr.contract.type"].search(
+            list(domain) + [("country_id.code", "=", "BG")])
+
+    def test_hiring_does_not_offer_amendment_grounds(self):
+        for field_name in ("contract_type_id",
+                           "l10n_bg_after_term_contract_type_id"):
+            kodove = set(self._offered(field_name).mapped("code"))
+            self.assertFalse(
+                kodove & set(self.SAMO_ZA_DS),
+                "%s предлага %s при назначаване" % (
+                    field_name, sorted(kodove & set(self.SAMO_ZA_DS))))
+            self.assertTrue({"001", "002", "003"} <= kodove)
+
+    def test_the_hidden_types_stay_for_existing_records(self):
+        """Не се трият — заварените версии ги сочат."""
+        for kod in self.SAMO_ZA_DS:
+            vid = self.env.ref("l10n_bg_hr.l10n_bg_%s" % kod)
+            self.assertFalse(vid.l10n_bg_hiring_allowed)

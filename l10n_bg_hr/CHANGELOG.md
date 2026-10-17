@@ -2,6 +2,18 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [19.0.2.9.15] - 2026-10-17
+
+### Fixed
+- DEF-209 item 2 (Пламена, ТГ 172091): the contract type of an employment
+  offers only the grounds of item 12 of Annex 1 to НВРЗ. New flag
+  `hr.contract.type.l10n_bg_hiring_allowed`; it is off for **007** (a probation
+  period is a clause under Art. 70 LC, not a ground) and **018–021** (grounds
+  for an amendment). Both `contract_type_id` and the contract after the term
+  filter on it. The types stay in the data for existing versions.
+
+*Assisted-by: Anthropic/Claude-Opus-5-5-1m*
+
 ## [19.0.2.9.2] - 2026-09-09
 
 ### Changed

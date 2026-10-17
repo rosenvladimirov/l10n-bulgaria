@@ -90,9 +90,15 @@ class HrVersion(models.Model):
              "empty for open-ended contracts.",
     )
 
+    # DEF-209 т. 2: при назначаване не се предлагат основанията само за ДС
+    # (018–021) и 007, който не е основание по т. 12 на НВРЗ.
+    contract_type_id = fields.Many2one(
+        domain=[('l10n_bg_hiring_allowed', '=', True)])
+
     l10n_bg_after_term_contract_type_id = fields.Many2one(
         'hr.contract.type',
         string='Contract After the Term',
+        domain=[('l10n_bg_hiring_allowed', '=', True)],
         groups='hr.group_hr_user',
         help="What the employment becomes once the fixed term lapses. Filled "
              "in — a new version is born on the next day under this ground. "

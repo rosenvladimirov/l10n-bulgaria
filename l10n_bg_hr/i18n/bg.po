@@ -257,3 +257,19 @@ msgstr "Промени"
 #: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_amendment_button
 msgid "Amendments"
 msgstr "Допълнителни споразумения"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_hr_contract_type__l10n_bg_hiring_allowed
+msgid "Allowed on Hiring"
+msgstr "Допустим при назначаване"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_hr_contract_type__l10n_bg_hiring_allowed
+msgid ""
+"Offered as the contract type of an employment. Grounds that exist only for "
+"amendments (Annex 1, item 12, codes 018–021) or are not grounds at all are "
+"kept for existing records but hidden."
+msgstr ""
+"Предлага се като вид на трудовия договор при назначаване. Основанията само "
+"за изменение (Приложение № 1, т. 12, кодове 018–021) и тези, които не са "
+"основания, остават за заварените записи, но не се предлагат."

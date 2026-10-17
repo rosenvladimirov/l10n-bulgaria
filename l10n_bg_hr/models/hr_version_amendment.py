@@ -725,17 +725,20 @@ class L10nBGHrVersionAmendment(models.Model):
         заплата = един запис с 021 и новата заплата в т. 18). Командироване по
         чл. 121а → 018. Само допълнителни задължения → нищо (т. 7).
 
-        🔲 Заплата И работно време без друга промяна — нормата не казва;
-        предлага се 019, ТРЗ може да смени (въпрос към Пламена).
+        Заплата И работно време без друга промяна — нормата не казва;
+        предлага се 020 (Пламена, 17.10.2026, ТГ 172643: смяната на работното
+        време е основната и мени МОД), ТРЗ може да смени в рамките на 018–021.
         """
         for rec in self:
             if (rec.l10n_bg_chg_position or rec.l10n_bg_chg_term
                     or rec.l10n_bg_chg_leave or rec.l10n_bg_chg_workplace):
                 code = '021'
+            elif rec.l10n_bg_chg_working_time:
+                # и със заплата: работното време е основната промяна и мени
+                # МОД (Пламена, 17.10.2026, ТГ 172643)
+                code = '020'
             elif rec.l10n_bg_chg_wage:
                 code = '019'
-            elif rec.l10n_bg_chg_working_time:
-                code = '020'
             elif rec.amendment_type == 'temporary_assignment':
                 code = '018'
             else:

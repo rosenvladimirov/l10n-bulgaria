@@ -71,6 +71,8 @@ class TestAmendmentChangeFlags(TransactionCase):
         cases = [
             ({"l10n_bg_chg_wage": True, "new_wage": 1600.0}, "019"),
             ({"l10n_bg_chg_working_time": True}, "020"),
+            ({"l10n_bg_chg_wage": True, "l10n_bg_chg_working_time": True,
+              "new_wage": 1600.0}, "020"),
             ({"l10n_bg_chg_leave": True, "new_leave_days": 25}, "021"),
             ({"l10n_bg_chg_wage": True, "l10n_bg_chg_workplace": True,
               "new_wage": 1600.0}, "021"),

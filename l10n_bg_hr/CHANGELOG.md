@@ -2,6 +2,20 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [19.0.2.9.20] - 2026-10-17
+
+### Added
+- Hook `_l10n_bg_after_fixed_term_terminated(srok)`: the overdue fixed-term
+  cron calls it when it terminates a contract on its term date, so the ETZ
+  bridge can register the termination (172197 item 3). No-op here.
+
+### Changed
+- ETZ ground of an amendment changing wage AND working time only: **020**
+  (was 019) — the working-time change is the main one and changes the minimum
+  insurance income (Пламена, ТГ 172643). Still editable within 018–021.
+
+*Assisted-by: Anthropic/Claude-Opus-5-5-1m*
+
 ## [19.0.2.9.19] - 2026-10-17
 
 ### Changed

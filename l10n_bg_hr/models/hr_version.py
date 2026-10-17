@@ -621,6 +621,16 @@ class HrVersion(models.Model):
         return len(versii)
 
     @api.model
+    def _l10n_bg_after_fixed_term_terminated(self, srok):
+        """Кука: кронът прекрати срочния договор на датата на срока.
+
+        172197 т. 3 (Пламена, 15.10.2026): прекратяването трябва да мине през
+        същата регистрация като бутона „Прекрати договор“, иначе ЕТЗ не го
+        разпознава. Регистрацията живее в моста към ЕТЗ (кодификаторът е там);
+        тук — нищо.
+        """
+        return
+
     def cron_l10n_bg_close_overdue_fixed_terms(self):
         """Последната мрежа: срокът е минал и петте работни дни също.
 
@@ -685,6 +695,7 @@ class HrVersion(models.Model):
                     "%s с основание %s.", version.id, srok, nova.id,
                     osnovanie.display_name)
             else:
+                version._l10n_bg_after_fixed_term_terminated(srok)
                 version.message_post(body=_(
                     "The fixed term lapsed on %(date)s and five working days "
                     "passed with no ground set for what follows. The contract "

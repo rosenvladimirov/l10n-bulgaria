@@ -2,6 +2,16 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [19.0.2.9.16] - 2026-10-17
+
+### Fixed
+- 172197 item 4 (Пламена): contract type **005** (Art. 68(1)(4) LC — until the
+  position is filled by competition) gets the new duration type `competition`.
+  It has no calendar term, so the fixed-term check no longer demands one and
+  the contract can be saved; the fixed-term crons skip it (they need a term).
+
+*Assisted-by: Anthropic/Claude-Opus-5-5-1m*
+
 ## [19.0.2.9.15] - 2026-10-17
 
 ### Fixed

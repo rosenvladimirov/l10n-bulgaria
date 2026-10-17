@@ -51,8 +51,11 @@
     <record id="l10n_bg_004" model="hr.contract.type">
         <field name="l10n_bg_contract_duration_type">replacement</field>
     </record>
+    <!-- 172197 т. 4 (Пламена, 15.10.2026): 005 е до заемане на длъжността с
+         конкурс (чл. 68, ал. 1, т. 4 КТ) — без календарен срок. Като
+         „определен срок“ проверката искаше дата и договорът не се записваше. -->
     <record id="l10n_bg_005" model="hr.contract.type">
-        <field name="l10n_bg_contract_duration_type">fixed_term</field>
+        <field name="l10n_bg_contract_duration_type">competition</field>
     </record>
     <record id="l10n_bg_006" model="hr.contract.type">
         <field name="l10n_bg_contract_duration_type">fixed_term</field>

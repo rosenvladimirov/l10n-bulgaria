@@ -10,7 +10,10 @@ class HrContractType(models.Model):
         ('indefinite', 'Indefinite Period'),
         ('fixed_term', 'Fixed Term'),
         ('specific_work', 'Until Completion of Specific Work'),
-        ('replacement', 'Replacement')
+        ('replacement', 'Replacement'),
+        # 172197 т. 4: чл. 68, ал. 1, т. 4 КТ — няма календарен срок,
+        # свършва с постъпването на спечелилия конкурса (основание 008).
+        ('competition', 'Until Filled by Competition'),
     ], string='BG Contract Duration Type',
         default='indefinite',
         help='Duration type as required by Art. 68 of Bulgarian Labor Code')

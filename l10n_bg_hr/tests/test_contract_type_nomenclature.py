@@ -28,7 +28,7 @@ class TestContractTypeNomenclature(TransactionCase):
         "l10n_bg_002": "fixed_term",     # чл. 68, ал. 1, т. 1
         "l10n_bg_003": "specific_work",  # т. 2
         "l10n_bg_004": "replacement",    # т. 3
-        "l10n_bg_005": "fixed_term",     # т. 4
+        "l10n_bg_005": "competition",    # т. 4 — до заемане с конкурс
         "l10n_bg_006": "fixed_term",     # т. 5
     }
 
@@ -165,3 +165,17 @@ class TestContractTypeOfferedOnHiring(TransactionCase):
         for kod in self.SAMO_ZA_DS:
             vid = self.env.ref("l10n_bg_hr.l10n_bg_%s" % kod)
             self.assertFalse(vid.l10n_bg_hiring_allowed)
+
+    def test_competition_contract_saves_without_a_term(self):
+        """172197 т. 4: вид 005 няма календарен срок — записът минава без него."""
+        emp = self.env["hr.employee"].create({
+            "name": "Тест До Конкурс",
+            "company_id": self.env.company.id,
+            "date_version": "2026-01-01",
+        })
+        emp.version_id.write({
+            "contract_type_id": self.env.ref("l10n_bg_hr.l10n_bg_005").id,
+            "contract_date_start": date(2026, 1, 1),
+            "l10n_bg_contract_date": date(2026, 1, 1),
+        })
+        self.assertFalse(emp.version_id.l10n_bg_fixed_term_end)

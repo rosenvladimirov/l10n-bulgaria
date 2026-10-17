@@ -1816,3 +1816,8 @@ msgstr ""
 "Предлага се като вид на трудовия договор при назначаване. Основанията само "
 "за изменение (Приложение № 1, т. 12, кодове 018–021) и тези, които не са "
 "основания, остават за заварените записи, но не се предлагат."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract_type__l10n_bg_contract_duration_type__competition
+msgid "Until Filled by Competition"
+msgstr "До заемане на длъжността с конкурс"

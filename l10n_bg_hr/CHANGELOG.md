@@ -2,6 +2,17 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [19.0.2.9.18] - 2026-10-17
+
+### Fixed
+- The amendment migration (moved from 19.0.2.9.17 to 19.0.2.9.18) set the
+  Art. 121a ground only where the column was NULL — but the column is born
+  filled with the default `art119`, so postings kept Art. 119. It now matches
+  by type. Re-runnable; on the pilot database (copy-clean-2909) 2.9.17 found
+  nothing either way (225 imported "Other" agreements, no postings).
+
+*Assisted-by: Anthropic/Claude-Opus-5-5-1m*
+
 ## [19.0.2.9.17] - 2026-10-17
 
 ### Changed — DEF-210 items 1–3 and 7: what an amendment changes (Пламена, ТГ 172092)
@@ -20,7 +31,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   Annex 1): wage 019, working time 020, term/position/leave/workplace 021 (also
   together with wage or working time), posting 018; empty = nothing to register
   (`l10n_bg_etz_registrable`). Open: wage + working time only — 019 is proposed.
-- Migration 19.0.2.9.17: existing agreements get their box from the type;
+- Migration (19.0.2.9.18): existing agreements get their box from the type;
   "Other" gets boxes from the filled new values. Imported agreements without
   any value (225 in training / Payroll-January) stay without boxes and are not
   offered an ETZ.

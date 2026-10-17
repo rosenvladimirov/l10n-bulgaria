@@ -117,7 +117,14 @@ class TestAmendmentChangeFlags(TransactionCase):
         drugo = self._ds(amendment_type="other", l10n_bg_chg_wage=True,
                          new_wage=1650.0)
         vneseno = self._ds(amendment_type="other")
+        komandirovka = self._ds(amendment_type="temporary_assignment",
+                                is_temporary=True, is_temporary_assignment=True,
+                                date_end=date(2026, 10, 31))
         self.env.flush_all()
+        # както я ражда ъпгрейдът: колоната е попълнена с подразбиращото се
+        self.env.cr.execute(
+            "UPDATE l10n_bg_hr_version_amendment SET l10n_bg_legal_basis = "
+            "'art119' WHERE id = %s", (komandirovka.id,))
         self.env.cr.execute(
             "UPDATE l10n_bg_hr_version_amendment SET l10n_bg_chg_wage = FALSE, "
             "l10n_bg_chg_leave = FALSE, amendment_type = %s WHERE id = %s",
@@ -126,13 +133,16 @@ class TestAmendmentChangeFlags(TransactionCase):
             "UPDATE l10n_bg_hr_version_amendment SET l10n_bg_chg_leave = FALSE "
             "WHERE id = %s", (po_vid.id,))
         path = os.path.join(get_module_path("l10n_bg_hr"),
-                            "migrations", "19.0.2.9.17", "post-migrate.py")
-        spec = importlib.util.spec_from_file_location("l10n_bg_hr_mig_29_17", path)
+                            "migrations", "19.0.2.9.18", "post-migrate.py")
+        spec = importlib.util.spec_from_file_location("l10n_bg_hr_mig_29_18", path)
         mig = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mig)
-        mig.migrate(self.env.cr, "19.0.2.9.16")
+        mig.migrate(self.env.cr, "19.0.2.9.17")
         (po_vid | drugo | vneseno).invalidate_recordset()
         self.assertTrue(po_vid.l10n_bg_chg_leave)
         self.assertTrue(drugo.l10n_bg_chg_wage)
         self.assertFalse(vneseno._l10n_bg_flags())
         self.assertFalse(vneseno.l10n_bg_etz_registrable)
+        komandirovka.invalidate_recordset()
+        self.assertEqual(komandirovka.l10n_bg_legal_basis, "art121a",
+                         "командироването остана по чл. 119")

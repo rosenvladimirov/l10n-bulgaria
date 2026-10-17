@@ -43,9 +43,12 @@ def migrate(cr, version):
             f"WHERE amendment_type = 'other' AND {condition} "
             f"AND NOT coalesce({flag}, FALSE)")
         total += cr.rowcount
+    # 🚨 Колоната се ражда вече попълнена с подразбиращото се 'art119' — не
+    # е NULL. Затова командироването се хваща по вида, не по празнота
+    # (19.0.2.9.17 търсеше NULL и не намираше нищо).
     cr.execute(
-        "UPDATE l10n_bg_hr_version_amendment SET l10n_bg_legal_basis = "
-        "CASE WHEN amendment_type = 'temporary_assignment' THEN 'art121a' "
-        "ELSE 'art119' END WHERE l10n_bg_legal_basis IS NULL")
+        "UPDATE l10n_bg_hr_version_amendment SET l10n_bg_legal_basis = 'art121a' "
+        "WHERE amendment_type = 'temporary_assignment' "
+        "AND coalesce(l10n_bg_legal_basis, 'art119') = 'art119'")
     _logger.info("DEF-210: %s отметки на заварени ДС, основание на %s ДС",
                  total, cr.rowcount)

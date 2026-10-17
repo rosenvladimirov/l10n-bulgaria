@@ -34,7 +34,37 @@ class HrVersionAmendmentWizard(models.TransientModel):
         ('other', 'Other Amendment'),
     ], string='Amendment Type',
         required=True,
+        default='additional_duties',
     )
+
+    # DEF-210 т. 1–2: какво се променя и основанието — както на ДС-то.
+    l10n_bg_chg_wage = fields.Boolean(string='Changes the Wage')
+    l10n_bg_chg_position = fields.Boolean(string='Changes the Position')
+    l10n_bg_chg_working_time = fields.Boolean(string='Changes the Working Time')
+    l10n_bg_chg_leave = fields.Boolean(string='Changes the Paid Leave')
+    l10n_bg_chg_workplace = fields.Boolean(string='Changes the Workplace')
+    l10n_bg_chg_term = fields.Boolean(string='Changes the Term')
+    l10n_bg_legal_basis = fields.Selection(
+        selection=lambda self: self.env['l10n_bg.hr.version.amendment']._fields[
+            'l10n_bg_legal_basis'].selection,
+        string='Legal Ground', default='art119')
+
+    _L10N_BG_FLAGS = ('l10n_bg_chg_wage', 'l10n_bg_chg_position',
+                      'l10n_bg_chg_working_time', 'l10n_bg_chg_leave',
+                      'l10n_bg_chg_workplace', 'l10n_bg_chg_term')
+
+    @api.onchange(*_L10N_BG_FLAGS)
+    def _onchange_l10n_bg_flags(self):
+        Amendment = self.env['l10n_bg.hr.version.amendment']
+        for wiz in self:
+            flags = [f for f in self._L10N_BG_FLAGS if wiz[f]]
+            wiz.amendment_type = Amendment._l10n_bg_type_from_flags(
+                flags, wiz.amendment_type)
+
+    @api.onchange('amendment_type')
+    def _onchange_amendment_type_legal_basis(self):
+        if self.amendment_type == 'temporary_assignment':
+            self.l10n_bg_legal_basis = 'art121a'
 
     subject = fields.Char(
         string='Subject',
@@ -217,6 +247,8 @@ class HrVersionAmendmentWizard(models.TransientModel):
         vals = {
             'version_id': self.version_id.id,
             'amendment_type': self.amendment_type,
+            'l10n_bg_legal_basis': self.l10n_bg_legal_basis,
+            **{f: self[f] for f in self._L10N_BG_FLAGS},
             'subject': self.subject,
             'date_effective': self.date_effective,
             'date_signed': self.date_signed,

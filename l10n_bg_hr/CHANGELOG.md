@@ -2,6 +2,31 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [19.0.2.9.17] - 2026-10-17
+
+### Changed — DEF-210 items 1–3 and 7: what an amendment changes (Пламена, ТГ 172092)
+- **Checkboxes instead of one type**: wage, position, working time, paid leave,
+  workplace, term. The form and the wizard show the pages of every ticked
+  change, so one agreement can change wage and position together (the
+  application already took all filled changes). `amendment_type` stays as a
+  technical field computed from the boxes (one box → its type, several →
+  "Other"); it is chosen by hand only without boxes — posting, additional
+  duties, a textual agreement. An agreement with boxes is never textual.
+- **Legal ground from a menu** (`l10n_bg_legal_basis`): Art. 119(1), order
+  under Art. 118(3) (wage increase only), order under Art. 138a (working time
+  only), Art. 121a(1)(1). The two orders are checked. The free text stays as
+  notes.
+- **ETZ ground of the amendment** (`l10n_bg_etz_change_code`, item 12 of
+  Annex 1): wage 019, working time 020, term/position/leave/workplace 021 (also
+  together with wage or working time), posting 018; empty = nothing to register
+  (`l10n_bg_etz_registrable`). Open: wage + working time only — 019 is proposed.
+- Migration 19.0.2.9.17: existing agreements get their box from the type;
+  "Other" gets boxes from the filled new values. Imported agreements without
+  any value (225 in training / Payroll-January) stay without boxes and are not
+  offered an ETZ.
+
+*Assisted-by: Anthropic/Claude-Opus-5-5-1m*
+
 ## [19.0.2.9.16] - 2026-10-17
 
 ### Fixed

@@ -1821,3 +1821,104 @@ msgstr ""
 #: model:ir.model.fields.selection,name:l10n_bg_hr.selection__hr_contract_type__l10n_bg_contract_duration_type__competition
 msgid "Until Filled by Competition"
 msgstr "До заемане на длъжността с конкурс"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__l10n_bg_chg_wage
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__l10n_bg_chg_wage
+msgid "Changes the Wage"
+msgstr "Променя заплатата"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__l10n_bg_chg_position
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__l10n_bg_chg_position
+msgid "Changes the Position"
+msgstr "Променя длъжността"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__l10n_bg_chg_working_time
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__l10n_bg_chg_working_time
+msgid "Changes the Working Time"
+msgstr "Променя работното време"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__l10n_bg_chg_leave
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__l10n_bg_chg_leave
+msgid "Changes the Paid Leave"
+msgstr "Променя платения годишен отпуск"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__l10n_bg_chg_workplace
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__l10n_bg_chg_workplace
+msgid "Changes the Workplace"
+msgstr "Променя мястото на работа"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__l10n_bg_chg_term
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__l10n_bg_chg_term
+msgid "Changes the Term"
+msgstr "Променя срока"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__l10n_bg_legal_basis
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment_wizard__l10n_bg_legal_basis
+msgid "Legal Ground"
+msgstr "Правно основание"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__l10n_bg_etz_change_code
+msgid "ETZ Amendment Ground"
+msgstr "Основание на изменението в ЕТЗ"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,field_description:l10n_bg_hr.field_l10n_bg_hr_version_amendment__l10n_bg_etz_registrable
+msgid "Subject to ETZ"
+msgstr "Подлежи на ЕТЗ"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields,help:l10n_bg_hr.field_l10n_bg_hr_version_amendment__l10n_bg_etz_change_code
+msgid "Item 12 of Annex 1 to the Employment Register Ordinance: 019 wage, 020 working time, 021 term/position/leave/workplace (also when combined with wage or working time), 018 posting under Art. 121a(1)(1). Empty when nothing subject to registration changes."
+msgstr "Т. 12 на Приложение № 1 към Наредбата за вписване в регистъра на заетостта: 019 заплата, 020 работно време, 021 срок/длъжност/отпуск/място (и заедно със заплата или работно време), 018 командироване по чл. 121а, ал. 1, т. 1. Празно, когато нищо не подлежи на вписване."
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__l10n_bg_legal_basis__art119
+msgid "Additional agreement under Art. 119(1) LC"
+msgstr "ДС по чл. 119, ал. 1 КТ"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__l10n_bg_legal_basis__art118_3
+msgid "Order under Art. 118(3) LC (wage increase only)"
+msgstr "Заповед по чл. 118, ал. 3 КТ (само увеличение на заплатата)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__l10n_bg_legal_basis__art138a
+msgid "Order under Art. 138a(1) or (2) LC (working time only)"
+msgstr "Заповед по чл. 138а, ал. 1 или 2 КТ (само работно време)"
+
+#. module: l10n_bg_hr
+#: model:ir.model.fields.selection,name:l10n_bg_hr.selection__l10n_bg_hr_version_amendment__l10n_bg_legal_basis__art121a
+msgid "Additional agreement under Art. 121a(1)(1) LC"
+msgstr "ДС по чл. 121а, ал. 1, т. 1 КТ"
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "An order under Art. 118(3) LC may only increase the wage. Any other change needs an additional agreement under Art. 119(1) LC."
+msgstr "Заповедта по чл. 118, ал. 3 КТ може само да увеличи заплатата. Всяка друга промяна иска ДС по чл. 119, ал. 1 КТ."
+
+#. module: l10n_bg_hr
+#. odoo-python
+#: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
+msgid "An order under Art. 138a LC may only change the working time. Any other change needs an additional agreement under Art. 119(1) LC."
+msgstr "Заповедта по чл. 138а КТ може да промени само работното време. Всяка друга промяна иска ДС по чл. 119, ал. 1 КТ."
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_version_amendment_wizard_form
+msgid "What Changes"
+msgstr "Какво се променя"
+
+#. module: l10n_bg_hr
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_version_amendment_wizard_form
+msgid "Notes on the legal basis"
+msgstr "Бележки по правното основание"

@@ -96,12 +96,31 @@
                         The signature date is after the effective date — check that it is correct.
                     </div>
 
+                    <group string="What Changes" name="l10n_bg_changes">
+                        <group>
+                            <field name="l10n_bg_chg_wage"/>
+                            <field name="l10n_bg_chg_position"/>
+                            <field name="l10n_bg_chg_working_time"/>
+                        </group>
+                        <group>
+                            <field name="l10n_bg_chg_leave"/>
+                            <field name="l10n_bg_chg_workplace"/>
+                            <field name="l10n_bg_chg_term"/>
+                        </group>
+                    </group>
                     <group>
                         <group>
                             <field name="version_id" options="{'no_create': True}"/>
                             <field name="employee_id"/>
                             <field name="company_id" groups="base.group_multi_company"/>
-                            <field name="amendment_type"/>
+                            <!-- DEF-210 т. 1: видът се смята от отметките; ръчно
+                                 се избира само без отметки (командироване,
+                                 допълнителни задължения, текстово ДС). -->
+                            <field name="amendment_type"
+                                   readonly="(l10n_bg_chg_wage or l10n_bg_chg_position or l10n_bg_chg_working_time or l10n_bg_chg_leave or l10n_bg_chg_workplace or l10n_bg_chg_term)"/>
+                            <field name="l10n_bg_legal_basis"/>
+                            <field name="l10n_bg_etz_change_code"
+                                   invisible="not l10n_bg_etz_registrable"/>
                         </group>
                         <group>
                             <field name="date_signed"/>
@@ -115,7 +134,7 @@
                                  Условието вече е същото като на визарда, плюс
                                  срочността. -->
                             <field name="date_end"
-                                   invisible="not is_temporary and amendment_type not in ('temporary_assignment', 'contract_extension')"
+                                   invisible="not is_temporary and not l10n_bg_chg_term and amendment_type not in ('temporary_assignment', 'contract_extension')"
                                    required="is_temporary or amendment_type == 'temporary_assignment'"/>
                             <field name="is_temporary"/>
                         </group>
@@ -127,12 +146,12 @@
                             <field name="description" nolabel="1"
                                    placeholder="Enter amendment details" colspan="2"/>
                             <field name="legal_basis" nolabel="1"
-                                   placeholder="Legal basis (e.g. Art. 118 of Labor Code)" colspan="2"/>
+                                   placeholder="Notes on the legal basis" colspan="2"/>
                         </page>
 
                         <!-- Wage Changes -->
                         <page string="Wage Changes" name="wage_changes"
-                              invisible="amendment_type not in ('wage_change', 'other')">
+                              invisible="not l10n_bg_chg_wage">
                             <group string="Wage Modification">
                                 <group>
                                     <field name="old_wage" readonly="1"/>
@@ -152,7 +171,7 @@
 
                         <!-- Position Changes -->
                         <page string="Position Changes" name="position_changes"
-                              invisible="amendment_type not in ('position_change', 'other')">
+                              invisible="not l10n_bg_chg_position">
                             <!-- Длъжността е НОСИТЕЛЯТ и стои първа. НКПД и
                                  КИД се произвеждат от нея през компютите на
                                  версията; показани са под нея, за четене. -->
@@ -179,7 +198,7 @@
 
                         <!-- Working Time Changes -->
                         <page string="Working Time" name="working_time"
-                              invisible="amendment_type not in ('working_time_change', 'other')">
+                              invisible="not l10n_bg_chg_working_time">
                             <group string="Working Time Type">
                                 <group>
                                     <field name="old_working_time_type" readonly="1"/>
@@ -203,7 +222,7 @@
 
                         <!-- Workplace Changes -->
                         <page string="Workplace" name="workplace"
-                              invisible="amendment_type not in ('workplace_change', 'temporary_assignment', 'other')">
+                              invisible="not l10n_bg_chg_workplace and amendment_type != 'temporary_assignment'">
                             <!--
                               DEF-172а — НОСИТЕЛЯТ е записът, не текстът.
 
@@ -233,7 +252,7 @@
 
                         <!-- Leave Days Changes -->
                         <page string="Leave Days" name="leave_days"
-                              invisible="amendment_type not in ('leave_change', 'other')">
+                              invisible="not l10n_bg_chg_leave">
                             <group string="Annual Leave">
                                 <group>
                                     <field name="old_leave_days" readonly="1"/>

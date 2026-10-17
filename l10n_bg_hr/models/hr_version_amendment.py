@@ -89,6 +89,43 @@ class L10nBGHrVersionAmendment(models.Model):
         tracking=True,
     )
 
+    # DEF-210 т. 1 (Пламена, 15.10.2026): какво се ПРОМЕНЯ — отметки вместо
+    # един вид. Едно ДС често сменя заплата и длъжност наведнъж, а видът
+    # показваше полетата само поотделно. Прилагането вече поема всички
+    # попълнени промени (`_apply_version_changes`). Видът остава технически:
+    # смята се от отметките (`_l10n_bg_type_from_flags`), а се избира ръчно
+    # само без отметки — командироване, допълнителни задължения, текстово ДС.
+    l10n_bg_chg_wage = fields.Boolean(string='Changes the Wage', tracking=True)
+    l10n_bg_chg_position = fields.Boolean(string='Changes the Position', tracking=True)
+    l10n_bg_chg_working_time = fields.Boolean(
+        string='Changes the Working Time', tracking=True)
+    l10n_bg_chg_leave = fields.Boolean(string='Changes the Paid Leave', tracking=True)
+    l10n_bg_chg_workplace = fields.Boolean(string='Changes the Workplace', tracking=True)
+    l10n_bg_chg_term = fields.Boolean(string='Changes the Term', tracking=True)
+
+    # DEF-210 т. 2: правното основание — от меню, не свободен текст.
+    l10n_bg_legal_basis = fields.Selection([
+        ('art119', 'Additional agreement under Art. 119(1) LC'),
+        ('art118_3', 'Order under Art. 118(3) LC (wage increase only)'),
+        ('art138a', 'Order under Art. 138a(1) or (2) LC (working time only)'),
+        ('art121a', 'Additional agreement under Art. 121a(1)(1) LC'),
+    ], string='Legal Ground', default='art119', tracking=True)
+
+    # DEF-210 т. 3 и 7: кодът по т. 12 на Приложение № 1 към НВРЗ, който
+    # ЕТЗ предлага за изменението; празно = няма промяна за вписване.
+    l10n_bg_etz_change_code = fields.Char(
+        string='ETZ Amendment Ground',
+        compute='_compute_l10n_bg_etz_change_code',
+        help='Item 12 of Annex 1 to the Employment Register Ordinance: 019 wage, '
+             '020 working time, 021 term/position/leave/workplace (also when '
+             'combined with wage or working time), 018 posting under Art. '
+             '121a(1)(1). Empty when nothing subject to registration changes.',
+    )
+    l10n_bg_etz_registrable = fields.Boolean(
+        string='Subject to ETZ',
+        compute='_compute_l10n_bg_etz_change_code',
+    )
+
     # =========================================================================
     # ДАТИ И ВАЛИДНОСТ
     # =========================================================================
@@ -590,12 +627,59 @@ class L10nBGHrVersionAmendment(models.Model):
         'new_leave_days',
     )
 
+    # Отметка → видът, когато е единствена (DEF-210 т. 1).
+    _L10N_BG_FLAG_TYPES = {
+        'l10n_bg_chg_wage': 'wage_change',
+        'l10n_bg_chg_position': 'position_change',
+        'l10n_bg_chg_working_time': 'working_time_change',
+        'l10n_bg_chg_leave': 'leave_change',
+        'l10n_bg_chg_workplace': 'workplace_change',
+        'l10n_bg_chg_term': 'contract_extension',
+    }
+
+    def _l10n_bg_flags(self):
+        self.ensure_one()
+        return [f for f in self._L10N_BG_FLAG_TYPES if self[f]]
+
+    @api.model
+    def _l10n_bg_type_from_flags(self, flags, current=False):
+        """Видът от отметките: една — нейният, няколко — „Друго“.
+
+        Без отметки видът остава избраният (командироване, допълнителни
+        задължения, текстово ДС); вид, който Е отметка, без нея няма смисъл
+        и пада на „Допълнителни задължения“.
+        """
+        if len(flags) == 1:
+            return self._L10N_BG_FLAG_TYPES[flags[0]]
+        if len(flags) > 1:
+            return 'other'
+        if current and current not in self._L10N_BG_FLAG_TYPES.values():
+            return current
+        return 'additional_duties'
+
+    @api.model
+    def _l10n_bg_sync_flags_vals(self, vals):
+        """Вид без отметки (заварен код, импорт, RPC) → неговата отметка."""
+        if any(f in vals for f in self._L10N_BG_FLAG_TYPES):
+            return
+        tip = vals.get('amendment_type')
+        for flag, flag_type in self._L10N_BG_FLAG_TYPES.items():
+            if tip == flag_type:
+                vals[flag] = True
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
             if vals.get('amendment_number', _('New')) == _('New'):
                 vals['amendment_number'] = self.env['ir.sequence'].next_by_code(
                     'l10n_bg.hr.version.amendment') or _('New')
+            self._l10n_bg_sync_flags_vals(vals)
+            flags = [f for f in self._L10N_BG_FLAG_TYPES if vals.get(f)]
+            if flags:
+                vals['amendment_type'] = self._l10n_bg_type_from_flags(flags)
+            elif not vals.get('l10n_bg_legal_basis') and \
+                    vals.get('amendment_type') == 'temporary_assignment':
+                vals['l10n_bg_legal_basis'] = 'art121a'
         return super().create(vals_list)
 
     def write(self, vals):
@@ -611,7 +695,78 @@ class L10nBGHrVersionAmendment(models.Model):
                     "Create a new amendment instead.",
                     ref=prilozheni[0].amendment_number or prilozheni[0].id,
                     fields=", ".join(sorted(zaklyucheni))))
-        return super().write(vals)
+        if self.env.context.get('l10n_bg_amendment_type_sync'):
+            return super().write(vals)
+        vals = dict(vals)
+        self._l10n_bg_sync_flags_vals(vals)
+        result = super().write(vals)
+        if any(f in vals for f in self._L10N_BG_FLAG_TYPES):
+            for rec in self:
+                tip = self._l10n_bg_type_from_flags(
+                    rec._l10n_bg_flags(), rec.amendment_type)
+                if tip != rec.amendment_type:
+                    rec.with_context(l10n_bg_amendment_type_sync=True).write(
+                        {'amendment_type': tip})
+        return result
+
+    @api.onchange(*_L10N_BG_FLAG_TYPES)
+    def _onchange_l10n_bg_flags(self):
+        for rec in self:
+            rec.amendment_type = self._l10n_bg_type_from_flags(
+                rec._l10n_bg_flags(), rec.amendment_type)
+
+    @api.depends('amendment_type', *_L10N_BG_FLAG_TYPES)
+    def _compute_l10n_bg_etz_change_code(self):
+        """Кодът по т. 12 за изменението (DEF-210 т. 3).
+
+        Заплата → 019, работно време → 020, срок/длъжност/отпуск/място → 021,
+        и 021, когато някое от тях върви със заплата или работно време — така
+        подава и досегашният софтуер на клиента (ЕТЗ от 04.05.2026: длъжност +
+        заплата = един запис с 021 и новата заплата в т. 18). Командироване по
+        чл. 121а → 018. Само допълнителни задължения → нищо (т. 7).
+
+        🔲 Заплата И работно време без друга промяна — нормата не казва;
+        предлага се 019, ТРЗ може да смени (въпрос към Пламена).
+        """
+        for rec in self:
+            if (rec.l10n_bg_chg_position or rec.l10n_bg_chg_term
+                    or rec.l10n_bg_chg_leave or rec.l10n_bg_chg_workplace):
+                code = '021'
+            elif rec.l10n_bg_chg_wage:
+                code = '019'
+            elif rec.l10n_bg_chg_working_time:
+                code = '020'
+            elif rec.amendment_type == 'temporary_assignment':
+                code = '018'
+            else:
+                code = False
+            rec.l10n_bg_etz_change_code = code
+            rec.l10n_bg_etz_registrable = bool(code)
+
+    @api.constrains('l10n_bg_legal_basis', 'amendment_type', 'new_wage',
+                    'old_wage', *_L10N_BG_FLAG_TYPES)
+    def _check_l10n_bg_legal_basis(self):
+        """Заповедта по чл. 118, ал. 3 и по чл. 138а са тесни основания.
+
+        Чл. 118, ал. 3 КТ — само увеличение на заплатата; чл. 138а — само
+        работното време. Всяка друга промяна иска ДС по чл. 119, ал. 1.
+        """
+        for rec in self:
+            flags = set(rec._l10n_bg_flags())
+            if rec.l10n_bg_legal_basis == 'art118_3' and (
+                    flags != {'l10n_bg_chg_wage'}
+                    or float_compare(rec.new_wage or 0.0, rec.old_wage or 0.0,
+                                     precision_digits=2) <= 0):
+                raise ValidationError(_(
+                    "An order under Art. 118(3) LC may only increase the wage. "
+                    "Any other change needs an additional agreement under "
+                    "Art. 119(1) LC."))
+            if rec.l10n_bg_legal_basis == 'art138a' and \
+                    flags != {'l10n_bg_chg_working_time'}:
+                raise ValidationError(_(
+                    "An order under Art. 138a LC may only change the working "
+                    "time. Any other change needs an additional agreement under "
+                    "Art. 119(1) LC."))
 
     # =========================================================================
     # ACTIONS
@@ -780,7 +935,8 @@ class L10nBGHrVersionAmendment(models.Model):
     def _l10n_bg_changes_working_time(self):
         """Мени ли това ДС договореното работно време (DEF-116)."""
         self.ensure_one()
-        if self.amendment_type == 'working_time_change':
+        if (self.amendment_type == 'working_time_change'
+                or self.l10n_bg_chg_working_time):
             return True
         return bool(
             (self.new_working_time_type
@@ -873,7 +1029,9 @@ class L10nBGHrVersionAmendment(models.Model):
     def _l10n_bg_is_textual(self):
         """Договореното при този тип е описание, не стойност по договора."""
         self.ensure_one()
+        # DEF-210 т. 1: ДС с няколко отметки също е „Друго“, но не е текстово.
         return (self.amendment_type in self._L10N_BG_TEXTUAL_TYPES
+                and not self._l10n_bg_flags()
                 and bool(self.description))
 
     def _l10n_bg_apply_textual(self):
@@ -1004,7 +1162,8 @@ class L10nBGHrVersionAmendment(models.Model):
         # уговорен срок, който може да изтече, без някой да прекрати; тогава
         # чл. 69, ал. 1 действа сам. `contract_date_end` е прекратяването и не
         # се пипа оттук.
-        if (self.amendment_type == 'contract_extension' and self.date_end
+        if ((self.amendment_type == 'contract_extension' or self.l10n_bg_chg_term)
+                and self.date_end
                 and 'l10n_bg_fixed_term_end' in self.version_id._fields):
             vals['l10n_bg_fixed_term_end'] = self.date_end
 

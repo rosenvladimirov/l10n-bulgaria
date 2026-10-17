@@ -7,12 +7,25 @@
         <field name="model">l10n_bg.hr.version.amendment.wizard</field>
         <field name="arch" type="xml">
             <form string="New Contract Amendment">
+                <group string="What Changes" name="l10n_bg_changes">
+                    <group>
+                        <field name="l10n_bg_chg_wage"/>
+                        <field name="l10n_bg_chg_position"/>
+                        <field name="l10n_bg_chg_working_time"/>
+                    </group>
+                    <group>
+                        <field name="l10n_bg_chg_leave"/>
+                        <field name="l10n_bg_chg_workplace"/>
+                        <field name="l10n_bg_chg_term"/>
+                    </group>
+                </group>
                 <group>
                     <group>
                         <field name="company_id" invisible="1"/>
                         <field name="employee_id" readonly="1"/>
                         <field name="version_id"/>
-                        <field name="amendment_type"/>
+                        <field name="amendment_type" readonly="(l10n_bg_chg_wage or l10n_bg_chg_position or l10n_bg_chg_working_time or l10n_bg_chg_leave or l10n_bg_chg_workplace or l10n_bg_chg_term)"/>
+                        <field name="l10n_bg_legal_basis"/>
                         <field name="subject" placeholder="e.g. Wage Change"/>
                         <field name="date_signed"/>
                         <field name="date_effective"/>
@@ -20,7 +33,7 @@
                              „Временно преместване" отказваше с „иска крайна
                              дата", а нямаше къде да бъде въведена. -->
                         <field name="date_end"
-                               invisible="amendment_type not in ('temporary_assignment', 'contract_extension')"
+                               invisible="not l10n_bg_chg_term and amendment_type != 'temporary_assignment'"
                                required="amendment_type == 'temporary_assignment'"/>
                     </group>
                 </group>
@@ -28,7 +41,7 @@
                 <notebook>
                     <!-- Wage -->
                     <page string="Wage Change" name="wage"
-                          invisible="amendment_type != 'wage_change'">
+                          invisible="not l10n_bg_chg_wage">
                         <group>
                             <group>
                                 <field name="old_wage" readonly="1"/>
@@ -42,7 +55,7 @@
 
                     <!-- Position -->
                     <page string="Position Change" name="position"
-                          invisible="amendment_type != 'position_change'">
+                          invisible="not l10n_bg_chg_position">
                         <!-- Длъжността е носителят и стои първа; шифърът по
                              НКПД се произвежда от нея и е под нея, за четене. -->
                         <group string="Job Position">
@@ -66,7 +79,7 @@
 
                     <!-- Working Time -->
                     <page string="Working Time" name="working_time"
-                          invisible="amendment_type != 'working_time_change'">
+                          invisible="not l10n_bg_chg_working_time">
                         <group>
                             <group>
                                 <field name="old_working_time_type" readonly="1"/>
@@ -85,7 +98,7 @@
 
                     <!-- Leave Days -->
                     <page string="Leave Days" name="leave"
-                          invisible="amendment_type != 'leave_change'">
+                          invisible="not l10n_bg_chg_leave">
                         <group>
                             <group>
                                 <field name="old_leave_days" readonly="1"/>
@@ -98,7 +111,7 @@
 
                     <!-- Workplace -->
                     <page string="Workplace" name="workplace"
-                          invisible="amendment_type not in ('workplace_change', 'temporary_assignment')">
+                          invisible="not l10n_bg_chg_workplace and amendment_type != 'temporary_assignment'">
                         <!-- DEF-172а: носителят е ЗАПИСЪТ. Текстът остава само
                              за четене — не се резолвва надеждно към запис. -->
                         <group>
@@ -115,7 +128,7 @@
                     <!-- Типовете без собствено поле за съдържание получават
                          едно място, вместо да отварят чуждите табове. -->
                     <page string="Description" name="description"
-                          invisible="amendment_type not in ('other', 'additional_duties', 'contract_extension')">
+                          invisible="not l10n_bg_chg_term and amendment_type not in ('other', 'additional_duties')">
                         <field name="description" nolabel="1"
                                placeholder="What does this amendment agree?"/>
                     </page>

@@ -2,6 +2,17 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [19.0.2.9.21] - 2026-10-17
+
+### Fixed
+- Contract types 014 and 016 follow item 12 of the Ordinance: 014 on-the-job
+  training under Art. 230 LC (the Bulgarian text said "internship"), 016
+  internship under Art. 233b LC (was "apprenticeship"). Migration drops only
+  their Bulgarian name so it reloads from the .po (deploys run without
+  `--i18n-overwrite`).
+
+*Assisted-by: Anthropic/Claude-Opus-5-5-1m*
+
 ## [19.0.2.9.20] - 2026-10-17
 
 ### Added

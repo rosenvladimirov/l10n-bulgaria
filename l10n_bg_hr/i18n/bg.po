@@ -88,22 +88,11 @@ msgid "Decree under Art. 405a of the Labor Code"
 msgstr "Постановление по чл. 405а от КТ"
 
 #. module: l10n_bg_hr
-#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_014
-msgid ""
-"Employment contract for on-the-job training under Art. 230 of the Labor Code"
-msgstr "Трудов договор за стажуване по чл. 230 от КТ"
-
-#. module: l10n_bg_hr
 #: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_015
 msgid ""
 "Employment contract for internal replacement under Art. 259 of the Labor "
 "Code"
 msgstr "Трудов договор за вътрешно заместване по чл. 259 от КТ"
-
-#. module: l10n_bg_hr
-#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_016
-msgid "Apprenticeship contract under Art. 233b of the Labor Code"
-msgstr "Договор за чиракуване по чл. 233б от КТ"
 
 #. module: l10n_bg_hr
 #: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_017
@@ -379,3 +368,15 @@ msgstr "Какво се променя"
 #: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_hr_version_amendment_wizard_form
 msgid "Notes on the legal basis"
 msgstr "Бележки по правното основание"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_014
+msgid ""
+"Employment contract for on-the-job training under Art. 230 of the Labor Code"
+msgstr "Трудов договор за обучение по време на работа по чл. 230 от КТ"
+
+#. module: l10n_bg_hr
+#: model:hr.contract.type,name:l10n_bg_hr.l10n_bg_016
+msgid ""
+"Internship employment contract under Art. 233b of the Labor Code"
+msgstr "Трудов договор за стажуване по чл. 233б от КТ"

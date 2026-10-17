@@ -2,6 +2,15 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [19.0.2.9.19] - 2026-10-17
+
+### Changed
+- DEF-210 item 8: the "Contract Amendments" page of the employee form is shown
+  to `hr.group_hr_user` (payroll), not only to the HR manager — the same group
+  as the amendments group and button next to it.
+
+*Assisted-by: Anthropic/Claude-Opus-5-5-1m*
+
 ## [19.0.2.9.18] - 2026-10-17
 
 ### Fixed

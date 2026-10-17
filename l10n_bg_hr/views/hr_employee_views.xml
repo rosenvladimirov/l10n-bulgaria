@@ -55,8 +55,10 @@
         <field name="active" eval="True"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='payroll_information']" position="after">
+                <!-- DEF-210 т. 8: и за ТРЗ (hr.group_hr_user), както бутонът и
+                     групата с последното ДС; дотук — само за мениджър. -->
                 <page string="Contract Amendments" name="amendments" id="l10n_bg_amendments"
-                      groups="hr.group_hr_manager">
+                      groups="hr.group_hr_user">
                     <field name="l10n_bg_amendment_ids" readonly="1">
                         <list>
                             <field name="amendment_number"/>

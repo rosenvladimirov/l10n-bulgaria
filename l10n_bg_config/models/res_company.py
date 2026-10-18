@@ -189,6 +189,18 @@ class ResCompany(models.Model):
             company = self.browse(company)
         elif not company:
             company = self
+        if not self.env.registry.ready:
+            # По време на инсталация/ъпгрейд пълното четене на фирмата иска и
+            # колоните на модулите, които още нямат таблица (fields_get се вика
+            # от проследяването на mail.thread) — затова само колоната.
+            if not company:
+                return False
+            self.env.cr.execute(
+                "SELECT chart_template FROM res_company WHERE id = %s",
+                [company[:1].id],
+            )
+            row = self.env.cr.fetchone()
+            return bool(row) and row[0] == "bg"
         return company.chart_template == "bg"
 
     @staticmethod

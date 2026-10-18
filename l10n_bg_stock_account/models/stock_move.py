@@ -193,6 +193,17 @@ class StockMove(models.Model):
         мостри, представителни, вътрешно потребление). Брак и инвентаризация
         остават на loss/gain сметките на категорията; без сметка на локацията
         — поведението е както досега.
+
+        🔑 Самата сметка се взима от веригата на ядрото (``super()`` на
+        ``_get_account_move_line_vals`` — location-based редовете) — насрещният
+        ред: Дт при изход, Кт при вход. Така модул, който е ПОД нас в реда на
+        наследяване и подменя насрещната сметка в редовете на ядрото, важи и
+        за auto_post пътя, който иначе строи редовете сам, без super. Пример:
+        ``stock_lot_relabel`` кредитира входа от „Lot Relabel“ по втора сметка
+        на локацията (``lot_relabel_out_account_id``), както в 18. Без такъв
+        модул ядрото връща ``valuation_account_id`` — поведението е както
+        преди. Движение без референция (съветникът преглежда и такива) не
+        минава през ядрото: то слепва ``reference`` и би паднало.
         """
         self.ensure_one()
         if self.scrap_id or self.is_inventory:
@@ -200,7 +211,18 @@ class StockMove(models.Model):
         location = self.location_dest_id if self.is_out else self.location_id
         if location.usage != 'inventory':
             return False
-        return location.valuation_account_id
+        account = location.valuation_account_id
+        if not account or not self.reference:
+            return account
+        # При изход ядрото взима сметката на ИЗТОЧНИКА, ако той има такава —
+        # тогава насрещният ред на ядрото не е на нашата локация.
+        if self.is_out and self.location_id.valuation_account_id:
+            return account
+        side = 'debit' if self.is_out else 'credit'
+        for line in super()._get_account_move_line_vals():
+            if line.get(side) and line.get('account_id'):
+                return self.env['account.account'].browse(line['account_id'])
+        return account
 
     def _l10n_bg_substitute_scrap_account(self, vals):
         """Замени COGS account със loss account при scrap.

@@ -32,6 +32,14 @@ class StockMove(models.Model):
         )
         return False
 
+    def _create_account_move(self):
+        """Ядрото слепва ``reference`` на движенията за ref на статията. Движение
+        без пикинг, брак и инвентаризация (напр. направено с код) няма референция
+        и слепването пада с TypeError — тогава референцията е произходът или продуктът."""
+        for move in self.filtered(lambda m: not m.reference):
+            move.reference = move.origin or move.product_id.display_name
+        return super()._create_account_move()
+
     def _should_create_account_move(self):
         """Разширява стандартното условие: ако категорията има l10n_bg_stock_auto_post=True,
         се позволява генериране на счетоводен запис при incoming пикинг дори при manual_periodic.

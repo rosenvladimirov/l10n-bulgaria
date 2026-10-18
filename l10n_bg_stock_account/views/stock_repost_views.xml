@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Осчетоводяване на пропуснатите складови движения -->
+    <record id="view_l10n_bg_stock_repost_form" model="ir.ui.view">
+        <field name="name">l10n.bg.stock.repost.form</field>
+        <field name="model">l10n.bg.stock.repost</field>
+        <field name="arch" type="xml">
+            <form string="Post Missing Stock Journal Entries">
+                <field name="currency_id" invisible="1"/>
+                <div class="alert alert-info" role="status">
+                    The done stock moves of the period without a journal entry get the entry the module would have
+                    made at validation — on the date of the move, one per picking. Check the category accounts first.
+                </div>
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="category_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                    </group>
+                </group>
+                <field name="preview" nolabel="1" readonly="1"/>
+                <footer>
+                    <button name="action_post" type="object" string="Post entries" class="btn-primary" data-hotkey="q"
+                            confirm="Post the journal entries of the period?"/>
+                    <button name="action_remove" type="object" string="Remove the wizard entries" class="btn-secondary"
+                            confirm="Delete the journal entries made by this wizard in the period?"/>
+                    <button string="Discard" special="cancel" class="btn-secondary" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_l10n_bg_stock_repost" model="ir.actions.act_window">
+        <field name="name">Post Missing Stock Entries</field>
+        <field name="res_model">l10n.bg.stock.repost</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_l10n_bg_stock_repost"
+              name="Post Missing Stock Entries"
+              parent="account.account_closing_menu"
+              action="action_l10n_bg_stock_repost"
+              groups="account.group_account_manager"
+              sequence="90"/>
+</odoo>

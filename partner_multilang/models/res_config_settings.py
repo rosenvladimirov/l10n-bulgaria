@@ -12,3 +12,7 @@ class ResConfigSettings(models.TransientModel):
         string="Transliterate names",
         help="Enable automatic transliteration of partner and company names."
     )
+    transliterate_addresses = fields.Boolean(
+        related="company_id.transliterate_addresses",
+        readonly=False,
+    )

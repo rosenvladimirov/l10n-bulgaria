@@ -19,6 +19,13 @@
                             </div>
                         </div>
                     </setting>
+                    <setting
+                        id="partner_multilang_transliterate_addresses"
+                        string="Transliterate addresses"
+                        help="Also transliterate the street and city of partners into the other languages."
+                    >
+                        <field name="transliterate_addresses" />
+                    </setting>
                 </block>
             </xpath>
         </field>

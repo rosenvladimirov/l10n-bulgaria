@@ -97,7 +97,12 @@ class Partner(models.Model):
     @api.model
     def _get_transliterate_fields(self):
         res = super()._get_transliterate_fields()
-        return res + ['street', 'street2', 'city', 'function', 'company_name', 'commercial_company_name']
+        # Длъжността се превежда („Управител“ → „Manager“), не се транслитерира;
+        # адресът — само ако фирмата го е поискала изрично
+        res = res + ['company_name', 'commercial_company_name']
+        if self.env.company.transliterate_addresses:
+            res += ['street', 'street2', 'city']
+        return res
 
     @api.model
     def _get_partner_name_lang_codes(self):

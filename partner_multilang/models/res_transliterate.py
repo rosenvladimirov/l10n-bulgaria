@@ -79,6 +79,50 @@ def detect_text_language(text):
     return 'unknown'
 
 
+# Закон за транслитерацията (ДВ, бр. 19 от 2009 г.), чл. 4, ал. 1
+BG_LATIN = {
+    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ж': 'zh',
+    'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n',
+    'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f',
+    'х': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'sht', 'ъ': 'a',
+    'ь': 'y', 'ю': 'yu', 'я': 'ya',
+}
+_BG_WORD_RE = re.compile(r"[^\W\d_]+")
+
+
+def transliterate_bg(text):
+    """Кирилица → латиница по Закона за транслитерацията.
+
+    Освен таблицата на чл. 4, ал. 1: „ия“ в края на думата е „ia“ (ал. 2),
+    а „България“ е „Bulgaria“ (ал. 3). Дума изцяло с главни остава с главни
+    („ЖЕЛЕВ“ → „ZHELEV“), иначе главната буква дава само една главна („Ж“ → „Zh“).
+    Знаците извън таблицата (латиница, цифри, кавички) остават същите.
+    """
+    if not text:
+        return text
+
+    def _word(match):
+        word = match.group(0)
+        if not _CYRILLIC_RE.search(word):
+            return word
+        lower = word.lower()
+        # по една латинска част за всяка буква — главните остават на местата си
+        if lower == 'българия':
+            pieces = list('bulgaria')
+        else:
+            pieces = [BG_LATIN.get(ch, ch) for ch in lower]
+            if lower.endswith('ия'):
+                pieces[-2:] = ['i', 'a']
+        if len(word) > 1 and word.isupper():
+            return ''.join(pieces).upper()
+        return ''.join(
+            piece[:1].upper() + piece[1:] if char.isupper() else piece
+            for char, piece in zip(word, pieces)
+        )
+
+    return _BG_WORD_RE.sub(_word, text)
+
+
 def partner_name_translate(name, lang, transliterate_flag):
     """Транслитерира имена с автоматично разпознаване на език"""
     if lang not in ["en", "en_US"] and transliterate_flag:
@@ -89,6 +133,11 @@ def partner_name_translate(name, lang, transliterate_flag):
                 lang = detected_lang
 
         lang_code = lang[:2] if lang else 'unknown'
+
+        # Българският — по Закона за транслитерацията; библиотеката дава
+        # „Sofiya“, „Balgariya“, а unidecode — руската схема („Kh“, „'“ за Ъ)
+        if lang_code == 'bg':
+            return transliterate_bg(name)
 
         # Опитваме специфична транслитерация по език
         if HAS_TRANSLITERATE and lang_code in LANGUAGE_MAPPING:
@@ -235,7 +284,10 @@ class ResTransliterate(models.AbstractModel):
         Checks and determines the language of the given text and whether transliteration
         is supported for that language.
         """
-        current_lang = lang = self.env.user.lang
+        # Езикът на записа (контекстът), не на потребителя: съветник или импорт,
+        # който пише с lang=bg_BG от потребител с английски интерфейс, иначе
+        # се брои за en_US и кирилицата отива в английския превод
+        current_lang = lang = self.env.context.get('lang') or self.env.user.lang
         installed_langs = self._get_transliterate_languages()
         transliterate = installed_langs.filtered(lambda r: r.code == lang)
 
@@ -368,9 +420,17 @@ class ResTransliterate(models.AbstractModel):
                 # записваме оригинала в bg_BG и транслитерация в en_US.
                 if current_lang in ("en_US", "en") and _CYRILLIC_RE.search(str(value)):
                     bg_lang = "bg_BG"
-                    if not getattr(self.with_context(lang=bg_lang), field_name):
-                        self.with_context(lang=bg_lang, update_lang=True).write({field_name: value})
+                    # Записаното в базата, без резервата към en_US — иначе липсващият
+                    # bg_BG чете същата кирилица, записът се пропуска и след
+                    # транслитерацията българският превод показва латиницата
+                    field = self._fields[field_name]
+                    stored = field._get_stored_translations(self) if field.translate and field.store else None
+                    has_bg = (stored or {}).get(bg_lang) if stored is not None else getattr(
+                        self.with_context(lang=bg_lang), field_name)
 
+                    # Първо en_US, после bg_BG: записът на en_US маха преводите,
+                    # които са били същите като старото en_US — т.е. току-що
+                    # записаната кирилица в bg_BG
                     transliterated_value = partner_name_translate(value, "bg", True)
                     record = self.with_context(
                         **dict(self.env.context, lang="en_US", update_lang=True)
@@ -380,6 +440,8 @@ class ResTransliterate(models.AbstractModel):
                         field_name: transliterated_value,
                         'transliterate_tracking': tracking
                     })
+                    if not has_bg:
+                        self.with_context(lang=bg_lang, update_lang=True).write({field_name: value})
                     continue
 
                 # Ако е нужна транслитерация и не е en_US

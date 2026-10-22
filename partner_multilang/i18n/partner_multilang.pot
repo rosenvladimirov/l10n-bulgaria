@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0-20231113\n"
+"Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-27 13:04+0000\n"
-"PO-Revision-Date: 2023-11-27 13:04+0000\n"
+"POT-Creation-Date: 2026-10-22 05:29+0000\n"
+"PO-Revision-Date: 2026-10-22 05:29+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,32 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: partner_multilang
+#: model:ir.model.fields,help:partner_multilang.field_res_country_state__name
+msgid ""
+"Administrative divisions of a country. E.g. Fed. State, Department, Canton"
+msgstr ""
+
+#. module: partner_multilang
+#: model_terms:ir.ui.view,arch_db:partner_multilang.res_config_settings_view_form_partner_multilang
+msgid ""
+"Also transliterate the street and city of partners into the other languages."
+msgstr ""
+
+#. module: partner_multilang
+#: model:ir.model.fields,help:partner_multilang.field_res_company__transliterate_addresses
+#: model:ir.model.fields,help:partner_multilang.field_res_config_settings__transliterate_addresses
+msgid ""
+"Also transliterate the street and city of partners into the other languages."
+" Without it the address stays as entered."
+msgstr ""
+
+#. module: partner_multilang
+#: model:ir.model,name:partner_multilang.model_base
+msgid "Base"
+msgstr ""
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__city
 #: model:ir.model.fields,field_description:partner_multilang.field_res_partner__city
 #: model:ir.model.fields,field_description:partner_multilang.field_res_users__city
 msgid "City"
@@ -40,25 +66,72 @@ msgid "Company Name Entity"
 msgstr ""
 
 #. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_partner__complete_name_multilanguage
+#: model:ir.model.fields,field_description:partner_multilang.field_res_users__complete_name_multilanguage
+msgid "Complete Name Multilanguage"
+msgstr ""
+
+#. module: partner_multilang
+#: model:ir.model,name:partner_multilang.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: partner_multilang
 #: model:ir.model,name:partner_multilang.model_res_partner
 msgid "Contact"
 msgstr ""
 
 #. module: partner_multilang
-#: model:ir.model.fields,field_description:partner_multilang.field_res_partner__display_lang
-#: model:ir.model.fields,field_description:partner_multilang.field_res_users__display_lang
-msgid "Display Lang"
+#: model:ir.model,name:partner_multilang.model_res_country_state
+msgid "Country state"
 msgstr ""
 
 #. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_ir_binary__display_name
+#: model:ir.model.fields,field_description:partner_multilang.field_mail_thread__display_name
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__display_name
+#: model:ir.model.fields,field_description:partner_multilang.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:partner_multilang.field_res_country_state__display_name
+#: model:ir.model.fields,field_description:partner_multilang.field_res_lang__display_name
 #: model:ir.model.fields,field_description:partner_multilang.field_res_partner__display_name
+#: model:ir.model.fields,field_description:partner_multilang.field_res_transliterate_mixin__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: partner_multilang
-#: model:ir.model.fields,field_description:partner_multilang.field_res_partner__display_name_en
-#: model:ir.model.fields,field_description:partner_multilang.field_res_users__display_name_en
-msgid "Display Name En"
+#: model:ir.model,name:partner_multilang.model_mail_thread
+msgid "Email Thread"
+msgstr ""
+
+#. module: partner_multilang
+#: model:ir.model.fields,help:partner_multilang.field_res_company__transliterate_names
+#: model:ir.model.fields,help:partner_multilang.field_res_config_settings__transliterate_names
+#: model_terms:ir.ui.view,arch_db:partner_multilang.res_config_settings_view_form_partner_multilang
+msgid "Enable automatic transliteration of partner and company names."
+msgstr ""
+
+#. module: partner_multilang
+#: model:ir.model,name:partner_multilang.model_ir_binary
+msgid "File streaming helper model for controllers"
+msgstr ""
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_ir_binary__id
+#: model:ir.model.fields,field_description:partner_multilang.field_mail_thread__id
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__id
+#: model:ir.model.fields,field_description:partner_multilang.field_res_config_settings__id
+#: model:ir.model.fields,field_description:partner_multilang.field_res_country_state__id
+#: model:ir.model.fields,field_description:partner_multilang.field_res_lang__id
+#: model:ir.model.fields,field_description:partner_multilang.field_res_partner__id
+#: model:ir.model.fields,field_description:partner_multilang.field_res_transliterate_mixin__id
+msgid "ID"
+msgstr ""
+
+#. module: partner_multilang
+#: model:ir.model.fields,help:partner_multilang.field_res_company__lang
+msgid ""
+"If the selected language is loaded in the system, all documents related to "
+"this contact will be printed in this language. If not, it will be English."
 msgstr ""
 
 #. module: partner_multilang
@@ -68,24 +141,83 @@ msgid "Job Position"
 msgstr ""
 
 #. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__lang
+msgid "Language"
+msgstr ""
+
+#. module: partner_multilang
+#: model:ir.model,name:partner_multilang.model_res_lang
+msgid "Languages"
+msgstr ""
+
+#. module: partner_multilang
 #: model:ir.model.fields,field_description:partner_multilang.field_res_partner__name
 #: model:ir.model.fields,field_description:partner_multilang.field_res_users__name
 msgid "Name"
 msgstr ""
 
 #. module: partner_multilang
+#: model:ir.model,name:partner_multilang.model_res_transliterate_mixin
+msgid "Names transliterate mixin"
+msgstr ""
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_country_state__name
+msgid "State Name"
+msgstr ""
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__street
 #: model:ir.model.fields,field_description:partner_multilang.field_res_partner__street
 #: model:ir.model.fields,field_description:partner_multilang.field_res_users__street
 msgid "Street"
 msgstr ""
 
 #. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__street2
 #: model:ir.model.fields,field_description:partner_multilang.field_res_partner__street2
 #: model:ir.model.fields,field_description:partner_multilang.field_res_users__street2
 msgid "Street2"
 msgstr ""
 
 #. module: partner_multilang
-#: model:ir.model,name:partner_multilang.model_res_users
-msgid "User"
+#: model:ir.model.fields,help:partner_multilang.field_res_company__transliterate_tracking
+#: model:ir.model.fields,help:partner_multilang.field_res_partner__transliterate_tracking
+#: model:ir.model.fields,help:partner_multilang.field_res_transliterate_mixin__transliterate_tracking
+#: model:ir.model.fields,help:partner_multilang.field_res_users__transliterate_tracking
+msgid ""
+"Technical field to track which fields have been transliterated. Format: "
+"{\"field_name\": True}"
+msgstr ""
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_lang__transliterate
+msgid "Transliterate"
+msgstr ""
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__transliterate_addresses
+#: model:ir.model.fields,field_description:partner_multilang.field_res_config_settings__transliterate_addresses
+#: model_terms:ir.ui.view,arch_db:partner_multilang.res_config_settings_view_form_partner_multilang
+msgid "Transliterate addresses"
+msgstr ""
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__transliterate_names
+#: model:ir.model.fields,field_description:partner_multilang.field_res_config_settings__transliterate_names
+#: model_terms:ir.ui.view,arch_db:partner_multilang.res_config_settings_view_form_partner_multilang
+msgid "Transliterate names"
+msgstr ""
+
+#. module: partner_multilang
+#: model_terms:ir.ui.view,arch_db:partner_multilang.res_config_settings_view_form_partner_multilang
+msgid "Transliteration"
+msgstr ""
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__transliterate_tracking
+#: model:ir.model.fields,field_description:partner_multilang.field_res_partner__transliterate_tracking
+#: model:ir.model.fields,field_description:partner_multilang.field_res_transliterate_mixin__transliterate_tracking
+#: model:ir.model.fields,field_description:partner_multilang.field_res_users__transliterate_tracking
+msgid "Transliteration Tracking"
 msgstr ""

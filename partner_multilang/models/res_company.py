@@ -28,6 +28,12 @@ class Company(models.Model):
         default=False,
         help="Enable automatic transliteration of partner and company names."
     )
+    transliterate_addresses = fields.Boolean(
+        string="Transliterate addresses",
+        default=False,
+        help="Also transliterate the street and city of partners into the other "
+             "languages. Without it the address stays as entered.",
+    )
 
     def init(self):
         _logger.info("Data res.transliterate.mixin: %s", self._table)

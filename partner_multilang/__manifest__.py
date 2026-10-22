@@ -1,6 +1,6 @@
 {
     "name": "Partner Multilang",
-    "version": '19.0.2.1.3',
+    "version": '19.0.2.2.0',
     "license": "AGPL-3",
     "category": "Localization",
     "author": "Rosen Vladimirov, Terraros Commerce Ltd., Odoo Community Association (OCA)",

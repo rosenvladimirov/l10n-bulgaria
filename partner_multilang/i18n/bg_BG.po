@@ -91,3 +91,26 @@ msgstr "Улица 2"
 #: model:ir.model,name:partner_multilang.model_res_users
 msgid "User"
 msgstr "Потребител"
+
+#. module: partner_multilang
+#: model_terms:ir.ui.view,arch_db:partner_multilang.res_config_settings_view_form_partner_multilang
+msgid ""
+"Also transliterate the street and city of partners into the other languages."
+msgstr "Транслитерира и улицата и града на партньорите в другите езици."
+
+#. module: partner_multilang
+#: model:ir.model.fields,help:partner_multilang.field_res_company__transliterate_addresses
+#: model:ir.model.fields,help:partner_multilang.field_res_config_settings__transliterate_addresses
+msgid ""
+"Also transliterate the street and city of partners into the other languages."
+" Without it the address stays as entered."
+msgstr ""
+"Транслитерира и улицата и града на партньорите в другите езици. Без нея "
+"адресът остава както е въведен."
+
+#. module: partner_multilang
+#: model:ir.model.fields,field_description:partner_multilang.field_res_company__transliterate_addresses
+#: model:ir.model.fields,field_description:partner_multilang.field_res_config_settings__transliterate_addresses
+#: model_terms:ir.ui.view,arch_db:partner_multilang.res_config_settings_view_form_partner_multilang
+msgid "Transliterate addresses"
+msgstr "Транслитерация на адресите"

@@ -8,6 +8,19 @@ _logger = logging.getLogger(__name__)
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
+    def _l10n_bg_changes_stock_value(self):
+        """Мърда ли движението стойността на склада.
+
+        Да — когато точно едната страна е оценявана във фирмата (приемане,
+        изписване, брак, производство) или при дропшип. Не — при вътрешен
+        трансфер между две оценявани локации: стоката не напуска баланса и
+        нулевата стойност е вярна. По локациите, не по `_is_in()`/`_is_out()`:
+        те четат редовете, а неизпълненото движение още ги няма."""
+        self.ensure_one()
+        if self._is_dropshipped() or self._is_dropshipped_returned():
+            return True
+        return self.location_id._should_be_valued() != self.location_dest_id._should_be_valued()
+
     def _l10n_bg_has_valuation(self):
         """False при движение с количество, но БЕЗ стойност.
 

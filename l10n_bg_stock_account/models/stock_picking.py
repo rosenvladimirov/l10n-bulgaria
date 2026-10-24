@@ -49,6 +49,14 @@ class StockPicking(models.Model):
             product = move.product_id
             if not product.is_storable or not product.categ_id.sudo().l10n_bg_stock_auto_post:
                 continue
+            # Пламена, 19.10.2026 (ТГ 173047): вътрешен трансфер между две
+            # оценявани локации е без стойност и без статия ПО ДИЗАЙН — стоката
+            # не излиза от баланса. Предупреждението изреждаше и четирите
+            # продукта на СКГПН/ПР/00001, макар да имат себестойност. Мери се
+            # само движението, което мърда стойността: точно едната страна е
+            # оценявана във фирмата (вход/изход), или дропшип.
+            if not move._l10n_bg_changes_stock_value():
+                continue
             if move.state == 'done':
                 if not move.product_uom.is_zero(move.quantity) \
                         and currency.is_zero(move.value):

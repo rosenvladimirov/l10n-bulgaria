@@ -131,3 +131,9 @@ msgstr ""
 #: code:addons/l10n_bg_pos_b2b_sale/static/src/app/quotation/quotation.xml:0
 msgid "Update quotation"
 msgstr ""
+
+#. module: l10n_bg_pos_b2b_sale
+#. odoo-javascript
+#: code:addons/l10n_bg_pos_b2b_sale/static/src/app/control_buttons/wholesale_lock.js:0
+msgid "Quotation %s is issued: the order stays wholesale."
+msgstr ""

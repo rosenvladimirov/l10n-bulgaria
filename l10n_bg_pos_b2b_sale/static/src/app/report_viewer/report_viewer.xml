@@ -23,7 +23,8 @@
     <!-- Едро само с връзка (ADR 0003): „Wholesale“ е заключен офлайн -->
     <t t-name="l10n_bg_pos_b2b_sale.ControlButtons" t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
         <xpath expr="//button[hasclass('o_l10n_bg_wholesale_button')]" position="attributes">
-            <attribute name="t-att-disabled">pos.data.network.offline and !currentOrder?.l10n_bg_wholesale</attribute>
+            <!-- офлайн не се влиза в едро; с издадена оферта не се излиза от него -->
+            <attribute name="t-att-disabled">(pos.data.network.offline and !currentOrder?.l10n_bg_wholesale) or currentOrder?.l10nBgWholesaleLocked</attribute>
         </xpath>
     </t>
 </templates>

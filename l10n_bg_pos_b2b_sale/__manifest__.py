@@ -4,7 +4,7 @@
     "name": "Bulgaria - Wholesale (B2B) in the Point of Sale with sale orders",
     "summary": "Wholesale sales in the POS saved as quotations: sale order "
     "number, quotation and pro-forma printed in the POS",
-    "version": "19.0.1.1.3",
+    "version": "19.0.1.2.0",
     "category": "Sales/Point of Sale",
     "author": "Rosen Vladimirov, Terraros Commerce Ltd.",
     "website": "https://github.com/rosenvladimirov/l10n-bulgaria",

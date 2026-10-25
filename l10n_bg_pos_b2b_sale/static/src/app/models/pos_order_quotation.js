@@ -40,6 +40,15 @@ patch(PosOrder.prototype, {
         };
     },
 
+    /**
+     * Издадена оферта (SO) заключва поръчката на едро: към дребно (бон без
+     * фактура) не се връща — офертата е издадена към фирмата
+     * (Росен, 25.10.2026; ADR pos-b2b-wholesale/0005).
+     */
+    get l10nBgWholesaleLocked() {
+        return Boolean(this.l10n_bg_wholesale && this.l10nBgForm.sale_order_id);
+    },
+
     l10nBgApplyQuotation(result) {
         this.l10nBgSetForm({
             sale_order_id: result.id,

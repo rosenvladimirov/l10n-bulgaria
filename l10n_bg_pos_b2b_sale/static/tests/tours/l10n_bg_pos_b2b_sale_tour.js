@@ -34,6 +34,30 @@ registry.category("web_tour.tours").add("l10n_bg_pos_b2b_sale_quotation", {
                 trigger: ".pos-topheader .o_l10n_bg_navbar_quotation:contains(S0)",
             },
             {
+                content: "the quotation is issued: no way back to retail",
+                trigger: ".control-buttons .o_l10n_bg_wholesale_button:disabled",
+            },
+            {
+                content: "the order is still wholesale",
+                trigger: "body",
+                run: () => {
+                    const order = window.posmodel.getOrder();
+                    order.l10n_bg_wholesale || (() => { throw new Error("the order left wholesale"); })();
+                    // и изричното превключване (напр. от друг изглед) не го сваля
+                    const { ControlButtons } = odoo.loader.modules.get(
+                        "@point_of_sale/app/screens/product_screen/control_buttons/control_buttons"
+                    );
+                    ControlButtons.prototype.l10nBgToggleWholesale.call({
+                        pos: window.posmodel,
+                        notification: { add: () => {} },
+                        props: {},
+                    });
+                    if (!order.l10n_bg_wholesale) {
+                        throw new Error("the toggle took the order back to retail");
+                    }
+                },
+            },
+            {
                 content: "print the quotation",
                 trigger: ".o_l10n_bg_b2b_print_quotation:enabled",
                 run: "click",

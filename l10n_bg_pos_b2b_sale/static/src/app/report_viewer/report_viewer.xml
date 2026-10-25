@@ -13,9 +13,14 @@
         </div>
     </t>
 
-    <!-- Десният екран на касата: печатът е над продуктите -->
+    <!-- Лявата половина на касата: печатите са над бележката, а данните на
+         фирмата и продуктите остават видими вдясно (Росен, 25.10.2026;
+         ADR pos-b2b-wholesale/0007) -->
     <t t-name="l10n_bg_pos_b2b_sale.ProductScreen" t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension">
-        <xpath expr="//div[hasclass('rightpane')]/div[hasclass('position-relative')]" position="inside">
+        <xpath expr="//div[hasclass('leftpane')]" position="attributes">
+            <attribute name="class" add="position-relative" separator=" "/>
+        </xpath>
+        <xpath expr="//div[hasclass('leftpane')]" position="inside">
             <L10nBgReportViewer t-if="pos.l10nBgReport"/>
         </xpath>
     </t>

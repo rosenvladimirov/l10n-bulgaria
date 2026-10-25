@@ -63,8 +63,8 @@ registry.category("web_tour.tours").add("l10n_bg_pos_b2b_sale_quotation", {
                 run: "click",
             },
             {
-                content: "the quotation is shown in the right pane, not in a new window",
-                trigger: ".rightpane .o_l10n_bg_report_viewer iframe[src*='pdfjs'][data-report*='sale.report_saleorder']",
+                content: "the quotation is shown in the left half, not in a new window",
+                trigger: ".leftpane .o_l10n_bg_report_viewer iframe[src*='pdfjs'][data-report*='sale.report_saleorder']",
             },
             {
                 content: "close the print",
@@ -73,7 +73,7 @@ registry.category("web_tour.tours").add("l10n_bg_pos_b2b_sale_quotation", {
             },
             {
                 content: "the products are back",
-                trigger: ".rightpane:not(:has(.o_l10n_bg_report_viewer))",
+                trigger: ".leftpane:not(:has(.o_l10n_bg_report_viewer))",
             },
             {
                 content: "the quotation number at the top opens the quotation too",
@@ -82,7 +82,7 @@ registry.category("web_tour.tours").add("l10n_bg_pos_b2b_sale_quotation", {
             },
             {
                 content: "the quotation is shown again",
-                trigger: ".rightpane .o_l10n_bg_report_viewer iframe",
+                trigger: ".leftpane .o_l10n_bg_report_viewer iframe",
             },
             {
                 content: "close it",

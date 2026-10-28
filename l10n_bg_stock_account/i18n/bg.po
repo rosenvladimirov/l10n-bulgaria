@@ -1,3 +1,6 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_stock_account
 #
 msgid ""
 msgstr ""
@@ -16,12 +19,17 @@ msgid ""
 "                    <strong>without value</strong> and no journal entry will be\n"
 "                    created:"
 msgstr ""
+"<i class=\"fa fa-exclamation-triangle me-1\"/>\n"
+"                    <strong>Няма себестойност</strong> — следните продукти са\n"
+"                    без стойност, затова движението ще се запише\n"
+"                    <strong>без стойност</strong> и няма да се създаде\n"
+"                    счетоводна статия:"
 
 #. module: l10n_bg_stock_account
 #: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.stock_scrap_form_view_l10n_bg_stock_account
 #: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_picking_form_l10n_bg_stock_account
 msgid "<span class=\"o_stat_text\">Journal Entries</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Статии</span>"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_stock_auto_post
@@ -31,17 +39,23 @@ msgstr "Автоматично осчетоводяване на стокова�
 #. module: l10n_bg_stock_account
 #: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_category_property_form_l10n_bg_flag
 msgid "BG Auto-post Accounting"
-msgstr ""
+msgstr "BG автоматично осчетоводяване"
 
 #. module: l10n_bg_stock_account
 #: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_category_property_form_l10n_bg
 msgid "BG Auto-post Accounts"
-msgstr ""
+msgstr "BG сметки за автоматично осчетоводяване"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_landed_cost__l10n_bg_account_move_id
 msgid "BG Journal Entry"
-msgstr ""
+msgstr "BG статия"
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "By kind"
+msgstr "По вид"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_stock_output_account_id
@@ -63,31 +77,52 @@ msgid ""
 "price. The price difference module (l10n_bg_stock_price_diff) will clear "
 "this account by distributing the difference through the production chain."
 msgstr ""
+"Транзитна сметка, когато цената във фактурата на доставчика е по-висока от "
+"цената в поръчката. Модулът за ценови разлики (l10n_bg_stock_price_diff) я "
+"приключва, като разпределя разликата по веригата на производството."
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/models/res_company.py:0
+msgid "Closing: Location Reclassification - [%(account)s]"
+msgstr "Приключване: Прекласификация на местоположение - [%(account)s]"
+
+#. module: l10n_bg_stock_account
+#: model:ir.model,name:l10n_bg_stock_account.model_res_company
+msgid "Companies"
+msgstr "Фирми"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__company_id
 msgid "Company"
-msgstr ""
+msgstr "Фирма"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Създадено от"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Създадено на"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__currency_id
 msgid "Currency"
-msgstr ""
+msgstr "Валута"
 
 #. module: l10n_bg_stock_account
-#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_l10n_bg_stock_repost_form
-msgid "Delete the journal entries made by this wizard in the period?"
-msgstr "Да се изтрият ли статиите на съветника за периода?"
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Date"
+msgstr "Дата"
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Deliveries"
+msgstr "Изписвания"
 
 #. module: l10n_bg_stock_account
 #: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_l10n_bg_stock_repost_form
@@ -99,12 +134,19 @@ msgstr "Отказ"
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_account_move_line__display_name
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__display_name
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__display_name
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_res_company__display_name
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_landed_cost__display_name
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_move__display_name
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_picking__display_name
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_scrap__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Име за показване"
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Documents"
+msgstr "Документи"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_stock_loss_account_id
@@ -112,6 +154,9 @@ msgid ""
 "Expense account debited for scrap and negative inventory adjustments (e.g. "
 "669.200). Falls back to Stock Output Account if not set."
 msgstr ""
+"Разходна сметка, която се дебитира при брак и при отрицателна инвентаризация"
+" (напр. 669.200). Ако не е зададена, се ползва сметката за изписване на "
+"стоки."
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__date_from
@@ -123,12 +168,13 @@ msgstr "От"
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_account_move_line__id
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__id
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__id
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_res_company__id
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_landed_cost__id
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_move__id
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_picking__id
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_scrap__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_stock_gain_account_id
@@ -136,6 +182,8 @@ msgid ""
 "Income account credited for positive inventory adjustments (e.g. 709.000). "
 "Falls back to Stock Input Account if not set."
 msgstr ""
+"Приходна сметка, която се кредитира при положителна инвентаризация (напр. "
+"709.000). Ако не е зададена, се ползва сметката за вписване на стоки."
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_price_diff_income_account_id
@@ -144,13 +192,22 @@ msgid ""
 "price. The difference is booked directly as financial income without chain "
 "traversal."
 msgstr ""
+"Приходна сметка, когато цената във фактурата на доставчика е по-ниска от "
+"цената в поръчката. Разликата се осчетоводява направо като финансов приход, "
+"без разпределяне по веригата."
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Inventory adjustments"
+msgstr "Инвентаризации"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__is_l10n_bg_record
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_landed_cost__is_l10n_bg_record
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_picking__is_l10n_bg_record
 msgid "Is Bulgaria Record"
-msgstr ""
+msgstr "Български запис"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_picking__l10n_bg_account_move_count
@@ -162,17 +219,17 @@ msgstr "Записи в дневника"
 #. module: l10n_bg_stock_account
 #: model:ir.model,name:l10n_bg_stock_account.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Статия"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_scrap__l10n_bg_account_move_count
 msgid "Journal Entry Count"
-msgstr ""
+msgstr "Брой статии"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model,name:l10n_bg_stock_account.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Счетоводен ред"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,help:l10n_bg_stock_account.field_stock_landed_cost__l10n_bg_account_move_id
@@ -182,16 +239,26 @@ msgid ""
 "products; this entry capitalizes the landed cost into the stock valuation "
 "account for such products."
 msgstr ""
+"Статия за продуктите с BG автоматично осчетоводяване (периодична оценка). "
+"Стандартният Odoo не прави статии за продукти без непрекъсната оценка; тази "
+"статия капитализира допълнителните разходи в сметката за стойността на "
+"склада."
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Kind"
+msgstr "Вид"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Последно променено от"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Последно променено на"
 
 #. module: l10n_bg_stock_account
 #. odoo-python
@@ -204,6 +271,12 @@ msgstr "Без сметки"
 #: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
 msgid "Month"
 msgstr "Месец"
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Move %s"
+msgstr "Движение %s"
 
 #. module: l10n_bg_stock_account
 #. odoo-python
@@ -225,6 +298,12 @@ msgid ""
 msgstr ""
 "Само движенията на продукти от тези категории (и подкатегориите им). Празно "
 "— всички."
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Other"
+msgstr "Други"
 
 #. module: l10n_bg_stock_account
 #: model:ir.actions.act_window,name:l10n_bg_stock_account.action_l10n_bg_stock_repost
@@ -280,7 +359,7 @@ msgstr "Приход от ценова разлика (−)"
 #. module: l10n_bg_stock_account
 #: model:ir.model,name:l10n_bg_stock_account.model_product_category
 msgid "Product Category"
-msgstr ""
+msgstr "Продуктова категория"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__category_ids
@@ -288,14 +367,56 @@ msgid "Product categories"
 msgstr "Продуктови категории"
 
 #. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Production"
+msgstr "Производство"
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Receipts"
+msgstr "Приемания"
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Reference"
+msgstr "Референция"
+
+#. module: l10n_bg_stock_account
 #: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_l10n_bg_stock_repost_form
 msgid "Remove the wizard entries"
 msgstr "Махни статиите на съветника"
 
 #. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Removed by the stock repost wizard: reversed by %(reversal)s."
+msgstr ""
+"Махната от съветника за пропуснати движения: сторнирана със %(reversal)s."
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Reversal of %(entry)s (stock repost wizard)"
+msgstr "Сторно на %(entry)s (съветник за пропуснати движения)"
+
+#. module: l10n_bg_stock_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_l10n_bg_stock_repost_form
+msgid ""
+"Reverse the posted journal entries made by this wizard in the period (drafts"
+" are deleted)?"
+msgstr ""
+"Да се сторнират ли осчетоводените статии на съветника за периода (черновите "
+"се изтриват)?"
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
 #: model:ir.model,name:l10n_bg_stock_account.model_stock_scrap
 msgid "Scrap"
-msgstr ""
+msgstr "Брак"
 
 #. module: l10n_bg_stock_account
 #: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_picking_form_l10n_bg_stock_account
@@ -304,6 +425,14 @@ msgid ""
 "                        <em>Compute Price from BOM</em> for manufactured goods,\n"
 "                        before validating."
 msgstr ""
+"Задайте себестойност на продукта или ползвайте\n"
+"                        <em>Изчисли цена от спецификацията</em> за произвежданите стоки,\n"
+"                        преди да потвърдите."
+
+#. module: l10n_bg_stock_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_l10n_bg_stock_repost_form
+msgid "Show the moves"
+msgstr "Покажи движенията"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_stock_gain_account_id
@@ -319,12 +448,12 @@ msgstr "Сметка вписване на стоки"
 #. module: l10n_bg_stock_account
 #: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_category_property_form_l10n_bg
 msgid "Stock Journal"
-msgstr ""
+msgstr "Складов дневник"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model,name:l10n_bg_stock_account.model_stock_landed_cost
 msgid "Stock Landed Cost"
-msgstr ""
+msgstr "Допълнителни разходи по доставка"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_stock_loss_account_id
@@ -334,13 +463,19 @@ msgstr "Сметка за брак/липси"
 #. module: l10n_bg_stock_account
 #: model:ir.model,name:l10n_bg_stock_account.model_stock_move
 msgid "Stock Move"
-msgstr ""
+msgstr "Складово движение"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_stock_output_account_id
 #: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_category_property_form_l10n_bg
 msgid "Stock Output Account"
 msgstr "Сметка изписване на стоки"
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Stock moves to post"
+msgstr "Движения за осчетоводяване"
 
 #. module: l10n_bg_stock_account
 #: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_l10n_bg_stock_repost_form
@@ -377,7 +512,7 @@ msgstr "За осчетоводяване"
 #. module: l10n_bg_stock_account
 #: model:ir.model,name:l10n_bg_stock_account.model_stock_picking
 msgid "Transfer"
-msgstr ""
+msgstr "Трансфер"
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_stock_input_account_id
@@ -385,11 +520,14 @@ msgid ""
 "Transit account credited when goods are received (e.g. 301). Debited when "
 "vendor bill is posted. Falls back to Stock Variation Account if not set."
 msgstr ""
+"Транзитна сметка, която се кредитира при приемане на стоката (напр. 301) и "
+"се дебитира при осчетоводяване на фактурата на доставчика. Ако не е "
+"зададена, се ползва сметката за изменение на запасите."
 
 #. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_picking__l10n_bg_unvalued_warning
 msgid "Valuation Warning"
-msgstr ""
+msgstr "Предупреждение за стойността"
 
 #. module: l10n_bg_stock_account
 #. odoo-python
@@ -404,6 +542,10 @@ msgid ""
 "validated (for manual/periodic costing products). The entry debits the stock"
 " valuation account and credits the stock variation (GRNI) account."
 msgstr ""
+"Когато е включено, при потвърждаване на приемане автоматично се създава "
+"статия (за продукти с ръчна/периодична оценка). Статията дебитира сметката "
+"за стойността на склада и кредитира сметката за изменение на запасите "
+"(GRNI)."
 
 #. module: l10n_bg_stock_account
 #. odoo-python
@@ -415,10 +557,11 @@ msgstr "Без стойност (без статия)"
 #. odoo-python
 #: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
 msgid "id"
-msgstr ""
+msgstr "id"
 
 #. module: l10n_bg_stock_account
 #. odoo-python
-#: code:addons/l10n_bg_stock_account/models/res_company.py:0
-msgid "Closing: Location Reclassification - [%(account)s]"
-msgstr "Приключване: Прекласификация на местоположение - [%(account)s]"
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid ""
+"… and %(count)s more documents — use “Show the moves” for the full list."
+msgstr "… и още %(count)s документа — пълният списък е в „Покажи движенията“."

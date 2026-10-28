@@ -68,3 +68,28 @@ class TestUnvaluedWarning(AccountTestInvoicingCommon):
         product = self._product(0.0)
         picking = self._picking(product, self.supplier, self.stock, done=False)
         self.assertEqual(picking._l10n_bg_unvalued_products(), product)
+
+    def _po_receipt(self, product, price):
+        if "purchase.order" not in self.env:
+            self.skipTest("purchase_stock is not installed")
+        order = self.env["purchase.order"].create({
+            "partner_id": self.partner_a.id,
+            "order_line": [Command.create({
+                "product_id": product.id, "product_qty": 4.0, "price_unit": price,
+            })],
+        })
+        order.button_confirm()
+        return order.picking_ids
+
+    def test_po_receipt_at_price_zero_is_flagged_though_the_product_has_a_cost(self):
+        # Пламена, 27.10.2026 (ТГ 174293, т. 1): СКМАТ/IN/00018 — себестойност
+        # има, редът в поръчката е с цена 0; заскладява се по реда ⇒ 0 без статия
+        product = self._product(2.50)
+        picking = self._po_receipt(product, 0.0)
+        self.assertEqual(picking.move_ids.state, "assigned")
+        self.assertEqual(picking._l10n_bg_unvalued_products(), product)
+
+    def test_po_receipt_with_a_price_is_not_flagged_though_the_product_has_no_cost(self):
+        product = self._product(0.0)
+        picking = self._po_receipt(product, 3.0)
+        self.assertFalse(picking._l10n_bg_unvalued_products())

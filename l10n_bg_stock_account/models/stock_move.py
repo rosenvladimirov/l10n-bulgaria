@@ -21,6 +21,18 @@ class StockMove(models.Model):
             return True
         return self.location_id._should_be_valued() != self.location_dest_id._should_be_valued()
 
+    def _l10n_bg_purchase_line(self):
+        """Редът от поръчката, от който влиза движението — само при приемане.
+
+        Модулът не зависи от purchase_stock: полето го има само когато той е
+        инсталиран. Връщането към доставчик също носи реда, но то изписва."""
+        self.ensure_one()
+        if 'purchase_line_id' not in self._fields or not self.purchase_line_id:
+            return False
+        if self.location_id._should_be_valued() or not self.location_dest_id._should_be_valued():
+            return False
+        return self.purchase_line_id
+
     def _l10n_bg_has_valuation(self):
         """False при движение с количество, но БЕЗ стойност.
 

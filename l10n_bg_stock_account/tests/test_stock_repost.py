@@ -129,11 +129,77 @@ class TestStockRepost(AccountTestInvoicingCommon):
         other_categ = self.env["product.category"].create({"name": "Other"})
         self.assertFalse(self._wizard(category_ids=[Command.set(other_categ.ids)])._classify()[0])
 
-    def test_remove_takes_the_wizard_entries_back(self):
+    def test_remove_reverses_the_posted_entries_and_keeps_the_trace(self):
+        # Пламена, ТГ 174293, т. 4: осчетоводената статия не се трие без следа
         receipt, delivery = self._march()
         self.categ.l10n_bg_stock_auto_post = True
         entries = self.env["account.move"].browse(self._wizard().action_post()["domain"][0][2])
+        entries[0].ref = "edited after posting"
         self._wizard().action_remove()
-        self.assertFalse(entries.exists())
+        self.assertEqual(len(entries.exists()), 2, "posted entries are reversed, not deleted")
+        self.assertEqual(entries.mapped("state"), ["posted", "posted"])
+        reversals = entries.reversal_move_ids
+        self.assertEqual(len(reversals), 2)
+        self.assertEqual(sorted(reversals.mapped("date")), [date(2024, 3, 10), date(2024, 3, 20)])
+        self.assertFalse(any(reversals.mapped("l10n_bg_stock_reposted")))
+        self.assertEqual(entries[0].ref, "edited after posting")
+        self.assertTrue(all(
+            any("reversed by" in (m.body or "") for m in entry.message_ids) for entry in entries))
+        # салдото по сметките е нула, движенията пак са без статия
+        lines = (entries | reversals).line_ids
+        self.assertAlmostEqual(sum(lines.mapped("balance")), 0.0)
+        for code in ("301901", "304901", "702901"):
+            self.assertAlmostEqual(sum(lines.filtered(lambda l: l.account_id.code == code).mapped("balance")), 0.0)
         self.assertFalse((receipt | delivery).account_move_id)
         self.assertEqual(self._wizard()._classify()[0], receipt | delivery)
+        # второ махане не сторнира сторнираното
+        with self.assertRaises(UserError):
+            self._wizard().action_remove()
+        # повторното пускане прави нови статии
+        again = self.env["account.move"].browse(self._wizard().action_post()["domain"][0][2])
+        self.assertEqual(len(again), 2)
+        self.assertFalse(again & entries)
+
+    def test_remove_deletes_only_draft_entries(self):
+        self._march()
+        self.categ.l10n_bg_stock_auto_post = True
+        entries = self.env["account.move"].browse(self._wizard().action_post()["domain"][0][2])
+        entries[0].button_draft()
+        self._wizard().action_remove()
+        self.assertFalse(entries[0].exists(), "a draft that never stayed posted is deleted")
+        self.assertTrue(entries[1].reversal_move_ids)
+
+    def test_preview_shows_the_kind_and_the_references(self):
+        # Пламена, ТГ 174293, т. 3: от сумата по месеци не личеше, че са инвентаризации
+        receipt, delivery = self._march()
+        adjust = self.env["stock.quant"].with_context(inventory_mode=True).create({
+            "product_id": self.product.id, "location_id": self.stock.id, "inventory_quantity": 9,
+        })
+        adjust.action_apply_inventory()
+        inventory = self.env["stock.move"].search(
+            [("product_id", "=", self.product.id), ("is_inventory", "=", True)], limit=1)
+        inventory.date = datetime(2024, 3, 25, 10)
+        self.categ.l10n_bg_stock_auto_post = True
+        wizard = self._wizard()
+        to_post = wizard._classify()[0]
+        self.assertEqual(to_post, receipt | delivery | inventory)
+        kinds = {move: wizard._move_kind(move) for move in to_post}
+        self.assertEqual(kinds, {receipt: "receipt", delivery: "delivery", inventory: "inventory"})
+        preview = str(wizard.preview)
+        for label in ("Receipts", "Deliveries", "Inventory adjustments"):
+            self.assertIn(label, preview)
+        self.assertIn(inventory.reference, preview)
+        action = wizard.action_view_moves()
+        self.assertEqual(action["domain"], [("id", "in", to_post.ids)])
+
+    def test_preview_caps_the_references_per_kind(self):
+        for day in range(1, 5):
+            product = self.env["product.product"].create({
+                "name": "Repost cap %s" % day, "is_storable": True, "categ_id": self.categ.id, "standard_price": 5.0,
+            })
+            self._move(self.supplier, self.stock, 1, date(2024, 3, day), price=5.0, product=product)
+        self.categ.l10n_bg_stock_auto_post = True
+        wizard = self._wizard()
+        self.patch(type(wizard), "_PREVIEW_REFERENCES", 2)
+        wizard.invalidate_recordset(["preview"])
+        self.assertIn("2 more documents", str(wizard.preview))

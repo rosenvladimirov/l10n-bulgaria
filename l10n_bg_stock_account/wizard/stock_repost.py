@@ -116,7 +116,104 @@ class L10nBgStockRepost(models.TransientModel):
         if no_accounts:
             names = ", ".join(sorted(set(no_accounts.mapped("product_id.categ_id.complete_name")))[:10])
             missing = Markup("<p class='text-warning'>%s %s</p>") % (_("Categories without accounts:"), names)
-        return summary + missing + Markup("<table class='table table-sm'><thead>%s</thead><tbody>%s</tbody></table>") % (head, rows)
+        table = Markup("<table class='table table-sm'><thead>%s</thead><tbody>%s</tbody></table>") % (head, rows)
+        return summary + missing + table + self._preview_by_kind_html(to_post, money)
+
+    # Пламена, 27.10.2026 (ТГ 174293, т. 3): в training за 2026 съветникът
+    # предлагаше 11 771 движения — повечето инвентаризации от февруари — а от
+    # сумата по месеци това не личеше. Счетоводителят трябва да види ВИДА и
+    # документите преди запис.
+    _PREVIEW_REFERENCES = 25
+
+    def _move_kind(self, move):
+        """Видът на движението за прегледа — по признаците на ядрото, не по типа операция."""
+        if move.is_inventory:
+            return "inventory"
+        if move.scrap_id:
+            return "scrap"
+        if "production" in (move.location_id.usage, move.location_dest_id.usage):
+            return "production"
+        source_valued = move.location_id._should_be_valued()
+        dest_valued = move.location_dest_id._should_be_valued()
+        if dest_valued and not source_valued:
+            return "receipt"
+        if source_valued and not dest_valued:
+            return "delivery"
+        return "other"
+
+    def _kind_labels(self):
+        return {
+            "receipt": _("Receipts"),
+            "delivery": _("Deliveries"),
+            "inventory": _("Inventory adjustments"),
+            "scrap": _("Scrap"),
+            "production": _("Production"),
+            "other": _("Other"),
+        }
+
+    def _preview_by_kind_html(self, to_post, money):
+        if not to_post:
+            return Markup("")
+        labels = self._kind_labels()
+        # вид → референция → [брой, стойност, първа дата]
+        kinds = defaultdict(lambda: defaultdict(lambda: [0, 0.0, None]))
+        for move in to_post:
+            # без пикинг/брак референцията е обща („Product Quantity Updated“
+            # за всяка инвентаризация) — затова с продукта, за да личи какво
+            if move.picking_id or move.scrap_id:
+                key = move.picking_id.name or move.scrap_id.name
+            else:
+                key = "%s · %s" % (move.reference or _("Move %s", move.id), move.product_id.display_name)
+            ref = kinds[self._move_kind(move)][key]
+            ref[0] += 1
+            ref[1] += abs(move.value)
+            ref[2] = min(ref[2], move.date) if ref[2] else move.date
+        head = Markup("<tr><th>%s</th><th class='text-end'>%s</th><th class='text-end'>%s</th>"
+                      "<th class='text-end'>%s</th></tr>") % (
+            _("Kind"), _("Documents"), _("Moves"), _("Value"))
+        rows = Markup("").join(
+            Markup("<tr><td>%s</td><td class='text-end'>%s</td><td class='text-end'>%s</td>"
+                   "<td class='text-end'>%s</td></tr>") % (
+                labels[kind], len(refs), sum(r[0] for r in refs.values()),
+                money(sum(r[1] for r in refs.values())))
+            for kind, refs in sorted(kinds.items(), key=lambda item: list(labels).index(item[0]))
+        )
+        details = Markup("")
+        for kind in labels:
+            refs = kinds.get(kind)
+            if not refs:
+                continue
+            ordered = sorted(refs.items(), key=lambda item: (item[1][2], item[0]))
+            shown = ordered[:self._PREVIEW_REFERENCES]
+            items = Markup("").join(
+                Markup("<tr><td>%s</td><td>%s</td><td class='text-end'>%s</td><td class='text-end'>%s</td></tr>") % (
+                    name, date.strftime("%Y-%m-%d"), n, money(value))
+                for name, (n, value, date) in shown
+            )
+            more = Markup("")
+            if len(ordered) > len(shown):
+                more = Markup("<p class='text-muted small'>%s</p>") % _(
+                    "… and %(count)s more documents — use “Show the moves” for the full list.",
+                    count=len(ordered) - len(shown))
+            details += Markup(
+                "<h6 class='mt-3'>%s</h6><table class='table table-sm'><thead><tr><th>%s</th><th>%s</th>"
+                "<th class='text-end'>%s</th><th class='text-end'>%s</th></tr></thead><tbody>%s</tbody></table>%s"
+            ) % (labels[kind], _("Reference"), _("Date"), _("Moves"), _("Value"), items, more)
+        return (Markup("<h5 class='mt-3'>%s</h5><table class='table table-sm'><thead>%s</thead><tbody>%s</tbody></table>")
+                % (_("By kind"), head, rows)) + details
+
+    def action_view_moves(self):
+        """Всички движения, които ще получат статия — за сверка преди запис."""
+        self.ensure_one()
+        to_post = self._classify()[0]
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Stock moves to post"),
+            "res_model": "stock.move",
+            "domain": [("id", "in", to_post.ids)],
+            "views": [(False, "list"), (False, "form")],
+            "context": {"create": False},
+        }
 
     # ------------------------------------------------------------------
     # Записът и махането
@@ -156,16 +253,40 @@ class L10nBgStockRepost(models.TransientModel):
             ("date", ">=", self.date_from),
             ("date", "<=", self.date_to),
             ("state", "!=", "cancel"),
+            # вече сторнираната статия е махната — второ сторно би я върнало
+            ("reversal_move_ids", "=", False),
         ])
 
     def action_remove(self):
         """Маха статиите на съветника за периода: движенията остават без статия
-        (както преди), а статиите се изтриват — за проба и повторение."""
+        (както преди) и съветникът може да се пусне наново.
+
+        Пламена, 27.10.2026 (ТГ 174293, т. 4): осчетоводената статия се
+        връщаше в чернова и се триеше без следа — дори редактирана след
+        осчетоводяването. Сега осчетоводената се СТОРНИРА на същата дата (и
+        статията, и сторното остават с историята си); трие се само черновата,
+        която никога не е била осчетоводена."""
         self.ensure_one()
         entries = self._reposted_entries()
         if not entries:
             raise UserError(_("There are no entries of the wizard for this period."))
-        # връзката на движенията (account_move_id) се нулира от изтриването (ondelete set null)
-        entries.filtered(lambda move: move.state == "posted").button_draft()
-        entries.with_context(force_delete=True).unlink()
+        posted = entries.filtered(lambda move: move.state == "posted")
+        drafts = entries - posted
+        # връзката движение → статия се къса изрично: сторното не я пипа,
+        # а без това движението не е „без статия“ за следващото пускане
+        self.env["stock.move"].search([("account_move_id", "in", entries.ids)]).account_move_id = False
+        if posted:
+            reversals = posted._reverse_moves(
+                default_values_list=[{
+                    "date": move.date,
+                    "ref": _("Reversal of %(entry)s (stock repost wizard)", entry=move.name),
+                } for move in posted],
+                cancel=True,
+            )
+            for move, reversal in zip(posted, reversals):
+                # Markup около превода — иначе връзката излиза като текст с тагове
+                move.message_post(body=Markup(_(
+                    "Removed by the stock repost wizard: reversed by %(reversal)s."
+                )) % {"reversal": reversal._get_html_link()})
+        drafts.with_context(force_delete=True).unlink()
         return {"type": "ir.actions.act_window_close"}

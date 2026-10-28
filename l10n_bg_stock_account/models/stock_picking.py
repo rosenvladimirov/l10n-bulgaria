@@ -64,6 +64,20 @@ class StockPicking(models.Model):
                 continue
             if move.state in ('draft', 'cancel'):
                 continue
+            # Пламена, 27.10.2026 (ТГ 174293, т. 1): приемане по поръчка
+            # заскладява по цената на реда в поръчката, не по себестойността
+            # (ядрото: сметка → поръчка → … → standard_price). СКМАТ/IN/00018 —
+            # продукт със себестойност, ред с цена 0: предупреждение нямаше,
+            # движението влезе с 0 и без статия. Затова при ред от поръчка, още
+            # без осчетоводена фактура, се мери цената, по която ще заскладим.
+            purchase_line = move._l10n_bg_purchase_line()
+            if purchase_line and not purchase_line.invoice_lines.filtered(
+                    lambda line: line.parent_state == 'posted'):
+                price = purchase_line.with_context(
+                    conversion_date=move.date)._get_stock_move_price_unit()
+                if currency.is_zero(price):
+                    products |= product
+                continue
             # преди валидиране: има ли изобщо откъде да дойде стойност
             if currency.is_zero(product.standard_price) \
                     and currency.is_zero(product.total_value or 0.0):

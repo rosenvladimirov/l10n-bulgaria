@@ -1,0 +1,533 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_bg_stock_account
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-28 11:07+0000\n"
+"PO-Revision-Date: 2026-10-28 11:07+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_bg_stock_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_picking_form_l10n_bg_stock_account
+msgid ""
+"<i class=\"fa fa-exclamation-triangle me-1\"/>\n"
+"                    <strong>No cost price</strong> — the following products have\n"
+"                    no valuation, so the stock movement will be recorded\n"
+"                    <strong>without value</strong> and no journal entry will be\n"
+"                    created:"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.stock_scrap_form_view_l10n_bg_stock_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_picking_form_l10n_bg_stock_account
+msgid "<span class=\"o_stat_text\">Journal Entries</span>"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_stock_auto_post
+msgid "Auto-post stock accounting on validate"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_category_property_form_l10n_bg_flag
+msgid "BG Auto-post Accounting"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_category_property_form_l10n_bg
+msgid "BG Auto-post Accounts"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_landed_cost__l10n_bg_account_move_id
+msgid "BG Journal Entry"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "By kind"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_stock_output_account_id
+msgid "COGS/expense account debited when goods are issued (e.g. 702.100)."
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Categories without accounts:"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_price_diff_account_id
+msgid ""
+"Clearing account used when the vendor invoice price is higher than the PO "
+"price. The price difference module (l10n_bg_stock_price_diff) will clear "
+"this account by distributing the difference through the production chain."
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/models/res_company.py:0
+msgid "Closing: Location Reclassification - [%(account)s]"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model,name:l10n_bg_stock_account.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__company_id
+msgid "Company"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Date"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Deliveries"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_l10n_bg_stock_repost_form
+msgid "Discard"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_account_move__display_name
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__display_name
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__display_name
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_res_company__display_name
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_landed_cost__display_name
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_move__display_name
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_picking__display_name
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_scrap__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Documents"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_stock_loss_account_id
+msgid ""
+"Expense account debited for scrap and negative inventory adjustments (e.g. "
+"669.200). Falls back to Stock Output Account if not set."
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__date_from
+msgid "From"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_account_move__id
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_account_move_line__id
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__id
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__id
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_res_company__id
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_landed_cost__id
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_move__id
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_picking__id
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_scrap__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_stock_gain_account_id
+msgid ""
+"Income account credited for positive inventory adjustments (e.g. 709.000). "
+"Falls back to Stock Input Account if not set."
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_price_diff_income_account_id
+msgid ""
+"Income account used when the vendor invoice price is lower than the PO "
+"price. The difference is booked directly as financial income without chain "
+"traversal."
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Inventory adjustments"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__is_l10n_bg_record
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_landed_cost__is_l10n_bg_record
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_picking__is_l10n_bg_record
+msgid "Is Bulgaria Record"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_picking__l10n_bg_account_move_count
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_picking__l10n_bg_account_move_ids
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_scrap__l10n_bg_account_move_ids
+msgid "Journal Entries"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model,name:l10n_bg_stock_account.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_scrap__l10n_bg_account_move_count
+msgid "Journal Entry Count"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model,name:l10n_bg_stock_account.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,help:l10n_bg_stock_account.field_stock_landed_cost__l10n_bg_account_move_id
+msgid ""
+"Journal entry created for products with BG auto-post stock accounting "
+"(periodic valuation). Standard Odoo skips journal entries for non real-time "
+"products; this entry capitalizes the landed cost into the stock valuation "
+"account for such products."
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Kind"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Missing accounts"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Month"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Move %s"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Moves"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Not posted by the rules (category without auto-post, internal…)"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,help:l10n_bg_stock_account.field_l10n_bg_stock_repost__category_ids
+msgid ""
+"Only the moves of products in these categories (and their children). Empty: "
+"all."
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Other"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.actions.act_window,name:l10n_bg_stock_account.action_l10n_bg_stock_repost
+#: model:ir.ui.menu,name:l10n_bg_stock_account.menu_l10n_bg_stock_repost
+msgid "Post Missing Stock Entries"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model,name:l10n_bg_stock_account.model_l10n_bg_stock_repost
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_l10n_bg_stock_repost_form
+msgid "Post Missing Stock Journal Entries"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_l10n_bg_stock_repost_form
+msgid "Post entries"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_l10n_bg_stock_repost_form
+msgid "Post the journal entries of the period?"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_account_bank_statement_line__l10n_bg_stock_reposted
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_account_move__l10n_bg_stock_reposted
+msgid "Posted by the stock repost wizard"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Posted stock entries"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__preview
+msgid "Preview"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_price_diff_account_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_category_property_form_l10n_bg
+msgid "Price Difference Account (+)"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_price_diff_income_account_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_category_property_form_l10n_bg
+msgid "Price Difference Income (−)"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model,name:l10n_bg_stock_account.model_product_category
+msgid "Product Category"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__category_ids
+msgid "Product categories"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Production"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Receipts"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Reference"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_l10n_bg_stock_repost_form
+msgid "Remove the wizard entries"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Removed by the stock repost wizard: reversed by %(reversal)s."
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Reversal of %(entry)s (stock repost wizard)"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_l10n_bg_stock_repost_form
+msgid ""
+"Reverse the posted journal entries made by this wizard in the period (drafts"
+" are deleted)?"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+#: model:ir.model,name:l10n_bg_stock_account.model_stock_scrap
+msgid "Scrap"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_picking_form_l10n_bg_stock_account
+msgid ""
+"Set the cost price on the product, or use\n"
+"                        <em>Compute Price from BOM</em> for manufactured goods,\n"
+"                        before validating."
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_l10n_bg_stock_repost_form
+msgid "Show the moves"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_stock_gain_account_id
+msgid "Stock Gain Account (излишъци)"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_stock_input_account_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_category_property_form_l10n_bg
+msgid "Stock Input Account"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_category_property_form_l10n_bg
+msgid "Stock Journal"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model,name:l10n_bg_stock_account.model_stock_landed_cost
+msgid "Stock Landed Cost"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_stock_loss_account_id
+msgid "Stock Loss Account (брак/липси)"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model,name:l10n_bg_stock_account.model_stock_move
+msgid "Stock Move"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_product_category__l10n_bg_stock_output_account_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_category_property_form_l10n_bg
+msgid "Stock Output Account"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Stock moves to post"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model_terms:ir.ui.view,arch_db:l10n_bg_stock_account.view_l10n_bg_stock_repost_form
+msgid ""
+"The done stock moves of the period without a journal entry get the entry the module would have\n"
+"                    made at validation — on the date of the move, one per picking. Check the category accounts first."
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "There are no entries of the wizard for this period."
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "There are no stock moves to post for this period."
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__date_to
+msgid "To"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "To post"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model,name:l10n_bg_stock_account.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_stock_input_account_id
+msgid ""
+"Transit account credited when goods are received (e.g. 301). Debited when "
+"vendor bill is posted. Falls back to Stock Variation Account if not set."
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,field_description:l10n_bg_stock_account.field_stock_picking__l10n_bg_unvalued_warning
+msgid "Valuation Warning"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Value"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#: model:ir.model.fields,help:l10n_bg_stock_account.field_product_category__l10n_bg_stock_auto_post
+msgid ""
+"When enabled, a journal entry is created automatically when a receipt is "
+"validated (for manual/periodic costing products). The entry debits the stock"
+" valuation account and credits the stock variation (GRNI) account."
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "Zero value (no entry)"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid "id"
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid ""
+"… and %(count)s more documents — use “Show the moves” for the full list."
+msgstr ""

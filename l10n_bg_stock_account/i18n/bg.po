@@ -416,3 +416,9 @@ msgstr "Без стойност (без статия)"
 #: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
 msgid "id"
 msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/models/res_company.py:0
+msgid "Closing: Location Reclassification - [%(account)s]"
+msgstr "Приключване: Прекласификация на местоположение - [%(account)s]"

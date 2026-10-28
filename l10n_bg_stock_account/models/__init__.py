@@ -4,3 +4,4 @@ from . import stock_picking
 from . import stock_scrap
 from . import stock_landed_cost
 from . import account_move_line
+from . import res_company

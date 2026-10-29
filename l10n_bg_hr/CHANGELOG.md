@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [19.0.2.9.22] - 2026-10-29
+
+### Changed
+- Translations: "NKPD Position" is a single entry "НКПД" for both views;
+  the duplicate "Длъжност по НКПД" entry is removed.
+
 ## [19.0.2.9.21] - 2026-10-17
 
 ### Fixed

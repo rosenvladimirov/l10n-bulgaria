@@ -4,6 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 06:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: bg_BG\n"
@@ -12,231 +13,460 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-# ============= XLSX Annex 4 — Monthly =============
 #. module: l10n_bg_waste_report
-msgid "Monthly Waste Bookkeeping - Annex 4 of Ordinance 1/2014"
-msgstr "Месечна отчетна книга — Приложение №4 на Наредба №1/2014"
+#: model:ir.actions.report,print_report_name:l10n_bg_waste_report.action_report_waste_annual_xlsx
+msgid "'Annex18-%s-%s' % (object.site_id.name, object.period_year)"
+msgstr ""
 
 #. module: l10n_bg_waste_report
-msgid "Legal Entity"
-msgstr "Юридическо лице"
+#: model:ir.actions.report,print_report_name:l10n_bg_waste_report.action_report_waste_monthly_xlsx
+msgid "'Annex4-%s' % (object.site_id.name)"
+msgstr ""
 
 #. module: l10n_bg_waste_report
-msgid "VAT / EIK"
-msgstr "ДДС № / ЕИК"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "/ cipher"
+msgstr ""
 
 #. module: l10n_bg_waste_report
-msgid "Address"
-msgstr "Адрес"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "/ class"
+msgstr ""
 
 #. module: l10n_bg_waste_report
-msgid "Site"
-msgstr "Площадка"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "<small>Annex 8 of Ordinance 1/2014</small>"
+msgstr ""
 
 #. module: l10n_bg_waste_report
-msgid "Site Number"
-msgstr "Номер на площадка"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "<strong>Date:</strong>"
+msgstr ""
 
 #. module: l10n_bg_waste_report
-msgid "Municipality"
-msgstr "Община"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "<strong>No.:</strong>"
+msgstr ""
 
 #. module: l10n_bg_waste_report
-msgid "Locality"
-msgstr "Населено място"
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_annual_report_xlsx.py:0
+msgid "Activity"
+msgstr "Дейност"
 
 #. module: l10n_bg_waste_report
-msgid "EKATTE"
-msgstr "ЕКАТТЕ"
-
-#. module: l10n_bg_waste_report
-msgid "RIOSV"
-msgstr "РИОСВ"
-
-#. module: l10n_bg_waste_report
-msgid "Period"
-msgstr "Период"
-
-#. module: l10n_bg_waste_report
-msgid "Date"
-msgstr "Дата"
-
-#. module: l10n_bg_waste_report
-msgid "Code"
-msgstr "Код"
-
-#. module: l10n_bg_waste_report
-msgid "Description"
-msgstr "Описание"
-
-#. module: l10n_bg_waste_report
-msgid "Sender"
-msgstr "Юр. лице (от)"
-
-#. module: l10n_bg_waste_report
-msgid "Sender VAT"
-msgstr "ЕИК"
-
-#. module: l10n_bg_waste_report
-msgid "Basis"
-msgstr "Основание"
-
-#. module: l10n_bg_waste_report
-msgid "Quantity (ton)"
-msgstr "Количество (тон)"
-
-#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
 msgid "Activity (R/D)"
 msgstr "Дейност (R/D)"
 
 #. module: l10n_bg_waste_report
-msgid "Receiver"
-msgstr "Юр. лице (на)"
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "Address"
+msgstr "Адрес"
 
 #. module: l10n_bg_waste_report
-msgid "Receiver VAT"
-msgstr "ЕИК"
-
-# ============= XLSX Annex 18 — Annual =============
-#. module: l10n_bg_waste_report
-#, python-format
-msgid "Annual Report %s"
-msgstr "Годишен отчет %s"
+#: model:ir.actions.report,name:l10n_bg_waste_report.action_report_waste_annual_xlsx
+msgid "Annex 18 - Annual Waste Report"
+msgstr ""
 
 #. module: l10n_bg_waste_report
-msgid "Activity"
-msgstr "Дейност"
-
-# ============= PDF Annex 8 — ID Document =============
-#. module: l10n_bg_waste_report
-msgid "Identification Document for Hazardous Waste Transport"
-msgstr "Идентификационен документ за превоз на опасни отпадъци"
+#: model:ir.model,name:l10n_bg_waste_report.model_l10n_bg_waste_annual_report_wizard
+msgid "Annex 18 - Annual Waste Report Wizard"
+msgstr ""
 
 #. module: l10n_bg_waste_report
-msgid "Annex 8 of Ordinance 1/2014"
-msgstr "Приложение №8 на Наредба №1/2014"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.view_waste_annual_report_wizard_form
+msgid "Annex 18 Annual Report"
+msgstr ""
 
 #. module: l10n_bg_waste_report
-msgid "No.:"
-msgstr "№:"
+#: model:ir.model,name:l10n_bg_waste_report.model_report_l10n_bg_waste_report_report_waste_annual_xlsx
+msgid "Annex 18 Annual Waste Report (XLSX, skeleton)"
+msgstr ""
 
 #. module: l10n_bg_waste_report
-msgid "Date:"
-msgstr "Дата:"
-
-#. module: l10n_bg_waste_report
-msgid "Section A. Load"
-msgstr "Раздел А. Товар"
-
-#. module: l10n_bg_waste_report
-msgid "Waste Code"
-msgstr "Код на отпадъка"
-
-#. module: l10n_bg_waste_report
-msgid "Origin (Technological Process)"
-msgstr "Произход (технологичен процес)"
-
-#. module: l10n_bg_waste_report
-msgid "Hazard Properties (H-codes)"
-msgstr "Свойства (H-кодове)"
-
-#. module: l10n_bg_waste_report
-msgid "UN No."
-msgstr "ООН №"
-
-#. module: l10n_bg_waste_report
-msgid "class"
-msgstr "клас"
-
-#. module: l10n_bg_waste_report
-msgid "cipher"
-msgstr "шифър"
-
-#. module: l10n_bg_waste_report
-msgid "International Regulation"
-msgstr "Международен регламент"
-
-#. module: l10n_bg_waste_report
-msgid "Quantity"
-msgstr "Количество"
-
-#. module: l10n_bg_waste_report
-msgid "ton"
-msgstr "тон"
-
-#. module: l10n_bg_waste_report
-msgid "Section B. Carrier"
-msgstr "Раздел Б. Превозвач"
-
-#. module: l10n_bg_waste_report
-msgid "Carrier"
-msgstr "Превозвач"
-
-#. module: l10n_bg_waste_report
-msgid "Vehicle"
-msgstr "Превозно средство"
-
-#. module: l10n_bg_waste_report
-msgid "Packaging"
-msgstr "Опаковка"
-
-#. module: l10n_bg_waste_report
-msgid "without packaging (bulk)"
-msgstr "без опаковка (наливно/насипно)"
-
-#. module: l10n_bg_waste_report
-msgid "Route"
-msgstr "Маршрут"
-
-#. module: l10n_bg_waste_report
-msgid "Section C. Receiver"
-msgstr "Раздел В. Товарополучател"
-
-#. module: l10n_bg_waste_report
-msgid "Treatment Type"
-msgstr "Вид третиране"
-
-#. module: l10n_bg_waste_report
-msgid "Delivery Date"
-msgstr "Дата на доставка"
-
-#. module: l10n_bg_waste_report
-msgid "Delivery Vehicle Plate"
-msgstr "Превозно средство при доставка"
-
-# ============= Menu / wizard =============
-#. module: l10n_bg_waste_report
-msgid "Reports"
-msgstr "Отчети"
-
-#. module: l10n_bg_waste_report
-msgid "Annex 4 — Monthly"
-msgstr "Приложение №4 — Месечен"
-
-#. module: l10n_bg_waste_report
+#: model:ir.ui.menu,name:l10n_bg_waste_report.menu_waste_annual_report
 msgid "Annex 18 — Annual"
 msgstr "Приложение №18 — Годишен"
 
 #. module: l10n_bg_waste_report
+#: model:ir.actions.report,name:l10n_bg_waste_report.action_report_waste_monthly_xlsx
+msgid "Annex 4 - Monthly Waste Bookkeeping"
+msgstr ""
+
+#. module: l10n_bg_waste_report
+#: model:ir.model,name:l10n_bg_waste_report.model_l10n_bg_waste_monthly_report_wizard
+msgid "Annex 4 - Monthly Waste Bookkeeping Wizard"
+msgstr ""
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.view_waste_monthly_report_wizard_form
+msgid "Annex 4 Monthly Report"
+msgstr ""
+
+#. module: l10n_bg_waste_report
+#: model:ir.model,name:l10n_bg_waste_report.model_report_l10n_bg_waste_report_report_waste_monthly_xlsx
+msgid "Annex 4 Monthly Waste Bookkeeping (XLSX)"
+msgstr ""
+
+#. module: l10n_bg_waste_report
+#: model:ir.ui.menu,name:l10n_bg_waste_report.menu_waste_monthly_report
+msgid "Annex 4 — Monthly"
+msgstr "Приложение №4 — Месечен"
+
+#. module: l10n_bg_waste_report
+#: model:ir.actions.report,name:l10n_bg_waste_report.action_report_waste_id_document
+msgid "Annex 8 - ID Document"
+msgstr ""
+
+# ============= XLSX Annex 18 — Annual =============
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_annual_report_xlsx.py:0
+msgid "Annual Report %s"
+msgstr "Годишен отчет %s"
+
+#. module: l10n_bg_waste_report
+#: model:ir.actions.act_window,name:l10n_bg_waste_report.action_waste_annual_report_wizard
+msgid "Annual Report (Annex 18)"
+msgstr ""
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "Basis"
+msgstr "Основание"
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.view_waste_annual_report_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.view_waste_monthly_report_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Carrier"
+msgstr "Превозвач"
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_annual_report_xlsx.py:0
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "Code"
+msgstr "Код"
+
+#. module: l10n_bg_waste_report
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_annual_report_wizard__company_id
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_monthly_report_wizard__company_id
+msgid "Company"
+msgstr ""
+
+#. module: l10n_bg_waste_report
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_annual_report_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_monthly_report_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_waste_report
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_annual_report_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_monthly_report_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "Date"
+msgstr "Дата"
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Delivery Date"
+msgstr "Дата на доставка"
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Delivery Vehicle Plate"
+msgstr "Превозно средство при доставка"
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_annual_report_xlsx.py:0
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "Description"
+msgstr "Описание"
+
+#. module: l10n_bg_waste_report
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_annual_report_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_monthly_report_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_report_l10n_bg_waste_report_report_waste_annual_xlsx__display_name
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_report_l10n_bg_waste_report_report_waste_monthly_xlsx__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "EKATTE"
+msgstr "ЕКАТТЕ"
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.view_waste_annual_report_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.view_waste_monthly_report_wizard_form
 msgid "Generate XLSX"
 msgstr "Генерирай XLSX"
 
 #. module: l10n_bg_waste_report
-msgid "Year"
-msgstr "Година"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Hazard Properties (H-codes)"
+msgstr "Свойства (H-кодове)"
 
 #. module: l10n_bg_waste_report
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_annual_report_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_monthly_report_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_report_l10n_bg_waste_report_report_waste_annual_xlsx__id
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_report_l10n_bg_waste_report_report_waste_monthly_xlsx__id
+msgid "ID"
+msgstr ""
+
+# ============= PDF Annex 8 — ID Document =============
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Identification Document for Hazardous Waste Transport"
+msgstr "Идентификационен документ за превоз на опасни отпадъци"
+
+#. module: l10n_bg_waste_report
+#: model:ir.model.fields,help:l10n_bg_waste_report.field_l10n_bg_waste_monthly_report_wizard__waste_code_ids
+msgid ""
+"If empty, all codes attributed to the site for the period are included."
+msgstr ""
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "International Regulation"
+msgstr "Международен регламент"
+
+#. module: l10n_bg_waste_report
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_annual_report_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_monthly_report_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_waste_report
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_annual_report_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_monthly_report_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "Legal Entity"
+msgstr "Юридическо лице"
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "Locality"
+msgstr "Населено място"
+
+#. module: l10n_bg_waste_report
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_monthly_report_wizard__period_month
 msgid "Month"
 msgstr "Месец"
 
 #. module: l10n_bg_waste_report
+#: model:ir.actions.act_window,name:l10n_bg_waste_report.action_waste_monthly_report_wizard
+msgid "Monthly Report (Annex 4)"
+msgstr ""
+
+# ============= XLSX Annex 4 — Monthly =============
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "Monthly Waste Bookkeeping - Annex 4 of Ordinance 1/2014"
+msgstr "Месечна отчетна книга — Приложение №4 на Наредба №1/2014"
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "Municipality"
+msgstr "Община"
+
+#. module: l10n_bg_waste_report
+#: model:ir.model.fields,help:l10n_bg_waste_report.field_l10n_bg_waste_monthly_report_wizard__recipient_partner_id
+msgid ""
+"Optional. When set, the generated XLSX is emailed to this partner. Otherwise"
+" it is offered as a download only."
+msgstr ""
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Origin (Technological Process)"
+msgstr "Произход (технологичен процес)"
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Packaging"
+msgstr "Опаковка"
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "Period"
+msgstr "Период"
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Quantity"
+msgstr "Количество"
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_annual_report_xlsx.py:0
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "Quantity (ton)"
+msgstr "Количество (тон)"
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "RIOSV"
+msgstr "РИОСВ"
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Receiver"
+msgstr "Юр. лице (на)"
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "Receiver VAT"
+msgstr "ЕИК"
+
+#. module: l10n_bg_waste_report
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_annual_report_wizard__period_year
 msgid "Reporting Year"
 msgstr "Отчетна година"
 
+# ============= Menu / wizard =============
 #. module: l10n_bg_waste_report
+#: model:ir.ui.menu,name:l10n_bg_waste_report.menu_waste_reports
+msgid "Reports"
+msgstr "Отчети"
+
+#. module: l10n_bg_waste_report
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_monthly_report_wizard__waste_code_ids
 msgid "Restrict to Codes"
 msgstr "Само за кодове"
 
 #. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Route"
+msgstr "Маршрут"
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Section A. Load"
+msgstr "Раздел А. Товар"
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Section B. Carrier"
+msgstr "Раздел Б. Превозвач"
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Section C. Receiver"
+msgstr "Раздел В. Товарополучател"
+
+#. module: l10n_bg_waste_report
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_monthly_report_wizard__recipient_partner_id
 msgid "Send To (Consultant)"
 msgstr "Изпрати на (консултант)"
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Sender"
+msgstr "Юр. лице (от)"
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "Sender VAT"
+msgstr "ЕИК"
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_annual_report_xlsx.py:0
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_annual_report_wizard__site_id
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_monthly_report_wizard__site_id
+msgid "Site"
+msgstr "Площадка"
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "Site Number"
+msgstr "Номер на площадка"
+
+#. module: l10n_bg_waste_report
+#: model:ir.model.fields,help:l10n_bg_waste_report.field_l10n_bg_waste_annual_report_wizard__period_year
+msgid ""
+"The calendar year being reported on. The deadline for the Bulgarian "
+"regulator is March 10 of the following year."
+msgstr ""
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Treatment Type"
+msgstr "Вид третиране"
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "UN No."
+msgstr "ООН №"
+
+#. module: l10n_bg_waste_report
+#. odoo-python
+#: code:addons/l10n_bg_waste_report/report/waste_monthly_report_xlsx.py:0
+msgid "VAT / EIK"
+msgstr "ДДС № / ЕИК"
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Vehicle"
+msgstr "Превозно средство"
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "Waste Code"
+msgstr "Код на отпадъка"
+
+#. module: l10n_bg_waste_report
+#: model:ir.model.fields,field_description:l10n_bg_waste_report.field_l10n_bg_waste_monthly_report_wizard__period_year
+msgid "Year"
+msgstr "Година"
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "m3"
+msgstr ""
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "ton"
+msgstr "тон"
+
+#. module: l10n_bg_waste_report
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_report.report_waste_id_document_document
+msgid "without packaging (bulk)"
+msgstr "без опаковка (наливно/насипно)"

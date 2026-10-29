@@ -809,11 +809,6 @@ msgid "NKPD Code"
 msgstr "Код по НКПД"
 
 #. module: l10n_bg_hr
-#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
-msgid "NKPD Position"
-msgstr "Длъжност по НКПД"
-
-#. module: l10n_bg_hr
 #. odoo-python
 #: code:addons/l10n_bg_hr/models/hr_version_amendment.py:0
 msgid "New"
@@ -1504,6 +1499,7 @@ msgstr ""
 
 #. module: l10n_bg_hr
 #: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_employee_form_l10n_bg_work_nkpd
+#: model_terms:ir.ui.view,arch_db:l10n_bg_hr.view_l10n_bg_hr_contract_amendment_form
 msgid "NKPD Position"
 msgstr "НКПД"
 

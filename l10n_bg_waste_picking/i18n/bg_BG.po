@@ -4,6 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 06:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: bg_BG\n"
@@ -12,136 +13,893 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-# ============= product / picking type =============
 #. module: l10n_bg_waste_picking
-msgid "Waste Product"
-msgstr "Продукт-отпадък"
+#. odoo-python
+#: code:addons/l10n_bg_waste_picking/models/stock_picking.py:0
+msgid "(no waste lines)"
+msgstr ""
 
 #. module: l10n_bg_waste_picking
-msgid "Default Waste Code"
-msgstr "Подразбиращ се код на отпадъка"
+#. odoo-python
+#: code:addons/l10n_bg_waste_picking/wizards/waste_code_wizard.py:0
+msgid ""
+"A justification note is required when accepting a shipment that exceeds the "
+"annual quota."
+msgstr ""
 
 #. module: l10n_bg_waste_picking
-msgid "Default Waste Activity"
-msgstr "Подразбираща се дейност за отпадъци"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_waste_id_document_form
+msgid "A · Load & Sender"
+msgstr ""
 
 #. module: l10n_bg_waste_picking
-msgid "Waste Intake"
-msgstr "Приемане на отпадъци"
-
-# ============= stock.picking =============
-#. module: l10n_bg_waste_picking
-msgid "Waste Picking"
-msgstr "Приемане на отпадъци"
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__transport_regulation__adr
+msgid "ADR"
+msgstr ""
 
 #. module: l10n_bg_waste_picking
-msgid "Waste Site"
-msgstr "Площадка (отпадъци)"
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__message_needaction
+msgid "Action Needed"
+msgstr ""
 
 #. module: l10n_bg_waste_picking
-msgid "Permit"
-msgstr "Разрешително"
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__activity_ids
+msgid "Activities"
+msgstr ""
 
 #. module: l10n_bg_waste_picking
-msgid "Transport / ID Document #"
-msgstr "Товарителница / ID документ №"
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
 
 #. module: l10n_bg_waste_picking
-msgid "Vehicle Plate"
-msgstr "Регистрационен № на превозно средство"
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__activity_state
+msgid "Activity State"
+msgstr ""
 
 #. module: l10n_bg_waste_picking
-msgid "Annex 8 ID Document"
-msgstr "Идентификационен документ (Прил. №8)"
-
-# ============= stock.move.line =============
-#. module: l10n_bg_waste_picking
-msgid "Waste Code"
-msgstr "Код на отпадъка"
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
 
 #. module: l10n_bg_waste_picking
-msgid "Quantity (kg)"
-msgstr "Количество (кг)"
-
-#. module: l10n_bg_waste_picking
-msgid "Origin (Legal Entity)"
-msgstr "Произход (юр. лице)"
-
-# ============= stock.lot =============
-#. module: l10n_bg_waste_picking
-msgid "Waste Origin"
-msgstr "Произход на отпадъка"
-
-#. module: l10n_bg_waste_picking
-msgid "Source Pickings"
-msgstr "Източник на отпадъка (приемки)"
-
-#. module: l10n_bg_waste_picking
-msgid "Input Quantity (kg)"
-msgstr "Постъпил отпадък (кг)"
-
-#. module: l10n_bg_waste_picking
-msgid "Consumed (kg)"
-msgstr "Изразходван (кг)"
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__handover_type__intermediate
+msgid "After intermediate operations"
+msgstr ""
 
 # ============= ID document model =============
 #. module: l10n_bg_waste_picking
+#: model:ir.model,name:l10n_bg_waste_picking.model_l10n_bg_waste_id_document
 msgid "Annex 8 - Hazardous Waste Transport Identification Document"
-msgstr "Приложение №8 — Идентификационен документ за превоз на опасни отпадъци"
+msgstr ""
+"Приложение №8 — Идентификационен документ за превоз на опасни отпадъци"
 
 #. module: l10n_bg_waste_picking
-msgid "Document #"
-msgstr "№ на документа"
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking__waste_id_document_id
+msgid "Annex 8 ID Document"
+msgstr "Идентификационен документ (Прил. №8)"
 
 #. module: l10n_bg_waste_picking
-msgid "Signed by Sender"
-msgstr "Подписан от товародател"
+#: model:ir.actions.act_window,name:l10n_bg_waste_picking.action_waste_id_document
+#: model:ir.ui.menu,name:l10n_bg_waste_picking.menu_waste_id_documents
+msgid "Annex 8 ID Documents"
+msgstr ""
 
 #. module: l10n_bg_waste_picking
-msgid "Signed by Carrier"
-msgstr "Подписан от превозвач"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_waste_code_wizard_form
+msgid "Apply and Validate"
+msgstr "Приложи и валидирай"
 
 #. module: l10n_bg_waste_picking
-msgid "Completed"
-msgstr "Завършен"
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
 
 #. module: l10n_bg_waste_picking
-msgid "Sent to RIOSV"
-msgstr "Изпратен в РИОСВ"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_waste_id_document_form
+msgid "B · Carrier"
+msgstr ""
 
 #. module: l10n_bg_waste_picking
-msgid "Mark Completed"
-msgstr "Маркирай като завършен"
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__packaging_type__bags
+msgid "Bags"
+msgstr ""
 
 #. module: l10n_bg_waste_picking
-msgid "Mark Sent to RIOSV"
-msgstr "Маркирай като изпратен в РИОСВ"
-
-# ============= wizard =============
-#. module: l10n_bg_waste_picking
-msgid "Waste Code Entry"
-msgstr "Въвеждане на код на отпадъка"
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__packaging_type__barrels
+msgid "Barrels"
+msgstr ""
 
 #. module: l10n_bg_waste_picking
-msgid "Quota Warning"
-msgstr "Предупреждение за квота"
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_waste_id_document_form
+msgid "C · Receiver"
+msgstr ""
 
 #. module: l10n_bg_waste_picking
-msgid "Quota Decision"
-msgstr "Решение за квота"
-
-#. module: l10n_bg_waste_picking
-msgid "Proceed with shipment acceptance"
-msgstr "Все пак потвърди приемането"
-
-#. module: l10n_bg_waste_picking
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_code_wizard__decision__cancel
 msgid "Cancel acceptance"
 msgstr "Отмени приемането"
 
 #. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__carrier_partner_id
+msgid "Carrier"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_lot__waste_code_id
+msgid ""
+"Code under which the material entered the inventory as waste. Inherited from"
+" the source incoming picking."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__company_id
+msgid "Company"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__state__completed
+msgid "Completed"
+msgstr "Завършен"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_picking__is_waste_picking
+msgid ""
+"Computed: True if any move line targets a product flagged as "
+"is_waste_product."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_lot__waste_consumed_kg
+msgid "Consumed (kg)"
+msgstr "Изразходван (кг)"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__packaging_type__container
+msgid "Container"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard_line__create_uid
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard_line__create_date
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__date
+msgid "Date"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__decision
+msgid "Decision"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking_type__waste_default_activity_id
+msgid "Default Waste Activity"
+msgstr "Подразбираща се дейност за отпадъци"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_product_product__default_waste_code_id
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_product_template__default_waste_code_id
+msgid "Default Waste Code"
+msgstr "Подразбиращ се код на отпадъка"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__delivery_date
+msgid "Delivery Date"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__delivery_time
+msgid "Delivery Time (HH:MM)"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__delivery_vehicle_plate
+msgid "Delivery Vehicle Plate"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_waste_code_wizard_form
+msgid "Discard"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__display_name
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_product_template__display_name
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_lot__display_name
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_move_line__display_name
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking__display_name
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking_type__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__treatment_type__disposal
+msgid "Disposal"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__name
+msgid "Document #"
+msgstr "№ на документа"
+
+#. module: l10n_bg_waste_picking
+#. odoo-python
+#: code:addons/l10n_bg_waste_picking/models/waste_id_document.py:0
+msgid "Document %s must be marked Completed before sending to RIOSV."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__handover_type__producer
+msgid "From the producing site"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__handover_type
+msgid "Handover Type"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__has_block
+msgid "Has Block"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__hazard_properties
+msgid "Hazard Properties (H-codes)"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__transport_regulation__icao
+msgid "ICAO"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__id
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard_line__id
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__id
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_product_template__id
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_lot__id
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_move_line__id
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking__id
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking_type__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__transport_regulation__imdg
+msgid "IMDG-code"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__message_has_error
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_lot__waste_source_picking_ids
+msgid ""
+"Incoming waste pickings that have contributed to this lot. When more than "
+"one - the lot is mixed; the report 'Origin' column is filled per quantity "
+"ratio."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_lot__waste_input_kg
+msgid "Input Quantity (kg)"
+msgstr "Постъпил отпадък (кг)"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__treatment_type__intermediate
+msgid "Intermediate Operations Only"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__quota_breach_json
+msgid ""
+"Internal payload populated by stock.picking. JSON-like list of breach dicts "
+"produced by _l10n_bg_waste_check_quota."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__transport_regulation
+msgid "International Regulation"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__decision_note
 msgid "Justification"
 msgstr "Обосновка"
 
 #. module: l10n_bg_waste_picking
-msgid "Apply and Validate"
-msgstr "Приложи и валидирай"
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard_line__write_uid
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard_line__write_date
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__line_ids
+msgid "Lines"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model,name:l10n_bg_waste_picking.model_stock_lot
+msgid "Lot/Serial"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_waste_id_document_form
+msgid "Mark Completed"
+msgstr "Маркирай като завършен"
+
+#. module: l10n_bg_waste_picking
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_waste_id_document_form
+msgid "Mark Sent to RIOSV"
+msgstr "Маркирай като изпратен в РИОСВ"
+
+#. module: l10n_bg_waste_picking
+#. odoo-python
+#: code:addons/l10n_bg_waste_picking/models/waste_id_document.py:0
+msgid "Marked as sent to the territorial RIOSV office."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard_line__move_line_id
+msgid "Move Line"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#. odoo-python
+#: code:addons/l10n_bg_waste_picking/models/waste_id_document.py:0
+msgid "New"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__note
+msgid "Note"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_waste_id_document_form
+msgid "Notes"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_picking__waste_transport_doc
+msgid ""
+"Number of the freight or identification document (Annex 8 for hazardous "
+"shipments)."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_move_line__waste_origin_partner_id
+msgid "Origin (Legal Entity)"
+msgstr "Произход (юр. лице)"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__origin_description
+msgid "Origin (Technological Process)"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__packaging_type__other
+msgid "Other"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#. odoo-python
+#: code:addons/l10n_bg_waste_picking/models/stock_picking.py:0
+msgid "Override note"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__has_packaging
+msgid "Packaged Load"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__packaging_type
+msgid "Packaging Type"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking__waste_permit_id
+msgid "Permit"
+msgstr "Разрешително"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__picking_id
+msgid "Picking"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model,name:l10n_bg_waste_picking.model_stock_picking_type
+msgid "Picking Type"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_code_wizard__decision__proceed
+msgid "Proceed with shipment acceptance"
+msgstr "Все пак потвърди приемането"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model,name:l10n_bg_waste_picking.model_product_template
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard_line__product_id
+msgid "Product"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model,name:l10n_bg_waste_picking.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard_line__quantity
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_waste_id_document_form
+msgid "Quantity"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_move_line__waste_quantity_kg
+msgid "Quantity (kg)"
+msgstr "Количество (кг)"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__quantity_m3
+msgid "Quantity (m³)"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__quantity_ton
+msgid "Quantity (ton)"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__quota_breach_json
+msgid "Quota Breach (internal)"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_waste_code_wizard_form
+msgid "Quota Decision"
+msgstr "Решение за квота"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__quota_warning
+msgid "Quota Warning"
+msgstr "Предупреждение за квота"
+
+#. module: l10n_bg_waste_picking
+#. odoo-python
+#: code:addons/l10n_bg_waste_picking/models/stock_picking.py:0
+msgid "Quota exceeded at site %s"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__transport_regulation__rid
+msgid "RID"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__receiver_partner_id
+msgid "Receiver"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__treatment_type__recovery
+msgid "Recovery"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_picking__waste_id_document_id
+msgid ""
+"Required for hazardous waste transport per Art. 12 of Ordinance 1/2014."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard__decision_note
+msgid "Required when accepting a shipment that breaches the quota."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__route
+msgid "Route"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__sender_partner_id
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_waste_id_document_form
+msgid "Sender"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__state__sent_to_riosv
+msgid "Sent to RIOSV"
+msgstr "Изпратен в РИОСВ"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__state__carrier_signed
+msgid "Signed by Carrier"
+msgstr "Подписан от превозвач"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields.selection,name:l10n_bg_waste_picking.selection__l10n_bg_waste_id_document__state__sender_signed
+msgid "Signed by Sender"
+msgstr "Подписан от товародател"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_picking__waste_site_id
+msgid ""
+"Site to which this picking is attributed for regulatory aggregation (Annex 4"
+" monthly report)."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_lot__waste_source_picking_ids
+msgid "Source Pickings"
+msgstr "Източник на отпадъка (приемки)"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__state
+msgid "State"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_waste_code_wizard_form
+msgid ""
+"State why this shipment is accepted despite breaching the quota. The note "
+"will be logged in the picking chatter and the company waste manager will be "
+"notified."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__picking_id
+msgid "Stock Picking"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_product_product__default_waste_code_id
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_product_template__default_waste_code_id
+msgid ""
+"Suggested code prefilled in the validation wizard. Users can still override "
+"per move line."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_lot__waste_input_kg
+msgid ""
+"Sum of quantities (in kg) booked into this lot from the source waste "
+"pickings."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_lot__waste_consumed_kg
+msgid ""
+"Sum of quantities (in kg) consumed from this lot by downstream manufacturing"
+" or outgoing pickings."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_picking_type__waste_default_activity_id
+msgid ""
+"The R/D activity preset on new pickings of this type. Typically R3 for "
+"plastic recycling intake, R13 for storage."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_move_line__waste_origin_partner_id
+msgid ""
+"The legal entity that handed over this waste (sender of the incoming "
+"picking). Used by the Annex 4 'Sender' column."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#. odoo-python
+#: code:addons/l10n_bg_waste_picking/wizards/waste_code_wizard.py:0
+msgid ""
+"This shipment would exceed the annual quota. Choose 'Proceed' and provide a "
+"justification, or 'Cancel' to abort acceptance."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model,name:l10n_bg_waste_picking.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking__waste_transport_doc
+msgid "Transport / ID Document #"
+msgstr "Товарителница / ID документ №"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__treatment_type
+msgid "Treatment Type"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__un_cipher
+msgid "UN Cipher"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__un_class
+msgid "UN Class"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__un_number
+msgid "UN Number"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard_line__product_uom_id
+msgid "Unit"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__vehicle_plate
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking__waste_vehicle_plate
+msgid "Vehicle Plate"
+msgstr "Регистрационен № на превозно средство"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__vehicle_type
+msgid "Vehicle Type"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_picking_type_form_waste
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_waste_id_document_form
+msgid "Waste"
+msgstr ""
+
+# ============= stock.move.line =============
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard_line__waste_code_id
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__waste_code_id
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_lot__waste_code_id
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_move_line__waste_code_id
+msgid "Waste Code"
+msgstr "Код на отпадъка"
+
+# ============= wizard =============
+#. module: l10n_bg_waste_picking
+#. odoo-python
+#: code:addons/l10n_bg_waste_picking/models/stock_picking.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_waste_code_wizard_form
+msgid "Waste Code Entry"
+msgstr "Въвеждане на код на отпадъка"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model,name:l10n_bg_waste_picking.model_l10n_bg_waste_code_wizard
+msgid "Waste Code Entry Wizard"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model,name:l10n_bg_waste_picking.model_l10n_bg_waste_code_wizard_line
+msgid "Waste Code Entry Wizard - Line"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking_type__is_waste_intake
+msgid "Waste Intake"
+msgstr "Приемане на отпадъци"
+
+#. module: l10n_bg_waste_picking
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_picking_form_waste
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_product_template_form_waste
+msgid "Waste Management"
+msgstr ""
+
+# ============= stock.lot =============
+#. module: l10n_bg_waste_picking
+#: model_terms:ir.ui.view,arch_db:l10n_bg_waste_picking.view_lot_form_waste
+msgid "Waste Origin"
+msgstr "Произход на отпадъка"
+
+# ============= stock.picking =============
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking__is_waste_picking
+msgid "Waste Picking"
+msgstr "Приемане на отпадъци"
+
+# ============= product / picking type =============
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_product_product__is_waste_product
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_product_template__is_waste_product
+msgid "Waste Product"
+msgstr "Продукт-отпадък"
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_stock_picking__waste_site_id
+msgid "Waste Site"
+msgstr "Площадка (отпадъци)"
+
+#. module: l10n_bg_waste_picking
+#. odoo-python
+#: code:addons/l10n_bg_waste_picking/models/stock_picking.py:0
+msgid "Waste shipment accepted"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_l10n_bg_waste_id_document__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_product_product__is_waste_product
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_product_template__is_waste_product
+msgid ""
+"When set, stock pickings containing this product require a waste code "
+"(l10n.bg.waste.code) on each move line at validation time. Quotas from "
+"active permits are enforced."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,help:l10n_bg_waste_picking.field_stock_picking_type__is_waste_intake
+msgid ""
+"When set, this picking type is for accepting incoming waste. The validation "
+"flow always opens the waste code wizard if any move line targets a product "
+"flagged as waste."
+msgstr ""
+
+#. module: l10n_bg_waste_picking
+#: model:ir.model.fields,field_description:l10n_bg_waste_picking.field_l10n_bg_waste_code_wizard_line__wizard_id
+msgid "Wizard"
+msgstr ""

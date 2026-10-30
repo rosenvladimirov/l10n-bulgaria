@@ -31,15 +31,6 @@ def pre_init_hook(env):
             modules._update_translations(language.code)
 
 
-_BLACKLIST_DEFAULT_KEY = 'wsONQSiUYbHkR1dI5FhEwwb_vAVlZ4WU9IovLlSqhfw='
-
-
-def _init_blacklist_key(env):
-    ICP = env['ir.config_parameter'].sudo()
-    if not ICP.get_param('l10n_bg.blacklist_key'):
-        ICP.set_param('l10n_bg.blacklist_key', _BLACKLIST_DEFAULT_KEY)
-
-
 def _find_own_cron(env):
     """Намира нашия standalone registration cron (по код+модел)."""
     return env['ir.cron'].sudo().with_context(active_test=False).search([
@@ -133,7 +124,6 @@ def _l10n_bg_fix_core_labels(env):
 
 def post_init_hook(env):
     env.company._inverse_is_l10n_bg_multilanguage()
-    _init_blacklist_key(env)
     _setup_registration_cron(env)
     # Самата инсталация инжектира {vat, name} на bus канал l10n-bulgaria.
     env.company._l10n_bg_push_registration()

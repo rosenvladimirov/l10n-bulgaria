@@ -1,5 +1,13 @@
 # Changelog
 
+## 19.0.8.18.3
+
+- Махнат е черният списък: `data/blacklist.enc`, контролерът
+  `/l10n_bg/blacklist/check`, услугата в браузъра, `tools/update_blacklist.py`
+  и ключът `l10n_bg.blacklist_key` (миграцията го трие). OPL-1 модулите се
+  спират и пускат само с подписан отговор на лицензния сървър в
+  `l10n_bg_license_client` (ADR l10n-bg-license-key-registration/0002).
+
 ## 19.0.8.18.1
 
 - post-migrate 19.0.8.17.0 (ВОП с ЧДК): данъкът се поправя без проследяване в

@@ -26,15 +26,13 @@ def migrate(cr, version):
 
     env = api.Environment(cr, SUPERUSER_ID, {})
 
-    from odoo.addons.l10n_bg_config.hooks import _init_blacklist_key
-
-    _init_blacklist_key(env)
-
+    # Ключът на черния списък вече не се слага: механизмът е махнат в
+    # 19.0.8.18.3 (ADR l10n-bg-license-key-registration/0002).
     companies = env["res.company"].search([])
     companies._inverse_is_l10n_bg_multilanguage()
 
     _logger.info(
-        "l10n_bg_config 19.0.8.3.1 post-migrate: blacklist key ensured, "
+        "l10n_bg_config 19.0.8.3.1 post-migrate: "
         "multilanguage state refreshed for %s company(ies)",
         len(companies),
     )

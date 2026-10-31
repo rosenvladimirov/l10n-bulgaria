@@ -203,3 +203,21 @@ class TestStockRepost(AccountTestInvoicingCommon):
         self.patch(type(wizard), "_PREVIEW_REFERENCES", 2)
         wizard.invalidate_recordset(["preview"])
         self.assertIn("2 more documents", str(wizard.preview))
+
+    def test_preview_warns_about_receipts_already_issued(self):
+        # Пламена, ТГ 175026, т. 3: от приемането вече е изписано — съветникът
+        # осчетоводява цялото приемане, а изписаното остава със старата стойност
+        receipt, delivery = self._march()
+        untouched = self._move(self.supplier, self.stock, 3, date(2024, 3, 22), price=5.0)
+        self.categ.l10n_bg_stock_auto_post = True
+        wizard = self._wizard()
+        self.assertEqual(wizard._issued_receipts(wizard._classify()[0]), receipt,
+                         "FIFO: изписаните 4 бр. са от първото приемане")
+        self.assertNotIn(untouched, wizard._issued_receipts(wizard._classify()[0]))
+        self.assertIn("already partly issued", str(wizard.preview))
+        self.assertIn(receipt.reference, str(wizard.preview))
+
+    def test_preview_has_no_warning_without_issues(self):
+        self._move(self.supplier, self.stock, 10, date(2024, 3, 10), price=5.0)
+        self.categ.l10n_bg_stock_auto_post = True
+        self.assertNotIn("already partly issued", str(self._wizard().preview))

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-28 11:07+0000\n"
-"PO-Revision-Date: 2026-10-28 11:07+0000\n"
+"POT-Creation-Date: 2026-10-31 11:18+0000\n"
+"PO-Revision-Date: 2026-10-31 11:18+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -469,6 +469,15 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
 msgid "There are no stock moves to post for this period."
+msgstr ""
+
+#. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid ""
+"These receipts are already partly issued (consumed, sold or scrapped): the "
+"entry posts the whole receipt, while the issued part keeps the value it left"
+" with. Check them before posting:"
 msgstr ""
 
 #. module: l10n_bg_stock_account

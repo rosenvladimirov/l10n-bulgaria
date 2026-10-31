@@ -499,6 +499,18 @@ msgid "There are no stock moves to post for this period."
 msgstr "Няма складови движения за осчетоводяване за този период."
 
 #. module: l10n_bg_stock_account
+#. odoo-python
+#: code:addons/l10n_bg_stock_account/wizard/stock_repost.py:0
+msgid ""
+"These receipts are already partly issued (consumed, sold or scrapped): the "
+"entry posts the whole receipt, while the issued part keeps the value it left"
+" with. Check them before posting:"
+msgstr ""
+"Тези приемания вече са частично изписани (вложени, продадени или бракувани):"
+" статията осчетоводява цялото приемане, а изписаната част остава със "
+"стойността, с която е излязла. Проверете ги преди осчетоводяване:"
+
+#. module: l10n_bg_stock_account
 #: model:ir.model.fields,field_description:l10n_bg_stock_account.field_l10n_bg_stock_repost__date_to
 msgid "To"
 msgstr "До"

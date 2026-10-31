@@ -117,7 +117,39 @@ class L10nBgStockRepost(models.TransientModel):
             names = ", ".join(sorted(set(no_accounts.mapped("product_id.categ_id.complete_name")))[:10])
             missing = Markup("<p class='text-warning'>%s %s</p>") % (_("Categories without accounts:"), names)
         table = Markup("<table class='table table-sm'><thead>%s</thead><tbody>%s</tbody></table>") % (head, rows)
-        return summary + missing + table + self._preview_by_kind_html(to_post, money)
+        return (summary + missing + self._preview_issued_receipts_html(to_post) + table
+                + self._preview_by_kind_html(to_post, money))
+
+    def _issued_receipts(self, to_post):
+        """Приеманията за статия, от които вече е изписвано (част не е в склада).
+
+        Пламена, 31.10.2026 (ТГ 175026, т. 3): приемане с цена 0, от което е
+        влагано в МО преди фактурата — влагането и готовото остават на 0, а
+        съветникът осчетоводява ЦЯЛОТО приемане по цената от фактурата и 302 се
+        надценява с вложената част. Съветникът не решава как да се оправи —
+        само предупреждава преди записа.
+        """
+        issued = self.env["stock.move"]
+        for move in to_post:
+            if self._move_kind(move) != "receipt":
+                continue
+            qty = move.product_uom._compute_quantity(move.quantity, move.product_id.uom_id)
+            if move.product_id.uom_id.compare(move.remaining_qty, qty) < 0:
+                issued |= move
+        return issued
+
+    def _preview_issued_receipts_html(self, to_post):
+        issued = self._issued_receipts(to_post)
+        if not issued:
+            return Markup("")
+        names = sorted({move.picking_id.name or move.reference or str(move.id) for move in issued})
+        shown = ", ".join(names[:self._PREVIEW_REFERENCES])
+        if len(names) > self._PREVIEW_REFERENCES:
+            shown += " …"
+        return Markup("<div class='alert alert-warning' role='alert'>%s <b>%s</b></div>") % (
+            _("These receipts are already partly issued (consumed, sold or scrapped): the entry posts the "
+              "whole receipt, while the issued part keeps the value it left with. Check them before posting:"),
+            shown)
 
     # Пламена, 27.10.2026 (ТГ 174293, т. 3): в training за 2026 съветникът
     # предлагаше 11 771 движения — повечето инвентаризации от февруари — а от
